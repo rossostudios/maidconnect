@@ -53,8 +53,8 @@ cp .env.example .env.local
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL (`https://*.supabase.co`) |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon API key |
 | `SUPABASE_SERVICE_ROLE_KEY` | (optional) service role key for secure server actions |
-| `STRIPE_SECRET_KEY` | Stripe secret key used for server-side Connect/API operations |
+| `STRIPE_SECRET_KEY` | Stripe secret key used for server-side payment operations (use test keys in sandbox) |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key for client-side payment elements |
-| `STRIPE_WEBHOOK_SECRET` | Secret used to verify Stripe webhook signatures |
+| `STRIPE_WEBHOOK_SECRET` | (optional during sandbox) secret used to verify Stripe webhook signatures |
 
 > Never commit real keys to source control. The provided sample values are placeholders only.
