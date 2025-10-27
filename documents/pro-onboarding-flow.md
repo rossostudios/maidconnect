@@ -14,7 +14,7 @@
    - Submission transitions onboarding_status → `application_in_review`.
 2. **Document Upload (`application_in_review`)**
    - Upload required documents (ID, proof of address) + optional certifications.
-   - Capture doc metadata (type, filename, uploaded_at).
+   - Capture doc metadata (type, filename, uploaded_at) and store in Supabase Storage.
    - Display review timeline (“3-5 business days”) and support contact.
 3. **Profile Build (`approved`)**
    - Bio editor (150-300 words), languages selection, services/pricing matrix, availability scheduler.
@@ -46,7 +46,7 @@
 ## Open Questions
 - Do we need separate “marketing name” vs. legal name fields?
 - Should rate expectations convert to COP/hour automatically or allow multiple currencies?
-- What is the storage backend for documents (Supabase storage bucket vs. S3)?
+- Which Supabase Storage bucket should serve professional docs (e.g., `professional-documents`)?
 
 ## Next Actions
 1. Add schema columns + document table via migration.

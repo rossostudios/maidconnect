@@ -140,7 +140,7 @@ export default async function ProfessionalOnboardingPage() {
           {stepIndex === 1 ? (
             <SectionWrapper
               title="Upload required documents"
-              subtitle="Provide secure links or file references for each document. You can upload to cloud storage (Drive, Dropbox, iCloud) and paste the shared link here."
+              subtitle="Securely upload scans or photos of your identification. We store everything in encrypted Supabase Storage."
             >
               <div className="grid gap-6 lg:grid-cols-2">
                 <div>
@@ -157,7 +157,7 @@ export default async function ProfessionalOnboardingPage() {
                   </ul>
 
                   <div className="mt-6 rounded-lg border border-[#fd857f33] bg-[#fef1ee] p-4 text-xs text-[#7a524c]">
-                    Files are reviewed within 3-5 business days. You will receive email updates at every stage.
+                    Accepted formats: PDF, JPG, PNG (max 5MB each). Our team reviews uploads within 3-5 business days and keeps you informed throughout the process.
                   </div>
                 </div>
                 <DocumentUploadForm inputClass={inputClass} />

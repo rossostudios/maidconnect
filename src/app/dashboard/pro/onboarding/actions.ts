@@ -193,6 +193,20 @@ export async function submitApplication(
   };
 }
 
+const DOCUMENTS_BUCKET_ID = "professional-documents";
+const MAX_DOCUMENT_SIZE_BYTES = 5 * 1024 * 1024;
+const ALLOWED_DOCUMENT_MIME_TYPES = new Set(["application/pdf", "image/jpeg", "image/png", "image/jpg"]);
+
+type DocumentCandidate = {
+  documentType: string;
+  file: File;
+  note: string | null;
+};
+
+function sanitizeFileName(name: string) {
+  return name.replace(/[^a-zA-Z0-9.\-_]+/g, "-");
+}
+
 export async function submitDocuments(
   _prevState: OnboardingActionState,
   formData: FormData,
@@ -207,6 +221,82 @@ export async function submitDocuments(
   }
 
   const fieldErrors: Record<string, string> = {};
+  const uploads: DocumentCandidate[] = [];
+
+  for (const doc of REQUIRED_DOCUMENTS) {
+    const file = formData.get(`document_${doc.key}`) as File | null;
+    const note = stringOrNull(formData.get(`document_${doc.key}_note`));
+    if (!file || file.size === 0) {
+      fieldErrors[`document_${doc.key}`] = `${doc.label} is required.`;
+      continue;
+    }
+
+    if (file.size > MAX_DOCUMENT_SIZE_BYTES) {
+      fieldErrors[`document_${doc.key}`] = "File must be 5MB or smaller.";
+    }
+
+    if (!ALLOWED_DOCUMENT_MIME_TYPES.has(file.type)) {
+      fieldErrors[`document_${doc.key}`] = "Only PDF, JPG, or PNG files are supported.";
+    }
+
+    uploads.push({ documentType: doc.key, file, note });
+  }
+
+  for (const doc of OPTIONAL_DOCUMENTS) {
+    const file = formData.get(`document_${doc.key}`) as File | null;
+    const note = stringOrNull(formData.get(`document_${doc.key}_note`));
+    if (!file || file.size === 0) {
+      continue;
+    }
+
+    if (file.size > MAX_DOCUMENT_SIZE_BYTES) {
+      fieldErrors[`document_${doc.key}`] = "File must be 5MB or smaller.";
+      continue;
+    }
+
+    if (!ALLOWED_DOCUMENT_MIME_TYPES.has(file.type)) {
+      fieldErrors[`document_${doc.key}`] = "Only PDF, JPG, or PNG files are supported.";
+      continue;
+    }
+
+    uploads.push({ documentType: doc.key, file, note });
+  }
+
+  if (Object.keys(fieldErrors).length > 0) {
+    return {
+      status: "error",
+      error: "Please fix the highlighted files before continuing.",
+      fieldErrors,
+    };
+  }
+
+  const { data: existingDocs, error: existingDocsError } = await supabase
+    .from("professional_documents")
+    .select("storage_path")
+    .eq("profile_id", user.id);
+
+  if (existingDocsError) {
+    return { status: "error", error: existingDocsError.message };
+  }
+
+  const uploadedPaths: string[] = [];
+
+  if (existingDocs && existingDocs.length > 0) {
+    const existingPaths = existingDocs.map((doc) => doc.storage_path);
+    const { error: storageRemoveError } = await supabase.storage
+      .from(DOCUMENTS_BUCKET_ID)
+      .remove(existingPaths);
+
+    if (storageRemoveError) {
+      console.error("Failed to remove existing documents", storageRemoveError);
+      return { status: "error", error: "Unable to replace existing documents right now. Please try again." };
+    }
+  }
+
+  const { error: deleteError } = await supabase.from("professional_documents").delete().eq("profile_id", user.id);
+  if (deleteError) {
+    return { status: "error", error: deleteError.message };
+  }
 
   const documentRows: Array<{
     profile_id: string;
@@ -215,50 +305,44 @@ export async function submitDocuments(
     metadata: Record<string, unknown>;
   }> = [];
 
-  for (const doc of REQUIRED_DOCUMENTS) {
-    const reference = stringOrNull(formData.get(`document_${doc.key}`));
-    const note = stringOrNull(formData.get(`document_${doc.key}_note`));
-    if (!reference) {
-      fieldErrors[`document_${doc.key}`] = `Please provide ${doc.label}.`;
-      continue;
+  for (const candidate of uploads) {
+    const sanitizedName = sanitizeFileName(candidate.file.name || `${candidate.documentType}.dat`);
+    const storagePath = `${user.id}/${candidate.documentType}/${Date.now()}-${sanitizedName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from(DOCUMENTS_BUCKET_ID)
+      .upload(storagePath, candidate.file, {
+        cacheControl: "3600",
+        upsert: false,
+        contentType: candidate.file.type || undefined,
+      });
+
+    if (uploadError) {
+      console.error("Failed to upload professional document", uploadError);
+      if (uploadedPaths.length > 0) {
+        await supabase.storage.from(DOCUMENTS_BUCKET_ID).remove(uploadedPaths);
+      }
+      return { status: "error", error: "We couldn't upload your files. Please try again." };
     }
+
+    uploadedPaths.push(storagePath);
     documentRows.push({
       profile_id: user.id,
-      document_type: doc.key,
-      storage_path: reference,
-      metadata: note ? { note } : {},
+      document_type: candidate.documentType,
+      storage_path: storagePath,
+      metadata: {
+        originalName: candidate.file.name,
+        size: candidate.file.size,
+        mimeType: candidate.file.type,
+        note: candidate.note,
+      },
     });
-  }
-
-  for (const doc of OPTIONAL_DOCUMENTS) {
-    const reference = stringOrNull(formData.get(`document_${doc.key}`));
-    const note = stringOrNull(formData.get(`document_${doc.key}_note`));
-    if (reference) {
-      documentRows.push({
-        profile_id: user.id,
-        document_type: doc.key,
-        storage_path: reference,
-        metadata: note ? { note } : {},
-      });
-    }
-  }
-
-  if (Object.keys(fieldErrors).length > 0) {
-    return {
-      status: "error",
-      error: "Please fix the highlighted document links.",
-      fieldErrors,
-    };
-  }
-
-  const { error: deleteError } = await supabase.from("professional_documents").delete().eq("profile_id", user.id);
-  if (deleteError) {
-    return { status: "error", error: deleteError.message };
   }
 
   if (documentRows.length > 0) {
     const { error: insertError } = await supabase.from("professional_documents").insert(documentRows);
     if (insertError) {
+      await supabase.storage.from(DOCUMENTS_BUCKET_ID).remove(uploadedPaths);
       return { status: "error", error: insertError.message };
     }
   }
@@ -276,7 +360,7 @@ export async function submitDocuments(
   revalidatePath("/dashboard/pro/onboarding");
   return {
     status: "success",
-    message: "Documents submitted. We’ll review and confirm within 3-5 business days.",
+    message: "Documents uploaded successfully. We’ll review and confirm within 3-5 business days.",
   };
 }
 

@@ -1,42 +1,56 @@
 "use client";
 
-import { useActionState } from "react";
+import { type ChangeEvent, useActionState, useMemo, useState } from "react";
 import { submitDocuments, defaultActionState, type OnboardingActionState, REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "./actions";
 import { cn } from "@/lib/utils";
+
+const errorClass = "border-red-300 focus:border-red-400 focus:ring-red-200";
+const ACCEPTED_EXTENSIONS = ".pdf,.jpg,.jpeg,.png";
+const MAX_FILE_SIZE_LABEL = "5MB";
+
+function formatBytes(bytes: number) {
+  const sizes = ["B", "KB", "MB", "GB"];
+  if (!bytes) return "0 B";
+  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+  const value = bytes / Math.pow(1024, i);
+  return `${value.toFixed(i === 0 ? 0 : 1)} ${sizes[i]}`;
+}
+
+const ACCEPTED_TYPE_LABEL = "PDF, JPG, PNG";
 
 type Props = {
   inputClass: string;
 };
 
-const errorClass = "border-red-300 focus:border-red-400 focus:ring-red-200";
+type FieldConfig = {
+  key: string;
+  label: string;
+  required: boolean;
+};
 
 export function DocumentUploadForm({ inputClass }: Props) {
   const [state, formAction, pending] = useActionState<OnboardingActionState, FormData>(submitDocuments, defaultActionState);
+  const documents: FieldConfig[] = useMemo(
+    () => [
+      ...REQUIRED_DOCUMENTS.map((doc) => ({ key: doc.key, label: doc.label, required: true })),
+      ...OPTIONAL_DOCUMENTS.map((doc) => ({ key: doc.key, label: doc.label, required: false })),
+    ],
+    [],
+  );
 
   const fieldError = (key: string) => state.fieldErrors?.[key];
 
   return (
-    <form className="space-y-6" action={formAction} noValidate>
+    <form className="space-y-6" action={formAction} encType="multipart/form-data" noValidate>
       <Feedback state={state} />
 
       <div className="space-y-4">
-        {REQUIRED_DOCUMENTS.map((doc) => (
+        {documents.map((doc) => (
           <DocumentField
             key={doc.key}
-            label={doc.label}
-            required
+            config={doc}
             inputClass={inputClass}
-            error={fieldError(`document_${doc.key}`)}
-            name={doc.key}
-          />
-        ))}
-
-        {OPTIONAL_DOCUMENTS.map((doc) => (
-          <DocumentField
-            key={doc.key}
-            label={doc.label}
-            inputClass={inputClass}
-            name={doc.key}
+            serverError={fieldError(`document_${doc.key}`)}
           />
         ))}
       </div>
@@ -57,55 +71,92 @@ export function DocumentUploadForm({ inputClass }: Props) {
   );
 }
 
-function DocumentField({
-  label,
-  required = false,
-  inputClass,
-  error,
-  name,
-}: {
-  label: string;
-  required?: boolean;
+type DocumentFieldProps = {
+  config: FieldConfig;
   inputClass: string;
-  error?: string;
-  name: string;
-}) {
+  serverError?: string;
+};
+
+function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [clientError, setClientError] = useState<string | null>(null);
+  const inputId = `document_${config.key}`;
+
+  function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0] ?? null;
+    if (!file) {
+      setSelectedFile(null);
+      setClientError(null);
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setSelectedFile(null);
+      setClientError(`File must be ${MAX_FILE_SIZE_LABEL} or smaller.`);
+      return;
+    }
+
+    const mimeType = (file.type || "").toLowerCase();
+    if (!mimeType.includes("pdf") && !mimeType.includes("jpeg") && !mimeType.includes("jpg") && !mimeType.includes("png")) {
+      setSelectedFile(null);
+      setClientError("Only PDF, JPG, or PNG files are supported.");
+      return;
+    }
+
+    setClientError(null);
+    setSelectedFile(file);
+  }
+
   return (
     <div
       className={cn(
-        "rounded-lg border border-neutral-200 bg-white/90 p-4",
-        required ? "shadow-sm" : "border-dashed",
+        "rounded-lg border bg-white/90 p-4",
+        config.required ? "border-neutral-200 shadow-sm" : "border-dashed border-neutral-200",
       )}
     >
       <div className="flex items-center justify-between">
-        <p className="text-sm font-semibold text-neutral-800">{label}</p>
+        <label htmlFor={inputId} className="text-sm font-semibold text-neutral-800">
+          {config.label}
+        </label>
         <span
           className={cn(
             "text-xs font-semibold uppercase tracking-wide",
-            required ? "text-[#c4534d]" : "text-neutral-500",
+            config.required ? "text-[#c4534d]" : "text-neutral-500",
           )}
         >
-          {required ? "Required" : "Optional"}
+          {config.required ? "Required" : "Optional"}
         </span>
       </div>
       <p className="mt-2 text-xs text-neutral-500">
-        Paste a secure link to your file or describe how we can access it.
+        Upload {config.required ? "a clear" : "an optional"} scan or photo ({ACCEPTED_TYPE_LABEL}, max {MAX_FILE_SIZE_LABEL}).
       </p>
       <input
-        type="text"
-        name={`document_${name}`}
-        className={cn(inputClass, error && errorClass)}
-        placeholder="https://drive.google.com/..."
-        aria-invalid={Boolean(error)}
-        required={required}
+        id={inputId}
+        name={`document_${config.key}`}
+        type="file"
+        accept={ACCEPTED_EXTENSIONS}
+        className={cn(
+          inputClass,
+          "cursor-pointer",
+          (serverError || clientError) && errorClass,
+        )}
+        aria-invalid={Boolean(serverError || clientError)}
+        required={config.required}
+        onChange={handleFileChange}
       />
       <textarea
-        name={`document_${name}_note`}
+        name={`document_${config.key}_note`}
         rows={2}
         className={`${inputClass} mt-3`}
         placeholder="Notes (passwords, expiry date, issuing organization)"
       />
-      {error ? <p className="mt-2 text-xs text-red-600">{error}</p> : null}
+      {selectedFile ? (
+        <p className="mt-2 text-xs text-neutral-600">
+          Selected: {selectedFile.name} ({formatBytes(selectedFile.size)})
+        </p>
+      ) : null}
+      {clientError ? <p className="mt-1 text-xs text-red-600">{clientError}</p> : null}
+      {serverError ? <p className="mt-1 text-xs text-red-600">{serverError}</p> : null}
     </div>
   );
 }
