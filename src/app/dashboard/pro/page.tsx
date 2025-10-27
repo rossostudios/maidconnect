@@ -101,6 +101,7 @@ type DocumentRow = {
     mimeType?: string;
     note?: string | null;
   } | null;
+  signedUrl?: string | null;
 };
 
 export default async function ProfessionalDashboardPage() {
@@ -128,7 +129,24 @@ export default async function ProfessionalDashboardPage() {
   }
 
   const professionalProfile = (profileData as ProfessionalProfile | null) ?? null;
-  const documents = (documentsData as DocumentRow[] | null) ?? [];
+  let documents = (documentsData as DocumentRow[] | null) ?? [];
+
+  if (documents.length > 0) {
+    const signedUrlResults = await Promise.all(
+      documents.map((doc) => supabase.storage.from("professional-documents").createSignedUrl(doc.storage_path, 120)),
+    );
+
+    documents = documents.map((doc, index) => {
+      const result = signedUrlResults[index];
+      if (result.error) {
+        console.error("Failed to generate signed URL", result.error);
+      }
+      return {
+        ...doc,
+        signedUrl: result.data?.signedUrl ?? null,
+      };
+    });
+  }
 
   const requiredDocKeys = new Set(REQUIRED_DOCUMENTS.map((doc) => doc.key));
   const uploadedDocMap = new Map<string, DocumentRow>();
@@ -255,24 +273,38 @@ export default async function ProfessionalDashboardPage() {
           ) : (
             <ul className="mt-4 divide-y divide-[#efe7dc] text-sm text-[#211f1a]">
               {documents.map((doc) => (
-                <li key={doc.id} className="flex flex-col gap-1 py-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">{DOCUMENT_LABELS[doc.document_type] ?? doc.document_type}</span>
+                <li key={doc.id} className="flex flex-col gap-2 py-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <span className="font-medium">{DOCUMENT_LABELS[doc.document_type] ?? doc.document_type}</span>
+                      <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-[#7a6d62]">
+                        <span>{doc.metadata?.originalName ?? "Unnamed file"}</span>
+                        <span>•</span>
+                        <span>{formatFileSize(doc.metadata?.size)}</span>
+                        {doc.metadata?.note ? (
+                          <>
+                            <span>•</span>
+                            <span>Note: {doc.metadata.note}</span>
+                          </>
+                        ) : null}
+                      </div>
+                    </div>
                     <span className="text-xs uppercase tracking-wide text-[#7a6d62]">
                       Uploaded {formatDate(doc.uploaded_at)}
                     </span>
                   </div>
-                  <div className="flex flex-wrap items-center gap-3 text-xs text-[#7a6d62]">
-                    <span>{doc.metadata?.originalName ?? "Unnamed file"}</span>
-                    <span>•</span>
-                    <span>{formatFileSize(doc.metadata?.size)}</span>
-                    {doc.metadata?.note ? (
-                      <>
-                        <span>•</span>
-                        <span>Note: {doc.metadata.note}</span>
-                      </>
-                    ) : null}
-                  </div>
+                  {doc.signedUrl ? (
+                    <Link
+                      href={doc.signedUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex w-fit items-center gap-1 rounded-md border border-[#efe7dc] px-3 py-1 text-xs font-semibold text-[#fd857f] transition hover:border-[#fd857f] hover:text-[#eb6c65]"
+                    >
+                      Download
+                    </Link>
+                  ) : (
+                    <p className="text-xs text-[#c4534d]">We couldn’t generate a download link. Try reloading.</p>
+                  )}
                 </li>
               ))}
             </ul>
