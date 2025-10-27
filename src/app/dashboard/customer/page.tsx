@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { requireUser } from "@/lib/auth";
+import { stripe } from "@/lib/stripe";
+import { PaymentAuthorizationCard } from "@/components/payments/payment-authorization-card";
 
 const QUICK_LINKS = [
   {
@@ -75,7 +77,7 @@ export default async function CustomerDashboardPage() {
   const [{ data: profileData }, { data: customerData }] = await Promise.all([
     supabase
       .from("profiles")
-      .select("phone, city, country, full_name")
+      .select("phone, city, country, full_name, stripe_customer_id")
       .eq("id", user.id)
       .maybeSingle(),
     supabase
@@ -85,14 +87,32 @@ export default async function CustomerDashboardPage() {
       .maybeSingle(),
   ]);
 
-  const profile = (profileData as { phone: string | null; city: string | null; country: string | null; full_name: string | null } | null) ?? null;
+  const profile = (profileData as {
+    phone: string | null;
+    city: string | null;
+    country: string | null;
+    full_name: string | null;
+    stripe_customer_id: string | null;
+  } | null) ?? null;
   const customerProfile = (customerData as { verification_tier: string | null; property_preferences: Record<string, unknown> | null } | null) ?? null;
 
   const verificationTier = customerProfile?.verification_tier ?? "basic";
   const propertyType = (customerProfile?.property_preferences?.property_type as string | undefined) ?? null;
 
   const hasProfileDetails = Boolean(profile?.phone && profile.city);
-  const hasPaymentMethod = false; // placeholder until payments integration
+  let hasPaymentMethod = false;
+  if (profile?.stripe_customer_id) {
+    try {
+      const paymentMethods = await stripe.paymentMethods.list({
+        customer: profile.stripe_customer_id,
+        type: "card",
+        limit: 1,
+      });
+      hasPaymentMethod = paymentMethods.data.length > 0;
+    } catch (error) {
+      console.error("Failed to load Stripe payment methods", error);
+    }
+  }
   const hasCompletedBooking = false; // placeholder until bookings integration
 
   const completedTasks = {
@@ -168,7 +188,9 @@ export default async function CustomerDashboardPage() {
                   )}
                 </div>
                 <p className="mt-2 text-sm text-[#211f1a]">{task.description}</p>
-                {!isComplete ? (
+                {task.id === "payment" ? (
+                  <PaymentAuthorizationCard hasPaymentMethod={hasPaymentMethod} />
+                ) : !isComplete ? (
                   <Link
                     href={task.cta.href}
                     className="mt-3 inline-flex items-center text-sm font-semibold text-[#fd857f] hover:text-[#eb6c65]"
@@ -178,9 +200,6 @@ export default async function CustomerDashboardPage() {
                 ) : null}
                 {task.id === "verification" && !isComplete ? (
                   <p className="mt-3 text-xs text-[#c4534d]">Upgrade to Standard to unlock the verification badge.</p>
-                ) : null}
-                {task.id === "payment" ? (
-                  <p className="mt-3 text-xs text-[#7a6d62]">Payments integration coming soon.</p>
                 ) : null}
               </li>
             );
