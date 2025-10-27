@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { getDashboardRouteForRole } from "@/lib/auth";
 
 export const REQUIRED_DOCUMENTS = [
   { key: "government_id", label: "Government ID" },
@@ -12,6 +11,15 @@ export const REQUIRED_DOCUMENTS = [
 export const OPTIONAL_DOCUMENTS = [
   { key: "certification", label: "Professional certification (optional)" },
 ] as const;
+
+export type OnboardingActionState = {
+  status: "idle" | "success" | "error";
+  message?: string;
+  error?: string;
+  fieldErrors?: Record<string, string>;
+};
+
+export const defaultActionState: OnboardingActionState = { status: "idle" };
 
 type SupabaseClient = Awaited<ReturnType<typeof createSupabaseServerClient>>;
 
@@ -50,21 +58,24 @@ async function ensureProfessionalProfile(profileId: string, supabase: SupabaseCl
   }
 }
 
-export async function submitApplication(formData: FormData) {
+export async function submitApplication(
+  _prevState: OnboardingActionState,
+  formData: FormData,
+): Promise<OnboardingActionState> {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return { error: "Not authenticated." };
+    return { status: "error", error: "Not authenticated." };
   }
 
   try {
     await ensureProfessionalProfile(user.id, supabase);
   } catch (error) {
     console.error("Failed to ensure professional profile", error);
-    return { error: "Could not initialize professional profile." };
+    return { status: "error", error: "Could not initialize professional profile." };
   }
 
   const fullName = stringOrNull(formData.get("fullName"));
@@ -85,6 +96,18 @@ export async function submitApplication(formData: FormData) {
 
   const primaryServices = formData.getAll("services").map((value) => value.toString()).filter(Boolean);
 
+  const fieldErrors: Record<string, string> = {};
+
+  if (!fullName) fieldErrors.fullName = "Full name is required.";
+  if (!idNumber) fieldErrors.idNumber = "ID number is required.";
+  if (!phone) fieldErrors.phone = "Phone number is required.";
+  if (!country) fieldErrors.country = "Country is required.";
+  if (!city) fieldErrors.city = "City is required.";
+  if (experienceYears === null || experienceYears < 0) fieldErrors.experienceYears = "Enter your years of experience.";
+  if (hourlyRate === null || hourlyRate <= 0) fieldErrors.rate = "Provide your standard hourly rate in COP.";
+  if (primaryServices.length === 0) fieldErrors.services = "Select at least one service you offer.";
+  if (!consentBackgroundCheck) fieldErrors.consent = "Consent is required for background checks.";
+
   const references: Array<ReferenceEntry | null> = [1, 2].map((index) => {
     const name = stringOrNull(formData.get(`reference_name_${index}`));
     const relationship = stringOrNull(formData.get(`reference_relationship_${index}`));
@@ -102,6 +125,28 @@ export async function submitApplication(formData: FormData) {
   const referencesData = references.filter(isNotNull);
 
   const availabilityData: Record<string, unknown> = {};
+
+  referencesData.forEach((reference, index) => {
+    if (!reference.name) {
+      fieldErrors[`reference_name_${index + 1}`] = "Reference name is required.";
+    }
+    if (!reference.contact) {
+      fieldErrors[`reference_contact_${index + 1}`] = "Reference contact is required.";
+    }
+  });
+
+  if (referencesData.length < 2) {
+    fieldErrors.references = "Provide two references with contact information.";
+  }
+
+  if (Object.keys(fieldErrors).length > 0) {
+    return {
+      status: "error",
+      error: "Please correct the highlighted fields.",
+      fieldErrors,
+    };
+  }
+
   if (availabilityNotes) {
     availabilityData.application_notes = availabilityNotes;
   }
@@ -128,7 +173,7 @@ export async function submitApplication(formData: FormData) {
 
   const { error: profileError } = await supabase.from("profiles").update(profileUpdate).eq("id", user.id);
   if (profileError) {
-    return { error: profileError.message };
+    return { status: "error", error: profileError.message };
   }
 
   const { error: professionalError } = await supabase
@@ -136,23 +181,32 @@ export async function submitApplication(formData: FormData) {
     .upsert(professionalUpdate, { onConflict: "profile_id" });
 
   if (professionalError) {
-    return { error: professionalError.message };
+    return { status: "error", error: professionalError.message };
   }
 
   revalidatePath("/dashboard/pro");
   revalidatePath("/dashboard/pro/onboarding");
-  return { success: true, next: "application_in_review" };
+  return {
+    status: "success",
+    message: "Application submitted. We’ll review your details shortly.",
+    fieldErrors: {},
+  };
 }
 
-export async function submitDocuments(formData: FormData) {
+export async function submitDocuments(
+  _prevState: OnboardingActionState,
+  formData: FormData,
+): Promise<OnboardingActionState> {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return { error: "Not authenticated." };
+    return { status: "error", error: "Not authenticated." };
   }
+
+  const fieldErrors: Record<string, string> = {};
 
   const documentRows: Array<{
     profile_id: string;
@@ -165,7 +219,8 @@ export async function submitDocuments(formData: FormData) {
     const reference = stringOrNull(formData.get(`document_${doc.key}`));
     const note = stringOrNull(formData.get(`document_${doc.key}_note`));
     if (!reference) {
-      return { error: `Please provide ${doc.label}.` };
+      fieldErrors[`document_${doc.key}`] = `Please provide ${doc.label}.`;
+      continue;
     }
     documentRows.push({
       profile_id: user.id,
@@ -188,15 +243,23 @@ export async function submitDocuments(formData: FormData) {
     }
   }
 
+  if (Object.keys(fieldErrors).length > 0) {
+    return {
+      status: "error",
+      error: "Please fix the highlighted document links.",
+      fieldErrors,
+    };
+  }
+
   const { error: deleteError } = await supabase.from("professional_documents").delete().eq("profile_id", user.id);
   if (deleteError) {
-    return { error: deleteError.message };
+    return { status: "error", error: deleteError.message };
   }
 
   if (documentRows.length > 0) {
     const { error: insertError } = await supabase.from("professional_documents").insert(documentRows);
     if (insertError) {
-      return { error: insertError.message };
+      return { status: "error", error: insertError.message };
     }
   }
 
@@ -206,22 +269,28 @@ export async function submitDocuments(formData: FormData) {
     .eq("id", user.id);
 
   if (statusError) {
-    return { error: statusError.message };
+    return { status: "error", error: statusError.message };
   }
 
   revalidatePath("/dashboard/pro");
   revalidatePath("/dashboard/pro/onboarding");
-  return { success: true, next: "approved" };
+  return {
+    status: "success",
+    message: "Documents submitted. We’ll review and confirm within 3-5 business days.",
+  };
 }
 
-export async function submitProfile(formData: FormData) {
+export async function submitProfile(
+  _prevState: OnboardingActionState,
+  formData: FormData,
+): Promise<OnboardingActionState> {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return { error: "Not authenticated." };
+    return { status: "error", error: "Not authenticated." };
   }
 
   const bio = stringOrNull(formData.get("bio"));
@@ -230,6 +299,16 @@ export async function submitProfile(formData: FormData) {
   const serviceNames = formData.getAll("service_name").map((value) => value.toString());
   const serviceRates = formData.getAll("service_rate").map((value) => stringOrNull(value));
   const serviceDescriptions = formData.getAll("service_description").map((value) => stringOrNull(value));
+
+  const fieldErrors: Record<string, string> = {};
+
+  if (!bio || bio.length < 150) {
+    fieldErrors.bio = "Please provide a bio with at least 150 characters.";
+  }
+
+  if (languages.length === 0) {
+    fieldErrors.languages = "Select at least one language.";
+  }
 
   const services = serviceNames
     .map((name, index) => {
@@ -250,6 +329,10 @@ export async function submitProfile(formData: FormData) {
       };
     })
     .filter(isNotNull);
+
+  if (services.length === 0) {
+    fieldErrors.services = "Provide rates or descriptions for at least one service.";
+  }
 
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
@@ -273,6 +356,14 @@ export async function submitProfile(formData: FormData) {
     })
     .filter(isNotNull);
 
+  if (Object.keys(fieldErrors).length > 0) {
+    return {
+      status: "error",
+      error: "Please correct the highlighted fields.",
+      fieldErrors,
+    };
+  }
+
   const professionalUpdate: Record<string, unknown> = {
     bio: bio ?? null,
     languages,
@@ -291,7 +382,7 @@ export async function submitProfile(formData: FormData) {
     .eq("profile_id", user.id);
 
   if (professionalError) {
-    return { error: professionalError.message };
+    return { status: "error", error: professionalError.message };
   }
 
   const { error: statusError } = await supabase
@@ -300,10 +391,13 @@ export async function submitProfile(formData: FormData) {
     .eq("id", user.id);
 
   if (statusError) {
-    return { error: statusError.message };
+    return { status: "error", error: statusError.message };
   }
 
   revalidatePath("/dashboard/pro");
   revalidatePath("/dashboard/pro/onboarding");
-  return { success: true, next: getDashboardRouteForRole("professional") };
+  return {
+    status: "success",
+    message: "Profile submitted. Welcome to MaidConnect!",
+  };
 }
