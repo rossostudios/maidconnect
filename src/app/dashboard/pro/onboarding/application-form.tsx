@@ -1,7 +1,8 @@
 "use client";
 
 import { useActionState } from "react";
-import { submitApplication, defaultActionState, type OnboardingActionState } from "./actions";
+import { submitApplication } from "./actions";
+import { defaultActionState, type OnboardingActionState } from "./state";
 import { cn } from "@/lib/utils";
 
 type Props = {

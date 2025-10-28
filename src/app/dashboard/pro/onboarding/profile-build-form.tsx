@@ -1,7 +1,8 @@
 "use client";
 
 import { useActionState } from "react";
-import { submitProfile, defaultActionState, type OnboardingActionState } from "./actions";
+import { submitProfile } from "./actions";
+import { defaultActionState, type OnboardingActionState } from "./state";
 import { cn } from "@/lib/utils";
 
 type ServiceOption = {

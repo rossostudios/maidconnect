@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { requireUser } from "@/lib/auth";
-import { REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "@/app/dashboard/pro/onboarding/actions";
+import { REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "@/app/dashboard/pro/onboarding/state";
 
 const STATUS_ORDER = ["application_pending", "application_in_review", "approved", "active"] as const;
 

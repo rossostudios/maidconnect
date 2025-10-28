@@ -1,7 +1,13 @@
 "use client";
 
 import { type ChangeEvent, useActionState, useMemo, useState } from "react";
-import { submitDocuments, defaultActionState, type OnboardingActionState, REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "./actions";
+import { submitDocuments } from "./actions";
+import {
+  defaultActionState,
+  type OnboardingActionState,
+  REQUIRED_DOCUMENTS,
+  OPTIONAL_DOCUMENTS,
+} from "./state";
 import { cn } from "@/lib/utils";
 
 const errorClass = "border-red-300 focus:border-red-400 focus:ring-red-200";
