@@ -125,6 +125,7 @@ export function BookingForm({ professionalId, professionalName }: BookingFormPro
         <Elements stripe={stripePromise} options={{ clientSecret: state.clientSecret, appearance: stripeAppearance }}>
           <PaymentConfirmation
             bookingId={state.bookingId!}
+            paymentIntentId={state.paymentIntentId!}
             onReset={() => window.location.reload()}
           />
         </Elements>
@@ -204,10 +205,11 @@ async function createBookingAction(_prev: FormState, formData: FormData): Promis
 
 type PaymentConfirmationProps = {
   bookingId: string;
+  paymentIntentId: string;
   onReset: () => void;
 };
 
-function PaymentConfirmation({ bookingId, onReset }: PaymentConfirmationProps) {
+function PaymentConfirmation({ bookingId, paymentIntentId, onReset }: PaymentConfirmationProps) {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
@@ -219,7 +221,7 @@ function PaymentConfirmation({ bookingId, onReset }: PaymentConfirmationProps) {
     setSubmitting(true);
     setError(null);
     try {
-      const { error } = await stripe.confirmPayment({
+      const { error, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
           return_url: window.location.origin,
@@ -229,6 +231,16 @@ function PaymentConfirmation({ bookingId, onReset }: PaymentConfirmationProps) {
 
       if (error) {
         throw new Error(error.message ?? "Payment requires additional verification.");
+      }
+
+      if (paymentIntent?.status === "requires_capture") {
+        await fetch("/api/bookings/authorize", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ bookingId, paymentIntentId }),
+        });
       }
 
       router.refresh();

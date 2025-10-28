@@ -1,13 +1,9 @@
 "use client";
 
-import { type ChangeEvent, useActionState, useMemo, useState } from "react";
+import { type ChangeEvent, useActionState, useEffect, useMemo, useRef, useState } from "react";
+import { UnexpectedError } from "@/components/feedback/unexpected-error";
 import { submitDocuments } from "./actions";
-import {
-  defaultActionState,
-  type OnboardingActionState,
-  REQUIRED_DOCUMENTS,
-  OPTIONAL_DOCUMENTS,
-} from "./state";
+import { defaultActionState, type OnboardingActionState, REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "./state";
 import { cn } from "@/lib/utils";
 
 const errorClass = "border-red-300 focus:border-red-400 focus:ring-red-200";
@@ -36,6 +32,7 @@ type FieldConfig = {
 
 export function DocumentUploadForm({ inputClass }: Props) {
   const [state, formAction, pending] = useActionState<OnboardingActionState, FormData>(submitDocuments, defaultActionState);
+  const formRef = useRef<HTMLFormElement>(null);
   const documents: FieldConfig[] = useMemo(
     () => [
       ...REQUIRED_DOCUMENTS.map((doc) => ({ key: doc.key, label: doc.label, required: true })),
@@ -46,9 +43,16 @@ export function DocumentUploadForm({ inputClass }: Props) {
 
   const fieldError = (key: string) => state.fieldErrors?.[key];
 
+  useEffect(() => {
+    if (state.status === "success") {
+      formRef.current?.reset();
+    }
+  }, [state.status]);
+
   return (
-    <form className="space-y-6" action={formAction} encType="multipart/form-data" noValidate>
+    <form ref={formRef} className="space-y-6" action={formAction} noValidate>
       <Feedback state={state} />
+      {state.status === "error" && state.error ? <UnexpectedError message={state.error} /> : null}
 
       <div className="space-y-4">
         {documents.map((doc) => (

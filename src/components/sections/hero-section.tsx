@@ -8,7 +8,7 @@ export function HeroSection() {
       <Container className="grid gap-12 rounded-[44px] border border-[#ece9e3] bg-white p-8 shadow-[0_28px_72px_rgba(22,20,18,0.08)] md:p-12 lg:grid-cols-[1.1fr_minmax(0,_1fr)]">
         <div className="space-y-10 lg:space-y-12">
           <div className="space-y-5">
-            <span className="inline-flex items-center gap-3 rounded-full bg-[#fbfafa] px-4 py-2 text-xs font-semibold uppercase tracking-[0.32em] text-[#fd857f]">
+            <span className="inline-flex items-center gap-3 rounded-full bg-[#211f1a] px-4 py-2 text-xs font-semibold uppercase tracking-[0.32em] text-white">
               Trusted domestic staffing · Colombia
             </span>
             <h1 className="text-4xl font-semibold leading-tight tracking-tight text-[#211f1a] sm:text-[2.9rem]">
@@ -63,11 +63,9 @@ export function HeroSection() {
             {featureHighlights.map((feature) => (
               <div
                 key={feature.title}
-                className="flex flex-col gap-3 rounded-3xl border border-[#ebe5d8] bg-[#fbfaf9] p-5 transition hover:border-[#fd857f]/40 sm:flex-row sm:items-start sm:gap-4"
+                className="flex flex-col gap-3 rounded-3xl border border-[#ebe5d8] bg-[#fbfaf9] p-5 transition hover:border-[#211f1a] sm:flex-row sm:items-start sm:gap-4"
               >
-                <div
-                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${feature.tone} text-[#2c2922]`}
-                >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#211f1a] text-white">
                   <feature.icon className="h-5 w-5" />
                 </div>
                 <div>

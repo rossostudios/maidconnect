@@ -15,17 +15,17 @@ export async function SiteHeader() {
   const { user } = await getSession();
 
   return (
-    <header className="border-b border-[#ebe6de] bg-white/95 py-4 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+    <header className="border-b border-[#1b1916] bg-[#11100e] py-4 text-white">
       <Container className="flex flex-wrap items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-3">
-          <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#211f1a] text-sm font-semibold text-white">
+          <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-semibold text-[#11100e]">
             MC
           </span>
-          <span className="text-sm font-semibold tracking-tight text-[#211f1a]">
+          <span className="text-sm font-semibold tracking-tight">
             Maidconnect
           </span>
         </Link>
-        <nav className="order-3 flex w-full justify-between gap-4 text-sm font-medium text-[#524d43] sm:order-none sm:w-auto sm:justify-end">
+        <nav className="order-3 flex w-full justify-between gap-4 text-sm font-medium text-[#d0cbc2] sm:order-none sm:w-auto sm:justify-end">
           <div className="flex w-full items-center justify-between gap-4 overflow-x-auto sm:w-auto sm:overflow-visible">
             {links.map((link) => (
               <Link key={link.href} href={link.href} className="whitespace-nowrap transition hover:text-[#fd857f]">
@@ -36,16 +36,9 @@ export async function SiteHeader() {
         </nav>
         <div className="flex items-center gap-3">
           {user ? (
-            <Button href={getDashboardRouteForRole(user.role)} label="Dashboard" />
+            <Button href={getDashboardRouteForRole(user.role)} label="Dashboard" variant="secondary" />
           ) : (
-            <>
-              <Button
-                href={`${AUTH_ROUTES.signIn}?role=professional`}
-                label="Log in as Professional"
-                variant="secondary"
-              />
-              <Button href={`${AUTH_ROUTES.signIn}?role=customer`} label="Log in as Customer" />
-            </>
+            <Button href={AUTH_ROUTES.signIn} label="Login / Signup" variant="secondary" />
           )}
         </div>
       </Container>

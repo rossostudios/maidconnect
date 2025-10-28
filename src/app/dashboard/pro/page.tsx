@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { ProBookingList } from "@/components/bookings/pro-booking-list";
+import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar";
+import { ProFinancialSummary } from "@/components/bookings/pro-financial-summary";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { requireUser } from "@/lib/auth";
 import { REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "@/app/dashboard/pro/onboarding/state";
@@ -88,6 +91,8 @@ type ProfessionalProfile = {
   primary_services: string[] | null;
   rate_expectations: { hourly_cop?: number } | null;
   references_data: Array<{ name: string | null; contact: string | null }> | null;
+  stripe_connect_account_id: string | null;
+  stripe_connect_onboarding_status: string | null;
 };
 
 type DocumentRow = {
@@ -104,14 +109,35 @@ type DocumentRow = {
   signedUrl?: string | null;
 };
 
+type ProfessionalBookingRow = {
+  id: string;
+  status: string;
+  scheduled_start: string | null;
+  scheduled_end: string | null;
+  duration_minutes: number | null;
+  amount_authorized: number | null;
+  amount_estimated: number | null;
+  amount_captured: number | null;
+  stripe_payment_intent_id: string | null;
+  stripe_payment_status: string | null;
+  currency: string | null;
+  created_at: string | null;
+};
+
 export default async function ProfessionalDashboardPage() {
   const user = await requireUser({ allowedRoles: ["professional"] });
   const supabase = await createSupabaseServerClient();
 
-  const [{ data: profileData, error: profileError }, { data: documentsData, error: documentsError }] = await Promise.all([
+  const [
+    { data: profileData, error: profileError },
+    { data: documentsData, error: documentsError },
+    { data: bookingsData, error: bookingsError },
+  ] = await Promise.all([
     supabase
       .from("professional_profiles")
-      .select("full_name, status, onboarding_completed_at, primary_services, rate_expectations, references_data")
+      .select(
+        "full_name, status, onboarding_completed_at, primary_services, rate_expectations, references_data, stripe_connect_account_id, stripe_connect_onboarding_status",
+      )
       .eq("profile_id", user.id)
       .maybeSingle(),
     supabase
@@ -119,6 +145,13 @@ export default async function ProfessionalDashboardPage() {
       .select("id, document_type, storage_path, uploaded_at, metadata")
       .eq("profile_id", user.id)
       .order("uploaded_at", { ascending: false }),
+    supabase
+      .from("bookings")
+      .select(
+        "id, status, scheduled_start, scheduled_end, duration_minutes, amount_estimated, amount_authorized, amount_captured, currency, stripe_payment_intent_id, stripe_payment_status, created_at",
+      )
+      .eq("professional_id", user.id)
+      .order("created_at", { ascending: false }),
   ]);
 
   if (profileError) {
@@ -127,9 +160,13 @@ export default async function ProfessionalDashboardPage() {
   if (documentsError) {
     console.error("Failed to load professional documents", documentsError);
   }
+  if (bookingsError) {
+    console.error("Failed to load professional bookings", bookingsError);
+  }
 
   const professionalProfile = (profileData as ProfessionalProfile | null) ?? null;
   let documents = (documentsData as DocumentRow[] | null) ?? [];
+  const bookings = (bookingsData as ProfessionalBookingRow[] | null) ?? [];
 
   if (documents.length > 0) {
     const signedUrlResults = await Promise.all(
@@ -189,78 +226,111 @@ export default async function ProfessionalDashboardPage() {
         </dl>
       </header>
 
-      <section className="rounded-xl border border-[#fd857f33] bg-[#fef1ee] p-6 shadow-sm">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 className="text-lg font-semibold text-[#402d2d]">Onboarding checklist</h2>
-            <p className="text-sm text-[#7a524c]">
-              Complete each step so customers can discover and book you. Missing items are highlighted below.
-            </p>
+      {onboardingStatus === "active" ? null : (
+        <section className="rounded-xl border border-[#fd857f33] bg-[#fef1ee] p-6 shadow-sm">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-lg font-semibold text-[#402d2d]">Onboarding checklist</h2>
+              <p className="text-sm text-[#7a524c]">
+                Complete each step so customers can discover and book you. Missing items are highlighted below.
+              </p>
+            </div>
+            <Link
+              href="/dashboard/pro/onboarding"
+              className="inline-flex items-center justify-center rounded-md bg-[#fd857f] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#eb6c65]"
+            >
+              Manage onboarding
+            </Link>
           </div>
-          <Link
-            href="/dashboard/pro/onboarding"
-            className="inline-flex items-center justify-center rounded-md bg-[#fd857f] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#eb6c65]"
-          >
-            Manage onboarding
-          </Link>
-        </div>
 
-        <ol className="mt-6 grid gap-4 md:grid-cols-3">
-          {TASKS.map((task) => {
-            const isComplete = hasReachedStatus(onboardingStatus, task.targetStatus);
-            return (
-              <li
-                key={task.id}
-                className="rounded-lg border border-[#f0e1dc] bg-white/90 p-4 shadow-sm transition hover:border-[#fd857f40]"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium uppercase tracking-wide text-[#fd857f]">{task.title}</span>
-                  {isComplete ? (
-                    <span className="rounded-full bg-[#e6f5ea] px-2 py-0.5 text-xs font-semibold text-[#2f7a47]">
-                      Completed
-                    </span>
-                  ) : (
-                    <span className="rounded-full bg-[#fde0dc] px-2 py-0.5 text-xs font-semibold text-[#c4534d]">
-                      Action needed
-                    </span>
-                  )}
-                </div>
-                <p className="mt-2 text-sm text-[#211f1a]">{task.description}</p>
-                {!isComplete ? (
-                  <Link
-                    href={task.cta.href}
-                    className="mt-3 inline-flex items-center text-sm font-semibold text-[#fd857f] hover:text-[#eb6c65]"
-                  >
-                    {task.cta.label} →
-                  </Link>
-                ) : null}
-                {task.id === "documents" && missingDocuments.length > 0 ? (
-                  <p className="mt-3 text-xs text-[#c4534d]">
-                    Missing: {missingDocuments.map((doc) => DOCUMENT_LABELS[doc] ?? doc).join(", ")}
-                  </p>
-                ) : null}
-                {task.id === "profile" && professionalProfile?.primary_services && professionalProfile.primary_services.length === 0 ? (
-                  <p className="mt-3 text-xs text-[#c4534d]">
-                    Add at least one service to show customers what you offer.
-                  </p>
-                ) : null}
-                {task.id === "profile" && professionalProfile?.onboarding_completed_at ? (
-                  <p className="mt-3 text-xs text-[#2f7a47]">
-                    Profile activated on {formatDate(professionalProfile.onboarding_completed_at)}.
-                  </p>
-                ) : null}
-                {task.id === "application" && professionalProfile?.references_data && professionalProfile.references_data.length < 2 ? (
-                  <p className="mt-3 text-xs text-[#c4534d]">
-                    Add two professional references so we can complete your background check.
-                  </p>
-                ) : null}
-              </li>
-            );
-          })}
-        </ol>
-      </section>
+          <ol className="mt-6 grid gap-4 md:grid-cols-3">
+            {TASKS.map((task) => {
+              const isComplete = hasReachedStatus(onboardingStatus, task.targetStatus);
+              return (
+                <li
+                  key={task.id}
+                  className="rounded-lg border border-[#f0e1dc] bg-white/90 p-4 shadow-sm transition hover:border-[#fd857f40]"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-medium uppercase tracking-wide text-[#fd857f]">{task.title}</span>
+                    {isComplete ? (
+                      <span className="rounded-full bg-[#e6f5ea] px-2 py-0.5 text-xs font-semibold text-[#2f7a47]">
+                        Completed
+                      </span>
+                    ) : (
+                      <span className="rounded-full bg-[#fde0dc] px-2 py-0.5 text-xs font-semibold text-[#c4534d]">
+                        Action needed
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-2 text-sm text-[#211f1a]">{task.description}</p>
+                  {!isComplete ? (
+                    <Link
+                      href={task.cta.href}
+                      className="mt-3 inline-flex items-center text-sm font-semibold text-[#fd857f] hover:text-[#eb6c65]"
+                    >
+                      {task.cta.label} →
+                    </Link>
+                  ) : null}
+                  {task.id === "documents" && missingDocuments.length > 0 ? (
+                    <p className="mt-3 text-xs text-[#c4534d]">
+                      Missing: {missingDocuments.map((doc) => DOCUMENT_LABELS[doc] ?? doc).join(", ")}
+                    </p>
+                  ) : null}
+                  {task.id === "profile" && professionalProfile?.primary_services && professionalProfile.primary_services.length === 0 ? (
+                    <p className="mt-3 text-xs text-[#c4534d]">
+                      Add at least one service to show customers what you offer.
+                    </p>
+                  ) : null}
+                  {task.id === "profile" && professionalProfile?.onboarding_completed_at ? (
+                    <p className="mt-3 text-xs text-[#2f7a47]">
+                      Profile activated on {formatDate(professionalProfile.onboarding_completed_at)}.
+                    </p>
+                  ) : null}
+                  {task.id === "application" && professionalProfile?.references_data && professionalProfile.references_data.length < 2 ? (
+                    <p className="mt-3 text-xs text-[#c4534d]">
+                      Add two professional references so we can complete your background check.
+                    </p>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      )}
 
-      <section className="grid gap-6 lg:grid-cols-2">
+      {onboardingStatus === "active" ? (
+        <section className="grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(0,_1fr)]" id="bookings">
+          <ProBookingCalendar
+            bookings={bookings.map((booking) => ({
+              id: booking.id,
+              status: booking.status,
+              scheduled_start: booking.scheduled_start,
+              duration_minutes: booking.duration_minutes,
+              amount_authorized: booking.amount_authorized,
+              amount_captured: booking.amount_captured,
+              currency: booking.currency,
+            }))}
+          />
+          <section id="finances">
+            <ProFinancialSummary
+              connectAccountId={professionalProfile?.stripe_connect_account_id ?? null}
+              connectStatus={professionalProfile?.stripe_connect_onboarding_status ?? "not_started"}
+              bookings={bookings.map((booking) => ({
+                status: booking.status,
+                amount_estimated: booking.amount_estimated,
+                amount_authorized: booking.amount_authorized,
+                amount_captured: booking.amount_captured,
+                currency: booking.currency,
+                scheduled_start: booking.scheduled_start,
+                created_at: booking.created_at,
+              }))}
+            />
+          </section>
+        </section>
+      ) : null}
+
+      <section className="grid gap-6 lg:grid-cols-2" id="documents">
         <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
           <h3 className="text-lg font-semibold text-[#211f1a]">Document center</h3>
           <p className="mt-1 text-sm text-[#7a6d62]">
@@ -352,6 +422,26 @@ export default async function ProfessionalDashboardPage() {
           >
             Edit profile →
           </Link>
+        </div>
+      </section>
+
+      <section className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
+        <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h3 className="text-lg font-semibold text-[#211f1a]">Booking management</h3>
+            <p className="text-sm text-[#7a6d62]">
+              Review recent bookings, capture completed visits, or release holds if plans change.
+            </p>
+          </div>
+          <Link
+            href="/dashboard/pro/onboarding"
+            className="inline-flex items-center justify-center rounded-md border border-[#fd857f33] px-3 py-1.5 text-xs font-semibold text-[#fd857f] transition hover:border-[#fd857f] hover:text-[#eb6c65]"
+          >
+            Update availability
+          </Link>
+        </div>
+        <div className="mt-4">
+          <ProBookingList bookings={bookings} />
         </div>
       </section>
     </section>

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { requireUser } from "@/lib/auth";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { ApplicationForm } from "./application-form";
 import { DocumentUploadForm } from "./document-upload-form";
 import { ProfileBuildForm } from "./profile-build-form";
@@ -62,10 +63,60 @@ function currentStepIndex(status: string | null) {
   }
 }
 
+type ProfileInitialData = {
+  bio?: string | null;
+  languages?: string[] | null;
+  services?: Array<{
+    name?: string | null;
+    hourly_rate_cop?: number | null;
+    description?: string | null;
+  }> | null;
+  availability?: Array<{
+    day?: string | null;
+    start?: string | null;
+    end?: string | null;
+    notes?: string | null;
+  }> | null;
+};
+
+type SupabaseProfessionalProfile = {
+  bio: string | null;
+  languages: string[] | null;
+  services: Array<{
+    name?: string | null;
+    hourly_rate_cop?: number | null;
+    description?: string | null;
+  }> | null;
+  availability: { schedule?: ProfileInitialData["availability"] } | null;
+};
+
 export default async function ProfessionalOnboardingPage() {
   const user = await requireUser({ allowedRoles: ["professional"] });
   const stepIndex = currentStepIndex(user.onboardingStatus);
+  const isActive = user.onboardingStatus === "active";
   const onboardingComplete = stepIndex >= STEPS.length;
+
+  const supabase = await createSupabaseServerClient();
+  const { data: professionalProfileData } = await supabase
+    .from("professional_profiles")
+    .select("bio, languages, services, availability")
+    .eq("profile_id", user.id)
+    .maybeSingle();
+
+  let profileInitialData: ProfileInitialData | undefined;
+  const professionalProfileRecord = (professionalProfileData as SupabaseProfessionalProfile | null) ?? null;
+  if (professionalProfileRecord) {
+    const availabilitySchedule =
+      professionalProfileRecord.availability && typeof professionalProfileRecord.availability === "object"
+        ? professionalProfileRecord.availability.schedule ?? []
+        : [];
+    profileInitialData = {
+      bio: professionalProfileRecord.bio ?? "",
+      languages: professionalProfileRecord.languages ?? [],
+      services: Array.isArray(professionalProfileRecord.services) ? professionalProfileRecord.services : [],
+      availability: Array.isArray(availabilitySchedule) ? availabilitySchedule : [],
+    };
+  }
 
   return (
     <section className="flex-1 space-y-8">
@@ -85,46 +136,68 @@ export default async function ProfessionalOnboardingPage() {
         </Link>
       </header>
 
-      <ol className="grid gap-4 md:grid-cols-3">
-        {STEPS.map((step, index) => {
-          const isCompleted = stepIndex > index;
-          const isActive = stepIndex === index && !onboardingComplete;
+      {isActive ? null : (
+        <ol className="grid gap-4 md:grid-cols-3">
+          {STEPS.map((step, index) => {
+            const isCompleted = stepIndex > index;
+            const isCurrent = stepIndex === index && !onboardingComplete;
 
-          return (
-            <li
-              key={step.id}
-              className={`rounded-lg border p-4 shadow-sm ${
-                isCompleted
-                  ? "border-[#e3f3e8] bg-[#f4fbf6]"
-                  : isActive
-                    ? "border-[#fd857f40] bg-[#fef1ee]"
-                    : "border-[#efe7dc] bg-white/90"
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-medium uppercase tracking-wide text-neutral-500">{`Step ${index + 1}`}</span>
-                {isCompleted ? (
-                  <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">Done</span>
-                ) : isActive ? (
-                  <span className="rounded-full bg-[#fde0dc] px-2 py-0.5 text-xs font-semibold text-[#c4534d]">
-                    In progress
-                  </span>
-                ) : (
-                  <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs font-semibold text-neutral-600">
-                    Pending
-                  </span>
-                )}
-              </div>
-              <h2 className="mt-3 text-base font-semibold text-neutral-900">{step.title}</h2>
-              <p className="mt-1 text-sm text-neutral-600">{step.description}</p>
-            </li>
-          );
-        })}
-      </ol>
+            return (
+              <li
+                key={step.id}
+                className={`rounded-lg border p-4 shadow-sm ${
+                  isCompleted
+                    ? "border-[#e3f3e8] bg-[#f4fbf6]"
+                    : isCurrent
+                      ? "border-[#fd857f40] bg-[#fef1ee]"
+                      : "border-[#efe7dc] bg-white/90"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-medium uppercase tracking-wide text-neutral-500">{`Step ${index + 1}`}</span>
+                  {isCompleted ? (
+                    <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">Done</span>
+                  ) : isCurrent ? (
+                    <span className="rounded-full bg-[#fde0dc] px-2 py-0.5 text-xs font-semibold text-[#c4534d]">
+                      In progress
+                    </span>
+                  ) : (
+                    <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs font-semibold text-neutral-600">
+                      Pending
+                    </span>
+                  )}
+                </div>
+                <h2 className="mt-3 text-base font-semibold text-neutral-900">{step.title}</h2>
+                <p className="mt-1 text-sm text-neutral-600">{step.description}</p>
+              </li>
+            );
+          })}
+        </ol>
+      )}
 
-      {onboardingComplete ? (
-        <div className="rounded-xl border border-green-200 bg-green-50 p-6 text-sm text-green-800">
-          Your profile is active. Booking management tools will appear on your main dashboard as they are released.
+      {isActive ? (
+        <div className="space-y-6">
+          <div className="rounded-xl border border-green-200 bg-green-50 p-6 text-sm text-green-800">
+            Your profile is live on MaidConnect. Update your public information below whenever you need to refresh your listing.
+          </div>
+
+          <SectionWrapper
+            title="Public profile"
+            subtitle="Adjust your bio, services, languages, and weekly availability. Changes update your listing instantly."
+          >
+            <ProfileBuildForm
+              services={PROFILE_SERVICE_OPTIONS.map((name) => ({ name }))}
+              availabilityDays={AVAILABILITY_OPTIONS.map((label) => ({
+                label,
+                slug: label.toLowerCase().replace(/\s+/g, "_"),
+              }))}
+              languages={LANGUAGE_OPTIONS}
+              inputClass={inputClass}
+              initialData={profileInitialData}
+              submitLabel="Save profile"
+              footnote="Your changes update instantly on your public listing."
+            />
+          </SectionWrapper>
         </div>
       ) : (
         <>
@@ -178,11 +251,12 @@ export default async function ProfessionalOnboardingPage() {
                 }))}
                 languages={LANGUAGE_OPTIONS}
                 inputClass={inputClass}
+                initialData={profileInitialData}
               />
             </SectionWrapper>
           ) : null}
 
-          {stepIndex >= 3 ? (
+          {onboardingComplete && !isActive ? (
             <div className="rounded-xl border border-green-200 bg-green-50 p-6 text-sm text-green-800">
               Your onboarding is complete. Return to the dashboard to manage bookings.
             </div>

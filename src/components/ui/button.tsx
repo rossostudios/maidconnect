@@ -13,15 +13,15 @@ type ButtonProps = {
 };
 
 const baseClasses =
-  "inline-flex items-center justify-center rounded-full text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2";
+  "inline-flex items-center justify-center rounded-full border text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-[#fd857f] text-[#2f2624] px-6 py-[0.85rem] shadow-[0_6px_18px_rgba(253,133,127,0.18)] hover:bg-[#fc6f68] focus-visible:outline-[#fd857f]",
+    "border-[#211f1a] bg-[#211f1a] px-6 py-[0.85rem] text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] hover:border-[#fd857f] hover:bg-[#2b2624] focus-visible:outline-[#fd857f]",
   secondary:
-    "border border-[#dcd7ce] text-[#3f3a31] px-6 py-[0.85rem] hover:border-[#2b2624] hover:text-[#211f1a] bg-transparent focus-visible:outline-[#bdb7ab]",
+    "border-[#fd857f] bg-transparent px-6 py-[0.85rem] text-[#fd857f] hover:border-[#d7b59f] hover:text-[#d7b59f] focus-visible:outline-[#d7b59f]",
   ghost:
-    "text-[#3f3a31] px-4 py-2 hover:text-[#fd857f] focus-visible:outline-[#fd857f]",
+    "border-transparent text-[#2b2624] px-4 py-2 hover:text-[#d7b59f] focus-visible:outline-[#d7b59f]",
 };
 
 export function Button({

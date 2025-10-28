@@ -19,15 +19,73 @@ type Props = {
   availabilityDays: AvailabilityDay[];
   languages: string[];
   inputClass: string;
+  initialData?: {
+    bio?: string | null;
+    languages?: string[] | null;
+    services?: Array<{
+      name?: string | null;
+      hourly_rate_cop?: number | null;
+      description?: string | null;
+    }> | null;
+    availability?: Array<{
+      day?: string | null;
+      start?: string | null;
+      end?: string | null;
+      notes?: string | null;
+    }> | null;
+  };
+  submitLabel?: string;
+  footnote?: string;
 };
 
 const errorClass = "border-red-300 focus:border-red-400 focus:ring-red-200";
 
-export function ProfileBuildForm({ services, availabilityDays, languages, inputClass }: Props) {
+export function ProfileBuildForm({
+  services,
+  availabilityDays,
+  languages,
+  inputClass,
+  initialData,
+  submitLabel = "Submit profile for review",
+  footnote = "Once approved, your profile goes live within 24 hours. You can continue refining details anytime.",
+}: Props) {
   const [state, formAction, pending] = useActionState<OnboardingActionState, FormData>(submitProfile, defaultActionState);
 
   const fieldError = (key: string) => state.fieldErrors?.[key];
   const hasError = (key: string) => Boolean(fieldError(key));
+
+  const serviceDefaults = new Map<string, { rate: number | null; description: string }>();
+  if (initialData?.services) {
+    initialData.services.forEach((service) => {
+      if (!service?.name) return;
+      const rawRate = service.hourly_rate_cop;
+      const parsedRate =
+        typeof rawRate === "number"
+          ? rawRate
+          : typeof rawRate === "string"
+            ? Number.parseInt(rawRate, 10)
+            : null;
+      serviceDefaults.set(service.name, {
+        rate: Number.isNaN(parsedRate) ? null : parsedRate,
+        description: service.description ?? "",
+      });
+    });
+  }
+
+  const availabilityDefaults = new Map<string, { start: string; end: string; notes: string }>();
+  if (initialData?.availability) {
+    initialData.availability.forEach((slot) => {
+      if (!slot?.day) return;
+      const slug = slot.day.toLowerCase().replace(/\s+/g, "_");
+      availabilityDefaults.set(slug, {
+        start: slot.start ?? "",
+        end: slot.end ?? "",
+        notes: slot.notes ?? "",
+      });
+    });
+  }
+
+  const initialLanguages = initialData?.languages ?? [];
 
   return (
     <form className="space-y-6" action={formAction} noValidate>
@@ -41,6 +99,7 @@ export function ProfileBuildForm({ services, availabilityDays, languages, inputC
           className={cn(`${inputClass} min-h-[140px]`, hasError("bio") && errorClass)}
           placeholder="Share your background, specialties, and why customers love working with you."
           minLength={150}
+          defaultValue={initialData?.bio ?? ""}
           aria-invalid={hasError("bio")}
           required
         />
@@ -56,7 +115,13 @@ export function ProfileBuildForm({ services, availabilityDays, languages, inputC
                 hasError("languages") && "border-red-300",
               )}
             >
-              <input type="checkbox" name="languages" value={language} className="h-4 w-4" />
+              <input
+                type="checkbox"
+                name="languages"
+                value={language}
+                className="h-4 w-4"
+                defaultChecked={initialLanguages.includes(language)}
+              />
               {language}
             </label>
           ))}
@@ -74,19 +139,32 @@ export function ProfileBuildForm({ services, availabilityDays, languages, inputC
               <input type="hidden" name="service_name" value={service.name} />
               <div className="grid gap-3 sm:grid-cols-3">
                 <div className="flex items-center text-sm font-medium text-neutral-800">{service.name}</div>
-                <input
-                  type="number"
-                  name="service_rate"
-                  className={cn(inputClass, hasError("services") && errorClass)}
-                  placeholder="COP/hour"
-                  min={0}
-                />
-                <input
-                  type="text"
-                  name="service_description"
-                  className={cn(inputClass, hasError("services") && errorClass)}
-                  placeholder="Short description of service"
-                />
+                {(() => {
+                  const defaults = serviceDefaults.get(service.name);
+                  const rateValue =
+                    defaults?.rate !== null && defaults?.rate !== undefined && !Number.isNaN(defaults.rate)
+                      ? defaults.rate
+                      : "";
+                  return (
+                    <>
+                      <input
+                        type="number"
+                        name="service_rate"
+                        className={cn(inputClass, hasError("services") && errorClass)}
+                        placeholder="COP/hour"
+                        min={0}
+                        defaultValue={rateValue === "" ? "" : String(rateValue)}
+                      />
+                      <input
+                        type="text"
+                        name="service_description"
+                        className={cn(inputClass, hasError("services") && errorClass)}
+                        placeholder="Short description of service"
+                        defaultValue={defaults?.description ?? ""}
+                      />
+                    </>
+                  );
+                })()}
               </div>
             </div>
           ))}
@@ -108,10 +186,20 @@ export function ProfileBuildForm({ services, availabilityDays, languages, inputC
               <tr key={day.slug} className="border-b border-neutral-100">
                 <td className="py-2">{day.label}</td>
                 <td className="py-2">
-                  <input type="time" name={`availability_${day.slug}_start`} className={inputClass} defaultValue="08:00" />
+                  <input
+                    type="time"
+                    name={`availability_${day.slug}_start`}
+                    className={inputClass}
+                    defaultValue={availabilityDefaults.get(day.slug)?.start || "08:00"}
+                  />
                 </td>
                 <td className="py-2">
-                  <input type="time" name={`availability_${day.slug}_end`} className={inputClass} defaultValue="16:00" />
+                  <input
+                    type="time"
+                    name={`availability_${day.slug}_end`}
+                    className={inputClass}
+                    defaultValue={availabilityDefaults.get(day.slug)?.end || "16:00"}
+                  />
                 </td>
                 <td className="py-2">
                   <input
@@ -119,6 +207,7 @@ export function ProfileBuildForm({ services, availabilityDays, languages, inputC
                     name={`availability_${day.slug}_notes`}
                     className={inputClass}
                     placeholder="Optional notes"
+                    defaultValue={availabilityDefaults.get(day.slug)?.notes ?? ""}
                   />
                 </td>
               </tr>
@@ -128,9 +217,7 @@ export function ProfileBuildForm({ services, availabilityDays, languages, inputC
       </FormField>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs text-neutral-500">
-          Once approved, your profile goes live within 24 hours. You can continue refining details anytime.
-        </p>
+        <p className="text-xs text-neutral-500">{footnote}</p>
         <button
           type="submit"
           disabled={pending}
@@ -139,7 +226,7 @@ export function ProfileBuildForm({ services, availabilityDays, languages, inputC
             pending && "cursor-not-allowed opacity-70",
           )}
         >
-          {pending ? "Submitting…" : "Submit profile for review"}
+          {pending ? "Saving…" : submitLabel}
         </button>
       </div>
     </form>

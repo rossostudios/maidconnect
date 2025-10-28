@@ -1,0 +1,145 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+export type ProfessionalBooking = {
+  id: string;
+  status: string;
+  scheduled_start: string | null;
+  amount_authorized: number | null;
+  stripe_payment_intent_id: string | null;
+  stripe_payment_status: string | null;
+};
+
+type Props = {
+  bookings: ProfessionalBooking[];
+};
+
+export function ProBookingList({ bookings }: Props) {
+  const router = useRouter();
+  const [loadingId, setLoadingId] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
+
+  const handleAction = async (booking: ProfessionalBooking, action: "capture" | "void") => {
+    if (!booking.stripe_payment_intent_id) {
+      setMessage("Missing payment intent for this booking.");
+      return;
+    }
+
+    setLoadingId(`${booking.id}-${action}`);
+    setMessage(null);
+
+    try {
+      const endpoint = action === "capture" ? "/api/payments/capture-intent" : "/api/payments/void-intent";
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          paymentIntentId: booking.stripe_payment_intent_id,
+          amountToCapture: booking.amount_authorized ?? undefined,
+        }),
+      });
+
+      if (!response.ok) {
+        const body = await response.json().catch(() => ({}));
+        throw new Error(body.error ?? "Stripe action failed");
+      }
+
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+      setMessage(error instanceof Error ? error.message : "Unexpected error running payment action");
+    } finally {
+      setLoadingId(null);
+    }
+  };
+
+  if (bookings.length === 0) {
+    return <p className="text-sm text-[#7a6d62]">No bookings yet. Once customers authorize a booking, it will appear here.</p>;
+  }
+
+  return (
+    <div className="space-y-4">
+      {message ? <p className="text-sm text-red-600">{message}</p> : null}
+      <div className="overflow-hidden rounded-2xl border border-[#ebe5d8]">
+        <table className="min-w-full divide-y divide-[#ebe5d8] text-sm">
+          <thead className="bg-[#fbfafa] text-xs uppercase tracking-wide text-[#7a6d62]">
+            <tr>
+              <th className="px-4 py-3 text-left">Booking</th>
+              <th className="px-4 py-3 text-left">Scheduled</th>
+              <th className="px-4 py-3 text-left">Amount (COP)</th>
+              <th className="px-4 py-3 text-left">Payment status</th>
+              <th className="px-4 py-3 text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-[#f0e8dc] bg-white">
+            {bookings.map((booking) => {
+              const scheduled = booking.scheduled_start
+                ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  })
+                : "—";
+
+              const amountDisplay = booking.amount_authorized
+                ? new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(
+                    booking.amount_authorized,
+                  )
+                : "—";
+
+              const showCapture = booking.status === "authorized";
+              const showVoid = booking.status === "authorized";
+
+              return (
+                <tr key={booking.id} className="text-[#211f1a]">
+                  <td className="px-4 py-3 font-medium">{booking.id.slice(0, 8)}</td>
+                  <td className="px-4 py-3 text-[#5d574b]">{scheduled}</td>
+                  <td className="px-4 py-3 text-[#5d574b]">{amountDisplay}</td>
+                  <td className="px-4 py-3">
+                    <span className="inline-flex items-center rounded-full bg-[#fd857f]/10 px-3 py-1 text-xs font-semibold text-[#8a3934]">
+                      {booking.status.replace(/_/g, " ")}
+                    </span>
+                    {booking.stripe_payment_status ? (
+                      <span className="ml-2 text-xs text-[#8a826d]">({booking.stripe_payment_status})</span>
+                    ) : null}
+                  </td>
+                  <td className="px-4 py-3">
+                    {showCapture || showVoid ? (
+                      <div className="flex flex-wrap items-center gap-2">
+                        {showCapture ? (
+                          <button
+                            type="button"
+                            className="inline-flex items-center rounded-md bg-[#fd857f] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+                            onClick={() => handleAction(booking, "capture")}
+                            disabled={loadingId !== null}
+                          >
+                            {loadingId === `${booking.id}-capture` ? "Capturing…" : "Capture"}
+                          </button>
+                        ) : null}
+                        {showVoid ? (
+                          <button
+                            type="button"
+                            className="inline-flex items-center rounded-md border border-[#f0e1dc] px-3 py-1.5 text-xs font-semibold text-[#7a6d62] transition hover:border-[#fd857f] hover:text-[#fd857f] disabled:cursor-not-allowed disabled:opacity-70"
+                            onClick={() => handleAction(booking, "void")}
+                            disabled={loadingId !== null}
+                          >
+                            {loadingId === `${booking.id}-void` ? "Canceling…" : "Cancel hold"}
+                          </button>
+                        ) : null}
+                      </div>
+                    ) : (
+                      <span className="text-xs text-[#8a826d]">No actions available</span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}

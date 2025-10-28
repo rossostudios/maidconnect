@@ -1,353 +1,237 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import {
-  BadgeCheck,
-  CalendarDays,
-  ChevronRight,
-  Clock,
-  Globe2,
-  MapPin,
-  ShieldCheck,
-  Sparkles,
-  Star,
-} from "lucide-react";
-import { Container } from "@/components/ui/container";
+import Link from "next/link";
+import { CalendarDays, Clock, Globe2, MapPin, ShieldCheck } from "lucide-react";
+
 import { BookingForm } from "@/components/bookings/booking-form";
-import type { Professional, ProfessionalProfile } from "@/lib/content";
-import { cn } from "@/lib/utils";
+import { Container } from "@/components/ui/container";
+import {
+  type AvailabilitySlot,
+  type ProfessionalReference,
+  type ProfessionalService,
+} from "@/lib/professionals/transformers";
 
-type LanguageKey = "en" | "es";
-
-const labels = {
-  en: {
-    back: "← Back to search",
-    rating: "Rating",
-    reviews: "reviews",
-    yearsExperience: "years experience",
-    hourlyRate: "Hourly rate",
-    languages: "Languages",
-    serviceArea: "Service area",
-    availableToday: "Available today",
-    requestBooking: "Request booking",
-    messageConcierge: "Message concierge",
-    about: "About",
-    services: "Services & Pricing",
-    includes: "Includes",
-    trust: "Verification & Trust",
-    availability: "Availability",
-    bookingProcess: "How booking works",
-    reviewsTitle: "Recent feedback",
-    conciergeNote: "Concierge note",
-    languageToggle: "Language",
-    english: "English",
-    spanish: "Español",
-    bookWithConfidence: "Book with confidence",
-    bilingualSupport: "Bilingual support",
-  },
-  es: {
-    back: "← Volver a la búsqueda",
-    rating: "Calificación",
-    reviews: "reseñas",
-    yearsExperience: "años de experiencia",
-    hourlyRate: "Tarifa por hora",
-    languages: "Idiomas",
-    serviceArea: "Zona de servicio",
-    availableToday: "Disponible hoy",
-    requestBooking: "Solicitar reserva",
-    messageConcierge: "Enviar mensaje al concierge",
-    about: "Sobre",
-    services: "Servicios y tarifas",
-    includes: "Incluye",
-    trust: "Verificación y confianza",
-    availability: "Disponibilidad",
-    bookingProcess: "Cómo funciona la reserva",
-    reviewsTitle: "Comentarios recientes",
-    conciergeNote: "Nota del concierge",
-    languageToggle: "Idioma",
-    english: "English",
-    spanish: "Español",
-    bookWithConfidence: "Reserva con confianza",
-    bilingualSupport: "Soporte bilingüe",
-  },
+export type ProfessionalProfileDetail = {
+  id: string;
+  name: string;
+  service: string | null;
+  bio: string | null;
+  experienceYears: number | null;
+  languages: string[];
+  city: string | null;
+  country: string | null;
+  location: string;
+  services: ProfessionalService[];
+  availability: AvailabilitySlot[];
+  references: ProfessionalReference[];
+  availableToday: boolean;
+  hourlyRateCop: number | null;
+  photoUrl: string | null;
 };
 
 type ProfessionalProfileViewProps = {
-  professional: Professional;
-  profile: ProfessionalProfile;
+  professional: ProfessionalProfileDetail;
 };
 
-export function ProfessionalProfileView({ professional, profile }: ProfessionalProfileViewProps) {
-  const [language, setLanguage] = useState<LanguageKey>("en");
-  const copy = labels[language];
+const DEFAULT_PRO_PHOTO =
+  "https://images.unsplash.com/photo-1523800503107-5bc3ba2a6f81?auto=format&fit=crop&w=600&q=80";
 
-  const ratingLabel = `${professional.rating.toFixed(2)} · ${copy.rating}`;
+function formatCurrencyCOP(value: number | null | undefined) {
+  if (!value || Number.isNaN(value)) return null;
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+export function ProfessionalProfileView({ professional }: ProfessionalProfileViewProps) {
+  const locationLabel = professional.location || "Colombia";
+  const formattedRate = formatCurrencyCOP(professional.hourlyRateCop);
+  const hasAvailability = professional.availability.length > 0;
+  const hasReferences = professional.references.length > 0;
+  const hasServices = professional.services.length > 0;
 
   return (
     <div className="bg-[var(--background)] pb-16">
       <Container className="pt-10">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <a href="#search" className="text-xs font-semibold text-[#5a5549] hover:text-[#fd857f]">
-            {copy.back}
-          </a>
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.32em] text-[#a49c90]">
-            <span>{copy.languageToggle}</span>
-            <div className="flex items-center gap-1 rounded-full border border-[#e2ddd2] bg-[#fbfafa] p-1">
-              <button
-                type="button"
-                className={cn(
-                  "rounded-full px-3 py-1 text-[11px] transition",
-                  language === "en" ? "bg-[#fd857f] text-[#2f2624]" : "text-[#726a5d]",
-                )}
-                onClick={() => setLanguage("en")}
-              >
-                {copy.english}
-              </button>
-              <button
-                type="button"
-                className={cn(
-                  "rounded-full px-3 py-1 text-[11px] transition",
-                  language === "es" ? "bg-[#fd857f] text-[#2f2624]" : "text-[#726a5d]",
-                )}
-                onClick={() => setLanguage("es")}
-              >
-                {copy.spanish}
-              </button>
-            </div>
-          </div>
-        </div>
+        <Link
+          href="/professionals"
+          className="text-xs font-semibold text-[#5a5549] transition hover:text-[#fd857f]"
+        >
+          ← Back to directory
+        </Link>
 
-        <div className="mt-8 space-y-4">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div className="space-y-3">
-              <h1 className="text-[2.6rem] font-semibold tracking-tight text-[#211f1a]">
-                {language === "en" ? professional.name : professional.name_es}
-              </h1>
-              <div className="flex flex-wrap items-center gap-3 text-sm font-semibold text-[#5a5549]">
-                <span className="inline-flex items-center gap-2 rounded-full bg-[#fbfafa] px-3 py-1">
-                  <Star className="h-4 w-4 text-[#fd857f]" />
-                  {ratingLabel}
-                  <span className="text-xs text-[#908873]">({professional.reviewCount} {copy.reviews})</span>
-                </span>
-                {professional.isTopProfessional && (
-                  <span className="inline-flex items-center gap-2 rounded-full bg-[#fd857f]/15 px-3 py-1 text-[#8a3934]">
-                    <Sparkles className="h-4 w-4" />
-                    {language === "en" ? "Top professional" : "Profesional destacado"}
-                  </span>
-                )}
-                {professional.isVerified && (
-                  <span className="inline-flex items-center gap-2 rounded-full bg-[#211f1a] px-3 py-1 text-xs font-semibold text-white">
-                    <ShieldCheck className="h-4 w-4" />
-                    {language === "en" ? "Verified" : "Verificado"}
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
-          <p className="max-w-3xl text-base text-[#5d574b]">
-            {profile.headline[language]}
-          </p>
-        </div>
-
-        <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,_320px)_minmax(0,_1fr)]">
+        <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,_340px)_minmax(0,_1fr)]">
           <aside className="space-y-6">
             <div className="overflow-hidden rounded-[32px] border border-[#ebe5d8] bg-white shadow-[0_24px_60px_rgba(18,17,15,0.08)]">
               <div className="relative h-72 w-full">
-                <Image src={professional.photo} alt={professional.name} fill className="object-cover" />
+                <Image
+                  src={professional.photoUrl ?? DEFAULT_PRO_PHOTO}
+                  alt={professional.name}
+                  fill
+                  className="object-cover"
+                />
               </div>
-              <div className="space-y-4 p-6">
-                <div className="space-y-2 text-sm text-[#5d574b]">
-                  <p className="font-semibold text-[#211f1a]">
-                    {language === "en" ? professional.service : professional.service_es}
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-[#fd857f]" />
-                    <span>
-                      {copy.hourlyRate}: ${professional.hourlyRate} USD
-                    </span>
-                  </div>
+              <div className="space-y-4 p-6 text-sm text-[#5d574b]">
+                <div>
+                  <h1 className="text-[2.4rem] font-semibold text-[#211f1a] leading-tight">{professional.name}</h1>
+                  <p className="mt-1 text-sm text-[#7d7566]">{professional.service ?? "Available for bookings"}</p>
+                </div>
+                <dl className="space-y-3">
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4 text-[#fd857f]" />
-                    <span>{professional.location}</span>
+                    <div>
+                      <dt className="sr-only">Location</dt>
+                      <dd>{locationLabel}</dd>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Globe2 className="h-4 w-4 text-[#fd857f]" />
-                    <span>
-                      {copy.languages}: {professional.languages.join(" / ")}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <BadgeCheck className="h-4 w-4 text-[#fd857f]" />
-                    <span>
-                      {professional.experienceYears} {copy.yearsExperience}
-                    </span>
-                  </div>
-                  {professional.availableToday && (
+                  {formattedRate ? (
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-4 w-4 text-[#fd857f]" />
+                      <div>
+                        <dt className="sr-only">Hourly rate</dt>
+                        <dd>{formattedRate} · COP / hr</dd>
+                      </div>
+                    </div>
+                  ) : null}
+                  {professional.languages.length > 0 ? (
+                    <div className="flex items-center gap-2">
+                      <Globe2 className="h-4 w-4 text-[#fd857f]" />
+                      <div>
+                        <dt className="sr-only">Languages</dt>
+                        <dd>{professional.languages.join(" / ")}</dd>
+                      </div>
+                    </div>
+                  ) : null}
+                  {professional.experienceYears !== null ? (
+                    <div className="flex items-center gap-2">
+                      <ShieldCheck className="h-4 w-4 text-[#fd857f]" />
+                      <div>
+                        <dt className="sr-only">Experience</dt>
+                        <dd>{professional.experienceYears} yrs experience</dd>
+                      </div>
+                    </div>
+                  ) : null}
+                  {professional.availableToday ? (
                     <span className="inline-flex items-center gap-2 rounded-full bg-[#fd857f]/15 px-3 py-1 text-xs font-semibold text-[#8a3934]">
                       <CalendarDays className="h-3.5 w-3.5" />
-                      {copy.availableToday}
+                      Available today
                     </span>
-                  )}
-                </div>
+                  ) : null}
+                </dl>
+              </div>
+            </div>
 
-                <div className="space-y-2 rounded-2xl bg-[#fbfafa] p-4 text-xs text-[#6f685a]">
-                  <div className="flex items-center gap-2 text-sm font-semibold text-[#211f1a]">
-                    <ShieldCheck className="h-4 w-4 text-[#fd857f]" />
-                    {copy.bookWithConfidence}
-                  </div>
-                  <p>
-                    {language === "en"
-                      ? "Background checks, concierge interviews, and probationary monitoring completed."
-                      : "Antecedentes, entrevistas y monitoreo en período de prueba completados."}
+            <div className="rounded-[28px] border border-[#ebe5d8] bg-white shadow-[0_20px_50px_rgba(18,17,15,0.08)]">
+              <div className="space-y-4 p-6">
+                <div>
+                  <h2 className="text-lg font-semibold text-[#211f1a]">Request a booking</h2>
+                  <p className="mt-1 text-sm text-[#7d7566]">
+                    Hold funds securely until the visit is complete. You can cancel any time before the appointment.
                   </p>
                 </div>
-
-                <div className="flex flex-col gap-2">
-                  <a
-                    href="#booking"
-                    className="inline-flex items-center justify-center rounded-full bg-[#fd857f] px-5 py-3 text-sm font-semibold text-[#2f2624] shadow-[0_6px_18px_rgba(253,133,127,0.18)] transition hover:bg-[#fc6f68]"
-                  >
-                    {copy.requestBooking}
-                    <ChevronRight className="ml-2 h-4 w-4" />
-                  </a>
-                  <a
-                    href="mailto:concierge@maidconnect.co"
-                    className="inline-flex items-center justify-center rounded-full border border-[#dcd6c7] px-5 py-3 text-sm font-semibold text-[#3f3a31] transition hover:border-[#fd857f] hover:text-[#fd857f]"
-                  >
-                    {copy.messageConcierge}
-                  </a>
-                </div>
+                <BookingForm professionalId={professional.id} professionalName={professional.name} />
               </div>
             </div>
           </aside>
 
-          <div className="space-y-12">
-            <section className="space-y-4">
-              <h2 className="text-xl font-semibold text-[#211f1a]">
-                {copy.about} {language === "en" ? professional.name : professional.name_es}
-              </h2>
-              <p className="text-base text-[#5d574b]">{profile.about[language]}</p>
-              <ul className="grid gap-3 sm:grid-cols-2">
-                {profile.highlights.map((item, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-start gap-2 rounded-[18px] border border-[#e5dfd4] bg-[#fbfafa] px-4 py-3 text-sm text-[#4d473d]"
-                  >
-                    <Sparkles className="mt-0.5 h-4 w-4 text-[#fd857f]" />
-                    {item[language]}
-                  </li>
-                ))}
-              </ul>
+          <div className="space-y-8">
+            <section className="rounded-[32px] border border-[#ebe5d8] bg-white p-6 shadow-[0_24px_60px_rgba(18,17,15,0.06)]">
+              <h3 className="text-lg font-semibold text-[#211f1a]">About</h3>
+              <p className="mt-3 text-sm leading-relaxed text-[#5d574b]">
+                {professional.bio ??
+                  "This professional is finalizing their public bio. Reach out with a booking request to learn more about their experience."}
+              </p>
             </section>
 
-            <section className="space-y-5">
-              <h2 className="text-xl font-semibold text-[#211f1a]">{copy.services}</h2>
-              <div className="space-y-4">
-                {profile.services.map((service, idx) => (
-                  <div
-                    key={idx}
-                    className="space-y-3 rounded-[28px] border border-[#ebe5d8] bg-[#fbfafa] p-6"
-                  >
-                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                      <div>
-                        <h3 className="text-lg font-semibold text-[#211f1a]">
-                          {service.name[language]}
-                        </h3>
-                        <p className="text-sm text-[#6f685a]">{service.description[language]}</p>
+            <section className="rounded-[32px] border border-[#ebe5d8] bg-white p-6 shadow-[0_24px_60px_rgba(18,17,15,0.06)]">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-[#211f1a]">Services & rates</h3>
+              </div>
+              <div className="mt-4 space-y-4">
+                {hasServices ? (
+                  professional.services.map((service) => (
+                    <div
+                      key={`${service.name ?? "service"}-${service.description ?? "detail"}`}
+                      className="rounded-2xl border border-[#f0ece4] bg-[#fbfafa] p-4"
+                    >
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="text-sm font-semibold text-[#211f1a]">{service.name ?? "Service"}</div>
+                        <div className="text-sm text-[#5d574b]">
+                          {formatCurrencyCOP(service.hourlyRateCop) ?? "Rate on request"}
+                        </div>
                       </div>
-                      <div className="text-sm font-semibold text-[#211f1a]">
-                        {service.rate} · {service.duration}
-                      </div>
+                      {service.description ? (
+                        <p className="mt-2 text-sm text-[#7d7566]">{service.description}</p>
+                      ) : null}
                     </div>
-                    <div className="space-y-2 text-sm text-[#5a5549]">
-                      <p className="font-semibold uppercase tracking-[0.26em] text-xs text-[#a49c90]">
-                        {copy.includes}
+                  ))
+                ) : (
+                  <p className="text-sm text-[#7d7566]">
+                    Services are being finalized. Submit a booking request with the details you need and we&apos;ll confirm pricing.
+                  </p>
+                )}
+              </div>
+            </section>
+
+            <section className="rounded-[32px] border border-[#ebe5d8] bg-white p-6 shadow-[0_24px_60px_rgba(18,17,15,0.06)]">
+              <h3 className="text-lg font-semibold text-[#211f1a]">Weekly availability</h3>
+              {hasAvailability ? (
+                <div className="mt-4 overflow-hidden rounded-xl border border-[#f0ece4]">
+                  <table className="min-w-full divide-y divide-[#f0ece4] text-sm text-[#5d574b]">
+                    <thead className="bg-[#fbfafa] text-xs uppercase tracking-wider text-[#7d7566]">
+                      <tr>
+                        <th className="px-4 py-3 text-left">Day</th>
+                        <th className="px-4 py-3 text-left">Start</th>
+                        <th className="px-4 py-3 text-left">End</th>
+                        <th className="px-4 py-3 text-left">Notes</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#f7f3eb] bg-white">
+                      {professional.availability.map((slot) => (
+                        <tr key={`${slot.day}-${slot.start}-${slot.end}`}>
+                          <td className="px-4 py-3 font-medium text-[#211f1a]">{slot.day}</td>
+                          <td className="px-4 py-3">{slot.start ?? "—"}</td>
+                          <td className="px-4 py-3">{slot.end ?? "—"}</td>
+                          <td className="px-4 py-3 text-[#8a826d]">{slot.notes ?? "—"}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <p className="mt-3 text-sm text-[#7d7566]">
+                  Availability will be added soon. Request a booking to confirm dates that work for you.
+                </p>
+              )}
+            </section>
+
+            <section className="rounded-[32px] border border-[#ebe5d8] bg-white p-6 shadow-[0_24px_60px_rgba(18,17,15,0.06)]">
+              <h3 className="text-lg font-semibold text-[#211f1a]">Professional references</h3>
+              {hasReferences ? (
+                <ul className="mt-4 space-y-3 text-sm text-[#5d574b]">
+                  {professional.references.map((reference, index) => (
+                    <li key={`${reference.name ?? "reference"}-${index}`} className="rounded-2xl border border-[#f0ece4] bg-[#fbfafa] p-4">
+                      <p className="font-semibold text-[#211f1a]">
+                        {reference.name ?? "Reference available on request"}
                       </p>
-                      <ul className="grid gap-2 sm:grid-cols-2">
-                        {service.includes.map((item, includeIdx) => (
-                          <li key={includeIdx} className="flex items-start gap-2">
-                            <ChevronRight className="mt-0.5 h-4 w-4 text-[#fd857f]" />
-                            <span>{item[language]}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                      <p className="mt-1 text-xs uppercase tracking-wide text-[#a49c90]">
+                        {reference.relationship ?? "Relationship not specified"}
+                      </p>
+                      <p className="mt-2 text-sm text-[#7d7566]">
+                        {reference.contact ?? "Contact information shared privately after booking confirmation."}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-3 text-sm text-[#7d7566]">
+                  References are verified during onboarding and will be available to customers after the first booking.
+                </p>
+              )}
             </section>
-
-            <section className="space-y-5">
-              <h2 className="text-xl font-semibold text-[#211f1a]">{copy.trust}</h2>
-              <div className="grid gap-4 sm:grid-cols-2">
-                {profile.verifications.map((item, idx) => (
-                  <div key={idx} className="rounded-[24px] border border-[#e5dfd4] bg-white p-5 shadow-[0_14px_30px_rgba(18,17,15,0.06)]">
-                    <div className="flex items-center gap-2 text-sm font-semibold text-[#211f1a]">
-                      <ShieldCheck className="h-4 w-4 text-[#fd857f]" />
-                      {item.title[language]}
-                    </div>
-                    <p className="mt-2 text-sm text-[#5d574b]">{item.detail[language]}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section id="booking" className="space-y-4">
-              <h2 className="text-xl font-semibold text-[#211f1a]">{copy.bookingProcess}</h2>
-              <ol className="grid gap-4 md:grid-cols-2">
-                {profile.bookingProcess.map((step, idx) => (
-                  <li
-                    key={idx}
-                    className="space-y-2 rounded-[24px] border border-[#e5dfd4] bg-[#fbfafa] p-5"
-                  >
-                    <div className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#fd857f]/20 text-sm font-semibold text-[#8a3934]">
-                      {idx + 1}
-                    </div>
-                    <p className="text-sm font-semibold text-[#211f1a]">{step.title[language]}</p>
-                    <p className="text-sm text-[#5d574b]">{step.detail[language]}</p>
-                  </li>
-                ))}
-              </ol>
-            </section>
-
-            <section className="space-y-4">
-              <h2 className="text-xl font-semibold text-[#211f1a]">{copy.availability}</h2>
-              <ul className="space-y-2 text-sm text-[#5d574b]">
-                {profile.availability.map((slot, idx) => (
-                  <li key={idx} className="inline-flex items-center gap-2 rounded-full bg-[#fbfafa] px-4 py-2">
-                    <Clock className="h-4 w-4 text-[#fd857f]" />
-                    {slot[language]}
-                  </li>
-                ))}
-              </ul>
-            </section>
-
-            <section className="space-y-4">
-              <h2 className="text-xl font-semibold text-[#211f1a]">{copy.reviewsTitle}</h2>
-              <div className="space-y-4">
-                {profile.reviews.map((review, idx) => (
-                  <article key={idx} className="rounded-[24px] border border-[#ebe5d8] bg-white p-5 shadow-[0_18px_36px_rgba(18,17,15,0.05)]">
-                    <div className="flex flex-wrap items-center gap-3 text-sm font-semibold text-[#211f1a]">
-                      {review.name}
-                      <span className="text-xs text-[#8a826d]">· {review.date}</span>
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#fd857f]/15 px-2 py-1 text-xs text-[#8a3934]">
-                        <Star className="h-3 w-3" /> {review.rating.toFixed(1)}
-                      </span>
-                    </div>
-                    <p className="mt-2 text-sm text-[#514c41]">{review.comment[language]}</p>
-                  </article>
-                ))}
-              </div>
-            </section>
-
-            <section className="space-y-3 rounded-[28px] border border-[#ebe5d8] bg-[#fbfafa] p-6">
-              <h2 className="text-sm font-semibold uppercase tracking-[0.32em] text-[#a49c90]">
-                {copy.conciergeNote}
-              </h2>
-              <p className="text-sm text-[#5d574b]">{profile.conciergeNote[language]}</p>
-            </section>
-            <BookingForm professionalId={professional.id} professionalName={professional.name} />
           </div>
         </div>
       </Container>
