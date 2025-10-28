@@ -48,6 +48,7 @@ export const services = [
     description: "Recurring or one-time solutions tailored to meticulous homes.",
     badge: "Most booked",
     icon: Stars,
+    filter: "housekeeping",
   },
   {
     title: "Family & Childcare Support",
@@ -55,30 +56,35 @@ export const services = [
       "Trusted nannies and caregivers experienced with international households.",
     badge: "Bilingual talent",
     icon: Stars,
+    filter: "childcare",
   },
   {
     title: "Move-in & Relocation Prep",
     description: "Arrival day setup, unpacking, and home organization services.",
     badge: "Welcome package",
     icon: Stars,
+    filter: "relocation",
   },
   {
     title: "Elder & Wellness Care",
     description: "Companionship, medication reminders, and wellness-focused care.",
     badge: "Compassionate",
     icon: Stars,
+    filter: "elder-care",
   },
   {
     title: "Pet & Home Management",
     description: "Reliable sitters, walkers, and property check-ins while you travel.",
     badge: "On-call",
     icon: Stars,
+    filter: "pet-care",
   },
   {
     title: "Personal Lifestyle Support",
     description: "Private chefs, errand specialists, and personal assistants on demand.",
     badge: "Premium",
     icon: Stars,
+    filter: "lifestyle",
   },
 ];
 

@@ -5,14 +5,38 @@ import {
   ProfessionalProfileView,
   type ProfessionalProfileDetail,
 } from "@/components/professionals/professional-profile-view";
+import { SiteFooter } from "@/components/sections/site-footer";
+import { SiteHeader } from "@/components/sections/site-header";
 import {
   computeAvailableToday,
   formatLocation,
   parseAvailability,
-  parseReferences,
   parseServices,
 } from "@/lib/professionals/transformers";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import type { ProfessionalBookingSummary, ProfessionalReviewSummary } from "@/components/professionals/types";
+import { getSession } from "@/lib/auth";
+
+type ProfessionalPortfolioImage = {
+  url: string;
+  caption: string | null;
+};
+
+function parsePortfolioImages(payload: unknown): ProfessionalPortfolioImage[] {
+  if (!payload || typeof payload !== "object") return [];
+  if (!Array.isArray(payload)) return [];
+
+  return payload
+    .map((entry) => {
+      if (!entry || typeof entry !== "object") return null;
+      const record = entry as Record<string, unknown>;
+      const url = typeof record.url === "string" ? record.url : null;
+      if (!url) return null;
+      const caption = typeof record.caption === "string" ? record.caption : null;
+      return { url, caption } satisfies ProfessionalPortfolioImage;
+    })
+    .filter((value): value is ProfessionalPortfolioImage => Boolean(value));
+}
 
 type RouteParams = {
   params: Promise<{
@@ -30,6 +54,7 @@ type GetProfessionalRow = {
   primary_services: string[] | null;
   availability: unknown;
   references_data: unknown;
+  portfolio_images: unknown;
   city: string | null;
   country: string | null;
 };
@@ -41,7 +66,7 @@ function isValidUuid(value: string) {
 function mapRowToProfessionalDetail(row: GetProfessionalRow): ProfessionalProfileDetail {
   const services = parseServices(row.services);
   const availability = parseAvailability(row.availability);
-  const references = parseReferences(row.references_data);
+  const portfolioImages = parsePortfolioImages(row.portfolio_images);
 
   const primaryService =
     services.find((service) => Boolean(service.name))?.name ?? row.primary_services?.[0] ?? null;
@@ -64,10 +89,12 @@ function mapRowToProfessionalDetail(row: GetProfessionalRow): ProfessionalProfil
     location: formatLocation(row.city, row.country) || "Colombia",
     services,
     availability,
-    references,
     availableToday: computeAvailableToday(availability),
     hourlyRateCop,
     photoUrl: null,
+    bookings: [],
+    reviews: [],
+    portfolioImages,
   };
 }
 
@@ -77,10 +104,12 @@ async function fetchProfessional(profileId: string): Promise<ProfessionalProfile
     p_profile_id: profileId,
   });
 
+  let professional: ProfessionalProfileDetail | null = null;
+
   if (!error && Array.isArray(data) && data.length > 0) {
     const row = data[0] as GetProfessionalRow | null;
     if (row && typeof row.profile_id === "string") {
-      return mapRowToProfessionalDetail(row);
+      professional = mapRowToProfessionalDetail(row);
     }
   }
 
@@ -94,21 +123,69 @@ async function fetchProfessional(profileId: string): Promise<ProfessionalProfile
     return null;
   }
 
-  if (!Array.isArray(fallbackData)) {
+  if (!professional) {
+    if (!Array.isArray(fallbackData)) {
+      return null;
+    }
+
+    const match = fallbackData.find((row) => {
+      if (!row || typeof row !== "object") return false;
+      const value = (row as { profile_id?: string | null }).profile_id;
+      return value === profileId;
+    }) as GetProfessionalRow | undefined;
+
+    if (!match) {
+      return null;
+    }
+
+    professional = mapRowToProfessionalDetail(match);
+  }
+
+  if (!professional) {
     return null;
   }
 
-  const match = fallbackData.find((row) => {
-    if (!row || typeof row !== "object") return false;
-    const value = (row as { profile_id?: string | null }).profile_id;
-    return value === profileId;
-  }) as GetProfessionalRow | undefined;
+  const { data: bookingsData } = await supabase
+    .from("bookings")
+    .select("id, status, scheduled_start, duration_minutes, amount_estimated, amount_authorized, amount_captured, currency, service_name")
+    .eq("professional_id", profileId)
+    .gte("scheduled_start", new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
+    .order("scheduled_start", { ascending: true });
 
-  if (!match) {
-    return null;
-  }
+  professional.bookings = (bookingsData ?? []).map(
+    (booking) =>
+      ({
+        id: booking.id,
+        status: booking.status,
+        scheduledStart: booking.scheduled_start,
+        durationMinutes: booking.duration_minutes,
+        amountEstimated: booking.amount_estimated,
+        amountAuthorized: booking.amount_authorized,
+        amountCaptured: booking.amount_captured,
+        currency: booking.currency,
+        serviceName: booking.service_name,
+      }) satisfies ProfessionalBookingSummary,
+  );
 
-  return mapRowToProfessionalDetail(match);
+  const { data: reviewsData } = await supabase
+    .from("professional_reviews")
+    .select("id, rating, title, comment, reviewer_name, created_at")
+    .eq("professional_id", profileId)
+    .order("created_at", { ascending: false });
+
+  professional.reviews = (reviewsData ?? []).map(
+    (review) =>
+      ({
+        id: review.id,
+        rating: review.rating ?? 5,
+        title: review.title,
+        comment: review.comment,
+        reviewerName: review.reviewer_name,
+        createdAt: review.created_at,
+      }) satisfies ProfessionalReviewSummary,
+  );
+
+  return professional;
 }
 
 export const dynamic = "force-dynamic";
@@ -146,11 +223,17 @@ export default async function ProfessionalProfileRoute({ params }: RouteParams) 
     notFound();
   }
 
-  const professional = await fetchProfessional(profileId);
+  const [professional, session] = await Promise.all([fetchProfessional(profileId), getSession()]);
 
   if (!professional) {
     notFound();
   }
 
-  return <ProfessionalProfileView professional={professional} />;
+  return (
+    <div className="bg-[var(--background)] text-[var(--foreground)]">
+      <SiteHeader />
+      <ProfessionalProfileView professional={professional} viewer={session.user} />
+      <SiteFooter />
+    </div>
+  );
 }

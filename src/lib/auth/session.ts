@@ -43,7 +43,7 @@ async function fetchProfileForUser(
 
   return {
     id: user.id,
-    email: user.email,
+    email: user.email ?? null,
     role,
     locale,
     onboardingStatus,

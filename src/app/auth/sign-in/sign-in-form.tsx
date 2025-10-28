@@ -7,13 +7,16 @@ type Props = {
   redirectTo?: string | null;
 };
 
+const inputClasses =
+  "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[#211f1a] shadow-sm transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a1a]";
+
 export function SignInForm({ redirectTo }: Props) {
   const [state, formAction, isPending] = useActionState<SignInActionState, FormData>(signInAction, {});
 
   return (
     <form action={formAction} className="space-y-6">
       <div className="space-y-2">
-        <label htmlFor="email" className="block text-sm font-medium text-neutral-800">
+        <label htmlFor="email" className="block text-sm font-medium text-[#211f1a]">
           Email
         </label>
         <input
@@ -22,13 +25,13 @@ export function SignInForm({ redirectTo }: Props) {
           type="email"
           required
           autoComplete="email"
-          className="w-full rounded-md border border-neutral-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+          className={inputClasses}
           placeholder="you@example.com"
         />
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="password" className="block text-sm font-medium text-neutral-800">
+        <label htmlFor="password" className="block text-sm font-medium text-[#211f1a]">
           Password
         </label>
         <input
@@ -37,7 +40,7 @@ export function SignInForm({ redirectTo }: Props) {
           type="password"
           required
           autoComplete="current-password"
-          className="w-full rounded-md border border-neutral-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+          className={inputClasses}
           placeholder="••••••••"
         />
       </div>
@@ -49,7 +52,7 @@ export function SignInForm({ redirectTo }: Props) {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
+        className="w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:border-[#fd857f] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isPending ? "Signing in…" : "Sign in"}
       </button>

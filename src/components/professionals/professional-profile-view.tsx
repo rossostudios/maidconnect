@@ -6,11 +6,16 @@ import { CalendarDays, Clock, Globe2, MapPin, ShieldCheck } from "lucide-react";
 
 import { BookingForm } from "@/components/bookings/booking-form";
 import { Container } from "@/components/ui/container";
-import {
-  type AvailabilitySlot,
-  type ProfessionalReference,
-  type ProfessionalService,
-} from "@/lib/professionals/transformers";
+import { ProfessionalAvailabilityCalendar } from "@/components/professionals/professional-availability-calendar";
+import { ProfessionalPortfolioGallery } from "@/components/professionals/professional-portfolio-gallery";
+import { ProfessionalReviewsSection } from "@/components/professionals/professional-reviews";
+import type {
+  ProfessionalBookingSummary,
+  ProfessionalPortfolioImage,
+  ProfessionalReviewSummary,
+} from "@/components/professionals/types";
+import type { AppUser } from "@/lib/auth/types";
+import { type AvailabilitySlot, type ProfessionalService } from "@/lib/professionals/transformers";
 
 export type ProfessionalProfileDetail = {
   id: string;
@@ -24,14 +29,17 @@ export type ProfessionalProfileDetail = {
   location: string;
   services: ProfessionalService[];
   availability: AvailabilitySlot[];
-  references: ProfessionalReference[];
   availableToday: boolean;
   hourlyRateCop: number | null;
   photoUrl: string | null;
+  bookings: ProfessionalBookingSummary[];
+  reviews: ProfessionalReviewSummary[];
+  portfolioImages: ProfessionalPortfolioImage[];
 };
 
 type ProfessionalProfileViewProps = {
   professional: ProfessionalProfileDetail;
+  viewer: AppUser | null;
 };
 
 const DEFAULT_PRO_PHOTO =
@@ -46,16 +54,14 @@ function formatCurrencyCOP(value: number | null | undefined) {
   }).format(value);
 }
 
-export function ProfessionalProfileView({ professional }: ProfessionalProfileViewProps) {
+export function ProfessionalProfileView({ professional, viewer }: ProfessionalProfileViewProps) {
   const locationLabel = professional.location || "Colombia";
   const formattedRate = formatCurrencyCOP(professional.hourlyRateCop);
-  const hasAvailability = professional.availability.length > 0;
-  const hasReferences = professional.references.length > 0;
   const hasServices = professional.services.length > 0;
 
   return (
-    <div className="bg-[var(--background)] pb-16">
-      <Container className="pt-10">
+    <div className="pb-24">
+      <Container className="max-w-[1680px] pt-12">
         <Link
           href="/professionals"
           className="text-xs font-semibold text-[#5a5549] transition hover:text-[#fd857f]"
@@ -63,9 +69,9 @@ export function ProfessionalProfileView({ professional }: ProfessionalProfileVie
           ← Back to directory
         </Link>
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,_340px)_minmax(0,_1fr)]">
+        <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,_420px)_minmax(0,_1fr)] xl:grid-cols-[minmax(0,_520px)_minmax(0,_1fr)]">
           <aside className="space-y-6">
-            <div className="overflow-hidden rounded-[32px] border border-[#ebe5d8] bg-white shadow-[0_24px_60px_rgba(18,17,15,0.08)]">
+            <div className="overflow-hidden rounded-[36px] border border-[#ebe5d8] bg-white shadow-[0_28px_70px_rgba(18,17,15,0.08)]">
               <div className="relative h-72 w-full">
                 <Image
                   src={professional.photoUrl ?? DEFAULT_PRO_PHOTO}
@@ -124,20 +130,25 @@ export function ProfessionalProfileView({ professional }: ProfessionalProfileVie
               </div>
             </div>
 
-            <div className="rounded-[28px] border border-[#ebe5d8] bg-white shadow-[0_20px_50px_rgba(18,17,15,0.08)]">
-              <div className="space-y-4 p-6">
+            <div className="rounded-[32px] border border-[#ebe5d8] bg-white shadow-[0_24px_60px_rgba(18,17,15,0.08)]">
+              <div className="space-y-5 p-6">
                 <div>
                   <h2 className="text-lg font-semibold text-[#211f1a]">Request a booking</h2>
                   <p className="mt-1 text-sm text-[#7d7566]">
                     Hold funds securely until the visit is complete. You can cancel any time before the appointment.
                   </p>
                 </div>
-                <BookingForm professionalId={professional.id} professionalName={professional.name} />
+                <BookingForm
+                  professionalId={professional.id}
+                  professionalName={professional.name}
+                  services={professional.services}
+                  defaultHourlyRate={professional.hourlyRateCop}
+                />
               </div>
             </div>
           </aside>
 
-          <div className="space-y-8">
+          <div className="space-y-10">
             <section className="rounded-[32px] border border-[#ebe5d8] bg-white p-6 shadow-[0_24px_60px_rgba(18,17,15,0.06)]">
               <h3 className="text-lg font-semibold text-[#211f1a]">About</h3>
               <p className="mt-3 text-sm leading-relaxed text-[#5d574b]">
@@ -176,62 +187,18 @@ export function ProfessionalProfileView({ professional }: ProfessionalProfileVie
               </div>
             </section>
 
-            <section className="rounded-[32px] border border-[#ebe5d8] bg-white p-6 shadow-[0_24px_60px_rgba(18,17,15,0.06)]">
-              <h3 className="text-lg font-semibold text-[#211f1a]">Weekly availability</h3>
-              {hasAvailability ? (
-                <div className="mt-4 overflow-hidden rounded-xl border border-[#f0ece4]">
-                  <table className="min-w-full divide-y divide-[#f0ece4] text-sm text-[#5d574b]">
-                    <thead className="bg-[#fbfafa] text-xs uppercase tracking-wider text-[#7d7566]">
-                      <tr>
-                        <th className="px-4 py-3 text-left">Day</th>
-                        <th className="px-4 py-3 text-left">Start</th>
-                        <th className="px-4 py-3 text-left">End</th>
-                        <th className="px-4 py-3 text-left">Notes</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[#f7f3eb] bg-white">
-                      {professional.availability.map((slot) => (
-                        <tr key={`${slot.day}-${slot.start}-${slot.end}`}>
-                          <td className="px-4 py-3 font-medium text-[#211f1a]">{slot.day}</td>
-                          <td className="px-4 py-3">{slot.start ?? "—"}</td>
-                          <td className="px-4 py-3">{slot.end ?? "—"}</td>
-                          <td className="px-4 py-3 text-[#8a826d]">{slot.notes ?? "—"}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ) : (
-                <p className="mt-3 text-sm text-[#7d7566]">
-                  Availability will be added soon. Request a booking to confirm dates that work for you.
-                </p>
-              )}
-            </section>
+            <ProfessionalPortfolioGallery images={professional.portfolioImages} />
 
-            <section className="rounded-[32px] border border-[#ebe5d8] bg-white p-6 shadow-[0_24px_60px_rgba(18,17,15,0.06)]">
-              <h3 className="text-lg font-semibold text-[#211f1a]">Professional references</h3>
-              {hasReferences ? (
-                <ul className="mt-4 space-y-3 text-sm text-[#5d574b]">
-                  {professional.references.map((reference, index) => (
-                    <li key={`${reference.name ?? "reference"}-${index}`} className="rounded-2xl border border-[#f0ece4] bg-[#fbfafa] p-4">
-                      <p className="font-semibold text-[#211f1a]">
-                        {reference.name ?? "Reference available on request"}
-                      </p>
-                      <p className="mt-1 text-xs uppercase tracking-wide text-[#a49c90]">
-                        {reference.relationship ?? "Relationship not specified"}
-                      </p>
-                      <p className="mt-2 text-sm text-[#7d7566]">
-                        {reference.contact ?? "Contact information shared privately after booking confirmation."}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="mt-3 text-sm text-[#7d7566]">
-                  References are verified during onboarding and will be available to customers after the first booking.
-                </p>
-              )}
-            </section>
+            <ProfessionalAvailabilityCalendar
+              availability={professional.availability}
+              bookings={professional.bookings}
+            />
+
+            <ProfessionalReviewsSection
+              professionalId={professional.id}
+              reviews={professional.reviews}
+              viewer={viewer}
+            />
           </div>
         </div>
       </Container>

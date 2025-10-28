@@ -14,6 +14,8 @@ type CreateBookingRequest = {
   currency?: string;
   specialInstructions?: string;
   address?: Record<string, unknown>;
+  serviceName?: string;
+  serviceHourlyRate?: number;
 };
 
 export async function POST(request: Request) {
@@ -31,16 +33,29 @@ export async function POST(request: Request) {
     const {
       professionalId,
       scheduledStart,
-      scheduledEnd,
       durationMinutes,
-      amount,
       currency = "cop",
       specialInstructions,
       address,
+      serviceName,
+      serviceHourlyRate,
     } = body;
+    let { scheduledEnd, amount } = body;
 
     if (!professionalId) {
       return NextResponse.json({ error: "professionalId is required" }, { status: 400 });
+    }
+
+    if (scheduledStart && durationMinutes && !scheduledEnd) {
+      const startDate = new Date(scheduledStart);
+      if (!Number.isNaN(startDate.getTime())) {
+        const computedEnd = new Date(startDate.getTime() + durationMinutes * 60 * 1000);
+        scheduledEnd = computedEnd.toISOString();
+      }
+    }
+
+    if ((!amount || amount <= 0) && serviceHourlyRate && durationMinutes) {
+      amount = Math.max(20000, Math.round(serviceHourlyRate * (durationMinutes / 60)));
     }
 
     if (!amount || amount <= 0) {
@@ -82,6 +97,8 @@ export async function POST(request: Request) {
         currency,
         special_instructions: specialInstructions ?? null,
         address: address ?? null,
+        service_name: serviceName ?? null,
+        service_hourly_rate: serviceHourlyRate ?? null,
       })
       .select()
       .single();

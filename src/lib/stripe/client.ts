@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import type { NextRequest } from "next/server";
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
-const STRIPE_API_VERSION: Stripe.LatestApiVersion = "2024-06-20";
+const STRIPE_API_VERSION: Stripe.LatestApiVersion = "2025-09-30.clover";
 
 if (!STRIPE_SECRET_KEY) {
   throw new Error("STRIPE_SECRET_KEY is not set. Add it to your environment to enable Stripe integration.");

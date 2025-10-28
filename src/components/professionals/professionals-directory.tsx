@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Filter, MapPin, Search, ShieldCheck, SlidersHorizontal, Star } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 import { Container } from "@/components/ui/container";
 
@@ -59,6 +60,7 @@ type ProfessionalsDirectoryProps = {
 };
 
 export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectoryProps) {
+  const searchParams = useSearchParams();
   const [serviceFilter, setServiceFilter] = useState("all");
   const [cityFilter, setCityFilter] = useState("all");
   const [ratingFilter, setRatingFilter] = useState("all");
@@ -84,6 +86,24 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
     });
     return ["all", ...Array.from(unique)];
   }, [professionals]);
+
+  useEffect(() => {
+    const param = searchParams.get("service");
+    if (!param) return;
+
+    const normalizedParam = param.toLowerCase();
+    const match = serviceOptions.find((option) => {
+      if (option === "all") return false;
+      const normalizedOption = option.toLowerCase();
+      const slugifiedOption = normalizedOption.replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+      return normalizedOption === normalizedParam || slugifiedOption === normalizedParam;
+    });
+
+    if (match) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setServiceFilter(match);
+    }
+  }, [searchParams, serviceOptions]);
 
   const filteredProfessionals = useMemo(() => {
     const term = searchTerm.toLowerCase().trim();

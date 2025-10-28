@@ -4,6 +4,9 @@ import { useActionState, useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
+import { DatePicker } from "@/components/ui/date-picker";
+import { TimePicker } from "@/components/ui/time-picker";
+import type { ProfessionalService } from "@/lib/professionals/transformers";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
@@ -11,6 +14,8 @@ const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
 type BookingFormProps = {
   professionalId: string;
   professionalName: string;
+  services: ProfessionalService[];
+  defaultHourlyRate: number | null;
 };
 
 type FormState = {
@@ -23,14 +28,52 @@ type FormState = {
 
 const initialState: FormState = { status: "idle" };
 
-export function BookingForm({ professionalId, professionalName }: BookingFormProps) {
+function normalizeServiceName(value: string | null | undefined) {
+  if (!value) return "";
+  return value;
+}
+
+function formatCurrencyCOP(value: number | null | undefined) {
+  if (!value || Number.isNaN(value)) return null;
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+export function BookingForm({ professionalId, professionalName, services, defaultHourlyRate }: BookingFormProps) {
   const [state, action, pending] = useActionState<FormState, FormData>(createBookingAction, initialState);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const serviceWithName = services.filter((service) => Boolean(service.name));
+  const initialServiceName = normalizeServiceName(
+    serviceWithName.find((service) => typeof service.hourlyRateCop === "number")?.name ??
+      serviceWithName[0]?.name ??
+      null,
+  );
+  const [selectedServiceName, setSelectedServiceName] = useState<string>(initialServiceName);
+  const [durationHours, setDurationHours] = useState<number>(2);
+
+  const selectedService = serviceWithName.find((service) => normalizeServiceName(service.name) === selectedServiceName);
+  const selectedRate = selectedService?.hourlyRateCop ?? defaultHourlyRate ?? null;
+  const estimatedAmount =
+    selectedRate && durationHours > 0 ? Math.max(20000, Math.round(selectedRate * durationHours)) : 0;
 
   useEffect(() => {
     if (state.status === "success") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [state.status]);
+
+  if (serviceWithName.length === 0) {
+    return (
+      <div className="rounded-2xl border border-[#f0ece4] bg-[#fbfafa] p-5 text-sm text-[#7a6d62]">
+        This professional is updating their services. Check back soon or contact concierge support to request a custom
+        quote.
+      </div>
+    );
+  }
 
   if (!stripePromise) {
     return (
@@ -41,8 +84,7 @@ export function BookingForm({ professionalId, professionalName }: BookingFormPro
   }
 
   return (
-    <div className="space-y-4 rounded-[24px] border border-[#e5dfd4] bg-white p-6 shadow-[0_16px_30px_rgba(18,17,15,0.05)]">
-      <h2 className="text-lg font-semibold text-[#211f1a]">Request a booking</h2>
+    <div className="space-y-4">
       <p className="text-sm text-[#5d574b]">
         Confirm your booking with {professionalName}. We’ll place a temporary hold and only capture after the service is completed.
       </p>
@@ -56,20 +98,43 @@ export function BookingForm({ professionalId, professionalName }: BookingFormPro
       ) : null}
       <form action={action} className="space-y-4">
         <input type="hidden" name="professionalId" value={professionalId} />
+        <input type="hidden" name="serviceHourlyRate" value={selectedRate ?? ""} />
+        <input type="hidden" name="amount" value={estimatedAmount > 0 ? estimatedAmount : ""} />
         <div className="grid gap-4 sm:grid-cols-2">
-          <FormField label="Date" helper="Preferred service date">
-            <input
+          <FormField label="Service">
+            <select
+              name="serviceName"
+              value={selectedServiceName}
+              onChange={(event) => setSelectedServiceName(event.target.value)}
+              className="w-full rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 text-sm font-medium text-[#211f1a] shadow-inner shadow-black/5 transition hover:border-[#fd857f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#fd857f]"
+              required
+            >
+              <option value="" disabled>
+                Select a service
+              </option>
+              {serviceWithName.map((service) => (
+                <option key={service.name ?? "service"} value={service.name ?? ""}>
+                  {service.name ?? "Service"}
+                  {service.hourlyRateCop ? ` · ${formatCurrencyCOP(service.hourlyRateCop)}` : ""}
+                </option>
+              ))}
+            </select>
+          </FormField>
+          <FormField label="Date">
+            <DatePicker
+              value={selectedDate}
+              onChange={setSelectedDate}
+              placeholder="Select date"
               name="scheduledDate"
-              type="date"
-              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#fd857f] focus:outline-none focus:ring-2 focus:ring-[#fd857f33]"
               required
             />
           </FormField>
           <FormField label="Start time">
-            <input
+            <TimePicker
+              value={selectedTime}
+              onChange={setSelectedTime}
+              placeholder="Select time"
               name="scheduledTime"
-              type="time"
-              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#fd857f] focus:outline-none focus:ring-2 focus:ring-[#fd857f33]"
               required
             />
           </FormField>
@@ -79,21 +144,24 @@ export function BookingForm({ professionalId, professionalName }: BookingFormPro
               type="number"
               min={1}
               max={12}
-              defaultValue={2}
+              value={durationHours}
+              onChange={(event) => {
+                const next = Number(event.target.value);
+                setDurationHours(Number.isNaN(next) ? 0 : next);
+              }}
               className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#fd857f] focus:outline-none focus:ring-2 focus:ring-[#fd857f33]"
               required
             />
           </FormField>
-          <FormField label="Estimated total (COP)" helper="You are only charged after completion">
-            <input
-              name="amount"
-              type="number"
-              min={20000}
-              step={1000}
-              defaultValue={80000}
-              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#fd857f] focus:outline-none focus:ring-2 focus:ring-[#fd857f33]"
-              required
-            />
+          <FormField label="Estimated total (COP)">
+            <div className="flex items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 text-sm font-semibold text-[#211f1a] shadow-inner shadow-black/5">
+              <span>{estimatedAmount > 0 ? formatCurrencyCOP(estimatedAmount) : "Add service details"}</span>
+              {selectedRate ? (
+                <span className="text-xs font-medium text-[#7a6d62]">
+                  Rate {formatCurrencyCOP(selectedRate)} · {durationHours}h
+                </span>
+              ) : null}
+            </div>
           </FormField>
         </div>
         <FormField label="Special instructions">
@@ -112,13 +180,23 @@ export function BookingForm({ professionalId, professionalName }: BookingFormPro
             placeholder="Street, city, any access info"
           />
         </FormField>
-        <button
-          type="submit"
-          disabled={pending || state.status === "loading"}
-          className="inline-flex items-center justify-center rounded-md bg-[#fd857f] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
-        >
-          {pending ? "Creating booking…" : "Create booking"}
-        </button>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            disabled={
+              pending ||
+              state.status === "loading" ||
+              !selectedDate ||
+              !selectedTime ||
+              !selectedServiceName ||
+              estimatedAmount <= 0 ||
+              durationHours <= 0
+            }
+            className="inline-flex items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:border-[#fd857f] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {pending ? "Creating booking…" : "Create booking"}
+          </button>
+        </div>
       </form>
 
       {state.status === "success" && state.clientSecret ? (
@@ -148,11 +226,17 @@ async function createBookingAction(_prev: FormState, formData: FormData): Promis
     const scheduledDate = formData.get("scheduledDate") as string | null;
     const scheduledTime = formData.get("scheduledTime") as string | null;
     const professionalId = formData.get("professionalId") as string | null;
+    const serviceName = formData.get("serviceName") as string | null;
+    const serviceHourlyRate = formData.get("serviceHourlyRate") as string | null;
     const duration = formData.get("duration") as string | null;
     const amount = formData.get("amount") as string | null;
 
     if (!professionalId) {
       return { status: "error", message: "Missing professional." };
+    }
+
+    if (!serviceName) {
+      return { status: "error", message: "Please choose a service." };
     }
 
     if (!scheduledDate || !scheduledTime) {
@@ -163,7 +247,20 @@ async function createBookingAction(_prev: FormState, formData: FormData): Promis
       return { status: "error", message: "Please set an estimated amount." };
     }
 
-    const scheduledStart = new Date(`${scheduledDate}T${scheduledTime}:00`).toISOString();
+    const scheduledStartDate = new Date(`${scheduledDate}T${scheduledTime}:00`);
+    if (Number.isNaN(scheduledStartDate.getTime())) {
+      return { status: "error", message: "Invalid date selected." };
+    }
+    const durationNumber = duration ? Number(duration) : null;
+    const amountNumber = Math.round(Number(amount));
+    const scheduledEnd =
+      durationNumber && !Number.isNaN(durationNumber)
+        ? new Date(scheduledStartDate.getTime() + durationNumber * 60 * 60 * 1000).toISOString()
+        : undefined;
+
+    if (!Number.isFinite(amountNumber) || amountNumber <= 0) {
+      return { status: "error", message: "Estimated amount is required for booking." };
+    }
 
     const response = await fetch("/api/bookings", {
       method: "POST",
@@ -172,9 +269,12 @@ async function createBookingAction(_prev: FormState, formData: FormData): Promis
       },
       body: JSON.stringify({
         professionalId,
-        scheduledStart,
-        durationMinutes: duration ? Number(duration) * 60 : undefined,
-        amount: Math.round(Number(amount)),
+        serviceName,
+        serviceHourlyRate: serviceHourlyRate ? Number(serviceHourlyRate) : undefined,
+        scheduledStart: scheduledStartDate.toISOString(),
+        scheduledEnd,
+        durationMinutes: durationNumber ? durationNumber * 60 : undefined,
+        amount: amountNumber,
         specialInstructions: formData.get("specialInstructions") ?? undefined,
         address: formData.get("address") ? { raw: formData.get("address") } : undefined,
       }),

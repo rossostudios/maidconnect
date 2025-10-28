@@ -67,7 +67,7 @@ export async function POST(request: Request) {
       customer: stripeCustomerId,
       metadata: {
         supabase_profile_id: user.id,
-        booking_id: bookingId ?? undefined,
+        ...(bookingId ? { booking_id: bookingId } : {}),
       },
       automatic_payment_methods: {
         enabled: true,
