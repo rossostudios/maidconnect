@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
-import { createSupabaseServerClient } from "@?/lib/supabase/server-client";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -38,6 +38,16 @@ export async function POST(request: Request) {
     const intent = await stripe.paymentIntents.capture(paymentIntentId, {
       amount_to_capture: amountToCapture,
     });
+
+    await supabase
+      .from("bookings")
+      .update({
+        status: "completed",
+        amount_captured: intent.amount_received ?? intent.amount,
+        stripe_payment_status: intent.status,
+      })
+      .eq("stripe_payment_intent_id", paymentIntentId)
+      .eq("customer_id", user.id);
 
     return NextResponse.json({ paymentIntent: intent });
   } catch (error) {

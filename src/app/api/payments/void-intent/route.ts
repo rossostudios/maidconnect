@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
-import { createSupabaseServerClient } from "@?/lib/supabase/server-client";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -33,9 +33,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Payment intent does not belong to this user" }, { status: 403 });
     }
 
-    await stripe.paymentIntents.cancel(paymentIntentId);
+    const canceledIntent = await stripe.paymentIntents.cancel(paymentIntentId);
 
-    return NextResponse.json({ success: true });
+    await supabase
+      .from("bookings")
+      .update({
+        status: "canceled",
+        stripe_payment_status: canceledIntent.status,
+      })
+      .eq("stripe_payment_intent_id", paymentIntentId)
+      .eq("customer_id", user.id);
+
+    return NextResponse.json({ success: true, paymentIntent: canceledIntent });
   } catch (error) {
     console.error("Stripe void-intent error", error);
     return NextResponse.json({ error: "Unable to cancel payment intent" }, { status: 500 });
