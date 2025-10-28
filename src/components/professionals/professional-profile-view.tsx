@@ -14,6 +14,7 @@ import {
   Star,
 } from "lucide-react";
 import { Container } from "@/components/ui/container";
+import { BookingForm } from "@/components/bookings/booking-form";
 import type { Professional, ProfessionalProfile } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -346,6 +347,7 @@ export function ProfessionalProfileView({ professional, profile }: ProfessionalP
               </h2>
               <p className="text-sm text-[#5d574b]">{profile.conciergeNote[language]}</p>
             </section>
+            <BookingForm professionalId={professional.id} professionalName={professional.name} />
           </div>
         </div>
       </Container>
