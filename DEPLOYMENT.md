@@ -111,31 +111,56 @@ By default, Resend sends emails from a shared domain. For production, you should
 
 ---
 
-## Step 5: Verify Cron Job is Running
+## Step 5: Set Up Supabase Cron Job (Hourly Auto-Decline)
 
-Vercel Cron jobs are automatically configured via `vercel.json`. To verify:
+**Important:** Vercel Hobby accounts only support daily cron jobs. We use Supabase's free pg_cron to run hourly checks.
+
+### 5a. Apply the Migration
+
+```bash
+# Push the cron migration to Supabase
+supabase db push
+```
+
+Or via Supabase Dashboard:
+1. Go to https://supabase.com/dashboard → Your Project → SQL Editor
+2. Run the migration from `supabase/migrations/20250102144000_setup_auto_decline_cron.sql`
+
+### 5b. Configure Cron Settings
+
+After deploying to Vercel (Step 2), configure the cron job to call your API:
+
+1. Go to https://supabase.com/dashboard → Your Project → **SQL Editor**
+2. Run this SQL (replace with your actual values):
+
+```sql
+-- Set your Vercel URL
+ALTER DATABASE postgres SET app.api_url = 'https://your-vercel-url.vercel.app';
+
+-- Set your CRON_SECRET (same one you added to Vercel env vars)
+ALTER DATABASE postgres SET app.cron_secret = 'your-generated-cron-secret';
+```
+
+### 5c. Verify It's Working
+
+```sql
+-- Check if cron job is scheduled
+SELECT * FROM cron.job WHERE jobname = 'auto-decline-expired-bookings';
+
+-- Manually test the cron
+SELECT public.trigger_auto_decline_cron();
+```
+
+**For detailed setup and troubleshooting**, see [SUPABASE_CRON_SETUP.md](./SUPABASE_CRON_SETUP.md)
+
+### 5d. Verify Vercel Fallback Cron (Daily)
+
+Vercel also runs a daily cron as a backup/fallback:
 
 1. Go to Vercel Dashboard → Your Project → Settings → Cron Jobs
 2. You should see:
    - **Path:** `/api/cron/auto-decline-bookings`
-   - **Schedule:** `0 * * * *` (runs every hour)
-
-### Test the Cron Job Manually
-
-```bash
-curl -X GET https://YOUR-VERCEL-URL.vercel.app/api/cron/auto-decline-bookings \
-  -H "Authorization: Bearer YOUR_CRON_SECRET"
-```
-
-You should see a response like:
-```json
-{
-  "success": true,
-  "message": "Auto-declined 0 expired booking(s)",
-  "declined": 0,
-  "failed": 0
-}
-```
+   - **Schedule:** `0 0 * * *` (runs once daily at midnight UTC)
 
 ---
 
