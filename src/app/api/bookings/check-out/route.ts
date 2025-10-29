@@ -1,0 +1,239 @@
+import { NextResponse } from "next/server";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { stripe } from "@/lib/stripe";
+import { sendServiceCompletedEmail } from "@/lib/email/send";
+
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
+
+type CheckOutRequest = {
+  bookingId: string;
+  latitude: number;
+  longitude: number;
+  completionNotes?: string;
+};
+
+/**
+ * Professional checks out after completing a service
+ * POST /api/bookings/check-out
+ *
+ * This endpoint:
+ * - Verifies the booking is in "in_progress" status
+ * - Records GPS coordinates at check-out
+ * - Calculates actual service duration
+ * - Captures payment via Stripe
+ * - Updates booking to "completed" status
+ * - Sends completion emails to both parties
+ */
+export async function POST(request: Request) {
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
+  try {
+    const body = (await request.json()) as CheckOutRequest;
+    const { bookingId, latitude, longitude, completionNotes } = body;
+
+    // Validate required fields
+    if (!bookingId) {
+      return NextResponse.json({ error: "bookingId is required" }, { status: 400 });
+    }
+    if (typeof latitude !== "number" || typeof longitude !== "number") {
+      return NextResponse.json({ error: "Valid latitude and longitude are required" }, { status: 400 });
+    }
+
+    // Validate GPS coordinate ranges
+    if (latitude < -90 || latitude > 90) {
+      return NextResponse.json({ error: "Latitude must be between -90 and 90" }, { status: 400 });
+    }
+    if (longitude < -180 || longitude > 180) {
+      return NextResponse.json({ error: "Longitude must be between -180 and 180" }, { status: 400 });
+    }
+
+    // Fetch the booking with all necessary data
+    const { data: booking, error: bookingError } = await supabase
+      .from("bookings")
+      .select(`
+        id,
+        professional_id,
+        customer_id,
+        status,
+        checked_in_at,
+        scheduled_start,
+        duration_minutes,
+        service_name,
+        service_hourly_rate,
+        amount_authorized,
+        time_extension_minutes,
+        time_extension_amount,
+        currency,
+        address,
+        stripe_payment_intent_id
+      `)
+      .eq("id", bookingId)
+      .maybeSingle();
+
+    if (bookingError || !booking) {
+      return NextResponse.json({ error: "Booking not found" }, { status: 404 });
+    }
+
+    // Verify this professional owns this booking
+    if (booking.professional_id !== user.id) {
+      return NextResponse.json(
+        { error: "You are not authorized to check out of this booking" },
+        { status: 403 }
+      );
+    }
+
+    // Can only check out of in_progress bookings
+    if (booking.status !== "in_progress") {
+      return NextResponse.json(
+        { error: `Cannot check out of booking with status: ${booking.status}` },
+        { status: 400 }
+      );
+    }
+
+    // Must have checked in first
+    if (!booking.checked_in_at) {
+      return NextResponse.json(
+        { error: "Cannot check out without checking in first" },
+        { status: 400 }
+      );
+    }
+
+    // Calculate actual duration in minutes
+    const checkedInAt = new Date(booking.checked_in_at);
+    const checkedOutAt = new Date();
+    const actualDurationMinutes = Math.round((checkedOutAt.getTime() - checkedInAt.getTime()) / 1000 / 60);
+
+    // Capture payment via Stripe
+    if (!booking.stripe_payment_intent_id) {
+      return NextResponse.json(
+        { error: "No payment intent found for this booking" },
+        { status: 400 }
+      );
+    }
+
+    let capturedAmount = booking.amount_authorized;
+
+    try {
+      // Check if there was a time extension and calculate new amount
+      const totalMinutes = (booking.duration_minutes || 0) + (booking.time_extension_minutes || 0);
+      const amountToCapture = booking.amount_authorized + (booking.time_extension_amount || 0);
+
+      const paymentIntent = await stripe.paymentIntents.capture(
+        booking.stripe_payment_intent_id,
+        {
+          amount_to_capture: amountToCapture,
+        }
+      );
+
+      capturedAmount = paymentIntent.amount_received || amountToCapture;
+    } catch (stripeError) {
+      console.error("Stripe payment capture failed:", stripeError);
+      return NextResponse.json(
+        { error: "Failed to capture payment. Please try again or contact support." },
+        { status: 500 }
+      );
+    }
+
+    // Update booking to completed with check-out data
+    const { data: updatedBooking, error: updateError } = await supabase
+      .from("bookings")
+      .update({
+        status: "completed",
+        checked_out_at: checkedOutAt.toISOString(),
+        check_out_latitude: latitude,
+        check_out_longitude: longitude,
+        actual_duration_minutes: actualDurationMinutes,
+        completion_notes: completionNotes || null,
+        amount_captured: capturedAmount,
+        stripe_payment_status: "succeeded",
+        updated_at: checkedOutAt.toISOString(),
+      })
+      .eq("id", bookingId)
+      .select()
+      .single();
+
+    if (updateError) {
+      console.error("Failed to update booking after payment capture:", updateError);
+      // Payment was captured but booking update failed - log for manual review
+      return NextResponse.json(
+        { error: "Payment captured but booking update failed. Contact support." },
+        { status: 500 }
+      );
+    }
+
+    // Fetch customer and professional details for emails
+    const { data: customerUser } = await supabase.auth.admin.getUserById(booking.customer_id);
+    const { data: professionalUser } = await supabase.auth.admin.getUserById(booking.professional_id);
+
+    const scheduledDate = booking.scheduled_start
+      ? new Date(booking.scheduled_start).toLocaleDateString()
+      : checkedOutAt.toLocaleDateString();
+    const scheduledTime = booking.scheduled_start
+      ? new Date(booking.scheduled_start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      : checkedInAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const duration = `${actualDurationMinutes} minutes`;
+    const address = booking.address
+      ? typeof booking.address === 'object' && 'formatted' in booking.address
+        ? String(booking.address.formatted)
+        : JSON.stringify(booking.address)
+      : "Not specified";
+    const amount = `${new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: booking.currency || 'COP'
+    }).format(capturedAmount / 100)}`;
+
+    const emailData = {
+      customerName: customerUser.user?.user_metadata?.full_name || 'Customer',
+      professionalName: professionalUser.user?.user_metadata?.full_name || 'Professional',
+      serviceName: booking.service_name || 'Service',
+      scheduledDate,
+      scheduledTime,
+      duration,
+      address,
+      bookingId: booking.id,
+      amount,
+    };
+
+    // Send completion emails to both parties
+    const emailPromises = [];
+
+    if (customerUser.user?.email) {
+      emailPromises.push(
+        sendServiceCompletedEmail(customerUser.user.email, emailData, false)
+      );
+    }
+
+    if (professionalUser.user?.email) {
+      emailPromises.push(
+        sendServiceCompletedEmail(professionalUser.user.email, emailData, true)
+      );
+    }
+
+    // Send emails in parallel (don't await - let them send in background)
+    Promise.all(emailPromises).catch(error => {
+      console.error("Failed to send completion emails:", error);
+    });
+
+    return NextResponse.json({
+      success: true,
+      booking: {
+        id: updatedBooking.id,
+        status: updatedBooking.status,
+        checked_out_at: updatedBooking.checked_out_at,
+        actual_duration_minutes: updatedBooking.actual_duration_minutes,
+        amount_captured: updatedBooking.amount_captured,
+      },
+    });
+  } catch (error) {
+    console.error("Check-out error:", error);
+    return NextResponse.json({ error: "Unable to check out" }, { status: 500 });
+  }
+}

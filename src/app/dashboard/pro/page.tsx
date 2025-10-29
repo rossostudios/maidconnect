@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ProBookingList } from "@/components/bookings/pro-booking-list";
 import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar";
 import { ProFinancialSummary } from "@/components/bookings/pro-financial-summary";
+import { PendingRatingsList } from "@/components/reviews/pending-ratings-list";
+import { PayoutDashboard } from "@/components/payouts/payout-dashboard";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { requireUser } from "@/lib/auth";
 import { REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "@/app/dashboard/pro/onboarding/state";
@@ -123,6 +125,11 @@ type ProfessionalBookingRow = {
   currency: string | null;
   created_at: string | null;
   service_name: string | null;
+  service_hourly_rate: number | null;
+  checked_in_at: string | null;
+  checked_out_at: string | null;
+  time_extension_minutes: number | null;
+  address: Record<string, any> | null;
   customer: { id: string } | null;
 };
 
@@ -134,6 +141,7 @@ export default async function ProfessionalDashboardPage() {
     { data: profileData, error: profileError },
     { data: documentsData, error: documentsError },
     { data: bookingsData, error: bookingsError },
+    { data: customerReviewsData, error: customerReviewsError },
   ] = await Promise.all([
     supabase
       .from("professional_profiles")
@@ -150,11 +158,15 @@ export default async function ProfessionalDashboardPage() {
     supabase
       .from("bookings")
       .select(
-        `id, status, scheduled_start, scheduled_end, duration_minutes, amount_estimated, amount_authorized, amount_captured, currency, stripe_payment_intent_id, stripe_payment_status, created_at, service_name,
+        `id, status, scheduled_start, scheduled_end, duration_minutes, amount_estimated, amount_authorized, amount_captured, currency, stripe_payment_intent_id, stripe_payment_status, created_at, service_name, service_hourly_rate, checked_in_at, checked_out_at, time_extension_minutes, address,
         customer:profiles!customer_id(id)`,
       )
       .eq("professional_id", user.id)
       .order("created_at", { ascending: false }),
+    supabase
+      .from("customer_reviews")
+      .select("booking_id")
+      .eq("professional_id", user.id),
   ]);
 
   if (profileError) {
@@ -166,10 +178,29 @@ export default async function ProfessionalDashboardPage() {
   if (bookingsError) {
     console.error("Failed to load professional bookings", bookingsError);
   }
+  if (customerReviewsError) {
+    console.error("Failed to load customer reviews", customerReviewsError);
+  }
 
   const professionalProfile = (profileData as ProfessionalProfile | null) ?? null;
   let documents = (documentsData as DocumentRow[] | null) ?? [];
   const bookings = (bookingsData as ProfessionalBookingRow[] | null) ?? [];
+  const customerReviews = (customerReviewsData as { booking_id: string }[] | null) ?? [];
+
+  // Create a Set of booking IDs that have been reviewed
+  const reviewedBookingIds = new Set(customerReviews.map((r) => r.booking_id));
+
+  // Filter completed bookings and mark which have reviews
+  const completedBookings = bookings
+    .filter((b) => b.status === "completed")
+    .map((b) => ({
+      id: b.id,
+      service_name: b.service_name,
+      scheduled_start: b.scheduled_start,
+      customer: b.customer,
+      hasReview: reviewedBookingIds.has(b.id),
+    }))
+    .slice(0, 5); // Show max 5 recent completed bookings
 
   if (documents.length > 0) {
     const signedUrlResults = await Promise.all(
@@ -302,6 +333,11 @@ export default async function ProfessionalDashboardPage() {
         </section>
       )}
 
+      {/* Pending Customer Ratings */}
+      {onboardingStatus === "active" && completedBookings.length > 0 ? (
+        <PendingRatingsList completedBookings={completedBookings} />
+      ) : null}
+
       {onboardingStatus === "active" ? (
         <section className="grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(0,_1fr)]" id="bookings">
           <ProBookingCalendar
@@ -330,6 +366,15 @@ export default async function ProfessionalDashboardPage() {
               }))}
             />
           </section>
+        </section>
+      ) : null}
+
+      {/* Payout Dashboard - Only show for active professionals with Stripe Connect */}
+      {onboardingStatus === "active" &&
+      professionalProfile?.stripe_connect_onboarding_status === "complete" ? (
+        <section className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
+          <h3 className="mb-4 text-lg font-semibold text-[#211f1a]">Earnings & Payouts</h3>
+          <PayoutDashboard />
         </section>
       ) : null}
 

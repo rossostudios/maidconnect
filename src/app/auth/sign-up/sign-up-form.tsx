@@ -3,7 +3,8 @@
 import { useActionState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { signUpAction, defaultSignUpState, type SignUpActionState } from "./actions";
+import { signUpAction } from "./actions";
+import { defaultSignUpState, type SignUpActionState } from "./types";
 
 const inputClass =
   "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[#211f1a] shadow-sm transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a1a]";

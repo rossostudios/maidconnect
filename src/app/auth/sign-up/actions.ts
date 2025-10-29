@@ -4,14 +4,7 @@ import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { AUTH_ROUTES, getDashboardRouteForRole } from "@/lib/auth";
 import type { AppRole } from "@/lib/auth";
-
-export type SignUpActionState = {
-  status: "idle" | "error" | "success";
-  error?: string;
-  fieldErrors?: Record<string, string>;
-};
-
-export const defaultSignUpState: SignUpActionState = { status: "idle" };
+import type { SignUpActionState } from "./types";
 
 const VALID_ROLES: AppRole[] = ["customer", "professional"];
 

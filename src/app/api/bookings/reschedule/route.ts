@@ -1,0 +1,153 @@
+import { NextResponse } from "next/server";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
+
+type RescheduleBookingRequest = {
+  bookingId: string;
+  newScheduledStart: string; // ISO 8601 datetime
+  newDurationMinutes?: number;
+};
+
+/**
+ * Customer reschedules a booking
+ * POST /api/bookings/reschedule
+ *
+ * This endpoint:
+ * - Verifies the customer owns the booking
+ * - Validates new datetime is in the future
+ * - Updates booking schedule
+ * - Resets booking to "authorized" status (professional must re-confirm)
+ * - TODO: Send notification to professional about reschedule
+ *
+ * Note: Rescheduling resets the booking to "authorized" status,
+ * requiring the professional to accept the new time.
+ */
+export async function POST(request: Request) {
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
+  try {
+    const body = (await request.json()) as RescheduleBookingRequest;
+    const { bookingId, newScheduledStart, newDurationMinutes } = body;
+
+    if (!bookingId) {
+      return NextResponse.json({ error: "bookingId is required" }, { status: 400 });
+    }
+
+    if (!newScheduledStart) {
+      return NextResponse.json(
+        { error: "newScheduledStart is required" },
+        { status: 400 }
+      );
+    }
+
+    // Validate new datetime is in the future
+    const newStartTime = new Date(newScheduledStart);
+    const now = new Date();
+
+    if (isNaN(newStartTime.getTime())) {
+      return NextResponse.json(
+        { error: "Invalid datetime format for newScheduledStart" },
+        { status: 400 }
+      );
+    }
+
+    if (newStartTime <= now) {
+      return NextResponse.json(
+        { error: "New scheduled time must be in the future" },
+        { status: 400 }
+      );
+    }
+
+    // Fetch the booking
+    const { data: booking, error: bookingError } = await supabase
+      .from("bookings")
+      .select(`
+        id,
+        customer_id,
+        professional_id,
+        status,
+        scheduled_start,
+        duration_minutes,
+        service_name
+      `)
+      .eq("id", bookingId)
+      .maybeSingle();
+
+    if (bookingError || !booking) {
+      return NextResponse.json({ error: "Booking not found" }, { status: 404 });
+    }
+
+    // Verify this customer owns this booking
+    if (booking.customer_id !== user.id) {
+      return NextResponse.json(
+        { error: "You are not authorized to reschedule this booking" },
+        { status: 403 }
+      );
+    }
+
+    // Check if booking can be rescheduled
+    const validStatuses = ["authorized", "confirmed"];
+    if (!validStatuses.includes(booking.status)) {
+      return NextResponse.json(
+        {
+          error: `Cannot reschedule booking with status: ${booking.status}. Only authorized or confirmed bookings can be rescheduled.`,
+        },
+        { status: 400 }
+      );
+    }
+
+    // Calculate new end time
+    const durationToUse = newDurationMinutes || booking.duration_minutes || 60;
+    const newEndTime = new Date(newStartTime.getTime() + durationToUse * 60 * 1000);
+
+    // Update booking with new schedule
+    // Reset status to "authorized" to require professional re-confirmation
+    const { data: updatedBooking, error: updateError } = await supabase
+      .from("bookings")
+      .update({
+        scheduled_start: newStartTime.toISOString(),
+        scheduled_end: newEndTime.toISOString(),
+        duration_minutes: durationToUse,
+        status: "authorized", // Reset to require professional confirmation
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", bookingId)
+      .select()
+      .single();
+
+    if (updateError) {
+      console.error("Failed to reschedule booking:", updateError);
+      return NextResponse.json(
+        { error: "Failed to reschedule booking" },
+        { status: 500 }
+      );
+    }
+
+    // TODO: Send email notification to professional about reschedule request
+    // For now, the professional will see the updated booking in their dashboard
+
+    return NextResponse.json({
+      success: true,
+      booking: {
+        id: updatedBooking.id,
+        status: updatedBooking.status,
+        scheduled_start: updatedBooking.scheduled_start,
+        scheduled_end: updatedBooking.scheduled_end,
+        duration_minutes: updatedBooking.duration_minutes,
+      },
+      message: "Booking rescheduled successfully. The professional will need to confirm the new time.",
+    });
+  } catch (error) {
+    console.error("Reschedule booking error:", error);
+    return NextResponse.json({ error: "Unable to reschedule booking" }, { status: 500 });
+  }
+}

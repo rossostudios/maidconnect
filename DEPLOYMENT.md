@@ -134,11 +134,13 @@ After deploying to Vercel (Step 2), configure the cron job to call your API:
 2. Run this SQL (replace with your actual values):
 
 ```sql
--- Set your Vercel URL
-ALTER DATABASE postgres SET app.api_url = 'https://your-vercel-url.vercel.app';
-
--- Set your CRON_SECRET (same one you added to Vercel env vars)
-ALTER DATABASE postgres SET app.cron_secret = 'your-generated-cron-secret';
+-- Set your Vercel URL and CRON_SECRET
+UPDATE public.cron_config
+SET
+  api_url = 'https://your-vercel-url.vercel.app',
+  cron_secret = 'your-generated-cron-secret',
+  updated_at = now()
+WHERE id = 1;
 ```
 
 ### 5c. Verify It's Working

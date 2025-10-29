@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ServiceExecutionCard, type BookingForExecution } from "./service-execution-card";
 
 export type ProfessionalBooking = {
   id: string;
@@ -12,6 +13,13 @@ export type ProfessionalBooking = {
   stripe_payment_status: string | null;
   service_name?: string | null;
   customer?: { id: string } | null;
+  checked_in_at?: string | null;
+  checked_out_at?: string | null;
+  duration_minutes?: number | null;
+  time_extension_minutes?: number | null;
+  service_hourly_rate?: number | null;
+  address?: Record<string, any> | null;
+  currency?: string | null;
 };
 
 type Props = {
@@ -97,14 +105,46 @@ export function ProBookingList({ bookings }: Props) {
     return <p className="text-sm text-[#7a6d62]">No bookings yet. Once customers authorize a booking, it will appear here.</p>;
   }
 
+  // Separate active service bookings from others
+  const activeServiceBookings = bookings.filter(
+    (b) => b.status === "confirmed" || b.status === "in_progress"
+  );
+  const otherBookings = bookings.filter(
+    (b) => b.status !== "confirmed" && b.status !== "in_progress"
+  );
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {message ? (
         <p className={`text-sm ${message.includes('successfully') ? 'text-green-600' : 'text-red-600'}`}>
           {message}
         </p>
       ) : null}
-      <div className="overflow-hidden rounded-2xl border border-[#ebe5d8]">
+
+      {/* Active Service Bookings - Use ServiceExecutionCard */}
+      {activeServiceBookings.length > 0 && (
+        <div>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-[#7a6d62]">
+            Active Services
+          </h3>
+          <div className="space-y-4">
+            {activeServiceBookings.map((booking) => (
+              <ServiceExecutionCard
+                key={booking.id}
+                booking={booking as BookingForExecution}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Other Bookings - Use table view */}
+      {otherBookings.length > 0 && (
+        <div>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-[#7a6d62]">
+            {activeServiceBookings.length > 0 ? "Other Bookings" : "All Bookings"}
+          </h3>
+          <div className="overflow-hidden rounded-2xl border border-[#ebe5d8]">
         <table className="min-w-full divide-y divide-[#ebe5d8] text-sm">
           <thead className="bg-[#fbfafa] text-xs uppercase tracking-wide text-[#7a6d62]">
             <tr>
@@ -117,7 +157,7 @@ export function ProBookingList({ bookings }: Props) {
             </tr>
           </thead>
           <tbody className="divide-y divide-[#f0e8dc] bg-white">
-            {bookings.map((booking) => {
+            {otherBookings.map((booking) => {
               const scheduled = booking.scheduled_start
                 ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
                     dateStyle: "medium",
@@ -204,7 +244,9 @@ export function ProBookingList({ bookings }: Props) {
             })}
           </tbody>
         </table>
-      </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,5 +1,9 @@
 "use client";
 
+import { useState } from "react";
+import { CancelBookingModal } from "./cancel-booking-modal";
+import { RescheduleBookingModal } from "./reschedule-booking-modal";
+
 export type CustomerBooking = {
   id: string;
   status: string;
@@ -74,6 +78,9 @@ export function CustomerBookingList({ bookings }: Props) {
 }
 
 function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpcoming: boolean }) {
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [showRescheduleModal, setShowRescheduleModal] = useState(false);
+
   const scheduled = booking.scheduled_start
     ? new Date(booking.scheduled_start).toLocaleString("en-US", {
         dateStyle: "medium",
@@ -130,16 +137,18 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
         </div>
 
         <div className="flex flex-col gap-2">
-          {booking.status === "confirmed" && isUpcoming && (
+          {(booking.status === "confirmed" || booking.status === "authorized") && isUpcoming && (
             <>
               <button
                 type="button"
+                onClick={() => setShowRescheduleModal(true)}
                 className="inline-flex items-center justify-center rounded-md border border-[#f0e1dc] px-3 py-1.5 text-xs font-semibold text-[#7a6d62] transition hover:border-[#fd857f] hover:text-[#fd857f]"
               >
                 Reschedule
               </button>
               <button
                 type="button"
+                onClick={() => setShowCancelModal(true)}
                 className="inline-flex items-center justify-center rounded-md border border-red-300 px-3 py-1.5 text-xs font-semibold text-red-700 transition hover:bg-red-50"
               >
                 Cancel
@@ -164,6 +173,20 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
           )}
         </div>
       </div>
+
+      {/* Cancel Modal */}
+      <CancelBookingModal
+        isOpen={showCancelModal}
+        onClose={() => setShowCancelModal(false)}
+        booking={booking}
+      />
+
+      {/* Reschedule Modal */}
+      <RescheduleBookingModal
+        isOpen={showRescheduleModal}
+        onClose={() => setShowRescheduleModal(false)}
+        booking={booking}
+      />
     </div>
   );
 }

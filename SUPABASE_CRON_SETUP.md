@@ -36,7 +36,7 @@ Or if you prefer the Supabase dashboard:
 
 After deploying to Vercel and getting your URL, you need to tell Supabase where to send the cron requests.
 
-### Option A: Using Supabase Dashboard SQL Editor (Easiest)
+### Using Supabase Dashboard SQL Editor
 
 1. Go to https://supabase.com/dashboard
 2. Select your project
@@ -46,21 +46,27 @@ After deploying to Vercel and getting your URL, you need to tell Supabase where 
 
 ```sql
 -- Replace these with your actual values
-ALTER DATABASE postgres SET app.api_url = 'https://your-vercel-url.vercel.app';
-ALTER DATABASE postgres SET app.cron_secret = 'your-generated-cron-secret';
+UPDATE public.cron_config
+SET
+  api_url = 'https://your-vercel-url.vercel.app',
+  cron_secret = 'your-generated-cron-secret',
+  updated_at = now()
+WHERE id = 1;
 ```
 
 **Important:**
 - Replace `https://your-vercel-url.vercel.app` with your actual Vercel deployment URL
 - Replace `your-generated-cron-secret` with the secret you generated using `openssl rand -base64 32`
+- **Don't forget the `https://` prefix!**
 
-### Option B: Using Supabase CLI
-
-```bash
-# Connect to your database
-supabase db remote connect
-
-# Then run the ALTER DATABASE commands from Option A
+**Example with real values:**
+```sql
+UPDATE public.cron_config
+SET
+  api_url = 'https://maidconnect.vercel.app',
+  cron_secret = 'g1/5bCvoPA3ZUHMIUT9cxANFBn2ZRHfmVKyB7cVPClE=',
+  updated_at = now()
+WHERE id = 1;
 ```
 
 ---
@@ -164,11 +170,12 @@ LIMIT 5;
 
 **Verify your settings:**
 ```sql
-SHOW app.api_url;
-SHOW app.cron_secret;
+SELECT api_url, cron_secret, updated_at
+FROM public.cron_config
+WHERE id = 1;
 ```
 
-If they show empty, rerun the `ALTER DATABASE` commands from Step 2.
+If they show empty/null, rerun the `UPDATE` command from Step 2.
 
 ### HTTP requests failing?
 
@@ -194,11 +201,18 @@ Common issues:
 If you need to change your API URL or CRON_SECRET later:
 
 ```sql
--- Update API URL
-ALTER DATABASE postgres SET app.api_url = 'https://new-url.vercel.app';
+-- Update both values
+UPDATE public.cron_config
+SET
+  api_url = 'https://new-url.vercel.app',
+  cron_secret = 'new-secret-here',
+  updated_at = now()
+WHERE id = 1;
 
--- Update CRON_SECRET
-ALTER DATABASE postgres SET app.cron_secret = 'new-secret-here';
+-- Or update just one value
+UPDATE public.cron_config
+SET api_url = 'https://new-url.vercel.app', updated_at = now()
+WHERE id = 1;
 ```
 
 ---
