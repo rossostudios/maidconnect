@@ -3,6 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { requireUser } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
 import { PaymentAuthorizationCard } from "@/components/payments/payment-authorization-card";
+import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
 
 const QUICK_LINKS = [
   {
@@ -74,7 +75,7 @@ export default async function CustomerDashboardPage() {
   const user = await requireUser({ allowedRoles: ["customer"] });
   const supabase = await createSupabaseServerClient();
 
-  const [{ data: profileData }, { data: customerData }] = await Promise.all([
+  const [{ data: profileData }, { data: customerData }, { data: bookingsData }] = await Promise.all([
     supabase
       .from("profiles")
       .select("phone, city, country, full_name, stripe_customer_id")
@@ -85,6 +86,22 @@ export default async function CustomerDashboardPage() {
       .select("verification_tier, property_preferences")
       .eq("profile_id", user.id)
       .maybeSingle(),
+    supabase
+      .from("bookings")
+      .select(`
+        id,
+        status,
+        scheduled_start,
+        duration_minutes,
+        service_name,
+        amount_authorized,
+        amount_captured,
+        currency,
+        created_at,
+        professional:professional_profiles!professional_id(full_name, profile_id)
+      `)
+      .eq("customer_id", user.id)
+      .order("created_at", { ascending: false }),
   ]);
 
   const profile = (profileData as {
@@ -113,7 +130,20 @@ export default async function CustomerDashboardPage() {
       console.error("Failed to load Stripe payment methods", error);
     }
   }
-  const hasCompletedBooking = false; // placeholder until bookings integration
+  const bookings = (bookingsData as Array<{
+    id: string;
+    status: string;
+    scheduled_start: string | null;
+    duration_minutes: number | null;
+    service_name: string | null;
+    amount_authorized: number | null;
+    amount_captured: number | null;
+    currency: string | null;
+    created_at: string;
+    professional: { full_name: string | null; profile_id: string } | null;
+  }> | null) ?? [];
+
+  const hasCompletedBooking = bookings.some(b => b.status === "completed");
 
   const completedTasks = {
     profile: hasProfileDetails,
@@ -251,6 +281,16 @@ export default async function CustomerDashboardPage() {
           <Link href="/support/account-suspended" className="mt-4 inline-flex items-center text-sm font-semibold text-[#fd857f] hover:text-[#eb6c65]">
             Browse help center →
           </Link>
+        </div>
+      </section>
+
+      <section className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-[#211f1a]">My Bookings</h2>
+        <p className="mt-1 text-sm text-[#7a6d62]">
+          View and manage your upcoming and past service appointments.
+        </p>
+        <div className="mt-6">
+          <CustomerBookingList bookings={bookings} />
         </div>
       </section>
 

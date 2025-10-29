@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/auto-decline-bookings",
+      "schedule": "0 * * * *"
+    }
+  ]
+}

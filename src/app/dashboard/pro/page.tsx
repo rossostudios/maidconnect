@@ -122,6 +122,8 @@ type ProfessionalBookingRow = {
   stripe_payment_status: string | null;
   currency: string | null;
   created_at: string | null;
+  service_name: string | null;
+  customer: { id: string } | null;
 };
 
 export default async function ProfessionalDashboardPage() {
@@ -148,7 +150,8 @@ export default async function ProfessionalDashboardPage() {
     supabase
       .from("bookings")
       .select(
-        "id, status, scheduled_start, scheduled_end, duration_minutes, amount_estimated, amount_authorized, amount_captured, currency, stripe_payment_intent_id, stripe_payment_status, created_at",
+        `id, status, scheduled_start, scheduled_end, duration_minutes, amount_estimated, amount_authorized, amount_captured, currency, stripe_payment_intent_id, stripe_payment_status, created_at, service_name,
+        customer:profiles!customer_id(id)`,
       )
       .eq("professional_id", user.id)
       .order("created_at", { ascending: false }),
