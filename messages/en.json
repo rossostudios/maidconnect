@@ -832,5 +832,64 @@
       "flexibleServices": "Flexible services",
       "rateOnRequest": "Rate on request"
     }
+  },
+  "pages": {
+    "contact": {
+      "meta": {
+        "title": "Contact Us | MaidConnect",
+        "description": "Get in touch with our support team, learn about becoming a professional, or reach out for partnership opportunities."
+      },
+      "hero": {
+        "badge": "CONTACT",
+        "title": "How can we help?",
+        "description": "Whether you're looking to hire trusted professionals, interested in joining our network, or just have a question, our team is here to help."
+      },
+      "cards": {
+        "support": {
+          "title": "Support",
+          "description": "Fill out our form or email us at support@maidconnect.co with your question.",
+          "buttonText": "Submit an inquiry"
+        },
+        "customers": {
+          "title": "For customers",
+          "description": "Browse our verified professionals and book trusted help for your home.",
+          "buttonText": "Find a professional"
+        },
+        "professionals": {
+          "title": "For professionals",
+          "description": "Join our network and connect with families looking for reliable help.",
+          "buttonText": "Apply to join"
+        }
+      },
+      "faq": {
+        "title": "Frequently asked questions",
+        "questions": {
+          "verification": {
+            "question": "How does MaidConnect verify professionals?",
+            "answer": "All professionals undergo a comprehensive screening process including background checks, reference verification, and skills assessment. We verify identity documents, work history, and conduct in-person interviews to ensure quality and safety."
+          },
+          "payments": {
+            "question": "How do payments work?",
+            "answer": "When you book a service, we authorize a hold on your payment method. Funds are only captured after the service is completed. Professionals receive payment within 2-3 business days after service completion. All payments are processed securely through Stripe."
+          },
+          "cancellation": {
+            "question": "What happens if I need to cancel?",
+            "answer": "You can cancel any booking before the scheduled start time through your dashboard. Cancellations made 24+ hours in advance receive a full refund. Cancellations within 24 hours may incur a cancellation fee to compensate the professional for their reserved time."
+          },
+          "recurring": {
+            "question": "Can I book recurring services?",
+            "answer": "Yes! During the booking process, you can set up recurring appointments on a weekly, biweekly, or monthly basis. This ensures you have consistent help and builds a long-term relationship with your preferred professional."
+          },
+          "areas": {
+            "question": "What areas do you serve?",
+            "answer": "We currently operate across 6 major cities in Colombia including Bogotá, Medellín, Cali, Barranquilla, Cartagena, and Bucaramanga. We're actively expanding to new areas based on demand."
+          },
+          "becomePro": {
+            "question": "How do I become a professional on MaidConnect?",
+            "answer": "Click 'Apply to join' and complete our application form. We'll review your information, conduct a background check, and schedule an interview. Once approved, you'll complete onboarding and can start accepting bookings. The entire process typically takes 5-7 business days."
+          }
+        }
+      }
+    }
   }
 }
