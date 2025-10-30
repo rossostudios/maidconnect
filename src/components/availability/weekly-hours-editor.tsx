@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Clock, Copy } from "lucide-react";
 
 type DaySchedule = {
@@ -34,8 +34,15 @@ const DEFAULT_SCHEDULE: DaySchedule[] = DAYS_OF_WEEK.map((day) => ({
 
 export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
   const [schedule, setSchedule] = useState<DaySchedule[]>(
-    initialSchedule || DEFAULT_SCHEDULE
+    initialSchedule && initialSchedule.length > 0 ? initialSchedule : DEFAULT_SCHEDULE
   );
+
+  // Notify parent of initial schedule on mount
+  useEffect(() => {
+    if (onChange) {
+      onChange(schedule);
+    }
+  }, []);
 
   const handleChange = (newSchedule: DaySchedule[]) => {
     setSchedule(newSchedule);
