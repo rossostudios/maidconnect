@@ -60,6 +60,12 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getSession();
 
   const pathname = request.nextUrl.pathname;
+
+  // Redirect root path to default locale
+  if (pathname === "/") {
+    return NextResponse.redirect(new URL("/en", request.url));
+  }
+
   const matchedRule = PROTECTED_ROUTES.find((rule) => rule.pattern.test(pathname));
 
   if (!matchedRule) {
