@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export type NotificationPermission = "default" | "granted" | "denied";
 
@@ -22,9 +22,7 @@ export function usePushNotifications() {
   // Check if push notifications are supported
   useEffect(() => {
     const supported =
-      "serviceWorker" in navigator &&
-      "PushManager" in window &&
-      "Notification" in window;
+      "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
     setIsSupported(supported);
 
     if (supported && typeof Notification !== "undefined") {

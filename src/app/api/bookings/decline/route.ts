@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { stripe } from "@/lib/stripe";
 import { sendBookingDeclinedEmail } from "@/lib/email/send";
 import { notifyCustomerBookingDeclined } from "@/lib/notifications";
+import { stripe } from "@/lib/stripe";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -57,7 +57,10 @@ export async function POST(request: Request) {
 
     // Verify this professional owns this booking
     if (booking.professional_id !== user.id) {
-      return NextResponse.json({ error: "You are not authorized to decline this booking" }, { status: 403 });
+      return NextResponse.json(
+        { error: "You are not authorized to decline this booking" },
+        { status: 403 }
+      );
     }
 
     // Can only decline authorized or pending_payment bookings
@@ -109,13 +112,14 @@ export async function POST(request: Request) {
         ? new Date(booking.scheduled_start).toLocaleDateString()
         : "TBD";
       const scheduledTime = booking.scheduled_start
-        ? new Date(booking.scheduled_start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        ? new Date(booking.scheduled_start).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          })
         : "TBD";
-      const duration = booking.duration_minutes
-        ? `${booking.duration_minutes} minutes`
-        : "TBD";
+      const duration = booking.duration_minutes ? `${booking.duration_minutes} minutes` : "TBD";
       const address = booking.address
-        ? typeof booking.address === 'object' && 'formatted' in booking.address
+        ? typeof booking.address === "object" && "formatted" in booking.address
           ? String(booking.address.formatted)
           : JSON.stringify(booking.address)
         : "Not specified";
@@ -124,9 +128,9 @@ export async function POST(request: Request) {
       await sendBookingDeclinedEmail(
         customerUser.user.email,
         {
-          customerName: customerUser.user.user_metadata?.full_name || 'there',
-          professionalName: professionalProfile?.full_name || 'The professional',
-          serviceName: booking.service_name || 'Service',
+          customerName: customerUser.user.user_metadata?.full_name || "there",
+          professionalName: professionalProfile?.full_name || "The professional",
+          serviceName: booking.service_name || "Service",
           scheduledDate,
           scheduledTime,
           duration,
@@ -139,14 +143,14 @@ export async function POST(request: Request) {
       // Send push notification to customer
       await notifyCustomerBookingDeclined(booking.customer_id, {
         id: booking.id,
-        serviceName: booking.service_name || 'Service',
-        professionalName: professionalProfile?.full_name || 'The professional',
+        serviceName: booking.service_name || "Service",
+        professionalName: professionalProfile?.full_name || "The professional",
       });
     }
 
     return NextResponse.json({
       success: true,
-      booking: { id: booking.id, status: "declined" }
+      booking: { id: booking.id, status: "declined" },
     });
   } catch (error) {
     console.error("Decline booking error:", error);

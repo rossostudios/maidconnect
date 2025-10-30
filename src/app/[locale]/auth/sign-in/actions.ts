@@ -1,9 +1,9 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { AUTH_ROUTES, getDashboardRouteForRole } from "@/lib/auth";
 import type { AppRole } from "@/lib/auth";
+import { AUTH_ROUTES, getDashboardRouteForRole } from "@/lib/auth";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export type SignInActionState = {
   error?: string;
@@ -18,8 +18,13 @@ function sanitizeRedirectPath(path: string | null): string | null {
   return path;
 }
 
-export async function signInAction(_prevState: SignInActionState, formData: FormData): Promise<SignInActionState> {
-  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+export async function signInAction(
+  _prevState: SignInActionState,
+  formData: FormData
+): Promise<SignInActionState> {
+  const email = String(formData.get("email") ?? "")
+    .trim()
+    .toLowerCase();
   const password = String(formData.get("password") ?? "");
   const redirectHint = sanitizeRedirectPath(formData.get("redirectTo") as string | null);
 

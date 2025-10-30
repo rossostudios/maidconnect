@@ -1,5 +1,5 @@
-import { Link } from '@/i18n/routing';
 import { ArrowRight } from "lucide-react";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "card";
@@ -22,17 +22,10 @@ const variantClasses: Record<ButtonVariant, string> = {
     "border-[#ff5d46] bg-transparent px-6 py-[0.85rem] text-sm text-[#ff5d46] hover:border-[#211f1a] hover:text-[#211f1a] focus-visible:outline-[#ff5d46]",
   ghost:
     "border-transparent px-4 py-2 text-sm text-[#2b2624] hover:text-[#d7b59f] focus-visible:outline-[#d7b59f]",
-  card:
-    "w-full justify-between gap-3 border border-transparent bg-[#211f1a] px-6 py-3 text-sm text-white shadow-[0_12px_36px_rgba(17,16,14,0.22)] hover:bg-[#2b2624] focus-visible:outline-[#ff5d46]",
+  card: "w-full justify-between gap-3 border border-transparent bg-[#211f1a] px-6 py-3 text-sm text-white shadow-[0_12px_36px_rgba(17,16,14,0.22)] hover:bg-[#2b2624] focus-visible:outline-[#ff5d46]",
 };
 
-export function Button({
-  href,
-  label,
-  variant = "primary",
-  icon = false,
-  className,
-}: ButtonProps) {
+export function Button({ href, label, variant = "primary", icon = false, className }: ButtonProps) {
   return (
     <Link
       href={href}

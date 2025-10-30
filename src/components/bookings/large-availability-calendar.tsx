@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
 
 type DayAvailability = {
   date: string; // YYYY-MM-DD
@@ -179,21 +179,21 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
           <div className="rounded-[32px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
             <div className="grid grid-cols-7 gap-4">
               {/* Day Headers */}
-              {["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].map((day) => (
-                <div
-                  key={day}
-                  className="pb-4 text-center text-base font-semibold text-[#7d7566]"
-                >
-                  {day}
-                </div>
-              ))}
+              {["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].map(
+                (day) => (
+                  <div
+                    key={day}
+                    className="pb-4 text-center text-base font-semibold text-[#7d7566]"
+                  >
+                    {day}
+                  </div>
+                )
+              )}
 
               {/* Calendar Days */}
               {calendarDays.map((day, index) => {
                 if (!day) {
-                  return (
-                    <div key={`empty-${index}`} className="min-h-[120px] rounded-2xl" />
-                  );
+                  return <div key={`empty-${index}`} className="min-h-[120px] rounded-2xl" />;
                 }
 
                 const availability = getDateAvailability(day);
@@ -228,7 +228,11 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
                     ? statusColors[availability.status]
                     : "bg-white border-[#ebe5d8]";
 
-                const canSelect = !isPast && availability && availability.status !== "blocked" && availability.availableSlots.length > 0;
+                const canSelect =
+                  !isPast &&
+                  availability &&
+                  availability.status !== "blocked" &&
+                  availability.availableSlots.length > 0;
 
                 return (
                   <button
@@ -254,7 +258,9 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
                         {day.getDate()}
                       </span>
                       {availability && !isPast && (
-                        <span className={`text-xs font-semibold uppercase tracking-wider ${statusTextColors[availability.status]}`}>
+                        <span
+                          className={`text-xs font-semibold uppercase tracking-wider ${statusTextColors[availability.status]}`}
+                        >
                           {statusText[availability.status]}
                         </span>
                       )}
@@ -262,7 +268,8 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
                     {availability && !isPast && availability.availableSlots.length > 0 && (
                       <div className="mt-auto">
                         <p className="text-sm text-[#7d7566]">
-                          {availability.availableSlots.length} {availability.availableSlots.length === 1 ? "slot" : "slots"} available
+                          {availability.availableSlots.length}{" "}
+                          {availability.availableSlots.length === 1 ? "slot" : "slots"} available
                         </p>
                       </div>
                     )}
@@ -301,9 +308,7 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
                   <div className="h-6 w-6 rounded-lg border-2 border-red-200 bg-red-50 shadow-sm"></div>
                   <span className="text-base font-semibold text-red-800">Booked</span>
                 </div>
-                <p className="text-sm leading-relaxed text-red-700">
-                  No availability for this day
-                </p>
+                <p className="text-sm leading-relaxed text-red-700">No availability for this day</p>
               </div>
 
               <div className="group flex flex-col gap-3 rounded-2xl border border-gray-200 bg-gray-50/50 p-5 transition hover:border-gray-300 hover:shadow-md">
@@ -311,9 +316,7 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
                   <div className="h-6 w-6 rounded-lg border-2 border-gray-200 bg-gray-100 shadow-sm"></div>
                   <span className="text-base font-semibold text-gray-800">Unavailable</span>
                 </div>
-                <p className="text-sm leading-relaxed text-gray-700">
-                  Professional not working
-                </p>
+                <p className="text-sm leading-relaxed text-gray-700">Professional not working</p>
               </div>
             </div>
           </div>

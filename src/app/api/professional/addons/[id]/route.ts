@@ -36,10 +36,7 @@ export async function PATCH(request: Request, context: RouteContext) {
       .single();
 
     if (!existing || existing.professional_id !== user.id) {
-      return NextResponse.json(
-        { error: "Add-on not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Add-on not found" }, { status: 404 });
     }
 
     const { data: addon, error } = await supabase
@@ -58,19 +55,13 @@ export async function PATCH(request: Request, context: RouteContext) {
 
     if (error) {
       console.error("Failed to update add-on:", error);
-      return NextResponse.json(
-        { error: "Failed to update add-on" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to update add-on" }, { status: 500 });
     }
 
     return NextResponse.json({ addon });
   } catch (error) {
     console.error("Update add-on API error:", error);
-    return NextResponse.json(
-      { error: "Failed to update add-on" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update add-on" }, { status: 500 });
   }
 }
 
@@ -99,31 +90,19 @@ export async function DELETE(request: Request, context: RouteContext) {
       .single();
 
     if (!existing || existing.professional_id !== user.id) {
-      return NextResponse.json(
-        { error: "Add-on not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Add-on not found" }, { status: 404 });
     }
 
-    const { error } = await supabase
-      .from("service_addons")
-      .delete()
-      .eq("id", addonId);
+    const { error } = await supabase.from("service_addons").delete().eq("id", addonId);
 
     if (error) {
       console.error("Failed to delete add-on:", error);
-      return NextResponse.json(
-        { error: "Failed to delete add-on" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to delete add-on" }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Delete add-on API error:", error);
-    return NextResponse.json(
-      { error: "Failed to delete add-on" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to delete add-on" }, { status: 500 });
   }
 }

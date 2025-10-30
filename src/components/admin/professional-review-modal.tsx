@@ -96,9 +96,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
         <div className="sticky top-0 border-b border-[#f0ece5] bg-white px-6 py-4">
           <div className="flex items-start justify-between">
             <div>
-              <h2 className="text-xl font-semibold text-[#211f1a]">
-                Review Application
-              </h2>
+              <h2 className="text-xl font-semibold text-[#211f1a]">Review Application</h2>
               <p className="mt-1 text-sm text-[#7a6d62]">
                 {professional.full_name || "Unnamed Professional"}
               </p>
@@ -127,9 +125,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
               <div>
                 <label className="text-xs font-medium text-[#7a6d62]">Experience</label>
                 <p className="text-sm text-[#211f1a]">
-                  {professional.experience_years
-                    ? `${professional.experience_years} years`
-                    : "—"}
+                  {professional.experience_years ? `${professional.experience_years} years` : "—"}
                 </p>
               </div>
               <div>
@@ -142,9 +138,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
               </div>
               <div>
                 <label className="text-xs font-medium text-[#7a6d62]">Phone</label>
-                <p className="text-sm text-[#211f1a]">
-                  {professional.profile?.phone || "—"}
-                </p>
+                <p className="text-sm text-[#211f1a]">{professional.profile?.phone || "—"}</p>
               </div>
               <div>
                 <label className="text-xs font-medium text-[#7a6d62]">Hourly Rate</label>
@@ -190,13 +184,8 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             {professional.references_data && professional.references_data.length > 0 ? (
               <div className="space-y-2">
                 {professional.references_data.map((ref: any, idx: number) => (
-                  <div
-                    key={idx}
-                    className="rounded-lg border border-[#ebe5d8] bg-[#fbfafa] p-3"
-                  >
-                    <p className="text-sm font-medium text-[#211f1a]">
-                      {ref.name || "Unnamed"}
-                    </p>
+                  <div key={idx} className="rounded-lg border border-[#ebe5d8] bg-[#fbfafa] p-3">
+                    <p className="text-sm font-medium text-[#211f1a]">{ref.name || "Unnamed"}</p>
                     <p className="text-xs text-[#7a6d62]">{ref.contact || "—"}</p>
                   </div>
                 ))}
@@ -219,9 +208,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
                     className="flex items-center justify-between rounded-lg border border-[#ebe5d8] bg-[#fbfafa] p-3"
                   >
                     <div>
-                      <p className="text-sm font-medium text-[#211f1a]">
-                        {doc.document_type}
-                      </p>
+                      <p className="text-sm font-medium text-[#211f1a]">{doc.document_type}</p>
                       <p className="text-xs text-[#7a6d62]">
                         Uploaded {new Date(doc.uploaded_at).toLocaleDateString()}
                       </p>
@@ -299,9 +286,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
                 <input
                   type="checkbox"
                   checked={backgroundCheckPassed === true}
-                  onChange={(e) =>
-                    setBackgroundCheckPassed(e.target.checked ? true : undefined)
-                  }
+                  onChange={(e) => setBackgroundCheckPassed(e.target.checked ? true : undefined)}
                   className="rounded"
                 />
                 <span className="text-sm text-[#211f1a]">Background check passed</span>
@@ -376,7 +361,9 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
               disabled={submitting}
               className="rounded-lg bg-[#ff5d46] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65] disabled:opacity-50"
             >
-              {submitting ? "Submitting..." : `Submit ${action === "approve" ? "Approval" : action === "reject" ? "Rejection" : "Request"}`}
+              {submitting
+                ? "Submitting..."
+                : `Submit ${action === "approve" ? "Approval" : action === "reject" ? "Rejection" : "Request"}`}
             </button>
           </div>
         </div>

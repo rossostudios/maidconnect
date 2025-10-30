@@ -52,8 +52,7 @@ export const services = [
   },
   {
     title: "Family & Childcare Support",
-    description:
-      "Trusted nannies and caregivers experienced with international households.",
+    description: "Trusted nannies and caregivers experienced with international households.",
     badge: "Bilingual talent",
     icon: Stars,
     filter: "childcare",

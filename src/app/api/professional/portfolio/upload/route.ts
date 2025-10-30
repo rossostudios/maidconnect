@@ -70,22 +70,14 @@ export async function POST(request: Request) {
 
     if (uploadError) {
       console.error("Storage upload error:", uploadError);
-      return NextResponse.json(
-        { error: "Failed to upload image to storage" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to upload image to storage" }, { status: 500 });
     }
 
     // Get public URL
-    const { data: urlData } = supabase.storage
-      .from(BUCKET_NAME)
-      .getPublicUrl(fileName);
+    const { data: urlData } = supabase.storage.from(BUCKET_NAME).getPublicUrl(fileName);
 
     if (!urlData?.publicUrl) {
-      return NextResponse.json(
-        { error: "Failed to get public URL" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to get public URL" }, { status: 500 });
     }
 
     return NextResponse.json({
@@ -95,10 +87,7 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Portfolio upload error:", error);
-    return NextResponse.json(
-      { error: "Failed to upload image" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to upload image" }, { status: 500 });
   }
 }
 
@@ -130,24 +119,16 @@ export async function DELETE(request: Request) {
     }
 
     // Delete from storage
-    const { error: deleteError } = await supabase.storage
-      .from(BUCKET_NAME)
-      .remove([path]);
+    const { error: deleteError } = await supabase.storage.from(BUCKET_NAME).remove([path]);
 
     if (deleteError) {
       console.error("Storage delete error:", deleteError);
-      return NextResponse.json(
-        { error: "Failed to delete image" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to delete image" }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Portfolio delete error:", error);
-    return NextResponse.json(
-      { error: "Failed to delete image" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to delete image" }, { status: 500 });
   }
 }

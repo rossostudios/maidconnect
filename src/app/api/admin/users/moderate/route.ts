@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
+import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
+import { sendAccountRestorationEmail, sendAccountSuspensionEmail } from "@/lib/email/send";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { requireAdmin, createAuditLog } from "@/lib/admin-helpers";
-import {
-  sendAccountSuspensionEmail,
-  sendAccountRestorationEmail,
-} from "@/lib/email/send";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -44,10 +41,7 @@ export async function POST(request: Request) {
     const { userId, action, reason, liftReason, durationDays, details } = body;
 
     if (!userId || !action) {
-      return NextResponse.json(
-        { error: "userId and action are required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "userId and action are required" }, { status: 400 });
     }
 
     if ((action === "suspend" || action === "ban") && !reason) {
@@ -75,18 +69,12 @@ export async function POST(request: Request) {
 
     // Prevent admin from suspending themselves
     if (user.id === admin.id) {
-      return NextResponse.json(
-        { error: "Cannot moderate your own account" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Cannot moderate your own account" }, { status: 400 });
     }
 
     // Prevent suspending other admins (safety measure)
     if (user.role === "admin" && action !== "unsuspend") {
-      return NextResponse.json(
-        { error: "Cannot suspend or ban other admins" },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: "Cannot suspend or ban other admins" }, { status: 403 });
     }
 
     let result;
@@ -102,10 +90,7 @@ export async function POST(request: Request) {
           .maybeSingle();
 
         if (existing) {
-          return NextResponse.json(
-            { error: "User is already suspended" },
-            { status: 400 }
-          );
+          return NextResponse.json({ error: "User is already suspended" }, { status: 400 });
         }
 
         // Calculate expiry date (default 7 days)
@@ -129,10 +114,7 @@ export async function POST(request: Request) {
 
         if (suspendError) {
           console.error("Failed to create suspension:", suspendError);
-          return NextResponse.json(
-            { error: "Failed to suspend user" },
-            { status: 500 }
-          );
+          return NextResponse.json({ error: "Failed to suspend user" }, { status: 500 });
         }
 
         result = suspension;
@@ -162,10 +144,7 @@ export async function POST(request: Request) {
           .maybeSingle();
 
         if (existing) {
-          return NextResponse.json(
-            { error: "User is already banned" },
-            { status: 400 }
-          );
+          return NextResponse.json({ error: "User is already banned" }, { status: 400 });
         }
 
         // Create permanent ban record
@@ -184,10 +163,7 @@ export async function POST(request: Request) {
 
         if (banError) {
           console.error("Failed to create ban:", banError);
-          return NextResponse.json(
-            { error: "Failed to ban user" },
-            { status: 500 }
-          );
+          return NextResponse.json({ error: "Failed to ban user" }, { status: 500 });
         }
 
         result = ban;
@@ -219,10 +195,7 @@ export async function POST(request: Request) {
 
         if (findError) {
           console.error("Failed to find suspension:", findError);
-          return NextResponse.json(
-            { error: "Failed to find active suspension" },
-            { status: 500 }
-          );
+          return NextResponse.json({ error: "Failed to find active suspension" }, { status: 500 });
         }
 
         if (!activeSuspension) {
@@ -246,10 +219,7 @@ export async function POST(request: Request) {
 
         if (liftError) {
           console.error("Failed to lift suspension:", liftError);
-          return NextResponse.json(
-            { error: "Failed to unsuspend user" },
-            { status: 500 }
-          );
+          return NextResponse.json({ error: "Failed to unsuspend user" }, { status: 500 });
         }
 
         result = lifted;
@@ -277,13 +247,7 @@ export async function POST(request: Request) {
       try {
         if (action === "suspend" || action === "ban") {
           const expiresAt = action === "suspend" && result.expires_at ? result.expires_at : null;
-          await sendAccountSuspensionEmail(
-            userEmail,
-            userName,
-            reason!,
-            expiresAt,
-            durationDays
-          );
+          await sendAccountSuspensionEmail(userEmail, userName, reason!, expiresAt, durationDays);
         } else if (action === "unsuspend") {
           await sendAccountRestorationEmail(
             userEmail,

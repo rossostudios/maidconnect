@@ -1,10 +1,10 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useActionState } from "react";
+import { cn } from "@/lib/utils";
 import { submitApplication } from "./actions";
 import { defaultActionState, type OnboardingActionState } from "./state";
-import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
 
 type Props = {
   services: string[];
@@ -16,7 +16,10 @@ const errorClass = "border-red-300 focus:border-red-400 focus:ring-red-200";
 
 export function ApplicationForm({ services, countries, inputClass }: Props) {
   const t = useTranslations("dashboard.pro.applicationForm");
-  const [state, formAction, pending] = useActionState<OnboardingActionState, FormData>(submitApplication, defaultActionState);
+  const [state, formAction, pending] = useActionState<OnboardingActionState, FormData>(
+    submitApplication,
+    defaultActionState
+  );
 
   const fieldError = (key: string) => state.fieldErrors?.[key];
   const hasError = (key: string) => Boolean(fieldError(key));
@@ -103,10 +106,15 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
               key={service}
               className={cn(
                 "flex items-center gap-3 rounded-xl border-2 border-[#ebe5d8] bg-white p-4 text-base font-medium text-[#211f1a] transition cursor-pointer hover:border-[#ff5d46] hover:bg-[#fff5f2]",
-                hasError("services") && "border-red-300",
+                hasError("services") && "border-red-300"
               )}
             >
-              <input type="checkbox" name="services" value={service} className="h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-[#ff5d46]" />
+              <input
+                type="checkbox"
+                name="services"
+                value={service}
+                className="h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-[#ff5d46]"
+              />
               {service}
             </label>
           ))}
@@ -140,10 +148,7 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
         </FormField>
       </div>
 
-      <FormField
-        label={t("availability.label")}
-        helper={t("availability.helper")}
-      >
+      <FormField label={t("availability.label")} helper={t("availability.helper")}>
         <textarea
           id="availability"
           name="availability"
@@ -153,7 +158,11 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
         />
       </FormField>
 
-      <FormField label={t("references.label")} helper={t("references.helper")} error={fieldError("references")}>
+      <FormField
+        label={t("references.label")}
+        helper={t("references.helper")}
+        error={fieldError("references")}
+      >
         <div className="space-y-4">
           {[1, 2].map((index) => (
             <div key={index} className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
@@ -161,7 +170,9 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#ff5d46] text-sm font-semibold text-white">
                   {index}
                 </div>
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#7d7566]">{t("references.referenceLabel", { number: index })}</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#7d7566]">
+                  {t("references.referenceLabel", { number: index })}
+                </p>
               </div>
               <div className="mt-4 grid gap-4 sm:grid-cols-3">
                 <input
@@ -192,21 +203,24 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
 
       <FormField label={t("consent.label")} error={fieldError("consent")}>
         <label className="flex items-start gap-3 rounded-xl border-2 border-[#ebe5d8] bg-white p-5 text-base text-[#211f1a] cursor-pointer hover:border-[#ff5d46] hover:bg-[#fff5f2] transition">
-          <input type="checkbox" name="consent" className="mt-0.5 h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-[#ff5d46]" aria-invalid={hasError("consent")} />
+          <input
+            type="checkbox"
+            name="consent"
+            className="mt-0.5 h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-[#ff5d46]"
+            aria-invalid={hasError("consent")}
+          />
           <span>{t("consent.text")}</span>
         </label>
       </FormField>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-[#ebe5d8] pt-8">
-        <p className="text-sm text-[#5d574b]">
-          {t("footer.note")}
-        </p>
+        <p className="text-sm text-[#5d574b]">{t("footer.note")}</p>
         <button
           type="submit"
           disabled={pending}
           className={cn(
             "inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]",
-            pending && "cursor-not-allowed opacity-70",
+            pending && "cursor-not-allowed opacity-70"
           )}
         >
           {pending ? t("footer.submitting") : t("footer.submit")}
@@ -222,8 +236,18 @@ function Feedback({ state }: { state: OnboardingActionState }) {
       <div className="rounded-2xl border border-red-200 bg-red-50 p-6 shadow-sm" role="alert">
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
-            <svg className="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="h-5 w-5 text-red-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </div>
           <p className="flex-1 text-base leading-relaxed text-red-800">{state.error}</p>
@@ -236,8 +260,18 @@ function Feedback({ state }: { state: OnboardingActionState }) {
       <div className="rounded-2xl border border-green-200 bg-green-50 p-6 shadow-sm" role="status">
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
-            <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            <svg
+              className="h-5 w-5 text-green-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
             </svg>
           </div>
           <p className="flex-1 text-base leading-relaxed text-green-800">{state.message}</p>
@@ -265,7 +299,11 @@ function FormField({ label, children, helper, error, className }: FormFieldProps
       {error ? (
         <p className="flex items-center gap-2 text-sm text-red-600">
           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            <path
+              fillRule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+              clipRule="evenodd"
+            />
           </svg>
           {error}
         </p>

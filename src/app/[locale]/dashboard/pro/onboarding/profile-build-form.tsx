@@ -1,10 +1,10 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useActionState, useState } from "react";
+import { cn } from "@/lib/utils";
 import { submitProfile } from "./actions";
 import { defaultActionState, type OnboardingActionState } from "./state";
-import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
 
 type ServiceOption = {
   name: string;
@@ -51,7 +51,10 @@ export function ProfileBuildForm({
   footnote,
 }: Props) {
   const t = useTranslations("dashboard.pro.profileBuildForm");
-  const [state, formAction, pending] = useActionState<OnboardingActionState, FormData>(submitProfile, defaultActionState);
+  const [state, formAction, pending] = useActionState<OnboardingActionState, FormData>(
+    submitProfile,
+    defaultActionState
+  );
 
   const fieldError = (key: string) => state.fieldErrors?.[key];
   const hasError = (key: string) => Boolean(fieldError(key));
@@ -97,11 +100,7 @@ export function ProfileBuildForm({
     <form className="space-y-8" action={formAction} noValidate>
       <Feedback state={state} />
 
-      <FormField
-        label={t("bio.label")}
-        error={fieldError("bio")}
-        characterCount={bioLength}
-      >
+      <FormField label={t("bio.label")} error={fieldError("bio")} characterCount={bioLength}>
         <textarea
           id="bio"
           name="bio"
@@ -123,7 +122,7 @@ export function ProfileBuildForm({
               key={language}
               className={cn(
                 "flex items-center gap-3 rounded-full border-2 border-[#ebe5d8] bg-white px-5 py-3 text-base font-medium text-[#211f1a] transition cursor-pointer hover:border-[#ff5d46] hover:bg-[#fff5f2]",
-                hasError("languages") && "border-red-300",
+                hasError("languages") && "border-red-300"
               )}
             >
               <input
@@ -156,13 +155,17 @@ export function ProfileBuildForm({
                 {(() => {
                   const defaults = serviceDefaults.get(service.name);
                   const rateValue =
-                    defaults?.rate !== null && defaults?.rate !== undefined && !Number.isNaN(defaults.rate)
+                    defaults?.rate !== null &&
+                    defaults?.rate !== undefined &&
+                    !Number.isNaN(defaults.rate)
                       ? defaults.rate
                       : "";
                   return (
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
-                        <label className="mb-2 block text-sm font-medium text-[#5d574b]">{t("services.hourlyRate")}</label>
+                        <label className="mb-2 block text-sm font-medium text-[#5d574b]">
+                          {t("services.hourlyRate")}
+                        </label>
                         <input
                           type="number"
                           name="service_rate"
@@ -173,7 +176,9 @@ export function ProfileBuildForm({
                         />
                       </div>
                       <div className="sm:col-span-2">
-                        <label className="mb-2 block text-sm font-medium text-[#5d574b]">{t("services.serviceDescription")}</label>
+                        <label className="mb-2 block text-sm font-medium text-[#5d574b]">
+                          {t("services.serviceDescription")}
+                        </label>
                         <input
                           type="text"
                           name="service_description"
@@ -203,7 +208,9 @@ export function ProfileBuildForm({
                   <span className="text-base font-semibold text-[#211f1a]">{day.label}</span>
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">{t("availability.start")}</label>
+                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">
+                    {t("availability.start")}
+                  </label>
                   <input
                     type="time"
                     name={`availability_${day.slug}_start`}
@@ -212,7 +219,9 @@ export function ProfileBuildForm({
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">{t("availability.end")}</label>
+                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">
+                    {t("availability.end")}
+                  </label>
                   <input
                     type="time"
                     name={`availability_${day.slug}_end`}
@@ -221,7 +230,9 @@ export function ProfileBuildForm({
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">{t("availability.notes")}</label>
+                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">
+                    {t("availability.notes")}
+                  </label>
                   <input
                     type="text"
                     name={`availability_${day.slug}_notes`}
@@ -243,7 +254,7 @@ export function ProfileBuildForm({
           disabled={pending}
           className={cn(
             "inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]",
-            pending && "cursor-not-allowed opacity-70",
+            pending && "cursor-not-allowed opacity-70"
           )}
         >
           {pending ? t("footer.saving") : defaultSubmitLabel}
@@ -259,8 +270,18 @@ function Feedback({ state }: { state: OnboardingActionState }) {
       <div className="rounded-2xl border border-red-200 bg-red-50 p-6 shadow-sm" role="alert">
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
-            <svg className="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="h-5 w-5 text-red-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </div>
           <p className="flex-1 text-base leading-relaxed text-red-800">{state.error}</p>
@@ -273,8 +294,18 @@ function Feedback({ state }: { state: OnboardingActionState }) {
       <div className="rounded-2xl border border-green-200 bg-green-50 p-6 shadow-sm" role="status">
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
-            <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            <svg
+              className="h-5 w-5 text-green-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
             </svg>
           </div>
           <p className="flex-1 text-base leading-relaxed text-green-800">{state.message}</p>
@@ -301,7 +332,9 @@ function FormField({ label, children, helper, error, characterCount }: FormField
       <div className="flex items-center justify-between">
         <label className="block text-base font-semibold text-[#211f1a]">{label}</label>
         {characterCount !== undefined ? (
-          <span className="text-sm text-[#7d7566]">{t("characterCount", { count: characterCount })}</span>
+          <span className="text-sm text-[#7d7566]">
+            {t("characterCount", { count: characterCount })}
+          </span>
         ) : null}
       </div>
       {helper ? <p className="text-sm text-[#5d574b]">{helper}</p> : null}
@@ -309,7 +342,11 @@ function FormField({ label, children, helper, error, characterCount }: FormField
       {error ? (
         <p className="flex items-center gap-2 text-sm text-red-600">
           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            <path
+              fillRule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+              clipRule="evenodd"
+            />
           </svg>
           {error}
         </p>

@@ -1,12 +1,7 @@
 import { cn } from "@/lib/utils";
 
 export function Skeleton({ className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div
-      className={cn("animate-pulse rounded-md bg-[#ebe5d8]/50", className)}
-      {...props}
-    />
-  );
+  return <div className={cn("animate-pulse rounded-md bg-[#ebe5d8]/50", className)} {...props} />;
 }
 
 export function DashboardSectionSkeleton() {
@@ -87,10 +82,7 @@ export function ConversationSkeleton() {
         </div>
         <div className="flex-1 space-y-4 p-4">
           {Array.from({ length: 3 }).map((_, i) => (
-            <div
-              key={i}
-              className={`flex ${i % 2 === 0 ? "justify-start" : "justify-end"}`}
-            >
+            <div key={i} className={`flex ${i % 2 === 0 ? "justify-start" : "justify-end"}`}>
               <Skeleton className="h-16 w-64 rounded-lg" />
             </div>
           ))}

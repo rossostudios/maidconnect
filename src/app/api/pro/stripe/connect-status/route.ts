@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { stripe } from "@/lib/stripe";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -73,9 +73,6 @@ export async function GET() {
     });
   } catch (stripeError) {
     console.error("Failed to fetch Stripe Connect status:", stripeError);
-    return NextResponse.json(
-      { error: "Failed to fetch account status" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch account status" }, { status: 500 });
   }
 }

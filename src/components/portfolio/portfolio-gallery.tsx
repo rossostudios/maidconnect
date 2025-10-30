@@ -13,14 +13,8 @@ type Props = {
  * Display portfolio gallery in a grid layout
  * Supports lightbox view for full-size images
  */
-export function PortfolioGallery({
-  images,
-  featuredWork,
-  professionalName,
-}: Props) {
-  const [selectedImage, setSelectedImage] = useState<PortfolioImage | null>(
-    null
-  );
+export function PortfolioGallery({ images, featuredWork, professionalName }: Props) {
+  const [selectedImage, setSelectedImage] = useState<PortfolioImage | null>(null);
 
   if (images.length === 0) {
     return null;
@@ -34,9 +28,7 @@ export function PortfolioGallery({
       {/* Featured Work Description */}
       {featuredWork && (
         <div className="rounded-lg border border-[#f0ece5] bg-[#fdfaf6] p-4">
-          <h3 className="text-sm font-semibold text-[#211f1a]">
-            Featured Work
-          </h3>
+          <h3 className="text-sm font-semibold text-[#211f1a]">Featured Work</h3>
           <p className="mt-2 text-sm text-[#7a6d62]">{featuredWork}</p>
         </div>
       )}
@@ -56,9 +48,7 @@ export function PortfolioGallery({
             />
             {image.caption && (
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-left">
-                <p className="line-clamp-2 text-sm text-white">
-                  {image.caption}
-                </p>
+                <p className="line-clamp-2 text-sm text-white">{image.caption}</p>
               </div>
             )}
             {/* Overlay icon */}
@@ -157,20 +147,13 @@ function Lightbox({
       )}
 
       {/* Image */}
-      <div
-        className="max-h-[90vh] max-w-5xl"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="max-h-[90vh] max-w-5xl" onClick={(e) => e.stopPropagation()}>
         <img
           src={image.url}
           alt={image.caption || "Portfolio image"}
           className="max-h-[80vh] w-auto rounded-lg"
         />
-        {image.caption && (
-          <p className="mt-3 text-center text-sm text-white/90">
-            {image.caption}
-          </p>
-        )}
+        {image.caption && <p className="mt-3 text-center text-sm text-white/90">{image.caption}</p>}
         <p className="mt-2 text-center text-xs text-white/60">
           {currentIndex + 1} of {allImages.length}
         </p>

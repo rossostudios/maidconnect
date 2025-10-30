@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 type Props = {
   bookingId: string;
@@ -13,11 +13,7 @@ type Props = {
  * Button to start or open a conversation for a booking
  * Creates conversation if it doesn't exist, then redirects to messages page
  */
-export function StartConversationButton({
-  bookingId,
-  label = "Message",
-  className,
-}: Props) {
+export function StartConversationButton({ bookingId, label = "Message", className }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 

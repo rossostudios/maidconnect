@@ -65,13 +65,9 @@ export function FavoriteButton({
       } ${sizeClasses[size]} disabled:cursor-not-allowed disabled:opacity-50`}
       title={isFavorite ? "Remove from favorites" : "Add to favorites"}
     >
-      <span className={loading ? "animate-pulse" : ""}>
-        {isFavorite ? "❤️" : "🤍"}
-      </span>
+      <span className={loading ? "animate-pulse" : ""}>{isFavorite ? "❤️" : "🤍"}</span>
       {showLabel && (
-        <span className="text-sm font-semibold">
-          {isFavorite ? "Favorited" : "Favorite"}
-        </span>
+        <span className="text-sm font-semibold">{isFavorite ? "Favorited" : "Favorite"}</span>
       )}
     </button>
   );

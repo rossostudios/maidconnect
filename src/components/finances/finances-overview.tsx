@@ -1,9 +1,30 @@
 "use client";
 
-import { useMemo } from "react";
+import {
+  eachMonthOfInterval,
+  format,
+  isSameMonth,
+  parseISO,
+  startOfMonth,
+  subMonths,
+} from "date-fns";
 import { useTranslations } from "next-intl";
-import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
-import { format, startOfMonth, eachMonthOfInterval, subMonths, isSameMonth, parseISO } from "date-fns";
+import { useMemo } from "react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 type Booking = {
   id: string;
@@ -39,13 +60,13 @@ export function FinancesOverview({ bookings, payouts }: Props) {
     const totalEarnings = bookings.reduce((sum, b) => sum + (b.amount_captured || 0), 0);
     const avgBookingValue = bookings.length > 0 ? totalEarnings / bookings.length : 0;
 
-    const thisMonth = bookings.filter(b =>
-      b.scheduled_start && isSameMonth(parseISO(b.scheduled_start), new Date())
+    const thisMonth = bookings.filter(
+      (b) => b.scheduled_start && isSameMonth(parseISO(b.scheduled_start), new Date())
     );
     const monthlyEarnings = thisMonth.reduce((sum, b) => sum + (b.amount_captured || 0), 0);
 
     const pendingPayouts = payouts
-      .filter(p => p.status === "pending")
+      .filter((p) => p.status === "pending")
       .reduce((sum, p) => sum + p.amount, 0);
 
     return {
@@ -64,9 +85,9 @@ export function FinancesOverview({ bookings, payouts }: Props) {
       end: new Date(),
     });
 
-    return months.map(month => {
-      const monthBookings = bookings.filter(b =>
-        b.scheduled_start && isSameMonth(parseISO(b.scheduled_start), month)
+    return months.map((month) => {
+      const monthBookings = bookings.filter(
+        (b) => b.scheduled_start && isSameMonth(parseISO(b.scheduled_start), month)
       );
       const earnings = monthBookings.reduce((sum, b) => sum + (b.amount_captured || 0), 0);
 
@@ -82,7 +103,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
   const serviceData = useMemo(() => {
     const serviceMap = new Map<string, number>();
 
-    bookings.forEach(b => {
+    bookings.forEach((b) => {
       const service = b.service_name || "Other";
       serviceMap.set(service, (serviceMap.get(service) || 0) + (b.amount_captured || 0));
     });
@@ -96,9 +117,9 @@ export function FinancesOverview({ bookings, payouts }: Props) {
   // Payout history
   const payoutHistory = useMemo(() => {
     return payouts
-      .filter(p => p.status === "completed")
+      .filter((p) => p.status === "completed")
       .slice(0, 10)
-      .map(p => ({
+      .map((p) => ({
         date: format(parseISO(p.processed_at || p.created_at), "MMM dd"),
         amount: p.amount / 1000,
       }));
@@ -124,7 +145,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
         <MetricCard
           label={t("metrics.thisMonth.label")}
           value={formatCurrency(metrics.monthlyEarnings / 1000)}
-          description={`${bookings.filter(b => b.scheduled_start && isSameMonth(parseISO(b.scheduled_start), new Date())).length} ${t("metrics.thisMonth.label").toLowerCase()}`}
+          description={`${bookings.filter((b) => b.scheduled_start && isSameMonth(parseISO(b.scheduled_start), new Date())).length} ${t("metrics.thisMonth.label").toLowerCase()}`}
         />
         <MetricCard
           label={t("metrics.avgBookingValue.label")}
@@ -134,7 +155,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
         <MetricCard
           label={t("metrics.pendingPayouts.label")}
           value={formatCurrency(metrics.pendingPayouts / 1000)}
-          description={`${payouts.filter(p => p.status === "pending").length} ${t("metrics.pendingPayouts.descriptionSuffix")}`}
+          description={`${payouts.filter((p) => p.status === "pending").length} ${t("metrics.pendingPayouts.descriptionSuffix")}`}
         />
       </div>
 
@@ -146,11 +167,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={earningsData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#ebe5d8" />
-              <XAxis
-                dataKey="month"
-                stroke="#7d7566"
-                style={{ fontSize: 12 }}
-              />
+              <XAxis dataKey="month" stroke="#7d7566" style={{ fontSize: 12 }} />
               <YAxis
                 stroke="#7d7566"
                 style={{ fontSize: 12 }}
@@ -178,19 +195,14 @@ export function FinancesOverview({ bookings, payouts }: Props) {
 
         {/* Bookings Count Over Time */}
         <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h2 className="mb-6 text-xl font-semibold text-[#211f1a]">{t("charts.bookingsByMonth")}</h2>
+          <h2 className="mb-6 text-xl font-semibold text-[#211f1a]">
+            {t("charts.bookingsByMonth")}
+          </h2>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={earningsData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#ebe5d8" />
-              <XAxis
-                dataKey="month"
-                stroke="#7d7566"
-                style={{ fontSize: 12 }}
-              />
-              <YAxis
-                stroke="#7d7566"
-                style={{ fontSize: 12 }}
-              />
+              <XAxis dataKey="month" stroke="#7d7566" style={{ fontSize: 12 }} />
+              <YAxis stroke="#7d7566" style={{ fontSize: 12 }} />
               <Tooltip
                 contentStyle={{
                   backgroundColor: "white",
@@ -206,7 +218,9 @@ export function FinancesOverview({ bookings, payouts }: Props) {
         {/* Revenue by Service */}
         {serviceData.length > 0 && (
           <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-            <h2 className="mb-6 text-xl font-semibold text-[#211f1a]">{t("charts.revenueByService")}</h2>
+            <h2 className="mb-6 text-xl font-semibold text-[#211f1a]">
+              {t("charts.revenueByService")}
+            </h2>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -232,15 +246,13 @@ export function FinancesOverview({ bookings, payouts }: Props) {
         {/* Payout History */}
         {payoutHistory.length > 0 && (
           <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-            <h2 className="mb-6 text-xl font-semibold text-[#211f1a]">{t("charts.recentPayouts")}</h2>
+            <h2 className="mb-6 text-xl font-semibold text-[#211f1a]">
+              {t("charts.recentPayouts")}
+            </h2>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={payoutHistory}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#ebe5d8" />
-                <XAxis
-                  dataKey="date"
-                  stroke="#7d7566"
-                  style={{ fontSize: 12 }}
-                />
+                <XAxis dataKey="date" stroke="#7d7566" style={{ fontSize: 12 }} />
                 <YAxis
                   stroke="#7d7566"
                   style={{ fontSize: 12 }}
@@ -264,7 +276,15 @@ export function FinancesOverview({ bookings, payouts }: Props) {
   );
 }
 
-function MetricCard({ label, value, description }: { label: string; value: string; description: string }) {
+function MetricCard({
+  label,
+  value,
+  description,
+}: {
+  label: string;
+  value: string;
+  description: string;
+}) {
   return (
     <div className="rounded-[28px] bg-white p-6 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
       <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">{label}</dt>

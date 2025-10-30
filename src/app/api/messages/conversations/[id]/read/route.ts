@@ -33,16 +33,10 @@ export async function POST(request: Request, context: RouteContext) {
       .single();
 
     if (convError || !conversation) {
-      return NextResponse.json(
-        { error: "Conversation not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Conversation not found" }, { status: 404 });
     }
 
-    if (
-      user.id !== conversation.customer_id &&
-      user.id !== conversation.professional_id
-    ) {
+    if (user.id !== conversation.customer_id && user.id !== conversation.professional_id) {
       return NextResponse.json({ error: "Not authorized" }, { status: 403 });
     }
 
@@ -56,17 +50,12 @@ export async function POST(request: Request, context: RouteContext) {
 
     if (updateError) {
       console.error("Failed to mark messages as read:", updateError);
-      return NextResponse.json(
-        { error: "Failed to mark messages as read" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to mark messages as read" }, { status: 500 });
     }
 
     // Reset unread count for current user
     const isCustomer = user.id === conversation.customer_id;
-    const unreadField = isCustomer
-      ? "customer_unread_count"
-      : "professional_unread_count";
+    const unreadField = isCustomer ? "customer_unread_count" : "professional_unread_count";
 
     await supabase
       .from("conversations")
@@ -76,9 +65,6 @@ export async function POST(request: Request, context: RouteContext) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Mark as read API error:", error);
-    return NextResponse.json(
-      { error: "Failed to mark messages as read" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to mark messages as read" }, { status: 500 });
   }
 }

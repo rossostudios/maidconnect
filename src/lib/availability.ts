@@ -89,10 +89,7 @@ function minutesToTime(minutes: number): string {
 /**
  * Check if a date is blocked
  */
-export function isDateBlocked(
-  date: Date,
-  blockedDates: string[]
-): boolean {
+export function isDateBlocked(date: Date, blockedDates: string[]): boolean {
   const dateStr = formatDate(date);
   return blockedDates.includes(dateStr);
 }
@@ -100,10 +97,7 @@ export function isDateBlocked(
 /**
  * Get working hours for a specific date
  */
-export function getWorkingHoursForDate(
-  date: Date,
-  settings: AvailabilitySettings
-): TimeSlot[] {
+export function getWorkingHoursForDate(date: Date, settings: AvailabilitySettings): TimeSlot[] {
   // Defensive check: ensure working_hours exists
   if (!settings || !settings.working_hours) {
     return [];
@@ -157,10 +151,8 @@ export function generateTimeSlots(
         const bookingStart = new Date(booking.scheduled_start);
         const bookingEnd = new Date(booking.scheduled_end);
 
-        const bookingStartMins =
-          bookingStart.getHours() * 60 + bookingStart.getMinutes();
-        const bookingEndMins =
-          bookingEnd.getHours() * 60 + bookingEnd.getMinutes();
+        const bookingStartMins = bookingStart.getHours() * 60 + bookingStart.getMinutes();
+        const bookingEndMins = bookingEnd.getHours() * 60 + bookingEnd.getMinutes();
 
         // Add buffer time
         const bufferedStart = bookingStartMins - bufferTime;
@@ -274,12 +266,7 @@ export function getAvailabilityForRange(
     });
 
     // Generate available slots
-    const availableSlots = generateTimeSlots(
-      current,
-      settings,
-      existingBookings,
-      blockedDates
-    );
+    const availableSlots = generateTimeSlots(current, settings, existingBookings, blockedDates);
 
     // Calculate status
     const status = calculateDayStatus(
@@ -354,10 +341,8 @@ export function isSlotAvailable(
     const bookingStart = new Date(booking.scheduled_start);
     const bookingEnd = new Date(booking.scheduled_end);
 
-    const bookingStartMins =
-      bookingStart.getHours() * 60 + bookingStart.getMinutes();
-    const bookingEndMins =
-      bookingEnd.getHours() * 60 + bookingEnd.getMinutes();
+    const bookingStartMins = bookingStart.getHours() * 60 + bookingStart.getMinutes();
+    const bookingEndMins = bookingEnd.getHours() * 60 + bookingEnd.getMinutes();
 
     const bufferedStart = bookingStartMins - bufferTime;
     const bufferedEnd = bookingEndMins + bufferTime;
@@ -384,12 +369,7 @@ export function getNextAvailableDate(
     const checkDate = new Date(today);
     checkDate.setDate(today.getDate() + i);
 
-    const slots = generateTimeSlots(
-      checkDate,
-      settings,
-      existingBookings,
-      blockedDates
-    );
+    const slots = generateTimeSlots(checkDate, settings, existingBookings, blockedDates);
 
     if (slots.length > 0) {
       return checkDate;

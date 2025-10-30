@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -12,7 +12,7 @@ const INITIAL_STATE: ReviewActionState = { status: "idle" };
 
 export async function submitCustomerReviewAction(
   _prevState: ReviewActionState = INITIAL_STATE,
-  formData: FormData,
+  formData: FormData
 ): Promise<ReviewActionState> {
   void _prevState;
   try {
@@ -73,9 +73,15 @@ export async function submitCustomerReviewAction(
     }
 
     // Parse optional category ratings
-    const punctualityRating = punctualityRatingValue ? Number.parseInt(punctualityRatingValue, 10) : null;
-    const communicationRating = communicationRatingValue ? Number.parseInt(communicationRatingValue, 10) : null;
-    const respectfulnessRating = respectfulnessRatingValue ? Number.parseInt(respectfulnessRatingValue, 10) : null;
+    const punctualityRating = punctualityRatingValue
+      ? Number.parseInt(punctualityRatingValue, 10)
+      : null;
+    const communicationRating = communicationRatingValue
+      ? Number.parseInt(communicationRatingValue, 10)
+      : null;
+    const respectfulnessRating = respectfulnessRatingValue
+      ? Number.parseInt(respectfulnessRatingValue, 10)
+      : null;
 
     // Insert the review
     const { error } = await supabase.from("customer_reviews").insert({
@@ -95,7 +101,10 @@ export async function submitCustomerReviewAction(
 
       // Check for duplicate review
       if (error.code === "23505") {
-        return { status: "error", message: "You've already reviewed this customer for this booking." };
+        return {
+          status: "error",
+          message: "You've already reviewed this customer for this booking.",
+        };
       }
 
       return { status: "error", message: "We couldn't save your review. Please try again." };

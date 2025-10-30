@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { Calendar, CheckCircle, Clock } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Clock, Calendar, CheckCircle } from "lucide-react";
-import { WeeklyHoursEditor } from "./weekly-hours-editor";
+import { useState } from "react";
 import { BlockedDatesCalendar } from "./blocked-dates-calendar";
+import { WeeklyHoursEditor } from "./weekly-hours-editor";
 
 type DaySchedule = {
   day: string;
@@ -114,9 +114,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
           <div className="space-y-4">
             <div>
               <h3 className="text-lg font-semibold text-[#211f1a]">{t("workingHours.title")}</h3>
-              <p className="mt-1 text-sm text-[#7d7566]">
-                {t("workingHours.description")}
-              </p>
+              <p className="mt-1 text-sm text-[#7d7566]">{t("workingHours.description")}</p>
             </div>
             <WeeklyHoursEditor initialSchedule={weeklyHours} onChange={setWeeklyHours} />
           </div>
@@ -126,23 +124,16 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
           <div className="space-y-4">
             <div>
               <h3 className="text-lg font-semibold text-[#211f1a]">{t("blockedDates.title")}</h3>
-              <p className="mt-1 text-sm text-[#7d7566]">
-                {t("blockedDates.description")}
-              </p>
+              <p className="mt-1 text-sm text-[#7d7566]">{t("blockedDates.description")}</p>
             </div>
-            <BlockedDatesCalendar
-              initialBlockedDates={blockedDates}
-              onChange={setBlockedDates}
-            />
+            <BlockedDatesCalendar initialBlockedDates={blockedDates} onChange={setBlockedDates} />
           </div>
         )}
       </div>
 
       {/* Save Button */}
       <div className="flex items-center justify-end gap-3 border-t border-[#ebe5d8] pt-6">
-        <div className="flex-1 text-sm text-[#7d7566]">
-          {t("infoText")}
-        </div>
+        <div className="flex-1 text-sm text-[#7d7566]">{t("infoText")}</div>
         <button
           onClick={handleSave}
           disabled={loading}

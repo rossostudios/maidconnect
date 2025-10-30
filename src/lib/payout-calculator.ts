@@ -44,9 +44,7 @@ export function calculateCommission(grossAmount: number): {
 /**
  * Calculate payout totals from a list of completed bookings
  */
-export function calculatePayoutFromBookings(
-  bookings: BookingForPayout[]
-): PayoutCalculation {
+export function calculatePayoutFromBookings(bookings: BookingForPayout[]): PayoutCalculation {
   if (bookings.length === 0) {
     return {
       grossAmount: 0,
@@ -59,10 +57,7 @@ export function calculatePayoutFromBookings(
   }
 
   // Sum up all captured amounts
-  const grossAmount = bookings.reduce(
-    (sum, booking) => sum + (booking.amount_captured || 0),
-    0
-  );
+  const grossAmount = bookings.reduce((sum, booking) => sum + (booking.amount_captured || 0), 0);
 
   const { commissionAmount, netAmount } = calculateCommission(grossAmount);
 
@@ -79,10 +74,7 @@ export function calculatePayoutFromBookings(
 /**
  * Format amount in currency (COP by default)
  */
-export function formatPayoutAmount(
-  amountInCents: number,
-  currency: string = "COP"
-): string {
+export function formatPayoutAmount(amountInCents: number, currency: string = "COP"): string {
   return new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency,

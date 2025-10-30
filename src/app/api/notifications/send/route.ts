@@ -1,5 +1,5 @@
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { NextRequest, NextResponse } from "next/server";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 // Note: This endpoint uses Node.js runtime because web-push doesn't work in edge runtime
 export const runtime = "nodejs";
@@ -37,10 +37,7 @@ export async function POST(request: NextRequest) {
 
     if (subError) {
       console.error("[API] Failed to fetch subscriptions:", subError);
-      return NextResponse.json(
-        { error: "Failed to fetch subscriptions" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch subscriptions" }, { status: 500 });
     }
 
     if (!subscriptions || subscriptions.length === 0) {
@@ -60,10 +57,7 @@ export async function POST(request: NextRequest) {
 
     if (!vapidPublicKey || !vapidPrivateKey) {
       console.error("[API] VAPID keys not configured");
-      return NextResponse.json(
-        { error: "Push notifications not configured" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Push notifications not configured" }, { status: 500 });
     }
 
     webPush.setVapidDetails(vapidSubject, vapidPublicKey, vapidPrivateKey);
@@ -97,10 +91,7 @@ export async function POST(request: NextRequest) {
 
         // If subscription is invalid (410 Gone), delete it
         if (error.statusCode === 410) {
-          await supabase
-            .from("notification_subscriptions")
-            .delete()
-            .eq("id", sub.id);
+          await supabase.from("notification_subscriptions").delete().eq("id", sub.id);
         }
 
         return { success: false, endpoint: sub.endpoint, error: error.message };
@@ -112,15 +103,13 @@ export async function POST(request: NextRequest) {
 
     // Save notification to history (use service role to bypass RLS)
     try {
-      await supabase
-        .from("notifications")
-        .insert({
-          user_id: userId,
-          title,
-          body,
-          url: url || null,
-          tag: tag || null,
-        });
+      await supabase.from("notifications").insert({
+        user_id: userId,
+        title,
+        body,
+        url: url || null,
+        tag: tag || null,
+      });
     } catch (historyError) {
       // Don't fail the request if history save fails
       console.error("[API] Failed to save notification to history:", historyError);
@@ -134,10 +123,7 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("[API] Send notification error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 

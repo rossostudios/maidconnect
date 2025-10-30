@@ -23,10 +23,7 @@ export function ProcessSection() {
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {stepKeys.map((key) => (
-              <div
-                key={key}
-                className="flex flex-col items-center text-center"
-              >
+              <div key={key} className="flex flex-col items-center text-center">
                 <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#ff5d46] text-xl font-semibold text-white">
                   {t(`steps.${key}.number`)}
                 </span>

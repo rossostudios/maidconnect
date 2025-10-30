@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import { CalendarDays, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -157,7 +157,10 @@ export function ProBookingCalendar({ bookings }: Props) {
             { key: "fri", label: t("days.fri") },
             { key: "sat", label: t("days.sat") },
           ].map((day) => (
-            <div key={day.key} className="text-center text-xs font-semibold uppercase tracking-wide text-[#a49c90]">
+            <div
+              key={day.key}
+              className="text-center text-xs font-semibold uppercase tracking-wide text-[#a49c90]"
+            >
               {day.label}
             </div>
           ))}
@@ -173,9 +176,11 @@ export function ProBookingCalendar({ bookings }: Props) {
                 onClick={() => setSelectedDayKey(day.key)}
                 className={cn(
                   "flex h-20 flex-col items-center justify-center rounded-lg border text-sm transition",
-                  day.inCurrentMonth ? "border-[#efe7dc] bg-white" : "border-transparent bg-[#fbfafa] text-[#c4bbaf]",
+                  day.inCurrentMonth
+                    ? "border-[#efe7dc] bg-white"
+                    : "border-transparent bg-[#fbfafa] text-[#c4bbaf]",
                   hasBookings ? "shadow-[0_6px_14px_rgba(18,17,15,0.08)]" : "",
-                  isSelected ? "border-[#ff5d46] ring-2 ring-[#ff5d4633]" : "",
+                  isSelected ? "border-[#ff5d46] ring-2 ring-[#ff5d4633]" : ""
                 )}
               >
                 <span className="text-sm font-semibold">{day.label}</span>
@@ -214,14 +219,18 @@ export function ProBookingCalendar({ bookings }: Props) {
                   const start = booking.scheduled_start ? new Date(booking.scheduled_start) : null;
                   const timeLabel = start ? formatTime(start) : t("timeTbd");
                   const statusLabel = getStatusLabel(booking.status);
-                  const amount =
-                    booking.amount_captured ?? booking.amount_authorized ?? null;
+                  const amount = booking.amount_captured ?? booking.amount_authorized ?? null;
                   return (
-                    <li key={booking.id} className="rounded-md border border-[#efe7dc] bg-white p-3">
+                    <li
+                      key={booking.id}
+                      className="rounded-md border border-[#efe7dc] bg-white p-3"
+                    >
                       <div className="flex items-center justify-between text-sm text-[#211f1a]">
                         <span className="font-semibold">{timeLabel}</span>
                         {amount ? (
-                          <span className="text-xs font-semibold text-[#5d574b]">{formatCOP(amount)}</span>
+                          <span className="text-xs font-semibold text-[#5d574b]">
+                            {formatCOP(amount)}
+                          </span>
                         ) : null}
                       </div>
                       <div className="mt-1 flex items-center gap-2 text-xs text-[#7a6d62]">

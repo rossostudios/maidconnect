@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { sendBookingRescheduleEmail } from "@/lib/email/send";
 import { format } from "date-fns";
+import { NextResponse } from "next/server";
+import { sendBookingRescheduleEmail } from "@/lib/email/send";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -45,10 +45,7 @@ export async function POST(request: Request) {
     }
 
     if (!newScheduledStart) {
-      return NextResponse.json(
-        { error: "newScheduledStart is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "newScheduledStart is required" }, { status: 400 });
     }
 
     // Validate new datetime is in the future
@@ -133,21 +130,23 @@ export async function POST(request: Request) {
 
     if (updateError) {
       console.error("Failed to reschedule booking:", updateError);
-      return NextResponse.json(
-        { error: "Failed to reschedule booking" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to reschedule booking" }, { status: 500 });
     }
 
     // Send email notification to professional about reschedule request
     try {
-      const { data: professionalAuth } = await supabase.auth.admin.getUserById(booking.professional_id);
+      const { data: professionalAuth } = await supabase.auth.admin.getUserById(
+        booking.professional_id
+      );
       const professionalEmail = professionalAuth?.user?.email;
 
       if (professionalEmail) {
         const customerName = (booking.customer_profiles as any)?.full_name || "Customer";
-        const professionalName = (booking.professional_profiles as any)?.full_name || "Professional";
-        const address = [booking.address_line1, booking.address_line2, booking.address_city].filter(Boolean).join(", ");
+        const professionalName =
+          (booking.professional_profiles as any)?.full_name || "Professional";
+        const address = [booking.address_line1, booking.address_line2, booking.address_city]
+          .filter(Boolean)
+          .join(", ");
 
         const oldDate = new Date(booking.scheduled_start);
         const oldScheduledDate = format(oldDate, "MMMM d, yyyy");
@@ -187,7 +186,8 @@ export async function POST(request: Request) {
         scheduled_end: updatedBooking.scheduled_end,
         duration_minutes: updatedBooking.duration_minutes,
       },
-      message: "Booking rescheduled successfully. The professional will need to confirm the new time.",
+      message:
+        "Booking rescheduled successfully. The professional will need to confirm the new time.",
     });
   } catch (error) {
     console.error("Reschedule booking error:", error);

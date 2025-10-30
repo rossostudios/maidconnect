@@ -1,7 +1,7 @@
+import { getTranslations } from "next-intl/server";
+import { FinancesOverview } from "@/components/finances/finances-overview";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { FinancesOverview } from "@/components/finances/finances-overview";
-import { getTranslations } from "next-intl/server";
 
 type BookingRow = {
   id: string;
@@ -14,11 +14,7 @@ type BookingRow = {
   created_at: string;
 };
 
-export default async function ProFinancesPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function ProFinancesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "dashboard.pro.finances" });
 
@@ -28,7 +24,9 @@ export default async function ProFinancesPage({
   // Fetch completed bookings for revenue analytics
   const { data: bookingsData } = await supabase
     .from("bookings")
-    .select("id, status, scheduled_start, amount_captured, amount_authorized, currency, service_name, created_at")
+    .select(
+      "id, status, scheduled_start, amount_captured, amount_authorized, currency, service_name, created_at"
+    )
     .eq("professional_id", user.id)
     .eq("status", "completed")
     .order("scheduled_start", { ascending: true });
@@ -48,9 +46,7 @@ export default async function ProFinancesPage({
     <section className="space-y-6">
       <div>
         <h1 className="text-3xl font-semibold text-[#211f1a]">{t("title")}</h1>
-        <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-          {t("description")}
-        </p>
+        <p className="mt-2 text-base leading-relaxed text-[#5d574b]">{t("description")}</p>
       </div>
 
       <FinancesOverview bookings={bookings} payouts={payouts} />

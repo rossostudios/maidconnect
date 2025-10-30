@@ -1,11 +1,11 @@
+import { CheckCircle2, DollarSign, Settings, UserCheck } from "lucide-react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Settings, UserCheck, DollarSign, CheckCircle2 } from "lucide-react";
-import { ProductHeroSection } from "@/components/product/product-hero-section";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
+import { ProductHeroSection } from "@/components/product/product-hero-section";
 import { ProductStepsSection } from "@/components/product/product-steps-section";
-import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
+import { SiteHeader } from "@/components/sections/site-header";
 import { Link } from "@/i18n/routing";
 
 type Props = {
@@ -165,7 +165,9 @@ export default async function AdminDashboardPage({ params }: Props) {
             <div className="mt-16 space-y-4">
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
                 <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#ff5d46]" />
-                <p className="text-base text-[#5d574b]">{t("capabilities.professionalManagement")}</p>
+                <p className="text-base text-[#5d574b]">
+                  {t("capabilities.professionalManagement")}
+                </p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
                 <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#ff5d46]" />
@@ -267,45 +269,55 @@ export default async function AdminDashboardPage({ params }: Props) {
 
             <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">{t("tools.professionalApproval").split(':')[0]}</h4>
+                <h4 className="font-semibold text-[#211f1a]">
+                  {t("tools.professionalApproval").split(":")[0]}
+                </h4>
                 <p className="mt-2 text-sm text-[#5d574b]">
-                  {t("tools.professionalApproval").split(':')[1]}
+                  {t("tools.professionalApproval").split(":")[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">{t("tools.documentVerification").split(':')[0]}</h4>
+                <h4 className="font-semibold text-[#211f1a]">
+                  {t("tools.documentVerification").split(":")[0]}
+                </h4>
                 <p className="mt-2 text-sm text-[#5d574b]">
-                  {t("tools.documentVerification").split(':')[1]}
+                  {t("tools.documentVerification").split(":")[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">{t("tools.payoutQueue").split(':')[0]}</h4>
+                <h4 className="font-semibold text-[#211f1a]">
+                  {t("tools.payoutQueue").split(":")[0]}
+                </h4>
                 <p className="mt-2 text-sm text-[#5d574b]">
-                  {t("tools.payoutQueue").split(':')[1]}
+                  {t("tools.payoutQueue").split(":")[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">{t("tools.userManagement").split(':')[0]}</h4>
+                <h4 className="font-semibold text-[#211f1a]">
+                  {t("tools.userManagement").split(":")[0]}
+                </h4>
                 <p className="mt-2 text-sm text-[#5d574b]">
-                  {t("tools.userManagement").split(':')[1]}
+                  {t("tools.userManagement").split(":")[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">{t("tools.disputeResolution").split(':')[0]}</h4>
+                <h4 className="font-semibold text-[#211f1a]">
+                  {t("tools.disputeResolution").split(":")[0]}
+                </h4>
                 <p className="mt-2 text-sm text-[#5d574b]">
-                  {t("tools.disputeResolution").split(':')[1]}
+                  {t("tools.disputeResolution").split(":")[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">{t("tools.analytics").split(':')[0]}</h4>
-                <p className="mt-2 text-sm text-[#5d574b]">
-                  {t("tools.analytics").split(':')[1]}
-                </p>
+                <h4 className="font-semibold text-[#211f1a]">
+                  {t("tools.analytics").split(":")[0]}
+                </h4>
+                <p className="mt-2 text-sm text-[#5d574b]">{t("tools.analytics").split(":")[1]}</p>
               </div>
             </div>
           </div>

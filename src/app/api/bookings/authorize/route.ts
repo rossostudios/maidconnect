@@ -1,11 +1,8 @@
 import { NextResponse } from "next/server";
+import { sendNewBookingRequestEmail } from "@/lib/email/send";
+import { notifyCustomerBookingConfirmed, notifyProfessionalNewBooking } from "@/lib/notifications";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { sendNewBookingRequestEmail } from "@/lib/email/send";
-import {
-  notifyProfessionalNewBooking,
-  notifyCustomerBookingConfirmed,
-} from "@/lib/notifications";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -30,13 +27,13 @@ export async function POST(request: Request) {
     const { bookingId, paymentIntentId } = body ?? {};
 
     if (!bookingId || !paymentIntentId) {
-      return NextResponse.json({ error: "bookingId and paymentIntentId are required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "bookingId and paymentIntentId are required" },
+        { status: 400 }
+      );
     }
 
-    const {
-      data: booking,
-      error: bookingError,
-    } = await supabase
+    const { data: booking, error: bookingError } = await supabase
       .from("bookings")
       .select("id, customer_id, status")
       .eq("id", bookingId)
@@ -47,7 +44,10 @@ export async function POST(request: Request) {
     }
 
     if (booking.customer_id !== user.id) {
-      return NextResponse.json({ error: "You are not authorized to update this booking" }, { status: 403 });
+      return NextResponse.json(
+        { error: "You are not authorized to update this booking" },
+        { status: 403 }
+      );
     }
 
     const intent = await stripe.paymentIntents.retrieve(paymentIntentId);
@@ -89,7 +89,9 @@ export async function POST(request: Request) {
 
       if (fullBooking) {
         // Get professional email
-        const { data: professionalUser } = await supabase.auth.admin.getUserById(fullBooking.professional_id);
+        const { data: professionalUser } = await supabase.auth.admin.getUserById(
+          fullBooking.professional_id
+        );
         const { data: professionalProfile } = await supabase
           .from("professional_profiles")
           .select("full_name")
@@ -97,31 +99,36 @@ export async function POST(request: Request) {
           .single();
 
         // Get customer user data
-        const { data: customerUser } = await supabase.auth.admin.getUserById(fullBooking.customer_id);
+        const { data: customerUser } = await supabase.auth.admin.getUserById(
+          fullBooking.customer_id
+        );
 
         if (professionalUser?.user?.email) {
           const scheduledDate = fullBooking.scheduled_start
             ? new Date(fullBooking.scheduled_start).toLocaleDateString()
             : "TBD";
           const scheduledTime = fullBooking.scheduled_start
-            ? new Date(fullBooking.scheduled_start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            ? new Date(fullBooking.scheduled_start).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })
             : "TBD";
           const duration = fullBooking.duration_minutes
             ? `${fullBooking.duration_minutes} minutes`
             : "TBD";
           const address = fullBooking.address
-            ? typeof fullBooking.address === 'object' && 'formatted' in fullBooking.address
+            ? typeof fullBooking.address === "object" && "formatted" in fullBooking.address
               ? String(fullBooking.address.formatted)
               : JSON.stringify(fullBooking.address)
             : "Not specified";
           const amount = fullBooking.amount_authorized
-            ? `${new Intl.NumberFormat('es-CO', { style: 'currency', currency: fullBooking.currency || 'COP' }).format(fullBooking.amount_authorized / 100)}`
+            ? `${new Intl.NumberFormat("es-CO", { style: "currency", currency: fullBooking.currency || "COP" }).format(fullBooking.amount_authorized / 100)}`
             : undefined;
 
           await sendNewBookingRequestEmail(professionalUser.user.email, {
-            professionalName: professionalProfile?.full_name || 'there',
-            customerName: customerUser?.user?.user_metadata?.full_name || 'A customer',
-            serviceName: fullBooking.service_name || 'Service',
+            professionalName: professionalProfile?.full_name || "there",
+            customerName: customerUser?.user?.user_metadata?.full_name || "A customer",
+            serviceName: fullBooking.service_name || "Service",
             scheduledDate,
             scheduledTime,
             duration,
@@ -133,8 +140,8 @@ export async function POST(request: Request) {
           // Send push notification to professional
           await notifyProfessionalNewBooking(fullBooking.professional_id, {
             id: fullBooking.id,
-            serviceName: fullBooking.service_name || 'Service',
-            customerName: customerUser?.user?.user_metadata?.full_name || 'A customer',
+            serviceName: fullBooking.service_name || "Service",
+            customerName: customerUser?.user?.user_metadata?.full_name || "A customer",
             scheduledStart: fullBooking.scheduled_start || new Date().toISOString(),
           });
         }
@@ -143,9 +150,9 @@ export async function POST(request: Request) {
         if (customerUser?.user) {
           await notifyCustomerBookingConfirmed(fullBooking.customer_id, {
             id: fullBooking.id,
-            serviceName: fullBooking.service_name || 'Service',
+            serviceName: fullBooking.service_name || "Service",
             scheduledStart: fullBooking.scheduled_start || new Date().toISOString(),
-            professionalName: professionalProfile?.full_name || 'Your professional',
+            professionalName: professionalProfile?.full_name || "Your professional",
           });
         }
       }

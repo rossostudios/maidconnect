@@ -104,10 +104,7 @@ export function calculateCancellationPolicy(
 /**
  * Calculate refund amount in cents
  */
-export function calculateRefundAmount(
-  authorizedAmount: number,
-  refundPercentage: number
-): number {
+export function calculateRefundAmount(authorizedAmount: number, refundPercentage: number): number {
   return Math.round((authorizedAmount * refundPercentage) / 100);
 }
 

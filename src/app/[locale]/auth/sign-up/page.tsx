@@ -1,9 +1,9 @@
-import Image from "next/image";
 import { Metadata } from "next";
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
-import { SignUpForm } from "./sign-up-form";
 import { AUTH_ROUTES } from "@/lib/auth";
+import { SignUpForm } from "./sign-up-form";
 
 type Props = {
   params: { locale: string };
@@ -36,25 +36,26 @@ export default async function SignUpPage({ params }: Props) {
         <main className="flex flex-1 justify-center pb-16 pt-12 md:pt-14">
           <div className="w-full max-w-3xl space-y-14">
             <div className="space-y-6">
-              <h1 className="text-[2.35rem] font-semibold leading-tight text-[#211f1a]">{t("hero.title")}</h1>
-              <p className="text-lg leading-relaxed text-[#5d574b]">
-                {t("hero.description")}
-              </p>
+              <h1 className="text-[2.35rem] font-semibold leading-tight text-[#211f1a]">
+                {t("hero.title")}
+              </h1>
+              <p className="text-lg leading-relaxed text-[#5d574b]">{t("hero.description")}</p>
             </div>
             <div className="rounded-[40px] border border-[#e5dfd4] bg-white p-12 shadow-[0_28px_70px_rgba(18,17,15,0.08)]">
               <SignUpForm />
               <p className="mt-8 text-sm text-[#5d574b]">
                 {t("form.haveAccount")}{" "}
-                <Link href={AUTH_ROUTES.signIn} className="font-semibold text-[#211f1a] underline-offset-4 hover:underline">
+                <Link
+                  href={AUTH_ROUTES.signIn}
+                  className="font-semibold text-[#211f1a] underline-offset-4 hover:underline"
+                >
                   {t("form.signInInstead")}
                 </Link>
               </p>
             </div>
           </div>
         </main>
-        <p className="mt-10 text-xs text-[#7a6d62]">
-          {t("footer.support")}
-        </p>
+        <p className="mt-10 text-xs text-[#7a6d62]">{t("footer.support")}</p>
       </div>
       <div className="relative hidden md:block">
         <div className="sticky top-0 h-screen">
@@ -68,11 +69,11 @@ export default async function SignUpPage({ params }: Props) {
             />
             <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(17,16,14,0.8),rgba(33,31,26,0.4))]" />
             <div className="absolute inset-x-14 bottom-14 max-w-md space-y-3 text-white">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#d7b59f]">{t("sidebar.badge")}</p>
-              <h2 className="text-2xl font-semibold leading-snug">{t("sidebar.title")}</h2>
-              <p className="text-sm text-[#f3ece1]">
-                {t("sidebar.description")}
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#d7b59f]">
+                {t("sidebar.badge")}
               </p>
+              <h2 className="text-2xl font-semibold leading-snug">{t("sidebar.title")}</h2>
+              <p className="text-sm text-[#f3ece1]">{t("sidebar.description")}</p>
             </div>
           </div>
         </div>

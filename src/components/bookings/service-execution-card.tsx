@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { RatingPromptModal } from "@/components/reviews/rating-prompt-modal";
 
 export type BookingForExecution = {
@@ -228,7 +228,8 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       })
     : "—";
 
-  const totalPlannedMinutes = (booking.duration_minutes || 0) + (booking.time_extension_minutes || 0);
+  const totalPlannedMinutes =
+    (booking.duration_minutes || 0) + (booking.time_extension_minutes || 0);
   const isOvertime = elapsedTime > totalPlannedMinutes;
 
   return (
@@ -246,8 +247,8 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
             booking.status === "confirmed"
               ? "bg-green-100 text-green-800"
               : booking.status === "in_progress"
-              ? "bg-blue-100 text-blue-800"
-              : "bg-gray-100 text-gray-800"
+                ? "bg-blue-100 text-blue-800"
+                : "bg-gray-100 text-gray-800"
           }`}
         >
           {booking.status.replace(/_/g, " ")}
@@ -294,9 +295,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       {message && (
         <div
           className={`mb-4 rounded-lg p-3 text-sm ${
-            message.type === "success"
-              ? "bg-green-50 text-green-800"
-              : "bg-red-50 text-red-800"
+            message.type === "success" ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"
           }`}
         >
           {message.text}

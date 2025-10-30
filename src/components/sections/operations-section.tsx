@@ -14,13 +14,13 @@ export function OperationsSection() {
               Built on the processes that keep every booking trustworthy
             </h2>
             <p className="text-base text-[#5d574b]">
-              Our operations manual defines how professionals are vetted, bookings are
-              governed, and issues are resolved. These pillars translate directly into
-              product features and service expectations.
+              Our operations manual defines how professionals are vetted, bookings are governed, and
+              issues are resolved. These pillars translate directly into product features and
+              service expectations.
             </p>
             <div className="rounded-3xl border border-[#e2ddd2] bg-white px-5 py-4 text-sm text-[#4d473d] shadow-[0_16px_36px_rgba(18,17,15,0.04)]">
-              Need the full SOPs? Message the operations team to access the latest
-              version of the manual and training assets.
+              Need the full SOPs? Message the operations team to access the latest version of the
+              manual and training assets.
             </div>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">

@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { requireUser } from "@/lib/auth";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { getTranslations } from "next-intl/server";
 import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar";
 import { ProBookingList } from "@/components/bookings/pro-booking-list";
-import { getTranslations } from "next-intl/server";
+import { requireUser } from "@/lib/auth";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type ProfessionalBookingRow = {
   id: string;
@@ -27,11 +27,7 @@ type ProfessionalBookingRow = {
   customer: { id: string } | null;
 };
 
-export default async function ProBookingsPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function ProBookingsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "dashboard.pro.bookings" });
 
@@ -42,7 +38,7 @@ export default async function ProBookingsPage({
     .from("bookings")
     .select(
       `id, status, scheduled_start, scheduled_end, duration_minutes, amount_estimated, amount_authorized, amount_captured, currency, stripe_payment_intent_id, stripe_payment_status, created_at, service_name, service_hourly_rate, checked_in_at, checked_out_at, time_extension_minutes, address,
-      customer:profiles!customer_id(id)`,
+      customer:profiles!customer_id(id)`
     )
     .eq("professional_id", user.id)
     .order("created_at", { ascending: false });
@@ -54,9 +50,7 @@ export default async function ProBookingsPage({
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <h1 className="text-3xl font-semibold text-[#211f1a]">{t("title")}</h1>
-          <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-            {t("description")}
-          </p>
+          <p className="mt-2 text-base leading-relaxed text-[#5d574b]">{t("description")}</p>
         </div>
         <Link
           href="/dashboard/pro/onboarding"

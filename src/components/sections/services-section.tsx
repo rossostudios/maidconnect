@@ -6,7 +6,14 @@ import { Container } from "@/components/ui/container";
 export function ServicesSection() {
   const t = useTranslations("services");
 
-  const serviceKeys = ["housekeeping", "childcare", "relocation", "elderCare", "petCare", "lifestyle"] as const;
+  const serviceKeys = [
+    "housekeeping",
+    "childcare",
+    "relocation",
+    "elderCare",
+    "petCare",
+    "lifestyle",
+  ] as const;
 
   return (
     <section id="services" className="py-16 sm:py-20 lg:py-24">

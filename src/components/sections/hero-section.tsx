@@ -34,9 +34,7 @@ export function HeroSection() {
             {t("title")}
           </h1>
 
-          <p className="mx-auto max-w-2xl text-xl text-white/90 sm:text-2xl">
-            {t("subtitle")}
-          </p>
+          <p className="mx-auto max-w-2xl text-xl text-white/90 sm:text-2xl">{t("subtitle")}</p>
 
           <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
             <Button href="/professionals" label={t("findProfessional")} icon />

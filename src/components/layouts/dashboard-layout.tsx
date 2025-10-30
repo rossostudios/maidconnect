@@ -1,6 +1,6 @@
+import Link from "next/link";
 import { ReactNode } from "react";
 import { Container } from "@/components/ui/container";
-import Link from "next/link";
 
 type NavLink = {
   href: string;
@@ -24,7 +24,7 @@ export function DashboardLayout({
   navLinks,
   currentPath,
   dashboardHref,
-  fullWidth = false
+  fullWidth = false,
 }: Props) {
   return (
     <div className="flex min-h-screen flex-col bg-[#fbfaf9]">
@@ -45,9 +45,7 @@ export function DashboardLayout({
                     key={link.href}
                     href={link.href}
                     className={`text-sm font-medium transition ${
-                      isActive
-                        ? "text-[#211f1a]"
-                        : "text-[#7d7566] hover:text-[#211f1a]"
+                      isActive ? "text-[#211f1a]" : "text-[#7d7566] hover:text-[#211f1a]"
                     }`}
                   >
                     {link.label}
@@ -74,9 +72,7 @@ export function DashboardLayout({
             {title && (
               <div className="mb-8">
                 <h1 className="text-4xl font-semibold text-[#211f1a]">{title}</h1>
-                {description && (
-                  <p className="mt-2 text-base text-[#5d574b]">{description}</p>
-                )}
+                {description && <p className="mt-2 text-base text-[#5d574b]">{description}</p>}
               </div>
             )}
             {children}

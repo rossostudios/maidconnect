@@ -31,10 +31,7 @@ export async function POST(request: Request) {
 
     const retrievedIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
 
-    const {
-      data: booking,
-      error: bookingError,
-    } = await supabase
+    const { data: booking, error: bookingError } = await supabase
       .from("bookings")
       .select("id, customer_id, professional_id, status, amount_authorized")
       .eq("stripe_payment_intent_id", paymentIntentId)
@@ -48,15 +45,24 @@ export async function POST(request: Request) {
     const isProfessional = booking.professional_id === user.id;
 
     if (!isCustomer && !isProfessional) {
-      return NextResponse.json({ error: "You are not authorized to capture this payment" }, { status: 403 });
+      return NextResponse.json(
+        { error: "You are not authorized to capture this payment" },
+        { status: 403 }
+      );
     }
 
     if (retrievedIntent.metadata?.booking_id !== booking.id) {
-      return NextResponse.json({ error: "Payment intent does not belong to this booking" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Payment intent does not belong to this booking" },
+        { status: 400 }
+      );
     }
 
     if (retrievedIntent.status !== "requires_capture") {
-      return NextResponse.json({ error: "This payment cannot be captured in its current state" }, { status: 400 });
+      return NextResponse.json(
+        { error: "This payment cannot be captured in its current state" },
+        { status: 400 }
+      );
     }
 
     const intent = await stripe.paymentIntents.capture(paymentIntentId, {

@@ -7,8 +7,8 @@
  * - Professional vetting workflow
  */
 
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { User } from "@supabase/supabase-js";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export type AdminActionType =
   | "approve_professional"
@@ -145,10 +145,7 @@ export function getNextVettingStatus(currentStatus: string): VettingStatus | nul
   }
 }
 
-export function canProgressToStatus(
-  currentStatus: string,
-  targetStatus: VettingStatus
-): boolean {
+export function canProgressToStatus(currentStatus: string, targetStatus: VettingStatus): boolean {
   const statusOrder: VettingStatus[] = [
     "application_pending",
     "application_in_review",

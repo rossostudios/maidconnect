@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Container } from "@/components/ui/container";
-import { requireUser } from "@/lib/auth";
-import { DashboardNavigation } from "@/components/navigation/dashboard-navigation";
 import { Breadcrumbs } from "@/components/navigation/breadcrumbs";
 import { DashboardFooter } from "@/components/navigation/dashboard-footer";
+import { DashboardNavigation } from "@/components/navigation/dashboard-navigation";
+import { Container } from "@/components/ui/container";
+import { requireUser } from "@/lib/auth";
 
 type Props = {
   children: ReactNode;
@@ -38,7 +38,8 @@ const navByRole: Record<
 export default async function DashboardLayout({ children }: Props) {
   const user = await requireUser();
   const navLinks = navByRole[user.role] ?? navByRole.professional;
-  const userRole = (user.role === "customer" || user.role === "professional") ? user.role : "professional";
+  const userRole =
+    user.role === "customer" || user.role === "professional" ? user.role : "professional";
 
   return (
     <div className="flex min-h-screen flex-col bg-[#fbfaf9] text-[var(--foreground)]">
@@ -46,7 +47,9 @@ export default async function DashboardLayout({ children }: Props) {
         <header className="bg-[#fbfaf9] py-4">
           <Container className="flex items-center justify-between gap-4">
             <Link href="/" className="flex items-center">
-              <span className="text-xl font-semibold tracking-tight text-[#211f1a]">MaidConnect</span>
+              <span className="text-xl font-semibold tracking-tight text-[#211f1a]">
+                MaidConnect
+              </span>
             </Link>
             <DashboardNavigation navLinks={navLinks} userRole={userRole} />
           </Container>

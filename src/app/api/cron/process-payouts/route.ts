@@ -19,10 +19,7 @@ export async function GET(request: Request) {
 
   if (!cronSecret) {
     console.error("CRON_SECRET not configured");
-    return NextResponse.json(
-      { error: "Cron job not configured" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Cron job not configured" }, { status: 500 });
   }
 
   if (authHeader !== `Bearer ${cronSecret}`) {
@@ -43,17 +40,14 @@ export async function GET(request: Request) {
     }
 
     // Call the internal payout processing endpoint
-    const processUrl = new URL(
-      "/api/admin/payouts/process",
-      request.url
-    ).toString();
+    const processUrl = new URL("/api/admin/payouts/process", request.url).toString();
 
     const response = await fetch(processUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         // Pass cron secret for authentication
-        "Authorization": `Bearer ${cronSecret}`,
+        Authorization: `Bearer ${cronSecret}`,
       },
       body: JSON.stringify({
         // Process all professionals with pending earnings
@@ -89,14 +83,6 @@ export async function GET(request: Request) {
 }
 
 function getDayName(dayOfWeek: number): string {
-  const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   return days[dayOfWeek] || "Unknown";
 }

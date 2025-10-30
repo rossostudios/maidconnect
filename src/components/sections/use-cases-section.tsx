@@ -16,8 +16,7 @@ export function UseCasesSection() {
           </div>
           <p className="max-w-xl text-base text-[#5d574b]">
             Each flow mirrors our product requirements and wireframes—so households and
-            professionals know exactly what to expect from onboarding through repeat
-            bookings.
+            professionals know exactly what to expect from onboarding through repeat bookings.
           </p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2">
@@ -42,8 +41,8 @@ export function UseCasesSection() {
                 ))}
               </ul>
               <div className="rounded-2xl border border-[#f0ebe0] bg-[#fbfafa] px-4 py-3 text-xs text-[#7a7263]">
-                Interactive wireframes are available in the internal prototype. Replace
-                this card with live embeds when ready.
+                Interactive wireframes are available in the internal prototype. Replace this card
+                with live embeds when ready.
               </div>
             </article>
           ))}

@@ -1,22 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { Container } from "@/components/ui/container";
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { Container } from "@/components/ui/container";
 
 export function ContactFAQ() {
   const t = useTranslations("pages.contact.faq");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const faqKeys = [
-    "verification",
-    "payments",
-    "cancellation",
-    "recurring",
-    "areas",
-    "becomePro",
-  ];
+  const faqKeys = ["verification", "payments", "cancellation", "recurring", "areas", "becomePro"];
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -49,9 +42,7 @@ export function ContactFAQ() {
               </button>
               <div
                 className={`grid transition-all duration-300 ease-in-out ${
-                  openIndex === index
-                    ? "grid-rows-[1fr] opacity-100"
-                    : "grid-rows-[0fr] opacity-0"
+                  openIndex === index ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                 }`}
               >
                 <div className="overflow-hidden">

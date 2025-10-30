@@ -1,10 +1,10 @@
 import Link from "next/link";
+import { DashboardButton } from "@/components/navigation/dashboard-button";
+import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { AUTH_ROUTES, getDashboardRouteForRole, getSession } from "@/lib/auth";
 import { SiteNavigation } from "./site-navigation";
-import { DashboardButton } from "@/components/navigation/dashboard-button";
-import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 
 export async function SiteHeader() {
   const { user } = await getSession();

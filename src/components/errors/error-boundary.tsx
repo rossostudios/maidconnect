@@ -1,8 +1,8 @@
 "use client";
 
-import { Component, ReactNode } from "react";
 import * as Sentry from "@sentry/nextjs";
 import { AlertTriangle } from "lucide-react";
+import { Component, ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
@@ -61,9 +61,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 <AlertTriangle className="h-8 w-8 text-red-500" />
               </div>
             </div>
-            <h2 className="mb-2 text-2xl font-bold text-[#211f1a]">
-              Something went wrong
-            </h2>
+            <h2 className="mb-2 text-2xl font-bold text-[#211f1a]">Something went wrong</h2>
             <p className="mb-6 text-[#7d7566]">
               We've been notified of this issue and are working to fix it.
             </p>

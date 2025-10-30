@@ -24,12 +24,7 @@ export default function robots(): MetadataRoute.Robots {
           "/privacy",
           "/terms",
         ],
-        disallow: [
-          "/api/*",
-          "/dashboard/*",
-          "/admin",
-          "/support/account-suspended",
-        ],
+        disallow: ["/api/*", "/dashboard/*", "/admin", "/support/account-suspended"],
       },
       {
         userAgent: "Googlebot",

@@ -27,19 +27,13 @@ export async function GET() {
 
     if (error) {
       console.error("Failed to fetch add-ons:", error);
-      return NextResponse.json(
-        { error: "Failed to fetch add-ons" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch add-ons" }, { status: 500 });
     }
 
     return NextResponse.json({ addons: addons || [] });
   } catch (error) {
     console.error("Add-ons API error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch add-ons" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch add-ons" }, { status: 500 });
   }
 }
 
@@ -70,17 +64,11 @@ export async function POST(request: Request) {
 
     // Validate required fields
     if (!body.name || body.price_cop === undefined) {
-      return NextResponse.json(
-        { error: "name and price_cop are required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "name and price_cop are required" }, { status: 400 });
     }
 
     if (body.price_cop < 0) {
-      return NextResponse.json(
-        { error: "price_cop must be non-negative" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "price_cop must be non-negative" }, { status: 400 });
     }
 
     const { data: addon, error } = await supabase
@@ -98,19 +86,13 @@ export async function POST(request: Request) {
 
     if (error) {
       console.error("Failed to create add-on:", error);
-      return NextResponse.json(
-        { error: "Failed to create add-on" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to create add-on" }, { status: 500 });
     }
 
     return NextResponse.json({ addon }, { status: 201 });
   } catch (error) {
     console.error("Create add-on API error:", error);
-    return NextResponse.json(
-      { error: "Failed to create add-on" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to create add-on" }, { status: 500 });
   }
 }
 
@@ -134,10 +116,7 @@ export async function PUT(request: Request) {
     const body = await request.json();
 
     if (!Array.isArray(body.addons)) {
-      return NextResponse.json(
-        { error: "addons must be an array" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "addons must be an array" }, { status: 400 });
     }
 
     // Get existing add-ons
@@ -175,18 +154,12 @@ export async function PUT(request: Request) {
 
     if (error) {
       console.error("Failed to update add-ons:", error);
-      return NextResponse.json(
-        { error: "Failed to update add-ons" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to update add-ons" }, { status: 500 });
     }
 
     return NextResponse.json({ addons: updatedAddons || [] });
   } catch (error) {
     console.error("Update add-ons API error:", error);
-    return NextResponse.json(
-      { error: "Failed to update add-ons" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update add-ons" }, { status: 500 });
   }
 }

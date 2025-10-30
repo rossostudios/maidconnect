@@ -1,8 +1,19 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { ChevronLeft, ChevronRight, Calendar, Trash2 } from "lucide-react";
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, addMonths, subMonths, isToday, parseISO } from "date-fns";
+import {
+  addMonths,
+  eachDayOfInterval,
+  endOfMonth,
+  format,
+  isSameDay,
+  isSameMonth,
+  isToday,
+  parseISO,
+  startOfMonth,
+  subMonths,
+} from "date-fns";
+import { Calendar, ChevronLeft, ChevronRight, Trash2 } from "lucide-react";
+import { useMemo, useState } from "react";
 
 type Props = {
   initialBlockedDates?: string[];
@@ -130,12 +141,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
         <div className="grid grid-cols-7 gap-px bg-[#ebe5d8]">
           {calendarDays.map((day, index) => {
             if (!day) {
-              return (
-                <div
-                  key={`empty-${index}`}
-                  className="aspect-square bg-[#fbfaf9]"
-                />
-              );
+              return <div key={`empty-${index}`} className="aspect-square bg-[#fbfaf9]" />;
             }
 
             const dateStr = format(day, "yyyy-MM-dd");
@@ -152,10 +158,10 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
                   !isCurrentMonth
                     ? "cursor-not-allowed bg-[#fbfaf9] text-[#d4cec0]"
                     : isBlocked
-                    ? "bg-red-500 font-semibold text-white hover:bg-red-600"
-                    : isTodayDate
-                    ? "bg-[#fff5f2] font-semibold text-[#ff5d46] hover:bg-[#ff5d46] hover:text-white"
-                    : "bg-white font-medium text-[#211f1a] hover:bg-[#ff5d46] hover:text-white"
+                      ? "bg-red-500 font-semibold text-white hover:bg-red-600"
+                      : isTodayDate
+                        ? "bg-[#fff5f2] font-semibold text-[#ff5d46] hover:bg-[#ff5d46] hover:text-white"
+                        : "bg-white font-medium text-[#211f1a] hover:bg-[#ff5d46] hover:text-white"
                 }`}
               >
                 {format(day, "d")}
@@ -169,14 +175,14 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
       <div className="grid gap-4 md:grid-cols-2">
         <div className="rounded-xl bg-[#fbfaf9] p-4">
           <p className="text-sm text-[#7d7566]">
-            <strong className="text-[#211f1a]">{blockedInCurrentMonth} days</strong>{" "}
-            blocked in {format(currentMonth, "MMMM")}
+            <strong className="text-[#211f1a]">{blockedInCurrentMonth} days</strong> blocked in{" "}
+            {format(currentMonth, "MMMM")}
           </p>
         </div>
         <div className="rounded-xl bg-[#fbfaf9] p-4">
           <p className="text-sm text-[#7d7566]">
-            <strong className="text-[#211f1a]">{blockedDates.length} total days</strong>{" "}
-            blocked across all months
+            <strong className="text-[#211f1a]">{blockedDates.length} total days</strong> blocked
+            across all months
           </p>
         </div>
       </div>

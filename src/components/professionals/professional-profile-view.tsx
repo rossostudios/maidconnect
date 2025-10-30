@@ -1,19 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
-import { Link } from "@/i18n/routing";
 import { CalendarDays, Clock, Globe2, MapPin, ShieldCheck, Star } from "lucide-react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { BookingSheet } from "@/components/bookings/booking-sheet";
 
 import { LargeAvailabilityCalendar } from "@/components/bookings/large-availability-calendar";
-import { BookingSheet } from "@/components/bookings/booking-sheet";
-import { Container } from "@/components/ui/container";
 import type {
   ProfessionalBookingSummary,
   ProfessionalPortfolioImage,
   ProfessionalReviewSummary,
 } from "@/components/professionals/types";
+import { Container } from "@/components/ui/container";
+import { Link } from "@/i18n/routing";
 import type { AppUser } from "@/lib/auth/types";
 import { type AvailabilitySlot, type ProfessionalService } from "@/lib/professionals/transformers";
 
@@ -55,19 +55,26 @@ function formatCurrencyCOP(value: number | null | undefined) {
   }).format(value);
 }
 
-export function ProfessionalProfileView({ professional, viewer, locale }: ProfessionalProfileViewProps) {
+export function ProfessionalProfileView({
+  professional,
+  viewer,
+  locale,
+}: ProfessionalProfileViewProps) {
   const t = useTranslations("pages.professionalProfile");
   const [isBookingSheetOpen, setIsBookingSheetOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [availableSlots, setAvailableSlots] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState<"about" | "services" | "portfolio" | "reviews">("about");
+  const [activeTab, setActiveTab] = useState<"about" | "services" | "portfolio" | "reviews">(
+    "about"
+  );
 
   const locationLabel = professional.location || "Colombia";
   const formattedRate = formatCurrencyCOP(professional.hourlyRateCop);
   const hasServices = professional.services.length > 0;
-  const averageRating = professional.reviews.length > 0
-    ? professional.reviews.reduce((sum, r) => sum + r.rating, 0) / professional.reviews.length
-    : 0;
+  const averageRating =
+    professional.reviews.length > 0
+      ? professional.reviews.reduce((sum, r) => sum + r.rating, 0) / professional.reviews.length
+      : 0;
 
   const handleDateSelect = (date: Date, slots: string[]) => {
     setSelectedDate(date);
@@ -117,7 +124,9 @@ export function ProfessionalProfileView({ professional, viewer, locale }: Profes
                 {formattedRate && (
                   <div className="flex items-center gap-2">
                     <Clock className="h-5 w-5 text-[#ff5d46]" />
-                    <span>{formattedRate} {t("perHour")}</span>
+                    <span>
+                      {formattedRate} {t("perHour")}
+                    </span>
                   </div>
                 )}
                 {professional.languages.length > 0 && (
@@ -136,7 +145,9 @@ export function ProfessionalProfileView({ professional, viewer, locale }: Profes
                   <div className="flex items-center gap-2">
                     <Star className="h-5 w-5 fill-[#ff5d46] text-[#ff5d46]" />
                     <span className="font-semibold">{averageRating.toFixed(1)}</span>
-                    <span className="text-[#7d7566]">({t("reviewsCount", { count: professional.reviews.length })})</span>
+                    <span className="text-[#7d7566]">
+                      ({t("reviewsCount", { count: professional.reviews.length })})
+                    </span>
                   </div>
                 )}
               </div>
@@ -157,9 +168,7 @@ export function ProfessionalProfileView({ professional, viewer, locale }: Profes
           <div>
             <div className="mb-8">
               <h2 className="text-3xl font-semibold text-[#211f1a]">{t("bookingSection.title")}</h2>
-              <p className="mt-2 text-lg text-[#7d7566]">
-                {t("bookingSection.description")}
-              </p>
+              <p className="mt-2 text-lg text-[#7d7566]">{t("bookingSection.description")}</p>
             </div>
             <LargeAvailabilityCalendar
               professionalId={professional.id}
@@ -227,7 +236,9 @@ export function ProfessionalProfileView({ professional, viewer, locale }: Profes
 
                 {activeTab === "services" && (
                   <div className="space-y-6">
-                    <h3 className="text-2xl font-semibold text-[#211f1a]">{t("servicesSection.title")}</h3>
+                    <h3 className="text-2xl font-semibold text-[#211f1a]">
+                      {t("servicesSection.title")}
+                    </h3>
                     <div className="space-y-4">
                       {hasServices ? (
                         professional.services.map((service) => (
@@ -240,7 +251,8 @@ export function ProfessionalProfileView({ professional, viewer, locale }: Profes
                                 {service.name ?? t("servicesSection.serviceFallback")}
                               </div>
                               <div className="text-lg font-semibold text-[#ff5d46]">
-                                {formatCurrencyCOP(service.hourlyRateCop) ?? t("servicesSection.rateOnRequest")}
+                                {formatCurrencyCOP(service.hourlyRateCop) ??
+                                  t("servicesSection.rateOnRequest")}
                               </div>
                             </div>
                             {service.description && (
@@ -263,7 +275,10 @@ export function ProfessionalProfileView({ professional, viewer, locale }: Profes
                     {professional.portfolioImages.length > 0 ? (
                       <div className="grid grid-cols-2 gap-4">
                         {professional.portfolioImages.slice(0, 6).map((image, index) => (
-                          <div key={index} className="relative aspect-square overflow-hidden rounded-2xl">
+                          <div
+                            key={index}
+                            className="relative aspect-square overflow-hidden rounded-2xl"
+                          >
                             <Image
                               src={image.url}
                               alt={image.caption || t("portfolioSection.imageAlt")}
@@ -274,9 +289,7 @@ export function ProfessionalProfileView({ professional, viewer, locale }: Profes
                         ))}
                       </div>
                     ) : (
-                      <p className="text-base text-[#7d7566]">
-                        {t("portfolioSection.noImages")}
-                      </p>
+                      <p className="text-base text-[#7d7566]">{t("portfolioSection.noImages")}</p>
                     )}
                   </div>
                 )}
@@ -287,7 +300,10 @@ export function ProfessionalProfileView({ professional, viewer, locale }: Profes
                     {professional.reviews.length > 0 ? (
                       <div className="space-y-6">
                         {professional.reviews.slice(0, 3).map((review) => (
-                          <div key={review.id} className="space-y-3 border-b border-[#ebe5d8] pb-6 last:border-b-0 last:pb-0">
+                          <div
+                            key={review.id}
+                            className="space-y-3 border-b border-[#ebe5d8] pb-6 last:border-b-0 last:pb-0"
+                          >
                             <div className="flex items-center gap-2">
                               {[...Array(5)].map((_, i) => (
                                 <Star
@@ -302,20 +318,24 @@ export function ProfessionalProfileView({ professional, viewer, locale }: Profes
                             </div>
                             <p className="text-base text-[#5d574b]">{review.comment}</p>
                             <p className="text-sm text-[#7d7566]">
-                              {review.reviewerName} · {new Date(review.createdAt).toLocaleDateString(locale === "es" ? "es-ES" : "en-US", { month: "short", year: "numeric" })}
+                              {review.reviewerName} ·{" "}
+                              {new Date(review.createdAt).toLocaleDateString(
+                                locale === "es" ? "es-ES" : "en-US",
+                                { month: "short", year: "numeric" }
+                              )}
                             </p>
                           </div>
                         ))}
                         {professional.reviews.length > 3 && (
                           <p className="text-sm text-[#7d7566]">
-                            {t("reviewsSection.moreReviews", { count: professional.reviews.length - 3 })}
+                            {t("reviewsSection.moreReviews", {
+                              count: professional.reviews.length - 3,
+                            })}
                           </p>
                         )}
                       </div>
                     ) : (
-                      <p className="text-base text-[#7d7566]">
-                        {t("reviewsSection.noReviews")}
-                      </p>
+                      <p className="text-base text-[#7d7566]">{t("reviewsSection.noReviews")}</p>
                     )}
                   </div>
                 )}

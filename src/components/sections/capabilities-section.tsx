@@ -15,8 +15,8 @@ export function CapabilitiesSection() {
                 A single platform connecting household needs with trusted talent
               </h2>
               <p className="text-base text-[#c1bbb1]">
-                These modules map directly to the PRD—and guide what our engineering,
-                product, and concierge teams prioritize across each release.
+                These modules map directly to the PRD—and guide what our engineering, product, and
+                concierge teams prioritize across each release.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">

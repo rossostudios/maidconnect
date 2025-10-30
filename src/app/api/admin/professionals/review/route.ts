@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { requireAdmin, createAuditLog } from "@/lib/admin-helpers";
+import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
 import {
   sendProfessionalApprovedEmail,
-  sendProfessionalRejectedEmail,
   sendProfessionalInfoRequestedEmail,
+  sendProfessionalRejectedEmail,
 } from "@/lib/email/send";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -80,17 +80,11 @@ export async function POST(request: Request) {
       .single();
 
     if (profileError || !profile) {
-      return NextResponse.json(
-        { error: "Professional not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Professional not found" }, { status: 404 });
     }
 
     if (profile.role !== "professional") {
-      return NextResponse.json(
-        { error: "User is not a professional" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "User is not a professional" }, { status: 400 });
     }
 
     // Determine new status based on action
@@ -144,10 +138,7 @@ export async function POST(request: Request) {
 
     if (reviewError) {
       console.error("Failed to create review:", reviewError);
-      return NextResponse.json(
-        { error: "Failed to create review record" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to create review record" }, { status: 500 });
     }
 
     // Update professional onboarding status if approved
@@ -169,8 +160,7 @@ export async function POST(request: Request) {
     // Create audit log
     await createAuditLog({
       adminId: admin.id,
-      actionType:
-        action === "approve" ? "approve_professional" : "reject_professional",
+      actionType: action === "approve" ? "approve_professional" : "reject_professional",
       targetUserId: professionalId,
       targetResourceType: "professional_review",
       targetResourceId: review.id,
@@ -197,7 +187,12 @@ export async function POST(request: Request) {
         if (action === "approve") {
           await sendProfessionalApprovedEmail(professionalEmail, professionalName, notes);
         } else if (action === "reject") {
-          await sendProfessionalRejectedEmail(professionalEmail, professionalName, rejectionReason!, notes);
+          await sendProfessionalRejectedEmail(
+            professionalEmail,
+            professionalName,
+            rejectionReason!,
+            notes
+          );
         } else if (action === "request_info") {
           await sendProfessionalInfoRequestedEmail(professionalEmail, professionalName, notes);
         }

@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { stripe } from "@/lib/stripe";
 import { sendServiceCompletedEmail } from "@/lib/email/send";
 import {
   notifyCustomerServiceCompleted,
   notifyProfessionalPaymentReceived,
 } from "@/lib/notifications";
+import { stripe } from "@/lib/stripe";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -48,7 +48,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "bookingId is required" }, { status: 400 });
     }
     if (typeof latitude !== "number" || typeof longitude !== "number") {
-      return NextResponse.json({ error: "Valid latitude and longitude are required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Valid latitude and longitude are required" },
+        { status: 400 }
+      );
     }
 
     // Validate GPS coordinate ranges
@@ -56,7 +59,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Latitude must be between -90 and 90" }, { status: 400 });
     }
     if (longitude < -180 || longitude > 180) {
-      return NextResponse.json({ error: "Longitude must be between -180 and 180" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Longitude must be between -180 and 180" },
+        { status: 400 }
+      );
     }
 
     // Fetch the booking with all necessary data
@@ -113,7 +119,9 @@ export async function POST(request: Request) {
     // Calculate actual duration in minutes
     const checkedInAt = new Date(booking.checked_in_at);
     const checkedOutAt = new Date();
-    const actualDurationMinutes = Math.round((checkedOutAt.getTime() - checkedInAt.getTime()) / 1000 / 60);
+    const actualDurationMinutes = Math.round(
+      (checkedOutAt.getTime() - checkedInAt.getTime()) / 1000 / 60
+    );
 
     // Capture payment via Stripe
     if (!booking.stripe_payment_intent_id) {
@@ -130,12 +138,9 @@ export async function POST(request: Request) {
       const totalMinutes = (booking.duration_minutes || 0) + (booking.time_extension_minutes || 0);
       const amountToCapture = booking.amount_authorized + (booking.time_extension_amount || 0);
 
-      const paymentIntent = await stripe.paymentIntents.capture(
-        booking.stripe_payment_intent_id,
-        {
-          amount_to_capture: amountToCapture,
-        }
-      );
+      const paymentIntent = await stripe.paymentIntents.capture(booking.stripe_payment_intent_id, {
+        amount_to_capture: amountToCapture,
+      });
 
       capturedAmount = paymentIntent.amount_received || amountToCapture;
     } catch (stripeError) {
@@ -175,29 +180,34 @@ export async function POST(request: Request) {
 
     // Fetch customer and professional details for emails
     const { data: customerUser } = await supabase.auth.admin.getUserById(booking.customer_id);
-    const { data: professionalUser } = await supabase.auth.admin.getUserById(booking.professional_id);
+    const { data: professionalUser } = await supabase.auth.admin.getUserById(
+      booking.professional_id
+    );
 
     const scheduledDate = booking.scheduled_start
       ? new Date(booking.scheduled_start).toLocaleDateString()
       : checkedOutAt.toLocaleDateString();
     const scheduledTime = booking.scheduled_start
-      ? new Date(booking.scheduled_start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      : checkedInAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      ? new Date(booking.scheduled_start).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      : checkedInAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     const duration = `${actualDurationMinutes} minutes`;
     const address = booking.address
-      ? typeof booking.address === 'object' && 'formatted' in booking.address
+      ? typeof booking.address === "object" && "formatted" in booking.address
         ? String(booking.address.formatted)
         : JSON.stringify(booking.address)
       : "Not specified";
-    const amount = `${new Intl.NumberFormat('es-CO', {
-      style: 'currency',
-      currency: booking.currency || 'COP'
+    const amount = `${new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: booking.currency || "COP",
     }).format(capturedAmount / 100)}`;
 
     const emailData = {
-      customerName: customerUser.user?.user_metadata?.full_name || 'Customer',
-      professionalName: professionalUser.user?.user_metadata?.full_name || 'Professional',
-      serviceName: booking.service_name || 'Service',
+      customerName: customerUser.user?.user_metadata?.full_name || "Customer",
+      professionalName: professionalUser.user?.user_metadata?.full_name || "Professional",
+      serviceName: booking.service_name || "Service",
       scheduledDate,
       scheduledTime,
       duration,
@@ -210,19 +220,15 @@ export async function POST(request: Request) {
     const emailPromises = [];
 
     if (customerUser.user?.email) {
-      emailPromises.push(
-        sendServiceCompletedEmail(customerUser.user.email, emailData, false)
-      );
+      emailPromises.push(sendServiceCompletedEmail(customerUser.user.email, emailData, false));
     }
 
     if (professionalUser.user?.email) {
-      emailPromises.push(
-        sendServiceCompletedEmail(professionalUser.user.email, emailData, true)
-      );
+      emailPromises.push(sendServiceCompletedEmail(professionalUser.user.email, emailData, true));
     }
 
     // Send emails in parallel (don't await - let them send in background)
-    Promise.all(emailPromises).catch(error => {
+    Promise.all(emailPromises).catch((error) => {
       console.error("Failed to send completion emails:", error);
     });
 
@@ -230,7 +236,7 @@ export async function POST(request: Request) {
     if (customerUser.user) {
       await notifyCustomerServiceCompleted(booking.customer_id, {
         id: booking.id,
-        serviceName: booking.service_name || 'Service',
+        serviceName: booking.service_name || "Service",
         professionalName: emailData.professionalName,
       });
     }
@@ -238,7 +244,7 @@ export async function POST(request: Request) {
     if (professionalUser.user) {
       await notifyProfessionalPaymentReceived(booking.professional_id, {
         id: booking.id,
-        serviceName: booking.service_name || 'Service',
+        serviceName: booking.service_name || "Service",
         amount: capturedAmount,
       });
     }

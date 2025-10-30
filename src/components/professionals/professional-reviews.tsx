@@ -1,12 +1,12 @@
 "use client";
 
-import { useActionState } from "react";
-import Link from "next/link";
 import { Star } from "lucide-react";
+import Link from "next/link";
+import { useActionState } from "react";
 
 import { submitProfessionalReviewAction } from "@/app/actions/submit-professional-review";
-import type { AppUser } from "@/lib/auth/types";
 import type { ProfessionalReviewSummary } from "@/components/professionals/types";
+import type { AppUser } from "@/lib/auth/types";
 
 type Props = {
   professionalId: string;
@@ -14,7 +14,10 @@ type Props = {
   viewer: AppUser | null;
 };
 
-const REVIEW_ACTION_INITIAL_STATE = { status: "idle" as const, message: undefined as string | undefined };
+const REVIEW_ACTION_INITIAL_STATE = {
+  status: "idle" as const,
+  message: undefined as string | undefined,
+};
 
 function formatDate(value: string) {
   const date = new Date(value);
@@ -36,7 +39,9 @@ function ReviewCard({ review }: { review: ProfessionalReviewSummary }) {
         <p className="text-xs text-[#7a6d62]">{formatDate(review.createdAt)}</p>
       </div>
       {review.title ? <p className="text-sm font-semibold text-[#211f1a]">{review.title}</p> : null}
-      {review.comment ? <p className="text-sm leading-relaxed text-[#5d574b]">{review.comment}</p> : null}
+      {review.comment ? (
+        <p className="text-sm leading-relaxed text-[#5d574b]">{review.comment}</p>
+      ) : null}
       <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#a49c90]">
         {review.reviewerName ?? "Verified household"}
       </p>
@@ -45,7 +50,10 @@ function ReviewCard({ review }: { review: ProfessionalReviewSummary }) {
 }
 
 export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: Props) {
-  const [state, formAction, pending] = useActionState(submitProfessionalReviewAction, REVIEW_ACTION_INITIAL_STATE);
+  const [state, formAction, pending] = useActionState(
+    submitProfessionalReviewAction,
+    REVIEW_ACTION_INITIAL_STATE
+  );
   const averageRating =
     reviews.length > 0
       ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
@@ -59,19 +67,24 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
         <div>
           <h3 className="text-lg font-semibold text-[#211f1a]">Reviews</h3>
           <p className="text-sm text-[#7a6d62]">
-            Hear from households who have worked with this professional. Reviews are verified after each completed visit.
+            Hear from households who have worked with this professional. Reviews are verified after
+            each completed visit.
           </p>
         </div>
         {averageRating ? (
           <div className="flex items-center gap-2 rounded-full border border-[#efe7dc] bg-[#fbfafa] px-4 py-2 text-sm font-semibold text-[#211f1a]">
             <Star className="h-4 w-4 fill-[#ff5d46] text-[#ff5d46]" aria-hidden="true" />
-            {averageRating.toFixed(1)} <span className="text-xs text-[#7a6d62]">({reviews.length})</span>
+            {averageRating.toFixed(1)}{" "}
+            <span className="text-xs text-[#7a6d62]">({reviews.length})</span>
           </div>
         ) : null}
       </div>
 
       {canSubmit ? (
-        <form action={formAction} className="mt-5 space-y-3 rounded-2xl border border-[#efe7dc] bg-[#fbfafa] p-4">
+        <form
+          action={formAction}
+          className="mt-5 space-y-3 rounded-2xl border border-[#efe7dc] bg-[#fbfafa] p-4"
+        >
           <input type="hidden" name="professionalId" value={professionalId} />
           <div className="grid gap-3 sm:grid-cols-[140px_1fr]">
             <label className="flex items-center gap-2 text-sm font-medium text-[#211f1a]">
@@ -107,7 +120,9 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
             <p className="text-sm text-red-600">{state.message}</p>
           ) : null}
           {state.status === "success" ? (
-            <p className="text-sm text-green-700">Thank you! Your review will appear once it&apos;s verified.</p>
+            <p className="text-sm text-green-700">
+              Thank you! Your review will appear once it&apos;s verified.
+            </p>
           ) : null}
           <div className="flex justify-end">
             <button
@@ -123,7 +138,10 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
         <div className="mt-5 rounded-2xl border border-dashed border-[#efe7dc] bg-[#fbfafa] p-4 text-sm text-[#7a6d62]">
           <p>
             Sign in as a customer to share your experience after a completed booking.{" "}
-            <Link href="/auth/sign-in" className="font-semibold text-[#211f1a] underline-offset-4 hover:underline">
+            <Link
+              href="/auth/sign-in"
+              className="font-semibold text-[#211f1a] underline-offset-4 hover:underline"
+            >
               Login now
             </Link>
             .

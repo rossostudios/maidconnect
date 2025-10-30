@@ -62,10 +62,7 @@ export async function GET() {
     return NextResponse.json({ conversations: conversations || [] });
   } catch (error) {
     console.error("Conversations API error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch conversations" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch conversations" }, { status: 500 });
   }
 }
 
@@ -90,10 +87,7 @@ export async function POST(request: Request) {
     const { bookingId } = body;
 
     if (!bookingId) {
-      return NextResponse.json(
-        { error: "bookingId is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "bookingId is required" }, { status: 400 });
     }
 
     // Check if conversation already exists for this booking
@@ -104,10 +98,7 @@ export async function POST(request: Request) {
       .single();
 
     if (existing) {
-      return NextResponse.json(
-        { conversationId: existing.id },
-        { status: 200 }
-      );
+      return NextResponse.json({ conversationId: existing.id }, { status: 200 });
     }
 
     // Fetch booking to get customer_id and professional_id
@@ -118,18 +109,12 @@ export async function POST(request: Request) {
       .single();
 
     if (bookingError || !booking) {
-      return NextResponse.json(
-        { error: "Booking not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Booking not found" }, { status: 404 });
     }
 
     // Verify user is part of this booking
     if (user.id !== booking.customer_id && user.id !== booking.professional_id) {
-      return NextResponse.json(
-        { error: "Not authorized for this booking" },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: "Not authorized for this booking" }, { status: 403 });
     }
 
     // Create conversation
@@ -145,21 +130,12 @@ export async function POST(request: Request) {
 
     if (createError) {
       console.error("Failed to create conversation:", createError);
-      return NextResponse.json(
-        { error: "Failed to create conversation" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to create conversation" }, { status: 500 });
     }
 
-    return NextResponse.json(
-      { conversationId: conversation.id },
-      { status: 201 }
-    );
+    return NextResponse.json({ conversationId: conversation.id }, { status: 201 });
   } catch (error) {
     console.error("Create conversation API error:", error);
-    return NextResponse.json(
-      { error: "Failed to create conversation" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to create conversation" }, { status: 500 });
   }
 }

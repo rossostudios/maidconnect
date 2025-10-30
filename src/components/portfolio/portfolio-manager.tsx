@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import type { PortfolioImage } from "@/app/api/professional/portfolio/route";
 import { ImageUploadDropzone } from "./image-upload-dropzone";
 
@@ -72,9 +72,7 @@ export function PortfolioManager({
   };
 
   const handleUpdateCaption = (id: string, caption: string) => {
-    setImages(
-      images.map((img) => (img.id === id ? { ...img, caption } : img))
-    );
+    setImages(images.map((img) => (img.id === id ? { ...img, caption } : img)));
     setEditingId(null);
   };
 
@@ -83,10 +81,7 @@ export function PortfolioManager({
     if (index <= 0) return;
 
     const newImages = [...images];
-    [newImages[index], newImages[index - 1]] = [
-      newImages[index - 1],
-      newImages[index],
-    ];
+    [newImages[index], newImages[index - 1]] = [newImages[index - 1], newImages[index]];
     newImages.forEach((img, i) => (img.order = i));
 
     setImages(newImages);
@@ -97,10 +92,7 @@ export function PortfolioManager({
     if (index < 0 || index >= images.length - 1) return;
 
     const newImages = [...images];
-    [newImages[index], newImages[index + 1]] = [
-      newImages[index + 1],
-      newImages[index],
-    ];
+    [newImages[index], newImages[index + 1]] = [newImages[index + 1], newImages[index]];
     newImages.forEach((img, i) => (img.order = i));
 
     setImages(newImages);
@@ -122,16 +114,12 @@ export function PortfolioManager({
           rows={3}
           className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
         />
-        <p className="mt-1 text-xs text-[#7a6d62]">
-          {t("fields.description.helper")}
-        </p>
+        <p className="mt-1 text-xs text-[#7a6d62]">{t("fields.description.helper")}</p>
       </div>
 
       {/* Upload New Images */}
       <div>
-        <h3 className="mb-3 text-sm font-semibold text-[#211f1a]">
-          {t("upload.title")}
-        </h3>
+        <h3 className="mb-3 text-sm font-semibold text-[#211f1a]">{t("upload.title")}</h3>
         <ImageUploadDropzone
           onImagesUploaded={handleImagesUploaded}
           maxImages={20 - images.length}
@@ -166,15 +154,10 @@ export function PortfolioManager({
                         type="text"
                         defaultValue={image.caption || ""}
                         placeholder={t("actions.editCaption")}
-                        onBlur={(e) =>
-                          handleUpdateCaption(image.id, e.target.value)
-                        }
+                        onBlur={(e) => handleUpdateCaption(image.id, e.target.value)}
                         onKeyDown={(e) => {
                           if (e.key === "Enter") {
-                            handleUpdateCaption(
-                              image.id,
-                              e.currentTarget.value
-                            );
+                            handleUpdateCaption(image.id, e.currentTarget.value);
                           }
                         }}
                         className="w-full rounded-md border border-[#e5dfd4] px-2 py-1 text-sm focus:border-[#ff5d46] focus:outline-none"
@@ -186,9 +169,7 @@ export function PortfolioManager({
                       <p className="text-sm font-semibold text-[#211f1a]">
                         {image.caption || "(No caption)"}
                       </p>
-                      <p className="mt-1 truncate text-xs text-[#7a6d62]">
-                        {image.url}
-                      </p>
+                      <p className="mt-1 truncate text-xs text-[#7a6d62]">{image.url}</p>
                       <div className="mt-2 flex flex-wrap gap-2">
                         <button
                           onClick={() => setEditingId(image.id)}
@@ -237,21 +218,15 @@ export function PortfolioManager({
         {images.length === 0 && (
           <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-12 text-center">
             <p className="text-2xl">📸</p>
-            <p className="mt-2 text-sm font-semibold text-[#211f1a]">
-              {t("emptyState.title")}
-            </p>
-            <p className="mt-1 text-sm text-[#7a6d62]">
-              {t("emptyState.description")}
-            </p>
+            <p className="mt-2 text-sm font-semibold text-[#211f1a]">{t("emptyState.title")}</p>
+            <p className="mt-1 text-sm text-[#7a6d62]">{t("emptyState.description")}</p>
           </div>
         )}
       </div>
 
       {/* Upload Tips */}
       <div className="rounded-lg border border-[#f0ece5] bg-[#fdfaf6] p-4">
-        <h4 className="text-sm font-semibold text-[#211f1a]">
-          📸 {t("tips.title")}
-        </h4>
+        <h4 className="text-sm font-semibold text-[#211f1a]">📸 {t("tips.title")}</h4>
         <ul className="mt-2 space-y-1 text-sm text-[#7a6d62]">
           <li>• {t("tips.tip1")}</li>
           <li>• {t("tips.tip2")}</li>

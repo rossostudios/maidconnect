@@ -36,10 +36,7 @@ export async function GET() {
 
     if (error) {
       console.error("Failed to fetch portfolio:", error);
-      return NextResponse.json(
-        { error: "Failed to fetch portfolio" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch portfolio" }, { status: 500 });
     }
 
     return NextResponse.json({
@@ -48,10 +45,7 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Portfolio API error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch portfolio" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch portfolio" }, { status: 500 });
   }
 }
 
@@ -79,19 +73,13 @@ export async function PUT(request: Request) {
     const { images, featuredWork } = body;
 
     if (!Array.isArray(images)) {
-      return NextResponse.json(
-        { error: "images must be an array" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "images must be an array" }, { status: 400 });
     }
 
     // Validate image structure
     for (const img of images) {
       if (!img.id || !img.url || typeof img.order !== "number") {
-        return NextResponse.json(
-          { error: "Invalid image structure" },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: "Invalid image structure" }, { status: 400 });
       }
     }
 
@@ -110,10 +98,7 @@ export async function PUT(request: Request) {
 
     if (error) {
       console.error("Failed to update portfolio:", error);
-      return NextResponse.json(
-        { error: "Failed to update portfolio" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to update portfolio" }, { status: 500 });
     }
 
     return NextResponse.json({
@@ -123,10 +108,7 @@ export async function PUT(request: Request) {
     });
   } catch (error) {
     console.error("Update portfolio API error:", error);
-    return NextResponse.json(
-      { error: "Failed to update portfolio" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update portfolio" }, { status: 500 });
   }
 }
 
@@ -187,18 +169,12 @@ export async function POST(request: Request) {
 
     if (error) {
       console.error("Failed to add portfolio image:", error);
-      return NextResponse.json(
-        { error: "Failed to add image" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to add image" }, { status: 500 });
     }
 
     return NextResponse.json({ image: newImage }, { status: 201 });
   } catch (error) {
     console.error("Add portfolio image API error:", error);
-    return NextResponse.json(
-      { error: "Failed to add image" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to add image" }, { status: 500 });
   }
 }

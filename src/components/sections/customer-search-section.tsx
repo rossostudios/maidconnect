@@ -1,10 +1,10 @@
+import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Star } from "lucide-react";
 
 import { DirectoryProfessional } from "@/components/professionals/professionals-directory";
-import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
 
 type CustomerSearchSectionProps = {
   professionals: DirectoryProfessional[];
@@ -30,15 +30,15 @@ export function CustomerSearchSection({ professionals }: CustomerSearchSectionPr
             Discover pre-vetted professionals ready to book
           </h2>
           <p className="text-base text-[#5d574b]">
-            Browse bilingual specialists who have completed MaidConnect’s onboarding and background checks. Compare
-            services, languages, and rates before requesting a hold.
+            Browse bilingual specialists who have completed MaidConnect’s onboarding and background
+            checks. Compare services, languages, and rates before requesting a hold.
           </p>
         </div>
 
         {featuredProfessionals.length === 0 ? (
           <div className="rounded-[32px] border border-[#f0ece4] bg-white p-10 text-center text-sm text-[#7d7566]">
-            We&apos;ll showcase new professionals here as they complete onboarding. In the meantime, explore the full
-            directory to see who&apos;s available.
+            We&apos;ll showcase new professionals here as they complete onboarding. In the meantime,
+            explore the full directory to see who&apos;s available.
           </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-3">
@@ -48,7 +48,12 @@ export function CustomerSearchSection({ professionals }: CustomerSearchSectionPr
                 className="flex h-full flex-col overflow-hidden rounded-[28px] border border-[#ebe5d8] bg-white shadow-[0_18px_45px_rgba(18,17,15,0.06)] transition hover:-translate-y-1 hover:border-[#211f1a]"
               >
                 <div className="relative h-48 w-full">
-                  <Image src={professional.photoUrl} alt={professional.name} fill className="object-cover" />
+                  <Image
+                    src={professional.photoUrl}
+                    alt={professional.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <div className="flex flex-1 flex-col gap-3 p-6">
                   <div>
@@ -77,7 +82,9 @@ export function CustomerSearchSection({ professionals }: CustomerSearchSectionPr
                       : "This professional is finalizing their public bio. Request a booking to see availability."}
                   </p>
                   <div className="mt-auto flex items-center justify-between text-sm text-[#5d574b]">
-                    <span>{formatCurrencyCOP(professional.hourlyRateCop) ?? "Rate on request"}</span>
+                    <span>
+                      {formatCurrencyCOP(professional.hourlyRateCop) ?? "Rate on request"}
+                    </span>
                     <Link
                       href={`/professionals/${professional.id}`}
                       className="text-sm font-semibold text-[#211f1a] underline-offset-4 transition hover:underline"

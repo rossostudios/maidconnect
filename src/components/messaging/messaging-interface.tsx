@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
 import { formatDistanceToNow } from "date-fns";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ConversationSkeleton } from "@/components/ui/skeleton";
 import { useNotifications } from "@/hooks/use-notifications";
 import { useRealtimeMessages } from "@/hooks/use-realtime-messages";
-import { ConversationSkeleton } from "@/components/ui/skeleton";
 
 export type Conversation = {
   id: string;
@@ -82,8 +82,7 @@ function normalizeUser(
 
 export function MessagingInterface({ userId, userRole }: Props) {
   const [conversations, setConversations] = useState<Conversation[]>([]);
-  const [selectedConversation, setSelectedConversation] =
-    useState<Conversation | null>(null);
+  const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
   const [messagesLoading, setMessagesLoading] = useState(false);
@@ -104,14 +103,17 @@ export function MessagingInterface({ userId, userRole }: Props) {
   }, [supported, permission, requestPermission]);
 
   // Callbacks for real-time updates
-  const handleNewMessage = useCallback(async (message: any) => {
-    if (selectedConversation && message.conversation_id === selectedConversation.id) {
-      // Fetch updated messages to get full message with sender info
-      await fetchMessages(selectedConversation.id);
-    }
-    // Always refresh conversations to update unread counts
-    await fetchConversations();
-  }, [selectedConversation?.id]);
+  const handleNewMessage = useCallback(
+    async (message: any) => {
+      if (selectedConversation && message.conversation_id === selectedConversation.id) {
+        // Fetch updated messages to get full message with sender info
+        await fetchMessages(selectedConversation.id);
+      }
+      // Always refresh conversations to update unread counts
+      await fetchConversations();
+    },
+    [selectedConversation?.id]
+  );
 
   const handleConversationUpdate = useCallback(async () => {
     await fetchConversations();
@@ -148,18 +150,18 @@ export function MessagingInterface({ userId, userRole }: Props) {
   // Monitor for new messages and show notifications
   useEffect(() => {
     const currentUnreadCount = conversations.reduce((sum, conv) => {
-      return sum + (userRole === "customer"
-        ? conv.customer_unread_count
-        : conv.professional_unread_count);
+      return (
+        sum +
+        (userRole === "customer" ? conv.customer_unread_count : conv.professional_unread_count)
+      );
     }, 0);
 
     // If unread count increased and we're not looking at messages
     if (currentUnreadCount > previousUnreadCount && !document.hasFocus()) {
       const newMessages = currentUnreadCount - previousUnreadCount;
       const latestConversation = conversations.find((conv) => {
-        const count = userRole === "customer"
-          ? conv.customer_unread_count
-          : conv.professional_unread_count;
+        const count =
+          userRole === "customer" ? conv.customer_unread_count : conv.professional_unread_count;
         return count > 0;
       });
 
@@ -195,9 +197,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
   const fetchMessages = async (conversationId: string) => {
     setMessagesLoading(true);
     try {
-      const response = await fetch(
-        `/api/messages/conversations/${conversationId}`
-      );
+      const response = await fetch(`/api/messages/conversations/${conversationId}`);
       if (!response.ok) throw new Error("Failed to fetch messages");
       const data = await response.json();
       setMessages(data.messages || []);
@@ -219,12 +219,9 @@ export function MessagingInterface({ userId, userRole }: Props) {
           conv.id === conversationId
             ? {
                 ...conv,
-                customer_unread_count:
-                  userRole === "customer" ? 0 : conv.customer_unread_count,
+                customer_unread_count: userRole === "customer" ? 0 : conv.customer_unread_count,
                 professional_unread_count:
-                  userRole === "professional"
-                    ? 0
-                    : conv.professional_unread_count,
+                  userRole === "professional" ? 0 : conv.professional_unread_count,
               }
             : conv
         )
@@ -238,14 +235,11 @@ export function MessagingInterface({ userId, userRole }: Props) {
     if (!selectedConversation || !messageText.trim()) return;
 
     try {
-      const response = await fetch(
-        `/api/messages/conversations/${selectedConversation.id}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: messageText }),
-        }
-      );
+      const response = await fetch(`/api/messages/conversations/${selectedConversation.id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: messageText }),
+      });
 
       if (!response.ok) throw new Error("Failed to send message");
 
@@ -275,7 +269,9 @@ export function MessagingInterface({ userId, userRole }: Props) {
       <div className="w-96 flex-shrink-0 border-r border-[#ebe5d8] overflow-y-auto">
         <div className="border-b border-[#ebe5d8] bg-white px-6 py-5">
           <h2 className="text-xl font-semibold text-[#211f1a]">Conversations</h2>
-          <p className="mt-1 text-sm text-[#7d7566]">{conversations.length} {conversations.length === 1 ? 'conversation' : 'conversations'}</p>
+          <p className="mt-1 text-sm text-[#7d7566]">
+            {conversations.length} {conversations.length === 1 ? "conversation" : "conversations"}
+          </p>
         </div>
 
         {/* Search and filter */}
@@ -286,8 +282,18 @@ export function MessagingInterface({ userId, userRole }: Props) {
               placeholder="Search conversations..."
               className="w-full rounded-lg border border-[#ebe5d8] px-4 py-2 pl-10 text-sm text-[#211f1a] placeholder-[#7d7566] focus:border-[#ff5d46] focus:outline-none focus:ring-1 focus:ring-[#ff5d46]"
             />
-            <svg className="absolute left-3 top-2.5 h-5 w-5 text-[#7d7566]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            <svg
+              className="absolute left-3 top-2.5 h-5 w-5 text-[#7d7566]"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
             </svg>
           </div>
         </div>
@@ -297,8 +303,18 @@ export function MessagingInterface({ userId, userRole }: Props) {
             <div className="mx-auto max-w-xs">
               <div className="mb-4 flex justify-center">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ebe5d8]">
-                  <svg className="h-6 w-6 text-[#7d7566]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  <svg
+                    className="h-6 w-6 text-[#7d7566]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                    />
                   </svg>
                 </div>
               </div>
@@ -352,9 +368,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                           </span>
                         )}
                       </div>
-                      <p className="truncate text-sm text-[#5d574b]">
-                        {conv.booking.service_name}
-                      </p>
+                      <p className="truncate text-sm text-[#5d574b]">{conv.booking.service_name}</p>
                       {conv.last_message_at && (
                         <p className="mt-2 text-sm text-[#7d7566]">
                           {formatDistanceToNow(new Date(conv.last_message_at), {
@@ -412,11 +426,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
             </div>
 
             {/* Messages */}
-            <MessageThread
-              messages={messages}
-              currentUserId={userId}
-              loading={messagesLoading}
-            />
+            <MessageThread messages={messages} currentUserId={userId} loading={messagesLoading} />
 
             {/* Message Input */}
             <MessageInput onSend={sendMessage} />
@@ -426,8 +436,18 @@ export function MessagingInterface({ userId, userRole }: Props) {
             <div className="max-w-sm text-center">
               <div className="mb-4 flex justify-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#ebe5d8]">
-                  <svg className="h-8 w-8 text-[#7d7566]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                  <svg
+                    className="h-8 w-8 text-[#7d7566]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+                    />
                   </svg>
                 </div>
               </div>
@@ -470,31 +490,20 @@ function MessageThread({
     <div className="flex-1 space-y-6 overflow-y-auto p-6">
       {messages.length === 0 ? (
         <div className="flex h-full items-center justify-center">
-          <p className="text-base text-[#5d574b]">
-            No messages yet. Start the conversation!
-          </p>
+          <p className="text-base text-[#5d574b]">No messages yet. Start the conversation!</p>
         </div>
       ) : (
         messages.map((msg) => {
           const isCurrentUser = msg.sender_id === currentUserId;
           return (
-            <div
-              key={msg.id}
-              className={`flex ${isCurrentUser ? "justify-end" : "justify-start"}`}
-            >
+            <div key={msg.id} className={`flex ${isCurrentUser ? "justify-end" : "justify-start"}`}>
               <div
                 className={`max-w-[70%] rounded-2xl px-4 py-3 ${
-                  isCurrentUser
-                    ? "bg-[#ff5d46] text-white"
-                    : "bg-[#ebe5d8] text-[#211f1a]"
+                  isCurrentUser ? "bg-[#ff5d46] text-white" : "bg-[#ebe5d8] text-[#211f1a]"
                 }`}
               >
                 <p className="text-base leading-relaxed">{msg.message}</p>
-                <p
-                  className={`mt-2 text-sm ${
-                    isCurrentUser ? "text-white/70" : "text-[#7d7566]"
-                  }`}
-                >
+                <p className={`mt-2 text-sm ${isCurrentUser ? "text-white/70" : "text-[#7d7566]"}`}>
                   {formatDistanceToNow(new Date(msg.created_at), {
                     addSuffix: true,
                   })}
@@ -527,10 +536,7 @@ function MessageInput({ onSend }: { onSend: (message: string) => void }) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="border-t border-[#ebe5d8] bg-white p-6"
-    >
+    <form onSubmit={handleSubmit} className="border-t border-[#ebe5d8] bg-white p-6">
       <div className="flex gap-3">
         <input
           type="text"

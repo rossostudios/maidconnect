@@ -39,10 +39,7 @@ export async function GET(request: NextRequest) {
 
     if (error) {
       console.error("Failed to fetch notifications:", error);
-      return NextResponse.json(
-        { error: "Failed to fetch notifications" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch notifications" }, { status: 500 });
     }
 
     return NextResponse.json({
@@ -53,9 +50,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Notifications history API error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

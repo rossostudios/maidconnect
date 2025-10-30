@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { stripe, assertStripeSignature } from "@/lib/stripe";
+import { assertStripeSignature, stripe } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase/admin-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
-  const { signature, secret } = assertStripeSignature(request as unknown as import("next/server").NextRequest);
+  const { signature, secret } = assertStripeSignature(
+    request as unknown as import("next/server").NextRequest
+  );
   const payload = await request.text();
 
   let event: Stripe.Event;
@@ -64,9 +66,13 @@ export async function POST(request: Request) {
     }
     case "charge.refunded": {
       const charge = event.data.object as Stripe.Charge;
-      const bookingId = charge.metadata?.booking_id ?? charge.payment_intent ? undefined : undefined;
+      const bookingId =
+        (charge.metadata?.booking_id ?? charge.payment_intent) ? undefined : undefined;
       if (charge.payment_intent) {
-        const intentId = typeof charge.payment_intent === "string" ? charge.payment_intent : charge.payment_intent.id;
+        const intentId =
+          typeof charge.payment_intent === "string"
+            ? charge.payment_intent
+            : charge.payment_intent.id;
         await supabaseAdmin
           .from("bookings")
           .update({

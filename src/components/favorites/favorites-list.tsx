@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { FavoriteButton } from "./favorite-button";
+import { useEffect, useState } from "react";
 import { ListSkeleton } from "@/components/ui/skeleton";
+import { FavoriteButton } from "./favorite-button";
 
 type FavoriteProfessional = {
   profile_id: string;
@@ -46,9 +46,7 @@ export function FavoritesList() {
 
   const handleFavoriteRemoved = (professionalId: string) => {
     // Remove from local state immediately for better UX
-    setFavorites((prev) =>
-      prev.filter((pro) => pro.profile_id !== professionalId)
-    );
+    setFavorites((prev) => prev.filter((pro) => pro.profile_id !== professionalId));
   };
 
   if (loading) {
@@ -67,12 +65,8 @@ export function FavoritesList() {
     return (
       <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
         <p className="text-4xl">🤍</p>
-        <p className="mt-4 text-lg font-semibold text-[#211f1a]">
-          {t("empty.title")}
-        </p>
-        <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-          {t("empty.description")}
-        </p>
+        <p className="mt-4 text-lg font-semibold text-[#211f1a]">{t("empty.title")}</p>
+        <p className="mt-2 text-base leading-relaxed text-[#5d574b]">{t("empty.description")}</p>
         <Link
           href="/professionals"
           className="mt-6 inline-flex rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
@@ -140,8 +134,7 @@ function ProfessionalCard({
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
                 <h3 className="truncate text-lg font-semibold text-[#211f1a]">
-                  {professional.business_name ||
-                    professional.profile.full_name}
+                  {professional.business_name || professional.profile.full_name}
                 </h3>
                 {professional.verified && (
                   <span className="text-base" title={t("card.verified")}>
@@ -152,9 +145,7 @@ function ProfessionalCard({
               {professional.rating !== null && (
                 <div className="mt-1 flex items-center gap-1 text-sm text-[#5d574b]">
                   <span>⭐</span>
-                  <span className="font-semibold">
-                    {professional.rating.toFixed(1)}
-                  </span>
+                  <span className="font-semibold">{professional.rating.toFixed(1)}</span>
                   <span>({professional.total_reviews})</span>
                 </div>
               )}
@@ -172,7 +163,10 @@ function ProfessionalCard({
           <div className="mt-6 flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-[#7d7566]">{t("card.startingAt")}</p>
-              <p className="mt-1 text-lg font-semibold text-[#ff5d46]">{priceFormatted}{t("card.perHour")}</p>
+              <p className="mt-1 text-lg font-semibold text-[#ff5d46]">
+                {priceFormatted}
+                {t("card.perHour")}
+              </p>
             </div>
             <span className="text-base font-semibold text-[#5d574b] group-hover:text-[#ff5d46]">
               {t("card.viewProfile")}

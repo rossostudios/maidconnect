@@ -1,7 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { Languages, MapPin } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 
@@ -16,9 +16,7 @@ export function ConciergeSection() {
             <h2 className="text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl lg:text-6xl">
               {t("title")}
             </h2>
-            <p className="mx-auto max-w-2xl text-xl text-[#5d574b]">
-              {t("subtitle")}
-            </p>
+            <p className="mx-auto max-w-2xl text-xl text-[#5d574b]">{t("subtitle")}</p>
           </div>
 
           <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">

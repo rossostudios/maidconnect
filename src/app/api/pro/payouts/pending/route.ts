@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import {
+  type BookingForPayout,
   calculatePayoutFromBookings,
   getCurrentPayoutPeriod,
-  type BookingForPayout,
 } from "@/lib/payout-calculator";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -55,10 +55,7 @@ export async function GET() {
 
     if (bookingsError) {
       console.error("Failed to fetch pending bookings:", bookingsError);
-      return NextResponse.json(
-        { error: "Failed to fetch pending earnings" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch pending earnings" }, { status: 500 });
     }
 
     // Filter bookings by current payout period
@@ -134,9 +131,6 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Failed to calculate pending payouts:", error);
-    return NextResponse.json(
-      { error: "Failed to calculate pending payouts" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to calculate pending payouts" }, { status: 500 });
   }
 }

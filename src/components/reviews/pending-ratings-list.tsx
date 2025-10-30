@@ -1,8 +1,8 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { RatingPromptModal } from "./rating-prompt-modal";
-import { useTranslations } from "next-intl";
 
 type CompletedBooking = {
   id: string;
@@ -30,9 +30,7 @@ export function PendingRatingsList({ completedBookings }: Props) {
   return (
     <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
       <h3 className="text-lg font-semibold text-[#211f1a]">{t("title")}</h3>
-      <p className="mt-1 text-sm text-[#7a6d62]">
-        {t("description")}
-      </p>
+      <p className="mt-1 text-sm text-[#7a6d62]">{t("description")}</p>
 
       <div className="mt-4 space-y-3">
         {bookingsNeedingReviews.map((booking) => {

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { AUTH_ROUTES } from "@/lib/auth";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 function sanitizeRedirect(path: string | null): string {
   if (!path) return "/";

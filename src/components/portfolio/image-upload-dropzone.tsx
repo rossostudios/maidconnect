@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
 import imageCompression from "browser-image-compression";
-import { Upload, X, Image as ImageIcon } from "lucide-react";
+import { Image as ImageIcon, Upload, X } from "lucide-react";
+import { useCallback, useRef, useState } from "react";
 
 type UploadedImage = {
   id: string;
@@ -19,11 +19,7 @@ type Props = {
   maxSizeMB?: number;
 };
 
-export function ImageUploadDropzone({
-  onImagesUploaded,
-  maxImages = 20,
-  maxSizeMB = 5,
-}: Props) {
+export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeMB = 5 }: Props) {
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [dragging, setDragging] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -114,9 +110,7 @@ export function ImageUploadDropzone({
   }, []);
 
   const updateCaption = useCallback((id: string, caption: string) => {
-    setImages((prev) =>
-      prev.map((img) => (img.id === id ? { ...img, caption } : img))
-    );
+    setImages((prev) => prev.map((img) => (img.id === id ? { ...img, caption } : img)));
   }, []);
 
   const handleUpload = async () => {
@@ -227,11 +221,7 @@ export function ImageUploadDropzone({
               >
                 {/* Image */}
                 <div className="aspect-square overflow-hidden">
-                  <img
-                    src={image.preview}
-                    alt="Preview"
-                    className="h-full w-full object-cover"
-                  />
+                  <img src={image.preview} alt="Preview" className="h-full w-full object-cover" />
                 </div>
 
                 {/* Caption Input */}

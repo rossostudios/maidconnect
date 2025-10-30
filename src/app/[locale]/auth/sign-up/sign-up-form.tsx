@@ -1,8 +1,8 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useActionState } from "react";
 import { Link } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { signUpAction } from "./actions";
 import { defaultSignUpState, type SignUpActionState } from "./types";
@@ -13,7 +13,10 @@ const errorInputClass = "border-red-400 focus:border-red-500 focus:ring-red-200"
 
 export function SignUpForm() {
   const t = useTranslations("pages.signUp.form");
-  const [state, formAction, isPending] = useActionState<SignUpActionState, FormData>(signUpAction, defaultSignUpState);
+  const [state, formAction, isPending] = useActionState<SignUpActionState, FormData>(
+    signUpAction,
+    defaultSignUpState
+  );
 
   const fieldError = (field: string) => state.fieldErrors?.[field];
 
@@ -27,28 +30,45 @@ export function SignUpForm() {
   return (
     <form action={formAction} className="space-y-10" noValidate>
       <section className="space-y-5">
-        <label className="block text-sm font-semibold text-[#211f1a]">{t("accountTypeLabel")}</label>
+        <label className="block text-sm font-semibold text-[#211f1a]">
+          {t("accountTypeLabel")}
+        </label>
         <p className="text-xs text-[#5d574b]">{t("accountTypeHelper")}</p>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label
             className={cn(
               "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition hover:border-[#ff5d46] focus-within:border-[#ff5d46]",
-              fieldError("role") && "border-red-400 hover:border-red-400 focus-within:border-red-400",
+              fieldError("role") &&
+                "border-red-400 hover:border-red-400 focus-within:border-red-400"
             )}
           >
             <span className="flex items-center gap-2 text-[#211f1a]">
-              <input type="radio" name="role" value="customer" defaultChecked className="h-4 w-4 accent-[#211f1a]" /> {t("customerLabel")}
+              <input
+                type="radio"
+                name="role"
+                value="customer"
+                defaultChecked
+                className="h-4 w-4 accent-[#211f1a]"
+              />{" "}
+              {t("customerLabel")}
             </span>
             <span className="text-sm text-[#5d574b]">{t("customerDescription")}</span>
           </label>
           <label
             className={cn(
               "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition hover:border-[#ff5d46] focus-within:border-[#ff5d46]",
-              fieldError("role") && "border-red-400 hover:border-red-400 focus-within:border-red-400",
+              fieldError("role") &&
+                "border-red-400 hover:border-red-400 focus-within:border-red-400"
             )}
           >
             <span className="flex items-center gap-2 text-[#211f1a]">
-              <input type="radio" name="role" value="professional" className="h-4 w-4 accent-[#211f1a]" /> {t("professionalLabel")}
+              <input
+                type="radio"
+                name="role"
+                value="professional"
+                className="h-4 w-4 accent-[#211f1a]"
+              />{" "}
+              {t("professionalLabel")}
             </span>
             <span className="text-sm text-[#5d574b]">{t("professionalDescription")}</span>
           </label>
@@ -166,12 +186,18 @@ export function SignUpForm() {
           <input
             type="checkbox"
             name="terms"
-            className={cn("mt-[2px] h-4 w-4 accent-[#211f1a]", fieldError("terms") && "accent-red-600")}
+            className={cn(
+              "mt-[2px] h-4 w-4 accent-[#211f1a]",
+              fieldError("terms") && "accent-red-600"
+            )}
             aria-invalid={Boolean(fieldError("terms"))}
           />
           <span>
             {t("termsLabel")}{" "}
-            <Link className="font-semibold text-[#211f1a] underline decoration-[#211f1a]/40 underline-offset-4 hover:decoration-[#ff5d46]" href="/support/account-suspended">
+            <Link
+              className="font-semibold text-[#211f1a] underline decoration-[#211f1a]/40 underline-offset-4 hover:decoration-[#ff5d46]"
+              href="/support/account-suspended"
+            >
               {t("termsLink")}
             </Link>{" "}
             {t("termsConfirm")}
@@ -194,7 +220,7 @@ export function SignUpForm() {
         disabled={isPending}
         className={cn(
           "w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624]",
-          isPending && "cursor-not-allowed opacity-60",
+          isPending && "cursor-not-allowed opacity-60"
         )}
       >
         {isPending ? t("creatingAccountButton") : t("createAccountButton")}

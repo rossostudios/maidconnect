@@ -104,7 +104,10 @@ export async function POST(request: Request) {
       .single();
 
     if (bookingError || !insertedBooking) {
-      return NextResponse.json({ error: bookingError?.message ?? "Unable to create booking" }, { status: 500 });
+      return NextResponse.json(
+        { error: bookingError?.message ?? "Unable to create booking" },
+        { status: 500 }
+      );
     }
 
     try {

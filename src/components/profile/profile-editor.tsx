@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { Award, CheckCircle, Globe, Mail, Phone, User } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { User, Mail, Phone, Globe, Award, CheckCircle } from "lucide-react";
+import { useState } from "react";
 
 type Profile = {
   full_name: string;
@@ -193,7 +193,8 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
           />
           <p className="mt-1 text-xs text-[#7d7566]">
-            {profile.bio.length}{t("sections.professionalSummary.fields.bio.characterCounter")}
+            {profile.bio.length}
+            {t("sections.professionalSummary.fields.bio.characterCounter")}
           </p>
         </div>
       </div>
@@ -220,9 +221,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             </button>
           ))}
         </div>
-        <p className="text-xs text-[#7d7566]">
-          {t("sections.languages.helper")}
-        </p>
+        <p className="text-xs text-[#7d7566]">{t("sections.languages.helper")}</p>
       </div>
 
       {/* Primary Services */}
@@ -247,9 +246,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             </button>
           ))}
         </div>
-        <p className="text-xs text-[#7d7566]">
-          {t("sections.services.helper")}
-        </p>
+        <p className="text-xs text-[#7d7566]">{t("sections.services.helper")}</p>
       </div>
 
       {/* Save Button */}

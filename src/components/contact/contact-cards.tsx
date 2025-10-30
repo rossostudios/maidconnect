@@ -1,8 +1,8 @@
 "use client";
 
-import { Container } from "@/components/ui/container";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { Container } from "@/components/ui/container";
 
 export function ContactCards() {
   const t = useTranslations("pages.contact.cards");

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 type Notification = {
   id: string;
@@ -108,10 +108,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
   return (
     <>
       {/* Backdrop */}
-      <div
-        className="fixed inset-0 z-40 bg-black/20"
-        onClick={onClose}
-      />
+      <div className="fixed inset-0 z-40 bg-black/20" onClick={onClose} />
 
       {/* Sheet */}
       <div className="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col bg-white shadow-2xl">
@@ -123,7 +120,12 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
             className="rounded-lg p-2 text-[#7d7566] transition hover:bg-[#ebe5d8]"
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -134,9 +136,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
             <button
               onClick={() => setFilter("unread")}
               className={`text-sm font-medium transition ${
-                filter === "unread"
-                  ? "text-[#211f1a]"
-                  : "text-[#7d7566] hover:text-[#211f1a]"
+                filter === "unread" ? "text-[#211f1a]" : "text-[#7d7566] hover:text-[#211f1a]"
               }`}
             >
               Unread {unreadCount > 0 && `(${unreadCount})`}
@@ -144,9 +144,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
             <button
               onClick={() => setFilter("all")}
               className={`text-sm font-medium transition ${
-                filter === "all"
-                  ? "text-[#211f1a]"
-                  : "text-[#7d7566] hover:text-[#211f1a]"
+                filter === "all" ? "text-[#211f1a]" : "text-[#7d7566] hover:text-[#211f1a]"
               }`}
             >
               All
@@ -171,8 +169,18 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
           ) : notifications.length === 0 ? (
             <div className="flex flex-col items-center justify-center p-12">
               <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#ebe5d8]">
-                <svg className="h-8 w-8 text-[#7d7566]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                <svg
+                  className="h-8 w-8 text-[#7d7566]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                  />
                 </svg>
               </div>
               <h3 className="text-base font-semibold text-[#211f1a]">
@@ -207,9 +215,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                           <p className="text-sm font-semibold text-[#211f1a]">
                             {notification.title}
                           </p>
-                          <p className="mt-1 text-sm text-[#5d574b]">
-                            {notification.body}
-                          </p>
+                          <p className="mt-1 text-sm text-[#5d574b]">{notification.body}</p>
                           <p className="mt-1 text-xs text-[#7d7566]">
                             {formatDistanceToNow(new Date(notification.created_at), {
                               addSuffix: true,
@@ -224,12 +230,8 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                   ) : (
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0 flex-1">
-                        <p className="text-sm font-semibold text-[#211f1a]">
-                          {notification.title}
-                        </p>
-                        <p className="mt-1 text-sm text-[#5d574b]">
-                          {notification.body}
-                        </p>
+                        <p className="text-sm font-semibold text-[#211f1a]">{notification.title}</p>
+                        <p className="mt-1 text-sm text-[#5d574b]">{notification.body}</p>
                         <p className="mt-1 text-xs text-[#7d7566]">
                           {formatDistanceToNow(new Date(notification.created_at), {
                             addSuffix: true,

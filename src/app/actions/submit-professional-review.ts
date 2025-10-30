@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -12,7 +12,7 @@ const INITIAL_STATE: ReviewActionState = { status: "idle" };
 
 export async function submitProfessionalReviewAction(
   _prevState: ReviewActionState = INITIAL_STATE,
-  formData: FormData,
+  formData: FormData
 ): Promise<ReviewActionState> {
   void _prevState;
   try {

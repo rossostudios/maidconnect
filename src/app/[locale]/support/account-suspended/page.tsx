@@ -7,8 +7,8 @@ export default function AccountSuspendedPage() {
       <div className="space-y-4">
         <h1 className="text-3xl font-semibold">Account temporarily suspended</h1>
         <p className="text-sm text-[#5d574b]">
-          Your professional account is currently under review. Please contact MaidConnect support to resolve any pending
-          issues or complete outstanding onboarding requirements.
+          Your professional account is currently under review. Please contact MaidConnect support to
+          resolve any pending issues or complete outstanding onboarding requirements.
         </p>
         <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
           <Link

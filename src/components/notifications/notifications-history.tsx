@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 type Notification = {
   id: string;
@@ -125,9 +125,7 @@ export function NotificationsHistory() {
           <button
             onClick={() => setFilter("all")}
             className={`text-base font-medium transition ${
-              filter === "all"
-                ? "text-[#211f1a]"
-                : "text-[#7d7566] hover:text-[#211f1a]"
+              filter === "all" ? "text-[#211f1a]" : "text-[#7d7566] hover:text-[#211f1a]"
             }`}
           >
             All ({totalCount})
@@ -135,9 +133,7 @@ export function NotificationsHistory() {
           <button
             onClick={() => setFilter("unread")}
             className={`text-base font-medium transition ${
-              filter === "unread"
-                ? "text-[#211f1a]"
-                : "text-[#7d7566] hover:text-[#211f1a]"
+              filter === "unread" ? "text-[#211f1a]" : "text-[#7d7566] hover:text-[#211f1a]"
             }`}
           >
             Unread ({unreadCount})
@@ -159,8 +155,18 @@ export function NotificationsHistory() {
           <div className="mx-auto max-w-md">
             <div className="mb-4 flex justify-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#ebe5d8]">
-                <svg className="h-8 w-8 text-[#7d7566]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                <svg
+                  className="h-8 w-8 text-[#7d7566]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                  />
                 </svg>
               </div>
             </div>
@@ -196,9 +202,7 @@ export function NotificationsHistory() {
                       <h3 className="text-base font-semibold text-[#211f1a]">
                         {notification.title}
                       </h3>
-                      <p className="mt-1 text-sm text-[#5d574b]">
-                        {notification.body}
-                      </p>
+                      <p className="mt-1 text-sm text-[#5d574b]">{notification.body}</p>
                       <p className="mt-2 text-xs text-[#7d7566]">
                         {formatDistanceToNow(new Date(notification.created_at), {
                           addSuffix: true,
@@ -210,9 +214,7 @@ export function NotificationsHistory() {
                       <h3 className="text-base font-semibold text-[#211f1a]">
                         {notification.title}
                       </h3>
-                      <p className="mt-1 text-sm text-[#5d574b]">
-                        {notification.body}
-                      </p>
+                      <p className="mt-1 text-sm text-[#5d574b]">{notification.body}</p>
                       <p className="mt-2 text-xs text-[#7d7566]">
                         {formatDistanceToNow(new Date(notification.created_at), {
                           addSuffix: true,

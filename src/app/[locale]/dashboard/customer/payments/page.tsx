@@ -1,8 +1,8 @@
 import { getTranslations } from "next-intl/server";
-import { requireUser } from "@/lib/auth";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { PaymentHistoryTable } from "@/components/payments/payment-history-table";
+import { requireUser } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type BookingRow = {
   id: string;
@@ -17,9 +17,7 @@ type BookingRow = {
   professional: { full_name: string | null } | null;
 };
 
-export default async function CustomerPaymentsPage(props: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function CustomerPaymentsPage(props: { params: Promise<{ locale: string }> }) {
   const params = await props.params;
   const t = await getTranslations({
     locale: params.locale,
@@ -86,9 +84,7 @@ export default async function CustomerPaymentsPage(props: {
     <section className="space-y-6">
       <div>
         <h1 className="text-3xl font-semibold text-[#211f1a]">{t("title")}</h1>
-        <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-          {t("description")}
-        </p>
+        <p className="mt-2 text-base leading-relaxed text-[#5d574b]">{t("description")}</p>
       </div>
 
       {/* Summary Cards */}
@@ -122,7 +118,12 @@ export default async function CustomerPaymentsPage(props: {
               >
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ebe5d8]">
-                    <svg className="h-5 w-5 text-[#211f1a]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg
+                      className="h-5 w-5 text-[#211f1a]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -155,7 +156,15 @@ export default async function CustomerPaymentsPage(props: {
   );
 }
 
-function MetricCard({ label, value, description }: { label: string; value: string; description: string }) {
+function MetricCard({
+  label,
+  value,
+  description,
+}: {
+  label: string;
+  value: string;
+  description: string;
+}) {
   return (
     <div className="rounded-[28px] bg-white p-6 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
       <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">{label}</dt>

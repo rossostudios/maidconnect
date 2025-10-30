@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { Bell, BellOff, X } from "lucide-react";
+import { useState } from "react";
 import { usePushNotifications } from "@/hooks/use-push-notifications";
 
 type NotificationPermissionPromptProps = {
@@ -13,13 +13,7 @@ export function NotificationPermissionPrompt({
   onDismiss,
   variant = "banner",
 }: NotificationPermissionPromptProps) {
-  const {
-    isSupported,
-    permission,
-    isLoading,
-    error,
-    requestPermission,
-  } = usePushNotifications();
+  const { isSupported, permission, isLoading, error, requestPermission } = usePushNotifications();
   const [isDismissed, setIsDismissed] = useState(false);
 
   // Don't show if dismissed, not supported, or already granted
@@ -54,9 +48,7 @@ export function NotificationPermissionPrompt({
               <Bell className="h-5 w-5 text-white" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="font-semibold text-[#211f1a]">
-                Stay updated with notifications
-              </p>
+              <p className="font-semibold text-[#211f1a]">Stay updated with notifications</p>
               <p className="text-sm text-[#5d574b]">
                 Get notified about bookings, messages, and important updates
               </p>
@@ -100,12 +92,10 @@ export function NotificationPermissionPrompt({
             <Bell className="h-6 w-6 text-[#ff5d46]" />
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-[#211f1a]">
-              Enable push notifications
-            </h3>
+            <h3 className="text-xl font-semibold text-[#211f1a]">Enable push notifications</h3>
             <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-              Stay informed about your bookings, new messages, and important
-              updates even when you're not using the app.
+              Stay informed about your bookings, new messages, and important updates even when
+              you're not using the app.
             </p>
 
             <div className="mt-4 space-y-2 text-sm text-[#5d574b]">
@@ -141,9 +131,7 @@ export function NotificationPermissionPrompt({
             </div>
 
             {error && (
-              <div className="mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-600">
-                {error}
-              </div>
+              <div className="mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-600">{error}</div>
             )}
           </div>
         </div>
@@ -169,12 +157,10 @@ export function NotificationsDeniedMessage() {
           <BellOff className="h-5 w-5 text-yellow-700" />
         </div>
         <div>
-          <h4 className="font-semibold text-yellow-900">
-            Notifications are blocked
-          </h4>
+          <h4 className="font-semibold text-yellow-900">Notifications are blocked</h4>
           <p className="mt-2 text-sm leading-relaxed text-yellow-800">
-            You've blocked notifications for this site. To enable them, click
-            the lock icon in your browser's address bar and allow notifications.
+            You've blocked notifications for this site. To enable them, click the lock icon in your
+            browser's address bar and allow notifications.
           </p>
         </div>
       </div>

@@ -1,11 +1,11 @@
 "use client";
 
+import { Filter, MapPin, Search, ShieldCheck, SlidersHorizontal, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import { Filter, MapPin, Search, ShieldCheck, SlidersHorizontal, Star } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useEffect, useMemo, useState } from "react";
 
 import { Container } from "@/components/ui/container";
 
@@ -101,9 +101,11 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
         professional.location.toLowerCase().includes(term);
 
       const matchesService =
-        serviceFilter === "all" || (professional.service ?? "").toLowerCase() === serviceFilter.toLowerCase();
+        serviceFilter === "all" ||
+        (professional.service ?? "").toLowerCase() === serviceFilter.toLowerCase();
       const matchesCity =
-        cityFilter === "all" || (professional.city ?? "").toLowerCase() === cityFilter.toLowerCase();
+        cityFilter === "all" ||
+        (professional.city ?? "").toLowerCase() === cityFilter.toLowerCase();
       const matchesRating = ratingFilter === "all";
       const matchesAvailability = !availableToday || professional.availableToday;
 
@@ -126,7 +128,9 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
           <h1 className="text-5xl font-semibold tracking-tight text-[#211f1a] sm:text-6xl lg:text-7xl">
             {t("header.title")}
           </h1>
-          <p className="mx-auto max-w-3xl text-xl text-[#5d574b] sm:text-2xl">{t("header.subtitle")}</p>
+          <p className="mx-auto max-w-3xl text-xl text-[#5d574b] sm:text-2xl">
+            {t("header.subtitle")}
+          </p>
         </header>
 
         <div className="space-y-6 rounded-[32px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
@@ -225,12 +229,19 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                 className="flex h-full flex-col overflow-hidden rounded-[28px] border border-[#ebe5d8] bg-white shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:-translate-y-1 hover:border-[#211f1a] hover:shadow-[0_20px_60px_rgba(18,17,15,0.08)]"
               >
                 <div className="relative h-64 w-full">
-                  <Image src={professional.photoUrl} alt={professional.name} fill className="object-cover" />
+                  <Image
+                    src={professional.photoUrl}
+                    alt={professional.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <div className="flex flex-1 flex-col gap-5 p-7">
                   <div className="space-y-2">
                     <h2 className="text-2xl font-semibold text-[#211f1a]">{professional.name}</h2>
-                    <p className="text-base text-[#7d7566]">{professional.service ?? t("card.flexibleServices")}</p>
+                    <p className="text-base text-[#7d7566]">
+                      {professional.service ?? t("card.flexibleServices")}
+                    </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#5a5549]">
                     <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1.5">
@@ -256,7 +267,9 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                   </div>
                   <div className="flex items-center justify-between text-base text-[#5d574b]">
                     <span>{professional.location}</span>
-                    <span className="font-semibold">{formatCurrencyCOP(professional.hourlyRateCop) ?? t("card.rateOnRequest")}</span>
+                    <span className="font-semibold">
+                      {formatCurrencyCOP(professional.hourlyRateCop) ?? t("card.rateOnRequest")}
+                    </span>
                   </div>
                   <p className="text-base leading-relaxed text-[#7d7566]">
                     {professional.bio

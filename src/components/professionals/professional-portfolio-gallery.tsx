@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { Camera } from "lucide-react";
+import Image from "next/image";
 import type { ProfessionalPortfolioImage } from "@/components/professionals/types";
 
 type Props = {
@@ -17,7 +17,8 @@ export function ProfessionalPortfolioGallery({ images }: Props) {
         <div>
           <h3 className="text-lg font-semibold text-[#211f1a]">Portfolio</h3>
           <p className="text-sm text-[#7a6d62]">
-            A sample of recent work to showcase attention to detail, organization, and finishing touches.
+            A sample of recent work to showcase attention to detail, organization, and finishing
+            touches.
           </p>
         </div>
         {!hasImages ? (

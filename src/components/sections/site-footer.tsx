@@ -1,10 +1,10 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { Link } from '@/i18n/routing';
 import { Facebook, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
-import { Container } from "@/components/ui/container";
+import { useTranslations } from "next-intl";
 import { LanguageSwitcher } from "@/components/navigation/language-switcher";
+import { Container } from "@/components/ui/container";
+import { Link } from "@/i18n/routing";
 
 const socialLinks = [
   { label: "Facebook", href: "https://facebook.com/maidconnect", icon: Facebook },
@@ -43,9 +43,7 @@ export function SiteFooter() {
           {/* Left: Brand & Description */}
           <div className="max-w-md space-y-6">
             <h2 className="text-3xl font-semibold text-white">MaidConnect</h2>
-            <p className="text-base leading-relaxed text-[#cfc8be]">
-              {t("description")}
-            </p>
+            <p className="text-base leading-relaxed text-[#cfc8be]">{t("description")}</p>
             <div className="space-y-3">
               <a
                 href="mailto:support@maidconnect.co"
@@ -98,7 +96,9 @@ export function SiteFooter() {
         {/* Bottom Bar */}
         <div className="mt-16 border-t border-[#26231f] pt-8">
           <div className="flex flex-col gap-6 text-sm text-[#a8a095] sm:flex-row sm:items-center sm:justify-between">
-            <p>© {year} MaidConnect. {t("allRightsReserved")}</p>
+            <p>
+              © {year} MaidConnect. {t("allRightsReserved")}
+            </p>
             <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
               <div className="flex items-center gap-6">
                 <Link href="/terms" className="transition hover:text-[#ff5d46]">

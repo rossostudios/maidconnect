@@ -50,8 +50,9 @@ export function ProfessionalVettingDashboard() {
   const [data, setData] = useState<VettingQueueData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedProfessional, setSelectedProfessional] =
-    useState<ProfessionalInQueue | null>(null);
+  const [selectedProfessional, setSelectedProfessional] = useState<ProfessionalInQueue | null>(
+    null
+  );
   const [activeTab, setActiveTab] = useState<
     "application_in_review" | "approved" | "application_pending"
   >("application_in_review");
@@ -161,9 +162,7 @@ export function ProfessionalVettingDashboard() {
       {/* Professional List */}
       {activeProfessionals.length === 0 ? (
         <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-8 text-center">
-          <p className="text-sm text-[#7a6d62]">
-            No professionals in this status.
-          </p>
+          <p className="text-sm text-[#7a6d62]">No professionals in this status.</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -190,13 +189,10 @@ export function ProfessionalVettingDashboard() {
                     </div>
                     <div>
                       <span className="font-medium">Experience:</span>{" "}
-                      {professional.experience_years
-                        ? `${professional.experience_years}y`
-                        : "—"}
+                      {professional.experience_years ? `${professional.experience_years}y` : "—"}
                     </div>
                     <div>
-                      <span className="font-medium">Documents:</span>{" "}
-                      {professional.documentsCount}
+                      <span className="font-medium">Documents:</span> {professional.documentsCount}
                     </div>
                     <div>
                       <span className="font-medium">References:</span>{" "}
@@ -213,9 +209,7 @@ export function ProfessionalVettingDashboard() {
                     {professional.profile?.city && (
                       <span className="rounded-md bg-gray-50 px-2 py-0.5 text-xs text-gray-700">
                         {professional.profile.city}
-                        {professional.profile.country
-                          ? `, ${professional.profile.country}`
-                          : ""}
+                        {professional.profile.country ? `, ${professional.profile.country}` : ""}
                       </span>
                     )}
                     {professional.stripe_connect_account_id && (
@@ -230,9 +224,7 @@ export function ProfessionalVettingDashboard() {
                       <p className="text-xs text-[#7a6d62]">
                         <span className="font-medium">Latest Review:</span>{" "}
                         {professional.latestReview.status} •{" "}
-                        {new Date(
-                          professional.latestReview.created_at
-                        ).toLocaleDateString()}
+                        {new Date(professional.latestReview.created_at).toLocaleDateString()}
                       </p>
                       {professional.latestReview.notes && (
                         <p className="mt-1 text-xs text-[#211f1a]">

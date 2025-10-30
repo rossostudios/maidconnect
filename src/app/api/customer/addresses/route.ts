@@ -28,10 +28,7 @@ export async function GET() {
 
     if (error) {
       console.error("Failed to fetch addresses:", error);
-      return NextResponse.json(
-        { error: "Failed to fetch addresses" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch addresses" }, { status: 500 });
     }
 
     return NextResponse.json({
@@ -39,10 +36,7 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Addresses API error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch addresses" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch addresses" }, { status: 500 });
   }
 }
 
@@ -66,10 +60,7 @@ export async function PUT(request: Request) {
     const body = (await request.json()) as { addresses: any[] };
 
     if (!Array.isArray(body.addresses)) {
-      return NextResponse.json(
-        { error: "addresses must be an array" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "addresses must be an array" }, { status: 400 });
     }
 
     // Update saved addresses
@@ -80,10 +71,7 @@ export async function PUT(request: Request) {
 
     if (error) {
       console.error("Failed to update addresses:", error);
-      return NextResponse.json(
-        { error: "Failed to update addresses" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to update addresses" }, { status: 500 });
     }
 
     return NextResponse.json({
@@ -92,9 +80,6 @@ export async function PUT(request: Request) {
     });
   } catch (error) {
     console.error("Update addresses API error:", error);
-    return NextResponse.json(
-      { error: "Failed to update addresses" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update addresses" }, { status: 500 });
   }
 }

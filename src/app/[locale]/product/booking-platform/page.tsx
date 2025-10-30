@@ -1,11 +1,11 @@
+import { Calendar, CheckCircle2, Clock, Zap } from "lucide-react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Calendar, Zap, Clock, CheckCircle2 } from "lucide-react";
-import { ProductHeroSection } from "@/components/product/product-hero-section";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
+import { ProductHeroSection } from "@/components/product/product-hero-section";
 import { ProductStepsSection } from "@/components/product/product-steps-section";
-import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
+import { SiteHeader } from "@/components/sections/site-header";
 import { Link } from "@/i18n/routing";
 
 type Props = {
@@ -87,174 +87,174 @@ export default async function BookingPlatformPage({ params }: Props) {
       />
       <SiteHeader />
       <main>
-      {/* Hero Section */}
-      <ProductHeroSection
-        headline={t("hero.headline")}
-        description={t("hero.description")}
-        primaryCTA={{ label: t("hero.primaryCTA"), href: "/professionals" }}
-        secondaryCTA={{ label: t("hero.secondaryCTA"), href: "#features" }}
-        badge={t("hero.badge")}
-      />
+        {/* Hero Section */}
+        <ProductHeroSection
+          headline={t("hero.headline")}
+          description={t("hero.description")}
+          primaryCTA={{ label: t("hero.primaryCTA"), href: "/professionals" }}
+          secondaryCTA={{ label: t("hero.secondaryCTA"), href: "#features" }}
+          badge={t("hero.badge")}
+        />
 
-      {/* Features Section */}
-      <section
-        id="features"
-        className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24"
-      >
-        <div className="mx-auto max-w-6xl">
-          <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl lg:text-6xl">
-            {t("features.title")}
-          </h2>
+        {/* Features Section */}
+        <section
+          id="features"
+          className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24"
+        >
+          <div className="mx-auto max-w-6xl">
+            <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl lg:text-6xl">
+              {t("features.title")}
+            </h2>
 
-          <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-relaxed text-[#5d574b]">
-            {t("features.subtitle")}
-          </p>
+            <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-relaxed text-[#5d574b]">
+              {t("features.subtitle")}
+            </p>
 
-          <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <ProductFeatureCard
-              icon={Zap}
-              title={t("features.instantBooking.title")}
-              description={t("features.instantBooking.description")}
-            />
+            <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              <ProductFeatureCard
+                icon={Zap}
+                title={t("features.instantBooking.title")}
+                description={t("features.instantBooking.description")}
+              />
 
-            <ProductFeatureCard
-              icon={Calendar}
-              title={t("features.realTimeAvailability.title")}
-              description={t("features.realTimeAvailability.description")}
-            />
+              <ProductFeatureCard
+                icon={Calendar}
+                title={t("features.realTimeAvailability.title")}
+                description={t("features.realTimeAvailability.description")}
+              />
 
-            <ProductFeatureCard
-              icon={Clock}
-              title={t("features.smartScheduling.title")}
-              description={t("features.smartScheduling.description")}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <ProductStepsSection
-        headline={t("howItWorks.title")}
-        description={t("howItWorks.description")}
-        steps={[
-          {
-            number: "1",
-            title: t("howItWorks.step1.title"),
-            description: t("howItWorks.step1.description"),
-          },
-          {
-            number: "2",
-            title: t("howItWorks.step2.title"),
-            description: t("howItWorks.step2.description"),
-          },
-          {
-            number: "3",
-            title: t("howItWorks.step3.title"),
-            description: t("howItWorks.step3.description"),
-          },
-          {
-            number: "4",
-            title: t("howItWorks.step4.title"),
-            description: t("howItWorks.step4.description"),
-          },
-        ]}
-      />
-
-      {/* Benefits Section */}
-      <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-            {t("benefits.title")}
-          </h2>
-
-          <div className="mt-16 space-y-8">
-            <div className="flex items-start gap-4">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
-                <CheckCircle2 className="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-[#211f1a]">
-                  {t("benefits.noPhoneTag.title")}
-                </h3>
-                <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                  {t("benefits.noPhoneTag.description")}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
-                <CheckCircle2 className="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-[#211f1a]">
-                  {t("benefits.transparentPricing.title")}
-                </h3>
-                <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                  {t("benefits.transparentPricing.description")}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
-                <CheckCircle2 className="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-[#211f1a]">
-                  {t("benefits.flexibleScheduling.title")}
-                </h3>
-                <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                  {t("benefits.flexibleScheduling.description")}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
-                <CheckCircle2 className="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-[#211f1a]">
-                  {t("benefits.easyRescheduling.title")}
-                </h3>
-                <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                  {t("benefits.easyRescheduling.description")}
-                </p>
-              </div>
+              <ProductFeatureCard
+                icon={Clock}
+                title={t("features.smartScheduling.title")}
+                description={t("features.smartScheduling.description")}
+              />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-            {t("cta.title")}
-          </h2>
+        {/* How It Works Section */}
+        <ProductStepsSection
+          headline={t("howItWorks.title")}
+          description={t("howItWorks.description")}
+          steps={[
+            {
+              number: "1",
+              title: t("howItWorks.step1.title"),
+              description: t("howItWorks.step1.description"),
+            },
+            {
+              number: "2",
+              title: t("howItWorks.step2.title"),
+              description: t("howItWorks.step2.description"),
+            },
+            {
+              number: "3",
+              title: t("howItWorks.step3.title"),
+              description: t("howItWorks.step3.description"),
+            },
+            {
+              number: "4",
+              title: t("howItWorks.step4.title"),
+              description: t("howItWorks.step4.description"),
+            },
+          ]}
+        />
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5d574b]">
-            {t("cta.description")}
-          </p>
+        {/* Benefits Section */}
+        <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
+              {t("benefits.title")}
+            </h2>
 
-          <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link
-              href="/professionals"
-              className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
-            >
-              {t("cta.browseProfessionals")}
-            </Link>
+            <div className="mt-16 space-y-8">
+              <div className="flex items-start gap-4">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                  <CheckCircle2 className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                    {t("benefits.noPhoneTag.title")}
+                  </h3>
+                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                    {t("benefits.noPhoneTag.description")}
+                  </p>
+                </div>
+              </div>
 
-            <Link
-              href="/auth/sign-up"
-              className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
-            >
-              {t("cta.signUpFree")}
-            </Link>
+              <div className="flex items-start gap-4">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                  <CheckCircle2 className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                    {t("benefits.transparentPricing.title")}
+                  </h3>
+                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                    {t("benefits.transparentPricing.description")}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                  <CheckCircle2 className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                    {t("benefits.flexibleScheduling.title")}
+                  </h3>
+                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                    {t("benefits.flexibleScheduling.description")}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                  <CheckCircle2 className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                    {t("benefits.easyRescheduling.title")}
+                  </h3>
+                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                    {t("benefits.easyRescheduling.description")}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* CTA Section */}
+        <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
+              {t("cta.title")}
+            </h2>
+
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5d574b]">
+              {t("cta.description")}
+            </p>
+
+            <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link
+                href="/professionals"
+                className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
+              >
+                {t("cta.browseProfessionals")}
+              </Link>
+
+              <Link
+                href="/auth/sign-up"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+              >
+                {t("cta.signUpFree")}
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
       <SiteFooter />
     </div>

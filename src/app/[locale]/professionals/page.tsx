@@ -1,10 +1,15 @@
-import { SiteHeader } from "@/components/sections/site-header";
-import { SiteFooter } from "@/components/sections/site-footer";
 import {
-  ProfessionalsDirectory,
   type DirectoryProfessional,
+  ProfessionalsDirectory,
 } from "@/components/professionals/professionals-directory";
-import { computeAvailableToday, formatLocation, parseAvailability, parseServices } from "@/lib/professionals/transformers";
+import { SiteFooter } from "@/components/sections/site-footer";
+import { SiteHeader } from "@/components/sections/site-header";
+import {
+  computeAvailableToday,
+  formatLocation,
+  parseAvailability,
+  parseServices,
+} from "@/lib/professionals/transformers";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type ListActiveProfessionalRow = {
@@ -38,7 +43,9 @@ function mapRowToDirectoryProfessional(row: ListActiveProfessionalRow): Director
     service: primaryService,
     experienceYears: row.experience_years ?? null,
     hourlyRateCop: hourlyRate,
-    languages: Array.isArray(row.languages) ? row.languages.filter((lang): lang is string => typeof lang === "string") : [],
+    languages: Array.isArray(row.languages)
+      ? row.languages.filter((lang): lang is string => typeof lang === "string")
+      : [],
     city: row.city ?? null,
     country: row.country ?? null,
     location: formatLocation(row.city, row.country) || "Colombia",
@@ -62,7 +69,9 @@ export default async function ProfessionalsPage() {
     ? data
         .filter(
           (row): row is ListActiveProfessionalRow =>
-            row !== null && typeof row === "object" && typeof (row as ListActiveProfessionalRow).profile_id === "string",
+            row !== null &&
+            typeof row === "object" &&
+            typeof (row as ListActiveProfessionalRow).profile_id === "string"
         )
         .map((row) => mapRowToDirectoryProfessional(row as ListActiveProfessionalRow))
     : [];

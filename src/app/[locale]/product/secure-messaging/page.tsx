@@ -1,11 +1,11 @@
+import { CheckCircle2, FileImage, MessageCircle, Shield } from "lucide-react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { MessageCircle, Shield, FileImage, CheckCircle2 } from "lucide-react";
-import { ProductHeroSection } from "@/components/product/product-hero-section";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
+import { ProductHeroSection } from "@/components/product/product-hero-section";
 import { ProductStepsSection } from "@/components/product/product-steps-section";
-import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
+import { SiteHeader } from "@/components/sections/site-header";
 import { Link } from "@/i18n/routing";
 
 type Props = {

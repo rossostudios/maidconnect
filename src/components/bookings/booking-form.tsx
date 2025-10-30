@@ -1,9 +1,9 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
+import { useActionState, useEffect, useState } from "react";
 import { DatePicker } from "@/components/ui/date-picker";
 import { TimePicker } from "@/components/ui/time-picker";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
@@ -42,23 +42,35 @@ function formatCurrencyCOP(value: number | null | undefined) {
   }).format(value);
 }
 
-export function BookingForm({ professionalId, professionalName, services, defaultHourlyRate }: BookingFormProps) {
-  const [state, action, pending] = useActionState<FormState, FormData>(createBookingAction, initialState);
+export function BookingForm({
+  professionalId,
+  professionalName,
+  services,
+  defaultHourlyRate,
+}: BookingFormProps) {
+  const [state, action, pending] = useActionState<FormState, FormData>(
+    createBookingAction,
+    initialState
+  );
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const serviceWithName = services.filter((service) => Boolean(service.name));
   const initialServiceName = normalizeServiceName(
     serviceWithName.find((service) => typeof service.hourlyRateCop === "number")?.name ??
       serviceWithName[0]?.name ??
-      null,
+      null
   );
   const [selectedServiceName, setSelectedServiceName] = useState<string>(initialServiceName);
   const [durationHours, setDurationHours] = useState<number>(2);
 
-  const selectedService = serviceWithName.find((service) => normalizeServiceName(service.name) === selectedServiceName);
+  const selectedService = serviceWithName.find(
+    (service) => normalizeServiceName(service.name) === selectedServiceName
+  );
   const selectedRate = selectedService?.hourlyRateCop ?? defaultHourlyRate ?? null;
   const estimatedAmount =
-    selectedRate && durationHours > 0 ? Math.max(20000, Math.round(selectedRate * durationHours)) : 0;
+    selectedRate && durationHours > 0
+      ? Math.max(20000, Math.round(selectedRate * durationHours))
+      : 0;
 
   useEffect(() => {
     if (state.status === "success") {
@@ -69,8 +81,8 @@ export function BookingForm({ professionalId, professionalName, services, defaul
   if (serviceWithName.length === 0) {
     return (
       <div className="rounded-2xl border border-[#f0ece4] bg-[#fbfafa] p-5 text-sm text-[#7a6d62]">
-        This professional is updating their services. Check back soon or contact concierge support to request a custom
-        quote.
+        This professional is updating their services. Check back soon or contact concierge support
+        to request a custom quote.
       </div>
     );
   }
@@ -78,7 +90,8 @@ export function BookingForm({ professionalId, professionalName, services, defaul
   if (!stripePromise) {
     return (
       <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-        Stripe publishable key is not configured. Set NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY in your environment.
+        Stripe publishable key is not configured. Set NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY in your
+        environment.
       </div>
     );
   }
@@ -86,10 +99,13 @@ export function BookingForm({ professionalId, professionalName, services, defaul
   return (
     <div className="space-y-4">
       <p className="text-sm text-[#5d574b]">
-        Confirm your booking with {professionalName}. We’ll place a temporary hold and only capture after the service is completed.
+        Confirm your booking with {professionalName}. We’ll place a temporary hold and only capture
+        after the service is completed.
       </p>
       {state.status === "error" && state.message ? (
-        <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">{state.message}</div>
+        <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">
+          {state.message}
+        </div>
       ) : null}
       {state.status === "success" && state.bookingId ? (
         <div className="rounded-md border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-700">
@@ -155,7 +171,9 @@ export function BookingForm({ professionalId, professionalName, services, defaul
           </FormField>
           <FormField label="Estimated total (COP)">
             <div className="flex items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 text-sm font-semibold text-[#211f1a] shadow-inner shadow-black/5">
-              <span>{estimatedAmount > 0 ? formatCurrencyCOP(estimatedAmount) : "Add service details"}</span>
+              <span>
+                {estimatedAmount > 0 ? formatCurrencyCOP(estimatedAmount) : "Add service details"}
+              </span>
               {selectedRate ? (
                 <span className="text-xs font-medium text-[#7a6d62]">
                   Rate {formatCurrencyCOP(selectedRate)} · {durationHours}h
@@ -200,7 +218,10 @@ export function BookingForm({ professionalId, professionalName, services, defaul
       </form>
 
       {state.status === "success" && state.clientSecret ? (
-        <Elements stripe={stripePromise} options={{ clientSecret: state.clientSecret, appearance: stripeAppearance }}>
+        <Elements
+          stripe={stripePromise}
+          options={{ clientSecret: state.clientSecret, appearance: stripeAppearance }}
+        >
           <PaymentConfirmation
             bookingId={state.bookingId!}
             paymentIntentId={state.paymentIntentId!}
@@ -299,7 +320,10 @@ async function createBookingAction(_prev: FormState, formData: FormData): Promis
     };
   } catch (error) {
     console.error(error);
-    return { status: "error", message: error instanceof Error ? error.message : "Unexpected error" };
+    return {
+      status: "error",
+      message: error instanceof Error ? error.message : "Unexpected error",
+    };
   }
 }
 
@@ -376,7 +400,8 @@ function PaymentConfirmation({ bookingId, paymentIntentId, onReset }: PaymentCon
         </button>
       </div>
       <p className="text-xs text-[#7a6d62]">
-        Booking ID: {bookingId}. You’ll only be charged after the professional marks the service complete.
+        Booking ID: {bookingId}. You’ll only be charged after the professional marks the service
+        complete.
       </p>
     </div>
   );

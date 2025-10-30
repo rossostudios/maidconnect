@@ -28,18 +28,12 @@ export async function GET(request: Request, context: RouteContext) {
 
     if (error) {
       console.error("Failed to fetch professional add-ons:", error);
-      return NextResponse.json(
-        { error: "Failed to fetch add-ons" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch add-ons" }, { status: 500 });
     }
 
     return NextResponse.json({ addons: addons || [] });
   } catch (error) {
     console.error("Professional add-ons API error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch add-ons" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch add-ons" }, { status: 500 });
   }
 }

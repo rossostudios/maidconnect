@@ -1,15 +1,23 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import {
+  OPTIONAL_DOCUMENTS,
+  REQUIRED_DOCUMENTS,
+} from "@/app/[locale]/dashboard/pro/onboarding/state";
 import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar";
-import { PendingRatingsList } from "@/components/reviews/pending-ratings-list";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { requireUser } from "@/lib/auth";
-import { REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "@/app/[locale]/dashboard/pro/onboarding/state";
-import { ServiceAddonsManager } from "@/components/service-addons/service-addons-manager";
 import { ProBookingList } from "@/components/bookings/pro-booking-list";
 import { NotificationPermissionPrompt } from "@/components/notifications/notification-permission-prompt";
-import { getTranslations } from "next-intl/server";
+import { PendingRatingsList } from "@/components/reviews/pending-ratings-list";
+import { ServiceAddonsManager } from "@/components/service-addons/service-addons-manager";
+import { requireUser } from "@/lib/auth";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-const STATUS_ORDER = ["application_pending", "application_in_review", "approved", "active"] as const;
+const STATUS_ORDER = [
+  "application_pending",
+  "application_in_review",
+  "approved",
+  "active",
+] as const;
 
 const TASKS = [
   {
@@ -45,7 +53,7 @@ const TASKS = [
 ] as const;
 
 const DOCUMENT_LABELS: Record<string, string> = Object.fromEntries(
-  [...REQUIRED_DOCUMENTS, ...OPTIONAL_DOCUMENTS].map((doc) => [doc.key, doc.label]),
+  [...REQUIRED_DOCUMENTS, ...OPTIONAL_DOCUMENTS].map((doc) => [doc.key, doc.label])
 );
 
 function formatStatus(status: string | null) {
@@ -63,7 +71,11 @@ function hasReachedStatus(currentStatus: string | null, targetStatus: string) {
 
 function formatCurrencyCOP(value?: number | null) {
   if (!value || Number.isNaN(value)) return "—";
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(value);
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  }).format(value);
 }
 
 function formatDate(date: string | null) {
@@ -83,7 +95,7 @@ function formatFileSize(bytes?: number) {
   if (!bytes) return "—";
   const sizes = ["B", "KB", "MB", "GB"];
   const i = Math.floor(Math.log(bytes) / Math.log(1024));
-  const value = bytes / Math.pow(1024, i);
+  const value = bytes / 1024 ** i;
   return `${value.toFixed(i === 0 ? 0 : 1)} ${sizes[i]}`;
 }
 
@@ -155,7 +167,7 @@ export default async function ProfessionalDashboardPage({
     supabase
       .from("professional_profiles")
       .select(
-        "full_name, status, onboarding_completed_at, primary_services, rate_expectations, references_data, stripe_connect_account_id, stripe_connect_onboarding_status",
+        "full_name, status, onboarding_completed_at, primary_services, rate_expectations, references_data, stripe_connect_account_id, stripe_connect_onboarding_status"
       )
       .eq("profile_id", user.id)
       .maybeSingle(),
@@ -168,14 +180,11 @@ export default async function ProfessionalDashboardPage({
       .from("bookings")
       .select(
         `id, status, scheduled_start, scheduled_end, duration_minutes, amount_estimated, amount_authorized, amount_captured, currency, stripe_payment_intent_id, stripe_payment_status, created_at, service_name, service_hourly_rate, checked_in_at, checked_out_at, time_extension_minutes, address,
-        customer:profiles!customer_id(id)`,
+        customer:profiles!customer_id(id)`
       )
       .eq("professional_id", user.id)
       .order("created_at", { ascending: false }),
-    supabase
-      .from("customer_reviews")
-      .select("booking_id")
-      .eq("professional_id", user.id),
+    supabase.from("customer_reviews").select("booking_id").eq("professional_id", user.id),
     supabase
       .from("service_addons")
       .select("*")
@@ -222,7 +231,9 @@ export default async function ProfessionalDashboardPage({
 
   if (documents.length > 0) {
     const signedUrlResults = await Promise.all(
-      documents.map((doc) => supabase.storage.from("professional-documents").createSignedUrl(doc.storage_path, 120)),
+      documents.map((doc) =>
+        supabase.storage.from("professional-documents").createSignedUrl(doc.storage_path, 120)
+      )
     );
 
     documents = documents.map((doc, index) => {
@@ -249,18 +260,20 @@ export default async function ProfessionalDashboardPage({
   const onboardingStatus = user.onboardingStatus;
 
   // Calculate real-time metrics
-  const activeBookings = bookings.filter(b => b.status === 'confirmed' || b.status === 'in_progress').length;
-  const pendingBookings = bookings.filter(b => b.status === 'pending').length;
-  const completedThisWeek = bookings.filter(b => {
-    if (b.status !== 'completed' || !b.scheduled_start) return false;
+  const activeBookings = bookings.filter(
+    (b) => b.status === "confirmed" || b.status === "in_progress"
+  ).length;
+  const pendingBookings = bookings.filter((b) => b.status === "pending").length;
+  const completedThisWeek = bookings.filter((b) => {
+    if (b.status !== "completed" || !b.scheduled_start) return false;
     const bookingDate = new Date(b.scheduled_start);
     const weekAgo = new Date();
     weekAgo.setDate(weekAgo.getDate() - 7);
     return bookingDate >= weekAgo;
   }).length;
   const weeklyEarnings = bookings
-    .filter(b => {
-      if (b.status !== 'completed' || !b.scheduled_start || !b.amount_captured) return false;
+    .filter((b) => {
+      if (b.status !== "completed" || !b.scheduled_start || !b.amount_captured) return false;
       const bookingDate = new Date(b.scheduled_start);
       const weekAgo = new Date();
       weekAgo.setDate(weekAgo.getDate() - 7);
@@ -277,7 +290,8 @@ export default async function ProfessionalDashboardPage({
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-              {t("welcomeBack")}{professionalProfile?.full_name ? `, ${professionalProfile.full_name}` : ""}
+              {t("welcomeBack")}
+              {professionalProfile?.full_name ? `, ${professionalProfile.full_name}` : ""}
             </h1>
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-[#5d574b]">
               {onboardingStatus === "active"
@@ -296,8 +310,14 @@ export default async function ProfessionalDashboardPage({
           <dl className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <MetricCard label={t("metrics.activeBookings")} value={activeBookings.toString()} />
             <MetricCard label={t("metrics.pendingRequests")} value={pendingBookings.toString()} />
-            <MetricCard label={t("metrics.completedThisWeek")} value={completedThisWeek.toString()} />
-            <MetricCard label={t("metrics.earningsThisWeek")} value={formatCurrencyCOP(weeklyEarnings)} />
+            <MetricCard
+              label={t("metrics.completedThisWeek")}
+              value={completedThisWeek.toString()}
+            />
+            <MetricCard
+              label={t("metrics.earningsThisWeek")}
+              value={formatCurrencyCOP(weeklyEarnings)}
+            />
           </dl>
         ) : null}
       </header>
@@ -354,20 +374,26 @@ export default async function ProfessionalDashboardPage({
                   ) : null}
                   {task.id === "documents" && missingDocuments.length > 0 ? (
                     <p className="mt-3 text-xs text-[#c4534d]">
-                      {t("onboarding.warnings.missing")} {missingDocuments.map((doc) => DOCUMENT_LABELS[doc] ?? doc).join(", ")}
+                      {t("onboarding.warnings.missing")}{" "}
+                      {missingDocuments.map((doc) => DOCUMENT_LABELS[doc] ?? doc).join(", ")}
                     </p>
                   ) : null}
-                  {task.id === "profile" && professionalProfile?.primary_services && professionalProfile.primary_services.length === 0 ? (
+                  {task.id === "profile" &&
+                  professionalProfile?.primary_services &&
+                  professionalProfile.primary_services.length === 0 ? (
                     <p className="mt-3 text-xs text-[#c4534d]">
                       {t("onboarding.warnings.addService")}
                     </p>
                   ) : null}
                   {task.id === "profile" && professionalProfile?.onboarding_completed_at ? (
                     <p className="mt-3 text-xs text-[#2f7a47]">
-                      {t("onboarding.warnings.profileActivated")} {formatDate(professionalProfile.onboarding_completed_at)}.
+                      {t("onboarding.warnings.profileActivated")}{" "}
+                      {formatDate(professionalProfile.onboarding_completed_at)}.
                     </p>
                   ) : null}
-                  {task.id === "application" && professionalProfile?.references_data && professionalProfile.references_data.length < 2 ? (
+                  {task.id === "application" &&
+                  professionalProfile?.references_data &&
+                  professionalProfile.references_data.length < 2 ? (
                     <p className="mt-3 text-xs text-[#c4534d]">
                       {t("onboarding.warnings.addReferences")}
                     </p>
@@ -389,7 +415,9 @@ export default async function ProfessionalDashboardPage({
         <section className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 className="text-3xl font-semibold text-[#211f1a]">{t("sections.bookingCalendar.title")}</h2>
+              <h2 className="text-3xl font-semibold text-[#211f1a]">
+                {t("sections.bookingCalendar.title")}
+              </h2>
               <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
                 {t("sections.bookingCalendar.description")}
               </p>
@@ -415,7 +443,9 @@ export default async function ProfessionalDashboardPage({
             />
           </div>
           <div className="mt-8">
-            <h3 className="mb-4 text-xl font-semibold text-[#211f1a]">{t("sections.recentBookings")}</h3>
+            <h3 className="mb-4 text-xl font-semibold text-[#211f1a]">
+              {t("sections.recentBookings")}
+            </h3>
             <ProBookingList bookings={bookings} />
           </div>
         </section>
@@ -426,7 +456,9 @@ export default async function ProfessionalDashboardPage({
         <section className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-3xl font-semibold text-[#211f1a]">{t("sections.services.title")}</h2>
+              <h2 className="text-3xl font-semibold text-[#211f1a]">
+                {t("sections.services.title")}
+              </h2>
               <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
                 {t("sections.services.description")}
               </p>
@@ -441,7 +473,9 @@ export default async function ProfessionalDashboardPage({
 
           {/* Current Services */}
           <div className="mt-8">
-            <h3 className="text-xl font-semibold text-[#211f1a]">{t("sections.services.yourServices")}</h3>
+            <h3 className="text-xl font-semibold text-[#211f1a]">
+              {t("sections.services.yourServices")}
+            </h3>
             <div className="mt-4 flex flex-wrap gap-3">
               {professionalProfile?.primary_services?.length ? (
                 professionalProfile.primary_services.map((service) => (
@@ -460,8 +494,12 @@ export default async function ProfessionalDashboardPage({
 
           {/* Service Add-ons */}
           <div className="mt-8">
-            <h3 className="text-xl font-semibold text-[#211f1a]">{t("sections.services.customAddons")}</h3>
-            <p className="mt-2 text-base text-[#5d574b]">{t("sections.services.addonsDescription")}</p>
+            <h3 className="text-xl font-semibold text-[#211f1a]">
+              {t("sections.services.customAddons")}
+            </h3>
+            <p className="mt-2 text-base text-[#5d574b]">
+              {t("sections.services.addonsDescription")}
+            </p>
             <div className="mt-4">
               <ServiceAddonsManager addons={addons} professionalId={user.id} />
             </div>
@@ -476,18 +514,20 @@ export default async function ProfessionalDashboardPage({
           {t("sections.documents.description")}
         </p>
         {documents.length === 0 ? (
-          <p className="mt-4 text-base text-[#c4534d]">
-            {t("sections.documents.noDocuments")}
-          </p>
+          <p className="mt-4 text-base text-[#c4534d]">{t("sections.documents.noDocuments")}</p>
         ) : (
           <ul className="mt-6 divide-y divide-[#efe7dc] text-sm text-[#211f1a]">
             {documents.map((doc) => (
               <li key={doc.id} className="flex flex-col gap-2 py-4">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <span className="font-medium">{DOCUMENT_LABELS[doc.document_type] ?? doc.document_type}</span>
+                    <span className="font-medium">
+                      {DOCUMENT_LABELS[doc.document_type] ?? doc.document_type}
+                    </span>
                     <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-[#7a6d62]">
-                      <span>{doc.metadata?.originalName ?? t("sections.documents.unnamedFile")}</span>
+                      <span>
+                        {doc.metadata?.originalName ?? t("sections.documents.unnamedFile")}
+                      </span>
                       <span>•</span>
                       <span>{formatFileSize(doc.metadata?.size)}</span>
                       {doc.metadata?.note ? (

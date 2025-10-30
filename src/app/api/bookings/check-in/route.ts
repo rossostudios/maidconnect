@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { notifyCustomerServiceStarted } from "@/lib/notifications";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -39,7 +39,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "bookingId is required" }, { status: 400 });
     }
     if (typeof latitude !== "number" || typeof longitude !== "number") {
-      return NextResponse.json({ error: "Valid latitude and longitude are required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Valid latitude and longitude are required" },
+        { status: 400 }
+      );
     }
 
     // Validate GPS coordinate ranges
@@ -47,7 +50,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Latitude must be between -90 and 90" }, { status: 400 });
     }
     if (longitude < -180 || longitude > 180) {
-      return NextResponse.json({ error: "Longitude must be between -180 and 180" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Longitude must be between -180 and 180" },
+        { status: 400 }
+      );
     }
 
     // Fetch the booking
@@ -118,8 +124,8 @@ export async function POST(request: Request) {
     // Send push notification to customer
     await notifyCustomerServiceStarted(booking.customer_id, {
       id: booking.id,
-      serviceName: booking.service_name || 'Service',
-      professionalName: professionalProfile?.full_name || 'Your professional',
+      serviceName: booking.service_name || "Service",
+      professionalName: professionalProfile?.full_name || "Your professional",
     });
 
     return NextResponse.json({

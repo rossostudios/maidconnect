@@ -99,7 +99,7 @@ export function newBookingRequestEmail(data: BookingEmailData, dashboardUrl: str
             <p><span class="label">Time:</span> ${data.scheduledTime}</p>
             <p><span class="label">Duration:</span> ${data.duration}</p>
             <p><span class="label">Location:</span> ${data.address}</p>
-            ${data.amount ? `<p><span class="label">Amount:</span> ${data.amount}</p>` : ''}
+            ${data.amount ? `<p><span class="label">Amount:</span> ${data.amount}</p>` : ""}
           </div>
 
           <p><strong>⏰ Please respond within 24 hours</strong> or this booking will be automatically declined.</p>
@@ -120,7 +120,10 @@ export function newBookingRequestEmail(data: BookingEmailData, dashboardUrl: str
   `;
 }
 
-export function bookingConfirmedEmailForCustomer(data: BookingEmailData, dashboardUrl: string): string {
+export function bookingConfirmedEmailForCustomer(
+  data: BookingEmailData,
+  dashboardUrl: string
+): string {
   return `
     <!DOCTYPE html>
     <html>
@@ -144,7 +147,7 @@ export function bookingConfirmedEmailForCustomer(data: BookingEmailData, dashboa
             <p><span class="label">Time:</span> ${data.scheduledTime}</p>
             <p><span class="label">Duration:</span> ${data.duration}</p>
             <p><span class="label">Location:</span> ${data.address}</p>
-            ${data.amount ? `<p><span class="label">Amount:</span> ${data.amount}</p>` : ''}
+            ${data.amount ? `<p><span class="label">Amount:</span> ${data.amount}</p>` : ""}
           </div>
 
           <p>Your payment has been authorized and will be charged after the service is completed.</p>
@@ -192,7 +195,7 @@ export function bookingDeclinedEmailForCustomer(data: BookingEmailData, reason?:
             <p><span class="label">Service:</span> ${data.serviceName}</p>
             <p><span class="label">Date:</span> ${data.scheduledDate}</p>
             <p><span class="label">Time:</span> ${data.scheduledTime}</p>
-            ${reason ? `<p><span class="label">Reason:</span> ${reason}</p>` : ''}
+            ${reason ? `<p><span class="label">Reason:</span> ${reason}</p>` : ""}
           </div>
 
           <p><strong>Your payment authorization has been voided.</strong> No charges will be made to your account.</p>
@@ -241,9 +244,10 @@ export function bookingReminderEmail(data: BookingEmailData, isForProfessional: 
             <p><span class="label">Location:</span> ${data.address}</p>
           </div>
 
-          ${isForProfessional
-            ? '<p><strong>Don\'t forget to:</strong></p><ul><li>Confirm you have the address and any special instructions</li><li>Bring all necessary supplies</li><li>Check in when you arrive using the app</li></ul>'
-            : '<p><strong>Please ensure:</strong></p><ul><li>Someone is home at the scheduled time</li><li>The property is accessible</li><li>Any special instructions have been communicated</li></ul>'
+          ${
+            isForProfessional
+              ? "<p><strong>Don't forget to:</strong></p><ul><li>Confirm you have the address and any special instructions</li><li>Bring all necessary supplies</li><li>Check in when you arrive using the app</li></ul>"
+              : "<p><strong>Please ensure:</strong></p><ul><li>Someone is home at the scheduled time</li><li>The property is accessible</li><li>Any special instructions have been communicated</li></ul>"
           }
         </div>
         <div class="footer">
@@ -319,16 +323,17 @@ export function serviceCompletedEmail(data: BookingEmailData, isForProfessional:
           <div class="booking-details">
             <p><span class="label">Service:</span> ${data.serviceName}</p>
             <p><span class="label">Date:</span> ${data.scheduledDate}</p>
-            ${data.amount ? `<p><span class="label">Amount Charged:</span> ${data.amount}</p>` : ''}
+            ${data.amount ? `<p><span class="label">Amount Charged:</span> ${data.amount}</p>` : ""}
           </div>
 
-          ${isForProfessional
-            ? '<p>Payment will be processed and transferred to your account within 2-3 business days.</p>'
-            : '<p>Your payment has been processed. You should see the charge on your statement shortly.</p>'
+          ${
+            isForProfessional
+              ? "<p>Payment will be processed and transferred to your account within 2-3 business days.</p>"
+              : "<p>Your payment has been processed. You should see the charge on your statement shortly.</p>"
           }
 
           <div style="text-align: center; margin: 30px 0;">
-            <a href="/dashboard/${isForProfessional ? 'pro' : 'customer'}" class="button">Rate Your Experience</a>
+            <a href="/dashboard/${isForProfessional ? "pro" : "customer"}" class="button">Rate Your Experience</a>
           </div>
 
           <p>We'd love to hear about your experience! Please take a moment to leave a rating.</p>
@@ -342,7 +347,12 @@ export function serviceCompletedEmail(data: BookingEmailData, isForProfessional:
   `;
 }
 
-export function accountSuspendedEmail(userName: string, reason: string, expiresAt: string | null, durationDays?: number): string {
+export function accountSuspendedEmail(
+  userName: string,
+  reason: string,
+  expiresAt: string | null,
+  durationDays?: number
+): string {
   return `
     <!DOCTYPE html>
     <html>
@@ -358,17 +368,18 @@ export function accountSuspendedEmail(userName: string, reason: string, expiresA
         </div>
         <div class="content">
           <p>Hi ${userName},</p>
-          <p>Your MaidConnect account has been ${expiresAt ? 'temporarily suspended' : 'permanently banned'}.</p>
+          <p>Your MaidConnect account has been ${expiresAt ? "temporarily suspended" : "permanently banned"}.</p>
 
           <div class="booking-details">
             <p><span class="label">Reason:</span> ${reason}</p>
-            ${expiresAt ? `<p><span class="label">Duration:</span> ${durationDays} days</p>` : ''}
+            ${expiresAt ? `<p><span class="label">Duration:</span> ${durationDays} days</p>` : ""}
             ${expiresAt ? `<p><span class="label">Expires:</span> ${expiresAt}</p>` : '<p><span class="label">Status:</span> Permanent</p>'}
           </div>
 
-          ${expiresAt
-            ? '<p>During this suspension period, you will not be able to access your account or use MaidConnect services.</p>'
-            : '<p>You will no longer be able to access your account or use MaidConnect services.</p>'
+          ${
+            expiresAt
+              ? "<p>During this suspension period, you will not be able to access your account or use MaidConnect services.</p>"
+              : "<p>You will no longer be able to access your account or use MaidConnect services.</p>"
           }
 
           <p>If you believe this action was taken in error or would like to appeal, please contact our support team.</p>
@@ -422,7 +433,12 @@ export function accountUnsuspendedEmail(userName: string, liftReason: string): s
   `;
 }
 
-export function bookingRescheduleEmail(data: BookingEmailData, newDate: string, newTime: string, isForProfessional: boolean): string {
+export function bookingRescheduleEmail(
+  data: BookingEmailData,
+  newDate: string,
+  newTime: string,
+  isForProfessional: boolean
+): string {
   const recipientName = isForProfessional ? data.professionalName : data.customerName;
   const otherPartyName = isForProfessional ? data.customerName : data.professionalName;
 
@@ -454,7 +470,7 @@ export function bookingRescheduleEmail(data: BookingEmailData, newDate: string, 
           <p>Please review the new schedule and confirm your availability.</p>
 
           <div style="text-align: center; margin: 30px 0;">
-            <a href="/dashboard/${isForProfessional ? 'pro' : 'customer'}?booking=${data.bookingId}" class="button">View Booking</a>
+            <a href="/dashboard/${isForProfessional ? "pro" : "customer"}?booking=${data.bookingId}" class="button">View Booking</a>
           </div>
         </div>
         <div class="footer">
@@ -466,7 +482,10 @@ export function bookingRescheduleEmail(data: BookingEmailData, newDate: string, 
   `;
 }
 
-export function professionalApplicationApprovedEmail(professionalName: string, notes?: string): string {
+export function professionalApplicationApprovedEmail(
+  professionalName: string,
+  notes?: string
+): string {
   return `
     <!DOCTYPE html>
     <html>
@@ -484,7 +503,7 @@ export function professionalApplicationApprovedEmail(professionalName: string, n
           <p>Hi ${professionalName},</p>
           <p><strong>Congratulations!</strong> Your professional application has been approved.</p>
 
-          ${notes ? `<div class="booking-details"><p><span class="label">Admin Note:</span> ${notes}</p></div>` : ''}
+          ${notes ? `<div class="booking-details"><p><span class="label">Admin Note:</span> ${notes}</p></div>` : ""}
 
           <p><strong>What's next?</strong></p>
           <ul>
@@ -510,7 +529,11 @@ export function professionalApplicationApprovedEmail(professionalName: string, n
   `;
 }
 
-export function professionalApplicationRejectedEmail(professionalName: string, rejectionReason: string, notes?: string): string {
+export function professionalApplicationRejectedEmail(
+  professionalName: string,
+  rejectionReason: string,
+  notes?: string
+): string {
   return `
     <!DOCTYPE html>
     <html>
@@ -532,7 +555,7 @@ export function professionalApplicationRejectedEmail(professionalName: string, r
 
           <div class="booking-details">
             <p><span class="label">Reason:</span> ${rejectionReason}</p>
-            ${notes ? `<p><span class="label">Additional Details:</span> ${notes}</p>` : ''}
+            ${notes ? `<p><span class="label">Additional Details:</span> ${notes}</p>` : ""}
           </div>
 
           <p>You may reapply after addressing the concerns mentioned above. We encourage you to:</p>
@@ -572,7 +595,7 @@ export function professionalInfoRequestedEmail(professionalName: string, notes?:
           <p>Hi ${professionalName},</p>
           <p>We're reviewing your professional application and need some additional information before we can proceed.</p>
 
-          ${notes ? `<div class="booking-details"><p><span class="label">What we need:</span> ${notes}</p></div>` : ''}
+          ${notes ? `<div class="booking-details"><p><span class="label">What we need:</span> ${notes}</p></div>` : ""}
 
           <p>Please provide the requested information as soon as possible to avoid delays in your application review.</p>
 

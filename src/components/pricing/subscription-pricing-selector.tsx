@@ -3,11 +3,11 @@
 import { useState } from "react";
 import {
   calculateSubscriptionPricing,
+  estimateBookingsCount,
+  formatCOP,
+  getTierBenefits,
   getTierDescription,
   getTierDiscountLabel,
-  getTierBenefits,
-  formatCOP,
-  estimateBookingsCount,
   type SubscriptionTier,
 } from "@/lib/subscription-pricing";
 
@@ -31,9 +31,7 @@ export function SubscriptionPricingSelector({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-[#211f1a]">
-          Booking Frequency
-        </h3>
+        <h3 className="text-sm font-semibold text-[#211f1a]">Booking Frequency</h3>
         <button
           onClick={() => setShowDetails(!showDetails)}
           className="text-xs text-[#ff5d46] hover:text-[#eb6c65]"
@@ -70,19 +68,13 @@ export function SubscriptionPricingSelector({
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <span
-                      className={`text-lg ${isSelected ? "opacity-100" : "opacity-40"}`}
-                    >
+                    <span className={`text-lg ${isSelected ? "opacity-100" : "opacity-40"}`}>
                       {isSelected ? "⚫" : "○"}
                     </span>
-                    <h4 className="font-semibold text-[#211f1a]">
-                      {getTierDescription(tier)}
-                    </h4>
+                    <h4 className="font-semibold text-[#211f1a]">{getTierDescription(tier)}</h4>
                   </div>
                   {discountLabel && (
-                    <p className="mt-1 text-xs font-semibold text-[#ff5d46]">
-                      💰 {discountLabel}
-                    </p>
+                    <p className="mt-1 text-xs font-semibold text-[#ff5d46]">💰 {discountLabel}</p>
                   )}
                 </div>
               </div>
@@ -110,12 +102,9 @@ export function SubscriptionPricingSelector({
               {tier !== "none" && (
                 <div className="mt-3 rounded-md bg-[#fdfaf6] px-2 py-1.5 text-xs">
                   <p className="font-semibold text-[#211f1a]">
-                    Save {formatCOP(pricing.totalSavingsEstimate || 0)} over 3
-                    months
+                    Save {formatCOP(pricing.totalSavingsEstimate || 0)} over 3 months
                   </p>
-                  <p className="text-[#7a6d62]">
-                    ~{estimateBookingsCount(tier, 3)} bookings
-                  </p>
+                  <p className="text-[#7a6d62]">~{estimateBookingsCount(tier, 3)} bookings</p>
                 </div>
               )}
             </button>
@@ -140,12 +129,10 @@ export function SubscriptionPricingSelector({
 
           {/* Cancellation Policy */}
           <div className="mt-4 rounded-md bg-white p-3 text-xs text-[#7a6d62]">
-            <p className="font-semibold text-[#211f1a]">
-              Flexible cancellation
-            </p>
+            <p className="font-semibold text-[#211f1a]">Flexible cancellation</p>
             <p className="mt-1">
-              You can skip one booking, pause your subscription, or cancel
-              anytime with 24-hour notice. No long-term commitment required.
+              You can skip one booking, pause your subscription, or cancel anytime with 24-hour
+              notice. No long-term commitment required.
             </p>
           </div>
         </div>
@@ -155,9 +142,8 @@ export function SubscriptionPricingSelector({
       {selectedTier === "none" && showDetails && (
         <div className="rounded-lg border border-[#f0ece5] bg-white p-4">
           <p className="text-sm text-[#7a6d62]">
-            💡 <span className="font-semibold">Tip:</span> Switch to recurring
-            bookings anytime to unlock discounts and priority service. You can
-            always pause or cancel.
+            💡 <span className="font-semibold">Tip:</span> Switch to recurring bookings anytime to
+            unlock discounts and priority service. You can always pause or cancel.
           </p>
         </div>
       )}

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 export type ServiceAddon = {
   id: string;
@@ -81,9 +81,7 @@ export function ServiceAddonsManager({
     setEditingId(null);
   };
 
-  const editingAddon = editingId
-    ? addons.find((addon) => addon.id === editingId)
-    : null;
+  const editingAddon = editingId ? addons.find((addon) => addon.id === editingId) : null;
 
   const activeAddons = addons.filter((a) => a.is_active);
   const inactiveAddons = addons.filter((a) => !a.is_active);
@@ -129,9 +127,7 @@ export function ServiceAddonsManager({
       {/* Empty State */}
       {addons.length === 0 && !isAdding && (
         <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-8 text-center">
-          <p className="text-sm text-[#7a6d62]">
-            {t("emptyState")}
-          </p>
+          <p className="text-sm text-[#7a6d62]">{t("emptyState")}</p>
           <button
             onClick={handleAddNew}
             className="mt-3 text-sm font-semibold text-[#ff5d46] hover:text-[#eb6c65]"
@@ -193,9 +189,7 @@ function AddonCard({
   return (
     <div
       className={`rounded-lg border p-4 transition ${
-        addon.is_active
-          ? "border-[#e5dfd4] bg-white"
-          : "border-[#ebe5d8] bg-gray-50 opacity-70"
+        addon.is_active ? "border-[#e5dfd4] bg-white" : "border-[#ebe5d8] bg-gray-50 opacity-70"
       }`}
     >
       <div className="flex items-start justify-between gap-3">
@@ -208,13 +202,9 @@ function AddonCard({
               </span>
             )}
           </div>
-          {addon.description && (
-            <p className="mt-1 text-sm text-[#7a6d62]">{addon.description}</p>
-          )}
+          {addon.description && <p className="mt-1 text-sm text-[#7a6d62]">{addon.description}</p>}
           <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#7a6d62]">
-            <span className="font-semibold text-[#ff5d46]">
-              {priceFormatted}
-            </span>
+            <span className="font-semibold text-[#ff5d46]">{priceFormatted}</span>
             <span>⏱️ {durationFormatted}</span>
           </div>
         </div>
@@ -257,9 +247,7 @@ function AddonForm({
   onCancel: () => void;
 }) {
   const t = useTranslations("dashboard.pro.serviceAddons");
-  const [formData, setFormData] = useState<
-    Omit<ServiceAddon, "id" | "created_at" | "updated_at">
-  >({
+  const [formData, setFormData] = useState<Omit<ServiceAddon, "id" | "created_at" | "updated_at">>({
     professional_id: addon?.professional_id || professionalId,
     name: addon?.name || "",
     description: addon?.description || "",
@@ -310,9 +298,7 @@ function AddonForm({
         </label>
         <textarea
           value={formData.description}
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           placeholder={t("form.fields.description.placeholder")}
           rows={2}
           className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
@@ -327,9 +313,7 @@ function AddonForm({
           <input
             type="number"
             value={formData.price_cop}
-            onChange={(e) =>
-              setFormData({ ...formData, price_cop: parseInt(e.target.value) })
-            }
+            onChange={(e) => setFormData({ ...formData, price_cop: parseInt(e.target.value) })}
             placeholder={t("form.fields.price.placeholder")}
             min="0"
             step="1000"
@@ -356,9 +340,7 @@ function AddonForm({
             step="15"
             className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
           />
-          <p className="mt-1 text-xs text-[#7a6d62]">
-            {t("form.fields.extraTime.helper")}
-          </p>
+          <p className="mt-1 text-xs text-[#7a6d62]">{t("form.fields.extraTime.helper")}</p>
         </div>
       </div>
 
@@ -366,14 +348,10 @@ function AddonForm({
         <input
           type="checkbox"
           checked={formData.is_active}
-          onChange={(e) =>
-            setFormData({ ...formData, is_active: e.target.checked })
-          }
+          onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
           className="rounded"
         />
-        <span className="text-sm text-[#211f1a]">
-          {t("form.fields.active.label")}
-        </span>
+        <span className="text-sm text-[#211f1a]">{t("form.fields.active.label")}</span>
       </label>
 
       <div className="flex justify-end gap-3">

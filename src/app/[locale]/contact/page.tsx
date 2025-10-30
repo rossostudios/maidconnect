@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { ContactHero } from "@/components/contact/contact-hero";
 import { ContactCards } from "@/components/contact/contact-cards";
 import { ContactFAQ } from "@/components/contact/contact-faq";
-import { SiteHeader } from "@/components/sections/site-header";
+import { ContactHero } from "@/components/contact/contact-hero";
 import { SiteFooter } from "@/components/sections/site-footer";
+import { SiteHeader } from "@/components/sections/site-header";
 
 type Props = {
   params: { locale: string };

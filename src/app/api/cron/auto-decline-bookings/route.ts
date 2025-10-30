@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { stripe } from "@/lib/stripe";
 import { sendBookingDeclinedEmail } from "@/lib/email/send";
+import { stripe } from "@/lib/stripe";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -72,7 +72,10 @@ export async function GET(request: Request) {
           try {
             await stripe.paymentIntents.cancel(booking.stripe_payment_intent_id);
           } catch (stripeError) {
-            console.error(`Failed to cancel payment intent ${booking.stripe_payment_intent_id}:`, stripeError);
+            console.error(
+              `Failed to cancel payment intent ${booking.stripe_payment_intent_id}:`,
+              stripeError
+            );
             // Continue even if Stripe cancellation fails
           }
         }
@@ -109,13 +112,16 @@ export async function GET(request: Request) {
               ? new Date(booking.scheduled_start).toLocaleDateString()
               : "TBD";
             const scheduledTime = booking.scheduled_start
-              ? new Date(booking.scheduled_start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+              ? new Date(booking.scheduled_start).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
               : "TBD";
             const duration = booking.duration_minutes
               ? `${booking.duration_minutes} minutes`
               : "TBD";
             const address = booking.address
-              ? typeof booking.address === 'object' && 'formatted' in booking.address
+              ? typeof booking.address === "object" && "formatted" in booking.address
                 ? String(booking.address.formatted)
                 : JSON.stringify(booking.address)
               : "Not specified";
@@ -123,9 +129,9 @@ export async function GET(request: Request) {
             await sendBookingDeclinedEmail(
               customerUser.user.email,
               {
-                customerName: customerUser.user.user_metadata?.full_name || 'there',
-                professionalName: professionalProfile?.full_name || 'The professional',
-                serviceName: booking.service_name || 'Service',
+                customerName: customerUser.user.user_metadata?.full_name || "there",
+                professionalName: professionalProfile?.full_name || "The professional",
+                serviceName: booking.service_name || "Service",
                 scheduledDate,
                 scheduledTime,
                 duration,
@@ -162,7 +168,10 @@ export async function GET(request: Request) {
   } catch (error) {
     console.error("Auto-decline cron job error:", error);
     return NextResponse.json(
-      { error: "Internal server error", details: error instanceof Error ? error.message : "Unknown error" },
+      {
+        error: "Internal server error",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 }
     );
   }

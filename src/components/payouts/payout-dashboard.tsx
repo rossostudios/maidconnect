@@ -154,9 +154,7 @@ export function PayoutDashboard() {
           </div>
 
           <div className="rounded-lg bg-gradient-to-br from-green-500 to-green-600 p-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-white/80">
-              You Receive
-            </p>
+            <p className="text-xs font-medium uppercase tracking-wide text-white/80">You Receive</p>
             <p className="mt-1 text-2xl font-bold text-white">
               {formatPayoutAmount(currentPeriod.netAmount, currentPeriod.currency)}
             </p>
@@ -180,7 +178,10 @@ export function PayoutDashboard() {
           <p className="text-sm text-[#7a6d62]">
             You have{" "}
             <span className="font-semibold">
-              {formatPayoutAmount(allPending.netAmount - currentPeriod.netAmount, allPending.currency)}
+              {formatPayoutAmount(
+                allPending.netAmount - currentPeriod.netAmount,
+                allPending.currency
+              )}
             </span>{" "}
             from {allPending.bookingCount - currentPeriod.bookingCount} booking(s) that will be
             included in future payout periods.

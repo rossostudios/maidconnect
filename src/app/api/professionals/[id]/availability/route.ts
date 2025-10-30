@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import {
-  getAvailabilityForRange,
   type AvailabilitySettings,
   type DayAvailability,
+  getAvailabilityForRange,
 } from "@/lib/availability";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -41,10 +41,7 @@ export async function GET(request: Request, context: RouteContext) {
     const endDate = new Date(endDateParam);
 
     if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-      return NextResponse.json(
-        { error: "Invalid date format. Use YYYY-MM-DD" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid date format. Use YYYY-MM-DD" }, { status: 400 });
     }
 
     const supabase = await createSupabaseServerClient();
@@ -59,10 +56,7 @@ export async function GET(request: Request, context: RouteContext) {
       .single();
 
     if (profError || !professional) {
-      return NextResponse.json(
-        { error: "Professional not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Professional not found" }, { status: 404 });
     }
 
     // Parse availability settings with defaults
@@ -98,10 +92,7 @@ export async function GET(request: Request, context: RouteContext) {
 
     if (bookingsError) {
       console.error("Failed to fetch bookings:", bookingsError);
-      return NextResponse.json(
-        { error: "Failed to fetch availability" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch availability" }, { status: 500 });
     }
 
     // Calculate availability for date range
@@ -125,9 +116,6 @@ export async function GET(request: Request, context: RouteContext) {
     });
   } catch (error) {
     console.error("Availability API error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch availability" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch availability" }, { status: 500 });
   }
 }

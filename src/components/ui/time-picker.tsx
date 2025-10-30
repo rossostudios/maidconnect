@@ -1,5 +1,5 @@
+import { ChevronRight, Clock } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Clock, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type TimePickerProps = {
@@ -60,20 +60,24 @@ export function TimePicker({
 
   return (
     <div ref={containerRef} className="relative">
-      {name ? <input type="hidden" name={name} value={hiddenValue} readOnly required={required} /> : null}
+      {name ? (
+        <input type="hidden" name={name} value={hiddenValue} readOnly required={required} />
+      ) : null}
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
         className={cn(
           "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 text-sm font-medium text-[#211f1a] shadow-inner shadow-black/5 transition hover:border-[#ff5d46] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5d46]",
-          !value && "text-[#8a826d]",
+          !value && "text-[#8a826d]"
         )}
       >
         <span className="flex items-center gap-2">
           <Clock className="h-4 w-4 text-[#ff5d46]" aria-hidden="true" />
           {formatDisplay(value, placeholder)}
         </span>
-        <ChevronRight className={cn("h-4 w-4 text-[#a49c90] transition-transform", open && "rotate-90")} />
+        <ChevronRight
+          className={cn("h-4 w-4 text-[#a49c90] transition-transform", open && "rotate-90")}
+        />
       </button>
 
       {open ? (
@@ -93,11 +97,15 @@ export function TimePicker({
                     "flex items-center justify-between rounded-2xl px-4 py-2 text-sm transition",
                     isSelected
                       ? "bg-[#211f1a] text-white shadow-[0_12px_32px_rgba(18,17,15,0.16)]"
-                      : "text-[#211f1a] hover:bg-[#f6f1ea]",
+                      : "text-[#211f1a] hover:bg-[#f6f1ea]"
                   )}
                 >
                   <span>{formatDisplay(time)}</span>
-                  {isSelected ? <span className="text-xs uppercase tracking-[0.2em] text-[#d7b59f]">Selected</span> : null}
+                  {isSelected ? (
+                    <span className="text-xs uppercase tracking-[0.2em] text-[#d7b59f]">
+                      Selected
+                    </span>
+                  ) : null}
                 </button>
               );
             })}

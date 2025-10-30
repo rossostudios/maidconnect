@@ -1,5 +1,5 @@
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { NextRequest, NextResponse } from "next/server";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 
@@ -49,10 +49,7 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error("[API] Failed to save subscription:", error);
-      return NextResponse.json(
-        { error: "Failed to save subscription" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to save subscription" }, { status: 500 });
     }
 
     return NextResponse.json({
@@ -61,10 +58,7 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("[API] Subscription error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
@@ -91,19 +85,13 @@ export async function DELETE(request: NextRequest) {
 
     if (error) {
       console.error("[API] Failed to delete subscription:", error);
-      return NextResponse.json(
-        { error: "Failed to delete subscription" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to delete subscription" }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("[API] Delete subscription error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
@@ -130,10 +118,7 @@ export async function GET(request: NextRequest) {
 
     if (error) {
       console.error("[API] Failed to fetch subscriptions:", error);
-      return NextResponse.json(
-        { error: "Failed to fetch subscriptions" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch subscriptions" }, { status: 500 });
     }
 
     return NextResponse.json({
@@ -142,9 +127,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("[API] Fetch subscriptions error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

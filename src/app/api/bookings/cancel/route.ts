@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { stripe } from "@/lib/stripe";
 import { calculateCancellationPolicy, calculateRefundAmount } from "@/lib/cancellation-policy";
 import { sendBookingDeclinedEmail } from "@/lib/email/send";
 import { notifyProfessionalBookingCanceled } from "@/lib/notifications";
+import { stripe } from "@/lib/stripe";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -91,10 +91,7 @@ export async function POST(request: Request) {
     const policy = calculateCancellationPolicy(booking.scheduled_start, booking.status);
 
     if (!policy.canCancel) {
-      return NextResponse.json(
-        { error: policy.reason, policy },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: policy.reason, policy }, { status: 400 });
     }
 
     // Calculate refund amount
@@ -192,8 +189,8 @@ export async function POST(request: Request) {
       // Send push notification to professional
       await notifyProfessionalBookingCanceled(booking.professional_id, {
         id: booking.id,
-        serviceName: booking.service_name || 'Service',
-        customerName: user.user_metadata?.full_name || 'A customer',
+        serviceName: booking.service_name || "Service",
+        customerName: user.user_metadata?.full_name || "A customer",
         scheduledStart: booking.scheduled_start || new Date().toISOString(),
       });
     }

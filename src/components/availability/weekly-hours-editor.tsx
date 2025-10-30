@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Clock, Copy } from "lucide-react";
+import { useEffect, useState } from "react";
 
 type DaySchedule = {
   day: string;
@@ -15,15 +15,7 @@ type Props = {
   onChange?: (schedule: DaySchedule[]) => void;
 };
 
-const DAYS_OF_WEEK = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
+const DAYS_OF_WEEK = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 const DEFAULT_SCHEDULE: DaySchedule[] = DAYS_OF_WEEK.map((day) => ({
   day,
@@ -127,9 +119,7 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
           <div
             key={day.day}
             className={`rounded-xl border-2 p-4 transition ${
-              day.enabled
-                ? "border-[#ff5d46]/20 bg-white"
-                : "border-[#ebe5d8] bg-[#fbfaf9]"
+              day.enabled ? "border-[#ff5d46]/20 bg-white" : "border-[#ebe5d8] bg-[#fbfaf9]"
             }`}
           >
             <div className="flex flex-wrap items-center gap-4">
@@ -141,9 +131,11 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
                   onChange={() => handleToggleDay(index)}
                   className="h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-2 focus:ring-[#ff5d46]/20"
                 />
-                <span className={`text-sm font-semibold ${
-                  day.enabled ? "text-[#211f1a]" : "text-[#7d7566]"
-                }`}>
+                <span
+                  className={`text-sm font-semibold ${
+                    day.enabled ? "text-[#211f1a]" : "text-[#7d7566]"
+                  }`}
+                >
                   {day.day}
                 </span>
               </label>

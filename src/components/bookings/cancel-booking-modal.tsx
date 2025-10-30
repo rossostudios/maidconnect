@@ -1,9 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { calculateCancellationPolicy, getCancellationPolicyDescription } from "@/lib/cancellation-policy";
+import { useEffect, useState } from "react";
+import {
+  calculateCancellationPolicy,
+  getCancellationPolicyDescription,
+} from "@/lib/cancellation-policy";
 
 type CancelBookingModalProps = {
   isOpen: boolean;
@@ -97,9 +100,10 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
     }).format(amount / 100);
   };
 
-  const refundAmount = booking.amount_authorized && policy
-    ? (booking.amount_authorized * policy.refundPercentage) / 100
-    : 0;
+  const refundAmount =
+    booking.amount_authorized && policy
+      ? (booking.amount_authorized * policy.refundPercentage) / 100
+      : 0;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
@@ -117,14 +121,16 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
 
         {/* Cancellation Policy Info */}
         {policy && (
-          <div className={`mt-6 rounded-2xl border p-6 ${
-            policy.canCancel
-              ? "border-yellow-200 bg-yellow-50"
-              : "border-red-200 bg-red-50"
-          }`}>
-            <p className={`text-base font-semibold ${
-              policy.canCancel ? "text-yellow-900" : "text-red-900"
-            }`}>
+          <div
+            className={`mt-6 rounded-2xl border p-6 ${
+              policy.canCancel ? "border-yellow-200 bg-yellow-50" : "border-red-200 bg-red-50"
+            }`}
+          >
+            <p
+              className={`text-base font-semibold ${
+                policy.canCancel ? "text-yellow-900" : "text-red-900"
+              }`}
+            >
               {policy.reason}
             </p>
             {policy.canCancel && (
@@ -172,9 +178,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
         {message && (
           <div
             className={`mt-6 rounded-2xl p-4 text-base ${
-              message.type === "success"
-                ? "bg-green-50 text-green-800"
-                : "bg-red-50 text-red-800"
+              message.type === "success" ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"
             }`}
           >
             {message.text}

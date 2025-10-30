@@ -1,9 +1,9 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
-import { useTranslations } from "next-intl";
 import type { LucideIcon } from "lucide-react";
 import { Banknote, DollarSign, RefreshCw, ShieldAlert } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useMemo, useState, useTransition } from "react";
 
 type FinancialBooking = {
   status: string;
@@ -41,7 +41,10 @@ function formatCOP(value: number) {
 function isSameMonth(dateInput: string | null, reference: Date) {
   if (!dateInput) return false;
   const date = new Date(dateInput);
-  return date.getUTCFullYear() === reference.getUTCFullYear() && date.getUTCMonth() === reference.getUTCMonth();
+  return (
+    date.getUTCFullYear() === reference.getUTCFullYear() &&
+    date.getUTCMonth() === reference.getUTCMonth()
+  );
 }
 
 export function ProFinancialSummary({ bookings, connectAccountId, connectStatus }: Props) {
@@ -94,7 +97,8 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
 
   const noData = bookings.length === 0;
   const normalizedStatus = (connectStatus ?? "not_started").toLowerCase();
-  const needsConnect = !connectAccountId || !["submitted", "complete", "verified"].includes(normalizedStatus);
+  const needsConnect =
+    !connectAccountId || !["submitted", "complete", "verified"].includes(normalizedStatus);
 
   const startStripeOnboarding = () => {
     setOnboardingError(null);
@@ -109,7 +113,9 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
         window.location.href = payload.url;
       } catch (error) {
         console.error(error);
-        setOnboardingError(error instanceof Error ? error.message : "Unexpected error starting onboarding");
+        setOnboardingError(
+          error instanceof Error ? error.message : "Unexpected error starting onboarding"
+        );
       }
     });
   };
@@ -168,12 +174,20 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
             <p className="font-semibold text-[#211f1a]">{t("thisMonth")}</p>
             <div className="mt-2 grid gap-3 sm:grid-cols-2">
               <div>
-                <p className="text-xs uppercase tracking-wide text-[#a49c90]">{t("metrics.capturedPayouts")}</p>
-                <p className="text-sm font-semibold text-[#211f1a]">{formatCOP(totals.thisMonthCaptured)}</p>
+                <p className="text-xs uppercase tracking-wide text-[#a49c90]">
+                  {t("metrics.capturedPayouts")}
+                </p>
+                <p className="text-sm font-semibold text-[#211f1a]">
+                  {formatCOP(totals.thisMonthCaptured)}
+                </p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wide text-[#a49c90]">{t("metrics.upcomingHolds")}</p>
-                <p className="text-sm font-semibold text-[#211f1a]">{formatCOP(totals.thisMonthAuthorized)}</p>
+                <p className="text-xs uppercase tracking-wide text-[#a49c90]">
+                  {t("metrics.upcomingHolds")}
+                </p>
+                <p className="text-sm font-semibold text-[#211f1a]">
+                  {formatCOP(totals.thisMonthAuthorized)}
+                </p>
               </div>
             </div>
           </div>

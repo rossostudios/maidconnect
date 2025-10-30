@@ -1,8 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
 import { useTranslations } from "next-intl";
-import { signInAction, type SignInActionState } from "./actions";
+import { useActionState } from "react";
+import { type SignInActionState, signInAction } from "./actions";
 
 type Props = {
   redirectTo?: string | null;
@@ -13,7 +13,10 @@ const inputClasses =
 
 export function SignInForm({ redirectTo }: Props) {
   const t = useTranslations("pages.signIn.form");
-  const [state, formAction, isPending] = useActionState<SignInActionState, FormData>(signInAction, {});
+  const [state, formAction, isPending] = useActionState<SignInActionState, FormData>(
+    signInAction,
+    {}
+  );
 
   return (
     <form action={formAction} className="space-y-6">

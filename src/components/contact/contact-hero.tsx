@@ -1,7 +1,7 @@
 "use client";
 
-import { Container } from "@/components/ui/container";
 import { useTranslations } from "next-intl";
+import { Container } from "@/components/ui/container";
 
 export function ContactHero() {
   const t = useTranslations("pages.contact.hero");

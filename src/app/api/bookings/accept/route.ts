@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { sendBookingConfirmedEmail } from "@/lib/email/send";
 import { notifyCustomerBookingAccepted } from "@/lib/notifications";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -57,7 +57,10 @@ export async function POST(request: Request) {
 
     // Verify this professional owns this booking
     if (booking.professional_id !== user.id) {
-      return NextResponse.json({ error: "You are not authorized to accept this booking" }, { status: 403 });
+      return NextResponse.json(
+        { error: "You are not authorized to accept this booking" },
+        { status: 403 }
+      );
     }
 
     // Can only accept authorized bookings (payment has been authorized)
@@ -105,25 +108,26 @@ export async function POST(request: Request) {
           ? new Date(booking.scheduled_start).toLocaleDateString()
           : "TBD";
         const scheduledTime = booking.scheduled_start
-          ? new Date(booking.scheduled_start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          ? new Date(booking.scheduled_start).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })
           : "TBD";
-        const duration = booking.duration_minutes
-          ? `${booking.duration_minutes} minutes`
-          : "TBD";
+        const duration = booking.duration_minutes ? `${booking.duration_minutes} minutes` : "TBD";
         const address = booking.address
-          ? typeof booking.address === 'object' && 'formatted' in booking.address
+          ? typeof booking.address === "object" && "formatted" in booking.address
             ? String(booking.address.formatted)
             : JSON.stringify(booking.address)
           : "Not specified";
         const amount = booking.amount_authorized
-          ? `${new Intl.NumberFormat('es-CO', { style: 'currency', currency: booking.currency || 'COP' }).format(booking.amount_authorized / 100)}`
+          ? `${new Intl.NumberFormat("es-CO", { style: "currency", currency: booking.currency || "COP" }).format(booking.amount_authorized / 100)}`
           : undefined;
 
         // Send confirmation email to customer
         await sendBookingConfirmedEmail(customerUser.user.email, {
-          customerName: customerUser.user.user_metadata?.full_name || 'there',
-          professionalName: professionalProfile?.full_name || 'Your professional',
-          serviceName: booking.service_name || 'Service',
+          customerName: customerUser.user.user_metadata?.full_name || "there",
+          professionalName: professionalProfile?.full_name || "Your professional",
+          serviceName: booking.service_name || "Service",
           scheduledDate,
           scheduledTime,
           duration,
@@ -135,8 +139,8 @@ export async function POST(request: Request) {
         // Send push notification to customer
         await notifyCustomerBookingAccepted(booking.customer_id, {
           id: booking.id,
-          serviceName: booking.service_name || 'Service',
-          professionalName: professionalProfile?.full_name || 'Your professional',
+          serviceName: booking.service_name || "Service",
+          professionalName: professionalProfile?.full_name || "Your professional",
         });
       }
     }

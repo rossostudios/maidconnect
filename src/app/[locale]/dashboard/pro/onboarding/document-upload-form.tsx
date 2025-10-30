@@ -1,11 +1,16 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { type ChangeEvent, useActionState, useEffect, useMemo, useRef, useState } from "react";
 import { UnexpectedError } from "@/components/feedback/unexpected-error";
-import { submitDocuments } from "./actions";
-import { defaultActionState, type OnboardingActionState, REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "./state";
 import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
+import { submitDocuments } from "./actions";
+import {
+  defaultActionState,
+  type OnboardingActionState,
+  OPTIONAL_DOCUMENTS,
+  REQUIRED_DOCUMENTS,
+} from "./state";
 
 const errorClass = "border-red-300 focus:border-red-400 focus:ring-red-200";
 const ACCEPTED_EXTENSIONS = ".pdf,.jpg,.jpeg,.png";
@@ -15,7 +20,7 @@ function formatBytes(bytes: number) {
   const sizes = ["B", "KB", "MB", "GB"];
   if (!bytes) return "0 B";
   const i = Math.floor(Math.log(bytes) / Math.log(1024));
-  const value = bytes / Math.pow(1024, i);
+  const value = bytes / 1024 ** i;
   return `${value.toFixed(i === 0 ? 0 : 1)} ${sizes[i]}`;
 }
 
@@ -33,14 +38,17 @@ type FieldConfig = {
 
 export function DocumentUploadForm({ inputClass }: Props) {
   const t = useTranslations("dashboard.pro.documentUploadForm");
-  const [state, formAction, pending] = useActionState<OnboardingActionState, FormData>(submitDocuments, defaultActionState);
+  const [state, formAction, pending] = useActionState<OnboardingActionState, FormData>(
+    submitDocuments,
+    defaultActionState
+  );
   const formRef = useRef<HTMLFormElement>(null);
   const documents: FieldConfig[] = useMemo(
     () => [
       ...REQUIRED_DOCUMENTS.map((doc) => ({ key: doc.key, label: doc.label, required: true })),
       ...OPTIONAL_DOCUMENTS.map((doc) => ({ key: doc.key, label: doc.label, required: false })),
     ],
-    [],
+    []
   );
 
   const fieldError = (key: string) => state.fieldErrors?.[key];
@@ -73,7 +81,7 @@ export function DocumentUploadForm({ inputClass }: Props) {
           disabled={pending}
           className={cn(
             "inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]",
-            pending && "cursor-not-allowed opacity-70",
+            pending && "cursor-not-allowed opacity-70"
           )}
         >
           {pending ? t("footer.submitting") : t("footer.submit")}
@@ -110,7 +118,12 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
     }
 
     const mimeType = (file.type || "").toLowerCase();
-    if (!mimeType.includes("pdf") && !mimeType.includes("jpeg") && !mimeType.includes("jpg") && !mimeType.includes("png")) {
+    if (
+      !mimeType.includes("pdf") &&
+      !mimeType.includes("jpeg") &&
+      !mimeType.includes("jpg") &&
+      !mimeType.includes("png")
+    ) {
       setSelectedFile(null);
       setClientError(t("errors.fileType"));
       return;
@@ -124,7 +137,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
     <div
       className={cn(
         "rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md",
-        config.required ? "border-[#ebe5d8]" : "border-dashed border-[#ebe5d8]",
+        config.required ? "border-[#ebe5d8]" : "border-dashed border-[#ebe5d8]"
       )}
     >
       <div className="flex items-center justify-between">
@@ -134,9 +147,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         <span
           className={cn(
             "rounded-full px-3 py-1 text-xs font-semibold",
-            config.required
-              ? "bg-orange-50 text-orange-700"
-              : "bg-gray-100 text-gray-600",
+            config.required ? "bg-orange-50 text-orange-700" : "bg-gray-100 text-gray-600"
           )}
         >
           {config.required ? t("badges.required") : t("badges.optional")}
@@ -156,7 +167,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         className={cn(
           inputClass,
           "mt-4 cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-[#ff5d46] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-[#eb6c65]",
-          (serverError || clientError) && errorClass,
+          (serverError || clientError) && errorClass
         )}
         aria-invalid={Boolean(serverError || clientError)}
         required={config.required}
@@ -171,7 +182,11 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
       {selectedFile ? (
         <div className="mt-4 flex items-center gap-2 rounded-xl border border-green-200 bg-green-50 p-3">
           <svg className="h-5 w-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            <path
+              fillRule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clipRule="evenodd"
+            />
           </svg>
           <p className="text-sm text-green-800">
             {t("selectedFile", { name: selectedFile.name, size: formatBytes(selectedFile.size) })}
@@ -181,7 +196,11 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
       {clientError ? (
         <p className="mt-3 flex items-center gap-2 text-sm text-red-600">
           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            <path
+              fillRule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+              clipRule="evenodd"
+            />
           </svg>
           {clientError}
         </p>
@@ -189,7 +208,11 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
       {serverError ? (
         <p className="mt-3 flex items-center gap-2 text-sm text-red-600">
           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            <path
+              fillRule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+              clipRule="evenodd"
+            />
           </svg>
           {serverError}
         </p>
@@ -204,8 +227,18 @@ function Feedback({ state }: { state: OnboardingActionState }) {
       <div className="rounded-2xl border border-red-200 bg-red-50 p-6 shadow-sm" role="alert">
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
-            <svg className="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="h-5 w-5 text-red-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </div>
           <p className="flex-1 text-base leading-relaxed text-red-800">{state.error}</p>
@@ -218,8 +251,18 @@ function Feedback({ state }: { state: OnboardingActionState }) {
       <div className="rounded-2xl border border-green-200 bg-green-50 p-6 shadow-sm" role="status">
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
-            <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            <svg
+              className="h-5 w-5 text-green-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
             </svg>
           </div>
           <p className="flex-1 text-base leading-relaxed text-green-800">{state.message}</p>

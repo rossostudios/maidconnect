@@ -9,9 +9,7 @@ export const defaultLocale: Locale = "en";
 export default getRequestConfig(async ({ locale }) => {
   // Use the provided locale if valid, otherwise fall back to default
   // The middleware handles routing, so this should always be valid
-  const validLocale = locale && locales.includes(locale as Locale)
-    ? locale
-    : defaultLocale;
+  const validLocale = locale && locales.includes(locale as Locale) ? locale : defaultLocale;
 
   return {
     locale: validLocale,

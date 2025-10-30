@@ -1,9 +1,9 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { AUTH_ROUTES, getDashboardRouteForRole } from "@/lib/auth";
 import type { AppRole } from "@/lib/auth";
+import { AUTH_ROUTES, getDashboardRouteForRole } from "@/lib/auth";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { SignUpActionState } from "./types";
 
 const VALID_ROLES: AppRole[] = ["customer", "professional"];
@@ -30,8 +30,13 @@ function validatePhone(phone: string | null) {
   return cleaned.length >= 7;
 }
 
-export async function signUpAction(_prev: SignUpActionState, formData: FormData): Promise<SignUpActionState> {
-  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+export async function signUpAction(
+  _prev: SignUpActionState,
+  formData: FormData
+): Promise<SignUpActionState> {
+  const email = String(formData.get("email") ?? "")
+    .trim()
+    .toLowerCase();
   const password = String(formData.get("password") ?? "");
   const confirmPassword = String(formData.get("confirmPassword") ?? "");
   const locale = String(formData.get("locale") ?? "en-US");

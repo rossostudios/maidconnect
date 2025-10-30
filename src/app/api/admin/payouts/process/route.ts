@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { stripe } from "@/lib/stripe";
+import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
 import {
+  type BookingForPayout,
   calculatePayoutFromBookings,
   getCurrentPayoutPeriod,
-  type BookingForPayout,
 } from "@/lib/payout-calculator";
-import { requireAdmin, createAuditLog } from "@/lib/admin-helpers";
+import { stripe } from "@/lib/stripe";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -76,15 +76,11 @@ export async function POST(request: Request) {
       professionalsQuery = professionalsQuery.eq("profile_id", professionalId);
     }
 
-    const { data: professionals, error: profError } =
-      await professionalsQuery;
+    const { data: professionals, error: profError } = await professionalsQuery;
 
     if (profError) {
       console.error("Failed to fetch professionals:", profError);
-      return NextResponse.json(
-        { error: "Failed to fetch professionals" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch professionals" }, { status: 500 });
     }
 
     if (!professionals || professionals.length === 0) {
@@ -117,10 +113,7 @@ export async function POST(request: Request) {
           .is("included_in_payout_id", null);
 
         if (bookingsError) {
-          console.error(
-            `Failed to fetch bookings for ${professional.profile_id}:`,
-            bookingsError
-          );
+          console.error(`Failed to fetch bookings for ${professional.profile_id}:`, bookingsError);
           results.push({
             professionalId: professional.profile_id,
             success: false,
@@ -149,9 +142,7 @@ export async function POST(request: Request) {
         }
 
         // Calculate payout
-        const payout = calculatePayoutFromBookings(
-          periodBookings as BookingForPayout[]
-        );
+        const payout = calculatePayoutFromBookings(periodBookings as BookingForPayout[]);
 
         // Skip if net amount is 0
         if (payout.netAmount <= 0) {
@@ -236,9 +227,7 @@ export async function POST(request: Request) {
               stripe_payout_id: transfer.id,
               status: "paid",
               arrival_date: transfer.destination_payment
-                ? new Date(
-                    (transfer.destination_payment as any).arrival_date * 1000
-                  ).toISOString()
+                ? new Date((transfer.destination_payment as any).arrival_date * 1000).toISOString()
                 : null,
             })
             .eq("id", payoutRecord.id);
@@ -258,10 +247,7 @@ export async function POST(request: Request) {
             bookingCount: payout.bookingCount,
           });
         } catch (stripeError: any) {
-          console.error(
-            `Stripe transfer failed for ${professional.profile_id}:`,
-            stripeError
-          );
+          console.error(`Stripe transfer failed for ${professional.profile_id}:`, stripeError);
 
           // Update payout status to failed
           await supabase
@@ -280,10 +266,7 @@ export async function POST(request: Request) {
           });
         }
       } catch (error: any) {
-        console.error(
-          `Error processing payout for ${professional.profile_id}:`,
-          error
-        );
+        console.error(`Error processing payout for ${professional.profile_id}:`, error);
         results.push({
           professionalId: professional.profile_id,
           success: false,
@@ -324,7 +307,14 @@ export async function POST(request: Request) {
     console.error("Failed to process payouts:", error);
     return NextResponse.json(
       { error: error.message || "Failed to process payouts" },
-      { status: error.message === "Not authenticated" ? 401 : error.message === "Unauthorized - admin access required" ? 403 : 500 }
+      {
+        status:
+          error.message === "Not authenticated"
+            ? 401
+            : error.message === "Unauthorized - admin access required"
+              ? 403
+              : 500,
+      }
     );
   }
 }

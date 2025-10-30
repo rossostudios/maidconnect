@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { requireAdmin } from "@/lib/admin-helpers";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -26,7 +26,7 @@ export async function GET(request: Request) {
     const status = url.searchParams.get("status"); // Filter by specific status
 
     // Build query for professionals
-    let professionalsQuery = supabase
+    const professionalsQuery = supabase
       .from("professional_profiles")
       .select(
         `
@@ -64,15 +64,11 @@ export async function GET(request: Request) {
       // For now, fetch all and filter in memory
     }
 
-    const { data: professionals, error: profError } =
-      await professionalsQuery;
+    const { data: professionals, error: profError } = await professionalsQuery;
 
     if (profError) {
       console.error("Failed to fetch professionals:", profError);
-      return NextResponse.json(
-        { error: "Failed to fetch professionals" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch professionals" }, { status: 500 });
     }
 
     // Filter by onboarding_status if needed
@@ -147,8 +143,7 @@ export async function GET(request: Request) {
         documentsCount: documents.length,
         latestReview: reviews[0] || null,
         waitingDays: Math.floor(
-          (new Date().getTime() - new Date(prof.created_at).getTime()) /
-            (1000 * 60 * 60 * 24)
+          (new Date().getTime() - new Date(prof.created_at).getTime()) / (1000 * 60 * 60 * 24)
         ),
       };
     });

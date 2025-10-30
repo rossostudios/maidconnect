@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { submitCustomerReviewAction } from "@/app/actions/submit-customer-review";
 
 type RatingPromptModalProps = {
@@ -60,8 +60,10 @@ export function RatingPromptModal({
     if (title) formData.append("title", title);
     if (comment) formData.append("comment", comment);
     if (punctualityRating > 0) formData.append("punctualityRating", punctualityRating.toString());
-    if (communicationRating > 0) formData.append("communicationRating", communicationRating.toString());
-    if (respectfulnessRating > 0) formData.append("respectfulnessRating", respectfulnessRating.toString());
+    if (communicationRating > 0)
+      formData.append("communicationRating", communicationRating.toString());
+    if (respectfulnessRating > 0)
+      formData.append("respectfulnessRating", respectfulnessRating.toString());
 
     try {
       const result = await submitCustomerReviewAction({ status: "idle" }, formData);
@@ -135,11 +137,7 @@ export function RatingPromptModal({
             <label className="mb-2 block text-sm font-medium text-[#211f1a]">
               Overall Rating *
             </label>
-            <StarRating
-              value={rating}
-              onHover={setHoveredRating}
-              onChange={setRating}
-            />
+            <StarRating value={rating} onHover={setHoveredRating} onChange={setRating} />
           </div>
 
           {/* Category Ratings */}
@@ -198,9 +196,7 @@ export function RatingPromptModal({
           {message && (
             <div
               className={`rounded-lg p-3 text-sm ${
-                message.type === "success"
-                  ? "bg-green-50 text-green-800"
-                  : "bg-red-50 text-red-800"
+                message.type === "success" ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"
               }`}
             >
               {message.text}

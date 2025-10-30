@@ -27,10 +27,7 @@ export async function GET() {
 
     if (error) {
       console.error("Failed to fetch favorites:", error);
-      return NextResponse.json(
-        { error: "Failed to fetch favorites" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch favorites" }, { status: 500 });
     }
 
     const favoriteIds = (profile?.favorite_professionals as string[]) || [];
@@ -70,10 +67,7 @@ export async function GET() {
     return NextResponse.json({ favorites: [] });
   } catch (error) {
     console.error("Favorites API error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch favorites" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch favorites" }, { status: 500 });
   }
 }
 
@@ -130,10 +124,7 @@ export async function POST(request: Request) {
 
     if (updateError) {
       console.error("Failed to update favorites:", updateError);
-      return NextResponse.json(
-        { error: "Failed to update favorites" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to update favorites" }, { status: 500 });
     }
 
     return NextResponse.json({
@@ -143,9 +134,6 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Update favorites API error:", error);
-    return NextResponse.json(
-      { error: "Failed to update favorites" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to update favorites" }, { status: 500 });
   }
 }

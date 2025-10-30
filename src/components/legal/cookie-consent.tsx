@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { X, Cookie } from "lucide-react";
+import { Cookie, X } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const CONSENT_COOKIE_NAME = "maidconnect-cookie-consent";
 
@@ -45,11 +45,10 @@ export function CookieConsent() {
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="mb-1 text-lg font-semibold text-[#211f1a]">
-                  We use cookies
-                </h3>
+                <h3 className="mb-1 text-lg font-semibold text-[#211f1a]">We use cookies</h3>
                 <p className="text-sm text-[#7d7566]">
-                  We use cookies to improve your experience, analyze site traffic, and provide personalized content. By clicking "Accept", you consent to our use of cookies.{" "}
+                  We use cookies to improve your experience, analyze site traffic, and provide
+                  personalized content. By clicking "Accept", you consent to our use of cookies.{" "}
                   <Link href="/privacy" className="text-[#ff5d46] hover:underline font-semibold">
                     Learn more
                   </Link>

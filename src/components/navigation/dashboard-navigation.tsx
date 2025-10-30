@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useUnreadCount } from "@/hooks/use-unread-count";
-import { useNotificationUnreadCount } from "@/hooks/use-notification-unread-count";
+import { useState } from "react";
 import { NotificationsSheet } from "@/components/notifications/notifications-sheet";
+import { useNotificationUnreadCount } from "@/hooks/use-notification-unread-count";
+import { useUnreadCount } from "@/hooks/use-unread-count";
 
 type NavLink = {
   href: string;
@@ -30,7 +30,8 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
     refresh();
   };
 
-  const messagesHref = userRole === "customer" ? "/dashboard/customer/messages" : "/dashboard/pro/messages";
+  const messagesHref =
+    userRole === "customer" ? "/dashboard/customer/messages" : "/dashboard/pro/messages";
 
   const isActive = (href: string) => {
     // Handle hash links (e.g., #addresses, #favorites)
@@ -66,18 +67,11 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
         <Link
           href={messagesHref}
           className={`relative rounded-lg p-1.5 transition hover:bg-[#ebe5d8] hover:text-[#ff5d46] ${
-            pathname === messagesHref
-              ? "bg-[#fff5f2] text-[#ff5d46]"
-              : "text-[#524d43]"
+            pathname === messagesHref ? "bg-[#fff5f2] text-[#ff5d46]" : "text-[#524d43]"
           }`}
           aria-label={`Messages${unreadCount > 0 ? ` (${unreadCount} unread)` : ""}`}
         >
-          <svg
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -98,12 +92,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
           className="relative rounded-lg p-1.5 text-[#524d43] transition hover:bg-[#ebe5d8] hover:text-[#ff5d46]"
           aria-label={`Notifications${notificationUnreadCount > 0 ? ` (${notificationUnreadCount} unread)` : ""}`}
         >
-          <svg
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"

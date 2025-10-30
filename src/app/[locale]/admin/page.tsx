@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { requireUser } from "@/lib/auth";
 import { ProfessionalVettingDashboard } from "@/components/admin/professional-vetting-dashboard";
+import { requireUser } from "@/lib/auth";
 
 export default async function AdminHomePage() {
   const user = await requireUser({ allowedRoles: ["admin"] });
@@ -36,9 +36,7 @@ export default async function AdminHomePage() {
         {/* Professional Vetting Queue */}
         <section>
           <div className="mb-4">
-            <h2 className="text-xl font-semibold text-[#211f1a]">
-              Professional Vetting Queue
-            </h2>
+            <h2 className="text-xl font-semibold text-[#211f1a]">Professional Vetting Queue</h2>
             <p className="mt-1 text-sm text-[#7a6d62]">
               Review and approve professional applications
             </p>

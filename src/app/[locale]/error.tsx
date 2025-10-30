@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
 import * as Sentry from "@sentry/nextjs";
 import { AlertTriangle, Home, RefreshCw } from "lucide-react";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Error({
   error,
@@ -29,29 +29,21 @@ export default function Error({
           </div>
 
           {/* Title */}
-          <h1 className="mb-3 text-3xl font-bold text-[#211f1a]">
-            Something went wrong
-          </h1>
+          <h1 className="mb-3 text-3xl font-bold text-[#211f1a]">Something went wrong</h1>
 
           {/* Description */}
           <p className="mb-8 text-lg text-[#7d7566]">
-            We've encountered an unexpected error. Our team has been notified and
-            is working to fix it.
+            We've encountered an unexpected error. Our team has been notified and is working to fix
+            it.
           </p>
 
           {/* Error Details (only in development) */}
           {process.env.NODE_ENV === "development" && (
             <div className="mb-6 rounded-xl bg-red-50 p-4 text-left">
-              <p className="mb-2 text-sm font-semibold text-red-900">
-                Error Details:
-              </p>
-              <p className="text-xs text-red-700 font-mono break-all">
-                {error.message}
-              </p>
+              <p className="mb-2 text-sm font-semibold text-red-900">Error Details:</p>
+              <p className="text-xs text-red-700 font-mono break-all">{error.message}</p>
               {error.digest && (
-                <p className="mt-2 text-xs text-red-600">
-                  Error ID: {error.digest}
-                </p>
+                <p className="mt-2 text-xs text-red-600">Error ID: {error.digest}</p>
               )}
             </div>
           )}

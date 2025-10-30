@@ -1,8 +1,8 @@
-import { resend } from './client';
-import * as templates from './templates';
+import { resend } from "./client";
+import * as templates from "./templates";
 
-const FROM_EMAIL = 'MaidConnect <notifications@maidconnect.co>';
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+const FROM_EMAIL = "MaidConnect <notifications@maidconnect.co>";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 interface SendEmailResult {
   success: boolean;
@@ -38,8 +38,8 @@ export async function sendNewBookingRequestEmail(
 
     return { success: true };
   } catch (error) {
-    console.error('Failed to send new booking request email:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    console.error("Failed to send new booking request email:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
 
@@ -72,8 +72,8 @@ export async function sendBookingConfirmedEmail(
 
     return { success: true };
   } catch (error) {
-    console.error('Failed to send booking confirmed email:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    console.error("Failed to send booking confirmed email:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
 
@@ -104,8 +104,8 @@ export async function sendBookingDeclinedEmail(
 
     return { success: true };
   } catch (error) {
-    console.error('Failed to send booking declined email:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    console.error("Failed to send booking declined email:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
 
@@ -136,8 +136,8 @@ export async function sendBookingReminderEmail(
 
     return { success: true };
   } catch (error) {
-    console.error('Failed to send booking reminder email:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    console.error("Failed to send booking reminder email:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
 
@@ -153,19 +153,25 @@ export async function sendMessageNotificationEmail(
   isForProfessional: boolean
 ): Promise<SendEmailResult> {
   try {
-    const dashboardUrl = `${BASE_URL}/dashboard/${isForProfessional ? 'pro' : 'customer'}?tab=messages&booking=${bookingId}`;
+    const dashboardUrl = `${BASE_URL}/dashboard/${isForProfessional ? "pro" : "customer"}?tab=messages&booking=${bookingId}`;
 
     await resend.emails.send({
       from: FROM_EMAIL,
       to: recipientEmail,
       subject: `New message from ${senderName}`,
-      html: templates.messageNotificationEmail(recipientName, senderName, messagePreview, bookingId, dashboardUrl),
+      html: templates.messageNotificationEmail(
+        recipientName,
+        senderName,
+        messagePreview,
+        bookingId,
+        dashboardUrl
+      ),
     });
 
     return { success: true };
   } catch (error) {
-    console.error('Failed to send message notification email:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    console.error("Failed to send message notification email:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
 
@@ -197,8 +203,8 @@ export async function sendServiceCompletedEmail(
 
     return { success: true };
   } catch (error) {
-    console.error('Failed to send service completed email:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    console.error("Failed to send service completed email:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
 
@@ -213,7 +219,7 @@ export async function sendAccountSuspensionEmail(
   durationDays?: number
 ): Promise<SendEmailResult> {
   try {
-    const subject = expiresAt ? 'Your Account Has Been Suspended' : 'Your Account Has Been Banned';
+    const subject = expiresAt ? "Your Account Has Been Suspended" : "Your Account Has Been Banned";
 
     await resend.emails.send({
       from: FROM_EMAIL,
@@ -224,8 +230,8 @@ export async function sendAccountSuspensionEmail(
 
     return { success: true };
   } catch (error) {
-    console.error('Failed to send account suspension email:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    console.error("Failed to send account suspension email:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
 
@@ -241,14 +247,14 @@ export async function sendAccountRestorationEmail(
     await resend.emails.send({
       from: FROM_EMAIL,
       to: userEmail,
-      subject: 'Your Account Has Been Restored',
+      subject: "Your Account Has Been Restored",
       html: templates.accountUnsuspendedEmail(userName, liftReason),
     });
 
     return { success: true };
   } catch (error) {
-    console.error('Failed to send account restoration email:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    console.error("Failed to send account restoration email:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
 
@@ -281,8 +287,8 @@ export async function sendBookingRescheduleEmail(
 
     return { success: true };
   } catch (error) {
-    console.error('Failed to send booking reschedule email:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    console.error("Failed to send booking reschedule email:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
 
@@ -298,14 +304,14 @@ export async function sendProfessionalApprovedEmail(
     await resend.emails.send({
       from: FROM_EMAIL,
       to: professionalEmail,
-      subject: 'Your Professional Application Has Been Approved!',
+      subject: "Your Professional Application Has Been Approved!",
       html: templates.professionalApplicationApprovedEmail(professionalName, notes),
     });
 
     return { success: true };
   } catch (error) {
-    console.error('Failed to send professional approved email:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    console.error("Failed to send professional approved email:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
 
@@ -322,14 +328,18 @@ export async function sendProfessionalRejectedEmail(
     await resend.emails.send({
       from: FROM_EMAIL,
       to: professionalEmail,
-      subject: 'Update on Your Professional Application',
-      html: templates.professionalApplicationRejectedEmail(professionalName, rejectionReason, notes),
+      subject: "Update on Your Professional Application",
+      html: templates.professionalApplicationRejectedEmail(
+        professionalName,
+        rejectionReason,
+        notes
+      ),
     });
 
     return { success: true };
   } catch (error) {
-    console.error('Failed to send professional rejected email:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    console.error("Failed to send professional rejected email:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
 
@@ -345,13 +355,13 @@ export async function sendProfessionalInfoRequestedEmail(
     await resend.emails.send({
       from: FROM_EMAIL,
       to: professionalEmail,
-      subject: 'Additional Information Needed for Your Application',
+      subject: "Additional Information Needed for Your Application",
       html: templates.professionalInfoRequestedEmail(professionalName, notes),
     });
 
     return { success: true };
   } catch (error) {
-    console.error('Failed to send professional info requested email:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    console.error("Failed to send professional info requested email:", error);
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }

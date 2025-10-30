@@ -94,10 +94,7 @@ export function getTierDiscountLabel(tier: SubscriptionTier): string | null {
 /**
  * Calculate estimated bookings for a time period
  */
-export function estimateBookingsCount(
-  frequency: SubscriptionTier,
-  months: number = 3
-): number {
+export function estimateBookingsCount(frequency: SubscriptionTier, months: number = 3): number {
   if (frequency === "none") return 1;
 
   const bookingsPerMonth = {
@@ -124,21 +121,12 @@ export function formatCOP(amount: number): string {
  * Get subscription tier benefits
  */
 export function getTierBenefits(tier: SubscriptionTier): string[] {
-  const baseBenefits = [
-    "Guaranteed time slot",
-    "Priority support",
-    "Same professional",
-  ];
+  const baseBenefits = ["Guaranteed time slot", "Priority support", "Same professional"];
 
   const tierSpecificBenefits: Record<SubscriptionTier, string[]> = {
     none: [],
     monthly: [...baseBenefits, "5% discount", "Easy cancellation"],
-    biweekly: [
-      ...baseBenefits,
-      "10% discount",
-      "Free reschedule",
-      "Vacation pause",
-    ],
+    biweekly: [...baseBenefits, "10% discount", "Free reschedule", "Vacation pause"],
     weekly: [
       ...baseBenefits,
       "15% discount",

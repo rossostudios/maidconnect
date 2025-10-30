@@ -2,11 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import {
-  REQUIRED_DOCUMENTS,
-  OPTIONAL_DOCUMENTS,
-  type OnboardingActionState,
-} from "./state";
+import { type OnboardingActionState, OPTIONAL_DOCUMENTS, REQUIRED_DOCUMENTS } from "./state";
 
 type SupabaseClient = Awaited<ReturnType<typeof createSupabaseServerClient>>;
 
@@ -38,7 +34,9 @@ async function ensureProfessionalProfile(profileId: string, supabase: SupabaseCl
   }
 
   if (!data) {
-    const { error: insertError } = await supabase.from("professional_profiles").insert({ profile_id: profileId });
+    const { error: insertError } = await supabase
+      .from("professional_profiles")
+      .insert({ profile_id: profileId });
     if (insertError) {
       throw insertError;
     }
@@ -47,7 +45,7 @@ async function ensureProfessionalProfile(profileId: string, supabase: SupabaseCl
 
 export async function submitApplication(
   _prevState: OnboardingActionState,
-  formData: FormData,
+  formData: FormData
 ): Promise<OnboardingActionState> {
   const supabase = await createSupabaseServerClient();
   const {
@@ -75,13 +73,17 @@ export async function submitApplication(
 
   const experienceYearsRaw = stringOrNull(formData.get("experienceYears"));
   const parsedExperience = experienceYearsRaw ? Number.parseInt(experienceYearsRaw, 10) : null;
-  const experienceYears = parsedExperience !== null && !Number.isNaN(parsedExperience) ? parsedExperience : null;
+  const experienceYears =
+    parsedExperience !== null && !Number.isNaN(parsedExperience) ? parsedExperience : null;
 
   const rateRaw = stringOrNull(formData.get("rate"));
   const parsedRate = rateRaw ? Number.parseInt(rateRaw, 10) : null;
   const hourlyRate = parsedRate !== null && !Number.isNaN(parsedRate) ? parsedRate : null;
 
-  const primaryServices = formData.getAll("services").map((value) => value.toString()).filter(Boolean);
+  const primaryServices = formData
+    .getAll("services")
+    .map((value) => value.toString())
+    .filter(Boolean);
 
   const fieldErrors: Record<string, string> = {};
 
@@ -90,8 +92,10 @@ export async function submitApplication(
   if (!phone) fieldErrors.phone = "Phone number is required.";
   if (!country) fieldErrors.country = "Country is required.";
   if (!city) fieldErrors.city = "City is required.";
-  if (experienceYears === null || experienceYears < 0) fieldErrors.experienceYears = "Enter your years of experience.";
-  if (hourlyRate === null || hourlyRate <= 0) fieldErrors.rate = "Provide your standard hourly rate in COP.";
+  if (experienceYears === null || experienceYears < 0)
+    fieldErrors.experienceYears = "Enter your years of experience.";
+  if (hourlyRate === null || hourlyRate <= 0)
+    fieldErrors.rate = "Provide your standard hourly rate in COP.";
   if (primaryServices.length === 0) fieldErrors.services = "Select at least one service you offer.";
   if (!consentBackgroundCheck) fieldErrors.consent = "Consent is required for background checks.";
 
@@ -158,7 +162,10 @@ export async function submitApplication(
     status: "application_submitted",
   };
 
-  const { error: profileError } = await supabase.from("profiles").update(profileUpdate).eq("id", user.id);
+  const { error: profileError } = await supabase
+    .from("profiles")
+    .update(profileUpdate)
+    .eq("id", user.id);
   if (profileError) {
     return { status: "error", error: profileError.message };
   }
@@ -182,7 +189,12 @@ export async function submitApplication(
 
 const DOCUMENTS_BUCKET_ID = "professional-documents";
 const MAX_DOCUMENT_SIZE_BYTES = 5 * 1024 * 1024;
-const ALLOWED_DOCUMENT_MIME_TYPES = new Set(["application/pdf", "image/jpeg", "image/png", "image/jpg"]);
+const ALLOWED_DOCUMENT_MIME_TYPES = new Set([
+  "application/pdf",
+  "image/jpeg",
+  "image/png",
+  "image/jpg",
+]);
 
 type DocumentCandidate = {
   documentType: string;
@@ -196,7 +208,7 @@ function sanitizeFileName(name: string) {
 
 export async function submitDocuments(
   _prevState: OnboardingActionState,
-  formData: FormData,
+  formData: FormData
 ): Promise<OnboardingActionState> {
   const supabase = await createSupabaseServerClient();
   const {
@@ -276,11 +288,17 @@ export async function submitDocuments(
 
     if (storageRemoveError) {
       console.error("Failed to remove existing documents", storageRemoveError);
-      return { status: "error", error: "Unable to replace existing documents right now. Please try again." };
+      return {
+        status: "error",
+        error: "Unable to replace existing documents right now. Please try again.",
+      };
     }
   }
 
-  const { error: deleteError } = await supabase.from("professional_documents").delete().eq("profile_id", user.id);
+  const { error: deleteError } = await supabase
+    .from("professional_documents")
+    .delete()
+    .eq("profile_id", user.id);
   if (deleteError) {
     return { status: "error", error: deleteError.message };
   }
@@ -327,7 +345,9 @@ export async function submitDocuments(
   }
 
   if (documentRows.length > 0) {
-    const { error: insertError } = await supabase.from("professional_documents").insert(documentRows);
+    const { error: insertError } = await supabase
+      .from("professional_documents")
+      .insert(documentRows);
     if (insertError) {
       await supabase.storage.from(DOCUMENTS_BUCKET_ID).remove(uploadedPaths);
       return { status: "error", error: insertError.message };
@@ -353,7 +373,7 @@ export async function submitDocuments(
 
 export async function submitProfile(
   _prevState: OnboardingActionState,
-  formData: FormData,
+  formData: FormData
 ): Promise<OnboardingActionState> {
   const supabase = await createSupabaseServerClient();
   const {
@@ -365,11 +385,15 @@ export async function submitProfile(
   }
 
   const bio = stringOrNull(formData.get("bio"));
-  const languages = Array.from(new Set(formData.getAll("languages").map((value) => value.toString())));
+  const languages = Array.from(
+    new Set(formData.getAll("languages").map((value) => value.toString()))
+  );
 
   const serviceNames = formData.getAll("service_name").map((value) => value.toString());
   const serviceRates = formData.getAll("service_rate").map((value) => stringOrNull(value));
-  const serviceDescriptions = formData.getAll("service_description").map((value) => stringOrNull(value));
+  const serviceDescriptions = formData
+    .getAll("service_description")
+    .map((value) => stringOrNull(value));
 
   const fieldErrors: Record<string, string> = {};
 

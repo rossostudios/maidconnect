@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { stripe } from "@/lib/stripe";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -103,10 +103,7 @@ export async function POST(request: Request) {
 
     // Must have hourly rate to calculate extension cost
     if (!booking.service_hourly_rate) {
-      return NextResponse.json(
-        { error: "No hourly rate found for this booking" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "No hourly rate found for this booking" }, { status: 400 });
     }
 
     // Calculate additional amount (hourly rate / 60 * additional minutes)
@@ -163,9 +160,9 @@ export async function POST(request: Request) {
       extension: {
         additional_minutes: additionalMinutes,
         additional_amount: additionalAmount,
-        formatted_amount: new Intl.NumberFormat('es-CO', {
-          style: 'currency',
-          currency: booking.currency || 'COP'
+        formatted_amount: new Intl.NumberFormat("es-CO", {
+          style: "currency",
+          currency: booking.currency || "COP",
         }).format(additionalAmount / 100),
       },
     });

@@ -35,10 +35,7 @@ export async function GET() {
 
     if (error) {
       console.error("Failed to fetch unread counts:", error);
-      return NextResponse.json(
-        { error: "Failed to fetch unread count" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch unread count" }, { status: 500 });
     }
 
     // Sum up the appropriate unread count based on user role
@@ -53,9 +50,6 @@ export async function GET() {
     return NextResponse.json({ unreadCount: totalUnread });
   } catch (error) {
     console.error("Unread count API error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch unread count" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch unread count" }, { status: 500 });
   }
 }

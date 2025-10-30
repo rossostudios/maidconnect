@@ -17,7 +17,8 @@ export function UnexpectedError({ message }: Props) {
         <div>
           <p className="font-semibold">Something went wrong</p>
           <p className="mt-1 text-xs text-red-600">
-            {message ?? "Please try submitting again. If the issue continues, contact support so we can investigate."}
+            {message ??
+              "Please try submitting again. If the issue continues, contact support so we can investigate."}
           </p>
         </div>
         <button

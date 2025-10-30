@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
-import { requireUser } from "@/lib/auth";
 import { MessagingInterface } from "@/components/messaging/messaging-interface";
+import { requireUser } from "@/lib/auth";
 
 export default async function CustomerMessagesPage({
   params,

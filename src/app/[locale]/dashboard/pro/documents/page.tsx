@@ -1,9 +1,12 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import {
+  OPTIONAL_DOCUMENTS,
+  REQUIRED_DOCUMENTS,
+} from "@/app/[locale]/dashboard/pro/onboarding/state";
+import { DocumentsTable } from "@/components/documents/documents-table";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { DocumentsTable } from "@/components/documents/documents-table";
-import { REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "@/app/[locale]/dashboard/pro/onboarding/state";
-import { getTranslations } from "next-intl/server";
 
 type DocumentRow = {
   id: string;
@@ -20,7 +23,7 @@ type DocumentRow = {
 };
 
 const DOCUMENT_LABELS: Record<string, string> = Object.fromEntries(
-  [...REQUIRED_DOCUMENTS, ...OPTIONAL_DOCUMENTS].map((doc) => [doc.key, doc.label]),
+  [...REQUIRED_DOCUMENTS, ...OPTIONAL_DOCUMENTS].map((doc) => [doc.key, doc.label])
 );
 
 export default async function ProDocumentsPage({
@@ -47,7 +50,7 @@ export default async function ProDocumentsPage({
     const signedUrlResults = await Promise.all(
       documents.map((doc) =>
         supabase.storage.from("professional-documents").createSignedUrl(doc.storage_path, 3600)
-      ),
+      )
     );
 
     documents = documents.map((doc, index) => {
@@ -67,9 +70,7 @@ export default async function ProDocumentsPage({
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-semibold text-[#211f1a]">{t("title")}</h1>
-          <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-            {t("description")}
-          </p>
+          <p className="mt-2 text-base leading-relaxed text-[#5d574b]">{t("description")}</p>
         </div>
         <Link
           href="/dashboard/pro/onboarding"

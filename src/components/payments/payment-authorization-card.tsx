@@ -1,14 +1,9 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import {
-  Elements,
-  PaymentElement,
-  useElements,
-  useStripe,
-} from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
+import { useCallback, useMemo, useState } from "react";
 
 type PaymentAuthorizationCardProps = {
   hasPaymentMethod: boolean;
@@ -18,20 +13,26 @@ type StepState = "idle" | "loading" | "confirming" | "success" | "error";
 
 export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizationCardProps) {
   const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
-  const stripePromise = useMemo(() => (publishableKey ? loadStripe(publishableKey) : null), [publishableKey]);
+  const stripePromise = useMemo(
+    () => (publishableKey ? loadStripe(publishableKey) : null),
+    [publishableKey]
+  );
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [status, setStatus] = useState<StepState>(hasPaymentMethod ? "success" : "idle");
   const [message, setMessage] = useState<string | null>(null);
 
-  const appearance = useMemo(() => ({
-    theme: "flat" as const,
-    variables: {
-      colorPrimary: "#ff5d46",
-      colorText: "#211f1a",
-      colorBackground: "#ffffff",
-      borderRadius: "12px",
-    },
-  }), []);
+  const appearance = useMemo(
+    () => ({
+      theme: "flat" as const,
+      variables: {
+        colorPrimary: "#ff5d46",
+        colorText: "#211f1a",
+        colorBackground: "#ffffff",
+        borderRadius: "12px",
+      },
+    }),
+    []
+  );
 
   const handleStart = useCallback(async () => {
     setStatus("loading");
@@ -59,7 +60,9 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
     } catch (error) {
       console.error(error);
       setStatus("error");
-      setMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
+      setMessage(
+        error instanceof Error ? error.message : "Something went wrong. Please try again."
+      );
     }
   }, []);
 
@@ -75,11 +78,13 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
     return (
       <div className="mt-4 flex flex-col gap-3">
         {status === "success" ? (
-          <p className="text-sm text-green-700">Payment method on file. You can update it anytime.</p>
+          <p className="text-sm text-green-700">
+            Payment method on file. You can update it anytime.
+          </p>
         ) : (
           <p className="text-sm leading-relaxed text-[#5d574b]">
-            We'll authorize a small amount (COP $50,000) to keep your payment method on file. You're only charged after a
-            service is completed.
+            We'll authorize a small amount (COP $50,000) to keep your payment method on file. You're
+            only charged after a service is completed.
           </p>
         )}
         {message ? <p className="text-sm text-red-600">{message}</p> : null}
@@ -89,7 +94,11 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
           disabled={status === "loading"}
           className="inline-flex w-fit items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
         >
-          {status === "loading" ? "Preparing…" : hasPaymentMethod ? "Update payment method" : "Add payment method"}
+          {status === "loading"
+            ? "Preparing…"
+            : hasPaymentMethod
+              ? "Update payment method"
+              : "Add payment method"}
         </button>
       </div>
     );
@@ -97,7 +106,11 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
 
   return (
     <Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
-      <PaymentForm onSuccess={() => setStatus("success")} onError={setMessage} reset={() => setClientSecret(null)} />
+      <PaymentForm
+        onSuccess={() => setStatus("success")}
+        onError={setMessage}
+        reset={() => setClientSecret(null)}
+      />
       {message ? <p className="mt-2 text-xs text-red-600">{message}</p> : null}
     </Elements>
   );
@@ -169,7 +182,8 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
         </button>
       </div>
       <p className="text-sm leading-relaxed text-[#5d574b]">
-        You'll only be charged after the service is completed. Authorizations expire automatically if unused.
+        You'll only be charged after the service is completed. Authorizations expire automatically
+        if unused.
       </p>
     </div>
   );

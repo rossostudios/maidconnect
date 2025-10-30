@@ -1,5 +1,5 @@
+import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type DatePickerProps = {
@@ -14,7 +14,11 @@ const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
 
 function formatButtonLabel(date: Date | null, placeholder?: string) {
   if (!date) return placeholder ?? "Select date";
-  return new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" }).format(date);
+  return new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(date);
 }
 
 export function DatePicker({ value, onChange, placeholder, name, required }: DatePickerProps) {
@@ -91,20 +95,24 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
 
   return (
     <div ref={containerRef} className="relative">
-      {name ? <input type="hidden" name={name} value={hiddenValue} readOnly required={required} /> : null}
+      {name ? (
+        <input type="hidden" name={name} value={hiddenValue} readOnly required={required} />
+      ) : null}
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
         className={cn(
           "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 text-sm font-medium text-[#211f1a] shadow-inner shadow-black/5 transition hover:border-[#ff5d46] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5d46]",
-          !value && "text-[#8a826d]",
+          !value && "text-[#8a826d]"
         )}
       >
         <span className="flex items-center gap-2">
           <CalendarDays className="h-4 w-4 text-[#ff5d46]" aria-hidden="true" />
           {formatButtonLabel(value, placeholder)}
         </span>
-        <ChevronRight className={cn("h-4 w-4 text-[#a49c90] transition-transform", open && "rotate-90")} />
+        <ChevronRight
+          className={cn("h-4 w-4 text-[#a49c90] transition-transform", open && "rotate-90")}
+        />
       </button>
 
       {open ? (
@@ -113,18 +121,24 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
             <button
               type="button"
               className="rounded-full border border-[#ebe5d8] p-1 text-[#5d574b] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
-              onClick={() => setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))}
+              onClick={() =>
+                setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))
+              }
             >
               <ChevronLeft className="h-4 w-4" aria-hidden="true" />
               <span className="sr-only">Previous month</span>
             </button>
             <div className="text-sm font-semibold text-[#211f1a]">
-              {new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(viewDate)}
+              {new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(
+                viewDate
+              )}
             </div>
             <button
               type="button"
               className="rounded-full border border-[#ebe5d8] p-1 text-[#5d574b] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
-              onClick={() => setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))}
+              onClick={() =>
+                setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))
+              }
             >
               <ChevronRight className="h-4 w-4" aria-hidden="true" />
               <span className="sr-only">Next month</span>
@@ -161,9 +175,10 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
                   className={cn(
                     "rounded-full py-2 text-sm transition",
                     inCurrentMonth ? "text-[#211f1a]" : "text-[#c9c2b6]",
-                    isSelected && "bg-[#211f1a] text-white shadow-[0_10px_20px_rgba(18,17,15,0.16)]",
+                    isSelected &&
+                      "bg-[#211f1a] text-white shadow-[0_10px_20px_rgba(18,17,15,0.16)]",
                     !isSelected && isToday && "border border-[#ff5d46] text-[#ff5d46]",
-                    !isSelected && !isToday && "hover:bg-[#f6f1ea]",
+                    !isSelected && !isToday && "hover:bg-[#f6f1ea]"
                   )}
                 >
                   {date.getDate()}

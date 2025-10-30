@@ -21,9 +21,7 @@ export function TestimonialsSection() {
                 key={testimonial.handle}
                 className="flex flex-col gap-6 rounded-[28px] border border-[#e6e0d4] bg-[#fbfafa] p-10 text-left shadow-[0_10px_40px_rgba(18,17,15,0.04)]"
               >
-                <p className="text-2xl leading-relaxed text-[#211f1a]">
-                  "{testimonial.quote}"
-                </p>
+                <p className="text-2xl leading-relaxed text-[#211f1a]">"{testimonial.quote}"</p>
                 <div className="flex items-center gap-4">
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#ff5d46] text-base font-semibold text-white">
                     {testimonial.name
@@ -33,9 +31,7 @@ export function TestimonialsSection() {
                       .slice(0, 2)}
                   </div>
                   <div>
-                    <p className="text-base font-semibold text-[#211f1a]">
-                      {testimonial.name}
-                    </p>
+                    <p className="text-base font-semibold text-[#211f1a]">{testimonial.name}</p>
                     <p className="text-sm text-[#938c7f]">{testimonial.location}</p>
                   </div>
                 </div>

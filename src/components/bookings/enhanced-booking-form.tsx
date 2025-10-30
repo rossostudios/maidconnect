@@ -1,21 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import {
-  Elements,
-  PaymentElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
 import { useRouter } from "next/navigation";
-import type { ProfessionalService } from "@/lib/professionals/transformers";
-import { AvailabilityCalendar } from "@/components/booking/availability-calendar";
+import { useEffect, useState } from "react";
 import {
-  SavedAddressesManager,
   type SavedAddress,
+  SavedAddressesManager,
 } from "@/components/addresses/saved-addresses-manager";
+import { AvailabilityCalendar } from "@/components/booking/availability-calendar";
 import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
+import type { ProfessionalService } from "@/lib/professionals/transformers";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
@@ -29,11 +24,7 @@ type BookingFormProps = {
   availableAddons?: ServiceAddon[];
 };
 
-type BookingStep =
-  | "service-details"
-  | "address-addons"
-  | "confirmation"
-  | "payment";
+type BookingStep = "service-details" | "address-addons" | "confirmation" | "payment";
 
 type BookingData = {
   serviceName: string;
@@ -74,9 +65,7 @@ export function EnhancedBookingForm({
   availableAddons = [],
 }: BookingFormProps) {
   const router = useRouter();
-  const [currentStep, setCurrentStep] = useState<BookingStep>(
-    "service-details"
-  );
+  const [currentStep, setCurrentStep] = useState<BookingStep>("service-details");
   const [bookingData, setBookingData] = useState<BookingData>({
     serviceName: "",
     serviceHourlyRate: null,
@@ -141,18 +130,12 @@ export function EnhancedBookingForm({
     (service) => normalizeServiceName(service.name) === bookingData.serviceName
   );
   const selectedRate =
-    bookingData.serviceHourlyRate ??
-    selectedService?.hourlyRateCop ??
-    defaultHourlyRate ??
-    0;
+    bookingData.serviceHourlyRate ?? selectedService?.hourlyRateCop ?? defaultHourlyRate ?? 0;
   const baseAmount =
     selectedRate && bookingData.durationHours > 0
       ? Math.round(selectedRate * bookingData.durationHours)
       : 0;
-  const addonsTotal = bookingData.selectedAddons.reduce(
-    (sum, addon) => sum + addon.price_cop,
-    0
-  );
+  const addonsTotal = bookingData.selectedAddons.reduce((sum, addon) => sum + addon.price_cop, 0);
   const totalAmount = baseAmount + addonsTotal;
 
   const handleAddressesChange = async (newAddresses: SavedAddress[]) => {
@@ -169,11 +152,7 @@ export function EnhancedBookingForm({
   };
 
   const handleSubmit = async () => {
-    if (
-      !bookingData.selectedDate ||
-      !bookingData.selectedTime ||
-      !bookingData.serviceName
-    ) {
+    if (!bookingData.selectedDate || !bookingData.selectedTime || !bookingData.serviceName) {
       setError("Please complete all required fields");
       return;
     }
@@ -257,21 +236,16 @@ export function EnhancedBookingForm({
                 currentStep === step.key
                   ? "bg-[#ff5d46] text-white"
                   : index <
-                      [
-                        "service-details",
-                        "address-addons",
-                        "confirmation",
-                        "payment",
-                      ].indexOf(currentStep)
+                      ["service-details", "address-addons", "confirmation", "payment"].indexOf(
+                        currentStep
+                      )
                     ? "bg-[#211f1a] text-white"
                     : "bg-[#f0ece5] text-[#7a6d62]"
               }`}
             >
               {index + 1}
             </div>
-            <span className="ml-2 hidden text-xs text-[#7a6d62] sm:block">
-              {step.label}
-            </span>
+            <span className="ml-2 hidden text-xs text-[#7a6d62] sm:block">{step.label}</span>
           </div>
         ))}
       </div>
@@ -362,15 +336,11 @@ function ServiceDetailsStep({
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-[#211f1a]">
-        Choose Service & Time
-      </h3>
+      <h3 className="text-lg font-semibold text-[#211f1a]">Choose Service & Time</h3>
 
       {/* Service Selection */}
       <div>
-        <label className="mb-2 block text-sm font-medium text-[#211f1a]">
-          Service *
-        </label>
+        <label className="mb-2 block text-sm font-medium text-[#211f1a]">Service *</label>
         <select
           value={bookingData.serviceName}
           onChange={(e) => {
@@ -388,9 +358,7 @@ function ServiceDetailsStep({
           {services.map((service) => (
             <option key={service.name} value={service.name ?? ""}>
               {service.name}
-              {service.hourlyRateCop
-                ? ` · ${formatCurrencyCOP(service.hourlyRateCop)}/hr`
-                : ""}
+              {service.hourlyRateCop ? ` · ${formatCurrencyCOP(service.hourlyRateCop)}/hr` : ""}
             </option>
           ))}
         </select>
@@ -398,9 +366,7 @@ function ServiceDetailsStep({
 
       {/* Duration */}
       <div>
-        <label className="mb-2 block text-sm font-medium text-[#211f1a]">
-          Duration (hours) *
-        </label>
+        <label className="mb-2 block text-sm font-medium text-[#211f1a]">Duration (hours) *</label>
         <input
           type="number"
           min={1}
@@ -426,12 +392,8 @@ function ServiceDetailsStep({
           professionalId={professionalId}
           selectedDate={bookingData.selectedDate}
           selectedTime={bookingData.selectedTime}
-          onDateSelect={(date) =>
-            setBookingData({ ...bookingData, selectedDate: date })
-          }
-          onTimeSelect={(time) =>
-            setBookingData({ ...bookingData, selectedTime: time })
-          }
+          onDateSelect={(date) => setBookingData({ ...bookingData, selectedDate: date })}
+          onTimeSelect={(time) => setBookingData({ ...bookingData, selectedTime: time })}
           durationHours={bookingData.durationHours}
         />
       </div>
@@ -450,27 +412,20 @@ function ServiceDetailsStep({
             }
             className="rounded"
           />
-          <span className="text-sm text-[#211f1a]">
-            Make this a recurring booking
-          </span>
+          <span className="text-sm text-[#211f1a]">Make this a recurring booking</span>
         </label>
       </div>
 
       {bookingData.isRecurring && (
         <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4">
-          <label className="mb-2 block text-sm font-medium text-[#211f1a]">
-            Frequency
-          </label>
+          <label className="mb-2 block text-sm font-medium text-[#211f1a]">Frequency</label>
           <select
             value={bookingData.recurrencePattern?.frequency || "weekly"}
             onChange={(e) =>
               setBookingData({
                 ...bookingData,
                 recurrencePattern: {
-                  frequency: e.target.value as
-                    | "weekly"
-                    | "biweekly"
-                    | "monthly",
+                  frequency: e.target.value as "weekly" | "biweekly" | "monthly",
                 },
               })
             }
@@ -517,9 +472,7 @@ function AddressAddonsStep({
   const [useCustomAddress, setUseCustomAddress] = useState(false);
 
   const toggleAddon = (addon: ServiceAddon) => {
-    const isSelected = bookingData.selectedAddons.some(
-      (a) => a.id === addon.id
-    );
+    const isSelected = bookingData.selectedAddons.some((a) => a.id === addon.id);
     setBookingData({
       ...bookingData,
       selectedAddons: isSelected
@@ -532,23 +485,17 @@ function AddressAddonsStep({
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold text-[#211f1a]">
-        Location & Add-ons
-      </h3>
+      <h3 className="text-lg font-semibold text-[#211f1a]">Location & Add-ons</h3>
 
       {/* Address Selection */}
       <div>
-        <label className="mb-2 block text-sm font-medium text-[#211f1a]">
-          Service Address *
-        </label>
+        <label className="mb-2 block text-sm font-medium text-[#211f1a]">Service Address *</label>
 
         {!useCustomAddress && addresses.length > 0 && (
           <div className="space-y-2">
             <SavedAddressesManager
               addresses={addresses}
-              onAddressSelect={(address) =>
-                setBookingData({ ...bookingData, address })
-              }
+              onAddressSelect={(address) => setBookingData({ ...bookingData, address })}
               onAddressesChange={onAddressesChange}
               selectedAddressId={bookingData.address?.id}
               showManagement={false}
@@ -616,9 +563,7 @@ function AddressAddonsStep({
           </label>
           <div className="space-y-2">
             {addons.map((addon) => {
-              const isSelected = bookingData.selectedAddons.some(
-                (a) => a.id === addon.id
-              );
+              const isSelected = bookingData.selectedAddons.some((a) => a.id === addon.id);
               return (
                 <button
                   key={addon.id}
@@ -632,27 +577,19 @@ function AddressAddonsStep({
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <span
-                          className={`text-lg ${isSelected ? "opacity-100" : "opacity-40"}`}
-                        >
+                        <span className={`text-lg ${isSelected ? "opacity-100" : "opacity-40"}`}>
                           {isSelected ? "✓" : "○"}
                         </span>
-                        <h4 className="font-semibold text-[#211f1a]">
-                          {addon.name}
-                        </h4>
+                        <h4 className="font-semibold text-[#211f1a]">{addon.name}</h4>
                       </div>
                       {addon.description && (
-                        <p className="mt-1 text-sm text-[#7a6d62]">
-                          {addon.description}
-                        </p>
+                        <p className="mt-1 text-sm text-[#7a6d62]">{addon.description}</p>
                       )}
                       <div className="mt-1 flex gap-3 text-xs text-[#7a6d62]">
                         <span className="font-semibold text-[#ff5d46]">
                           {formatCurrencyCOP(addon.price_cop)}
                         </span>
-                        {addon.duration_minutes > 0 && (
-                          <span>+{addon.duration_minutes} min</span>
-                        )}
+                        {addon.duration_minutes > 0 && <span>+{addon.duration_minutes} min</span>}
                       </div>
                     </div>
                   </div>
@@ -704,9 +641,7 @@ function ConfirmationStep({
 }) {
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold text-[#211f1a]">
-        Review Your Booking
-      </h3>
+      <h3 className="text-lg font-semibold text-[#211f1a]">Review Your Booking</h3>
 
       <div className="rounded-lg border border-[#f0ece5] bg-white p-6 space-y-4">
         {/* Service Details */}
@@ -719,9 +654,7 @@ function ConfirmationStep({
 
         {/* Date & Time */}
         <div>
-          <h4 className="text-sm font-semibold text-[#7a6d62]">
-            Date & Time
-          </h4>
+          <h4 className="text-sm font-semibold text-[#7a6d62]">Date & Time</h4>
           <p className="mt-1 text-sm text-[#211f1a]">
             {bookingData.selectedDate?.toLocaleDateString("en-US", {
               weekday: "long",
@@ -731,9 +664,7 @@ function ConfirmationStep({
             })}{" "}
             at {bookingData.selectedTime}
           </p>
-          <p className="text-xs text-[#7a6d62]">
-            Duration: {bookingData.durationHours} hours
-          </p>
+          <p className="text-xs text-[#7a6d62]">Duration: {bookingData.durationHours} hours</p>
           {bookingData.isRecurring && (
             <p className="mt-1 text-xs text-[#ff5d46]">
               ⏱️ Recurring {bookingData.recurrencePattern?.frequency}
@@ -757,15 +688,11 @@ function ConfirmationStep({
                   .join(", ")}
               </p>
               {bookingData.address.building_access && (
-                <p className="text-xs text-[#7a6d62]">
-                  🔑 {bookingData.address.building_access}
-                </p>
+                <p className="text-xs text-[#7a6d62]">🔑 {bookingData.address.building_access}</p>
               )}
             </div>
           ) : (
-            <p className="mt-1 text-sm text-[#211f1a]">
-              {bookingData.customAddress}
-            </p>
+            <p className="mt-1 text-sm text-[#211f1a]">{bookingData.customAddress}</p>
           )}
         </div>
 
@@ -775,10 +702,7 @@ function ConfirmationStep({
             <h4 className="text-sm font-semibold text-[#7a6d62]">Add-ons</h4>
             <ul className="mt-1 space-y-1">
               {bookingData.selectedAddons.map((addon) => (
-                <li
-                  key={addon.id}
-                  className="flex justify-between text-sm text-[#211f1a]"
-                >
+                <li key={addon.id} className="flex justify-between text-sm text-[#211f1a]">
                   <span>{addon.name}</span>
                   <span>{formatCurrencyCOP(addon.price_cop)}</span>
                 </li>
@@ -790,12 +714,8 @@ function ConfirmationStep({
         {/* Special Instructions */}
         {bookingData.specialInstructions && (
           <div>
-            <h4 className="text-sm font-semibold text-[#7a6d62]">
-              Special Instructions
-            </h4>
-            <p className="mt-1 text-sm text-[#211f1a]">
-              {bookingData.specialInstructions}
-            </p>
+            <h4 className="text-sm font-semibold text-[#7a6d62]">Special Instructions</h4>
+            <p className="mt-1 text-sm text-[#211f1a]">{bookingData.specialInstructions}</p>
           </div>
         )}
 
@@ -804,30 +724,24 @@ function ConfirmationStep({
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-[#7a6d62]">Service</span>
-              <span className="text-[#211f1a]">
-                {formatCurrencyCOP(baseAmount)}
-              </span>
+              <span className="text-[#211f1a]">{formatCurrencyCOP(baseAmount)}</span>
             </div>
             {addonsTotal > 0 && (
               <div className="flex justify-between text-sm">
                 <span className="text-[#7a6d62]">Add-ons</span>
-                <span className="text-[#211f1a]">
-                  {formatCurrencyCOP(addonsTotal)}
-                </span>
+                <span className="text-[#211f1a]">{formatCurrencyCOP(addonsTotal)}</span>
               </div>
             )}
             <div className="flex justify-between border-t border-[#f0ece5] pt-2 text-base font-semibold">
               <span className="text-[#211f1a]">Total</span>
-              <span className="text-[#ff5d46]">
-                {formatCurrencyCOP(totalAmount)}
-              </span>
+              <span className="text-[#ff5d46]">{formatCurrencyCOP(totalAmount)}</span>
             </div>
           </div>
         </div>
 
         <p className="text-xs text-[#7a6d62]">
-          We'll place a temporary hold on your payment method. You'll only be
-          charged after the service is completed.
+          We'll place a temporary hold on your payment method. You'll only be charged after the
+          service is completed.
         </p>
       </div>
 
@@ -881,9 +795,7 @@ function PaymentConfirmation({
       });
 
       if (error) {
-        throw new Error(
-          error.message ?? "Payment requires additional verification."
-        );
+        throw new Error(error.message ?? "Payment requires additional verification.");
       }
 
       if (paymentIntent?.status === "requires_capture") {
@@ -905,17 +817,12 @@ function PaymentConfirmation({
 
   return (
     <div className="space-y-4 rounded-lg border border-[#f0ece5] bg-white p-6">
-      <h3 className="text-lg font-semibold text-[#211f1a]">
-        Confirm Payment Method
-      </h3>
+      <h3 className="text-lg font-semibold text-[#211f1a]">Confirm Payment Method</h3>
       <p className="text-sm text-[#7a6d62]">
-        We'll authorize a hold on your card. You'll only be charged after the
-        service is completed.
+        We'll authorize a hold on your card. You'll only be charged after the service is completed.
       </p>
       <PaymentElement options={{ layout: "tabs" }} />
-      {error && (
-        <p className="text-sm text-red-600">{error}</p>
-      )}
+      {error && <p className="text-sm text-red-600">{error}</p>}
       <div className="flex items-center gap-3">
         <button
           type="button"

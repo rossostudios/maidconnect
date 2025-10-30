@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useCallback, useRef } from "react";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import type { RealtimeChannel } from "@supabase/supabase-js";
+import { useCallback, useEffect, useRef } from "react";
+import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
 type Message = {
   id: string;
@@ -60,9 +60,7 @@ export function useRealtimeMessages({
           schema: "public",
           table: "conversations",
           filter:
-            userRole === "customer"
-              ? `customer_id=eq.${userId}`
-              : `professional_id=eq.${userId}`,
+            userRole === "customer" ? `customer_id=eq.${userId}` : `professional_id=eq.${userId}`,
         },
         (payload) => {
           console.log("[Realtime] New conversation:", payload);
@@ -76,9 +74,7 @@ export function useRealtimeMessages({
           schema: "public",
           table: "conversations",
           filter:
-            userRole === "customer"
-              ? `customer_id=eq.${userId}`
-              : `professional_id=eq.${userId}`,
+            userRole === "customer" ? `customer_id=eq.${userId}` : `professional_id=eq.${userId}`,
         },
         (payload) => {
           console.log("[Realtime] Conversation updated:", payload);

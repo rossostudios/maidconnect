@@ -1,19 +1,18 @@
 "use client";
 
-import { useMemo } from "react";
 import {
-  useReactTable,
+  type ColumnFiltersState,
+  createColumnHelper,
+  flexRender,
   getCoreRowModel,
-  getSortedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
-  flexRender,
-  createColumnHelper,
+  getSortedRowModel,
   type SortingState,
-  type ColumnFiltersState,
+  useReactTable,
 } from "@tanstack/react-table";
-import { useState } from "react";
 import { format } from "date-fns";
+import { useMemo, useState } from "react";
 
 type Document = {
   id: string;
@@ -40,7 +39,7 @@ function formatFileSize(bytes?: number) {
   if (!bytes) return "—";
   const sizes = ["B", "KB", "MB", "GB"];
   const i = Math.floor(Math.log(bytes) / Math.log(1024));
-  const value = bytes / Math.pow(1024, i);
+  const value = bytes / 1024 ** i;
   return `${value.toFixed(i === 0 ? 0 : 1)} ${sizes[i]}`;
 }
 
@@ -66,16 +65,12 @@ export function DocumentsTable({ documents, labels }: Props) {
       columnHelper.accessor((row) => row.metadata?.originalName, {
         id: "filename",
         header: "File Name",
-        cell: (info) => (
-          <span className="text-[#211f1a]">{info.getValue() ?? "Unnamed file"}</span>
-        ),
+        cell: (info) => <span className="text-[#211f1a]">{info.getValue() ?? "Unnamed file"}</span>,
       }),
       columnHelper.accessor((row) => row.metadata?.size, {
         id: "size",
         header: "Size",
-        cell: (info) => (
-          <span className="text-[#7d7566]">{formatFileSize(info.getValue())}</span>
-        ),
+        cell: (info) => <span className="text-[#7d7566]">{formatFileSize(info.getValue())}</span>,
       }),
       columnHelper.accessor("uploaded_at", {
         header: "Uploaded",
@@ -103,9 +98,7 @@ export function DocumentsTable({ documents, labels }: Props) {
         cell: (info) => {
           const url = info.getValue();
           if (!url) {
-            return (
-              <span className="text-sm text-[#c4534d]">URL unavailable</span>
-            );
+            return <span className="text-sm text-[#c4534d]">URL unavailable</span>;
           }
           return (
             <a
@@ -158,7 +151,12 @@ export function DocumentsTable({ documents, labels }: Props) {
         <div className="mx-auto max-w-md">
           <div className="mb-4 flex justify-center">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ebe5d8]">
-              <svg className="h-6 w-6 text-[#7d7566]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="h-6 w-6 text-[#7d7566]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -186,9 +184,7 @@ export function DocumentsTable({ documents, labels }: Props) {
             type="text"
             placeholder="Search documents..."
             value={(table.getColumn("document_type")?.getFilterValue() as string) ?? ""}
-            onChange={(e) =>
-              table.getColumn("document_type")?.setFilterValue(e.target.value)
-            }
+            onChange={(e) => table.getColumn("document_type")?.setFilterValue(e.target.value)}
             className="w-full rounded-lg border border-[#ebe5d8] px-4 py-2 pl-10 text-sm text-[#211f1a] placeholder-[#7d7566] focus:border-[#ff5d46] focus:outline-none focus:ring-1 focus:ring-[#ff5d46]"
           />
           <svg
@@ -206,7 +202,8 @@ export function DocumentsTable({ documents, labels }: Props) {
           </svg>
         </div>
         <div className="text-sm text-[#7d7566]">
-          {table.getFilteredRowModel().rows.length} document{table.getFilteredRowModel().rows.length !== 1 ? "s" : ""}
+          {table.getFilteredRowModel().rows.length} document
+          {table.getFilteredRowModel().rows.length !== 1 ? "s" : ""}
         </div>
       </div>
 

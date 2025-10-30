@@ -1,11 +1,11 @@
-import type { ReactNode } from "react";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import type { ReactNode } from "react";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { ApplicationForm } from "./application-form";
 import { DocumentUploadForm } from "./document-upload-form";
 import { ProfileBuildForm } from "./profile-build-form";
-import { getTranslations } from "next-intl/server";
 
 const inputClass =
   "w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-4 text-base shadow-sm transition focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]";
@@ -22,7 +22,14 @@ const APPLICATION_SERVICE_OPTIONS = [
 
 const PROFILE_SERVICE_OPTIONS = ["House cleaning", "Laundry", "Cooking"];
 
-const COUNTRY_OPTIONS = ["Colombia", "United States", "Canada", "United Kingdom", "Mexico", "Other"];
+const COUNTRY_OPTIONS = [
+  "Colombia",
+  "United States",
+  "Canada",
+  "United Kingdom",
+  "Mexico",
+  "Other",
+];
 
 const AVAILABILITY_OPTIONS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
@@ -93,16 +100,20 @@ export default async function ProfessionalOnboardingPage({
     .maybeSingle();
 
   let profileInitialData: ProfileInitialData | undefined;
-  const professionalProfileRecord = (professionalProfileData as SupabaseProfessionalProfile | null) ?? null;
+  const professionalProfileRecord =
+    (professionalProfileData as SupabaseProfessionalProfile | null) ?? null;
   if (professionalProfileRecord) {
     const availabilitySchedule =
-      professionalProfileRecord.availability && typeof professionalProfileRecord.availability === "object"
-        ? professionalProfileRecord.availability.schedule ?? []
+      professionalProfileRecord.availability &&
+      typeof professionalProfileRecord.availability === "object"
+        ? (professionalProfileRecord.availability.schedule ?? [])
         : [];
     profileInitialData = {
       bio: professionalProfileRecord.bio ?? "",
       languages: professionalProfileRecord.languages ?? [],
-      services: Array.isArray(professionalProfileRecord.services) ? professionalProfileRecord.services : [],
+      services: Array.isArray(professionalProfileRecord.services)
+        ? professionalProfileRecord.services
+        : [],
       availability: Array.isArray(availabilitySchedule) ? availabilitySchedule : [],
     };
   }
@@ -151,7 +162,9 @@ export default async function ProfessionalOnboardingPage({
                     {index + 1}
                   </div>
                   {isCompleted ? (
-                    <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">{t("steps.statusCompleted")}</span>
+                    <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+                      {t("steps.statusCompleted")}
+                    </span>
                   ) : isCurrent ? (
                     <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-700">
                       {t("steps.statusInProgress")}
@@ -162,8 +175,12 @@ export default async function ProfessionalOnboardingPage({
                     </span>
                   )}
                 </div>
-                <h2 className="mt-6 text-xl font-semibold text-[#211f1a]">{t(`steps.${stepId}.title`)}</h2>
-                <p className="mt-3 text-base leading-relaxed text-[#5d574b]">{t(`steps.${stepId}.description`)}</p>
+                <h2 className="mt-6 text-xl font-semibold text-[#211f1a]">
+                  {t(`steps.${stepId}.title`)}
+                </h2>
+                <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
+                  {t(`steps.${stepId}.description`)}
+                </p>
               </li>
             );
           })}
@@ -175,8 +192,18 @@ export default async function ProfessionalOnboardingPage({
           <div className="rounded-[28px] border border-green-200 bg-green-50 p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
             <div className="flex items-start gap-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <svg
+                  className="h-6 w-6 text-green-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
               </div>
               <div>
@@ -213,7 +240,11 @@ export default async function ProfessionalOnboardingPage({
               title={t("sections.applicationDetails.title")}
               subtitle={t("sections.applicationDetails.subtitle")}
             >
-              <ApplicationForm services={APPLICATION_SERVICE_OPTIONS} countries={COUNTRY_OPTIONS} inputClass={inputClass} />
+              <ApplicationForm
+                services={APPLICATION_SERVICE_OPTIONS}
+                countries={COUNTRY_OPTIONS}
+                inputClass={inputClass}
+              />
             </SectionWrapper>
           ) : null}
 
@@ -224,7 +255,9 @@ export default async function ProfessionalOnboardingPage({
             >
               <div className="grid gap-8 lg:grid-cols-2">
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">{t("sections.uploadDocuments.required.title")}</h3>
+                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                    {t("sections.uploadDocuments.required.title")}
+                  </h3>
                   <ul className="mt-4 space-y-3 text-base text-[#5d574b]">
                     <li className="flex items-start gap-3">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#ff5d46]"></span>
@@ -236,7 +269,9 @@ export default async function ProfessionalOnboardingPage({
                     </li>
                   </ul>
 
-                  <h3 className="mt-8 text-xl font-semibold text-[#211f1a]">{t("sections.uploadDocuments.optional.title")}</h3>
+                  <h3 className="mt-8 text-xl font-semibold text-[#211f1a]">
+                    {t("sections.uploadDocuments.optional.title")}
+                  </h3>
                   <ul className="mt-4 space-y-3 text-base text-[#5d574b]">
                     <li className="flex items-start gap-3">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-gray-400"></span>
@@ -250,7 +285,10 @@ export default async function ProfessionalOnboardingPage({
 
                   <div className="mt-8 rounded-2xl border border-[#ebe5d8] bg-white p-6">
                     <p className="text-sm leading-relaxed text-[#5d574b]">
-                      <strong className="text-[#211f1a]">{t("sections.uploadDocuments.formats.label")}</strong> {t("sections.uploadDocuments.formats.text")}
+                      <strong className="text-[#211f1a]">
+                        {t("sections.uploadDocuments.formats.label")}
+                      </strong>{" "}
+                      {t("sections.uploadDocuments.formats.text")}
                     </p>
                   </div>
                 </div>
@@ -281,12 +319,24 @@ export default async function ProfessionalOnboardingPage({
             <div className="rounded-[28px] border border-green-200 bg-green-50 p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
               <div className="flex items-start gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                  <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  <svg
+                    className="h-6 w-6 text-green-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
                   </svg>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-semibold text-green-900">{t("onboardingComplete.title")}</h2>
+                  <h2 className="text-2xl font-semibold text-green-900">
+                    {t("onboardingComplete.title")}
+                  </h2>
                   <p className="mt-2 text-base leading-relaxed text-green-800">
                     {t("onboardingComplete.description")}
                   </p>

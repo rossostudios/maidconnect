@@ -3,11 +3,16 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
 import {
-  ProfessionalProfileView,
   type ProfessionalProfileDetail,
+  ProfessionalProfileView,
 } from "@/components/professionals/professional-profile-view";
+import type {
+  ProfessionalBookingSummary,
+  ProfessionalReviewSummary,
+} from "@/components/professionals/types";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
+import { getSession } from "@/lib/auth";
 import {
   computeAvailableToday,
   formatLocation,
@@ -15,8 +20,6 @@ import {
   parseServices,
 } from "@/lib/professionals/transformers";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import type { ProfessionalBookingSummary, ProfessionalReviewSummary } from "@/components/professionals/types";
-import { getSession } from "@/lib/auth";
 
 type ProfessionalPortfolioImage = {
   url: string;
@@ -116,10 +119,15 @@ async function fetchProfessional(profileId: string): Promise<ProfessionalProfile
   }
 
   if (error) {
-    console.warn("get_professional_profile failed, falling back to list_active_professionals", error);
+    console.warn(
+      "get_professional_profile failed, falling back to list_active_professionals",
+      error
+    );
   }
 
-  const { data: fallbackData, error: fallbackError } = await supabase.rpc("list_active_professionals");
+  const { data: fallbackData, error: fallbackError } = await supabase.rpc(
+    "list_active_professionals"
+  );
   if (fallbackError) {
     console.error("Failed to load professionals via fallback", fallbackError);
     return null;
@@ -149,7 +157,9 @@ async function fetchProfessional(profileId: string): Promise<ProfessionalProfile
 
   const { data: bookingsData } = await supabase
     .from("bookings")
-    .select("id, status, scheduled_start, duration_minutes, amount_estimated, amount_authorized, amount_captured, currency, service_name")
+    .select(
+      "id, status, scheduled_start, duration_minutes, amount_estimated, amount_authorized, amount_captured, currency, service_name"
+    )
     .eq("professional_id", profileId)
     .gte("scheduled_start", new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
     .order("scheduled_start", { ascending: true });
@@ -166,7 +176,7 @@ async function fetchProfessional(profileId: string): Promise<ProfessionalProfile
         amountCaptured: booking.amount_captured,
         currency: booking.currency,
         serviceName: booking.service_name,
-      }) satisfies ProfessionalBookingSummary,
+      }) satisfies ProfessionalBookingSummary
   );
 
   const { data: reviewsData } = await supabase
@@ -184,7 +194,7 @@ async function fetchProfessional(profileId: string): Promise<ProfessionalProfile
         comment: review.comment,
         reviewerName: review.reviewer_name,
         createdAt: review.created_at,
-      }) satisfies ProfessionalReviewSummary,
+      }) satisfies ProfessionalReviewSummary
   );
 
   return professional;

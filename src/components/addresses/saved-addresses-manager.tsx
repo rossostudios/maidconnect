@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 export type SavedAddress = {
   id: string;
@@ -71,9 +71,7 @@ export function SavedAddressesManager({
 
     if (editingId) {
       // Editing existing
-      newAddresses = addresses.map((addr) =>
-        addr.id === editingId ? address : addr
-      );
+      newAddresses = addresses.map((addr) => (addr.id === editingId ? address : addr));
     } else {
       // Adding new
       newAddresses = [...addresses, address];
@@ -96,9 +94,7 @@ export function SavedAddressesManager({
     setEditingId(null);
   };
 
-  const editingAddress = editingId
-    ? addresses.find((addr) => addr.id === editingId)
-    : null;
+  const editingAddress = editingId ? addresses.find((addr) => addr.id === editingId) : null;
 
   return (
     <div className="space-y-6">
@@ -171,12 +167,7 @@ function AddressCard({
   onDelete?: () => void;
 }) {
   const t = useTranslations("dashboard.customer.addressManager");
-  const addressText = [
-    address.street,
-    address.neighborhood,
-    address.city,
-    address.postal_code,
-  ]
+  const addressText = [address.street, address.neighborhood, address.city, address.postal_code]
     .filter(Boolean)
     .join(", ");
 
@@ -207,17 +198,20 @@ function AddressCard({
           <p className="mt-3 text-base text-[#5d574b]">{addressText}</p>
           {address.building_access && (
             <p className="mt-2 text-sm text-[#5d574b]">
-              🔑 <span className="font-semibold">{t("addressCard.buildingAccess")}:</span> {address.building_access}
+              🔑 <span className="font-semibold">{t("addressCard.buildingAccess")}:</span>{" "}
+              {address.building_access}
             </p>
           )}
           {address.parking_info && (
             <p className="mt-2 text-sm text-[#5d574b]">
-              🅿️ <span className="font-semibold">{t("addressCard.parkingInfo")}:</span> {address.parking_info}
+              🅿️ <span className="font-semibold">{t("addressCard.parkingInfo")}:</span>{" "}
+              {address.parking_info}
             </p>
           )}
           {address.special_notes && (
             <p className="mt-2 text-sm text-[#5d574b]">
-              📝 <span className="font-semibold">{t("addressCard.specialNotes")}:</span> {address.special_notes}
+              📝 <span className="font-semibold">{t("addressCard.specialNotes")}:</span>{" "}
+              {address.special_notes}
             </p>
           )}
         </div>
@@ -351,9 +345,7 @@ function AddressForm({
           <input
             type="text"
             value={formData.neighborhood}
-            onChange={(e) =>
-              setFormData({ ...formData, neighborhood: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, neighborhood: e.target.value })}
             placeholder={t("form.neighborhoodPlaceholder")}
             className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
           />
@@ -366,9 +358,7 @@ function AddressForm({
           <input
             type="text"
             value={formData.postal_code}
-            onChange={(e) =>
-              setFormData({ ...formData, postal_code: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, postal_code: e.target.value })}
             placeholder={t("form.postalCodePlaceholder")}
             className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
           />
@@ -382,9 +372,7 @@ function AddressForm({
         <input
           type="text"
           value={formData.building_access}
-          onChange={(e) =>
-            setFormData({ ...formData, building_access: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, building_access: e.target.value })}
           placeholder={t("form.buildingAccessPlaceholder")}
           className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
         />
@@ -397,9 +385,7 @@ function AddressForm({
         <input
           type="text"
           value={formData.parking_info}
-          onChange={(e) =>
-            setFormData({ ...formData, parking_info: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, parking_info: e.target.value })}
           placeholder={t("form.parkingInfoPlaceholder")}
           className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
         />
@@ -411,9 +397,7 @@ function AddressForm({
         </label>
         <textarea
           value={formData.special_notes}
-          onChange={(e) =>
-            setFormData({ ...formData, special_notes: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, special_notes: e.target.value })}
           placeholder={t("form.specialNotesPlaceholder")}
           rows={3}
           className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
@@ -425,9 +409,7 @@ function AddressForm({
           <input
             type="checkbox"
             checked={formData.is_default}
-            onChange={(e) =>
-              setFormData({ ...formData, is_default: e.target.checked })
-            }
+            onChange={(e) => setFormData({ ...formData, is_default: e.target.checked })}
             className="h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-[#ff5d46]"
           />
           <span className="text-base text-[#211f1a]">{t("form.setDefaultCheckbox")}</span>

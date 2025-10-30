@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 
 type RescheduleBookingModalProps = {
   isOpen: boolean;
@@ -105,9 +105,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="w-full max-w-md overflow-y-auto rounded-[28px] bg-white p-8 shadow-xl">
         <h2 className="text-2xl font-semibold text-[#211f1a]">{t("title")}</h2>
-        <p className="mt-3 text-base text-[#5d574b]">
-          {booking.service_name || "Service"}
-        </p>
+        <p className="mt-3 text-base text-[#5d574b]">{booking.service_name || "Service"}</p>
 
         {/* Current Schedule */}
         <div className="mt-6 rounded-2xl border border-[#ebe5d8] bg-white p-6">
@@ -157,18 +155,14 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
         {/* Important Notice */}
         <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-6">
           <p className="text-base font-semibold text-blue-900">{t("notice.title")}</p>
-          <p className="mt-3 text-base leading-relaxed text-blue-800">
-            {t("notice.description")}
-          </p>
+          <p className="mt-3 text-base leading-relaxed text-blue-800">{t("notice.description")}</p>
         </div>
 
         {/* Message */}
         {message && (
           <div
             className={`mt-6 rounded-2xl p-4 text-base ${
-              message.type === "success"
-                ? "bg-green-50 text-green-800"
-                : "bg-red-50 text-red-800"
+              message.type === "success" ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"
             }`}
           >
             {message.text}

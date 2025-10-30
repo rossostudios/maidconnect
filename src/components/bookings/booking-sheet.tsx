@@ -1,21 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { X, Calendar, Clock, MapPin, Plus, Minus } from "lucide-react";
+import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import {
-  Elements,
-  PaymentElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
+import { Calendar, Clock, MapPin, Minus, Plus, X } from "lucide-react";
 import { useRouter } from "next/navigation";
-import type { ProfessionalService } from "@/lib/professionals/transformers";
+import { useEffect, useState } from "react";
 import {
-  SavedAddressesManager,
   type SavedAddress,
+  SavedAddressesManager,
 } from "@/components/addresses/saved-addresses-manager";
 import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
+import type { ProfessionalService } from "@/lib/professionals/transformers";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
@@ -108,18 +103,12 @@ export function BookingSheet({
     (service) => service.name === bookingData.serviceName
   );
   const selectedRate =
-    bookingData.serviceHourlyRate ??
-    selectedService?.hourlyRateCop ??
-    defaultHourlyRate ??
-    0;
+    bookingData.serviceHourlyRate ?? selectedService?.hourlyRateCop ?? defaultHourlyRate ?? 0;
   const baseAmount =
     selectedRate && bookingData.durationHours > 0
       ? Math.round(selectedRate * bookingData.durationHours)
       : 0;
-  const addonsTotal = bookingData.selectedAddons.reduce(
-    (sum, addon) => sum + addon.price_cop,
-    0
-  );
+  const addonsTotal = bookingData.selectedAddons.reduce((sum, addon) => sum + addon.price_cop, 0);
   const totalAmount = baseAmount + addonsTotal;
 
   const handleTimeSelect = (time: string) => {
@@ -254,9 +243,7 @@ export function BookingSheet({
           {currentStep === "time" && (
             <div className="space-y-6 animate-in fade-in-50 duration-500">
               <div>
-                <h3 className="mb-4 text-xl font-semibold text-[#211f1a]">
-                  Available times
-                </h3>
+                <h3 className="mb-4 text-xl font-semibold text-[#211f1a]">Available times</h3>
                 <p className="mb-6 text-base text-[#7d7566]">
                   Select a time slot to continue with your booking
                 </p>
@@ -283,9 +270,7 @@ export function BookingSheet({
               <div className="rounded-2xl bg-[#ff5d46]/5 p-6">
                 <div className="flex items-center gap-3 text-base text-[#8a3934]">
                   <Clock className="h-5 w-5" />
-                  <span className="font-semibold">
-                    {selectedTime && formatTime(selectedTime)}
-                  </span>
+                  <span className="font-semibold">{selectedTime && formatTime(selectedTime)}</span>
                   <button
                     onClick={() => setCurrentStep("time")}
                     className="ml-auto text-sm underline"
@@ -297,9 +282,7 @@ export function BookingSheet({
 
               {/* Service Selection */}
               <div>
-                <label className="mb-3 block text-lg font-semibold text-[#211f1a]">
-                  Service *
-                </label>
+                <label className="mb-3 block text-lg font-semibold text-[#211f1a]">Service *</label>
                 <select
                   value={bookingData.serviceName}
                   onChange={(e) => {
@@ -367,9 +350,7 @@ export function BookingSheet({
                 {addresses.length > 0 ? (
                   <SavedAddressesManager
                     addresses={addresses}
-                    onAddressSelect={(address) =>
-                      setBookingData({ ...bookingData, address })
-                    }
+                    onAddressSelect={(address) => setBookingData({ ...bookingData, address })}
                     onAddressesChange={setAddresses}
                     selectedAddressId={bookingData.address?.id}
                     showManagement={false}
@@ -398,9 +379,7 @@ export function BookingSheet({
                   </label>
                   <div className="space-y-3">
                     {addons.map((addon) => {
-                      const isSelected = bookingData.selectedAddons.some(
-                        (a) => a.id === addon.id
-                      );
+                      const isSelected = bookingData.selectedAddons.some((a) => a.id === addon.id);
                       return (
                         <button
                           key={addon.id}
@@ -417,9 +396,7 @@ export function BookingSheet({
                                 {addon.name}
                               </h4>
                               {addon.description && (
-                                <p className="mt-1 text-sm text-[#7a6d62]">
-                                  {addon.description}
-                                </p>
+                                <p className="mt-1 text-sm text-[#7a6d62]">{addon.description}</p>
                               )}
                             </div>
                             <div className="ml-4 text-base font-semibold text-[#ff5d46]">
@@ -454,9 +431,7 @@ export function BookingSheet({
 
               {/* Price Summary */}
               <div className="rounded-2xl border-2 border-[#ebe5d8] bg-[#fbfafa] p-6">
-                <h3 className="mb-4 text-lg font-semibold text-[#211f1a]">
-                  Price summary
-                </h3>
+                <h3 className="mb-4 text-lg font-semibold text-[#211f1a]">Price summary</h3>
                 <div className="space-y-3 text-base">
                   <div className="flex justify-between">
                     <span className="text-[#7d7566]">Service</span>
@@ -493,7 +468,11 @@ export function BookingSheet({
                 </button>
                 <button
                   onClick={handleSubmit}
-                  disabled={loading || !bookingData.serviceName || (!bookingData.address && !bookingData.customAddress)}
+                  disabled={
+                    loading ||
+                    !bookingData.serviceName ||
+                    (!bookingData.address && !bookingData.customAddress)
+                  }
                   className="flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {loading ? "Creating booking..." : "Continue to payment"}
@@ -561,9 +540,7 @@ function PaymentStep({
       });
 
       if (error) {
-        throw new Error(
-          error.message ?? "Payment requires additional verification."
-        );
+        throw new Error(error.message ?? "Payment requires additional verification.");
       }
 
       if (paymentIntent?.status === "requires_capture") {
@@ -586,13 +563,10 @@ function PaymentStep({
   return (
     <div className="space-y-6">
       <p className="text-base text-[#7d7566]">
-        We'll authorize a hold on your card. You'll only be charged after the
-        service is completed.
+        We'll authorize a hold on your card. You'll only be charged after the service is completed.
       </p>
       <PaymentElement />
-      {error && (
-        <p className="text-base text-red-600">{error}</p>
-      )}
+      {error && <p className="text-base text-red-600">{error}</p>}
       <div className="flex gap-4">
         <button
           onClick={onBack}

@@ -1,17 +1,17 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import {
-  useReactTable,
+  createColumnHelper,
+  flexRender,
   getCoreRowModel,
-  getSortedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
-  flexRender,
-  createColumnHelper,
+  getSortedRowModel,
   type SortingState,
+  useReactTable,
 } from "@tanstack/react-table";
 import { format } from "date-fns";
+import { useMemo, useState } from "react";
 
 type Booking = {
   id: string;
@@ -53,7 +53,9 @@ function getStatusBadge(status: string) {
   const style = styles[status] || { bg: "bg-gray-50", text: "text-gray-700", label: status };
 
   return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${style.bg} ${style.text}`}>
+    <span
+      className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${style.bg} ${style.text}`}
+    >
       {style.label}
     </span>
   );
@@ -71,9 +73,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
             <p className="font-medium text-[#211f1a]">
               {format(new Date(info.getValue()), "MMM dd, yyyy")}
             </p>
-            <p className="text-sm text-[#7d7566]">
-              {format(new Date(info.getValue()), "h:mm a")}
-            </p>
+            <p className="text-sm text-[#7d7566]">{format(new Date(info.getValue()), "h:mm a")}</p>
           </div>
         ),
       }),
@@ -95,11 +95,10 @@ export function PaymentHistoryTable({ bookings }: Props) {
             <p className="font-medium text-[#211f1a]">
               {formatCurrency(info.row.original.amount_captured || info.getValue())}
             </p>
-            {info.row.original.amount_captured && info.getValue() !== info.row.original.amount_captured && (
-              <p className="text-sm text-[#7d7566]">
-                Auth: {formatCurrency(info.getValue())}
-              </p>
-            )}
+            {info.row.original.amount_captured &&
+              info.getValue() !== info.row.original.amount_captured && (
+                <p className="text-sm text-[#7d7566]">Auth: {formatCurrency(info.getValue())}</p>
+              )}
           </div>
         ),
       }),
@@ -112,11 +111,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
         cell: (info) => {
           const id = info.getValue();
           if (!id) return <span className="text-[#7d7566]">—</span>;
-          return (
-            <span className="font-mono text-xs text-[#7d7566]">
-              {id.substring(0, 20)}...
-            </span>
-          );
+          return <span className="font-mono text-xs text-[#7d7566]">{id.substring(0, 20)}...</span>;
         },
       }),
     ],
@@ -147,7 +142,12 @@ export function PaymentHistoryTable({ bookings }: Props) {
         <div className="mx-auto max-w-md">
           <div className="mb-4 flex justify-center">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ebe5d8]">
-              <svg className="h-6 w-6 text-[#7d7566]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="h-6 w-6 text-[#7d7566]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"

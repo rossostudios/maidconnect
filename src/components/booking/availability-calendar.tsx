@@ -195,9 +195,7 @@ export function AvailabilityCalendar({
             {/* Calendar Days */}
             {calendarDays.map((day, index) => {
               if (!day) {
-                return (
-                  <div key={`empty-${index}`} className="bg-[#fbfafa] p-2 min-h-[60px]" />
-                );
+                return <div key={`empty-${index}`} className="bg-[#fbfafa] p-2 min-h-[60px]" />;
               }
 
               const availability = getDateAvailability(day);
@@ -225,7 +223,11 @@ export function AvailabilityCalendar({
                   ? statusColors[availability.status]
                   : "bg-white";
 
-              const canSelect = !isPast && availability && availability.status !== "blocked" && availability.availableSlots.length > 0;
+              const canSelect =
+                !isPast &&
+                availability &&
+                availability.status !== "blocked" &&
+                availability.availableSlots.length > 0;
 
               return (
                 <button
@@ -289,20 +291,23 @@ export function AvailabilityCalendar({
       )}
 
       {/* Time Slots for Selected Date */}
-      {selectedDate && selectedDateAvailability && selectedDateAvailability.availableSlots.length > 0 && (
-        <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4">
-          <h4 className="mb-3 text-sm font-semibold text-[#211f1a]">
-            Available times on {selectedDate.toLocaleDateString("en-US", { month: "long", day: "numeric" })}
-          </h4>
-          <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6">
-            {selectedDateAvailability.availableSlots.map((time) => {
-              const isSelected = selectedTime === time;
-              return (
-                <button
-                  key={time}
-                  type="button"
-                  onClick={() => onTimeSelect(time)}
-                  className={`
+      {selectedDate &&
+        selectedDateAvailability &&
+        selectedDateAvailability.availableSlots.length > 0 && (
+          <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4">
+            <h4 className="mb-3 text-sm font-semibold text-[#211f1a]">
+              Available times on{" "}
+              {selectedDate.toLocaleDateString("en-US", { month: "long", day: "numeric" })}
+            </h4>
+            <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6">
+              {selectedDateAvailability.availableSlots.map((time) => {
+                const isSelected = selectedTime === time;
+                return (
+                  <button
+                    key={time}
+                    type="button"
+                    onClick={() => onTimeSelect(time)}
+                    className={`
                     rounded-md border px-3 py-2 text-sm font-medium transition
                     ${
                       isSelected
@@ -310,28 +315,31 @@ export function AvailabilityCalendar({
                         : "border-[#e5dfd4] bg-white text-[#211f1a] hover:border-[#ff5d46] hover:text-[#ff5d46]"
                     }
                   `}
-                >
-                  {formatTime(time)}
-                </button>
-              );
-            })}
+                  >
+                    {formatTime(time)}
+                  </button>
+                );
+              })}
+            </div>
+            {selectedDateAvailability.bookingCount > 0 && (
+              <p className="mt-3 text-xs text-[#7a6d62]">
+                {selectedDateAvailability.bookingCount} of {selectedDateAvailability.maxBookings}{" "}
+                slots booked today
+              </p>
+            )}
           </div>
-          {selectedDateAvailability.bookingCount > 0 && (
-            <p className="mt-3 text-xs text-[#7a6d62]">
-              {selectedDateAvailability.bookingCount} of {selectedDateAvailability.maxBookings} slots booked today
-            </p>
-          )}
-        </div>
-      )}
+        )}
 
       {/* No Slots Message */}
-      {selectedDate && selectedDateAvailability && selectedDateAvailability.availableSlots.length === 0 && (
-        <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4 text-center">
-          <p className="text-sm text-[#7a6d62]">
-            No available time slots on this date. Please choose another day.
-          </p>
-        </div>
-      )}
+      {selectedDate &&
+        selectedDateAvailability &&
+        selectedDateAvailability.availableSlots.length === 0 && (
+          <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4 text-center">
+            <p className="text-sm text-[#7a6d62]">
+              No available time slots on this date. Please choose another day.
+            </p>
+          </div>
+        )}
     </div>
   );
 }

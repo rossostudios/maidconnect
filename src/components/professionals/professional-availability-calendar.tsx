@@ -1,11 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import { CalendarDays, ChevronLeft, ChevronRight, Clock } from "lucide-react";
-
-import { cn } from "@/lib/utils";
-import type { AvailabilitySlot } from "@/lib/professionals/transformers";
+import { useMemo, useState } from "react";
 import type { ProfessionalBookingSummary } from "@/components/professionals/types";
+import type { AvailabilitySlot } from "@/lib/professionals/transformers";
+import { cn } from "@/lib/utils";
 
 type Props = {
   availability: AvailabilitySlot[];
@@ -138,9 +137,7 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
-        <p className="text-sm text-[#7a6d62]">
-          Browse upcoming availability and see booked dates
-        </p>
+        <p className="text-sm text-[#7a6d62]">Browse upcoming availability and see booked dates</p>
         <div className="flex items-center gap-3">
           <button
             type="button"
@@ -163,7 +160,10 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
       <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(0,_1fr)]">
         <div className="grid grid-cols-7 gap-2">
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((label) => (
-            <div key={label} className="text-center text-xs font-semibold uppercase tracking-wide text-[#a49c90]">
+            <div
+              key={label}
+              className="text-center text-xs font-semibold uppercase tracking-wide text-[#a49c90]"
+            >
               {label}
             </div>
           ))}
@@ -181,10 +181,12 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
                 onClick={() => setSelectedDayKey(day.key)}
                 className={cn(
                   "flex h-20 flex-col items-center justify-center rounded-lg border text-sm transition",
-                  day.inCurrentMonth ? "border-[#efe7dc] bg-white" : "border-transparent bg-[#fbfafa] text-[#c4bbaf]",
+                  day.inCurrentMonth
+                    ? "border-[#efe7dc] bg-white"
+                    : "border-transparent bg-[#fbfafa] text-[#c4bbaf]",
                   hasAvailability ? "ring-1 ring-inset ring-[#ff5d46]/30" : "",
                   hasBookings ? "shadow-[0_6px_14px_rgba(18,17,15,0.08)]" : "",
-                  isSelected ? "border-[#ff5d46] ring-2 ring-[#ff5d4633]" : "",
+                  isSelected ? "border-[#ff5d46] ring-2 ring-[#ff5d4633]" : ""
                 )}
               >
                 <span className="text-sm font-semibold">{day.label}</span>
@@ -215,27 +217,37 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
           </p>
           {selectedAvailability.length > 0 ? (
             <div className="mt-3 space-y-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#a49c90]">Available windows</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#a49c90]">
+                Available windows
+              </p>
               <ul className="space-y-1 text-sm text-[#211f1a]">
                 {selectedAvailability.map((slot, index) => (
-                  <li key={`${slot.day}-${slot.start}-${slot.end}-${index}`} className="flex items-center gap-2">
+                  <li
+                    key={`${slot.day}-${slot.start}-${slot.end}-${index}`}
+                    className="flex items-center gap-2"
+                  >
                     <Clock className="h-3.5 w-3.5 text-[#ff5d46]" aria-hidden="true" />
                     <span>
                       {slot.start ?? "--"} – {slot.end ?? "--"}
                     </span>
-                    {slot.notes ? <span className="text-xs text-[#7a6d62]">· {slot.notes}</span> : null}
+                    {slot.notes ? (
+                      <span className="text-xs text-[#7a6d62]">· {slot.notes}</span>
+                    ) : null}
                   </li>
                 ))}
               </ul>
             </div>
           ) : (
             <p className="mt-3 text-sm text-[#7a6d62]">
-              No published availability. Request a booking and we&apos;ll coordinate directly with the professional.
+              No published availability. Request a booking and we&apos;ll coordinate directly with
+              the professional.
             </p>
           )}
 
           <div className="mt-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#a49c90]">Bookings</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#a49c90]">
+              Bookings
+            </p>
             {selectedBookings.length === 0 ? (
               <p className="mt-2 text-sm text-[#7a6d62]">No bookings scheduled for this day.</p>
             ) : (
@@ -248,22 +260,35 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
                     return timeA - timeB;
                   })
                   .map((booking) => {
-                    const startDate = booking.scheduledStart ? new Date(booking.scheduledStart) : null;
+                    const startDate = booking.scheduledStart
+                      ? new Date(booking.scheduledStart)
+                      : null;
                     const label =
-                      booking.status in STATUS_LABELS ? STATUS_LABELS[booking.status] : booking.status ?? "Booking";
+                      booking.status in STATUS_LABELS
+                        ? STATUS_LABELS[booking.status]
+                        : (booking.status ?? "Booking");
                     return (
                       <li
                         key={booking.id}
                         className="rounded-2xl border border-[#efe7dc] bg-white px-3 py-2 text-sm text-[#5d574b]"
                       >
                         <p className="font-semibold text-[#211f1a]">
-                          {startDate ? formatTime(startDate) : "Scheduled"} · {booking.serviceName ?? "Service"}
+                          {startDate ? formatTime(startDate) : "Scheduled"} ·{" "}
+                          {booking.serviceName ?? "Service"}
                         </p>
                         <p className="text-xs text-[#7a6d62]">{label}</p>
-                        {formatCOP(booking.amountEstimated ?? booking.amountAuthorized ?? booking.amountCaptured) ? (
+                        {formatCOP(
+                          booking.amountEstimated ??
+                            booking.amountAuthorized ??
+                            booking.amountCaptured
+                        ) ? (
                           <p className="text-xs text-[#7a6d62]">
                             Hold{" "}
-                            {formatCOP(booking.amountEstimated ?? booking.amountAuthorized ?? booking.amountCaptured)}
+                            {formatCOP(
+                              booking.amountEstimated ??
+                                booking.amountAuthorized ??
+                                booking.amountCaptured
+                            )}
                           </p>
                         ) : null}
                       </li>
