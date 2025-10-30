@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 
 /**
- * Hook to fetch and track unread message count
- * Polls the API every 30 seconds to keep count fresh
+ * Hook to fetch and track unread message count using Supabase Realtime
+ * Provides instant updates when conversations or messages change
  */
 export function useUnreadCount() {
   const [unreadCount, setUnreadCount] = useState(0);
@@ -30,14 +30,65 @@ export function useUnreadCount() {
     }
   }, []);
 
-  // Fetch on mount and set up polling
+  // Fetch on mount (no polling - using Realtime instead)
   useEffect(() => {
     fetchUnreadCount();
+  }, [fetchUnreadCount]);
 
-    // Poll every 30 seconds
-    const interval = setInterval(fetchUnreadCount, 30000);
+  // Subscribe to real-time updates
+  useEffect(() => {
+    // Import supabase client dynamically to avoid SSR issues
+    import("@/lib/supabase/browser-client").then(({ createSupabaseBrowserClient }) => {
+      const supabase = createSupabaseBrowserClient();
 
-    return () => clearInterval(interval);
+      const channel = supabase
+        .channel("unread-count-updates")
+        .on(
+          "postgres_changes",
+          {
+            event: "*",
+            schema: "public",
+            table: "conversations",
+          },
+          () => {
+            // Refresh count when any conversation changes
+            fetchUnreadCount();
+          }
+        )
+        .on(
+          "postgres_changes",
+          {
+            event: "INSERT",
+            schema: "public",
+            table: "messages",
+          },
+          () => {
+            // Refresh count when new messages arrive
+            fetchUnreadCount();
+          }
+        )
+        .on(
+          "postgres_changes",
+          {
+            event: "UPDATE",
+            schema: "public",
+            table: "messages",
+          },
+          () => {
+            // Refresh count when messages are marked as read
+            fetchUnreadCount();
+          }
+        )
+        .subscribe((status) => {
+          console.log("[Realtime] Unread count subscription status:", status);
+        });
+
+      // Cleanup function
+      return () => {
+        console.log("[Realtime] Unsubscribing from unread count updates");
+        supabase.removeChannel(channel);
+      };
+    });
   }, [fetchUnreadCount]);
 
   // Manual refresh function

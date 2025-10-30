@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { useNotifications } from "@/hooks/use-notifications";
+import { useRealtimeMessages } from "@/hooks/use-realtime-messages";
 import { ConversationSkeleton } from "@/components/ui/skeleton";
 
 export type Conversation = {
@@ -102,24 +103,38 @@ export function MessagingInterface({ userId, userRole }: Props) {
     }
   }, [supported, permission, requestPermission]);
 
-  // Fetch conversations on mount
-  useEffect(() => {
-    fetchConversations();
-    // Poll for new conversations every 30 seconds
-    const interval = setInterval(fetchConversations, 30000);
-    return () => clearInterval(interval);
+  // Callbacks for real-time updates
+  const handleNewMessage = useCallback(async (message: any) => {
+    if (selectedConversation && message.conversation_id === selectedConversation.id) {
+      // Fetch updated messages to get full message with sender info
+      await fetchMessages(selectedConversation.id);
+    }
+    // Always refresh conversations to update unread counts
+    await fetchConversations();
+  }, [selectedConversation?.id]);
+
+  const handleConversationUpdate = useCallback(async () => {
+    await fetchConversations();
   }, []);
 
-  // Fetch messages when conversation is selected
+  // Subscribe to real-time updates
+  useRealtimeMessages({
+    userId,
+    userRole,
+    selectedConversationId: selectedConversation?.id,
+    onNewMessage: handleNewMessage,
+    onConversationUpdate: handleConversationUpdate,
+  });
+
+  // Fetch conversations on mount (no polling)
+  useEffect(() => {
+    fetchConversations();
+  }, []);
+
+  // Fetch messages when conversation is selected (no polling)
   useEffect(() => {
     if (selectedConversation) {
       fetchMessages(selectedConversation.id);
-      // Poll for new messages every 5 seconds
-      const interval = setInterval(
-        () => fetchMessages(selectedConversation.id),
-        5000
-      );
-      return () => clearInterval(interval);
     }
   }, [selectedConversation?.id]);
 
@@ -234,9 +249,8 @@ export function MessagingInterface({ userId, userRole }: Props) {
 
       if (!response.ok) throw new Error("Failed to send message");
 
-      // Immediately fetch updated messages
-      await fetchMessages(selectedConversation.id);
-      await fetchConversations(); // Update conversation list with new last_message_at
+      // Real-time subscription will handle the update automatically
+      // No need to manually fetch - the message will appear via Supabase Realtime
     } catch (err) {
       console.error("Failed to send message:", err);
       alert("Failed to send message. Please try again.");

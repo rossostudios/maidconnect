@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 
 /**
- * Hook to fetch and track unread notification count
- * Polls the API every 30 seconds to keep count fresh
+ * Hook to fetch and track unread notification count using Supabase Realtime
+ * Provides instant updates when notifications are added or read
  */
 export function useNotificationUnreadCount() {
   const [unreadCount, setUnreadCount] = useState(0);
@@ -30,14 +30,41 @@ export function useNotificationUnreadCount() {
     }
   }, []);
 
-  // Fetch on mount and set up polling
+  // Fetch on mount (no polling - using Realtime instead)
   useEffect(() => {
     fetchUnreadCount();
+  }, [fetchUnreadCount]);
 
-    // Poll every 30 seconds
-    const interval = setInterval(fetchUnreadCount, 30000);
+  // Subscribe to real-time updates on notifications table
+  useEffect(() => {
+    // Import supabase client dynamically to avoid SSR issues
+    import("@/lib/supabase/browser-client").then(({ createSupabaseBrowserClient }) => {
+      const supabase = createSupabaseBrowserClient();
 
-    return () => clearInterval(interval);
+      const channel = supabase
+        .channel("notification-unread-count-updates")
+        .on(
+          "postgres_changes",
+          {
+            event: "*",
+            schema: "public",
+            table: "notifications",
+          },
+          () => {
+            // Refresh count when notifications change
+            fetchUnreadCount();
+          }
+        )
+        .subscribe((status) => {
+          console.log("[Realtime] Notification unread count subscription status:", status);
+        });
+
+      // Cleanup function
+      return () => {
+        console.log("[Realtime] Unsubscribing from notification unread count updates");
+        supabase.removeChannel(channel);
+      };
+    });
   }, [fetchUnreadCount]);
 
   // Manual refresh function
