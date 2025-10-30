@@ -21,6 +21,7 @@ const navByRole: Record<
     { href: "/dashboard/pro", label: "Overview" },
     { href: "/dashboard/pro/profile", label: "Profile" },
     { href: "/dashboard/pro/portfolio", label: "Portfolio" },
+    { href: "/dashboard/pro/availability", label: "Availability" },
     { href: "/dashboard/pro/bookings", label: "Bookings" },
     { href: "/dashboard/pro/finances", label: "Finances" },
     { href: "/dashboard/pro/documents", label: "Documents" },
