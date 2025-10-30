@@ -6,6 +6,7 @@ import {
   getCurrentPayoutPeriod,
   type BookingForPayout,
 } from "@/lib/payout-calculator";
+import { requireAdmin, createAuditLog } from "@/lib/admin-helpers";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -24,22 +25,30 @@ export const dynamic = "force-dynamic";
  * - professionalId (optional) - Process for specific professional, or all if omitted
  * - dryRun (optional) - If true, calculate but don't process
  *
- * Note: This should be restricted to admin users or called via cron job
+ * Authentication:
+ * - Admin user authentication (manual trigger)
+ * - OR cron secret via Bearer token (automated trigger)
  */
 export async function POST(request: Request) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  // TODO: Add proper admin role check
-  // For now, we'll allow any authenticated user for testing
-  // In production, this should check for admin role
-  if (!user) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
-  }
-
   try {
+    const supabase = await createSupabaseServerClient();
+
+    // Verify access: either admin user OR cron secret
+    const authHeader = request.headers.get("authorization");
+    const cronSecret = process.env.CRON_SECRET;
+
+    let adminId: string | null = null;
+    const isCronJob = cronSecret && authHeader === `Bearer ${cronSecret}`;
+
+    if (isCronJob) {
+      // Authenticated via cron secret - this is valid
+      adminId = "system"; // Use "system" as admin ID for cron jobs
+    } else {
+      // Require admin authentication for manual requests
+      const admin = await requireAdmin();
+      adminId = admin.id;
+    }
+
     const body = (await request.json()) as {
       professionalId?: string;
       dryRun?: boolean;
@@ -286,6 +295,24 @@ export async function POST(request: Request) {
     const successCount = results.filter((r) => r.success).length;
     const failureCount = results.filter((r) => !r.success).length;
 
+    // Create audit log for payout processing
+    if (!dryRun && successCount > 0 && adminId) {
+      await createAuditLog({
+        adminId: adminId,
+        actionType: "manual_payout",
+        details: {
+          successCount,
+          failureCount,
+          periodStart: periodStart.toISOString(),
+          periodEnd: periodEnd.toISOString(),
+          professionalId: professionalId || "all",
+          totalProcessed: results.length,
+          triggeredBy: isCronJob ? "cron" : "admin",
+        },
+        notes: `Processed ${successCount} payouts successfully, ${failureCount} failed`,
+      });
+    }
+
     return NextResponse.json({
       message: `Processed ${successCount} payouts successfully, ${failureCount} failed`,
       periodStart: periodStart.toISOString(),
@@ -293,11 +320,11 @@ export async function POST(request: Request) {
       dryRun,
       results,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Failed to process payouts:", error);
     return NextResponse.json(
-      { error: "Failed to process payouts" },
-      { status: 500 }
+      { error: error.message || "Failed to process payouts" },
+      { status: error.message === "Not authenticated" ? 401 : error.message === "Unauthorized - admin access required" ? 403 : 500 }
     );
   }
 }

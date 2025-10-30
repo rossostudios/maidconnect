@@ -52,7 +52,8 @@ export async function GET(request: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // Forward any auth headers if needed
+        // Pass cron secret for authentication
+        "Authorization": `Bearer ${cronSecret}`,
       },
       body: JSON.stringify({
         // Process all professionals with pending earnings
