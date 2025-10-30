@@ -8,14 +8,70 @@ import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
 
 export const metadata: Metadata = {
-  title: "Secure Messaging - MaidConnect",
+  title: "Secure Messaging Platform - Direct Communication | Maidconnect",
   description:
-    "Direct messaging unlocked after booking. Coordinate details, send photos, and stay connected throughout your service relationship.",
+    "Direct messaging unlocked after booking. Coordinate details, send photos, and stay connected throughout your service relationship. Booking-based security.",
+  keywords: [
+    "secure messaging",
+    "direct communication",
+    "photo sharing",
+    "service coordination",
+    "booking communication",
+    "professional messaging",
+    "customer support",
+  ],
+  openGraph: {
+    title: "Secure Messaging Platform - Direct Communication | Maidconnect",
+    description:
+      "Communicate securely with your professionals. Direct messaging unlocked after booking with photo sharing and real-time updates.",
+    url: "https://maidconnect.co/product/secure-messaging",
+    siteName: "Maidconnect",
+    images: [
+      {
+        url: "https://maidconnect.co/og-secure-messaging.png",
+        width: 1200,
+        height: 630,
+        alt: "Maidconnect Secure Messaging",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Secure Messaging Platform - Direct Communication | Maidconnect",
+    description:
+      "Direct messaging unlocked after booking. Coordinate details, send photos, and stay connected.",
+    images: ["https://maidconnect.co/og-secure-messaging.png"],
+  },
+  alternates: {
+    canonical: "https://maidconnect.co/product/secure-messaging",
+  },
 };
 
 export default function SecureMessagingPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Maidconnect Secure Messaging",
+    applicationCategory: "CommunicationApplication",
+    description:
+      "Direct messaging platform for coordinating service details with booking-based security.",
+    featureList: [
+      "Booking-Based Access",
+      "Photo Sharing",
+      "Real-Time Messaging",
+      "Message History",
+    ],
+    operatingSystem: "Web",
+  };
+
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteHeader />
       <main>
         {/* Hero Section */}

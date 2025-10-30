@@ -8,14 +8,70 @@ import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard - MaidConnect",
+  title: "Admin Dashboard - Platform Management Tools | Maidconnect",
   description:
-    "Comprehensive admin tools for moderating professionals, reviewing bookings, processing payouts, and maintaining platform quality.",
+    "Enterprise-grade admin tools for moderating professionals, reviewing bookings, processing payouts, and maintaining platform quality. Complete oversight.",
+  keywords: [
+    "admin dashboard",
+    "platform management",
+    "professional moderation",
+    "payout processing",
+    "booking oversight",
+    "quality control",
+    "enterprise tools",
+  ],
+  openGraph: {
+    title: "Admin Dashboard - Platform Management Tools | Maidconnect",
+    description:
+      "Complete platform management and oversight with comprehensive admin tools for moderation, bookings, and payouts.",
+    url: "https://maidconnect.co/product/admin-dashboard",
+    siteName: "Maidconnect",
+    images: [
+      {
+        url: "https://maidconnect.co/og-admin-dashboard.png",
+        width: 1200,
+        height: 630,
+        alt: "Maidconnect Admin Dashboard",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Admin Dashboard - Platform Management Tools | Maidconnect",
+    description:
+      "Enterprise-grade admin tools for moderating professionals and maintaining platform quality.",
+    images: ["https://maidconnect.co/og-admin-dashboard.png"],
+  },
+  alternates: {
+    canonical: "https://maidconnect.co/product/admin-dashboard",
+  },
 };
 
 export default function AdminDashboardPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Maidconnect Admin Dashboard",
+    applicationCategory: "BusinessApplication",
+    description:
+      "Comprehensive admin tools for platform management, moderation, and quality control.",
+    featureList: [
+      "Professional Moderation",
+      "Booking Oversight",
+      "Payout Processing",
+      "Analytics & Reporting",
+    ],
+    operatingSystem: "Web",
+  };
+
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteHeader />
       <main>
         {/* Hero Section */}

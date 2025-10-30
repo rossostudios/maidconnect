@@ -8,14 +8,75 @@ import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
 
 export const metadata: Metadata = {
-  title: "Booking Platform - MaidConnect",
+  title: "Booking Platform - Instant Service Scheduling | Maidconnect",
   description:
-    "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless.",
+    "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless. 500+ bookings monthly.",
+  keywords: [
+    "booking platform",
+    "service scheduling",
+    "instant booking",
+    "professional booking system",
+    "real-time availability",
+    "domestic services Colombia",
+    "home services booking",
+  ],
+  openGraph: {
+    title: "Booking Platform - Instant Service Scheduling | Maidconnect",
+    description:
+      "Book trusted professionals in minutes with instant booking, real-time availability, and smart scheduling. 500+ bookings monthly.",
+    url: "https://maidconnect.co/product/booking-platform",
+    siteName: "Maidconnect",
+    images: [
+      {
+        url: "https://maidconnect.co/og-booking-platform.png",
+        width: 1200,
+        height: 630,
+        alt: "Maidconnect Booking Platform",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Booking Platform - Instant Service Scheduling | Maidconnect",
+    description:
+      "Book trusted professionals in minutes with instant booking, real-time availability, and smart scheduling.",
+    images: ["https://maidconnect.co/og-booking-platform.png"],
+  },
+  alternates: {
+    canonical: "https://maidconnect.co/product/booking-platform",
+  },
 };
 
 export default function BookingPlatformPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Maidconnect Booking Platform",
+    applicationCategory: "BusinessApplication",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    description:
+      "Book trusted professionals in minutes with instant booking, real-time availability, and smart scheduling.",
+    featureList: [
+      "Instant & Approved Booking",
+      "Real-Time Availability",
+      "Smart Scheduling",
+      "Recurring Bookings",
+    ],
+    operatingSystem: "Web",
+  };
+
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteHeader />
       <main>
       {/* Hero Section */}

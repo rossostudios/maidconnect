@@ -8,14 +8,70 @@ import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
 
 export const metadata: Metadata = {
-  title: "Payment Processing - MaidConnect",
+  title: "Secure Payment Processing - Stripe Powered | Maidconnect",
   description:
-    "Secure payment processing with Stripe. Track expenses, manage receipts, and handle tips all in one place with complete transparency.",
+    "Safe, transparent payments with Stripe. Track expenses, manage receipts, and handle tips all in one place. Secure escrow and automatic payouts.",
+  keywords: [
+    "secure payments",
+    "Stripe integration",
+    "payment processing",
+    "escrow payments",
+    "transparent pricing",
+    "digital receipts",
+    "automatic payouts",
+  ],
+  openGraph: {
+    title: "Secure Payment Processing - Stripe Powered | Maidconnect",
+    description:
+      "Safe, transparent payments every time. Secure payment processing with Stripe, expense tracking, and complete transparency.",
+    url: "https://maidconnect.co/product/payment-processing",
+    siteName: "Maidconnect",
+    images: [
+      {
+        url: "https://maidconnect.co/og-payment-processing.png",
+        width: 1200,
+        height: 630,
+        alt: "Maidconnect Secure Payment Processing",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Secure Payment Processing - Stripe Powered | Maidconnect",
+    description:
+      "Safe, transparent payments with Stripe. Track expenses, manage receipts, and handle tips all in one place.",
+    images: ["https://maidconnect.co/og-payment-processing.png"],
+  },
+  alternates: {
+    canonical: "https://maidconnect.co/product/payment-processing",
+  },
 };
 
 export default function PaymentProcessingPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Maidconnect Payment Processing",
+    applicationCategory: "FinanceApplication",
+    description:
+      "Secure payment processing with Stripe. Track expenses, manage receipts, and handle tips with complete transparency.",
+    featureList: [
+      "Secure Stripe Integration",
+      "Escrow Protection",
+      "Automatic Receipts",
+      "Tip Management",
+    ],
+    operatingSystem: "Web",
+  };
+
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteHeader />
       <main>
         {/* Hero Section */}

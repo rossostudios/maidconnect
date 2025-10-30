@@ -8,14 +8,71 @@ import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
 
 export const metadata: Metadata = {
-  title: "Reviews & Ratings - MaidConnect",
+  title: "Reviews & Ratings System - Two-Way Accountability | Maidconnect",
   description:
-    "Two-way reviews ensure accountability. Rate professionals after every service and build your own reputation as a reliable customer.",
+    "Community-driven trust and quality. Two-way reviews ensure accountability. Verified reviews only from real bookings. Build your reputation.",
+  keywords: [
+    "reviews and ratings",
+    "two-way reviews",
+    "verified reviews",
+    "customer feedback",
+    "professional ratings",
+    "service quality",
+    "trust and accountability",
+  ],
+  openGraph: {
+    title: "Reviews & Ratings System - Two-Way Accountability | Maidconnect",
+    description:
+      "Community-driven trust with two-way reviews. Rate professionals and build your reputation as a reliable customer.",
+    url: "https://maidconnect.co/product/reviews-ratings",
+    siteName: "Maidconnect",
+    images: [
+      {
+        url: "https://maidconnect.co/og-reviews-ratings.png",
+        width: 1200,
+        height: 630,
+        alt: "Maidconnect Reviews & Ratings",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Reviews & Ratings System - Two-Way Accountability | Maidconnect",
+    description:
+      "Two-way reviews ensure accountability. Verified reviews only from real bookings.",
+    images: ["https://maidconnect.co/og-reviews-ratings.png"],
+  },
+  alternates: {
+    canonical: "https://maidconnect.co/product/reviews-ratings",
+  },
 };
 
 export default function ReviewsRatingsPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "Maidconnect Reviews & Ratings System",
+    description:
+      "Two-way review system ensuring accountability and trust between customers and professionals.",
+    brand: {
+      "@type": "Brand",
+      name: "Maidconnect",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      reviewCount: "500",
+    },
+  };
+
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteHeader />
       <main>
         {/* Hero Section */}

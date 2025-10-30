@@ -8,14 +8,71 @@ import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
 
 export const metadata: Metadata = {
-  title: "Professional Profiles - MaidConnect",
+  title: "Verified Professional Profiles - Background Checked | Maidconnect",
   description:
-    "Every profile includes background checks, verified credentials, customer reviews, and portfolio galleries showcasing their work.",
+    "Meet verified professionals with background checks, credentials, customer reviews, and portfolio galleries. 100% verified professionals you can trust in Colombia.",
+  keywords: [
+    "verified professionals",
+    "background checked",
+    "professional profiles",
+    "verified credentials",
+    "customer reviews",
+    "portfolio gallery",
+    "trusted professionals Colombia",
+  ],
+  openGraph: {
+    title: "Verified Professional Profiles - Background Checked | Maidconnect",
+    description:
+      "Every profile includes background checks, verified credentials, customer reviews, and portfolio galleries showcasing their work.",
+    url: "https://maidconnect.co/product/professional-profiles",
+    siteName: "Maidconnect",
+    images: [
+      {
+        url: "https://maidconnect.co/og-professional-profiles.png",
+        width: 1200,
+        height: 630,
+        alt: "Maidconnect Verified Professional Profiles",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Verified Professional Profiles - Background Checked | Maidconnect",
+    description:
+      "Meet verified professionals with background checks, credentials, customer reviews, and portfolio galleries.",
+    images: ["https://maidconnect.co/og-professional-profiles.png"],
+  },
+  alternates: {
+    canonical: "https://maidconnect.co/product/professional-profiles",
+  },
 };
 
 export default function ProfessionalProfilesPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Verified Professional Profiles",
+    provider: {
+      "@type": "Organization",
+      name: "Maidconnect",
+    },
+    description:
+      "Meet verified professionals with background checks, verified credentials, customer reviews, and portfolio galleries.",
+    serviceType: "Professional Verification Service",
+    areaServed: {
+      "@type": "Country",
+      name: "Colombia",
+    },
+  };
+
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteHeader />
       <main>
       {/* Hero Section */}
