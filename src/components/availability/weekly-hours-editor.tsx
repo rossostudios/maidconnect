@@ -157,14 +157,14 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
                       type="time"
                       value={day.start}
                       onChange={(e) => handleTimeChange(index, "start", e.target.value)}
-                      className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                      className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20 [color-scheme:light] accent-[#ff5d46]"
                     />
                     <span className="text-sm text-[#7d7566]">to</span>
                     <input
                       type="time"
                       value={day.end}
                       onChange={(e) => handleTimeChange(index, "end", e.target.value)}
-                      className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                      className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20 [color-scheme:light] accent-[#ff5d46]"
                     />
                   </div>
 
