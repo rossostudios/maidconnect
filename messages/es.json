@@ -522,6 +522,101 @@
         "bookService": "Reserve Su Primer Servicio",
         "signUpFree": "Registrarse Gratis"
       }
+    },
+    "secureMessaging": {
+      "meta": {
+        "title": "Plataforma de Mensajería Segura - Comunicación Directa | Maidconnect",
+        "description": "Mensajería directa desbloqueada después de reservar. Coordine detalles, envíe fotos y manténgase conectado durante toda su relación de servicio. Seguridad basada en reservas."
+      },
+      "hero": {
+        "headline": "Comuníquese de forma segura con sus profesionales",
+        "description": "Mensajería directa desbloqueada después de reservar. Coordine detalles, envíe fotos y manténgase conectado durante toda su relación de servicio.",
+        "primaryCTA": "Reservar un Servicio",
+        "secondaryCTA": "Más Información",
+        "badge": "Seguridad basada en reservas"
+      },
+      "features": {
+        "title": "Comunicación segura y conveniente",
+        "subtitle": "Mensajería integrada que protege su privacidad mientras permite una coordinación sin problemas",
+        "bookingBased": {
+          "title": "Acceso Basado en Reservas",
+          "description": "Mensajería disponible solo para reservas confirmadas, garantizando seguridad y previniendo spam. Su información de contacto permanece privada."
+        },
+        "realTime": {
+          "title": "Conversaciones en Tiempo Real",
+          "description": "Entrega de mensajes instantánea con confirmaciones de lectura y notificaciones. Manténgase conectado desde la confirmación de la reserva hasta la finalización del servicio."
+        },
+        "photoSharing": {
+          "title": "Compartir Fotos y Archivos",
+          "description": "Comparta instrucciones, referencias y actualizaciones fácilmente. Envíe fotos de áreas que necesitan atención o solicitudes especiales."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo funciona",
+        "description": "Mensajería simple y segura vinculada a sus reservas",
+        "step1": {
+          "title": "Completar Reserva",
+          "description": "Reserve un servicio con cualquier profesional para desbloquear el acceso a mensajería"
+        },
+        "step2": {
+          "title": "Acceder al Chat",
+          "description": "Encuentre el hilo de conversación en la sección de mensajes de su panel"
+        },
+        "step3": {
+          "title": "Coordinar Detalles",
+          "description": "Discuta detalles del servicio, horarios, solicitudes especiales o instrucciones de acceso"
+        },
+        "step4": {
+          "title": "Mantenerse Conectado",
+          "description": "Mantenga el historial de comunicación como referencia durante toda su relación de servicio"
+        }
+      },
+      "benefits": {
+        "title": "Por qué nuestro sistema de mensajería es diferente",
+        "privacy": {
+          "title": "Privacidad protegida",
+          "description": "Su número de teléfono y correo electrónico permanecen privados. Toda la comunicación ocurre a través de la plataforma con historial completo de mensajes por seguridad."
+        },
+        "noSpam": {
+          "title": "Sin spam ni solicitación",
+          "description": "Solo las reservas confirmadas desbloquean la mensajería. Los profesionales no pueden contactarlo sin una reserva, eliminando mensajes no deseados."
+        },
+        "history": {
+          "title": "Historial de mensajes y recibos",
+          "description": "Todos los mensajes se guardan y vinculan a la reserva. Perfecto para hacer referencia a conversaciones e instrucciones pasadas."
+        },
+        "notifications": {
+          "title": "Notificaciones en tiempo real",
+          "description": "Reciba notificaciones instantáneas cuando los profesionales respondan. Nunca pierda actualizaciones importantes sobre su reserva."
+        }
+      },
+      "useCases": {
+        "title": "Escenarios comunes de mensajería",
+        "beforeService": {
+          "title": "Antes del servicio",
+          "items": {
+            "access": "Comparta códigos de acceso al edificio e instrucciones de estacionamiento",
+            "photos": "Envíe fotos de áreas que necesitan atención especial",
+            "timing": "Confirme la hora de llegada y cualquier cambio de último minuto",
+            "products": "Discuta productos de limpieza específicos o preferencias"
+          }
+        },
+        "duringService": {
+          "title": "Durante el servicio",
+          "items": {
+            "updates": "Obtenga actualizaciones sobre el progreso y finalización del servicio",
+            "questions": "Responda preguntas sobre áreas o artículos específicos",
+            "beforeAfter": "Reciba fotos de antes/después del trabajo completado",
+            "realTime": "Aborde cualquier problema o solicitud en tiempo real"
+          }
+        }
+      },
+      "cta": {
+        "title": "¿Listo para experimentar una comunicación sin problemas?",
+        "description": "Reserve su primer servicio y desbloquee mensajería segura con profesionales verificados",
+        "browseProfessionals": "Explorar Profesionales",
+        "signUpFree": "Registrarse Gratis"
+      }
     }
   }
 }

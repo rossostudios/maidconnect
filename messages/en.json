@@ -485,6 +485,101 @@
         "bookService": "Book Your First Service",
         "signUpFree": "Sign Up Free"
       }
+    },
+    "secureMessaging": {
+      "meta": {
+        "title": "Secure Messaging Platform - Direct Communication | Maidconnect",
+        "description": "Direct messaging unlocked after booking. Coordinate details, send photos, and stay connected throughout your service relationship. Booking-based security."
+      },
+      "hero": {
+        "headline": "Communicate securely with your professionals",
+        "description": "Direct messaging unlocked after booking. Coordinate details, send photos, and stay connected throughout your service relationship.",
+        "primaryCTA": "Book a Service",
+        "secondaryCTA": "Learn More",
+        "badge": "Booking-based security"
+      },
+      "features": {
+        "title": "Safe, convenient communication",
+        "subtitle": "Built-in messaging that protects your privacy while enabling seamless coordination",
+        "bookingBased": {
+          "title": "Booking-Based Access",
+          "description": "Messaging available only for confirmed bookings, ensuring safety and preventing spam. Your contact information stays private."
+        },
+        "realTime": {
+          "title": "Real-Time Conversations",
+          "description": "Instant message delivery with read receipts and notifications. Stay connected from booking confirmation to service completion."
+        },
+        "photoSharing": {
+          "title": "Photo & File Sharing",
+          "description": "Share instructions, references, and updates easily. Send photos of areas that need attention or special requests."
+        }
+      },
+      "howItWorks": {
+        "title": "How it works",
+        "description": "Simple, secure messaging tied to your bookings",
+        "step1": {
+          "title": "Complete Booking",
+          "description": "Book a service with any professional to unlock messaging access"
+        },
+        "step2": {
+          "title": "Access Chat",
+          "description": "Find the conversation thread in your dashboard messages section"
+        },
+        "step3": {
+          "title": "Coordinate Details",
+          "description": "Discuss service details, timing, special requests, or access instructions"
+        },
+        "step4": {
+          "title": "Stay Connected",
+          "description": "Keep communication history for reference throughout your service relationship"
+        }
+      },
+      "benefits": {
+        "title": "Why our messaging system is different",
+        "privacy": {
+          "title": "Privacy protected",
+          "description": "Your phone number and email stay private. All communication happens through the platform with full message history for safety."
+        },
+        "noSpam": {
+          "title": "No spam or solicitation",
+          "description": "Only confirmed bookings unlock messaging. Professionals can't contact you without a booking, eliminating unwanted messages."
+        },
+        "history": {
+          "title": "Message history & receipts",
+          "description": "All messages are saved and tied to the booking. Perfect for referencing past conversations and instructions."
+        },
+        "notifications": {
+          "title": "Real-time notifications",
+          "description": "Get notified instantly when professionals respond. Never miss important updates about your booking."
+        }
+      },
+      "useCases": {
+        "title": "Common messaging scenarios",
+        "beforeService": {
+          "title": "Before the service",
+          "items": {
+            "access": "Share building access codes and parking instructions",
+            "photos": "Send photos of areas needing special attention",
+            "timing": "Confirm arrival time and any last-minute changes",
+            "products": "Discuss specific cleaning products or preferences"
+          }
+        },
+        "duringService": {
+          "title": "During the service",
+          "items": {
+            "updates": "Get updates on service progress and completion",
+            "questions": "Answer questions about specific areas or items",
+            "beforeAfter": "Receive before/after photos of completed work",
+            "realTime": "Address any issues or requests in real-time"
+          }
+        }
+      },
+      "cta": {
+        "title": "Ready to experience seamless communication?",
+        "description": "Book your first service and unlock secure messaging with verified professionals",
+        "browseProfessionals": "Browse Professionals",
+        "signUpFree": "Sign Up Free"
+      }
     }
   },
   "common": {
