@@ -1,55 +1,65 @@
 import { Metadata } from "next";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { ShieldCheck, Star, Image, Award, CheckCircle2 } from "lucide-react";
 import { ProductHeroSection } from "@/components/product/product-hero-section";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
 import { ProductStepsSection } from "@/components/product/product-steps-section";
 import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
+import { Link } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "Verified Professional Profiles - Background Checked | Maidconnect",
-  description:
-    "Meet verified professionals with background checks, credentials, customer reviews, and portfolio galleries. 100% verified professionals you can trust in Colombia.",
-  keywords: [
-    "verified professionals",
-    "background checked",
-    "professional profiles",
-    "verified credentials",
-    "customer reviews",
-    "portfolio gallery",
-    "trusted professionals Colombia",
-  ],
-  openGraph: {
-    title: "Verified Professional Profiles - Background Checked | Maidconnect",
-    description:
-      "Every profile includes background checks, verified credentials, customer reviews, and portfolio galleries showcasing their work.",
-    url: "https://maidconnect.co/product/professional-profiles",
-    siteName: "Maidconnect",
-    images: [
-      {
-        url: "https://maidconnect.co/og-professional-profiles.png",
-        width: 1200,
-        height: 630,
-        alt: "Maidconnect Verified Professional Profiles",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Verified Professional Profiles - Background Checked | Maidconnect",
-    description:
-      "Meet verified professionals with background checks, credentials, customer reviews, and portfolio galleries.",
-    images: ["https://maidconnect.co/og-professional-profiles.png"],
-  },
-  alternates: {
-    canonical: "https://maidconnect.co/product/professional-profiles",
-  },
+type Props = {
+  params: { locale: string };
 };
 
-export default function ProfessionalProfilesPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "pages.professionalProfiles.meta" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: [
+      "verified professionals",
+      "background checked",
+      "professional profiles",
+      "verified credentials",
+      "customer reviews",
+      "portfolio gallery",
+      "trusted professionals Colombia",
+    ],
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      url: "https://maidconnect.co/product/professional-profiles",
+      siteName: "Maidconnect",
+      images: [
+        {
+          url: "https://maidconnect.co/og-professional-profiles.png",
+          width: 1200,
+          height: 630,
+          alt: "Maidconnect Verified Professional Profiles",
+        },
+      ],
+      locale: locale === "es" ? "es_ES" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: ["https://maidconnect.co/og-professional-profiles.png"],
+    },
+    alternates: {
+      canonical: "https://maidconnect.co/product/professional-profiles",
+    },
+  };
+}
+
+export default async function ProfessionalProfilesPage({ params }: Props) {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "pages.professionalProfiles" });
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -58,8 +68,7 @@ export default function ProfessionalProfilesPage() {
       "@type": "Organization",
       name: "Maidconnect",
     },
-    description:
-      "Meet verified professionals with background checks, verified credentials, customer reviews, and portfolio galleries.",
+    description: t("hero.description"),
     serviceType: "Professional Verification Service",
     areaServed: {
       "@type": "Country",
@@ -77,11 +86,11 @@ export default function ProfessionalProfilesPage() {
       <main>
       {/* Hero Section */}
       <ProductHeroSection
-        headline="Meet verified professionals you can trust"
-        description="Every profile includes background checks, verified credentials, customer reviews, and portfolio galleries showcasing their work."
-        primaryCTA={{ label: "View Professionals", href: "/professionals" }}
-        secondaryCTA={{ label: "Learn More", href: "#features" }}
-        badge="100% verified professionals"
+        headline={t("hero.headline")}
+        description={t("hero.description")}
+        primaryCTA={{ label: t("hero.primaryCTA"), href: "/professionals" }}
+        secondaryCTA={{ label: t("hero.secondaryCTA"), href: "#features" }}
+        badge={t("hero.badge")}
       />
 
       {/* Features Section */}
@@ -91,30 +100,30 @@ export default function ProfessionalProfilesPage() {
       >
         <div className="mx-auto max-w-6xl">
           <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl lg:text-6xl">
-            Trust built into every profile
+            {t("features.title")}
           </h2>
 
           <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-relaxed text-[#5d574b]">
-            We verify every detail so you can book with complete confidence
+            {t("features.subtitle")}
           </p>
 
           <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <ProductFeatureCard
               icon={ShieldCheck}
-              title="Verified Credentials"
-              description="Background checks, identity verification, and certification validation ensure every professional meets our high standards."
+              title={t("features.verifiedCredentials.title")}
+              description={t("features.verifiedCredentials.description")}
             />
 
             <ProductFeatureCard
               icon={Star}
-              title="Customer Reviews & Ratings"
-              description="Real feedback from verified bookings with detailed ratings on quality, communication, punctuality, and value."
+              title={t("features.customerReviews.title")}
+              description={t("features.customerReviews.description")}
             />
 
             <ProductFeatureCard
               icon={Image}
-              title="Portfolio Galleries"
-              description="Before/after photos and work samples from past projects showcase the quality you can expect."
+              title={t("features.portfolioGalleries.title")}
+              description={t("features.portfolioGalleries.description")}
             />
           </div>
         </div>
@@ -122,32 +131,28 @@ export default function ProfessionalProfilesPage() {
 
       {/* How It Works Section */}
       <ProductStepsSection
-        headline="How we verify professionals"
-        description="Our rigorous vetting process ensures quality and safety"
+        headline={t("howItWorks.title")}
+        description={t("howItWorks.description")}
         steps={[
           {
             number: "1",
-            title: "Application Review",
-            description:
-              "We review every application for experience, qualifications, and professionalism",
+            title: t("howItWorks.step1.title"),
+            description: t("howItWorks.step1.description"),
           },
           {
             number: "2",
-            title: "Document Verification",
-            description:
-              "Background checks, ID verification, and certification validation",
+            title: t("howItWorks.step2.title"),
+            description: t("howItWorks.step2.description"),
           },
           {
             number: "3",
-            title: "Portfolio Assessment",
-            description:
-              "Review work samples and past projects to ensure quality standards",
+            title: t("howItWorks.step3.title"),
+            description: t("howItWorks.step3.description"),
           },
           {
             number: "4",
-            title: "Ongoing Monitoring",
-            description:
-              "Continuous review of ratings, feedback, and service quality",
+            title: t("howItWorks.step4.title"),
+            description: t("howItWorks.step4.description"),
           },
         ]}
       />
@@ -156,7 +161,7 @@ export default function ProfessionalProfilesPage() {
       <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-            What you'll find in every profile
+            {t("profileFeatures.title")}
           </h2>
 
           <div className="mt-16 grid gap-8 md:grid-cols-2">
@@ -165,24 +170,24 @@ export default function ProfessionalProfilesPage() {
                 <Award className="h-6 w-6 text-[#ff5d46]" />
               </div>
               <h3 className="mt-6 text-2xl font-semibold text-[#211f1a]">
-                Professional Information
+                {t("profileFeatures.professionalInfo.title")}
               </h3>
               <ul className="mt-4 space-y-3 text-base text-[#5d574b]">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Years of experience and specializations</span>
+                  <span>{t("profileFeatures.professionalInfo.items.experience")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Certifications and training completed</span>
+                  <span>{t("profileFeatures.professionalInfo.items.certifications")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Services offered and hourly rates</span>
+                  <span>{t("profileFeatures.professionalInfo.items.services")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Service areas and availability</span>
+                  <span>{t("profileFeatures.professionalInfo.items.areas")}</span>
                 </li>
               </ul>
             </div>
@@ -192,24 +197,24 @@ export default function ProfessionalProfilesPage() {
                 <Star className="h-6 w-6 text-[#ff5d46]" />
               </div>
               <h3 className="mt-6 text-2xl font-semibold text-[#211f1a]">
-                Social Proof
+                {t("profileFeatures.socialProof.title")}
               </h3>
               <ul className="mt-4 space-y-3 text-base text-[#5d574b]">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Overall rating from verified bookings</span>
+                  <span>{t("profileFeatures.socialProof.items.rating")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Detailed reviews from past customers</span>
+                  <span>{t("profileFeatures.socialProof.items.reviews")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Portfolio gallery with before/after photos</span>
+                  <span>{t("profileFeatures.socialProof.items.portfolio")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Total bookings and repeat customer rate</span>
+                  <span>{t("profileFeatures.socialProof.items.bookings")}</span>
                 </li>
               </ul>
             </div>
@@ -219,24 +224,24 @@ export default function ProfessionalProfilesPage() {
                 <ShieldCheck className="h-6 w-6 text-[#ff5d46]" />
               </div>
               <h3 className="mt-6 text-2xl font-semibold text-[#211f1a]">
-                Safety & Trust
+                {t("profileFeatures.safetyTrust.title")}
               </h3>
               <ul className="mt-4 space-y-3 text-base text-[#5d574b]">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Background check status and date</span>
+                  <span>{t("profileFeatures.safetyTrust.items.backgroundCheck")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Identity verification badge</span>
+                  <span>{t("profileFeatures.safetyTrust.items.identity")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Insurance and bonding information</span>
+                  <span>{t("profileFeatures.safetyTrust.items.insurance")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Platform-verified reviews only</span>
+                  <span>{t("profileFeatures.safetyTrust.items.verified")}</span>
                 </li>
               </ul>
             </div>
@@ -246,24 +251,24 @@ export default function ProfessionalProfilesPage() {
                 <Image className="h-6 w-6 text-[#ff5d46]" />
               </div>
               <h3 className="mt-6 text-2xl font-semibold text-[#211f1a]">
-                Work Examples
+                {t("profileFeatures.workExamples.title")}
               </h3>
               <ul className="mt-4 space-y-3 text-base text-[#5d574b]">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Portfolio gallery with real project photos</span>
+                  <span>{t("profileFeatures.workExamples.items.galleryPhotos")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Before and after transformations</span>
+                  <span>{t("profileFeatures.workExamples.items.beforeAfter")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Service-specific examples and results</span>
+                  <span>{t("profileFeatures.workExamples.items.serviceExamples")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                  <span>Professional bio and service approach</span>
+                  <span>{t("profileFeatures.workExamples.items.bio")}</span>
                 </li>
               </ul>
             </div>
@@ -275,12 +280,11 @@ export default function ProfessionalProfilesPage() {
       <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-4xl text-center">
           <h2 className="text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-            Find your perfect professional match
+            {t("cta.title")}
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5d574b]">
-            Browse verified profiles, read authentic reviews, and book with
-            confidence knowing every professional has been thoroughly vetted
+            {t("cta.description")}
           </p>
 
           <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -288,14 +292,14 @@ export default function ProfessionalProfilesPage() {
               href="/professionals"
               className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
             >
-              Browse Professionals
+              {t("cta.browseProfessionals")}
             </Link>
 
             <Link
               href="/auth/sign-up"
               className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             >
-              Become a Professional
+              {t("cta.becomeProfessional")}
             </Link>
           </div>
         </div>

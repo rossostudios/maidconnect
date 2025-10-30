@@ -320,6 +320,100 @@
         "browseProfessionals": "Explorar Profesionales",
         "signUpFree": "Registrarse Gratis"
       }
+    },
+    "professionalProfiles": {
+      "meta": {
+        "title": "Perfiles Profesionales Verificados - Verificación de Antecedentes | Maidconnect",
+        "description": "Conozca profesionales verificados con verificación de antecedentes, credenciales, reseñas de clientes y galerías de portafolio. 100% profesionales verificados en los que puede confiar en Colombia."
+      },
+      "hero": {
+        "headline": "Conozca profesionales verificados en los que puede confiar",
+        "description": "Cada perfil incluye verificación de antecedentes, credenciales verificadas, reseñas de clientes y galerías de portafolio que muestran su trabajo.",
+        "primaryCTA": "Ver Profesionales",
+        "secondaryCTA": "Más Información",
+        "badge": "100% profesionales verificados"
+      },
+      "features": {
+        "title": "Confianza integrada en cada perfil",
+        "subtitle": "Verificamos cada detalle para que pueda reservar con total confianza",
+        "verifiedCredentials": {
+          "title": "Credenciales Verificadas",
+          "description": "Verificación de antecedentes, verificación de identidad y validación de certificaciones garantizan que cada profesional cumpla con nuestros altos estándares."
+        },
+        "customerReviews": {
+          "title": "Reseñas y Calificaciones de Clientes",
+          "description": "Comentarios reales de reservas verificadas con calificaciones detalladas sobre calidad, comunicación, puntualidad y valor."
+        },
+        "portfolioGalleries": {
+          "title": "Galerías de Portafolio",
+          "description": "Fotos de antes/después y muestras de trabajo de proyectos anteriores muestran la calidad que puede esperar."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo verificamos a los profesionales",
+        "description": "Nuestro riguroso proceso de evaluación garantiza calidad y seguridad",
+        "step1": {
+          "title": "Revisión de Aplicación",
+          "description": "Revisamos cada solicitud en busca de experiencia, calificaciones y profesionalismo"
+        },
+        "step2": {
+          "title": "Verificación de Documentos",
+          "description": "Verificación de antecedentes, verificación de identificación y validación de certificaciones"
+        },
+        "step3": {
+          "title": "Evaluación de Portafolio",
+          "description": "Revisión de muestras de trabajo y proyectos anteriores para garantizar estándares de calidad"
+        },
+        "step4": {
+          "title": "Monitoreo Continuo",
+          "description": "Revisión continua de calificaciones, comentarios y calidad del servicio"
+        }
+      },
+      "profileFeatures": {
+        "title": "Lo que encontrará en cada perfil",
+        "professionalInfo": {
+          "title": "Información Profesional",
+          "items": {
+            "experience": "Años de experiencia y especializaciones",
+            "certifications": "Certificaciones y capacitación completada",
+            "services": "Servicios ofrecidos y tarifas por hora",
+            "areas": "Áreas de servicio y disponibilidad"
+          }
+        },
+        "socialProof": {
+          "title": "Prueba Social",
+          "items": {
+            "rating": "Calificación general de reservas verificadas",
+            "reviews": "Reseñas detalladas de clientes anteriores",
+            "portfolio": "Galería de portafolio con fotos de antes/después",
+            "bookings": "Total de reservas y tasa de clientes recurrentes"
+          }
+        },
+        "safetyTrust": {
+          "title": "Seguridad y Confianza",
+          "items": {
+            "backgroundCheck": "Estado y fecha de verificación de antecedentes",
+            "identity": "Insignia de verificación de identidad",
+            "insurance": "Información de seguro y fianza",
+            "verified": "Solo reseñas verificadas por la plataforma"
+          }
+        },
+        "workExamples": {
+          "title": "Ejemplos de Trabajo",
+          "items": {
+            "galleryPhotos": "Galería de portafolio con fotos reales de proyectos",
+            "beforeAfter": "Transformaciones de antes y después",
+            "serviceExamples": "Ejemplos específicos de servicio y resultados",
+            "bio": "Biografía profesional y enfoque de servicio"
+          }
+        }
+      },
+      "cta": {
+        "title": "Encuentre su pareja profesional perfecta",
+        "description": "Explore perfiles verificados, lea reseñas auténticas y reserve con confianza sabiendo que cada profesional ha sido completamente evaluado",
+        "browseProfessionals": "Explorar Profesionales",
+        "becomeProfessional": "Ser Profesional"
+      }
     }
   }
 }

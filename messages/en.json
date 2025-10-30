@@ -209,6 +209,176 @@
       "description": "Complete platform management and moderation"
     }
   },
+  "pages": {
+    "bookingPlatform": {
+      "meta": {
+        "title": "Booking Platform - Instant Service Scheduling | Maidconnect",
+        "description": "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless. 500+ bookings monthly."
+      },
+      "hero": {
+        "headline": "Book trusted professionals in minutes",
+        "description": "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless.",
+        "primaryCTA": "Browse Professionals",
+        "secondaryCTA": "Learn More",
+        "badge": "500+ bookings this month"
+      },
+      "features": {
+        "title": "Powerful booking features",
+        "subtitle": "Everything you need to schedule services quickly and confidently",
+        "instantBooking": {
+          "title": "Instant & Approved Booking",
+          "description": "Book immediately with verified professionals or request approval for custom needs. Get instant confirmation for standard services."
+        },
+        "realTimeAvailability": {
+          "title": "Real-Time Availability",
+          "description": "See professional calendars and available time slots before booking. Never waste time requesting unavailable dates."
+        },
+        "smartScheduling": {
+          "title": "Smart Scheduling",
+          "description": "Set up recurring bookings, sync with your calendar, and receive automated reminders before every service."
+        }
+      },
+      "howItWorks": {
+        "title": "How it works",
+        "description": "Four simple steps to book your perfect professional",
+        "step1": {
+          "title": "Filter & Search",
+          "description": "Filter by service type, date, location, and professional ratings"
+        },
+        "step2": {
+          "title": "Select Professional",
+          "description": "View availability, read reviews, and browse portfolio galleries"
+        },
+        "step3": {
+          "title": "Confirm Booking",
+          "description": "Choose date and time, add service add-ons, and authorize payment"
+        },
+        "step4": {
+          "title": "Get Reminders",
+          "description": "Receive automatic reminders and communicate via secure messaging"
+        }
+      },
+      "benefits": {
+        "title": "Why customers love our booking system",
+        "noPhoneTag": {
+          "title": "No more phone tag",
+          "description": "See real-time availability and book instantly without endless back-and-forth calls or emails."
+        },
+        "transparentPricing": {
+          "title": "Transparent pricing",
+          "description": "Know exactly what you'll pay before booking. See hourly rates, add-on costs, and total price upfront."
+        },
+        "flexibleScheduling": {
+          "title": "Flexible scheduling",
+          "description": "Book one-time services or set up weekly, biweekly, or monthly recurring appointments with automatic discounts."
+        },
+        "easyRescheduling": {
+          "title": "Easy rescheduling",
+          "description": "Life happens. Reschedule or cancel bookings with just a few clicks, subject to professional's cancellation policy."
+        }
+      },
+      "cta": {
+        "title": "Ready to book your first service?",
+        "description": "Join hundreds of satisfied customers who trust MaidConnect for their home service needs",
+        "browseProfessionals": "Browse Professionals",
+        "signUpFree": "Sign Up Free"
+      }
+    },
+    "professionalProfiles": {
+      "meta": {
+        "title": "Verified Professional Profiles - Background Checked | Maidconnect",
+        "description": "Meet verified professionals with background checks, credentials, customer reviews, and portfolio galleries. 100% verified professionals you can trust in Colombia."
+      },
+      "hero": {
+        "headline": "Meet verified professionals you can trust",
+        "description": "Every profile includes background checks, verified credentials, customer reviews, and portfolio galleries showcasing their work.",
+        "primaryCTA": "View Professionals",
+        "secondaryCTA": "Learn More",
+        "badge": "100% verified professionals"
+      },
+      "features": {
+        "title": "Trust built into every profile",
+        "subtitle": "We verify every detail so you can book with complete confidence",
+        "verifiedCredentials": {
+          "title": "Verified Credentials",
+          "description": "Background checks, identity verification, and certification validation ensure every professional meets our high standards."
+        },
+        "customerReviews": {
+          "title": "Customer Reviews & Ratings",
+          "description": "Real feedback from verified bookings with detailed ratings on quality, communication, punctuality, and value."
+        },
+        "portfolioGalleries": {
+          "title": "Portfolio Galleries",
+          "description": "Before/after photos and work samples from past projects showcase the quality you can expect."
+        }
+      },
+      "howItWorks": {
+        "title": "How we verify professionals",
+        "description": "Our rigorous vetting process ensures quality and safety",
+        "step1": {
+          "title": "Application Review",
+          "description": "We review every application for experience, qualifications, and professionalism"
+        },
+        "step2": {
+          "title": "Document Verification",
+          "description": "Background checks, ID verification, and certification validation"
+        },
+        "step3": {
+          "title": "Portfolio Assessment",
+          "description": "Review work samples and past projects to ensure quality standards"
+        },
+        "step4": {
+          "title": "Ongoing Monitoring",
+          "description": "Continuous review of ratings, feedback, and service quality"
+        }
+      },
+      "profileFeatures": {
+        "title": "What you'll find in every profile",
+        "professionalInfo": {
+          "title": "Professional Information",
+          "items": {
+            "experience": "Years of experience and specializations",
+            "certifications": "Certifications and training completed",
+            "services": "Services offered and hourly rates",
+            "areas": "Service areas and availability"
+          }
+        },
+        "socialProof": {
+          "title": "Social Proof",
+          "items": {
+            "rating": "Overall rating from verified bookings",
+            "reviews": "Detailed reviews from past customers",
+            "portfolio": "Portfolio gallery with before/after photos",
+            "bookings": "Total bookings and repeat customer rate"
+          }
+        },
+        "safetyTrust": {
+          "title": "Safety & Trust",
+          "items": {
+            "backgroundCheck": "Background check status and date",
+            "identity": "Identity verification badge",
+            "insurance": "Insurance and bonding information",
+            "verified": "Platform-verified reviews only"
+          }
+        },
+        "workExamples": {
+          "title": "Work Examples",
+          "items": {
+            "galleryPhotos": "Portfolio gallery with real project photos",
+            "beforeAfter": "Before and after transformations",
+            "serviceExamples": "Service-specific examples and results",
+            "bio": "Professional bio and service approach"
+          }
+        }
+      },
+      "cta": {
+        "title": "Find your perfect professional match",
+        "description": "Browse verified profiles, read authentic reviews, and book with confidence knowing every professional has been thoroughly vetted",
+        "browseProfessionals": "Browse Professionals",
+        "becomeProfessional": "Become a Professional"
+      }
+    }
+  },
   "common": {
     "loading": "Loading...",
     "save": "Save",
