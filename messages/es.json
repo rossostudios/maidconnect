@@ -169,12 +169,45 @@
     }
   },
   "footer": {
-    "about": "Acerca de",
+    "description": "Conéctese con empleadas domésticas y cuidadores verificados en toda Colombia. Completamente examinados, integrados y listos para apoyar su estilo de vida.",
+    "platform": "Plataforma",
+    "company": "Empresa",
+    "findProfessional": "Encontrar un Profesional",
     "contact": "Contacto",
-    "privacy": "Política de privacidad",
-    "terms": "Términos de servicio",
+    "services": "Servicios",
+    "loginSignup": "Iniciar sesión / Registrarse",
+    "applyProfessional": "Aplicar como Profesional",
     "support": "Soporte",
+    "terms": "Términos",
+    "privacy": "Privacidad",
+    "cookies": "Cookies",
     "allRightsReserved": "Todos los derechos reservados"
+  },
+  "product": {
+    "bookingPlatform": {
+      "title": "Plataforma de Reservas",
+      "description": "Programe servicios con reserva instantánea o aprobada"
+    },
+    "professionalProfiles": {
+      "title": "Perfiles Profesionales",
+      "description": "Perfiles verificados con reseñas y portafolios"
+    },
+    "secureMessaging": {
+      "title": "Mensajería Segura",
+      "description": "Comunicación directa con sus profesionales"
+    },
+    "paymentProcessing": {
+      "title": "Procesamiento de Pagos",
+      "description": "Pagos seguros y transparentes con seguimiento de recibos"
+    },
+    "reviewsRatings": {
+      "title": "Reseñas y Calificaciones",
+      "description": "Confianza y garantía de calidad impulsadas por la comunidad"
+    },
+    "adminDashboard": {
+      "title": "Panel de Administración",
+      "description": "Gestión y moderación completa de la plataforma"
+    }
   },
   "common": {
     "loading": "Cargando...",

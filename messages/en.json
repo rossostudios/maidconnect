@@ -169,12 +169,45 @@
     }
   },
   "footer": {
-    "about": "About",
+    "description": "Connect with vetted housekeepers and caregivers across Colombia. Fully screened, onboarded, and ready to support your lifestyle.",
+    "platform": "Platform",
+    "company": "Company",
+    "findProfessional": "Find a Professional",
     "contact": "Contact",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Service",
+    "services": "Services",
+    "loginSignup": "Login / Signup",
+    "applyProfessional": "Apply as Professional",
     "support": "Support",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "cookies": "Cookies",
     "allRightsReserved": "All rights reserved"
+  },
+  "product": {
+    "bookingPlatform": {
+      "title": "Booking Platform",
+      "description": "Schedule services with instant or approved booking"
+    },
+    "professionalProfiles": {
+      "title": "Professional Profiles",
+      "description": "Verified profiles with reviews and portfolios"
+    },
+    "secureMessaging": {
+      "title": "Secure Messaging",
+      "description": "Direct communication with your professionals"
+    },
+    "paymentProcessing": {
+      "title": "Payment Processing",
+      "description": "Safe, transparent payments with receipt tracking"
+    },
+    "reviewsRatings": {
+      "title": "Reviews & Ratings",
+      "description": "Community-driven trust and quality assurance"
+    },
+    "adminDashboard": {
+      "title": "Admin Dashboard",
+      "description": "Complete platform management and moderation"
+    }
   },
   "common": {
     "loading": "Loading...",

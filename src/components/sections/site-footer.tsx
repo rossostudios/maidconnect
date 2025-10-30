@@ -1,26 +1,10 @@
-import Link from "next/link";
+"use client";
+
+import { useTranslations } from "next-intl";
+import { Link } from '@/i18n/routing';
 import { Facebook, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { LanguageSwitcher } from "@/components/navigation/language-switcher";
-
-const footerColumns = [
-  {
-    title: "Platform",
-    links: [
-      { href: "/professionals", label: "Find a Professional" },
-      { href: "/contact", label: "Contact" },
-      { href: "#services", label: "Services" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { href: "/auth/sign-in", label: "Login / Signup" },
-      { href: "/auth/sign-up?role=professional", label: "Apply as Professional" },
-      { href: "/support/account-suspended", label: "Support" },
-    ],
-  },
-];
 
 const socialLinks = [
   { label: "Facebook", href: "https://facebook.com/maidconnect", icon: Facebook },
@@ -30,7 +14,27 @@ const socialLinks = [
 ];
 
 export function SiteFooter() {
+  const t = useTranslations("footer");
   const year = new Date().getFullYear();
+
+  const footerColumns = [
+    {
+      title: t("platform"),
+      links: [
+        { href: "/professionals", label: t("findProfessional") },
+        { href: "/contact", label: t("contact") },
+        { href: "#services", label: t("services") },
+      ],
+    },
+    {
+      title: t("company"),
+      links: [
+        { href: "/auth/sign-in", label: t("loginSignup") },
+        { href: "/auth/sign-up?role=professional", label: t("applyProfessional") },
+        { href: "/support/account-suspended", label: t("support") },
+      ],
+    },
+  ];
 
   return (
     <footer id="get-started" className="bg-[#11100e] py-20 text-[#f3ece1] sm:py-24">
@@ -40,7 +44,7 @@ export function SiteFooter() {
           <div className="max-w-md space-y-6">
             <h2 className="text-3xl font-semibold text-white">MaidConnect</h2>
             <p className="text-base leading-relaxed text-[#cfc8be]">
-              Connect with vetted housekeepers and caregivers across Colombia. Fully screened, onboarded, and ready to support your lifestyle.
+              {t("description")}
             </p>
             <div className="space-y-3">
               <a
@@ -94,17 +98,17 @@ export function SiteFooter() {
         {/* Bottom Bar */}
         <div className="mt-16 border-t border-[#26231f] pt-8">
           <div className="flex flex-col gap-6 text-sm text-[#a8a095] sm:flex-row sm:items-center sm:justify-between">
-            <p>© {year} MaidConnect. All rights reserved.</p>
+            <p>© {year} MaidConnect. {t("allRightsReserved")}</p>
             <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
               <div className="flex items-center gap-6">
                 <Link href="/terms" className="transition hover:text-[#ff5d46]">
-                  Terms
+                  {t("terms")}
                 </Link>
                 <Link href="/privacy" className="transition hover:text-[#ff5d46]">
-                  Privacy
+                  {t("privacy")}
                 </Link>
                 <Link href="/support/account-suspended" className="transition hover:text-[#ff5d46]">
-                  Cookies
+                  {t("cookies")}
                 </Link>
               </div>
               <div className="footer-language-switcher">

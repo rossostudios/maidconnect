@@ -1,47 +1,48 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
+import { Link } from '@/i18n/routing';
 import { useTranslations } from "next-intl";
 import { ChevronDown } from "lucide-react";
 
-const productFeatures = [
-  {
-    name: "Booking Platform",
-    href: "/product/booking-platform",
-    description: "Schedule services with instant or approved booking"
-  },
-  {
-    name: "Professional Profiles",
-    href: "/product/professional-profiles",
-    description: "Verified profiles with reviews and portfolios"
-  },
-  {
-    name: "Secure Messaging",
-    href: "/product/secure-messaging",
-    description: "Direct communication with your professionals"
-  },
-  {
-    name: "Payment Processing",
-    href: "/product/payment-processing",
-    description: "Safe, transparent payments with receipt tracking"
-  },
-  {
-    name: "Reviews & Ratings",
-    href: "/product/reviews-ratings",
-    description: "Community-driven trust and quality assurance"
-  },
-  {
-    name: "Admin Dashboard",
-    href: "/product/admin-dashboard",
-    description: "Complete platform management and moderation"
-  },
-];
-
 export function SiteNavigation() {
   const t = useTranslations("navigation");
+  const tp = useTranslations("product");
   const [isProductOpen, setIsProductOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const productFeatures = [
+    {
+      name: tp("bookingPlatform.title"),
+      href: "/product/booking-platform",
+      description: tp("bookingPlatform.description")
+    },
+    {
+      name: tp("professionalProfiles.title"),
+      href: "/product/professional-profiles",
+      description: tp("professionalProfiles.description")
+    },
+    {
+      name: tp("secureMessaging.title"),
+      href: "/product/secure-messaging",
+      description: tp("secureMessaging.description")
+    },
+    {
+      name: tp("paymentProcessing.title"),
+      href: "/product/payment-processing",
+      description: tp("paymentProcessing.description")
+    },
+    {
+      name: tp("reviewsRatings.title"),
+      href: "/product/reviews-ratings",
+      description: tp("reviewsRatings.description")
+    },
+    {
+      name: tp("adminDashboard.title"),
+      href: "/product/admin-dashboard",
+      description: tp("adminDashboard.description")
+    },
+  ];
 
   const links = [
     { href: "/professionals", label: t("professionals") },
