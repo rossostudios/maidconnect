@@ -9,11 +9,11 @@ import { SiteHeader } from "@/components/sections/site-header";
 import { Link } from "@/i18n/routing";
 
 type Props = {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = params;
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "pages.professionalProfiles.meta" });
 
   return {
@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProfessionalProfilesPage({ params }: Props) {
-  const { locale } = params;
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "pages.professionalProfiles" });
 
   const jsonLd = {
