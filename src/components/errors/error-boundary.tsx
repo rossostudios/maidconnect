@@ -1,6 +1,5 @@
 "use client";
 
-import * as Sentry from "@sentry/nextjs";
 import { AlertTriangle } from "lucide-react";
 import { Component, ReactNode } from "react";
 
@@ -18,7 +17,7 @@ type State = {
  * Error Boundary Component
  *
  * Catches JavaScript errors anywhere in the child component tree,
- * logs those errors to Sentry, and displays a fallback UI.
+ * logs those errors, and displays a fallback UI.
  */
 export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
@@ -34,14 +33,8 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // Log the error to Sentry
-    Sentry.captureException(error, {
-      contexts: {
-        react: {
-          componentStack: errorInfo.componentStack,
-        },
-      },
-    });
+    // Log the error to console
+    console.error("Error caught by boundary:", error, errorInfo);
   }
 
   render() {
