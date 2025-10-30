@@ -979,6 +979,22 @@
         "title": "Entrevistamos, verificamos antecedentes y capacitamos a cada profesional.",
         "description": "Construye confianza desde la primera visita con incorporación estructurada, manuales del hogar y soporte receptivo."
       }
+    },
+    "terms": {
+      "meta": {
+        "title": "Términos de Servicio - MaidConnect",
+        "description": "Términos de servicio y acuerdo de usuario de MaidConnect"
+      },
+      "title": "Términos de Servicio",
+      "lastUpdated": "Última actualización: {date}"
+    },
+    "privacy": {
+      "meta": {
+        "title": "Política de Privacidad - MaidConnect",
+        "description": "Política de privacidad y prácticas de protección de datos de MaidConnect"
+      },
+      "title": "Política de Privacidad",
+      "lastUpdated": "Última actualización: {date}"
     }
   }
 }

@@ -1,11 +1,23 @@
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy - MaidConnect",
-  description: "MaidConnect's privacy policy and data protection practices",
+type Props = {
+  params: { locale: string };
 };
 
-export default function PrivacyPolicyPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "pages.privacy.meta" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
+
+export default async function PrivacyPolicyPage({ params }: Props) {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "pages.privacy" });
   const lastUpdated = "January 2025";
 
   return (
@@ -13,11 +25,13 @@ export default function PrivacyPolicyPage() {
       <div className="mx-auto max-w-4xl">
         <div className="rounded-[28px] bg-white p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)]">
           <h1 className="mb-4 text-4xl font-bold text-[#211f1a]">
-            Privacy Policy
+            {t("title")}
           </h1>
           <p className="mb-8 text-[#7d7566]">
-            Last updated: {lastUpdated}
+            {t("lastUpdated", { date: lastUpdated })}
           </p>
+
+          {/* Note: Full legal content translation should be reviewed by legal counsel */}
 
           <div className="prose prose-lg max-w-none">
             <section className="mb-8">

@@ -979,6 +979,22 @@
         "title": "We interview, background check, and coach every professional.",
         "description": "Build trust from the first visit with structured onboarding, household manuals, and responsive support."
       }
+    },
+    "terms": {
+      "meta": {
+        "title": "Terms of Service - MaidConnect",
+        "description": "MaidConnect's terms of service and user agreement"
+      },
+      "title": "Terms of Service",
+      "lastUpdated": "Last updated: {date}"
+    },
+    "privacy": {
+      "meta": {
+        "title": "Privacy Policy - MaidConnect",
+        "description": "MaidConnect's privacy policy and data protection practices"
+      },
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated: {date}"
     }
   }
 }
