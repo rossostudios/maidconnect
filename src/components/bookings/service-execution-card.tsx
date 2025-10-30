@@ -280,7 +280,8 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
         <div className="mb-4">
           <p className="text-[#5d574b] text-sm">
             📍{" "}
-            {typeof optimisticBooking.address === "object" && "formatted" in optimisticBooking.address
+            {typeof optimisticBooking.address === "object" &&
+            "formatted" in optimisticBooking.address
               ? String(optimisticBooking.address.formatted)
               : JSON.stringify(optimisticBooking.address)}
           </p>

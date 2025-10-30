@@ -1,9 +1,9 @@
 "use client";
 
-import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { ListSkeleton } from "@/components/ui/skeleton";
+import { Link } from "@/i18n/routing";
 import { FavoriteButton } from "./favorite-button";
 
 type FavoriteProfessional = {

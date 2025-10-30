@@ -1,9 +1,9 @@
 "use client";
 
 import { Globe } from "lucide-react";
-import { usePathname, useRouter } from "@/i18n/routing";
 import { useLocale } from "next-intl";
 import { type Locale } from "@/i18n";
+import { usePathname, useRouter } from "@/i18n/routing";
 
 /**
  * Language Switcher Component

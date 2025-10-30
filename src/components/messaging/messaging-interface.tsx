@@ -1,7 +1,15 @@
 "use client";
 
 import { formatDistanceToNow } from "date-fns";
-import { useActionState, useCallback, useEffect, useOptimistic, useRef, useState, useTransition } from "react";
+import {
+  useActionState,
+  useCallback,
+  useEffect,
+  useOptimistic,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { ConversationSkeleton } from "@/components/ui/skeleton";
 import { useNotifications } from "@/hooks/use-notifications";
 import { useRealtimeMessages } from "@/hooks/use-realtime-messages";
@@ -457,7 +465,11 @@ export function MessagingInterface({ userId, userRole }: Props) {
             </div>
 
             {/* Messages */}
-            <MessageThread currentUserId={userId} loading={messagesLoading} messages={optimisticMessages} />
+            <MessageThread
+              currentUserId={userId}
+              loading={messagesLoading}
+              messages={optimisticMessages}
+            />
 
             {/* Message Input */}
             <MessageInput isPending={isPending} onSend={sendMessage} />
@@ -549,7 +561,13 @@ function MessageThread({
   );
 }
 
-function MessageInput({ onSend, isPending }: { onSend: (message: string) => void; isPending: boolean }) {
+function MessageInput({
+  onSend,
+  isPending,
+}: {
+  onSend: (message: string) => void;
+  isPending: boolean;
+}) {
   const [message, setMessage] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -574,12 +592,12 @@ function MessageInput({ onSend, isPending }: { onSend: (message: string) => void
     <form action={formAction} className="border-[#ebe5d8] border-t bg-white p-6">
       <div className="flex gap-3">
         <input
-          ref={inputRef}
           className="flex-1 rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633] disabled:opacity-50"
           disabled={isSending}
           name="message"
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Type a message..."
+          ref={inputRef}
           type="text"
           value={message}
         />

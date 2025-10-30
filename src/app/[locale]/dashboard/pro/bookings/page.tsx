@@ -1,7 +1,7 @@
-import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar";
 import { ProBookingList } from "@/components/bookings/pro-booking-list";
+import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 

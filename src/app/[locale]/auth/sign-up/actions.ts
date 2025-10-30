@@ -1,8 +1,10 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import type { AppRole } from "@/lib/auth";
 import { AUTH_ROUTES, getDashboardRouteForRole } from "@/lib/auth";
+import { checkRateLimit, RateLimiters } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { SignUpActionState } from "./types";
 
@@ -40,6 +42,22 @@ export async function signUpAction(
   _prev: SignUpActionState,
   formData: FormData
 ): Promise<SignUpActionState> {
+  // Rate limiting check
+  const headersList = await headers();
+  const forwardedFor = headersList.get("x-forwarded-for");
+  const ip = forwardedFor
+    ? forwardedFor.split(",")[0].trim()
+    : headersList.get("x-real-ip") || "unknown";
+
+  const rateLimit = checkRateLimit(`signup:${ip}`, RateLimiters.auth);
+
+  if (!rateLimit.allowed) {
+    return {
+      status: "error",
+      error: rateLimit.message || "Too many signup attempts. Please try again later.",
+    };
+  }
+
   const email = String(formData.get("email") ?? "")
     .trim()
     .toLowerCase();
@@ -51,7 +69,12 @@ export async function signUpAction(
   const phone = stringOrNull(formData.get("phone"));
   const city = stringOrNull(formData.get("city"));
   const propertyType = stringOrNull(formData.get("propertyType"));
-  const termsAccepted = formData.get("terms") === "on";
+
+  // Consent fields (required for Colombian law compliance)
+  const privacyConsent = formData.get("privacyConsent") === "on";
+  const termsConsent = formData.get("termsConsent") === "on";
+  const dataProcessingConsent = formData.get("dataProcessingConsent") === "on";
+  const marketingConsent = formData.get("marketingConsent") === "on";
 
   const fieldErrors: Record<string, string> = {};
 
@@ -91,8 +114,17 @@ export async function signUpAction(
     fieldErrors.propertyType = "Select a property type.";
   }
 
-  if (!termsAccepted) {
-    fieldErrors.terms = "You must accept the terms to continue.";
+  // Validate consent fields (Colombian law compliance - Ley 1581 de 2012)
+  if (!privacyConsent) {
+    fieldErrors.privacyConsent = "You must accept the Privacy Policy.";
+  }
+
+  if (!termsConsent) {
+    fieldErrors.termsConsent = "You must accept the Terms and Conditions.";
+  }
+
+  if (!dataProcessingConsent) {
+    fieldErrors.dataProcessingConsent = "You must authorize data processing to use the platform.";
   }
 
   if (Object.keys(fieldErrors).length > 0) {
@@ -105,6 +137,9 @@ export async function signUpAction(
 
   const supabase = await createSupabaseServerClient();
 
+  // ISO 8601 timestamp for consent records (Ley 1581 de 2012 requirement)
+  const consentTimestamp = new Date().toISOString();
+
   const metadata: Record<string, unknown> = {
     role,
     locale,
@@ -112,6 +147,25 @@ export async function signUpAction(
     country: "Colombia",
     city,
     full_name: fullName,
+    // Consent records (Colombian law compliance)
+    consents: {
+      privacy_policy: {
+        accepted: privacyConsent,
+        timestamp: consentTimestamp,
+      },
+      terms_of_service: {
+        accepted: termsConsent,
+        timestamp: consentTimestamp,
+      },
+      data_processing: {
+        accepted: dataProcessingConsent,
+        timestamp: consentTimestamp,
+      },
+      marketing: {
+        accepted: marketingConsent,
+        timestamp: marketingConsent ? consentTimestamp : null,
+      },
+    },
   };
 
   if (role === "customer") {

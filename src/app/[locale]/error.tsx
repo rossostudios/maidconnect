@@ -1,8 +1,8 @@
 "use client";
 
 import { AlertTriangle, Home, RefreshCw } from "lucide-react";
-import { Link } from "@/i18n/routing";
 import { useEffect } from "react";
+import { Link } from "@/i18n/routing";
 
 export default function Error({
   error,

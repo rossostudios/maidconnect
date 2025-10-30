@@ -1,4 +1,3 @@
-
 import { CheckCircle2, CreditCard, Receipt, Shield } from "lucide-react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";

@@ -1,6 +1,6 @@
-import { Link } from "@/i18n/routing";
 import { ReactNode } from "react";
 import { Container } from "@/components/ui/container";
+import { Link } from "@/i18n/routing";
 
 type NavLink = {
   href: string;

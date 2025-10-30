@@ -1,4 +1,3 @@
-
 import { Calendar, CheckCircle2, Clock, Zap } from "lucide-react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";

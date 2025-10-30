@@ -1,10 +1,10 @@
-import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import {
   OPTIONAL_DOCUMENTS,
   REQUIRED_DOCUMENTS,
 } from "@/app/[locale]/dashboard/pro/onboarding/state";
 import { DocumentsTable } from "@/components/documents/documents-table";
+import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 

@@ -1,10 +1,9 @@
 import { Star } from "lucide-react";
 import Image from "next/image";
-import { Link } from "@/i18n/routing";
-
 import { DirectoryProfessional } from "@/components/professionals/professionals-directory";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { Link } from "@/i18n/routing";
 
 type CustomerSearchSectionProps = {
   professionals: DirectoryProfessional[];

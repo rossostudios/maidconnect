@@ -1,4 +1,3 @@
-
 import { Award, CheckCircle2, Image, ShieldCheck, Star } from "lucide-react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";

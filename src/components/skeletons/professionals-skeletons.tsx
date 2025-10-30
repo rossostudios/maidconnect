@@ -5,12 +5,13 @@
 
 export function ProfessionalsGridSkeleton() {
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" role="status" aria-label="Loading professionals">
+    <div
+      aria-label="Loading professionals"
+      className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+      role="status"
+    >
       {[1, 2, 3, 4, 5, 6].map((i) => (
-        <div
-          className="animate-pulse rounded-[28px] border border-[#ebe5d8] bg-white p-6"
-          key={i}
-        >
+        <div className="animate-pulse rounded-[28px] border border-[#ebe5d8] bg-white p-6" key={i}>
           {/* Avatar */}
           <div className="flex items-center gap-4">
             <div className="h-16 w-16 rounded-full bg-[#ebe5d8]" />
@@ -39,7 +40,11 @@ export function ProfessionalsGridSkeleton() {
 
 export function ProfessionalProfileHeroSkeleton() {
   return (
-    <div className="animate-pulse rounded-[32px] border border-[#ebe5d8] bg-white p-8" role="status" aria-label="Loading profile">
+    <div
+      aria-label="Loading profile"
+      className="animate-pulse rounded-[32px] border border-[#ebe5d8] bg-white p-8"
+      role="status"
+    >
       <div className="flex flex-col gap-6 md:flex-row">
         {/* Avatar */}
         <div className="h-32 w-32 flex-shrink-0 rounded-full bg-[#ebe5d8]" />
@@ -69,7 +74,11 @@ export function ProfessionalProfileHeroSkeleton() {
 
 export function AvailabilityCalendarSkeleton() {
   return (
-    <div className="animate-pulse rounded-[28px] border border-[#ebe5d8] bg-white p-6" role="status" aria-label="Loading calendar">
+    <div
+      aria-label="Loading calendar"
+      className="animate-pulse rounded-[28px] border border-[#ebe5d8] bg-white p-6"
+      role="status"
+    >
       {/* Calendar header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="h-8 w-32 rounded bg-[#ebe5d8]" />
@@ -96,12 +105,9 @@ export function AvailabilityCalendarSkeleton() {
 
 export function ReviewsListSkeleton() {
   return (
-    <div className="space-y-4" role="status" aria-label="Loading reviews">
+    <div aria-label="Loading reviews" className="space-y-4" role="status">
       {[1, 2, 3].map((i) => (
-        <div
-          className="animate-pulse rounded-2xl border border-[#ebe5d8] bg-white p-6"
-          key={i}
-        >
+        <div className="animate-pulse rounded-2xl border border-[#ebe5d8] bg-white p-6" key={i}>
           {/* Header */}
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-3">
@@ -128,13 +134,16 @@ export function ReviewsListSkeleton() {
 
 export function VettingQueueSkeleton() {
   return (
-    <div className="animate-pulse space-y-4" role="status" aria-label="Loading vetting queue">
+    <div aria-label="Loading vetting queue" className="animate-pulse space-y-4" role="status">
       <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
         <div className="h-6 w-48 rounded bg-[#ebe5d8]" />
 
         <div className="mt-6 space-y-4">
           {[1, 2, 3].map((i) => (
-            <div className="flex items-center justify-between border-b border-[#ebe5d8] pb-4" key={i}>
+            <div
+              className="flex items-center justify-between border-[#ebe5d8] border-b pb-4"
+              key={i}
+            >
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-full bg-[#ebe5d8]" />
                 <div className="space-y-2">
@@ -156,7 +165,7 @@ export function VettingQueueSkeleton() {
 
 export function TabContentSkeleton() {
   return (
-    <div className="animate-pulse space-y-4" role="status" aria-label="Loading content">
+    <div aria-label="Loading content" className="animate-pulse space-y-4" role="status">
       <div className="space-y-2">
         <div className="h-4 w-full rounded bg-[#ebe5d8]" />
         <div className="h-4 w-full rounded bg-[#ebe5d8]" />

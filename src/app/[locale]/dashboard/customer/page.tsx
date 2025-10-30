@@ -1,6 +1,5 @@
-import { Link } from "@/i18n/routing";
-import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
+import { Suspense } from "react";
 import { SavedAddressesManager } from "@/components/addresses/saved-addresses-manager";
 import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
 import { FavoritesList } from "@/components/favorites/favorites-list";
@@ -11,6 +10,7 @@ import {
   BookingsListSkeleton,
   FavoritesListSkeleton,
 } from "@/components/skeletons/dashboard-skeletons";
+import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";

@@ -5,12 +5,9 @@
 
 export function BookingsListSkeleton() {
   return (
-    <div className="space-y-4" role="status" aria-label="Loading bookings">
+    <div aria-label="Loading bookings" className="space-y-4" role="status">
       {[1, 2, 3].map((i) => (
-        <div
-          className="animate-pulse rounded-2xl border border-[#ebe5d8] bg-white p-6"
-          key={i}
-        >
+        <div className="animate-pulse rounded-2xl border border-[#ebe5d8] bg-white p-6" key={i}>
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 space-y-3">
               <div className="h-5 w-3/4 rounded bg-[#ebe5d8]" />
@@ -27,12 +24,13 @@ export function BookingsListSkeleton() {
 
 export function FavoritesListSkeleton() {
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" role="status" aria-label="Loading favorites">
+    <div
+      aria-label="Loading favorites"
+      className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+      role="status"
+    >
       {[1, 2, 3].map((i) => (
-        <div
-          className="animate-pulse rounded-[28px] border border-[#ebe5d8] bg-white p-6"
-          key={i}
-        >
+        <div className="animate-pulse rounded-[28px] border border-[#ebe5d8] bg-white p-6" key={i}>
           <div className="flex items-center gap-4">
             <div className="h-16 w-16 rounded-full bg-[#ebe5d8]" />
             <div className="flex-1 space-y-2">
@@ -48,7 +46,7 @@ export function FavoritesListSkeleton() {
 
 export function BookingCalendarSkeleton() {
   return (
-    <div className="space-y-6" role="status" aria-label="Loading calendar">
+    <div aria-label="Loading calendar" className="space-y-6" role="status">
       <div className="animate-pulse">
         {/* Calendar header */}
         <div className="mb-4 flex items-center justify-between">
@@ -77,7 +75,11 @@ export function BookingCalendarSkeleton() {
 
 export function ProfileMetricsSkeleton() {
   return (
-    <dl className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4" role="status" aria-label="Loading metrics">
+    <dl
+      aria-label="Loading metrics"
+      className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+      role="status"
+    >
       {[1, 2, 3, 4].map((i) => (
         <div
           className="animate-pulse rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm"
@@ -93,12 +95,9 @@ export function ProfileMetricsSkeleton() {
 
 export function ServiceAddonsSkeleton() {
   return (
-    <div className="space-y-4" role="status" aria-label="Loading service addons">
+    <div aria-label="Loading service addons" className="space-y-4" role="status">
       {[1, 2].map((i) => (
-        <div
-          className="animate-pulse rounded-2xl border border-[#ebe5d8] bg-white p-6"
-          key={i}
-        >
+        <div className="animate-pulse rounded-2xl border border-[#ebe5d8] bg-white p-6" key={i}>
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 space-y-3">
               <div className="h-5 w-1/3 rounded bg-[#ebe5d8]" />
@@ -114,12 +113,9 @@ export function ServiceAddonsSkeleton() {
 
 export function AddressesSkeleton() {
   return (
-    <div className="space-y-4" role="status" aria-label="Loading addresses">
+    <div aria-label="Loading addresses" className="space-y-4" role="status">
       {[1, 2].map((i) => (
-        <div
-          className="animate-pulse rounded-2xl border border-[#ebe5d8] bg-white p-6"
-          key={i}
-        >
+        <div className="animate-pulse rounded-2xl border border-[#ebe5d8] bg-white p-6" key={i}>
           <div className="space-y-3">
             <div className="h-5 w-1/3 rounded bg-[#ebe5d8]" />
             <div className="h-4 w-full rounded bg-[#ebe5d8]" />
@@ -133,7 +129,11 @@ export function AddressesSkeleton() {
 
 export function PendingRatingsSkeleton() {
   return (
-    <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm" role="status" aria-label="Loading pending ratings">
+    <div
+      aria-label="Loading pending ratings"
+      className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm"
+      role="status"
+    >
       <div className="animate-pulse space-y-4">
         <div className="h-6 w-48 rounded bg-[#ebe5d8]" />
         <div className="grid gap-4 md:grid-cols-2">
@@ -154,7 +154,7 @@ export function PendingRatingsSkeleton() {
 
 export function DocumentsSkeleton() {
   return (
-    <ul className="divide-y divide-[#efe7dc]" role="status" aria-label="Loading documents">
+    <ul aria-label="Loading documents" className="divide-y divide-[#efe7dc]" role="status">
       {[1, 2, 3].map((i) => (
         <li className="animate-pulse py-4" key={i}>
           <div className="flex items-center justify-between gap-3">
@@ -172,7 +172,11 @@ export function DocumentsSkeleton() {
 
 export function PaymentMethodSkeleton() {
   return (
-    <div className="animate-pulse rounded-2xl border border-[#ebe5d8] bg-white p-6" role="status" aria-label="Loading payment method">
+    <div
+      aria-label="Loading payment method"
+      className="animate-pulse rounded-2xl border border-[#ebe5d8] bg-white p-6"
+      role="status"
+    >
       <div className="space-y-3">
         <div className="h-5 w-48 rounded bg-[#ebe5d8]" />
         <div className="h-4 w-full rounded bg-[#ebe5d8]" />

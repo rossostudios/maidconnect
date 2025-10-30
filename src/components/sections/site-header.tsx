@@ -1,8 +1,8 @@
-import { Link } from "@/i18n/routing";
 import { DashboardButton } from "@/components/navigation/dashboard-button";
 import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { Link } from "@/i18n/routing";
 import { AUTH_ROUTES, getDashboardRouteForRole, getSession } from "@/lib/auth";
 import { SiteNavigation } from "./site-navigation";
 

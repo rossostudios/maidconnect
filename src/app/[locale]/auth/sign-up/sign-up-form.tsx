@@ -1,8 +1,8 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useActionState } from "react";
-import { Link } from "@/i18n/routing";
+import { ConsentCheckboxes } from "@/components/auth/consent-checkboxes";
 import { cn } from "@/lib/utils";
 import { signUpAction } from "./actions";
 import { defaultSignUpState, type SignUpActionState } from "./types";
@@ -13,6 +13,7 @@ const errorInputClass = "border-red-400 focus:border-red-500 focus:ring-red-200"
 
 export function SignUpForm() {
   const t = useTranslations("pages.signUp.form");
+  const locale = useLocale();
   const [state, formAction, isPending] = useActionState<SignUpActionState, FormData>(
     signUpAction,
     defaultSignUpState
@@ -181,29 +182,15 @@ export function SignUpForm() {
         </Field>
       </section>
 
-      <section className="space-y-3">
-        <label className="flex items-start gap-3 text-[#211f1a] text-sm">
-          <input
-            aria-invalid={Boolean(fieldError("terms"))}
-            className={cn(
-              "mt-[2px] h-4 w-4 accent-[#211f1a]",
-              fieldError("terms") && "accent-red-600"
-            )}
-            name="terms"
-            type="checkbox"
-          />
-          <span>
-            {t("termsLabel")}{" "}
-            <Link
-              className="font-semibold text-[#211f1a] underline decoration-[#211f1a]/40 underline-offset-4 hover:decoration-[#ff5d46]"
-              href="/support/account-suspended"
-            >
-              {t("termsLink")}
-            </Link>{" "}
-            {t("termsConfirm")}
-          </span>
-        </label>
-        {fieldError("terms") ? <p className="text-red-600 text-xs">{fieldError("terms")}</p> : null}
+      <section>
+        <ConsentCheckboxes
+          errors={{
+            privacyConsent: fieldError("privacyConsent"),
+            termsConsent: fieldError("termsConsent"),
+            dataProcessingConsent: fieldError("dataProcessingConsent"),
+          }}
+          locale={locale}
+        />
       </section>
 
       {state.status === "error" && state.error ? (

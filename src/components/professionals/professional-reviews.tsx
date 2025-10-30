@@ -1,11 +1,10 @@
 "use client";
 
 import { Star } from "lucide-react";
-import { Link } from "@/i18n/routing";
 import { useActionState } from "react";
-
 import { submitProfessionalReviewAction } from "@/app/actions/submit-professional-review";
 import type { ProfessionalReviewSummary } from "@/components/professionals/types";
+import { Link } from "@/i18n/routing";
 import type { AppUser } from "@/lib/auth/types";
 
 type Props = {

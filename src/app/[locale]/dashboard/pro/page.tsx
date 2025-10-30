@@ -1,6 +1,5 @@
-import { Link } from "@/i18n/routing";
-import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
+import { Suspense } from "react";
 import {
   OPTIONAL_DOCUMENTS,
   REQUIRED_DOCUMENTS,
@@ -18,6 +17,7 @@ import {
   ProfileMetricsSkeleton,
   ServiceAddonsSkeleton,
 } from "@/components/skeletons/dashboard-skeletons";
+import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -584,7 +584,9 @@ export default async function ProfessionalDashboardPage({
                       {t("sections.documents.download")}
                     </Link>
                   ) : (
-                    <p className="text-[#c4534d] text-xs">{t("sections.documents.downloadError")}</p>
+                    <p className="text-[#c4534d] text-xs">
+                      {t("sections.documents.downloadError")}
+                    </p>
                   )}
                 </li>
               ))}

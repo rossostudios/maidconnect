@@ -1,6 +1,6 @@
-import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
+import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { ApplicationForm } from "./application-form";

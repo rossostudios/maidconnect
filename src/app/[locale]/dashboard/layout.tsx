@@ -1,9 +1,9 @@
-import { Link } from "@/i18n/routing";
 import type { ReactNode } from "react";
 import { Breadcrumbs } from "@/components/navigation/breadcrumbs";
 import { DashboardFooter } from "@/components/navigation/dashboard-footer";
 import { DashboardNavigation } from "@/components/navigation/dashboard-navigation";
 import { Container } from "@/components/ui/container";
+import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 
 type Props = {

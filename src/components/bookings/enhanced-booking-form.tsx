@@ -114,7 +114,10 @@ export function EnhancedBookingForm({
           selectedRate && formData.durationHours > 0
             ? Math.round(selectedRate * formData.durationHours)
             : 0;
-        const addonsTotal = formData.selectedAddons.reduce((sum, addon) => sum + addon.price_cop, 0);
+        const addonsTotal = formData.selectedAddons.reduce(
+          (sum, addon) => sum + addon.price_cop,
+          0
+        );
         const totalAmount = baseAmount + addonsTotal;
 
         const response = await fetch("/api/bookings", {

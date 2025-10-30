@@ -1,5 +1,5 @@
-import { Link } from "@/i18n/routing";
 import { ProfessionalVettingDashboard } from "@/components/admin/professional-vetting-dashboard";
+import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 
 export default async function AdminHomePage() {

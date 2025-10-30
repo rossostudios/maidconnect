@@ -1,8 +1,8 @@
 "use client";
 
 import { formatDistanceToNow } from "date-fns";
-import { Link } from "@/i18n/routing";
 import { useEffect, useState } from "react";
+import { Link } from "@/i18n/routing";
 
 type Notification = {
   id: string;
