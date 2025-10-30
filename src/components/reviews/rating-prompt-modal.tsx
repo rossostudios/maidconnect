@@ -101,16 +101,16 @@ export function RatingPromptModal({
 
     return (
       <div className="flex items-center gap-2">
-        {label && <span className="text-sm text-[#7a6d62]">{label}:</span>}
+        {label && <span className="text-[#7a6d62] text-sm">{label}:</span>}
         <div className="flex gap-1">
           {[1, 2, 3, 4, 5].map((star) => (
             <button
+              className="text-2xl transition-transform hover:scale-110"
               key={star}
-              type="button"
               onClick={() => onChange(star)}
               onMouseEnter={() => (onHover ? onHover(star) : setLocalHover(star))}
               onMouseLeave={() => (onHover ? onHover(0) : setLocalHover(0))}
-              className="text-2xl transition-transform hover:scale-110"
+              type="button"
             >
               {star <= displayRating ? "⭐" : "☆"}
             </button>
@@ -123,72 +123,72 @@ export function RatingPromptModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-6 shadow-xl">
-        <h2 className="text-xl font-semibold text-[#211f1a]">
+        <h2 className="font-semibold text-[#211f1a] text-xl">
           Rate Your Experience with {customerName}
         </h2>
-        <p className="mt-2 text-sm text-[#7a6d62]">
+        <p className="mt-2 text-[#7a6d62] text-sm">
           Your feedback helps maintain a trusted community. This review is private and only visible
           to you and the customer.
         </p>
 
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+        <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
           {/* Overall Rating */}
           <div>
-            <label className="mb-2 block text-sm font-medium text-[#211f1a]">
+            <label className="mb-2 block font-medium text-[#211f1a] text-sm">
               Overall Rating *
             </label>
-            <StarRating value={rating} onHover={setHoveredRating} onChange={setRating} />
+            <StarRating onChange={setRating} onHover={setHoveredRating} value={rating} />
           </div>
 
           {/* Category Ratings */}
           <div className="space-y-2 rounded-lg border border-[#ebe5d8] bg-[#fbfafa] p-4">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#7a6d62]">
+            <p className="font-semibold text-[#7a6d62] text-xs uppercase tracking-wide">
               Optional: Rate by category
             </p>
             <StarRating
-              value={punctualityRating}
-              onChange={setPunctualityRating}
               label="Punctuality"
+              onChange={setPunctualityRating}
+              value={punctualityRating}
             />
             <StarRating
-              value={communicationRating}
-              onChange={setCommunicationRating}
               label="Communication"
+              onChange={setCommunicationRating}
+              value={communicationRating}
             />
             <StarRating
-              value={respectfulnessRating}
-              onChange={setRespectfulnessRating}
               label="Respectfulness"
+              onChange={setRespectfulnessRating}
+              value={respectfulnessRating}
             />
           </div>
 
           {/* Title */}
           <div>
-            <label htmlFor="title" className="mb-2 block text-sm font-medium text-[#211f1a]">
+            <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="title">
               Title (optional)
             </label>
             <input
+              className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
               id="title"
-              type="text"
-              value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Sum up your experience in one line"
-              className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+              type="text"
+              value={title}
             />
           </div>
 
           {/* Comment */}
           <div>
-            <label htmlFor="comment" className="mb-2 block text-sm font-medium text-[#211f1a]">
+            <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="comment">
               Comment (optional)
             </label>
             <textarea
+              className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
               id="comment"
-              value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder="Share details about your experience (e.g., were they on time? responsive? respectful of your time?)"
               rows={4}
-              className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+              value={comment}
             />
           </div>
 
@@ -206,17 +206,17 @@ export function RatingPromptModal({
           {/* Actions */}
           <div className="flex gap-3">
             <button
-              type="button"
-              onClick={onClose}
-              disabled={loading}
               className="flex-1 rounded-lg border border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
+              disabled={loading}
+              onClick={onClose}
+              type="button"
             >
               Skip for now
             </button>
             <button
-              type="submit"
-              disabled={loading || rating === 0}
               className="flex-1 rounded-lg bg-[#ff5d46] px-4 py-2 font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+              disabled={loading || rating === 0}
+              type="submit"
             >
               {loading ? "Submitting..." : "Submit Review"}
             </button>

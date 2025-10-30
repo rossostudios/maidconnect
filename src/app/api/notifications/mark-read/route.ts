@@ -39,7 +39,8 @@ export async function POST(request: NextRequest) {
       }
 
       return NextResponse.json({ success: true, markedAll: true });
-    } else if (notificationIds && Array.isArray(notificationIds)) {
+    }
+    if (notificationIds && Array.isArray(notificationIds)) {
       // Mark specific notifications as read
       const { error } = await supabase
         .from("notifications")
@@ -59,12 +60,11 @@ export async function POST(request: NextRequest) {
         success: true,
         marked: notificationIds.length,
       });
-    } else {
-      return NextResponse.json(
-        { error: "Invalid request: provide notificationIds or markAllRead" },
-        { status: 400 }
-      );
     }
+    return NextResponse.json(
+      { error: "Invalid request: provide notificationIds or markAllRead" },
+      { status: 400 }
+    );
   } catch (error) {
     console.error("Mark read API error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

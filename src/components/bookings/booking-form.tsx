@@ -69,7 +69,7 @@ export function BookingForm({
   const selectedRate = selectedService?.hourlyRateCop ?? defaultHourlyRate ?? null;
   const estimatedAmount =
     selectedRate && durationHours > 0
-      ? Math.max(20000, Math.round(selectedRate * durationHours))
+      ? Math.max(20_000, Math.round(selectedRate * durationHours))
       : 0;
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export function BookingForm({
 
   if (serviceWithName.length === 0) {
     return (
-      <div className="rounded-2xl border border-[#f0ece4] bg-[#fbfafa] p-5 text-sm text-[#7a6d62]">
+      <div className="rounded-2xl border border-[#f0ece4] bg-[#fbfafa] p-5 text-[#7a6d62] text-sm">
         This professional is updating their services. Check back soon or contact concierge support
         to request a custom quote.
       </div>
@@ -89,7 +89,7 @@ export function BookingForm({
 
   if (!stripePromise) {
     return (
-      <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+      <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm">
         Stripe publishable key is not configured. Set NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY in your
         environment.
       </div>
@@ -98,34 +98,34 @@ export function BookingForm({
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-[#5d574b]">
+      <p className="text-[#5d574b] text-sm">
         Confirm your booking with {professionalName}. We’ll place a temporary hold and only capture
         after the service is completed.
       </p>
       {state.status === "error" && state.message ? (
-        <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">
+        <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-red-600 text-sm">
           {state.message}
         </div>
       ) : null}
       {state.status === "success" && state.bookingId ? (
-        <div className="rounded-md border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-700">
+        <div className="rounded-md border border-green-200 bg-green-50 px-3 py-2 text-green-700 text-sm">
           Booking created successfully. We’ll notify the professional and confirm shortly.
         </div>
       ) : null}
       <form action={action} className="space-y-4">
-        <input type="hidden" name="professionalId" value={professionalId} />
-        <input type="hidden" name="serviceHourlyRate" value={selectedRate ?? ""} />
-        <input type="hidden" name="amount" value={estimatedAmount > 0 ? estimatedAmount : ""} />
+        <input name="professionalId" type="hidden" value={professionalId} />
+        <input name="serviceHourlyRate" type="hidden" value={selectedRate ?? ""} />
+        <input name="amount" type="hidden" value={estimatedAmount > 0 ? estimatedAmount : ""} />
         <div className="grid gap-4 sm:grid-cols-2">
           <FormField label="Service">
             <select
+              className="w-full rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[#211f1a] text-sm shadow-black/5 shadow-inner transition hover:border-[#ff5d46] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff5d46] focus-visible:outline-offset-2"
               name="serviceName"
-              value={selectedServiceName}
               onChange={(event) => setSelectedServiceName(event.target.value)}
-              className="w-full rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 text-sm font-medium text-[#211f1a] shadow-inner shadow-black/5 transition hover:border-[#ff5d46] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5d46]"
               required
+              value={selectedServiceName}
             >
-              <option value="" disabled>
+              <option disabled value="">
                 Select a service
               </option>
               {serviceWithName.map((service) => (
@@ -138,44 +138,44 @@ export function BookingForm({
           </FormField>
           <FormField label="Date">
             <DatePicker
-              value={selectedDate}
+              name="scheduledDate"
               onChange={setSelectedDate}
               placeholder="Select date"
-              name="scheduledDate"
               required
+              value={selectedDate}
             />
           </FormField>
           <FormField label="Start time">
             <TimePicker
-              value={selectedTime}
+              name="scheduledTime"
               onChange={setSelectedTime}
               placeholder="Select time"
-              name="scheduledTime"
               required
+              value={selectedTime}
             />
           </FormField>
           <FormField label="Estimated duration (hours)">
             <input
-              name="duration"
-              type="number"
-              min={1}
+              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
               max={12}
-              value={durationHours}
+              min={1}
+              name="duration"
               onChange={(event) => {
                 const next = Number(event.target.value);
                 setDurationHours(Number.isNaN(next) ? 0 : next);
               }}
-              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
               required
+              type="number"
+              value={durationHours}
             />
           </FormField>
           <FormField label="Estimated total (COP)">
-            <div className="flex items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 text-sm font-semibold text-[#211f1a] shadow-inner shadow-black/5">
+            <div className="flex items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-semibold text-[#211f1a] text-sm shadow-black/5 shadow-inner">
               <span>
                 {estimatedAmount > 0 ? formatCurrencyCOP(estimatedAmount) : "Add service details"}
               </span>
               {selectedRate ? (
-                <span className="text-xs font-medium text-[#7a6d62]">
+                <span className="font-medium text-[#7a6d62] text-xs">
                   Rate {formatCurrencyCOP(selectedRate)} · {durationHours}h
                 </span>
               ) : null}
@@ -184,23 +184,23 @@ export function BookingForm({
         </div>
         <FormField label="Special instructions">
           <textarea
-            name="specialInstructions"
-            rows={3}
             className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+            name="specialInstructions"
             placeholder="Building entry instructions, pets, cleaning priorities..."
+            rows={3}
           />
         </FormField>
         <FormField label="Service address">
           <textarea
-            name="address"
-            rows={2}
             className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+            name="address"
             placeholder="Street, city, any access info"
+            rows={2}
           />
         </FormField>
         <div className="flex justify-end">
           <button
-            type="submit"
+            className="inline-flex items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2 font-semibold text-sm text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
             disabled={
               pending ||
               state.status === "loading" ||
@@ -210,7 +210,7 @@ export function BookingForm({
               estimatedAmount <= 0 ||
               durationHours <= 0
             }
-            className="inline-flex items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
+            type="submit"
           >
             {pending ? "Creating booking…" : "Create booking"}
           </button>
@@ -219,13 +219,13 @@ export function BookingForm({
 
       {state.status === "success" && state.clientSecret ? (
         <Elements
-          stripe={stripePromise}
           options={{ clientSecret: state.clientSecret, appearance: stripeAppearance }}
+          stripe={stripePromise}
         >
           <PaymentConfirmation
             bookingId={state.bookingId!}
-            paymentIntentId={state.paymentIntentId!}
             onReset={() => window.location.reload()}
+            paymentIntentId={state.paymentIntentId!}
           />
         </Elements>
       ) : null}
@@ -260,7 +260,7 @@ async function createBookingAction(_prev: FormState, formData: FormData): Promis
       return { status: "error", message: "Please choose a service." };
     }
 
-    if (!scheduledDate || !scheduledTime) {
+    if (!(scheduledDate && scheduledTime)) {
       return { status: "error", message: "Please select a date and time." };
     }
 
@@ -341,7 +341,7 @@ function PaymentConfirmation({ bookingId, paymentIntentId, onReset }: PaymentCon
   const [error, setError] = useState<string | null>(null);
 
   const handleConfirm = async () => {
-    if (!stripe || !elements) return;
+    if (!(stripe && elements)) return;
     setSubmitting(true);
     setError(null);
     try {
@@ -378,28 +378,28 @@ function PaymentConfirmation({ bookingId, paymentIntentId, onReset }: PaymentCon
 
   return (
     <div className="space-y-3 rounded-md border border-[#ece4d9] bg-[#fdfaf6] p-4">
-      <h3 className="text-sm font-semibold text-[#211f1a]">Confirm payment method</h3>
+      <h3 className="font-semibold text-[#211f1a] text-sm">Confirm payment method</h3>
       <PaymentElement options={{ layout: "tabs" }} />
-      {error ? <p className="text-xs text-red-600">{error}</p> : null}
+      {error ? <p className="text-red-600 text-xs">{error}</p> : null}
       <div className="flex items-center gap-3">
         <button
-          type="button"
-          onClick={handleConfirm}
+          className="inline-flex items-center justify-center rounded-md bg-[#ff5d46] px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={submitting}
-          className="inline-flex items-center justify-center rounded-md bg-[#ff5d46] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+          onClick={handleConfirm}
+          type="button"
         >
           {submitting ? "Confirming…" : "Confirm hold"}
         </button>
         <button
-          type="button"
-          onClick={onReset}
+          className="inline-flex items-center justify-center rounded-md border border-[#e5dfd4] px-3 py-1.5 font-semibold text-[#7a6d62] text-xs transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={submitting}
-          className="inline-flex items-center justify-center rounded-md border border-[#e5dfd4] px-3 py-1.5 text-xs font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
+          onClick={onReset}
+          type="button"
         >
           Cancel
         </button>
       </div>
-      <p className="text-xs text-[#7a6d62]">
+      <p className="text-[#7a6d62] text-xs">
         Booking ID: {bookingId}. You’ll only be charged after the professional marks the service
         complete.
       </p>
@@ -416,8 +416,8 @@ type FormFieldProps = {
 function FormField({ label, children, helper }: FormFieldProps) {
   return (
     <div className="space-y-2">
-      <label className="block text-sm font-medium text-[#211f1a]">{label}</label>
-      {helper ? <p className="text-xs text-[#7a6d62]">{helper}</p> : null}
+      <label className="block font-medium text-[#211f1a] text-sm">{label}</label>
+      {helper ? <p className="text-[#7a6d62] text-xs">{helper}</p> : null}
       {children}
     </div>
   );

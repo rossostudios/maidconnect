@@ -83,52 +83,52 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="text-3xl font-semibold text-[#211f1a]">{t("title")}</h1>
-        <p className="mt-2 text-base leading-relaxed text-[#5d574b]">{t("description")}</p>
+        <h1 className="font-semibold text-3xl text-[#211f1a]">{t("title")}</h1>
+        <p className="mt-2 text-[#5d574b] text-base leading-relaxed">{t("description")}</p>
       </div>
 
       {/* Summary Cards */}
       <div className="grid gap-6 sm:grid-cols-3">
         <MetricCard
+          description={t("metrics.totalSpent.description")}
           label={t("metrics.totalSpent.label")}
           value={formatCurrency(totalSpent)}
-          description={t("metrics.totalSpent.description")}
         />
         <MetricCard
+          description={t("metrics.pendingCharges.description")}
           label={t("metrics.pendingCharges.label")}
           value={formatCurrency(totalAuthorized)}
-          description={t("metrics.pendingCharges.description")}
         />
         <MetricCard
+          description={t("metrics.totalBookings.description")}
           label={t("metrics.totalBookings.label")}
           value={bookings.length.toString()}
-          description={t("metrics.totalBookings.description")}
         />
       </div>
 
       {/* Payment Methods */}
       {paymentMethods.length > 0 && (
         <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h2 className="mb-4 text-xl font-semibold text-[#211f1a]">{t("paymentMethods.title")}</h2>
+          <h2 className="mb-4 font-semibold text-[#211f1a] text-xl">{t("paymentMethods.title")}</h2>
           <div className="space-y-3">
             {paymentMethods.map((method) => (
               <div
-                key={method.id}
                 className="flex items-center justify-between rounded-lg border border-[#ebe5d8] p-4"
+                key={method.id}
               >
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ebe5d8]">
                     <svg
                       className="h-5 w-5 text-[#211f1a]"
                       fill="none"
-                      viewBox="0 0 24 24"
                       stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
                       <path
+                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
                       />
                     </svg>
                   </div>
@@ -136,7 +136,7 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
                     <p className="font-medium text-[#211f1a]">
                       {method.card.brand.toUpperCase()} •••• {method.card.last4}
                     </p>
-                    <p className="text-sm text-[#7d7566]">
+                    <p className="text-[#7d7566] text-sm">
                       {t("paymentMethods.expires")} {method.card.exp_month}/{method.card.exp_year}
                     </p>
                   </div>
@@ -149,7 +149,7 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
 
       {/* Payment History */}
       <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h2 className="mb-6 text-xl font-semibold text-[#211f1a]">{t("paymentHistory.title")}</h2>
+        <h2 className="mb-6 font-semibold text-[#211f1a] text-xl">{t("paymentHistory.title")}</h2>
         <PaymentHistoryTable bookings={bookings} />
       </div>
     </section>
@@ -167,9 +167,9 @@ function MetricCard({
 }) {
   return (
     <div className="rounded-[28px] bg-white p-6 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-      <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">{label}</dt>
-      <dd className="mt-3 text-3xl font-semibold text-[#211f1a]">{value}</dd>
-      <p className="mt-1 text-sm text-[#7d7566]">{description}</p>
+      <dt className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">{label}</dt>
+      <dd className="mt-3 font-semibold text-3xl text-[#211f1a]">{value}</dd>
+      <p className="mt-1 text-[#7d7566] text-sm">{description}</p>
     </div>
   );
 }

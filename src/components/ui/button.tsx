@@ -28,13 +28,13 @@ const variantClasses: Record<ButtonVariant, string> = {
 export function Button({ href, label, variant = "primary", icon = false, className }: ButtonProps) {
   return (
     <Link
-      href={href}
       className={cn(baseClasses, variantClasses[variant], icon && "gap-3", className)}
+      href={href}
     >
       <span>{label}</span>
       {icon ? (
         <span className="flex h-7 w-7 items-center justify-center rounded-full bg-current/20 text-current transition group-hover:bg-current/30">
-          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          <ArrowRight aria-hidden="true" className="h-4 w-4" />
         </span>
       ) : null}
     </Link>

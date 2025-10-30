@@ -28,7 +28,7 @@ export async function signInAction(
   const password = String(formData.get("password") ?? "");
   const redirectHint = sanitizeRedirectPath(formData.get("redirectTo") as string | null);
 
-  if (!email || !password) {
+  if (!(email && password)) {
     return { error: "Email and password are required." };
   }
 

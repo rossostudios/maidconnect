@@ -125,10 +125,10 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
     <section className="py-16 sm:py-20 lg:py-24">
       <Container className="space-y-12">
         <header className="space-y-6 text-center">
-          <h1 className="text-5xl font-semibold tracking-tight text-[#211f1a] sm:text-6xl lg:text-7xl">
+          <h1 className="font-semibold text-5xl text-[#211f1a] tracking-tight sm:text-6xl lg:text-7xl">
             {t("header.title")}
           </h1>
-          <p className="mx-auto max-w-3xl text-xl text-[#5d574b] sm:text-2xl">
+          <p className="mx-auto max-w-3xl text-[#5d574b] text-xl sm:text-2xl">
             {t("header.subtitle")}
           </p>
         </header>
@@ -137,24 +137,24 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
           <div className="space-y-6">
             {/* Search Bar */}
             <div className="relative">
-              <Search className="pointer-events-none absolute left-5 top-1/2 h-6 w-6 -translate-y-1/2 text-[#a49c90]" />
+              <Search className="-translate-y-1/2 pointer-events-none absolute top-1/2 left-5 h-6 w-6 text-[#a49c90]" />
               <input
-                value={searchTerm}
+                className="w-full rounded-full border border-[#e2ddd2] bg-[#fbfafa] py-4 pr-6 pl-14 text-[#211f1a] text-base shadow-black/5 shadow-inner outline-none transition focus:border-[#211f1a]"
                 onChange={(event) => setSearchTerm(event.target.value)}
                 placeholder={t("filters.search")}
-                className="w-full rounded-full border border-[#e2ddd2] bg-[#fbfafa] py-4 pl-14 pr-6 text-base text-[#211f1a] shadow-inner shadow-black/5 outline-none transition focus:border-[#211f1a]"
+                value={searchTerm}
               />
             </div>
 
             {/* Filter Controls */}
-            <div className="flex flex-wrap items-center gap-4 text-sm font-semibold text-[#5a5549]">
+            <div className="flex flex-wrap items-center gap-4 font-semibold text-[#5a5549] text-sm">
               <label className="flex items-center gap-2.5">
                 <Filter className="h-5 w-5 text-[#211f1a]" />
                 <span>{t("filters.service")}</span>
                 <select
                   className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[#211f1a] focus:outline-none"
-                  value={serviceFilter}
                   onChange={(event) => setServiceFilter(event.target.value)}
+                  value={serviceFilter}
                 >
                   {serviceOptions.map((service) => (
                     <option key={service} value={service}>
@@ -169,8 +169,8 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                 <span>{t("filters.city")}</span>
                 <select
                   className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[#211f1a] focus:outline-none"
-                  value={cityFilter}
                   onChange={(event) => setCityFilter(event.target.value)}
+                  value={cityFilter}
                 >
                   {cityOptions.map((city) => (
                     <option key={city} value={city}>
@@ -185,8 +185,8 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                 <span>{t("filters.rating")}</span>
                 <select
                   className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[#211f1a] focus:outline-none"
-                  value={ratingFilter}
                   onChange={(event) => setRatingFilter(event.target.value)}
+                  value={ratingFilter}
                 >
                   {ratingOptions.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -198,18 +198,18 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
 
               <label className="flex items-center gap-2.5">
                 <input
-                  type="checkbox"
-                  className="h-5 w-5 rounded border-[#e2ddd2] text-[#211f1a] focus:ring-[#211f1a]"
                   checked={availableToday}
+                  className="h-5 w-5 rounded border-[#e2ddd2] text-[#211f1a] focus:ring-[#211f1a]"
                   onChange={(event) => setAvailableToday(event.target.checked)}
+                  type="checkbox"
                 />
                 <span>{t("filters.availableToday")}</span>
               </label>
 
               <button
-                type="button"
-                className="ml-auto rounded-full border-2 border-[#211f1a] bg-white px-5 py-2 text-sm font-semibold text-[#211f1a] transition hover:bg-[#211f1a] hover:text-white"
+                className="ml-auto rounded-full border-2 border-[#211f1a] bg-white px-5 py-2 font-semibold text-[#211f1a] text-sm transition hover:bg-[#211f1a] hover:text-white"
                 onClick={resetFilters}
+                type="button"
               >
                 {t("filters.reset")}
               </button>
@@ -219,31 +219,31 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
 
         {filteredProfessionals.length === 0 ? (
           <div className="rounded-[32px] border border-[#f0ece4] bg-[#fbfafa] p-12 text-center">
-            <p className="text-lg text-[#5d574b]">{t("results.noResults")}</p>
+            <p className="text-[#5d574b] text-lg">{t("results.noResults")}</p>
           </div>
         ) : (
           <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
             {filteredProfessionals.map((professional) => (
               <article
+                className="hover:-translate-y-1 flex h-full flex-col overflow-hidden rounded-[28px] border border-[#ebe5d8] bg-white shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[#211f1a] hover:shadow-[0_20px_60px_rgba(18,17,15,0.08)]"
                 key={professional.id}
-                className="flex h-full flex-col overflow-hidden rounded-[28px] border border-[#ebe5d8] bg-white shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:-translate-y-1 hover:border-[#211f1a] hover:shadow-[0_20px_60px_rgba(18,17,15,0.08)]"
               >
                 <div className="relative h-64 w-full">
                   <Image
-                    src={professional.photoUrl}
                     alt={professional.name}
-                    fill
                     className="object-cover"
+                    fill
+                    src={professional.photoUrl}
                   />
                 </div>
                 <div className="flex flex-1 flex-col gap-5 p-7">
                   <div className="space-y-2">
-                    <h2 className="text-2xl font-semibold text-[#211f1a]">{professional.name}</h2>
-                    <p className="text-base text-[#7d7566]">
+                    <h2 className="font-semibold text-2xl text-[#211f1a]">{professional.name}</h2>
+                    <p className="text-[#7d7566] text-base">
                       {professional.service ?? t("card.flexibleServices")}
                     </p>
                   </div>
-                  <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#5a5549]">
+                  <div className="flex flex-wrap items-center gap-2 font-semibold text-[#5a5549] text-xs">
                     <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1.5">
                       <Star className="h-3.5 w-3.5 text-[#211f1a]" />
                       {t("card.newBadge")}
@@ -265,13 +265,13 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center justify-between text-base text-[#5d574b]">
+                  <div className="flex items-center justify-between text-[#5d574b] text-base">
                     <span>{professional.location}</span>
                     <span className="font-semibold">
                       {formatCurrencyCOP(professional.hourlyRateCop) ?? t("card.rateOnRequest")}
                     </span>
                   </div>
-                  <p className="text-base leading-relaxed text-[#7d7566]">
+                  <p className="text-[#7d7566] text-base leading-relaxed">
                     {professional.bio
                       ? professional.bio.length > 140
                         ? `${professional.bio.slice(0, 140)}…`
@@ -280,8 +280,8 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                   </p>
                   <div className="mt-auto pt-2">
                     <Link
+                      className="inline-flex w-full items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-6 py-3.5 font-semibold text-base text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] transition hover:bg-[#2d2822]"
                       href={`/professionals/${professional.id}`}
-                      className="inline-flex w-full items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-6 py-3.5 text-base font-semibold text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] transition hover:bg-[#2d2822]"
                     >
                       {t("card.viewProfile")}
                     </Link>

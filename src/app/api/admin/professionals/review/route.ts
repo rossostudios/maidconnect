@@ -58,7 +58,7 @@ export async function POST(request: Request) {
       referencesVerified,
     } = body;
 
-    if (!professionalId || !action) {
+    if (!(professionalId && action)) {
       return NextResponse.json(
         { error: "professionalId and action are required" },
         { status: 400 }
@@ -125,9 +125,9 @@ export async function POST(request: Request) {
         reviewed_by: admin.id,
         review_type: "application",
         status: reviewStatus,
-        documents_verified: documentsVerified || false,
+        documents_verified: documentsVerified,
         background_check_passed: backgroundCheckPassed || null,
-        references_verified: referencesVerified || false,
+        references_verified: referencesVerified,
         notes: notes || null,
         internal_notes: internalNotes || null,
         rejection_reason: reviewStatus === "rejected" ? rejectionReason : null,

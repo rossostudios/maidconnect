@@ -69,12 +69,12 @@ export default async function ProDocumentsPage({
     <section className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-semibold text-[#211f1a]">{t("title")}</h1>
-          <p className="mt-2 text-base leading-relaxed text-[#5d574b]">{t("description")}</p>
+          <h1 className="font-semibold text-3xl text-[#211f1a]">{t("title")}</h1>
+          <p className="mt-2 text-[#5d574b] text-base leading-relaxed">{t("description")}</p>
         </div>
         <Link
+          className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-sm text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
           href="/dashboard/pro/onboarding"
-          className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 text-sm font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
         >
           {t("uploadButton")}
         </Link>

@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarDays, ChevronLeft, ChevronRight, Clock } from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { ProfessionalBookingSummary } from "@/components/professionals/types";
 import type { AvailabilitySlot } from "@/lib/professionals/transformers";
@@ -137,20 +137,20 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
-        <p className="text-sm text-[#7a6d62]">Browse upcoming availability and see booked dates</p>
+        <p className="text-[#7a6d62] text-sm">Browse upcoming availability and see booked dates</p>
         <div className="flex items-center gap-3">
           <button
-            type="button"
+            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-[#5d574b] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={() => changeMonth(-1)}
-            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-sm text-[#5d574b] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            type="button"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
-          <p className="text-sm font-semibold capitalize text-[#211f1a]">{monthLabel}</p>
+          <p className="font-semibold text-[#211f1a] text-sm capitalize">{monthLabel}</p>
           <button
-            type="button"
+            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-[#5d574b] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={() => changeMonth(1)}
-            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-sm text-[#5d574b] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            type="button"
           >
             <ChevronRight className="h-4 w-4" />
           </button>
@@ -161,8 +161,8 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
         <div className="grid grid-cols-7 gap-2">
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((label) => (
             <div
+              className="text-center font-semibold text-[#a49c90] text-xs uppercase tracking-wide"
               key={label}
-              className="text-center text-xs font-semibold uppercase tracking-wide text-[#a49c90]"
             >
               {label}
             </div>
@@ -176,27 +176,27 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
 
             return (
               <button
-                key={day.key}
-                type="button"
-                onClick={() => setSelectedDayKey(day.key)}
                 className={cn(
                   "flex h-20 flex-col items-center justify-center rounded-lg border text-sm transition",
                   day.inCurrentMonth
                     ? "border-[#efe7dc] bg-white"
                     : "border-transparent bg-[#fbfafa] text-[#c4bbaf]",
-                  hasAvailability ? "ring-1 ring-inset ring-[#ff5d46]/30" : "",
+                  hasAvailability ? "ring-1 ring-[#ff5d46]/30 ring-inset" : "",
                   hasBookings ? "shadow-[0_6px_14px_rgba(18,17,15,0.08)]" : "",
                   isSelected ? "border-[#ff5d46] ring-2 ring-[#ff5d4633]" : ""
                 )}
+                key={day.key}
+                onClick={() => setSelectedDayKey(day.key)}
+                type="button"
               >
-                <span className="text-sm font-semibold">{day.label}</span>
+                <span className="font-semibold text-sm">{day.label}</span>
                 {hasAvailability ? (
-                  <span className="mt-1 rounded-full bg-[#ff5d46]/12 px-2 py-0.5 text-xs font-semibold text-[#8a3934]">
+                  <span className="mt-1 rounded-full bg-[#ff5d46]/12 px-2 py-0.5 font-semibold text-[#8a3934] text-xs">
                     Open
                   </span>
                 ) : null}
                 {hasBookings ? (
-                  <span className="mt-1 text-[11px] font-medium text-[#7a6d62]">
+                  <span className="mt-1 font-medium text-[#7a6d62] text-[11px]">
                     {bookingsCount} {bookingsCount === 1 ? "booking" : "bookings"}
                   </span>
                 ) : null}
@@ -205,9 +205,9 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
           })}
         </div>
 
-        <div className="rounded-lg border border-[#efe7dc] bg-[#fbfafa] p-4 text-sm text-[#5d574b]">
-          <h4 className="text-sm font-semibold text-[#211f1a]">Day details</h4>
-          <p className="mt-1 text-xs text-[#7a6d62]">
+        <div className="rounded-lg border border-[#efe7dc] bg-[#fbfafa] p-4 text-[#5d574b] text-sm">
+          <h4 className="font-semibold text-[#211f1a] text-sm">Day details</h4>
+          <p className="mt-1 text-[#7a6d62] text-xs">
             {selectedDate.toLocaleDateString("es-CO", {
               weekday: "long",
               year: "numeric",
@@ -217,39 +217,39 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
           </p>
           {selectedAvailability.length > 0 ? (
             <div className="mt-3 space-y-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#a49c90]">
+              <p className="font-semibold text-[#a49c90] text-xs uppercase tracking-[0.18em]">
                 Available windows
               </p>
-              <ul className="space-y-1 text-sm text-[#211f1a]">
+              <ul className="space-y-1 text-[#211f1a] text-sm">
                 {selectedAvailability.map((slot, index) => (
                   <li
-                    key={`${slot.day}-${slot.start}-${slot.end}-${index}`}
                     className="flex items-center gap-2"
+                    key={`${slot.day}-${slot.start}-${slot.end}-${index}`}
                   >
-                    <Clock className="h-3.5 w-3.5 text-[#ff5d46]" aria-hidden="true" />
+                    <Clock aria-hidden="true" className="h-3.5 w-3.5 text-[#ff5d46]" />
                     <span>
                       {slot.start ?? "--"} – {slot.end ?? "--"}
                     </span>
                     {slot.notes ? (
-                      <span className="text-xs text-[#7a6d62]">· {slot.notes}</span>
+                      <span className="text-[#7a6d62] text-xs">· {slot.notes}</span>
                     ) : null}
                   </li>
                 ))}
               </ul>
             </div>
           ) : (
-            <p className="mt-3 text-sm text-[#7a6d62]">
+            <p className="mt-3 text-[#7a6d62] text-sm">
               No published availability. Request a booking and we&apos;ll coordinate directly with
               the professional.
             </p>
           )}
 
           <div className="mt-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#a49c90]">
+            <p className="font-semibold text-[#a49c90] text-xs uppercase tracking-[0.18em]">
               Bookings
             </p>
             {selectedBookings.length === 0 ? (
-              <p className="mt-2 text-sm text-[#7a6d62]">No bookings scheduled for this day.</p>
+              <p className="mt-2 text-[#7a6d62] text-sm">No bookings scheduled for this day.</p>
             ) : (
               <ul className="mt-2 space-y-3">
                 {selectedBookings
@@ -269,20 +269,20 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
                         : (booking.status ?? "Booking");
                     return (
                       <li
+                        className="rounded-2xl border border-[#efe7dc] bg-white px-3 py-2 text-[#5d574b] text-sm"
                         key={booking.id}
-                        className="rounded-2xl border border-[#efe7dc] bg-white px-3 py-2 text-sm text-[#5d574b]"
                       >
                         <p className="font-semibold text-[#211f1a]">
                           {startDate ? formatTime(startDate) : "Scheduled"} ·{" "}
                           {booking.serviceName ?? "Service"}
                         </p>
-                        <p className="text-xs text-[#7a6d62]">{label}</p>
+                        <p className="text-[#7a6d62] text-xs">{label}</p>
                         {formatCOP(
                           booking.amountEstimated ??
                             booking.amountAuthorized ??
                             booking.amountCaptured
                         ) ? (
-                          <p className="text-xs text-[#7a6d62]">
+                          <p className="text-[#7a6d62] text-xs">
                             Hold{" "}
                             {formatCOP(
                               booking.amountEstimated ??

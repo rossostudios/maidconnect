@@ -104,31 +104,31 @@ export function PortfolioManager({
     <div className="space-y-6">
       {/* Featured Work */}
       <div>
-        <label className="mb-2 block text-sm font-semibold text-[#211f1a]">
+        <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
           {t("fields.description.label")}
         </label>
         <textarea
-          value={featuredWork}
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
           onChange={(e) => setFeaturedWork(e.target.value)}
           placeholder={t("fields.description.placeholder")}
           rows={3}
-          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+          value={featuredWork}
         />
-        <p className="mt-1 text-xs text-[#7a6d62]">{t("fields.description.helper")}</p>
+        <p className="mt-1 text-[#7a6d62] text-xs">{t("fields.description.helper")}</p>
       </div>
 
       {/* Upload New Images */}
       <div>
-        <h3 className="mb-3 text-sm font-semibold text-[#211f1a]">{t("upload.title")}</h3>
+        <h3 className="mb-3 font-semibold text-[#211f1a] text-sm">{t("upload.title")}</h3>
         <ImageUploadDropzone
-          onImagesUploaded={handleImagesUploaded}
           maxImages={20 - images.length}
+          onImagesUploaded={handleImagesUploaded}
         />
       </div>
 
       {/* Current Images */}
       <div>
-        <h3 className="mb-3 text-sm font-semibold text-[#211f1a]">
+        <h3 className="mb-3 font-semibold text-[#211f1a] text-sm">
           {t("upload.currentImages", { count: images.length })}
         </h3>
 
@@ -136,14 +136,14 @@ export function PortfolioManager({
           <div className="space-y-3">
             {sortedImages.map((image, index) => (
               <div
-                key={image.id}
                 className="flex gap-3 rounded-lg border border-[#e5dfd4] bg-white p-3"
+                key={image.id}
               >
                 {/* Thumbnail */}
                 <img
-                  src={image.thumbnail_url || image.url}
                   alt={image.caption || `Image ${index + 1}`}
                   className="h-20 w-20 flex-shrink-0 rounded-md object-cover"
+                  src={image.thumbnail_url || image.url}
                 />
 
                 {/* Details */}
@@ -151,51 +151,51 @@ export function PortfolioManager({
                   {editingId === image.id ? (
                     <div className="space-y-2">
                       <input
-                        type="text"
+                        autoFocus
+                        className="w-full rounded-md border border-[#e5dfd4] px-2 py-1 text-sm focus:border-[#ff5d46] focus:outline-none"
                         defaultValue={image.caption || ""}
-                        placeholder={t("actions.editCaption")}
                         onBlur={(e) => handleUpdateCaption(image.id, e.target.value)}
                         onKeyDown={(e) => {
                           if (e.key === "Enter") {
                             handleUpdateCaption(image.id, e.currentTarget.value);
                           }
                         }}
-                        className="w-full rounded-md border border-[#e5dfd4] px-2 py-1 text-sm focus:border-[#ff5d46] focus:outline-none"
-                        autoFocus
+                        placeholder={t("actions.editCaption")}
+                        type="text"
                       />
                     </div>
                   ) : (
                     <>
-                      <p className="text-sm font-semibold text-[#211f1a]">
+                      <p className="font-semibold text-[#211f1a] text-sm">
                         {image.caption || "(No caption)"}
                       </p>
-                      <p className="mt-1 truncate text-xs text-[#7a6d62]">{image.url}</p>
+                      <p className="mt-1 truncate text-[#7a6d62] text-xs">{image.url}</p>
                       <div className="mt-2 flex flex-wrap gap-2">
                         <button
+                          className="text-[#ff5d46] text-xs hover:text-[#eb6c65]"
                           onClick={() => setEditingId(image.id)}
-                          className="text-xs text-[#ff5d46] hover:text-[#eb6c65]"
                         >
                           {t("actions.editCaption")}
                         </button>
-                        <span className="text-xs text-[#e5dfd4]">•</span>
+                        <span className="text-[#e5dfd4] text-xs">•</span>
                         <button
-                          onClick={() => handleMoveUp(image.id)}
+                          className="text-[#7a6d62] text-xs hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
                           disabled={index === 0}
-                          className="text-xs text-[#7a6d62] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
+                          onClick={() => handleMoveUp(image.id)}
                         >
                           {t("actions.moveUp")}
                         </button>
                         <button
-                          onClick={() => handleMoveDown(image.id)}
+                          className="text-[#7a6d62] text-xs hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
                           disabled={index === sortedImages.length - 1}
-                          className="text-xs text-[#7a6d62] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
+                          onClick={() => handleMoveDown(image.id)}
                         >
                           {t("actions.moveDown")}
                         </button>
-                        <span className="text-xs text-[#e5dfd4]">•</span>
+                        <span className="text-[#e5dfd4] text-xs">•</span>
                         <button
+                          className="text-red-600 text-xs hover:text-red-700"
                           onClick={() => handleDeleteImage(image.id)}
-                          className="text-xs text-red-600 hover:text-red-700"
                         >
                           {t("actions.delete")}
                         </button>
@@ -206,7 +206,7 @@ export function PortfolioManager({
 
                 {/* Order Badge */}
                 <div className="flex-shrink-0">
-                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#f0ece5] text-xs font-semibold text-[#7a6d62]">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#f0ece5] font-semibold text-[#7a6d62] text-xs">
                     {index + 1}
                   </span>
                 </div>
@@ -218,16 +218,16 @@ export function PortfolioManager({
         {images.length === 0 && (
           <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-12 text-center">
             <p className="text-2xl">📸</p>
-            <p className="mt-2 text-sm font-semibold text-[#211f1a]">{t("emptyState.title")}</p>
-            <p className="mt-1 text-sm text-[#7a6d62]">{t("emptyState.description")}</p>
+            <p className="mt-2 font-semibold text-[#211f1a] text-sm">{t("emptyState.title")}</p>
+            <p className="mt-1 text-[#7a6d62] text-sm">{t("emptyState.description")}</p>
           </div>
         )}
       </div>
 
       {/* Upload Tips */}
       <div className="rounded-lg border border-[#f0ece5] bg-[#fdfaf6] p-4">
-        <h4 className="text-sm font-semibold text-[#211f1a]">📸 {t("tips.title")}</h4>
-        <ul className="mt-2 space-y-1 text-sm text-[#7a6d62]">
+        <h4 className="font-semibold text-[#211f1a] text-sm">📸 {t("tips.title")}</h4>
+        <ul className="mt-2 space-y-1 text-[#7a6d62] text-sm">
           <li>• {t("tips.tip1")}</li>
           <li>• {t("tips.tip2")}</li>
           <li>• {t("tips.tip3")}</li>
@@ -239,9 +239,9 @@ export function PortfolioManager({
       {/* Save Button */}
       <div className="flex justify-end gap-3">
         <button
-          onClick={handleSave}
+          className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
-          className="rounded-md bg-[#ff5d46] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          onClick={handleSave}
         >
           {loading ? t("saving") : t("save")}
         </button>

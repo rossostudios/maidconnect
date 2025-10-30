@@ -179,13 +179,15 @@ export function formatSuspensionDuration(expiresAt?: string | null): string {
 
   if (diffDays < 1) {
     return "Expires today";
-  } else if (diffDays === 1) {
-    return "Expires tomorrow";
-  } else if (diffDays < 7) {
-    return `Expires in ${diffDays} days`;
-  } else if (diffDays < 30) {
-    return `Expires in ${Math.ceil(diffDays / 7)} weeks`;
-  } else {
-    return `Expires in ${Math.ceil(diffDays / 30)} months`;
   }
+  if (diffDays === 1) {
+    return "Expires tomorrow";
+  }
+  if (diffDays < 7) {
+    return `Expires in ${diffDays} days`;
+  }
+  if (diffDays < 30) {
+    return `Expires in ${Math.ceil(diffDays / 7)} weeks`;
+  }
+  return `Expires in ${Math.ceil(diffDays / 30)} months`;
 }

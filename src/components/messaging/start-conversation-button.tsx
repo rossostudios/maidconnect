@@ -44,12 +44,12 @@ export function StartConversationButton({ bookingId, label = "Message", classNam
 
   return (
     <button
-      onClick={handleClick}
-      disabled={loading}
       className={
         className ||
-        "inline-flex items-center gap-2 rounded-md border border-[#e5dfd4] px-4 py-2 text-sm font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
+        "inline-flex items-center gap-2 rounded-md border border-[#e5dfd4] px-4 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
       }
+      disabled={loading}
+      onClick={handleClick}
     >
       <span>💬</span>
       {loading ? "Opening..." : label}

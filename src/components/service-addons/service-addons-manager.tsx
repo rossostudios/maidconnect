@@ -91,16 +91,16 @@ export function ServiceAddonsManager({
       {/* Active Add-ons */}
       {activeAddons.length > 0 && (
         <div className="space-y-2">
-          <h4 className="text-sm font-semibold text-[#211f1a]">
+          <h4 className="font-semibold text-[#211f1a] text-sm">
             {t("activeAddons", { count: activeAddons.length })}
           </h4>
           {activeAddons.map((addon) => (
             <AddonCard
-              key={addon.id}
               addon={addon}
+              key={addon.id}
+              onDelete={() => handleDelete(addon.id)}
               onEdit={() => handleEdit(addon.id)}
               onToggleActive={() => handleToggleActive(addon.id)}
-              onDelete={() => handleDelete(addon.id)}
             />
           ))}
         </div>
@@ -109,16 +109,16 @@ export function ServiceAddonsManager({
       {/* Inactive Add-ons */}
       {inactiveAddons.length > 0 && (
         <div className="space-y-2">
-          <h4 className="text-sm font-semibold text-[#7a6d62]">
+          <h4 className="font-semibold text-[#7a6d62] text-sm">
             {t("inactiveAddons", { count: inactiveAddons.length })}
           </h4>
           {inactiveAddons.map((addon) => (
             <AddonCard
-              key={addon.id}
               addon={addon}
+              key={addon.id}
+              onDelete={() => handleDelete(addon.id)}
               onEdit={() => handleEdit(addon.id)}
               onToggleActive={() => handleToggleActive(addon.id)}
-              onDelete={() => handleDelete(addon.id)}
             />
           ))}
         </div>
@@ -127,10 +127,10 @@ export function ServiceAddonsManager({
       {/* Empty State */}
       {addons.length === 0 && !isAdding && (
         <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-8 text-center">
-          <p className="text-sm text-[#7a6d62]">{t("emptyState")}</p>
+          <p className="text-[#7a6d62] text-sm">{t("emptyState")}</p>
           <button
+            className="mt-3 font-semibold text-[#ff5d46] text-sm hover:text-[#eb6c65]"
             onClick={handleAddNew}
-            className="mt-3 text-sm font-semibold text-[#ff5d46] hover:text-[#eb6c65]"
           >
             {t("createFirst")}
           </button>
@@ -140,8 +140,8 @@ export function ServiceAddonsManager({
       {/* Add New Button */}
       {addons.length > 0 && !isAdding && !editingId && (
         <button
+          className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-[#e5dfd4] border-dashed bg-white/90 px-4 py-3 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           onClick={handleAddNew}
-          className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-[#e5dfd4] bg-white/90 px-4 py-3 text-sm font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
         >
           <span className="text-lg">+</span>
           {t("addNew")}
@@ -152,9 +152,9 @@ export function ServiceAddonsManager({
       {(isAdding || editingId) && (
         <AddonForm
           addon={editingAddon}
-          professionalId={professionalId}
-          onSave={handleSave}
           onCancel={handleCancel}
+          onSave={handleSave}
+          professionalId={professionalId}
         />
       )}
     </div>
@@ -197,13 +197,13 @@ function AddonCard({
           <div className="flex items-center gap-2">
             <h4 className="font-semibold text-[#211f1a]">{addon.name}</h4>
             {!addon.is_active && (
-              <span className="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-semibold text-gray-600">
+              <span className="rounded-full bg-gray-200 px-2 py-0.5 font-semibold text-gray-600 text-xs">
                 {t("inactive")}
               </span>
             )}
           </div>
-          {addon.description && <p className="mt-1 text-sm text-[#7a6d62]">{addon.description}</p>}
-          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#7a6d62]">
+          {addon.description && <p className="mt-1 text-[#7a6d62] text-sm">{addon.description}</p>}
+          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[#7a6d62] text-xs">
             <span className="font-semibold text-[#ff5d46]">{priceFormatted}</span>
             <span>⏱️ {durationFormatted}</span>
           </div>
@@ -212,20 +212,20 @@ function AddonCard({
         {/* Actions */}
         <div className="flex gap-2">
           <button
+            className="rounded-md px-2 py-1 font-medium text-[#7a6d62] text-xs transition hover:bg-[#f0ece5] hover:text-[#ff5d46]"
             onClick={onEdit}
-            className="rounded-md px-2 py-1 text-xs font-medium text-[#7a6d62] transition hover:bg-[#f0ece5] hover:text-[#ff5d46]"
           >
             {t("actions.edit")}
           </button>
           <button
+            className="rounded-md px-2 py-1 font-medium text-[#7a6d62] text-xs transition hover:bg-[#f0ece5] hover:text-[#ff5d46]"
             onClick={onToggleActive}
-            className="rounded-md px-2 py-1 text-xs font-medium text-[#7a6d62] transition hover:bg-[#f0ece5] hover:text-[#ff5d46]"
           >
             {addon.is_active ? t("actions.deactivate") : t("actions.activate")}
           </button>
           <button
+            className="rounded-md px-2 py-1 font-medium text-red-600 text-xs transition hover:bg-red-50"
             onClick={onDelete}
-            className="rounded-md px-2 py-1 text-xs font-medium text-red-600 transition hover:bg-red-50"
           >
             {t("actions.delete")}
           </button>
@@ -271,100 +271,102 @@ function AddonForm({
 
   return (
     <form
-      onSubmit={handleSubmit}
       className="space-y-4 rounded-lg border border-[#f0ece5] bg-white p-4"
+      onSubmit={handleSubmit}
     >
       <h4 className="font-semibold text-[#211f1a]">
         {addon ? t("form.editTitle") : t("form.createTitle")}
       </h4>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-[#211f1a]">
+        <label className="mb-1 block font-medium text-[#211f1a] text-sm">
           {t("form.fields.name.label")}
         </label>
         <input
-          type="text"
-          value={formData.name}
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           placeholder={t("form.fields.name.placeholder")}
-          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
           required
+          type="text"
+          value={formData.name}
         />
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium text-[#211f1a]">
+        <label className="mb-1 block font-medium text-[#211f1a] text-sm">
           {t("form.fields.description.label")}
         </label>
         <textarea
-          value={formData.description}
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           placeholder={t("form.fields.description.placeholder")}
           rows={2}
-          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+          value={formData.description}
         />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-1 block text-sm font-medium text-[#211f1a]">
+          <label className="mb-1 block font-medium text-[#211f1a] text-sm">
             {t("form.fields.price.label")}
           </label>
           <input
+            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+            min="0"
+            onChange={(e) =>
+              setFormData({ ...formData, price_cop: Number.parseInt(e.target.value) })
+            }
+            placeholder={t("form.fields.price.placeholder")}
+            required
+            step="1000"
             type="number"
             value={formData.price_cop}
-            onChange={(e) => setFormData({ ...formData, price_cop: parseInt(e.target.value) })}
-            placeholder={t("form.fields.price.placeholder")}
-            min="0"
-            step="1000"
-            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
-            required
           />
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium text-[#211f1a]">
+          <label className="mb-1 block font-medium text-[#211f1a] text-sm">
             {t("form.fields.extraTime.label")}
           </label>
           <input
-            type="number"
-            value={formData.duration_minutes}
+            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+            min="0"
             onChange={(e) =>
               setFormData({
                 ...formData,
-                duration_minutes: parseInt(e.target.value),
+                duration_minutes: Number.parseInt(e.target.value),
               })
             }
             placeholder={t("form.fields.extraTime.placeholder")}
-            min="0"
             step="15"
-            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+            type="number"
+            value={formData.duration_minutes}
           />
-          <p className="mt-1 text-xs text-[#7a6d62]">{t("form.fields.extraTime.helper")}</p>
+          <p className="mt-1 text-[#7a6d62] text-xs">{t("form.fields.extraTime.helper")}</p>
         </div>
       </div>
 
       <label className="flex items-center gap-2">
         <input
-          type="checkbox"
           checked={formData.is_active}
-          onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
           className="rounded"
+          onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
+          type="checkbox"
         />
-        <span className="text-sm text-[#211f1a]">{t("form.fields.active.label")}</span>
+        <span className="text-[#211f1a] text-sm">{t("form.fields.active.label")}</span>
       </label>
 
       <div className="flex justify-end gap-3">
         <button
-          type="button"
+          className="rounded-md border border-[#e5dfd4] px-4 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           onClick={onCancel}
-          className="rounded-md border border-[#e5dfd4] px-4 py-2 text-sm font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+          type="button"
         >
           {t("form.cancel")}
         </button>
         <button
+          className="rounded-md bg-[#ff5d46] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65]"
           type="submit"
-          className="rounded-md bg-[#ff5d46] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65]"
         >
           {addon ? t("form.saveChanges") : t("form.createAddon")}
         </button>

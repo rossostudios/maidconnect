@@ -281,7 +281,7 @@ export async function POST(request: Request) {
     // Create audit log for payout processing
     if (!dryRun && successCount > 0 && adminId) {
       await createAuditLog({
-        adminId: adminId,
+        adminId,
         actionType: "manual_payout",
         details: {
           successCount,

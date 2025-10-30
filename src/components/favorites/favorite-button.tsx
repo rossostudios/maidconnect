@@ -56,18 +56,18 @@ export function FavoriteButton({
 
   return (
     <button
-      onClick={handleToggle}
-      disabled={loading}
       className={`inline-flex items-center justify-center gap-2 rounded-full transition ${
         isFavorite
           ? "bg-[#ff5d46] text-white hover:bg-[#eb6c65]"
           : "border border-[#e5dfd4] bg-white text-[#7a6d62] hover:border-[#ff5d46] hover:text-[#ff5d46]"
       } ${sizeClasses[size]} disabled:cursor-not-allowed disabled:opacity-50`}
+      disabled={loading}
+      onClick={handleToggle}
       title={isFavorite ? "Remove from favorites" : "Add to favorites"}
     >
       <span className={loading ? "animate-pulse" : ""}>{isFavorite ? "❤️" : "🤍"}</span>
       {showLabel && (
-        <span className="text-sm font-semibold">{isFavorite ? "Favorited" : "Favorite"}</span>
+        <span className="font-semibold text-sm">{isFavorite ? "Favorited" : "Favorite"}</span>
       )}
     </button>
   );

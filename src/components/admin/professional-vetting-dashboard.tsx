@@ -87,7 +87,7 @@ export function ProfessionalVettingDashboard() {
   if (loading) {
     return (
       <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-8 text-center">
-        <p className="text-sm text-[#7a6d62]">Loading vetting queue...</p>
+        <p className="text-[#7a6d62] text-sm">Loading vetting queue...</p>
       </div>
     );
   }
@@ -95,10 +95,10 @@ export function ProfessionalVettingDashboard() {
   if (error) {
     return (
       <div className="rounded-xl border border-red-200 bg-red-50 p-8 text-center">
-        <p className="text-sm text-red-800">{error}</p>
+        <p className="text-red-800 text-sm">{error}</p>
         <button
+          className="mt-4 rounded-lg bg-red-600 px-4 py-2 font-semibold text-sm text-white hover:bg-red-700"
           onClick={fetchQueue}
-          className="mt-4 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700"
         >
           Retry
         </button>
@@ -136,21 +136,21 @@ export function ProfessionalVettingDashboard() {
   return (
     <div className="space-y-4">
       {/* Tabs */}
-      <div className="flex gap-2 border-b border-[#f0ece5]">
+      <div className="flex gap-2 border-[#f0ece5] border-b">
         {tabs.map((tab) => (
           <button
-            key={tab.key}
-            onClick={() => setActiveTab(tab.key)}
-            className={`relative px-4 py-2 text-sm font-semibold transition ${
+            className={`relative px-4 py-2 font-semibold text-sm transition ${
               activeTab === tab.key
-                ? "border-b-2 border-[#ff5d46] text-[#ff5d46]"
+                ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
                 : "text-[#7a6d62] hover:text-[#211f1a]"
             }`}
+            key={tab.key}
+            onClick={() => setActiveTab(tab.key)}
           >
             {tab.label}
             {tab.count > 0 && (
               <span
-                className={`ml-2 inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${tab.color} bg-current/10`}
+                className={`ml-2 inline-flex items-center rounded-full px-2 py-0.5 font-semibold text-xs ${tab.color} bg-current/10`}
               >
                 {tab.count}
               </span>
@@ -162,14 +162,14 @@ export function ProfessionalVettingDashboard() {
       {/* Professional List */}
       {activeProfessionals.length === 0 ? (
         <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-8 text-center">
-          <p className="text-sm text-[#7a6d62]">No professionals in this status.</p>
+          <p className="text-[#7a6d62] text-sm">No professionals in this status.</p>
         </div>
       ) : (
         <div className="space-y-3">
           {activeProfessionals.map((professional) => (
             <div
-              key={professional.profile_id}
               className="rounded-xl border border-[#f0ece5] bg-white/90 p-4 shadow-sm transition hover:shadow-md"
+              key={professional.profile_id}
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -177,12 +177,12 @@ export function ProfessionalVettingDashboard() {
                     <h4 className="font-semibold text-[#211f1a]">
                       {professional.full_name || "Unnamed Professional"}
                     </h4>
-                    <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-semibold text-blue-800">
+                    <span className="rounded-full bg-blue-100 px-2 py-0.5 font-semibold text-blue-800 text-xs">
                       Waiting {professional.waitingDays}d
                     </span>
                   </div>
 
-                  <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-[#7a6d62] md:grid-cols-4">
+                  <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-[#7a6d62] text-sm md:grid-cols-4">
                     <div>
                       <span className="font-medium">Services:</span>{" "}
                       {professional.primary_services?.length || 0}
@@ -202,18 +202,18 @@ export function ProfessionalVettingDashboard() {
 
                   <div className="mt-2 flex flex-wrap gap-2">
                     {professional.consent_background_check && (
-                      <span className="rounded-md bg-green-50 px-2 py-0.5 text-xs text-green-700">
+                      <span className="rounded-md bg-green-50 px-2 py-0.5 text-green-700 text-xs">
                         ✓ Consent to background check
                       </span>
                     )}
                     {professional.profile?.city && (
-                      <span className="rounded-md bg-gray-50 px-2 py-0.5 text-xs text-gray-700">
+                      <span className="rounded-md bg-gray-50 px-2 py-0.5 text-gray-700 text-xs">
                         {professional.profile.city}
                         {professional.profile.country ? `, ${professional.profile.country}` : ""}
                       </span>
                     )}
                     {professional.stripe_connect_account_id && (
-                      <span className="rounded-md bg-purple-50 px-2 py-0.5 text-xs text-purple-700">
+                      <span className="rounded-md bg-purple-50 px-2 py-0.5 text-purple-700 text-xs">
                         Stripe Connected
                       </span>
                     )}
@@ -221,13 +221,13 @@ export function ProfessionalVettingDashboard() {
 
                   {professional.latestReview && (
                     <div className="mt-2 rounded-md border border-[#ebe5d8] bg-[#fbfafa] p-2">
-                      <p className="text-xs text-[#7a6d62]">
+                      <p className="text-[#7a6d62] text-xs">
                         <span className="font-medium">Latest Review:</span>{" "}
                         {professional.latestReview.status} •{" "}
                         {new Date(professional.latestReview.created_at).toLocaleDateString()}
                       </p>
                       {professional.latestReview.notes && (
-                        <p className="mt-1 text-xs text-[#211f1a]">
+                        <p className="mt-1 text-[#211f1a] text-xs">
                           {professional.latestReview.notes}
                         </p>
                       )}
@@ -236,8 +236,8 @@ export function ProfessionalVettingDashboard() {
                 </div>
 
                 <button
+                  className="ml-4 rounded-lg bg-[#ff5d46] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65]"
                   onClick={() => setSelectedProfessional(professional)}
-                  className="ml-4 rounded-lg bg-[#ff5d46] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65]"
                 >
                   Review
                 </button>
@@ -250,9 +250,9 @@ export function ProfessionalVettingDashboard() {
       {/* Review Modal */}
       {selectedProfessional && (
         <ProfessionalReviewModal
-          professional={selectedProfessional}
           onClose={() => setSelectedProfessional(null)}
           onComplete={handleReviewComplete}
+          professional={selectedProfessional}
         />
       )}
     </div>

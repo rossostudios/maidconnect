@@ -29,8 +29,8 @@ export function PendingRatingsList({ completedBookings }: Props) {
 
   return (
     <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
-      <h3 className="text-lg font-semibold text-[#211f1a]">{t("title")}</h3>
-      <p className="mt-1 text-sm text-[#7a6d62]">{t("description")}</p>
+      <h3 className="font-semibold text-[#211f1a] text-lg">{t("title")}</h3>
+      <p className="mt-1 text-[#7a6d62] text-sm">{t("description")}</p>
 
       <div className="mt-4 space-y-3">
         {bookingsNeedingReviews.map((booking) => {
@@ -42,21 +42,21 @@ export function PendingRatingsList({ completedBookings }: Props) {
 
           return (
             <div
-              key={booking.id}
               className="flex items-center justify-between rounded-lg border border-[#ebe5d8] bg-[#fbfafa] p-4"
+              key={booking.id}
             >
               <div>
                 <p className="font-medium text-[#211f1a]">
                   {booking.service_name || t("defaultService")}
                 </p>
-                <p className="text-sm text-[#7a6d62]">
+                <p className="text-[#7a6d62] text-sm">
                   {t("customer")} • {date}
                 </p>
               </div>
               <button
-                type="button"
+                className="rounded-lg bg-[#ff5d46] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65]"
                 onClick={() => setSelectedBooking(booking)}
-                className="rounded-lg bg-[#ff5d46] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65]"
+                type="button"
               >
                 {t("rateButton")}
               </button>
@@ -68,11 +68,11 @@ export function PendingRatingsList({ completedBookings }: Props) {
       {/* Rating Modal */}
       {selectedBooking?.customer && (
         <RatingPromptModal
-          isOpen={selectedBooking !== null}
-          onClose={() => setSelectedBooking(null)}
+          bookingId={selectedBooking.id}
           customerId={selectedBooking.customer.id}
           customerName={t("customer")}
-          bookingId={selectedBooking.id}
+          isOpen={selectedBooking !== null}
+          onClose={() => setSelectedBooking(null)}
         />
       )}
     </div>

@@ -13,9 +13,9 @@ export function ProductFeatureCard({ icon: Icon, title, description }: ProductFe
         <Icon className="h-8 w-8 text-[#ff5d46]" strokeWidth={2} />
       </div>
 
-      <h3 className="mt-6 text-2xl font-semibold text-[#211f1a]">{title}</h3>
+      <h3 className="mt-6 font-semibold text-2xl text-[#211f1a]">{title}</h3>
 
-      <p className="mt-4 text-base leading-relaxed text-[#5d574b]">{description}</p>
+      <p className="mt-4 text-[#5d574b] text-base leading-relaxed">{description}</p>
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { Calendar, Clock, MapPin, Minus, Plus, X } from "lucide-react";
+import { Clock, Minus, Plus, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
@@ -127,7 +127,7 @@ export function BookingSheet({
   };
 
   const handleSubmit = async () => {
-    if (!selectedDate || !selectedTime || !bookingData.serviceName) {
+    if (!(selectedDate && selectedTime && bookingData.serviceName)) {
       setError("Please complete all required fields");
       return;
     }
@@ -200,21 +200,21 @@ export function BookingSheet({
     <>
       {/* Overlay */}
       <div
-        className="fixed inset-0 z-40 animate-in fade-in duration-300 bg-black/40 backdrop-blur-sm"
+        className="fade-in fixed inset-0 z-40 animate-in bg-black/40 backdrop-blur-sm duration-300"
         onClick={onClose}
       />
 
       {/* Sheet */}
-      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-2xl overflow-y-auto bg-white shadow-2xl animate-in slide-in-from-right duration-500 ease-out">
-        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#ebe5d8] bg-white px-8 py-6">
+      <div className="slide-in-from-right fixed inset-y-0 right-0 z-50 w-full max-w-2xl animate-in overflow-y-auto bg-white shadow-2xl duration-500 ease-out">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-[#ebe5d8] border-b bg-white px-8 py-6">
           <div>
-            <h2 className="text-2xl font-semibold text-[#211f1a]">
+            <h2 className="font-semibold text-2xl text-[#211f1a]">
               {currentStep === "time" && "Choose time"}
               {currentStep === "details" && "Booking details"}
               {currentStep === "payment" && "Payment"}
             </h2>
             {selectedDate && (
-              <p className="mt-1 text-base text-[#7d7566]">
+              <p className="mt-1 text-[#7d7566] text-base">
                 {selectedDate.toLocaleDateString("en-US", {
                   weekday: "long",
                   month: "long",
@@ -225,8 +225,8 @@ export function BookingSheet({
             )}
           </div>
           <button
-            onClick={onClose}
             className="rounded-full p-2 text-[#7d7566] transition hover:bg-[#f0ece5]"
+            onClick={onClose}
           >
             <X className="h-6 w-6" />
           </button>
@@ -241,19 +241,19 @@ export function BookingSheet({
 
           {/* Step 1: Time Selection */}
           {currentStep === "time" && (
-            <div className="space-y-6 animate-in fade-in-50 duration-500">
+            <div className="fade-in-50 animate-in space-y-6 duration-500">
               <div>
-                <h3 className="mb-4 text-xl font-semibold text-[#211f1a]">Available times</h3>
-                <p className="mb-6 text-base text-[#7d7566]">
+                <h3 className="mb-4 font-semibold text-[#211f1a] text-xl">Available times</h3>
+                <p className="mb-6 text-[#7d7566] text-base">
                   Select a time slot to continue with your booking
                 </p>
                 <div className="grid grid-cols-3 gap-3">
                   {availableSlots.map((time, index) => (
                     <button
+                      className="group fade-in-0 slide-in-from-bottom-4 animate-in rounded-xl border-2 border-[#e5dfd4] bg-white px-5 py-4 font-semibold text-[#211f1a] text-base shadow-sm transition-all duration-300 hover:scale-105 hover:border-[#ff5d46] hover:bg-[#ff5d46]/5 hover:shadow-lg active:scale-95"
                       key={time}
                       onClick={() => handleTimeSelect(time)}
                       style={{ animationDelay: `${index * 30}ms` }}
-                      className="group animate-in fade-in-0 slide-in-from-bottom-4 rounded-xl border-2 border-[#e5dfd4] bg-white px-5 py-4 text-base font-semibold text-[#211f1a] shadow-sm transition-all duration-300 hover:scale-105 hover:border-[#ff5d46] hover:bg-[#ff5d46]/5 hover:shadow-lg active:scale-95"
                     >
                       {formatTime(time)}
                     </button>
@@ -265,15 +265,15 @@ export function BookingSheet({
 
           {/* Step 2: Booking Details */}
           {currentStep === "details" && (
-            <div className="space-y-8 animate-in fade-in-50 duration-500">
+            <div className="fade-in-50 animate-in space-y-8 duration-500">
               {/* Selected Time Display */}
               <div className="rounded-2xl bg-[#ff5d46]/5 p-6">
-                <div className="flex items-center gap-3 text-base text-[#8a3934]">
+                <div className="flex items-center gap-3 text-[#8a3934] text-base">
                   <Clock className="h-5 w-5" />
                   <span className="font-semibold">{selectedTime && formatTime(selectedTime)}</span>
                   <button
-                    onClick={() => setCurrentStep("time")}
                     className="ml-auto text-sm underline"
+                    onClick={() => setCurrentStep("time")}
                   >
                     Change time
                   </button>
@@ -282,9 +282,9 @@ export function BookingSheet({
 
               {/* Service Selection */}
               <div>
-                <label className="mb-3 block text-lg font-semibold text-[#211f1a]">Service *</label>
+                <label className="mb-3 block font-semibold text-[#211f1a] text-lg">Service *</label>
                 <select
-                  value={bookingData.serviceName}
+                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
                   onChange={(e) => {
                     const service = serviceWithName.find((s) => s.name === e.target.value);
                     setBookingData({
@@ -293,8 +293,8 @@ export function BookingSheet({
                       serviceHourlyRate: service?.hourlyRateCop ?? null,
                     });
                   }}
-                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
                   required
+                  value={bookingData.serviceName}
                 >
                   <option value="">Select a service</option>
                   {serviceWithName.map((service) => (
@@ -310,32 +310,32 @@ export function BookingSheet({
 
               {/* Duration */}
               <div>
-                <label className="mb-3 block text-lg font-semibold text-[#211f1a]">
+                <label className="mb-3 block font-semibold text-[#211f1a] text-lg">
                   Duration *
                 </label>
                 <div className="flex items-center gap-4">
                   <button
+                    className="rounded-xl border-2 border-[#e5dfd4] p-3 transition hover:border-[#ff5d46] hover:bg-[#ff5d46]/5"
                     onClick={() =>
                       setBookingData({
                         ...bookingData,
                         durationHours: Math.max(1, bookingData.durationHours - 1),
                       })
                     }
-                    className="rounded-xl border-2 border-[#e5dfd4] p-3 transition hover:border-[#ff5d46] hover:bg-[#ff5d46]/5"
                   >
                     <Minus className="h-5 w-5" />
                   </button>
-                  <div className="flex-1 rounded-xl border-2 border-[#e5dfd4] bg-[#fbfafa] px-5 py-4 text-center text-xl font-semibold text-[#211f1a]">
+                  <div className="flex-1 rounded-xl border-2 border-[#e5dfd4] bg-[#fbfafa] px-5 py-4 text-center font-semibold text-[#211f1a] text-xl">
                     {bookingData.durationHours} {bookingData.durationHours === 1 ? "hour" : "hours"}
                   </div>
                   <button
+                    className="rounded-xl border-2 border-[#e5dfd4] p-3 transition hover:border-[#ff5d46] hover:bg-[#ff5d46]/5"
                     onClick={() =>
                       setBookingData({
                         ...bookingData,
                         durationHours: Math.min(12, bookingData.durationHours + 1),
                       })
                     }
-                    className="rounded-xl border-2 border-[#e5dfd4] p-3 transition hover:border-[#ff5d46] hover:bg-[#ff5d46]/5"
                   >
                     <Plus className="h-5 w-5" />
                   </button>
@@ -344,29 +344,29 @@ export function BookingSheet({
 
               {/* Address */}
               <div>
-                <label className="mb-3 block text-lg font-semibold text-[#211f1a]">
+                <label className="mb-3 block font-semibold text-[#211f1a] text-lg">
                   Service address *
                 </label>
                 {addresses.length > 0 ? (
                   <SavedAddressesManager
                     addresses={addresses}
-                    onAddressSelect={(address) => setBookingData({ ...bookingData, address })}
                     onAddressesChange={setAddresses}
+                    onAddressSelect={(address) => setBookingData({ ...bookingData, address })}
                     selectedAddressId={bookingData.address?.id}
                     showManagement={false}
                   />
                 ) : (
                   <textarea
-                    value={bookingData.customAddress}
+                    className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
                     onChange={(e) =>
                       setBookingData({
                         ...bookingData,
                         customAddress: e.target.value,
                       })
                     }
-                    rows={3}
                     placeholder="Street, city, building access info..."
-                    className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                    rows={3}
+                    value={bookingData.customAddress}
                   />
                 )}
               </div>
@@ -374,7 +374,7 @@ export function BookingSheet({
               {/* Add-ons */}
               {addons.length > 0 && (
                 <div>
-                  <label className="mb-3 block text-lg font-semibold text-[#211f1a]">
+                  <label className="mb-3 block font-semibold text-[#211f1a] text-lg">
                     Add extras (optional)
                   </label>
                   <div className="space-y-3">
@@ -382,24 +382,24 @@ export function BookingSheet({
                       const isSelected = bookingData.selectedAddons.some((a) => a.id === addon.id);
                       return (
                         <button
-                          key={addon.id}
-                          onClick={() => toggleAddon(addon)}
                           className={`w-full rounded-xl border-2 p-5 text-left transition ${
                             isSelected
                               ? "border-[#ff5d46] bg-[#ff5d46]/5"
                               : "border-[#e5dfd4] bg-white hover:border-[#ff5d46]/50"
                           }`}
+                          key={addon.id}
+                          onClick={() => toggleAddon(addon)}
                         >
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
-                              <h4 className="text-base font-semibold text-[#211f1a]">
+                              <h4 className="font-semibold text-[#211f1a] text-base">
                                 {addon.name}
                               </h4>
                               {addon.description && (
-                                <p className="mt-1 text-sm text-[#7a6d62]">{addon.description}</p>
+                                <p className="mt-1 text-[#7a6d62] text-sm">{addon.description}</p>
                               )}
                             </div>
-                            <div className="ml-4 text-base font-semibold text-[#ff5d46]">
+                            <div className="ml-4 font-semibold text-[#ff5d46] text-base">
                               {formatCurrencyCOP(addon.price_cop)}
                             </div>
                           </div>
@@ -412,26 +412,26 @@ export function BookingSheet({
 
               {/* Special Instructions */}
               <div>
-                <label className="mb-3 block text-lg font-semibold text-[#211f1a]">
+                <label className="mb-3 block font-semibold text-[#211f1a] text-lg">
                   Special instructions
                 </label>
                 <textarea
-                  value={bookingData.specialInstructions}
+                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
                   onChange={(e) =>
                     setBookingData({
                       ...bookingData,
                       specialInstructions: e.target.value,
                     })
                   }
-                  rows={3}
                   placeholder="Pets, cleaning priorities, access codes..."
-                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                  rows={3}
+                  value={bookingData.specialInstructions}
                 />
               </div>
 
               {/* Price Summary */}
               <div className="rounded-2xl border-2 border-[#ebe5d8] bg-[#fbfafa] p-6">
-                <h3 className="mb-4 text-lg font-semibold text-[#211f1a]">Price summary</h3>
+                <h3 className="mb-4 font-semibold text-[#211f1a] text-lg">Price summary</h3>
                 <div className="space-y-3 text-base">
                   <div className="flex justify-between">
                     <span className="text-[#7d7566]">Service</span>
@@ -447,7 +447,7 @@ export function BookingSheet({
                       </span>
                     </div>
                   )}
-                  <div className="border-t border-[#ebe5d8] pt-3">
+                  <div className="border-[#ebe5d8] border-t pt-3">
                     <div className="flex justify-between text-xl">
                       <span className="font-semibold text-[#211f1a]">Total</span>
                       <span className="font-bold text-[#ff5d46]">
@@ -461,19 +461,19 @@ export function BookingSheet({
               {/* Actions */}
               <div className="flex gap-4">
                 <button
+                  className="rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
                   onClick={() => setCurrentStep("time")}
-                  className="rounded-xl border-2 border-[#e5dfd4] px-8 py-4 text-base font-semibold text-[#7d7566] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
                 >
                   Back
                 </button>
                 <button
-                  onClick={handleSubmit}
+                  className="flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
                   disabled={
                     loading ||
                     !bookingData.serviceName ||
-                    (!bookingData.address && !bookingData.customAddress)
+                    !(bookingData.address || bookingData.customAddress)
                   }
-                  className="flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+                  onClick={handleSubmit}
                 >
                   {loading ? "Creating booking..." : "Continue to payment"}
                 </button>
@@ -484,7 +484,6 @@ export function BookingSheet({
           {/* Step 3: Payment */}
           {currentStep === "payment" && bookingResult && stripePromise && (
             <Elements
-              stripe={stripePromise}
               options={{
                 clientSecret: bookingResult.clientSecret,
                 appearance: {
@@ -496,11 +495,12 @@ export function BookingSheet({
                   },
                 },
               }}
+              stripe={stripePromise}
             >
               <PaymentStep
                 bookingId={bookingResult.bookingId}
-                paymentIntentId={bookingResult.paymentIntentId}
                 onBack={() => setCurrentStep("details")}
+                paymentIntentId={bookingResult.paymentIntentId}
               />
             </Elements>
           )}
@@ -527,7 +527,7 @@ function PaymentStep({
   const [error, setError] = useState<string | null>(null);
 
   const handleConfirm = async () => {
-    if (!stripe || !elements) return;
+    if (!(stripe && elements)) return;
     setSubmitting(true);
     setError(null);
     try {
@@ -551,7 +551,7 @@ function PaymentStep({
         });
       }
 
-      router.push(`/dashboard/customer`);
+      router.push("/dashboard/customer");
     } catch (err) {
       console.error(err);
       setError(err instanceof Error ? err.message : "Unexpected payment error");
@@ -562,23 +562,23 @@ function PaymentStep({
 
   return (
     <div className="space-y-6">
-      <p className="text-base text-[#7d7566]">
+      <p className="text-[#7d7566] text-base">
         We'll authorize a hold on your card. You'll only be charged after the service is completed.
       </p>
       <PaymentElement />
       {error && <p className="text-base text-red-600">{error}</p>}
       <div className="flex gap-4">
         <button
-          onClick={onBack}
+          className="rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={submitting}
-          className="rounded-xl border-2 border-[#e5dfd4] px-8 py-4 text-base font-semibold text-[#7d7566] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
+          onClick={onBack}
         >
           Back
         </button>
         <button
-          onClick={handleConfirm}
+          className="flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={submitting}
-          className="flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          onClick={handleConfirm}
         >
           {submitting ? "Confirming..." : "Confirm booking"}
         </button>

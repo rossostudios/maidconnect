@@ -30,7 +30,7 @@ export async function GET(request: Request, context: RouteContext) {
     const startDateParam = searchParams.get("startDate");
     const endDateParam = searchParams.get("endDate");
 
-    if (!startDateParam || !endDateParam) {
+    if (!(startDateParam && endDateParam)) {
       return NextResponse.json(
         { error: "startDate and endDate query parameters are required" },
         { status: 400 }
@@ -110,7 +110,7 @@ export async function GET(request: Request, context: RouteContext) {
       endDate: endDateParam,
       availability,
       instantBooking: {
-        enabled: professional.instant_booking_enabled || false,
+        enabled: professional.instant_booking_enabled,
         settings: professional.instant_booking_settings || {},
       },
     });

@@ -28,10 +28,10 @@ export function CustomerBookingList({ bookings }: Props) {
   if (bookings.length === 0) {
     return (
       <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
-        <p className="text-base text-[#5d574b]">{t("emptyState.noBookings")}</p>
-        <p className="mt-3 text-base text-[#5d574b]">
+        <p className="text-[#5d574b] text-base">{t("emptyState.noBookings")}</p>
+        <p className="mt-3 text-[#5d574b] text-base">
           {t("emptyState.browseText")}{" "}
-          <a href="/professionals" className="font-semibold text-[#ff5d46] hover:text-[#eb6c65]">
+          <a className="font-semibold text-[#ff5d46] hover:text-[#eb6c65]" href="/professionals">
             {t("emptyState.professionalDirectory")}
           </a>{" "}
           {t("emptyState.bookFirstService")}
@@ -60,12 +60,12 @@ export function CustomerBookingList({ bookings }: Props) {
       {/* Upcoming Bookings */}
       {upcomingBookings.length > 0 && (
         <div>
-          <h3 className="mb-6 text-xl font-semibold text-[#211f1a]">
+          <h3 className="mb-6 font-semibold text-[#211f1a] text-xl">
             {t("sections.upcomingServices")}
           </h3>
           <div className="space-y-4">
             {upcomingBookings.map((booking) => (
-              <BookingCard key={booking.id} booking={booking} isUpcoming />
+              <BookingCard booking={booking} isUpcoming key={booking.id} />
             ))}
           </div>
         </div>
@@ -74,12 +74,12 @@ export function CustomerBookingList({ bookings }: Props) {
       {/* Past Bookings */}
       {pastBookings.length > 0 && (
         <div>
-          <h3 className="mb-6 text-xl font-semibold text-[#211f1a]">
+          <h3 className="mb-6 font-semibold text-[#211f1a] text-xl">
             {t("sections.pastServices")}
           </h3>
           <div className="space-y-4">
             {pastBookings.map((booking) => (
-              <BookingCard key={booking.id} booking={booking} isUpcoming={false} />
+              <BookingCard booking={booking} isUpcoming={false} key={booking.id} />
             ))}
           </div>
         </div>
@@ -127,17 +127,17 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
       <div className="flex items-start justify-between gap-6">
         <div className="flex-1">
           <div className="flex items-center gap-3">
-            <h4 className="text-lg font-semibold text-[#211f1a]">
+            <h4 className="font-semibold text-[#211f1a] text-lg">
               {booking.service_name || t("card.service")}
             </h4>
             <span
-              className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${statusColor}`}
+              className={`inline-flex items-center rounded-full px-3 py-1 font-semibold text-xs ${statusColor}`}
             >
               {statusLabel}
             </span>
           </div>
 
-          <div className="mt-4 space-y-2 text-base text-[#5d574b]">
+          <div className="mt-4 space-y-2 text-[#5d574b] text-base">
             <p>
               <span className="font-semibold text-[#211f1a]">{t("card.professional")}</span>{" "}
               {booking.professional?.full_name || t("card.notAssigned")}
@@ -163,16 +163,16 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
           {(booking.status === "confirmed" || booking.status === "authorized") && isUpcoming && (
             <>
               <button
-                type="button"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
                 onClick={() => setShowRescheduleModal(true)}
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+                type="button"
               >
                 {t("card.actions.reschedule")}
               </button>
               <button
-                type="button"
+                className="inline-flex items-center justify-center rounded-full border-2 border-red-200 px-5 py-2.5 font-semibold text-red-700 text-sm transition hover:bg-red-50"
                 onClick={() => setShowCancelModal(true)}
-                className="inline-flex items-center justify-center rounded-full border-2 border-red-200 px-5 py-2.5 text-sm font-semibold text-red-700 transition hover:bg-red-50"
+                type="button"
               >
                 {t("card.actions.cancel")}
               </button>
@@ -181,14 +181,14 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
           {booking.status === "completed" && !isUpcoming && (
             <>
               <button
+                className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-5 py-2.5 font-semibold text-sm text-white shadow-[0_4px_12px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
                 type="button"
-                className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_12px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
               >
                 {t("card.actions.leaveReview")}
               </button>
               <button
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
                 type="button"
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
               >
                 {t("card.actions.bookAgain")}
               </button>
@@ -199,16 +199,16 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
 
       {/* Cancel Modal */}
       <CancelBookingModal
+        booking={booking}
         isOpen={showCancelModal}
         onClose={() => setShowCancelModal(false)}
-        booking={booking}
       />
 
       {/* Reschedule Modal */}
       <RescheduleBookingModal
+        booking={booking}
         isOpen={showRescheduleModal}
         onClose={() => setShowRescheduleModal(false)}
-        booking={booking}
       />
     </div>
   );

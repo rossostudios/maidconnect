@@ -21,43 +21,43 @@ export function SignInForm({ redirectTo }: Props) {
   return (
     <form action={formAction} className="space-y-6">
       <div className="space-y-2">
-        <label htmlFor="email" className="block text-sm font-medium text-[#211f1a]">
+        <label className="block font-medium text-[#211f1a] text-sm" htmlFor="email">
           {t("emailLabel")}
         </label>
         <input
-          id="email"
-          name="email"
-          type="email"
-          required
           autoComplete="email"
           className={inputClasses}
+          id="email"
+          name="email"
           placeholder={t("emailPlaceholder")}
+          required
+          type="email"
         />
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="password" className="block text-sm font-medium text-[#211f1a]">
+        <label className="block font-medium text-[#211f1a] text-sm" htmlFor="password">
           {t("passwordLabel")}
         </label>
         <input
-          id="password"
-          name="password"
-          type="password"
-          required
           autoComplete="current-password"
           className={inputClasses}
+          id="password"
+          name="password"
           placeholder={t("passwordPlaceholder")}
+          required
+          type="password"
         />
       </div>
 
-      {redirectTo ? <input type="hidden" name="redirectTo" value={redirectTo} /> : null}
+      {redirectTo ? <input name="redirectTo" type="hidden" value={redirectTo} /> : null}
 
-      {state.error ? <p className="text-sm text-red-600">{state.error}</p> : null}
+      {state.error ? <p className="text-red-600 text-sm">{state.error}</p> : null}
 
       <button
-        type="submit"
+        className="w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
         disabled={isPending}
-        className="w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
+        type="submit"
       >
         {isPending ? t("signingInButton") : t("signInButton")}
       </button>

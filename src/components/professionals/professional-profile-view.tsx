@@ -86,8 +86,8 @@ export function ProfessionalProfileView({
     <div className="pb-24">
       <Container className="max-w-[1680px] pt-12">
         <Link
+          className="font-semibold text-[#5a5549] text-base transition hover:text-[#ff5d46]"
           href="/professionals"
-          className="text-base font-semibold text-[#5a5549] transition hover:text-[#ff5d46]"
         >
           {t("backToDirectory")}
         </Link>
@@ -98,25 +98,25 @@ export function ProfessionalProfileView({
             {/* Photo */}
             <div className="relative h-64 w-full overflow-hidden rounded-3xl md:h-full">
               <Image
-                src={professional.photoUrl ?? DEFAULT_PRO_PHOTO}
                 alt={professional.name}
-                fill
                 className="object-cover"
+                fill
+                src={professional.photoUrl ?? DEFAULT_PRO_PHOTO}
               />
             </div>
 
             {/* Info */}
             <div className="flex flex-col justify-center space-y-6">
               <div>
-                <h1 className="text-5xl font-semibold leading-tight text-[#211f1a] lg:text-6xl">
+                <h1 className="font-semibold text-5xl text-[#211f1a] leading-tight lg:text-6xl">
                   {professional.name}
                 </h1>
-                <p className="mt-2 text-xl text-[#7d7566]">
+                <p className="mt-2 text-[#7d7566] text-xl">
                   {professional.service ?? t("availableForBookings")}
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-6 text-base text-[#5d574b]">
+              <div className="flex flex-wrap gap-6 text-[#5d574b] text-base">
                 <div className="flex items-center gap-2">
                   <MapPin className="h-5 w-5 text-[#ff5d46]" />
                   <span>{locationLabel}</span>
@@ -153,7 +153,7 @@ export function ProfessionalProfileView({
               </div>
 
               {professional.availableToday && (
-                <div className="inline-flex w-fit items-center gap-2 rounded-full bg-[#ff5d46]/15 px-5 py-2.5 text-base font-semibold text-[#8a3934]">
+                <div className="inline-flex w-fit items-center gap-2 rounded-full bg-[#ff5d46]/15 px-5 py-2.5 font-semibold text-[#8a3934] text-base">
                   <CalendarDays className="h-5 w-5" />
                   {t("availableToday")}
                 </div>
@@ -167,12 +167,12 @@ export function ProfessionalProfileView({
           {/* Left: Large Calendar */}
           <div>
             <div className="mb-8">
-              <h2 className="text-3xl font-semibold text-[#211f1a]">{t("bookingSection.title")}</h2>
-              <p className="mt-2 text-lg text-[#7d7566]">{t("bookingSection.description")}</p>
+              <h2 className="font-semibold text-3xl text-[#211f1a]">{t("bookingSection.title")}</h2>
+              <p className="mt-2 text-[#7d7566] text-lg">{t("bookingSection.description")}</p>
             </div>
             <LargeAvailabilityCalendar
-              professionalId={professional.id}
               onDateSelect={handleDateSelect}
+              professionalId={professional.id}
             />
           </div>
 
@@ -180,44 +180,44 @@ export function ProfessionalProfileView({
           <aside className="space-y-8">
             {/* Tab Navigation */}
             <div className="rounded-[32px] border border-[#ebe5d8] bg-white shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
-              <div className="flex border-b border-[#ebe5d8]">
+              <div className="flex border-[#ebe5d8] border-b">
                 <button
-                  onClick={() => setActiveTab("about")}
-                  className={`flex-1 px-6 py-4 text-base font-semibold transition ${
+                  className={`flex-1 px-6 py-4 font-semibold text-base transition ${
                     activeTab === "about"
-                      ? "border-b-2 border-[#ff5d46] text-[#ff5d46]"
+                      ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
                       : "text-[#7d7566] hover:text-[#ff5d46]"
                   }`}
+                  onClick={() => setActiveTab("about")}
                 >
                   {t("tabs.about")}
                 </button>
                 <button
-                  onClick={() => setActiveTab("services")}
-                  className={`flex-1 px-6 py-4 text-base font-semibold transition ${
+                  className={`flex-1 px-6 py-4 font-semibold text-base transition ${
                     activeTab === "services"
-                      ? "border-b-2 border-[#ff5d46] text-[#ff5d46]"
+                      ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
                       : "text-[#7d7566] hover:text-[#ff5d46]"
                   }`}
+                  onClick={() => setActiveTab("services")}
                 >
                   {t("tabs.services")}
                 </button>
                 <button
-                  onClick={() => setActiveTab("portfolio")}
-                  className={`flex-1 px-6 py-4 text-base font-semibold transition ${
+                  className={`flex-1 px-6 py-4 font-semibold text-base transition ${
                     activeTab === "portfolio"
-                      ? "border-b-2 border-[#ff5d46] text-[#ff5d46]"
+                      ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
                       : "text-[#7d7566] hover:text-[#ff5d46]"
                   }`}
+                  onClick={() => setActiveTab("portfolio")}
                 >
                   {t("tabs.portfolio")}
                 </button>
                 <button
-                  onClick={() => setActiveTab("reviews")}
-                  className={`flex-1 px-6 py-4 text-base font-semibold transition ${
+                  className={`flex-1 px-6 py-4 font-semibold text-base transition ${
                     activeTab === "reviews"
-                      ? "border-b-2 border-[#ff5d46] text-[#ff5d46]"
+                      ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
                       : "text-[#7d7566] hover:text-[#ff5d46]"
                   }`}
+                  onClick={() => setActiveTab("reviews")}
                 >
                   {t("tabs.reviews")}
                 </button>
@@ -227,8 +227,8 @@ export function ProfessionalProfileView({
               <div className="p-8">
                 {activeTab === "about" && (
                   <div className="space-y-6">
-                    <h3 className="text-2xl font-semibold text-[#211f1a]">{t("tabs.about")}</h3>
-                    <p className="text-base leading-relaxed text-[#5d574b]">
+                    <h3 className="font-semibold text-2xl text-[#211f1a]">{t("tabs.about")}</h3>
+                    <p className="text-[#5d574b] text-base leading-relaxed">
                       {professional.bio ?? t("aboutSection.noBio")}
                     </p>
                   </div>
@@ -236,32 +236,32 @@ export function ProfessionalProfileView({
 
                 {activeTab === "services" && (
                   <div className="space-y-6">
-                    <h3 className="text-2xl font-semibold text-[#211f1a]">
+                    <h3 className="font-semibold text-2xl text-[#211f1a]">
                       {t("servicesSection.title")}
                     </h3>
                     <div className="space-y-4">
                       {hasServices ? (
                         professional.services.map((service) => (
                           <div
-                            key={`${service.name ?? "service"}-${service.description ?? "detail"}`}
                             className="rounded-2xl border border-[#f0ece4] bg-[#fbfafa] p-5"
+                            key={`${service.name ?? "service"}-${service.description ?? "detail"}`}
                           >
                             <div className="flex flex-col gap-2">
-                              <div className="text-base font-semibold text-[#211f1a]">
+                              <div className="font-semibold text-[#211f1a] text-base">
                                 {service.name ?? t("servicesSection.serviceFallback")}
                               </div>
-                              <div className="text-lg font-semibold text-[#ff5d46]">
+                              <div className="font-semibold text-[#ff5d46] text-lg">
                                 {formatCurrencyCOP(service.hourlyRateCop) ??
                                   t("servicesSection.rateOnRequest")}
                               </div>
                             </div>
                             {service.description && (
-                              <p className="mt-2 text-base text-[#7d7566]">{service.description}</p>
+                              <p className="mt-2 text-[#7d7566] text-base">{service.description}</p>
                             )}
                           </div>
                         ))
                       ) : (
-                        <p className="text-base text-[#7d7566]">
+                        <p className="text-[#7d7566] text-base">
                           {t("servicesSection.noServices")}
                         </p>
                       )}
@@ -271,53 +271,53 @@ export function ProfessionalProfileView({
 
                 {activeTab === "portfolio" && (
                   <div className="space-y-6">
-                    <h3 className="text-2xl font-semibold text-[#211f1a]">{t("tabs.portfolio")}</h3>
+                    <h3 className="font-semibold text-2xl text-[#211f1a]">{t("tabs.portfolio")}</h3>
                     {professional.portfolioImages.length > 0 ? (
                       <div className="grid grid-cols-2 gap-4">
                         {professional.portfolioImages.slice(0, 6).map((image, index) => (
                           <div
-                            key={index}
                             className="relative aspect-square overflow-hidden rounded-2xl"
+                            key={index}
                           >
                             <Image
-                              src={image.url}
                               alt={image.caption || t("portfolioSection.imageAlt")}
-                              fill
                               className="object-cover"
+                              fill
+                              src={image.url}
                             />
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <p className="text-base text-[#7d7566]">{t("portfolioSection.noImages")}</p>
+                      <p className="text-[#7d7566] text-base">{t("portfolioSection.noImages")}</p>
                     )}
                   </div>
                 )}
 
                 {activeTab === "reviews" && (
                   <div className="space-y-6">
-                    <h3 className="text-2xl font-semibold text-[#211f1a]">{t("tabs.reviews")}</h3>
+                    <h3 className="font-semibold text-2xl text-[#211f1a]">{t("tabs.reviews")}</h3>
                     {professional.reviews.length > 0 ? (
                       <div className="space-y-6">
                         {professional.reviews.slice(0, 3).map((review) => (
                           <div
+                            className="space-y-3 border-[#ebe5d8] border-b pb-6 last:border-b-0 last:pb-0"
                             key={review.id}
-                            className="space-y-3 border-b border-[#ebe5d8] pb-6 last:border-b-0 last:pb-0"
                           >
                             <div className="flex items-center gap-2">
                               {[...Array(5)].map((_, i) => (
                                 <Star
-                                  key={i}
                                   className={`h-4 w-4 ${
                                     i < review.rating
                                       ? "fill-[#ff5d46] text-[#ff5d46]"
                                       : "text-[#e5dfd4]"
                                   }`}
+                                  key={i}
                                 />
                               ))}
                             </div>
-                            <p className="text-base text-[#5d574b]">{review.comment}</p>
-                            <p className="text-sm text-[#7d7566]">
+                            <p className="text-[#5d574b] text-base">{review.comment}</p>
+                            <p className="text-[#7d7566] text-sm">
                               {review.reviewerName} ·{" "}
                               {new Date(review.createdAt).toLocaleDateString(
                                 locale === "es" ? "es-ES" : "en-US",
@@ -327,7 +327,7 @@ export function ProfessionalProfileView({
                           </div>
                         ))}
                         {professional.reviews.length > 3 && (
-                          <p className="text-sm text-[#7d7566]">
+                          <p className="text-[#7d7566] text-sm">
                             {t("reviewsSection.moreReviews", {
                               count: professional.reviews.length - 3,
                             })}
@@ -335,7 +335,7 @@ export function ProfessionalProfileView({
                         )}
                       </div>
                     ) : (
-                      <p className="text-base text-[#7d7566]">{t("reviewsSection.noReviews")}</p>
+                      <p className="text-[#7d7566] text-base">{t("reviewsSection.noReviews")}</p>
                     )}
                   </div>
                 )}
@@ -347,14 +347,14 @@ export function ProfessionalProfileView({
 
       {/* Booking Sheet */}
       <BookingSheet
+        availableSlots={availableSlots}
+        defaultHourlyRate={professional.hourlyRateCop}
         isOpen={isBookingSheetOpen}
         onClose={() => setIsBookingSheetOpen(false)}
         professionalId={professional.id}
         professionalName={professional.name}
         selectedDate={selectedDate}
-        availableSlots={availableSlots}
         services={professional.services}
-        defaultHourlyRate={professional.hourlyRateCop}
       />
     </div>
   );

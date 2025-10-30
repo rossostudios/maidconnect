@@ -59,7 +59,7 @@ export async function notifyCustomerBookingConfirmed(
     userId: customerId,
     title: "Booking Confirmed! 🎉",
     body: `Your ${booking.serviceName} with ${booking.professionalName} is confirmed for ${date}`,
-    url: `/dashboard/customer#bookings`,
+    url: "/dashboard/customer#bookings",
     tag: `booking-${booking.id}`,
   });
 }
@@ -76,7 +76,7 @@ export async function notifyCustomerBookingAccepted(
     userId: customerId,
     title: "Booking Accepted! ✅",
     body: `${booking.professionalName} accepted your ${booking.serviceName} request`,
-    url: `/dashboard/customer#bookings`,
+    url: "/dashboard/customer#bookings",
     tag: `booking-${booking.id}`,
   });
 }
@@ -93,7 +93,7 @@ export async function notifyCustomerBookingDeclined(
     userId: customerId,
     title: "Booking Declined",
     body: `${booking.professionalName} declined your ${booking.serviceName} request. Browse other professionals to rebook.`,
-    url: `/professionals`,
+    url: "/professionals",
     tag: `booking-${booking.id}`,
   });
 }
@@ -110,7 +110,7 @@ export async function notifyCustomerServiceStarted(
     userId: customerId,
     title: "Service Started",
     body: `${booking.professionalName} has checked in and started your ${booking.serviceName}`,
-    url: `/dashboard/customer#bookings`,
+    url: "/dashboard/customer#bookings",
     tag: `booking-${booking.id}`,
   });
 }
@@ -127,7 +127,7 @@ export async function notifyCustomerServiceCompleted(
     userId: customerId,
     title: "Service Completed! ✨",
     body: `${booking.professionalName} completed your ${booking.serviceName}. Please rate your experience.`,
-    url: `/dashboard/customer#bookings`,
+    url: "/dashboard/customer#bookings",
     tag: `booking-${booking.id}`,
     requireInteraction: true,
   });
@@ -145,7 +145,7 @@ export async function notifyCustomerNewMessage(
     userId: customerId,
     title: `Message from ${message.senderName}`,
     body: message.preview,
-    url: `/dashboard/customer#messages`,
+    url: "/dashboard/customer#messages",
     tag: `message-${message.conversationId}`,
   });
 }
@@ -162,7 +162,7 @@ export async function notifyCustomerReviewReminder(
     userId: customerId,
     title: "Rate Your Experience",
     body: `How was your ${booking.serviceName} with ${booking.professionalName}? Leave a review to help others.`,
-    url: `/dashboard/customer#bookings`,
+    url: "/dashboard/customer#bookings",
     tag: `review-${booking.id}`,
   });
 }
@@ -192,7 +192,7 @@ export async function notifyProfessionalNewBooking(
     userId: professionalId,
     title: "New Booking Request! 🔔",
     body: `${booking.customerName} requested ${booking.serviceName} for ${date}`,
-    url: `/dashboard/pro#bookings`,
+    url: "/dashboard/pro#bookings",
     tag: `booking-${booking.id}`,
     requireInteraction: true,
   });
@@ -217,7 +217,7 @@ export async function notifyProfessionalBookingCanceled(
     userId: professionalId,
     title: "Booking Canceled",
     body: `${booking.customerName} canceled ${booking.serviceName} scheduled for ${date}`,
-    url: `/dashboard/pro#bookings`,
+    url: "/dashboard/pro#bookings",
     tag: `booking-${booking.id}`,
   });
 }
@@ -240,7 +240,7 @@ export async function notifyProfessionalPaymentReceived(
     userId: professionalId,
     title: "Payment Received! 💰",
     body: `You received ${amountFormatted} for ${booking.serviceName}`,
-    url: `/dashboard/pro#finances`,
+    url: "/dashboard/pro#finances",
     tag: `payment-${booking.id}`,
   });
 }
@@ -257,7 +257,7 @@ export async function notifyProfessionalNewMessage(
     userId: professionalId,
     title: `Message from ${message.senderName}`,
     body: message.preview,
-    url: `/dashboard/pro#messages`,
+    url: "/dashboard/pro#messages",
     tag: `message-${message.conversationId}`,
   });
 }
@@ -276,7 +276,7 @@ export async function notifyProfessionalReviewReceived(
     userId: professionalId,
     title: "New Review Received!",
     body: `${review.customerName} rated your ${review.serviceName} ${stars} (${review.rating}/5)`,
-    url: `/dashboard/pro#reviews`,
+    url: "/dashboard/pro#reviews",
     tag: `review-${Date.now()}`,
   });
 }
@@ -299,7 +299,7 @@ export async function notifyProfessionalServiceReminder(
     userId: professionalId,
     title: "Service Reminder ⏰",
     body: `${booking.serviceName} with ${booking.customerName} starts in 1 hour at ${time}`,
-    url: `/dashboard/pro#bookings`,
+    url: "/dashboard/pro#bookings",
     tag: `reminder-${booking.id}`,
     requireInteraction: true,
   });

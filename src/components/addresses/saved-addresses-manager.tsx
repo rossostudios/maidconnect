@@ -103,12 +103,12 @@ export function SavedAddressesManager({
         <div className="space-y-4">
           {addresses.map((address) => (
             <AddressCard
-              key={address.id}
               address={address}
               isSelected={selectedAddressId === address.id}
-              onSelect={() => onAddressSelect?.(address)}
-              onEdit={showManagement ? () => handleEdit(address.id) : undefined}
+              key={address.id}
               onDelete={showManagement ? () => handleDelete(address.id) : undefined}
+              onEdit={showManagement ? () => handleEdit(address.id) : undefined}
+              onSelect={() => onAddressSelect?.(address)}
             />
           ))}
         </div>
@@ -117,11 +117,11 @@ export function SavedAddressesManager({
       {/* Empty State */}
       {addresses.length === 0 && !isAdding && (
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
-          <p className="text-base text-[#5d574b]">{t("emptyState.message")}</p>
+          <p className="text-[#5d574b] text-base">{t("emptyState.message")}</p>
           {showManagement && (
             <button
+              className="mt-4 font-semibold text-[#ff5d46] text-base hover:text-[#eb6c65]"
               onClick={handleAddNew}
-              className="mt-4 text-base font-semibold text-[#ff5d46] hover:text-[#eb6c65]"
             >
               {t("emptyState.addFirstButton")} →
             </button>
@@ -132,8 +132,8 @@ export function SavedAddressesManager({
       {/* Add New Button */}
       {addresses.length > 0 && !isAdding && !editingId && showManagement && (
         <button
+          className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-[#ebe5d8] border-dashed bg-white px-6 py-4 font-semibold text-[#5d574b] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           onClick={handleAddNew}
-          className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-[#ebe5d8] bg-white px-6 py-4 text-base font-semibold text-[#5d574b] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
         >
           <span className="text-xl">+</span>
           {t("addNewButton")}
@@ -145,8 +145,8 @@ export function SavedAddressesManager({
         <AddressForm
           address={editingAddress}
           isDefault={addresses.length === 0} // First address is always default
-          onSave={handleSave}
           onCancel={handleCancel}
+          onSave={handleSave}
         />
       )}
     </div>
@@ -173,13 +173,11 @@ function AddressCard({
 
   return (
     <div
-      className={`
-        rounded-2xl border p-6 shadow-sm transition
-        ${
-          isSelected
-            ? "border-[#ff5d46] bg-[#ff5d46]/5 ring-2 ring-[#ff5d46]/20"
-            : "border-[#ebe5d8] bg-white hover:shadow-md"
-        }
+      className={`rounded-2xl border p-6 shadow-sm transition ${
+        isSelected
+          ? "border-[#ff5d46] bg-[#ff5d46]/5 ring-2 ring-[#ff5d46]/20"
+          : "border-[#ebe5d8] bg-white hover:shadow-md"
+      }
         ${onSelect ? "cursor-pointer" : ""}
       `}
       onClick={onSelect}
@@ -188,28 +186,28 @@ function AddressCard({
         <div className="flex-1">
           <div className="flex items-center gap-3">
             <span className="text-2xl">{getAddressIcon(address.label)}</span>
-            <h4 className="text-lg font-semibold text-[#211f1a]">{address.label}</h4>
+            <h4 className="font-semibold text-[#211f1a] text-lg">{address.label}</h4>
             {address.is_default && (
-              <span className="rounded-full bg-[#ff5d46]/10 px-3 py-1 text-xs font-semibold text-[#ff5d46]">
+              <span className="rounded-full bg-[#ff5d46]/10 px-3 py-1 font-semibold text-[#ff5d46] text-xs">
                 {t("addressCard.defaultBadge")}
               </span>
             )}
           </div>
-          <p className="mt-3 text-base text-[#5d574b]">{addressText}</p>
+          <p className="mt-3 text-[#5d574b] text-base">{addressText}</p>
           {address.building_access && (
-            <p className="mt-2 text-sm text-[#5d574b]">
+            <p className="mt-2 text-[#5d574b] text-sm">
               🔑 <span className="font-semibold">{t("addressCard.buildingAccess")}:</span>{" "}
               {address.building_access}
             </p>
           )}
           {address.parking_info && (
-            <p className="mt-2 text-sm text-[#5d574b]">
+            <p className="mt-2 text-[#5d574b] text-sm">
               🅿️ <span className="font-semibold">{t("addressCard.parkingInfo")}:</span>{" "}
               {address.parking_info}
             </p>
           )}
           {address.special_notes && (
-            <p className="mt-2 text-sm text-[#5d574b]">
+            <p className="mt-2 text-[#5d574b] text-sm">
               📝 <span className="font-semibold">{t("addressCard.specialNotes")}:</span>{" "}
               {address.special_notes}
             </p>
@@ -221,22 +219,22 @@ function AddressCard({
           <div className="flex gap-2">
             {onEdit && (
               <button
+                className="rounded-full border-2 border-[#ebe5d8] px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
                 onClick={(e) => {
                   e.stopPropagation();
                   onEdit();
                 }}
-                className="rounded-full border-2 border-[#ebe5d8] px-4 py-2 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
               >
                 {t("addressCard.editButton")}
               </button>
             )}
             {onDelete && (
               <button
+                className="rounded-full border-2 border-red-200 px-4 py-2 font-semibold text-red-700 text-sm transition hover:bg-red-50"
                 onClick={(e) => {
                   e.stopPropagation();
                   onDelete();
                 }}
-                className="rounded-full border-2 border-red-200 px-4 py-2 text-sm font-semibold text-red-700 transition hover:bg-red-50"
               >
                 {t("addressCard.deleteButton")}
               </button>
@@ -262,7 +260,7 @@ function AddressForm({
   const t = useTranslations("dashboard.customer.addressManager");
   const [formData, setFormData] = useState<Omit<SavedAddress, "id" | "created_at">>({
     label: address?.label || "",
-    is_default: address?.is_default || isDefault || false,
+    is_default: address?.is_default || isDefault,
     street: address?.street || "",
     neighborhood: address?.neighborhood || "",
     city: address?.city || "",
@@ -286,147 +284,147 @@ function AddressForm({
 
   return (
     <form
+      className="space-y-6 rounded-2xl border border-[#ebe5d8] bg-white p-8 shadow-sm"
       onSubmit={handleSubmit}
-      className="rounded-2xl border border-[#ebe5d8] bg-white p-8 space-y-6 shadow-sm"
     >
-      <h4 className="text-xl font-semibold text-[#211f1a]">
+      <h4 className="font-semibold text-[#211f1a] text-xl">
         {address ? t("form.editTitle") : t("form.addTitle")}
       </h4>
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block text-base font-semibold text-[#211f1a]">
+          <label className="mb-2 block font-semibold text-[#211f1a] text-base">
             {t("form.labelField")} *
           </label>
           <input
-            type="text"
-            value={formData.label}
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             onChange={(e) => setFormData({ ...formData, label: e.target.value })}
             placeholder={t("form.labelPlaceholder")}
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             required
+            type="text"
+            value={formData.label}
           />
         </div>
 
         <div>
-          <label className="mb-2 block text-base font-semibold text-[#211f1a]">
+          <label className="mb-2 block font-semibold text-[#211f1a] text-base">
             {t("form.cityField")} *
           </label>
           <input
-            type="text"
-            value={formData.city}
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             onChange={(e) => setFormData({ ...formData, city: e.target.value })}
             placeholder={t("form.cityPlaceholder")}
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             required
+            type="text"
+            value={formData.city}
           />
         </div>
       </div>
 
       <div>
-        <label className="mb-2 block text-base font-semibold text-[#211f1a]">
+        <label className="mb-2 block font-semibold text-[#211f1a] text-base">
           {t("form.streetField")} *
         </label>
         <input
-          type="text"
-          value={formData.street}
+          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
           onChange={(e) => setFormData({ ...formData, street: e.target.value })}
           placeholder={t("form.streetPlaceholder")}
-          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
           required
+          type="text"
+          value={formData.street}
         />
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block text-base font-semibold text-[#211f1a]">
+          <label className="mb-2 block font-semibold text-[#211f1a] text-base">
             {t("form.neighborhoodField")}
           </label>
           <input
-            type="text"
-            value={formData.neighborhood}
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             onChange={(e) => setFormData({ ...formData, neighborhood: e.target.value })}
             placeholder={t("form.neighborhoodPlaceholder")}
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+            type="text"
+            value={formData.neighborhood}
           />
         </div>
 
         <div>
-          <label className="mb-2 block text-base font-semibold text-[#211f1a]">
+          <label className="mb-2 block font-semibold text-[#211f1a] text-base">
             {t("form.postalCodeField")}
           </label>
           <input
-            type="text"
-            value={formData.postal_code}
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             onChange={(e) => setFormData({ ...formData, postal_code: e.target.value })}
             placeholder={t("form.postalCodePlaceholder")}
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+            type="text"
+            value={formData.postal_code}
           />
         </div>
       </div>
 
       <div>
-        <label className="mb-2 block text-base font-semibold text-[#211f1a]">
+        <label className="mb-2 block font-semibold text-[#211f1a] text-base">
           {t("form.buildingAccessField")}
         </label>
         <input
-          type="text"
-          value={formData.building_access}
+          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
           onChange={(e) => setFormData({ ...formData, building_access: e.target.value })}
           placeholder={t("form.buildingAccessPlaceholder")}
-          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+          type="text"
+          value={formData.building_access}
         />
       </div>
 
       <div>
-        <label className="mb-2 block text-base font-semibold text-[#211f1a]">
+        <label className="mb-2 block font-semibold text-[#211f1a] text-base">
           {t("form.parkingInfoField")}
         </label>
         <input
-          type="text"
-          value={formData.parking_info}
+          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
           onChange={(e) => setFormData({ ...formData, parking_info: e.target.value })}
           placeholder={t("form.parkingInfoPlaceholder")}
-          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+          type="text"
+          value={formData.parking_info}
         />
       </div>
 
       <div>
-        <label className="mb-2 block text-base font-semibold text-[#211f1a]">
+        <label className="mb-2 block font-semibold text-[#211f1a] text-base">
           {t("form.specialNotesField")}
         </label>
         <textarea
-          value={formData.special_notes}
+          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
           onChange={(e) => setFormData({ ...formData, special_notes: e.target.value })}
           placeholder={t("form.specialNotesPlaceholder")}
           rows={3}
-          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+          value={formData.special_notes}
         />
       </div>
 
       {!isDefault && (
         <label className="flex items-center gap-3">
           <input
-            type="checkbox"
             checked={formData.is_default}
-            onChange={(e) => setFormData({ ...formData, is_default: e.target.checked })}
             className="h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-[#ff5d46]"
+            onChange={(e) => setFormData({ ...formData, is_default: e.target.checked })}
+            type="checkbox"
           />
-          <span className="text-base text-[#211f1a]">{t("form.setDefaultCheckbox")}</span>
+          <span className="text-[#211f1a] text-base">{t("form.setDefaultCheckbox")}</span>
         </label>
       )}
 
-      <div className="flex justify-end gap-3 border-t border-[#ebe5d8] pt-6">
+      <div className="flex justify-end gap-3 border-[#ebe5d8] border-t pt-6">
         <button
-          type="button"
+          className="rounded-full border-2 border-[#ebe5d8] px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           onClick={onCancel}
-          className="rounded-full border-2 border-[#ebe5d8] px-6 py-3 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+          type="button"
         >
           {t("form.cancelButton")}
         </button>
         <button
+          className="rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
           type="submit"
-          className="rounded-full bg-[#ff5d46] px-6 py-3 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
         >
           {address ? t("form.saveButton") : t("form.addButton")}
         </button>

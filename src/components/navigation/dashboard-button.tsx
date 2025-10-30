@@ -13,9 +13,9 @@ export function DashboardButton({ href, label = "Dashboard" }: Props) {
 
   return (
     <div className="relative">
-      <Button href={href} label={label} className="bg-[#211f1a] text-white hover:bg-[#2d2822]" />
+      <Button className="bg-[#211f1a] text-white hover:bg-[#2d2822]" href={href} label={label} />
       {unreadCount > 0 && (
-        <span className="absolute -right-1 -top-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#ff5d46] px-1.5 text-xs font-bold text-white">
+        <span className="-right-1 -top-1 absolute flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#ff5d46] px-1.5 font-bold text-white text-xs">
           {unreadCount > 99 ? "99+" : unreadCount}
         </span>
       )}

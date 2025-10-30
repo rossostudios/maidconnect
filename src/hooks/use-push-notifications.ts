@@ -66,7 +66,8 @@ export function usePushNotifications() {
       if (result === "granted") {
         await subscribe();
         return true;
-      } else if (result === "denied") {
+      }
+      if (result === "denied") {
         setError("Notification permission denied");
         return false;
       }
@@ -113,7 +114,7 @@ export function usePushNotifications() {
       // Convert subscription to JSON
       const subscriptionJSON = pushSubscription.toJSON();
 
-      if (!subscriptionJSON.endpoint || !subscriptionJSON.keys) {
+      if (!(subscriptionJSON.endpoint && subscriptionJSON.keys)) {
         throw new Error("Invalid subscription");
       }
 

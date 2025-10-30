@@ -131,27 +131,27 @@ export function AvailabilityCalendar({
     <div className="space-y-4">
       {/* Calendar Header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-[#211f1a]">
+        <h3 className="font-semibold text-[#211f1a] text-lg">
           {currentMonth.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
         </h3>
         <div className="flex gap-2">
           <button
+            className="rounded-md border border-[#e5dfd4] px-3 py-1 font-medium text-[#7a6d62] text-xs transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={goToToday}
-            className="rounded-md border border-[#e5dfd4] px-3 py-1 text-xs font-medium text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           >
             Today
           </button>
           <button
-            onClick={goToPreviousMonth}
-            className="rounded-md border border-[#e5dfd4] px-2 py-1 text-sm text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             aria-label="Previous month"
+            className="rounded-md border border-[#e5dfd4] px-2 py-1 text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            onClick={goToPreviousMonth}
           >
             ←
           </button>
           <button
-            onClick={goToNextMonth}
-            className="rounded-md border border-[#e5dfd4] px-2 py-1 text-sm text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             aria-label="Next month"
+            className="rounded-md border border-[#e5dfd4] px-2 py-1 text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            onClick={goToNextMonth}
           >
             →
           </button>
@@ -161,17 +161,17 @@ export function AvailabilityCalendar({
       {/* Loading State */}
       {loading && (
         <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-8 text-center">
-          <p className="text-sm text-[#7a6d62]">Loading availability...</p>
+          <p className="text-[#7a6d62] text-sm">Loading availability...</p>
         </div>
       )}
 
       {/* Error State */}
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-center">
-          <p className="text-sm text-red-800">{error}</p>
+          <p className="text-red-800 text-sm">{error}</p>
           <button
+            className="mt-2 font-semibold text-red-600 text-xs hover:text-red-700"
             onClick={fetchAvailability}
-            className="mt-2 text-xs font-semibold text-red-600 hover:text-red-700"
           >
             Retry
           </button>
@@ -179,14 +179,14 @@ export function AvailabilityCalendar({
       )}
 
       {/* Calendar Grid */}
-      {!loading && !error && (
+      {!(loading || error) && (
         <>
-          <div className="grid grid-cols-7 gap-px rounded-lg border border-[#ebe5d8] bg-[#ebe5d8] overflow-hidden">
+          <div className="grid grid-cols-7 gap-px overflow-hidden rounded-lg border border-[#ebe5d8] bg-[#ebe5d8]">
             {/* Day Headers */}
             {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
               <div
+                className="bg-[#f0ece5] px-2 py-2 text-center font-semibold text-[#7a6d62] text-xs"
                 key={day}
-                className="bg-[#f0ece5] px-2 py-2 text-center text-xs font-semibold text-[#7a6d62]"
               >
                 {day}
               </div>
@@ -195,7 +195,7 @@ export function AvailabilityCalendar({
             {/* Calendar Days */}
             {calendarDays.map((day, index) => {
               if (!day) {
-                return <div key={`empty-${index}`} className="bg-[#fbfafa] p-2 min-h-[60px]" />;
+                return <div className="min-h-[60px] bg-[#fbfafa] p-2" key={`empty-${index}`} />;
               }
 
               const availability = getDateAvailability(day);
@@ -231,28 +231,26 @@ export function AvailabilityCalendar({
 
               return (
                 <button
+                  className={`relative min-h-[60px] p-2 text-left transition ${bgColor}
+                    ${isSelected ? "ring-2 ring-[#ff5d46] ring-inset" : ""}
+                    ${isToday ? "font-bold" : ""}
+                    ${canSelect ? "cursor-pointer hover:ring-2 hover:ring-[#ff5d4633]" : "cursor-not-allowed opacity-60"}
+                    ${isPast ? "text-gray-400" : "text-[#211f1a]"}
+                  `}
+                  disabled={!canSelect}
                   key={formatDate(day)}
-                  type="button"
                   onClick={() => {
                     if (canSelect) {
                       onDateSelect(day);
                       onTimeSelect(null); // Reset time when date changes
                     }
                   }}
-                  disabled={!canSelect}
-                  className={`
-                    relative p-2 text-left transition min-h-[60px]
-                    ${bgColor}
-                    ${isSelected ? "ring-2 ring-[#ff5d46] ring-inset" : ""}
-                    ${isToday ? "font-bold" : ""}
-                    ${canSelect ? "hover:ring-2 hover:ring-[#ff5d4633] cursor-pointer" : "cursor-not-allowed opacity-60"}
-                    ${isPast ? "text-gray-400" : "text-[#211f1a]"}
-                  `}
+                  type="button"
                 >
-                  <div className="flex flex-col h-full">
+                  <div className="flex h-full flex-col">
                     <span className="text-sm">{day.getDate()}</span>
                     {availability && !isPast && (
-                      <span className="text-xs mt-auto">
+                      <span className="mt-auto text-xs">
                         {statusIndicators[availability.status]}
                       </span>
                     )}
@@ -263,7 +261,7 @@ export function AvailabilityCalendar({
           </div>
 
           {/* Legend */}
-          <div className="flex flex-wrap gap-3 text-xs text-[#7a6d62]">
+          <div className="flex flex-wrap gap-3 text-[#7a6d62] text-xs">
             <div className="flex items-center gap-1">
               <span>🟢</span>
               <span>Available</span>
@@ -295,7 +293,7 @@ export function AvailabilityCalendar({
         selectedDateAvailability &&
         selectedDateAvailability.availableSlots.length > 0 && (
           <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4">
-            <h4 className="mb-3 text-sm font-semibold text-[#211f1a]">
+            <h4 className="mb-3 font-semibold text-[#211f1a] text-sm">
               Available times on{" "}
               {selectedDate.toLocaleDateString("en-US", { month: "long", day: "numeric" })}
             </h4>
@@ -304,17 +302,15 @@ export function AvailabilityCalendar({
                 const isSelected = selectedTime === time;
                 return (
                   <button
-                    key={time}
-                    type="button"
-                    onClick={() => onTimeSelect(time)}
-                    className={`
-                    rounded-md border px-3 py-2 text-sm font-medium transition
-                    ${
+                    className={`rounded-md border px-3 py-2 font-medium text-sm transition ${
                       isSelected
                         ? "border-[#ff5d46] bg-[#ff5d46] text-white"
                         : "border-[#e5dfd4] bg-white text-[#211f1a] hover:border-[#ff5d46] hover:text-[#ff5d46]"
                     }
                   `}
+                    key={time}
+                    onClick={() => onTimeSelect(time)}
+                    type="button"
                   >
                     {formatTime(time)}
                   </button>
@@ -322,7 +318,7 @@ export function AvailabilityCalendar({
               })}
             </div>
             {selectedDateAvailability.bookingCount > 0 && (
-              <p className="mt-3 text-xs text-[#7a6d62]">
+              <p className="mt-3 text-[#7a6d62] text-xs">
                 {selectedDateAvailability.bookingCount} of {selectedDateAvailability.maxBookings}{" "}
                 slots booked today
               </p>
@@ -335,7 +331,7 @@ export function AvailabilityCalendar({
         selectedDateAvailability &&
         selectedDateAvailability.availableSlots.length === 0 && (
           <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4 text-center">
-            <p className="text-sm text-[#7a6d62]">
+            <p className="text-[#7a6d62] text-sm">
               No available time slots on this date. Please choose another day.
             </p>
           </div>

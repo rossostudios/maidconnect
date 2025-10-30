@@ -60,29 +60,29 @@ export function DocumentUploadForm({ inputClass }: Props) {
   }, [state.status]);
 
   return (
-    <form ref={formRef} className="space-y-8" action={formAction} noValidate>
+    <form action={formAction} className="space-y-8" noValidate ref={formRef}>
       <Feedback state={state} />
       {state.status === "error" && state.error ? <UnexpectedError message={state.error} /> : null}
 
       <div className="space-y-6">
         {documents.map((doc) => (
           <DocumentField
-            key={doc.key}
             config={doc}
             inputClass={inputClass}
+            key={doc.key}
             serverError={fieldError(`document_${doc.key}`)}
           />
         ))}
       </div>
 
-      <div className="flex justify-end border-t border-[#ebe5d8] pt-8">
+      <div className="flex justify-end border-[#ebe5d8] border-t pt-8">
         <button
-          type="submit"
-          disabled={pending}
           className={cn(
-            "inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]",
+            "inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]",
             pending && "cursor-not-allowed opacity-70"
           )}
+          disabled={pending}
+          type="submit"
         >
           {pending ? t("footer.submitting") : t("footer.submit")}
         </button>
@@ -119,10 +119,12 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
 
     const mimeType = (file.type || "").toLowerCase();
     if (
-      !mimeType.includes("pdf") &&
-      !mimeType.includes("jpeg") &&
-      !mimeType.includes("jpg") &&
-      !mimeType.includes("png")
+      !(
+        mimeType.includes("pdf") ||
+        mimeType.includes("jpeg") ||
+        mimeType.includes("jpg") ||
+        mimeType.includes("png")
+      )
     ) {
       setSelectedFile(null);
       setClientError(t("errors.fileType"));
@@ -137,81 +139,81 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
     <div
       className={cn(
         "rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md",
-        config.required ? "border-[#ebe5d8]" : "border-dashed border-[#ebe5d8]"
+        config.required ? "border-[#ebe5d8]" : "border-[#ebe5d8] border-dashed"
       )}
     >
       <div className="flex items-center justify-between">
-        <label htmlFor={inputId} className="text-lg font-semibold text-[#211f1a]">
+        <label className="font-semibold text-[#211f1a] text-lg" htmlFor={inputId}>
           {config.label}
         </label>
         <span
           className={cn(
-            "rounded-full px-3 py-1 text-xs font-semibold",
+            "rounded-full px-3 py-1 font-semibold text-xs",
             config.required ? "bg-orange-50 text-orange-700" : "bg-gray-100 text-gray-600"
           )}
         >
           {config.required ? t("badges.required") : t("badges.optional")}
         </span>
       </div>
-      <p className="mt-3 text-sm text-[#5d574b]">
+      <p className="mt-3 text-[#5d574b] text-sm">
         {t(config.required ? "uploadInstruction.required" : "uploadInstruction.optional", {
           formats: ACCEPTED_TYPE_LABEL,
           maxSize: MAX_FILE_SIZE_LABEL,
         })}
       </p>
       <input
-        id={inputId}
-        name={`document_${config.key}`}
-        type="file"
         accept={ACCEPTED_EXTENSIONS}
+        aria-invalid={Boolean(serverError || clientError)}
         className={cn(
           inputClass,
-          "mt-4 cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-[#ff5d46] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-[#eb6c65]",
+          "mt-4 cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-[#ff5d46] file:px-4 file:py-2 file:font-semibold file:text-sm file:text-white hover:file:bg-[#eb6c65]",
           (serverError || clientError) && errorClass
         )}
-        aria-invalid={Boolean(serverError || clientError)}
-        required={config.required}
+        id={inputId}
+        name={`document_${config.key}`}
         onChange={handleFileChange}
+        required={config.required}
+        type="file"
       />
       <textarea
-        name={`document_${config.key}_note`}
-        rows={2}
         className={`${inputClass} mt-4`}
+        name={`document_${config.key}_note`}
         placeholder={t("notePlaceholder")}
+        rows={2}
       />
       {selectedFile ? (
         <div className="mt-4 flex items-center gap-2 rounded-xl border border-green-200 bg-green-50 p-3">
           <svg className="h-5 w-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
             <path
-              fillRule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
               clipRule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              fillRule="evenodd"
             />
           </svg>
-          <p className="text-sm text-green-800">
+          <p className="text-green-800 text-sm">
             {t("selectedFile", { name: selectedFile.name, size: formatBytes(selectedFile.size) })}
           </p>
         </div>
       ) : null}
       {clientError ? (
-        <p className="mt-3 flex items-center gap-2 text-sm text-red-600">
+        <p className="mt-3 flex items-center gap-2 text-red-600 text-sm">
           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
             <path
-              fillRule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
               clipRule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+              fillRule="evenodd"
             />
           </svg>
           {clientError}
         </p>
       ) : null}
       {serverError ? (
-        <p className="mt-3 flex items-center gap-2 text-sm text-red-600">
+        <p className="mt-3 flex items-center gap-2 text-red-600 text-sm">
           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
             <path
-              fillRule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
               clipRule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+              fillRule="evenodd"
             />
           </svg>
           {serverError}
@@ -230,18 +232,18 @@ function Feedback({ state }: { state: OnboardingActionState }) {
             <svg
               className="h-5 w-5 text-red-600"
               fill="none"
-              viewBox="0 0 24 24"
               stroke="currentColor"
+              viewBox="0 0 24 24"
             >
               <path
+                d="M6 18L18 6M6 6l12 12"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
               />
             </svg>
           </div>
-          <p className="flex-1 text-base leading-relaxed text-red-800">{state.error}</p>
+          <p className="flex-1 text-base text-red-800 leading-relaxed">{state.error}</p>
         </div>
       </div>
     );
@@ -254,18 +256,18 @@ function Feedback({ state }: { state: OnboardingActionState }) {
             <svg
               className="h-5 w-5 text-green-600"
               fill="none"
-              viewBox="0 0 24 24"
               stroke="currentColor"
+              viewBox="0 0 24 24"
             >
               <path
+                d="M5 13l4 4L19 7"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M5 13l4 4L19 7"
               />
             </svg>
           </div>
-          <p className="flex-1 text-base leading-relaxed text-green-800">{state.message}</p>
+          <p className="flex-1 text-base text-green-800 leading-relaxed">{state.message}</p>
         </div>
       </div>
     );

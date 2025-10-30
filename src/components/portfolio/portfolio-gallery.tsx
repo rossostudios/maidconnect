@@ -28,8 +28,8 @@ export function PortfolioGallery({ images, featuredWork, professionalName }: Pro
       {/* Featured Work Description */}
       {featuredWork && (
         <div className="rounded-lg border border-[#f0ece5] bg-[#fdfaf6] p-4">
-          <h3 className="text-sm font-semibold text-[#211f1a]">Featured Work</h3>
-          <p className="mt-2 text-sm text-[#7a6d62]">{featuredWork}</p>
+          <h3 className="font-semibold text-[#211f1a] text-sm">Featured Work</h3>
+          <p className="mt-2 text-[#7a6d62] text-sm">{featuredWork}</p>
         </div>
       )}
 
@@ -37,14 +37,14 @@ export function PortfolioGallery({ images, featuredWork, professionalName }: Pro
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {sortedImages.map((image) => (
           <button
+            className="group relative aspect-square overflow-hidden rounded-lg border border-[#e5dfd4] bg-[#f0ece5] transition hover:border-[#ff5d46] hover:shadow-md"
             key={image.id}
             onClick={() => setSelectedImage(image)}
-            className="group relative aspect-square overflow-hidden rounded-lg border border-[#e5dfd4] bg-[#f0ece5] transition hover:border-[#ff5d46] hover:shadow-md"
           >
             <img
-              src={image.thumbnail_url || image.url}
               alt={image.caption || "Portfolio image"}
               className="h-full w-full object-cover transition group-hover:scale-105"
+              src={image.thumbnail_url || image.url}
             />
             {image.caption && (
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-left">
@@ -62,9 +62,9 @@ export function PortfolioGallery({ images, featuredWork, professionalName }: Pro
       {/* Lightbox */}
       {selectedImage && (
         <Lightbox
+          allImages={sortedImages}
           image={selectedImage}
           onClose={() => setSelectedImage(null)}
-          allImages={sortedImages}
           onNavigate={setSelectedImage}
         />
       )}
@@ -114,8 +114,8 @@ function Lightbox({
     >
       {/* Close Button */}
       <button
+        className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-2xl text-white transition hover:bg-white/20"
         onClick={onClose}
-        className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-2xl text-white transition hover:bg-white/20"
       >
         ✕
       </button>
@@ -123,11 +123,11 @@ function Lightbox({
       {/* Previous Button */}
       {hasPrevious && (
         <button
+          className="-translate-y-1/2 absolute top-1/2 left-4 rounded-full bg-white/10 p-3 text-2xl text-white transition hover:bg-white/20"
           onClick={(e) => {
             e.stopPropagation();
             handlePrevious();
           }}
-          className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-2xl text-white transition hover:bg-white/20"
         >
           ←
         </button>
@@ -136,11 +136,11 @@ function Lightbox({
       {/* Next Button */}
       {hasNext && (
         <button
+          className="-translate-y-1/2 absolute top-1/2 right-4 rounded-full bg-white/10 p-3 text-2xl text-white transition hover:bg-white/20"
           onClick={(e) => {
             e.stopPropagation();
             handleNext();
           }}
-          className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-2xl text-white transition hover:bg-white/20"
         >
           →
         </button>
@@ -149,12 +149,12 @@ function Lightbox({
       {/* Image */}
       <div className="max-h-[90vh] max-w-5xl" onClick={(e) => e.stopPropagation()}>
         <img
-          src={image.url}
           alt={image.caption || "Portfolio image"}
           className="max-h-[80vh] w-auto rounded-lg"
+          src={image.url}
         />
         {image.caption && <p className="mt-3 text-center text-sm text-white/90">{image.caption}</p>}
-        <p className="mt-2 text-center text-xs text-white/60">
+        <p className="mt-2 text-center text-white/60 text-xs">
           {currentIndex + 1} of {allImages.length}
         </p>
       </div>
@@ -176,16 +176,16 @@ export function PortfolioPreview({ images }: { images: PortfolioImage[] }) {
     <div className="grid grid-cols-4 gap-2">
       {previewImages.map((image, index) => (
         <div
-          key={image.id}
           className="relative aspect-square overflow-hidden rounded-md bg-[#f0ece5]"
+          key={image.id}
         >
           <img
-            src={image.thumbnail_url || image.url}
             alt={image.caption || `Portfolio ${index + 1}`}
             className="h-full w-full object-cover"
+            src={image.thumbnail_url || image.url}
           />
           {index === 3 && remaining > 0 && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/60 text-sm font-semibold text-white">
+            <div className="absolute inset-0 flex items-center justify-center bg-black/60 font-semibold text-sm text-white">
               +{remaining}
             </div>
           )}

@@ -46,8 +46,8 @@ export default async function DashboardLayout({ children }: Props) {
       <div className="flex flex-1 flex-col">
         <header className="bg-[#fbfaf9] py-4">
           <Container className="flex items-center justify-between gap-4">
-            <Link href="/" className="flex items-center">
-              <span className="text-xl font-semibold tracking-tight text-[#211f1a]">
+            <Link className="flex items-center" href="/">
+              <span className="font-semibold text-[#211f1a] text-xl tracking-tight">
                 MaidConnect
               </span>
             </Link>
@@ -55,7 +55,7 @@ export default async function DashboardLayout({ children }: Props) {
           </Container>
         </header>
 
-        <main className="flex-1 bg-[#fbfaf9] pb-16 pt-10">
+        <main className="flex-1 bg-[#fbfaf9] pt-10 pb-16">
           <Container className="max-w-5xl">
             <Breadcrumbs />
             <div className="space-y-8">{children}</div>

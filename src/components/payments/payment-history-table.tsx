@@ -54,7 +54,7 @@ function getStatusBadge(status: string) {
 
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold ${style.bg} ${style.text}`}
+      className={`inline-flex items-center rounded-full px-2.5 py-1 font-semibold text-xs ${style.bg} ${style.text}`}
     >
       {style.label}
     </span>
@@ -73,7 +73,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
             <p className="font-medium text-[#211f1a]">
               {format(new Date(info.getValue()), "MMM dd, yyyy")}
             </p>
-            <p className="text-sm text-[#7d7566]">{format(new Date(info.getValue()), "h:mm a")}</p>
+            <p className="text-[#7d7566] text-sm">{format(new Date(info.getValue()), "h:mm a")}</p>
           </div>
         ),
       }),
@@ -82,7 +82,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
         cell: (info) => (
           <div>
             <p className="font-medium text-[#211f1a]">{info.getValue() || "—"}</p>
-            <p className="text-sm text-[#7d7566]">
+            <p className="text-[#7d7566] text-sm">
               {info.row.original.professional?.full_name || "Unknown professional"}
             </p>
           </div>
@@ -97,7 +97,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
             </p>
             {info.row.original.amount_captured &&
               info.getValue() !== info.row.original.amount_captured && (
-                <p className="text-sm text-[#7d7566]">Auth: {formatCurrency(info.getValue())}</p>
+                <p className="text-[#7d7566] text-sm">Auth: {formatCurrency(info.getValue())}</p>
               )}
           </div>
         ),
@@ -111,7 +111,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
         cell: (info) => {
           const id = info.getValue();
           if (!id) return <span className="text-[#7d7566]">—</span>;
-          return <span className="font-mono text-xs text-[#7d7566]">{id.substring(0, 20)}...</span>;
+          return <span className="font-mono text-[#7d7566] text-xs">{id.substring(0, 20)}...</span>;
         },
       }),
     ],
@@ -145,20 +145,20 @@ export function PaymentHistoryTable({ bookings }: Props) {
               <svg
                 className="h-6 w-6 text-[#7d7566]"
                 fill="none"
-                viewBox="0 0 24 24"
                 stroke="currentColor"
+                viewBox="0 0 24 24"
               >
                 <path
+                  d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
                 />
               </svg>
             </div>
           </div>
-          <h3 className="text-base font-semibold text-[#211f1a]">No payment history</h3>
-          <p className="mt-1 text-sm text-[#5d574b]">
+          <h3 className="font-semibold text-[#211f1a] text-base">No payment history</h3>
+          <p className="mt-1 text-[#5d574b] text-sm">
             Your payment history will appear here after you make your first booking.
           </p>
         </div>
@@ -176,8 +176,8 @@ export function PaymentHistoryTable({ bookings }: Props) {
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
+                    className="px-6 py-4 text-left font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]"
                     key={header.id}
-                    className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]"
                   >
                     {header.isPlaceholder ? null : (
                       <div
@@ -206,9 +206,9 @@ export function PaymentHistoryTable({ bookings }: Props) {
           </thead>
           <tbody className="divide-y divide-[#ebe5d8] bg-white">
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="transition hover:bg-[#fbfaf9]">
+              <tr className="transition hover:bg-[#fbfaf9]" key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="px-6 py-4">
+                  <td className="px-6 py-4" key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
@@ -221,21 +221,21 @@ export function PaymentHistoryTable({ bookings }: Props) {
       {/* Pagination */}
       {table.getPageCount() > 1 && (
         <div className="flex items-center justify-between">
-          <div className="text-sm text-[#7d7566]">
+          <div className="text-[#7d7566] text-sm">
             Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
           </div>
           <div className="flex items-center gap-2">
             <button
-              onClick={() => table.previousPage()}
+              className="rounded-lg border border-[#ebe5d8] px-3 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:opacity-50"
               disabled={!table.getCanPreviousPage()}
-              className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:opacity-50"
+              onClick={() => table.previousPage()}
             >
               Previous
             </button>
             <button
-              onClick={() => table.nextPage()}
+              className="rounded-lg border border-[#ebe5d8] px-3 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:opacity-50"
               disabled={!table.getCanNextPage()}
-              className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:opacity-50"
+              onClick={() => table.nextPage()}
             >
               Next
             </button>

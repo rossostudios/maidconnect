@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     // Parse request body
     const { userId, title, body, url, tag, requireInteraction } = await request.json();
 
-    if (!userId || !title || !body) {
+    if (!(userId && title && body)) {
       return NextResponse.json(
         { error: "Missing required fields: userId, title, body" },
         { status: 400 }
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
     const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY;
     const vapidSubject = process.env.VAPID_SUBJECT || "mailto:support@maidconnect.com";
 
-    if (!vapidPublicKey || !vapidPrivateKey) {
+    if (!(vapidPublicKey && vapidPrivateKey)) {
       console.error("[API] VAPID keys not configured");
       return NextResponse.json({ error: "Push notifications not configured" }, { status: 500 });
     }
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       badge: "/badge-72x72.png",
       url: url || "/dashboard/customer",
       tag: tag || "default",
-      requireInteraction: requireInteraction || false,
+      requireInteraction,
     });
 
     // Send to all user's subscriptions

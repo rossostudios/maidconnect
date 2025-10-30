@@ -59,20 +59,20 @@ export function TimePicker({
   const hiddenValue = value ?? "";
 
   return (
-    <div ref={containerRef} className="relative">
+    <div className="relative" ref={containerRef}>
       {name ? (
-        <input type="hidden" name={name} value={hiddenValue} readOnly required={required} />
+        <input name={name} readOnly required={required} type="hidden" value={hiddenValue} />
       ) : null}
       <button
-        type="button"
-        onClick={() => setOpen((prev) => !prev)}
         className={cn(
-          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 text-sm font-medium text-[#211f1a] shadow-inner shadow-black/5 transition hover:border-[#ff5d46] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5d46]",
+          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[#211f1a] text-sm shadow-black/5 shadow-inner transition hover:border-[#ff5d46] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff5d46] focus-visible:outline-offset-2",
           !value && "text-[#8a826d]"
         )}
+        onClick={() => setOpen((prev) => !prev)}
+        type="button"
       >
         <span className="flex items-center gap-2">
-          <Clock className="h-4 w-4 text-[#ff5d46]" aria-hidden="true" />
+          <Clock aria-hidden="true" className="h-4 w-4 text-[#ff5d46]" />
           {formatDisplay(value, placeholder)}
         </span>
         <ChevronRight
@@ -87,22 +87,22 @@ export function TimePicker({
               const isSelected = time === value;
               return (
                 <button
-                  type="button"
-                  key={time}
-                  onClick={() => {
-                    onChange(time);
-                    setOpen(false);
-                  }}
                   className={cn(
                     "flex items-center justify-between rounded-2xl px-4 py-2 text-sm transition",
                     isSelected
                       ? "bg-[#211f1a] text-white shadow-[0_12px_32px_rgba(18,17,15,0.16)]"
                       : "text-[#211f1a] hover:bg-[#f6f1ea]"
                   )}
+                  key={time}
+                  onClick={() => {
+                    onChange(time);
+                    setOpen(false);
+                  }}
+                  type="button"
                 >
                   <span>{formatDisplay(time)}</span>
                   {isSelected ? (
-                    <span className="text-xs uppercase tracking-[0.2em] text-[#d7b59f]">
+                    <span className="text-[#d7b59f] text-xs uppercase tracking-[0.2em]">
                       Selected
                     </span>
                   ) : null}

@@ -99,7 +99,7 @@ export function isDateBlocked(date: Date, blockedDates: string[]): boolean {
  */
 export function getWorkingHoursForDate(date: Date, settings: AvailabilitySettings): TimeSlot[] {
   // Defensive check: ensure working_hours exists
-  if (!settings || !settings.working_hours) {
+  if (!(settings && settings.working_hours)) {
     return [];
   }
   const dayOfWeek = getDayOfWeek(date);
@@ -115,7 +115,7 @@ export function generateTimeSlots(
   settings: AvailabilitySettings,
   existingBookings: { scheduled_start: string; scheduled_end: string }[],
   blockedDates: string[],
-  slotDurationMinutes: number = 60 // Default 1-hour slots
+  slotDurationMinutes = 60 // Default 1-hour slots
 ): string[] {
   // Check if date is blocked
   if (isDateBlocked(date, blockedDates)) {
@@ -181,7 +181,7 @@ export function canInstantBook(
   scheduledStart: Date,
   durationHours: number,
   settings: InstantBookingSettings,
-  isRecurring: boolean = false
+  isRecurring = false
 ): { allowed: boolean; reason?: string } {
   const now = new Date();
   const hoursUntil = (scheduledStart.getTime() - now.getTime()) / (1000 * 60 * 60);
@@ -360,7 +360,7 @@ export function getNextAvailableDate(
   settings: AvailabilitySettings,
   existingBookings: { scheduled_start: string; scheduled_end: string }[],
   blockedDates: string[],
-  maxDaysAhead: number = 30
+  maxDaysAhead = 30
 ): Date | null {
   const today = new Date();
   today.setHours(0, 0, 0, 0);

@@ -42,7 +42,7 @@ export async function POST(request: Request) {
     const isCustomer = booking.customer_id === user.id;
     const isProfessional = booking.professional_id === user.id;
 
-    if (!isCustomer && !isProfessional) {
+    if (!(isCustomer || isProfessional)) {
       return NextResponse.json(
         { error: "You are not authorized to cancel this payment" },
         { status: 403 }

@@ -49,8 +49,8 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
   }, [booking.status, booking.checked_in_at]);
 
   // Get GPS coordinates
-  const getGPSCoordinates = (): Promise<{ latitude: number; longitude: number }> => {
-    return new Promise((resolve, reject) => {
+  const getGPSCoordinates = (): Promise<{ latitude: number; longitude: number }> =>
+    new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
         reject(new Error("Geolocation is not supported by your browser"));
         return;
@@ -80,12 +80,11 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
         },
         {
           enableHighAccuracy: true,
-          timeout: 10000,
+          timeout: 10_000,
           maximumAge: 0,
         }
       );
     });
-  };
 
   // Handle check-in
   const handleCheckIn = async () => {
@@ -174,7 +173,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
   // Handle time extension
   const handleExtendTime = async () => {
-    const minutes = parseInt(extensionMinutes, 10);
+    const minutes = Number.parseInt(extensionMinutes, 10);
     if (isNaN(minutes) || minutes <= 0) {
       setMessage({ type: "error", text: "Please enter a valid number of minutes" });
       return;
@@ -237,13 +236,13 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       {/* Header */}
       <div className="mb-4 flex items-start justify-between">
         <div>
-          <h3 className="text-lg font-semibold text-[#211f1a]">
+          <h3 className="font-semibold text-[#211f1a] text-lg">
             {booking.service_name || "Service"}
           </h3>
-          <p className="text-sm text-[#7a6d62]">{scheduledDate}</p>
+          <p className="text-[#7a6d62] text-sm">{scheduledDate}</p>
         </div>
         <span
-          className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${
+          className={`inline-flex items-center rounded-full px-3 py-1 font-semibold text-xs ${
             booking.status === "confirmed"
               ? "bg-green-100 text-green-800"
               : booking.status === "in_progress"
@@ -258,7 +257,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       {/* Address */}
       {booking.address && (
         <div className="mb-4">
-          <p className="text-sm text-[#5d574b]">
+          <p className="text-[#5d574b] text-sm">
             📍{" "}
             {typeof booking.address === "object" && "formatted" in booking.address
               ? String(booking.address.formatted)
@@ -272,17 +271,17 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
         <div className="mb-4 rounded-lg bg-blue-50 p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-blue-900">Service in progress</p>
-              <p className="text-xs text-blue-700">
+              <p className="font-medium text-blue-900 text-sm">Service in progress</p>
+              <p className="text-blue-700 text-xs">
                 Planned: {formatDuration(totalPlannedMinutes)}
               </p>
             </div>
             <div className="text-right">
-              <p className={`text-2xl font-bold ${isOvertime ? "text-red-600" : "text-blue-900"}`}>
+              <p className={`font-bold text-2xl ${isOvertime ? "text-red-600" : "text-blue-900"}`}>
                 {formatDuration(elapsedTime)}
               </p>
               {isOvertime && (
-                <p className="text-xs font-semibold text-red-600">
+                <p className="font-semibold text-red-600 text-xs">
                   +{formatDuration(elapsedTime - totalPlannedMinutes)} overtime
                 </p>
               )}
@@ -314,10 +313,10 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
         {/* Check-in button for confirmed bookings */}
         {booking.status === "confirmed" && (
           <button
-            type="button"
-            onClick={handleCheckIn}
-            disabled={loading}
             className="w-full rounded-lg bg-green-600 px-4 py-3 font-semibold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-70"
+            disabled={loading}
+            onClick={handleCheckIn}
+            type="button"
           >
             {loading ? "Checking in..." : "Check In & Start Service"}
           </button>
@@ -328,19 +327,19 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
           <>
             <div className="flex gap-2">
               <input
-                type="number"
-                value={extensionMinutes}
+                className="flex-1 rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                max="240"
+                min="1"
                 onChange={(e) => setExtensionMinutes(e.target.value)}
                 placeholder="Minutes"
-                min="1"
-                max="240"
-                className="flex-1 rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                type="number"
+                value={extensionMinutes}
               />
               <button
-                type="button"
-                onClick={handleExtendTime}
+                className="rounded-lg border border-[#ff5d46] bg-white px-4 py-2 font-semibold text-[#ff5d46] text-sm transition hover:bg-[#ff5d46] hover:text-white disabled:cursor-not-allowed disabled:opacity-70"
                 disabled={loading}
-                className="rounded-lg border border-[#ff5d46] bg-white px-4 py-2 text-sm font-semibold text-[#ff5d46] transition hover:bg-[#ff5d46] hover:text-white disabled:cursor-not-allowed disabled:opacity-70"
+                onClick={handleExtendTime}
+                type="button"
               >
                 {loading ? "Extending..." : "Extend Time"}
               </button>
@@ -348,10 +347,10 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
             {/* Check-out button */}
             <button
-              type="button"
-              onClick={() => handleCheckOut()}
-              disabled={loading}
               className="w-full rounded-lg bg-[#ff5d46] px-4 py-3 font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+              disabled={loading}
+              onClick={() => handleCheckOut()}
+              type="button"
             >
               {loading ? "Checking out..." : "Check Out & Complete Service"}
             </button>
@@ -362,6 +361,9 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       {/* Rating Prompt Modal */}
       {booking.customer && (
         <RatingPromptModal
+          bookingId={booking.id}
+          customerId={booking.customer.id}
+          customerName="Customer"
           isOpen={showRatingModal}
           onClose={() => {
             setShowRatingModal(false);
@@ -369,9 +371,6 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
               onRatingComplete();
             }
           }}
-          customerId={booking.customer.id}
-          customerName="Customer"
-          bookingId={booking.id}
         />
       )}
     </div>

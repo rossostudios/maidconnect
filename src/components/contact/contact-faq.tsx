@@ -18,20 +18,20 @@ export function ContactFAQ() {
   return (
     <section className="bg-[#fbfaf9] py-20 sm:py-24 lg:py-32">
       <Container className="max-w-4xl">
-        <h2 className="mb-12 text-center text-4xl font-semibold text-[#211f1a] sm:text-5xl">
+        <h2 className="mb-12 text-center font-semibold text-4xl text-[#211f1a] sm:text-5xl">
           {t("title")}
         </h2>
         <div className="space-y-4">
           {faqKeys.map((key, index) => (
             <div
-              key={key}
               className="overflow-hidden rounded-[24px] border border-[#ebe5d8] bg-white shadow-[0_4px_20px_rgba(18,17,15,0.02)] transition hover:shadow-[0_8px_30px_rgba(18,17,15,0.04)]"
+              key={key}
             >
               <button
-                onClick={() => toggleFAQ(index)}
                 className="flex w-full items-center justify-between p-8 text-left transition"
+                onClick={() => toggleFAQ(index)}
               >
-                <span className="pr-8 text-xl font-semibold text-[#211f1a]">
+                <span className="pr-8 font-semibold text-[#211f1a] text-xl">
                   {t(`questions.${key}.question`)}
                 </span>
                 <ChevronDown
@@ -46,8 +46,8 @@ export function ContactFAQ() {
                 }`}
               >
                 <div className="overflow-hidden">
-                  <div className="border-t border-[#ebe5d8] p-8 pt-6">
-                    <p className="text-base leading-relaxed text-[#5d574b]">
+                  <div className="border-[#ebe5d8] border-t p-8 pt-6">
+                    <p className="text-[#5d574b] text-base leading-relaxed">
                       {t(`questions.${key}.answer`)}
                     </p>
                   </div>

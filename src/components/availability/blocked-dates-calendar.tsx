@@ -5,7 +5,6 @@ import {
   eachDayOfInterval,
   endOfMonth,
   format,
-  isSameDay,
   isSameMonth,
   isToday,
   parseISO,
@@ -87,17 +86,17 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <button
-            onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
             className="rounded-lg p-2 text-[#7d7566] transition hover:bg-[#ebe5d8] hover:text-[#211f1a]"
+            onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
-          <h3 className="min-w-[180px] text-center text-lg font-semibold text-[#211f1a]">
+          <h3 className="min-w-[180px] text-center font-semibold text-[#211f1a] text-lg">
             {format(currentMonth, "MMMM yyyy")}
           </h3>
           <button
-            onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
             className="rounded-lg p-2 text-[#7d7566] transition hover:bg-[#ebe5d8] hover:text-[#211f1a]"
+            onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
           >
             <ChevronRight className="h-5 w-5" />
           </button>
@@ -105,16 +104,16 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
 
         <div className="flex gap-2">
           <button
+            className="flex items-center gap-1 rounded-lg border-2 border-[#ebe5d8] bg-white px-3 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={handleBlockWeek}
-            className="flex items-center gap-1 rounded-lg border-2 border-[#ebe5d8] bg-white px-3 py-2 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           >
             <Calendar className="h-4 w-4" />
             Block entire month
           </button>
           {blockedDates.length > 0 && (
             <button
+              className="flex items-center gap-1 rounded-lg border-2 border-[#ebe5d8] bg-white px-3 py-2 font-semibold text-red-600 text-sm transition hover:border-red-500 hover:bg-red-50"
               onClick={handleClearAll}
-              className="flex items-center gap-1 rounded-lg border-2 border-[#ebe5d8] bg-white px-3 py-2 text-sm font-semibold text-red-600 transition hover:border-red-500 hover:bg-red-50"
             >
               <Trash2 className="h-4 w-4" />
               Clear all
@@ -126,11 +125,11 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
       {/* Calendar Grid */}
       <div className="overflow-hidden rounded-xl border border-[#ebe5d8] bg-white">
         {/* Day Headers */}
-        <div className="grid grid-cols-7 gap-px border-b border-[#ebe5d8] bg-[#fbfaf9]">
+        <div className="grid grid-cols-7 gap-px border-[#ebe5d8] border-b bg-[#fbfaf9]">
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
             <div
+              className="py-3 text-center font-semibold text-[#7d7566] text-xs uppercase tracking-wide"
               key={day}
-              className="py-3 text-center text-xs font-semibold uppercase tracking-wide text-[#7d7566]"
             >
               {day}
             </div>
@@ -141,7 +140,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
         <div className="grid grid-cols-7 gap-px bg-[#ebe5d8]">
           {calendarDays.map((day, index) => {
             if (!day) {
-              return <div key={`empty-${index}`} className="aspect-square bg-[#fbfaf9]" />;
+              return <div className="aspect-square bg-[#fbfaf9]" key={`empty-${index}`} />;
             }
 
             const dateStr = format(day, "yyyy-MM-dd");
@@ -151,18 +150,18 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
 
             return (
               <button
-                key={dateStr}
-                onClick={() => handleToggleDate(day)}
-                disabled={!isCurrentMonth}
                 className={`aspect-square p-2 text-sm transition ${
-                  !isCurrentMonth
-                    ? "cursor-not-allowed bg-[#fbfaf9] text-[#d4cec0]"
-                    : isBlocked
+                  isCurrentMonth
+                    ? isBlocked
                       ? "bg-red-500 font-semibold text-white hover:bg-red-600"
                       : isTodayDate
                         ? "bg-[#fff5f2] font-semibold text-[#ff5d46] hover:bg-[#ff5d46] hover:text-white"
                         : "bg-white font-medium text-[#211f1a] hover:bg-[#ff5d46] hover:text-white"
+                    : "cursor-not-allowed bg-[#fbfaf9] text-[#d4cec0]"
                 }`}
+                disabled={!isCurrentMonth}
+                key={dateStr}
+                onClick={() => handleToggleDate(day)}
               >
                 {format(day, "d")}
               </button>
@@ -174,13 +173,13 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
       {/* Summary */}
       <div className="grid gap-4 md:grid-cols-2">
         <div className="rounded-xl bg-[#fbfaf9] p-4">
-          <p className="text-sm text-[#7d7566]">
+          <p className="text-[#7d7566] text-sm">
             <strong className="text-[#211f1a]">{blockedInCurrentMonth} days</strong> blocked in{" "}
             {format(currentMonth, "MMMM")}
           </p>
         </div>
         <div className="rounded-xl bg-[#fbfaf9] p-4">
-          <p className="text-sm text-[#7d7566]">
+          <p className="text-[#7d7566] text-sm">
             <strong className="text-[#211f1a]">{blockedDates.length} total days</strong> blocked
             across all months
           </p>
@@ -189,8 +188,8 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
 
       {/* Instructions */}
       <div className="rounded-xl border border-[#ebe5d8] bg-white p-4">
-        <h4 className="text-sm font-semibold text-[#211f1a]">How to use:</h4>
-        <ul className="mt-2 space-y-1 text-sm text-[#7d7566]">
+        <h4 className="font-semibold text-[#211f1a] text-sm">How to use:</h4>
+        <ul className="mt-2 space-y-1 text-[#7d7566] text-sm">
           <li>• Click any date to block it (turns red)</li>
           <li>• Click a blocked date to unblock it</li>
           <li>• Use "Block entire month" for vacations</li>

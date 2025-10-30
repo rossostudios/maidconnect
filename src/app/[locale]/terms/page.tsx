@@ -21,17 +21,17 @@ export default async function TermsOfServicePage({ params }: Props) {
   const lastUpdated = "January 2025";
 
   return (
-    <div className="min-h-screen bg-[#fbfaf9] py-16 px-4">
+    <div className="min-h-screen bg-[#fbfaf9] px-4 py-16">
       <div className="mx-auto max-w-4xl">
-        <div className="rounded-[28px] bg-white p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)]">
-          <h1 className="mb-4 text-4xl font-bold text-[#211f1a]">{t("title")}</h1>
+        <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] md:p-12">
+          <h1 className="mb-4 font-bold text-4xl text-[#211f1a]">{t("title")}</h1>
           <p className="mb-8 text-[#7d7566]">{t("lastUpdated", { date: lastUpdated })}</p>
 
           {/* Note: Full legal content translation should be reviewed by legal counsel */}
 
           <div className="prose prose-lg max-w-none">
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">1. Agreement to Terms</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">1. Agreement to Terms</h2>
               <p className="mb-4 text-[#7d7566]">
                 By accessing or using MaidConnect, you agree to be bound by these Terms of Service
                 and all applicable laws and regulations. If you do not agree with any of these
@@ -40,7 +40,7 @@ export default async function TermsOfServicePage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">2. Platform Overview</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">2. Platform Overview</h2>
               <p className="mb-4 text-[#7d7566]">
                 MaidConnect is a platform that connects customers with professional service
                 providers for home cleaning and related services. We facilitate the connection but
@@ -53,8 +53,8 @@ export default async function TermsOfServicePage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">3. User Accounts</h2>
-              <h3 className="mb-3 text-xl font-semibold text-[#211f1a]">3.1 Registration</h3>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">3. User Accounts</h2>
+              <h3 className="mb-3 font-semibold text-[#211f1a] text-xl">3.1 Registration</h3>
               <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
                 <li>You must be at least 18 years old to use MaidConnect</li>
                 <li>You must provide accurate and complete information</li>
@@ -62,7 +62,7 @@ export default async function TermsOfServicePage({ params }: Props) {
                 <li>One person may not maintain multiple accounts</li>
               </ul>
 
-              <h3 className="mb-3 text-xl font-semibold text-[#211f1a]">
+              <h3 className="mb-3 font-semibold text-[#211f1a] text-xl">
                 3.2 Professional Accounts
               </h3>
               <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
@@ -74,8 +74,8 @@ export default async function TermsOfServicePage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">4. Bookings and Services</h2>
-              <h3 className="mb-3 text-xl font-semibold text-[#211f1a]">4.1 Booking Process</h3>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">4. Bookings and Services</h2>
+              <h3 className="mb-3 font-semibold text-[#211f1a] text-xl">4.1 Booking Process</h3>
               <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
                 <li>Customers can browse and book available professionals</li>
                 <li>Professionals must accept or decline bookings within 24 hours</li>
@@ -85,7 +85,7 @@ export default async function TermsOfServicePage({ params }: Props) {
                 <li>Payment is authorized at booking but charged after service completion</li>
               </ul>
 
-              <h3 className="mb-3 text-xl font-semibold text-[#211f1a]">
+              <h3 className="mb-3 font-semibold text-[#211f1a] text-xl">
                 4.2 Cancellations and Rescheduling
               </h3>
               <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
@@ -99,8 +99,8 @@ export default async function TermsOfServicePage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">5. Payments and Fees</h2>
-              <h3 className="mb-3 text-xl font-semibold text-[#211f1a]">5.1 Customer Payments</h3>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">5. Payments and Fees</h2>
+              <h3 className="mb-3 font-semibold text-[#211f1a] text-xl">5.1 Customer Payments</h3>
               <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
                 <li>Payments are processed securely through Stripe</li>
                 <li>Payment is authorized at booking time</li>
@@ -108,7 +108,7 @@ export default async function TermsOfServicePage({ params }: Props) {
                 <li>Refunds are subject to our refund policy</li>
               </ul>
 
-              <h3 className="mb-3 text-xl font-semibold text-[#211f1a]">
+              <h3 className="mb-3 font-semibold text-[#211f1a] text-xl">
                 5.2 Professional Payouts
               </h3>
               <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
@@ -120,7 +120,7 @@ export default async function TermsOfServicePage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">6. User Conduct</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">6. User Conduct</h2>
               <p className="mb-4 text-[#7d7566]">Users agree to:</p>
               <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
                 <li>Use the platform only for lawful purposes</li>
@@ -133,7 +133,7 @@ export default async function TermsOfServicePage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">7. Prohibited Activities</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">7. Prohibited Activities</h2>
               <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
                 <li>Attempting to bypass our platform for payments</li>
                 <li>Creating fake reviews or ratings</li>
@@ -145,16 +145,16 @@ export default async function TermsOfServicePage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">
                 8. Liability and Disclaimers
               </h2>
-              <h3 className="mb-3 text-xl font-semibold text-[#211f1a]">8.1 Platform "As Is"</h3>
+              <h3 className="mb-3 font-semibold text-[#211f1a] text-xl">8.1 Platform "As Is"</h3>
               <p className="mb-4 text-[#7d7566]">
                 MaidConnect is provided "as is" without warranties of any kind. We do not guarantee
                 uninterrupted or error-free operation.
               </p>
 
-              <h3 className="mb-3 text-xl font-semibold text-[#211f1a]">
+              <h3 className="mb-3 font-semibold text-[#211f1a] text-xl">
                 8.2 Professional Services
               </h3>
               <p className="mb-4 text-[#7d7566]">
@@ -163,7 +163,7 @@ export default async function TermsOfServicePage({ params }: Props) {
                 of MaidConnect.
               </p>
 
-              <h3 className="mb-3 text-xl font-semibold text-[#211f1a]">
+              <h3 className="mb-3 font-semibold text-[#211f1a] text-xl">
                 8.3 Limitation of Liability
               </h3>
               <p className="mb-4 text-[#7d7566]">
@@ -173,7 +173,7 @@ export default async function TermsOfServicePage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">
                 9. Insurance and Background Checks
               </h2>
               <p className="mb-4 text-[#7d7566]">
@@ -188,7 +188,7 @@ export default async function TermsOfServicePage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">10. Dispute Resolution</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">10. Dispute Resolution</h2>
               <p className="mb-4 text-[#7d7566]">In the event of a dispute:</p>
               <ol className="mb-4 ml-6 list-decimal text-[#7d7566]">
                 <li>Contact our support team to attempt resolution</li>
@@ -199,7 +199,7 @@ export default async function TermsOfServicePage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">11. Intellectual Property</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">11. Intellectual Property</h2>
               <p className="mb-4 text-[#7d7566]">
                 All content on MaidConnect, including logos, text, graphics, and software, is the
                 property of MaidConnect and protected by copyright and trademark laws. You may not
@@ -208,7 +208,7 @@ export default async function TermsOfServicePage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">
                 12. Account Suspension and Termination
               </h2>
               <p className="mb-4 text-[#7d7566]">
@@ -223,7 +223,7 @@ export default async function TermsOfServicePage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">13. Changes to Terms</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">13. Changes to Terms</h2>
               <p className="mb-4 text-[#7d7566]">
                 We may modify these Terms at any time. Significant changes will be communicated via
                 email or platform notification. Continued use after changes constitutes acceptance
@@ -232,18 +232,18 @@ export default async function TermsOfServicePage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">14. Contact Information</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">14. Contact Information</h2>
               <p className="mb-4 text-[#7d7566]">Questions about these Terms? Contact us:</p>
               <ul className="ml-6 list-none text-[#7d7566]">
                 <li className="mb-2">
                   <strong>Email:</strong>{" "}
-                  <a href="mailto:legal@maidconnect.co" className="text-[#ff5d46] hover:underline">
+                  <a className="text-[#ff5d46] hover:underline" href="mailto:legal@maidconnect.co">
                     legal@maidconnect.co
                   </a>
                 </li>
                 <li className="mb-2">
                   <strong>Support:</strong>{" "}
-                  <a href="/contact" className="text-[#ff5d46] hover:underline">
+                  <a className="text-[#ff5d46] hover:underline" href="/contact">
                     Contact Form
                   </a>
                 </li>

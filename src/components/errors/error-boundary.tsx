@@ -55,19 +55,19 @@ export class ErrorBoundary extends Component<Props, State> {
 
       return (
         <div className="flex min-h-[400px] flex-col items-center justify-center p-8">
-          <div className="rounded-[28px] bg-white p-8 text-center shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm max-w-md">
+          <div className="max-w-md rounded-[28px] bg-white p-8 text-center shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
             <div className="mb-4 flex justify-center">
               <div className="rounded-full bg-red-50 p-4">
                 <AlertTriangle className="h-8 w-8 text-red-500" />
               </div>
             </div>
-            <h2 className="mb-2 text-2xl font-bold text-[#211f1a]">Something went wrong</h2>
+            <h2 className="mb-2 font-bold text-2xl text-[#211f1a]">Something went wrong</h2>
             <p className="mb-6 text-[#7d7566]">
               We've been notified of this issue and are working to fix it.
             </p>
             <button
-              onClick={() => window.location.reload()}
               className="rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-white transition hover:bg-[#ff4529]"
+              onClick={() => window.location.reload()}
             >
               Reload Page
             </button>

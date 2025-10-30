@@ -65,11 +65,11 @@ export function FavoritesList() {
     return (
       <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
         <p className="text-4xl">🤍</p>
-        <p className="mt-4 text-lg font-semibold text-[#211f1a]">{t("empty.title")}</p>
-        <p className="mt-2 text-base leading-relaxed text-[#5d574b]">{t("empty.description")}</p>
+        <p className="mt-4 font-semibold text-[#211f1a] text-lg">{t("empty.title")}</p>
+        <p className="mt-2 text-[#5d574b] text-base leading-relaxed">{t("empty.description")}</p>
         <Link
+          className="mt-6 inline-flex rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
           href="/professionals"
-          className="mt-6 inline-flex rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
         >
           {t("empty.browseProfessionals")}
         </Link>
@@ -80,7 +80,7 @@ export function FavoritesList() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-[#211f1a]">
+        <h2 className="font-semibold text-[#211f1a] text-xl">
           {t("title", { count: favorites.length })}
         </h2>
       </div>
@@ -89,8 +89,8 @@ export function FavoritesList() {
         {favorites.map((pro) => (
           <ProfessionalCard
             key={pro.profile_id}
-            professional={pro}
             onRemove={() => handleFavoriteRemoved(pro.profile_id)}
+            professional={pro}
           />
         ))}
       </div>
@@ -121,19 +121,19 @@ function ProfessionalCard({
             {/* Avatar */}
             {professional.profile.avatar_url ? (
               <img
-                src={professional.profile.avatar_url}
                 alt={professional.profile.full_name}
                 className="h-16 w-16 rounded-full object-cover"
+                src={professional.profile.avatar_url}
               />
             ) : (
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#ff5d46] text-xl font-semibold text-white">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#ff5d46] font-semibold text-white text-xl">
                 {professional.profile.full_name.charAt(0).toUpperCase()}
               </div>
             )}
 
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
-                <h3 className="truncate text-lg font-semibold text-[#211f1a]">
+                <h3 className="truncate font-semibold text-[#211f1a] text-lg">
                   {professional.business_name || professional.profile.full_name}
                 </h3>
                 {professional.verified && (
@@ -143,7 +143,7 @@ function ProfessionalCard({
                 )}
               </div>
               {professional.rating !== null && (
-                <div className="mt-1 flex items-center gap-1 text-sm text-[#5d574b]">
+                <div className="mt-1 flex items-center gap-1 text-[#5d574b] text-sm">
                   <span>⭐</span>
                   <span className="font-semibold">{professional.rating.toFixed(1)}</span>
                   <span>({professional.total_reviews})</span>
@@ -154,7 +154,7 @@ function ProfessionalCard({
 
           {/* Bio */}
           {professional.bio && (
-            <p className="mt-4 line-clamp-2 text-base leading-relaxed text-[#5d574b]">
+            <p className="mt-4 line-clamp-2 text-[#5d574b] text-base leading-relaxed">
               {professional.bio}
             </p>
           )}
@@ -162,13 +162,13 @@ function ProfessionalCard({
           {/* Footer */}
           <div className="mt-6 flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-[#7d7566]">{t("card.startingAt")}</p>
-              <p className="mt-1 text-lg font-semibold text-[#ff5d46]">
+              <p className="font-medium text-[#7d7566] text-sm">{t("card.startingAt")}</p>
+              <p className="mt-1 font-semibold text-[#ff5d46] text-lg">
                 {priceFormatted}
                 {t("card.perHour")}
               </p>
             </div>
-            <span className="text-base font-semibold text-[#5d574b] group-hover:text-[#ff5d46]">
+            <span className="font-semibold text-[#5d574b] text-base group-hover:text-[#ff5d46]">
               {t("card.viewProfile")}
             </span>
           </div>
@@ -176,11 +176,11 @@ function ProfessionalCard({
       </Link>
 
       {/* Favorite Button (Positioned absolutely) */}
-      <div className="absolute right-3 top-3">
+      <div className="absolute top-3 right-3">
         <div onClick={(e) => e.preventDefault()}>
           <FavoriteButton
-            professionalId={professional.profile_id}
             initialIsFavorite={true}
+            professionalId={professional.profile_id}
             size="sm"
           />
         </div>

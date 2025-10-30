@@ -35,7 +35,7 @@ export async function submitCustomerReviewAction(
       return { status: "error", message: "Missing booking information." };
     }
 
-    const rating = ratingValue ? Number.parseInt(ratingValue, 10) : NaN;
+    const rating = ratingValue ? Number.parseInt(ratingValue, 10) : Number.NaN;
     if (!Number.isFinite(rating) || rating < 1 || rating > 5) {
       return { status: "error", message: "Please provide a rating between 1 and 5." };
     }

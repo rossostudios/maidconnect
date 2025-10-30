@@ -160,23 +160,23 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
     <div className="space-y-4">
       {/* Dropzone */}
       <div
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onClick={() => fileInputRef.current?.click()}
         className={`cursor-pointer rounded-xl border-2 border-dashed p-8 text-center transition ${
           dragging
             ? "border-[#ff5d46] bg-[#ff5d46]/5"
             : "border-[#ebe5d8] hover:border-[#ff5d46] hover:bg-[#fbfaf9]"
         }`}
+        onClick={() => fileInputRef.current?.click()}
+        onDragLeave={handleDragLeave}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
       >
         <input
+          accept="image/*"
+          className="hidden"
+          multiple
+          onChange={(e) => handleFiles(e.target.files)}
           ref={fileInputRef}
           type="file"
-          multiple
-          accept="image/*"
-          onChange={(e) => handleFiles(e.target.files)}
-          className="hidden"
         />
 
         <div className="flex flex-col items-center gap-3">
@@ -185,10 +185,10 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
           </div>
 
           <div>
-            <p className="text-base font-semibold text-[#211f1a]">
+            <p className="font-semibold text-[#211f1a] text-base">
               Drop images here or click to browse
             </p>
-            <p className="mt-1 text-sm text-[#7d7566]">
+            <p className="mt-1 text-[#7d7566] text-sm">
               JPEG, PNG, WebP • Max {maxSizeMB}MB per image • Up to {maxImages} images
             </p>
           </div>
@@ -199,15 +199,15 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
       {images.length > 0 && (
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-semibold text-[#211f1a]">
+            <p className="font-semibold text-[#211f1a] text-sm">
               {images.length} image{images.length !== 1 ? "s" : ""} ready to upload
             </p>
             <button
+              className="text-[#7d7566] text-sm hover:text-[#ff5d46]"
               onClick={() => {
                 images.forEach((img) => URL.revokeObjectURL(img.preview));
                 setImages([]);
               }}
-              className="text-sm text-[#7d7566] hover:text-[#ff5d46]"
             >
               Clear all
             </button>
@@ -216,29 +216,29 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
             {images.map((image) => (
               <div
-                key={image.id}
                 className="group relative overflow-hidden rounded-xl border border-[#ebe5d8] bg-white"
+                key={image.id}
               >
                 {/* Image */}
                 <div className="aspect-square overflow-hidden">
-                  <img src={image.preview} alt="Preview" className="h-full w-full object-cover" />
+                  <img alt="Preview" className="h-full w-full object-cover" src={image.preview} />
                 </div>
 
                 {/* Caption Input */}
                 <div className="p-2">
                   <input
-                    type="text"
-                    placeholder="Add caption (optional)"
-                    value={image.caption || ""}
-                    onChange={(e) => updateCaption(image.id, e.target.value)}
                     className="w-full rounded-lg border border-[#ebe5d8] px-2 py-1 text-xs focus:border-[#ff5d46] focus:outline-none focus:ring-1 focus:ring-[#ff5d46]"
+                    onChange={(e) => updateCaption(image.id, e.target.value)}
+                    placeholder="Add caption (optional)"
+                    type="text"
+                    value={image.caption || ""}
                   />
                 </div>
 
                 {/* Remove Button */}
                 <button
+                  className="absolute top-2 right-2 rounded-full bg-white/90 p-1.5 opacity-0 shadow-lg transition hover:bg-red-500 hover:text-white group-hover:opacity-100"
                   onClick={() => removeImage(image.id)}
-                  className="absolute right-2 top-2 rounded-full bg-white/90 p-1.5 opacity-0 shadow-lg transition hover:bg-red-500 hover:text-white group-hover:opacity-100"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -248,9 +248,9 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
 
           {/* Upload Button */}
           <button
-            onClick={handleUpload}
+            className="w-full rounded-xl bg-[#ff5d46] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={uploading || images.length === 0}
-            className="w-full rounded-xl bg-[#ff5d46] px-6 py-3 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+            onClick={handleUpload}
           >
             {uploading ? (
               <span className="flex items-center justify-center gap-2">
@@ -259,15 +259,15 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
                     className="opacity-25"
                     cx="12"
                     cy="12"
+                    fill="none"
                     r="10"
                     stroke="currentColor"
                     strokeWidth="4"
-                    fill="none"
                   />
                   <path
                     className="opacity-75"
-                    fill="currentColor"
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    fill="currentColor"
                   />
                 </svg>
                 Uploading...
@@ -282,11 +282,11 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
       {/* Tips */}
       {images.length === 0 && (
         <div className="rounded-xl bg-[#fbfaf9] p-4">
-          <h4 className="flex items-center gap-2 text-sm font-semibold text-[#211f1a]">
+          <h4 className="flex items-center gap-2 font-semibold text-[#211f1a] text-sm">
             <ImageIcon className="h-4 w-4" />
             Image Tips
           </h4>
-          <ul className="mt-2 space-y-1 text-sm text-[#7d7566]">
+          <ul className="mt-2 space-y-1 text-[#7d7566] text-sm">
             <li>• Use clear, well-lit photos</li>
             <li>• Before/after shots work great</li>
             <li>• Images will be automatically compressed</li>

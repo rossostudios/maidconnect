@@ -103,7 +103,7 @@ export async function submitApplication(
     const name = stringOrNull(formData.get(`reference_name_${index}`));
     const relationship = stringOrNull(formData.get(`reference_relationship_${index}`));
     const contact = stringOrNull(formData.get(`reference_contact_${index}`));
-    if (!name && !relationship && !contact) {
+    if (!(name || relationship || contact)) {
       return null;
     }
     return {
@@ -438,7 +438,7 @@ export async function submitProfile(
       const end = stringOrNull(formData.get(`availability_${slug}_end`));
       const notes = stringOrNull(formData.get(`availability_${slug}_notes`));
 
-      if (!start && !end && !notes) {
+      if (!(start || end || notes)) {
         return null;
       }
 

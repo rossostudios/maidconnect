@@ -96,78 +96,78 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       {success && (
         <div className="flex items-center gap-3 rounded-xl bg-green-50 p-4 text-green-800">
           <CheckCircle className="h-5 w-5" />
-          <p className="text-sm font-semibold">{t("success")}</p>
+          <p className="font-semibold text-sm">{t("success")}</p>
         </div>
       )}
 
       {error && (
         <div className="rounded-xl bg-red-50 p-4 text-red-800">
-          <p className="text-sm font-semibold">{error}</p>
+          <p className="font-semibold text-sm">{error}</p>
         </div>
       )}
 
       {/* Basic Information */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 text-lg font-semibold text-[#211f1a]">
+        <div className="flex items-center gap-2 font-semibold text-[#211f1a] text-lg">
           <User className="h-5 w-5" />
           <h3>{t("sections.basicInfo.title")}</h3>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
           <div>
-            <label className="mb-2 block text-sm font-semibold text-[#211f1a]">
+            <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
               {t("sections.basicInfo.fields.fullName.label")}
             </label>
             <input
-              type="text"
-              value={profile.full_name}
+              className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
               onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
               placeholder={t("sections.basicInfo.fields.fullName.placeholder")}
-              className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+              type="text"
+              value={profile.full_name}
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-semibold text-[#211f1a]">
+            <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
               {t("sections.basicInfo.fields.email.label")}
             </label>
             <div className="flex items-center gap-2 rounded-xl border border-[#ebe5d8] bg-[#fbfaf9] px-4 py-3">
               <Mail className="h-4 w-4 text-[#7d7566]" />
-              <span className="text-base text-[#7d7566]">{profile.email}</span>
+              <span className="text-[#7d7566] text-base">{profile.email}</span>
             </div>
-            <p className="mt-1 text-xs text-[#7d7566]">
+            <p className="mt-1 text-[#7d7566] text-xs">
               {t("sections.basicInfo.fields.email.helper")}
             </p>
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-semibold text-[#211f1a]">
+            <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
               {t("sections.basicInfo.fields.phoneNumber.label")}
             </label>
             <div className="flex items-center gap-2 rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 shadow-sm">
               <Phone className="h-4 w-4 text-[#7d7566]" />
               <input
-                type="tel"
-                value={profile.phone_number}
+                className="flex-1 text-base focus:outline-none"
                 onChange={(e) => setProfile({ ...profile, phone_number: e.target.value })}
                 placeholder={t("sections.basicInfo.fields.phoneNumber.placeholder")}
-                className="flex-1 text-base focus:outline-none"
+                type="tel"
+                value={profile.phone_number}
               />
             </div>
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-semibold text-[#211f1a]">
+            <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
               {t("sections.basicInfo.fields.avatarUrl.label")}
             </label>
             <input
-              type="url"
-              value={profile.avatar_url}
+              className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
               onChange={(e) => setProfile({ ...profile, avatar_url: e.target.value })}
               placeholder={t("sections.basicInfo.fields.avatarUrl.placeholder")}
-              className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+              type="url"
+              value={profile.avatar_url}
             />
-            <p className="mt-1 text-xs text-[#7d7566]">
+            <p className="mt-1 text-[#7d7566] text-xs">
               {t("sections.basicInfo.fields.avatarUrl.helper")}
             </p>
           </div>
@@ -176,23 +176,23 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
 
       {/* Bio */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 text-lg font-semibold text-[#211f1a]">
+        <div className="flex items-center gap-2 font-semibold text-[#211f1a] text-lg">
           <Award className="h-5 w-5" />
           <h3>{t("sections.professionalSummary.title")}</h3>
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-semibold text-[#211f1a]">
+          <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
             {t("sections.professionalSummary.fields.bio.label")}
           </label>
           <textarea
-            value={profile.bio}
+            className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
             placeholder={t("sections.professionalSummary.fields.bio.placeholder")}
             rows={5}
-            className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+            value={profile.bio}
           />
-          <p className="mt-1 text-xs text-[#7d7566]">
+          <p className="mt-1 text-[#7d7566] text-xs">
             {profile.bio.length}
             {t("sections.professionalSummary.fields.bio.characterCounter")}
           </p>
@@ -201,7 +201,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
 
       {/* Languages */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 text-lg font-semibold text-[#211f1a]">
+        <div className="flex items-center gap-2 font-semibold text-[#211f1a] text-lg">
           <Globe className="h-5 w-5" />
           <h3>{t("sections.languages.title")}</h3>
         </div>
@@ -209,24 +209,24 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
         <div className="flex flex-wrap gap-2">
           {LANGUAGE_OPTIONS.map((language) => (
             <button
-              key={language}
-              onClick={() => handleLanguageToggle(language)}
-              className={`rounded-full border-2 px-4 py-2 text-sm font-semibold transition ${
+              className={`rounded-full border-2 px-4 py-2 font-semibold text-sm transition ${
                 profile.languages.includes(language)
                   ? "border-[#ff5d46] bg-[#ff5d46] text-white"
                   : "border-[#ebe5d8] bg-white text-[#211f1a] hover:border-[#ff5d46] hover:text-[#ff5d46]"
               }`}
+              key={language}
+              onClick={() => handleLanguageToggle(language)}
             >
               {language}
             </button>
           ))}
         </div>
-        <p className="text-xs text-[#7d7566]">{t("sections.languages.helper")}</p>
+        <p className="text-[#7d7566] text-xs">{t("sections.languages.helper")}</p>
       </div>
 
       {/* Primary Services */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 text-lg font-semibold text-[#211f1a]">
+        <div className="flex items-center gap-2 font-semibold text-[#211f1a] text-lg">
           <Award className="h-5 w-5" />
           <h3>{t("sections.services.title")}</h3>
         </div>
@@ -234,27 +234,27 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
         <div className="flex flex-wrap gap-2">
           {SERVICE_OPTIONS.map((service) => (
             <button
-              key={service}
-              onClick={() => handleServiceToggle(service)}
-              className={`rounded-full border-2 px-4 py-2 text-sm font-semibold transition ${
+              className={`rounded-full border-2 px-4 py-2 font-semibold text-sm transition ${
                 profile.primary_services.includes(service)
                   ? "border-[#ff5d46] bg-[#ff5d46] text-white"
                   : "border-[#ebe5d8] bg-white text-[#211f1a] hover:border-[#ff5d46] hover:text-[#ff5d46]"
               }`}
+              key={service}
+              onClick={() => handleServiceToggle(service)}
             >
               {service}
             </button>
           ))}
         </div>
-        <p className="text-xs text-[#7d7566]">{t("sections.services.helper")}</p>
+        <p className="text-[#7d7566] text-xs">{t("sections.services.helper")}</p>
       </div>
 
       {/* Save Button */}
-      <div className="flex items-center justify-end gap-3 border-t border-[#ebe5d8] pt-6">
+      <div className="flex items-center justify-end gap-3 border-[#ebe5d8] border-t pt-6">
         <button
-          onClick={handleSave}
+          className="rounded-full bg-[#ff5d46] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
-          className="rounded-full bg-[#ff5d46] px-8 py-3 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          onClick={handleSave}
         >
           {loading ? (
             <span className="flex items-center gap-2">
@@ -263,15 +263,15 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
                   className="opacity-25"
                   cx="12"
                   cy="12"
+                  fill="none"
                   r="10"
                   stroke="currentColor"
                   strokeWidth="4"
-                  fill="none"
                 />
                 <path
                   className="opacity-75"
-                  fill="currentColor"
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  fill="currentColor"
                 />
               </svg>
               {t("saving")}

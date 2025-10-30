@@ -46,7 +46,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
   }, [isOpen]);
 
   const handleReschedule = async () => {
-    if (!newDate || !newTime) {
+    if (!(newDate && newTime)) {
       setMessage({ type: "error", text: t("validation.selectDateTime") });
       return;
     }
@@ -104,15 +104,15 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="w-full max-w-md overflow-y-auto rounded-[28px] bg-white p-8 shadow-xl">
-        <h2 className="text-2xl font-semibold text-[#211f1a]">{t("title")}</h2>
-        <p className="mt-3 text-base text-[#5d574b]">{booking.service_name || "Service"}</p>
+        <h2 className="font-semibold text-2xl text-[#211f1a]">{t("title")}</h2>
+        <p className="mt-3 text-[#5d574b] text-base">{booking.service_name || "Service"}</p>
 
         {/* Current Schedule */}
         <div className="mt-6 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">
+          <p className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
             {t("currentScheduleLabel")}
           </p>
-          <p className="mt-2 text-base text-[#211f1a]">
+          <p className="mt-2 text-[#211f1a] text-base">
             {booking.scheduled_start
               ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
                   dateStyle: "medium",
@@ -125,37 +125,37 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
         {/* New Schedule Form */}
         <div className="mt-6 space-y-6">
           <div>
-            <label htmlFor="newDate" className="mb-2 block text-base font-semibold text-[#211f1a]">
+            <label className="mb-2 block font-semibold text-[#211f1a] text-base" htmlFor="newDate">
               {t("newDateLabel")}
             </label>
             <input
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
               id="newDate"
+              min={new Date().toISOString().split("T")[0]}
+              onChange={(e) => setNewDate(e.target.value)}
               type="date"
               value={newDate}
-              onChange={(e) => setNewDate(e.target.value)}
-              min={new Date().toISOString().split("T")[0]}
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             />
           </div>
 
           <div>
-            <label htmlFor="newTime" className="mb-2 block text-base font-semibold text-[#211f1a]">
+            <label className="mb-2 block font-semibold text-[#211f1a] text-base" htmlFor="newTime">
               {t("newTimeLabel")}
             </label>
             <input
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
               id="newTime"
+              onChange={(e) => setNewTime(e.target.value)}
               type="time"
               value={newTime}
-              onChange={(e) => setNewTime(e.target.value)}
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             />
           </div>
         </div>
 
         {/* Important Notice */}
         <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-6">
-          <p className="text-base font-semibold text-blue-900">{t("notice.title")}</p>
-          <p className="mt-3 text-base leading-relaxed text-blue-800">{t("notice.description")}</p>
+          <p className="font-semibold text-base text-blue-900">{t("notice.title")}</p>
+          <p className="mt-3 text-base text-blue-800 leading-relaxed">{t("notice.description")}</p>
         </div>
 
         {/* Message */}
@@ -172,18 +172,18 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
         {/* Actions */}
         <div className="mt-8 flex gap-3">
           <button
-            type="button"
-            onClick={onClose}
+            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={loading}
-            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
+            onClick={onClose}
+            type="button"
           >
             {t("buttons.cancel")}
           </button>
           <button
-            type="button"
-            onClick={handleReschedule}
+            className="flex-1 rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={loading}
-            className="flex-1 rounded-full bg-[#ff5d46] px-6 py-3 text-base font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+            onClick={handleReschedule}
+            type="button"
           >
             {loading ? t("buttons.rescheduling") : t("buttons.reschedule")}
           </button>

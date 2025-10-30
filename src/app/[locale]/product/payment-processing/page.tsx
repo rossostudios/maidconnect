@@ -77,51 +77,51 @@ export default async function PaymentProcessingPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <script
-        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        type="application/ld+json"
       />
       <SiteHeader />
       <main>
         {/* Hero Section */}
         <ProductHeroSection
-          headline={t("hero.headline")}
+          badge={t("hero.badge")}
           description={t("hero.description")}
+          headline={t("hero.headline")}
           primaryCTA={{ label: t("hero.primaryCTA"), href: "#features" }}
           secondaryCTA={{ label: t("hero.secondaryCTA"), href: "/professionals" }}
-          badge={t("hero.badge")}
         />
 
         {/* Features Section */}
         <section
+          className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24"
           id="features"
-          className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24"
         >
           <div className="mx-auto max-w-6xl">
-            <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl lg:text-6xl">
+            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl lg:text-6xl">
               {t("features.title")}
             </h2>
 
-            <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-relaxed text-[#5d574b]">
+            <p className="mx-auto mt-6 max-w-3xl text-center text-[#5d574b] text-lg leading-relaxed">
               {t("features.subtitle")}
             </p>
 
             <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <ProductFeatureCard
+                description={t("features.stripeIntegration.description")}
                 icon={Shield}
                 title={t("features.stripeIntegration.title")}
-                description={t("features.stripeIntegration.description")}
               />
 
               <ProductFeatureCard
+                description={t("features.transparentPricing.description")}
                 icon={CreditCard}
                 title={t("features.transparentPricing.title")}
-                description={t("features.transparentPricing.description")}
               />
 
               <ProductFeatureCard
+                description={t("features.automaticReceipts.description")}
                 icon={Receipt}
                 title={t("features.automaticReceipts.title")}
-                description={t("features.automaticReceipts.description")}
               />
             </div>
           </div>
@@ -129,8 +129,8 @@ export default async function PaymentProcessingPage({ params }: Props) {
 
         {/* How It Works Section */}
         <ProductStepsSection
-          headline={t("howItWorks.title")}
           description={t("howItWorks.description")}
+          headline={t("howItWorks.title")}
           steps={[
             {
               number: "1",
@@ -156,22 +156,22 @@ export default async function PaymentProcessingPage({ params }: Props) {
         />
 
         {/* Payment Timeline Section */}
-        <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
+        <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
+            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
               {t("paymentTimeline.title")}
             </h2>
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
-                  <span className="text-sm font-semibold text-white">1</span>
+                  <span className="font-semibold text-sm text-white">1</span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("paymentTimeline.booking.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("paymentTimeline.booking.description")}
                   </p>
                 </div>
@@ -179,13 +179,13 @@ export default async function PaymentProcessingPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
-                  <span className="text-sm font-semibold text-white">2</span>
+                  <span className="font-semibold text-sm text-white">2</span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("paymentTimeline.serviceDay.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("paymentTimeline.serviceDay.description")}
                   </p>
                 </div>
@@ -193,13 +193,13 @@ export default async function PaymentProcessingPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
-                  <span className="text-sm font-semibold text-white">3</span>
+                  <span className="font-semibold text-sm text-white">3</span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("paymentTimeline.serviceComplete.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("paymentTimeline.serviceComplete.description")}
                   </p>
                 </div>
@@ -207,13 +207,13 @@ export default async function PaymentProcessingPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
-                  <span className="text-sm font-semibold text-white">4</span>
+                  <span className="font-semibold text-sm text-white">4</span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("paymentTimeline.postService.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("paymentTimeline.postService.description")}
                   </p>
                 </div>
@@ -223,9 +223,9 @@ export default async function PaymentProcessingPage({ params }: Props) {
         </section>
 
         {/* Protection Features Section */}
-        <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
+        <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
+            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
               {t("protection.title")}
             </h2>
 
@@ -235,10 +235,10 @@ export default async function PaymentProcessingPage({ params }: Props) {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("protection.chargedAfter.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("protection.chargedAfter.description")}
                   </p>
                 </div>
@@ -249,10 +249,10 @@ export default async function PaymentProcessingPage({ params }: Props) {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("protection.cancellation.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("protection.cancellation.description")}
                   </p>
                 </div>
@@ -263,10 +263,10 @@ export default async function PaymentProcessingPage({ params }: Props) {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("protection.dispute.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("protection.dispute.description")}
                   </p>
                 </div>
@@ -277,10 +277,10 @@ export default async function PaymentProcessingPage({ params }: Props) {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("protection.encrypted.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("protection.encrypted.description")}
                   </p>
                 </div>
@@ -290,9 +290,9 @@ export default async function PaymentProcessingPage({ params }: Props) {
         </section>
 
         {/* Accepted Payments Section */}
-        <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
+        <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
+            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
               {t("acceptedMethods.title")}
             </h2>
 
@@ -301,10 +301,10 @@ export default async function PaymentProcessingPage({ params }: Props) {
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#ff5d46]/10">
                   <CreditCard className="h-8 w-8 text-[#ff5d46]" />
                 </div>
-                <h3 className="mt-6 text-xl font-semibold text-[#211f1a]">
+                <h3 className="mt-6 font-semibold text-[#211f1a] text-xl">
                   {t("acceptedMethods.creditCards.title")}
                 </h3>
-                <p className="mt-3 text-base text-[#5d574b]">
+                <p className="mt-3 text-[#5d574b] text-base">
                   {t("acceptedMethods.creditCards.description")}
                 </p>
               </div>
@@ -313,10 +313,10 @@ export default async function PaymentProcessingPage({ params }: Props) {
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#ff5d46]/10">
                   <CreditCard className="h-8 w-8 text-[#ff5d46]" />
                 </div>
-                <h3 className="mt-6 text-xl font-semibold text-[#211f1a]">
+                <h3 className="mt-6 font-semibold text-[#211f1a] text-xl">
                   {t("acceptedMethods.debitCards.title")}
                 </h3>
-                <p className="mt-3 text-base text-[#5d574b]">
+                <p className="mt-3 text-[#5d574b] text-base">
                   {t("acceptedMethods.debitCards.description")}
                 </p>
               </div>
@@ -325,10 +325,10 @@ export default async function PaymentProcessingPage({ params }: Props) {
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#ff5d46]/10">
                   <Receipt className="h-8 w-8 text-[#ff5d46]" />
                 </div>
-                <h3 className="mt-6 text-xl font-semibold text-[#211f1a]">
+                <h3 className="mt-6 font-semibold text-[#211f1a] text-xl">
                   {t("acceptedMethods.digitalReceipts.title")}
                 </h3>
-                <p className="mt-3 text-base text-[#5d574b]">
+                <p className="mt-3 text-[#5d574b] text-base">
                   {t("acceptedMethods.digitalReceipts.description")}
                 </p>
               </div>
@@ -339,25 +339,25 @@ export default async function PaymentProcessingPage({ params }: Props) {
         {/* CTA Section */}
         <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
+            <h2 className="font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
               {t("cta.title")}
             </h2>
 
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5d574b]">
+            <p className="mx-auto mt-6 max-w-2xl text-[#5d574b] text-lg leading-relaxed">
               {t("cta.description")}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
+                className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
                 href="/professionals"
-                className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
               >
                 {t("cta.bookService")}
               </Link>
 
               <Link
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
                 href="/auth/sign-up"
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
               >
                 {t("cta.signUpFree")}
               </Link>

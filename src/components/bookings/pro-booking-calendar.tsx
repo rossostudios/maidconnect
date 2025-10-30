@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarDays, ChevronLeft, ChevronRight, Clock } from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 
@@ -129,17 +129,17 @@ export function ProBookingCalendar({ bookings }: Props) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <button
-            type="button"
+            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-[#5d574b] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={() => changeMonth(-1)}
-            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-sm text-[#5d574b] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            type="button"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
-          <p className="text-base font-semibold text-[#211f1a] capitalize">{monthLabel}</p>
+          <p className="font-semibold text-[#211f1a] text-base capitalize">{monthLabel}</p>
           <button
-            type="button"
+            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-[#5d574b] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={() => changeMonth(1)}
-            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-sm text-[#5d574b] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            type="button"
           >
             <ChevronRight className="h-4 w-4" />
           </button>
@@ -158,8 +158,8 @@ export function ProBookingCalendar({ bookings }: Props) {
             { key: "sat", label: t("days.sat") },
           ].map((day) => (
             <div
+              className="text-center font-semibold text-[#a49c90] text-xs uppercase tracking-wide"
               key={day.key}
-              className="text-center text-xs font-semibold uppercase tracking-wide text-[#a49c90]"
             >
               {day.label}
             </div>
@@ -171,9 +171,6 @@ export function ProBookingCalendar({ bookings }: Props) {
 
             return (
               <button
-                key={day.key}
-                type="button"
-                onClick={() => setSelectedDayKey(day.key)}
                 className={cn(
                   "flex h-20 flex-col items-center justify-center rounded-lg border text-sm transition",
                   day.inCurrentMonth
@@ -182,10 +179,13 @@ export function ProBookingCalendar({ bookings }: Props) {
                   hasBookings ? "shadow-[0_6px_14px_rgba(18,17,15,0.08)]" : "",
                   isSelected ? "border-[#ff5d46] ring-2 ring-[#ff5d4633]" : ""
                 )}
+                key={day.key}
+                onClick={() => setSelectedDayKey(day.key)}
+                type="button"
               >
-                <span className="text-sm font-semibold">{day.label}</span>
+                <span className="font-semibold text-sm">{day.label}</span>
                 {hasBookings ? (
-                  <span className="mt-1 rounded-full bg-[#ff5d46]/15 px-2 py-0.5 text-xs font-semibold text-[#8a3934]">
+                  <span className="mt-1 rounded-full bg-[#ff5d46]/15 px-2 py-0.5 font-semibold text-[#8a3934] text-xs">
                     {bookingsCount} {bookingsCount === 1 ? t("booking") : t("bookings")}
                   </span>
                 ) : null}
@@ -195,8 +195,8 @@ export function ProBookingCalendar({ bookings }: Props) {
         </div>
 
         <div className="rounded-lg border border-[#efe7dc] bg-[#fbfafa] p-4">
-          <h4 className="text-sm font-semibold text-[#211f1a]">{t("details")}</h4>
-          <p className="mt-1 text-xs text-[#7a6d62]">
+          <h4 className="font-semibold text-[#211f1a] text-sm">{t("details")}</h4>
+          <p className="mt-1 text-[#7a6d62] text-xs">
             {new Date(selectedDayKey).toLocaleDateString("en-US", {
               weekday: "long",
               year: "numeric",
@@ -205,7 +205,7 @@ export function ProBookingCalendar({ bookings }: Props) {
             })}
           </p>
           {selectedBookings.length === 0 ? (
-            <p className="mt-4 text-sm text-[#7a6d62]">{t("noBookings")}</p>
+            <p className="mt-4 text-[#7a6d62] text-sm">{t("noBookings")}</p>
           ) : (
             <ul className="mt-4 space-y-3">
               {selectedBookings
@@ -222,18 +222,18 @@ export function ProBookingCalendar({ bookings }: Props) {
                   const amount = booking.amount_captured ?? booking.amount_authorized ?? null;
                   return (
                     <li
-                      key={booking.id}
                       className="rounded-md border border-[#efe7dc] bg-white p-3"
+                      key={booking.id}
                     >
-                      <div className="flex items-center justify-between text-sm text-[#211f1a]">
+                      <div className="flex items-center justify-between text-[#211f1a] text-sm">
                         <span className="font-semibold">{timeLabel}</span>
                         {amount ? (
-                          <span className="text-xs font-semibold text-[#5d574b]">
+                          <span className="font-semibold text-[#5d574b] text-xs">
                             {formatCOP(amount)}
                           </span>
                         ) : null}
                       </div>
-                      <div className="mt-1 flex items-center gap-2 text-xs text-[#7a6d62]">
+                      <div className="mt-1 flex items-center gap-2 text-[#7a6d62] text-xs">
                         <Clock className="h-3.5 w-3.5 text-[#ff5d46]" />
                         <span>{statusLabel}</span>
                       </div>

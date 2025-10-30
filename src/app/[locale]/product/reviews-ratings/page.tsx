@@ -79,51 +79,51 @@ export default async function ReviewsRatingsPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <script
-        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        type="application/ld+json"
       />
       <SiteHeader />
       <main>
         {/* Hero Section */}
         <ProductHeroSection
-          headline={t("hero.headline")}
+          badge={t("hero.badge")}
           description={t("hero.description")}
+          headline={t("hero.headline")}
           primaryCTA={{ label: t("hero.primaryCTA"), href: "/professionals" }}
           secondaryCTA={{ label: t("hero.secondaryCTA"), href: "#features" }}
-          badge={t("hero.badge")}
         />
 
         {/* Features Section */}
         <section
+          className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24"
           id="features"
-          className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24"
         >
           <div className="mx-auto max-w-6xl">
-            <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl lg:text-6xl">
+            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl lg:text-6xl">
               {t("features.title")}
             </h2>
 
-            <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-relaxed text-[#5d574b]">
+            <p className="mx-auto mt-6 max-w-3xl text-center text-[#5d574b] text-lg leading-relaxed">
               {t("features.subtitle")}
             </p>
 
             <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <ProductFeatureCard
+                description={t("features.verifiedBooking.description")}
                 icon={Star}
                 title={t("features.verifiedBooking.title")}
-                description={t("features.verifiedBooking.description")}
               />
 
               <ProductFeatureCard
+                description={t("features.twoWay.description")}
                 icon={Users}
                 title={t("features.twoWay.title")}
-                description={t("features.twoWay.description")}
               />
 
               <ProductFeatureCard
+                description={t("features.detailedCategories.description")}
                 icon={BarChart3}
                 title={t("features.detailedCategories.title")}
-                description={t("features.detailedCategories.description")}
               />
             </div>
           </div>
@@ -131,8 +131,8 @@ export default async function ReviewsRatingsPage({ params }: Props) {
 
         {/* How It Works Section */}
         <ProductStepsSection
-          headline={t("howItWorks.title")}
           description={t("howItWorks.description")}
+          headline={t("howItWorks.title")}
           steps={[
             {
               number: "1",
@@ -158,9 +158,9 @@ export default async function ReviewsRatingsPage({ params }: Props) {
         />
 
         {/* Rating Categories Section */}
-        <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
+        <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
+            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
               {t("categories.title")}
             </h2>
 
@@ -169,10 +169,10 @@ export default async function ReviewsRatingsPage({ params }: Props) {
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff5d46]/10">
                   <Star className="h-6 w-6 text-[#ff5d46]" />
                 </div>
-                <h3 className="mt-6 text-2xl font-semibold text-[#211f1a]">
+                <h3 className="mt-6 font-semibold text-2xl text-[#211f1a]">
                   {t("categories.forProfessionals.title")}
                 </h3>
-                <ul className="mt-4 space-y-3 text-base text-[#5d574b]">
+                <ul className="mt-4 space-y-3 text-[#5d574b] text-base">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
                     <span>{t("categories.forProfessionals.serviceQuality")}</span>
@@ -196,10 +196,10 @@ export default async function ReviewsRatingsPage({ params }: Props) {
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff5d46]/10">
                   <Users className="h-6 w-6 text-[#ff5d46]" />
                 </div>
-                <h3 className="mt-6 text-2xl font-semibold text-[#211f1a]">
+                <h3 className="mt-6 font-semibold text-2xl text-[#211f1a]">
                   {t("categories.forCustomers.title")}
                 </h3>
-                <ul className="mt-4 space-y-3 text-base text-[#5d574b]">
+                <ul className="mt-4 space-y-3 text-[#5d574b] text-base">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
                     <span>{t("categories.forCustomers.clarity")}</span>
@@ -223,9 +223,9 @@ export default async function ReviewsRatingsPage({ params }: Props) {
         </section>
 
         {/* Benefits Section */}
-        <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
+        <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
+            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
               {t("benefits.title")}
             </h2>
 
@@ -235,10 +235,10 @@ export default async function ReviewsRatingsPage({ params }: Props) {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("benefits.mutualRespect.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("benefits.mutualRespect.description")}
                   </p>
                 </div>
@@ -249,10 +249,10 @@ export default async function ReviewsRatingsPage({ params }: Props) {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("benefits.verifiedOnly.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("benefits.verifiedOnly.description")}
                   </p>
                 </div>
@@ -263,10 +263,10 @@ export default async function ReviewsRatingsPage({ params }: Props) {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("benefits.accountability.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("benefits.accountability.description")}
                   </p>
                 </div>
@@ -277,10 +277,10 @@ export default async function ReviewsRatingsPage({ params }: Props) {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("benefits.balancedFeedback.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("benefits.balancedFeedback.description")}
                   </p>
                 </div>
@@ -292,25 +292,25 @@ export default async function ReviewsRatingsPage({ params }: Props) {
         {/* CTA Section */}
         <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
+            <h2 className="font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
               {t("cta.title")}
             </h2>
 
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5d574b]">
+            <p className="mx-auto mt-6 max-w-2xl text-[#5d574b] text-lg leading-relaxed">
               {t("cta.description")}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
+                className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
                 href="/professionals"
-                className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
               >
                 {t("cta.browseProfessionals")}
               </Link>
 
               <Link
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
                 href="/auth/sign-up"
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
               >
                 {t("cta.signUpFree")}
               </Link>

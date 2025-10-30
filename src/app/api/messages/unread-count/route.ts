@@ -23,7 +23,7 @@ export async function GET() {
     const isCustomer = user.user_metadata?.role === "customer";
     const isProfessional = user.user_metadata?.role === "professional";
 
-    if (!isCustomer && !isProfessional) {
+    if (!(isCustomer || isProfessional)) {
       return NextResponse.json({ unreadCount: 0 });
     }
 
@@ -42,9 +42,8 @@ export async function GET() {
     const totalUnread = (conversations || []).reduce((sum, conv) => {
       if (isCustomer) {
         return sum + (conv.customer_unread_count || 0);
-      } else {
-        return sum + (conv.professional_unread_count || 0);
       }
+      return sum + (conv.professional_unread_count || 0);
     }, 0);
 
     return NextResponse.json({ unreadCount: totalUnread });

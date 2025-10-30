@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  eachMonthOfInterval,
-  format,
-  isSameMonth,
-  parseISO,
-  startOfMonth,
-  subMonths,
-} from "date-fns";
+import { eachMonthOfInterval, format, isSameMonth, parseISO, subMonths } from "date-fns";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import {
@@ -15,7 +8,6 @@ import {
   BarChart,
   CartesianGrid,
   Cell,
-  Legend,
   Line,
   LineChart,
   Pie,
@@ -115,47 +107,48 @@ export function FinancesOverview({ bookings, payouts }: Props) {
   }, [bookings]);
 
   // Payout history
-  const payoutHistory = useMemo(() => {
-    return payouts
-      .filter((p) => p.status === "completed")
-      .slice(0, 10)
-      .map((p) => ({
-        date: format(parseISO(p.processed_at || p.created_at), "MMM dd"),
-        amount: p.amount / 1000,
-      }));
-  }, [payouts]);
+  const payoutHistory = useMemo(
+    () =>
+      payouts
+        .filter((p) => p.status === "completed")
+        .slice(0, 10)
+        .map((p) => ({
+          date: format(parseISO(p.processed_at || p.created_at), "MMM dd"),
+          amount: p.amount / 1000,
+        })),
+    [payouts]
+  );
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("en-US", {
+  const formatCurrency = (value: number) =>
+    new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "COP",
       maximumFractionDigits: 0,
     }).format(value * 1000);
-  };
 
   return (
     <div className="space-y-6">
       {/* Metrics Cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <MetricCard
+          description={t("metrics.totalEarnings.description")}
           label={t("metrics.totalEarnings.label")}
           value={formatCurrency(metrics.totalEarnings / 1000)}
-          description={t("metrics.totalEarnings.description")}
         />
         <MetricCard
+          description={`${bookings.filter((b) => b.scheduled_start && isSameMonth(parseISO(b.scheduled_start), new Date())).length} ${t("metrics.thisMonth.label").toLowerCase()}`}
           label={t("metrics.thisMonth.label")}
           value={formatCurrency(metrics.monthlyEarnings / 1000)}
-          description={`${bookings.filter((b) => b.scheduled_start && isSameMonth(parseISO(b.scheduled_start), new Date())).length} ${t("metrics.thisMonth.label").toLowerCase()}`}
         />
         <MetricCard
+          description={`${metrics.totalBookings} ${t("metrics.avgBookingValue.description")}`}
           label={t("metrics.avgBookingValue.label")}
           value={formatCurrency(metrics.avgBookingValue / 1000)}
-          description={`${metrics.totalBookings} ${t("metrics.avgBookingValue.description")}`}
         />
         <MetricCard
+          description={`${payouts.filter((p) => p.status === "pending").length} ${t("metrics.pendingPayouts.descriptionSuffix")}`}
           label={t("metrics.pendingPayouts.label")}
           value={formatCurrency(metrics.pendingPayouts / 1000)}
-          description={`${payouts.filter((p) => p.status === "pending").length} ${t("metrics.pendingPayouts.descriptionSuffix")}`}
         />
       </div>
 
@@ -163,10 +156,10 @@ export function FinancesOverview({ bookings, payouts }: Props) {
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Earnings Over Time */}
         <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h2 className="mb-6 text-xl font-semibold text-[#211f1a]">{t("charts.earningsTrend")}</h2>
-          <ResponsiveContainer width="100%" height={300}>
+          <h2 className="mb-6 font-semibold text-[#211f1a] text-xl">{t("charts.earningsTrend")}</h2>
+          <ResponsiveContainer height={300} width="100%">
             <LineChart data={earningsData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#ebe5d8" />
+              <CartesianGrid stroke="#ebe5d8" strokeDasharray="3 3" />
               <XAxis dataKey="month" stroke="#7d7566" style={{ fontSize: 12 }} />
               <YAxis
                 stroke="#7d7566"
@@ -174,20 +167,20 @@ export function FinancesOverview({ bookings, payouts }: Props) {
                 tickFormatter={(value) => `${value}k`}
               />
               <Tooltip
-                formatter={(value: number) => formatCurrency(value)}
                 contentStyle={{
                   backgroundColor: "white",
                   border: "1px solid #ebe5d8",
                   borderRadius: "8px",
                 }}
+                formatter={(value: number) => formatCurrency(value)}
               />
               <Line
-                type="monotone"
+                activeDot={{ r: 6 }}
                 dataKey="earnings"
+                dot={{ fill: "#ff5d46", r: 4 }}
                 stroke="#ff5d46"
                 strokeWidth={3}
-                dot={{ fill: "#ff5d46", r: 4 }}
-                activeDot={{ r: 6 }}
+                type="monotone"
               />
             </LineChart>
           </ResponsiveContainer>
@@ -195,12 +188,12 @@ export function FinancesOverview({ bookings, payouts }: Props) {
 
         {/* Bookings Count Over Time */}
         <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h2 className="mb-6 text-xl font-semibold text-[#211f1a]">
+          <h2 className="mb-6 font-semibold text-[#211f1a] text-xl">
             {t("charts.bookingsByMonth")}
           </h2>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer height={300} width="100%">
             <BarChart data={earningsData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#ebe5d8" />
+              <CartesianGrid stroke="#ebe5d8" strokeDasharray="3 3" />
               <XAxis dataKey="month" stroke="#7d7566" style={{ fontSize: 12 }} />
               <YAxis stroke="#7d7566" style={{ fontSize: 12 }} />
               <Tooltip
@@ -218,23 +211,23 @@ export function FinancesOverview({ bookings, payouts }: Props) {
         {/* Revenue by Service */}
         {serviceData.length > 0 && (
           <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-            <h2 className="mb-6 text-xl font-semibold text-[#211f1a]">
+            <h2 className="mb-6 font-semibold text-[#211f1a] text-xl">
               {t("charts.revenueByService")}
             </h2>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer height={300} width="100%">
               <PieChart>
                 <Pie
-                  data={serviceData}
                   cx="50%"
                   cy="50%"
-                  labelLine={false}
-                  label={(props: any) => `${props.name} (${(props.percent * 100).toFixed(0)}%)`}
-                  outerRadius={100}
-                  fill="#8884d8"
+                  data={serviceData}
                   dataKey="value"
+                  fill="#8884d8"
+                  label={(props: any) => `${props.name} (${(props.percent * 100).toFixed(0)}%)`}
+                  labelLine={false}
+                  outerRadius={100}
                 >
                   {serviceData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell fill={COLORS[index % COLORS.length]} key={`cell-${index}`} />
                   ))}
                 </Pie>
                 <Tooltip formatter={(value: number) => formatCurrency(value)} />
@@ -246,12 +239,12 @@ export function FinancesOverview({ bookings, payouts }: Props) {
         {/* Payout History */}
         {payoutHistory.length > 0 && (
           <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-            <h2 className="mb-6 text-xl font-semibold text-[#211f1a]">
+            <h2 className="mb-6 font-semibold text-[#211f1a] text-xl">
               {t("charts.recentPayouts")}
             </h2>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer height={300} width="100%">
               <BarChart data={payoutHistory}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#ebe5d8" />
+                <CartesianGrid stroke="#ebe5d8" strokeDasharray="3 3" />
                 <XAxis dataKey="date" stroke="#7d7566" style={{ fontSize: 12 }} />
                 <YAxis
                   stroke="#7d7566"
@@ -259,12 +252,12 @@ export function FinancesOverview({ bookings, payouts }: Props) {
                   tickFormatter={(value) => `${value}k`}
                 />
                 <Tooltip
-                  formatter={(value: number) => formatCurrency(value)}
                   contentStyle={{
                     backgroundColor: "white",
                     border: "1px solid #ebe5d8",
                     borderRadius: "8px",
                   }}
+                  formatter={(value: number) => formatCurrency(value)}
                 />
                 <Bar dataKey="amount" fill="#211f1a" radius={[8, 8, 0, 0]} />
               </BarChart>
@@ -287,9 +280,9 @@ function MetricCard({
 }) {
   return (
     <div className="rounded-[28px] bg-white p-6 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-      <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">{label}</dt>
-      <dd className="mt-3 text-3xl font-semibold text-[#211f1a]">{value}</dd>
-      <p className="mt-1 text-sm text-[#7d7566]">{description}</p>
+      <dt className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">{label}</dt>
+      <dd className="mt-3 font-semibold text-3xl text-[#211f1a]">{value}</dd>
+      <p className="mt-1 text-[#7d7566] text-sm">{description}</p>
     </div>
   );
 }

@@ -39,7 +39,7 @@ const DISCOUNT_TIERS: Record<SubscriptionTier, number> = {
 export function calculateSubscriptionPricing(
   basePrice: number,
   frequency: SubscriptionTier,
-  estimateMonths: number = 3
+  estimateMonths = 3
 ): PricingCalculation {
   const discountPercent = DISCOUNT_TIERS[frequency];
   const discountAmount = Math.round((basePrice * discountPercent) / 100);
@@ -94,7 +94,7 @@ export function getTierDiscountLabel(tier: SubscriptionTier): string | null {
 /**
  * Calculate estimated bookings for a time period
  */
-export function estimateBookingsCount(frequency: SubscriptionTier, months: number = 3): number {
+export function estimateBookingsCount(frequency: SubscriptionTier, months = 3): number {
   if (frequency === "none") return 1;
 
   const bookingsPerMonth = {
@@ -145,7 +145,7 @@ export function getTierBenefits(tier: SubscriptionTier): string[] {
  */
 export function shouldRecommendSubscription(basePrice: number): boolean {
   const weeklyPricing = calculateSubscriptionPricing(basePrice, "weekly", 3);
-  return (weeklyPricing.totalSavingsEstimate || 0) > 20000;
+  return (weeklyPricing.totalSavingsEstimate || 0) > 20_000;
 }
 
 /**
@@ -163,7 +163,7 @@ export function getRecommendedTier(
   }
 
   // If high-value booking, recommend subscription
-  if (basePrice > 150000) {
+  if (basePrice > 150_000) {
     return "weekly"; // High-value customers likely to book frequently
   }
 

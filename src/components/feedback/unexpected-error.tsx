@@ -12,19 +12,19 @@ export function UnexpectedError({ message }: Props) {
   if (!visible) return null;
 
   return (
-    <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+    <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="font-semibold">Something went wrong</p>
-          <p className="mt-1 text-xs text-red-600">
+          <p className="mt-1 text-red-600 text-xs">
             {message ??
               "Please try submitting again. If the issue continues, contact support so we can investigate."}
           </p>
         </div>
         <button
-          type="button"
+          className="font-semibold text-red-500 text-xs uppercase tracking-wide transition hover:text-red-600"
           onClick={() => setVisible(false)}
-          className="text-xs font-semibold uppercase tracking-wide text-red-500 transition hover:text-red-600"
+          type="button"
         >
           Dismiss
         </button>

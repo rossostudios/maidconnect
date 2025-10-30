@@ -97,8 +97,9 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
 
   const noData = bookings.length === 0;
   const normalizedStatus = (connectStatus ?? "not_started").toLowerCase();
-  const needsConnect =
-    !connectAccountId || !["submitted", "complete", "verified"].includes(normalizedStatus);
+  const needsConnect = !(
+    connectAccountId && ["submitted", "complete", "verified"].includes(normalizedStatus)
+  );
 
   const startStripeOnboarding = () => {
     setOnboardingError(null);
@@ -125,74 +126,74 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <DollarSign className="h-5 w-5 text-[#ff5d46]" />
-          <h3 className="text-lg font-semibold text-[#211f1a]">{t("title")}</h3>
+          <h3 className="font-semibold text-[#211f1a] text-lg">{t("title")}</h3>
         </div>
         {needsConnect ? (
           <button
-            type="button"
-            onClick={startStripeOnboarding}
+            className="inline-flex items-center rounded-md bg-[#ff5d46] px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={isPending}
-            className="inline-flex items-center rounded-md bg-[#ff5d46] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+            onClick={startStripeOnboarding}
+            type="button"
           >
             {isPending ? t("stripe.opening") : t("stripe.setup")}
           </button>
         ) : null}
       </div>
-      <p className="mt-1 text-sm text-[#7a6d62]">{t("description")}</p>
-      <p className="mt-2 text-xs font-medium text-[#7a6d62]">
+      <p className="mt-1 text-[#7a6d62] text-sm">{t("description")}</p>
+      <p className="mt-2 font-medium text-[#7a6d62] text-xs">
         {t("stripe.statusLabel")}{" "}
         <span className={needsConnect ? "text-[#c4534d]" : "text-[#2f7a47]"}>
           {needsConnect ? t("stripe.actionRequired") : t("stripe.connected")}
         </span>
       </p>
-      {onboardingError ? <p className="mt-3 text-xs text-red-600">{onboardingError}</p> : null}
+      {onboardingError ? <p className="mt-3 text-red-600 text-xs">{onboardingError}</p> : null}
 
       {noData ? (
-        <p className="mt-6 text-sm text-[#7a6d62]">{t("emptyState")}</p>
+        <p className="mt-6 text-[#7a6d62] text-sm">{t("emptyState")}</p>
       ) : (
         <>
           <dl className="mt-6 grid gap-3 sm:grid-cols-2">
             <SummaryCard
-              icon={Banknote}
-              title={t("cards.availableAfterCompletion.title")}
+              accent="text-[#2f7a47]"
               amount={totals.captured}
               description={t("cards.availableAfterCompletion.description")}
+              icon={Banknote}
+              title={t("cards.availableAfterCompletion.title")}
               tone="bg-[#f4fbf6]"
-              accent="text-[#2f7a47]"
             />
             <SummaryCard
-              icon={RefreshCw}
-              title={t("cards.activeHolds.title")}
+              accent="text-[#c4534d]"
               amount={totals.authorized}
               description={t("cards.activeHolds.description")}
+              icon={RefreshCw}
+              title={t("cards.activeHolds.title")}
               tone="bg-[#fef1ee]"
-              accent="text-[#c4534d]"
             />
           </dl>
 
-          <div className="mt-6 rounded-lg border border-[#efe7dc] bg-[#fbfafa] p-4 text-xs text-[#7a6d62]">
+          <div className="mt-6 rounded-lg border border-[#efe7dc] bg-[#fbfafa] p-4 text-[#7a6d62] text-xs">
             <p className="font-semibold text-[#211f1a]">{t("thisMonth")}</p>
             <div className="mt-2 grid gap-3 sm:grid-cols-2">
               <div>
-                <p className="text-xs uppercase tracking-wide text-[#a49c90]">
+                <p className="text-[#a49c90] text-xs uppercase tracking-wide">
                   {t("metrics.capturedPayouts")}
                 </p>
-                <p className="text-sm font-semibold text-[#211f1a]">
+                <p className="font-semibold text-[#211f1a] text-sm">
                   {formatCOP(totals.thisMonthCaptured)}
                 </p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wide text-[#a49c90]">
+                <p className="text-[#a49c90] text-xs uppercase tracking-wide">
                   {t("metrics.upcomingHolds")}
                 </p>
-                <p className="text-sm font-semibold text-[#211f1a]">
+                <p className="font-semibold text-[#211f1a] text-sm">
                   {formatCOP(totals.thisMonthAuthorized)}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="mt-6 space-y-3 text-sm text-[#5d574b]">
+          <div className="mt-6 space-y-3 text-[#5d574b] text-sm">
             <div className="flex items-center justify-between rounded-lg border border-[#efe7dc] bg-white/80 px-3 py-2">
               <span>{t("metrics.pendingRequests")}</span>
               <span>{formatCOP(totals.pending)}</span>
@@ -225,10 +226,10 @@ function SummaryCard({ icon: Icon, title, amount, description, tone, accent }: S
     <div className={`rounded-lg border border-[#efe7dc] ${tone} p-4`}>
       <div className="flex items-center gap-2">
         <Icon className={`h-4 w-4 ${accent}`} />
-        <dt className="text-xs font-semibold uppercase tracking-wide text-[#7a6d62]">{title}</dt>
+        <dt className="font-semibold text-[#7a6d62] text-xs uppercase tracking-wide">{title}</dt>
       </div>
-      <dd className="mt-2 text-xl font-semibold text-[#211f1a]">{formatCOP(amount)}</dd>
-      <p className="mt-1 text-xs text-[#7a6d62]">{description}</p>
+      <dd className="mt-2 font-semibold text-[#211f1a] text-xl">{formatCOP(amount)}</dd>
+      <p className="mt-1 text-[#7a6d62] text-xs">{description}</p>
     </div>
   );
 }

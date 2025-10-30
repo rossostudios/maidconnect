@@ -9,28 +9,28 @@ export function ProcessSection() {
   const stepKeys = ["step1", "step2", "step3", "step4"] as const;
 
   return (
-    <section id="how-it-works" className="py-16 sm:py-20 lg:py-24">
+    <section className="py-16 sm:py-20 lg:py-24" id="how-it-works">
       <Container>
         <div className="mx-auto max-w-6xl space-y-12 text-center">
           <div className="space-y-4">
-            <p className="text-sm font-semibold uppercase tracking-[0.32em] text-[#a49c90]">
+            <p className="font-semibold text-[#a49c90] text-sm uppercase tracking-[0.32em]">
               {t("badge")}
             </p>
-            <h2 className="mx-auto max-w-3xl text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl lg:text-6xl">
+            <h2 className="mx-auto max-w-3xl font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl lg:text-6xl">
               {t("title")}
             </h2>
           </div>
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {stepKeys.map((key) => (
-              <div key={key} className="flex flex-col items-center text-center">
-                <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#ff5d46] text-xl font-semibold text-white">
+              <div className="flex flex-col items-center text-center" key={key}>
+                <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#ff5d46] font-semibold text-white text-xl">
                   {t(`steps.${key}.number`)}
                 </span>
-                <h3 className="mt-6 text-xl font-semibold text-[#211f1a]">
+                <h3 className="mt-6 font-semibold text-[#211f1a] text-xl">
                   {t(`steps.${key}.title`)}
                 </h3>
-                <p className="mt-3 text-base text-[#5d574b]">{t(`steps.${key}.description`)}</p>
+                <p className="mt-3 text-[#5d574b] text-base">{t(`steps.${key}.description`)}</p>
               </div>
             ))}
           </div>

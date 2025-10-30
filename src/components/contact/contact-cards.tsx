@@ -28,20 +28,20 @@ export function ContactCards() {
         <div className="grid gap-8 md:grid-cols-3">
           {contactOptions.map((option) => (
             <div
-              key={option.key}
               className="flex flex-col justify-between rounded-[32px] border border-[#ebe5d8] bg-gradient-to-br from-[#fbfafa] to-white p-10 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:shadow-[0_20px_60px_rgba(18,17,15,0.08)]"
+              key={option.key}
             >
               <div className="space-y-6">
-                <h2 className="text-3xl font-semibold text-[#211f1a]">
+                <h2 className="font-semibold text-3xl text-[#211f1a]">
                   {t(`${option.key}.title`)}
                 </h2>
-                <p className="text-base leading-relaxed text-[#5d574b]">
+                <p className="text-[#5d574b] text-base leading-relaxed">
                   {t(`${option.key}.description`)}
                 </p>
               </div>
               <Link
+                className="mt-12 inline-flex w-fit items-center justify-center rounded-full bg-[#211f1a] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#2d2822]"
                 href={option.buttonHref}
-                className="mt-12 inline-flex w-fit items-center justify-center rounded-full bg-[#211f1a] px-8 py-4 text-base font-semibold text-white transition hover:bg-[#2d2822]"
               >
                 {t(`${option.key}.buttonText`)}
               </Link>

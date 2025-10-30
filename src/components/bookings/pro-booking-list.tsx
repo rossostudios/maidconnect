@@ -114,7 +114,7 @@ export function ProBookingList({ bookings }: Props) {
   };
 
   if (bookings.length === 0) {
-    return <p className="text-sm text-[#7a6d62]">{t("emptyState")}</p>;
+    return <p className="text-[#7a6d62] text-sm">{t("emptyState")}</p>;
   }
 
   // Separate active service bookings from others
@@ -138,12 +138,12 @@ export function ProBookingList({ bookings }: Props) {
       {/* Active Service Bookings - Use ServiceExecutionCard */}
       {activeServiceBookings.length > 0 && (
         <div>
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-[#7a6d62]">
+          <h3 className="mb-4 font-semibold text-[#7a6d62] text-sm uppercase tracking-wide">
             {t("sections.activeServices")}
           </h3>
           <div className="space-y-4">
             {activeServiceBookings.map((booking) => (
-              <ServiceExecutionCard key={booking.id} booking={booking as BookingForExecution} />
+              <ServiceExecutionCard booking={booking as BookingForExecution} key={booking.id} />
             ))}
           </div>
         </div>
@@ -152,14 +152,14 @@ export function ProBookingList({ bookings }: Props) {
       {/* Other Bookings - Use table view */}
       {otherBookings.length > 0 && (
         <div>
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-[#7a6d62]">
+          <h3 className="mb-4 font-semibold text-[#7a6d62] text-sm uppercase tracking-wide">
             {activeServiceBookings.length > 0
               ? t("sections.otherBookings")
               : t("sections.allBookings")}
           </h3>
           <div className="overflow-hidden rounded-2xl border border-[#ebe5d8]">
             <table className="min-w-full divide-y divide-[#ebe5d8] text-sm">
-              <thead className="bg-[#fbfafa] text-xs uppercase tracking-wide text-[#7a6d62]">
+              <thead className="bg-[#fbfafa] text-[#7a6d62] text-xs uppercase tracking-wide">
                 <tr>
                   <th className="px-4 py-3 text-left">{t("table.booking")}</th>
                   <th className="px-4 py-3 text-left">{t("table.service")}</th>
@@ -192,14 +192,14 @@ export function ProBookingList({ bookings }: Props) {
                   const showVoid = booking.status === "confirmed";
 
                   return (
-                    <tr key={booking.id} className="text-[#211f1a]">
+                    <tr className="text-[#211f1a]" key={booking.id}>
                       <td className="px-4 py-3 font-medium">{booking.id.slice(0, 8)}</td>
                       <td className="px-4 py-3 text-[#5d574b]">{booking.service_name || "—"}</td>
                       <td className="px-4 py-3 text-[#5d574b]">{scheduled}</td>
                       <td className="px-4 py-3 text-[#5d574b]">{amountDisplay}</td>
                       <td className="px-4 py-3">
                         <span
-                          className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${
+                          className={`inline-flex items-center rounded-full px-3 py-1 font-semibold text-xs ${
                             booking.status === "authorized"
                               ? "bg-yellow-100 text-yellow-800"
                               : booking.status === "confirmed"
@@ -216,20 +216,20 @@ export function ProBookingList({ bookings }: Props) {
                         {showAcceptDecline ? (
                           <div className="flex flex-wrap items-center gap-2">
                             <button
-                              type="button"
-                              className="inline-flex items-center rounded-md bg-green-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-70"
-                              onClick={() => handleAction(booking, "accept")}
+                              className="inline-flex items-center rounded-md bg-green-600 px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-70"
                               disabled={loadingId !== null}
+                              onClick={() => handleAction(booking, "accept")}
+                              type="button"
                             >
                               {loadingId === `${booking.id}-accept`
                                 ? t("actions.accepting")
                                 : t("actions.accept")}
                             </button>
                             <button
-                              type="button"
-                              className="inline-flex items-center rounded-md border border-red-300 bg-white px-3 py-1.5 text-xs font-semibold text-red-700 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-70"
-                              onClick={() => handleAction(booking, "decline")}
+                              className="inline-flex items-center rounded-md border border-red-300 bg-white px-3 py-1.5 font-semibold text-red-700 text-xs transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-70"
                               disabled={loadingId !== null}
+                              onClick={() => handleAction(booking, "decline")}
+                              type="button"
                             >
                               {loadingId === `${booking.id}-decline`
                                 ? t("actions.declining")
@@ -240,10 +240,10 @@ export function ProBookingList({ bookings }: Props) {
                           <div className="flex flex-wrap items-center gap-2">
                             {showCapture ? (
                               <button
-                                type="button"
-                                className="inline-flex items-center rounded-md bg-[#ff5d46] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
-                                onClick={() => handleAction(booking, "capture")}
+                                className="inline-flex items-center rounded-md bg-[#ff5d46] px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
                                 disabled={loadingId !== null}
+                                onClick={() => handleAction(booking, "capture")}
+                                type="button"
                               >
                                 {loadingId === `${booking.id}-capture`
                                   ? t("actions.capturing")
@@ -252,10 +252,10 @@ export function ProBookingList({ bookings }: Props) {
                             ) : null}
                             {showVoid ? (
                               <button
-                                type="button"
-                                className="inline-flex items-center rounded-md border border-[#f0e1dc] px-3 py-1.5 text-xs font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
-                                onClick={() => handleAction(booking, "void")}
+                                className="inline-flex items-center rounded-md border border-[#f0e1dc] px-3 py-1.5 font-semibold text-[#7a6d62] text-xs transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
                                 disabled={loadingId !== null}
+                                onClick={() => handleAction(booking, "void")}
+                                type="button"
                               >
                                 {loadingId === `${booking.id}-void`
                                   ? t("actions.canceling")
@@ -264,7 +264,7 @@ export function ProBookingList({ bookings }: Props) {
                             ) : null}
                           </div>
                         ) : (
-                          <span className="text-xs text-[#8a826d]">{t("actions.noActions")}</span>
+                          <span className="text-[#8a826d] text-xs">{t("actions.noActions")}</span>
                         )}
                       </td>
                     </tr>

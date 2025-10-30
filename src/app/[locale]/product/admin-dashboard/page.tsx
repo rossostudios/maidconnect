@@ -77,51 +77,51 @@ export default async function AdminDashboardPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <script
-        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        type="application/ld+json"
       />
       <SiteHeader />
       <main>
         {/* Hero Section */}
         <ProductHeroSection
-          headline={t("hero.headline")}
+          badge={t("hero.badge")}
           description={t("hero.description")}
+          headline={t("hero.headline")}
           primaryCTA={{ label: t("hero.primaryCTA"), href: "/contact" }}
           secondaryCTA={{ label: t("hero.secondaryCTA"), href: "#features" }}
-          badge={t("hero.badge")}
         />
 
         {/* Features Section */}
         <section
+          className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24"
           id="features"
-          className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24"
         >
           <div className="mx-auto max-w-6xl">
-            <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl lg:text-6xl">
+            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl lg:text-6xl">
               {t("features.title")}
             </h2>
 
-            <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-relaxed text-[#5d574b]">
+            <p className="mx-auto mt-6 max-w-3xl text-center text-[#5d574b] text-lg leading-relaxed">
               {t("features.subtitle")}
             </p>
 
             <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <ProductFeatureCard
+                description={t("features.professionalModeration.description")}
                 icon={UserCheck}
                 title={t("features.professionalModeration.title")}
-                description={t("features.professionalModeration.description")}
               />
 
               <ProductFeatureCard
+                description={t("features.bookingOversight.description")}
                 icon={DollarSign}
                 title={t("features.bookingOversight.title")}
-                description={t("features.bookingOversight.description")}
               />
 
               <ProductFeatureCard
+                description={t("features.payoutProcessing.description")}
                 icon={Settings}
                 title={t("features.payoutProcessing.title")}
-                description={t("features.payoutProcessing.description")}
               />
             </div>
           </div>
@@ -129,8 +129,8 @@ export default async function AdminDashboardPage({ params }: Props) {
 
         {/* How It Works Section */}
         <ProductStepsSection
-          headline={t("howItWorks.title")}
           description={t("howItWorks.description")}
+          headline={t("howItWorks.title")}
           steps={[
             {
               number: "1",
@@ -156,47 +156,47 @@ export default async function AdminDashboardPage({ params }: Props) {
         />
 
         {/* Admin Capabilities Section */}
-        <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
+        <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
+            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
               {t("capabilities.title")}
             </h2>
 
             <div className="mt-16 space-y-4">
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
                 <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#ff5d46]" />
-                <p className="text-base text-[#5d574b]">
+                <p className="text-[#5d574b] text-base">
                   {t("capabilities.professionalManagement")}
                 </p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
                 <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#ff5d46]" />
-                <p className="text-base text-[#5d574b]">{t("capabilities.bookingReview")}</p>
+                <p className="text-[#5d574b] text-base">{t("capabilities.bookingReview")}</p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
                 <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#ff5d46]" />
-                <p className="text-base text-[#5d574b]">{t("capabilities.payoutControl")}</p>
+                <p className="text-[#5d574b] text-base">{t("capabilities.payoutControl")}</p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
                 <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#ff5d46]" />
-                <p className="text-base text-[#5d574b]">{t("capabilities.disputeResolution")}</p>
+                <p className="text-[#5d574b] text-base">{t("capabilities.disputeResolution")}</p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
                 <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#ff5d46]" />
-                <p className="text-base text-[#5d574b]">{t("capabilities.userModeration")}</p>
+                <p className="text-[#5d574b] text-base">{t("capabilities.userModeration")}</p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
                 <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#ff5d46]" />
-                <p className="text-base text-[#5d574b]">{t("capabilities.analytics")}</p>
+                <p className="text-[#5d574b] text-base">{t("capabilities.analytics")}</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Security Section */}
-        <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
+        <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
+            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
               {t("security.title")}
             </h2>
 
@@ -206,10 +206,10 @@ export default async function AdminDashboardPage({ params }: Props) {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("security.roleBasedAccess.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("security.roleBasedAccess.description")}
                   </p>
                 </div>
@@ -220,10 +220,10 @@ export default async function AdminDashboardPage({ params }: Props) {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("security.auditLogs.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("security.auditLogs.description")}
                   </p>
                 </div>
@@ -234,10 +234,10 @@ export default async function AdminDashboardPage({ params }: Props) {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("security.dataProtection.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("security.dataProtection.description")}
                   </p>
                 </div>
@@ -248,10 +248,10 @@ export default async function AdminDashboardPage({ params }: Props) {
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">
+                  <h3 className="font-semibold text-[#211f1a] text-xl">
                     {t("security.twoFactorAuth.title")}
                   </h3>
-                  <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
                     {t("security.twoFactorAuth.description")}
                   </p>
                 </div>
@@ -261,9 +261,9 @@ export default async function AdminDashboardPage({ params }: Props) {
         </section>
 
         {/* Admin Tools Grid */}
-        <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
+        <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
+            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
               {t("tools.title")}
             </h2>
 
@@ -272,7 +272,7 @@ export default async function AdminDashboardPage({ params }: Props) {
                 <h4 className="font-semibold text-[#211f1a]">
                   {t("tools.professionalApproval").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-sm text-[#5d574b]">
+                <p className="mt-2 text-[#5d574b] text-sm">
                   {t("tools.professionalApproval").split(":")[1]}
                 </p>
               </div>
@@ -281,7 +281,7 @@ export default async function AdminDashboardPage({ params }: Props) {
                 <h4 className="font-semibold text-[#211f1a]">
                   {t("tools.documentVerification").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-sm text-[#5d574b]">
+                <p className="mt-2 text-[#5d574b] text-sm">
                   {t("tools.documentVerification").split(":")[1]}
                 </p>
               </div>
@@ -290,7 +290,7 @@ export default async function AdminDashboardPage({ params }: Props) {
                 <h4 className="font-semibold text-[#211f1a]">
                   {t("tools.payoutQueue").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-sm text-[#5d574b]">
+                <p className="mt-2 text-[#5d574b] text-sm">
                   {t("tools.payoutQueue").split(":")[1]}
                 </p>
               </div>
@@ -299,7 +299,7 @@ export default async function AdminDashboardPage({ params }: Props) {
                 <h4 className="font-semibold text-[#211f1a]">
                   {t("tools.userManagement").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-sm text-[#5d574b]">
+                <p className="mt-2 text-[#5d574b] text-sm">
                   {t("tools.userManagement").split(":")[1]}
                 </p>
               </div>
@@ -308,7 +308,7 @@ export default async function AdminDashboardPage({ params }: Props) {
                 <h4 className="font-semibold text-[#211f1a]">
                   {t("tools.disputeResolution").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-sm text-[#5d574b]">
+                <p className="mt-2 text-[#5d574b] text-sm">
                   {t("tools.disputeResolution").split(":")[1]}
                 </p>
               </div>
@@ -317,7 +317,7 @@ export default async function AdminDashboardPage({ params }: Props) {
                 <h4 className="font-semibold text-[#211f1a]">
                   {t("tools.analytics").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-sm text-[#5d574b]">{t("tools.analytics").split(":")[1]}</p>
+                <p className="mt-2 text-[#5d574b] text-sm">{t("tools.analytics").split(":")[1]}</p>
               </div>
             </div>
           </div>
@@ -326,25 +326,25 @@ export default async function AdminDashboardPage({ params }: Props) {
         {/* CTA Section */}
         <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
+            <h2 className="font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
               {t("cta.title")}
             </h2>
 
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5d574b]">
+            <p className="mx-auto mt-6 max-w-2xl text-[#5d574b] text-lg leading-relaxed">
               {t("cta.description")}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
+                className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
               >
                 {t("cta.requestDemo")}
               </Link>
 
               <Link
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
                 href="/"
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
               >
                 {t("cta.learnMore")}
               </Link>

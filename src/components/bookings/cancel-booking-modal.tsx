@@ -108,8 +108,8 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-[28px] bg-white p-8 shadow-xl">
-        <h2 className="text-2xl font-semibold text-[#211f1a]">{t("title")}</h2>
-        <p className="mt-3 text-base text-[#5d574b]">
+        <h2 className="font-semibold text-2xl text-[#211f1a]">{t("title")}</h2>
+        <p className="mt-3 text-[#5d574b] text-base">
           {booking.service_name || "Service"} •{" "}
           {booking.scheduled_start
             ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
@@ -127,7 +127,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
             }`}
           >
             <p
-              className={`text-base font-semibold ${
+              className={`font-semibold text-base ${
                 policy.canCancel ? "text-yellow-900" : "text-red-900"
               }`}
             >
@@ -149,10 +149,10 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
 
         {/* Policy Details */}
         <details className="mt-6">
-          <summary className="cursor-pointer text-base font-semibold text-[#211f1a]">
+          <summary className="cursor-pointer font-semibold text-[#211f1a] text-base">
             {t("policy.viewPolicy")}
           </summary>
-          <pre className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-[#5d574b]">
+          <pre className="mt-3 whitespace-pre-wrap text-[#5d574b] text-sm leading-relaxed">
             {getCancellationPolicyDescription()}
           </pre>
         </details>
@@ -160,16 +160,16 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
         {/* Reason Input */}
         {policy?.canCancel && (
           <div className="mt-6">
-            <label htmlFor="reason" className="mb-2 block text-base font-semibold text-[#211f1a]">
+            <label className="mb-2 block font-semibold text-[#211f1a] text-base" htmlFor="reason">
               {t("form.reasonLabel")}
             </label>
             <textarea
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
               id="reason"
-              value={reason}
               onChange={(e) => setReason(e.target.value)}
               placeholder={t("form.reasonPlaceholder")}
               rows={4}
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+              value={reason}
             />
           </div>
         )}
@@ -188,19 +188,19 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
         {/* Actions */}
         <div className="mt-8 flex gap-3">
           <button
-            type="button"
-            onClick={onClose}
+            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={loading}
-            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
+            onClick={onClose}
+            type="button"
           >
             {t("buttons.keepBooking")}
           </button>
           {policy?.canCancel && (
             <button
-              type="button"
-              onClick={handleCancel}
+              className="flex-1 rounded-full bg-red-600 px-6 py-3 font-semibold text-base text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70"
               disabled={loading}
-              className="flex-1 rounded-full bg-red-600 px-6 py-3 text-base font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70"
+              onClick={handleCancel}
+              type="button"
             >
               {loading ? t("buttons.canceling") : t("buttons.cancelBooking")}
             </button>

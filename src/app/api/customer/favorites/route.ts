@@ -91,7 +91,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { professionalId, action } = body;
 
-    if (!professionalId || !["add", "remove"].includes(action)) {
+    if (!(professionalId && ["add", "remove"].includes(action))) {
       return NextResponse.json(
         { error: "Invalid request: professionalId and action required" },
         { status: 400 }

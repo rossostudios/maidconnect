@@ -76,7 +76,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NextIntlClientProvider messages={messages} locale={locale}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <SupabaseProvider>{children}</SupabaseProvider>
           <CookieConsent />
         </NextIntlClientProvider>

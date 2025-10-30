@@ -112,7 +112,7 @@ export function EnhancedBookingForm({
 
   if (serviceWithName.length === 0) {
     return (
-      <div className="rounded-2xl border border-[#f0ece4] bg-[#fbfafa] p-5 text-sm text-[#7a6d62]">
+      <div className="rounded-2xl border border-[#f0ece4] bg-[#fbfafa] p-5 text-[#7a6d62] text-sm">
         This professional is updating their services. Check back soon.
       </div>
     );
@@ -120,7 +120,7 @@ export function EnhancedBookingForm({
 
   if (!stripePromise) {
     return (
-      <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+      <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm">
         Payment system not configured.
       </div>
     );
@@ -152,7 +152,7 @@ export function EnhancedBookingForm({
   };
 
   const handleSubmit = async () => {
-    if (!bookingData.selectedDate || !bookingData.selectedTime || !bookingData.serviceName) {
+    if (!(bookingData.selectedDate && bookingData.selectedTime && bookingData.serviceName)) {
       setError("Please complete all required fields");
       return;
     }
@@ -230,9 +230,9 @@ export function EnhancedBookingForm({
           { key: "confirmation", label: "Review" },
           { key: "payment", label: "Payment" },
         ].map((step, index) => (
-          <div key={step.key} className="flex items-center">
+          <div className="flex items-center" key={step.key}>
             <div
-              className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold ${
+              className={`flex h-8 w-8 items-center justify-center rounded-full font-semibold text-xs ${
                 currentStep === step.key
                   ? "bg-[#ff5d46] text-white"
                   : index <
@@ -245,13 +245,13 @@ export function EnhancedBookingForm({
             >
               {index + 1}
             </div>
-            <span className="ml-2 hidden text-xs text-[#7a6d62] sm:block">{step.label}</span>
+            <span className="ml-2 hidden text-[#7a6d62] text-xs sm:block">{step.label}</span>
           </div>
         ))}
       </div>
 
       {error && (
-        <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">
+        <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-red-600 text-sm">
           {error}
         </div>
       )}
@@ -259,54 +259,54 @@ export function EnhancedBookingForm({
       {/* Step 1: Service Details & Time Selection */}
       {currentStep === "service-details" && (
         <ServiceDetailsStep
-          services={serviceWithName}
           bookingData={bookingData}
-          setBookingData={setBookingData}
-          professionalId={professionalId}
           onNext={() => setCurrentStep("address-addons")}
+          professionalId={professionalId}
+          services={serviceWithName}
+          setBookingData={setBookingData}
         />
       )}
 
       {/* Step 2: Address & Add-ons */}
       {currentStep === "address-addons" && (
         <AddressAddonsStep
-          bookingData={bookingData}
-          setBookingData={setBookingData}
-          addresses={addresses}
-          onAddressesChange={handleAddressesChange}
           addons={addons}
+          addresses={addresses}
+          bookingData={bookingData}
+          onAddressesChange={handleAddressesChange}
           onBack={() => setCurrentStep("service-details")}
           onNext={() => setCurrentStep("confirmation")}
+          setBookingData={setBookingData}
         />
       )}
 
       {/* Step 3: Confirmation */}
       {currentStep === "confirmation" && (
         <ConfirmationStep
-          bookingData={bookingData}
-          professionalName={professionalName}
-          baseAmount={baseAmount}
           addonsTotal={addonsTotal}
-          totalAmount={totalAmount}
+          baseAmount={baseAmount}
+          bookingData={bookingData}
+          loading={loading}
           onBack={() => setCurrentStep("address-addons")}
           onConfirm={handleSubmit}
-          loading={loading}
+          professionalName={professionalName}
+          totalAmount={totalAmount}
         />
       )}
 
       {/* Step 4: Payment */}
       {currentStep === "payment" && bookingResult && (
         <Elements
-          stripe={stripePromise}
           options={{
             clientSecret: bookingResult.clientSecret,
             appearance: stripeAppearance,
           }}
+          stripe={stripePromise}
         >
           <PaymentConfirmation
             bookingId={bookingResult.bookingId}
-            paymentIntentId={bookingResult.paymentIntentId}
             onReset={() => window.location.reload()}
+            paymentIntentId={bookingResult.paymentIntentId}
           />
         </Elements>
       )}
@@ -336,13 +336,13 @@ function ServiceDetailsStep({
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-[#211f1a]">Choose Service & Time</h3>
+      <h3 className="font-semibold text-[#211f1a] text-lg">Choose Service & Time</h3>
 
       {/* Service Selection */}
       <div>
-        <label className="mb-2 block text-sm font-medium text-[#211f1a]">Service *</label>
+        <label className="mb-2 block font-medium text-[#211f1a] text-sm">Service *</label>
         <select
-          value={bookingData.serviceName}
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
           onChange={(e) => {
             const service = services.find((s) => s.name === e.target.value);
             setBookingData({
@@ -351,8 +351,8 @@ function ServiceDetailsStep({
               serviceHourlyRate: service?.hourlyRateCop ?? null,
             });
           }}
-          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
           required
+          value={bookingData.serviceName}
         >
           <option value="">Select a service</option>
           {services.map((service) => (
@@ -366,35 +366,35 @@ function ServiceDetailsStep({
 
       {/* Duration */}
       <div>
-        <label className="mb-2 block text-sm font-medium text-[#211f1a]">Duration (hours) *</label>
+        <label className="mb-2 block font-medium text-[#211f1a] text-sm">Duration (hours) *</label>
         <input
-          type="number"
-          min={1}
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
           max={12}
-          value={bookingData.durationHours}
+          min={1}
           onChange={(e) =>
             setBookingData({
               ...bookingData,
-              durationHours: parseInt(e.target.value) || 0,
+              durationHours: Number.parseInt(e.target.value) || 0,
             })
           }
-          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
           required
+          type="number"
+          value={bookingData.durationHours}
         />
       </div>
 
       {/* Availability Calendar */}
       <div>
-        <label className="mb-2 block text-sm font-medium text-[#211f1a]">
+        <label className="mb-2 block font-medium text-[#211f1a] text-sm">
           Select Date & Time *
         </label>
         <AvailabilityCalendar
+          durationHours={bookingData.durationHours}
+          onDateSelect={(date) => setBookingData({ ...bookingData, selectedDate: date })}
+          onTimeSelect={(time) => setBookingData({ ...bookingData, selectedTime: time })}
           professionalId={professionalId}
           selectedDate={bookingData.selectedDate}
           selectedTime={bookingData.selectedTime}
-          onDateSelect={(date) => setBookingData({ ...bookingData, selectedDate: date })}
-          onTimeSelect={(time) => setBookingData({ ...bookingData, selectedTime: time })}
-          durationHours={bookingData.durationHours}
         />
       </div>
 
@@ -402,25 +402,25 @@ function ServiceDetailsStep({
       <div>
         <label className="flex items-center gap-2">
           <input
-            type="checkbox"
             checked={bookingData.isRecurring}
+            className="rounded"
             onChange={(e) =>
               setBookingData({
                 ...bookingData,
                 isRecurring: e.target.checked,
               })
             }
-            className="rounded"
+            type="checkbox"
           />
-          <span className="text-sm text-[#211f1a]">Make this a recurring booking</span>
+          <span className="text-[#211f1a] text-sm">Make this a recurring booking</span>
         </label>
       </div>
 
       {bookingData.isRecurring && (
         <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4">
-          <label className="mb-2 block text-sm font-medium text-[#211f1a]">Frequency</label>
+          <label className="mb-2 block font-medium text-[#211f1a] text-sm">Frequency</label>
           <select
-            value={bookingData.recurrencePattern?.frequency || "weekly"}
+            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
             onChange={(e) =>
               setBookingData({
                 ...bookingData,
@@ -429,7 +429,7 @@ function ServiceDetailsStep({
                 },
               })
             }
-            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+            value={bookingData.recurrencePattern?.frequency || "weekly"}
           >
             <option value="weekly">Weekly</option>
             <option value="biweekly">Every 2 weeks</option>
@@ -440,9 +440,9 @@ function ServiceDetailsStep({
 
       <div className="flex justify-end">
         <button
-          onClick={onNext}
+          className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!canProceed}
-          className="rounded-md bg-[#ff5d46] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          onClick={onNext}
         >
           Continue to Location & Add-ons →
         </button>
@@ -485,24 +485,24 @@ function AddressAddonsStep({
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold text-[#211f1a]">Location & Add-ons</h3>
+      <h3 className="font-semibold text-[#211f1a] text-lg">Location & Add-ons</h3>
 
       {/* Address Selection */}
       <div>
-        <label className="mb-2 block text-sm font-medium text-[#211f1a]">Service Address *</label>
+        <label className="mb-2 block font-medium text-[#211f1a] text-sm">Service Address *</label>
 
         {!useCustomAddress && addresses.length > 0 && (
           <div className="space-y-2">
             <SavedAddressesManager
               addresses={addresses}
-              onAddressSelect={(address) => setBookingData({ ...bookingData, address })}
               onAddressesChange={onAddressesChange}
+              onAddressSelect={(address) => setBookingData({ ...bookingData, address })}
               selectedAddressId={bookingData.address?.id}
               showManagement={false}
             />
             <button
+              className="text-[#ff5d46] text-sm hover:text-[#eb6c65]"
               onClick={() => setUseCustomAddress(true)}
-              className="text-sm text-[#ff5d46] hover:text-[#eb6c65]"
             >
               + Enter a different address
             </button>
@@ -512,7 +512,7 @@ function AddressAddonsStep({
         {(useCustomAddress || addresses.length === 0) && (
           <div className="space-y-2">
             <textarea
-              value={bookingData.customAddress || ""}
+              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
               onChange={(e) =>
                 setBookingData({
                   ...bookingData,
@@ -520,14 +520,14 @@ function AddressAddonsStep({
                   address: null,
                 })
               }
-              rows={3}
               placeholder="Street, city, building access info..."
-              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+              rows={3}
+              value={bookingData.customAddress || ""}
             />
             {addresses.length > 0 && (
               <button
+                className="text-[#ff5d46] text-sm hover:text-[#eb6c65]"
                 onClick={() => setUseCustomAddress(false)}
-                className="text-sm text-[#ff5d46] hover:text-[#eb6c65]"
               >
                 ← Use saved address
               </button>
@@ -538,27 +538,27 @@ function AddressAddonsStep({
 
       {/* Special Instructions */}
       <div>
-        <label className="mb-2 block text-sm font-medium text-[#211f1a]">
+        <label className="mb-2 block font-medium text-[#211f1a] text-sm">
           Special Instructions
         </label>
         <textarea
-          value={bookingData.specialInstructions}
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
           onChange={(e) =>
             setBookingData({
               ...bookingData,
               specialInstructions: e.target.value,
             })
           }
-          rows={2}
           placeholder="Pets, cleaning priorities, access codes..."
-          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+          rows={2}
+          value={bookingData.specialInstructions}
         />
       </div>
 
       {/* Service Add-ons */}
       {addons.length > 0 && (
         <div>
-          <label className="mb-2 block text-sm font-medium text-[#211f1a]">
+          <label className="mb-2 block font-medium text-[#211f1a] text-sm">
             Add Extra Services (Optional)
           </label>
           <div className="space-y-2">
@@ -566,13 +566,13 @@ function AddressAddonsStep({
               const isSelected = bookingData.selectedAddons.some((a) => a.id === addon.id);
               return (
                 <button
-                  key={addon.id}
-                  onClick={() => toggleAddon(addon)}
                   className={`w-full rounded-lg border p-3 text-left transition ${
                     isSelected
                       ? "border-[#ff5d46] bg-[#ff5d46]/5 ring-2 ring-[#ff5d46]/20"
                       : "border-[#e5dfd4] bg-white hover:border-[#ff5d46]/50"
                   }`}
+                  key={addon.id}
+                  onClick={() => toggleAddon(addon)}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -583,9 +583,9 @@ function AddressAddonsStep({
                         <h4 className="font-semibold text-[#211f1a]">{addon.name}</h4>
                       </div>
                       {addon.description && (
-                        <p className="mt-1 text-sm text-[#7a6d62]">{addon.description}</p>
+                        <p className="mt-1 text-[#7a6d62] text-sm">{addon.description}</p>
                       )}
-                      <div className="mt-1 flex gap-3 text-xs text-[#7a6d62]">
+                      <div className="mt-1 flex gap-3 text-[#7a6d62] text-xs">
                         <span className="font-semibold text-[#ff5d46]">
                           {formatCurrencyCOP(addon.price_cop)}
                         </span>
@@ -602,15 +602,15 @@ function AddressAddonsStep({
 
       <div className="flex justify-between">
         <button
+          className="rounded-md border border-[#e5dfd4] px-6 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           onClick={onBack}
-          className="rounded-md border border-[#e5dfd4] px-6 py-2 text-sm font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
         >
           ← Back
         </button>
         <button
-          onClick={onNext}
+          className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!canProceed}
-          className="rounded-md bg-[#ff5d46] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          onClick={onNext}
         >
           Review Booking →
         </button>
@@ -641,21 +641,21 @@ function ConfirmationStep({
 }) {
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold text-[#211f1a]">Review Your Booking</h3>
+      <h3 className="font-semibold text-[#211f1a] text-lg">Review Your Booking</h3>
 
-      <div className="rounded-lg border border-[#f0ece5] bg-white p-6 space-y-4">
+      <div className="space-y-4 rounded-lg border border-[#f0ece5] bg-white p-6">
         {/* Service Details */}
         <div>
-          <h4 className="text-sm font-semibold text-[#7a6d62]">Service</h4>
-          <p className="mt-1 text-sm text-[#211f1a]">
+          <h4 className="font-semibold text-[#7a6d62] text-sm">Service</h4>
+          <p className="mt-1 text-[#211f1a] text-sm">
             {bookingData.serviceName} with {professionalName}
           </p>
         </div>
 
         {/* Date & Time */}
         <div>
-          <h4 className="text-sm font-semibold text-[#7a6d62]">Date & Time</h4>
-          <p className="mt-1 text-sm text-[#211f1a]">
+          <h4 className="font-semibold text-[#7a6d62] text-sm">Date & Time</h4>
+          <p className="mt-1 text-[#211f1a] text-sm">
             {bookingData.selectedDate?.toLocaleDateString("en-US", {
               weekday: "long",
               year: "numeric",
@@ -664,9 +664,9 @@ function ConfirmationStep({
             })}{" "}
             at {bookingData.selectedTime}
           </p>
-          <p className="text-xs text-[#7a6d62]">Duration: {bookingData.durationHours} hours</p>
+          <p className="text-[#7a6d62] text-xs">Duration: {bookingData.durationHours} hours</p>
           {bookingData.isRecurring && (
-            <p className="mt-1 text-xs text-[#ff5d46]">
+            <p className="mt-1 text-[#ff5d46] text-xs">
               ⏱️ Recurring {bookingData.recurrencePattern?.frequency}
             </p>
           )}
@@ -674,9 +674,9 @@ function ConfirmationStep({
 
         {/* Address */}
         <div>
-          <h4 className="text-sm font-semibold text-[#7a6d62]">Location</h4>
+          <h4 className="font-semibold text-[#7a6d62] text-sm">Location</h4>
           {bookingData.address ? (
-            <div className="mt-1 text-sm text-[#211f1a]">
+            <div className="mt-1 text-[#211f1a] text-sm">
               <p>{bookingData.address.street}</p>
               <p>
                 {[
@@ -688,21 +688,21 @@ function ConfirmationStep({
                   .join(", ")}
               </p>
               {bookingData.address.building_access && (
-                <p className="text-xs text-[#7a6d62]">🔑 {bookingData.address.building_access}</p>
+                <p className="text-[#7a6d62] text-xs">🔑 {bookingData.address.building_access}</p>
               )}
             </div>
           ) : (
-            <p className="mt-1 text-sm text-[#211f1a]">{bookingData.customAddress}</p>
+            <p className="mt-1 text-[#211f1a] text-sm">{bookingData.customAddress}</p>
           )}
         </div>
 
         {/* Add-ons */}
         {bookingData.selectedAddons.length > 0 && (
           <div>
-            <h4 className="text-sm font-semibold text-[#7a6d62]">Add-ons</h4>
+            <h4 className="font-semibold text-[#7a6d62] text-sm">Add-ons</h4>
             <ul className="mt-1 space-y-1">
               {bookingData.selectedAddons.map((addon) => (
-                <li key={addon.id} className="flex justify-between text-sm text-[#211f1a]">
+                <li className="flex justify-between text-[#211f1a] text-sm" key={addon.id}>
                   <span>{addon.name}</span>
                   <span>{formatCurrencyCOP(addon.price_cop)}</span>
                 </li>
@@ -714,13 +714,13 @@ function ConfirmationStep({
         {/* Special Instructions */}
         {bookingData.specialInstructions && (
           <div>
-            <h4 className="text-sm font-semibold text-[#7a6d62]">Special Instructions</h4>
-            <p className="mt-1 text-sm text-[#211f1a]">{bookingData.specialInstructions}</p>
+            <h4 className="font-semibold text-[#7a6d62] text-sm">Special Instructions</h4>
+            <p className="mt-1 text-[#211f1a] text-sm">{bookingData.specialInstructions}</p>
           </div>
         )}
 
         {/* Price Breakdown */}
-        <div className="border-t border-[#f0ece5] pt-4">
+        <div className="border-[#f0ece5] border-t pt-4">
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-[#7a6d62]">Service</span>
@@ -732,14 +732,14 @@ function ConfirmationStep({
                 <span className="text-[#211f1a]">{formatCurrencyCOP(addonsTotal)}</span>
               </div>
             )}
-            <div className="flex justify-between border-t border-[#f0ece5] pt-2 text-base font-semibold">
+            <div className="flex justify-between border-[#f0ece5] border-t pt-2 font-semibold text-base">
               <span className="text-[#211f1a]">Total</span>
               <span className="text-[#ff5d46]">{formatCurrencyCOP(totalAmount)}</span>
             </div>
           </div>
         </div>
 
-        <p className="text-xs text-[#7a6d62]">
+        <p className="text-[#7a6d62] text-xs">
           We'll place a temporary hold on your payment method. You'll only be charged after the
           service is completed.
         </p>
@@ -747,16 +747,16 @@ function ConfirmationStep({
 
       <div className="flex justify-between">
         <button
-          onClick={onBack}
+          className="rounded-md border border-[#e5dfd4] px-6 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
-          className="rounded-md border border-[#e5dfd4] px-6 py-2 text-sm font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
+          onClick={onBack}
         >
           ← Back
         </button>
         <button
-          onClick={onConfirm}
+          className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
-          className="rounded-md bg-[#ff5d46] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          onClick={onConfirm}
         >
           {loading ? "Creating booking..." : "Proceed to Payment →"}
         </button>
@@ -782,7 +782,7 @@ function PaymentConfirmation({
   const [error, setError] = useState<string | null>(null);
 
   const handleConfirm = async () => {
-    if (!stripe || !elements) return;
+    if (!(stripe && elements)) return;
     setSubmitting(true);
     setError(null);
     try {
@@ -817,31 +817,31 @@ function PaymentConfirmation({
 
   return (
     <div className="space-y-4 rounded-lg border border-[#f0ece5] bg-white p-6">
-      <h3 className="text-lg font-semibold text-[#211f1a]">Confirm Payment Method</h3>
-      <p className="text-sm text-[#7a6d62]">
+      <h3 className="font-semibold text-[#211f1a] text-lg">Confirm Payment Method</h3>
+      <p className="text-[#7a6d62] text-sm">
         We'll authorize a hold on your card. You'll only be charged after the service is completed.
       </p>
       <PaymentElement options={{ layout: "tabs" }} />
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-red-600 text-sm">{error}</p>}
       <div className="flex items-center gap-3">
         <button
-          type="button"
-          onClick={handleConfirm}
+          className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={submitting}
-          className="rounded-md bg-[#ff5d46] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          onClick={handleConfirm}
+          type="button"
         >
           {submitting ? "Confirming..." : "Confirm Booking"}
         </button>
         <button
-          type="button"
-          onClick={onReset}
+          className="rounded-md border border-[#e5dfd4] px-6 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={submitting}
-          className="rounded-md border border-[#e5dfd4] px-6 py-2 text-sm font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
+          onClick={onReset}
+          type="button"
         >
           Cancel
         </button>
       </div>
-      <p className="text-xs text-[#7a6d62]">Booking ID: {bookingId}</p>
+      <p className="text-[#7a6d62] text-xs">Booking ID: {bookingId}</p>
     </div>
   );
 }

@@ -3,7 +3,7 @@
 import { Globe } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
-import { type Locale, locales } from "@/i18n";
+import { type Locale } from "@/i18n";
 
 /**
  * Language Switcher Component
@@ -43,12 +43,12 @@ export function LanguageSwitcher({ variant = "light" }: LanguageSwitcherProps) {
   return (
     <div className="relative inline-block">
       <button
+        aria-label="Switch language"
         className={buttonStyles}
         onClick={() => {
           const nextLocale = locale === "en" ? "es" : "en";
           switchLanguage(nextLocale as Locale);
         }}
-        aria-label="Switch language"
       >
         <Globe className="h-4 w-4" />
         <span>{languageNames[locale]}</span>

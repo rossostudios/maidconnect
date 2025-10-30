@@ -21,17 +21,17 @@ export default async function PrivacyPolicyPage({ params }: Props) {
   const lastUpdated = "January 2025";
 
   return (
-    <div className="min-h-screen bg-[#fbfaf9] py-16 px-4">
+    <div className="min-h-screen bg-[#fbfaf9] px-4 py-16">
       <div className="mx-auto max-w-4xl">
-        <div className="rounded-[28px] bg-white p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)]">
-          <h1 className="mb-4 text-4xl font-bold text-[#211f1a]">{t("title")}</h1>
+        <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] md:p-12">
+          <h1 className="mb-4 font-bold text-4xl text-[#211f1a]">{t("title")}</h1>
           <p className="mb-8 text-[#7d7566]">{t("lastUpdated", { date: lastUpdated })}</p>
 
           {/* Note: Full legal content translation should be reviewed by legal counsel */}
 
           <div className="prose prose-lg max-w-none">
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">1. Introduction</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">1. Introduction</h2>
               <p className="mb-4 text-[#7d7566]">
                 MaidConnect ("we," "our," or "us") is committed to protecting your privacy. This
                 Privacy Policy explains how we collect, use, disclose, and safeguard your
@@ -44,8 +44,8 @@ export default async function PrivacyPolicyPage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">2. Information We Collect</h2>
-              <h3 className="mb-3 text-xl font-semibold text-[#211f1a]">
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">2. Information We Collect</h2>
+              <h3 className="mb-3 font-semibold text-[#211f1a] text-xl">
                 2.1 Information You Provide
               </h3>
               <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
@@ -56,7 +56,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
                 <li>Communications with customers or professionals</li>
               </ul>
 
-              <h3 className="mb-3 text-xl font-semibold text-[#211f1a]">
+              <h3 className="mb-3 font-semibold text-[#211f1a] text-xl">
                 2.2 Information Collected Automatically
               </h3>
               <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
@@ -68,7 +68,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">
                 3. How We Use Your Information
               </h2>
               <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
@@ -83,7 +83,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">4. Information Sharing</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">4. Information Sharing</h2>
               <p className="mb-4 text-[#7d7566]">
                 We share your information only in the following circumstances:
               </p>
@@ -111,7 +111,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">5. Data Security</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">5. Data Security</h2>
               <p className="mb-4 text-[#7d7566]">
                 We implement industry-standard security measures to protect your information:
               </p>
@@ -125,7 +125,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">6. Your Rights</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">6. Your Rights</h2>
               <p className="mb-4 text-[#7d7566]">
                 You have the following rights regarding your personal data:
               </p>
@@ -151,14 +151,14 @@ export default async function PrivacyPolicyPage({ params }: Props) {
               </ul>
               <p className="mb-4 text-[#7d7566]">
                 To exercise these rights, contact us at{" "}
-                <a href="mailto:privacy@maidconnect.co" className="text-[#ff5d46] hover:underline">
+                <a className="text-[#ff5d46] hover:underline" href="mailto:privacy@maidconnect.co">
                   privacy@maidconnect.co
                 </a>
               </p>
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">7. Data Retention</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">7. Data Retention</h2>
               <p className="mb-4 text-[#7d7566]">
                 We retain your information for as long as necessary to provide our services and
                 comply with legal obligations. When you delete your account:
@@ -171,7 +171,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">8. Cookies</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">8. Cookies</h2>
               <p className="mb-4 text-[#7d7566]">We use cookies and similar technologies to:</p>
               <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
                 <li>Maintain your session and keep you logged in</li>
@@ -185,7 +185,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">9. Children's Privacy</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">9. Children's Privacy</h2>
               <p className="mb-4 text-[#7d7566]">
                 MaidConnect is not intended for users under 18 years of age. We do not knowingly
                 collect information from children. If we learn that we have collected information
@@ -194,7 +194,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">
                 10. International Data Transfers
               </h2>
               <p className="mb-4 text-[#7d7566]">
@@ -205,7 +205,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">11. Changes to This Policy</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">11. Changes to This Policy</h2>
               <p className="mb-4 text-[#7d7566]">
                 We may update this Privacy Policy from time to time. We will notify you of
                 significant changes via email or platform notification. Your continued use of
@@ -214,7 +214,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
             </section>
 
             <section className="mb-8">
-              <h2 className="mb-4 text-2xl font-bold text-[#211f1a]">12. Contact Us</h2>
+              <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">12. Contact Us</h2>
               <p className="mb-4 text-[#7d7566]">
                 If you have questions about this Privacy Policy or our data practices, please
                 contact us:
@@ -223,15 +223,15 @@ export default async function PrivacyPolicyPage({ params }: Props) {
                 <li className="mb-2">
                   <strong>Email:</strong>{" "}
                   <a
-                    href="mailto:privacy@maidconnect.co"
                     className="text-[#ff5d46] hover:underline"
+                    href="mailto:privacy@maidconnect.co"
                   >
                     privacy@maidconnect.co
                   </a>
                 </li>
                 <li className="mb-2">
                   <strong>Support:</strong>{" "}
-                  <a href="/contact" className="text-[#ff5d46] hover:underline">
+                  <a className="text-[#ff5d46] hover:underline" href="/contact">
                     Contact Form
                   </a>
                 </li>

@@ -126,27 +126,27 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
     <div className="space-y-8">
       {/* Calendar Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-4xl font-semibold text-[#211f1a]">
+        <h2 className="font-semibold text-4xl text-[#211f1a]">
           {currentMonth.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
         </h2>
         <div className="flex gap-3">
           <button
+            className="rounded-xl border-2 border-[#e5dfd4] px-5 py-2.5 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={goToToday}
-            className="rounded-xl border-2 border-[#e5dfd4] px-5 py-2.5 text-base font-semibold text-[#7d7566] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           >
             Today
           </button>
           <button
-            onClick={goToPreviousMonth}
-            className="rounded-xl border-2 border-[#e5dfd4] p-2.5 text-[#7d7566] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             aria-label="Previous month"
+            className="rounded-xl border-2 border-[#e5dfd4] p-2.5 text-[#7d7566] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            onClick={goToPreviousMonth}
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
           <button
-            onClick={goToNextMonth}
-            className="rounded-xl border-2 border-[#e5dfd4] p-2.5 text-[#7d7566] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             aria-label="Next month"
+            className="rounded-xl border-2 border-[#e5dfd4] p-2.5 text-[#7d7566] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            onClick={goToNextMonth}
           >
             <ChevronRight className="h-6 w-6" />
           </button>
@@ -156,7 +156,7 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
       {/* Loading State */}
       {loading && (
         <div className="rounded-[32px] border border-[#ebe5d8] bg-white p-16 text-center shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
-          <p className="text-lg text-[#7d7566]">Loading availability...</p>
+          <p className="text-[#7d7566] text-lg">Loading availability...</p>
         </div>
       )}
 
@@ -165,8 +165,8 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
         <div className="rounded-[32px] border border-red-200 bg-red-50 p-8 text-center">
           <p className="text-base text-red-800">{error}</p>
           <button
+            className="mt-4 rounded-xl bg-red-600 px-6 py-3 font-semibold text-base text-white hover:bg-red-700"
             onClick={fetchAvailability}
-            className="mt-4 rounded-xl bg-red-600 px-6 py-3 text-base font-semibold text-white hover:bg-red-700"
           >
             Retry
           </button>
@@ -174,7 +174,7 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
       )}
 
       {/* Calendar Grid */}
-      {!loading && !error && (
+      {!(loading || error) && (
         <>
           <div className="rounded-[32px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
             <div className="grid grid-cols-7 gap-4">
@@ -182,8 +182,8 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
               {["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].map(
                 (day) => (
                   <div
+                    className="pb-4 text-center font-semibold text-[#7d7566] text-base"
                     key={day}
-                    className="pb-4 text-center text-base font-semibold text-[#7d7566]"
                   >
                     {day}
                   </div>
@@ -193,7 +193,7 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
               {/* Calendar Days */}
               {calendarDays.map((day, index) => {
                 if (!day) {
-                  return <div key={`empty-${index}`} className="min-h-[120px] rounded-2xl" />;
+                  return <div className="min-h-[120px] rounded-2xl" key={`empty-${index}`} />;
                 }
 
                 const availability = getDateAvailability(day);
@@ -236,30 +236,28 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
 
                 return (
                   <button
+                    className={`group relative flex min-h-[120px] flex-col rounded-2xl border-2 p-4 text-left transition-all duration-300 ${bgColor}
+                      ${isSelected ? "scale-105 ring-4 ring-[#ff5d46] ring-offset-2" : ""}
+                      ${isToday ? "border-[#ff5d46]" : ""}
+                      ${canSelect ? "hover:-translate-y-1 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-100" : "cursor-not-allowed opacity-60"}
+                      ${isPast ? "text-gray-400" : "text-[#211f1a]"}
+                    `}
+                    disabled={!canSelect}
                     key={formatDate(day)}
-                    type="button"
                     onClick={() => {
                       if (canSelect && availability) {
                         handleDateClick(day, availability);
                       }
                     }}
-                    disabled={!canSelect}
-                    className={`
-                      group relative flex min-h-[120px] flex-col rounded-2xl border-2 p-4 text-left transition-all duration-300
-                      ${bgColor}
-                      ${isSelected ? "ring-4 ring-[#ff5d46] ring-offset-2 scale-105" : ""}
-                      ${isToday ? "border-[#ff5d46]" : ""}
-                      ${canSelect ? "cursor-pointer hover:shadow-lg hover:scale-105 hover:-translate-y-1 active:scale-100" : "cursor-not-allowed opacity-60"}
-                      ${isPast ? "text-gray-400" : "text-[#211f1a]"}
-                    `}
+                    type="button"
                   >
                     <div className="flex items-start justify-between">
-                      <span className={`text-2xl font-semibold ${isToday ? "text-[#ff5d46]" : ""}`}>
+                      <span className={`font-semibold text-2xl ${isToday ? "text-[#ff5d46]" : ""}`}>
                         {day.getDate()}
                       </span>
                       {availability && !isPast && (
                         <span
-                          className={`text-xs font-semibold uppercase tracking-wider ${statusTextColors[availability.status]}`}
+                          className={`font-semibold text-xs uppercase tracking-wider ${statusTextColors[availability.status]}`}
                         >
                           {statusText[availability.status]}
                         </span>
@@ -267,7 +265,7 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
                     </div>
                     {availability && !isPast && availability.availableSlots.length > 0 && (
                       <div className="mt-auto">
-                        <p className="text-sm text-[#7d7566]">
+                        <p className="text-[#7d7566] text-sm">
                           {availability.availableSlots.length}{" "}
                           {availability.availableSlots.length === 1 ? "slot" : "slots"} available
                         </p>
@@ -281,42 +279,42 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
 
           {/* Legend */}
           <div className="rounded-[32px] border border-[#ebe5d8] bg-gradient-to-br from-[#fbfafa] to-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
-            <h3 className="mb-6 text-xl font-semibold text-[#211f1a]">Calendar guide</h3>
+            <h3 className="mb-6 font-semibold text-[#211f1a] text-xl">Calendar guide</h3>
             <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
               <div className="group flex flex-col gap-3 rounded-2xl border border-green-200 bg-green-50/50 p-5 transition hover:border-green-300 hover:shadow-md">
                 <div className="flex items-center gap-3">
-                  <div className="h-6 w-6 rounded-lg border-2 border-green-200 bg-green-50 shadow-sm"></div>
-                  <span className="text-base font-semibold text-green-800">Available</span>
+                  <div className="h-6 w-6 rounded-lg border-2 border-green-200 bg-green-50 shadow-sm" />
+                  <span className="font-semibold text-base text-green-800">Available</span>
                 </div>
-                <p className="text-sm leading-relaxed text-green-700">
+                <p className="text-green-700 text-sm leading-relaxed">
                   Multiple time slots open for booking
                 </p>
               </div>
 
               <div className="group flex flex-col gap-3 rounded-2xl border border-yellow-200 bg-yellow-50/50 p-5 transition hover:border-yellow-300 hover:shadow-md">
                 <div className="flex items-center gap-3">
-                  <div className="h-6 w-6 rounded-lg border-2 border-yellow-200 bg-yellow-50 shadow-sm"></div>
-                  <span className="text-base font-semibold text-yellow-800">Limited</span>
+                  <div className="h-6 w-6 rounded-lg border-2 border-yellow-200 bg-yellow-50 shadow-sm" />
+                  <span className="font-semibold text-base text-yellow-800">Limited</span>
                 </div>
-                <p className="text-sm leading-relaxed text-yellow-700">
+                <p className="text-sm text-yellow-700 leading-relaxed">
                   Only a few slots remaining
                 </p>
               </div>
 
               <div className="group flex flex-col gap-3 rounded-2xl border border-red-200 bg-red-50/50 p-5 transition hover:border-red-300 hover:shadow-md">
                 <div className="flex items-center gap-3">
-                  <div className="h-6 w-6 rounded-lg border-2 border-red-200 bg-red-50 shadow-sm"></div>
-                  <span className="text-base font-semibold text-red-800">Booked</span>
+                  <div className="h-6 w-6 rounded-lg border-2 border-red-200 bg-red-50 shadow-sm" />
+                  <span className="font-semibold text-base text-red-800">Booked</span>
                 </div>
-                <p className="text-sm leading-relaxed text-red-700">No availability for this day</p>
+                <p className="text-red-700 text-sm leading-relaxed">No availability for this day</p>
               </div>
 
               <div className="group flex flex-col gap-3 rounded-2xl border border-gray-200 bg-gray-50/50 p-5 transition hover:border-gray-300 hover:shadow-md">
                 <div className="flex items-center gap-3">
-                  <div className="h-6 w-6 rounded-lg border-2 border-gray-200 bg-gray-100 shadow-sm"></div>
-                  <span className="text-base font-semibold text-gray-800">Unavailable</span>
+                  <div className="h-6 w-6 rounded-lg border-2 border-gray-200 bg-gray-100 shadow-sm" />
+                  <span className="font-semibold text-base text-gray-800">Unavailable</span>
                 </div>
-                <p className="text-sm leading-relaxed text-gray-700">Professional not working</p>
+                <p className="text-gray-700 text-sm leading-relaxed">Professional not working</p>
               </div>
             </div>
           </div>

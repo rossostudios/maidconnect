@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     }
 
     if ((!amount || amount <= 0) && serviceHourlyRate && durationMinutes) {
-      amount = Math.max(20000, Math.round(serviceHourlyRate * (durationMinutes / 60)));
+      amount = Math.max(20_000, Math.round(serviceHourlyRate * (durationMinutes / 60)));
     }
 
     if (!amount || amount <= 0) {

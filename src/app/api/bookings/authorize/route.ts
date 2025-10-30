@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     const body = (await request.json()) as AuthorizeBody;
     const { bookingId, paymentIntentId } = body ?? {};
 
-    if (!bookingId || !paymentIntentId) {
+    if (!(bookingId && paymentIntentId)) {
       return NextResponse.json(
         { error: "bookingId and paymentIntentId are required" },
         { status: 400 }

@@ -44,7 +44,7 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          amount: 50000,
+          amount: 50_000,
           currency: "cop",
         }),
       });
@@ -68,7 +68,7 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
 
   if (!stripePromise) {
     return (
-      <div className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
+      <div className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-red-600 text-sm">
         Stripe publishable key is not configured.
       </div>
     );
@@ -78,21 +78,21 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
     return (
       <div className="mt-4 flex flex-col gap-3">
         {status === "success" ? (
-          <p className="text-sm text-green-700">
+          <p className="text-green-700 text-sm">
             Payment method on file. You can update it anytime.
           </p>
         ) : (
-          <p className="text-sm leading-relaxed text-[#5d574b]">
+          <p className="text-[#5d574b] text-sm leading-relaxed">
             We'll authorize a small amount (COP $50,000) to keep your payment method on file. You're
             only charged after a service is completed.
           </p>
         )}
-        {message ? <p className="text-sm text-red-600">{message}</p> : null}
+        {message ? <p className="text-red-600 text-sm">{message}</p> : null}
         <button
-          type="button"
-          onClick={handleStart}
+          className="inline-flex w-fit items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={status === "loading"}
-          className="inline-flex w-fit items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+          onClick={handleStart}
+          type="button"
         >
           {status === "loading"
             ? "Preparing…"
@@ -105,13 +105,13 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
   }
 
   return (
-    <Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
+    <Elements options={{ clientSecret, appearance }} stripe={stripePromise}>
       <PaymentForm
-        onSuccess={() => setStatus("success")}
         onError={setMessage}
+        onSuccess={() => setStatus("success")}
         reset={() => setClientSecret(null)}
       />
-      {message ? <p className="mt-2 text-xs text-red-600">{message}</p> : null}
+      {message ? <p className="mt-2 text-red-600 text-xs">{message}</p> : null}
     </Elements>
   );
 }
@@ -129,7 +129,7 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = useCallback(async () => {
-    if (!stripe || !elements) return;
+    if (!(stripe && elements)) return;
     setIsSubmitting(true);
     onError(null);
     try {
@@ -165,23 +165,23 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
       <PaymentElement options={{ layout: "tabs" }} />
       <div className="flex items-center gap-3">
         <button
-          type="button"
-          onClick={handleSubmit}
+          className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={isSubmitting}
-          className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+          onClick={handleSubmit}
+          type="button"
         >
           {isSubmitting ? "Authorizing…" : "Authorize"}
         </button>
         <button
-          type="button"
-          onClick={reset}
+          className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={isSubmitting}
-          className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-6 py-3 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
+          onClick={reset}
+          type="button"
         >
           Cancel
         </button>
       </div>
-      <p className="text-sm leading-relaxed text-[#5d574b]">
+      <p className="text-[#5d574b] text-sm leading-relaxed">
         You'll only be charged after the service is completed. Authorizations expire automatically
         if unused.
       </p>

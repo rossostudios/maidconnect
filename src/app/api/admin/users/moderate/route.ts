@@ -40,7 +40,7 @@ export async function POST(request: Request) {
 
     const { userId, action, reason, liftReason, durationDays, details } = body;
 
-    if (!userId || !action) {
+    if (!(userId && action)) {
       return NextResponse.json({ error: "userId and action are required" }, { status: 400 });
     }
 

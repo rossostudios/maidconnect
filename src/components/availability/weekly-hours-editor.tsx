@@ -90,23 +90,23 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
     <div className="space-y-6">
       {/* Presets */}
       <div>
-        <h4 className="mb-3 text-sm font-semibold text-[#211f1a]">Quick Presets</h4>
+        <h4 className="mb-3 font-semibold text-[#211f1a] text-sm">Quick Presets</h4>
         <div className="flex flex-wrap gap-2">
           <button
+            className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={() => handlePreset("weekdays")}
-            className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           >
             Weekdays (Mon-Fri)
           </button>
           <button
+            className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={() => handlePreset("weekends")}
-            className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           >
             Weekends Only
           </button>
           <button
+            className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={() => handlePreset("everyday")}
-            className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           >
             Every Day
           </button>
@@ -117,22 +117,22 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
       <div className="space-y-3">
         {schedule.map((day, index) => (
           <div
-            key={day.day}
             className={`rounded-xl border-2 p-4 transition ${
               day.enabled ? "border-[#ff5d46]/20 bg-white" : "border-[#ebe5d8] bg-[#fbfaf9]"
             }`}
+            key={day.day}
           >
             <div className="flex flex-wrap items-center gap-4">
               {/* Day Toggle */}
               <label className="flex w-32 items-center gap-3">
                 <input
-                  type="checkbox"
                   checked={day.enabled}
-                  onChange={() => handleToggleDay(index)}
                   className="h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-2 focus:ring-[#ff5d46]/20"
+                  onChange={() => handleToggleDay(index)}
+                  type="checkbox"
                 />
                 <span
-                  className={`text-sm font-semibold ${
+                  className={`font-semibold text-sm ${
                     day.enabled ? "text-[#211f1a]" : "text-[#7d7566]"
                   }`}
                 >
@@ -146,24 +146,24 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
                   <div className="flex items-center gap-2">
                     <Clock className="h-4 w-4 text-[#7d7566]" />
                     <input
+                      className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm accent-[#ff5d46] [color-scheme:light] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                      onChange={(e) => handleTimeChange(index, "start", e.target.value)}
                       type="time"
                       value={day.start}
-                      onChange={(e) => handleTimeChange(index, "start", e.target.value)}
-                      className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20 [color-scheme:light] accent-[#ff5d46]"
                     />
-                    <span className="text-sm text-[#7d7566]">to</span>
+                    <span className="text-[#7d7566] text-sm">to</span>
                     <input
+                      className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm accent-[#ff5d46] [color-scheme:light] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                      onChange={(e) => handleTimeChange(index, "end", e.target.value)}
                       type="time"
                       value={day.end}
-                      onChange={(e) => handleTimeChange(index, "end", e.target.value)}
-                      className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20 [color-scheme:light] accent-[#ff5d46]"
                     />
                   </div>
 
                   {/* Copy Button */}
                   <button
+                    className="ml-auto flex items-center gap-1 rounded-lg px-3 py-2 font-semibold text-[#7d7566] text-xs transition hover:bg-[#ebe5d8] hover:text-[#211f1a]"
                     onClick={() => handleCopyToAll(index)}
-                    className="ml-auto flex items-center gap-1 rounded-lg px-3 py-2 text-xs font-semibold text-[#7d7566] transition hover:bg-[#ebe5d8] hover:text-[#211f1a]"
                     title="Copy these hours to all days"
                   >
                     <Copy className="h-3 w-3" />
@@ -178,7 +178,7 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
 
       {/* Summary */}
       <div className="rounded-xl bg-[#fbfaf9] p-4">
-        <p className="text-sm text-[#7d7566]">
+        <p className="text-[#7d7566] text-sm">
           <strong className="text-[#211f1a]">
             {schedule.filter((d) => d.enabled).length} days
           </strong>{" "}

@@ -30,92 +30,92 @@ export function SignUpForm() {
   return (
     <form action={formAction} className="space-y-10" noValidate>
       <section className="space-y-5">
-        <label className="block text-sm font-semibold text-[#211f1a]">
+        <label className="block font-semibold text-[#211f1a] text-sm">
           {t("accountTypeLabel")}
         </label>
-        <p className="text-xs text-[#5d574b]">{t("accountTypeHelper")}</p>
+        <p className="text-[#5d574b] text-xs">{t("accountTypeHelper")}</p>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label
             className={cn(
-              "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition hover:border-[#ff5d46] focus-within:border-[#ff5d46]",
+              "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition focus-within:border-[#ff5d46] hover:border-[#ff5d46]",
               fieldError("role") &&
-                "border-red-400 hover:border-red-400 focus-within:border-red-400"
+                "border-red-400 focus-within:border-red-400 hover:border-red-400"
             )}
           >
             <span className="flex items-center gap-2 text-[#211f1a]">
               <input
-                type="radio"
-                name="role"
-                value="customer"
-                defaultChecked
                 className="h-4 w-4 accent-[#211f1a]"
+                defaultChecked
+                name="role"
+                type="radio"
+                value="customer"
               />{" "}
               {t("customerLabel")}
             </span>
-            <span className="text-sm text-[#5d574b]">{t("customerDescription")}</span>
+            <span className="text-[#5d574b] text-sm">{t("customerDescription")}</span>
           </label>
           <label
             className={cn(
-              "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition hover:border-[#ff5d46] focus-within:border-[#ff5d46]",
+              "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition focus-within:border-[#ff5d46] hover:border-[#ff5d46]",
               fieldError("role") &&
-                "border-red-400 hover:border-red-400 focus-within:border-red-400"
+                "border-red-400 focus-within:border-red-400 hover:border-red-400"
             )}
           >
             <span className="flex items-center gap-2 text-[#211f1a]">
               <input
-                type="radio"
-                name="role"
-                value="professional"
                 className="h-4 w-4 accent-[#211f1a]"
+                name="role"
+                type="radio"
+                value="professional"
               />{" "}
               {t("professionalLabel")}
             </span>
-            <span className="text-sm text-[#5d574b]">{t("professionalDescription")}</span>
+            <span className="text-[#5d574b] text-sm">{t("professionalDescription")}</span>
           </label>
         </div>
-        {fieldError("role") ? <p className="text-xs text-red-600">{fieldError("role")}</p> : null}
+        {fieldError("role") ? <p className="text-red-600 text-xs">{fieldError("role")}</p> : null}
       </section>
 
       <section className="grid gap-6 sm:grid-cols-2">
-        <Field label={t("fullNameLabel")} error={fieldError("fullName")}>
+        <Field error={fieldError("fullName")} label={t("fullNameLabel")}>
           <input
-            id="fullName"
-            name="fullName"
-            type="text"
-            required
             aria-invalid={Boolean(fieldError("fullName"))}
             className={cn(inputClass, fieldError("fullName") && errorInputClass)}
+            id="fullName"
+            name="fullName"
             placeholder={t("fullNamePlaceholder")}
+            required
+            type="text"
           />
         </Field>
-        <Field label={t("phoneLabel")} error={fieldError("phone")}>
+        <Field error={fieldError("phone")} label={t("phoneLabel")}>
           <input
-            id="phone"
-            name="phone"
-            type="tel"
-            required
             aria-invalid={Boolean(fieldError("phone"))}
             className={cn(inputClass, fieldError("phone") && errorInputClass)}
+            id="phone"
+            name="phone"
             placeholder={t("phonePlaceholder")}
+            required
+            type="tel"
           />
         </Field>
-        <Field label={t("cityLabel")} error={fieldError("city")}>
+        <Field error={fieldError("city")} label={t("cityLabel")}>
           <input
-            id="city"
-            name="city"
-            type="text"
-            required
             aria-invalid={Boolean(fieldError("city"))}
             className={cn(inputClass, fieldError("city") && errorInputClass)}
+            id="city"
+            name="city"
             placeholder={t("cityPlaceholder")}
+            required
+            type="text"
           />
         </Field>
-        <Field label={t("preferredLanguageLabel")} error={fieldError("locale")}>
+        <Field error={fieldError("locale")} label={t("preferredLanguageLabel")}>
           <select
+            className={cn(inputClass, fieldError("locale") && errorInputClass)}
+            defaultValue="en-US"
             id="locale"
             name="locale"
-            defaultValue="en-US"
-            className={cn(inputClass, fieldError("locale") && errorInputClass)}
           >
             <option value="en-US">{t("languageEnglish")}</option>
             <option value="es-CO">{t("languageSpanish")}</option>
@@ -124,23 +124,23 @@ export function SignUpForm() {
       </section>
 
       <section className="grid gap-6 sm:grid-cols-2">
-        <Field label={t("emailLabel")} error={fieldError("email")}>
+        <Field error={fieldError("email")} label={t("emailLabel")}>
           <input
+            aria-invalid={Boolean(fieldError("email"))}
+            autoComplete="email"
+            className={cn(inputClass, fieldError("email") && errorInputClass)}
             id="email"
             name="email"
-            type="email"
-            required
-            autoComplete="email"
-            aria-invalid={Boolean(fieldError("email"))}
-            className={cn(inputClass, fieldError("email") && errorInputClass)}
             placeholder={t("emailPlaceholder")}
+            required
+            type="email"
           />
         </Field>
-        <Field label={t("propertyTypeLabel")} error={fieldError("propertyType")}>
+        <Field error={fieldError("propertyType")} label={t("propertyTypeLabel")}>
           <select
+            className={cn(inputClass, fieldError("propertyType") && errorInputClass)}
             id="propertyType"
             name="propertyType"
-            className={cn(inputClass, fieldError("propertyType") && errorInputClass)}
           >
             <option value="">{t("propertyTypePlaceholder")}</option>
             {PROPERTY_TYPES.map((type) => (
@@ -153,44 +153,44 @@ export function SignUpForm() {
       </section>
 
       <section className="grid gap-6 sm:grid-cols-2">
-        <Field label={t("passwordLabel")} error={fieldError("password")}>
+        <Field error={fieldError("password")} label={t("passwordLabel")}>
           <input
-            id="password"
-            name="password"
-            type="password"
-            required
-            minLength={8}
-            autoComplete="new-password"
             aria-invalid={Boolean(fieldError("password"))}
+            autoComplete="new-password"
             className={cn(inputClass, fieldError("password") && errorInputClass)}
+            id="password"
+            minLength={8}
+            name="password"
             placeholder={t("passwordPlaceholder")}
+            required
+            type="password"
           />
         </Field>
-        <Field label={t("confirmPasswordLabel")} error={fieldError("confirmPassword")}>
+        <Field error={fieldError("confirmPassword")} label={t("confirmPasswordLabel")}>
           <input
-            id="confirmPassword"
-            name="confirmPassword"
-            type="password"
-            required
-            minLength={8}
-            autoComplete="new-password"
             aria-invalid={Boolean(fieldError("confirmPassword"))}
+            autoComplete="new-password"
             className={cn(inputClass, fieldError("confirmPassword") && errorInputClass)}
+            id="confirmPassword"
+            minLength={8}
+            name="confirmPassword"
             placeholder={t("confirmPasswordPlaceholder")}
+            required
+            type="password"
           />
         </Field>
       </section>
 
       <section className="space-y-3">
-        <label className="flex items-start gap-3 text-sm text-[#211f1a]">
+        <label className="flex items-start gap-3 text-[#211f1a] text-sm">
           <input
-            type="checkbox"
-            name="terms"
+            aria-invalid={Boolean(fieldError("terms"))}
             className={cn(
               "mt-[2px] h-4 w-4 accent-[#211f1a]",
               fieldError("terms") && "accent-red-600"
             )}
-            aria-invalid={Boolean(fieldError("terms"))}
+            name="terms"
+            type="checkbox"
           />
           <span>
             {t("termsLabel")}{" "}
@@ -203,25 +203,25 @@ export function SignUpForm() {
             {t("termsConfirm")}
           </span>
         </label>
-        {fieldError("terms") ? <p className="text-xs text-red-600">{fieldError("terms")}</p> : null}
+        {fieldError("terms") ? <p className="text-red-600 text-xs">{fieldError("terms")}</p> : null}
       </section>
 
       {state.status === "error" && state.error ? (
-        <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{state.error}</p>
+        <p className="rounded-md bg-red-50 px-3 py-2 text-red-700 text-sm">{state.error}</p>
       ) : null}
       {state.status === "success" ? (
-        <p className="rounded-md bg-green-50 px-3 py-2 text-sm text-green-700">
+        <p className="rounded-md bg-green-50 px-3 py-2 text-green-700 text-sm">
           {t("successMessage")}
         </p>
       ) : null}
 
       <button
-        type="submit"
-        disabled={isPending}
         className={cn(
-          "w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624]",
+          "w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624]",
           isPending && "cursor-not-allowed opacity-60"
         )}
+        disabled={isPending}
+        type="submit"
       >
         {isPending ? t("creatingAccountButton") : t("createAccountButton")}
       </button>
@@ -239,10 +239,10 @@ type FieldProps = {
 function Field({ label, children, helper, error }: FieldProps) {
   return (
     <div className="space-y-3">
-      <label className="block text-sm font-semibold text-[#211f1a]">{label}</label>
-      {helper ? <p className="text-xs text-[#5d574b]">{helper}</p> : null}
+      <label className="block font-semibold text-[#211f1a] text-sm">{label}</label>
+      {helper ? <p className="text-[#5d574b] text-xs">{helper}</p> : null}
       {children}
-      {error ? <p className="text-xs text-red-600">{error}</p> : null}
+      {error ? <p className="text-red-600 text-xs">{error}</p> : null}
     </div>
   );
 }

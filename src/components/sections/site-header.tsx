@@ -12,8 +12,8 @@ export async function SiteHeader() {
   return (
     <header className="bg-[#fbfaf9] py-4 text-[#211f1a]">
       <Container className="flex flex-wrap items-center justify-between gap-6">
-        <Link href="/" className="flex items-center">
-          <span className="text-xl font-semibold tracking-tight">MaidConnect</span>
+        <Link className="flex items-center" href="/">
+          <span className="font-semibold text-xl tracking-tight">MaidConnect</span>
         </Link>
         <SiteNavigation />
         <div className="flex items-center gap-3">
@@ -22,9 +22,9 @@ export async function SiteHeader() {
             <DashboardButton href={getDashboardRouteForRole(user.role)} />
           ) : (
             <Button
+              className="bg-[#211f1a] text-white hover:bg-[#2d2822]"
               href={AUTH_ROUTES.signIn}
               label="Login / Signup"
-              className="bg-[#211f1a] text-white hover:bg-[#2d2822]"
             />
           )}
         </div>

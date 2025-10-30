@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     // Parse request body
     const { endpoint, p256dh, auth, userAgent } = await request.json();
 
-    if (!endpoint || !p256dh || !auth) {
+    if (!(endpoint && p256dh && auth)) {
       return NextResponse.json(
         { error: "Missing required fields: endpoint, p256dh, auth" },
         { status: 400 }

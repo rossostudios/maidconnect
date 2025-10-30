@@ -78,7 +78,7 @@ export async function PUT(request: Request) {
 
     // Validate image structure
     for (const img of images) {
-      if (!img.id || !img.url || typeof img.order !== "number") {
+      if (!(img.id && img.url) || typeof img.order !== "number") {
         return NextResponse.json({ error: "Invalid image structure" }, { status: 400 });
       }
     }

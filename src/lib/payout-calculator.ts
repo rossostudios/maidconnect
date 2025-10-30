@@ -74,7 +74,7 @@ export function calculatePayoutFromBookings(bookings: BookingForPayout[]): Payou
 /**
  * Format amount in currency (COP by default)
  */
-export function formatPayoutAmount(amountInCents: number, currency: string = "COP"): string {
+export function formatPayoutAmount(amountInCents: number, currency = "COP"): string {
   return new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency,

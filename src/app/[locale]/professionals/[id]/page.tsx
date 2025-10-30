@@ -250,7 +250,7 @@ export default async function ProfessionalProfileRoute({ params }: RouteParams) 
   return (
     <div className="bg-[var(--background)] text-[var(--foreground)]">
       <SiteHeader />
-      <ProfessionalProfileView professional={professional} viewer={session.user} locale={locale} />
+      <ProfessionalProfileView locale={locale} professional={professional} viewer={session.user} />
       <SiteFooter />
     </div>
   );

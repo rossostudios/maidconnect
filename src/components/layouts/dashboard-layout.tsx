@@ -29,10 +29,10 @@ export function DashboardLayout({
   return (
     <div className="flex min-h-screen flex-col bg-[#fbfaf9]">
       {/* Header with logo and navigation */}
-      <header className="border-b border-[#ebe5d8] bg-white">
+      <header className="border-[#ebe5d8] border-b bg-white">
         <Container>
           <div className="flex items-center justify-between py-4">
-            <Link href="/" className="text-xl font-semibold tracking-tight text-[#211f1a]">
+            <Link className="font-semibold text-[#211f1a] text-xl tracking-tight" href="/">
               MaidConnect
             </Link>
 
@@ -42,19 +42,19 @@ export function DashboardLayout({
                 const isActive = currentPath === link.href;
                 return (
                   <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`text-sm font-medium transition ${
+                    className={`font-medium text-sm transition ${
                       isActive ? "text-[#211f1a]" : "text-[#7d7566] hover:text-[#211f1a]"
                     }`}
+                    href={link.href}
+                    key={link.href}
                   >
                     {link.label}
                   </Link>
                 );
               })}
               <Link
+                className="font-medium text-[#7d7566] text-sm transition hover:text-[#211f1a]"
                 href={dashboardHref}
-                className="text-sm font-medium text-[#7d7566] transition hover:text-[#211f1a]"
               >
                 ← Dashboard
               </Link>
@@ -71,8 +71,8 @@ export function DashboardLayout({
           <Container className="py-12">
             {title && (
               <div className="mb-8">
-                <h1 className="text-4xl font-semibold text-[#211f1a]">{title}</h1>
-                {description && <p className="mt-2 text-base text-[#5d574b]">{description}</p>}
+                <h1 className="font-semibold text-4xl text-[#211f1a]">{title}</h1>
+                {description && <p className="mt-2 text-[#5d574b] text-base">{description}</p>}
               </div>
             )}
             {children}
