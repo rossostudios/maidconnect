@@ -10,146 +10,6 @@
     "logout": "Cerrar sesión",
     "product": "Producto"
   },
-  "hero": {
-    "badge": "Personal Doméstico de Confianza · Colombia",
-    "title": "Profesionales del hogar que se sienten como familia",
-    "subtitle": "Conéctese con empleadas domésticas y cuidadores verificados en toda Colombia. Completamente examinados, integrados y listos para apoyar su estilo de vida.",
-    "findProfessional": "Encontrar un profesional",
-    "howItWorks": "Cómo funciona",
-    "becomeProfessional": "Ser profesional",
-    "learnMore": "Más información"
-  },
-  "services": {
-    "badge": "Servicios",
-    "title": "Profesionales seleccionados para cada rutina",
-    "items": {
-      "housekeeping": {
-        "title": "Servicio Doméstico y Limpieza Profunda",
-        "description": "Soluciones recurrentes o únicas adaptadas a hogares meticulosos."
-      },
-      "childcare": {
-        "title": "Apoyo Familiar y Cuidado Infantil",
-        "description": "Niñeras y cuidadores de confianza con experiencia en hogares internacionales."
-      },
-      "relocation": {
-        "title": "Preparación de Mudanza y Reubicación",
-        "description": "Configuración del día de llegada, desempaque y servicios de organización del hogar."
-      },
-      "elderCare": {
-        "title": "Cuidado de Ancianos y Bienestar",
-        "description": "Compañía, recordatorios de medicamentos y atención centrada en el bienestar."
-      },
-      "petCare": {
-        "title": "Gestión de Mascotas y Hogar",
-        "description": "Cuidadores, paseadores confiables y revisiones de propiedad mientras viaja."
-      },
-      "lifestyle": {
-        "title": "Apoyo de Estilo de Vida Personal",
-        "description": "Chefs privados, especialistas en encargos y asistentes personales bajo demanda."
-      }
-    }
-  },
-  "process": {
-    "badge": "Cómo funciona",
-    "title": "De la búsqueda al soporte en cuatro pasos simples",
-    "steps": {
-      "step1": {
-        "number": "01",
-        "title": "Comparta su perfil de hogar",
-        "description": "Complete nuestra entrada guiada detallando rutinas, preferencias, idiomas y certificaciones requeridas."
-      },
-      "step2": {
-        "number": "02",
-        "title": "Conozca profesionales seleccionados",
-        "description": "Reciba una lista corta con videos de presentación, credenciales verificadas y precios transparentes para comparar con facilidad."
-      },
-      "step3": {
-        "number": "03",
-        "title": "Reserve y confirme",
-        "description": "Programe su servicio con reserva instantánea o aprobada. Comuníquese directamente a través de mensajería segura."
-      },
-      "step4": {
-        "number": "04",
-        "title": "Califique y vuelva a reservar",
-        "description": "Comparta comentarios después de cada visita. Guarde sus favoritos y vuelva a reservar con un clic para soporte continuo."
-      }
-    }
-  },
-  "concierge": {
-    "title": "¿Listo para encontrar su pareja perfecta?",
-    "subtitle": "Programe una consulta para discutir las necesidades de su hogar. Le presentaremos profesionales verificados dentro de 48 horas.",
-    "browseProfessionals": "Explorar profesionales",
-    "bookConsultation": "Reservar una consulta",
-    "cities": "Disponible en 6 ciudades principales de Colombia",
-    "languages": "Soporte en inglés, español y portugués"
-  },
-  "features": {
-    "title": "Por qué elegir Maidconnect",
-    "verifiedProfessionals": {
-      "title": "Profesionales verificados",
-      "description": "Cada profesional se somete a verificación de antecedentes e identidad"
-    },
-    "securePayments": {
-      "title": "Pagos seguros",
-      "description": "Pague de forma segura a través de Stripe con protección de depósito en garantía hasta completar el servicio"
-    },
-    "realTimeBooking": {
-      "title": "Reserva en tiempo real",
-      "description": "Vea la disponibilidad y reserve instantáneamente o solicite aprobación para necesidades personalizadas"
-    },
-    "reviewSystem": {
-      "title": "Sistema de reseñas",
-      "description": "Las reseñas bidireccionales garantizan responsabilidad y le ayudan a tomar decisiones informadas"
-    }
-  },
-  "auth": {
-    "email": "Correo electrónico",
-    "password": "Contraseña",
-    "confirmPassword": "Confirmar contraseña",
-    "fullName": "Nombre completo",
-    "phone": "Número de teléfono",
-    "forgotPassword": "¿Olvidó su contraseña?",
-    "noAccount": "¿No tiene una cuenta?",
-    "hasAccount": "¿Ya tiene una cuenta?",
-    "signInButton": "Iniciar sesión",
-    "signUpButton": "Registrarse",
-    "userType": {
-      "title": "Soy un...",
-      "customer": "Cliente",
-      "professional": "Profesional"
-    }
-  },
-  "dashboard": {
-    "welcome": "Bienvenido de nuevo",
-    "bookings": "Reservas",
-    "messages": "Mensajes",
-    "payments": "Pagos",
-    "profile": "Perfil",
-    "settings": "Configuración",
-    "availability": "Disponibilidad",
-    "portfolio": "Portafolio",
-    "finances": "Finanzas",
-    "documents": "Documentos",
-    "addresses": "Direcciones",
-    "favorites": "Favoritos"
-  },
-  "booking": {
-    "title": "Reservar un servicio",
-    "selectDate": "Seleccionar fecha",
-    "selectTime": "Seleccionar hora",
-    "duration": "Duración",
-    "hours": "horas",
-    "addons": "Complementos",
-    "totalPrice": "Precio total",
-    "bookNow": "Reservar ahora",
-    "requestBooking": "Solicitar reserva",
-    "status": {
-      "pending": "Pendiente",
-      "confirmed": "Confirmado",
-      "completed": "Completado",
-      "cancelled": "Cancelado"
-    }
-  },
   "professionals": {
     "title": "Encuentre su profesional perfecto",
     "filterBy": "Filtrar por",
@@ -168,876 +28,23 @@
       "petcare": "Cuidado de mascotas"
     }
   },
-  "footer": {
-    "description": "Conéctese con empleadas domésticas y cuidadores verificados en toda Colombia. Completamente examinados, integrados y listos para apoyar su estilo de vida.",
-    "platform": "Plataforma",
-    "company": "Empresa",
-    "findProfessional": "Encontrar un Profesional",
-    "contact": "Contacto",
-    "services": "Servicios",
-    "loginSignup": "Iniciar sesión / Registrarse",
-    "applyProfessional": "Aplicar como Profesional",
-    "support": "Soporte",
-    "terms": "Términos",
-    "privacy": "Privacidad",
-    "cookies": "Cookies",
-    "allRightsReserved": "Todos los derechos reservados"
-  },
-  "product": {
-    "bookingPlatform": {
-      "title": "Plataforma de Reservas",
-      "description": "Programe servicios con reserva instantánea o aprobada"
+  "features": {
+    "title": "Por qué elegir Maidconnect",
+    "verifiedProfessionals": {
+      "title": "Profesionales verificados",
+      "description": "Cada profesional se somete a verificación de antecedentes e identidad"
     },
-    "professionalProfiles": {
-      "title": "Perfiles Profesionales",
-      "description": "Perfiles verificados con reseñas y portafolios"
+    "securePayments": {
+      "title": "Pagos seguros",
+      "description": "Pague de forma segura a través de Stripe con protección de depósito en garantía hasta completar el servicio"
     },
-    "secureMessaging": {
-      "title": "Mensajería Segura",
-      "description": "Comunicación directa con sus profesionales"
+    "realTimeBooking": {
+      "title": "Reserva en tiempo real",
+      "description": "Vea la disponibilidad y reserve instantáneamente o solicite aprobación para necesidades personalizadas"
     },
-    "paymentProcessing": {
-      "title": "Procesamiento de Pagos",
-      "description": "Pagos seguros y transparentes con seguimiento de recibos"
-    },
-    "reviewsRatings": {
-      "title": "Reseñas y Calificaciones",
-      "description": "Confianza y garantía de calidad impulsadas por la comunidad"
-    },
-    "adminDashboard": {
-      "title": "Panel de Administración",
-      "description": "Gestión y moderación completa de la plataforma"
-    }
-  },
-  "common": {
-    "loading": "Cargando...",
-    "save": "Guardar",
-    "cancel": "Cancelar",
-    "delete": "Eliminar",
-    "edit": "Editar",
-    "confirm": "Confirmar",
-    "back": "Atrás",
-    "next": "Siguiente",
-    "submit": "Enviar",
-    "search": "Buscar",
-    "filter": "Filtrar",
-    "sort": "Ordenar",
-    "viewMore": "Ver más",
-    "viewLess": "Ver menos",
-    "readMore": "Leer más",
-    "readLess": "Leer menos",
-    "seeAll": "Ver todo",
-    "showMore": "Mostrar más",
-    "showLess": "Mostrar menos"
-  },
-  "errors": {
-    "generic": "Algo salió mal. Por favor, inténtelo de nuevo.",
-    "notFound": "Página no encontrada",
-    "unauthorized": "Debe iniciar sesión para acceder a esta página",
-    "forbidden": "No tiene permiso para acceder a este recurso",
-    "serverError": "Error del servidor. Por favor, inténtelo más tarde.",
-    "networkError": "Error de red. Por favor, verifique su conexión."
-  },
-  "success": {
-    "saved": "Cambios guardados exitosamente",
-    "deleted": "Eliminado exitosamente",
-    "created": "Creado exitosamente",
-    "updated": "Actualizado exitosamente",
-    "bookingCreated": "Reserva creada exitosamente",
-    "messageSent": "Mensaje enviado exitosamente"
-  },
-  "pages": {
-    "bookingPlatform": {
-      "meta": {
-        "title": "Plataforma de Reservas - Programación Instantánea de Servicios | Maidconnect",
-        "description": "Programe servicios con reserva instantánea o solicite aprobación. Disponibilidad en tiempo real y filtros inteligentes hacen que encontrar la pareja perfecta sea fácil. Más de 500 reservas mensuales."
-      },
-      "hero": {
-        "headline": "Reserve profesionales de confianza en minutos",
-        "description": "Programe servicios con reserva instantánea o solicite aprobación. Disponibilidad en tiempo real y filtros inteligentes hacen que encontrar la pareja perfecta sea fácil.",
-        "primaryCTA": "Explorar Profesionales",
-        "secondaryCTA": "Más Información",
-        "badge": "Más de 500 reservas este mes"
-      },
-      "features": {
-        "title": "Potentes funciones de reserva",
-        "subtitle": "Todo lo que necesita para programar servicios de manera rápida y segura",
-        "instantBooking": {
-          "title": "Reserva Instantánea y Aprobada",
-          "description": "Reserve inmediatamente con profesionales verificados o solicite aprobación para necesidades personalizadas. Obtenga confirmación instantánea para servicios estándar."
-        },
-        "realTimeAvailability": {
-          "title": "Disponibilidad en Tiempo Real",
-          "description": "Vea los calendarios profesionales y las franjas horarias disponibles antes de reservar. Nunca pierda tiempo solicitando fechas no disponibles."
-        },
-        "smartScheduling": {
-          "title": "Programación Inteligente",
-          "description": "Configure reservas recurrentes, sincronice con su calendario y reciba recordatorios automáticos antes de cada servicio."
-        }
-      },
-      "howItWorks": {
-        "title": "Cómo funciona",
-        "description": "Cuatro pasos simples para reservar su profesional perfecto",
-        "step1": {
-          "title": "Filtrar y Buscar",
-          "description": "Filtre por tipo de servicio, fecha, ubicación y calificaciones profesionales"
-        },
-        "step2": {
-          "title": "Seleccionar Profesional",
-          "description": "Vea disponibilidad, lea reseñas y explore galerías de portafolio"
-        },
-        "step3": {
-          "title": "Confirmar Reserva",
-          "description": "Elija fecha y hora, agregue complementos de servicio y autorice el pago"
-        },
-        "step4": {
-          "title": "Recibir Recordatorios",
-          "description": "Reciba recordatorios automáticos y comuníquese a través de mensajería segura"
-        }
-      },
-      "benefits": {
-        "title": "Por qué los clientes aman nuestro sistema de reservas",
-        "noPhoneTag": {
-          "title": "No más llamadas interminables",
-          "description": "Vea la disponibilidad en tiempo real y reserve instantáneamente sin llamadas o correos electrónicos sin fin."
-        },
-        "transparentPricing": {
-          "title": "Precios transparentes",
-          "description": "Sepa exactamente lo que pagará antes de reservar. Vea tarifas por hora, costos de complementos y precio total por adelantado."
-        },
-        "flexibleScheduling": {
-          "title": "Programación flexible",
-          "description": "Reserve servicios únicos o configure citas recurrentes semanales, quincenales o mensuales con descuentos automáticos."
-        },
-        "easyRescheduling": {
-          "title": "Reprogramación fácil",
-          "description": "La vida pasa. Reprograme o cancele reservas con solo unos clics, sujeto a la política de cancelación del profesional."
-        }
-      },
-      "cta": {
-        "title": "¿Listo para reservar su primer servicio?",
-        "description": "Únase a cientos de clientes satisfechos que confían en MaidConnect para sus necesidades de servicio doméstico",
-        "browseProfessionals": "Explorar Profesionales",
-        "signUpFree": "Registrarse Gratis"
-      }
-    },
-    "professionalProfiles": {
-      "meta": {
-        "title": "Perfiles Profesionales Verificados - Verificación de Antecedentes | Maidconnect",
-        "description": "Conozca profesionales verificados con verificación de antecedentes, credenciales, reseñas de clientes y galerías de portafolio. 100% profesionales verificados en los que puede confiar en Colombia."
-      },
-      "hero": {
-        "headline": "Conozca profesionales verificados en los que puede confiar",
-        "description": "Cada perfil incluye verificación de antecedentes, credenciales verificadas, reseñas de clientes y galerías de portafolio que muestran su trabajo.",
-        "primaryCTA": "Ver Profesionales",
-        "secondaryCTA": "Más Información",
-        "badge": "100% profesionales verificados"
-      },
-      "features": {
-        "title": "Confianza integrada en cada perfil",
-        "subtitle": "Verificamos cada detalle para que pueda reservar con total confianza",
-        "verifiedCredentials": {
-          "title": "Credenciales Verificadas",
-          "description": "Verificación de antecedentes, verificación de identidad y validación de certificaciones garantizan que cada profesional cumpla con nuestros altos estándares."
-        },
-        "customerReviews": {
-          "title": "Reseñas y Calificaciones de Clientes",
-          "description": "Comentarios reales de reservas verificadas con calificaciones detalladas sobre calidad, comunicación, puntualidad y valor."
-        },
-        "portfolioGalleries": {
-          "title": "Galerías de Portafolio",
-          "description": "Fotos de antes/después y muestras de trabajo de proyectos anteriores muestran la calidad que puede esperar."
-        }
-      },
-      "howItWorks": {
-        "title": "Cómo verificamos a los profesionales",
-        "description": "Nuestro riguroso proceso de evaluación garantiza calidad y seguridad",
-        "step1": {
-          "title": "Revisión de Aplicación",
-          "description": "Revisamos cada solicitud en busca de experiencia, calificaciones y profesionalismo"
-        },
-        "step2": {
-          "title": "Verificación de Documentos",
-          "description": "Verificación de antecedentes, verificación de identificación y validación de certificaciones"
-        },
-        "step3": {
-          "title": "Evaluación de Portafolio",
-          "description": "Revisión de muestras de trabajo y proyectos anteriores para garantizar estándares de calidad"
-        },
-        "step4": {
-          "title": "Monitoreo Continuo",
-          "description": "Revisión continua de calificaciones, comentarios y calidad del servicio"
-        }
-      },
-      "profileFeatures": {
-        "title": "Lo que encontrará en cada perfil",
-        "professionalInfo": {
-          "title": "Información Profesional",
-          "items": {
-            "experience": "Años de experiencia y especializaciones",
-            "certifications": "Certificaciones y capacitación completada",
-            "services": "Servicios ofrecidos y tarifas por hora",
-            "areas": "Áreas de servicio y disponibilidad"
-          }
-        },
-        "socialProof": {
-          "title": "Prueba Social",
-          "items": {
-            "rating": "Calificación general de reservas verificadas",
-            "reviews": "Reseñas detalladas de clientes anteriores",
-            "portfolio": "Galería de portafolio con fotos de antes/después",
-            "bookings": "Total de reservas y tasa de clientes recurrentes"
-          }
-        },
-        "safetyTrust": {
-          "title": "Seguridad y Confianza",
-          "items": {
-            "backgroundCheck": "Estado y fecha de verificación de antecedentes",
-            "identity": "Insignia de verificación de identidad",
-            "insurance": "Información de seguro y fianza",
-            "verified": "Solo reseñas verificadas por la plataforma"
-          }
-        },
-        "workExamples": {
-          "title": "Ejemplos de Trabajo",
-          "items": {
-            "galleryPhotos": "Galería de portafolio con fotos reales de proyectos",
-            "beforeAfter": "Transformaciones de antes y después",
-            "serviceExamples": "Ejemplos específicos de servicio y resultados",
-            "bio": "Biografía profesional y enfoque de servicio"
-          }
-        }
-      },
-      "cta": {
-        "title": "Encuentre su pareja profesional perfecta",
-        "description": "Explore perfiles verificados, lea reseñas auténticas y reserve con confianza sabiendo que cada profesional ha sido completamente evaluado",
-        "browseProfessionals": "Explorar Profesionales",
-        "becomeProfessional": "Ser Profesional"
-      }
-    },
-    "paymentProcessing": {
-      "meta": {
-        "title": "Procesamiento de Pagos Seguros - Impulsado por Stripe | Maidconnect",
-        "description": "Pagos seguros y transparentes con Stripe. Rastree gastos, administre recibos y maneje propinas, todo en un solo lugar. Depósito en garantía seguro y pagos automáticos."
-      },
-      "hero": {
-        "headline": "Pagos seguros y transparentes en todo momento",
-        "description": "Procesamiento de pagos seguro con Stripe. Rastree gastos, administre recibos y maneje propinas, todo en un solo lugar con total transparencia.",
-        "primaryCTA": "Ver Cómo Funciona",
-        "secondaryCTA": "Reservar un Servicio",
-        "badge": "Impulsado por Stripe"
-      },
-      "features": {
-        "title": "Procesamiento de pagos en el que puede confiar",
-        "subtitle": "Seguridad de nivel empresarial con transparencia para el consumidor",
-        "stripeIntegration": {
-          "title": "Integración Segura con Stripe",
-          "description": "Seguridad de pago estándar de la industria con transacciones encriptadas. La información de su tarjeta nunca toca nuestros servidores."
-        },
-        "transparentPricing": {
-          "title": "Precios Transparentes",
-          "description": "Desglose claro de tarifas de servicio, complementos y costos totales antes del pago. Sin cargos ocultos ni tarifas sorpresa."
-        },
-        "automaticReceipts": {
-          "title": "Recibos Automáticos",
-          "description": "Recibos digitales y seguimiento de gastos para cada reserva. Perfecto para deducciones fiscales y presupuestos domésticos."
-        }
-      },
-      "howItWorks": {
-        "title": "Cómo funcionan los pagos",
-        "description": "Simple, seguro y transparente de principio a fin",
-        "step1": {
-          "title": "Revisar Precios",
-          "description": "Vea el desglose completo del servicio base, complementos y total antes de reservar"
-        },
-        "step2": {
-          "title": "Autorizar Pago",
-          "description": "La autorización de pago segura a través de Stripe retiene los fondos hasta que se complete el servicio"
-        },
-        "step3": {
-          "title": "Servicio Completado",
-          "description": "El profesional recibe el pago después de completar el servicio y registrar la salida"
-        },
-        "step4": {
-          "title": "Obtener Recibo",
-          "description": "Recibo digital automático con todos los detalles de la transacción enviado a su correo electrónico"
-        }
-      },
-      "paymentTimeline": {
-        "title": "Cronología de pagos explicada",
-        "booking": {
-          "title": "Confirmación de reserva - Retención de autorización colocada",
-          "description": "Cuando reserva, colocamos una retención de autorización temporal en su tarjeta por el monto total. Esto no es un cargo todavía, solo reserva los fondos."
-        },
-        "serviceDay": {
-          "title": "Día del servicio - El registro comienza el servicio",
-          "description": "El profesional se registra cuando llega. La retención de autorización permanece en su lugar durante el servicio. Puede rastrear el progreso del servicio en tiempo real."
-        },
-        "serviceComplete": {
-          "title": "Servicio completo - La salida captura el pago",
-          "description": "Cuando el profesional se registra de salida y marca el servicio como completo, la autorización se convierte en un cargo real. Aquí es cuando se le factura."
-        },
-        "postService": {
-          "title": "Post-servicio - Procesamiento de recibo y pago",
-          "description": "Recibe un recibo digital de inmediato. El profesional recibe su pago (menos las tarifas de la plataforma) dentro de 2-3 días hábiles."
-        }
-      },
-      "protection": {
-        "title": "Su protección de pago",
-        "chargedAfter": {
-          "title": "Solo se cobra después de completar el servicio",
-          "description": "Las retenciones de autorización no son cargos. Solo se le factura cuando el profesional marca el servicio como completo y se registra de salida."
-        },
-        "cancellation": {
-          "title": "Protecciones de cancelación",
-          "description": "Cancele antes de que cierre la ventana de cancelación y la retención se libera automáticamente. Sin cargo, sin complicaciones, sin preguntas."
-        },
-        "dispute": {
-          "title": "Soporte de resolución de disputas",
-          "description": "Si el servicio no se entregó como se prometió, comuníquese con soporte dentro de las 24 horas. Revisamos las disputas y procesamos reembolsos cuando sea apropiado."
-        },
-        "encrypted": {
-          "title": "Almacenamiento de tarjeta encriptado",
-          "description": "Su información de pago está tokenizada y encriptada por Stripe. Nunca vemos ni almacenamos los detalles completos de su tarjeta en nuestros servidores."
-        }
-      },
-      "acceptedMethods": {
-        "title": "Métodos de pago aceptados",
-        "creditCards": {
-          "title": "Tarjetas de Crédito",
-          "description": "Visa, Mastercard, American Express, Discover"
-        },
-        "debitCards": {
-          "title": "Tarjetas de Débito",
-          "description": "Todas las principales tarjetas de débito con número de tarjeta y CVV"
-        },
-        "digitalReceipts": {
-          "title": "Recibos Digitales",
-          "description": "Recibos automáticos enviados por correo electrónico para todas las transacciones"
-        }
-      },
-      "cta": {
-        "title": "¿Listo para pagos seguros y transparentes?",
-        "description": "Experimente el procesamiento de pagos sin complicaciones respaldado por la seguridad líder en la industria de Stripe",
-        "bookService": "Reserve Su Primer Servicio",
-        "signUpFree": "Registrarse Gratis"
-      }
-    },
-    "secureMessaging": {
-      "meta": {
-        "title": "Plataforma de Mensajería Segura - Comunicación Directa | Maidconnect",
-        "description": "Mensajería directa desbloqueada después de reservar. Coordine detalles, envíe fotos y manténgase conectado durante toda su relación de servicio. Seguridad basada en reservas."
-      },
-      "hero": {
-        "headline": "Comuníquese de forma segura con sus profesionales",
-        "description": "Mensajería directa desbloqueada después de reservar. Coordine detalles, envíe fotos y manténgase conectado durante toda su relación de servicio.",
-        "primaryCTA": "Reservar un Servicio",
-        "secondaryCTA": "Más Información",
-        "badge": "Seguridad basada en reservas"
-      },
-      "features": {
-        "title": "Comunicación segura y conveniente",
-        "subtitle": "Mensajería integrada que protege su privacidad mientras permite una coordinación sin problemas",
-        "bookingBased": {
-          "title": "Acceso Basado en Reservas",
-          "description": "Mensajería disponible solo para reservas confirmadas, garantizando seguridad y previniendo spam. Su información de contacto permanece privada."
-        },
-        "realTime": {
-          "title": "Conversaciones en Tiempo Real",
-          "description": "Entrega de mensajes instantánea con confirmaciones de lectura y notificaciones. Manténgase conectado desde la confirmación de la reserva hasta la finalización del servicio."
-        },
-        "photoSharing": {
-          "title": "Compartir Fotos y Archivos",
-          "description": "Comparta instrucciones, referencias y actualizaciones fácilmente. Envíe fotos de áreas que necesitan atención o solicitudes especiales."
-        }
-      },
-      "howItWorks": {
-        "title": "Cómo funciona",
-        "description": "Mensajería simple y segura vinculada a sus reservas",
-        "step1": {
-          "title": "Completar Reserva",
-          "description": "Reserve un servicio con cualquier profesional para desbloquear el acceso a mensajería"
-        },
-        "step2": {
-          "title": "Acceder al Chat",
-          "description": "Encuentre el hilo de conversación en la sección de mensajes de su panel"
-        },
-        "step3": {
-          "title": "Coordinar Detalles",
-          "description": "Discuta detalles del servicio, horarios, solicitudes especiales o instrucciones de acceso"
-        },
-        "step4": {
-          "title": "Mantenerse Conectado",
-          "description": "Mantenga el historial de comunicación como referencia durante toda su relación de servicio"
-        }
-      },
-      "benefits": {
-        "title": "Por qué nuestro sistema de mensajería es diferente",
-        "privacy": {
-          "title": "Privacidad protegida",
-          "description": "Su número de teléfono y correo electrónico permanecen privados. Toda la comunicación ocurre a través de la plataforma con historial completo de mensajes por seguridad."
-        },
-        "noSpam": {
-          "title": "Sin spam ni solicitación",
-          "description": "Solo las reservas confirmadas desbloquean la mensajería. Los profesionales no pueden contactarlo sin una reserva, eliminando mensajes no deseados."
-        },
-        "history": {
-          "title": "Historial de mensajes y recibos",
-          "description": "Todos los mensajes se guardan y vinculan a la reserva. Perfecto para hacer referencia a conversaciones e instrucciones pasadas."
-        },
-        "notifications": {
-          "title": "Notificaciones en tiempo real",
-          "description": "Reciba notificaciones instantáneas cuando los profesionales respondan. Nunca pierda actualizaciones importantes sobre su reserva."
-        }
-      },
-      "useCases": {
-        "title": "Escenarios comunes de mensajería",
-        "beforeService": {
-          "title": "Antes del servicio",
-          "items": {
-            "access": "Comparta códigos de acceso al edificio e instrucciones de estacionamiento",
-            "photos": "Envíe fotos de áreas que necesitan atención especial",
-            "timing": "Confirme la hora de llegada y cualquier cambio de último minuto",
-            "products": "Discuta productos de limpieza específicos o preferencias"
-          }
-        },
-        "duringService": {
-          "title": "Durante el servicio",
-          "items": {
-            "updates": "Obtenga actualizaciones sobre el progreso y finalización del servicio",
-            "questions": "Responda preguntas sobre áreas o artículos específicos",
-            "beforeAfter": "Reciba fotos de antes/después del trabajo completado",
-            "realTime": "Aborde cualquier problema o solicitud en tiempo real"
-          }
-        }
-      },
-      "cta": {
-        "title": "¿Listo para experimentar una comunicación sin problemas?",
-        "description": "Reserve su primer servicio y desbloquee mensajería segura con profesionales verificados",
-        "browseProfessionals": "Explorar Profesionales",
-        "signUpFree": "Registrarse Gratis"
-      }
-    },
-    "reviewsRatings": {
-      "meta": {
-        "title": "Sistema de Reseñas y Calificaciones - Responsabilidad Bidireccional | Maidconnect",
-        "description": "Confianza y calidad impulsadas por la comunidad. Las reseñas bidireccionales garantizan responsabilidad. Solo reseñas verificadas de reservas reales. Construya su reputación."
-      },
-      "hero": {
-        "headline": "Confianza y calidad impulsadas por la comunidad",
-        "description": "Las reseñas bidireccionales garantizan responsabilidad. Califique a los profesionales después de cada servicio y construya su propia reputación como cliente confiable.",
-        "primaryCTA": "Leer Reseñas",
-        "secondaryCTA": "Más Información",
-        "badge": "Solo reseñas verificadas"
-      },
-      "features": {
-        "title": "Comentarios auténticos que importan",
-        "subtitle": "Solo reservas reales, experiencias reales y responsabilidad real",
-        "verifiedBooking": {
-          "title": "Reseñas de Reservas Verificadas",
-          "description": "Solo los clientes que completaron reservas pueden dejar reseñas. Cada reseña está vinculada a un servicio real, garantizando autenticidad."
-        },
-        "twoWay": {
-          "title": "Responsabilidad Bidireccional",
-          "description": "Los profesionales también califican a los clientes, construyendo confianza y respeto mutuo. Los grandes clientes obtienen mejor servicio y reserva prioritaria."
-        },
-        "detailedCategories": {
-          "title": "Categorías de Calificación Detalladas",
-          "description": "Califique calidad, comunicación, puntualidad y valor por separado. Obtenga la imagen completa más allá de una sola calificación de estrellas."
-        }
-      },
-      "howItWorks": {
-        "title": "Cómo funcionan las reseñas",
-        "description": "Simple, justo y transparente para todos",
-        "step1": {
-          "title": "Completar Servicio",
-          "description": "Finalice una reserva y asegúrese de que se completen todos los pasos de entrada/salida"
-        },
-        "step2": {
-          "title": "Recibir Solicitud",
-          "description": "Obtenga una solicitud de reseña dentro de las 48 horas posteriores a la finalización del servicio"
-        },
-        "step3": {
-          "title": "Calificar Experiencia",
-          "description": "Califique en múltiples categorías con opciones de comentarios detalladas"
-        },
-        "step4": {
-          "title": "Construir Reputación",
-          "description": "Su reseña ayuda a otros y construye su puntaje de reputación como cliente"
-        }
-      },
-      "categories": {
-        "title": "Lo que se califica",
-        "forProfessionals": {
-          "title": "Para Profesionales",
-          "serviceQuality": "Calidad del Servicio: Minuciosidad, atención al detalle, resultados",
-          "communication": "Comunicación: Capacidad de respuesta, claridad, profesionalismo",
-          "punctuality": "Puntualidad: Llegada a tiempo, cumplimiento del horario",
-          "value": "Valor: Precio justo, vale la pena el costo"
-        },
-        "forCustomers": {
-          "title": "Para Clientes",
-          "clarity": "Claridad: Instrucciones claras, expectativas razonables",
-          "respect": "Respeto: Trato profesional, ambiente seguro",
-          "payment": "Pago: Pago oportuno, propina adecuada",
-          "communication": "Comunicación: Capacidad de respuesta, cooperación"
-        }
-      },
-      "benefits": {
-        "title": "Por qué funciona nuestro sistema de reseñas",
-        "mutualRespect": {
-          "title": "Respeto mutuo y equidad",
-          "description": "Las reseñas bidireccionales significan que tanto los clientes como los profesionales tienen responsabilidad. Esto crea un ambiente respetuoso y profesional para todos."
-        },
-        "verifiedOnly": {
-          "title": "Solo reseñas verificadas",
-          "description": "Sin reseñas falsas, sin calificaciones incentivadas. Cada reseña proviene de una reserva completada, garantizando autenticidad y confianza."
-        },
-        "accountability": {
-          "title": "Responsabilidad en toda la plataforma",
-          "description": "Los usuarios con calificaciones bajas en cualquier lado se marcan para revisión. Los problemas repetidos resultan en suspensión de cuenta, manteniendo la plataforma segura para todos."
-        },
-        "balancedFeedback": {
-          "title": "Comentarios honestos y equilibrados",
-          "description": "Las categorías detalladas previenen calificaciones injustas de un solo problema. Puede calificar la calidad del servicio altamente mientras nota que la comunicación necesita mejorar."
-        }
-      },
-      "cta": {
-        "title": "Únase a una comunidad construida sobre la confianza",
-        "description": "Comience a construir su reputación hoy. Los grandes clientes y profesionales se benefician de nuestro sistema de reseñas bidireccional.",
-        "browseProfessionals": "Explorar Profesionales",
-        "signUpFree": "Registrarse Gratis"
-      }
-    },
-    "adminDashboard": {
-      "meta": {
-        "title": "Panel de Administración - Herramientas de Gestión de Plataforma | Maidconnect",
-        "description": "Herramientas de administración de nivel empresarial para moderar profesionales, revisar reservas, procesar pagos y mantener la calidad de la plataforma. Supervisión completa."
-      },
-      "hero": {
-        "headline": "Gestión y supervisión completa de la plataforma",
-        "description": "Herramientas de administración de nivel empresarial para moderar profesionales, revisar reservas, procesar pagos y mantener la calidad de la plataforma.",
-        "primaryCTA": "Solicitar Demo",
-        "secondaryCTA": "Más Información",
-        "badge": "Solo acceso de administrador"
-      },
-      "features": {
-        "title": "Control de administración integral",
-        "subtitle": "Todo lo que necesita para administrar y moderar la plataforma",
-        "professionalModeration": {
-          "title": "Moderación Profesional",
-          "description": "Revise solicitudes, verifique credenciales, apruebe o rechace perfiles. Supervise el rendimiento continuo y maneje quejas."
-        },
-        "bookingOversight": {
-          "title": "Supervisión de Reservas",
-          "description": "Vea todas las reservas, resuelva disputas, procese reembolsos y maneje cancelaciones. Visibilidad completa de transacciones."
-        },
-        "payoutProcessing": {
-          "title": "Procesamiento de Pagos",
-          "description": "Administre pagos profesionales, revise transacciones financieras, maneje disputas y garantice el cumplimiento de las tarifas de la plataforma."
-        }
-      },
-      "howItWorks": {
-        "title": "Flujos de trabajo clave del administrador",
-        "description": "Procesos centrales para la gestión de la plataforma",
-        "step1": {
-          "title": "Incorporación Profesional",
-          "description": "Revise solicitudes, verifique documentos y apruebe nuevos profesionales que se unen a la plataforma"
-        },
-        "step2": {
-          "title": "Monitoreo de Calidad",
-          "description": "Rastree calificaciones, revise quejas e identifique profesionales o clientes que necesitan atención"
-        },
-        "step3": {
-          "title": "Gestión de Transacciones",
-          "description": "Procese pagos, maneje disputas, administre reembolsos y garantice la recolección adecuada de tarifas"
-        },
-        "step4": {
-          "title": "Salud de la Plataforma",
-          "description": "Supervise métricas, analice tendencias y mantenga la calidad general y la seguridad de la plataforma"
-        }
-      },
-      "capabilities": {
-        "title": "Capacidades del administrador",
-        "professionalManagement": "Gestión Profesional: Aprobar, suspender o prohibir cuentas profesionales",
-        "bookingReview": "Revisión de Reservas: Ver todas las transacciones y detalles del servicio",
-        "payoutControl": "Control de Pagos: Aprobar o retener pagos profesionales",
-        "disputeResolution": "Resolución de Disputas: Mediar conflictos y procesar reembolsos",
-        "userModeration": "Moderación de Usuarios: Administrar cuentas de clientes y banderas",
-        "analytics": "Panel de Análisis: Métricas de plataforma e inteligencia empresarial"
-      },
-      "security": {
-        "title": "Seguridad y control de acceso",
-        "roleBasedAccess": {
-          "title": "Control de acceso basado en roles",
-          "description": "Diferentes niveles de administrador con permisos específicos. No todos los administradores ven todo: acceso compartimentado por seguridad."
-        },
-        "auditLogs": {
-          "title": "Registro de auditoría completo",
-          "description": "Cada acción de administrador se registra con marcas de tiempo y detalles del usuario. Responsabilidad total por todos los cambios de la plataforma."
-        },
-        "dataProtection": {
-          "title": "Protección de datos y privacidad",
-          "description": "Los datos sensibles de los clientes están enmascarados. Los administradores ven solo lo necesario para su rol, protegiendo la privacidad del usuario."
-        },
-        "twoFactorAuth": {
-          "title": "Autenticación de dos factores",
-          "description": "Las cuentas de administrador requieren 2FA para iniciar sesión. Verificación adicional para acciones sensibles como pagos y prohibiciones."
-        }
-      },
-      "tools": {
-        "title": "Herramientas de administrador disponibles",
-        "professionalApproval": "Aprobación Profesional: Revisar y aprobar nuevas solicitudes",
-        "documentVerification": "Verificación de Documentos: Verificar credenciales y certificaciones",
-        "payoutQueue": "Cola de Pagos: Procesar pagos profesionales programados",
-        "userManagement": "Gestión de Usuarios: Suspender, prohibir o reinstaurar cuentas de usuario",
-        "disputeResolution": "Resolución de Disputas: Manejar quejas de clientes y solicitudes de reembolso",
-        "analytics": "Panel de Análisis: Métricas de plataforma e inteligencia empresarial"
-      },
-      "cta": {
-        "title": "Vea el panel de administración en acción",
-        "description": "Solicite una demostración para explorar nuestras herramientas integrales de gestión de plataforma y vea cómo mantenemos la calidad y la seguridad",
-        "requestDemo": "Solicitar Demo",
-        "learnMore": "Más Información"
-      }
-    }
-  },
-  "professionalsDirectory": {
-    "header": {
-      "title": "Profesionales de Maidconnect",
-      "subtitle": "Cada especialista listado a continuación ha superado el proceso de verificación de cuatro etapas de Maidconnect y está autorizado para atender clientes a través de nuestra plataforma. Estos pasos incluyen la presentación y aprobación de su cédula (documento de identidad del gobierno colombiano), prueba de elegibilidad laboral, referencias y una entrevista en persona."
-    },
-    "filters": {
-      "search": "Buscar por nombre, servicio o barrio",
-      "service": "Servicio",
-      "allServices": "Todos los servicios",
-      "city": "Ciudad",
-      "allCities": "Todas las ciudades",
-      "rating": "Calificación",
-      "allRatings": "Todas las calificaciones",
-      "rating45": "4.5+",
-      "rating48": "4.8+",
-      "availableToday": "Disponible hoy",
-      "reset": "Restablecer"
-    },
-    "results": {
-      "noResults": "Ningún profesional coincide con estos filtros aún."
-    },
-    "card": {
-      "viewProfile": "Ver perfil",
-      "hourly": "COP / hr",
-      "yearsExp": "años exp",
-      "noBio": "Este profesional está preparando su biografía pública. Vuelve pronto.",
-      "newBadge": "Nuevo en MaidConnect",
-      "flexibleServices": "Servicios flexibles",
-      "rateOnRequest": "Tarifa bajo consulta"
-    }
-  },
-  "pages": {
-    "contact": {
-      "meta": {
-        "title": "Contáctanos | MaidConnect",
-        "description": "Ponte en contacto con nuestro equipo de soporte, aprende sobre cómo convertirte en profesional o comunícate para oportunidades de asociación."
-      },
-      "hero": {
-        "badge": "CONTACTO",
-        "title": "¿Cómo podemos ayudarte?",
-        "description": "Ya sea que estés buscando contratar profesionales de confianza, interesado en unirte a nuestra red, o simplemente tengas una pregunta, nuestro equipo está aquí para ayudarte."
-      },
-      "cards": {
-        "support": {
-          "title": "Soporte",
-          "description": "Completa nuestro formulario o envíanos un correo a support@maidconnect.co con tu pregunta.",
-          "buttonText": "Enviar consulta"
-        },
-        "customers": {
-          "title": "Para clientes",
-          "description": "Explora nuestros profesionales verificados y reserva ayuda confiable para tu hogar.",
-          "buttonText": "Encontrar un profesional"
-        },
-        "professionals": {
-          "title": "Para profesionales",
-          "description": "Únete a nuestra red y conéctate con familias que buscan ayuda confiable.",
-          "buttonText": "Solicitar unirme"
-        }
-      },
-      "faq": {
-        "title": "Preguntas frecuentes",
-        "questions": {
-          "verification": {
-            "question": "¿Cómo verifica MaidConnect a los profesionales?",
-            "answer": "Todos los profesionales pasan por un proceso integral de evaluación que incluye verificación de antecedentes, verificación de referencias y evaluación de habilidades. Verificamos documentos de identidad, historial laboral y realizamos entrevistas en persona para garantizar calidad y seguridad."
-          },
-          "payments": {
-            "question": "¿Cómo funcionan los pagos?",
-            "answer": "Cuando reservas un servicio, autorizamos una retención en tu método de pago. Los fondos solo se capturan después de que se completa el servicio. Los profesionales reciben el pago dentro de 2-3 días hábiles después de completar el servicio. Todos los pagos se procesan de forma segura a través de Stripe."
-          },
-          "cancellation": {
-            "question": "¿Qué sucede si necesito cancelar?",
-            "answer": "Puedes cancelar cualquier reserva antes de la hora de inicio programada a través de tu panel. Las cancelaciones realizadas con 24+ horas de anticipación reciben un reembolso completo. Las cancelaciones dentro de las 24 horas pueden incurrir en una tarifa de cancelación para compensar al profesional por su tiempo reservado."
-          },
-          "recurring": {
-            "question": "¿Puedo reservar servicios recurrentes?",
-            "answer": "¡Sí! Durante el proceso de reserva, puedes configurar citas recurrentes semanales, quincenales o mensuales. Esto asegura que tengas ayuda consistente y construyas una relación a largo plazo con tu profesional preferido."
-          },
-          "areas": {
-            "question": "¿Qué áreas cubren?",
-            "answer": "Actualmente operamos en 6 ciudades principales de Colombia incluyendo Bogotá, Medellín, Cali, Barranquilla, Cartagena y Bucaramanga. Estamos expandiéndonos activamente a nuevas áreas según la demanda."
-          },
-          "becomePro": {
-            "question": "¿Cómo me convierto en profesional en MaidConnect?",
-            "answer": "Haz clic en 'Solicitar unirme' y completa nuestro formulario de solicitud. Revisaremos tu información, realizaremos una verificación de antecedentes y programaremos una entrevista. Una vez aprobado, completarás la incorporación y podrás comenzar a aceptar reservas. El proceso completo generalmente toma de 5 a 7 días hábiles."
-          }
-        }
-      }
-    },
-    "signIn": {
-      "meta": {
-        "title": "Iniciar sesión | MaidConnect"
-      },
-      "header": {
-        "createAccount": "Crear cuenta"
-      },
-      "hero": {
-        "title": "Bienvenido de nuevo",
-        "description": "Inicia sesión para gestionar tus reservas, documentos y pagos en un solo espacio."
-      },
-      "form": {
-        "emailLabel": "Correo electrónico",
-        "emailPlaceholder": "tu@ejemplo.com",
-        "passwordLabel": "Contraseña",
-        "passwordPlaceholder": "••••••••",
-        "signInButton": "Iniciar sesión",
-        "signingInButton": "Iniciando sesión…",
-        "needAccount": "¿Necesitas una cuenta?",
-        "createOneNow": "Crear una ahora"
-      },
-      "footer": {
-        "support": "El soporte de conserjería está disponible 7 días a la semana para asistencia con la incorporación."
-      },
-      "sidebar": {
-        "imageAlt": "Hospitalidad MaidConnect",
-        "badge": "Talento doméstico de confianza",
-        "title": "Profesionales meticulosos seleccionados para hogares de expatriados.",
-        "description": "Nuestro equipo bilingüe de conserjería verifica cada perfil con entrevistas, visitas de prueba y controles de calidad continuos."
-      }
-    },
-    "signUp": {
-      "meta": {
-        "title": "Crear cuenta | MaidConnect"
-      },
-      "header": {
-        "signIn": "Iniciar sesión"
-      },
-      "hero": {
-        "title": "Crea tu cuenta de MaidConnect",
-        "description": "Cuéntanos cómo planeas usar la plataforma y adaptaremos la experiencia para hogares o profesionales."
-      },
-      "form": {
-        "accountTypeLabel": "Tipo de cuenta",
-        "accountTypeHelper": "Elige la experiencia que mejor se adapte a cómo planeas usar MaidConnect.",
-        "customerLabel": "Cliente",
-        "customerDescription": "Reserva profesionales pre-verificados para tu hogar.",
-        "professionalLabel": "Profesional",
-        "professionalDescription": "Gestiona tu perfil, reservas y pagos.",
-        "fullNameLabel": "Nombre completo",
-        "fullNamePlaceholder": "Andrea Martínez",
-        "phoneLabel": "Teléfono",
-        "phonePlaceholder": "+57 300 123 4567",
-        "cityLabel": "Ciudad",
-        "cityPlaceholder": "Medellín",
-        "preferredLanguageLabel": "Idioma preferido",
-        "languageEnglish": "English",
-        "languageSpanish": "Español (Colombia)",
-        "emailLabel": "Correo electrónico",
-        "emailPlaceholder": "tu@ejemplo.com",
-        "propertyTypeLabel": "Tipo de propiedad",
-        "propertyTypePlaceholder": "Selecciona un tipo de propiedad",
-        "propertyApartment": "Apartamento",
-        "propertyHouse": "Casa",
-        "propertyOffice": "Oficina",
-        "propertyOther": "Otro",
-        "passwordLabel": "Contraseña",
-        "passwordPlaceholder": "Crea una contraseña",
-        "confirmPasswordLabel": "Confirmar contraseña",
-        "confirmPasswordPlaceholder": "Repite la contraseña",
-        "termsLabel": "Acepto los",
-        "termsLink": "términos de servicio",
-        "termsConfirm": "de MaidConnect y confirmo que entiendo las pautas de respeto mutuo.",
-        "successMessage": "Cuenta creada. Por favor revisa tu correo electrónico para verificar y finalizar el inicio de sesión.",
-        "createAccountButton": "Crear cuenta",
-        "creatingAccountButton": "Creando cuenta…",
-        "haveAccount": "¿Ya tienes una cuenta?",
-        "signInInstead": "Iniciar sesión"
-      },
-      "footer": {
-        "support": "Te guiaremos con incorporación de conserjería después de enviar tus detalles."
-      },
-      "sidebar": {
-        "imageAlt": "Incorporación MaidConnect",
-        "badge": "Incorporación de conserjería",
-        "title": "Entrevistamos, verificamos antecedentes y capacitamos a cada profesional.",
-        "description": "Construye confianza desde la primera visita con incorporación estructurada, manuales del hogar y soporte receptivo."
-      }
-    },
-    "terms": {
-      "meta": {
-        "title": "Términos de Servicio - MaidConnect",
-        "description": "Términos de servicio y acuerdo de usuario de MaidConnect"
-      },
-      "title": "Términos de Servicio",
-      "lastUpdated": "Última actualización: {date}"
-    },
-    "privacy": {
-      "meta": {
-        "title": "Política de Privacidad - MaidConnect",
-        "description": "Política de privacidad y prácticas de protección de datos de MaidConnect"
-      },
-      "title": "Política de Privacidad",
-      "lastUpdated": "Última actualización: {date}"
-    },
-    "professionalProfile": {
-      "meta": {
-        "notFoundTitle": "Profesional no encontrado · MaidConnect",
-        "defaultName": "Profesional de MaidConnect",
-        "descriptionTemplate": "Ver el perfil de MaidConnect de {name}{service}{location}."
-      },
-      "backToDirectory": "← Volver al directorio",
-      "availableForBookings": "Disponible para reservas",
-      "perHour": "/ hr",
-      "yearsExperience": "años exp",
-      "reviews": "reseñas",
-      "availableToday": "Disponible hoy",
-      "bookingSection": {
-        "title": "Reservar una cita",
-        "description": "Elige una fecha para ver los horarios disponibles y solicitar una reserva"
-      },
-      "tabs": {
-        "about": "Acerca de",
-        "services": "Servicios",
-        "portfolio": "Portafolio",
-        "reviews": "Reseñas"
-      },
-      "aboutTab": {
-        "title": "Acerca de",
-        "defaultBio": "Este profesional está finalizando su biografía pública. Comunícate con una solicitud de reserva para conocer más sobre su experiencia."
-      },
-      "servicesTab": {
-        "title": "Servicios y tarifas",
-        "serviceLabel": "Servicio",
-        "rateOnRequest": "Tarifa bajo consulta",
-        "noServicesMessage": "Los servicios se están finalizando. Envía una solicitud de reserva con los detalles que necesitas y confirmaremos el precio."
-      },
-      "portfolioTab": {
-        "title": "Portafolio",
-        "imageAlt": "Imagen de portafolio",
-        "noImages": "Aún no hay imágenes de portafolio"
-      },
-      "reviewsTab": {
-        "title": "Reseñas",
-        "moreReviews": "+ {count} reseñas más",
-        "noReviews": "Aún no hay reseñas"
-      }
+    "reviewSystem": {
+      "title": "Sistema de reseñas",
+      "description": "Las reseñas bidireccionales garantizan responsabilidad y le ayudan a tomar decisiones informadas"
     }
   },
   "dashboard": {
@@ -1958,6 +965,983 @@
       "messagesPage": {
         "description": "Chatea con profesionales sobre tus reservas y detalles del servicio."
       }
+    }
+  },
+  "product": {
+    "bookingPlatform": {
+      "title": "Plataforma de Reservas",
+      "description": "Programe servicios con reserva instantánea o aprobada"
+    },
+    "professionalProfiles": {
+      "title": "Perfiles Profesionales",
+      "description": "Perfiles verificados con reseñas y portafolios"
+    },
+    "secureMessaging": {
+      "title": "Mensajería Segura",
+      "description": "Comunicación directa con sus profesionales"
+    },
+    "paymentProcessing": {
+      "title": "Procesamiento de Pagos",
+      "description": "Pagos seguros y transparentes con seguimiento de recibos"
+    },
+    "reviewsRatings": {
+      "title": "Reseñas y Calificaciones",
+      "description": "Confianza y garantía de calidad impulsadas por la comunidad"
+    },
+    "adminDashboard": {
+      "title": "Panel de Administración",
+      "description": "Gestión y moderación completa de la plataforma"
+    }
+  },
+  "hero": {
+    "badge": "Personal Doméstico de Confianza · Colombia",
+    "title": "Profesionales del hogar que se sienten como familia",
+    "subtitle": "Conéctese con empleadas domésticas y cuidadores verificados en toda Colombia. Completamente examinados, integrados y listos para apoyar su estilo de vida.",
+    "findProfessional": "Encontrar un profesional",
+    "howItWorks": "Cómo funciona",
+    "becomeProfessional": "Ser profesional",
+    "learnMore": "Más información"
+  },
+  "services": {
+    "badge": "Servicios",
+    "title": "Profesionales seleccionados para cada rutina",
+    "items": {
+      "housekeeping": {
+        "title": "Servicio Doméstico y Limpieza Profunda",
+        "description": "Soluciones recurrentes o únicas adaptadas a hogares meticulosos."
+      },
+      "childcare": {
+        "title": "Apoyo Familiar y Cuidado Infantil",
+        "description": "Niñeras y cuidadores de confianza con experiencia en hogares internacionales."
+      },
+      "relocation": {
+        "title": "Preparación de Mudanza y Reubicación",
+        "description": "Configuración del día de llegada, desempaque y servicios de organización del hogar."
+      },
+      "elderCare": {
+        "title": "Cuidado de Ancianos y Bienestar",
+        "description": "Compañía, recordatorios de medicamentos y atención centrada en el bienestar."
+      },
+      "petCare": {
+        "title": "Gestión de Mascotas y Hogar",
+        "description": "Cuidadores, paseadores confiables y revisiones de propiedad mientras viaja."
+      },
+      "lifestyle": {
+        "title": "Apoyo de Estilo de Vida Personal",
+        "description": "Chefs privados, especialistas en encargos y asistentes personales bajo demanda."
+      }
+    }
+  },
+  "process": {
+    "badge": "Cómo funciona",
+    "title": "De la búsqueda al soporte en cuatro pasos simples",
+    "steps": {
+      "step1": {
+        "number": "01",
+        "title": "Comparta su perfil de hogar",
+        "description": "Complete nuestra entrada guiada detallando rutinas, preferencias, idiomas y certificaciones requeridas."
+      },
+      "step2": {
+        "number": "02",
+        "title": "Conozca profesionales seleccionados",
+        "description": "Reciba una lista corta con videos de presentación, credenciales verificadas y precios transparentes para comparar con facilidad."
+      },
+      "step3": {
+        "number": "03",
+        "title": "Reserve y confirme",
+        "description": "Programe su servicio con reserva instantánea o aprobada. Comuníquese directamente a través de mensajería segura."
+      },
+      "step4": {
+        "number": "04",
+        "title": "Califique y vuelva a reservar",
+        "description": "Comparta comentarios después de cada visita. Guarde sus favoritos y vuelva a reservar con un clic para soporte continuo."
+      }
+    }
+  },
+  "concierge": {
+    "title": "¿Listo para encontrar su pareja perfecta?",
+    "subtitle": "Programe una consulta para discutir las necesidades de su hogar. Le presentaremos profesionales verificados dentro de 48 horas.",
+    "browseProfessionals": "Explorar profesionales",
+    "bookConsultation": "Reservar una consulta",
+    "cities": "Disponible en 6 ciudades principales de Colombia",
+    "languages": "Soporte en inglés, español y portugués"
+  },
+  "auth": {
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "fullName": "Nombre completo",
+    "phone": "Número de teléfono",
+    "forgotPassword": "¿Olvidó su contraseña?",
+    "noAccount": "¿No tiene una cuenta?",
+    "hasAccount": "¿Ya tiene una cuenta?",
+    "signInButton": "Iniciar sesión",
+    "signUpButton": "Registrarse",
+    "userType": {
+      "title": "Soy un...",
+      "customer": "Cliente",
+      "professional": "Profesional"
+    }
+  },
+  "booking": {
+    "title": "Reservar un servicio",
+    "selectDate": "Seleccionar fecha",
+    "selectTime": "Seleccionar hora",
+    "duration": "Duración",
+    "hours": "horas",
+    "addons": "Complementos",
+    "totalPrice": "Precio total",
+    "bookNow": "Reservar ahora",
+    "requestBooking": "Solicitar reserva",
+    "status": {
+      "pending": "Pendiente",
+      "confirmed": "Confirmado",
+      "completed": "Completado",
+      "cancelled": "Cancelado"
+    }
+  },
+  "footer": {
+    "description": "Conéctese con empleadas domésticas y cuidadores verificados en toda Colombia. Completamente examinados, integrados y listos para apoyar su estilo de vida.",
+    "platform": "Plataforma",
+    "company": "Empresa",
+    "findProfessional": "Encontrar un Profesional",
+    "contact": "Contacto",
+    "services": "Servicios",
+    "loginSignup": "Iniciar sesión / Registrarse",
+    "applyProfessional": "Aplicar como Profesional",
+    "support": "Soporte",
+    "terms": "Términos",
+    "privacy": "Privacidad",
+    "cookies": "Cookies",
+    "allRightsReserved": "Todos los derechos reservados"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "confirm": "Confirmar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "submit": "Enviar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "viewMore": "Ver más",
+    "viewLess": "Ver menos",
+    "readMore": "Leer más",
+    "readLess": "Leer menos",
+    "seeAll": "Ver todo",
+    "showMore": "Mostrar más",
+    "showLess": "Mostrar menos"
+  },
+  "errors": {
+    "generic": "Algo salió mal. Por favor, inténtelo de nuevo.",
+    "notFound": "Página no encontrada",
+    "unauthorized": "Debe iniciar sesión para acceder a esta página",
+    "forbidden": "No tiene permiso para acceder a este recurso",
+    "serverError": "Error del servidor. Por favor, inténtelo más tarde.",
+    "networkError": "Error de red. Por favor, verifique su conexión."
+  },
+  "success": {
+    "saved": "Cambios guardados exitosamente",
+    "deleted": "Eliminado exitosamente",
+    "created": "Creado exitosamente",
+    "updated": "Actualizado exitosamente",
+    "bookingCreated": "Reserva creada exitosamente",
+    "messageSent": "Mensaje enviado exitosamente"
+  },
+  "pages": {
+    "bookingPlatform": {
+      "meta": {
+        "title": "Plataforma de Reservas - Programación Instantánea de Servicios | Maidconnect",
+        "description": "Programe servicios con reserva instantánea o solicite aprobación. Disponibilidad en tiempo real y filtros inteligentes hacen que encontrar la pareja perfecta sea fácil. Más de 500 reservas mensuales."
+      },
+      "hero": {
+        "headline": "Reserve profesionales de confianza en minutos",
+        "description": "Programe servicios con reserva instantánea o solicite aprobación. Disponibilidad en tiempo real y filtros inteligentes hacen que encontrar la pareja perfecta sea fácil.",
+        "primaryCTA": "Explorar Profesionales",
+        "secondaryCTA": "Más Información",
+        "badge": "Más de 500 reservas este mes"
+      },
+      "features": {
+        "title": "Potentes funciones de reserva",
+        "subtitle": "Todo lo que necesita para programar servicios de manera rápida y segura",
+        "instantBooking": {
+          "title": "Reserva Instantánea y Aprobada",
+          "description": "Reserve inmediatamente con profesionales verificados o solicite aprobación para necesidades personalizadas. Obtenga confirmación instantánea para servicios estándar."
+        },
+        "realTimeAvailability": {
+          "title": "Disponibilidad en Tiempo Real",
+          "description": "Vea los calendarios profesionales y las franjas horarias disponibles antes de reservar. Nunca pierda tiempo solicitando fechas no disponibles."
+        },
+        "smartScheduling": {
+          "title": "Programación Inteligente",
+          "description": "Configure reservas recurrentes, sincronice con su calendario y reciba recordatorios automáticos antes de cada servicio."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo funciona",
+        "description": "Cuatro pasos simples para reservar su profesional perfecto",
+        "step1": {
+          "title": "Filtrar y Buscar",
+          "description": "Filtre por tipo de servicio, fecha, ubicación y calificaciones profesionales"
+        },
+        "step2": {
+          "title": "Seleccionar Profesional",
+          "description": "Vea disponibilidad, lea reseñas y explore galerías de portafolio"
+        },
+        "step3": {
+          "title": "Confirmar Reserva",
+          "description": "Elija fecha y hora, agregue complementos de servicio y autorice el pago"
+        },
+        "step4": {
+          "title": "Recibir Recordatorios",
+          "description": "Reciba recordatorios automáticos y comuníquese a través de mensajería segura"
+        }
+      },
+      "benefits": {
+        "title": "Por qué los clientes aman nuestro sistema de reservas",
+        "noPhoneTag": {
+          "title": "No más llamadas interminables",
+          "description": "Vea la disponibilidad en tiempo real y reserve instantáneamente sin llamadas o correos electrónicos sin fin."
+        },
+        "transparentPricing": {
+          "title": "Precios transparentes",
+          "description": "Sepa exactamente lo que pagará antes de reservar. Vea tarifas por hora, costos de complementos y precio total por adelantado."
+        },
+        "flexibleScheduling": {
+          "title": "Programación flexible",
+          "description": "Reserve servicios únicos o configure citas recurrentes semanales, quincenales o mensuales con descuentos automáticos."
+        },
+        "easyRescheduling": {
+          "title": "Reprogramación fácil",
+          "description": "La vida pasa. Reprograme o cancele reservas con solo unos clics, sujeto a la política de cancelación del profesional."
+        }
+      },
+      "cta": {
+        "title": "¿Listo para reservar su primer servicio?",
+        "description": "Únase a cientos de clientes satisfechos que confían en MaidConnect para sus necesidades de servicio doméstico",
+        "browseProfessionals": "Explorar Profesionales",
+        "signUpFree": "Registrarse Gratis"
+      }
+    },
+    "professionalProfiles": {
+      "meta": {
+        "title": "Perfiles Profesionales Verificados - Verificación de Antecedentes | Maidconnect",
+        "description": "Conozca profesionales verificados con verificación de antecedentes, credenciales, reseñas de clientes y galerías de portafolio. 100% profesionales verificados en los que puede confiar en Colombia."
+      },
+      "hero": {
+        "headline": "Conozca profesionales verificados en los que puede confiar",
+        "description": "Cada perfil incluye verificación de antecedentes, credenciales verificadas, reseñas de clientes y galerías de portafolio que muestran su trabajo.",
+        "primaryCTA": "Ver Profesionales",
+        "secondaryCTA": "Más Información",
+        "badge": "100% profesionales verificados"
+      },
+      "features": {
+        "title": "Confianza integrada en cada perfil",
+        "subtitle": "Verificamos cada detalle para que pueda reservar con total confianza",
+        "verifiedCredentials": {
+          "title": "Credenciales Verificadas",
+          "description": "Verificación de antecedentes, verificación de identidad y validación de certificaciones garantizan que cada profesional cumpla con nuestros altos estándares."
+        },
+        "customerReviews": {
+          "title": "Reseñas y Calificaciones de Clientes",
+          "description": "Comentarios reales de reservas verificadas con calificaciones detalladas sobre calidad, comunicación, puntualidad y valor."
+        },
+        "portfolioGalleries": {
+          "title": "Galerías de Portafolio",
+          "description": "Fotos de antes/después y muestras de trabajo de proyectos anteriores muestran la calidad que puede esperar."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo verificamos a los profesionales",
+        "description": "Nuestro riguroso proceso de evaluación garantiza calidad y seguridad",
+        "step1": {
+          "title": "Revisión de Aplicación",
+          "description": "Revisamos cada solicitud en busca de experiencia, calificaciones y profesionalismo"
+        },
+        "step2": {
+          "title": "Verificación de Documentos",
+          "description": "Verificación de antecedentes, verificación de identificación y validación de certificaciones"
+        },
+        "step3": {
+          "title": "Evaluación de Portafolio",
+          "description": "Revisión de muestras de trabajo y proyectos anteriores para garantizar estándares de calidad"
+        },
+        "step4": {
+          "title": "Monitoreo Continuo",
+          "description": "Revisión continua de calificaciones, comentarios y calidad del servicio"
+        }
+      },
+      "profileFeatures": {
+        "title": "Lo que encontrará en cada perfil",
+        "professionalInfo": {
+          "title": "Información Profesional",
+          "items": {
+            "experience": "Años de experiencia y especializaciones",
+            "certifications": "Certificaciones y capacitación completada",
+            "services": "Servicios ofrecidos y tarifas por hora",
+            "areas": "Áreas de servicio y disponibilidad"
+          }
+        },
+        "socialProof": {
+          "title": "Prueba Social",
+          "items": {
+            "rating": "Calificación general de reservas verificadas",
+            "reviews": "Reseñas detalladas de clientes anteriores",
+            "portfolio": "Galería de portafolio con fotos de antes/después",
+            "bookings": "Total de reservas y tasa de clientes recurrentes"
+          }
+        },
+        "safetyTrust": {
+          "title": "Seguridad y Confianza",
+          "items": {
+            "backgroundCheck": "Estado y fecha de verificación de antecedentes",
+            "identity": "Insignia de verificación de identidad",
+            "insurance": "Información de seguro y fianza",
+            "verified": "Solo reseñas verificadas por la plataforma"
+          }
+        },
+        "workExamples": {
+          "title": "Ejemplos de Trabajo",
+          "items": {
+            "galleryPhotos": "Galería de portafolio con fotos reales de proyectos",
+            "beforeAfter": "Transformaciones de antes y después",
+            "serviceExamples": "Ejemplos específicos de servicio y resultados",
+            "bio": "Biografía profesional y enfoque de servicio"
+          }
+        }
+      },
+      "cta": {
+        "title": "Encuentre su pareja profesional perfecta",
+        "description": "Explore perfiles verificados, lea reseñas auténticas y reserve con confianza sabiendo que cada profesional ha sido completamente evaluado",
+        "browseProfessionals": "Explorar Profesionales",
+        "becomeProfessional": "Ser Profesional"
+      }
+    },
+    "paymentProcessing": {
+      "meta": {
+        "title": "Procesamiento de Pagos Seguros - Impulsado por Stripe | Maidconnect",
+        "description": "Pagos seguros y transparentes con Stripe. Rastree gastos, administre recibos y maneje propinas, todo en un solo lugar. Depósito en garantía seguro y pagos automáticos."
+      },
+      "hero": {
+        "headline": "Pagos seguros y transparentes en todo momento",
+        "description": "Procesamiento de pagos seguro con Stripe. Rastree gastos, administre recibos y maneje propinas, todo en un solo lugar con total transparencia.",
+        "primaryCTA": "Ver Cómo Funciona",
+        "secondaryCTA": "Reservar un Servicio",
+        "badge": "Impulsado por Stripe"
+      },
+      "features": {
+        "title": "Procesamiento de pagos en el que puede confiar",
+        "subtitle": "Seguridad de nivel empresarial con transparencia para el consumidor",
+        "stripeIntegration": {
+          "title": "Integración Segura con Stripe",
+          "description": "Seguridad de pago estándar de la industria con transacciones encriptadas. La información de su tarjeta nunca toca nuestros servidores."
+        },
+        "transparentPricing": {
+          "title": "Precios Transparentes",
+          "description": "Desglose claro de tarifas de servicio, complementos y costos totales antes del pago. Sin cargos ocultos ni tarifas sorpresa."
+        },
+        "automaticReceipts": {
+          "title": "Recibos Automáticos",
+          "description": "Recibos digitales y seguimiento de gastos para cada reserva. Perfecto para deducciones fiscales y presupuestos domésticos."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo funcionan los pagos",
+        "description": "Simple, seguro y transparente de principio a fin",
+        "step1": {
+          "title": "Revisar Precios",
+          "description": "Vea el desglose completo del servicio base, complementos y total antes de reservar"
+        },
+        "step2": {
+          "title": "Autorizar Pago",
+          "description": "La autorización de pago segura a través de Stripe retiene los fondos hasta que se complete el servicio"
+        },
+        "step3": {
+          "title": "Servicio Completado",
+          "description": "El profesional recibe el pago después de completar el servicio y registrar la salida"
+        },
+        "step4": {
+          "title": "Obtener Recibo",
+          "description": "Recibo digital automático con todos los detalles de la transacción enviado a su correo electrónico"
+        }
+      },
+      "paymentTimeline": {
+        "title": "Cronología de pagos explicada",
+        "booking": {
+          "title": "Confirmación de reserva - Retención de autorización colocada",
+          "description": "Cuando reserva, colocamos una retención de autorización temporal en su tarjeta por el monto total. Esto no es un cargo todavía, solo reserva los fondos."
+        },
+        "serviceDay": {
+          "title": "Día del servicio - El registro comienza el servicio",
+          "description": "El profesional se registra cuando llega. La retención de autorización permanece en su lugar durante el servicio. Puede rastrear el progreso del servicio en tiempo real."
+        },
+        "serviceComplete": {
+          "title": "Servicio completo - La salida captura el pago",
+          "description": "Cuando el profesional se registra de salida y marca el servicio como completo, la autorización se convierte en un cargo real. Aquí es cuando se le factura."
+        },
+        "postService": {
+          "title": "Post-servicio - Procesamiento de recibo y pago",
+          "description": "Recibe un recibo digital de inmediato. El profesional recibe su pago (menos las tarifas de la plataforma) dentro de 2-3 días hábiles."
+        }
+      },
+      "protection": {
+        "title": "Su protección de pago",
+        "chargedAfter": {
+          "title": "Solo se cobra después de completar el servicio",
+          "description": "Las retenciones de autorización no son cargos. Solo se le factura cuando el profesional marca el servicio como completo y se registra de salida."
+        },
+        "cancellation": {
+          "title": "Protecciones de cancelación",
+          "description": "Cancele antes de que cierre la ventana de cancelación y la retención se libera automáticamente. Sin cargo, sin complicaciones, sin preguntas."
+        },
+        "dispute": {
+          "title": "Soporte de resolución de disputas",
+          "description": "Si el servicio no se entregó como se prometió, comuníquese con soporte dentro de las 24 horas. Revisamos las disputas y procesamos reembolsos cuando sea apropiado."
+        },
+        "encrypted": {
+          "title": "Almacenamiento de tarjeta encriptado",
+          "description": "Su información de pago está tokenizada y encriptada por Stripe. Nunca vemos ni almacenamos los detalles completos de su tarjeta en nuestros servidores."
+        }
+      },
+      "acceptedMethods": {
+        "title": "Métodos de pago aceptados",
+        "creditCards": {
+          "title": "Tarjetas de Crédito",
+          "description": "Visa, Mastercard, American Express, Discover"
+        },
+        "debitCards": {
+          "title": "Tarjetas de Débito",
+          "description": "Todas las principales tarjetas de débito con número de tarjeta y CVV"
+        },
+        "digitalReceipts": {
+          "title": "Recibos Digitales",
+          "description": "Recibos automáticos enviados por correo electrónico para todas las transacciones"
+        }
+      },
+      "cta": {
+        "title": "¿Listo para pagos seguros y transparentes?",
+        "description": "Experimente el procesamiento de pagos sin complicaciones respaldado por la seguridad líder en la industria de Stripe",
+        "bookService": "Reserve Su Primer Servicio",
+        "signUpFree": "Registrarse Gratis"
+      }
+    },
+    "secureMessaging": {
+      "meta": {
+        "title": "Plataforma de Mensajería Segura - Comunicación Directa | Maidconnect",
+        "description": "Mensajería directa desbloqueada después de reservar. Coordine detalles, envíe fotos y manténgase conectado durante toda su relación de servicio. Seguridad basada en reservas."
+      },
+      "hero": {
+        "headline": "Comuníquese de forma segura con sus profesionales",
+        "description": "Mensajería directa desbloqueada después de reservar. Coordine detalles, envíe fotos y manténgase conectado durante toda su relación de servicio.",
+        "primaryCTA": "Reservar un Servicio",
+        "secondaryCTA": "Más Información",
+        "badge": "Seguridad basada en reservas"
+      },
+      "features": {
+        "title": "Comunicación segura y conveniente",
+        "subtitle": "Mensajería integrada que protege su privacidad mientras permite una coordinación sin problemas",
+        "bookingBased": {
+          "title": "Acceso Basado en Reservas",
+          "description": "Mensajería disponible solo para reservas confirmadas, garantizando seguridad y previniendo spam. Su información de contacto permanece privada."
+        },
+        "realTime": {
+          "title": "Conversaciones en Tiempo Real",
+          "description": "Entrega de mensajes instantánea con confirmaciones de lectura y notificaciones. Manténgase conectado desde la confirmación de la reserva hasta la finalización del servicio."
+        },
+        "photoSharing": {
+          "title": "Compartir Fotos y Archivos",
+          "description": "Comparta instrucciones, referencias y actualizaciones fácilmente. Envíe fotos de áreas que necesitan atención o solicitudes especiales."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo funciona",
+        "description": "Mensajería simple y segura vinculada a sus reservas",
+        "step1": {
+          "title": "Completar Reserva",
+          "description": "Reserve un servicio con cualquier profesional para desbloquear el acceso a mensajería"
+        },
+        "step2": {
+          "title": "Acceder al Chat",
+          "description": "Encuentre el hilo de conversación en la sección de mensajes de su panel"
+        },
+        "step3": {
+          "title": "Coordinar Detalles",
+          "description": "Discuta detalles del servicio, horarios, solicitudes especiales o instrucciones de acceso"
+        },
+        "step4": {
+          "title": "Mantenerse Conectado",
+          "description": "Mantenga el historial de comunicación como referencia durante toda su relación de servicio"
+        }
+      },
+      "benefits": {
+        "title": "Por qué nuestro sistema de mensajería es diferente",
+        "privacy": {
+          "title": "Privacidad protegida",
+          "description": "Su número de teléfono y correo electrónico permanecen privados. Toda la comunicación ocurre a través de la plataforma con historial completo de mensajes por seguridad."
+        },
+        "noSpam": {
+          "title": "Sin spam ni solicitación",
+          "description": "Solo las reservas confirmadas desbloquean la mensajería. Los profesionales no pueden contactarlo sin una reserva, eliminando mensajes no deseados."
+        },
+        "history": {
+          "title": "Historial de mensajes y recibos",
+          "description": "Todos los mensajes se guardan y vinculan a la reserva. Perfecto para hacer referencia a conversaciones e instrucciones pasadas."
+        },
+        "notifications": {
+          "title": "Notificaciones en tiempo real",
+          "description": "Reciba notificaciones instantáneas cuando los profesionales respondan. Nunca pierda actualizaciones importantes sobre su reserva."
+        }
+      },
+      "useCases": {
+        "title": "Escenarios comunes de mensajería",
+        "beforeService": {
+          "title": "Antes del servicio",
+          "items": {
+            "access": "Comparta códigos de acceso al edificio e instrucciones de estacionamiento",
+            "photos": "Envíe fotos de áreas que necesitan atención especial",
+            "timing": "Confirme la hora de llegada y cualquier cambio de último minuto",
+            "products": "Discuta productos de limpieza específicos o preferencias"
+          }
+        },
+        "duringService": {
+          "title": "Durante el servicio",
+          "items": {
+            "updates": "Obtenga actualizaciones sobre el progreso y finalización del servicio",
+            "questions": "Responda preguntas sobre áreas o artículos específicos",
+            "beforeAfter": "Reciba fotos de antes/después del trabajo completado",
+            "realTime": "Aborde cualquier problema o solicitud en tiempo real"
+          }
+        }
+      },
+      "cta": {
+        "title": "¿Listo para experimentar una comunicación sin problemas?",
+        "description": "Reserve su primer servicio y desbloquee mensajería segura con profesionales verificados",
+        "browseProfessionals": "Explorar Profesionales",
+        "signUpFree": "Registrarse Gratis"
+      }
+    },
+    "reviewsRatings": {
+      "meta": {
+        "title": "Sistema de Reseñas y Calificaciones - Responsabilidad Bidireccional | Maidconnect",
+        "description": "Confianza y calidad impulsadas por la comunidad. Las reseñas bidireccionales garantizan responsabilidad. Solo reseñas verificadas de reservas reales. Construya su reputación."
+      },
+      "hero": {
+        "headline": "Confianza y calidad impulsadas por la comunidad",
+        "description": "Las reseñas bidireccionales garantizan responsabilidad. Califique a los profesionales después de cada servicio y construya su propia reputación como cliente confiable.",
+        "primaryCTA": "Leer Reseñas",
+        "secondaryCTA": "Más Información",
+        "badge": "Solo reseñas verificadas"
+      },
+      "features": {
+        "title": "Comentarios auténticos que importan",
+        "subtitle": "Solo reservas reales, experiencias reales y responsabilidad real",
+        "verifiedBooking": {
+          "title": "Reseñas de Reservas Verificadas",
+          "description": "Solo los clientes que completaron reservas pueden dejar reseñas. Cada reseña está vinculada a un servicio real, garantizando autenticidad."
+        },
+        "twoWay": {
+          "title": "Responsabilidad Bidireccional",
+          "description": "Los profesionales también califican a los clientes, construyendo confianza y respeto mutuo. Los grandes clientes obtienen mejor servicio y reserva prioritaria."
+        },
+        "detailedCategories": {
+          "title": "Categorías de Calificación Detalladas",
+          "description": "Califique calidad, comunicación, puntualidad y valor por separado. Obtenga la imagen completa más allá de una sola calificación de estrellas."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo funcionan las reseñas",
+        "description": "Simple, justo y transparente para todos",
+        "step1": {
+          "title": "Completar Servicio",
+          "description": "Finalice una reserva y asegúrese de que se completen todos los pasos de entrada/salida"
+        },
+        "step2": {
+          "title": "Recibir Solicitud",
+          "description": "Obtenga una solicitud de reseña dentro de las 48 horas posteriores a la finalización del servicio"
+        },
+        "step3": {
+          "title": "Calificar Experiencia",
+          "description": "Califique en múltiples categorías con opciones de comentarios detalladas"
+        },
+        "step4": {
+          "title": "Construir Reputación",
+          "description": "Su reseña ayuda a otros y construye su puntaje de reputación como cliente"
+        }
+      },
+      "categories": {
+        "title": "Lo que se califica",
+        "forProfessionals": {
+          "title": "Para Profesionales",
+          "serviceQuality": "Calidad del Servicio: Minuciosidad, atención al detalle, resultados",
+          "communication": "Comunicación: Capacidad de respuesta, claridad, profesionalismo",
+          "punctuality": "Puntualidad: Llegada a tiempo, cumplimiento del horario",
+          "value": "Valor: Precio justo, vale la pena el costo"
+        },
+        "forCustomers": {
+          "title": "Para Clientes",
+          "clarity": "Claridad: Instrucciones claras, expectativas razonables",
+          "respect": "Respeto: Trato profesional, ambiente seguro",
+          "payment": "Pago: Pago oportuno, propina adecuada",
+          "communication": "Comunicación: Capacidad de respuesta, cooperación"
+        }
+      },
+      "benefits": {
+        "title": "Por qué funciona nuestro sistema de reseñas",
+        "mutualRespect": {
+          "title": "Respeto mutuo y equidad",
+          "description": "Las reseñas bidireccionales significan que tanto los clientes como los profesionales tienen responsabilidad. Esto crea un ambiente respetuoso y profesional para todos."
+        },
+        "verifiedOnly": {
+          "title": "Solo reseñas verificadas",
+          "description": "Sin reseñas falsas, sin calificaciones incentivadas. Cada reseña proviene de una reserva completada, garantizando autenticidad y confianza."
+        },
+        "accountability": {
+          "title": "Responsabilidad en toda la plataforma",
+          "description": "Los usuarios con calificaciones bajas en cualquier lado se marcan para revisión. Los problemas repetidos resultan en suspensión de cuenta, manteniendo la plataforma segura para todos."
+        },
+        "balancedFeedback": {
+          "title": "Comentarios honestos y equilibrados",
+          "description": "Las categorías detalladas previenen calificaciones injustas de un solo problema. Puede calificar la calidad del servicio altamente mientras nota que la comunicación necesita mejorar."
+        }
+      },
+      "cta": {
+        "title": "Únase a una comunidad construida sobre la confianza",
+        "description": "Comience a construir su reputación hoy. Los grandes clientes y profesionales se benefician de nuestro sistema de reseñas bidireccional.",
+        "browseProfessionals": "Explorar Profesionales",
+        "signUpFree": "Registrarse Gratis"
+      }
+    },
+    "adminDashboard": {
+      "meta": {
+        "title": "Panel de Administración - Herramientas de Gestión de Plataforma | Maidconnect",
+        "description": "Herramientas de administración de nivel empresarial para moderar profesionales, revisar reservas, procesar pagos y mantener la calidad de la plataforma. Supervisión completa."
+      },
+      "hero": {
+        "headline": "Gestión y supervisión completa de la plataforma",
+        "description": "Herramientas de administración de nivel empresarial para moderar profesionales, revisar reservas, procesar pagos y mantener la calidad de la plataforma.",
+        "primaryCTA": "Solicitar Demo",
+        "secondaryCTA": "Más Información",
+        "badge": "Solo acceso de administrador"
+      },
+      "features": {
+        "title": "Control de administración integral",
+        "subtitle": "Todo lo que necesita para administrar y moderar la plataforma",
+        "professionalModeration": {
+          "title": "Moderación Profesional",
+          "description": "Revise solicitudes, verifique credenciales, apruebe o rechace perfiles. Supervise el rendimiento continuo y maneje quejas."
+        },
+        "bookingOversight": {
+          "title": "Supervisión de Reservas",
+          "description": "Vea todas las reservas, resuelva disputas, procese reembolsos y maneje cancelaciones. Visibilidad completa de transacciones."
+        },
+        "payoutProcessing": {
+          "title": "Procesamiento de Pagos",
+          "description": "Administre pagos profesionales, revise transacciones financieras, maneje disputas y garantice el cumplimiento de las tarifas de la plataforma."
+        }
+      },
+      "howItWorks": {
+        "title": "Flujos de trabajo clave del administrador",
+        "description": "Procesos centrales para la gestión de la plataforma",
+        "step1": {
+          "title": "Incorporación Profesional",
+          "description": "Revise solicitudes, verifique documentos y apruebe nuevos profesionales que se unen a la plataforma"
+        },
+        "step2": {
+          "title": "Monitoreo de Calidad",
+          "description": "Rastree calificaciones, revise quejas e identifique profesionales o clientes que necesitan atención"
+        },
+        "step3": {
+          "title": "Gestión de Transacciones",
+          "description": "Procese pagos, maneje disputas, administre reembolsos y garantice la recolección adecuada de tarifas"
+        },
+        "step4": {
+          "title": "Salud de la Plataforma",
+          "description": "Supervise métricas, analice tendencias y mantenga la calidad general y la seguridad de la plataforma"
+        }
+      },
+      "capabilities": {
+        "title": "Capacidades del administrador",
+        "professionalManagement": "Gestión Profesional: Aprobar, suspender o prohibir cuentas profesionales",
+        "bookingReview": "Revisión de Reservas: Ver todas las transacciones y detalles del servicio",
+        "payoutControl": "Control de Pagos: Aprobar o retener pagos profesionales",
+        "disputeResolution": "Resolución de Disputas: Mediar conflictos y procesar reembolsos",
+        "userModeration": "Moderación de Usuarios: Administrar cuentas de clientes y banderas",
+        "analytics": "Panel de Análisis: Métricas de plataforma e inteligencia empresarial"
+      },
+      "security": {
+        "title": "Seguridad y control de acceso",
+        "roleBasedAccess": {
+          "title": "Control de acceso basado en roles",
+          "description": "Diferentes niveles de administrador con permisos específicos. No todos los administradores ven todo: acceso compartimentado por seguridad."
+        },
+        "auditLogs": {
+          "title": "Registro de auditoría completo",
+          "description": "Cada acción de administrador se registra con marcas de tiempo y detalles del usuario. Responsabilidad total por todos los cambios de la plataforma."
+        },
+        "dataProtection": {
+          "title": "Protección de datos y privacidad",
+          "description": "Los datos sensibles de los clientes están enmascarados. Los administradores ven solo lo necesario para su rol, protegiendo la privacidad del usuario."
+        },
+        "twoFactorAuth": {
+          "title": "Autenticación de dos factores",
+          "description": "Las cuentas de administrador requieren 2FA para iniciar sesión. Verificación adicional para acciones sensibles como pagos y prohibiciones."
+        }
+      },
+      "tools": {
+        "title": "Herramientas de administrador disponibles",
+        "professionalApproval": "Aprobación Profesional: Revisar y aprobar nuevas solicitudes",
+        "documentVerification": "Verificación de Documentos: Verificar credenciales y certificaciones",
+        "payoutQueue": "Cola de Pagos: Procesar pagos profesionales programados",
+        "userManagement": "Gestión de Usuarios: Suspender, prohibir o reinstaurar cuentas de usuario",
+        "disputeResolution": "Resolución de Disputas: Manejar quejas de clientes y solicitudes de reembolso",
+        "analytics": "Panel de Análisis: Métricas de plataforma e inteligencia empresarial"
+      },
+      "cta": {
+        "title": "Vea el panel de administración en acción",
+        "description": "Solicite una demostración para explorar nuestras herramientas integrales de gestión de plataforma y vea cómo mantenemos la calidad y la seguridad",
+        "requestDemo": "Solicitar Demo",
+        "learnMore": "Más Información"
+      }
+    },
+    "contact": {
+      "meta": {
+        "title": "Contáctanos | MaidConnect",
+        "description": "Ponte en contacto con nuestro equipo de soporte, aprende sobre cómo convertirte en profesional o comunícate para oportunidades de asociación."
+      },
+      "hero": {
+        "badge": "CONTACTO",
+        "title": "¿Cómo podemos ayudarte?",
+        "description": "Ya sea que estés buscando contratar profesionales de confianza, interesado en unirte a nuestra red, o simplemente tengas una pregunta, nuestro equipo está aquí para ayudarte."
+      },
+      "cards": {
+        "support": {
+          "title": "Soporte",
+          "description": "Completa nuestro formulario o envíanos un correo a support@maidconnect.co con tu pregunta.",
+          "buttonText": "Enviar consulta"
+        },
+        "customers": {
+          "title": "Para clientes",
+          "description": "Explora nuestros profesionales verificados y reserva ayuda confiable para tu hogar.",
+          "buttonText": "Encontrar un profesional"
+        },
+        "professionals": {
+          "title": "Para profesionales",
+          "description": "Únete a nuestra red y conéctate con familias que buscan ayuda confiable.",
+          "buttonText": "Solicitar unirme"
+        }
+      },
+      "faq": {
+        "title": "Preguntas frecuentes",
+        "questions": {
+          "verification": {
+            "question": "¿Cómo verifica MaidConnect a los profesionales?",
+            "answer": "Todos los profesionales pasan por un proceso integral de evaluación que incluye verificación de antecedentes, verificación de referencias y evaluación de habilidades. Verificamos documentos de identidad, historial laboral y realizamos entrevistas en persona para garantizar calidad y seguridad."
+          },
+          "payments": {
+            "question": "¿Cómo funcionan los pagos?",
+            "answer": "Cuando reservas un servicio, autorizamos una retención en tu método de pago. Los fondos solo se capturan después de que se completa el servicio. Los profesionales reciben el pago dentro de 2-3 días hábiles después de completar el servicio. Todos los pagos se procesan de forma segura a través de Stripe."
+          },
+          "cancellation": {
+            "question": "¿Qué sucede si necesito cancelar?",
+            "answer": "Puedes cancelar cualquier reserva antes de la hora de inicio programada a través de tu panel. Las cancelaciones realizadas con 24+ horas de anticipación reciben un reembolso completo. Las cancelaciones dentro de las 24 horas pueden incurrir en una tarifa de cancelación para compensar al profesional por su tiempo reservado."
+          },
+          "recurring": {
+            "question": "¿Puedo reservar servicios recurrentes?",
+            "answer": "¡Sí! Durante el proceso de reserva, puedes configurar citas recurrentes semanales, quincenales o mensuales. Esto asegura que tengas ayuda consistente y construyas una relación a largo plazo con tu profesional preferido."
+          },
+          "areas": {
+            "question": "¿Qué áreas cubren?",
+            "answer": "Actualmente operamos en 6 ciudades principales de Colombia incluyendo Bogotá, Medellín, Cali, Barranquilla, Cartagena y Bucaramanga. Estamos expandiéndonos activamente a nuevas áreas según la demanda."
+          },
+          "becomePro": {
+            "question": "¿Cómo me convierto en profesional en MaidConnect?",
+            "answer": "Haz clic en 'Solicitar unirme' y completa nuestro formulario de solicitud. Revisaremos tu información, realizaremos una verificación de antecedentes y programaremos una entrevista. Una vez aprobado, completarás la incorporación y podrás comenzar a aceptar reservas. El proceso completo generalmente toma de 5 a 7 días hábiles."
+          }
+        }
+      }
+    },
+    "signIn": {
+      "meta": {
+        "title": "Iniciar sesión | MaidConnect"
+      },
+      "header": {
+        "createAccount": "Crear cuenta"
+      },
+      "hero": {
+        "title": "Bienvenido de nuevo",
+        "description": "Inicia sesión para gestionar tus reservas, documentos y pagos en un solo espacio."
+      },
+      "form": {
+        "emailLabel": "Correo electrónico",
+        "emailPlaceholder": "tu@ejemplo.com",
+        "passwordLabel": "Contraseña",
+        "passwordPlaceholder": "••••••••",
+        "signInButton": "Iniciar sesión",
+        "signingInButton": "Iniciando sesión…",
+        "needAccount": "¿Necesitas una cuenta?",
+        "createOneNow": "Crear una ahora"
+      },
+      "footer": {
+        "support": "El soporte de conserjería está disponible 7 días a la semana para asistencia con la incorporación."
+      },
+      "sidebar": {
+        "imageAlt": "Hospitalidad MaidConnect",
+        "badge": "Talento doméstico de confianza",
+        "title": "Profesionales meticulosos seleccionados para hogares de expatriados.",
+        "description": "Nuestro equipo bilingüe de conserjería verifica cada perfil con entrevistas, visitas de prueba y controles de calidad continuos."
+      }
+    },
+    "signUp": {
+      "meta": {
+        "title": "Crear cuenta | MaidConnect"
+      },
+      "header": {
+        "signIn": "Iniciar sesión"
+      },
+      "hero": {
+        "title": "Crea tu cuenta de MaidConnect",
+        "description": "Cuéntanos cómo planeas usar la plataforma y adaptaremos la experiencia para hogares o profesionales."
+      },
+      "form": {
+        "accountTypeLabel": "Tipo de cuenta",
+        "accountTypeHelper": "Elige la experiencia que mejor se adapte a cómo planeas usar MaidConnect.",
+        "customerLabel": "Cliente",
+        "customerDescription": "Reserva profesionales pre-verificados para tu hogar.",
+        "professionalLabel": "Profesional",
+        "professionalDescription": "Gestiona tu perfil, reservas y pagos.",
+        "fullNameLabel": "Nombre completo",
+        "fullNamePlaceholder": "Andrea Martínez",
+        "phoneLabel": "Teléfono",
+        "phonePlaceholder": "+57 300 123 4567",
+        "cityLabel": "Ciudad",
+        "cityPlaceholder": "Medellín",
+        "preferredLanguageLabel": "Idioma preferido",
+        "languageEnglish": "English",
+        "languageSpanish": "Español (Colombia)",
+        "emailLabel": "Correo electrónico",
+        "emailPlaceholder": "tu@ejemplo.com",
+        "propertyTypeLabel": "Tipo de propiedad",
+        "propertyTypePlaceholder": "Selecciona un tipo de propiedad",
+        "propertyApartment": "Apartamento",
+        "propertyHouse": "Casa",
+        "propertyOffice": "Oficina",
+        "propertyOther": "Otro",
+        "passwordLabel": "Contraseña",
+        "passwordPlaceholder": "Crea una contraseña",
+        "confirmPasswordLabel": "Confirmar contraseña",
+        "confirmPasswordPlaceholder": "Repite la contraseña",
+        "termsLabel": "Acepto los",
+        "termsLink": "términos de servicio",
+        "termsConfirm": "de MaidConnect y confirmo que entiendo las pautas de respeto mutuo.",
+        "successMessage": "Cuenta creada. Por favor revisa tu correo electrónico para verificar y finalizar el inicio de sesión.",
+        "createAccountButton": "Crear cuenta",
+        "creatingAccountButton": "Creando cuenta…",
+        "haveAccount": "¿Ya tienes una cuenta?",
+        "signInInstead": "Iniciar sesión"
+      },
+      "footer": {
+        "support": "Te guiaremos con incorporación de conserjería después de enviar tus detalles."
+      },
+      "sidebar": {
+        "imageAlt": "Incorporación MaidConnect",
+        "badge": "Incorporación de conserjería",
+        "title": "Entrevistamos, verificamos antecedentes y capacitamos a cada profesional.",
+        "description": "Construye confianza desde la primera visita con incorporación estructurada, manuales del hogar y soporte receptivo."
+      }
+    },
+    "terms": {
+      "meta": {
+        "title": "Términos de Servicio - MaidConnect",
+        "description": "Términos de servicio y acuerdo de usuario de MaidConnect"
+      },
+      "title": "Términos de Servicio",
+      "lastUpdated": "Última actualización: {date}"
+    },
+    "privacy": {
+      "meta": {
+        "title": "Política de Privacidad - MaidConnect",
+        "description": "Política de privacidad y prácticas de protección de datos de MaidConnect"
+      },
+      "title": "Política de Privacidad",
+      "lastUpdated": "Última actualización: {date}"
+    },
+    "professionalProfile": {
+      "meta": {
+        "notFoundTitle": "Profesional no encontrado · MaidConnect",
+        "defaultName": "Profesional de MaidConnect",
+        "descriptionTemplate": "Ver el perfil de MaidConnect de {name}{service}{location}."
+      },
+      "backToDirectory": "← Volver al directorio",
+      "availableForBookings": "Disponible para reservas",
+      "perHour": "/ hr",
+      "yearsExperience": "años exp",
+      "reviews": "reseñas",
+      "availableToday": "Disponible hoy",
+      "bookingSection": {
+        "title": "Reservar una cita",
+        "description": "Elige una fecha para ver los horarios disponibles y solicitar una reserva"
+      },
+      "tabs": {
+        "about": "Acerca de",
+        "services": "Servicios",
+        "portfolio": "Portafolio",
+        "reviews": "Reseñas"
+      },
+      "aboutTab": {
+        "title": "Acerca de",
+        "defaultBio": "Este profesional está finalizando su biografía pública. Comunícate con una solicitud de reserva para conocer más sobre su experiencia."
+      },
+      "servicesTab": {
+        "title": "Servicios y tarifas",
+        "serviceLabel": "Servicio",
+        "rateOnRequest": "Tarifa bajo consulta",
+        "noServicesMessage": "Los servicios se están finalizando. Envía una solicitud de reserva con los detalles que necesitas y confirmaremos el precio."
+      },
+      "portfolioTab": {
+        "title": "Portafolio",
+        "imageAlt": "Imagen de portafolio",
+        "noImages": "Aún no hay imágenes de portafolio"
+      },
+      "reviewsTab": {
+        "title": "Reseñas",
+        "moreReviews": "+ {count} reseñas más",
+        "noReviews": "Aún no hay reseñas"
+      }
+    }
+  },
+  "professionalsDirectory": {
+    "header": {
+      "title": "Profesionales de Maidconnect",
+      "subtitle": "Cada especialista listado a continuación ha superado el proceso de verificación de cuatro etapas de Maidconnect y está autorizado para atender clientes a través de nuestra plataforma. Estos pasos incluyen la presentación y aprobación de su cédula (documento de identidad del gobierno colombiano), prueba de elegibilidad laboral, referencias y una entrevista en persona."
+    },
+    "filters": {
+      "search": "Buscar por nombre, servicio o barrio",
+      "service": "Servicio",
+      "allServices": "Todos los servicios",
+      "city": "Ciudad",
+      "allCities": "Todas las ciudades",
+      "rating": "Calificación",
+      "allRatings": "Todas las calificaciones",
+      "rating45": "4.5+",
+      "rating48": "4.8+",
+      "availableToday": "Disponible hoy",
+      "reset": "Restablecer"
+    },
+    "results": {
+      "noResults": "Ningún profesional coincide con estos filtros aún."
+    },
+    "card": {
+      "viewProfile": "Ver perfil",
+      "hourly": "COP / hr",
+      "yearsExp": "años exp",
+      "noBio": "Este profesional está preparando su biografía pública. Vuelve pronto.",
+      "newBadge": "Nuevo en MaidConnect",
+      "flexibleServices": "Servicios flexibles",
+      "rateOnRequest": "Tarifa bajo consulta"
     }
   }
 }

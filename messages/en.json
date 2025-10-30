@@ -10,146 +10,6 @@
     "logout": "Logout",
     "product": "Product"
   },
-  "hero": {
-    "badge": "Trusted Domestic Staffing · Colombia",
-    "title": "Home professionals who feel like family",
-    "subtitle": "Connect with vetted housekeepers and caregivers across Colombia. Fully screened, onboarded, and ready to support your lifestyle.",
-    "findProfessional": "Find a professional",
-    "howItWorks": "How it works",
-    "becomeProfessional": "Become a professional",
-    "learnMore": "Learn more"
-  },
-  "services": {
-    "badge": "Services",
-    "title": "Curated professionals for every routine",
-    "items": {
-      "housekeeping": {
-        "title": "Housekeeping & Deep Cleaning",
-        "description": "Recurring or one-time solutions tailored to meticulous homes."
-      },
-      "childcare": {
-        "title": "Family & Childcare Support",
-        "description": "Trusted nannies and caregivers experienced with international households."
-      },
-      "relocation": {
-        "title": "Move-in & Relocation Prep",
-        "description": "Arrival day setup, unpacking, and home organization services."
-      },
-      "elderCare": {
-        "title": "Elder & Wellness Care",
-        "description": "Companionship, medication reminders, and wellness-focused care."
-      },
-      "petCare": {
-        "title": "Pet & Home Management",
-        "description": "Reliable sitters, walkers, and property check-ins while you travel."
-      },
-      "lifestyle": {
-        "title": "Personal Lifestyle Support",
-        "description": "Private chefs, errand specialists, and personal assistants on demand."
-      }
-    }
-  },
-  "process": {
-    "badge": "How it works",
-    "title": "From search to support in four simple steps",
-    "steps": {
-      "step1": {
-        "number": "01",
-        "title": "Share your household profile",
-        "description": "Complete our guided intake detailing routines, preferences, languages, and required certifications."
-      },
-      "step2": {
-        "number": "02",
-        "title": "Meet curated professionals",
-        "description": "Receive a shortlist with video intros, verified credentials, and transparent pricing to compare with ease."
-      },
-      "step3": {
-        "number": "03",
-        "title": "Book and confirm",
-        "description": "Schedule your service with instant or approved booking. Communicate directly through secure messaging."
-      },
-      "step4": {
-        "number": "04",
-        "title": "Rate and rebook",
-        "description": "Share feedback after each visit. Save your favorites and rebook with one click for ongoing support."
-      }
-    }
-  },
-  "concierge": {
-    "title": "Ready to find your perfect match?",
-    "subtitle": "Schedule a consultation to discuss your household needs. We'll introduce you to vetted professionals within 48 hours.",
-    "browseProfessionals": "Browse professionals",
-    "bookConsultation": "Book a consultation",
-    "cities": "Available in 6 major Colombian cities",
-    "languages": "English, Spanish & Portuguese support"
-  },
-  "features": {
-    "title": "Why choose Maidconnect",
-    "verifiedProfessionals": {
-      "title": "Verified professionals",
-      "description": "Every professional undergoes background checks and identity verification"
-    },
-    "securePayments": {
-      "title": "Secure payments",
-      "description": "Pay safely through Stripe with escrow protection until service completion"
-    },
-    "realTimeBooking": {
-      "title": "Real-time booking",
-      "description": "See availability and book instantly or request approval for custom needs"
-    },
-    "reviewSystem": {
-      "title": "Review system",
-      "description": "Two-way reviews ensure accountability and help you make informed decisions"
-    }
-  },
-  "auth": {
-    "email": "Email",
-    "password": "Password",
-    "confirmPassword": "Confirm password",
-    "fullName": "Full name",
-    "phone": "Phone number",
-    "forgotPassword": "Forgot password?",
-    "noAccount": "Don't have an account?",
-    "hasAccount": "Already have an account?",
-    "signInButton": "Sign in",
-    "signUpButton": "Sign up",
-    "userType": {
-      "title": "I am a...",
-      "customer": "Customer",
-      "professional": "Professional"
-    }
-  },
-  "dashboard": {
-    "welcome": "Welcome back",
-    "bookings": "Bookings",
-    "messages": "Messages",
-    "payments": "Payments",
-    "profile": "Profile",
-    "settings": "Settings",
-    "availability": "Availability",
-    "portfolio": "Portfolio",
-    "finances": "Finances",
-    "documents": "Documents",
-    "addresses": "Addresses",
-    "favorites": "Favorites"
-  },
-  "booking": {
-    "title": "Book a service",
-    "selectDate": "Select date",
-    "selectTime": "Select time",
-    "duration": "Duration",
-    "hours": "hours",
-    "addons": "Add-ons",
-    "totalPrice": "Total price",
-    "bookNow": "Book now",
-    "requestBooking": "Request booking",
-    "status": {
-      "pending": "Pending",
-      "confirmed": "Confirmed",
-      "completed": "Completed",
-      "cancelled": "Cancelled"
-    }
-  },
   "professionals": {
     "title": "Find your perfect professional",
     "filterBy": "Filter by",
@@ -168,876 +28,23 @@
       "petcare": "Pet care"
     }
   },
-  "footer": {
-    "description": "Connect with vetted housekeepers and caregivers across Colombia. Fully screened, onboarded, and ready to support your lifestyle.",
-    "platform": "Platform",
-    "company": "Company",
-    "findProfessional": "Find a Professional",
-    "contact": "Contact",
-    "services": "Services",
-    "loginSignup": "Login / Signup",
-    "applyProfessional": "Apply as Professional",
-    "support": "Support",
-    "terms": "Terms",
-    "privacy": "Privacy",
-    "cookies": "Cookies",
-    "allRightsReserved": "All rights reserved"
-  },
-  "product": {
-    "bookingPlatform": {
-      "title": "Booking Platform",
-      "description": "Schedule services with instant or approved booking"
+  "features": {
+    "title": "Why choose Maidconnect",
+    "verifiedProfessionals": {
+      "title": "Verified professionals",
+      "description": "Every professional undergoes background checks and identity verification"
     },
-    "professionalProfiles": {
-      "title": "Professional Profiles",
-      "description": "Verified profiles with reviews and portfolios"
+    "securePayments": {
+      "title": "Secure payments",
+      "description": "Pay safely through Stripe with escrow protection until service completion"
     },
-    "secureMessaging": {
-      "title": "Secure Messaging",
-      "description": "Direct communication with your professionals"
+    "realTimeBooking": {
+      "title": "Real-time booking",
+      "description": "See availability and book instantly or request approval for custom needs"
     },
-    "paymentProcessing": {
-      "title": "Payment Processing",
-      "description": "Safe, transparent payments with receipt tracking"
-    },
-    "reviewsRatings": {
-      "title": "Reviews & Ratings",
-      "description": "Community-driven trust and quality assurance"
-    },
-    "adminDashboard": {
-      "title": "Admin Dashboard",
-      "description": "Complete platform management and moderation"
-    }
-  },
-  "pages": {
-    "bookingPlatform": {
-      "meta": {
-        "title": "Booking Platform - Instant Service Scheduling | Maidconnect",
-        "description": "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless. 500+ bookings monthly."
-      },
-      "hero": {
-        "headline": "Book trusted professionals in minutes",
-        "description": "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless.",
-        "primaryCTA": "Browse Professionals",
-        "secondaryCTA": "Learn More",
-        "badge": "500+ bookings this month"
-      },
-      "features": {
-        "title": "Powerful booking features",
-        "subtitle": "Everything you need to schedule services quickly and confidently",
-        "instantBooking": {
-          "title": "Instant & Approved Booking",
-          "description": "Book immediately with verified professionals or request approval for custom needs. Get instant confirmation for standard services."
-        },
-        "realTimeAvailability": {
-          "title": "Real-Time Availability",
-          "description": "See professional calendars and available time slots before booking. Never waste time requesting unavailable dates."
-        },
-        "smartScheduling": {
-          "title": "Smart Scheduling",
-          "description": "Set up recurring bookings, sync with your calendar, and receive automated reminders before every service."
-        }
-      },
-      "howItWorks": {
-        "title": "How it works",
-        "description": "Four simple steps to book your perfect professional",
-        "step1": {
-          "title": "Filter & Search",
-          "description": "Filter by service type, date, location, and professional ratings"
-        },
-        "step2": {
-          "title": "Select Professional",
-          "description": "View availability, read reviews, and browse portfolio galleries"
-        },
-        "step3": {
-          "title": "Confirm Booking",
-          "description": "Choose date and time, add service add-ons, and authorize payment"
-        },
-        "step4": {
-          "title": "Get Reminders",
-          "description": "Receive automatic reminders and communicate via secure messaging"
-        }
-      },
-      "benefits": {
-        "title": "Why customers love our booking system",
-        "noPhoneTag": {
-          "title": "No more phone tag",
-          "description": "See real-time availability and book instantly without endless back-and-forth calls or emails."
-        },
-        "transparentPricing": {
-          "title": "Transparent pricing",
-          "description": "Know exactly what you'll pay before booking. See hourly rates, add-on costs, and total price upfront."
-        },
-        "flexibleScheduling": {
-          "title": "Flexible scheduling",
-          "description": "Book one-time services or set up weekly, biweekly, or monthly recurring appointments with automatic discounts."
-        },
-        "easyRescheduling": {
-          "title": "Easy rescheduling",
-          "description": "Life happens. Reschedule or cancel bookings with just a few clicks, subject to professional's cancellation policy."
-        }
-      },
-      "cta": {
-        "title": "Ready to book your first service?",
-        "description": "Join hundreds of satisfied customers who trust MaidConnect for their home service needs",
-        "browseProfessionals": "Browse Professionals",
-        "signUpFree": "Sign Up Free"
-      }
-    },
-    "professionalProfiles": {
-      "meta": {
-        "title": "Verified Professional Profiles - Background Checked | Maidconnect",
-        "description": "Meet verified professionals with background checks, credentials, customer reviews, and portfolio galleries. 100% verified professionals you can trust in Colombia."
-      },
-      "hero": {
-        "headline": "Meet verified professionals you can trust",
-        "description": "Every profile includes background checks, verified credentials, customer reviews, and portfolio galleries showcasing their work.",
-        "primaryCTA": "View Professionals",
-        "secondaryCTA": "Learn More",
-        "badge": "100% verified professionals"
-      },
-      "features": {
-        "title": "Trust built into every profile",
-        "subtitle": "We verify every detail so you can book with complete confidence",
-        "verifiedCredentials": {
-          "title": "Verified Credentials",
-          "description": "Background checks, identity verification, and certification validation ensure every professional meets our high standards."
-        },
-        "customerReviews": {
-          "title": "Customer Reviews & Ratings",
-          "description": "Real feedback from verified bookings with detailed ratings on quality, communication, punctuality, and value."
-        },
-        "portfolioGalleries": {
-          "title": "Portfolio Galleries",
-          "description": "Before/after photos and work samples from past projects showcase the quality you can expect."
-        }
-      },
-      "howItWorks": {
-        "title": "How we verify professionals",
-        "description": "Our rigorous vetting process ensures quality and safety",
-        "step1": {
-          "title": "Application Review",
-          "description": "We review every application for experience, qualifications, and professionalism"
-        },
-        "step2": {
-          "title": "Document Verification",
-          "description": "Background checks, ID verification, and certification validation"
-        },
-        "step3": {
-          "title": "Portfolio Assessment",
-          "description": "Review work samples and past projects to ensure quality standards"
-        },
-        "step4": {
-          "title": "Ongoing Monitoring",
-          "description": "Continuous review of ratings, feedback, and service quality"
-        }
-      },
-      "profileFeatures": {
-        "title": "What you'll find in every profile",
-        "professionalInfo": {
-          "title": "Professional Information",
-          "items": {
-            "experience": "Years of experience and specializations",
-            "certifications": "Certifications and training completed",
-            "services": "Services offered and hourly rates",
-            "areas": "Service areas and availability"
-          }
-        },
-        "socialProof": {
-          "title": "Social Proof",
-          "items": {
-            "rating": "Overall rating from verified bookings",
-            "reviews": "Detailed reviews from past customers",
-            "portfolio": "Portfolio gallery with before/after photos",
-            "bookings": "Total bookings and repeat customer rate"
-          }
-        },
-        "safetyTrust": {
-          "title": "Safety & Trust",
-          "items": {
-            "backgroundCheck": "Background check status and date",
-            "identity": "Identity verification badge",
-            "insurance": "Insurance and bonding information",
-            "verified": "Platform-verified reviews only"
-          }
-        },
-        "workExamples": {
-          "title": "Work Examples",
-          "items": {
-            "galleryPhotos": "Portfolio gallery with real project photos",
-            "beforeAfter": "Before and after transformations",
-            "serviceExamples": "Service-specific examples and results",
-            "bio": "Professional bio and service approach"
-          }
-        }
-      },
-      "cta": {
-        "title": "Find your perfect professional match",
-        "description": "Browse verified profiles, read authentic reviews, and book with confidence knowing every professional has been thoroughly vetted",
-        "browseProfessionals": "Browse Professionals",
-        "becomeProfessional": "Become a Professional"
-      }
-    },
-    "paymentProcessing": {
-      "meta": {
-        "title": "Secure Payment Processing - Stripe Powered | Maidconnect",
-        "description": "Safe, transparent payments with Stripe. Track expenses, manage receipts, and handle tips all in one place. Secure escrow and automatic payouts."
-      },
-      "hero": {
-        "headline": "Safe, transparent payments every time",
-        "description": "Secure payment processing with Stripe. Track expenses, manage receipts, and handle tips all in one place with complete transparency.",
-        "primaryCTA": "See How It Works",
-        "secondaryCTA": "Book a Service",
-        "badge": "Powered by Stripe"
-      },
-      "features": {
-        "title": "Payment processing you can trust",
-        "subtitle": "Enterprise-grade security with consumer-friendly transparency",
-        "stripeIntegration": {
-          "title": "Secure Stripe Integration",
-          "description": "Industry-standard payment security with encrypted transactions. Your card information never touches our servers."
-        },
-        "transparentPricing": {
-          "title": "Transparent Pricing",
-          "description": "Clear breakdown of service fees, add-ons, and total costs before payment. No hidden charges or surprise fees."
-        },
-        "automaticReceipts": {
-          "title": "Automatic Receipts",
-          "description": "Digital receipts and expense tracking for every booking. Perfect for tax deductions and household budgets."
-        }
-      },
-      "howItWorks": {
-        "title": "How payments work",
-        "description": "Simple, secure, and transparent from start to finish",
-        "step1": {
-          "title": "Review Pricing",
-          "description": "See complete breakdown of base service, add-ons, and total before booking"
-        },
-        "step2": {
-          "title": "Authorize Payment",
-          "description": "Secure payment authorization through Stripe holds funds until service completion"
-        },
-        "step3": {
-          "title": "Service Completed",
-          "description": "Professional receives payment after service completion and check-out"
-        },
-        "step4": {
-          "title": "Get Receipt",
-          "description": "Automatic digital receipt with full transaction details sent to your email"
-        }
-      },
-      "paymentTimeline": {
-        "title": "Payment timeline explained",
-        "booking": {
-          "title": "Booking confirmation - Authorization hold placed",
-          "description": "When you book, we place a temporary authorization hold on your card for the total amount. This isn't a charge yet - it just reserves the funds."
-        },
-        "serviceDay": {
-          "title": "Service day - Check-in begins service",
-          "description": "Professional checks in when they arrive. The authorization hold remains in place during the service. You can track service progress in real-time."
-        },
-        "serviceComplete": {
-          "title": "Service complete - Check-out captures payment",
-          "description": "When the professional checks out and marks service complete, the authorization converts to an actual charge. This is when you're billed."
-        },
-        "postService": {
-          "title": "Post-service - Receipt and payout processing",
-          "description": "You receive a digital receipt immediately. The professional receives their payout (minus platform fees) within 2-3 business days."
-        }
-      },
-      "protection": {
-        "title": "Your payment protection",
-        "chargedAfter": {
-          "title": "Only charged after service completion",
-          "description": "Authorization holds aren't charges. You're only billed when the professional marks the service complete and checks out."
-        },
-        "cancellation": {
-          "title": "Cancellation protections",
-          "description": "Cancel before the cancellation window closes and the hold releases automatically. No charge, no hassle, no questions asked."
-        },
-        "dispute": {
-          "title": "Dispute resolution support",
-          "description": "If service wasn't delivered as promised, contact support within 24 hours. We review disputes and process refunds when appropriate."
-        },
-        "encrypted": {
-          "title": "Encrypted card storage",
-          "description": "Your payment information is tokenized and encrypted by Stripe. We never see or store your full card details on our servers."
-        }
-      },
-      "acceptedMethods": {
-        "title": "Accepted payment methods",
-        "creditCards": {
-          "title": "Credit Cards",
-          "description": "Visa, Mastercard, American Express, Discover"
-        },
-        "debitCards": {
-          "title": "Debit Cards",
-          "description": "All major debit cards with card number and CVV"
-        },
-        "digitalReceipts": {
-          "title": "Digital Receipts",
-          "description": "Automatic receipts sent via email for all transactions"
-        }
-      },
-      "cta": {
-        "title": "Ready for secure, transparent payments?",
-        "description": "Experience hassle-free payment processing backed by Stripe's industry-leading security",
-        "bookService": "Book Your First Service",
-        "signUpFree": "Sign Up Free"
-      }
-    },
-    "secureMessaging": {
-      "meta": {
-        "title": "Secure Messaging Platform - Direct Communication | Maidconnect",
-        "description": "Direct messaging unlocked after booking. Coordinate details, send photos, and stay connected throughout your service relationship. Booking-based security."
-      },
-      "hero": {
-        "headline": "Communicate securely with your professionals",
-        "description": "Direct messaging unlocked after booking. Coordinate details, send photos, and stay connected throughout your service relationship.",
-        "primaryCTA": "Book a Service",
-        "secondaryCTA": "Learn More",
-        "badge": "Booking-based security"
-      },
-      "features": {
-        "title": "Safe, convenient communication",
-        "subtitle": "Built-in messaging that protects your privacy while enabling seamless coordination",
-        "bookingBased": {
-          "title": "Booking-Based Access",
-          "description": "Messaging available only for confirmed bookings, ensuring safety and preventing spam. Your contact information stays private."
-        },
-        "realTime": {
-          "title": "Real-Time Conversations",
-          "description": "Instant message delivery with read receipts and notifications. Stay connected from booking confirmation to service completion."
-        },
-        "photoSharing": {
-          "title": "Photo & File Sharing",
-          "description": "Share instructions, references, and updates easily. Send photos of areas that need attention or special requests."
-        }
-      },
-      "howItWorks": {
-        "title": "How it works",
-        "description": "Simple, secure messaging tied to your bookings",
-        "step1": {
-          "title": "Complete Booking",
-          "description": "Book a service with any professional to unlock messaging access"
-        },
-        "step2": {
-          "title": "Access Chat",
-          "description": "Find the conversation thread in your dashboard messages section"
-        },
-        "step3": {
-          "title": "Coordinate Details",
-          "description": "Discuss service details, timing, special requests, or access instructions"
-        },
-        "step4": {
-          "title": "Stay Connected",
-          "description": "Keep communication history for reference throughout your service relationship"
-        }
-      },
-      "benefits": {
-        "title": "Why our messaging system is different",
-        "privacy": {
-          "title": "Privacy protected",
-          "description": "Your phone number and email stay private. All communication happens through the platform with full message history for safety."
-        },
-        "noSpam": {
-          "title": "No spam or solicitation",
-          "description": "Only confirmed bookings unlock messaging. Professionals can't contact you without a booking, eliminating unwanted messages."
-        },
-        "history": {
-          "title": "Message history & receipts",
-          "description": "All messages are saved and tied to the booking. Perfect for referencing past conversations and instructions."
-        },
-        "notifications": {
-          "title": "Real-time notifications",
-          "description": "Get notified instantly when professionals respond. Never miss important updates about your booking."
-        }
-      },
-      "useCases": {
-        "title": "Common messaging scenarios",
-        "beforeService": {
-          "title": "Before the service",
-          "items": {
-            "access": "Share building access codes and parking instructions",
-            "photos": "Send photos of areas needing special attention",
-            "timing": "Confirm arrival time and any last-minute changes",
-            "products": "Discuss specific cleaning products or preferences"
-          }
-        },
-        "duringService": {
-          "title": "During the service",
-          "items": {
-            "updates": "Get updates on service progress and completion",
-            "questions": "Answer questions about specific areas or items",
-            "beforeAfter": "Receive before/after photos of completed work",
-            "realTime": "Address any issues or requests in real-time"
-          }
-        }
-      },
-      "cta": {
-        "title": "Ready to experience seamless communication?",
-        "description": "Book your first service and unlock secure messaging with verified professionals",
-        "browseProfessionals": "Browse Professionals",
-        "signUpFree": "Sign Up Free"
-      }
-    },
-    "reviewsRatings": {
-      "meta": {
-        "title": "Reviews & Ratings System - Two-Way Accountability | Maidconnect",
-        "description": "Community-driven trust and quality. Two-way reviews ensure accountability. Verified reviews only from real bookings. Build your reputation."
-      },
-      "hero": {
-        "headline": "Community-driven trust and quality",
-        "description": "Two-way reviews ensure accountability. Rate professionals after every service and build your own reputation as a reliable customer.",
-        "primaryCTA": "Read Reviews",
-        "secondaryCTA": "Learn More",
-        "badge": "Verified reviews only"
-      },
-      "features": {
-        "title": "Authentic feedback that matters",
-        "subtitle": "Only real bookings, real experiences, and real accountability",
-        "verifiedBooking": {
-          "title": "Verified Booking Reviews",
-          "description": "Only customers who completed bookings can leave reviews. Every review is tied to a real service, ensuring authenticity."
-        },
-        "twoWay": {
-          "title": "Two-Way Accountability",
-          "description": "Professionals rate customers too, building mutual trust and respect. Great customers get better service and priority booking."
-        },
-        "detailedCategories": {
-          "title": "Detailed Rating Categories",
-          "description": "Rate quality, communication, punctuality, and value separately. Get the full picture beyond a single star rating."
-        }
-      },
-      "howItWorks": {
-        "title": "How reviews work",
-        "description": "Simple, fair, and transparent for everyone",
-        "step1": {
-          "title": "Complete Service",
-          "description": "Finish a booking and ensure all check-in/check-out steps are done"
-        },
-        "step2": {
-          "title": "Receive Prompt",
-          "description": "Get a review request within 48 hours of service completion"
-        },
-        "step3": {
-          "title": "Rate Experience",
-          "description": "Rate across multiple categories with detailed feedback options"
-        },
-        "step4": {
-          "title": "Build Reputation",
-          "description": "Your review helps others and builds your customer reputation score"
-        }
-      },
-      "categories": {
-        "title": "What gets rated",
-        "forProfessionals": {
-          "title": "For Professionals",
-          "serviceQuality": "Service Quality: Thoroughness, attention to detail, results",
-          "communication": "Communication: Responsiveness, clarity, professionalism",
-          "punctuality": "Punctuality: On-time arrival, schedule adherence",
-          "value": "Value: Fair pricing, worth the cost"
-        },
-        "forCustomers": {
-          "title": "For Customers",
-          "clarity": "Clarity: Clear instructions, reasonable expectations",
-          "respect": "Respect: Professional treatment, safe environment",
-          "payment": "Payment: Timely payment, proper tipping",
-          "communication": "Communication: Responsiveness, cooperation"
-        }
-      },
-      "benefits": {
-        "title": "Why our review system works",
-        "mutualRespect": {
-          "title": "Mutual respect and fairness",
-          "description": "Two-way reviews mean customers and professionals both have accountability. This creates a respectful, professional environment for everyone."
-        },
-        "verifiedOnly": {
-          "title": "Verified reviews only",
-          "description": "No fake reviews, no incentivized ratings. Every review comes from a completed booking, ensuring authenticity and trust."
-        },
-        "accountability": {
-          "title": "Platform-wide accountability",
-          "description": "Low-rated users on either side get flagged for review. Repeat issues result in account suspension, keeping the platform safe for everyone."
-        },
-        "balancedFeedback": {
-          "title": "Honest, balanced feedback",
-          "description": "Detailed categories prevent unfair single-issue ratings. You can rate service quality highly while noting communication needs improvement."
-        }
-      },
-      "cta": {
-        "title": "Join a community built on trust",
-        "description": "Start building your reputation today. Great customers and professionals both benefit from our two-way review system.",
-        "browseProfessionals": "Browse Professionals",
-        "signUpFree": "Sign Up Free"
-      }
-    },
-    "adminDashboard": {
-      "meta": {
-        "title": "Admin Dashboard - Platform Management Tools | Maidconnect",
-        "description": "Enterprise-grade admin tools for moderating professionals, reviewing bookings, processing payouts, and maintaining platform quality. Complete oversight."
-      },
-      "hero": {
-        "headline": "Complete platform management and oversight",
-        "description": "Enterprise-grade admin tools for moderating professionals, reviewing bookings, processing payouts, and maintaining platform quality.",
-        "primaryCTA": "Request Demo",
-        "secondaryCTA": "Learn More",
-        "badge": "Admin access only"
-      },
-      "features": {
-        "title": "Comprehensive admin control",
-        "subtitle": "Everything you need to manage and moderate the platform",
-        "professionalModeration": {
-          "title": "Professional Moderation",
-          "description": "Review applications, verify credentials, approve or reject profiles. Monitor ongoing performance and handle complaints."
-        },
-        "bookingOversight": {
-          "title": "Booking Oversight",
-          "description": "View all bookings, resolve disputes, process refunds, and handle cancellations. Complete transaction visibility."
-        },
-        "payoutProcessing": {
-          "title": "Payout Processing",
-          "description": "Manage professional payouts, review financial transactions, handle disputes, and ensure platform fee compliance."
-        }
-      },
-      "howItWorks": {
-        "title": "Key admin workflows",
-        "description": "Core processes for platform management",
-        "step1": {
-          "title": "Professional Onboarding",
-          "description": "Review applications, verify documents, and approve new professionals joining the platform"
-        },
-        "step2": {
-          "title": "Quality Monitoring",
-          "description": "Track ratings, review complaints, and identify professionals or customers needing attention"
-        },
-        "step3": {
-          "title": "Transaction Management",
-          "description": "Process payouts, handle disputes, manage refunds, and ensure proper fee collection"
-        },
-        "step4": {
-          "title": "Platform Health",
-          "description": "Monitor metrics, analyze trends, and maintain overall platform quality and safety"
-        }
-      },
-      "capabilities": {
-        "title": "Admin capabilities",
-        "professionalManagement": "Professional Management: Approve, suspend, or ban professional accounts",
-        "bookingReview": "Booking Review: View all transactions and service details",
-        "payoutControl": "Payout Control: Approve or hold professional payments",
-        "disputeResolution": "Dispute Resolution: Mediate conflicts and process refunds",
-        "userModeration": "User Moderation: Manage customer accounts and flags",
-        "analytics": "Analytics Dashboard: Platform metrics and business intelligence"
-      },
-      "security": {
-        "title": "Security and access control",
-        "roleBasedAccess": {
-          "title": "Role-based access control",
-          "description": "Different admin levels with specific permissions. Not all admins see everything - compartmentalized access for security."
-        },
-        "auditLogs": {
-          "title": "Complete audit logging",
-          "description": "Every admin action is logged with timestamps and user details. Full accountability for all platform changes."
-        },
-        "dataProtection": {
-          "title": "Data protection and privacy",
-          "description": "Sensitive customer data is masked. Admins see only what's necessary for their role, protecting user privacy."
-        },
-        "twoFactorAuth": {
-          "title": "Two-factor authentication",
-          "description": "Admin accounts require 2FA for login. Additional verification for sensitive actions like payouts and bans."
-        }
-      },
-      "tools": {
-        "title": "Available admin tools",
-        "professionalApproval": "Professional Approval: Review and approve new applications",
-        "documentVerification": "Document Verification: Check credentials and certifications",
-        "payoutQueue": "Payout Queue: Process scheduled professional payments",
-        "userManagement": "User Management: Suspend, ban, or reinstate user accounts",
-        "disputeResolution": "Dispute Resolution: Handle customer complaints and refund requests",
-        "analytics": "Analytics Dashboard: Platform metrics and business intelligence"
-      },
-      "cta": {
-        "title": "See the admin dashboard in action",
-        "description": "Request a demo to explore our comprehensive platform management tools and see how we maintain quality and safety",
-        "requestDemo": "Request Demo",
-        "learnMore": "Learn More"
-      }
-    }
-  },
-  "common": {
-    "loading": "Loading...",
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "confirm": "Confirm",
-    "back": "Back",
-    "next": "Next",
-    "submit": "Submit",
-    "search": "Search",
-    "filter": "Filter",
-    "sort": "Sort",
-    "viewMore": "View more",
-    "viewLess": "View less",
-    "readMore": "Read more",
-    "readLess": "Read less",
-    "seeAll": "See all",
-    "showMore": "Show more",
-    "showLess": "Show less"
-  },
-  "errors": {
-    "generic": "Something went wrong. Please try again.",
-    "notFound": "Page not found",
-    "unauthorized": "You must be logged in to access this page",
-    "forbidden": "You don't have permission to access this resource",
-    "serverError": "Server error. Please try again later.",
-    "networkError": "Network error. Please check your connection."
-  },
-  "success": {
-    "saved": "Changes saved successfully",
-    "deleted": "Deleted successfully",
-    "created": "Created successfully",
-    "updated": "Updated successfully",
-    "bookingCreated": "Booking created successfully",
-    "messageSent": "Message sent successfully"
-  },
-  "professionalsDirectory": {
-    "header": {
-      "title": "Maidconnect professionals",
-      "subtitle": "Every specialist listed below has cleared Maidconnect's four-stage vetting process and is authorised to serve customers via our platform. These steps include submission and approval of their cédula (Colombian government ID), proof of work eligibility, references, and an in-person interview."
-    },
-    "filters": {
-      "search": "Search by name, service, or neighbourhood",
-      "service": "Service",
-      "allServices": "All services",
-      "city": "City",
-      "allCities": "All cities",
-      "rating": "Rating",
-      "allRatings": "All ratings",
-      "rating45": "4.5+",
-      "rating48": "4.8+",
-      "availableToday": "Available today",
-      "reset": "Reset"
-    },
-    "results": {
-      "noResults": "No professionals match these filters yet."
-    },
-    "card": {
-      "viewProfile": "View profile",
-      "hourly": "COP / hr",
-      "yearsExp": "yrs exp",
-      "noBio": "This professional is preparing their public bio. Check back soon.",
-      "newBadge": "New to MaidConnect",
-      "flexibleServices": "Flexible services",
-      "rateOnRequest": "Rate on request"
-    }
-  },
-  "pages": {
-    "contact": {
-      "meta": {
-        "title": "Contact Us | MaidConnect",
-        "description": "Get in touch with our support team, learn about becoming a professional, or reach out for partnership opportunities."
-      },
-      "hero": {
-        "badge": "CONTACT",
-        "title": "How can we help?",
-        "description": "Whether you're looking to hire trusted professionals, interested in joining our network, or just have a question, our team is here to help."
-      },
-      "cards": {
-        "support": {
-          "title": "Support",
-          "description": "Fill out our form or email us at support@maidconnect.co with your question.",
-          "buttonText": "Submit an inquiry"
-        },
-        "customers": {
-          "title": "For customers",
-          "description": "Browse our verified professionals and book trusted help for your home.",
-          "buttonText": "Find a professional"
-        },
-        "professionals": {
-          "title": "For professionals",
-          "description": "Join our network and connect with families looking for reliable help.",
-          "buttonText": "Apply to join"
-        }
-      },
-      "faq": {
-        "title": "Frequently asked questions",
-        "questions": {
-          "verification": {
-            "question": "How does MaidConnect verify professionals?",
-            "answer": "All professionals undergo a comprehensive screening process including background checks, reference verification, and skills assessment. We verify identity documents, work history, and conduct in-person interviews to ensure quality and safety."
-          },
-          "payments": {
-            "question": "How do payments work?",
-            "answer": "When you book a service, we authorize a hold on your payment method. Funds are only captured after the service is completed. Professionals receive payment within 2-3 business days after service completion. All payments are processed securely through Stripe."
-          },
-          "cancellation": {
-            "question": "What happens if I need to cancel?",
-            "answer": "You can cancel any booking before the scheduled start time through your dashboard. Cancellations made 24+ hours in advance receive a full refund. Cancellations within 24 hours may incur a cancellation fee to compensate the professional for their reserved time."
-          },
-          "recurring": {
-            "question": "Can I book recurring services?",
-            "answer": "Yes! During the booking process, you can set up recurring appointments on a weekly, biweekly, or monthly basis. This ensures you have consistent help and builds a long-term relationship with your preferred professional."
-          },
-          "areas": {
-            "question": "What areas do you serve?",
-            "answer": "We currently operate across 6 major cities in Colombia including Bogotá, Medellín, Cali, Barranquilla, Cartagena, and Bucaramanga. We're actively expanding to new areas based on demand."
-          },
-          "becomePro": {
-            "question": "How do I become a professional on MaidConnect?",
-            "answer": "Click 'Apply to join' and complete our application form. We'll review your information, conduct a background check, and schedule an interview. Once approved, you'll complete onboarding and can start accepting bookings. The entire process typically takes 5-7 business days."
-          }
-        }
-      }
-    },
-    "signIn": {
-      "meta": {
-        "title": "Sign in | MaidConnect"
-      },
-      "header": {
-        "createAccount": "Create account"
-      },
-      "hero": {
-        "title": "Welcome back",
-        "description": "Sign in to manage your bookings, documents, and payouts in one workspace."
-      },
-      "form": {
-        "emailLabel": "Email",
-        "emailPlaceholder": "you@example.com",
-        "passwordLabel": "Password",
-        "passwordPlaceholder": "••••••••",
-        "signInButton": "Sign in",
-        "signingInButton": "Signing in…",
-        "needAccount": "Need an account?",
-        "createOneNow": "Create one now"
-      },
-      "footer": {
-        "support": "Concierge support is available 7 days a week for onboarding assistance."
-      },
-      "sidebar": {
-        "imageAlt": "MaidConnect hospitality",
-        "badge": "Trusted domestic talent",
-        "title": "Meticulous professionals handpicked for expat households.",
-        "description": "Our bilingual concierge team vets every profile with interviews, trial visits, and ongoing quality checks."
-      }
-    },
-    "signUp": {
-      "meta": {
-        "title": "Create account | MaidConnect"
-      },
-      "header": {
-        "signIn": "Sign in"
-      },
-      "hero": {
-        "title": "Create your MaidConnect account",
-        "description": "Tell us how you plan to use the platform and we'll tailor the experience for households or professionals."
-      },
-      "form": {
-        "accountTypeLabel": "Account type",
-        "accountTypeHelper": "Choose the experience that best matches how you plan to use MaidConnect.",
-        "customerLabel": "Customer",
-        "customerDescription": "Book pre-vetted professionals for your home.",
-        "professionalLabel": "Professional",
-        "professionalDescription": "Manage your profile, bookings, and payouts.",
-        "fullNameLabel": "Full name",
-        "fullNamePlaceholder": "Andrea Martínez",
-        "phoneLabel": "Phone",
-        "phonePlaceholder": "+57 300 123 4567",
-        "cityLabel": "City",
-        "cityPlaceholder": "Medellín",
-        "preferredLanguageLabel": "Preferred language",
-        "languageEnglish": "English",
-        "languageSpanish": "Español (Colombia)",
-        "emailLabel": "Email",
-        "emailPlaceholder": "you@example.com",
-        "propertyTypeLabel": "Property type",
-        "propertyTypePlaceholder": "Select a property type",
-        "propertyApartment": "Apartment",
-        "propertyHouse": "House",
-        "propertyOffice": "Office",
-        "propertyOther": "Other",
-        "passwordLabel": "Password",
-        "passwordPlaceholder": "Create a password",
-        "confirmPasswordLabel": "Confirm password",
-        "confirmPasswordPlaceholder": "Repeat password",
-        "termsLabel": "I agree to the MaidConnect",
-        "termsLink": "terms of service",
-        "termsConfirm": "and confirm that I understand the mutual respect guidelines.",
-        "successMessage": "Account created. Please check your email to verify and finish signing in.",
-        "createAccountButton": "Create account",
-        "creatingAccountButton": "Creating account…",
-        "haveAccount": "Already have an account?",
-        "signInInstead": "Sign in instead"
-      },
-      "footer": {
-        "support": "We'll guide you with concierge onboarding after you submit your details."
-      },
-      "sidebar": {
-        "imageAlt": "MaidConnect onboarding",
-        "badge": "Concierge onboarding",
-        "title": "We interview, background check, and coach every professional.",
-        "description": "Build trust from the first visit with structured onboarding, household manuals, and responsive support."
-      }
-    },
-    "terms": {
-      "meta": {
-        "title": "Terms of Service - MaidConnect",
-        "description": "MaidConnect's terms of service and user agreement"
-      },
-      "title": "Terms of Service",
-      "lastUpdated": "Last updated: {date}"
-    },
-    "privacy": {
-      "meta": {
-        "title": "Privacy Policy - MaidConnect",
-        "description": "MaidConnect's privacy policy and data protection practices"
-      },
-      "title": "Privacy Policy",
-      "lastUpdated": "Last updated: {date}"
-    },
-    "professionalProfile": {
-      "meta": {
-        "notFoundTitle": "Professional not found · MaidConnect",
-        "defaultName": "MaidConnect Professional",
-        "descriptionTemplate": "View {name}'s MaidConnect profile{service}{location}."
-      },
-      "backToDirectory": "← Back to directory",
-      "availableForBookings": "Available for bookings",
-      "perHour": "/ hr",
-      "yearsExperience": "yrs experience",
-      "reviews": "reviews",
-      "availableToday": "Available today",
-      "bookingSection": {
-        "title": "Book an appointment",
-        "description": "Choose a date to see available times and request a booking"
-      },
-      "tabs": {
-        "about": "About",
-        "services": "Services",
-        "portfolio": "Portfolio",
-        "reviews": "Reviews"
-      },
-      "aboutTab": {
-        "title": "About",
-        "defaultBio": "This professional is finalizing their public bio. Reach out with a booking request to learn more about their experience."
-      },
-      "servicesTab": {
-        "title": "Services & rates",
-        "serviceLabel": "Service",
-        "rateOnRequest": "Rate on request",
-        "noServicesMessage": "Services are being finalized. Submit a booking request with the details you need and we'll confirm pricing."
-      },
-      "portfolioTab": {
-        "title": "Portfolio",
-        "imageAlt": "Portfolio image",
-        "noImages": "No portfolio images yet"
-      },
-      "reviewsTab": {
-        "title": "Reviews",
-        "moreReviews": "+ {count} more reviews",
-        "noReviews": "No reviews yet"
-      }
+    "reviewSystem": {
+      "title": "Review system",
+      "description": "Two-way reviews ensure accountability and help you make informed decisions"
     }
   },
   "dashboard": {
@@ -1958,6 +965,983 @@
       "messagesPage": {
         "description": "Chat with professionals about your bookings and service details."
       }
+    }
+  },
+  "product": {
+    "bookingPlatform": {
+      "title": "Booking Platform",
+      "description": "Schedule services with instant or approved booking"
+    },
+    "professionalProfiles": {
+      "title": "Professional Profiles",
+      "description": "Verified profiles with reviews and portfolios"
+    },
+    "secureMessaging": {
+      "title": "Secure Messaging",
+      "description": "Direct communication with your professionals"
+    },
+    "paymentProcessing": {
+      "title": "Payment Processing",
+      "description": "Safe, transparent payments with receipt tracking"
+    },
+    "reviewsRatings": {
+      "title": "Reviews & Ratings",
+      "description": "Community-driven trust and quality assurance"
+    },
+    "adminDashboard": {
+      "title": "Admin Dashboard",
+      "description": "Complete platform management and moderation"
+    }
+  },
+  "hero": {
+    "badge": "Trusted Domestic Staffing · Colombia",
+    "title": "Home professionals who feel like family",
+    "subtitle": "Connect with vetted housekeepers and caregivers across Colombia. Fully screened, onboarded, and ready to support your lifestyle.",
+    "findProfessional": "Find a professional",
+    "howItWorks": "How it works",
+    "becomeProfessional": "Become a professional",
+    "learnMore": "Learn more"
+  },
+  "services": {
+    "badge": "Services",
+    "title": "Curated professionals for every routine",
+    "items": {
+      "housekeeping": {
+        "title": "Housekeeping & Deep Cleaning",
+        "description": "Recurring or one-time solutions tailored to meticulous homes."
+      },
+      "childcare": {
+        "title": "Family & Childcare Support",
+        "description": "Trusted nannies and caregivers experienced with international households."
+      },
+      "relocation": {
+        "title": "Move-in & Relocation Prep",
+        "description": "Arrival day setup, unpacking, and home organization services."
+      },
+      "elderCare": {
+        "title": "Elder & Wellness Care",
+        "description": "Companionship, medication reminders, and wellness-focused care."
+      },
+      "petCare": {
+        "title": "Pet & Home Management",
+        "description": "Reliable sitters, walkers, and property check-ins while you travel."
+      },
+      "lifestyle": {
+        "title": "Personal Lifestyle Support",
+        "description": "Private chefs, errand specialists, and personal assistants on demand."
+      }
+    }
+  },
+  "process": {
+    "badge": "How it works",
+    "title": "From search to support in four simple steps",
+    "steps": {
+      "step1": {
+        "number": "01",
+        "title": "Share your household profile",
+        "description": "Complete our guided intake detailing routines, preferences, languages, and required certifications."
+      },
+      "step2": {
+        "number": "02",
+        "title": "Meet curated professionals",
+        "description": "Receive a shortlist with video intros, verified credentials, and transparent pricing to compare with ease."
+      },
+      "step3": {
+        "number": "03",
+        "title": "Book and confirm",
+        "description": "Schedule your service with instant or approved booking. Communicate directly through secure messaging."
+      },
+      "step4": {
+        "number": "04",
+        "title": "Rate and rebook",
+        "description": "Share feedback after each visit. Save your favorites and rebook with one click for ongoing support."
+      }
+    }
+  },
+  "concierge": {
+    "title": "Ready to find your perfect match?",
+    "subtitle": "Schedule a consultation to discuss your household needs. We'll introduce you to vetted professionals within 48 hours.",
+    "browseProfessionals": "Browse professionals",
+    "bookConsultation": "Book a consultation",
+    "cities": "Available in 6 major Colombian cities",
+    "languages": "English, Spanish & Portuguese support"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "fullName": "Full name",
+    "phone": "Phone number",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signInButton": "Sign in",
+    "signUpButton": "Sign up",
+    "userType": {
+      "title": "I am a...",
+      "customer": "Customer",
+      "professional": "Professional"
+    }
+  },
+  "booking": {
+    "title": "Book a service",
+    "selectDate": "Select date",
+    "selectTime": "Select time",
+    "duration": "Duration",
+    "hours": "hours",
+    "addons": "Add-ons",
+    "totalPrice": "Total price",
+    "bookNow": "Book now",
+    "requestBooking": "Request booking",
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "footer": {
+    "description": "Connect with vetted housekeepers and caregivers across Colombia. Fully screened, onboarded, and ready to support your lifestyle.",
+    "platform": "Platform",
+    "company": "Company",
+    "findProfessional": "Find a Professional",
+    "contact": "Contact",
+    "services": "Services",
+    "loginSignup": "Login / Signup",
+    "applyProfessional": "Apply as Professional",
+    "support": "Support",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "cookies": "Cookies",
+    "allRightsReserved": "All rights reserved"
+  },
+  "pages": {
+    "bookingPlatform": {
+      "meta": {
+        "title": "Booking Platform - Instant Service Scheduling | Maidconnect",
+        "description": "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless. 500+ bookings monthly."
+      },
+      "hero": {
+        "headline": "Book trusted professionals in minutes",
+        "description": "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless.",
+        "primaryCTA": "Browse Professionals",
+        "secondaryCTA": "Learn More",
+        "badge": "500+ bookings this month"
+      },
+      "features": {
+        "title": "Powerful booking features",
+        "subtitle": "Everything you need to schedule services quickly and confidently",
+        "instantBooking": {
+          "title": "Instant & Approved Booking",
+          "description": "Book immediately with verified professionals or request approval for custom needs. Get instant confirmation for standard services."
+        },
+        "realTimeAvailability": {
+          "title": "Real-Time Availability",
+          "description": "See professional calendars and available time slots before booking. Never waste time requesting unavailable dates."
+        },
+        "smartScheduling": {
+          "title": "Smart Scheduling",
+          "description": "Set up recurring bookings, sync with your calendar, and receive automated reminders before every service."
+        }
+      },
+      "howItWorks": {
+        "title": "How it works",
+        "description": "Four simple steps to book your perfect professional",
+        "step1": {
+          "title": "Filter & Search",
+          "description": "Filter by service type, date, location, and professional ratings"
+        },
+        "step2": {
+          "title": "Select Professional",
+          "description": "View availability, read reviews, and browse portfolio galleries"
+        },
+        "step3": {
+          "title": "Confirm Booking",
+          "description": "Choose date and time, add service add-ons, and authorize payment"
+        },
+        "step4": {
+          "title": "Get Reminders",
+          "description": "Receive automatic reminders and communicate via secure messaging"
+        }
+      },
+      "benefits": {
+        "title": "Why customers love our booking system",
+        "noPhoneTag": {
+          "title": "No more phone tag",
+          "description": "See real-time availability and book instantly without endless back-and-forth calls or emails."
+        },
+        "transparentPricing": {
+          "title": "Transparent pricing",
+          "description": "Know exactly what you'll pay before booking. See hourly rates, add-on costs, and total price upfront."
+        },
+        "flexibleScheduling": {
+          "title": "Flexible scheduling",
+          "description": "Book one-time services or set up weekly, biweekly, or monthly recurring appointments with automatic discounts."
+        },
+        "easyRescheduling": {
+          "title": "Easy rescheduling",
+          "description": "Life happens. Reschedule or cancel bookings with just a few clicks, subject to professional's cancellation policy."
+        }
+      },
+      "cta": {
+        "title": "Ready to book your first service?",
+        "description": "Join hundreds of satisfied customers who trust MaidConnect for their home service needs",
+        "browseProfessionals": "Browse Professionals",
+        "signUpFree": "Sign Up Free"
+      }
+    },
+    "professionalProfiles": {
+      "meta": {
+        "title": "Verified Professional Profiles - Background Checked | Maidconnect",
+        "description": "Meet verified professionals with background checks, credentials, customer reviews, and portfolio galleries. 100% verified professionals you can trust in Colombia."
+      },
+      "hero": {
+        "headline": "Meet verified professionals you can trust",
+        "description": "Every profile includes background checks, verified credentials, customer reviews, and portfolio galleries showcasing their work.",
+        "primaryCTA": "View Professionals",
+        "secondaryCTA": "Learn More",
+        "badge": "100% verified professionals"
+      },
+      "features": {
+        "title": "Trust built into every profile",
+        "subtitle": "We verify every detail so you can book with complete confidence",
+        "verifiedCredentials": {
+          "title": "Verified Credentials",
+          "description": "Background checks, identity verification, and certification validation ensure every professional meets our high standards."
+        },
+        "customerReviews": {
+          "title": "Customer Reviews & Ratings",
+          "description": "Real feedback from verified bookings with detailed ratings on quality, communication, punctuality, and value."
+        },
+        "portfolioGalleries": {
+          "title": "Portfolio Galleries",
+          "description": "Before/after photos and work samples from past projects showcase the quality you can expect."
+        }
+      },
+      "howItWorks": {
+        "title": "How we verify professionals",
+        "description": "Our rigorous vetting process ensures quality and safety",
+        "step1": {
+          "title": "Application Review",
+          "description": "We review every application for experience, qualifications, and professionalism"
+        },
+        "step2": {
+          "title": "Document Verification",
+          "description": "Background checks, ID verification, and certification validation"
+        },
+        "step3": {
+          "title": "Portfolio Assessment",
+          "description": "Review work samples and past projects to ensure quality standards"
+        },
+        "step4": {
+          "title": "Ongoing Monitoring",
+          "description": "Continuous review of ratings, feedback, and service quality"
+        }
+      },
+      "profileFeatures": {
+        "title": "What you'll find in every profile",
+        "professionalInfo": {
+          "title": "Professional Information",
+          "items": {
+            "experience": "Years of experience and specializations",
+            "certifications": "Certifications and training completed",
+            "services": "Services offered and hourly rates",
+            "areas": "Service areas and availability"
+          }
+        },
+        "socialProof": {
+          "title": "Social Proof",
+          "items": {
+            "rating": "Overall rating from verified bookings",
+            "reviews": "Detailed reviews from past customers",
+            "portfolio": "Portfolio gallery with before/after photos",
+            "bookings": "Total bookings and repeat customer rate"
+          }
+        },
+        "safetyTrust": {
+          "title": "Safety & Trust",
+          "items": {
+            "backgroundCheck": "Background check status and date",
+            "identity": "Identity verification badge",
+            "insurance": "Insurance and bonding information",
+            "verified": "Platform-verified reviews only"
+          }
+        },
+        "workExamples": {
+          "title": "Work Examples",
+          "items": {
+            "galleryPhotos": "Portfolio gallery with real project photos",
+            "beforeAfter": "Before and after transformations",
+            "serviceExamples": "Service-specific examples and results",
+            "bio": "Professional bio and service approach"
+          }
+        }
+      },
+      "cta": {
+        "title": "Find your perfect professional match",
+        "description": "Browse verified profiles, read authentic reviews, and book with confidence knowing every professional has been thoroughly vetted",
+        "browseProfessionals": "Browse Professionals",
+        "becomeProfessional": "Become a Professional"
+      }
+    },
+    "paymentProcessing": {
+      "meta": {
+        "title": "Secure Payment Processing - Stripe Powered | Maidconnect",
+        "description": "Safe, transparent payments with Stripe. Track expenses, manage receipts, and handle tips all in one place. Secure escrow and automatic payouts."
+      },
+      "hero": {
+        "headline": "Safe, transparent payments every time",
+        "description": "Secure payment processing with Stripe. Track expenses, manage receipts, and handle tips all in one place with complete transparency.",
+        "primaryCTA": "See How It Works",
+        "secondaryCTA": "Book a Service",
+        "badge": "Powered by Stripe"
+      },
+      "features": {
+        "title": "Payment processing you can trust",
+        "subtitle": "Enterprise-grade security with consumer-friendly transparency",
+        "stripeIntegration": {
+          "title": "Secure Stripe Integration",
+          "description": "Industry-standard payment security with encrypted transactions. Your card information never touches our servers."
+        },
+        "transparentPricing": {
+          "title": "Transparent Pricing",
+          "description": "Clear breakdown of service fees, add-ons, and total costs before payment. No hidden charges or surprise fees."
+        },
+        "automaticReceipts": {
+          "title": "Automatic Receipts",
+          "description": "Digital receipts and expense tracking for every booking. Perfect for tax deductions and household budgets."
+        }
+      },
+      "howItWorks": {
+        "title": "How payments work",
+        "description": "Simple, secure, and transparent from start to finish",
+        "step1": {
+          "title": "Review Pricing",
+          "description": "See complete breakdown of base service, add-ons, and total before booking"
+        },
+        "step2": {
+          "title": "Authorize Payment",
+          "description": "Secure payment authorization through Stripe holds funds until service completion"
+        },
+        "step3": {
+          "title": "Service Completed",
+          "description": "Professional receives payment after service completion and check-out"
+        },
+        "step4": {
+          "title": "Get Receipt",
+          "description": "Automatic digital receipt with full transaction details sent to your email"
+        }
+      },
+      "paymentTimeline": {
+        "title": "Payment timeline explained",
+        "booking": {
+          "title": "Booking confirmation - Authorization hold placed",
+          "description": "When you book, we place a temporary authorization hold on your card for the total amount. This isn't a charge yet - it just reserves the funds."
+        },
+        "serviceDay": {
+          "title": "Service day - Check-in begins service",
+          "description": "Professional checks in when they arrive. The authorization hold remains in place during the service. You can track service progress in real-time."
+        },
+        "serviceComplete": {
+          "title": "Service complete - Check-out captures payment",
+          "description": "When the professional checks out and marks service complete, the authorization converts to an actual charge. This is when you're billed."
+        },
+        "postService": {
+          "title": "Post-service - Receipt and payout processing",
+          "description": "You receive a digital receipt immediately. The professional receives their payout (minus platform fees) within 2-3 business days."
+        }
+      },
+      "protection": {
+        "title": "Your payment protection",
+        "chargedAfter": {
+          "title": "Only charged after service completion",
+          "description": "Authorization holds aren't charges. You're only billed when the professional marks the service complete and checks out."
+        },
+        "cancellation": {
+          "title": "Cancellation protections",
+          "description": "Cancel before the cancellation window closes and the hold releases automatically. No charge, no hassle, no questions asked."
+        },
+        "dispute": {
+          "title": "Dispute resolution support",
+          "description": "If service wasn't delivered as promised, contact support within 24 hours. We review disputes and process refunds when appropriate."
+        },
+        "encrypted": {
+          "title": "Encrypted card storage",
+          "description": "Your payment information is tokenized and encrypted by Stripe. We never see or store your full card details on our servers."
+        }
+      },
+      "acceptedMethods": {
+        "title": "Accepted payment methods",
+        "creditCards": {
+          "title": "Credit Cards",
+          "description": "Visa, Mastercard, American Express, Discover"
+        },
+        "debitCards": {
+          "title": "Debit Cards",
+          "description": "All major debit cards with card number and CVV"
+        },
+        "digitalReceipts": {
+          "title": "Digital Receipts",
+          "description": "Automatic receipts sent via email for all transactions"
+        }
+      },
+      "cta": {
+        "title": "Ready for secure, transparent payments?",
+        "description": "Experience hassle-free payment processing backed by Stripe's industry-leading security",
+        "bookService": "Book Your First Service",
+        "signUpFree": "Sign Up Free"
+      }
+    },
+    "secureMessaging": {
+      "meta": {
+        "title": "Secure Messaging Platform - Direct Communication | Maidconnect",
+        "description": "Direct messaging unlocked after booking. Coordinate details, send photos, and stay connected throughout your service relationship. Booking-based security."
+      },
+      "hero": {
+        "headline": "Communicate securely with your professionals",
+        "description": "Direct messaging unlocked after booking. Coordinate details, send photos, and stay connected throughout your service relationship.",
+        "primaryCTA": "Book a Service",
+        "secondaryCTA": "Learn More",
+        "badge": "Booking-based security"
+      },
+      "features": {
+        "title": "Safe, convenient communication",
+        "subtitle": "Built-in messaging that protects your privacy while enabling seamless coordination",
+        "bookingBased": {
+          "title": "Booking-Based Access",
+          "description": "Messaging available only for confirmed bookings, ensuring safety and preventing spam. Your contact information stays private."
+        },
+        "realTime": {
+          "title": "Real-Time Conversations",
+          "description": "Instant message delivery with read receipts and notifications. Stay connected from booking confirmation to service completion."
+        },
+        "photoSharing": {
+          "title": "Photo & File Sharing",
+          "description": "Share instructions, references, and updates easily. Send photos of areas that need attention or special requests."
+        }
+      },
+      "howItWorks": {
+        "title": "How it works",
+        "description": "Simple, secure messaging tied to your bookings",
+        "step1": {
+          "title": "Complete Booking",
+          "description": "Book a service with any professional to unlock messaging access"
+        },
+        "step2": {
+          "title": "Access Chat",
+          "description": "Find the conversation thread in your dashboard messages section"
+        },
+        "step3": {
+          "title": "Coordinate Details",
+          "description": "Discuss service details, timing, special requests, or access instructions"
+        },
+        "step4": {
+          "title": "Stay Connected",
+          "description": "Keep communication history for reference throughout your service relationship"
+        }
+      },
+      "benefits": {
+        "title": "Why our messaging system is different",
+        "privacy": {
+          "title": "Privacy protected",
+          "description": "Your phone number and email stay private. All communication happens through the platform with full message history for safety."
+        },
+        "noSpam": {
+          "title": "No spam or solicitation",
+          "description": "Only confirmed bookings unlock messaging. Professionals can't contact you without a booking, eliminating unwanted messages."
+        },
+        "history": {
+          "title": "Message history & receipts",
+          "description": "All messages are saved and tied to the booking. Perfect for referencing past conversations and instructions."
+        },
+        "notifications": {
+          "title": "Real-time notifications",
+          "description": "Get notified instantly when professionals respond. Never miss important updates about your booking."
+        }
+      },
+      "useCases": {
+        "title": "Common messaging scenarios",
+        "beforeService": {
+          "title": "Before the service",
+          "items": {
+            "access": "Share building access codes and parking instructions",
+            "photos": "Send photos of areas needing special attention",
+            "timing": "Confirm arrival time and any last-minute changes",
+            "products": "Discuss specific cleaning products or preferences"
+          }
+        },
+        "duringService": {
+          "title": "During the service",
+          "items": {
+            "updates": "Get updates on service progress and completion",
+            "questions": "Answer questions about specific areas or items",
+            "beforeAfter": "Receive before/after photos of completed work",
+            "realTime": "Address any issues or requests in real-time"
+          }
+        }
+      },
+      "cta": {
+        "title": "Ready to experience seamless communication?",
+        "description": "Book your first service and unlock secure messaging with verified professionals",
+        "browseProfessionals": "Browse Professionals",
+        "signUpFree": "Sign Up Free"
+      }
+    },
+    "reviewsRatings": {
+      "meta": {
+        "title": "Reviews & Ratings System - Two-Way Accountability | Maidconnect",
+        "description": "Community-driven trust and quality. Two-way reviews ensure accountability. Verified reviews only from real bookings. Build your reputation."
+      },
+      "hero": {
+        "headline": "Community-driven trust and quality",
+        "description": "Two-way reviews ensure accountability. Rate professionals after every service and build your own reputation as a reliable customer.",
+        "primaryCTA": "Read Reviews",
+        "secondaryCTA": "Learn More",
+        "badge": "Verified reviews only"
+      },
+      "features": {
+        "title": "Authentic feedback that matters",
+        "subtitle": "Only real bookings, real experiences, and real accountability",
+        "verifiedBooking": {
+          "title": "Verified Booking Reviews",
+          "description": "Only customers who completed bookings can leave reviews. Every review is tied to a real service, ensuring authenticity."
+        },
+        "twoWay": {
+          "title": "Two-Way Accountability",
+          "description": "Professionals rate customers too, building mutual trust and respect. Great customers get better service and priority booking."
+        },
+        "detailedCategories": {
+          "title": "Detailed Rating Categories",
+          "description": "Rate quality, communication, punctuality, and value separately. Get the full picture beyond a single star rating."
+        }
+      },
+      "howItWorks": {
+        "title": "How reviews work",
+        "description": "Simple, fair, and transparent for everyone",
+        "step1": {
+          "title": "Complete Service",
+          "description": "Finish a booking and ensure all check-in/check-out steps are done"
+        },
+        "step2": {
+          "title": "Receive Prompt",
+          "description": "Get a review request within 48 hours of service completion"
+        },
+        "step3": {
+          "title": "Rate Experience",
+          "description": "Rate across multiple categories with detailed feedback options"
+        },
+        "step4": {
+          "title": "Build Reputation",
+          "description": "Your review helps others and builds your customer reputation score"
+        }
+      },
+      "categories": {
+        "title": "What gets rated",
+        "forProfessionals": {
+          "title": "For Professionals",
+          "serviceQuality": "Service Quality: Thoroughness, attention to detail, results",
+          "communication": "Communication: Responsiveness, clarity, professionalism",
+          "punctuality": "Punctuality: On-time arrival, schedule adherence",
+          "value": "Value: Fair pricing, worth the cost"
+        },
+        "forCustomers": {
+          "title": "For Customers",
+          "clarity": "Clarity: Clear instructions, reasonable expectations",
+          "respect": "Respect: Professional treatment, safe environment",
+          "payment": "Payment: Timely payment, proper tipping",
+          "communication": "Communication: Responsiveness, cooperation"
+        }
+      },
+      "benefits": {
+        "title": "Why our review system works",
+        "mutualRespect": {
+          "title": "Mutual respect and fairness",
+          "description": "Two-way reviews mean customers and professionals both have accountability. This creates a respectful, professional environment for everyone."
+        },
+        "verifiedOnly": {
+          "title": "Verified reviews only",
+          "description": "No fake reviews, no incentivized ratings. Every review comes from a completed booking, ensuring authenticity and trust."
+        },
+        "accountability": {
+          "title": "Platform-wide accountability",
+          "description": "Low-rated users on either side get flagged for review. Repeat issues result in account suspension, keeping the platform safe for everyone."
+        },
+        "balancedFeedback": {
+          "title": "Honest, balanced feedback",
+          "description": "Detailed categories prevent unfair single-issue ratings. You can rate service quality highly while noting communication needs improvement."
+        }
+      },
+      "cta": {
+        "title": "Join a community built on trust",
+        "description": "Start building your reputation today. Great customers and professionals both benefit from our two-way review system.",
+        "browseProfessionals": "Browse Professionals",
+        "signUpFree": "Sign Up Free"
+      }
+    },
+    "adminDashboard": {
+      "meta": {
+        "title": "Admin Dashboard - Platform Management Tools | Maidconnect",
+        "description": "Enterprise-grade admin tools for moderating professionals, reviewing bookings, processing payouts, and maintaining platform quality. Complete oversight."
+      },
+      "hero": {
+        "headline": "Complete platform management and oversight",
+        "description": "Enterprise-grade admin tools for moderating professionals, reviewing bookings, processing payouts, and maintaining platform quality.",
+        "primaryCTA": "Request Demo",
+        "secondaryCTA": "Learn More",
+        "badge": "Admin access only"
+      },
+      "features": {
+        "title": "Comprehensive admin control",
+        "subtitle": "Everything you need to manage and moderate the platform",
+        "professionalModeration": {
+          "title": "Professional Moderation",
+          "description": "Review applications, verify credentials, approve or reject profiles. Monitor ongoing performance and handle complaints."
+        },
+        "bookingOversight": {
+          "title": "Booking Oversight",
+          "description": "View all bookings, resolve disputes, process refunds, and handle cancellations. Complete transaction visibility."
+        },
+        "payoutProcessing": {
+          "title": "Payout Processing",
+          "description": "Manage professional payouts, review financial transactions, handle disputes, and ensure platform fee compliance."
+        }
+      },
+      "howItWorks": {
+        "title": "Key admin workflows",
+        "description": "Core processes for platform management",
+        "step1": {
+          "title": "Professional Onboarding",
+          "description": "Review applications, verify documents, and approve new professionals joining the platform"
+        },
+        "step2": {
+          "title": "Quality Monitoring",
+          "description": "Track ratings, review complaints, and identify professionals or customers needing attention"
+        },
+        "step3": {
+          "title": "Transaction Management",
+          "description": "Process payouts, handle disputes, manage refunds, and ensure proper fee collection"
+        },
+        "step4": {
+          "title": "Platform Health",
+          "description": "Monitor metrics, analyze trends, and maintain overall platform quality and safety"
+        }
+      },
+      "capabilities": {
+        "title": "Admin capabilities",
+        "professionalManagement": "Professional Management: Approve, suspend, or ban professional accounts",
+        "bookingReview": "Booking Review: View all transactions and service details",
+        "payoutControl": "Payout Control: Approve or hold professional payments",
+        "disputeResolution": "Dispute Resolution: Mediate conflicts and process refunds",
+        "userModeration": "User Moderation: Manage customer accounts and flags",
+        "analytics": "Analytics Dashboard: Platform metrics and business intelligence"
+      },
+      "security": {
+        "title": "Security and access control",
+        "roleBasedAccess": {
+          "title": "Role-based access control",
+          "description": "Different admin levels with specific permissions. Not all admins see everything - compartmentalized access for security."
+        },
+        "auditLogs": {
+          "title": "Complete audit logging",
+          "description": "Every admin action is logged with timestamps and user details. Full accountability for all platform changes."
+        },
+        "dataProtection": {
+          "title": "Data protection and privacy",
+          "description": "Sensitive customer data is masked. Admins see only what's necessary for their role, protecting user privacy."
+        },
+        "twoFactorAuth": {
+          "title": "Two-factor authentication",
+          "description": "Admin accounts require 2FA for login. Additional verification for sensitive actions like payouts and bans."
+        }
+      },
+      "tools": {
+        "title": "Available admin tools",
+        "professionalApproval": "Professional Approval: Review and approve new applications",
+        "documentVerification": "Document Verification: Check credentials and certifications",
+        "payoutQueue": "Payout Queue: Process scheduled professional payments",
+        "userManagement": "User Management: Suspend, ban, or reinstate user accounts",
+        "disputeResolution": "Dispute Resolution: Handle customer complaints and refund requests",
+        "analytics": "Analytics Dashboard: Platform metrics and business intelligence"
+      },
+      "cta": {
+        "title": "See the admin dashboard in action",
+        "description": "Request a demo to explore our comprehensive platform management tools and see how we maintain quality and safety",
+        "requestDemo": "Request Demo",
+        "learnMore": "Learn More"
+      }
+    },
+    "contact": {
+      "meta": {
+        "title": "Contact Us | MaidConnect",
+        "description": "Get in touch with our support team, learn about becoming a professional, or reach out for partnership opportunities."
+      },
+      "hero": {
+        "badge": "CONTACT",
+        "title": "How can we help?",
+        "description": "Whether you're looking to hire trusted professionals, interested in joining our network, or just have a question, our team is here to help."
+      },
+      "cards": {
+        "support": {
+          "title": "Support",
+          "description": "Fill out our form or email us at support@maidconnect.co with your question.",
+          "buttonText": "Submit an inquiry"
+        },
+        "customers": {
+          "title": "For customers",
+          "description": "Browse our verified professionals and book trusted help for your home.",
+          "buttonText": "Find a professional"
+        },
+        "professionals": {
+          "title": "For professionals",
+          "description": "Join our network and connect with families looking for reliable help.",
+          "buttonText": "Apply to join"
+        }
+      },
+      "faq": {
+        "title": "Frequently asked questions",
+        "questions": {
+          "verification": {
+            "question": "How does MaidConnect verify professionals?",
+            "answer": "All professionals undergo a comprehensive screening process including background checks, reference verification, and skills assessment. We verify identity documents, work history, and conduct in-person interviews to ensure quality and safety."
+          },
+          "payments": {
+            "question": "How do payments work?",
+            "answer": "When you book a service, we authorize a hold on your payment method. Funds are only captured after the service is completed. Professionals receive payment within 2-3 business days after service completion. All payments are processed securely through Stripe."
+          },
+          "cancellation": {
+            "question": "What happens if I need to cancel?",
+            "answer": "You can cancel any booking before the scheduled start time through your dashboard. Cancellations made 24+ hours in advance receive a full refund. Cancellations within 24 hours may incur a cancellation fee to compensate the professional for their reserved time."
+          },
+          "recurring": {
+            "question": "Can I book recurring services?",
+            "answer": "Yes! During the booking process, you can set up recurring appointments on a weekly, biweekly, or monthly basis. This ensures you have consistent help and builds a long-term relationship with your preferred professional."
+          },
+          "areas": {
+            "question": "What areas do you serve?",
+            "answer": "We currently operate across 6 major cities in Colombia including Bogotá, Medellín, Cali, Barranquilla, Cartagena, and Bucaramanga. We're actively expanding to new areas based on demand."
+          },
+          "becomePro": {
+            "question": "How do I become a professional on MaidConnect?",
+            "answer": "Click 'Apply to join' and complete our application form. We'll review your information, conduct a background check, and schedule an interview. Once approved, you'll complete onboarding and can start accepting bookings. The entire process typically takes 5-7 business days."
+          }
+        }
+      }
+    },
+    "signIn": {
+      "meta": {
+        "title": "Sign in | MaidConnect"
+      },
+      "header": {
+        "createAccount": "Create account"
+      },
+      "hero": {
+        "title": "Welcome back",
+        "description": "Sign in to manage your bookings, documents, and payouts in one workspace."
+      },
+      "form": {
+        "emailLabel": "Email",
+        "emailPlaceholder": "you@example.com",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "••••••••",
+        "signInButton": "Sign in",
+        "signingInButton": "Signing in…",
+        "needAccount": "Need an account?",
+        "createOneNow": "Create one now"
+      },
+      "footer": {
+        "support": "Concierge support is available 7 days a week for onboarding assistance."
+      },
+      "sidebar": {
+        "imageAlt": "MaidConnect hospitality",
+        "badge": "Trusted domestic talent",
+        "title": "Meticulous professionals handpicked for expat households.",
+        "description": "Our bilingual concierge team vets every profile with interviews, trial visits, and ongoing quality checks."
+      }
+    },
+    "signUp": {
+      "meta": {
+        "title": "Create account | MaidConnect"
+      },
+      "header": {
+        "signIn": "Sign in"
+      },
+      "hero": {
+        "title": "Create your MaidConnect account",
+        "description": "Tell us how you plan to use the platform and we'll tailor the experience for households or professionals."
+      },
+      "form": {
+        "accountTypeLabel": "Account type",
+        "accountTypeHelper": "Choose the experience that best matches how you plan to use MaidConnect.",
+        "customerLabel": "Customer",
+        "customerDescription": "Book pre-vetted professionals for your home.",
+        "professionalLabel": "Professional",
+        "professionalDescription": "Manage your profile, bookings, and payouts.",
+        "fullNameLabel": "Full name",
+        "fullNamePlaceholder": "Andrea Martínez",
+        "phoneLabel": "Phone",
+        "phonePlaceholder": "+57 300 123 4567",
+        "cityLabel": "City",
+        "cityPlaceholder": "Medellín",
+        "preferredLanguageLabel": "Preferred language",
+        "languageEnglish": "English",
+        "languageSpanish": "Español (Colombia)",
+        "emailLabel": "Email",
+        "emailPlaceholder": "you@example.com",
+        "propertyTypeLabel": "Property type",
+        "propertyTypePlaceholder": "Select a property type",
+        "propertyApartment": "Apartment",
+        "propertyHouse": "House",
+        "propertyOffice": "Office",
+        "propertyOther": "Other",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "Create a password",
+        "confirmPasswordLabel": "Confirm password",
+        "confirmPasswordPlaceholder": "Repeat password",
+        "termsLabel": "I agree to the MaidConnect",
+        "termsLink": "terms of service",
+        "termsConfirm": "and confirm that I understand the mutual respect guidelines.",
+        "successMessage": "Account created. Please check your email to verify and finish signing in.",
+        "createAccountButton": "Create account",
+        "creatingAccountButton": "Creating account…",
+        "haveAccount": "Already have an account?",
+        "signInInstead": "Sign in instead"
+      },
+      "footer": {
+        "support": "We'll guide you with concierge onboarding after you submit your details."
+      },
+      "sidebar": {
+        "imageAlt": "MaidConnect onboarding",
+        "badge": "Concierge onboarding",
+        "title": "We interview, background check, and coach every professional.",
+        "description": "Build trust from the first visit with structured onboarding, household manuals, and responsive support."
+      }
+    },
+    "terms": {
+      "meta": {
+        "title": "Terms of Service - MaidConnect",
+        "description": "MaidConnect's terms of service and user agreement"
+      },
+      "title": "Terms of Service",
+      "lastUpdated": "Last updated: {date}"
+    },
+    "privacy": {
+      "meta": {
+        "title": "Privacy Policy - MaidConnect",
+        "description": "MaidConnect's privacy policy and data protection practices"
+      },
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated: {date}"
+    },
+    "professionalProfile": {
+      "meta": {
+        "notFoundTitle": "Professional not found · MaidConnect",
+        "defaultName": "MaidConnect Professional",
+        "descriptionTemplate": "View {name}'s MaidConnect profile{service}{location}."
+      },
+      "backToDirectory": "← Back to directory",
+      "availableForBookings": "Available for bookings",
+      "perHour": "/ hr",
+      "yearsExperience": "yrs experience",
+      "reviews": "reviews",
+      "availableToday": "Available today",
+      "bookingSection": {
+        "title": "Book an appointment",
+        "description": "Choose a date to see available times and request a booking"
+      },
+      "tabs": {
+        "about": "About",
+        "services": "Services",
+        "portfolio": "Portfolio",
+        "reviews": "Reviews"
+      },
+      "aboutTab": {
+        "title": "About",
+        "defaultBio": "This professional is finalizing their public bio. Reach out with a booking request to learn more about their experience."
+      },
+      "servicesTab": {
+        "title": "Services & rates",
+        "serviceLabel": "Service",
+        "rateOnRequest": "Rate on request",
+        "noServicesMessage": "Services are being finalized. Submit a booking request with the details you need and we'll confirm pricing."
+      },
+      "portfolioTab": {
+        "title": "Portfolio",
+        "imageAlt": "Portfolio image",
+        "noImages": "No portfolio images yet"
+      },
+      "reviewsTab": {
+        "title": "Reviews",
+        "moreReviews": "+ {count} more reviews",
+        "noReviews": "No reviews yet"
+      }
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "viewMore": "View more",
+    "viewLess": "View less",
+    "readMore": "Read more",
+    "readLess": "Read less",
+    "seeAll": "See all",
+    "showMore": "Show more",
+    "showLess": "Show less"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "notFound": "Page not found",
+    "unauthorized": "You must be logged in to access this page",
+    "forbidden": "You don't have permission to access this resource",
+    "serverError": "Server error. Please try again later.",
+    "networkError": "Network error. Please check your connection."
+  },
+  "success": {
+    "saved": "Changes saved successfully",
+    "deleted": "Deleted successfully",
+    "created": "Created successfully",
+    "updated": "Updated successfully",
+    "bookingCreated": "Booking created successfully",
+    "messageSent": "Message sent successfully"
+  },
+  "professionalsDirectory": {
+    "header": {
+      "title": "Maidconnect professionals",
+      "subtitle": "Every specialist listed below has cleared Maidconnect's four-stage vetting process and is authorised to serve customers via our platform. These steps include submission and approval of their cédula (Colombian government ID), proof of work eligibility, references, and an in-person interview."
+    },
+    "filters": {
+      "search": "Search by name, service, or neighbourhood",
+      "service": "Service",
+      "allServices": "All services",
+      "city": "City",
+      "allCities": "All cities",
+      "rating": "Rating",
+      "allRatings": "All ratings",
+      "rating45": "4.5+",
+      "rating48": "4.8+",
+      "availableToday": "Available today",
+      "reset": "Reset"
+    },
+    "results": {
+      "noResults": "No professionals match these filters yet."
+    },
+    "card": {
+      "viewProfile": "View profile",
+      "hourly": "COP / hr",
+      "yearsExp": "yrs exp",
+      "noBio": "This professional is preparing their public bio. Check back soon.",
+      "newBadge": "New to MaidConnect",
+      "flexibleServices": "Flexible services",
+      "rateOnRequest": "Rate on request"
     }
   }
 }
