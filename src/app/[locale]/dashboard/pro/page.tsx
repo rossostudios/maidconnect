@@ -7,6 +7,7 @@ import { REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "@/app/[locale]/dashboard
 import { ServiceAddonsManager } from "@/components/service-addons/service-addons-manager";
 import { ProBookingList } from "@/components/bookings/pro-booking-list";
 import { NotificationPermissionPrompt } from "@/components/notifications/notification-permission-prompt";
+import { getTranslations } from "next-intl/server";
 
 const STATUS_ORDER = ["application_pending", "application_in_review", "approved", "active"] as const;
 
@@ -133,7 +134,14 @@ type ProfessionalBookingRow = {
   customer: { id: string } | null;
 };
 
-export default async function ProfessionalDashboardPage() {
+export default async function ProfessionalDashboardPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "dashboard.pro.main" });
+
   const user = await requireUser({ allowedRoles: ["professional"] });
   const supabase = await createSupabaseServerClient();
 
@@ -269,27 +277,27 @@ export default async function ProfessionalDashboardPage() {
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-              Welcome back{professionalProfile?.full_name ? `, ${professionalProfile.full_name}` : ""}
+              {t("welcomeBack")}{professionalProfile?.full_name ? `, ${professionalProfile.full_name}` : ""}
             </h1>
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-[#5d574b]">
               {onboardingStatus === "active"
-                ? "Your dashboard overview for managing bookings, services, and customer communications."
-                : "Review your onboarding progress and take the next steps to start accepting bookings."}
+                ? t("dashboardDescription")
+                : t("onboardingDescription")}
             </p>
           </div>
           <Link
             href="/auth/sign-out?redirectTo=/"
             className="text-base font-semibold text-[#ff5d46] transition hover:text-[#eb6c65]"
           >
-            Sign out
+            {t("signOut")}
           </Link>
         </div>
         {onboardingStatus === "active" ? (
           <dl className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            <MetricCard label="Active bookings" value={activeBookings.toString()} />
-            <MetricCard label="Pending requests" value={pendingBookings.toString()} />
-            <MetricCard label="Completed this week" value={completedThisWeek.toString()} />
-            <MetricCard label="Earnings this week" value={formatCurrencyCOP(weeklyEarnings)} />
+            <MetricCard label={t("metrics.activeBookings")} value={activeBookings.toString()} />
+            <MetricCard label={t("metrics.pendingRequests")} value={pendingBookings.toString()} />
+            <MetricCard label={t("metrics.completedThisWeek")} value={completedThisWeek.toString()} />
+            <MetricCard label={t("metrics.earningsThisWeek")} value={formatCurrencyCOP(weeklyEarnings)} />
           </dl>
         ) : null}
       </header>
@@ -298,16 +306,16 @@ export default async function ProfessionalDashboardPage() {
         <section className="rounded-[32px] border border-[#ebe5d8] bg-gradient-to-br from-[#fff5f2] to-white p-10 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-3xl font-semibold text-[#211f1a]">Onboarding checklist</h2>
+              <h2 className="text-3xl font-semibold text-[#211f1a]">{t("onboarding.title")}</h2>
               <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                Complete each step so customers can discover and book you. Missing items are highlighted below.
+                {t("onboarding.description")}
               </p>
             </div>
             <Link
               href="/dashboard/pro/onboarding"
               className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
             >
-              Manage onboarding
+              {t("onboarding.manageButton")}
             </Link>
           </div>
 
@@ -320,44 +328,48 @@ export default async function ProfessionalDashboardPage() {
                   className="rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)] hover:-translate-y-1"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#ff5d46]">{task.title}</span>
+                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#ff5d46]">
+                      {t(`onboarding.tasks.${task.id}.title`)}
+                    </span>
                     {isComplete ? (
                       <span className="rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
-                        Completed
+                        {t("onboarding.status.completed")}
                       </span>
                     ) : (
                       <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-700">
-                        Action needed
+                        {t("onboarding.status.actionNeeded")}
                       </span>
                     )}
                   </div>
-                  <p className="mt-4 text-base leading-relaxed text-[#211f1a]">{task.description}</p>
+                  <p className="mt-4 text-base leading-relaxed text-[#211f1a]">
+                    {t(`onboarding.tasks.${task.id}.description`)}
+                  </p>
                   {!isComplete ? (
                     <Link
                       href={task.cta.href}
                       className="mt-3 inline-flex items-center text-sm font-semibold text-[#ff5d46] hover:text-[#eb6c65]"
                     >
-                      {task.cta.label} →
+                      {t(`onboarding.tasks.${task.id}.cta`)} →
                     </Link>
                   ) : null}
                   {task.id === "documents" && missingDocuments.length > 0 ? (
                     <p className="mt-3 text-xs text-[#c4534d]">
-                      Missing: {missingDocuments.map((doc) => DOCUMENT_LABELS[doc] ?? doc).join(", ")}
+                      {t("onboarding.warnings.missing")} {missingDocuments.map((doc) => DOCUMENT_LABELS[doc] ?? doc).join(", ")}
                     </p>
                   ) : null}
                   {task.id === "profile" && professionalProfile?.primary_services && professionalProfile.primary_services.length === 0 ? (
                     <p className="mt-3 text-xs text-[#c4534d]">
-                      Add at least one service to show customers what you offer.
+                      {t("onboarding.warnings.addService")}
                     </p>
                   ) : null}
                   {task.id === "profile" && professionalProfile?.onboarding_completed_at ? (
                     <p className="mt-3 text-xs text-[#2f7a47]">
-                      Profile activated on {formatDate(professionalProfile.onboarding_completed_at)}.
+                      {t("onboarding.warnings.profileActivated")} {formatDate(professionalProfile.onboarding_completed_at)}.
                     </p>
                   ) : null}
                   {task.id === "application" && professionalProfile?.references_data && professionalProfile.references_data.length < 2 ? (
                     <p className="mt-3 text-xs text-[#c4534d]">
-                      Add two professional references so we can complete your background check.
+                      {t("onboarding.warnings.addReferences")}
                     </p>
                   ) : null}
                 </li>
@@ -377,16 +389,16 @@ export default async function ProfessionalDashboardPage() {
         <section className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 className="text-3xl font-semibold text-[#211f1a]">Booking calendar</h2>
+              <h2 className="text-3xl font-semibold text-[#211f1a]">{t("sections.bookingCalendar.title")}</h2>
               <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                View your upcoming bookings, manage requests, and track completed visits.
+                {t("sections.bookingCalendar.description")}
               </p>
             </div>
             <Link
               href="/dashboard/pro/onboarding"
               className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             >
-              Update availability
+              {t("sections.bookingCalendar.updateAvailability")}
             </Link>
           </div>
           <div className="mt-8">
@@ -403,7 +415,7 @@ export default async function ProfessionalDashboardPage() {
             />
           </div>
           <div className="mt-8">
-            <h3 className="mb-4 text-xl font-semibold text-[#211f1a]">Recent bookings</h3>
+            <h3 className="mb-4 text-xl font-semibold text-[#211f1a]">{t("sections.recentBookings")}</h3>
             <ProBookingList bookings={bookings} />
           </div>
         </section>
@@ -414,22 +426,22 @@ export default async function ProfessionalDashboardPage() {
         <section className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-3xl font-semibold text-[#211f1a]">Services & add-ons</h2>
+              <h2 className="text-3xl font-semibold text-[#211f1a]">{t("sections.services.title")}</h2>
               <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                Manage your core services and create custom add-ons to increase booking value.
+                {t("sections.services.description")}
               </p>
             </div>
             <Link
               href="/dashboard/pro/onboarding"
               className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
             >
-              Edit services
+              {t("sections.services.editButton")}
             </Link>
           </div>
 
           {/* Current Services */}
           <div className="mt-8">
-            <h3 className="text-xl font-semibold text-[#211f1a]">Your services</h3>
+            <h3 className="text-xl font-semibold text-[#211f1a]">{t("sections.services.yourServices")}</h3>
             <div className="mt-4 flex flex-wrap gap-3">
               {professionalProfile?.primary_services?.length ? (
                 professionalProfile.primary_services.map((service) => (
@@ -441,15 +453,15 @@ export default async function ProfessionalDashboardPage() {
                   </span>
                 ))
               ) : (
-                <p className="text-base text-[#5d574b]">No services added yet. Add services in your profile.</p>
+                <p className="text-base text-[#5d574b]">{t("sections.services.noServices")}</p>
               )}
             </div>
           </div>
 
           {/* Service Add-ons */}
           <div className="mt-8">
-            <h3 className="text-xl font-semibold text-[#211f1a]">Custom add-ons</h3>
-            <p className="mt-2 text-base text-[#5d574b]">Offer extras like deep cleaning, laundry, or pet care.</p>
+            <h3 className="text-xl font-semibold text-[#211f1a]">{t("sections.services.customAddons")}</h3>
+            <p className="mt-2 text-base text-[#5d574b]">{t("sections.services.addonsDescription")}</p>
             <div className="mt-4">
               <ServiceAddonsManager addons={addons} professionalId={user.id} />
             </div>
@@ -459,13 +471,13 @@ export default async function ProfessionalDashboardPage() {
 
       {/* Document center */}
       <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h3 className="text-2xl font-semibold text-[#211f1a]">Document center</h3>
+        <h3 className="text-2xl font-semibold text-[#211f1a]">{t("sections.documents.title")}</h3>
         <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
-          Keep your verification paperwork current. Upload new files if your information changes.
+          {t("sections.documents.description")}
         </p>
         {documents.length === 0 ? (
           <p className="mt-4 text-base text-[#c4534d]">
-            We don't have any documents on file yet. Please upload the required documents.
+            {t("sections.documents.noDocuments")}
           </p>
         ) : (
           <ul className="mt-6 divide-y divide-[#efe7dc] text-sm text-[#211f1a]">
@@ -475,7 +487,7 @@ export default async function ProfessionalDashboardPage() {
                   <div>
                     <span className="font-medium">{DOCUMENT_LABELS[doc.document_type] ?? doc.document_type}</span>
                     <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-[#7a6d62]">
-                      <span>{doc.metadata?.originalName ?? "Unnamed file"}</span>
+                      <span>{doc.metadata?.originalName ?? t("sections.documents.unnamedFile")}</span>
                       <span>•</span>
                       <span>{formatFileSize(doc.metadata?.size)}</span>
                       {doc.metadata?.note ? (
@@ -487,7 +499,7 @@ export default async function ProfessionalDashboardPage() {
                     </div>
                   </div>
                   <span className="text-xs uppercase tracking-wide text-[#7a6d62]">
-                    Uploaded {formatDate(doc.uploaded_at)}
+                    {t("sections.documents.uploaded")} {formatDate(doc.uploaded_at)}
                   </span>
                 </div>
                 {doc.signedUrl ? (
@@ -497,10 +509,10 @@ export default async function ProfessionalDashboardPage() {
                     rel="noopener noreferrer"
                     className="inline-flex w-fit items-center gap-1 rounded-md border border-[#efe7dc] px-3 py-1 text-xs font-semibold text-[#ff5d46] transition hover:border-[#ff5d46] hover:text-[#eb6c65]"
                   >
-                    Download
+                    {t("sections.documents.download")}
                   </Link>
                 ) : (
-                  <p className="text-xs text-[#c4534d]">We couldn't generate a download link. Try reloading.</p>
+                  <p className="text-xs text-[#c4534d]">{t("sections.documents.downloadError")}</p>
                 )}
               </li>
             ))}
@@ -510,7 +522,7 @@ export default async function ProfessionalDashboardPage() {
           href="/dashboard/pro/onboarding"
           className="mt-4 inline-flex items-center text-sm font-semibold text-[#ff5d46] hover:text-[#eb6c65]"
         >
-          Manage documents →
+          {t("sections.documents.manageLink")} →
         </Link>
       </div>
     </section>
