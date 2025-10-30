@@ -9,6 +9,16 @@ Sentry.init({
   // Setting this option to true will print useful information to the console while you're setting up Sentry.
   debug: false,
 
+  // Enable structured logging
+  _experiments: {
+    enableLogs: true,
+  },
+
+  // Send console.log, console.warn, and console.error calls as logs to Sentry
+  integrations: [
+    Sentry.consoleLoggingIntegration({ levels: ["log", "warn", "error"] }),
+  ],
+
   // Environment detection
   environment: process.env.NEXT_PUBLIC_VERCEL_ENV || process.env.NODE_ENV || "development",
 });
