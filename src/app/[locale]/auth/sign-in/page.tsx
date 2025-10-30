@@ -6,12 +6,12 @@ import { AUTH_ROUTES } from "@/lib/auth";
 import { SignInForm } from "./sign-in-form";
 
 type Props = {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = params;
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "pages.signIn.meta" });
 
   return {
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function SignInPage({ params, searchParams }: Props) {
-  const { locale } = params;
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "pages.signIn" });
   const searchParamsResolved = await searchParams;
   const redirectTo =
