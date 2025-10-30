@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { requireAdmin, createAuditLog } from "@/lib/admin-helpers";
+import {
+  sendProfessionalApprovedEmail,
+  sendProfessionalRejectedEmail,
+  sendProfessionalInfoRequestedEmail,
+} from "@/lib/email/send";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -67,10 +72,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // Fetch professional profile with current status
+    // Fetch professional profile with current status and name
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
-      .select("id, role, onboarding_status")
+      .select("id, role, onboarding_status, full_name")
       .eq("id", professionalId)
       .single();
 
@@ -181,10 +186,26 @@ export async function POST(request: Request) {
       notes: notes || internalNotes || undefined,
     });
 
-    // TODO: Send email notification to professional
-    // - If approved: "Your application has been approved!"
-    // - If rejected: "We're unable to approve your application at this time"
-    // - If needs_info: "We need more information about your application"
+    // Send email notification to professional
+    try {
+      const { data: professionalAuth } = await supabase.auth.admin.getUserById(professionalId);
+      const professionalEmail = professionalAuth?.user?.email;
+
+      if (professionalEmail) {
+        const professionalName = profile.full_name || "Professional";
+
+        if (action === "approve") {
+          await sendProfessionalApprovedEmail(professionalEmail, professionalName, notes);
+        } else if (action === "reject") {
+          await sendProfessionalRejectedEmail(professionalEmail, professionalName, rejectionReason!, notes);
+        } else if (action === "request_info") {
+          await sendProfessionalInfoRequestedEmail(professionalEmail, professionalName, notes);
+        }
+      }
+    } catch (emailError) {
+      // Log but don't fail the operation if email fails
+      console.error("Failed to send professional review email:", emailError);
+    }
 
     return NextResponse.json({
       success: true,

@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { sendBookingRescheduleEmail } from "@/lib/email/send";
+import { format } from "date-fns";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -67,7 +69,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // Fetch the booking
+    // Fetch the booking with names and address
     const { data: booking, error: bookingError } = await supabase
       .from("bookings")
       .select(`
@@ -77,7 +79,12 @@ export async function POST(request: Request) {
         status,
         scheduled_start,
         duration_minutes,
-        service_name
+        service_name,
+        address_line1,
+        address_line2,
+        address_city,
+        customer_profiles:profiles!bookings_customer_id_fkey(full_name),
+        professional_profiles:profiles!bookings_professional_id_fkey(full_name)
       `)
       .eq("id", bookingId)
       .maybeSingle();
@@ -132,8 +139,44 @@ export async function POST(request: Request) {
       );
     }
 
-    // TODO: Send email notification to professional about reschedule request
-    // For now, the professional will see the updated booking in their dashboard
+    // Send email notification to professional about reschedule request
+    try {
+      const { data: professionalAuth } = await supabase.auth.admin.getUserById(booking.professional_id);
+      const professionalEmail = professionalAuth?.user?.email;
+
+      if (professionalEmail) {
+        const customerName = (booking.customer_profiles as any)?.full_name || "Customer";
+        const professionalName = (booking.professional_profiles as any)?.full_name || "Professional";
+        const address = [booking.address_line1, booking.address_line2, booking.address_city].filter(Boolean).join(", ");
+
+        const oldDate = new Date(booking.scheduled_start);
+        const oldScheduledDate = format(oldDate, "MMMM d, yyyy");
+        const oldScheduledTime = format(oldDate, "h:mm a");
+
+        const newScheduledDate = format(newStartTime, "MMMM d, yyyy");
+        const newScheduledTime = format(newStartTime, "h:mm a");
+
+        await sendBookingRescheduleEmail(
+          professionalEmail,
+          {
+            customerName,
+            professionalName,
+            serviceName: booking.service_name || "Service",
+            scheduledDate: oldScheduledDate,
+            scheduledTime: oldScheduledTime,
+            duration: `${durationToUse} minutes`,
+            address,
+            bookingId: booking.id,
+          },
+          newScheduledDate,
+          newScheduledTime,
+          true // isForProfessional
+        );
+      }
+    } catch (emailError) {
+      // Log but don't fail the operation if email fails
+      console.error("Failed to send reschedule email:", emailError);
+    }
 
     return NextResponse.json({
       success: true,
