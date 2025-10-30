@@ -245,5 +245,81 @@
     "updated": "Actualizado exitosamente",
     "bookingCreated": "Reserva creada exitosamente",
     "messageSent": "Mensaje enviado exitosamente"
+  },
+  "pages": {
+    "bookingPlatform": {
+      "meta": {
+        "title": "Plataforma de Reservas - Programación Instantánea de Servicios | Maidconnect",
+        "description": "Programe servicios con reserva instantánea o solicite aprobación. Disponibilidad en tiempo real y filtros inteligentes hacen que encontrar la pareja perfecta sea fácil. Más de 500 reservas mensuales."
+      },
+      "hero": {
+        "headline": "Reserve profesionales de confianza en minutos",
+        "description": "Programe servicios con reserva instantánea o solicite aprobación. Disponibilidad en tiempo real y filtros inteligentes hacen que encontrar la pareja perfecta sea fácil.",
+        "primaryCTA": "Explorar Profesionales",
+        "secondaryCTA": "Más Información",
+        "badge": "Más de 500 reservas este mes"
+      },
+      "features": {
+        "title": "Potentes funciones de reserva",
+        "subtitle": "Todo lo que necesita para programar servicios de manera rápida y segura",
+        "instantBooking": {
+          "title": "Reserva Instantánea y Aprobada",
+          "description": "Reserve inmediatamente con profesionales verificados o solicite aprobación para necesidades personalizadas. Obtenga confirmación instantánea para servicios estándar."
+        },
+        "realTimeAvailability": {
+          "title": "Disponibilidad en Tiempo Real",
+          "description": "Vea los calendarios profesionales y las franjas horarias disponibles antes de reservar. Nunca pierda tiempo solicitando fechas no disponibles."
+        },
+        "smartScheduling": {
+          "title": "Programación Inteligente",
+          "description": "Configure reservas recurrentes, sincronice con su calendario y reciba recordatorios automáticos antes de cada servicio."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo funciona",
+        "description": "Cuatro pasos simples para reservar su profesional perfecto",
+        "step1": {
+          "title": "Filtrar y Buscar",
+          "description": "Filtre por tipo de servicio, fecha, ubicación y calificaciones profesionales"
+        },
+        "step2": {
+          "title": "Seleccionar Profesional",
+          "description": "Vea disponibilidad, lea reseñas y explore galerías de portafolio"
+        },
+        "step3": {
+          "title": "Confirmar Reserva",
+          "description": "Elija fecha y hora, agregue complementos de servicio y autorice el pago"
+        },
+        "step4": {
+          "title": "Recibir Recordatorios",
+          "description": "Reciba recordatorios automáticos y comuníquese a través de mensajería segura"
+        }
+      },
+      "benefits": {
+        "title": "Por qué los clientes aman nuestro sistema de reservas",
+        "noPhoneTag": {
+          "title": "No más llamadas interminables",
+          "description": "Vea la disponibilidad en tiempo real y reserve instantáneamente sin llamadas o correos electrónicos sin fin."
+        },
+        "transparentPricing": {
+          "title": "Precios transparentes",
+          "description": "Sepa exactamente lo que pagará antes de reservar. Vea tarifas por hora, costos de complementos y precio total por adelantado."
+        },
+        "flexibleScheduling": {
+          "title": "Programación flexible",
+          "description": "Reserve servicios únicos o configure citas recurrentes semanales, quincenales o mensuales con descuentos automáticos."
+        },
+        "easyRescheduling": {
+          "title": "Reprogramación fácil",
+          "description": "La vida pasa. Reprograme o cancele reservas con solo unos clics, sujeto a la política de cancelación del profesional."
+        }
+      },
+      "cta": {
+        "title": "¿Listo para reservar su primer servicio?",
+        "description": "Únase a cientos de clientes satisfechos que confían en MaidConnect para sus necesidades de servicio doméstico",
+        "browseProfessionals": "Explorar Profesionales",
+        "signUpFree": "Registrarse Gratis"
+      }
+    }
   }
 }
