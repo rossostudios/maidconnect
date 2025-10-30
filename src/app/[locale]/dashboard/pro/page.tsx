@@ -3,7 +3,7 @@ import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar";
 import { PendingRatingsList } from "@/components/reviews/pending-ratings-list";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { requireUser } from "@/lib/auth";
-import { REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "@/app/dashboard/pro/onboarding/state";
+import { REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "@/app/[locale]/dashboard/pro/onboarding/state";
 import { ServiceAddonsManager } from "@/components/service-addons/service-addons-manager";
 import { ProBookingList } from "@/components/bookings/pro-booking-list";
 import { NotificationPermissionPrompt } from "@/components/notifications/notification-permission-prompt";

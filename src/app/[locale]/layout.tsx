@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, getLocale } from "next-intl/server";
-import "./globals.css";
+import { getMessages } from "next-intl/server";
+import { notFound } from "next/navigation";
+import "../globals.css";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
 import { CookieConsent } from "@/components/legal/cookie-consent";
+import { locales } from "@/i18n";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,13 +51,26 @@ export const metadata: Metadata = {
   },
 };
 
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
 export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
-  // Get messages for the current locale from middleware
-  const locale = await getLocale();
+  // Get the locale from params
+  const { locale } = await params;
+
+  // Validate that the incoming `locale` parameter is valid
+  if (!locales.includes(locale as any)) {
+    notFound();
+  }
+
+  // Get messages for the current locale
   const messages = await getMessages();
 
   return (
