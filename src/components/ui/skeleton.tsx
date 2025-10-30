@@ -1,7 +1,9 @@
+import { cn } from "@/lib/utils";
+
 export function Skeleton({ className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={`animate-pulse rounded-md bg-[#f0ece5] ${className}`}
+      className={cn("animate-pulse rounded-md bg-[#ebe5d8]/50", className)}
       {...props}
     />
   );
@@ -93,6 +95,171 @@ export function ConversationSkeleton() {
             </div>
           ))}
         </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Table Skeleton
+ *
+ * Loading state for Tanstack tables with rows and columns.
+ */
+export function TableSkeleton({ rows = 5, columns = 4 }: { rows?: number; columns?: number }) {
+  return (
+    <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)]">
+      {/* Header */}
+      <div className="mb-4 grid gap-4" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
+        {Array.from({ length: columns }).map((_, i) => (
+          <Skeleton key={`header-${i}`} className="h-6 w-full" />
+        ))}
+      </div>
+      {/* Rows */}
+      <div className="space-y-3">
+        {Array.from({ length: rows }).map((_, rowIndex) => (
+          <div
+            key={`row-${rowIndex}`}
+            className="grid gap-4 rounded-xl border-2 border-[#ebe5d8] p-4"
+            style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
+          >
+            {Array.from({ length: columns }).map((_, colIndex) => (
+              <Skeleton key={`cell-${rowIndex}-${colIndex}`} className="h-8 w-full" />
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Profile Card Skeleton
+ *
+ * Loading state for user profile cards with avatar and info.
+ */
+export function ProfileCardSkeleton() {
+  return (
+    <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)]">
+      <div className="flex items-center gap-4">
+        {/* Avatar */}
+        <Skeleton className="h-20 w-20 rounded-full flex-shrink-0" />
+        {/* Info */}
+        <div className="flex-1 space-y-3">
+          <Skeleton className="h-7 w-40" />
+          <Skeleton className="h-5 w-56" />
+        </div>
+      </div>
+      {/* Details */}
+      <div className="mt-8 space-y-4">
+        <Skeleton className="h-5 w-full" />
+        <Skeleton className="h-5 w-5/6" />
+        <Skeleton className="h-5 w-4/6" />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Dashboard Stats Skeleton
+ *
+ * Loading state for dashboard stat cards.
+ */
+export function StatCardSkeleton() {
+  return (
+    <div className="rounded-[28px] bg-white p-6 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)]">
+      <div className="flex items-center justify-between">
+        <div className="space-y-3 flex-1">
+          <Skeleton className="h-5 w-28" />
+          <Skeleton className="h-9 w-36" />
+        </div>
+        <Skeleton className="h-14 w-14 rounded-full flex-shrink-0" />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Form Skeleton
+ *
+ * Loading state for forms with multiple fields.
+ */
+export function FormSkeleton({ fields = 4 }: { fields?: number }) {
+  return (
+    <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)]">
+      <div className="space-y-6">
+        {Array.from({ length: fields }).map((_, i) => (
+          <div key={i} className="space-y-2">
+            <Skeleton className="h-5 w-28" />
+            <Skeleton className="h-12 w-full rounded-lg" />
+          </div>
+        ))}
+        <div className="flex gap-3 pt-4">
+          <Skeleton className="h-12 w-32 rounded-full" />
+          <Skeleton className="h-12 w-32 rounded-full" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Calendar Skeleton
+ *
+ * Loading state for calendar components.
+ */
+export function CalendarSkeleton() {
+  return (
+    <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)]">
+      {/* Month header */}
+      <div className="mb-6 flex items-center justify-between">
+        <Skeleton className="h-9 w-40" />
+        <div className="flex gap-2">
+          <Skeleton className="h-10 w-10 rounded-full" />
+          <Skeleton className="h-10 w-10 rounded-full" />
+        </div>
+      </div>
+      {/* Day headers */}
+      <div className="mb-3 grid grid-cols-7 gap-2">
+        {Array.from({ length: 7 }).map((_, i) => (
+          <Skeleton key={`day-${i}`} className="h-8 w-full" />
+        ))}
+      </div>
+      {/* Calendar grid */}
+      <div className="grid grid-cols-7 gap-2">
+        {Array.from({ length: 35 }).map((_, i) => (
+          <Skeleton key={`date-${i}`} className="h-12 w-full rounded-lg" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Analytics Chart Skeleton
+ *
+ * Loading state for chart/graph components.
+ */
+export function ChartSkeleton() {
+  return (
+    <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)]">
+      <div className="mb-6 flex items-center justify-between">
+        <div className="space-y-2">
+          <Skeleton className="h-6 w-32" />
+          <Skeleton className="h-4 w-48" />
+        </div>
+        <Skeleton className="h-10 w-28 rounded-full" />
+      </div>
+      {/* Chart bars */}
+      <div className="flex items-end gap-4 h-64">
+        {Array.from({ length: 7 }).map((_, i) => {
+          const height = Math.random() * 60 + 30;
+          return (
+            <div key={i} className="flex-1 flex flex-col items-center gap-2">
+              <Skeleton className="w-full rounded-t-lg" style={{ height: `${height}%` }} />
+              <Skeleton className="h-4 w-8" />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
