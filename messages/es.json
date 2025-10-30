@@ -995,6 +995,49 @@
       },
       "title": "Política de Privacidad",
       "lastUpdated": "Última actualización: {date}"
+    },
+    "professionalProfile": {
+      "meta": {
+        "notFoundTitle": "Profesional no encontrado · MaidConnect",
+        "defaultName": "Profesional de MaidConnect",
+        "descriptionTemplate": "Ver el perfil de MaidConnect de {name}{service}{location}."
+      },
+      "backToDirectory": "← Volver al directorio",
+      "availableForBookings": "Disponible para reservas",
+      "perHour": "/ hr",
+      "yearsExperience": "años exp",
+      "reviews": "reseñas",
+      "availableToday": "Disponible hoy",
+      "bookingSection": {
+        "title": "Reservar una cita",
+        "description": "Elige una fecha para ver los horarios disponibles y solicitar una reserva"
+      },
+      "tabs": {
+        "about": "Acerca de",
+        "services": "Servicios",
+        "portfolio": "Portafolio",
+        "reviews": "Reseñas"
+      },
+      "aboutTab": {
+        "title": "Acerca de",
+        "defaultBio": "Este profesional está finalizando su biografía pública. Comunícate con una solicitud de reserva para conocer más sobre su experiencia."
+      },
+      "servicesTab": {
+        "title": "Servicios y tarifas",
+        "serviceLabel": "Servicio",
+        "rateOnRequest": "Tarifa bajo consulta",
+        "noServicesMessage": "Los servicios se están finalizando. Envía una solicitud de reserva con los detalles que necesitas y confirmaremos el precio."
+      },
+      "portfolioTab": {
+        "title": "Portafolio",
+        "imageAlt": "Imagen de portafolio",
+        "noImages": "Aún no hay imágenes de portafolio"
+      },
+      "reviewsTab": {
+        "title": "Reseñas",
+        "moreReviews": "+ {count} reseñas más",
+        "noReviews": "Aún no hay reseñas"
+      }
     }
   }
 }

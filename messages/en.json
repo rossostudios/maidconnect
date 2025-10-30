@@ -995,6 +995,49 @@
       },
       "title": "Privacy Policy",
       "lastUpdated": "Last updated: {date}"
+    },
+    "professionalProfile": {
+      "meta": {
+        "notFoundTitle": "Professional not found · MaidConnect",
+        "defaultName": "MaidConnect Professional",
+        "descriptionTemplate": "View {name}'s MaidConnect profile{service}{location}."
+      },
+      "backToDirectory": "← Back to directory",
+      "availableForBookings": "Available for bookings",
+      "perHour": "/ hr",
+      "yearsExperience": "yrs experience",
+      "reviews": "reviews",
+      "availableToday": "Available today",
+      "bookingSection": {
+        "title": "Book an appointment",
+        "description": "Choose a date to see available times and request a booking"
+      },
+      "tabs": {
+        "about": "About",
+        "services": "Services",
+        "portfolio": "Portfolio",
+        "reviews": "Reviews"
+      },
+      "aboutTab": {
+        "title": "About",
+        "defaultBio": "This professional is finalizing their public bio. Reach out with a booking request to learn more about their experience."
+      },
+      "servicesTab": {
+        "title": "Services & rates",
+        "serviceLabel": "Service",
+        "rateOnRequest": "Rate on request",
+        "noServicesMessage": "Services are being finalized. Submit a booking request with the details you need and we'll confirm pricing."
+      },
+      "portfolioTab": {
+        "title": "Portfolio",
+        "imageAlt": "Portfolio image",
+        "noImages": "No portfolio images yet"
+      },
+      "reviewsTab": {
+        "title": "Reviews",
+        "moreReviews": "+ {count} more reviews",
+        "noReviews": "No reviews yet"
+      }
     }
   }
 }
