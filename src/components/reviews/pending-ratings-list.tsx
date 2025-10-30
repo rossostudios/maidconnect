@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { RatingPromptModal } from "./rating-prompt-modal";
+import { useTranslations } from "next-intl";
 
 type CompletedBooking = {
   id: string;
@@ -16,6 +17,7 @@ type Props = {
 };
 
 export function PendingRatingsList({ completedBookings }: Props) {
+  const t = useTranslations("dashboard.pro.pendingRatings");
   const [selectedBooking, setSelectedBooking] = useState<CompletedBooking | null>(null);
 
   // Filter out bookings that already have reviews
@@ -27,9 +29,9 @@ export function PendingRatingsList({ completedBookings }: Props) {
 
   return (
     <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
-      <h3 className="text-lg font-semibold text-[#211f1a]">Rate Your Recent Customers</h3>
+      <h3 className="text-lg font-semibold text-[#211f1a]">{t("title")}</h3>
       <p className="mt-1 text-sm text-[#7a6d62]">
-        Share your feedback to help build a trusted community.
+        {t("description")}
       </p>
 
       <div className="mt-4 space-y-3">
@@ -38,7 +40,7 @@ export function PendingRatingsList({ completedBookings }: Props) {
             ? new Date(booking.scheduled_start).toLocaleDateString("es-CO", {
                 dateStyle: "medium",
               })
-            : "Recent";
+            : t("dateRecent");
 
           return (
             <div
@@ -47,10 +49,10 @@ export function PendingRatingsList({ completedBookings }: Props) {
             >
               <div>
                 <p className="font-medium text-[#211f1a]">
-                  {booking.service_name || "Service"}
+                  {booking.service_name || t("defaultService")}
                 </p>
                 <p className="text-sm text-[#7a6d62]">
-                  Customer • {date}
+                  {t("customer")} • {date}
                 </p>
               </div>
               <button
@@ -58,7 +60,7 @@ export function PendingRatingsList({ completedBookings }: Props) {
                 onClick={() => setSelectedBooking(booking)}
                 className="rounded-lg bg-[#ff5d46] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65]"
               >
-                Rate Customer
+                {t("rateButton")}
               </button>
             </div>
           );
@@ -71,7 +73,7 @@ export function PendingRatingsList({ completedBookings }: Props) {
           isOpen={selectedBooking !== null}
           onClose={() => setSelectedBooking(null)}
           customerId={selectedBooking.customer.id}
-          customerName="Customer"
+          customerName={t("customer")}
           bookingId={selectedBooking.id}
         />
       )}
