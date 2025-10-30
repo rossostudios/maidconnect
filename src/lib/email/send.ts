@@ -201,3 +201,157 @@ export async function sendServiceCompletedEmail(
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 }
+
+/**
+ * Send account suspension notification
+ */
+export async function sendAccountSuspensionEmail(
+  userEmail: string,
+  userName: string,
+  reason: string,
+  expiresAt: string | null,
+  durationDays?: number
+): Promise<SendEmailResult> {
+  try {
+    const subject = expiresAt ? 'Your Account Has Been Suspended' : 'Your Account Has Been Banned';
+
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: userEmail,
+      subject,
+      html: templates.accountSuspendedEmail(userName, reason, expiresAt, durationDays),
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send account suspension email:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+}
+
+/**
+ * Send account restoration notification
+ */
+export async function sendAccountRestorationEmail(
+  userEmail: string,
+  userName: string,
+  liftReason: string
+): Promise<SendEmailResult> {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: userEmail,
+      subject: 'Your Account Has Been Restored',
+      html: templates.accountUnsuspendedEmail(userName, liftReason),
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send account restoration email:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+}
+
+/**
+ * Send booking reschedule notification
+ */
+export async function sendBookingRescheduleEmail(
+  recipientEmail: string,
+  data: {
+    customerName: string;
+    professionalName: string;
+    serviceName: string;
+    scheduledDate: string;
+    scheduledTime: string;
+    duration: string;
+    address: string;
+    bookingId: string;
+  },
+  newDate: string,
+  newTime: string,
+  isForProfessional: boolean
+): Promise<SendEmailResult> {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: recipientEmail,
+      subject: `Booking Rescheduled - ${data.serviceName}`,
+      html: templates.bookingRescheduleEmail(data, newDate, newTime, isForProfessional),
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send booking reschedule email:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+}
+
+/**
+ * Send professional application approved notification
+ */
+export async function sendProfessionalApprovedEmail(
+  professionalEmail: string,
+  professionalName: string,
+  notes?: string
+): Promise<SendEmailResult> {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: professionalEmail,
+      subject: 'Your Professional Application Has Been Approved!',
+      html: templates.professionalApplicationApprovedEmail(professionalName, notes),
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send professional approved email:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+}
+
+/**
+ * Send professional application rejected notification
+ */
+export async function sendProfessionalRejectedEmail(
+  professionalEmail: string,
+  professionalName: string,
+  rejectionReason: string,
+  notes?: string
+): Promise<SendEmailResult> {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: professionalEmail,
+      subject: 'Update on Your Professional Application',
+      html: templates.professionalApplicationRejectedEmail(professionalName, rejectionReason, notes),
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send professional rejected email:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+}
+
+/**
+ * Send professional info requested notification
+ */
+export async function sendProfessionalInfoRequestedEmail(
+  professionalEmail: string,
+  professionalName: string,
+  notes?: string
+): Promise<SendEmailResult> {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: professionalEmail,
+      subject: 'Additional Information Needed for Your Application',
+      html: templates.professionalInfoRequestedEmail(professionalName, notes),
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send professional info requested email:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+}

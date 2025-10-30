@@ -341,3 +341,253 @@ export function serviceCompletedEmail(data: BookingEmailData, isForProfessional:
     </html>
   `;
 }
+
+export function accountSuspendedEmail(userName: string, reason: string, expiresAt: string | null, durationDays?: number): string {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>${baseStyles}</style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header" style="background-color: #ef4444;">
+          <h1>Account Suspended</h1>
+        </div>
+        <div class="content">
+          <p>Hi ${userName},</p>
+          <p>Your MaidConnect account has been ${expiresAt ? 'temporarily suspended' : 'permanently banned'}.</p>
+
+          <div class="booking-details">
+            <p><span class="label">Reason:</span> ${reason}</p>
+            ${expiresAt ? `<p><span class="label">Duration:</span> ${durationDays} days</p>` : ''}
+            ${expiresAt ? `<p><span class="label">Expires:</span> ${expiresAt}</p>` : '<p><span class="label">Status:</span> Permanent</p>'}
+          </div>
+
+          ${expiresAt
+            ? '<p>During this suspension period, you will not be able to access your account or use MaidConnect services.</p>'
+            : '<p>You will no longer be able to access your account or use MaidConnect services.</p>'
+          }
+
+          <p>If you believe this action was taken in error or would like to appeal, please contact our support team.</p>
+        </div>
+        <div class="footer">
+          <p>MaidConnect - Connecting you with trusted service</p>
+          <p>Contact support: support@maidconnect.co</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+export function accountUnsuspendedEmail(userName: string, liftReason: string): string {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>${baseStyles}</style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header" style="background-color: #10b981;">
+          <h1>Account Restored</h1>
+        </div>
+        <div class="content">
+          <p>Hi ${userName},</p>
+          <p>Good news! Your account suspension has been lifted.</p>
+
+          <div class="booking-details">
+            <p><span class="label">Note:</span> ${liftReason}</p>
+          </div>
+
+          <p>You can now access your account and use MaidConnect services again.</p>
+
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="/auth/sign-in" class="button">Sign In to Your Account</a>
+          </div>
+
+          <p>Thank you for your patience and understanding.</p>
+        </div>
+        <div class="footer">
+          <p>MaidConnect - Connecting you with trusted service</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+export function bookingRescheduleEmail(data: BookingEmailData, newDate: string, newTime: string, isForProfessional: boolean): string {
+  const recipientName = isForProfessional ? data.professionalName : data.customerName;
+  const otherPartyName = isForProfessional ? data.customerName : data.professionalName;
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>${baseStyles}</style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header" style="background-color: #f59e0b;">
+          <h1>Booking Rescheduled</h1>
+        </div>
+        <div class="content">
+          <p>Hi ${recipientName},</p>
+          <p><strong>${otherPartyName}</strong> has requested to reschedule your booking.</p>
+
+          <div class="booking-details">
+            <p><span class="label">Service:</span> ${data.serviceName}</p>
+            <p><span class="label">Original Date:</span> ${data.scheduledDate} at ${data.scheduledTime}</p>
+            <p><span class="label">New Date:</span> ${newDate} at ${newTime}</p>
+            <p><span class="label">Duration:</span> ${data.duration}</p>
+            <p><span class="label">Location:</span> ${data.address}</p>
+          </div>
+
+          <p>Please review the new schedule and confirm your availability.</p>
+
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="/dashboard/${isForProfessional ? 'pro' : 'customer'}?booking=${data.bookingId}" class="button">View Booking</a>
+          </div>
+        </div>
+        <div class="footer">
+          <p>MaidConnect - Connecting you with trusted service</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+export function professionalApplicationApprovedEmail(professionalName: string, notes?: string): string {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>${baseStyles}</style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header" style="background-color: #10b981;">
+          <h1>🎉 Application Approved!</h1>
+        </div>
+        <div class="content">
+          <p>Hi ${professionalName},</p>
+          <p><strong>Congratulations!</strong> Your professional application has been approved.</p>
+
+          ${notes ? `<div class="booking-details"><p><span class="label">Admin Note:</span> ${notes}</p></div>` : ''}
+
+          <p><strong>What's next?</strong></p>
+          <ul>
+            <li>Complete your professional profile</li>
+            <li>Set up your Stripe Connect account to receive payments</li>
+            <li>Add your services and rates</li>
+            <li>Upload portfolio images</li>
+            <li>Start accepting bookings!</li>
+          </ul>
+
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="/dashboard/pro" class="button">Complete Your Profile</a>
+          </div>
+
+          <p>Welcome to the MaidConnect professional community!</p>
+        </div>
+        <div class="footer">
+          <p>MaidConnect - Connecting you with trusted service</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+export function professionalApplicationRejectedEmail(professionalName: string, rejectionReason: string, notes?: string): string {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>${baseStyles}</style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header" style="background-color: #6b7280;">
+          <h1>Application Update</h1>
+        </div>
+        <div class="content">
+          <p>Hi ${professionalName},</p>
+          <p>Thank you for your interest in joining MaidConnect as a professional service provider.</p>
+
+          <p>After careful review, we're unable to approve your application at this time.</p>
+
+          <div class="booking-details">
+            <p><span class="label">Reason:</span> ${rejectionReason}</p>
+            ${notes ? `<p><span class="label">Additional Details:</span> ${notes}</p>` : ''}
+          </div>
+
+          <p>You may reapply after addressing the concerns mentioned above. We encourage you to:</p>
+          <ul>
+            <li>Review our professional requirements</li>
+            <li>Ensure all documents are complete and valid</li>
+            <li>Provide accurate information in your application</li>
+          </ul>
+
+          <p>If you have questions or would like more information, please contact our support team.</p>
+        </div>
+        <div class="footer">
+          <p>MaidConnect - Connecting you with trusted service</p>
+          <p>Contact support: support@maidconnect.co</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+export function professionalInfoRequestedEmail(professionalName: string, notes?: string): string {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>${baseStyles}</style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header" style="background-color: #f59e0b;">
+          <h1>Additional Information Needed</h1>
+        </div>
+        <div class="content">
+          <p>Hi ${professionalName},</p>
+          <p>We're reviewing your professional application and need some additional information before we can proceed.</p>
+
+          ${notes ? `<div class="booking-details"><p><span class="label">What we need:</span> ${notes}</p></div>` : ''}
+
+          <p>Please provide the requested information as soon as possible to avoid delays in your application review.</p>
+
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="/dashboard/pro" class="button">Update Application</a>
+          </div>
+
+          <p>If you have any questions, please don't hesitate to contact our support team.</p>
+        </div>
+        <div class="footer">
+          <p>MaidConnect - Connecting you with trusted service</p>
+          <p>Contact support: support@maidconnect.co</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}

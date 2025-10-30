@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { requireAdmin, createAuditLog } from "@/lib/admin-helpers";
+import {
+  sendAccountSuspensionEmail,
+  sendAccountRestorationEmail,
+} from "@/lib/email/send";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -53,16 +57,21 @@ export async function POST(request: Request) {
       );
     }
 
-    // Verify user exists
+    // Verify user exists and get email
     const { data: user, error: userError } = await supabase
       .from("profiles")
-      .select("id, role")
+      .select("id, role, full_name")
       .eq("id", userId)
       .single();
 
     if (userError || !user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
+
+    // Get user email from auth
+    const { data: authUser } = await supabase.auth.admin.getUserById(userId);
+    const userEmail = authUser?.user?.email;
+    const userName = user.full_name || "User";
 
     // Prevent admin from suspending themselves
     if (user.id === admin.id) {
@@ -263,10 +272,30 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Invalid action" }, { status: 400 });
     }
 
-    // TODO: Send email notification to user
-    // - If suspended: "Your account has been suspended"
-    // - If banned: "Your account has been permanently banned"
-    // - If unsuspended: "Your account suspension has been lifted"
+    // Send email notification to user
+    if (userEmail) {
+      try {
+        if (action === "suspend" || action === "ban") {
+          const expiresAt = action === "suspend" && result.expires_at ? result.expires_at : null;
+          await sendAccountSuspensionEmail(
+            userEmail,
+            userName,
+            reason!,
+            expiresAt,
+            durationDays
+          );
+        } else if (action === "unsuspend") {
+          await sendAccountRestorationEmail(
+            userEmail,
+            userName,
+            liftReason || "Suspension lifted by admin"
+          );
+        }
+      } catch (emailError) {
+        // Log but don't fail the operation if email fails
+        console.error("Failed to send moderation email:", emailError);
+      }
+    }
 
     return NextResponse.json({
       success: true,
