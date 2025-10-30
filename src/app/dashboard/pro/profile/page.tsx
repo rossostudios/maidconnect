@@ -1,0 +1,51 @@
+import { requireUser } from "@/lib/auth";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { ProfileEditor } from "@/components/profile/profile-editor";
+
+export default async function ProProfilePage() {
+  const user = await requireUser({ allowedRoles: ["professional"] });
+  const supabase = await createSupabaseServerClient();
+
+  // Fetch professional profile
+  const { data: profileData, error } = await supabase
+    .from("professional_profiles")
+    .select("full_name, bio, languages, phone_number, avatar_url, primary_services")
+    .eq("profile_id", user.id)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Failed to fetch profile:", error);
+  }
+
+  // Fetch user email
+  const { data: userData } = await supabase.auth.admin.getUserById(user.id);
+  const email = userData?.user?.email || "";
+
+  const profile = {
+    full_name: profileData?.full_name || "",
+    email,
+    bio: profileData?.bio || "",
+    languages: (profileData?.languages as string[]) || [],
+    phone_number: profileData?.phone_number || "",
+    avatar_url: profileData?.avatar_url || "",
+    primary_services: (profileData?.primary_services as string[]) || [],
+  };
+
+  return (
+    <section className="space-y-6">
+      {/* Header */}
+      <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
+        <h1 className="text-3xl font-semibold text-[#211f1a]">Profile Settings</h1>
+        <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+          Update your public information, contact details, and professional summary. Changes are
+          reflected on your public listing.
+        </p>
+      </div>
+
+      {/* Profile Editor */}
+      <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
+        <ProfileEditor profile={profile} />
+      </div>
+    </section>
+  );
+}
