@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import { useTranslations } from "next-intl";
 import { signInAction, type SignInActionState } from "./actions";
 
 type Props = {
@@ -11,13 +12,14 @@ const inputClasses =
   "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[#211f1a] shadow-sm transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a1a]";
 
 export function SignInForm({ redirectTo }: Props) {
+  const t = useTranslations("pages.signIn.form");
   const [state, formAction, isPending] = useActionState<SignInActionState, FormData>(signInAction, {});
 
   return (
     <form action={formAction} className="space-y-6">
       <div className="space-y-2">
         <label htmlFor="email" className="block text-sm font-medium text-[#211f1a]">
-          Email
+          {t("emailLabel")}
         </label>
         <input
           id="email"
@@ -26,13 +28,13 @@ export function SignInForm({ redirectTo }: Props) {
           required
           autoComplete="email"
           className={inputClasses}
-          placeholder="you@example.com"
+          placeholder={t("emailPlaceholder")}
         />
       </div>
 
       <div className="space-y-2">
         <label htmlFor="password" className="block text-sm font-medium text-[#211f1a]">
-          Password
+          {t("passwordLabel")}
         </label>
         <input
           id="password"
@@ -41,7 +43,7 @@ export function SignInForm({ redirectTo }: Props) {
           required
           autoComplete="current-password"
           className={inputClasses}
-          placeholder="••••••••"
+          placeholder={t("passwordPlaceholder")}
         />
       </div>
 
@@ -54,7 +56,7 @@ export function SignInForm({ redirectTo }: Props) {
         disabled={isPending}
         className="w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {isPending ? "Signing in…" : "Sign in"}
+        {isPending ? t("signingInButton") : t("signInButton")}
       </button>
     </form>
   );

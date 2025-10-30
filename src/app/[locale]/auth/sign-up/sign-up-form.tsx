@@ -1,7 +1,8 @@
 "use client";
 
 import { useActionState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { signUpAction } from "./actions";
 import { defaultSignUpState, type SignUpActionState } from "./types";
@@ -10,23 +11,24 @@ const inputClass =
   "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[#211f1a] shadow-sm transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a1a]";
 const errorInputClass = "border-red-400 focus:border-red-500 focus:ring-red-200";
 
-const PROPERTY_TYPES = [
-  { value: "apartment", label: "Apartment" },
-  { value: "house", label: "House" },
-  { value: "office", label: "Office" },
-  { value: "other", label: "Other" },
-];
-
 export function SignUpForm() {
+  const t = useTranslations("pages.signUp.form");
   const [state, formAction, isPending] = useActionState<SignUpActionState, FormData>(signUpAction, defaultSignUpState);
 
   const fieldError = (field: string) => state.fieldErrors?.[field];
 
+  const PROPERTY_TYPES = [
+    { value: "apartment", label: t("propertyApartment") },
+    { value: "house", label: t("propertyHouse") },
+    { value: "office", label: t("propertyOffice") },
+    { value: "other", label: t("propertyOther") },
+  ];
+
   return (
     <form action={formAction} className="space-y-10" noValidate>
       <section className="space-y-5">
-        <label className="block text-sm font-semibold text-[#211f1a]">Account type</label>
-        <p className="text-xs text-[#5d574b]">Choose the experience that best matches how you plan to use MaidConnect.</p>
+        <label className="block text-sm font-semibold text-[#211f1a]">{t("accountTypeLabel")}</label>
+        <p className="text-xs text-[#5d574b]">{t("accountTypeHelper")}</p>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label
             className={cn(
@@ -35,9 +37,9 @@ export function SignUpForm() {
             )}
           >
             <span className="flex items-center gap-2 text-[#211f1a]">
-              <input type="radio" name="role" value="customer" defaultChecked className="h-4 w-4 accent-[#211f1a]" /> Customer
+              <input type="radio" name="role" value="customer" defaultChecked className="h-4 w-4 accent-[#211f1a]" /> {t("customerLabel")}
             </span>
-            <span className="text-sm text-[#5d574b]">Book pre-vetted professionals for your home.</span>
+            <span className="text-sm text-[#5d574b]">{t("customerDescription")}</span>
           </label>
           <label
             className={cn(
@@ -46,16 +48,16 @@ export function SignUpForm() {
             )}
           >
             <span className="flex items-center gap-2 text-[#211f1a]">
-              <input type="radio" name="role" value="professional" className="h-4 w-4 accent-[#211f1a]" /> Professional
+              <input type="radio" name="role" value="professional" className="h-4 w-4 accent-[#211f1a]" /> {t("professionalLabel")}
             </span>
-            <span className="text-sm text-[#5d574b]">Manage your profile, bookings, and payouts.</span>
+            <span className="text-sm text-[#5d574b]">{t("professionalDescription")}</span>
           </label>
         </div>
         {fieldError("role") ? <p className="text-xs text-red-600">{fieldError("role")}</p> : null}
       </section>
 
       <section className="grid gap-6 sm:grid-cols-2">
-        <Field label="Full name" error={fieldError("fullName")}>
+        <Field label={t("fullNameLabel")} error={fieldError("fullName")}>
           <input
             id="fullName"
             name="fullName"
@@ -63,10 +65,10 @@ export function SignUpForm() {
             required
             aria-invalid={Boolean(fieldError("fullName"))}
             className={cn(inputClass, fieldError("fullName") && errorInputClass)}
-            placeholder="Andrea Martínez"
+            placeholder={t("fullNamePlaceholder")}
           />
         </Field>
-        <Field label="Phone" error={fieldError("phone")}>
+        <Field label={t("phoneLabel")} error={fieldError("phone")}>
           <input
             id="phone"
             name="phone"
@@ -74,10 +76,10 @@ export function SignUpForm() {
             required
             aria-invalid={Boolean(fieldError("phone"))}
             className={cn(inputClass, fieldError("phone") && errorInputClass)}
-            placeholder="+57 300 123 4567"
+            placeholder={t("phonePlaceholder")}
           />
         </Field>
-        <Field label="City" error={fieldError("city")}>
+        <Field label={t("cityLabel")} error={fieldError("city")}>
           <input
             id="city"
             name="city"
@@ -85,24 +87,24 @@ export function SignUpForm() {
             required
             aria-invalid={Boolean(fieldError("city"))}
             className={cn(inputClass, fieldError("city") && errorInputClass)}
-            placeholder="Medellín"
+            placeholder={t("cityPlaceholder")}
           />
         </Field>
-        <Field label="Preferred language" error={fieldError("locale")}>
+        <Field label={t("preferredLanguageLabel")} error={fieldError("locale")}>
           <select
             id="locale"
             name="locale"
             defaultValue="en-US"
             className={cn(inputClass, fieldError("locale") && errorInputClass)}
           >
-            <option value="en-US">English</option>
-            <option value="es-CO">Español (Colombia)</option>
+            <option value="en-US">{t("languageEnglish")}</option>
+            <option value="es-CO">{t("languageSpanish")}</option>
           </select>
         </Field>
       </section>
 
       <section className="grid gap-6 sm:grid-cols-2">
-        <Field label="Email" error={fieldError("email")}>
+        <Field label={t("emailLabel")} error={fieldError("email")}>
           <input
             id="email"
             name="email"
@@ -111,16 +113,16 @@ export function SignUpForm() {
             autoComplete="email"
             aria-invalid={Boolean(fieldError("email"))}
             className={cn(inputClass, fieldError("email") && errorInputClass)}
-            placeholder="you@example.com"
+            placeholder={t("emailPlaceholder")}
           />
         </Field>
-        <Field label="Property type" error={fieldError("propertyType")}>
+        <Field label={t("propertyTypeLabel")} error={fieldError("propertyType")}>
           <select
             id="propertyType"
             name="propertyType"
             className={cn(inputClass, fieldError("propertyType") && errorInputClass)}
           >
-            <option value="">Select a property type</option>
+            <option value="">{t("propertyTypePlaceholder")}</option>
             {PROPERTY_TYPES.map((type) => (
               <option key={type.value} value={type.value}>
                 {type.label}
@@ -131,7 +133,7 @@ export function SignUpForm() {
       </section>
 
       <section className="grid gap-6 sm:grid-cols-2">
-        <Field label="Password" error={fieldError("password")}>
+        <Field label={t("passwordLabel")} error={fieldError("password")}>
           <input
             id="password"
             name="password"
@@ -141,10 +143,10 @@ export function SignUpForm() {
             autoComplete="new-password"
             aria-invalid={Boolean(fieldError("password"))}
             className={cn(inputClass, fieldError("password") && errorInputClass)}
-            placeholder="Create a password"
+            placeholder={t("passwordPlaceholder")}
           />
         </Field>
-        <Field label="Confirm password" error={fieldError("confirmPassword")}>
+        <Field label={t("confirmPasswordLabel")} error={fieldError("confirmPassword")}>
           <input
             id="confirmPassword"
             name="confirmPassword"
@@ -154,7 +156,7 @@ export function SignUpForm() {
             autoComplete="new-password"
             aria-invalid={Boolean(fieldError("confirmPassword"))}
             className={cn(inputClass, fieldError("confirmPassword") && errorInputClass)}
-            placeholder="Repeat password"
+            placeholder={t("confirmPasswordPlaceholder")}
           />
         </Field>
       </section>
@@ -168,11 +170,11 @@ export function SignUpForm() {
             aria-invalid={Boolean(fieldError("terms"))}
           />
           <span>
-            I agree to the MaidConnect{" "}
+            {t("termsLabel")}{" "}
             <Link className="font-semibold text-[#211f1a] underline decoration-[#211f1a]/40 underline-offset-4 hover:decoration-[#ff5d46]" href="/support/account-suspended">
-              terms of service
+              {t("termsLink")}
             </Link>{" "}
-            and confirm that I understand the mutual respect guidelines.
+            {t("termsConfirm")}
           </span>
         </label>
         {fieldError("terms") ? <p className="text-xs text-red-600">{fieldError("terms")}</p> : null}
@@ -183,7 +185,7 @@ export function SignUpForm() {
       ) : null}
       {state.status === "success" ? (
         <p className="rounded-md bg-green-50 px-3 py-2 text-sm text-green-700">
-          Account created. Please check your email to verify and finish signing in.
+          {t("successMessage")}
         </p>
       ) : null}
 
@@ -195,7 +197,7 @@ export function SignUpForm() {
           isPending && "cursor-not-allowed opacity-60",
         )}
       >
-        {isPending ? "Creating account…" : "Create account"}
+        {isPending ? t("creatingAccountButton") : t("createAccountButton")}
       </button>
     </form>
   );
