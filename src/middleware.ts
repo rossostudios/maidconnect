@@ -8,18 +8,22 @@ export default createMiddleware({
   // Used when no locale matches
   defaultLocale,
 
-  // Don't prefix the default locale in URLs
-  localePrefix: "as-needed",
+  // Prefix all locales including default for consistent routing
+  localePrefix: "always",
 });
 
 export const config = {
   // Match only internationalized pathnames
   matcher: [
-    // Match all pathnames except for:
-    // - API routes
-    // - _next (Next.js internals)
-    // - _static (static files)
-    // - Favicon, robots, etc.
-    "/((?!api|_next|_static|_vercel|.*\\..*).*)",
+    // Enable a redirect to a matching locale at the root
+    "/",
+
+    // Set a cookie to remember the previous locale for
+    // all requests that have a locale prefix
+    "/(es|en)/:path*",
+
+    // Enable redirects that add missing locales
+    // (e.g. `/pathnames` -> `/en/pathnames`)
+    "/((?!_next|_vercel|.*\\..*).*)",
   ],
 };

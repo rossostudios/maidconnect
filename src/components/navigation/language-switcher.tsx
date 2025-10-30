@@ -12,29 +12,22 @@ import { locales, type Locale } from "@/i18n";
  * Uses next-intl for internationalization support.
  */
 
-export function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  variant?: "light" | "dark";
+}
+
+export function LanguageSwitcher({ variant = "light" }: LanguageSwitcherProps) {
   const locale = useLocale() as Locale;
   const router = useRouter();
   const pathname = usePathname();
 
   const switchLanguage = (newLocale: Locale) => {
-    // Remove the current locale from the pathname if it exists
-    const currentLocaleInPath = locales.find((loc) => pathname.startsWith(`/${loc}`));
-    let newPathname = pathname;
+    // Since we're using localePrefix: "always", both locales have prefixes
+    // We need to replace the current locale prefix with the new one
+    const pathWithoutLocale = pathname.replace(`/${locale}`, "");
+    const newPath = `/${newLocale}${pathWithoutLocale || "/"}`;
 
-    if (currentLocaleInPath) {
-      newPathname = pathname.replace(`/${currentLocaleInPath}`, "");
-    }
-
-    // Ensure pathname starts with /
-    if (!newPathname.startsWith("/")) {
-      newPathname = `/${newPathname}`;
-    }
-
-    // Add new locale prefix if not the default
-    const finalPath = newLocale === "en" ? newPathname : `/${newLocale}${newPathname}`;
-
-    router.push(finalPath);
+    router.push(newPath);
   };
 
   const languageNames: Record<Locale, string> = {
@@ -42,10 +35,15 @@ export function LanguageSwitcher() {
     es: "Español",
   };
 
+  const buttonStyles =
+    variant === "dark"
+      ? "flex items-center gap-2 rounded-full border-2 border-[#26231f] bg-[#11100e] px-4 py-2 text-sm font-medium text-[#f3ece1] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+      : "flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 text-sm font-medium text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]";
+
   return (
     <div className="relative inline-block">
       <button
-        className="flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 text-sm font-medium text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+        className={buttonStyles}
         onClick={() => {
           const nextLocale = locale === "en" ? "es" : "en";
           switchLanguage(nextLocale as Locale);

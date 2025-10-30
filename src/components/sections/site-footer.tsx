@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
 import { Container } from "@/components/ui/container";
+import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 
 const footerColumns = [
   {
@@ -92,18 +93,23 @@ export function SiteFooter() {
 
         {/* Bottom Bar */}
         <div className="mt-16 border-t border-[#26231f] pt-8">
-          <div className="flex flex-col gap-4 text-sm text-[#a8a095] sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-6 text-sm text-[#a8a095] sm:flex-row sm:items-center sm:justify-between">
             <p>© {year} MaidConnect. All rights reserved.</p>
-            <div className="flex items-center gap-6">
-              <Link href="/support/account-suspended" className="transition hover:text-[#ff5d46]">
-                Terms
-              </Link>
-              <Link href="/support/account-suspended" className="transition hover:text-[#ff5d46]">
-                Privacy
-              </Link>
-              <Link href="/support/account-suspended" className="transition hover:text-[#ff5d46]">
-                Cookies
-              </Link>
+            <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
+              <div className="flex items-center gap-6">
+                <Link href="/terms" className="transition hover:text-[#ff5d46]">
+                  Terms
+                </Link>
+                <Link href="/privacy" className="transition hover:text-[#ff5d46]">
+                  Privacy
+                </Link>
+                <Link href="/support/account-suspended" className="transition hover:text-[#ff5d46]">
+                  Cookies
+                </Link>
+              </div>
+              <div className="footer-language-switcher">
+                <LanguageSwitcher variant="dark" />
+              </div>
             </div>
           </div>
         </div>
