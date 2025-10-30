@@ -801,5 +801,36 @@
     "updated": "Updated successfully",
     "bookingCreated": "Booking created successfully",
     "messageSent": "Message sent successfully"
+  },
+  "professionalsDirectory": {
+    "header": {
+      "title": "Maidconnect professionals",
+      "subtitle": "Every specialist listed below has cleared Maidconnect's four-stage vetting process and is authorised to serve customers via our platform. These steps include submission and approval of their cédula (Colombian government ID), proof of work eligibility, references, and an in-person interview."
+    },
+    "filters": {
+      "search": "Search by name, service, or neighbourhood",
+      "service": "Service",
+      "allServices": "All services",
+      "city": "City",
+      "allCities": "All cities",
+      "rating": "Rating",
+      "allRatings": "All ratings",
+      "rating45": "4.5+",
+      "rating48": "4.8+",
+      "availableToday": "Available today",
+      "reset": "Reset"
+    },
+    "results": {
+      "noResults": "No professionals match these filters yet."
+    },
+    "card": {
+      "viewProfile": "View profile",
+      "hourly": "COP / hr",
+      "yearsExp": "yrs exp",
+      "noBio": "This professional is preparing their public bio. Check back soon.",
+      "newBadge": "New to MaidConnect",
+      "flexibleServices": "Flexible services",
+      "rateOnRequest": "Rate on request"
+    }
   }
 }

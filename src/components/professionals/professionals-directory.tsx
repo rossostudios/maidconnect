@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Filter, MapPin, Search, ShieldCheck, SlidersHorizontal, Star } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { Container } from "@/components/ui/container";
 
@@ -23,29 +24,6 @@ export type DirectoryProfessional = {
   bio: string | null;
 };
 
-const labels = {
-  headerTitle: "Maidconnect professionals",
-  headerSubtitle:
-    "Every specialist listed below has cleared Maidconnect's four-stage vetting, concierge interviews, and probationary monitoring.",
-  serviceFilter: "Service",
-  cityFilter: "City",
-  ratingFilter: "Rating",
-  availabilityFilter: "Available today",
-  reset: "Reset",
-  noResults: "No professionals match these filters yet.",
-  explore: "View profile",
-  hourly: "COP / hr",
-  years: "yrs exp",
-  noBio: "This professional is preparing their public bio. Check back soon.",
-  newBadge: "New to MaidConnect",
-};
-
-const ratingOptions = [
-  { value: "all", label: "All ratings" },
-  { value: "4.5", label: "4.5+" },
-  { value: "4.8", label: "4.8+" },
-];
-
 function formatCurrencyCOP(value: number | null | undefined) {
   if (!value || Number.isNaN(value)) return null;
   return new Intl.NumberFormat("es-CO", {
@@ -60,12 +38,19 @@ type ProfessionalsDirectoryProps = {
 };
 
 export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectoryProps) {
+  const t = useTranslations("professionalsDirectory");
   const searchParams = useSearchParams();
   const [serviceFilter, setServiceFilter] = useState("all");
   const [cityFilter, setCityFilter] = useState("all");
   const [ratingFilter, setRatingFilter] = useState("all");
   const [availableToday, setAvailableToday] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const ratingOptions = [
+    { value: "all", label: t("filters.allRatings") },
+    { value: "4.5", label: t("filters.rating45") },
+    { value: "4.8", label: t("filters.rating48") },
+  ];
 
   const serviceOptions = useMemo(() => {
     const unique = new Set<string>();
@@ -139,9 +124,9 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
       <Container className="space-y-12">
         <header className="space-y-6 text-center">
           <h1 className="text-5xl font-semibold tracking-tight text-[#211f1a] sm:text-6xl lg:text-7xl">
-            {labels.headerTitle}
+            {t("header.title")}
           </h1>
-          <p className="mx-auto max-w-3xl text-xl text-[#5d574b] sm:text-2xl">{labels.headerSubtitle}</p>
+          <p className="mx-auto max-w-3xl text-xl text-[#5d574b] sm:text-2xl">{t("header.subtitle")}</p>
         </header>
 
         <div className="space-y-6 rounded-[32px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
@@ -152,7 +137,7 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
               <input
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
-                placeholder="Search by name, service, or neighbourhood"
+                placeholder={t("filters.search")}
                 className="w-full rounded-full border border-[#e2ddd2] bg-[#fbfafa] py-4 pl-14 pr-6 text-base text-[#211f1a] shadow-inner shadow-black/5 outline-none transition focus:border-[#211f1a]"
               />
             </div>
@@ -161,7 +146,7 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
             <div className="flex flex-wrap items-center gap-4 text-sm font-semibold text-[#5a5549]">
               <label className="flex items-center gap-2.5">
                 <Filter className="h-5 w-5 text-[#211f1a]" />
-                <span>{labels.serviceFilter}</span>
+                <span>{t("filters.service")}</span>
                 <select
                   className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[#211f1a] focus:outline-none"
                   value={serviceFilter}
@@ -169,7 +154,7 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                 >
                   {serviceOptions.map((service) => (
                     <option key={service} value={service}>
-                      {service === "all" ? "All services" : service}
+                      {service === "all" ? t("filters.allServices") : service}
                     </option>
                   ))}
                 </select>
@@ -177,7 +162,7 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
 
               <label className="flex items-center gap-2.5">
                 <MapPin className="h-5 w-5 text-[#211f1a]" />
-                <span>{labels.cityFilter}</span>
+                <span>{t("filters.city")}</span>
                 <select
                   className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[#211f1a] focus:outline-none"
                   value={cityFilter}
@@ -185,7 +170,7 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                 >
                   {cityOptions.map((city) => (
                     <option key={city} value={city}>
-                      {city === "all" ? "All cities" : city}
+                      {city === "all" ? t("filters.allCities") : city}
                     </option>
                   ))}
                 </select>
@@ -193,7 +178,7 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
 
               <label className="flex items-center gap-2.5">
                 <SlidersHorizontal className="h-5 w-5 text-[#211f1a]" />
-                <span>{labels.ratingFilter}</span>
+                <span>{t("filters.rating")}</span>
                 <select
                   className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[#211f1a] focus:outline-none"
                   value={ratingFilter}
@@ -214,7 +199,7 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                   checked={availableToday}
                   onChange={(event) => setAvailableToday(event.target.checked)}
                 />
-                <span>{labels.availabilityFilter}</span>
+                <span>{t("filters.availableToday")}</span>
               </label>
 
               <button
@@ -222,7 +207,7 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                 className="ml-auto rounded-full border-2 border-[#211f1a] bg-white px-5 py-2 text-sm font-semibold text-[#211f1a] transition hover:bg-[#211f1a] hover:text-white"
                 onClick={resetFilters}
               >
-                {labels.reset}
+                {t("filters.reset")}
               </button>
             </div>
           </div>
@@ -230,7 +215,7 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
 
         {filteredProfessionals.length === 0 ? (
           <div className="rounded-[32px] border border-[#f0ece4] bg-[#fbfafa] p-12 text-center">
-            <p className="text-lg text-[#5d574b]">{labels.noResults}</p>
+            <p className="text-lg text-[#5d574b]">{t("results.noResults")}</p>
           </div>
         ) : (
           <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
@@ -245,17 +230,17 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                 <div className="flex flex-1 flex-col gap-5 p-7">
                   <div className="space-y-2">
                     <h2 className="text-2xl font-semibold text-[#211f1a]">{professional.name}</h2>
-                    <p className="text-base text-[#7d7566]">{professional.service ?? "Flexible services"}</p>
+                    <p className="text-base text-[#7d7566]">{professional.service ?? t("card.flexibleServices")}</p>
                   </div>
                   <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#5a5549]">
                     <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1.5">
                       <Star className="h-3.5 w-3.5 text-[#211f1a]" />
-                      {labels.newBadge}
+                      {t("card.newBadge")}
                     </span>
                     {professional.experienceYears !== null ? (
                       <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1.5">
                         <ShieldCheck className="h-3.5 w-3.5 text-[#211f1a]" />
-                        {professional.experienceYears} {labels.years}
+                        {professional.experienceYears} {t("card.yearsExp")}
                       </span>
                     ) : null}
                     {professional.languages.length > 0 ? (
@@ -265,27 +250,27 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                     ) : null}
                     {professional.availableToday && (
                       <span className="inline-flex items-center gap-1 rounded-full bg-[#211f1a] px-3 py-1.5 text-white">
-                        {labels.availabilityFilter}
+                        {t("filters.availableToday")}
                       </span>
                     )}
                   </div>
                   <div className="flex items-center justify-between text-base text-[#5d574b]">
                     <span>{professional.location}</span>
-                    <span className="font-semibold">{formatCurrencyCOP(professional.hourlyRateCop) ?? "Rate on request"}</span>
+                    <span className="font-semibold">{formatCurrencyCOP(professional.hourlyRateCop) ?? t("card.rateOnRequest")}</span>
                   </div>
                   <p className="text-base leading-relaxed text-[#7d7566]">
                     {professional.bio
                       ? professional.bio.length > 140
                         ? `${professional.bio.slice(0, 140)}…`
                         : professional.bio
-                      : labels.noBio}
+                      : t("card.noBio")}
                   </p>
                   <div className="mt-auto pt-2">
                     <Link
                       href={`/professionals/${professional.id}`}
                       className="inline-flex w-full items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-6 py-3.5 text-base font-semibold text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] transition hover:bg-[#2d2822]"
                     >
-                      {labels.explore}
+                      {t("card.viewProfile")}
                     </Link>
                   </div>
                 </div>

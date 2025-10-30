@@ -801,5 +801,36 @@
         "learnMore": "Más Información"
       }
     }
+  },
+  "professionalsDirectory": {
+    "header": {
+      "title": "Profesionales de Maidconnect",
+      "subtitle": "Cada especialista listado a continuación ha superado el proceso de verificación de cuatro etapas de Maidconnect y está autorizado para atender clientes a través de nuestra plataforma. Estos pasos incluyen la presentación y aprobación de su cédula (documento de identidad del gobierno colombiano), prueba de elegibilidad laboral, referencias y una entrevista en persona."
+    },
+    "filters": {
+      "search": "Buscar por nombre, servicio o barrio",
+      "service": "Servicio",
+      "allServices": "Todos los servicios",
+      "city": "Ciudad",
+      "allCities": "Todas las ciudades",
+      "rating": "Calificación",
+      "allRatings": "Todas las calificaciones",
+      "rating45": "4.5+",
+      "rating48": "4.8+",
+      "availableToday": "Disponible hoy",
+      "reset": "Restablecer"
+    },
+    "results": {
+      "noResults": "Ningún profesional coincide con estos filtros aún."
+    },
+    "card": {
+      "viewProfile": "Ver perfil",
+      "hourly": "COP / hr",
+      "yearsExp": "años exp",
+      "noBio": "Este profesional está preparando su biografía pública. Vuelve pronto.",
+      "newBadge": "Nuevo en MaidConnect",
+      "flexibleServices": "Servicios flexibles",
+      "rateOnRequest": "Tarifa bajo consulta"
+    }
   }
 }
