@@ -260,7 +260,7 @@ function AddressForm({
   const t = useTranslations("dashboard.customer.addressManager");
   const [formData, setFormData] = useState<Omit<SavedAddress, "id" | "created_at">>({
     label: address?.label || "",
-    is_default: address?.is_default || isDefault,
+    is_default: address?.is_default ?? isDefault ?? false,
     street: address?.street || "",
     neighborhood: address?.neighborhood || "",
     city: address?.city || "",
