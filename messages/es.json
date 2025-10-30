@@ -890,6 +890,95 @@
           }
         }
       }
+    },
+    "signIn": {
+      "meta": {
+        "title": "Iniciar sesión | MaidConnect"
+      },
+      "header": {
+        "createAccount": "Crear cuenta"
+      },
+      "hero": {
+        "title": "Bienvenido de nuevo",
+        "description": "Inicia sesión para gestionar tus reservas, documentos y pagos en un solo espacio."
+      },
+      "form": {
+        "emailLabel": "Correo electrónico",
+        "emailPlaceholder": "tu@ejemplo.com",
+        "passwordLabel": "Contraseña",
+        "passwordPlaceholder": "••••••••",
+        "signInButton": "Iniciar sesión",
+        "signingInButton": "Iniciando sesión…",
+        "needAccount": "¿Necesitas una cuenta?",
+        "createOneNow": "Crear una ahora"
+      },
+      "footer": {
+        "support": "El soporte de conserjería está disponible 7 días a la semana para asistencia con la incorporación."
+      },
+      "sidebar": {
+        "imageAlt": "Hospitalidad MaidConnect",
+        "badge": "Talento doméstico de confianza",
+        "title": "Profesionales meticulosos seleccionados para hogares de expatriados.",
+        "description": "Nuestro equipo bilingüe de conserjería verifica cada perfil con entrevistas, visitas de prueba y controles de calidad continuos."
+      }
+    },
+    "signUp": {
+      "meta": {
+        "title": "Crear cuenta | MaidConnect"
+      },
+      "header": {
+        "signIn": "Iniciar sesión"
+      },
+      "hero": {
+        "title": "Crea tu cuenta de MaidConnect",
+        "description": "Cuéntanos cómo planeas usar la plataforma y adaptaremos la experiencia para hogares o profesionales."
+      },
+      "form": {
+        "accountTypeLabel": "Tipo de cuenta",
+        "accountTypeHelper": "Elige la experiencia que mejor se adapte a cómo planeas usar MaidConnect.",
+        "customerLabel": "Cliente",
+        "customerDescription": "Reserva profesionales pre-verificados para tu hogar.",
+        "professionalLabel": "Profesional",
+        "professionalDescription": "Gestiona tu perfil, reservas y pagos.",
+        "fullNameLabel": "Nombre completo",
+        "fullNamePlaceholder": "Andrea Martínez",
+        "phoneLabel": "Teléfono",
+        "phonePlaceholder": "+57 300 123 4567",
+        "cityLabel": "Ciudad",
+        "cityPlaceholder": "Medellín",
+        "preferredLanguageLabel": "Idioma preferido",
+        "languageEnglish": "English",
+        "languageSpanish": "Español (Colombia)",
+        "emailLabel": "Correo electrónico",
+        "emailPlaceholder": "tu@ejemplo.com",
+        "propertyTypeLabel": "Tipo de propiedad",
+        "propertyTypePlaceholder": "Selecciona un tipo de propiedad",
+        "propertyApartment": "Apartamento",
+        "propertyHouse": "Casa",
+        "propertyOffice": "Oficina",
+        "propertyOther": "Otro",
+        "passwordLabel": "Contraseña",
+        "passwordPlaceholder": "Crea una contraseña",
+        "confirmPasswordLabel": "Confirmar contraseña",
+        "confirmPasswordPlaceholder": "Repite la contraseña",
+        "termsLabel": "Acepto los",
+        "termsLink": "términos de servicio",
+        "termsConfirm": "de MaidConnect y confirmo que entiendo las pautas de respeto mutuo.",
+        "successMessage": "Cuenta creada. Por favor revisa tu correo electrónico para verificar y finalizar el inicio de sesión.",
+        "createAccountButton": "Crear cuenta",
+        "creatingAccountButton": "Creando cuenta…",
+        "haveAccount": "¿Ya tienes una cuenta?",
+        "signInInstead": "Iniciar sesión"
+      },
+      "footer": {
+        "support": "Te guiaremos con incorporación de conserjería después de enviar tus detalles."
+      },
+      "sidebar": {
+        "imageAlt": "Incorporación MaidConnect",
+        "badge": "Incorporación de conserjería",
+        "title": "Entrevistamos, verificamos antecedentes y capacitamos a cada profesional.",
+        "description": "Construye confianza desde la primera visita con incorporación estructurada, manuales del hogar y soporte receptivo."
+      }
     }
   }
 }

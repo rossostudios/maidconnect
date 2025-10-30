@@ -890,6 +890,95 @@
           }
         }
       }
+    },
+    "signIn": {
+      "meta": {
+        "title": "Sign in | MaidConnect"
+      },
+      "header": {
+        "createAccount": "Create account"
+      },
+      "hero": {
+        "title": "Welcome back",
+        "description": "Sign in to manage your bookings, documents, and payouts in one workspace."
+      },
+      "form": {
+        "emailLabel": "Email",
+        "emailPlaceholder": "you@example.com",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "••••••••",
+        "signInButton": "Sign in",
+        "signingInButton": "Signing in…",
+        "needAccount": "Need an account?",
+        "createOneNow": "Create one now"
+      },
+      "footer": {
+        "support": "Concierge support is available 7 days a week for onboarding assistance."
+      },
+      "sidebar": {
+        "imageAlt": "MaidConnect hospitality",
+        "badge": "Trusted domestic talent",
+        "title": "Meticulous professionals handpicked for expat households.",
+        "description": "Our bilingual concierge team vets every profile with interviews, trial visits, and ongoing quality checks."
+      }
+    },
+    "signUp": {
+      "meta": {
+        "title": "Create account | MaidConnect"
+      },
+      "header": {
+        "signIn": "Sign in"
+      },
+      "hero": {
+        "title": "Create your MaidConnect account",
+        "description": "Tell us how you plan to use the platform and we'll tailor the experience for households or professionals."
+      },
+      "form": {
+        "accountTypeLabel": "Account type",
+        "accountTypeHelper": "Choose the experience that best matches how you plan to use MaidConnect.",
+        "customerLabel": "Customer",
+        "customerDescription": "Book pre-vetted professionals for your home.",
+        "professionalLabel": "Professional",
+        "professionalDescription": "Manage your profile, bookings, and payouts.",
+        "fullNameLabel": "Full name",
+        "fullNamePlaceholder": "Andrea Martínez",
+        "phoneLabel": "Phone",
+        "phonePlaceholder": "+57 300 123 4567",
+        "cityLabel": "City",
+        "cityPlaceholder": "Medellín",
+        "preferredLanguageLabel": "Preferred language",
+        "languageEnglish": "English",
+        "languageSpanish": "Español (Colombia)",
+        "emailLabel": "Email",
+        "emailPlaceholder": "you@example.com",
+        "propertyTypeLabel": "Property type",
+        "propertyTypePlaceholder": "Select a property type",
+        "propertyApartment": "Apartment",
+        "propertyHouse": "House",
+        "propertyOffice": "Office",
+        "propertyOther": "Other",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "Create a password",
+        "confirmPasswordLabel": "Confirm password",
+        "confirmPasswordPlaceholder": "Repeat password",
+        "termsLabel": "I agree to the MaidConnect",
+        "termsLink": "terms of service",
+        "termsConfirm": "and confirm that I understand the mutual respect guidelines.",
+        "successMessage": "Account created. Please check your email to verify and finish signing in.",
+        "createAccountButton": "Create account",
+        "creatingAccountButton": "Creating account…",
+        "haveAccount": "Already have an account?",
+        "signInInstead": "Sign in instead"
+      },
+      "footer": {
+        "support": "We'll guide you with concierge onboarding after you submit your details."
+      },
+      "sidebar": {
+        "imageAlt": "MaidConnect onboarding",
+        "badge": "Concierge onboarding",
+        "title": "We interview, background check, and coach every professional.",
+        "description": "Build trust from the first visit with structured onboarding, household manuals, and responsive support."
+      }
     }
   }
 }
