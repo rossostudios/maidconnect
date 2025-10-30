@@ -61,4 +61,10 @@ const sentryWebpackPluginOptions = {
   automaticVercelMonitors: true,
 };
 
-export default withNextIntl(withSentryConfig(nextConfig, sentryWebpackPluginOptions));
+// Only apply Sentry config if not building on Vercel to avoid middleware.js.nft.json issues
+// Sentry will still work at runtime via instrumentation.ts
+const finalConfig = process.env.VERCEL === "1"
+  ? withNextIntl(nextConfig)
+  : withNextIntl(withSentryConfig(nextConfig, sentryWebpackPluginOptions));
+
+export default finalConfig;
