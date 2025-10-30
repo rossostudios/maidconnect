@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { CalendarDays, Clock, Globe2, MapPin, ShieldCheck, Star } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { LargeAvailabilityCalendar } from "@/components/bookings/large-availability-calendar";
 import { BookingSheet } from "@/components/bookings/booking-sheet";
@@ -39,6 +40,7 @@ export type ProfessionalProfileDetail = {
 type ProfessionalProfileViewProps = {
   professional: ProfessionalProfileDetail;
   viewer: AppUser | null;
+  locale: string;
 };
 
 const DEFAULT_PRO_PHOTO =
@@ -53,7 +55,8 @@ function formatCurrencyCOP(value: number | null | undefined) {
   }).format(value);
 }
 
-export function ProfessionalProfileView({ professional, viewer }: ProfessionalProfileViewProps) {
+export function ProfessionalProfileView({ professional, viewer, locale }: ProfessionalProfileViewProps) {
+  const t = useTranslations("pages.professionalProfile");
   const [isBookingSheetOpen, setIsBookingSheetOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [availableSlots, setAvailableSlots] = useState<string[]>([]);
@@ -79,7 +82,7 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
           href="/professionals"
           className="text-base font-semibold text-[#5a5549] transition hover:text-[#ff5d46]"
         >
-          ← Back to directory
+          {t("backToDirectory")}
         </Link>
 
         {/* Professional Hero Card */}
@@ -102,7 +105,7 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
                   {professional.name}
                 </h1>
                 <p className="mt-2 text-xl text-[#7d7566]">
-                  {professional.service ?? "Available for bookings"}
+                  {professional.service ?? t("availableForBookings")}
                 </p>
               </div>
 
@@ -114,7 +117,7 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
                 {formattedRate && (
                   <div className="flex items-center gap-2">
                     <Clock className="h-5 w-5 text-[#ff5d46]" />
-                    <span>{formattedRate} / hr</span>
+                    <span>{formattedRate} {t("perHour")}</span>
                   </div>
                 )}
                 {professional.languages.length > 0 && (
@@ -126,14 +129,14 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
                 {professional.experienceYears !== null && (
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="h-5 w-5 text-[#ff5d46]" />
-                    <span>{professional.experienceYears} yrs experience</span>
+                    <span>{t("yearsExperience", { years: professional.experienceYears })}</span>
                   </div>
                 )}
                 {averageRating > 0 && (
                   <div className="flex items-center gap-2">
                     <Star className="h-5 w-5 fill-[#ff5d46] text-[#ff5d46]" />
                     <span className="font-semibold">{averageRating.toFixed(1)}</span>
-                    <span className="text-[#7d7566]">({professional.reviews.length} reviews)</span>
+                    <span className="text-[#7d7566]">({t("reviewsCount", { count: professional.reviews.length })})</span>
                   </div>
                 )}
               </div>
@@ -141,7 +144,7 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
               {professional.availableToday && (
                 <div className="inline-flex w-fit items-center gap-2 rounded-full bg-[#ff5d46]/15 px-5 py-2.5 text-base font-semibold text-[#8a3934]">
                   <CalendarDays className="h-5 w-5" />
-                  Available today
+                  {t("availableToday")}
                 </div>
               )}
             </div>
@@ -153,9 +156,9 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
           {/* Left: Large Calendar */}
           <div>
             <div className="mb-8">
-              <h2 className="text-3xl font-semibold text-[#211f1a]">Book an appointment</h2>
+              <h2 className="text-3xl font-semibold text-[#211f1a]">{t("bookingSection.title")}</h2>
               <p className="mt-2 text-lg text-[#7d7566]">
-                Choose a date to see available times and request a booking
+                {t("bookingSection.description")}
               </p>
             </div>
             <LargeAvailabilityCalendar
@@ -177,7 +180,7 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
                       : "text-[#7d7566] hover:text-[#ff5d46]"
                   }`}
                 >
-                  About
+                  {t("tabs.about")}
                 </button>
                 <button
                   onClick={() => setActiveTab("services")}
@@ -187,7 +190,7 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
                       : "text-[#7d7566] hover:text-[#ff5d46]"
                   }`}
                 >
-                  Services
+                  {t("tabs.services")}
                 </button>
                 <button
                   onClick={() => setActiveTab("portfolio")}
@@ -197,7 +200,7 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
                       : "text-[#7d7566] hover:text-[#ff5d46]"
                   }`}
                 >
-                  Portfolio
+                  {t("tabs.portfolio")}
                 </button>
                 <button
                   onClick={() => setActiveTab("reviews")}
@@ -207,7 +210,7 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
                       : "text-[#7d7566] hover:text-[#ff5d46]"
                   }`}
                 >
-                  Reviews
+                  {t("tabs.reviews")}
                 </button>
               </div>
 
@@ -215,17 +218,16 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
               <div className="p-8">
                 {activeTab === "about" && (
                   <div className="space-y-6">
-                    <h3 className="text-2xl font-semibold text-[#211f1a]">About</h3>
+                    <h3 className="text-2xl font-semibold text-[#211f1a]">{t("tabs.about")}</h3>
                     <p className="text-base leading-relaxed text-[#5d574b]">
-                      {professional.bio ??
-                        "This professional is finalizing their public bio. Reach out with a booking request to learn more about their experience."}
+                      {professional.bio ?? t("aboutSection.noBio")}
                     </p>
                   </div>
                 )}
 
                 {activeTab === "services" && (
                   <div className="space-y-6">
-                    <h3 className="text-2xl font-semibold text-[#211f1a]">Services & rates</h3>
+                    <h3 className="text-2xl font-semibold text-[#211f1a]">{t("servicesSection.title")}</h3>
                     <div className="space-y-4">
                       {hasServices ? (
                         professional.services.map((service) => (
@@ -235,10 +237,10 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
                           >
                             <div className="flex flex-col gap-2">
                               <div className="text-base font-semibold text-[#211f1a]">
-                                {service.name ?? "Service"}
+                                {service.name ?? t("servicesSection.serviceFallback")}
                               </div>
                               <div className="text-lg font-semibold text-[#ff5d46]">
-                                {formatCurrencyCOP(service.hourlyRateCop) ?? "Rate on request"}
+                                {formatCurrencyCOP(service.hourlyRateCop) ?? t("servicesSection.rateOnRequest")}
                               </div>
                             </div>
                             {service.description && (
@@ -248,7 +250,7 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
                         ))
                       ) : (
                         <p className="text-base text-[#7d7566]">
-                          Services are being finalized. Submit a booking request with the details you need and we&apos;ll confirm pricing.
+                          {t("servicesSection.noServices")}
                         </p>
                       )}
                     </div>
@@ -257,14 +259,14 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
 
                 {activeTab === "portfolio" && (
                   <div className="space-y-6">
-                    <h3 className="text-2xl font-semibold text-[#211f1a]">Portfolio</h3>
+                    <h3 className="text-2xl font-semibold text-[#211f1a]">{t("tabs.portfolio")}</h3>
                     {professional.portfolioImages.length > 0 ? (
                       <div className="grid grid-cols-2 gap-4">
                         {professional.portfolioImages.slice(0, 6).map((image, index) => (
                           <div key={index} className="relative aspect-square overflow-hidden rounded-2xl">
                             <Image
                               src={image.url}
-                              alt={image.caption || "Portfolio image"}
+                              alt={image.caption || t("portfolioSection.imageAlt")}
                               fill
                               className="object-cover"
                             />
@@ -273,7 +275,7 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
                       </div>
                     ) : (
                       <p className="text-base text-[#7d7566]">
-                        No portfolio images yet
+                        {t("portfolioSection.noImages")}
                       </p>
                     )}
                   </div>
@@ -281,7 +283,7 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
 
                 {activeTab === "reviews" && (
                   <div className="space-y-6">
-                    <h3 className="text-2xl font-semibold text-[#211f1a]">Reviews</h3>
+                    <h3 className="text-2xl font-semibold text-[#211f1a]">{t("tabs.reviews")}</h3>
                     {professional.reviews.length > 0 ? (
                       <div className="space-y-6">
                         {professional.reviews.slice(0, 3).map((review) => (
@@ -300,19 +302,19 @@ export function ProfessionalProfileView({ professional, viewer }: ProfessionalPr
                             </div>
                             <p className="text-base text-[#5d574b]">{review.comment}</p>
                             <p className="text-sm text-[#7d7566]">
-                              {review.reviewerName} · {new Date(review.createdAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
+                              {review.reviewerName} · {new Date(review.createdAt).toLocaleDateString(locale === "es" ? "es-ES" : "en-US", { month: "short", year: "numeric" })}
                             </p>
                           </div>
                         ))}
                         {professional.reviews.length > 3 && (
                           <p className="text-sm text-[#7d7566]">
-                            + {professional.reviews.length - 3} more reviews
+                            {t("reviewsSection.moreReviews", { count: professional.reviews.length - 3 })}
                           </p>
                         )}
                       </div>
                     ) : (
                       <p className="text-base text-[#7d7566]">
-                        No reviews yet
+                        {t("reviewsSection.noReviews")}
                       </p>
                     )}
                   </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 
 import {
   ProfessionalProfileView,
@@ -41,6 +42,7 @@ function parsePortfolioImages(payload: unknown): ProfessionalPortfolioImage[] {
 type RouteParams = {
   params: Promise<{
     id: string;
+    locale: string;
   }>;
 };
 
@@ -191,11 +193,13 @@ async function fetchProfessional(profileId: string): Promise<ProfessionalProfile
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: RouteParams): Promise<Metadata> {
-  const { id: rawId } = await params;
+  const { id: rawId, locale } = await params;
+  const t = await getTranslations({ locale, namespace: "pages.professionalProfile.meta" });
   const profileId = rawId;
+
   if (!isValidUuid(profileId)) {
     return {
-      title: "Professional not found · MaidConnect",
+      title: t("notFoundTitle"),
     };
   }
 
@@ -203,7 +207,7 @@ export async function generateMetadata({ params }: RouteParams): Promise<Metadat
 
   if (!professional) {
     return {
-      title: "Professional not found · MaidConnect",
+      title: t("notFoundTitle"),
     };
   }
 
@@ -212,12 +216,16 @@ export async function generateMetadata({ params }: RouteParams): Promise<Metadat
 
   return {
     title: `${professional.name} · MaidConnect`,
-    description: `View ${professional.name}'s MaidConnect profile${serviceSnippet}${locationSnippet}.`,
+    description: t("descriptionTemplate", {
+      name: professional.name,
+      service: serviceSnippet,
+      location: locationSnippet,
+    }),
   };
 }
 
 export default async function ProfessionalProfileRoute({ params }: RouteParams) {
-  const { id: rawId } = await params;
+  const { id: rawId, locale } = await params;
   const profileId = rawId;
   if (!isValidUuid(profileId)) {
     notFound();
@@ -232,7 +240,7 @@ export default async function ProfessionalProfileRoute({ params }: RouteParams) 
   return (
     <div className="bg-[var(--background)] text-[var(--foreground)]">
       <SiteHeader />
-      <ProfessionalProfileView professional={professional} viewer={session.user} />
+      <ProfessionalProfileView professional={professional} viewer={session.user} locale={locale} />
       <SiteFooter />
     </div>
   );
