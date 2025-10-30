@@ -1,6 +1,7 @@
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { FinancesOverview } from "@/components/finances/finances-overview";
+import { getTranslations } from "next-intl/server";
 
 type BookingRow = {
   id: string;
@@ -13,7 +14,14 @@ type BookingRow = {
   created_at: string;
 };
 
-export default async function ProFinancesPage() {
+export default async function ProFinancesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "dashboard.pro.finances" });
+
   const user = await requireUser({ allowedRoles: ["professional"] });
   const supabase = await createSupabaseServerClient();
 
@@ -39,9 +47,9 @@ export default async function ProFinancesPage() {
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="text-3xl font-semibold text-[#211f1a]">Finances & Analytics</h1>
+        <h1 className="text-3xl font-semibold text-[#211f1a]">{t("title")}</h1>
         <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-          Track your earnings, view analytics, and manage payouts.
+          {t("description")}
         </p>
       </div>
 

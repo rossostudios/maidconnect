@@ -3,6 +3,7 @@ import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { DocumentsTable } from "@/components/documents/documents-table";
 import { REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "@/app/[locale]/dashboard/pro/onboarding/state";
+import { getTranslations } from "next-intl/server";
 
 type DocumentRow = {
   id: string;
@@ -22,7 +23,14 @@ const DOCUMENT_LABELS: Record<string, string> = Object.fromEntries(
   [...REQUIRED_DOCUMENTS, ...OPTIONAL_DOCUMENTS].map((doc) => [doc.key, doc.label]),
 );
 
-export default async function ProDocumentsPage() {
+export default async function ProDocumentsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "dashboard.pro.documents" });
+
   const user = await requireUser({ allowedRoles: ["professional"] });
   const supabase = await createSupabaseServerClient();
 
@@ -58,16 +66,16 @@ export default async function ProDocumentsPage() {
     <section className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-semibold text-[#211f1a]">Document Center</h1>
+          <h1 className="text-3xl font-semibold text-[#211f1a]">{t("title")}</h1>
           <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-            Keep your verification paperwork current. Upload new files if your information changes.
+            {t("description")}
           </p>
         </div>
         <Link
           href="/dashboard/pro/onboarding"
           className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 text-sm font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
         >
-          Upload Documents
+          {t("uploadButton")}
         </Link>
       </div>
 
