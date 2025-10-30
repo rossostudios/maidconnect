@@ -3,6 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { stripe } from "@/lib/stripe";
 import { calculateCancellationPolicy, calculateRefundAmount } from "@/lib/cancellation-policy";
 import { sendBookingDeclinedEmail } from "@/lib/email/send";
+import { notifyProfessionalBookingCanceled } from "@/lib/notifications";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -187,6 +188,14 @@ export async function POST(request: Request) {
         },
         reason || "Customer canceled the booking"
       );
+
+      // Send push notification to professional
+      await notifyProfessionalBookingCanceled(booking.professional_id, {
+        id: booking.id,
+        serviceName: booking.service_name || 'Service',
+        customerName: user.user_metadata?.full_name || 'A customer',
+        scheduledStart: booking.scheduled_start || new Date().toISOString(),
+      });
     }
 
     return NextResponse.json({

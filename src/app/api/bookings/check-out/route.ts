@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { stripe } from "@/lib/stripe";
 import { sendServiceCompletedEmail } from "@/lib/email/send";
+import {
+  notifyCustomerServiceCompleted,
+  notifyProfessionalPaymentReceived,
+} from "@/lib/notifications";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -221,6 +225,23 @@ export async function POST(request: Request) {
     Promise.all(emailPromises).catch(error => {
       console.error("Failed to send completion emails:", error);
     });
+
+    // Send push notifications
+    if (customerUser.user) {
+      await notifyCustomerServiceCompleted(booking.customer_id, {
+        id: booking.id,
+        serviceName: booking.service_name || 'Service',
+        professionalName: emailData.professionalName,
+      });
+    }
+
+    if (professionalUser.user) {
+      await notifyProfessionalPaymentReceived(booking.professional_id, {
+        id: booking.id,
+        serviceName: booking.service_name || 'Service',
+        amount: capturedAmount,
+      });
+    }
 
     return NextResponse.json({
       success: true,

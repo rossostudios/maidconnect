@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { notifyCustomerServiceStarted } from "@/lib/notifications";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -58,6 +59,7 @@ export async function POST(request: Request) {
         customer_id,
         status,
         scheduled_start,
+        service_name,
         address
       `)
       .eq("id", bookingId)
@@ -105,6 +107,20 @@ export async function POST(request: Request) {
       console.error("Failed to check in:", updateError);
       return NextResponse.json({ error: "Failed to check in" }, { status: 500 });
     }
+
+    // Fetch professional name for notification
+    const { data: professionalProfile } = await supabase
+      .from("professional_profiles")
+      .select("full_name")
+      .eq("profile_id", booking.professional_id)
+      .single();
+
+    // Send push notification to customer
+    await notifyCustomerServiceStarted(booking.customer_id, {
+      id: booking.id,
+      serviceName: booking.service_name || 'Service',
+      professionalName: professionalProfile?.full_name || 'Your professional',
+    });
 
     return NextResponse.json({
       success: true,

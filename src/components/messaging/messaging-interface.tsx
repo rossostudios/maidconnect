@@ -256,19 +256,43 @@ export function MessagingInterface({ userId, userRole }: Props) {
   }
 
   return (
-    <div className="flex h-[600px] overflow-hidden rounded-[28px] border border-[#ebe5d8] bg-white shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+    <div className="flex h-[calc(100vh-200px)] min-h-[600px] overflow-hidden rounded-2xl border border-[#ebe5d8] bg-white shadow-sm">
       {/* Conversations List */}
-      <div className="w-80 border-r border-[#ebe5d8] overflow-y-auto">
-        <div className="border-b border-[#ebe5d8] bg-white p-6">
-          <h2 className="text-xl font-semibold text-[#211f1a]">Messages</h2>
+      <div className="w-96 flex-shrink-0 border-r border-[#ebe5d8] overflow-y-auto">
+        <div className="border-b border-[#ebe5d8] bg-white px-6 py-5">
+          <h2 className="text-xl font-semibold text-[#211f1a]">Conversations</h2>
+          <p className="mt-1 text-sm text-[#7d7566]">{conversations.length} {conversations.length === 1 ? 'conversation' : 'conversations'}</p>
+        </div>
+
+        {/* Search and filter */}
+        <div className="border-b border-[#ebe5d8] bg-white px-6 py-4">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search conversations..."
+              className="w-full rounded-lg border border-[#ebe5d8] px-4 py-2 pl-10 text-sm text-[#211f1a] placeholder-[#7d7566] focus:border-[#ff5d46] focus:outline-none focus:ring-1 focus:ring-[#ff5d46]"
+            />
+            <svg className="absolute left-3 top-2.5 h-5 w-5 text-[#7d7566]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
         </div>
 
         {conversations.length === 0 ? (
-          <div className="p-8 text-center">
-            <p className="text-base text-[#5d574b]">
-              No conversations yet. Messages will appear when you book a
-              service.
-            </p>
+          <div className="p-12 text-center">
+            <div className="mx-auto max-w-xs">
+              <div className="mb-4 flex justify-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ebe5d8]">
+                  <svg className="h-6 w-6 text-[#7d7566]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-base font-semibold text-[#211f1a]">No conversations</h3>
+              <p className="mt-1 text-sm text-[#5d574b]">
+                Messages will appear when you book a service
+              </p>
+            </div>
           </div>
         ) : (
           <div className="divide-y divide-[#ebe5d8]">
@@ -338,38 +362,39 @@ export function MessagingInterface({ userId, userRole }: Props) {
         {selectedConversation ? (
           <>
             {/* Thread Header */}
-            <div className="border-b border-[#ebe5d8] bg-white p-6">
-              <div className="flex items-center gap-4">
-                {(() => {
-                  const otherUser = normalizeUser(selectedConversation, userRole);
-                  return (
-                    <>
-                      {otherUser.avatar_url ? (
-                        <img
-                          src={otherUser.avatar_url}
-                          alt={otherUser.full_name}
-                          className="h-12 w-12 rounded-full object-cover"
-                        />
-                      ) : (
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff5d46] text-base font-semibold text-white">
-                          {otherUser.full_name.charAt(0).toUpperCase()}
-                        </div>
-                      )}
-                      <div>
-                        <h3 className="text-base font-semibold text-[#211f1a]">
-                          {otherUser.full_name}
-                        </h3>
-                        <p className="text-sm text-[#5d574b]">
-                          {selectedConversation.booking.service_name} •{" "}
-                          {new Date(
-                            selectedConversation.booking.scheduled_start
-                          ).toLocaleDateString()}
-                        </p>
+            <div className="flex items-center justify-between border-b border-[#ebe5d8] bg-white px-8 py-5">
+              {(() => {
+                const otherUser = normalizeUser(selectedConversation, userRole);
+                return (
+                  <div className="flex items-center gap-4">
+                    {otherUser.avatar_url ? (
+                      <img
+                        src={otherUser.avatar_url}
+                        alt={otherUser.full_name}
+                        className="h-12 w-12 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff5d46] text-base font-semibold text-white">
+                        {otherUser.full_name.charAt(0).toUpperCase()}
                       </div>
-                    </>
-                  );
-                })()}
-              </div>
+                    )}
+                    <div>
+                      <h3 className="text-lg font-semibold text-[#211f1a]">
+                        {otherUser.full_name}
+                      </h3>
+                      <p className="text-sm text-[#7d7566]">
+                        {selectedConversation.booking.service_name} •{" "}
+                        {new Date(
+                          selectedConversation.booking.scheduled_start
+                        ).toLocaleDateString()}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })()}
+              <button className="rounded-lg px-4 py-2 text-sm font-medium text-[#7d7566] transition hover:bg-[#ebe5d8]">
+                View Booking
+              </button>
             </div>
 
             {/* Messages */}
@@ -383,10 +408,20 @@ export function MessagingInterface({ userId, userRole }: Props) {
             <MessageInput onSend={sendMessage} />
           </>
         ) : (
-          <div className="flex flex-1 items-center justify-center">
-            <p className="text-base text-[#5d574b]">
-              Select a conversation to start messaging
-            </p>
+          <div className="flex flex-1 items-center justify-center p-12">
+            <div className="max-w-sm text-center">
+              <div className="mb-4 flex justify-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#ebe5d8]">
+                  <svg className="h-8 w-8 text-[#7d7566]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-xl font-semibold text-[#211f1a]">Select a conversation</h3>
+              <p className="mt-2 text-base text-[#5d574b]">
+                Choose a conversation from the list to start messaging
+              </p>
+            </div>
           </div>
         )}
       </div>

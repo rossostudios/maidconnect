@@ -6,7 +6,7 @@ import { PaymentAuthorizationCard } from "@/components/payments/payment-authoriz
 import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
 import { SavedAddressesManager } from "@/components/addresses/saved-addresses-manager";
 import { FavoritesList } from "@/components/favorites/favorites-list";
-import { MessagingInterface } from "@/components/messaging/messaging-interface";
+import { NotificationPermissionPrompt } from "@/components/notifications/notification-permission-prompt";
 
 const QUICK_LINKS = [
   {
@@ -162,7 +162,10 @@ export default async function CustomerDashboardPage() {
 
   return (
     <section className="flex-1 space-y-8">
-      <header className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+      {/* Push Notification Permission Prompt */}
+      <NotificationPermissionPrompt variant="banner" />
+
+      <header className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
         <div className="flex items-start justify-between gap-6">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">CUSTOMER DASHBOARD</p>
@@ -333,7 +336,15 @@ export default async function CustomerDashboardPage() {
           Chat with professionals about your bookings and service details.
         </p>
         <div className="mt-8">
-          <MessagingInterface userId={user.id} userRole="customer" />
+          <Link
+            href="/dashboard/customer/messages"
+            className="inline-flex items-center gap-2 rounded-full bg-[#ff5d46] px-6 py-3 text-base font-medium text-white transition hover:bg-[#e54d3c]"
+          >
+            View all messages
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
         </div>
       </section>
 

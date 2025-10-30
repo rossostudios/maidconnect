@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { sendNewBookingRequestEmail } from "@/lib/email/send";
+import {
+  notifyProfessionalNewBooking,
+  notifyCustomerBookingConfirmed,
+} from "@/lib/notifications";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -124,6 +128,24 @@ export async function POST(request: Request) {
             address,
             bookingId: fullBooking.id,
             amount,
+          });
+
+          // Send push notification to professional
+          await notifyProfessionalNewBooking(fullBooking.professional_id, {
+            id: fullBooking.id,
+            serviceName: fullBooking.service_name || 'Service',
+            customerName: customerUser?.user?.user_metadata?.full_name || 'A customer',
+            scheduledStart: fullBooking.scheduled_start || new Date().toISOString(),
+          });
+        }
+
+        // Send push notification to customer confirming booking
+        if (customerUser?.user) {
+          await notifyCustomerBookingConfirmed(fullBooking.customer_id, {
+            id: fullBooking.id,
+            serviceName: fullBooking.service_name || 'Service',
+            scheduledStart: fullBooking.scheduled_start || new Date().toISOString(),
+            professionalName: professionalProfile?.full_name || 'Your professional',
           });
         }
       }

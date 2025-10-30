@@ -5,8 +5,8 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { requireUser } from "@/lib/auth";
 import { REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "@/app/dashboard/pro/onboarding/state";
 import { ServiceAddonsManager } from "@/components/service-addons/service-addons-manager";
-import { MessagingInterface } from "@/components/messaging/messaging-interface";
 import { ProBookingList } from "@/components/bookings/pro-booking-list";
+import { NotificationPermissionPrompt } from "@/components/notifications/notification-permission-prompt";
 
 const STATUS_ORDER = ["application_pending", "application_in_review", "approved", "active"] as const;
 
@@ -262,7 +262,10 @@ export default async function ProfessionalDashboardPage() {
 
   return (
     <section className="flex-1 space-y-8">
-      <header className="rounded-[32px] border border-[#ebe5d8] bg-gradient-to-br from-[#fbfafa] to-white p-10 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+      {/* Push Notification Permission Prompt */}
+      <NotificationPermissionPrompt variant="banner" />
+
+      <header className="rounded-[32px] bg-white p-10 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
@@ -371,7 +374,7 @@ export default async function ProfessionalDashboardPage() {
 
       {/* Full-Width Booking Calendar & List */}
       {onboardingStatus === "active" ? (
-        <section className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+        <section className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <h2 className="text-3xl font-semibold text-[#211f1a]">Booking calendar</h2>
@@ -408,7 +411,7 @@ export default async function ProfessionalDashboardPage() {
 
       {/* Services & Add-ons Combined */}
       {onboardingStatus === "active" ? (
-        <section className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+        <section className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-3xl font-semibold text-[#211f1a]">Services & add-ons</h2>
@@ -454,23 +457,8 @@ export default async function ProfessionalDashboardPage() {
         </section>
       ) : null}
 
-      {/* Messages Section - Modernized */}
-      {onboardingStatus === "active" ? (
-        <section className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
-          <div>
-            <h2 className="text-3xl font-semibold text-[#211f1a]">Messages</h2>
-            <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-              Chat with customers about bookings, special requests, and service details.
-            </p>
-          </div>
-          <div className="mt-6">
-            <MessagingInterface userId={user.id} userRole="professional" />
-          </div>
-        </section>
-      ) : null}
-
       {/* Document center */}
-      <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+      <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
         <h3 className="text-2xl font-semibold text-[#211f1a]">Document center</h3>
         <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
           Keep your verification paperwork current. Upload new files if your information changes.

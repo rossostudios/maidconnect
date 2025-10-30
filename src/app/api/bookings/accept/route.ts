@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { sendBookingConfirmedEmail } from "@/lib/email/send";
+import { notifyCustomerBookingAccepted } from "@/lib/notifications";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -129,6 +130,13 @@ export async function POST(request: Request) {
           address,
           bookingId: booking.id,
           amount,
+        });
+
+        // Send push notification to customer
+        await notifyCustomerBookingAccepted(booking.customer_id, {
+          id: booking.id,
+          serviceName: booking.service_name || 'Service',
+          professionalName: professionalProfile?.full_name || 'Your professional',
         });
       }
     }

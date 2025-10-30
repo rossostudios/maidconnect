@@ -7,32 +7,32 @@ import { ChevronDown } from "lucide-react";
 const productFeatures = [
   {
     name: "Booking Platform",
-    href: "#capabilities",
+    href: "/product/booking-platform",
     description: "Schedule services with instant or approved booking"
   },
   {
     name: "Professional Profiles",
-    href: "#capabilities",
+    href: "/product/professional-profiles",
     description: "Verified profiles with reviews and portfolios"
   },
   {
     name: "Secure Messaging",
-    href: "#capabilities",
+    href: "/product/secure-messaging",
     description: "Direct communication with your professionals"
   },
   {
     name: "Payment Processing",
-    href: "#capabilities",
+    href: "/product/payment-processing",
     description: "Safe, transparent payments with receipt tracking"
   },
   {
     name: "Reviews & Ratings",
-    href: "#capabilities",
+    href: "/product/reviews-ratings",
     description: "Community-driven trust and quality assurance"
   },
   {
     name: "Admin Dashboard",
-    href: "#capabilities",
+    href: "/product/admin-dashboard",
     description: "Complete platform management and moderation"
   },
 ];

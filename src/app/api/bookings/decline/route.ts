@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { stripe } from "@/lib/stripe";
 import { sendBookingDeclinedEmail } from "@/lib/email/send";
+import { notifyCustomerBookingDeclined } from "@/lib/notifications";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -134,6 +135,13 @@ export async function POST(request: Request) {
         },
         reason
       );
+
+      // Send push notification to customer
+      await notifyCustomerBookingDeclined(booking.customer_id, {
+        id: booking.id,
+        serviceName: booking.service_name || 'Service',
+        professionalName: professionalProfile?.full_name || 'The professional',
+      });
     }
 
     return NextResponse.json({

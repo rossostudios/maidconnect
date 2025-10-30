@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { AUTH_ROUTES, getDashboardRouteForRole, getSession } from "@/lib/auth";
 import { SiteNavigation } from "./site-navigation";
+import { DashboardButton } from "@/components/navigation/dashboard-button";
 
 export async function SiteHeader() {
   const { user } = await getSession();
@@ -16,11 +17,7 @@ export async function SiteHeader() {
         <SiteNavigation />
         <div className="flex items-center gap-3">
           {user ? (
-            <Button
-              href={getDashboardRouteForRole(user.role)}
-              label="Dashboard"
-              className="bg-[#211f1a] text-white hover:bg-[#2d2822]"
-            />
+            <DashboardButton href={getDashboardRouteForRole(user.role)} />
           ) : (
             <Button
               href={AUTH_ROUTES.signIn}
