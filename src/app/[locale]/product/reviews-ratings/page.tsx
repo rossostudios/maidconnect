@@ -1,61 +1,70 @@
 import { Metadata } from "next";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Star, Users, BarChart3, CheckCircle2 } from "lucide-react";
 import { ProductHeroSection } from "@/components/product/product-hero-section";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
 import { ProductStepsSection } from "@/components/product/product-steps-section";
 import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
+import { Link } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "Reviews & Ratings System - Two-Way Accountability | Maidconnect",
-  description:
-    "Community-driven trust and quality. Two-way reviews ensure accountability. Verified reviews only from real bookings. Build your reputation.",
-  keywords: [
-    "reviews and ratings",
-    "two-way reviews",
-    "verified reviews",
-    "customer feedback",
-    "professional ratings",
-    "service quality",
-    "trust and accountability",
-  ],
-  openGraph: {
-    title: "Reviews & Ratings System - Two-Way Accountability | Maidconnect",
-    description:
-      "Community-driven trust with two-way reviews. Rate professionals and build your reputation as a reliable customer.",
-    url: "https://maidconnect.co/product/reviews-ratings",
-    siteName: "Maidconnect",
-    images: [
-      {
-        url: "https://maidconnect.co/og-reviews-ratings.png",
-        width: 1200,
-        height: 630,
-        alt: "Maidconnect Reviews & Ratings",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Reviews & Ratings System - Two-Way Accountability | Maidconnect",
-    description:
-      "Two-way reviews ensure accountability. Verified reviews only from real bookings.",
-    images: ["https://maidconnect.co/og-reviews-ratings.png"],
-  },
-  alternates: {
-    canonical: "https://maidconnect.co/product/reviews-ratings",
-  },
+type Props = {
+  params: { locale: string };
 };
 
-export default function ReviewsRatingsPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "pages.reviewsRatings.meta" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: [
+      "reviews and ratings",
+      "two-way reviews",
+      "verified reviews",
+      "customer feedback",
+      "professional ratings",
+      "service quality",
+      "trust and accountability",
+    ],
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      url: "https://maidconnect.co/product/reviews-ratings",
+      siteName: "Maidconnect",
+      images: [
+        {
+          url: "https://maidconnect.co/og-reviews-ratings.png",
+          width: 1200,
+          height: 630,
+          alt: "Maidconnect Reviews & Ratings",
+        },
+      ],
+      locale: locale === "es" ? "es_ES" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: ["https://maidconnect.co/og-reviews-ratings.png"],
+    },
+    alternates: {
+      canonical: "https://maidconnect.co/product/reviews-ratings",
+    },
+  };
+}
+
+export default async function ReviewsRatingsPage({ params }: Props) {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "pages.reviewsRatings" });
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: "Maidconnect Reviews & Ratings System",
-    description:
-      "Two-way review system ensuring accountability and trust between customers and professionals.",
+    description: t("hero.description"),
     brand: {
       "@type": "Brand",
       name: "Maidconnect",
@@ -77,11 +86,11 @@ export default function ReviewsRatingsPage() {
       <main>
         {/* Hero Section */}
         <ProductHeroSection
-          headline="Community-driven trust and quality"
-          description="Two-way reviews ensure accountability. Rate professionals after every service and build your own reputation as a reliable customer."
-          primaryCTA={{ label: "Read Reviews", href: "/professionals" }}
-          secondaryCTA={{ label: "Learn More", href: "#features" }}
-          badge="Verified reviews only"
+          headline={t("hero.headline")}
+          description={t("hero.description")}
+          primaryCTA={{ label: t("hero.primaryCTA"), href: "/professionals" }}
+          secondaryCTA={{ label: t("hero.secondaryCTA"), href: "#features" }}
+          badge={t("hero.badge")}
         />
 
         {/* Features Section */}
@@ -91,30 +100,30 @@ export default function ReviewsRatingsPage() {
         >
           <div className="mx-auto max-w-6xl">
             <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl lg:text-6xl">
-              Authentic feedback that matters
+              {t("features.title")}
             </h2>
 
             <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-relaxed text-[#5d574b]">
-              Only real bookings, real experiences, and real accountability
+              {t("features.subtitle")}
             </p>
 
             <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <ProductFeatureCard
                 icon={Star}
-                title="Verified Booking Reviews"
-                description="Only customers who completed bookings can leave reviews. Every review is tied to a real service, ensuring authenticity."
+                title={t("features.verifiedBooking.title")}
+                description={t("features.verifiedBooking.description")}
               />
 
               <ProductFeatureCard
                 icon={Users}
-                title="Two-Way Accountability"
-                description="Professionals rate customers too, building mutual trust and respect. Great customers get better service and priority booking."
+                title={t("features.twoWay.title")}
+                description={t("features.twoWay.description")}
               />
 
               <ProductFeatureCard
                 icon={BarChart3}
-                title="Detailed Rating Categories"
-                description="Rate quality, communication, punctuality, and value separately. Get the full picture beyond a single star rating."
+                title={t("features.detailedCategories.title")}
+                description={t("features.detailedCategories.description")}
               />
             </div>
           </div>
@@ -122,32 +131,28 @@ export default function ReviewsRatingsPage() {
 
         {/* How It Works Section */}
         <ProductStepsSection
-          headline="How reviews work"
-          description="Simple, fair, and transparent for everyone"
+          headline={t("howItWorks.title")}
+          description={t("howItWorks.description")}
           steps={[
             {
               number: "1",
-              title: "Complete Service",
-              description:
-                "Finish a booking and ensure all check-in/check-out steps are done",
+              title: t("howItWorks.step1.title"),
+              description: t("howItWorks.step1.description"),
             },
             {
               number: "2",
-              title: "Receive Prompt",
-              description:
-                "Get a review request within 48 hours of service completion",
+              title: t("howItWorks.step2.title"),
+              description: t("howItWorks.step2.description"),
             },
             {
               number: "3",
-              title: "Rate Experience",
-              description:
-                "Rate across multiple categories with detailed feedback options",
+              title: t("howItWorks.step3.title"),
+              description: t("howItWorks.step3.description"),
             },
             {
               number: "4",
-              title: "Build Reputation",
-              description:
-                "Your review helps others and builds your customer reputation score",
+              title: t("howItWorks.step4.title"),
+              description: t("howItWorks.step4.description"),
             },
           ]}
         />
@@ -156,7 +161,7 @@ export default function ReviewsRatingsPage() {
         <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
             <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-              What gets rated
+              {t("categories.title")}
             </h2>
 
             <div className="mt-16 grid gap-8 md:grid-cols-2">
@@ -165,35 +170,24 @@ export default function ReviewsRatingsPage() {
                   <Star className="h-6 w-6 text-[#ff5d46]" />
                 </div>
                 <h3 className="mt-6 text-2xl font-semibold text-[#211f1a]">
-                  For Professionals
+                  {t("categories.forProfessionals.title")}
                 </h3>
                 <ul className="mt-4 space-y-3 text-base text-[#5d574b]">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>
-                      <strong>Service Quality:</strong> Thoroughness, attention
-                      to detail, results
-                    </span>
+                    <span>{t("categories.forProfessionals.serviceQuality")}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>
-                      <strong>Communication:</strong> Responsiveness, clarity,
-                      professionalism
-                    </span>
+                    <span>{t("categories.forProfessionals.communication")}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>
-                      <strong>Punctuality:</strong> On-time arrival, schedule
-                      adherence
-                    </span>
+                    <span>{t("categories.forProfessionals.punctuality")}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>
-                      <strong>Value:</strong> Fair pricing, worth the cost
-                    </span>
+                    <span>{t("categories.forProfessionals.value")}</span>
                   </li>
                 </ul>
               </div>
@@ -203,35 +197,24 @@ export default function ReviewsRatingsPage() {
                   <Users className="h-6 w-6 text-[#ff5d46]" />
                 </div>
                 <h3 className="mt-6 text-2xl font-semibold text-[#211f1a]">
-                  For Customers
+                  {t("categories.forCustomers.title")}
                 </h3>
                 <ul className="mt-4 space-y-3 text-base text-[#5d574b]">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>
-                      <strong>Communication:</strong> Clear instructions,
-                      responsiveness
-                    </span>
+                    <span>{t("categories.forCustomers.clarity")}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>
-                      <strong>Home Readiness:</strong> Property prepared for
-                      service
-                    </span>
+                    <span>{t("categories.forCustomers.respect")}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>
-                      <strong>Respect:</strong> Courteous, professional
-                      interaction
-                    </span>
+                    <span>{t("categories.forCustomers.payment")}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>
-                      <strong>Payment:</strong> Timely payment, fair tipping
-                    </span>
+                    <span>{t("categories.forCustomers.communication")}</span>
                   </li>
                 </ul>
               </div>
@@ -243,7 +226,7 @@ export default function ReviewsRatingsPage() {
         <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
             <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-              Why two-way reviews work better
+              {t("benefits.title")}
             </h2>
 
             <div className="mt-16 space-y-8">
@@ -253,12 +236,10 @@ export default function ReviewsRatingsPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Mutual respect and accountability
+                    {t("benefits.mutualRespect.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    When both parties can be rated, everyone brings their best.
-                    Professionals take pride in their work, and customers
-                    provide clear instructions and respectful treatment.
+                    {t("benefits.mutualRespect.description")}
                   </p>
                 </div>
               </div>
@@ -269,12 +250,10 @@ export default function ReviewsRatingsPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Better matching for everyone
+                    {t("benefits.verifiedOnly.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    High-rated customers get priority booking and better rates.
-                    Professionals can see customer history before accepting
-                    bookings, ensuring good fits.
+                    {t("benefits.verifiedOnly.description")}
                   </p>
                 </div>
               </div>
@@ -285,12 +264,10 @@ export default function ReviewsRatingsPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Protection from bad actors
+                    {t("benefits.accountability.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    Low-rated users on either side get flagged for review.
-                    Repeat issues result in account suspension, keeping the
-                    platform safe for everyone.
+                    {t("benefits.accountability.description")}
                   </p>
                 </div>
               </div>
@@ -301,12 +278,10 @@ export default function ReviewsRatingsPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Honest, balanced feedback
+                    {t("benefits.balancedFeedback.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    Detailed categories prevent unfair single-issue ratings.
-                    You can rate service quality highly while noting
-                    communication needs improvement.
+                    {t("benefits.balancedFeedback.description")}
                   </p>
                 </div>
               </div>
@@ -318,12 +293,11 @@ export default function ReviewsRatingsPage() {
         <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-              Join a community built on trust
+              {t("cta.title")}
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5d574b]">
-              Start building your reputation today. Great customers and
-              professionals both benefit from our two-way review system.
+              {t("cta.description")}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -331,14 +305,14 @@ export default function ReviewsRatingsPage() {
                 href="/professionals"
                 className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
               >
-                Browse Professionals
+                {t("cta.browseProfessionals")}
               </Link>
 
               <Link
                 href="/auth/sign-up"
                 className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
               >
-                Sign Up Free
+                {t("cta.signUpFree")}
               </Link>
             </div>
           </div>

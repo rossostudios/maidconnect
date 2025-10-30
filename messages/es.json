@@ -617,6 +617,189 @@
         "browseProfessionals": "Explorar Profesionales",
         "signUpFree": "Registrarse Gratis"
       }
+    },
+    "reviewsRatings": {
+      "meta": {
+        "title": "Sistema de Reseñas y Calificaciones - Responsabilidad Bidireccional | Maidconnect",
+        "description": "Confianza y calidad impulsadas por la comunidad. Las reseñas bidireccionales garantizan responsabilidad. Solo reseñas verificadas de reservas reales. Construya su reputación."
+      },
+      "hero": {
+        "headline": "Confianza y calidad impulsadas por la comunidad",
+        "description": "Las reseñas bidireccionales garantizan responsabilidad. Califique a los profesionales después de cada servicio y construya su propia reputación como cliente confiable.",
+        "primaryCTA": "Leer Reseñas",
+        "secondaryCTA": "Más Información",
+        "badge": "Solo reseñas verificadas"
+      },
+      "features": {
+        "title": "Comentarios auténticos que importan",
+        "subtitle": "Solo reservas reales, experiencias reales y responsabilidad real",
+        "verifiedBooking": {
+          "title": "Reseñas de Reservas Verificadas",
+          "description": "Solo los clientes que completaron reservas pueden dejar reseñas. Cada reseña está vinculada a un servicio real, garantizando autenticidad."
+        },
+        "twoWay": {
+          "title": "Responsabilidad Bidireccional",
+          "description": "Los profesionales también califican a los clientes, construyendo confianza y respeto mutuo. Los grandes clientes obtienen mejor servicio y reserva prioritaria."
+        },
+        "detailedCategories": {
+          "title": "Categorías de Calificación Detalladas",
+          "description": "Califique calidad, comunicación, puntualidad y valor por separado. Obtenga la imagen completa más allá de una sola calificación de estrellas."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo funcionan las reseñas",
+        "description": "Simple, justo y transparente para todos",
+        "step1": {
+          "title": "Completar Servicio",
+          "description": "Finalice una reserva y asegúrese de que se completen todos los pasos de entrada/salida"
+        },
+        "step2": {
+          "title": "Recibir Solicitud",
+          "description": "Obtenga una solicitud de reseña dentro de las 48 horas posteriores a la finalización del servicio"
+        },
+        "step3": {
+          "title": "Calificar Experiencia",
+          "description": "Califique en múltiples categorías con opciones de comentarios detalladas"
+        },
+        "step4": {
+          "title": "Construir Reputación",
+          "description": "Su reseña ayuda a otros y construye su puntaje de reputación como cliente"
+        }
+      },
+      "categories": {
+        "title": "Lo que se califica",
+        "forProfessionals": {
+          "title": "Para Profesionales",
+          "serviceQuality": "Calidad del Servicio: Minuciosidad, atención al detalle, resultados",
+          "communication": "Comunicación: Capacidad de respuesta, claridad, profesionalismo",
+          "punctuality": "Puntualidad: Llegada a tiempo, cumplimiento del horario",
+          "value": "Valor: Precio justo, vale la pena el costo"
+        },
+        "forCustomers": {
+          "title": "Para Clientes",
+          "clarity": "Claridad: Instrucciones claras, expectativas razonables",
+          "respect": "Respeto: Trato profesional, ambiente seguro",
+          "payment": "Pago: Pago oportuno, propina adecuada",
+          "communication": "Comunicación: Capacidad de respuesta, cooperación"
+        }
+      },
+      "benefits": {
+        "title": "Por qué funciona nuestro sistema de reseñas",
+        "mutualRespect": {
+          "title": "Respeto mutuo y equidad",
+          "description": "Las reseñas bidireccionales significan que tanto los clientes como los profesionales tienen responsabilidad. Esto crea un ambiente respetuoso y profesional para todos."
+        },
+        "verifiedOnly": {
+          "title": "Solo reseñas verificadas",
+          "description": "Sin reseñas falsas, sin calificaciones incentivadas. Cada reseña proviene de una reserva completada, garantizando autenticidad y confianza."
+        },
+        "accountability": {
+          "title": "Responsabilidad en toda la plataforma",
+          "description": "Los usuarios con calificaciones bajas en cualquier lado se marcan para revisión. Los problemas repetidos resultan en suspensión de cuenta, manteniendo la plataforma segura para todos."
+        },
+        "balancedFeedback": {
+          "title": "Comentarios honestos y equilibrados",
+          "description": "Las categorías detalladas previenen calificaciones injustas de un solo problema. Puede calificar la calidad del servicio altamente mientras nota que la comunicación necesita mejorar."
+        }
+      },
+      "cta": {
+        "title": "Únase a una comunidad construida sobre la confianza",
+        "description": "Comience a construir su reputación hoy. Los grandes clientes y profesionales se benefician de nuestro sistema de reseñas bidireccional.",
+        "browseProfessionals": "Explorar Profesionales",
+        "signUpFree": "Registrarse Gratis"
+      }
+    },
+    "adminDashboard": {
+      "meta": {
+        "title": "Panel de Administración - Herramientas de Gestión de Plataforma | Maidconnect",
+        "description": "Herramientas de administración de nivel empresarial para moderar profesionales, revisar reservas, procesar pagos y mantener la calidad de la plataforma. Supervisión completa."
+      },
+      "hero": {
+        "headline": "Gestión y supervisión completa de la plataforma",
+        "description": "Herramientas de administración de nivel empresarial para moderar profesionales, revisar reservas, procesar pagos y mantener la calidad de la plataforma.",
+        "primaryCTA": "Solicitar Demo",
+        "secondaryCTA": "Más Información",
+        "badge": "Solo acceso de administrador"
+      },
+      "features": {
+        "title": "Control de administración integral",
+        "subtitle": "Todo lo que necesita para administrar y moderar la plataforma",
+        "professionalModeration": {
+          "title": "Moderación Profesional",
+          "description": "Revise solicitudes, verifique credenciales, apruebe o rechace perfiles. Supervise el rendimiento continuo y maneje quejas."
+        },
+        "bookingOversight": {
+          "title": "Supervisión de Reservas",
+          "description": "Vea todas las reservas, resuelva disputas, procese reembolsos y maneje cancelaciones. Visibilidad completa de transacciones."
+        },
+        "payoutProcessing": {
+          "title": "Procesamiento de Pagos",
+          "description": "Administre pagos profesionales, revise transacciones financieras, maneje disputas y garantice el cumplimiento de las tarifas de la plataforma."
+        }
+      },
+      "howItWorks": {
+        "title": "Flujos de trabajo clave del administrador",
+        "description": "Procesos centrales para la gestión de la plataforma",
+        "step1": {
+          "title": "Incorporación Profesional",
+          "description": "Revise solicitudes, verifique documentos y apruebe nuevos profesionales que se unen a la plataforma"
+        },
+        "step2": {
+          "title": "Monitoreo de Calidad",
+          "description": "Rastree calificaciones, revise quejas e identifique profesionales o clientes que necesitan atención"
+        },
+        "step3": {
+          "title": "Gestión de Transacciones",
+          "description": "Procese pagos, maneje disputas, administre reembolsos y garantice la recolección adecuada de tarifas"
+        },
+        "step4": {
+          "title": "Salud de la Plataforma",
+          "description": "Supervise métricas, analice tendencias y mantenga la calidad general y la seguridad de la plataforma"
+        }
+      },
+      "capabilities": {
+        "title": "Capacidades del administrador",
+        "professionalManagement": "Gestión Profesional: Aprobar, suspender o prohibir cuentas profesionales",
+        "bookingReview": "Revisión de Reservas: Ver todas las transacciones y detalles del servicio",
+        "payoutControl": "Control de Pagos: Aprobar o retener pagos profesionales",
+        "disputeResolution": "Resolución de Disputas: Mediar conflictos y procesar reembolsos",
+        "userModeration": "Moderación de Usuarios: Administrar cuentas de clientes y banderas",
+        "analytics": "Panel de Análisis: Métricas de plataforma e inteligencia empresarial"
+      },
+      "security": {
+        "title": "Seguridad y control de acceso",
+        "roleBasedAccess": {
+          "title": "Control de acceso basado en roles",
+          "description": "Diferentes niveles de administrador con permisos específicos. No todos los administradores ven todo: acceso compartimentado por seguridad."
+        },
+        "auditLogs": {
+          "title": "Registro de auditoría completo",
+          "description": "Cada acción de administrador se registra con marcas de tiempo y detalles del usuario. Responsabilidad total por todos los cambios de la plataforma."
+        },
+        "dataProtection": {
+          "title": "Protección de datos y privacidad",
+          "description": "Los datos sensibles de los clientes están enmascarados. Los administradores ven solo lo necesario para su rol, protegiendo la privacidad del usuario."
+        },
+        "twoFactorAuth": {
+          "title": "Autenticación de dos factores",
+          "description": "Las cuentas de administrador requieren 2FA para iniciar sesión. Verificación adicional para acciones sensibles como pagos y prohibiciones."
+        }
+      },
+      "tools": {
+        "title": "Herramientas de administrador disponibles",
+        "professionalApproval": "Aprobación Profesional: Revisar y aprobar nuevas solicitudes",
+        "documentVerification": "Verificación de Documentos: Verificar credenciales y certificaciones",
+        "payoutQueue": "Cola de Pagos: Procesar pagos profesionales programados",
+        "userManagement": "Gestión de Usuarios: Suspender, prohibir o reinstaurar cuentas de usuario",
+        "disputeResolution": "Resolución de Disputas: Manejar quejas de clientes y solicitudes de reembolso",
+        "analytics": "Panel de Análisis: Métricas de plataforma e inteligencia empresarial"
+      },
+      "cta": {
+        "title": "Vea el panel de administración en acción",
+        "description": "Solicite una demostración para explorar nuestras herramientas integrales de gestión de plataforma y vea cómo mantenemos la calidad y la seguridad",
+        "requestDemo": "Solicitar Demo",
+        "learnMore": "Más Información"
+      }
     }
   }
 }

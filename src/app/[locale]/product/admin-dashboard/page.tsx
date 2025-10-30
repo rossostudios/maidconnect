@@ -1,67 +1,75 @@
 import { Metadata } from "next";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Settings, UserCheck, DollarSign, CheckCircle2 } from "lucide-react";
 import { ProductHeroSection } from "@/components/product/product-hero-section";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
 import { ProductStepsSection } from "@/components/product/product-steps-section";
 import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
+import { Link } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "Admin Dashboard - Platform Management Tools | Maidconnect",
-  description:
-    "Enterprise-grade admin tools for moderating professionals, reviewing bookings, processing payouts, and maintaining platform quality. Complete oversight.",
-  keywords: [
-    "admin dashboard",
-    "platform management",
-    "professional moderation",
-    "payout processing",
-    "booking oversight",
-    "quality control",
-    "enterprise tools",
-  ],
-  openGraph: {
-    title: "Admin Dashboard - Platform Management Tools | Maidconnect",
-    description:
-      "Complete platform management and oversight with comprehensive admin tools for moderation, bookings, and payouts.",
-    url: "https://maidconnect.co/product/admin-dashboard",
-    siteName: "Maidconnect",
-    images: [
-      {
-        url: "https://maidconnect.co/og-admin-dashboard.png",
-        width: 1200,
-        height: 630,
-        alt: "Maidconnect Admin Dashboard",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Admin Dashboard - Platform Management Tools | Maidconnect",
-    description:
-      "Enterprise-grade admin tools for moderating professionals and maintaining platform quality.",
-    images: ["https://maidconnect.co/og-admin-dashboard.png"],
-  },
-  alternates: {
-    canonical: "https://maidconnect.co/product/admin-dashboard",
-  },
+type Props = {
+  params: { locale: string };
 };
 
-export default function AdminDashboardPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "pages.adminDashboard.meta" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: [
+      "admin dashboard",
+      "platform management",
+      "professional moderation",
+      "payout processing",
+      "booking oversight",
+      "quality control",
+      "enterprise tools",
+    ],
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      url: "https://maidconnect.co/product/admin-dashboard",
+      siteName: "Maidconnect",
+      images: [
+        {
+          url: "https://maidconnect.co/og-admin-dashboard.png",
+          width: 1200,
+          height: 630,
+          alt: "Maidconnect Admin Dashboard",
+        },
+      ],
+      locale: locale === "es" ? "es_ES" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: ["https://maidconnect.co/og-admin-dashboard.png"],
+    },
+    alternates: {
+      canonical: "https://maidconnect.co/product/admin-dashboard",
+    },
+  };
+}
+
+export default async function AdminDashboardPage({ params }: Props) {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "pages.adminDashboard" });
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Maidconnect Admin Dashboard",
     applicationCategory: "BusinessApplication",
-    description:
-      "Comprehensive admin tools for platform management, moderation, and quality control.",
+    description: t("hero.description"),
     featureList: [
-      "Professional Moderation",
-      "Booking Oversight",
-      "Payout Processing",
-      "Analytics & Reporting",
+      t("features.professionalModeration.title"),
+      t("features.bookingOversight.title"),
+      t("features.payoutProcessing.title"),
     ],
     operatingSystem: "Web",
   };
@@ -76,11 +84,11 @@ export default function AdminDashboardPage() {
       <main>
         {/* Hero Section */}
         <ProductHeroSection
-          headline="Complete platform management and oversight"
-          description="Comprehensive admin tools for moderating professionals, reviewing bookings, processing payouts, and maintaining platform quality."
-          primaryCTA={{ label: "Request Demo", href: "/contact" }}
-          secondaryCTA={{ label: "Learn More", href: "#features" }}
-          badge="Enterprise-grade tools"
+          headline={t("hero.headline")}
+          description={t("hero.description")}
+          primaryCTA={{ label: t("hero.primaryCTA"), href: "/contact" }}
+          secondaryCTA={{ label: t("hero.secondaryCTA"), href: "#features" }}
+          badge={t("hero.badge")}
         />
 
         {/* Features Section */}
@@ -90,30 +98,30 @@ export default function AdminDashboardPage() {
         >
           <div className="mx-auto max-w-6xl">
             <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl lg:text-6xl">
-              Powerful admin capabilities
+              {t("features.title")}
             </h2>
 
             <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-relaxed text-[#5d574b]">
-              Everything you need to maintain platform quality and user safety
+              {t("features.subtitle")}
             </p>
 
             <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <ProductFeatureCard
                 icon={UserCheck}
-                title="Professional Review Queue"
-                description="Screen applications, verify documents, and approve profiles. Comprehensive vetting workflow with document verification and background checks."
+                title={t("features.professionalModeration.title")}
+                description={t("features.professionalModeration.description")}
               />
 
               <ProductFeatureCard
                 icon={DollarSign}
-                title="Booking & Payment Oversight"
-                description="Monitor transactions, handle disputes, and process payouts. Full visibility into platform financials and transaction history."
+                title={t("features.bookingOversight.title")}
+                description={t("features.bookingOversight.description")}
               />
 
               <ProductFeatureCard
                 icon={Settings}
-                title="User Moderation Tools"
-                description="Suspend accounts, investigate reports, and maintain safety. Advanced filtering and search for quick issue resolution."
+                title={t("features.payoutProcessing.title")}
+                description={t("features.payoutProcessing.description")}
               />
             </div>
           </div>
@@ -121,100 +129,73 @@ export default function AdminDashboardPage() {
 
         {/* How It Works Section */}
         <ProductStepsSection
-          headline="Admin workflow"
-          description="Streamlined processes for platform management"
+          headline={t("howItWorks.title")}
+          description={t("howItWorks.description")}
           steps={[
             {
               number: "1",
-              title: "Review Applications",
-              description:
-                "Screen professional applications and verify submitted documents",
+              title: t("howItWorks.step1.title"),
+              description: t("howItWorks.step1.description"),
             },
             {
               number: "2",
-              title: "Approve or Reject",
-              description:
-                "Make decisions based on verification criteria and quality standards",
+              title: t("howItWorks.step2.title"),
+              description: t("howItWorks.step2.description"),
             },
             {
               number: "3",
-              title: "Monitor Activity",
-              description:
-                "Track bookings, handle customer support, and investigate reports",
+              title: t("howItWorks.step3.title"),
+              description: t("howItWorks.step3.description"),
             },
             {
               number: "4",
-              title: "Process Payouts",
-              description:
-                "Review and approve professional payouts, maintain platform integrity",
+              title: t("howItWorks.step4.title"),
+              description: t("howItWorks.step4.description"),
             },
           ]}
         />
 
-        {/* Professional Vetting Section */}
+        {/* Admin Capabilities Section */}
         <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
             <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-              Professional vetting process
+              {t("capabilities.title")}
             </h2>
 
-            <div className="mt-16 grid gap-8 md:grid-cols-2">
-              <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
-                <h3 className="text-2xl font-semibold text-[#211f1a]">
-                  Application Review
-                </h3>
-                <ul className="mt-4 space-y-3 text-base text-[#5d574b]">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>Review professional profile information and bio</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>Verify years of experience and specializations</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>Check service areas and availability settings</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>Review hourly rates for market appropriateness</span>
-                  </li>
-                </ul>
+            <div className="mt-16 space-y-4">
+              <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+                <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#ff5d46]" />
+                <p className="text-base text-[#5d574b]">{t("capabilities.professionalManagement")}</p>
               </div>
-
-              <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
-                <h3 className="text-2xl font-semibold text-[#211f1a]">
-                  Document Verification
-                </h3>
-                <ul className="mt-4 space-y-3 text-base text-[#5d574b]">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>Validate government-issued ID for identity verification</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>Review background check results and clearance status</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>Verify professional certifications and training documents</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
-                    <span>Check insurance and bonding documentation if applicable</span>
-                  </li>
-                </ul>
+              <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+                <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#ff5d46]" />
+                <p className="text-base text-[#5d574b]">{t("capabilities.bookingReview")}</p>
+              </div>
+              <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+                <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#ff5d46]" />
+                <p className="text-base text-[#5d574b]">{t("capabilities.payoutControl")}</p>
+              </div>
+              <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+                <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#ff5d46]" />
+                <p className="text-base text-[#5d574b]">{t("capabilities.disputeResolution")}</p>
+              </div>
+              <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+                <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#ff5d46]" />
+                <p className="text-base text-[#5d574b]">{t("capabilities.userModeration")}</p>
+              </div>
+              <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+                <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#ff5d46]" />
+                <p className="text-base text-[#5d574b]">{t("capabilities.analytics")}</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Platform Oversight Section */}
+        {/* Security Section */}
         <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
             <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-              Comprehensive platform oversight
+              {t("security.title")}
             </h2>
 
             <div className="mt-16 space-y-8">
@@ -224,13 +205,10 @@ export default function AdminDashboardPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Real-time booking monitoring
+                    {t("security.roleBasedAccess.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    View all platform bookings in real-time with status
-                    filtering, search capabilities, and detailed transaction
-                    information. Track booking lifecycle from creation to
-                    completion.
+                    {t("security.roleBasedAccess.description")}
                   </p>
                 </div>
               </div>
@@ -241,12 +219,10 @@ export default function AdminDashboardPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Financial transaction oversight
+                    {t("security.auditLogs.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    Monitor payment authorizations, captures, and refunds.
-                    Process professional payouts, review platform fees, and
-                    maintain complete financial audit trails.
+                    {t("security.auditLogs.description")}
                   </p>
                 </div>
               </div>
@@ -257,12 +233,10 @@ export default function AdminDashboardPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    User moderation and safety
+                    {t("security.dataProtection.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    Investigate user reports, suspend or ban problematic
-                    accounts, and maintain platform safety. View complete user
-                    history including bookings, reviews, and communications.
+                    {t("security.dataProtection.description")}
                   </p>
                 </div>
               </div>
@@ -273,12 +247,10 @@ export default function AdminDashboardPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Analytics and reporting
+                    {t("security.twoFactorAuth.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    Track platform metrics including booking volume, revenue,
-                    user growth, and quality indicators. Generate custom reports
-                    for business intelligence.
+                    {t("security.twoFactorAuth.description")}
                   </p>
                 </div>
               </div>
@@ -286,55 +258,53 @@ export default function AdminDashboardPage() {
           </div>
         </section>
 
-        {/* Admin Features Grid */}
+        {/* Admin Tools Grid */}
         <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
             <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-              Complete admin toolkit
+              {t("tools.title")}
             </h2>
 
             <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">
-                  Professional Queue
-                </h4>
+                <h4 className="font-semibold text-[#211f1a]">{t("tools.professionalApproval").split(':')[0]}</h4>
                 <p className="mt-2 text-sm text-[#5d574b]">
-                  Review pending applications with document viewers
+                  {t("tools.professionalApproval").split(':')[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">Booking Search</h4>
+                <h4 className="font-semibold text-[#211f1a]">{t("tools.documentVerification").split(':')[0]}</h4>
                 <p className="mt-2 text-sm text-[#5d574b]">
-                  Advanced filtering and search across all bookings
+                  {t("tools.documentVerification").split(':')[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">Payout Processing</h4>
+                <h4 className="font-semibold text-[#211f1a]">{t("tools.payoutQueue").split(':')[0]}</h4>
                 <p className="mt-2 text-sm text-[#5d574b]">
-                  Review and approve professional payouts
+                  {t("tools.payoutQueue").split(':')[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">User Management</h4>
+                <h4 className="font-semibold text-[#211f1a]">{t("tools.userManagement").split(':')[0]}</h4>
                 <p className="mt-2 text-sm text-[#5d574b]">
-                  Suspend, ban, or reinstate user accounts
+                  {t("tools.userManagement").split(':')[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">Dispute Resolution</h4>
+                <h4 className="font-semibold text-[#211f1a]">{t("tools.disputeResolution").split(':')[0]}</h4>
                 <p className="mt-2 text-sm text-[#5d574b]">
-                  Handle customer complaints and refund requests
+                  {t("tools.disputeResolution").split(':')[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">Analytics Dashboard</h4>
+                <h4 className="font-semibold text-[#211f1a]">{t("tools.analytics").split(':')[0]}</h4>
                 <p className="mt-2 text-sm text-[#5d574b]">
-                  Platform metrics and business intelligence
+                  {t("tools.analytics").split(':')[1]}
                 </p>
               </div>
             </div>
@@ -345,12 +315,11 @@ export default function AdminDashboardPage() {
         <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-              See the admin dashboard in action
+              {t("cta.title")}
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5d574b]">
-              Request a demo to explore our comprehensive platform management
-              tools and see how we maintain quality and safety
+              {t("cta.description")}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -358,14 +327,14 @@ export default function AdminDashboardPage() {
                 href="/contact"
                 className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
               >
-                Request Demo
+                {t("cta.requestDemo")}
               </Link>
 
               <Link
                 href="/"
                 className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
               >
-                Learn More
+                {t("cta.learnMore")}
               </Link>
             </div>
           </div>

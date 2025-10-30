@@ -580,6 +580,189 @@
         "browseProfessionals": "Browse Professionals",
         "signUpFree": "Sign Up Free"
       }
+    },
+    "reviewsRatings": {
+      "meta": {
+        "title": "Reviews & Ratings System - Two-Way Accountability | Maidconnect",
+        "description": "Community-driven trust and quality. Two-way reviews ensure accountability. Verified reviews only from real bookings. Build your reputation."
+      },
+      "hero": {
+        "headline": "Community-driven trust and quality",
+        "description": "Two-way reviews ensure accountability. Rate professionals after every service and build your own reputation as a reliable customer.",
+        "primaryCTA": "Read Reviews",
+        "secondaryCTA": "Learn More",
+        "badge": "Verified reviews only"
+      },
+      "features": {
+        "title": "Authentic feedback that matters",
+        "subtitle": "Only real bookings, real experiences, and real accountability",
+        "verifiedBooking": {
+          "title": "Verified Booking Reviews",
+          "description": "Only customers who completed bookings can leave reviews. Every review is tied to a real service, ensuring authenticity."
+        },
+        "twoWay": {
+          "title": "Two-Way Accountability",
+          "description": "Professionals rate customers too, building mutual trust and respect. Great customers get better service and priority booking."
+        },
+        "detailedCategories": {
+          "title": "Detailed Rating Categories",
+          "description": "Rate quality, communication, punctuality, and value separately. Get the full picture beyond a single star rating."
+        }
+      },
+      "howItWorks": {
+        "title": "How reviews work",
+        "description": "Simple, fair, and transparent for everyone",
+        "step1": {
+          "title": "Complete Service",
+          "description": "Finish a booking and ensure all check-in/check-out steps are done"
+        },
+        "step2": {
+          "title": "Receive Prompt",
+          "description": "Get a review request within 48 hours of service completion"
+        },
+        "step3": {
+          "title": "Rate Experience",
+          "description": "Rate across multiple categories with detailed feedback options"
+        },
+        "step4": {
+          "title": "Build Reputation",
+          "description": "Your review helps others and builds your customer reputation score"
+        }
+      },
+      "categories": {
+        "title": "What gets rated",
+        "forProfessionals": {
+          "title": "For Professionals",
+          "serviceQuality": "Service Quality: Thoroughness, attention to detail, results",
+          "communication": "Communication: Responsiveness, clarity, professionalism",
+          "punctuality": "Punctuality: On-time arrival, schedule adherence",
+          "value": "Value: Fair pricing, worth the cost"
+        },
+        "forCustomers": {
+          "title": "For Customers",
+          "clarity": "Clarity: Clear instructions, reasonable expectations",
+          "respect": "Respect: Professional treatment, safe environment",
+          "payment": "Payment: Timely payment, proper tipping",
+          "communication": "Communication: Responsiveness, cooperation"
+        }
+      },
+      "benefits": {
+        "title": "Why our review system works",
+        "mutualRespect": {
+          "title": "Mutual respect and fairness",
+          "description": "Two-way reviews mean customers and professionals both have accountability. This creates a respectful, professional environment for everyone."
+        },
+        "verifiedOnly": {
+          "title": "Verified reviews only",
+          "description": "No fake reviews, no incentivized ratings. Every review comes from a completed booking, ensuring authenticity and trust."
+        },
+        "accountability": {
+          "title": "Platform-wide accountability",
+          "description": "Low-rated users on either side get flagged for review. Repeat issues result in account suspension, keeping the platform safe for everyone."
+        },
+        "balancedFeedback": {
+          "title": "Honest, balanced feedback",
+          "description": "Detailed categories prevent unfair single-issue ratings. You can rate service quality highly while noting communication needs improvement."
+        }
+      },
+      "cta": {
+        "title": "Join a community built on trust",
+        "description": "Start building your reputation today. Great customers and professionals both benefit from our two-way review system.",
+        "browseProfessionals": "Browse Professionals",
+        "signUpFree": "Sign Up Free"
+      }
+    },
+    "adminDashboard": {
+      "meta": {
+        "title": "Admin Dashboard - Platform Management Tools | Maidconnect",
+        "description": "Enterprise-grade admin tools for moderating professionals, reviewing bookings, processing payouts, and maintaining platform quality. Complete oversight."
+      },
+      "hero": {
+        "headline": "Complete platform management and oversight",
+        "description": "Enterprise-grade admin tools for moderating professionals, reviewing bookings, processing payouts, and maintaining platform quality.",
+        "primaryCTA": "Request Demo",
+        "secondaryCTA": "Learn More",
+        "badge": "Admin access only"
+      },
+      "features": {
+        "title": "Comprehensive admin control",
+        "subtitle": "Everything you need to manage and moderate the platform",
+        "professionalModeration": {
+          "title": "Professional Moderation",
+          "description": "Review applications, verify credentials, approve or reject profiles. Monitor ongoing performance and handle complaints."
+        },
+        "bookingOversight": {
+          "title": "Booking Oversight",
+          "description": "View all bookings, resolve disputes, process refunds, and handle cancellations. Complete transaction visibility."
+        },
+        "payoutProcessing": {
+          "title": "Payout Processing",
+          "description": "Manage professional payouts, review financial transactions, handle disputes, and ensure platform fee compliance."
+        }
+      },
+      "howItWorks": {
+        "title": "Key admin workflows",
+        "description": "Core processes for platform management",
+        "step1": {
+          "title": "Professional Onboarding",
+          "description": "Review applications, verify documents, and approve new professionals joining the platform"
+        },
+        "step2": {
+          "title": "Quality Monitoring",
+          "description": "Track ratings, review complaints, and identify professionals or customers needing attention"
+        },
+        "step3": {
+          "title": "Transaction Management",
+          "description": "Process payouts, handle disputes, manage refunds, and ensure proper fee collection"
+        },
+        "step4": {
+          "title": "Platform Health",
+          "description": "Monitor metrics, analyze trends, and maintain overall platform quality and safety"
+        }
+      },
+      "capabilities": {
+        "title": "Admin capabilities",
+        "professionalManagement": "Professional Management: Approve, suspend, or ban professional accounts",
+        "bookingReview": "Booking Review: View all transactions and service details",
+        "payoutControl": "Payout Control: Approve or hold professional payments",
+        "disputeResolution": "Dispute Resolution: Mediate conflicts and process refunds",
+        "userModeration": "User Moderation: Manage customer accounts and flags",
+        "analytics": "Analytics Dashboard: Platform metrics and business intelligence"
+      },
+      "security": {
+        "title": "Security and access control",
+        "roleBasedAccess": {
+          "title": "Role-based access control",
+          "description": "Different admin levels with specific permissions. Not all admins see everything - compartmentalized access for security."
+        },
+        "auditLogs": {
+          "title": "Complete audit logging",
+          "description": "Every admin action is logged with timestamps and user details. Full accountability for all platform changes."
+        },
+        "dataProtection": {
+          "title": "Data protection and privacy",
+          "description": "Sensitive customer data is masked. Admins see only what's necessary for their role, protecting user privacy."
+        },
+        "twoFactorAuth": {
+          "title": "Two-factor authentication",
+          "description": "Admin accounts require 2FA for login. Additional verification for sensitive actions like payouts and bans."
+        }
+      },
+      "tools": {
+        "title": "Available admin tools",
+        "professionalApproval": "Professional Approval: Review and approve new applications",
+        "documentVerification": "Document Verification: Check credentials and certifications",
+        "payoutQueue": "Payout Queue: Process scheduled professional payments",
+        "userManagement": "User Management: Suspend, ban, or reinstate user accounts",
+        "disputeResolution": "Dispute Resolution: Handle customer complaints and refund requests",
+        "analytics": "Analytics Dashboard: Platform metrics and business intelligence"
+      },
+      "cta": {
+        "title": "See the admin dashboard in action",
+        "description": "Request a demo to explore our comprehensive platform management tools and see how we maintain quality and safety",
+        "requestDemo": "Request Demo",
+        "learnMore": "Learn More"
+      }
     }
   },
   "common": {
