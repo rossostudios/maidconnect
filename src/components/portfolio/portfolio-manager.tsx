@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { PortfolioImage } from "@/app/api/professional/portfolio/route";
+import { ImageUploadDropzone } from "./image-upload-dropzone";
 
 type Props = {
   images: PortfolioImage[];
@@ -46,21 +47,16 @@ export function PortfolioManager({
     }
   };
 
-  const handleAddImage = () => {
-    const url = prompt("Enter image URL:");
-    if (!url) return;
-
-    const caption = prompt("Enter caption (optional):");
-
-    const newImage: PortfolioImage = {
+  const handleImagesUploaded = (uploadedImages: { url: string; caption?: string }[]) => {
+    const newImages: PortfolioImage[] = uploadedImages.map((img, index) => ({
       id: crypto.randomUUID(),
-      url,
-      caption: caption || undefined,
-      order: images.length,
+      url: img.url,
+      caption: img.caption,
+      order: images.length + index,
       created_at: new Date().toISOString(),
-    };
+    }));
 
-    setImages([...images, newImage]);
+    setImages([...images, ...newImages]);
   };
 
   const handleDeleteImage = (id: string) => {
@@ -129,37 +125,24 @@ export function PortfolioManager({
         </p>
       </div>
 
-      {/* Image Grid */}
+      {/* Upload New Images */}
       <div>
-        <div className="mb-3 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-[#211f1a]">
-            Portfolio Images ({images.length})
-          </h3>
-          <button
-            onClick={handleAddImage}
-            className="rounded-md bg-[#ff5d46] px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[#eb6c65]"
-          >
-            + Add Image
-          </button>
-        </div>
+        <h3 className="mb-3 text-sm font-semibold text-[#211f1a]">
+          Upload Portfolio Images
+        </h3>
+        <ImageUploadDropzone
+          onImagesUploaded={handleImagesUploaded}
+          maxImages={20 - images.length}
+        />
+      </div>
 
-        {images.length === 0 ? (
-          <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-12 text-center">
-            <p className="text-2xl">📸</p>
-            <p className="mt-2 text-sm font-semibold text-[#211f1a]">
-              No portfolio images yet
-            </p>
-            <p className="mt-1 text-sm text-[#7a6d62]">
-              Showcase your best work by adding photos of completed projects
-            </p>
-            <button
-              onClick={handleAddImage}
-              className="mt-4 inline-flex rounded-md bg-[#ff5d46] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65]"
-            >
-              Add Your First Image
-            </button>
-          </div>
-        ) : (
+      {/* Current Images */}
+      <div>
+        <h3 className="mb-3 text-sm font-semibold text-[#211f1a]">
+          Current Images ({images.length})
+        </h3>
+
+        {images.length > 0 && (
           <div className="space-y-3">
             {sortedImages.map((image, index) => (
               <div
@@ -246,6 +229,18 @@ export function PortfolioManager({
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {images.length === 0 && (
+          <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-12 text-center">
+            <p className="text-2xl">📸</p>
+            <p className="mt-2 text-sm font-semibold text-[#211f1a]">
+              No portfolio images yet
+            </p>
+            <p className="mt-1 text-sm text-[#7a6d62]">
+              Upload images using the dropzone above to showcase your best work
+            </p>
           </div>
         )}
       </div>
