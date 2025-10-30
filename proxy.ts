@@ -19,12 +19,12 @@ const REQUIRED_ENV = ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY
 function ensureEnv() {
   for (const key of REQUIRED_ENV) {
     if (!process.env[key]) {
-      throw new Error(`${key} is required for Supabase middleware.`);
+      throw new Error(`${key} is required for Supabase proxy.`);
     }
   }
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   ensureEnv();
 
   const response = NextResponse.next({

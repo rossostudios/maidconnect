@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import Stripe from "stripe";
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
-const STRIPE_API_VERSION: Stripe.LatestApiVersion = "2025-09-30.clover";
+const STRIPE_API_VERSION: Stripe.LatestApiVersion = "2025-10-29.clover";
 
 if (!STRIPE_SECRET_KEY) {
   throw new Error(
