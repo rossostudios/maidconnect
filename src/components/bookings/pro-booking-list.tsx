@@ -187,7 +187,7 @@ export function ProBookingList({ bookings }: Props) {
                       booking.status === "authorized" ? "bg-yellow-100 text-yellow-800" :
                       booking.status === "confirmed" ? "bg-green-100 text-green-800" :
                       booking.status === "declined" ? "bg-red-100 text-red-800" :
-                      "bg-[#fd857f]/10 text-[#8a3934]"
+                      "bg-[#ff5d46]/10 text-[#8a3934]"
                     }`}>
                       {booking.status.replace(/_/g, " ")}
                     </span>
@@ -217,7 +217,7 @@ export function ProBookingList({ bookings }: Props) {
                         {showCapture ? (
                           <button
                             type="button"
-                            className="inline-flex items-center rounded-md bg-[#fd857f] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+                            className="inline-flex items-center rounded-md bg-[#ff5d46] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
                             onClick={() => handleAction(booking, "capture")}
                             disabled={loadingId !== null}
                           >
@@ -227,7 +227,7 @@ export function ProBookingList({ bookings }: Props) {
                         {showVoid ? (
                           <button
                             type="button"
-                            className="inline-flex items-center rounded-md border border-[#f0e1dc] px-3 py-1.5 text-xs font-semibold text-[#7a6d62] transition hover:border-[#fd857f] hover:text-[#fd857f] disabled:cursor-not-allowed disabled:opacity-70"
+                            className="inline-flex items-center rounded-md border border-[#f0e1dc] px-3 py-1.5 text-xs font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
                             onClick={() => handleAction(booking, "void")}
                             disabled={loadingId !== null}
                           >

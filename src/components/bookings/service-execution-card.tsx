@@ -335,13 +335,13 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
                 placeholder="Minutes"
                 min="1"
                 max="240"
-                className="flex-1 rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#fd857f] focus:outline-none focus:ring-2 focus:ring-[#fd857f]/20"
+                className="flex-1 rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
               />
               <button
                 type="button"
                 onClick={handleExtendTime}
                 disabled={loading}
-                className="rounded-lg border border-[#fd857f] bg-white px-4 py-2 text-sm font-semibold text-[#fd857f] transition hover:bg-[#fd857f] hover:text-white disabled:cursor-not-allowed disabled:opacity-70"
+                className="rounded-lg border border-[#ff5d46] bg-white px-4 py-2 text-sm font-semibold text-[#ff5d46] transition hover:bg-[#ff5d46] hover:text-white disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {loading ? "Extending..." : "Extend Time"}
               </button>
@@ -352,7 +352,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
               type="button"
               onClick={() => handleCheckOut()}
               disabled={loading}
-              className="w-full rounded-lg bg-[#fd857f] px-4 py-3 font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+              className="w-full rounded-lg bg-[#ff5d46] px-4 py-3 font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
             >
               {loading ? "Checking out..." : "Check Out & Complete Service"}
             </button>

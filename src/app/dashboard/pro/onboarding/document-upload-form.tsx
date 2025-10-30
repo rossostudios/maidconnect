@@ -50,11 +50,11 @@ export function DocumentUploadForm({ inputClass }: Props) {
   }, [state.status]);
 
   return (
-    <form ref={formRef} className="space-y-6" action={formAction} noValidate>
+    <form ref={formRef} className="space-y-8" action={formAction} noValidate>
       <Feedback state={state} />
       {state.status === "error" && state.error ? <UnexpectedError message={state.error} /> : null}
 
-      <div className="space-y-4">
+      <div className="space-y-6">
         {documents.map((doc) => (
           <DocumentField
             key={doc.key}
@@ -65,12 +65,12 @@ export function DocumentUploadForm({ inputClass }: Props) {
         ))}
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end border-t border-[#ebe5d8] pt-8">
         <button
           type="submit"
           disabled={pending}
           className={cn(
-            "rounded-md bg-[#fd857f] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#eb6c65]",
+            "inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]",
             pending && "cursor-not-allowed opacity-70",
           )}
         >
@@ -120,24 +120,26 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
   return (
     <div
       className={cn(
-        "rounded-lg border bg-white/90 p-4",
-        config.required ? "border-neutral-200 shadow-sm" : "border-dashed border-neutral-200",
+        "rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md",
+        config.required ? "border-[#ebe5d8]" : "border-dashed border-[#ebe5d8]",
       )}
     >
       <div className="flex items-center justify-between">
-        <label htmlFor={inputId} className="text-sm font-semibold text-neutral-800">
+        <label htmlFor={inputId} className="text-lg font-semibold text-[#211f1a]">
           {config.label}
         </label>
         <span
           className={cn(
-            "text-xs font-semibold uppercase tracking-wide",
-            config.required ? "text-[#c4534d]" : "text-neutral-500",
+            "rounded-full px-3 py-1 text-xs font-semibold",
+            config.required
+              ? "bg-orange-50 text-orange-700"
+              : "bg-gray-100 text-gray-600",
           )}
         >
           {config.required ? "Required" : "Optional"}
         </span>
       </div>
-      <p className="mt-2 text-xs text-neutral-500">
+      <p className="mt-3 text-sm text-[#5d574b]">
         Upload {config.required ? "a clear" : "an optional"} scan or photo ({ACCEPTED_TYPE_LABEL}, max {MAX_FILE_SIZE_LABEL}).
       </p>
       <input
@@ -147,7 +149,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         accept={ACCEPTED_EXTENSIONS}
         className={cn(
           inputClass,
-          "cursor-pointer",
+          "mt-4 cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-[#ff5d46] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-[#eb6c65]",
           (serverError || clientError) && errorClass,
         )}
         aria-invalid={Boolean(serverError || clientError)}
@@ -157,16 +159,35 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
       <textarea
         name={`document_${config.key}_note`}
         rows={2}
-        className={`${inputClass} mt-3`}
+        className={`${inputClass} mt-4`}
         placeholder="Notes (passwords, expiry date, issuing organization)"
       />
       {selectedFile ? (
-        <p className="mt-2 text-xs text-neutral-600">
-          Selected: {selectedFile.name} ({formatBytes(selectedFile.size)})
+        <div className="mt-4 flex items-center gap-2 rounded-xl border border-green-200 bg-green-50 p-3">
+          <svg className="h-5 w-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+          </svg>
+          <p className="text-sm text-green-800">
+            Selected: {selectedFile.name} ({formatBytes(selectedFile.size)})
+          </p>
+        </div>
+      ) : null}
+      {clientError ? (
+        <p className="mt-3 flex items-center gap-2 text-sm text-red-600">
+          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+          </svg>
+          {clientError}
         </p>
       ) : null}
-      {clientError ? <p className="mt-1 text-xs text-red-600">{clientError}</p> : null}
-      {serverError ? <p className="mt-1 text-xs text-red-600">{serverError}</p> : null}
+      {serverError ? (
+        <p className="mt-3 flex items-center gap-2 text-sm text-red-600">
+          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+          </svg>
+          {serverError}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -174,15 +195,29 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
 function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
-      <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
-        {state.error}
+      <div className="rounded-2xl border border-red-200 bg-red-50 p-6 shadow-sm" role="alert">
+        <div className="flex items-start gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
+            <svg className="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
+          <p className="flex-1 text-base leading-relaxed text-red-800">{state.error}</p>
+        </div>
       </div>
     );
   }
   if (state.status === "success" && state.message) {
     return (
-      <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800" role="status">
-        {state.message}
+      <div className="rounded-2xl border border-green-200 bg-green-50 p-6 shadow-sm" role="status">
+        <div className="flex items-start gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
+            <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <p className="flex-1 text-base leading-relaxed text-green-800">{state.message}</p>
+        </div>
       </div>
     );
   }

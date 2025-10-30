@@ -26,10 +26,10 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
   const appearance = useMemo(() => ({
     theme: "flat" as const,
     variables: {
-      colorPrimary: "#fd857f",
+      colorPrimary: "#ff5d46",
       colorText: "#211f1a",
       colorBackground: "#ffffff",
-      borderRadius: "8px",
+      borderRadius: "12px",
     },
   }), []);
 
@@ -65,7 +65,7 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
 
   if (!stripePromise) {
     return (
-      <div className="mt-3 rounded-md bg-red-50 px-3 py-2 text-xs text-red-600">
+      <div className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
         Stripe publishable key is not configured.
       </div>
     );
@@ -73,21 +73,21 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
 
   if (!clientSecret) {
     return (
-      <div className="mt-3 flex flex-col gap-2">
+      <div className="mt-4 flex flex-col gap-3">
         {status === "success" ? (
-          <p className="text-xs text-[#2f7a47]">Payment method on file. You can update it anytime.</p>
+          <p className="text-sm text-green-700">Payment method on file. You can update it anytime.</p>
         ) : (
-          <p className="text-xs text-[#7a6d62]">
-            We’ll authorize a small amount (COP $50,000) to keep your payment method on file. You’re only charged after a
+          <p className="text-sm leading-relaxed text-[#5d574b]">
+            We'll authorize a small amount (COP $50,000) to keep your payment method on file. You're only charged after a
             service is completed.
           </p>
         )}
-        {message ? <p className="text-xs text-red-600">{message}</p> : null}
+        {message ? <p className="text-sm text-red-600">{message}</p> : null}
         <button
           type="button"
           onClick={handleStart}
           disabled={status === "loading"}
-          className="inline-flex w-fit items-center justify-center rounded-md bg-[#fd857f] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex w-fit items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
         >
           {status === "loading" ? "Preparing…" : hasPaymentMethod ? "Update payment method" : "Add payment method"}
         </button>
@@ -148,14 +148,14 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
   }, [stripe, elements, onError, onSuccess, reset, router]);
 
   return (
-    <div className="mt-3 space-y-3 rounded-md border border-[#f0e1dc] bg-white p-4">
+    <div className="mt-4 space-y-4 rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm">
       <PaymentElement options={{ layout: "tabs" }} />
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <button
           type="button"
           onClick={handleSubmit}
           disabled={isSubmitting}
-          className="inline-flex items-center justify-center rounded-md bg-[#fd857f] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
         >
           {isSubmitting ? "Authorizing…" : "Authorize"}
         </button>
@@ -163,13 +163,13 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
           type="button"
           onClick={reset}
           disabled={isSubmitting}
-          className="inline-flex items-center justify-center rounded-md border border-[#f0e1dc] px-3 py-1.5 text-xs font-semibold text-[#7a6d62] transition hover:border-[#fd857f] hover:text-[#fd857f] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-6 py-3 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
         >
           Cancel
         </button>
       </div>
-      <p className="text-xs text-[#7a6d62]">
-        You’ll only be charged after the service is completed. Authorizations expire automatically if unused.
+      <p className="text-sm leading-relaxed text-[#5d574b]">
+        You'll only be charged after the service is completed. Authorizations expire automatically if unused.
       </p>
     </div>
   );

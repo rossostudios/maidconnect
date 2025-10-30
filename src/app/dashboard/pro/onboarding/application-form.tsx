@@ -20,10 +20,10 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
   const hasError = (key: string) => Boolean(fieldError(key));
 
   return (
-    <form action={formAction} className="space-y-6" noValidate>
+    <form action={formAction} className="space-y-8" noValidate>
       <Feedback state={state} />
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2">
         <FormField label="Full name" error={fieldError("fullName")}>
           <input
             id="fullName"
@@ -48,7 +48,7 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
         </FormField>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2">
         <FormField label="Phone number" error={fieldError("phone")}>
           <input
             id="phone"
@@ -95,23 +95,23 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
         error={fieldError("services")}
         helper="Select all services you can confidently provide."
       >
-        <div className="grid gap-2 sm:grid-cols-2">
+        <div className="grid gap-3 sm:grid-cols-2">
           {services.map((service) => (
             <label
               key={service}
               className={cn(
-                "flex items-center gap-2 rounded-md border border-neutral-200 p-3 text-sm",
+                "flex items-center gap-3 rounded-xl border-2 border-[#ebe5d8] bg-white p-4 text-base font-medium text-[#211f1a] transition cursor-pointer hover:border-[#ff5d46] hover:bg-[#fff5f2]",
                 hasError("services") && "border-red-300",
               )}
             >
-              <input type="checkbox" name="services" value={service} className="h-4 w-4" />
+              <input type="checkbox" name="services" value={service} className="h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-[#ff5d46]" />
               {service}
             </label>
           ))}
         </div>
       </FormField>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2">
         <FormField label="Years of experience" error={fieldError("experienceYears")}>
           <input
             id="experienceYears"
@@ -152,11 +152,16 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
       </FormField>
 
       <FormField label="Professional references" helper="Provide two references we can contact." error={fieldError("references")}>
-        <div className="space-y-3">
+        <div className="space-y-4">
           {[1, 2].map((index) => (
-            <div key={index} className="rounded-lg border border-neutral-200 p-4">
-              <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">{`Reference ${index}`}</p>
-              <div className="mt-3 grid gap-3 sm:grid-cols-3">
+            <div key={index} className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#ff5d46] text-sm font-semibold text-white">
+                  {index}
+                </div>
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#7d7566]">{`Reference ${index}`}</p>
+              </div>
+              <div className="mt-4 grid gap-4 sm:grid-cols-3">
                 <input
                   type="text"
                   name={`reference_name_${index}`}
@@ -184,21 +189,21 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
       </FormField>
 
       <FormField label="Background check consent" error={fieldError("consent")}>
-        <label className="flex items-center gap-2 text-sm text-neutral-700">
-          <input type="checkbox" name="consent" className="h-4 w-4" aria-invalid={hasError("consent")} />
-          I authorize MaidConnect to conduct identity and background verifications for onboarding.
+        <label className="flex items-start gap-3 rounded-xl border-2 border-[#ebe5d8] bg-white p-5 text-base text-[#211f1a] cursor-pointer hover:border-[#ff5d46] hover:bg-[#fff5f2] transition">
+          <input type="checkbox" name="consent" className="mt-0.5 h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-[#ff5d46]" aria-invalid={hasError("consent")} />
+          <span>I authorize MaidConnect to conduct identity and background verifications for onboarding.</span>
         </label>
       </FormField>
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs text-neutral-500">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-[#ebe5d8] pt-8">
+        <p className="text-sm text-[#5d574b]">
           Submitting this application triggers our review team to start verification. You can still edit details later.
         </p>
         <button
           type="submit"
           disabled={pending}
           className={cn(
-            "rounded-md bg-[#fd857f] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#eb6c65]",
+            "inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]",
             pending && "cursor-not-allowed opacity-70",
           )}
         >
@@ -212,15 +217,29 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
 function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
-      <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
-        {state.error}
+      <div className="rounded-2xl border border-red-200 bg-red-50 p-6 shadow-sm" role="alert">
+        <div className="flex items-start gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
+            <svg className="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
+          <p className="flex-1 text-base leading-relaxed text-red-800">{state.error}</p>
+        </div>
       </div>
     );
   }
   if (state.status === "success" && state.message) {
     return (
-      <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800" role="status">
-        {state.message}
+      <div className="rounded-2xl border border-green-200 bg-green-50 p-6 shadow-sm" role="status">
+        <div className="flex items-start gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
+            <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <p className="flex-1 text-base leading-relaxed text-green-800">{state.message}</p>
+        </div>
       </div>
     );
   }
@@ -237,11 +256,18 @@ type FormFieldProps = {
 
 function FormField({ label, children, helper, error, className }: FormFieldProps) {
   return (
-    <div className={cn("space-y-2", className)}>
-      <label className="block text-sm font-medium text-neutral-800">{label}</label>
-      {helper ? <p className="text-xs text-neutral-500">{helper}</p> : null}
+    <div className={cn("space-y-3", className)}>
+      <label className="block text-base font-semibold text-[#211f1a]">{label}</label>
+      {helper ? <p className="text-sm text-[#5d574b]">{helper}</p> : null}
       {children}
-      {error ? <p className="text-xs text-red-600">{error}</p> : null}
+      {error ? (
+        <p className="flex items-center gap-2 text-sm text-red-600">
+          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+          </svg>
+          {error}
+        </p>
+      ) : null}
     </div>
   );
 }

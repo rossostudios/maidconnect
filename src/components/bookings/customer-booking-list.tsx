@@ -24,11 +24,11 @@ type Props = {
 export function CustomerBookingList({ bookings }: Props) {
   if (bookings.length === 0) {
     return (
-      <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-8 text-center">
-        <p className="text-sm text-[#7a6d62]">No bookings yet.</p>
-        <p className="mt-2 text-sm text-[#7a6d62]">
+      <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
+        <p className="text-base text-[#5d574b]">No bookings yet.</p>
+        <p className="mt-3 text-base text-[#5d574b]">
           Browse our{" "}
-          <a href="/professionals" className="font-semibold text-[#fd857f] hover:text-[#eb6c65]">
+          <a href="/professionals" className="font-semibold text-[#ff5d46] hover:text-[#eb6c65]">
             professional directory
           </a>{" "}
           to book your first service.
@@ -53,7 +53,7 @@ export function CustomerBookingList({ bookings }: Props) {
       {/* Upcoming Bookings */}
       {upcomingBookings.length > 0 && (
         <div>
-          <h3 className="mb-4 text-lg font-semibold text-[#211f1a]">Upcoming Services</h3>
+          <h3 className="mb-6 text-xl font-semibold text-[#211f1a]">Upcoming Services</h3>
           <div className="space-y-4">
             {upcomingBookings.map((booking) => (
               <BookingCard key={booking.id} booking={booking} isUpcoming />
@@ -65,7 +65,7 @@ export function CustomerBookingList({ bookings }: Props) {
       {/* Past Bookings */}
       {pastBookings.length > 0 && (
         <div>
-          <h3 className="mb-4 text-lg font-semibold text-[#211f1a]">Past Services</h3>
+          <h3 className="mb-6 text-xl font-semibold text-[#211f1a]">Past Services</h3>
           <div className="space-y-4">
             {pastBookings.map((booking) => (
               <BookingCard key={booking.id} booking={booking} isUpcoming={false} />
@@ -107,49 +107,49 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
   }[booking.status] || "bg-gray-100 text-gray-800";
 
   return (
-    <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-5 shadow-sm transition hover:border-[#fd857f40]">
-      <div className="flex items-start justify-between gap-4">
+    <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-md">
+      <div className="flex items-start justify-between gap-6">
         <div className="flex-1">
           <div className="flex items-center gap-3">
-            <h4 className="font-semibold text-[#211f1a]">{booking.service_name || "Service"}</h4>
-            <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${statusColor}`}>
+            <h4 className="text-lg font-semibold text-[#211f1a]">{booking.service_name || "Service"}</h4>
+            <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${statusColor}`}>
               {booking.status.replace(/_/g, " ")}
             </span>
           </div>
 
-          <div className="mt-2 space-y-1 text-sm text-[#7a6d62]">
+          <div className="mt-4 space-y-2 text-base text-[#5d574b]">
             <p>
-              <span className="font-medium">Professional:</span>{" "}
+              <span className="font-semibold text-[#211f1a]">Professional:</span>{" "}
               {booking.professional?.full_name || "Not assigned"}
             </p>
             <p>
-              <span className="font-medium">Scheduled:</span> {scheduled}
+              <span className="font-semibold text-[#211f1a]">Scheduled:</span> {scheduled}
             </p>
             {booking.duration_minutes && (
               <p>
-                <span className="font-medium">Duration:</span> {booking.duration_minutes} minutes
+                <span className="font-semibold text-[#211f1a]">Duration:</span> {booking.duration_minutes} minutes
               </p>
             )}
             <p>
-              <span className="font-medium">Amount:</span> {amountDisplay}
+              <span className="font-semibold text-[#211f1a]">Amount:</span> {amountDisplay}
             </p>
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3">
           {(booking.status === "confirmed" || booking.status === "authorized") && isUpcoming && (
             <>
               <button
                 type="button"
                 onClick={() => setShowRescheduleModal(true)}
-                className="inline-flex items-center justify-center rounded-md border border-[#f0e1dc] px-3 py-1.5 text-xs font-semibold text-[#7a6d62] transition hover:border-[#fd857f] hover:text-[#fd857f]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
               >
                 Reschedule
               </button>
               <button
                 type="button"
                 onClick={() => setShowCancelModal(true)}
-                className="inline-flex items-center justify-center rounded-md border border-red-300 px-3 py-1.5 text-xs font-semibold text-red-700 transition hover:bg-red-50"
+                className="inline-flex items-center justify-center rounded-full border-2 border-red-200 px-5 py-2.5 text-sm font-semibold text-red-700 transition hover:bg-red-50"
               >
                 Cancel
               </button>
@@ -159,13 +159,13 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
             <>
               <button
                 type="button"
-                className="inline-flex items-center justify-center rounded-md bg-[#fd857f] px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[#eb6c65]"
+                className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_12px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
               >
                 Leave Review
               </button>
               <button
                 type="button"
-                className="inline-flex items-center justify-center rounded-md border border-[#f0e1dc] px-3 py-1.5 text-xs font-semibold text-[#7a6d62] transition hover:border-[#fd857f] hover:text-[#fd857f]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
               >
                 Book Again
               </button>

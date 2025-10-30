@@ -65,12 +65,12 @@ export function TimePicker({
         type="button"
         onClick={() => setOpen((prev) => !prev)}
         className={cn(
-          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 text-sm font-medium text-[#211f1a] shadow-inner shadow-black/5 transition hover:border-[#fd857f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#fd857f]",
+          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 text-sm font-medium text-[#211f1a] shadow-inner shadow-black/5 transition hover:border-[#ff5d46] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5d46]",
           !value && "text-[#8a826d]",
         )}
       >
         <span className="flex items-center gap-2">
-          <Clock className="h-4 w-4 text-[#fd857f]" aria-hidden="true" />
+          <Clock className="h-4 w-4 text-[#ff5d46]" aria-hidden="true" />
           {formatDisplay(value, placeholder)}
         </span>
         <ChevronRight className={cn("h-4 w-4 text-[#a49c90] transition-transform", open && "rotate-90")} />

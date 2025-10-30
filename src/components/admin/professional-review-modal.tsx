@@ -116,7 +116,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
         <div className="p-6 space-y-6">
           {/* Professional Details */}
           <section>
-            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#fd857f]">
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#ff5d46]">
               Professional Information
             </h3>
             <div className="grid gap-4 md:grid-cols-2">
@@ -173,7 +173,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
                 {professional.primary_services?.map((service, idx) => (
                   <span
                     key={idx}
-                    className="rounded-md bg-[#fd857f]/10 px-2 py-1 text-xs font-medium text-[#fd857f]"
+                    className="rounded-md bg-[#ff5d46]/10 px-2 py-1 text-xs font-medium text-[#ff5d46]"
                   >
                     {service}
                   </span>
@@ -184,7 +184,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
 
           {/* References */}
           <section>
-            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#fd857f]">
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#ff5d46]">
               References ({professional.references_data?.length || 0})
             </h3>
             {professional.references_data && professional.references_data.length > 0 ? (
@@ -208,7 +208,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
 
           {/* Documents */}
           <section>
-            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#fd857f]">
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#ff5d46]">
               Documents ({professional.documents.length})
             </h3>
             {professional.documents.length > 0 ? (
@@ -236,8 +236,8 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           </section>
 
           {/* Review Form */}
-          <section className="rounded-xl border-2 border-[#fd857f]/20 bg-[#fd857f]/5 p-4">
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-[#fd857f]">
+          <section className="rounded-xl border-2 border-[#ff5d46]/20 bg-[#ff5d46]/5 p-4">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-[#ff5d46]">
               Review Decision
             </h3>
 
@@ -374,7 +374,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             <button
               onClick={handleSubmit}
               disabled={submitting}
-              className="rounded-lg bg-[#fd857f] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65] disabled:opacity-50"
+              className="rounded-lg bg-[#ff5d46] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65] disabled:opacity-50"
             >
               {submitting ? "Submitting..." : `Submit ${action === "approve" ? "Approval" : action === "reject" ? "Rejection" : "Request"}`}
             </button>

@@ -30,7 +30,7 @@ export function SignUpForm() {
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label
             className={cn(
-              "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition hover:border-[#fd857f] focus-within:border-[#fd857f]",
+              "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition hover:border-[#ff5d46] focus-within:border-[#ff5d46]",
               fieldError("role") && "border-red-400 hover:border-red-400 focus-within:border-red-400",
             )}
           >
@@ -41,7 +41,7 @@ export function SignUpForm() {
           </label>
           <label
             className={cn(
-              "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition hover:border-[#fd857f] focus-within:border-[#fd857f]",
+              "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition hover:border-[#ff5d46] focus-within:border-[#ff5d46]",
               fieldError("role") && "border-red-400 hover:border-red-400 focus-within:border-red-400",
             )}
           >
@@ -169,7 +169,7 @@ export function SignUpForm() {
           />
           <span>
             I agree to the MaidConnect{" "}
-            <Link className="font-semibold text-[#211f1a] underline decoration-[#211f1a]/40 underline-offset-4 hover:decoration-[#fd857f]" href="/support/account-suspended">
+            <Link className="font-semibold text-[#211f1a] underline decoration-[#211f1a]/40 underline-offset-4 hover:decoration-[#ff5d46]" href="/support/account-suspended">
               terms of service
             </Link>{" "}
             and confirm that I understand the mutual respect guidelines.
@@ -191,7 +191,7 @@ export function SignUpForm() {
         type="submit"
         disabled={isPending}
         className={cn(
-          "w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:border-[#fd857f] hover:bg-[#2b2624]",
+          "w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624]",
           isPending && "cursor-not-allowed opacity-60",
         )}
       >

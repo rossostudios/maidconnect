@@ -16,7 +16,7 @@ export default async function AdminHomePage() {
         </div>
         <Link
           href="/auth/sign-out?redirectTo=/"
-          className="rounded-full border border-[#211f1a] px-4 py-2 text-sm font-semibold text-[#211f1a] transition hover:border-[#fd857f]"
+          className="rounded-full border border-[#211f1a] px-4 py-2 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46]"
         >
           Sign out
         </Link>

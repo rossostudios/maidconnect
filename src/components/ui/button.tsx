@@ -17,13 +17,13 @@ const baseClasses =
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "border-[#211f1a] bg-[#211f1a] px-6 py-[0.85rem] text-sm text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] hover:border-[#fd857f] hover:bg-[#2b2624] focus-visible:outline-[#fd857f]",
+    "border-[#211f1a] bg-[#211f1a] px-6 py-[0.85rem] text-sm text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] hover:border-[#ff5d46] hover:bg-[#2b2624] focus-visible:outline-[#ff5d46]",
   secondary:
-    "border-[#fd857f] bg-transparent px-6 py-[0.85rem] text-sm text-[#fd857f] hover:border-[#211f1a] hover:text-[#211f1a] focus-visible:outline-[#fd857f]",
+    "border-[#ff5d46] bg-transparent px-6 py-[0.85rem] text-sm text-[#ff5d46] hover:border-[#211f1a] hover:text-[#211f1a] focus-visible:outline-[#ff5d46]",
   ghost:
     "border-transparent px-4 py-2 text-sm text-[#2b2624] hover:text-[#d7b59f] focus-visible:outline-[#d7b59f]",
   card:
-    "w-full justify-between gap-3 border border-transparent bg-[#211f1a] px-6 py-3 text-sm text-white shadow-[0_12px_36px_rgba(17,16,14,0.22)] hover:bg-[#2b2624] focus-visible:outline-[#fd857f]",
+    "w-full justify-between gap-3 border border-transparent bg-[#211f1a] px-6 py-3 text-sm text-white shadow-[0_12px_36px_rgba(17,16,14,0.22)] hover:bg-[#2b2624] focus-visible:outline-[#ff5d46]",
 };
 
 export function Button({

@@ -1,0 +1,614 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { X, Calendar, Clock, MapPin, Plus, Minus } from "lucide-react";
+import { loadStripe } from "@stripe/stripe-js";
+import {
+  Elements,
+  PaymentElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
+import { useRouter } from "next/navigation";
+import type { ProfessionalService } from "@/lib/professionals/transformers";
+import {
+  SavedAddressesManager,
+  type SavedAddress,
+} from "@/components/addresses/saved-addresses-manager";
+import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
+
+const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
+
+type BookingSheetProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  professionalId: string;
+  professionalName: string;
+  selectedDate: Date | null;
+  availableSlots: string[];
+  services: ProfessionalService[];
+  defaultHourlyRate: number | null;
+};
+
+function formatCurrencyCOP(value: number) {
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+function formatTime(time: string): string {
+  const [hours, minutes] = time.split(":").map(Number);
+  const period = hours >= 12 ? "PM" : "AM";
+  const displayHours = hours % 12 || 12;
+  return `${displayHours}:${minutes.toString().padStart(2, "0")} ${period}`;
+}
+
+export function BookingSheet({
+  isOpen,
+  onClose,
+  professionalId,
+  professionalName,
+  selectedDate,
+  availableSlots,
+  services,
+  defaultHourlyRate,
+}: BookingSheetProps) {
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [currentStep, setCurrentStep] = useState<"time" | "details" | "payment">("time");
+  const [bookingData, setBookingData] = useState({
+    serviceName: "",
+    serviceHourlyRate: null as number | null,
+    durationHours: 2,
+    address: null as SavedAddress | null,
+    customAddress: "",
+    selectedAddons: [] as ServiceAddon[],
+    specialInstructions: "",
+    isRecurring: false,
+  });
+  const [addresses, setAddresses] = useState<SavedAddress[]>([]);
+  const [addons, setAddons] = useState<ServiceAddon[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [bookingResult, setBookingResult] = useState<{
+    bookingId: string;
+    clientSecret: string;
+    paymentIntentId: string;
+  } | null>(null);
+
+  // Load addresses and addons
+  useEffect(() => {
+    if (isOpen) {
+      fetch("/api/customer/addresses")
+        .then((res) => res.json())
+        .then((data) => setAddresses(data.addresses || []))
+        .catch(console.error);
+
+      fetch(`/api/professionals/${professionalId}/addons`)
+        .then((res) => res.json())
+        .then((data) => setAddons(data.addons || []))
+        .catch(console.error);
+    }
+  }, [isOpen, professionalId]);
+
+  // Reset when closed
+  useEffect(() => {
+    if (!isOpen) {
+      setSelectedTime(null);
+      setCurrentStep("time");
+      setError(null);
+    }
+  }, [isOpen]);
+
+  const serviceWithName = services.filter((service) => Boolean(service.name));
+
+  const selectedService = serviceWithName.find(
+    (service) => service.name === bookingData.serviceName
+  );
+  const selectedRate =
+    bookingData.serviceHourlyRate ??
+    selectedService?.hourlyRateCop ??
+    defaultHourlyRate ??
+    0;
+  const baseAmount =
+    selectedRate && bookingData.durationHours > 0
+      ? Math.round(selectedRate * bookingData.durationHours)
+      : 0;
+  const addonsTotal = bookingData.selectedAddons.reduce(
+    (sum, addon) => sum + addon.price_cop,
+    0
+  );
+  const totalAmount = baseAmount + addonsTotal;
+
+  const handleTimeSelect = (time: string) => {
+    setSelectedTime(time);
+    setCurrentStep("details");
+  };
+
+  const toggleAddon = (addon: ServiceAddon) => {
+    const isSelected = bookingData.selectedAddons.some((a) => a.id === addon.id);
+    setBookingData({
+      ...bookingData,
+      selectedAddons: isSelected
+        ? bookingData.selectedAddons.filter((a) => a.id !== addon.id)
+        : [...bookingData.selectedAddons, addon],
+    });
+  };
+
+  const handleSubmit = async () => {
+    if (!selectedDate || !selectedTime || !bookingData.serviceName) {
+      setError("Please complete all required fields");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const scheduledStart = new Date(
+        `${selectedDate.toISOString().split("T")[0]}T${selectedTime}:00`
+      );
+      const scheduledEnd = new Date(
+        scheduledStart.getTime() + bookingData.durationHours * 60 * 60 * 1000
+      );
+
+      const response = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          professionalId,
+          serviceName: bookingData.serviceName,
+          serviceHourlyRate: selectedRate,
+          scheduledStart: scheduledStart.toISOString(),
+          scheduledEnd: scheduledEnd.toISOString(),
+          durationMinutes: bookingData.durationHours * 60,
+          amount: totalAmount,
+          specialInstructions: bookingData.specialInstructions || undefined,
+          address: bookingData.address
+            ? {
+                street: bookingData.address.street,
+                city: bookingData.address.city,
+                neighborhood: bookingData.address.neighborhood,
+                postal_code: bookingData.address.postal_code,
+                building_access: bookingData.address.building_access,
+                parking_info: bookingData.address.parking_info,
+                special_notes: bookingData.address.special_notes,
+              }
+            : bookingData.customAddress
+              ? { raw: bookingData.customAddress }
+              : undefined,
+          selectedAddons:
+            bookingData.selectedAddons.length > 0
+              ? bookingData.selectedAddons.map((addon) => ({
+                  addon_id: addon.id,
+                  quantity: 1,
+                }))
+              : undefined,
+          isRecurring: bookingData.isRecurring,
+        }),
+      });
+
+      if (!response.ok) {
+        const body = await response.json();
+        throw new Error(body.error ?? "Failed to create booking");
+      }
+
+      const result = await response.json();
+      setBookingResult(result);
+      setCurrentStep("payment");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unexpected error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <>
+      {/* Overlay */}
+      <div
+        className="fixed inset-0 z-40 animate-in fade-in duration-300 bg-black/40 backdrop-blur-sm"
+        onClick={onClose}
+      />
+
+      {/* Sheet */}
+      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-2xl overflow-y-auto bg-white shadow-2xl animate-in slide-in-from-right duration-500 ease-out">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#ebe5d8] bg-white px-8 py-6">
+          <div>
+            <h2 className="text-2xl font-semibold text-[#211f1a]">
+              {currentStep === "time" && "Choose time"}
+              {currentStep === "details" && "Booking details"}
+              {currentStep === "payment" && "Payment"}
+            </h2>
+            {selectedDate && (
+              <p className="mt-1 text-base text-[#7d7566]">
+                {selectedDate.toLocaleDateString("en-US", {
+                  weekday: "long",
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </p>
+            )}
+          </div>
+          <button
+            onClick={onClose}
+            className="rounded-full p-2 text-[#7d7566] transition hover:bg-[#f0ece5]"
+          >
+            <X className="h-6 w-6" />
+          </button>
+        </div>
+
+        <div className="p-8">
+          {error && (
+            <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-5 py-4 text-base text-red-600">
+              {error}
+            </div>
+          )}
+
+          {/* Step 1: Time Selection */}
+          {currentStep === "time" && (
+            <div className="space-y-6 animate-in fade-in-50 duration-500">
+              <div>
+                <h3 className="mb-4 text-xl font-semibold text-[#211f1a]">
+                  Available times
+                </h3>
+                <p className="mb-6 text-base text-[#7d7566]">
+                  Select a time slot to continue with your booking
+                </p>
+                <div className="grid grid-cols-3 gap-3">
+                  {availableSlots.map((time, index) => (
+                    <button
+                      key={time}
+                      onClick={() => handleTimeSelect(time)}
+                      style={{ animationDelay: `${index * 30}ms` }}
+                      className="group animate-in fade-in-0 slide-in-from-bottom-4 rounded-xl border-2 border-[#e5dfd4] bg-white px-5 py-4 text-base font-semibold text-[#211f1a] shadow-sm transition-all duration-300 hover:scale-105 hover:border-[#ff5d46] hover:bg-[#ff5d46]/5 hover:shadow-lg active:scale-95"
+                    >
+                      {formatTime(time)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Step 2: Booking Details */}
+          {currentStep === "details" && (
+            <div className="space-y-8 animate-in fade-in-50 duration-500">
+              {/* Selected Time Display */}
+              <div className="rounded-2xl bg-[#ff5d46]/5 p-6">
+                <div className="flex items-center gap-3 text-base text-[#8a3934]">
+                  <Clock className="h-5 w-5" />
+                  <span className="font-semibold">
+                    {selectedTime && formatTime(selectedTime)}
+                  </span>
+                  <button
+                    onClick={() => setCurrentStep("time")}
+                    className="ml-auto text-sm underline"
+                  >
+                    Change time
+                  </button>
+                </div>
+              </div>
+
+              {/* Service Selection */}
+              <div>
+                <label className="mb-3 block text-lg font-semibold text-[#211f1a]">
+                  Service *
+                </label>
+                <select
+                  value={bookingData.serviceName}
+                  onChange={(e) => {
+                    const service = serviceWithName.find((s) => s.name === e.target.value);
+                    setBookingData({
+                      ...bookingData,
+                      serviceName: e.target.value,
+                      serviceHourlyRate: service?.hourlyRateCop ?? null,
+                    });
+                  }}
+                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                  required
+                >
+                  <option value="">Select a service</option>
+                  {serviceWithName.map((service) => (
+                    <option key={service.name} value={service.name ?? ""}>
+                      {service.name}
+                      {service.hourlyRateCop
+                        ? ` · ${formatCurrencyCOP(service.hourlyRateCop)}/hr`
+                        : ""}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Duration */}
+              <div>
+                <label className="mb-3 block text-lg font-semibold text-[#211f1a]">
+                  Duration *
+                </label>
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() =>
+                      setBookingData({
+                        ...bookingData,
+                        durationHours: Math.max(1, bookingData.durationHours - 1),
+                      })
+                    }
+                    className="rounded-xl border-2 border-[#e5dfd4] p-3 transition hover:border-[#ff5d46] hover:bg-[#ff5d46]/5"
+                  >
+                    <Minus className="h-5 w-5" />
+                  </button>
+                  <div className="flex-1 rounded-xl border-2 border-[#e5dfd4] bg-[#fbfafa] px-5 py-4 text-center text-xl font-semibold text-[#211f1a]">
+                    {bookingData.durationHours} {bookingData.durationHours === 1 ? "hour" : "hours"}
+                  </div>
+                  <button
+                    onClick={() =>
+                      setBookingData({
+                        ...bookingData,
+                        durationHours: Math.min(12, bookingData.durationHours + 1),
+                      })
+                    }
+                    className="rounded-xl border-2 border-[#e5dfd4] p-3 transition hover:border-[#ff5d46] hover:bg-[#ff5d46]/5"
+                  >
+                    <Plus className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Address */}
+              <div>
+                <label className="mb-3 block text-lg font-semibold text-[#211f1a]">
+                  Service address *
+                </label>
+                {addresses.length > 0 ? (
+                  <SavedAddressesManager
+                    addresses={addresses}
+                    onAddressSelect={(address) =>
+                      setBookingData({ ...bookingData, address })
+                    }
+                    onAddressesChange={setAddresses}
+                    selectedAddressId={bookingData.address?.id}
+                    showManagement={false}
+                  />
+                ) : (
+                  <textarea
+                    value={bookingData.customAddress}
+                    onChange={(e) =>
+                      setBookingData({
+                        ...bookingData,
+                        customAddress: e.target.value,
+                      })
+                    }
+                    rows={3}
+                    placeholder="Street, city, building access info..."
+                    className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                  />
+                )}
+              </div>
+
+              {/* Add-ons */}
+              {addons.length > 0 && (
+                <div>
+                  <label className="mb-3 block text-lg font-semibold text-[#211f1a]">
+                    Add extras (optional)
+                  </label>
+                  <div className="space-y-3">
+                    {addons.map((addon) => {
+                      const isSelected = bookingData.selectedAddons.some(
+                        (a) => a.id === addon.id
+                      );
+                      return (
+                        <button
+                          key={addon.id}
+                          onClick={() => toggleAddon(addon)}
+                          className={`w-full rounded-xl border-2 p-5 text-left transition ${
+                            isSelected
+                              ? "border-[#ff5d46] bg-[#ff5d46]/5"
+                              : "border-[#e5dfd4] bg-white hover:border-[#ff5d46]/50"
+                          }`}
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <h4 className="text-base font-semibold text-[#211f1a]">
+                                {addon.name}
+                              </h4>
+                              {addon.description && (
+                                <p className="mt-1 text-sm text-[#7a6d62]">
+                                  {addon.description}
+                                </p>
+                              )}
+                            </div>
+                            <div className="ml-4 text-base font-semibold text-[#ff5d46]">
+                              {formatCurrencyCOP(addon.price_cop)}
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Special Instructions */}
+              <div>
+                <label className="mb-3 block text-lg font-semibold text-[#211f1a]">
+                  Special instructions
+                </label>
+                <textarea
+                  value={bookingData.specialInstructions}
+                  onChange={(e) =>
+                    setBookingData({
+                      ...bookingData,
+                      specialInstructions: e.target.value,
+                    })
+                  }
+                  rows={3}
+                  placeholder="Pets, cleaning priorities, access codes..."
+                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                />
+              </div>
+
+              {/* Price Summary */}
+              <div className="rounded-2xl border-2 border-[#ebe5d8] bg-[#fbfafa] p-6">
+                <h3 className="mb-4 text-lg font-semibold text-[#211f1a]">
+                  Price summary
+                </h3>
+                <div className="space-y-3 text-base">
+                  <div className="flex justify-between">
+                    <span className="text-[#7d7566]">Service</span>
+                    <span className="font-semibold text-[#211f1a]">
+                      {formatCurrencyCOP(baseAmount)}
+                    </span>
+                  </div>
+                  {addonsTotal > 0 && (
+                    <div className="flex justify-between">
+                      <span className="text-[#7d7566]">Add-ons</span>
+                      <span className="font-semibold text-[#211f1a]">
+                        {formatCurrencyCOP(addonsTotal)}
+                      </span>
+                    </div>
+                  )}
+                  <div className="border-t border-[#ebe5d8] pt-3">
+                    <div className="flex justify-between text-xl">
+                      <span className="font-semibold text-[#211f1a]">Total</span>
+                      <span className="font-bold text-[#ff5d46]">
+                        {formatCurrencyCOP(totalAmount)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-4">
+                <button
+                  onClick={() => setCurrentStep("time")}
+                  className="rounded-xl border-2 border-[#e5dfd4] px-8 py-4 text-base font-semibold text-[#7d7566] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+                >
+                  Back
+                </button>
+                <button
+                  onClick={handleSubmit}
+                  disabled={loading || !bookingData.serviceName || (!bookingData.address && !bookingData.customAddress)}
+                  className="flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {loading ? "Creating booking..." : "Continue to payment"}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Step 3: Payment */}
+          {currentStep === "payment" && bookingResult && stripePromise && (
+            <Elements
+              stripe={stripePromise}
+              options={{
+                clientSecret: bookingResult.clientSecret,
+                appearance: {
+                  theme: "flat" as const,
+                  variables: {
+                    colorPrimary: "#ff5d46",
+                    colorText: "#211f1a",
+                    borderRadius: "12px",
+                  },
+                },
+              }}
+            >
+              <PaymentStep
+                bookingId={bookingResult.bookingId}
+                paymentIntentId={bookingResult.paymentIntentId}
+                onBack={() => setCurrentStep("details")}
+              />
+            </Elements>
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// Payment Step Component
+function PaymentStep({
+  bookingId,
+  paymentIntentId,
+  onBack,
+}: {
+  bookingId: string;
+  paymentIntentId: string;
+  onBack: () => void;
+}) {
+  const stripe = useStripe();
+  const elements = useElements();
+  const router = useRouter();
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleConfirm = async () => {
+    if (!stripe || !elements) return;
+    setSubmitting(true);
+    setError(null);
+    try {
+      const { error, paymentIntent } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: window.location.origin,
+        },
+        redirect: "if_required",
+      });
+
+      if (error) {
+        throw new Error(
+          error.message ?? "Payment requires additional verification."
+        );
+      }
+
+      if (paymentIntent?.status === "requires_capture") {
+        await fetch("/api/bookings/authorize", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ bookingId, paymentIntentId }),
+        });
+      }
+
+      router.push(`/dashboard/customer`);
+    } catch (err) {
+      console.error(err);
+      setError(err instanceof Error ? err.message : "Unexpected payment error");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <p className="text-base text-[#7d7566]">
+        We'll authorize a hold on your card. You'll only be charged after the
+        service is completed.
+      </p>
+      <PaymentElement />
+      {error && (
+        <p className="text-base text-red-600">{error}</p>
+      )}
+      <div className="flex gap-4">
+        <button
+          onClick={onBack}
+          disabled={submitting}
+          className="rounded-xl border-2 border-[#e5dfd4] px-8 py-4 text-base font-semibold text-[#7d7566] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Back
+        </button>
+        <button
+          onClick={handleConfirm}
+          disabled={submitting}
+          className="flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {submitting ? "Confirming..." : "Confirm booking"}
+        </button>
+      </div>
+    </div>
+  );
+}

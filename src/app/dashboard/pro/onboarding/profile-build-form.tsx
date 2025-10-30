@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { submitProfile } from "./actions";
 import { defaultActionState, type OnboardingActionState } from "./state";
 import { cn } from "@/lib/utils";
@@ -86,32 +86,38 @@ export function ProfileBuildForm({
   }
 
   const initialLanguages = initialData?.languages ?? [];
+  const [bioLength, setBioLength] = useState((initialData?.bio ?? "").length);
 
   return (
-    <form className="space-y-6" action={formAction} noValidate>
+    <form className="space-y-8" action={formAction} noValidate>
       <Feedback state={state} />
 
-      <FormField label="Professional bio" helper="150-300 words works best." error={fieldError("bio")}>
+      <FormField
+        label="Professional bio"
+        error={fieldError("bio")}
+        characterCount={bioLength}
+      >
         <textarea
           id="bio"
           name="bio"
-          rows={5}
-          className={cn(`${inputClass} min-h-[140px]`, hasError("bio") && errorClass)}
+          rows={8}
+          className={cn(`${inputClass} min-h-[200px]`, hasError("bio") && errorClass)}
           placeholder="Share your background, specialties, and why customers love working with you."
           minLength={150}
           defaultValue={initialData?.bio ?? ""}
           aria-invalid={hasError("bio")}
+          onChange={(e) => setBioLength(e.target.value.length)}
           required
         />
       </FormField>
 
       <FormField label="Languages" error={fieldError("languages")}>
-        <div className="grid gap-2 sm:grid-cols-3">
+        <div className="flex flex-wrap gap-3">
           {languages.map((language) => (
             <label
               key={language}
               className={cn(
-                "flex items-center gap-2 rounded-md border border-neutral-200 p-3 text-sm",
+                "flex items-center gap-3 rounded-full border-2 border-[#ebe5d8] bg-white px-5 py-3 text-base font-medium text-[#211f1a] transition cursor-pointer hover:border-[#ff5d46] hover:bg-[#fff5f2]",
                 hasError("languages") && "border-red-300",
               )}
             >
@@ -119,7 +125,7 @@ export function ProfileBuildForm({
                 type="checkbox"
                 name="languages"
                 value={language}
-                className="h-4 w-4"
+                className="h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-[#ff5d46]"
                 defaultChecked={initialLanguages.includes(language)}
               />
               {language}
@@ -133,12 +139,15 @@ export function ProfileBuildForm({
         helper="Tell customers what to expect for each service."
         error={fieldError("services")}
       >
-        <div className="space-y-3 rounded-lg border border-neutral-200 p-4">
+        <div className="space-y-4">
           {services.map((service) => (
-            <div key={service.name}>
+            <div
+              key={service.name}
+              className="rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-md"
+            >
               <input type="hidden" name="service_name" value={service.name} />
-              <div className="grid gap-3 sm:grid-cols-3">
-                <div className="flex items-center text-sm font-medium text-neutral-800">{service.name}</div>
+              <div className="space-y-4">
+                <h4 className="text-lg font-semibold text-[#211f1a]">{service.name}</h4>
                 {(() => {
                   const defaults = serviceDefaults.get(service.name);
                   const rateValue =
@@ -146,23 +155,29 @@ export function ProfileBuildForm({
                       ? defaults.rate
                       : "";
                   return (
-                    <>
-                      <input
-                        type="number"
-                        name="service_rate"
-                        className={cn(inputClass, hasError("services") && errorClass)}
-                        placeholder="COP/hour"
-                        min={0}
-                        defaultValue={rateValue === "" ? "" : String(rateValue)}
-                      />
-                      <input
-                        type="text"
-                        name="service_description"
-                        className={cn(inputClass, hasError("services") && errorClass)}
-                        placeholder="Short description of service"
-                        defaultValue={defaults?.description ?? ""}
-                      />
-                    </>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div>
+                        <label className="mb-2 block text-sm font-medium text-[#5d574b]">Hourly rate (COP)</label>
+                        <input
+                          type="number"
+                          name="service_rate"
+                          className={cn(inputClass, hasError("services") && errorClass)}
+                          placeholder="40000"
+                          min={0}
+                          defaultValue={rateValue === "" ? "" : String(rateValue)}
+                        />
+                      </div>
+                      <div className="sm:col-span-2">
+                        <label className="mb-2 block text-sm font-medium text-[#5d574b]">Service description</label>
+                        <input
+                          type="text"
+                          name="service_description"
+                          className={cn(inputClass, hasError("services") && errorClass)}
+                          placeholder="Describe what's included in this service"
+                          defaultValue={defaults?.description ?? ""}
+                        />
+                      </div>
+                    </div>
                   );
                 })()}
               </div>
@@ -171,58 +186,58 @@ export function ProfileBuildForm({
         </div>
       </FormField>
 
-      <FormField label="Weekly availability">
-        <table className="w-full text-left text-sm text-neutral-700">
-          <thead>
-            <tr className="border-b border-neutral-200">
-              <th className="py-2 font-semibold">Day</th>
-              <th className="py-2 font-semibold">Start</th>
-              <th className="py-2 font-semibold">End</th>
-              <th className="py-2 font-semibold">Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {availabilityDays.map((day) => (
-              <tr key={day.slug} className="border-b border-neutral-100">
-                <td className="py-2">{day.label}</td>
-                <td className="py-2">
+      <FormField label="Weekly availability" helper="Set your typical working hours for each day.">
+        <div className="space-y-3">
+          {availabilityDays.map((day) => (
+            <div
+              key={day.slug}
+              className="rounded-xl border border-[#ebe5d8] bg-white p-5 shadow-sm"
+            >
+              <div className="grid gap-4 sm:grid-cols-[120px_1fr_1fr_1fr]">
+                <div className="flex items-center">
+                  <span className="text-base font-semibold text-[#211f1a]">{day.label}</span>
+                </div>
+                <div>
+                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">Start</label>
                   <input
                     type="time"
                     name={`availability_${day.slug}_start`}
                     className={inputClass}
                     defaultValue={availabilityDefaults.get(day.slug)?.start || "08:00"}
                   />
-                </td>
-                <td className="py-2">
+                </div>
+                <div>
+                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">End</label>
                   <input
                     type="time"
                     name={`availability_${day.slug}_end`}
                     className={inputClass}
                     defaultValue={availabilityDefaults.get(day.slug)?.end || "16:00"}
                   />
-                </td>
-                <td className="py-2">
+                </div>
+                <div>
+                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">Notes (optional)</label>
                   <input
                     type="text"
                     name={`availability_${day.slug}_notes`}
                     className={inputClass}
-                    placeholder="Optional notes"
+                    placeholder="e.g., Flexible"
                     defaultValue={availabilityDefaults.get(day.slug)?.notes ?? ""}
                   />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </FormField>
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-xs text-neutral-500">{footnote}</p>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-[#ebe5d8] pt-8">
+        <p className="text-sm text-[#5d574b]">{footnote}</p>
         <button
           type="submit"
           disabled={pending}
           className={cn(
-            "rounded-md bg-[#fd857f] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#eb6c65]",
+            "inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]",
             pending && "cursor-not-allowed opacity-70",
           )}
         >
@@ -236,15 +251,29 @@ export function ProfileBuildForm({
 function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
-      <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
-        {state.error}
+      <div className="rounded-2xl border border-red-200 bg-red-50 p-6 shadow-sm" role="alert">
+        <div className="flex items-start gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
+            <svg className="h-5 w-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
+          <p className="flex-1 text-base leading-relaxed text-red-800">{state.error}</p>
+        </div>
       </div>
     );
   }
   if (state.status === "success" && state.message) {
     return (
-      <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800" role="status">
-        {state.message}
+      <div className="rounded-2xl border border-green-200 bg-green-50 p-6 shadow-sm" role="status">
+        <div className="flex items-start gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
+            <svg className="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <p className="flex-1 text-base leading-relaxed text-green-800">{state.message}</p>
+        </div>
       </div>
     );
   }
@@ -256,15 +285,28 @@ type FormFieldProps = {
   children: React.ReactNode;
   helper?: string;
   error?: string;
+  characterCount?: number;
 };
 
-function FormField({ label, children, helper, error }: FormFieldProps) {
+function FormField({ label, children, helper, error, characterCount }: FormFieldProps) {
   return (
-    <div className="space-y-2">
-      <label className="block text-sm font-medium text-neutral-800">{label}</label>
-      {helper ? <p className="text-xs text-neutral-500">{helper}</p> : null}
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <label className="block text-base font-semibold text-[#211f1a]">{label}</label>
+        {characterCount !== undefined ? (
+          <span className="text-sm text-[#7d7566]">{characterCount.toLocaleString()} characters</span>
+        ) : null}
+      </div>
+      {helper ? <p className="text-sm text-[#5d574b]">{helper}</p> : null}
       {children}
-      {error ? <p className="text-xs text-red-600">{error}</p> : null}
+      {error ? (
+        <p className="flex items-center gap-2 text-sm text-red-600">
+          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+          </svg>
+          {error}
+        </p>
+      ) : null}
     </div>
   );
 }

@@ -142,7 +142,7 @@ export function ProfessionalVettingDashboard() {
             onClick={() => setActiveTab(tab.key)}
             className={`relative px-4 py-2 text-sm font-semibold transition ${
               activeTab === tab.key
-                ? "border-b-2 border-[#fd857f] text-[#fd857f]"
+                ? "border-b-2 border-[#ff5d46] text-[#ff5d46]"
                 : "text-[#7a6d62] hover:text-[#211f1a]"
             }`}
           >
@@ -245,7 +245,7 @@ export function ProfessionalVettingDashboard() {
 
                 <button
                   onClick={() => setSelectedProfessional(professional)}
-                  className="ml-4 rounded-lg bg-[#fd857f] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65]"
+                  className="ml-4 rounded-lg bg-[#ff5d46] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65]"
                 >
                   Review
                 </button>

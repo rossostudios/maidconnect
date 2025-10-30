@@ -30,7 +30,7 @@ function ReviewCard({ review }: { review: ProfessionalReviewSummary }) {
     <li className="space-y-2 rounded-2xl border border-[#efe7dc] bg-[#fbfafa] p-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-sm font-semibold text-[#211f1a]">
-          <Star className="h-4 w-4 fill-[#fd857f] text-[#fd857f]" aria-hidden="true" />
+          <Star className="h-4 w-4 fill-[#ff5d46] text-[#ff5d46]" aria-hidden="true" />
           <span>{review.rating.toFixed(1)}</span>
         </div>
         <p className="text-xs text-[#7a6d62]">{formatDate(review.createdAt)}</p>
@@ -64,7 +64,7 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
         </div>
         {averageRating ? (
           <div className="flex items-center gap-2 rounded-full border border-[#efe7dc] bg-[#fbfafa] px-4 py-2 text-sm font-semibold text-[#211f1a]">
-            <Star className="h-4 w-4 fill-[#fd857f] text-[#fd857f]" aria-hidden="true" />
+            <Star className="h-4 w-4 fill-[#ff5d46] text-[#ff5d46]" aria-hidden="true" />
             {averageRating.toFixed(1)} <span className="text-xs text-[#7a6d62]">({reviews.length})</span>
           </div>
         ) : null}
@@ -79,7 +79,7 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
               <select
                 name="rating"
                 defaultValue="5"
-                className="rounded-full border border-[#e5dfd4] bg-white px-3 py-1 text-sm font-medium text-[#211f1a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#fd857f]"
+                className="rounded-full border border-[#e5dfd4] bg-white px-3 py-1 text-sm font-medium text-[#211f1a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5d46]"
                 required
               >
                 {[5, 4, 3, 2, 1].map((value) => (
@@ -93,14 +93,14 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
               name="title"
               type="text"
               placeholder="Headline"
-              className="w-full rounded-full border border-[#e5dfd4] bg-white px-4 py-2 text-sm text-[#211f1a] focus:border-[#fd857f] focus:outline-none focus:ring-2 focus:ring-[#fd857f26]"
+              className="w-full rounded-full border border-[#e5dfd4] bg-white px-4 py-2 text-sm text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4626]"
             />
           </div>
           <textarea
             name="comment"
             rows={3}
             placeholder="Share the experience, what went well, and anything future households should know."
-            className="w-full rounded-2xl border border-[#e5dfd4] bg-white px-4 py-3 text-sm text-[#211f1a] focus:border-[#fd857f] focus:outline-none focus:ring-2 focus:ring-[#fd857f26]"
+            className="w-full rounded-2xl border border-[#e5dfd4] bg-white px-4 py-3 text-sm text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4626]"
             required
           />
           {state.status === "error" && state.message ? (
@@ -113,7 +113,7 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
             <button
               type="submit"
               disabled={pending}
-              className="inline-flex items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:border-[#fd857f] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {pending ? "Submitting…" : "Post review"}
             </button>

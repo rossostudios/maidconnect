@@ -1,0 +1,949 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import {
+  Elements,
+  PaymentElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
+import { useRouter } from "next/navigation";
+import type { ProfessionalService } from "@/lib/professionals/transformers";
+import { AvailabilityCalendar } from "@/components/booking/availability-calendar";
+import {
+  SavedAddressesManager,
+  type SavedAddress,
+} from "@/components/addresses/saved-addresses-manager";
+import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
+
+const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
+
+type BookingFormProps = {
+  professionalId: string;
+  professionalName: string;
+  services: ProfessionalService[];
+  defaultHourlyRate: number | null;
+  savedAddresses?: SavedAddress[];
+  availableAddons?: ServiceAddon[];
+};
+
+type BookingStep =
+  | "service-details"
+  | "address-addons"
+  | "confirmation"
+  | "payment";
+
+type BookingData = {
+  serviceName: string;
+  serviceHourlyRate: number | null;
+  selectedDate: Date | null;
+  selectedTime: string | null;
+  durationHours: number;
+  address: SavedAddress | null;
+  customAddress?: string;
+  selectedAddons: ServiceAddon[];
+  specialInstructions: string;
+  isRecurring: boolean;
+  recurrencePattern?: {
+    frequency: "weekly" | "biweekly" | "monthly";
+    endDate?: string;
+  };
+};
+
+function formatCurrencyCOP(value: number) {
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+function normalizeServiceName(value: string | null | undefined) {
+  if (!value) return "";
+  return value;
+}
+
+export function EnhancedBookingForm({
+  professionalId,
+  professionalName,
+  services,
+  defaultHourlyRate,
+  savedAddresses = [],
+  availableAddons = [],
+}: BookingFormProps) {
+  const router = useRouter();
+  const [currentStep, setCurrentStep] = useState<BookingStep>(
+    "service-details"
+  );
+  const [bookingData, setBookingData] = useState<BookingData>({
+    serviceName: "",
+    serviceHourlyRate: null,
+    selectedDate: null,
+    selectedTime: null,
+    durationHours: 2,
+    address: null,
+    selectedAddons: [],
+    specialInstructions: "",
+    isRecurring: false,
+  });
+
+  const [addresses, setAddresses] = useState<SavedAddress[]>(savedAddresses);
+  const [addons, setAddons] = useState<ServiceAddon[]>(availableAddons);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [bookingResult, setBookingResult] = useState<{
+    bookingId: string;
+    clientSecret: string;
+    paymentIntentId: string;
+  } | null>(null);
+
+  // Load saved addresses on mount
+  useEffect(() => {
+    if (savedAddresses.length === 0) {
+      fetch("/api/customer/addresses")
+        .then((res) => res.json())
+        .then((data) => setAddresses(data.addresses || []))
+        .catch(console.error);
+    }
+  }, [savedAddresses]);
+
+  // Load available add-ons on mount
+  useEffect(() => {
+    if (availableAddons.length === 0) {
+      fetch(`/api/professionals/${professionalId}/addons`)
+        .then((res) => res.json())
+        .then((data) => setAddons(data.addons || []))
+        .catch(console.error);
+    }
+  }, [professionalId, availableAddons]);
+
+  const serviceWithName = services.filter((service) => Boolean(service.name));
+
+  if (serviceWithName.length === 0) {
+    return (
+      <div className="rounded-2xl border border-[#f0ece4] bg-[#fbfafa] p-5 text-sm text-[#7a6d62]">
+        This professional is updating their services. Check back soon.
+      </div>
+    );
+  }
+
+  if (!stripePromise) {
+    return (
+      <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        Payment system not configured.
+      </div>
+    );
+  }
+
+  const selectedService = serviceWithName.find(
+    (service) => normalizeServiceName(service.name) === bookingData.serviceName
+  );
+  const selectedRate =
+    bookingData.serviceHourlyRate ??
+    selectedService?.hourlyRateCop ??
+    defaultHourlyRate ??
+    0;
+  const baseAmount =
+    selectedRate && bookingData.durationHours > 0
+      ? Math.round(selectedRate * bookingData.durationHours)
+      : 0;
+  const addonsTotal = bookingData.selectedAddons.reduce(
+    (sum, addon) => sum + addon.price_cop,
+    0
+  );
+  const totalAmount = baseAmount + addonsTotal;
+
+  const handleAddressesChange = async (newAddresses: SavedAddress[]) => {
+    setAddresses(newAddresses);
+    try {
+      await fetch("/api/customer/addresses", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ addresses: newAddresses }),
+      });
+    } catch (err) {
+      console.error("Failed to save addresses:", err);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (
+      !bookingData.selectedDate ||
+      !bookingData.selectedTime ||
+      !bookingData.serviceName
+    ) {
+      setError("Please complete all required fields");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const scheduledStart = new Date(
+        `${bookingData.selectedDate.toISOString().split("T")[0]}T${bookingData.selectedTime}:00`
+      );
+      const scheduledEnd = new Date(
+        scheduledStart.getTime() + bookingData.durationHours * 60 * 60 * 1000
+      );
+
+      const response = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          professionalId,
+          serviceName: bookingData.serviceName,
+          serviceHourlyRate: selectedRate,
+          scheduledStart: scheduledStart.toISOString(),
+          scheduledEnd: scheduledEnd.toISOString(),
+          durationMinutes: bookingData.durationHours * 60,
+          amount: totalAmount,
+          specialInstructions: bookingData.specialInstructions || undefined,
+          address: bookingData.address
+            ? {
+                street: bookingData.address.street,
+                city: bookingData.address.city,
+                neighborhood: bookingData.address.neighborhood,
+                postal_code: bookingData.address.postal_code,
+                building_access: bookingData.address.building_access,
+                parking_info: bookingData.address.parking_info,
+                special_notes: bookingData.address.special_notes,
+              }
+            : bookingData.customAddress
+              ? { raw: bookingData.customAddress }
+              : undefined,
+          selectedAddons:
+            bookingData.selectedAddons.length > 0
+              ? bookingData.selectedAddons.map((addon) => ({
+                  addon_id: addon.id,
+                  quantity: 1,
+                }))
+              : undefined,
+          isRecurring: bookingData.isRecurring,
+          recurrencePattern: bookingData.recurrencePattern,
+        }),
+      });
+
+      if (!response.ok) {
+        const body = await response.json();
+        throw new Error(body.error ?? "Failed to create booking");
+      }
+
+      const result = await response.json();
+      setBookingResult(result);
+      setCurrentStep("payment");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unexpected error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Progress Steps */}
+      <div className="flex items-center justify-between">
+        {[
+          { key: "service-details", label: "Service & Time" },
+          { key: "address-addons", label: "Location & Add-ons" },
+          { key: "confirmation", label: "Review" },
+          { key: "payment", label: "Payment" },
+        ].map((step, index) => (
+          <div key={step.key} className="flex items-center">
+            <div
+              className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold ${
+                currentStep === step.key
+                  ? "bg-[#ff5d46] text-white"
+                  : index <
+                      [
+                        "service-details",
+                        "address-addons",
+                        "confirmation",
+                        "payment",
+                      ].indexOf(currentStep)
+                    ? "bg-[#211f1a] text-white"
+                    : "bg-[#f0ece5] text-[#7a6d62]"
+              }`}
+            >
+              {index + 1}
+            </div>
+            <span className="ml-2 hidden text-xs text-[#7a6d62] sm:block">
+              {step.label}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {error && (
+        <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">
+          {error}
+        </div>
+      )}
+
+      {/* Step 1: Service Details & Time Selection */}
+      {currentStep === "service-details" && (
+        <ServiceDetailsStep
+          services={serviceWithName}
+          bookingData={bookingData}
+          setBookingData={setBookingData}
+          professionalId={professionalId}
+          onNext={() => setCurrentStep("address-addons")}
+        />
+      )}
+
+      {/* Step 2: Address & Add-ons */}
+      {currentStep === "address-addons" && (
+        <AddressAddonsStep
+          bookingData={bookingData}
+          setBookingData={setBookingData}
+          addresses={addresses}
+          onAddressesChange={handleAddressesChange}
+          addons={addons}
+          onBack={() => setCurrentStep("service-details")}
+          onNext={() => setCurrentStep("confirmation")}
+        />
+      )}
+
+      {/* Step 3: Confirmation */}
+      {currentStep === "confirmation" && (
+        <ConfirmationStep
+          bookingData={bookingData}
+          professionalName={professionalName}
+          baseAmount={baseAmount}
+          addonsTotal={addonsTotal}
+          totalAmount={totalAmount}
+          onBack={() => setCurrentStep("address-addons")}
+          onConfirm={handleSubmit}
+          loading={loading}
+        />
+      )}
+
+      {/* Step 4: Payment */}
+      {currentStep === "payment" && bookingResult && (
+        <Elements
+          stripe={stripePromise}
+          options={{
+            clientSecret: bookingResult.clientSecret,
+            appearance: stripeAppearance,
+          }}
+        >
+          <PaymentConfirmation
+            bookingId={bookingResult.bookingId}
+            paymentIntentId={bookingResult.paymentIntentId}
+            onReset={() => window.location.reload()}
+          />
+        </Elements>
+      )}
+    </div>
+  );
+}
+
+// Step 1: Service Details Component
+function ServiceDetailsStep({
+  services,
+  bookingData,
+  setBookingData,
+  professionalId,
+  onNext,
+}: {
+  services: ProfessionalService[];
+  bookingData: BookingData;
+  setBookingData: (data: BookingData) => void;
+  professionalId: string;
+  onNext: () => void;
+}) {
+  const canProceed =
+    bookingData.serviceName &&
+    bookingData.selectedDate &&
+    bookingData.selectedTime &&
+    bookingData.durationHours > 0;
+
+  return (
+    <div className="space-y-4">
+      <h3 className="text-lg font-semibold text-[#211f1a]">
+        Choose Service & Time
+      </h3>
+
+      {/* Service Selection */}
+      <div>
+        <label className="mb-2 block text-sm font-medium text-[#211f1a]">
+          Service *
+        </label>
+        <select
+          value={bookingData.serviceName}
+          onChange={(e) => {
+            const service = services.find((s) => s.name === e.target.value);
+            setBookingData({
+              ...bookingData,
+              serviceName: e.target.value,
+              serviceHourlyRate: service?.hourlyRateCop ?? null,
+            });
+          }}
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+          required
+        >
+          <option value="">Select a service</option>
+          {services.map((service) => (
+            <option key={service.name} value={service.name ?? ""}>
+              {service.name}
+              {service.hourlyRateCop
+                ? ` · ${formatCurrencyCOP(service.hourlyRateCop)}/hr`
+                : ""}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Duration */}
+      <div>
+        <label className="mb-2 block text-sm font-medium text-[#211f1a]">
+          Duration (hours) *
+        </label>
+        <input
+          type="number"
+          min={1}
+          max={12}
+          value={bookingData.durationHours}
+          onChange={(e) =>
+            setBookingData({
+              ...bookingData,
+              durationHours: parseInt(e.target.value) || 0,
+            })
+          }
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+          required
+        />
+      </div>
+
+      {/* Availability Calendar */}
+      <div>
+        <label className="mb-2 block text-sm font-medium text-[#211f1a]">
+          Select Date & Time *
+        </label>
+        <AvailabilityCalendar
+          professionalId={professionalId}
+          selectedDate={bookingData.selectedDate}
+          selectedTime={bookingData.selectedTime}
+          onDateSelect={(date) =>
+            setBookingData({ ...bookingData, selectedDate: date })
+          }
+          onTimeSelect={(time) =>
+            setBookingData({ ...bookingData, selectedTime: time })
+          }
+          durationHours={bookingData.durationHours}
+        />
+      </div>
+
+      {/* Recurring Booking Option */}
+      <div>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={bookingData.isRecurring}
+            onChange={(e) =>
+              setBookingData({
+                ...bookingData,
+                isRecurring: e.target.checked,
+              })
+            }
+            className="rounded"
+          />
+          <span className="text-sm text-[#211f1a]">
+            Make this a recurring booking
+          </span>
+        </label>
+      </div>
+
+      {bookingData.isRecurring && (
+        <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4">
+          <label className="mb-2 block text-sm font-medium text-[#211f1a]">
+            Frequency
+          </label>
+          <select
+            value={bookingData.recurrencePattern?.frequency || "weekly"}
+            onChange={(e) =>
+              setBookingData({
+                ...bookingData,
+                recurrencePattern: {
+                  frequency: e.target.value as
+                    | "weekly"
+                    | "biweekly"
+                    | "monthly",
+                },
+              })
+            }
+            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+          >
+            <option value="weekly">Weekly</option>
+            <option value="biweekly">Every 2 weeks</option>
+            <option value="monthly">Monthly</option>
+          </select>
+        </div>
+      )}
+
+      <div className="flex justify-end">
+        <button
+          onClick={onNext}
+          disabled={!canProceed}
+          className="rounded-md bg-[#ff5d46] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Continue to Location & Add-ons →
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// Step 2: Address & Add-ons Component
+function AddressAddonsStep({
+  bookingData,
+  setBookingData,
+  addresses,
+  onAddressesChange,
+  addons,
+  onBack,
+  onNext,
+}: {
+  bookingData: BookingData;
+  setBookingData: (data: BookingData) => void;
+  addresses: SavedAddress[];
+  onAddressesChange: (addresses: SavedAddress[]) => void;
+  addons: ServiceAddon[];
+  onBack: () => void;
+  onNext: () => void;
+}) {
+  const [useCustomAddress, setUseCustomAddress] = useState(false);
+
+  const toggleAddon = (addon: ServiceAddon) => {
+    const isSelected = bookingData.selectedAddons.some(
+      (a) => a.id === addon.id
+    );
+    setBookingData({
+      ...bookingData,
+      selectedAddons: isSelected
+        ? bookingData.selectedAddons.filter((a) => a.id !== addon.id)
+        : [...bookingData.selectedAddons, addon],
+    });
+  };
+
+  const canProceed = bookingData.address || bookingData.customAddress;
+
+  return (
+    <div className="space-y-6">
+      <h3 className="text-lg font-semibold text-[#211f1a]">
+        Location & Add-ons
+      </h3>
+
+      {/* Address Selection */}
+      <div>
+        <label className="mb-2 block text-sm font-medium text-[#211f1a]">
+          Service Address *
+        </label>
+
+        {!useCustomAddress && addresses.length > 0 && (
+          <div className="space-y-2">
+            <SavedAddressesManager
+              addresses={addresses}
+              onAddressSelect={(address) =>
+                setBookingData({ ...bookingData, address })
+              }
+              onAddressesChange={onAddressesChange}
+              selectedAddressId={bookingData.address?.id}
+              showManagement={false}
+            />
+            <button
+              onClick={() => setUseCustomAddress(true)}
+              className="text-sm text-[#ff5d46] hover:text-[#eb6c65]"
+            >
+              + Enter a different address
+            </button>
+          </div>
+        )}
+
+        {(useCustomAddress || addresses.length === 0) && (
+          <div className="space-y-2">
+            <textarea
+              value={bookingData.customAddress || ""}
+              onChange={(e) =>
+                setBookingData({
+                  ...bookingData,
+                  customAddress: e.target.value,
+                  address: null,
+                })
+              }
+              rows={3}
+              placeholder="Street, city, building access info..."
+              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+            />
+            {addresses.length > 0 && (
+              <button
+                onClick={() => setUseCustomAddress(false)}
+                className="text-sm text-[#ff5d46] hover:text-[#eb6c65]"
+              >
+                ← Use saved address
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Special Instructions */}
+      <div>
+        <label className="mb-2 block text-sm font-medium text-[#211f1a]">
+          Special Instructions
+        </label>
+        <textarea
+          value={bookingData.specialInstructions}
+          onChange={(e) =>
+            setBookingData({
+              ...bookingData,
+              specialInstructions: e.target.value,
+            })
+          }
+          rows={2}
+          placeholder="Pets, cleaning priorities, access codes..."
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+        />
+      </div>
+
+      {/* Service Add-ons */}
+      {addons.length > 0 && (
+        <div>
+          <label className="mb-2 block text-sm font-medium text-[#211f1a]">
+            Add Extra Services (Optional)
+          </label>
+          <div className="space-y-2">
+            {addons.map((addon) => {
+              const isSelected = bookingData.selectedAddons.some(
+                (a) => a.id === addon.id
+              );
+              return (
+                <button
+                  key={addon.id}
+                  onClick={() => toggleAddon(addon)}
+                  className={`w-full rounded-lg border p-3 text-left transition ${
+                    isSelected
+                      ? "border-[#ff5d46] bg-[#ff5d46]/5 ring-2 ring-[#ff5d46]/20"
+                      : "border-[#e5dfd4] bg-white hover:border-[#ff5d46]/50"
+                  }`}
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`text-lg ${isSelected ? "opacity-100" : "opacity-40"}`}
+                        >
+                          {isSelected ? "✓" : "○"}
+                        </span>
+                        <h4 className="font-semibold text-[#211f1a]">
+                          {addon.name}
+                        </h4>
+                      </div>
+                      {addon.description && (
+                        <p className="mt-1 text-sm text-[#7a6d62]">
+                          {addon.description}
+                        </p>
+                      )}
+                      <div className="mt-1 flex gap-3 text-xs text-[#7a6d62]">
+                        <span className="font-semibold text-[#ff5d46]">
+                          {formatCurrencyCOP(addon.price_cop)}
+                        </span>
+                        {addon.duration_minutes > 0 && (
+                          <span>+{addon.duration_minutes} min</span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      <div className="flex justify-between">
+        <button
+          onClick={onBack}
+          className="rounded-md border border-[#e5dfd4] px-6 py-2 text-sm font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+        >
+          ← Back
+        </button>
+        <button
+          onClick={onNext}
+          disabled={!canProceed}
+          className="rounded-md bg-[#ff5d46] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Review Booking →
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// Step 3: Confirmation Component
+function ConfirmationStep({
+  bookingData,
+  professionalName,
+  baseAmount,
+  addonsTotal,
+  totalAmount,
+  onBack,
+  onConfirm,
+  loading,
+}: {
+  bookingData: BookingData;
+  professionalName: string;
+  baseAmount: number;
+  addonsTotal: number;
+  totalAmount: number;
+  onBack: () => void;
+  onConfirm: () => void;
+  loading: boolean;
+}) {
+  return (
+    <div className="space-y-6">
+      <h3 className="text-lg font-semibold text-[#211f1a]">
+        Review Your Booking
+      </h3>
+
+      <div className="rounded-lg border border-[#f0ece5] bg-white p-6 space-y-4">
+        {/* Service Details */}
+        <div>
+          <h4 className="text-sm font-semibold text-[#7a6d62]">Service</h4>
+          <p className="mt-1 text-sm text-[#211f1a]">
+            {bookingData.serviceName} with {professionalName}
+          </p>
+        </div>
+
+        {/* Date & Time */}
+        <div>
+          <h4 className="text-sm font-semibold text-[#7a6d62]">
+            Date & Time
+          </h4>
+          <p className="mt-1 text-sm text-[#211f1a]">
+            {bookingData.selectedDate?.toLocaleDateString("en-US", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}{" "}
+            at {bookingData.selectedTime}
+          </p>
+          <p className="text-xs text-[#7a6d62]">
+            Duration: {bookingData.durationHours} hours
+          </p>
+          {bookingData.isRecurring && (
+            <p className="mt-1 text-xs text-[#ff5d46]">
+              ⏱️ Recurring {bookingData.recurrencePattern?.frequency}
+            </p>
+          )}
+        </div>
+
+        {/* Address */}
+        <div>
+          <h4 className="text-sm font-semibold text-[#7a6d62]">Location</h4>
+          {bookingData.address ? (
+            <div className="mt-1 text-sm text-[#211f1a]">
+              <p>{bookingData.address.street}</p>
+              <p>
+                {[
+                  bookingData.address.neighborhood,
+                  bookingData.address.city,
+                  bookingData.address.postal_code,
+                ]
+                  .filter(Boolean)
+                  .join(", ")}
+              </p>
+              {bookingData.address.building_access && (
+                <p className="text-xs text-[#7a6d62]">
+                  🔑 {bookingData.address.building_access}
+                </p>
+              )}
+            </div>
+          ) : (
+            <p className="mt-1 text-sm text-[#211f1a]">
+              {bookingData.customAddress}
+            </p>
+          )}
+        </div>
+
+        {/* Add-ons */}
+        {bookingData.selectedAddons.length > 0 && (
+          <div>
+            <h4 className="text-sm font-semibold text-[#7a6d62]">Add-ons</h4>
+            <ul className="mt-1 space-y-1">
+              {bookingData.selectedAddons.map((addon) => (
+                <li
+                  key={addon.id}
+                  className="flex justify-between text-sm text-[#211f1a]"
+                >
+                  <span>{addon.name}</span>
+                  <span>{formatCurrencyCOP(addon.price_cop)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Special Instructions */}
+        {bookingData.specialInstructions && (
+          <div>
+            <h4 className="text-sm font-semibold text-[#7a6d62]">
+              Special Instructions
+            </h4>
+            <p className="mt-1 text-sm text-[#211f1a]">
+              {bookingData.specialInstructions}
+            </p>
+          </div>
+        )}
+
+        {/* Price Breakdown */}
+        <div className="border-t border-[#f0ece5] pt-4">
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-[#7a6d62]">Service</span>
+              <span className="text-[#211f1a]">
+                {formatCurrencyCOP(baseAmount)}
+              </span>
+            </div>
+            {addonsTotal > 0 && (
+              <div className="flex justify-between text-sm">
+                <span className="text-[#7a6d62]">Add-ons</span>
+                <span className="text-[#211f1a]">
+                  {formatCurrencyCOP(addonsTotal)}
+                </span>
+              </div>
+            )}
+            <div className="flex justify-between border-t border-[#f0ece5] pt-2 text-base font-semibold">
+              <span className="text-[#211f1a]">Total</span>
+              <span className="text-[#ff5d46]">
+                {formatCurrencyCOP(totalAmount)}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <p className="text-xs text-[#7a6d62]">
+          We'll place a temporary hold on your payment method. You'll only be
+          charged after the service is completed.
+        </p>
+      </div>
+
+      <div className="flex justify-between">
+        <button
+          onClick={onBack}
+          disabled={loading}
+          className="rounded-md border border-[#e5dfd4] px-6 py-2 text-sm font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          ← Back
+        </button>
+        <button
+          onClick={onConfirm}
+          disabled={loading}
+          className="rounded-md bg-[#ff5d46] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {loading ? "Creating booking..." : "Proceed to Payment →"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// Payment Confirmation Component
+function PaymentConfirmation({
+  bookingId,
+  paymentIntentId,
+  onReset,
+}: {
+  bookingId: string;
+  paymentIntentId: string;
+  onReset: () => void;
+}) {
+  const stripe = useStripe();
+  const elements = useElements();
+  const router = useRouter();
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleConfirm = async () => {
+    if (!stripe || !elements) return;
+    setSubmitting(true);
+    setError(null);
+    try {
+      const { error, paymentIntent } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: window.location.origin,
+        },
+        redirect: "if_required",
+      });
+
+      if (error) {
+        throw new Error(
+          error.message ?? "Payment requires additional verification."
+        );
+      }
+
+      if (paymentIntent?.status === "requires_capture") {
+        await fetch("/api/bookings/authorize", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ bookingId, paymentIntentId }),
+        });
+      }
+
+      router.push(`/bookings/${bookingId}`);
+    } catch (err) {
+      console.error(err);
+      setError(err instanceof Error ? err.message : "Unexpected payment error");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="space-y-4 rounded-lg border border-[#f0ece5] bg-white p-6">
+      <h3 className="text-lg font-semibold text-[#211f1a]">
+        Confirm Payment Method
+      </h3>
+      <p className="text-sm text-[#7a6d62]">
+        We'll authorize a hold on your card. You'll only be charged after the
+        service is completed.
+      </p>
+      <PaymentElement options={{ layout: "tabs" }} />
+      {error && (
+        <p className="text-sm text-red-600">{error}</p>
+      )}
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={handleConfirm}
+          disabled={submitting}
+          className="rounded-md bg-[#ff5d46] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {submitting ? "Confirming..." : "Confirm Booking"}
+        </button>
+        <button
+          type="button"
+          onClick={onReset}
+          disabled={submitting}
+          className="rounded-md border border-[#e5dfd4] px-6 py-2 text-sm font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Cancel
+        </button>
+      </div>
+      <p className="text-xs text-[#7a6d62]">Booking ID: {bookingId}</p>
+    </div>
+  );
+}
+
+const stripeAppearance = {
+  theme: "flat" as const,
+  variables: {
+    colorPrimary: "#ff5d46",
+    colorText: "#211f1a",
+    borderRadius: "8px",
+  },
+};

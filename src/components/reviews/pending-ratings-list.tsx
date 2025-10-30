@@ -56,7 +56,7 @@ export function PendingRatingsList({ completedBookings }: Props) {
               <button
                 type="button"
                 onClick={() => setSelectedBooking(booking)}
-                className="rounded-lg bg-[#fd857f] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65]"
+                className="rounded-lg bg-[#ff5d46] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65]"
               >
                 Rate Customer
               </button>

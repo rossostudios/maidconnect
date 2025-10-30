@@ -27,7 +27,7 @@ export function UseCasesSection() {
               className="flex h-full flex-col gap-5 rounded-[32px] border border-[#e5dfd4] bg-white p-7 shadow-[0_20px_50px_rgba(18,17,15,0.05)]"
             >
               <div className="space-y-1">
-                <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[#fd857f]">
+                <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[#ff5d46]">
                   {flow.persona}
                 </p>
                 <h3 className="text-xl font-semibold text-[#211f1a]">{flow.name}</h3>
@@ -36,7 +36,7 @@ export function UseCasesSection() {
               <ul className="space-y-3 text-sm text-[#4d473d]">
                 {flow.steps.map((step) => (
                   <li key={step} className="flex items-start gap-2">
-                    <span className="mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-[#fd857f]" />
+                    <span className="mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-[#ff5d46]" />
                     <span>{step}</span>
                   </li>
                 ))}

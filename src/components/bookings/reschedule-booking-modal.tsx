@@ -101,18 +101,18 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6 shadow-xl">
-        <h2 className="text-xl font-semibold text-[#211f1a]">Reschedule Booking</h2>
-        <p className="mt-2 text-sm text-[#7a6d62]">
+      <div className="w-full max-w-md overflow-y-auto rounded-[28px] bg-white p-8 shadow-xl">
+        <h2 className="text-2xl font-semibold text-[#211f1a]">Reschedule Booking</h2>
+        <p className="mt-3 text-base text-[#5d574b]">
           {booking.service_name || "Service"}
         </p>
 
         {/* Current Schedule */}
-        <div className="mt-4 rounded-lg border border-[#ebe5d8] bg-[#fbfafa] p-3">
-          <p className="text-xs font-semibold uppercase tracking-wide text-[#7a6d62]">
+        <div className="mt-6 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">
             Current Schedule
           </p>
-          <p className="mt-1 text-sm text-[#211f1a]">
+          <p className="mt-2 text-base text-[#211f1a]">
             {booking.scheduled_start
               ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
                   dateStyle: "medium",
@@ -123,9 +123,9 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
         </div>
 
         {/* New Schedule Form */}
-        <div className="mt-4 space-y-4">
+        <div className="mt-6 space-y-6">
           <div>
-            <label htmlFor="newDate" className="mb-2 block text-sm font-medium text-[#211f1a]">
+            <label htmlFor="newDate" className="mb-2 block text-base font-semibold text-[#211f1a]">
               New Date
             </label>
             <input
@@ -134,12 +134,12 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
               value={newDate}
               onChange={(e) => setNewDate(e.target.value)}
               min={new Date().toISOString().split("T")[0]}
-              className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#fd857f] focus:outline-none focus:ring-2 focus:ring-[#fd857f]/20"
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             />
           </div>
 
           <div>
-            <label htmlFor="newTime" className="mb-2 block text-sm font-medium text-[#211f1a]">
+            <label htmlFor="newTime" className="mb-2 block text-base font-semibold text-[#211f1a]">
               New Time
             </label>
             <input
@@ -147,15 +147,15 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
               type="time"
               value={newTime}
               onChange={(e) => setNewTime(e.target.value)}
-              className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#fd857f] focus:outline-none focus:ring-2 focus:ring-[#fd857f]/20"
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             />
           </div>
         </div>
 
         {/* Important Notice */}
-        <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-3">
-          <p className="text-xs font-semibold text-blue-900">Important</p>
-          <p className="mt-1 text-xs text-blue-800">
+        <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-6">
+          <p className="text-base font-semibold text-blue-900">Important</p>
+          <p className="mt-3 text-base leading-relaxed text-blue-800">
             The professional will need to confirm the new time. Your booking will be reset to
             "pending confirmation" status.
           </p>
@@ -164,7 +164,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
         {/* Message */}
         {message && (
           <div
-            className={`mt-4 rounded-lg p-3 text-sm ${
+            className={`mt-6 rounded-2xl p-4 text-base ${
               message.type === "success"
                 ? "bg-green-50 text-green-800"
                 : "bg-red-50 text-red-800"
@@ -175,12 +175,12 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
         )}
 
         {/* Actions */}
-        <div className="mt-6 flex gap-3">
+        <div className="mt-8 flex gap-3">
           <button
             type="button"
             onClick={onClose}
             disabled={loading}
-            className="flex-1 rounded-lg border border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#7a6d62] transition hover:border-[#fd857f] hover:text-[#fd857f] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
           >
             Cancel
           </button>
@@ -188,7 +188,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
             type="button"
             onClick={handleReschedule}
             disabled={loading}
-            className="flex-1 rounded-lg bg-[#fd857f] px-4 py-2 font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-full bg-[#ff5d46] px-6 py-3 text-base font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
           >
             {loading ? "Rescheduling..." : "Reschedule"}
           </button>

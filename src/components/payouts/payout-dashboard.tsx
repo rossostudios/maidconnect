@@ -101,7 +101,7 @@ export function PayoutDashboard() {
   return (
     <div className="space-y-6">
       {/* Current Period Earnings */}
-      <div className="rounded-xl border border-[#f0ece5] bg-gradient-to-br from-[#fd857f]/10 to-white/90 p-6 shadow-sm">
+      <div className="rounded-xl border border-[#f0ece5] bg-gradient-to-br from-[#ff5d46]/10 to-white/90 p-6 shadow-sm">
         <div className="mb-4 flex items-start justify-between">
           <div>
             <h3 className="text-lg font-semibold text-[#211f1a]">Next Payout</h3>
@@ -116,7 +116,7 @@ export function PayoutDashboard() {
           </div>
           <button
             onClick={() => setShowScheduleInfo(!showScheduleInfo)}
-            className="text-xs font-medium text-[#fd857f] hover:text-[#eb6c65]"
+            className="text-xs font-medium text-[#ff5d46] hover:text-[#eb6c65]"
           >
             {showScheduleInfo ? "Hide" : "View"} Schedule
           </button>
@@ -147,7 +147,7 @@ export function PayoutDashboard() {
             <p className="text-xs font-medium uppercase tracking-wide text-[#7a6d62]">
               Platform Fee (18%)
             </p>
-            <p className="mt-1 text-2xl font-bold text-[#fd857f]">
+            <p className="mt-1 text-2xl font-bold text-[#ff5d46]">
               -{formatPayoutAmount(currentPeriod.commissionAmount, currentPeriod.currency)}
             </p>
             <p className="mt-1 text-xs text-[#7a6d62]">Commission deducted</p>
@@ -264,7 +264,7 @@ export function PayoutDashboard() {
                   <p className="text-sm font-medium text-[#211f1a]">
                     {formatPayoutAmount(payout.gross_amount, payout.currency)}
                   </p>
-                  <p className="text-xs text-[#fd857f]">
+                  <p className="text-xs text-[#ff5d46]">
                     -{formatPayoutAmount(payout.commission_amount, payout.currency)} fee
                   </p>
                 </div>

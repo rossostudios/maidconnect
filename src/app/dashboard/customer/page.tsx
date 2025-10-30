@@ -4,6 +4,9 @@ import { requireUser } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
 import { PaymentAuthorizationCard } from "@/components/payments/payment-authorization-card";
 import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
+import { SavedAddressesManager } from "@/components/addresses/saved-addresses-manager";
+import { FavoritesList } from "@/components/favorites/favorites-list";
+import { MessagingInterface } from "@/components/messaging/messaging-interface";
 
 const QUICK_LINKS = [
   {
@@ -83,7 +86,7 @@ export default async function CustomerDashboardPage() {
       .maybeSingle(),
     supabase
       .from("customer_profiles")
-      .select("verification_tier, property_preferences")
+      .select("verification_tier, property_preferences, saved_addresses")
       .eq("profile_id", user.id)
       .maybeSingle(),
     supabase
@@ -111,10 +114,15 @@ export default async function CustomerDashboardPage() {
     full_name: string | null;
     stripe_customer_id: string | null;
   } | null) ?? null;
-  const customerProfile = (customerData as { verification_tier: string | null; property_preferences: Record<string, unknown> | null } | null) ?? null;
+  const customerProfile = (customerData as {
+    verification_tier: string | null;
+    property_preferences: Record<string, unknown> | null;
+    saved_addresses: unknown;
+  } | null) ?? null;
 
   const verificationTier = customerProfile?.verification_tier ?? "basic";
   const propertyType = (customerProfile?.property_preferences?.property_type as string | undefined) ?? null;
+  const savedAddresses = (customerProfile?.saved_addresses as any[]) || [];
 
   const hasProfileDetails = Boolean(profile?.phone && profile.city);
   let hasPaymentMethod = false;
@@ -153,27 +161,27 @@ export default async function CustomerDashboardPage() {
   } as Record<(typeof CUSTOMER_TASKS)[number]["id"], boolean>;
 
   return (
-    <section className="flex-1 space-y-6">
-      <header className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
+    <section className="flex-1 space-y-8">
+      <header className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
         <div className="flex items-start justify-between gap-6">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-wide text-[#fd857f]">Customer dashboard</span>
-            <h1 className="mt-2 text-2xl font-semibold text-[#211f1a]">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">CUSTOMER DASHBOARD</p>
+            <h1 className="mt-4 text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
               Welcome back{profile?.full_name ? `, ${profile.full_name}` : ""}
             </h1>
-            <p className="mt-1 text-sm text-[#7a6d62]">
+            <p className="mt-4 text-lg leading-relaxed text-[#5d574b]">
               Explore vetted professionals, review upcoming visits, and manage payments in one place.
             </p>
           </div>
           <Link
             href="/auth/sign-out?redirectTo=/"
-            className="text-sm font-medium text-[#fd857f] transition hover:text-[#eb6c65]"
+            className="inline-flex items-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           >
             Sign out
           </Link>
         </div>
 
-        <dl className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <dl className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <SummaryCard label="Account email" value={user.email ?? "—"} />
           <SummaryCard label="Phone" value={profile?.phone ?? "Add your phone"} />
           <SummaryCard label="City" value={profile?.city ?? "Add your city"} />
@@ -181,55 +189,60 @@ export default async function CustomerDashboardPage() {
         </dl>
       </header>
 
-      <section className="rounded-xl border border-[#fd857f33] bg-[#fef1ee] p-6 shadow-sm">
+      <section className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-[#402d2d]">Get ready to book</h2>
-            <p className="text-sm text-[#7a524c]">
+            <h2 className="text-3xl font-semibold text-[#211f1a]">Get ready to book</h2>
+            <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
               Complete these quick steps to unlock instant booking confirmations and top-rated professionals.
             </p>
           </div>
           <Link
             href="#"
-            className="inline-flex items-center justify-center rounded-md bg-[#fd857f] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#eb6c65]"
+            className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
           >
             Update profile
           </Link>
         </div>
 
-        <ol className="mt-6 grid gap-4 md:grid-cols-2">
-          {CUSTOMER_TASKS.map((task) => {
+        <ol className="mt-8 grid gap-6 md:grid-cols-2">
+          {CUSTOMER_TASKS.map((task, index) => {
             const isComplete = completedTasks[task.id];
             return (
               <li
                 key={task.id}
-                className="rounded-lg border border-[#f0e1dc] bg-white/90 p-4 shadow-sm transition hover:border-[#fd857f40]"
+                className="rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-md"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium uppercase tracking-wide text-[#fd857f]">{task.title}</span>
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#ff5d46] text-sm font-semibold text-white">
+                      {index + 1}
+                    </div>
+                    <span className="text-base font-semibold text-[#211f1a]">{task.title}</span>
+                  </div>
                   {isComplete ? (
-                    <span className="rounded-full bg-[#e6f5ea] px-2 py-0.5 text-xs font-semibold text-[#2f7a47]">
+                    <span className="rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
                       Completed
                     </span>
                   ) : (
-                    <span className="rounded-full bg-[#fde0dc] px-2 py-0.5 text-xs font-semibold text-[#c4534d]">
+                    <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-700">
                       Action needed
                     </span>
                   )}
                 </div>
-                <p className="mt-2 text-sm text-[#211f1a]">{task.description}</p>
+                <p className="mt-4 text-base leading-relaxed text-[#5d574b]">{task.description}</p>
                 {task.id === "payment" ? (
                   <PaymentAuthorizationCard hasPaymentMethod={hasPaymentMethod} />
                 ) : !isComplete ? (
                   <Link
                     href={task.cta.href}
-                    className="mt-3 inline-flex items-center text-sm font-semibold text-[#fd857f] hover:text-[#eb6c65]"
+                    className="mt-4 inline-flex items-center text-base font-semibold text-[#ff5d46] hover:text-[#eb6c65]"
                   >
                     {task.cta.label} →
                   </Link>
                 ) : null}
                 {task.id === "verification" && !isComplete ? (
-                  <p className="mt-3 text-xs text-[#c4534d]">Upgrade to Standard to unlock the verification badge.</p>
+                  <p className="mt-4 text-sm text-orange-700">Upgrade to Standard to unlock the verification badge.</p>
                 ) : null}
               </li>
             );
@@ -237,37 +250,47 @@ export default async function CustomerDashboardPage() {
         </ol>
       </section>
 
+      <section id="addresses" className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+        <h2 className="text-3xl font-semibold text-[#211f1a]">Saved Addresses</h2>
+        <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
+          Manage your service locations for faster booking. Add details like building access and parking info.
+        </p>
+        <div className="mt-8">
+          <SavedAddressesManager addresses={savedAddresses} />
+        </div>
+      </section>
+
       <section className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
-          <h3 className="text-lg font-semibold text-[#211f1a]">Property preferences</h3>
-          <p className="mt-1 text-sm text-[#7a6d62]">
+        <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+          <h3 className="text-2xl font-semibold text-[#211f1a]">Property preferences</h3>
+          <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
             Sharing a few details about your home helps professionals prepare with the right supplies.
           </p>
-          <dl className="mt-4 space-y-3 text-sm">
+          <dl className="mt-6 space-y-4 text-base">
             <div>
-              <dt className="text-xs font-semibold uppercase tracking-wide text-[#7a6d62]">Property type</dt>
-              <dd className="mt-1 text-[#211f1a]">{formatPropertyType(propertyType)}</dd>
+              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">Property type</dt>
+              <dd className="mt-2 text-[#211f1a]">{formatPropertyType(propertyType)}</dd>
             </div>
             <div>
-              <dt className="text-xs font-semibold uppercase tracking-wide text-[#7a6d62]">City</dt>
-              <dd className="mt-1 text-[#211f1a]">{profile?.city ?? "Add your city"}</dd>
+              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">City</dt>
+              <dd className="mt-2 text-[#211f1a]">{profile?.city ?? "Add your city"}</dd>
             </div>
             <div>
-              <dt className="text-xs font-semibold uppercase tracking-wide text-[#7a6d62]">Country</dt>
-              <dd className="mt-1 text-[#211f1a]">{profile?.country ?? "Colombia"}</dd>
+              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">Country</dt>
+              <dd className="mt-2 text-[#211f1a]">{profile?.country ?? "Colombia"}</dd>
             </div>
           </dl>
-          <Link href="#" className="mt-4 inline-flex items-center text-sm font-semibold text-[#fd857f] hover:text-[#eb6c65]">
+          <Link href="#" className="mt-6 inline-flex items-center text-base font-semibold text-[#ff5d46] hover:text-[#eb6c65]">
             Update preferences →
           </Link>
         </div>
 
-        <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
-          <h3 className="text-lg font-semibold text-[#211f1a]">Need help?</h3>
-          <p className="mt-1 text-sm text-[#7a6d62]">
+        <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+          <h3 className="text-2xl font-semibold text-[#211f1a]">Need help?</h3>
+          <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
             Our support team can help with verification, bookings, or anything else you need.
           </p>
-          <ul className="mt-4 space-y-3 text-sm text-[#211f1a]">
+          <ul className="mt-6 space-y-3 text-base text-[#211f1a]">
             <li>
               <span className="font-semibold">Live chat:</span> Weekdays 8:00–20:00 COT
             </li>
@@ -278,32 +301,52 @@ export default async function CustomerDashboardPage() {
               <span className="font-semibold">Emergency line:</span> +57 123 456 7890
             </li>
           </ul>
-          <Link href="/support/account-suspended" className="mt-4 inline-flex items-center text-sm font-semibold text-[#fd857f] hover:text-[#eb6c65]">
+          <Link href="/support/account-suspended" className="mt-6 inline-flex items-center text-base font-semibold text-[#ff5d46] hover:text-[#eb6c65]">
             Browse help center →
           </Link>
         </div>
       </section>
 
-      <section className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
-        <h2 className="text-lg font-semibold text-[#211f1a]">My Bookings</h2>
-        <p className="mt-1 text-sm text-[#7a6d62]">
+      <section id="bookings" className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+        <h2 className="text-3xl font-semibold text-[#211f1a]">My Bookings</h2>
+        <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
           View and manage your upcoming and past service appointments.
         </p>
-        <div className="mt-6">
+        <div className="mt-8">
           <CustomerBookingList bookings={bookings} />
         </div>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-3">
+      <section id="favorites" className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+        <h2 className="text-3xl font-semibold text-[#211f1a]">My Favorites</h2>
+        <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
+          Quick access to your favorite professionals for easy rebooking.
+        </p>
+        <div className="mt-8">
+          <FavoritesList />
+        </div>
+      </section>
+
+      <section id="messages" className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+        <h2 className="text-3xl font-semibold text-[#211f1a]">Messages</h2>
+        <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
+          Chat with professionals about your bookings and service details.
+        </p>
+        <div className="mt-8">
+          <MessagingInterface userId={user.id} userRole="customer" />
+        </div>
+      </section>
+
+      <section className="grid gap-6 lg:grid-cols-3">
         {QUICK_LINKS.map((item) => (
           <Link
             key={item.title}
             href={item.href}
-            className="group rounded-xl border border-[#efe7dc] bg-white/90 p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-[#fd857f4d]"
+            className="group rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)]"
           >
-            <h3 className="text-sm font-semibold text-[#211f1a]">{item.title}</h3>
-            <p className="mt-1 text-sm text-[#7a6d62]">{item.description}</p>
-            <span className="mt-3 inline-flex items-center text-sm font-semibold text-[#fd857f] group-hover:text-[#eb6c65]">
+            <h3 className="text-lg font-semibold text-[#211f1a]">{item.title}</h3>
+            <p className="mt-3 text-base leading-relaxed text-[#5d574b]">{item.description}</p>
+            <span className="mt-4 inline-flex items-center text-base font-semibold text-[#ff5d46] group-hover:text-[#eb6c65]">
               Go now →
             </span>
           </Link>
@@ -315,9 +358,9 @@ export default async function CustomerDashboardPage() {
 
 function SummaryCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg border border-[#efe7dc] bg-white/70 p-4">
-      <dt className="text-xs font-medium uppercase tracking-wide text-[#7a6d62]">{label}</dt>
-      <dd className="mt-1 text-sm text-[#211f1a]">{value}</dd>
+    <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm">
+      <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">{label}</dt>
+      <dd className="mt-2 text-base font-medium text-[#211f1a]">{value}</dd>
     </div>
   );
 }

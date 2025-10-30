@@ -136,30 +136,24 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
   };
 
   return (
-    <section className="rounded-[32px] border border-[#ebe5d8] bg-white p-6 shadow-[0_24px_60px_rgba(18,17,15,0.06)]">
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div>
-          <h3 className="flex items-center gap-2 text-lg font-semibold text-[#211f1a]">
-            <CalendarDays className="h-5 w-5 text-[#fd857f]" />
-            Availability & bookings
-          </h3>
-          <p className="text-sm text-[#7a6d62]">
-            Browse upcoming availability and see which dates already have confirmed or pending visits.
-          </p>
-        </div>
+    <div>
+      <div className="mb-4 flex items-center justify-between">
+        <p className="text-sm text-[#7a6d62]">
+          Browse upcoming availability and see booked dates
+        </p>
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={() => changeMonth(-1)}
-            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-sm text-[#5d574b] transition hover:border-[#fd857f] hover:text-[#fd857f]"
+            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-sm text-[#5d574b] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
-          <p className="text-sm font-semibold text-[#211f1a] capitalize">{monthLabel}</p>
+          <p className="text-sm font-semibold capitalize text-[#211f1a]">{monthLabel}</p>
           <button
             type="button"
             onClick={() => changeMonth(1)}
-            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-sm text-[#5d574b] transition hover:border-[#fd857f] hover:text-[#fd857f]"
+            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-sm text-[#5d574b] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           >
             <ChevronRight className="h-4 w-4" />
           </button>
@@ -188,14 +182,14 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
                 className={cn(
                   "flex h-20 flex-col items-center justify-center rounded-lg border text-sm transition",
                   day.inCurrentMonth ? "border-[#efe7dc] bg-white" : "border-transparent bg-[#fbfafa] text-[#c4bbaf]",
-                  hasAvailability ? "ring-1 ring-inset ring-[#fd857f]/30" : "",
+                  hasAvailability ? "ring-1 ring-inset ring-[#ff5d46]/30" : "",
                   hasBookings ? "shadow-[0_6px_14px_rgba(18,17,15,0.08)]" : "",
-                  isSelected ? "border-[#fd857f] ring-2 ring-[#fd857f33]" : "",
+                  isSelected ? "border-[#ff5d46] ring-2 ring-[#ff5d4633]" : "",
                 )}
               >
                 <span className="text-sm font-semibold">{day.label}</span>
                 {hasAvailability ? (
-                  <span className="mt-1 rounded-full bg-[#fd857f]/12 px-2 py-0.5 text-xs font-semibold text-[#8a3934]">
+                  <span className="mt-1 rounded-full bg-[#ff5d46]/12 px-2 py-0.5 text-xs font-semibold text-[#8a3934]">
                     Open
                   </span>
                 ) : null}
@@ -225,7 +219,7 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
               <ul className="space-y-1 text-sm text-[#211f1a]">
                 {selectedAvailability.map((slot, index) => (
                   <li key={`${slot.day}-${slot.start}-${slot.end}-${index}`} className="flex items-center gap-2">
-                    <Clock className="h-3.5 w-3.5 text-[#fd857f]" aria-hidden="true" />
+                    <Clock className="h-3.5 w-3.5 text-[#ff5d46]" aria-hidden="true" />
                     <span>
                       {slot.start ?? "--"} – {slot.end ?? "--"}
                     </span>
@@ -280,6 +274,6 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

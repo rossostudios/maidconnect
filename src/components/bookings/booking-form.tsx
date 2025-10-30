@@ -106,7 +106,7 @@ export function BookingForm({ professionalId, professionalName, services, defaul
               name="serviceName"
               value={selectedServiceName}
               onChange={(event) => setSelectedServiceName(event.target.value)}
-              className="w-full rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 text-sm font-medium text-[#211f1a] shadow-inner shadow-black/5 transition hover:border-[#fd857f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#fd857f]"
+              className="w-full rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 text-sm font-medium text-[#211f1a] shadow-inner shadow-black/5 transition hover:border-[#ff5d46] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5d46]"
               required
             >
               <option value="" disabled>
@@ -149,7 +149,7 @@ export function BookingForm({ professionalId, professionalName, services, defaul
                 const next = Number(event.target.value);
                 setDurationHours(Number.isNaN(next) ? 0 : next);
               }}
-              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#fd857f] focus:outline-none focus:ring-2 focus:ring-[#fd857f33]"
+              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
               required
             />
           </FormField>
@@ -168,7 +168,7 @@ export function BookingForm({ professionalId, professionalName, services, defaul
           <textarea
             name="specialInstructions"
             rows={3}
-            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#fd857f] focus:outline-none focus:ring-2 focus:ring-[#fd857f33]"
+            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             placeholder="Building entry instructions, pets, cleaning priorities..."
           />
         </FormField>
@@ -176,7 +176,7 @@ export function BookingForm({ professionalId, professionalName, services, defaul
           <textarea
             name="address"
             rows={2}
-            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#fd857f] focus:outline-none focus:ring-2 focus:ring-[#fd857f33]"
+            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             placeholder="Street, city, any access info"
           />
         </FormField>
@@ -192,7 +192,7 @@ export function BookingForm({ professionalId, professionalName, services, defaul
               estimatedAmount <= 0 ||
               durationHours <= 0
             }
-            className="inline-flex items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:border-[#fd857f] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {pending ? "Creating booking…" : "Create booking"}
           </button>
@@ -215,7 +215,7 @@ export function BookingForm({ professionalId, professionalName, services, defaul
 const stripeAppearance = {
   theme: "flat" as const,
   variables: {
-    colorPrimary: "#fd857f",
+    colorPrimary: "#ff5d46",
     colorText: "#211f1a",
     borderRadius: "8px",
   },
@@ -362,7 +362,7 @@ function PaymentConfirmation({ bookingId, paymentIntentId, onReset }: PaymentCon
           type="button"
           onClick={handleConfirm}
           disabled={submitting}
-          className="inline-flex items-center justify-center rounded-md bg-[#fd857f] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center justify-center rounded-md bg-[#ff5d46] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
         >
           {submitting ? "Confirming…" : "Confirm hold"}
         </button>
@@ -370,7 +370,7 @@ function PaymentConfirmation({ bookingId, paymentIntentId, onReset }: PaymentCon
           type="button"
           onClick={onReset}
           disabled={submitting}
-          className="inline-flex items-center justify-center rounded-md border border-[#e5dfd4] px-3 py-1.5 text-xs font-semibold text-[#7a6d62] transition hover:border-[#fd857f] hover:text-[#fd857f] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center justify-center rounded-md border border-[#e5dfd4] px-3 py-1.5 text-xs font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
         >
           Cancel
         </button>

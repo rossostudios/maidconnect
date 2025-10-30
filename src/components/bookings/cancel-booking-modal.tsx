@@ -101,9 +101,9 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-6 shadow-xl">
-        <h2 className="text-xl font-semibold text-[#211f1a]">Cancel Booking</h2>
-        <p className="mt-2 text-sm text-[#7a6d62]">
+      <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-[28px] bg-white p-8 shadow-xl">
+        <h2 className="text-2xl font-semibold text-[#211f1a]">Cancel Booking</h2>
+        <p className="mt-3 text-base text-[#5d574b]">
           {booking.service_name || "Service"} •{" "}
           {booking.scheduled_start
             ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
@@ -115,18 +115,18 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
 
         {/* Cancellation Policy Info */}
         {policy && (
-          <div className={`mt-4 rounded-lg border p-4 ${
+          <div className={`mt-6 rounded-2xl border p-6 ${
             policy.canCancel
               ? "border-yellow-200 bg-yellow-50"
               : "border-red-200 bg-red-50"
           }`}>
-            <p className={`text-sm font-semibold ${
+            <p className={`text-base font-semibold ${
               policy.canCancel ? "text-yellow-900" : "text-red-900"
             }`}>
               {policy.reason}
             </p>
             {policy.canCancel && (
-              <div className="mt-2 text-sm text-yellow-800">
+              <div className="mt-3 space-y-1 text-base text-yellow-800">
                 <p>
                   <strong>Refund:</strong> {policy.refundPercentage}% (
                   {formatAmount(refundAmount, booking.currency)})
@@ -140,19 +140,19 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
         )}
 
         {/* Policy Details */}
-        <details className="mt-4">
-          <summary className="cursor-pointer text-sm font-medium text-[#7a6d62]">
+        <details className="mt-6">
+          <summary className="cursor-pointer text-base font-semibold text-[#211f1a]">
             View Cancellation Policy
           </summary>
-          <pre className="mt-2 whitespace-pre-wrap text-xs text-[#5d574b]">
+          <pre className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-[#5d574b]">
             {getCancellationPolicyDescription()}
           </pre>
         </details>
 
         {/* Reason Input */}
         {policy?.canCancel && (
-          <div className="mt-4">
-            <label htmlFor="reason" className="mb-2 block text-sm font-medium text-[#211f1a]">
+          <div className="mt-6">
+            <label htmlFor="reason" className="mb-2 block text-base font-semibold text-[#211f1a]">
               Reason for cancellation (optional)
             </label>
             <textarea
@@ -160,8 +160,8 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
               value={reason}
               onChange={(e) => setReason(e.target.value)}
               placeholder="Let the professional know why you need to cancel..."
-              rows={3}
-              className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#fd857f] focus:outline-none focus:ring-2 focus:ring-[#fd857f]/20"
+              rows={4}
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             />
           </div>
         )}
@@ -169,7 +169,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
         {/* Message */}
         {message && (
           <div
-            className={`mt-4 rounded-lg p-3 text-sm ${
+            className={`mt-6 rounded-2xl p-4 text-base ${
               message.type === "success"
                 ? "bg-green-50 text-green-800"
                 : "bg-red-50 text-red-800"
@@ -180,12 +180,12 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
         )}
 
         {/* Actions */}
-        <div className="mt-6 flex gap-3">
+        <div className="mt-8 flex gap-3">
           <button
             type="button"
             onClick={onClose}
             disabled={loading}
-            className="flex-1 rounded-lg border border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#7a6d62] transition hover:border-[#fd857f] hover:text-[#fd857f] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
           >
             Keep Booking
           </button>
@@ -194,7 +194,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
               type="button"
               onClick={handleCancel}
               disabled={loading}
-              className="flex-1 rounded-lg bg-red-600 px-4 py-2 font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70"
+              className="flex-1 rounded-full bg-red-600 px-6 py-3 text-base font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70"
             >
               {loading ? "Canceling..." : "Cancel Booking"}
             </button>

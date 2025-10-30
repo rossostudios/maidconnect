@@ -103,9 +103,15 @@ export const steps = [
   },
   {
     step: "03",
-    title: "Start with ongoing support",
+    title: "Book and confirm",
     description:
-      "We coordinate onboarding, agreements, and follow-ups to ensure every visit meets your expectations.",
+      "Schedule your service with instant or approved booking. Communicate directly through secure messaging.",
+  },
+  {
+    step: "04",
+    title: "Rate and rebook",
+    description:
+      "Share feedback after each visit. Save your favorites and rebook with one click for ongoing support.",
   },
 ];
 

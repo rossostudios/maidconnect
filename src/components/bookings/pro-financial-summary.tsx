@@ -116,7 +116,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
     <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <DollarSign className="h-5 w-5 text-[#fd857f]" />
+          <DollarSign className="h-5 w-5 text-[#ff5d46]" />
           <h3 className="text-lg font-semibold text-[#211f1a]">Financial overview</h3>
         </div>
         {needsConnect ? (
@@ -124,7 +124,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
             type="button"
             onClick={startStripeOnboarding}
             disabled={isPending}
-            className="inline-flex items-center rounded-md bg-[#fd857f] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex items-center rounded-md bg-[#ff5d46] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
           >
             {isPending ? "Opening Stripe…" : "Set up Stripe payouts"}
           </button>

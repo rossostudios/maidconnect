@@ -23,9 +23,9 @@ export function CapabilitiesSection() {
               {productPillars.map((pillar) => (
                 <div
                   key={pillar.title}
-                  className="flex flex-col gap-3 rounded-[28px] border border-[#26231f] bg-[#181612] p-6 text-left transition hover:border-[#fd857f]/60"
+                  className="flex flex-col gap-3 rounded-[28px] border border-[#26231f] bg-[#181612] p-6 text-left transition hover:border-[#ff5d46]/60"
                 >
-                  <pillar.icon className="h-6 w-6 text-[#fd857f]" />
+                  <pillar.icon className="h-6 w-6 text-[#ff5d46]" />
                   <h3 className="text-lg font-semibold text-white">{pillar.title}</h3>
                   <p className="text-sm text-[#cfc8be]">{pillar.description}</p>
                 </div>

@@ -52,7 +52,7 @@ export function SignInForm({ redirectTo }: Props) {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:border-[#fd857f] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isPending ? "Signing in…" : "Sign in"}
       </button>

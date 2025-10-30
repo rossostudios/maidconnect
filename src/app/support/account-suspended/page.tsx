@@ -13,13 +13,13 @@ export default function AccountSuspendedPage() {
         <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
           <Link
             href="mailto:support@maidconnect.com"
-            className="rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:border-[#fd857f] hover:bg-[#2b2624]"
+            className="rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624]"
           >
             Email support
           </Link>
           <Link
             href={AUTH_ROUTES.signOut}
-            className="rounded-full border border-[#211f1a] px-5 py-2 text-sm font-semibold text-[#211f1a] transition hover:border-[#fd857f]"
+            className="rounded-full border border-[#211f1a] px-5 py-2 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46]"
           >
             Return to home
           </Link>
