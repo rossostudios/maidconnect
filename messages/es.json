@@ -414,6 +414,114 @@
         "browseProfessionals": "Explorar Profesionales",
         "becomeProfessional": "Ser Profesional"
       }
+    },
+    "paymentProcessing": {
+      "meta": {
+        "title": "Procesamiento de Pagos Seguros - Impulsado por Stripe | Maidconnect",
+        "description": "Pagos seguros y transparentes con Stripe. Rastree gastos, administre recibos y maneje propinas, todo en un solo lugar. Depósito en garantía seguro y pagos automáticos."
+      },
+      "hero": {
+        "headline": "Pagos seguros y transparentes en todo momento",
+        "description": "Procesamiento de pagos seguro con Stripe. Rastree gastos, administre recibos y maneje propinas, todo en un solo lugar con total transparencia.",
+        "primaryCTA": "Ver Cómo Funciona",
+        "secondaryCTA": "Reservar un Servicio",
+        "badge": "Impulsado por Stripe"
+      },
+      "features": {
+        "title": "Procesamiento de pagos en el que puede confiar",
+        "subtitle": "Seguridad de nivel empresarial con transparencia para el consumidor",
+        "stripeIntegration": {
+          "title": "Integración Segura con Stripe",
+          "description": "Seguridad de pago estándar de la industria con transacciones encriptadas. La información de su tarjeta nunca toca nuestros servidores."
+        },
+        "transparentPricing": {
+          "title": "Precios Transparentes",
+          "description": "Desglose claro de tarifas de servicio, complementos y costos totales antes del pago. Sin cargos ocultos ni tarifas sorpresa."
+        },
+        "automaticReceipts": {
+          "title": "Recibos Automáticos",
+          "description": "Recibos digitales y seguimiento de gastos para cada reserva. Perfecto para deducciones fiscales y presupuestos domésticos."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo funcionan los pagos",
+        "description": "Simple, seguro y transparente de principio a fin",
+        "step1": {
+          "title": "Revisar Precios",
+          "description": "Vea el desglose completo del servicio base, complementos y total antes de reservar"
+        },
+        "step2": {
+          "title": "Autorizar Pago",
+          "description": "La autorización de pago segura a través de Stripe retiene los fondos hasta que se complete el servicio"
+        },
+        "step3": {
+          "title": "Servicio Completado",
+          "description": "El profesional recibe el pago después de completar el servicio y registrar la salida"
+        },
+        "step4": {
+          "title": "Obtener Recibo",
+          "description": "Recibo digital automático con todos los detalles de la transacción enviado a su correo electrónico"
+        }
+      },
+      "paymentTimeline": {
+        "title": "Cronología de pagos explicada",
+        "booking": {
+          "title": "Confirmación de reserva - Retención de autorización colocada",
+          "description": "Cuando reserva, colocamos una retención de autorización temporal en su tarjeta por el monto total. Esto no es un cargo todavía, solo reserva los fondos."
+        },
+        "serviceDay": {
+          "title": "Día del servicio - El registro comienza el servicio",
+          "description": "El profesional se registra cuando llega. La retención de autorización permanece en su lugar durante el servicio. Puede rastrear el progreso del servicio en tiempo real."
+        },
+        "serviceComplete": {
+          "title": "Servicio completo - La salida captura el pago",
+          "description": "Cuando el profesional se registra de salida y marca el servicio como completo, la autorización se convierte en un cargo real. Aquí es cuando se le factura."
+        },
+        "postService": {
+          "title": "Post-servicio - Procesamiento de recibo y pago",
+          "description": "Recibe un recibo digital de inmediato. El profesional recibe su pago (menos las tarifas de la plataforma) dentro de 2-3 días hábiles."
+        }
+      },
+      "protection": {
+        "title": "Su protección de pago",
+        "chargedAfter": {
+          "title": "Solo se cobra después de completar el servicio",
+          "description": "Las retenciones de autorización no son cargos. Solo se le factura cuando el profesional marca el servicio como completo y se registra de salida."
+        },
+        "cancellation": {
+          "title": "Protecciones de cancelación",
+          "description": "Cancele antes de que cierre la ventana de cancelación y la retención se libera automáticamente. Sin cargo, sin complicaciones, sin preguntas."
+        },
+        "dispute": {
+          "title": "Soporte de resolución de disputas",
+          "description": "Si el servicio no se entregó como se prometió, comuníquese con soporte dentro de las 24 horas. Revisamos las disputas y procesamos reembolsos cuando sea apropiado."
+        },
+        "encrypted": {
+          "title": "Almacenamiento de tarjeta encriptado",
+          "description": "Su información de pago está tokenizada y encriptada por Stripe. Nunca vemos ni almacenamos los detalles completos de su tarjeta en nuestros servidores."
+        }
+      },
+      "acceptedMethods": {
+        "title": "Métodos de pago aceptados",
+        "creditCards": {
+          "title": "Tarjetas de Crédito",
+          "description": "Visa, Mastercard, American Express, Discover"
+        },
+        "debitCards": {
+          "title": "Tarjetas de Débito",
+          "description": "Todas las principales tarjetas de débito con número de tarjeta y CVV"
+        },
+        "digitalReceipts": {
+          "title": "Recibos Digitales",
+          "description": "Recibos automáticos enviados por correo electrónico para todas las transacciones"
+        }
+      },
+      "cta": {
+        "title": "¿Listo para pagos seguros y transparentes?",
+        "description": "Experimente el procesamiento de pagos sin complicaciones respaldado por la seguridad líder en la industria de Stripe",
+        "bookService": "Reserve Su Primer Servicio",
+        "signUpFree": "Registrarse Gratis"
+      }
     }
   }
 }

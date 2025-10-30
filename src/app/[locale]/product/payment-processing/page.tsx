@@ -1,67 +1,75 @@
 import { Metadata } from "next";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { CreditCard, Shield, Receipt, CheckCircle2 } from "lucide-react";
 import { ProductHeroSection } from "@/components/product/product-hero-section";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
 import { ProductStepsSection } from "@/components/product/product-steps-section";
 import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
+import { Link } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "Secure Payment Processing - Stripe Powered | Maidconnect",
-  description:
-    "Safe, transparent payments with Stripe. Track expenses, manage receipts, and handle tips all in one place. Secure escrow and automatic payouts.",
-  keywords: [
-    "secure payments",
-    "Stripe integration",
-    "payment processing",
-    "escrow payments",
-    "transparent pricing",
-    "digital receipts",
-    "automatic payouts",
-  ],
-  openGraph: {
-    title: "Secure Payment Processing - Stripe Powered | Maidconnect",
-    description:
-      "Safe, transparent payments every time. Secure payment processing with Stripe, expense tracking, and complete transparency.",
-    url: "https://maidconnect.co/product/payment-processing",
-    siteName: "Maidconnect",
-    images: [
-      {
-        url: "https://maidconnect.co/og-payment-processing.png",
-        width: 1200,
-        height: 630,
-        alt: "Maidconnect Secure Payment Processing",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Secure Payment Processing - Stripe Powered | Maidconnect",
-    description:
-      "Safe, transparent payments with Stripe. Track expenses, manage receipts, and handle tips all in one place.",
-    images: ["https://maidconnect.co/og-payment-processing.png"],
-  },
-  alternates: {
-    canonical: "https://maidconnect.co/product/payment-processing",
-  },
+type Props = {
+  params: { locale: string };
 };
 
-export default function PaymentProcessingPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "pages.paymentProcessing.meta" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: [
+      "secure payments",
+      "Stripe integration",
+      "payment processing",
+      "escrow payments",
+      "transparent pricing",
+      "digital receipts",
+      "automatic payouts",
+    ],
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      url: "https://maidconnect.co/product/payment-processing",
+      siteName: "Maidconnect",
+      images: [
+        {
+          url: "https://maidconnect.co/og-payment-processing.png",
+          width: 1200,
+          height: 630,
+          alt: "Maidconnect Secure Payment Processing",
+        },
+      ],
+      locale: locale === "es" ? "es_ES" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: ["https://maidconnect.co/og-payment-processing.png"],
+    },
+    alternates: {
+      canonical: "https://maidconnect.co/product/payment-processing",
+    },
+  };
+}
+
+export default async function PaymentProcessingPage({ params }: Props) {
+  const { locale } = params;
+  const t = await getTranslations({ locale, namespace: "pages.paymentProcessing" });
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Maidconnect Payment Processing",
     applicationCategory: "FinanceApplication",
-    description:
-      "Secure payment processing with Stripe. Track expenses, manage receipts, and handle tips with complete transparency.",
+    description: t("hero.description"),
     featureList: [
-      "Secure Stripe Integration",
-      "Escrow Protection",
-      "Automatic Receipts",
-      "Tip Management",
+      t("features.stripeIntegration.title"),
+      t("protection.chargedAfter.title"),
+      t("features.automaticReceipts.title"),
     ],
     operatingSystem: "Web",
   };
@@ -76,11 +84,11 @@ export default function PaymentProcessingPage() {
       <main>
         {/* Hero Section */}
         <ProductHeroSection
-          headline="Safe, transparent payments every time"
-          description="Secure payment processing with Stripe. Track expenses, manage receipts, and handle tips all in one place with complete transparency."
-          primaryCTA={{ label: "See How It Works", href: "#features" }}
-          secondaryCTA={{ label: "Book a Service", href: "/professionals" }}
-          badge="Powered by Stripe"
+          headline={t("hero.headline")}
+          description={t("hero.description")}
+          primaryCTA={{ label: t("hero.primaryCTA"), href: "#features" }}
+          secondaryCTA={{ label: t("hero.secondaryCTA"), href: "/professionals" }}
+          badge={t("hero.badge")}
         />
 
         {/* Features Section */}
@@ -90,30 +98,30 @@ export default function PaymentProcessingPage() {
         >
           <div className="mx-auto max-w-6xl">
             <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl lg:text-6xl">
-              Payment processing you can trust
+              {t("features.title")}
             </h2>
 
             <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-relaxed text-[#5d574b]">
-              Enterprise-grade security with consumer-friendly transparency
+              {t("features.subtitle")}
             </p>
 
             <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <ProductFeatureCard
                 icon={Shield}
-                title="Secure Stripe Integration"
-                description="Industry-standard payment security with encrypted transactions. Your card information never touches our servers."
+                title={t("features.stripeIntegration.title")}
+                description={t("features.stripeIntegration.description")}
               />
 
               <ProductFeatureCard
                 icon={CreditCard}
-                title="Transparent Pricing"
-                description="Clear breakdown of service fees, add-ons, and total costs before payment. No hidden charges or surprise fees."
+                title={t("features.transparentPricing.title")}
+                description={t("features.transparentPricing.description")}
               />
 
               <ProductFeatureCard
                 icon={Receipt}
-                title="Automatic Receipts"
-                description="Digital receipts and expense tracking for every booking. Perfect for tax deductions and household budgets."
+                title={t("features.automaticReceipts.title")}
+                description={t("features.automaticReceipts.description")}
               />
             </div>
           </div>
@@ -121,32 +129,28 @@ export default function PaymentProcessingPage() {
 
         {/* How It Works Section */}
         <ProductStepsSection
-          headline="How payments work"
-          description="Simple, secure, and transparent from start to finish"
+          headline={t("howItWorks.title")}
+          description={t("howItWorks.description")}
           steps={[
             {
               number: "1",
-              title: "Review Pricing",
-              description:
-                "See complete breakdown of base service, add-ons, and total before booking",
+              title: t("howItWorks.step1.title"),
+              description: t("howItWorks.step1.description"),
             },
             {
               number: "2",
-              title: "Authorize Payment",
-              description:
-                "Secure payment authorization through Stripe holds funds until service completion",
+              title: t("howItWorks.step2.title"),
+              description: t("howItWorks.step2.description"),
             },
             {
               number: "3",
-              title: "Service Completed",
-              description:
-                "Professional receives payment after service completion and check-out",
+              title: t("howItWorks.step3.title"),
+              description: t("howItWorks.step3.description"),
             },
             {
               number: "4",
-              title: "Get Receipt",
-              description:
-                "Automatic digital receipt with full transaction details sent to your email",
+              title: t("howItWorks.step4.title"),
+              description: t("howItWorks.step4.description"),
             },
           ]}
         />
@@ -155,7 +159,7 @@ export default function PaymentProcessingPage() {
         <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
             <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-              Payment timeline explained
+              {t("paymentTimeline.title")}
             </h2>
 
             <div className="mt-16 space-y-8">
@@ -165,12 +169,10 @@ export default function PaymentProcessingPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Booking confirmation - Authorization hold placed
+                    {t("paymentTimeline.booking.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    When you book, we place a temporary authorization hold on
-                    your card for the total amount. This isn't a charge yet -
-                    it just reserves the funds.
+                    {t("paymentTimeline.booking.description")}
                   </p>
                 </div>
               </div>
@@ -181,12 +183,10 @@ export default function PaymentProcessingPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Service day - Check-in begins service
+                    {t("paymentTimeline.serviceDay.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    Professional checks in when they arrive. The authorization
-                    hold remains in place during the service. You can track
-                    service progress in real-time.
+                    {t("paymentTimeline.serviceDay.description")}
                   </p>
                 </div>
               </div>
@@ -197,12 +197,10 @@ export default function PaymentProcessingPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Service complete - Check-out captures payment
+                    {t("paymentTimeline.serviceComplete.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    When the professional checks out and marks service complete,
-                    the authorization converts to an actual charge. This is when
-                    you're billed.
+                    {t("paymentTimeline.serviceComplete.description")}
                   </p>
                 </div>
               </div>
@@ -213,12 +211,10 @@ export default function PaymentProcessingPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Post-service - Receipt and payout processing
+                    {t("paymentTimeline.postService.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    You receive a digital receipt immediately. The professional
-                    receives their payout (minus platform fees) within 2-3
-                    business days.
+                    {t("paymentTimeline.postService.description")}
                   </p>
                 </div>
               </div>
@@ -230,7 +226,7 @@ export default function PaymentProcessingPage() {
         <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
             <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-              Your payment protection
+              {t("protection.title")}
             </h2>
 
             <div className="mt-16 space-y-8">
@@ -240,11 +236,10 @@ export default function PaymentProcessingPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Only charged after service completion
+                    {t("protection.chargedAfter.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    Authorization holds aren't charges. You're only billed when
-                    the professional marks the service complete and checks out.
+                    {t("protection.chargedAfter.description")}
                   </p>
                 </div>
               </div>
@@ -255,12 +250,10 @@ export default function PaymentProcessingPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Cancellation protections
+                    {t("protection.cancellation.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    Cancel before the cancellation window closes and the hold
-                    releases automatically. No charge, no hassle, no questions
-                    asked.
+                    {t("protection.cancellation.description")}
                   </p>
                 </div>
               </div>
@@ -271,12 +264,10 @@ export default function PaymentProcessingPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Dispute resolution support
+                    {t("protection.dispute.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    If service wasn't delivered as promised, contact support
-                    within 24 hours. We review disputes and process refunds when
-                    appropriate.
+                    {t("protection.dispute.description")}
                   </p>
                 </div>
               </div>
@@ -287,12 +278,10 @@ export default function PaymentProcessingPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-[#211f1a]">
-                    Encrypted card storage
+                    {t("protection.encrypted.title")}
                   </h3>
                   <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-                    Your payment information is tokenized and encrypted by
-                    Stripe. We never see or store your full card details on our
-                    servers.
+                    {t("protection.encrypted.description")}
                   </p>
                 </div>
               </div>
@@ -304,7 +293,7 @@ export default function PaymentProcessingPage() {
         <section className="border-b border-[#ebe5d8] bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
             <h2 className="text-center text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-              Accepted payment methods
+              {t("acceptedMethods.title")}
             </h2>
 
             <div className="mt-16 grid gap-8 md:grid-cols-3">
@@ -313,10 +302,10 @@ export default function PaymentProcessingPage() {
                   <CreditCard className="h-8 w-8 text-[#ff5d46]" />
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-[#211f1a]">
-                  Credit Cards
+                  {t("acceptedMethods.creditCards.title")}
                 </h3>
                 <p className="mt-3 text-base text-[#5d574b]">
-                  Visa, Mastercard, American Express, Discover
+                  {t("acceptedMethods.creditCards.description")}
                 </p>
               </div>
 
@@ -325,10 +314,10 @@ export default function PaymentProcessingPage() {
                   <CreditCard className="h-8 w-8 text-[#ff5d46]" />
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-[#211f1a]">
-                  Debit Cards
+                  {t("acceptedMethods.debitCards.title")}
                 </h3>
                 <p className="mt-3 text-base text-[#5d574b]">
-                  All major debit cards with card number and CVV
+                  {t("acceptedMethods.debitCards.description")}
                 </p>
               </div>
 
@@ -337,10 +326,10 @@ export default function PaymentProcessingPage() {
                   <Receipt className="h-8 w-8 text-[#ff5d46]" />
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-[#211f1a]">
-                  Digital Receipts
+                  {t("acceptedMethods.digitalReceipts.title")}
                 </h3>
                 <p className="mt-3 text-base text-[#5d574b]">
-                  Automatic receipts sent via email for all transactions
+                  {t("acceptedMethods.digitalReceipts.description")}
                 </p>
               </div>
             </div>
@@ -351,12 +340,11 @@ export default function PaymentProcessingPage() {
         <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-              Ready for secure, transparent payments?
+              {t("cta.title")}
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#5d574b]">
-              Experience hassle-free payment processing backed by Stripe's
-              industry-leading security
+              {t("cta.description")}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -364,14 +352,14 @@ export default function PaymentProcessingPage() {
                 href="/professionals"
                 className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
               >
-                Book Your First Service
+                {t("cta.bookService")}
               </Link>
 
               <Link
                 href="/auth/sign-up"
                 className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
               >
-                Sign Up Free
+                {t("cta.signUpFree")}
               </Link>
             </div>
           </div>

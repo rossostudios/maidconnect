@@ -377,6 +377,114 @@
         "browseProfessionals": "Browse Professionals",
         "becomeProfessional": "Become a Professional"
       }
+    },
+    "paymentProcessing": {
+      "meta": {
+        "title": "Secure Payment Processing - Stripe Powered | Maidconnect",
+        "description": "Safe, transparent payments with Stripe. Track expenses, manage receipts, and handle tips all in one place. Secure escrow and automatic payouts."
+      },
+      "hero": {
+        "headline": "Safe, transparent payments every time",
+        "description": "Secure payment processing with Stripe. Track expenses, manage receipts, and handle tips all in one place with complete transparency.",
+        "primaryCTA": "See How It Works",
+        "secondaryCTA": "Book a Service",
+        "badge": "Powered by Stripe"
+      },
+      "features": {
+        "title": "Payment processing you can trust",
+        "subtitle": "Enterprise-grade security with consumer-friendly transparency",
+        "stripeIntegration": {
+          "title": "Secure Stripe Integration",
+          "description": "Industry-standard payment security with encrypted transactions. Your card information never touches our servers."
+        },
+        "transparentPricing": {
+          "title": "Transparent Pricing",
+          "description": "Clear breakdown of service fees, add-ons, and total costs before payment. No hidden charges or surprise fees."
+        },
+        "automaticReceipts": {
+          "title": "Automatic Receipts",
+          "description": "Digital receipts and expense tracking for every booking. Perfect for tax deductions and household budgets."
+        }
+      },
+      "howItWorks": {
+        "title": "How payments work",
+        "description": "Simple, secure, and transparent from start to finish",
+        "step1": {
+          "title": "Review Pricing",
+          "description": "See complete breakdown of base service, add-ons, and total before booking"
+        },
+        "step2": {
+          "title": "Authorize Payment",
+          "description": "Secure payment authorization through Stripe holds funds until service completion"
+        },
+        "step3": {
+          "title": "Service Completed",
+          "description": "Professional receives payment after service completion and check-out"
+        },
+        "step4": {
+          "title": "Get Receipt",
+          "description": "Automatic digital receipt with full transaction details sent to your email"
+        }
+      },
+      "paymentTimeline": {
+        "title": "Payment timeline explained",
+        "booking": {
+          "title": "Booking confirmation - Authorization hold placed",
+          "description": "When you book, we place a temporary authorization hold on your card for the total amount. This isn't a charge yet - it just reserves the funds."
+        },
+        "serviceDay": {
+          "title": "Service day - Check-in begins service",
+          "description": "Professional checks in when they arrive. The authorization hold remains in place during the service. You can track service progress in real-time."
+        },
+        "serviceComplete": {
+          "title": "Service complete - Check-out captures payment",
+          "description": "When the professional checks out and marks service complete, the authorization converts to an actual charge. This is when you're billed."
+        },
+        "postService": {
+          "title": "Post-service - Receipt and payout processing",
+          "description": "You receive a digital receipt immediately. The professional receives their payout (minus platform fees) within 2-3 business days."
+        }
+      },
+      "protection": {
+        "title": "Your payment protection",
+        "chargedAfter": {
+          "title": "Only charged after service completion",
+          "description": "Authorization holds aren't charges. You're only billed when the professional marks the service complete and checks out."
+        },
+        "cancellation": {
+          "title": "Cancellation protections",
+          "description": "Cancel before the cancellation window closes and the hold releases automatically. No charge, no hassle, no questions asked."
+        },
+        "dispute": {
+          "title": "Dispute resolution support",
+          "description": "If service wasn't delivered as promised, contact support within 24 hours. We review disputes and process refunds when appropriate."
+        },
+        "encrypted": {
+          "title": "Encrypted card storage",
+          "description": "Your payment information is tokenized and encrypted by Stripe. We never see or store your full card details on our servers."
+        }
+      },
+      "acceptedMethods": {
+        "title": "Accepted payment methods",
+        "creditCards": {
+          "title": "Credit Cards",
+          "description": "Visa, Mastercard, American Express, Discover"
+        },
+        "debitCards": {
+          "title": "Debit Cards",
+          "description": "All major debit cards with card number and CVV"
+        },
+        "digitalReceipts": {
+          "title": "Digital Receipts",
+          "description": "Automatic receipts sent via email for all transactions"
+        }
+      },
+      "cta": {
+        "title": "Ready for secure, transparent payments?",
+        "description": "Experience hassle-free payment processing backed by Stripe's industry-leading security",
+        "bookService": "Book Your First Service",
+        "signUpFree": "Sign Up Free"
+      }
     }
   },
   "common": {
