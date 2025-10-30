@@ -1,8 +1,17 @@
+import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { SavedAddressesManager } from "@/components/addresses/saved-addresses-manager";
 
-export default async function CustomerAddressesPage() {
+export default async function CustomerAddressesPage(
+  props: Promise<{ locale: string }>
+) {
+  const params = await props;
+  const t = await getTranslations({
+    locale: params.locale,
+    namespace: "dashboard.customer.addressesPage",
+  });
+
   const user = await requireUser({ allowedRoles: ["customer"] });
   const supabase = await createSupabaseServerClient();
 
@@ -18,9 +27,9 @@ export default async function CustomerAddressesPage() {
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="text-3xl font-semibold text-[#211f1a]">Saved Addresses</h1>
+        <h1 className="text-3xl font-semibold text-[#211f1a]">{t("title")}</h1>
         <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-          Manage your service locations for faster booking. Add details like building access and parking info.
+          {t("description")}
         </p>
       </div>
 

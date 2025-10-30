@@ -1645,6 +1645,319 @@
         "customerInfo": "Customer • {date}",
         "rateButton": "Rate Customer"
       }
+    },
+    "customer": {
+      "main": {
+        "header": {
+          "dashboardLabel": "CUSTOMER DASHBOARD",
+          "welcomeBack": "Welcome back",
+          "welcomeBackWithName": "Welcome back, {name}",
+          "description": "Explore vetted professionals, review upcoming visits, and manage payments in one place.",
+          "signOut": "Sign out"
+        },
+        "summary": {
+          "accountEmail": "Account email",
+          "phone": "Phone",
+          "addYourPhone": "Add your phone",
+          "city": "City",
+          "addYourCity": "Add your city",
+          "verificationTier": "Verification tier",
+          "propertyType": "Property type",
+          "country": "Country",
+          "notSet": "Not set",
+          "propertyTypes": {
+            "apartment": "Apartment",
+            "house": "House",
+            "office": "Office",
+            "other": "Other"
+          }
+        },
+        "tasks": {
+          "title": "Get ready to book",
+          "description": "Complete these quick steps to unlock instant booking confirmations and top-rated professionals.",
+          "updateProfile": "Update profile",
+          "profile": {
+            "title": "Complete your profile",
+            "description": "Add your contact details and where services will take place so professionals can prepare.",
+            "cta": "Edit profile"
+          },
+          "verification": {
+            "title": "Verify your identity",
+            "description": "Upload a passport or government ID to earn a verified badge and faster bookings.",
+            "cta": "Start verification",
+            "upgradeNote": "Upgrade to Standard to unlock the verification badge."
+          },
+          "payment": {
+            "title": "Add a payment method",
+            "description": "Securely store a card or local payment option to confirm bookings instantly.",
+            "cta": "Add payment method"
+          },
+          "booking": {
+            "title": "Book your first visit",
+            "description": "Choose a trusted professional and schedule your first home service.",
+            "cta": "Find professionals"
+          },
+          "status": {
+            "completed": "Completed",
+            "actionNeeded": "Action needed"
+          }
+        },
+        "quickLinks": {
+          "bookProfessional": {
+            "title": "Book a professional",
+            "description": "Browse verified experts by service, language, and availability."
+          },
+          "viewPastVisits": {
+            "title": "View past visits",
+            "description": "Download receipts, add tips, or rebook your favorites."
+          },
+          "updatePayment": {
+            "title": "Update payment method",
+            "description": "Manage cards and local payment options securely."
+          },
+          "goNow": "Go now →"
+        },
+        "sections": {
+          "addresses": {
+            "title": "Saved Addresses",
+            "description": "Manage your service locations for faster booking. Add details like building access and parking info."
+          },
+          "propertyPreferences": {
+            "title": "Property preferences",
+            "description": "Sharing a few details about your home helps professionals prepare with the right supplies.",
+            "updatePreferences": "Update preferences →"
+          },
+          "needHelp": {
+            "title": "Need help?",
+            "description": "Our support team can help with verification, bookings, or anything else you need.",
+            "liveChat": "Live chat:",
+            "liveChatHours": "Weekdays 8:00–20:00 COT",
+            "email": "Email:",
+            "emailAddress": "help@maidconnect.com",
+            "emergencyLine": "Emergency line:",
+            "emergencyPhone": "+57 123 456 7890",
+            "browseHelpCenter": "Browse help center →"
+          },
+          "bookings": {
+            "title": "My Bookings",
+            "description": "View and manage your upcoming and past service appointments."
+          },
+          "favorites": {
+            "title": "My Favorites",
+            "description": "Quick access to your favorite professionals for easy rebooking."
+          },
+          "messages": {
+            "title": "Messages",
+            "description": "Chat with professionals about your bookings and service details.",
+            "viewAllMessages": "View all messages"
+          }
+        }
+      },
+      "bookingList": {
+        "emptyState": {
+          "noBookings": "No bookings yet.",
+          "browseText": "Browse our",
+          "professionalDirectory": "professional directory",
+          "bookFirstService": "to book your first service."
+        },
+        "sections": {
+          "upcomingServices": "Upcoming Services",
+          "pastServices": "Past Services"
+        },
+        "card": {
+          "service": "Service",
+          "professional": "Professional:",
+          "notAssigned": "Not assigned",
+          "scheduled": "Scheduled:",
+          "notScheduled": "Not scheduled",
+          "duration": "Duration:",
+          "minutes": "{minutes} minutes",
+          "amount": "Amount:",
+          "status": {
+            "pending_payment": "pending payment",
+            "authorized": "authorized",
+            "confirmed": "confirmed",
+            "declined": "declined",
+            "canceled": "canceled",
+            "completed": "completed"
+          },
+          "actions": {
+            "reschedule": "Reschedule",
+            "cancel": "Cancel",
+            "leaveReview": "Leave Review",
+            "bookAgain": "Book Again"
+          }
+        }
+      },
+      "favoritesList": {
+        "emptyState": {
+          "emoji": "🤍",
+          "title": "No favorites yet",
+          "description": "Click the heart icon on any professional to save them here for quick access.",
+          "browseProfessionals": "Browse Professionals"
+        },
+        "title": "Your Favorites ({count})",
+        "card": {
+          "verified": "Verified",
+          "startingAt": "Starting at",
+          "perHour": "/hr",
+          "viewProfile": "View profile →"
+        },
+        "errors": {
+          "failedToLoad": "Failed to load favorites"
+        }
+      },
+      "addressManager": {
+        "emptyState": {
+          "noAddresses": "No saved addresses yet.",
+          "addFirst": "Add your first address →"
+        },
+        "addNew": "Add new address",
+        "card": {
+          "default": "Default",
+          "buildingAccess": "🔑 {access}",
+          "parkingInfo": "🅿️ {parking}",
+          "specialNotes": "📝 {notes}",
+          "edit": "Edit",
+          "delete": "Delete"
+        },
+        "form": {
+          "editTitle": "Edit Address",
+          "addTitle": "Add New Address",
+          "fields": {
+            "label": {
+              "label": "Label *",
+              "placeholder": "Home, Office, etc."
+            },
+            "city": {
+              "label": "City *",
+              "placeholder": "Bogotá"
+            },
+            "street": {
+              "label": "Street Address *",
+              "placeholder": "Calle 123 #45-67"
+            },
+            "neighborhood": {
+              "label": "Neighborhood",
+              "placeholder": "Chapinero"
+            },
+            "postalCode": {
+              "label": "Postal Code",
+              "placeholder": "110111"
+            },
+            "buildingAccess": {
+              "label": "Building Access Instructions",
+              "placeholder": "Ring apartment 301, gate code 1234"
+            },
+            "parkingInfo": {
+              "label": "Parking Information",
+              "placeholder": "Visitor parking in basement"
+            },
+            "specialNotes": {
+              "label": "Special Notes",
+              "placeholder": "Dogs in backyard, use side entrance, etc."
+            },
+            "setAsDefault": "Set as default address"
+          },
+          "cancel": "Cancel",
+          "saveChanges": "Save Changes",
+          "addAddress": "Add Address"
+        },
+        "confirmDelete": "Are you sure you want to delete this address?"
+      },
+      "cancelBookingModal": {
+        "title": "Cancel Booking",
+        "serviceInfo": "{service} • {date}",
+        "policy": {
+          "title": "View Cancellation Policy",
+          "refund": "Refund:",
+          "refundPercent": "{percent}% ({amount})",
+          "timeUntilService": "Time until service:",
+          "hours": "{hours} hours"
+        },
+        "reasonLabel": "Reason for cancellation (optional)",
+        "reasonPlaceholder": "Let the professional know why you need to cancel...",
+        "actions": {
+          "keepBooking": "Keep Booking",
+          "cancelBooking": "Cancel Booking",
+          "canceling": "Canceling..."
+        },
+        "messages": {
+          "cannotCancel": "Cannot cancel this booking",
+          "success": "Booking canceled successfully! {refund} will be refunded."
+        }
+      },
+      "rescheduleBookingModal": {
+        "title": "Reschedule Booking",
+        "serviceInfo": "{service}",
+        "currentSchedule": {
+          "label": "Current Schedule",
+          "date": "{date}"
+        },
+        "fields": {
+          "newDate": {
+            "label": "New Date"
+          },
+          "newTime": {
+            "label": "New Time"
+          }
+        },
+        "importantNotice": {
+          "title": "Important",
+          "description": "The professional will need to confirm the new time. Your booking will be reset to \"pending confirmation\" status."
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "reschedule": "Reschedule",
+          "rescheduling": "Rescheduling..."
+        },
+        "messages": {
+          "selectDateTime": "Please select a new date and time",
+          "futureDate": "New time must be in the future",
+          "success": "Booking rescheduled successfully!"
+        }
+      },
+      "bookingsPage": {
+        "title": "My Bookings",
+        "description": "View and manage your upcoming and past service appointments."
+      },
+      "favoritesPage": {
+        "title": "My Favorites",
+        "description": "Quick access to your favorite professionals for easy rebooking."
+      },
+      "addressesPage": {
+        "title": "Saved Addresses",
+        "description": "Manage your service locations for faster booking. Add details like building access and parking info."
+      },
+      "paymentsPage": {
+        "title": "Payments & History",
+        "description": "View your payment history, manage payment methods, and track spending.",
+        "metrics": {
+          "totalSpent": {
+            "label": "Total Spent",
+            "description": "All completed bookings"
+          },
+          "pendingCharges": {
+            "label": "Pending Charges",
+            "description": "Authorized but not captured"
+          },
+          "totalBookings": {
+            "label": "Total Bookings",
+            "description": "With payment information"
+          }
+        },
+        "paymentMethods": {
+          "title": "Payment Methods",
+          "cardBrand": "{brand} •••• {last4}",
+          "expires": "Expires {month}/{year}"
+        },
+        "paymentHistory": {
+          "title": "Payment History"
+        }
+      },
+      "messagesPage": {
+        "description": "Chat with professionals about your bookings and service details."
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { requireUser } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
@@ -8,52 +9,24 @@ import { SavedAddressesManager } from "@/components/addresses/saved-addresses-ma
 import { FavoritesList } from "@/components/favorites/favorites-list";
 import { NotificationPermissionPrompt } from "@/components/notifications/notification-permission-prompt";
 
-const QUICK_LINKS = [
-  {
-    title: "Book a professional",
-    description: "Browse verified experts by service, language, and availability.",
-    href: "/professionals",
-  },
-  {
-    title: "View past visits",
-    description: "Download receipts, add tips, or rebook your favorites.",
-    href: "#",
-  },
-  {
-    title: "Update payment method",
-    description: "Manage cards and local payment options securely.",
-    href: "#",
-  },
-];
+const QUICK_LINK_IDS = ["bookProfessional", "viewPastVisits", "updatePayment"] as const;
+
+const QUICK_LINKS_HREFS: Record<string, string> = {
+  bookProfessional: "/professionals",
+  viewPastVisits: "#",
+  updatePayment: "#",
+};
 
 const VERIFICATION_ORDER = ["basic", "standard", "enhanced"] as const;
 
-const CUSTOMER_TASKS = [
-  {
-    id: "profile",
-    title: "Complete your profile",
-    description: "Add your contact details and where services will take place so professionals can prepare.",
-    cta: { href: "/dashboard/customer", label: "Edit profile" },
-  },
-  {
-    id: "verification",
-    title: "Verify your identity",
-    description: "Upload a passport or government ID to earn a verified badge and faster bookings.",
-    cta: { href: "#", label: "Start verification" },
-  },
-  {
-    id: "payment",
-    title: "Add a payment method",
-    description: "Securely store a card or local payment option to confirm bookings instantly.",
-    cta: { href: "#", label: "Add payment method" },
-  },
-  {
-    id: "booking",
-    title: "Book your first visit",
-    description: "Choose a trusted professional and schedule your first home service.",
-    cta: { href: "/professionals", label: "Find professionals" },
-  },
-] as const;
+const CUSTOMER_TASK_IDS = ["profile", "verification", "payment", "booking"] as const;
+
+const CUSTOMER_TASK_HREFS: Record<string, string> = {
+  profile: "/dashboard/customer",
+  verification: "#",
+  payment: "#",
+  booking: "/professionals",
+};
 
 function isVerificationTierAtLeast(current: string | null, target: string) {
   const currentIndex = VERIFICATION_ORDER.indexOf((current ?? "") as (typeof VERIFICATION_ORDER)[number]);
@@ -63,18 +36,15 @@ function isVerificationTierAtLeast(current: string | null, target: string) {
   return currentIndex >= targetIndex;
 }
 
-function formatPropertyType(propertyType?: string | null) {
-  if (!propertyType) return "Not set";
-  const map: Record<string, string> = {
-    apartment: "Apartment",
-    house: "House",
-    office: "Office",
-    other: "Other",
-  };
-  return map[propertyType] ?? propertyType;
+function formatPropertyType(propertyType: string | null | undefined, propertyTypeMap: Record<string, string>, notSet: string): string {
+  if (!propertyType) return notSet;
+  return propertyTypeMap[propertyType] ?? propertyType;
 }
 
-export default async function CustomerDashboardPage() {
+export default async function CustomerDashboardPage(props: { params: Promise<{ locale: string }> }) {
+  const params = await props.params;
+  const t = await getTranslations({ locale: params.locale, namespace: "dashboard.customer.main" });
+
   const user = await requireUser({ allowedRoles: ["customer"] });
   const supabase = await createSupabaseServerClient();
 
@@ -158,7 +128,7 @@ export default async function CustomerDashboardPage() {
     verification: isVerificationTierAtLeast(verificationTier, "standard"),
     payment: hasPaymentMethod,
     booking: hasCompletedBooking,
-  } as Record<(typeof CUSTOMER_TASKS)[number]["id"], boolean>;
+  } as Record<(typeof CUSTOMER_TASK_IDS)[number], boolean>;
 
   return (
     <section className="flex-1 space-y-8">
@@ -168,52 +138,54 @@ export default async function CustomerDashboardPage() {
       <header className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
         <div className="flex items-start justify-between gap-6">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">CUSTOMER DASHBOARD</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">{t("header.dashboardLabel")}</p>
             <h1 className="mt-4 text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-              Welcome back{profile?.full_name ? `, ${profile.full_name}` : ""}
+              {profile?.full_name
+                ? t("header.welcomeBackWithName", { name: profile.full_name })
+                : t("header.welcomeBack")}
             </h1>
             <p className="mt-4 text-lg leading-relaxed text-[#5d574b]">
-              Explore vetted professionals, review upcoming visits, and manage payments in one place.
+              {t("header.description")}
             </p>
           </div>
           <Link
             href="/auth/sign-out?redirectTo=/"
             className="inline-flex items-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           >
-            Sign out
+            {t("header.signOut")}
           </Link>
         </div>
 
         <dl className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <SummaryCard label="Account email" value={user.email ?? "—"} />
-          <SummaryCard label="Phone" value={profile?.phone ?? "Add your phone"} />
-          <SummaryCard label="City" value={profile?.city ?? "Add your city"} />
-          <SummaryCard label="Verification tier" value={verificationTier.toUpperCase()} />
+          <SummaryCard label={t("summary.accountEmail")} value={user.email ?? "—"} />
+          <SummaryCard label={t("summary.phone")} value={profile?.phone ?? t("summary.addYourPhone")} />
+          <SummaryCard label={t("summary.city")} value={profile?.city ?? t("summary.addYourCity")} />
+          <SummaryCard label={t("summary.verificationTier")} value={verificationTier.toUpperCase()} />
         </dl>
       </header>
 
       <section className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-3xl font-semibold text-[#211f1a]">Get ready to book</h2>
+            <h2 className="text-3xl font-semibold text-[#211f1a]">{t("tasks.title")}</h2>
             <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
-              Complete these quick steps to unlock instant booking confirmations and top-rated professionals.
+              {t("tasks.description")}
             </p>
           </div>
           <Link
             href="#"
             className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
           >
-            Update profile
+            {t("tasks.updateProfile")}
           </Link>
         </div>
 
         <ol className="mt-8 grid gap-6 md:grid-cols-2">
-          {CUSTOMER_TASKS.map((task, index) => {
-            const isComplete = completedTasks[task.id];
+          {CUSTOMER_TASK_IDS.map((taskId, index) => {
+            const isComplete = completedTasks[taskId];
             return (
               <li
-                key={task.id}
+                key={taskId}
                 className="rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-md"
               >
                 <div className="flex items-center justify-between">
@@ -221,31 +193,31 @@ export default async function CustomerDashboardPage() {
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#ff5d46] text-sm font-semibold text-white">
                       {index + 1}
                     </div>
-                    <span className="text-base font-semibold text-[#211f1a]">{task.title}</span>
+                    <span className="text-base font-semibold text-[#211f1a]">{t(`tasks.${taskId}.title`)}</span>
                   </div>
                   {isComplete ? (
                     <span className="rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
-                      Completed
+                      {t("tasks.status.completed")}
                     </span>
                   ) : (
                     <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-700">
-                      Action needed
+                      {t("tasks.status.actionNeeded")}
                     </span>
                   )}
                 </div>
-                <p className="mt-4 text-base leading-relaxed text-[#5d574b]">{task.description}</p>
-                {task.id === "payment" ? (
+                <p className="mt-4 text-base leading-relaxed text-[#5d574b]">{t(`tasks.${taskId}.description`)}</p>
+                {taskId === "payment" ? (
                   <PaymentAuthorizationCard hasPaymentMethod={hasPaymentMethod} />
                 ) : !isComplete ? (
                   <Link
-                    href={task.cta.href}
+                    href={CUSTOMER_TASK_HREFS[taskId]}
                     className="mt-4 inline-flex items-center text-base font-semibold text-[#ff5d46] hover:text-[#eb6c65]"
                   >
-                    {task.cta.label} →
+                    {t(`tasks.${taskId}.cta`)} →
                   </Link>
                 ) : null}
-                {task.id === "verification" && !isComplete ? (
-                  <p className="mt-4 text-sm text-orange-700">Upgrade to Standard to unlock the verification badge.</p>
+                {taskId === "verification" && !isComplete ? (
+                  <p className="mt-4 text-sm text-orange-700">{t("tasks.verification.upgradeNote")}</p>
                 ) : null}
               </li>
             );
@@ -254,9 +226,9 @@ export default async function CustomerDashboardPage() {
       </section>
 
       <section id="addresses" className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h2 className="text-3xl font-semibold text-[#211f1a]">Saved Addresses</h2>
+        <h2 className="text-3xl font-semibold text-[#211f1a]">{t("sections.addresses.title")}</h2>
         <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
-          Manage your service locations for faster booking. Add details like building access and parking info.
+          {t("sections.addresses.description")}
         </p>
         <div className="mt-8">
           <SavedAddressesManager addresses={savedAddresses} />
@@ -265,55 +237,62 @@ export default async function CustomerDashboardPage() {
 
       <section className="grid gap-6 lg:grid-cols-2">
         <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h3 className="text-2xl font-semibold text-[#211f1a]">Property preferences</h3>
+          <h3 className="text-2xl font-semibold text-[#211f1a]">{t("sections.propertyPreferences.title")}</h3>
           <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
-            Sharing a few details about your home helps professionals prepare with the right supplies.
+            {t("sections.propertyPreferences.description")}
           </p>
           <dl className="mt-6 space-y-4 text-base">
             <div>
-              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">Property type</dt>
-              <dd className="mt-2 text-[#211f1a]">{formatPropertyType(propertyType)}</dd>
+              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">{t("summary.propertyType")}</dt>
+              <dd className="mt-2 text-[#211f1a]">
+                {formatPropertyType(propertyType, {
+                  apartment: t("summary.propertyTypes.apartment"),
+                  house: t("summary.propertyTypes.house"),
+                  office: t("summary.propertyTypes.office"),
+                  other: t("summary.propertyTypes.other"),
+                }, t("summary.notSet"))}
+              </dd>
             </div>
             <div>
-              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">City</dt>
-              <dd className="mt-2 text-[#211f1a]">{profile?.city ?? "Add your city"}</dd>
+              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">{t("summary.city")}</dt>
+              <dd className="mt-2 text-[#211f1a]">{profile?.city ?? t("summary.addYourCity")}</dd>
             </div>
             <div>
-              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">Country</dt>
+              <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">{t("summary.country")}</dt>
               <dd className="mt-2 text-[#211f1a]">{profile?.country ?? "Colombia"}</dd>
             </div>
           </dl>
           <Link href="#" className="mt-6 inline-flex items-center text-base font-semibold text-[#ff5d46] hover:text-[#eb6c65]">
-            Update preferences →
+            {t("sections.propertyPreferences.updatePreferences")}
           </Link>
         </div>
 
         <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h3 className="text-2xl font-semibold text-[#211f1a]">Need help?</h3>
+          <h3 className="text-2xl font-semibold text-[#211f1a]">{t("sections.needHelp.title")}</h3>
           <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
-            Our support team can help with verification, bookings, or anything else you need.
+            {t("sections.needHelp.description")}
           </p>
           <ul className="mt-6 space-y-3 text-base text-[#211f1a]">
             <li>
-              <span className="font-semibold">Live chat:</span> Weekdays 8:00–20:00 COT
+              <span className="font-semibold">{t("sections.needHelp.liveChat")}</span> {t("sections.needHelp.liveChatHours")}
             </li>
             <li>
-              <span className="font-semibold">Email:</span> help@maidconnect.com
+              <span className="font-semibold">{t("sections.needHelp.email")}</span> {t("sections.needHelp.emailAddress")}
             </li>
             <li>
-              <span className="font-semibold">Emergency line:</span> +57 123 456 7890
+              <span className="font-semibold">{t("sections.needHelp.emergencyLine")}</span> {t("sections.needHelp.emergencyPhone")}
             </li>
           </ul>
           <Link href="/support/account-suspended" className="mt-6 inline-flex items-center text-base font-semibold text-[#ff5d46] hover:text-[#eb6c65]">
-            Browse help center →
+            {t("sections.needHelp.browseHelpCenter")}
           </Link>
         </div>
       </section>
 
       <section id="bookings" className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h2 className="text-3xl font-semibold text-[#211f1a]">My Bookings</h2>
+        <h2 className="text-3xl font-semibold text-[#211f1a]">{t("sections.bookings.title")}</h2>
         <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
-          View and manage your upcoming and past service appointments.
+          {t("sections.bookings.description")}
         </p>
         <div className="mt-8">
           <CustomerBookingList bookings={bookings} />
@@ -321,9 +300,9 @@ export default async function CustomerDashboardPage() {
       </section>
 
       <section id="favorites" className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h2 className="text-3xl font-semibold text-[#211f1a]">My Favorites</h2>
+        <h2 className="text-3xl font-semibold text-[#211f1a]">{t("sections.favorites.title")}</h2>
         <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
-          Quick access to your favorite professionals for easy rebooking.
+          {t("sections.favorites.description")}
         </p>
         <div className="mt-8">
           <FavoritesList />
@@ -331,16 +310,16 @@ export default async function CustomerDashboardPage() {
       </section>
 
       <section id="messages" className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h2 className="text-3xl font-semibold text-[#211f1a]">Messages</h2>
+        <h2 className="text-3xl font-semibold text-[#211f1a]">{t("sections.messages.title")}</h2>
         <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
-          Chat with professionals about your bookings and service details.
+          {t("sections.messages.description")}
         </p>
         <div className="mt-8">
           <Link
             href="/dashboard/customer/messages"
             className="inline-flex items-center gap-2 rounded-full bg-[#ff5d46] px-6 py-3 text-base font-medium text-white transition hover:bg-[#e54d3c]"
           >
-            View all messages
+            {t("sections.messages.viewAllMessages")}
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
@@ -349,16 +328,16 @@ export default async function CustomerDashboardPage() {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-3">
-        {QUICK_LINKS.map((item) => (
+        {QUICK_LINK_IDS.map((linkId) => (
           <Link
-            key={item.title}
-            href={item.href}
+            key={linkId}
+            href={QUICK_LINKS_HREFS[linkId]}
             className="group rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)]"
           >
-            <h3 className="text-lg font-semibold text-[#211f1a]">{item.title}</h3>
-            <p className="mt-3 text-base leading-relaxed text-[#5d574b]">{item.description}</p>
+            <h3 className="text-lg font-semibold text-[#211f1a]">{t(`quickLinks.${linkId}.title`)}</h3>
+            <p className="mt-3 text-base leading-relaxed text-[#5d574b]">{t(`quickLinks.${linkId}.description`)}</p>
             <span className="mt-4 inline-flex items-center text-base font-semibold text-[#ff5d46] group-hover:text-[#eb6c65]">
-              Go now →
+              {t("quickLinks.goNow")}
             </span>
           </Link>
         ))}

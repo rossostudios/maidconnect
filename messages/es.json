@@ -1645,6 +1645,319 @@
         "customerInfo": "Cliente • {date}",
         "rateButton": "Calificar Cliente"
       }
+    },
+    "customer": {
+      "main": {
+        "header": {
+          "dashboardLabel": "PANEL DE CLIENTE",
+          "welcomeBack": "Bienvenido de nuevo",
+          "welcomeBackWithName": "Bienvenido de nuevo, {name}",
+          "description": "Explora profesionales verificados, revisa próximas visitas y gestiona pagos en un solo lugar.",
+          "signOut": "Cerrar sesión"
+        },
+        "summary": {
+          "accountEmail": "Correo de cuenta",
+          "phone": "Teléfono",
+          "addYourPhone": "Agrega tu teléfono",
+          "city": "Ciudad",
+          "addYourCity": "Agrega tu ciudad",
+          "verificationTier": "Nivel de verificación",
+          "propertyType": "Tipo de propiedad",
+          "country": "País",
+          "notSet": "No establecido",
+          "propertyTypes": {
+            "apartment": "Apartamento",
+            "house": "Casa",
+            "office": "Oficina",
+            "other": "Otro"
+          }
+        },
+        "tasks": {
+          "title": "Prepárate para reservar",
+          "description": "Completa estos pasos rápidos para desbloquear confirmaciones de reserva instantáneas y profesionales mejor calificados.",
+          "updateProfile": "Actualizar perfil",
+          "profile": {
+            "title": "Completa tu perfil",
+            "description": "Agrega tus datos de contacto y dónde se realizarán los servicios para que los profesionales puedan prepararse.",
+            "cta": "Editar perfil"
+          },
+          "verification": {
+            "title": "Verifica tu identidad",
+            "description": "Sube un pasaporte o identificación oficial para obtener una insignia verificada y reservas más rápidas.",
+            "cta": "Iniciar verificación",
+            "upgradeNote": "Actualiza a Estándar para desbloquear la insignia de verificación."
+          },
+          "payment": {
+            "title": "Agrega un método de pago",
+            "description": "Almacena de forma segura una tarjeta u opción de pago local para confirmar reservas al instante.",
+            "cta": "Agregar método de pago"
+          },
+          "booking": {
+            "title": "Reserva tu primera visita",
+            "description": "Elige un profesional de confianza y programa tu primer servicio doméstico.",
+            "cta": "Encontrar profesionales"
+          },
+          "status": {
+            "completed": "Completado",
+            "actionNeeded": "Acción requerida"
+          }
+        },
+        "quickLinks": {
+          "bookProfessional": {
+            "title": "Reservar un profesional",
+            "description": "Explora expertos verificados por servicio, idioma y disponibilidad."
+          },
+          "viewPastVisits": {
+            "title": "Ver visitas pasadas",
+            "description": "Descarga recibos, agrega propinas o vuelve a reservar tus favoritos."
+          },
+          "updatePayment": {
+            "title": "Actualizar método de pago",
+            "description": "Gestiona tarjetas y opciones de pago locales de forma segura."
+          },
+          "goNow": "Ir ahora →"
+        },
+        "sections": {
+          "addresses": {
+            "title": "Direcciones Guardadas",
+            "description": "Gestiona tus ubicaciones de servicio para reservas más rápidas. Agrega detalles como acceso al edificio e información de estacionamiento."
+          },
+          "propertyPreferences": {
+            "title": "Preferencias de propiedad",
+            "description": "Compartir algunos detalles sobre tu hogar ayuda a los profesionales a prepararse con los suministros adecuados.",
+            "updatePreferences": "Actualizar preferencias →"
+          },
+          "needHelp": {
+            "title": "¿Necesitas ayuda?",
+            "description": "Nuestro equipo de soporte puede ayudarte con verificación, reservas o cualquier otra cosa que necesites.",
+            "liveChat": "Chat en vivo:",
+            "liveChatHours": "Días laborales 8:00–20:00 COT",
+            "email": "Correo electrónico:",
+            "emailAddress": "help@maidconnect.com",
+            "emergencyLine": "Línea de emergencia:",
+            "emergencyPhone": "+57 123 456 7890",
+            "browseHelpCenter": "Explorar centro de ayuda →"
+          },
+          "bookings": {
+            "title": "Mis Reservas",
+            "description": "Ve y gestiona tus citas de servicio próximas y pasadas."
+          },
+          "favorites": {
+            "title": "Mis Favoritos",
+            "description": "Acceso rápido a tus profesionales favoritos para volver a reservar fácilmente."
+          },
+          "messages": {
+            "title": "Mensajes",
+            "description": "Chatea con profesionales sobre tus reservas y detalles del servicio.",
+            "viewAllMessages": "Ver todos los mensajes"
+          }
+        }
+      },
+      "bookingList": {
+        "emptyState": {
+          "noBookings": "Aún no hay reservas.",
+          "browseText": "Explora nuestro",
+          "professionalDirectory": "directorio de profesionales",
+          "bookFirstService": "para reservar tu primer servicio."
+        },
+        "sections": {
+          "upcomingServices": "Servicios Próximos",
+          "pastServices": "Servicios Pasados"
+        },
+        "card": {
+          "service": "Servicio",
+          "professional": "Profesional:",
+          "notAssigned": "No asignado",
+          "scheduled": "Programado:",
+          "notScheduled": "No programado",
+          "duration": "Duración:",
+          "minutes": "{minutes} minutos",
+          "amount": "Monto:",
+          "status": {
+            "pending_payment": "pago pendiente",
+            "authorized": "autorizado",
+            "confirmed": "confirmado",
+            "declined": "rechazado",
+            "canceled": "cancelado",
+            "completed": "completado"
+          },
+          "actions": {
+            "reschedule": "Reprogramar",
+            "cancel": "Cancelar",
+            "leaveReview": "Dejar Reseña",
+            "bookAgain": "Reservar de Nuevo"
+          }
+        }
+      },
+      "favoritesList": {
+        "emptyState": {
+          "emoji": "🤍",
+          "title": "Aún no hay favoritos",
+          "description": "Haz clic en el ícono de corazón en cualquier profesional para guardarlos aquí para acceso rápido.",
+          "browseProfessionals": "Explorar Profesionales"
+        },
+        "title": "Tus Favoritos ({count})",
+        "card": {
+          "verified": "Verificado",
+          "startingAt": "Desde",
+          "perHour": "/hr",
+          "viewProfile": "Ver perfil →"
+        },
+        "errors": {
+          "failedToLoad": "Error al cargar favoritos"
+        }
+      },
+      "addressManager": {
+        "emptyState": {
+          "noAddresses": "Aún no hay direcciones guardadas.",
+          "addFirst": "Agrega tu primera dirección →"
+        },
+        "addNew": "Agregar nueva dirección",
+        "card": {
+          "default": "Predeterminada",
+          "buildingAccess": "🔑 {access}",
+          "parkingInfo": "🅿️ {parking}",
+          "specialNotes": "📝 {notes}",
+          "edit": "Editar",
+          "delete": "Eliminar"
+        },
+        "form": {
+          "editTitle": "Editar Dirección",
+          "addTitle": "Agregar Nueva Dirección",
+          "fields": {
+            "label": {
+              "label": "Etiqueta *",
+              "placeholder": "Casa, Oficina, etc."
+            },
+            "city": {
+              "label": "Ciudad *",
+              "placeholder": "Bogotá"
+            },
+            "street": {
+              "label": "Dirección *",
+              "placeholder": "Calle 123 #45-67"
+            },
+            "neighborhood": {
+              "label": "Barrio",
+              "placeholder": "Chapinero"
+            },
+            "postalCode": {
+              "label": "Código Postal",
+              "placeholder": "110111"
+            },
+            "buildingAccess": {
+              "label": "Instrucciones de Acceso al Edificio",
+              "placeholder": "Timbre apartamento 301, código de puerta 1234"
+            },
+            "parkingInfo": {
+              "label": "Información de Estacionamiento",
+              "placeholder": "Estacionamiento de visitantes en sótano"
+            },
+            "specialNotes": {
+              "label": "Notas Especiales",
+              "placeholder": "Perros en patio trasero, usar entrada lateral, etc."
+            },
+            "setAsDefault": "Establecer como dirección predeterminada"
+          },
+          "cancel": "Cancelar",
+          "saveChanges": "Guardar Cambios",
+          "addAddress": "Agregar Dirección"
+        },
+        "confirmDelete": "¿Estás seguro de que quieres eliminar esta dirección?"
+      },
+      "cancelBookingModal": {
+        "title": "Cancelar Reserva",
+        "serviceInfo": "{service} • {date}",
+        "policy": {
+          "title": "Ver Política de Cancelación",
+          "refund": "Reembolso:",
+          "refundPercent": "{percent}% ({amount})",
+          "timeUntilService": "Tiempo hasta el servicio:",
+          "hours": "{hours} horas"
+        },
+        "reasonLabel": "Motivo de cancelación (opcional)",
+        "reasonPlaceholder": "Hazle saber al profesional por qué necesitas cancelar...",
+        "actions": {
+          "keepBooking": "Mantener Reserva",
+          "cancelBooking": "Cancelar Reserva",
+          "canceling": "Cancelando..."
+        },
+        "messages": {
+          "cannotCancel": "No se puede cancelar esta reserva",
+          "success": "¡Reserva cancelada exitosamente! {refund} será reembolsado."
+        }
+      },
+      "rescheduleBookingModal": {
+        "title": "Reprogramar Reserva",
+        "serviceInfo": "{service}",
+        "currentSchedule": {
+          "label": "Horario Actual",
+          "date": "{date}"
+        },
+        "fields": {
+          "newDate": {
+            "label": "Nueva Fecha"
+          },
+          "newTime": {
+            "label": "Nueva Hora"
+          }
+        },
+        "importantNotice": {
+          "title": "Importante",
+          "description": "El profesional deberá confirmar la nueva hora. Tu reserva se restablecerá al estado \"pendiente de confirmación\"."
+        },
+        "actions": {
+          "cancel": "Cancelar",
+          "reschedule": "Reprogramar",
+          "rescheduling": "Reprogramando..."
+        },
+        "messages": {
+          "selectDateTime": "Por favor selecciona una nueva fecha y hora",
+          "futureDate": "La nueva hora debe estar en el futuro",
+          "success": "¡Reserva reprogramada exitosamente!"
+        }
+      },
+      "bookingsPage": {
+        "title": "Mis Reservas",
+        "description": "Ve y gestiona tus citas de servicio próximas y pasadas."
+      },
+      "favoritesPage": {
+        "title": "Mis Favoritos",
+        "description": "Acceso rápido a tus profesionales favoritos para volver a reservar fácilmente."
+      },
+      "addressesPage": {
+        "title": "Direcciones Guardadas",
+        "description": "Gestiona tus ubicaciones de servicio para reservas más rápidas. Agrega detalles como acceso al edificio e información de estacionamiento."
+      },
+      "paymentsPage": {
+        "title": "Pagos e Historial",
+        "description": "Ve tu historial de pagos, gestiona métodos de pago y rastrea gastos.",
+        "metrics": {
+          "totalSpent": {
+            "label": "Total Gastado",
+            "description": "Todas las reservas completadas"
+          },
+          "pendingCharges": {
+            "label": "Cargos Pendientes",
+            "description": "Autorizados pero no capturados"
+          },
+          "totalBookings": {
+            "label": "Reservas Totales",
+            "description": "Con información de pago"
+          }
+        },
+        "paymentMethods": {
+          "title": "Métodos de Pago",
+          "cardBrand": "{brand} •••• {last4}",
+          "expires": "Vence {month}/{year}"
+        },
+        "paymentHistory": {
+          "title": "Historial de Pagos"
+        }
+      },
+      "messagesPage": {
+        "description": "Chatea con profesionales sobre tus reservas y detalles del servicio."
+      }
     }
   }
 }

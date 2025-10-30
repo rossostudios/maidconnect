@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 type RescheduleBookingModalProps = {
   isOpen: boolean;
@@ -16,6 +17,7 @@ type RescheduleBookingModalProps = {
 
 export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleBookingModalProps) {
   const router = useRouter();
+  const t = useTranslations("dashboard.customer.rescheduleBookingModal");
   const [newDate, setNewDate] = useState("");
   const [newTime, setNewTime] = useState("");
   const [loading, setLoading] = useState(false);
@@ -45,7 +47,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
 
   const handleReschedule = async () => {
     if (!newDate || !newTime) {
-      setMessage({ type: "error", text: "Please select a new date and time" });
+      setMessage({ type: "error", text: t("validation.selectDateTime") });
       return;
     }
 
@@ -54,7 +56,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
 
     // Validate future date
     if (new Date(newScheduledStart) <= new Date()) {
-      setMessage({ type: "error", text: "New time must be in the future" });
+      setMessage({ type: "error", text: t("validation.futureDateRequired") });
       return;
     }
 
@@ -80,7 +82,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
 
       setMessage({
         type: "success",
-        text: result.message || "Booking rescheduled successfully!",
+        text: result.message || t("success.rescheduled"),
       });
 
       setTimeout(() => {
@@ -90,7 +92,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
     } catch (error) {
       setMessage({
         type: "error",
-        text: error instanceof Error ? error.message : "Failed to reschedule booking",
+        text: error instanceof Error ? error.message : t("error.failed"),
       });
     } finally {
       setLoading(false);
@@ -102,7 +104,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="w-full max-w-md overflow-y-auto rounded-[28px] bg-white p-8 shadow-xl">
-        <h2 className="text-2xl font-semibold text-[#211f1a]">Reschedule Booking</h2>
+        <h2 className="text-2xl font-semibold text-[#211f1a]">{t("title")}</h2>
         <p className="mt-3 text-base text-[#5d574b]">
           {booking.service_name || "Service"}
         </p>
@@ -110,7 +112,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
         {/* Current Schedule */}
         <div className="mt-6 rounded-2xl border border-[#ebe5d8] bg-white p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">
-            Current Schedule
+            {t("currentScheduleLabel")}
           </p>
           <p className="mt-2 text-base text-[#211f1a]">
             {booking.scheduled_start
@@ -126,7 +128,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
         <div className="mt-6 space-y-6">
           <div>
             <label htmlFor="newDate" className="mb-2 block text-base font-semibold text-[#211f1a]">
-              New Date
+              {t("newDateLabel")}
             </label>
             <input
               id="newDate"
@@ -140,7 +142,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
 
           <div>
             <label htmlFor="newTime" className="mb-2 block text-base font-semibold text-[#211f1a]">
-              New Time
+              {t("newTimeLabel")}
             </label>
             <input
               id="newTime"
@@ -154,10 +156,9 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
 
         {/* Important Notice */}
         <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-6">
-          <p className="text-base font-semibold text-blue-900">Important</p>
+          <p className="text-base font-semibold text-blue-900">{t("notice.title")}</p>
           <p className="mt-3 text-base leading-relaxed text-blue-800">
-            The professional will need to confirm the new time. Your booking will be reset to
-            "pending confirmation" status.
+            {t("notice.description")}
           </p>
         </div>
 
@@ -182,7 +183,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
             disabled={loading}
             className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
           >
-            Cancel
+            {t("buttons.cancel")}
           </button>
           <button
             type="button"
@@ -190,7 +191,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
             disabled={loading}
             className="flex-1 rounded-full bg-[#ff5d46] px-6 py-3 text-base font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
           >
-            {loading ? "Rescheduling..." : "Reschedule"}
+            {loading ? t("buttons.rescheduling") : t("buttons.reschedule")}
           </button>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { CancelBookingModal } from "./cancel-booking-modal";
 import { RescheduleBookingModal } from "./reschedule-booking-modal";
 
@@ -22,16 +23,18 @@ type Props = {
 };
 
 export function CustomerBookingList({ bookings }: Props) {
+  const t = useTranslations("dashboard.customer.bookingList");
+
   if (bookings.length === 0) {
     return (
       <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
-        <p className="text-base text-[#5d574b]">No bookings yet.</p>
+        <p className="text-base text-[#5d574b]">{t("emptyState.noBookings")}</p>
         <p className="mt-3 text-base text-[#5d574b]">
-          Browse our{" "}
+          {t("emptyState.browseText")}{" "}
           <a href="/professionals" className="font-semibold text-[#ff5d46] hover:text-[#eb6c65]">
-            professional directory
+            {t("emptyState.professionalDirectory")}
           </a>{" "}
-          to book your first service.
+          {t("emptyState.bookFirstService")}
         </p>
       </div>
     );
@@ -53,7 +56,7 @@ export function CustomerBookingList({ bookings }: Props) {
       {/* Upcoming Bookings */}
       {upcomingBookings.length > 0 && (
         <div>
-          <h3 className="mb-6 text-xl font-semibold text-[#211f1a]">Upcoming Services</h3>
+          <h3 className="mb-6 text-xl font-semibold text-[#211f1a]">{t("sections.upcomingServices")}</h3>
           <div className="space-y-4">
             {upcomingBookings.map((booking) => (
               <BookingCard key={booking.id} booking={booking} isUpcoming />
@@ -65,7 +68,7 @@ export function CustomerBookingList({ bookings }: Props) {
       {/* Past Bookings */}
       {pastBookings.length > 0 && (
         <div>
-          <h3 className="mb-6 text-xl font-semibold text-[#211f1a]">Past Services</h3>
+          <h3 className="mb-6 text-xl font-semibold text-[#211f1a]">{t("sections.pastServices")}</h3>
           <div className="space-y-4">
             {pastBookings.map((booking) => (
               <BookingCard key={booking.id} booking={booking} isUpcoming={false} />
@@ -78,6 +81,7 @@ export function CustomerBookingList({ bookings }: Props) {
 }
 
 function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpcoming: boolean }) {
+  const t = useTranslations("dashboard.customer.bookingList");
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [showRescheduleModal, setShowRescheduleModal] = useState(false);
 
@@ -86,7 +90,7 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
         dateStyle: "medium",
         timeStyle: "short",
       })
-    : "Not scheduled";
+    : t("card.notScheduled");
 
   const amount = booking.amount_captured || booking.amount_authorized;
   const amountDisplay = amount
@@ -106,32 +110,34 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
     completed: "bg-blue-100 text-blue-800",
   }[booking.status] || "bg-gray-100 text-gray-800";
 
+  const statusLabel = t(`card.status.${booking.status}` as any) || booking.status.replace(/_/g, " ");
+
   return (
     <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-md">
       <div className="flex items-start justify-between gap-6">
         <div className="flex-1">
           <div className="flex items-center gap-3">
-            <h4 className="text-lg font-semibold text-[#211f1a]">{booking.service_name || "Service"}</h4>
+            <h4 className="text-lg font-semibold text-[#211f1a]">{booking.service_name || t("card.service")}</h4>
             <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${statusColor}`}>
-              {booking.status.replace(/_/g, " ")}
+              {statusLabel}
             </span>
           </div>
 
           <div className="mt-4 space-y-2 text-base text-[#5d574b]">
             <p>
-              <span className="font-semibold text-[#211f1a]">Professional:</span>{" "}
-              {booking.professional?.full_name || "Not assigned"}
+              <span className="font-semibold text-[#211f1a]">{t("card.professional")}</span>{" "}
+              {booking.professional?.full_name || t("card.notAssigned")}
             </p>
             <p>
-              <span className="font-semibold text-[#211f1a]">Scheduled:</span> {scheduled}
+              <span className="font-semibold text-[#211f1a]">{t("card.scheduled")}</span> {scheduled}
             </p>
             {booking.duration_minutes && (
               <p>
-                <span className="font-semibold text-[#211f1a]">Duration:</span> {booking.duration_minutes} minutes
+                <span className="font-semibold text-[#211f1a]">{t("card.duration")}</span> {t("card.minutes", { minutes: booking.duration_minutes })}
               </p>
             )}
             <p>
-              <span className="font-semibold text-[#211f1a]">Amount:</span> {amountDisplay}
+              <span className="font-semibold text-[#211f1a]">{t("card.amount")}</span> {amountDisplay}
             </p>
           </div>
         </div>
@@ -144,14 +150,14 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
                 onClick={() => setShowRescheduleModal(true)}
                 className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
               >
-                Reschedule
+                {t("card.actions.reschedule")}
               </button>
               <button
                 type="button"
                 onClick={() => setShowCancelModal(true)}
                 className="inline-flex items-center justify-center rounded-full border-2 border-red-200 px-5 py-2.5 text-sm font-semibold text-red-700 transition hover:bg-red-50"
               >
-                Cancel
+                {t("card.actions.cancel")}
               </button>
             </>
           )}
@@ -161,13 +167,13 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
                 type="button"
                 className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_12px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
               >
-                Leave Review
+                {t("card.actions.leaveReview")}
               </button>
               <button
                 type="button"
                 className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
               >
-                Book Again
+                {t("card.actions.bookAgain")}
               </button>
             </>
           )}

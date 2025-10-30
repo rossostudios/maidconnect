@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { PaymentHistoryTable } from "@/components/payments/payment-history-table";
@@ -16,7 +17,15 @@ type BookingRow = {
   professional: { full_name: string | null } | null;
 };
 
-export default async function CustomerPaymentsPage() {
+export default async function CustomerPaymentsPage(props: {
+  params: Promise<{ locale: string }>;
+}) {
+  const params = await props.params;
+  const t = await getTranslations({
+    locale: params.locale,
+    namespace: "dashboard.customer.paymentsPage",
+  });
+
   const user = await requireUser({ allowedRoles: ["customer"] });
   const supabase = await createSupabaseServerClient();
 
@@ -76,35 +85,35 @@ export default async function CustomerPaymentsPage() {
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="text-3xl font-semibold text-[#211f1a]">Payments & History</h1>
+        <h1 className="text-3xl font-semibold text-[#211f1a]">{t("title")}</h1>
         <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-          View your payment history, manage payment methods, and track spending.
+          {t("description")}
         </p>
       </div>
 
       {/* Summary Cards */}
       <div className="grid gap-6 sm:grid-cols-3">
         <MetricCard
-          label="Total Spent"
+          label={t("metrics.totalSpent.label")}
           value={formatCurrency(totalSpent)}
-          description="All completed bookings"
+          description={t("metrics.totalSpent.description")}
         />
         <MetricCard
-          label="Pending Charges"
+          label={t("metrics.pendingCharges.label")}
           value={formatCurrency(totalAuthorized)}
-          description="Authorized but not captured"
+          description={t("metrics.pendingCharges.description")}
         />
         <MetricCard
-          label="Total Bookings"
+          label={t("metrics.totalBookings.label")}
           value={bookings.length.toString()}
-          description="With payment information"
+          description={t("metrics.totalBookings.description")}
         />
       </div>
 
       {/* Payment Methods */}
       {paymentMethods.length > 0 && (
         <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h2 className="mb-4 text-xl font-semibold text-[#211f1a]">Payment Methods</h2>
+          <h2 className="mb-4 text-xl font-semibold text-[#211f1a]">{t("paymentMethods.title")}</h2>
           <div className="space-y-3">
             {paymentMethods.map((method) => (
               <div
@@ -127,7 +136,7 @@ export default async function CustomerPaymentsPage() {
                       {method.card.brand.toUpperCase()} •••• {method.card.last4}
                     </p>
                     <p className="text-sm text-[#7d7566]">
-                      Expires {method.card.exp_month}/{method.card.exp_year}
+                      {t("paymentMethods.expires")} {method.card.exp_month}/{method.card.exp_year}
                     </p>
                   </div>
                 </div>
@@ -139,7 +148,7 @@ export default async function CustomerPaymentsPage() {
 
       {/* Payment History */}
       <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h2 className="mb-6 text-xl font-semibold text-[#211f1a]">Payment History</h2>
+        <h2 className="mb-6 text-xl font-semibold text-[#211f1a]">{t("paymentHistory.title")}</h2>
         <PaymentHistoryTable bookings={bookings} />
       </div>
     </section>

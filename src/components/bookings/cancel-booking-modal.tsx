@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { calculateCancellationPolicy, getCancellationPolicyDescription } from "@/lib/cancellation-policy";
 
 type CancelBookingModalProps = {
@@ -19,6 +20,7 @@ type CancelBookingModalProps = {
 
 export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingModalProps) {
   const router = useRouter();
+  const t = useTranslations("dashboard.customer.cancelBookingModal");
   const [reason, setReason] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -43,7 +45,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
 
   const handleCancel = async () => {
     if (!policy?.canCancel) {
-      setMessage({ type: "error", text: "Cannot cancel this booking" });
+      setMessage({ type: "error", text: t("errors.cannotCancel") });
       return;
     }
 
@@ -68,7 +70,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
 
       setMessage({
         type: "success",
-        text: `Booking canceled successfully! ${result.refund.formatted_refund} will be refunded.`,
+        text: t("messages.success", { refund: result.refund.formatted_refund }),
       });
 
       setTimeout(() => {
@@ -78,7 +80,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
     } catch (error) {
       setMessage({
         type: "error",
-        text: error instanceof Error ? error.message : "Failed to cancel booking",
+        text: error instanceof Error ? error.message : t("errors.failedToCancel"),
       });
     } finally {
       setLoading(false);
@@ -102,7 +104,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-[28px] bg-white p-8 shadow-xl">
-        <h2 className="text-2xl font-semibold text-[#211f1a]">Cancel Booking</h2>
+        <h2 className="text-2xl font-semibold text-[#211f1a]">{t("title")}</h2>
         <p className="mt-3 text-base text-[#5d574b]">
           {booking.service_name || "Service"} •{" "}
           {booking.scheduled_start
@@ -142,7 +144,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
         {/* Policy Details */}
         <details className="mt-6">
           <summary className="cursor-pointer text-base font-semibold text-[#211f1a]">
-            View Cancellation Policy
+            {t("policy.viewPolicy")}
           </summary>
           <pre className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-[#5d574b]">
             {getCancellationPolicyDescription()}
@@ -153,13 +155,13 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
         {policy?.canCancel && (
           <div className="mt-6">
             <label htmlFor="reason" className="mb-2 block text-base font-semibold text-[#211f1a]">
-              Reason for cancellation (optional)
+              {t("form.reasonLabel")}
             </label>
             <textarea
               id="reason"
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              placeholder="Let the professional know why you need to cancel..."
+              placeholder={t("form.reasonPlaceholder")}
               rows={4}
               className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             />
@@ -187,7 +189,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
             disabled={loading}
             className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 text-base font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
           >
-            Keep Booking
+            {t("buttons.keepBooking")}
           </button>
           {policy?.canCancel && (
             <button
@@ -196,7 +198,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
               disabled={loading}
               className="flex-1 rounded-full bg-red-600 px-6 py-3 text-base font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70"
             >
-              {loading ? "Canceling..." : "Cancel Booking"}
+              {loading ? t("buttons.canceling") : t("buttons.cancelBooking")}
             </button>
           )}
         </div>

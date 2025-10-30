@@ -1,15 +1,23 @@
+import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
 import { FavoritesList } from "@/components/favorites/favorites-list";
 
-export default async function CustomerFavoritesPage() {
+export default async function CustomerFavoritesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   await requireUser({ allowedRoles: ["customer"] });
+
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "dashboard.customer.favoritesPage" });
 
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="text-3xl font-semibold text-[#211f1a]">My Favorites</h1>
+        <h1 className="text-3xl font-semibold text-[#211f1a]">{t("title")}</h1>
         <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-          Quick access to your favorite professionals for easy rebooking.
+          {t("description")}
         </p>
       </div>
 

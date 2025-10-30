@@ -1,8 +1,17 @@
+import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
 
-export default async function CustomerBookingsPage() {
+export default async function CustomerBookingsPage(props: {
+  params: Promise<{ locale: string }>;
+}) {
+  const params = await props.params;
+  const t = await getTranslations({
+    locale: params.locale,
+    namespace: "dashboard.customer.bookingsPage",
+  });
+
   const user = await requireUser({ allowedRoles: ["customer"] });
   const supabase = await createSupabaseServerClient();
 
@@ -39,9 +48,11 @@ export default async function CustomerBookingsPage() {
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="text-3xl font-semibold text-[#211f1a]">My Bookings</h1>
+        <h1 className="text-3xl font-semibold text-[#211f1a]">
+          {t("title")}
+        </h1>
         <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-          View and manage your upcoming and past service appointments.
+          {t("description")}
         </p>
       </div>
 

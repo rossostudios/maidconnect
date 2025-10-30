@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { FavoriteButton } from "./favorite-button";
 import { ListSkeleton } from "@/components/ui/skeleton";
 
@@ -20,6 +21,7 @@ type FavoriteProfessional = {
 };
 
 export function FavoritesList() {
+  const t = useTranslations("dashboard.customer.favoritesList");
   const [favorites, setFavorites] = useState<FavoriteProfessional[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -31,12 +33,12 @@ export function FavoritesList() {
   const fetchFavorites = async () => {
     try {
       const response = await fetch("/api/customer/favorites");
-      if (!response.ok) throw new Error("Failed to fetch favorites");
+      if (!response.ok) throw new Error(t("errors.fetchFailed"));
       const data = await response.json();
       setFavorites(data.favorites || []);
     } catch (err) {
       console.error("Failed to fetch favorites:", err);
-      setError("Failed to load favorites");
+      setError(t("errors.loadFailed"));
     } finally {
       setLoading(false);
     }
@@ -56,7 +58,7 @@ export function FavoritesList() {
   if (error) {
     return (
       <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-base text-red-600">
-        {error}
+        {error || t("errors.loadFailed")}
       </div>
     );
   }
@@ -66,17 +68,16 @@ export function FavoritesList() {
       <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
         <p className="text-4xl">🤍</p>
         <p className="mt-4 text-lg font-semibold text-[#211f1a]">
-          No favorites yet
+          {t("empty.title")}
         </p>
         <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
-          Click the heart icon on any professional to save them here for quick
-          access.
+          {t("empty.description")}
         </p>
         <Link
           href="/professionals"
           className="mt-6 inline-flex rounded-full bg-[#ff5d46] px-8 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
         >
-          Browse Professionals
+          {t("empty.browseProfessionals")}
         </Link>
       </div>
     );
@@ -86,7 +87,7 @@ export function FavoritesList() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold text-[#211f1a]">
-          Your Favorites ({favorites.length})
+          {t("title", { count: favorites.length })}
         </h2>
       </div>
 
@@ -110,6 +111,7 @@ function ProfessionalCard({
   professional: FavoriteProfessional;
   onRemove: () => void;
 }) {
+  const t = useTranslations("dashboard.customer.favoritesList");
   const priceFormatted = new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",
@@ -142,7 +144,7 @@ function ProfessionalCard({
                     professional.profile.full_name}
                 </h3>
                 {professional.verified && (
-                  <span className="text-base" title="Verified">
+                  <span className="text-base" title={t("card.verified")}>
                     ✓
                   </span>
                 )}
@@ -169,11 +171,11 @@ function ProfessionalCard({
           {/* Footer */}
           <div className="mt-6 flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-[#7d7566]">Starting at</p>
-              <p className="mt-1 text-lg font-semibold text-[#ff5d46]">{priceFormatted}/hr</p>
+              <p className="text-sm font-medium text-[#7d7566]">{t("card.startingAt")}</p>
+              <p className="mt-1 text-lg font-semibold text-[#ff5d46]">{priceFormatted}{t("card.perHour")}</p>
             </div>
             <span className="text-base font-semibold text-[#5d574b] group-hover:text-[#ff5d46]">
-              View profile →
+              {t("card.viewProfile")}
             </span>
           </div>
         </div>
