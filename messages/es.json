@@ -11,11 +11,77 @@
     "product": "Producto"
   },
   "hero": {
-    "title": "Profesionales del hogar de confianza para expatriados en Colombia",
-    "subtitle": "Empleadas domésticas, niñeras, cocineras y cuidadores con verificación de antecedentes. Reserve servicios con confianza a través de nuestra plataforma segura.",
+    "badge": "Personal Doméstico de Confianza · Colombia",
+    "title": "Profesionales del hogar que se sienten como familia",
+    "subtitle": "Conéctese con empleadas domésticas y cuidadores verificados en toda Colombia. Completamente examinados, integrados y listos para apoyar su estilo de vida.",
     "findProfessional": "Encontrar un profesional",
+    "howItWorks": "Cómo funciona",
     "becomeProfessional": "Ser profesional",
     "learnMore": "Más información"
+  },
+  "services": {
+    "badge": "Servicios",
+    "title": "Profesionales seleccionados para cada rutina",
+    "items": {
+      "housekeeping": {
+        "title": "Servicio Doméstico y Limpieza Profunda",
+        "description": "Soluciones recurrentes o únicas adaptadas a hogares meticulosos."
+      },
+      "childcare": {
+        "title": "Apoyo Familiar y Cuidado Infantil",
+        "description": "Niñeras y cuidadores de confianza con experiencia en hogares internacionales."
+      },
+      "relocation": {
+        "title": "Preparación de Mudanza y Reubicación",
+        "description": "Configuración del día de llegada, desempaque y servicios de organización del hogar."
+      },
+      "elderCare": {
+        "title": "Cuidado de Ancianos y Bienestar",
+        "description": "Compañía, recordatorios de medicamentos y atención centrada en el bienestar."
+      },
+      "petCare": {
+        "title": "Gestión de Mascotas y Hogar",
+        "description": "Cuidadores, paseadores confiables y revisiones de propiedad mientras viaja."
+      },
+      "lifestyle": {
+        "title": "Apoyo de Estilo de Vida Personal",
+        "description": "Chefs privados, especialistas en encargos y asistentes personales bajo demanda."
+      }
+    }
+  },
+  "process": {
+    "badge": "Cómo funciona",
+    "title": "De la búsqueda al soporte en cuatro pasos simples",
+    "steps": {
+      "step1": {
+        "number": "01",
+        "title": "Comparta su perfil de hogar",
+        "description": "Complete nuestra entrada guiada detallando rutinas, preferencias, idiomas y certificaciones requeridas."
+      },
+      "step2": {
+        "number": "02",
+        "title": "Conozca profesionales seleccionados",
+        "description": "Reciba una lista corta con videos de presentación, credenciales verificadas y precios transparentes para comparar con facilidad."
+      },
+      "step3": {
+        "number": "03",
+        "title": "Reserve y confirme",
+        "description": "Programe su servicio con reserva instantánea o aprobada. Comuníquese directamente a través de mensajería segura."
+      },
+      "step4": {
+        "number": "04",
+        "title": "Califique y vuelva a reservar",
+        "description": "Comparta comentarios después de cada visita. Guarde sus favoritos y vuelva a reservar con un clic para soporte continuo."
+      }
+    }
+  },
+  "concierge": {
+    "title": "¿Listo para encontrar su pareja perfecta?",
+    "subtitle": "Programe una consulta para discutir las necesidades de su hogar. Le presentaremos profesionales verificados dentro de 48 horas.",
+    "browseProfessionals": "Explorar profesionales",
+    "bookConsultation": "Reservar una consulta",
+    "cities": "Disponible en 6 ciudades principales de Colombia",
+    "languages": "Soporte en inglés, español y portugués"
   },
   "features": {
     "title": "Por qué elegir Maidconnect",

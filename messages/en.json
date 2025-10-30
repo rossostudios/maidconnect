@@ -11,11 +11,77 @@
     "product": "Product"
   },
   "hero": {
-    "title": "Trusted home professionals for expats in Colombia",
-    "subtitle": "Background-checked housekeepers, nannies, cooks, and caregivers. Book services with confidence through our secure platform.",
+    "badge": "Trusted Domestic Staffing · Colombia",
+    "title": "Home professionals who feel like family",
+    "subtitle": "Connect with vetted housekeepers and caregivers across Colombia. Fully screened, onboarded, and ready to support your lifestyle.",
     "findProfessional": "Find a professional",
+    "howItWorks": "How it works",
     "becomeProfessional": "Become a professional",
     "learnMore": "Learn more"
+  },
+  "services": {
+    "badge": "Services",
+    "title": "Curated professionals for every routine",
+    "items": {
+      "housekeeping": {
+        "title": "Housekeeping & Deep Cleaning",
+        "description": "Recurring or one-time solutions tailored to meticulous homes."
+      },
+      "childcare": {
+        "title": "Family & Childcare Support",
+        "description": "Trusted nannies and caregivers experienced with international households."
+      },
+      "relocation": {
+        "title": "Move-in & Relocation Prep",
+        "description": "Arrival day setup, unpacking, and home organization services."
+      },
+      "elderCare": {
+        "title": "Elder & Wellness Care",
+        "description": "Companionship, medication reminders, and wellness-focused care."
+      },
+      "petCare": {
+        "title": "Pet & Home Management",
+        "description": "Reliable sitters, walkers, and property check-ins while you travel."
+      },
+      "lifestyle": {
+        "title": "Personal Lifestyle Support",
+        "description": "Private chefs, errand specialists, and personal assistants on demand."
+      }
+    }
+  },
+  "process": {
+    "badge": "How it works",
+    "title": "From search to support in four simple steps",
+    "steps": {
+      "step1": {
+        "number": "01",
+        "title": "Share your household profile",
+        "description": "Complete our guided intake detailing routines, preferences, languages, and required certifications."
+      },
+      "step2": {
+        "number": "02",
+        "title": "Meet curated professionals",
+        "description": "Receive a shortlist with video intros, verified credentials, and transparent pricing to compare with ease."
+      },
+      "step3": {
+        "number": "03",
+        "title": "Book and confirm",
+        "description": "Schedule your service with instant or approved booking. Communicate directly through secure messaging."
+      },
+      "step4": {
+        "number": "04",
+        "title": "Rate and rebook",
+        "description": "Share feedback after each visit. Save your favorites and rebook with one click for ongoing support."
+      }
+    }
+  },
+  "concierge": {
+    "title": "Ready to find your perfect match?",
+    "subtitle": "Schedule a consultation to discuss your household needs. We'll introduce you to vetted professionals within 48 hours.",
+    "browseProfessionals": "Browse professionals",
+    "bookConsultation": "Book a consultation",
+    "cities": "Available in 6 major Colombian cities",
+    "languages": "English, Spanish & Portuguese support"
   },
   "features": {
     "title": "Why choose Maidconnect",
