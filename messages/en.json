@@ -1039,5 +1039,612 @@
         "noReviews": "No reviews yet"
       }
     }
+  },
+  "dashboard": {
+    "pro": {
+      "main": {
+        "welcomeBack": "Welcome back",
+        "dashboardDescription": "Your dashboard overview for managing bookings, services, and customer communications.",
+        "onboardingDescription": "Review your onboarding progress and take the next steps to start accepting bookings.",
+        "signOut": "Sign out",
+        "metrics": {
+          "activeBookings": "Active bookings",
+          "pendingRequests": "Pending requests",
+          "completedThisWeek": "Completed this week",
+          "earningsThisWeek": "Earnings this week"
+        },
+        "onboarding": {
+          "title": "Onboarding checklist",
+          "description": "Complete each step so customers can discover and book you. Missing items are highlighted below.",
+          "manageButton": "Manage onboarding",
+          "tasks": {
+            "application": {
+              "title": "Application details submitted",
+              "description": "Tell us who you are, your experience, references, and where you work.",
+              "cta": "Update application"
+            },
+            "documents": {
+              "title": "Required documents uploaded",
+              "description": "Upload your government ID and proof of address for verification.",
+              "cta": "Upload documents"
+            },
+            "profile": {
+              "title": "Public profile ready",
+              "description": "Complete your bio, services, pricing, and availability to go live.",
+              "cta": "Finish profile"
+            }
+          },
+          "status": {
+            "completed": "Completed",
+            "actionNeeded": "Action needed"
+          },
+          "warnings": {
+            "missing": "Missing:",
+            "addService": "Add at least one service to show customers what you offer.",
+            "profileActivated": "Profile activated on",
+            "addReferences": "Add two professional references so we can complete your background check."
+          }
+        },
+        "sections": {
+          "pendingRatings": "Pending Customer Ratings",
+          "bookingCalendar": {
+            "title": "Booking calendar",
+            "description": "View your upcoming bookings, manage requests, and track completed visits.",
+            "updateAvailability": "Update availability"
+          },
+          "recentBookings": "Recent bookings",
+          "services": {
+            "title": "Services & add-ons",
+            "description": "Manage your core services and create custom add-ons to increase booking value.",
+            "editButton": "Edit services",
+            "yourServices": "Your services",
+            "noServices": "No services added yet. Add services in your profile.",
+            "customAddons": "Custom add-ons",
+            "addonsDescription": "Offer extras like deep cleaning, laundry, or pet care."
+          },
+          "documents": {
+            "title": "Document center",
+            "description": "Keep your verification paperwork current. Upload new files if your information changes.",
+            "noDocuments": "We don't have any documents on file yet. Please upload the required documents.",
+            "unnamedFile": "Unnamed file",
+            "uploaded": "Uploaded",
+            "download": "Download",
+            "downloadError": "We couldn't generate a download link. Try reloading.",
+            "manageLink": "Manage documents",
+            "unknownStatus": "Unknown"
+          }
+        }
+      },
+      "availability": {
+        "title": "Availability Settings",
+        "description": "Manage your working hours and block dates when you're unavailable. This controls when customers can book you.",
+        "tips": {
+          "title": "Tips for Managing Availability",
+          "workingHours": {
+            "label": "Working Hours:",
+            "text": "Set realistic hours that you can consistently maintain. Customers value reliability."
+          },
+          "blockedDates": {
+            "label": "Blocked Dates:",
+            "text": "Block dates in advance for vacations or personal time. Update this regularly to avoid booking conflicts."
+          },
+          "bufferTime": {
+            "label": "Buffer Time:",
+            "text": "Consider leaving time between bookings for travel and unexpected delays."
+          },
+          "flexibility": {
+            "label": "Flexibility:",
+            "text": "The more hours you're available, the more booking opportunities you'll have."
+          }
+        }
+      },
+      "bookings": {
+        "title": "Booking calendar",
+        "description": "View your upcoming bookings, manage requests, and track completed visits.",
+        "updateAvailability": "Update availability",
+        "allBookings": "All bookings"
+      },
+      "documents": {
+        "title": "Document Center",
+        "description": "Keep your verification paperwork current. Upload new files if your information changes.",
+        "uploadButton": "Upload Documents"
+      },
+      "finances": {
+        "title": "Finances & Analytics",
+        "description": "Track your earnings, view analytics, and manage payouts."
+      },
+      "portfolio": {
+        "title": "Portfolio",
+        "description": "Showcase your best work with photos and descriptions. A strong portfolio helps customers choose you with confidence."
+      },
+      "profile": {
+        "title": "Profile Settings",
+        "description": "Update your public information, contact details, and professional summary. Changes are reflected on your public listing."
+      },
+      "onboarding": {
+        "labels": {
+          "profileSettings": "PROFILE SETTINGS",
+          "onboarding": "ONBOARDING"
+        },
+        "headings": {
+          "editProfile": "Edit your profile",
+          "launchProfile": "Launch your MaidConnect profile"
+        },
+        "descriptions": {
+          "active": "Update your public information, services, and availability. Changes are reflected instantly on your listing.",
+          "notActive": "Complete the steps below to unlock bookings. You can save and return at any time—progress is remembered."
+        },
+        "backToDashboard": "Back to dashboard",
+        "steps": {
+          "application": {
+            "title": "Submit application",
+            "description": "Tell us about your experience, services, and references."
+          },
+          "documents": {
+            "title": "Upload documents",
+            "description": "Provide required identification and proof of address."
+          },
+          "profile": {
+            "title": "Build your profile",
+            "description": "Create a compelling bio, select services, and set rates."
+          }
+        },
+        "status": {
+          "completed": "Completed",
+          "inProgress": "In progress",
+          "pending": "Pending"
+        },
+        "success": {
+          "profileLive": "Your profile is live!",
+          "updateDescription": "Update your public information below whenever you need to refresh your listing."
+        },
+        "sections": {
+          "publicProfile": {
+            "title": "Public profile",
+            "description": "Adjust your bio, services, languages, and weekly availability. Changes update your listing instantly."
+          },
+          "applicationDetails": {
+            "title": "Application Details",
+            "description": "Share your professional background. This information helps us verify your experience and match you with the right clients."
+          },
+          "uploadDocuments": {
+            "title": "Upload required documents",
+            "description": "Securely upload scans or photos of your identification. We store everything in encrypted Supabase Storage.",
+            "required": "Required",
+            "requiredDocs": {
+              "governmentId": "Government-issued ID (Cédula de Ciudadanía or Cédula de Extranjería)",
+              "proofOfAddress": "Proof of address (utility bill, lease agreement)"
+            },
+            "optional": "Optional",
+            "optionalDocs": {
+              "certifications": "Professional certifications",
+              "workPermits": "Work permits (if applicable)"
+            },
+            "acceptedFormats": "Accepted formats:",
+            "formatInfo": "PDF, JPG, PNG (max 5MB each). Our team reviews uploads within 3-5 business days and keeps you informed throughout the process."
+          },
+          "createProfile": {
+            "title": "Create your public profile",
+            "description": "Craft a compelling presence that builds trust with new customers. This information appears on your MaidConnect listing."
+          }
+        },
+        "complete": {
+          "title": "Onboarding complete!",
+          "description": "Return to the dashboard to manage bookings and start connecting with customers."
+        }
+      },
+      "applicationForm": {
+        "fields": {
+          "fullName": {
+            "label": "Full name",
+            "placeholder": "María Rodríguez"
+          },
+          "idNumber": {
+            "label": "ID number",
+            "placeholder": "CC 1234567890"
+          },
+          "phoneNumber": {
+            "label": "Phone number",
+            "placeholder": "+57 300 123 4567"
+          },
+          "country": {
+            "label": "Country",
+            "options": {
+              "colombia": "Colombia",
+              "unitedStates": "United States",
+              "canada": "Canada",
+              "unitedKingdom": "United Kingdom",
+              "mexico": "Mexico",
+              "other": "Other"
+            }
+          },
+          "city": {
+            "label": "City",
+            "placeholder": "Medellín"
+          },
+          "services": {
+            "label": "Services offered",
+            "helper": "Select all services you can confidently provide.",
+            "options": {
+              "houseCleaning": "House cleaning",
+              "laundry": "Laundry",
+              "cooking": "Cooking",
+              "organization": "Organization",
+              "childcare": "Childcare",
+              "petCare": "Pet care",
+              "errandRunning": "Errand running"
+            }
+          },
+          "experience": {
+            "label": "Years of experience",
+            "placeholder": "5"
+          },
+          "rate": {
+            "label": "Rate expectations (per hour)",
+            "helper": "COP/hour",
+            "placeholder": "40000"
+          },
+          "availability": {
+            "label": "Availability",
+            "helper": "Example: Monday to Friday 8am - 4pm. Mention weekends or flexible hours if applicable.",
+            "placeholder": "Example: Monday to Friday 8am - 4pm"
+          },
+          "references": {
+            "label": "Professional references",
+            "helper": "Provide two references we can contact.",
+            "referenceLabel": "Reference {index}",
+            "namePlaceholder": "Name",
+            "relationshipPlaceholder": "Relationship",
+            "contactPlaceholder": "Phone or email"
+          },
+          "backgroundCheck": {
+            "label": "Background check consent",
+            "checkboxLabel": "I authorize MaidConnect to conduct identity and background verifications for onboarding."
+          }
+        },
+        "infoText": "Submitting this application triggers our review team to start verification. You can still edit details later.",
+        "submitting": "Submitting…",
+        "submit": "Submit application"
+      },
+      "documentUploadForm": {
+        "badges": {
+          "required": "Required",
+          "optional": "Optional"
+        },
+        "uploadDescription": "Upload {required, select, true {a clear} other {an optional}} scan or photo (PDF, JPG, PNG, max 5MB).",
+        "acceptedTypes": "PDF, JPG, PNG",
+        "validation": {
+          "fileSize": "File must be 5MB or smaller.",
+          "fileType": "Only PDF, JPG, or PNG files are supported."
+        },
+        "notesPlaceholder": "Notes (passwords, expiry date, issuing organization)",
+        "selected": "Selected:",
+        "submitting": "Submitting…",
+        "submit": "Submit documents"
+      },
+      "profileBuildForm": {
+        "fields": {
+          "bio": {
+            "label": "Professional bio",
+            "placeholder": "Share your background, specialties, and why customers love working with you."
+          },
+          "languages": {
+            "label": "Languages"
+          },
+          "services": {
+            "label": "Services & rates",
+            "helper": "Tell customers what to expect for each service."
+          },
+          "hourlyRate": {
+            "label": "Hourly rate (COP)",
+            "placeholder": "40000"
+          },
+          "serviceDescription": {
+            "label": "Service description",
+            "placeholder": "Describe what's included in this service"
+          },
+          "availability": {
+            "label": "Weekly availability",
+            "helper": "Set your typical working hours for each day.",
+            "start": "Start",
+            "end": "End"
+          },
+          "notes": {
+            "label": "Notes (optional)",
+            "placeholder": "e.g., Flexible"
+          }
+        },
+        "buttons": {
+          "submitForReview": "Submit profile for review",
+          "saveProfile": "Save profile",
+          "saving": "Saving…"
+        },
+        "footnotes": {
+          "submitForReview": "Once approved, your profile goes live within 24 hours. You can continue refining details anytime.",
+          "saveProfile": "Your changes update instantly on your public listing."
+        },
+        "characters": "characters"
+      },
+      "bookingCalendar": {
+        "days": {
+          "sun": "Sun",
+          "mon": "Mon",
+          "tue": "Tue",
+          "wed": "Wed",
+          "thu": "Thu",
+          "fri": "Fri",
+          "sat": "Sat"
+        },
+        "details": "Details",
+        "noBookings": "No bookings scheduled for this day.",
+        "booking": "booking",
+        "bookings": "bookings",
+        "timeTbd": "Time TBD",
+        "status": {
+          "pendingPayment": "Awaiting payment",
+          "authorized": "Authorized hold",
+          "completed": "Completed",
+          "canceled": "Canceled"
+        }
+      },
+      "bookingList": {
+        "emptyState": "No bookings yet. Once customers authorize a booking, it will appear here.",
+        "sections": {
+          "activeServices": "Active Services",
+          "otherBookings": "Other Bookings",
+          "allBookings": "All Bookings"
+        },
+        "table": {
+          "booking": "Booking",
+          "service": "Service",
+          "scheduled": "Scheduled",
+          "amount": "Amount (COP)",
+          "status": "Status",
+          "actions": "Actions"
+        },
+        "actions": {
+          "accepting": "Accepting…",
+          "accept": "Accept",
+          "declining": "Declining…",
+          "decline": "Decline",
+          "capturing": "Capturing…",
+          "capture": "Capture",
+          "canceling": "Canceling…",
+          "cancelHold": "Cancel hold",
+          "noActions": "No actions available"
+        },
+        "success": "{action} booking successfully!",
+        "successAlternate": "Booking {action}ed successfully!"
+      },
+      "financialSummary": {
+        "title": "Financial overview",
+        "description": "Monitor captured payouts, active holds, and upcoming revenue.",
+        "stripe": {
+          "opening": "Opening Stripe…",
+          "setup": "Set up Stripe payouts",
+          "statusLabel": "Stripe status:",
+          "actionRequired": "Action required",
+          "connected": "Connected"
+        },
+        "emptyState": "Once customers authorize bookings, you'll see financial metrics here.",
+        "cards": {
+          "availableAfterCompletion": {
+            "title": "Available after completion",
+            "description": "Payments captured"
+          },
+          "activeHolds": {
+            "title": "Active holds",
+            "description": "Awaiting completion"
+          }
+        },
+        "thisMonth": "This month",
+        "metrics": {
+          "capturedPayouts": "Captured payouts",
+          "upcomingHolds": "Upcoming holds",
+          "pendingRequests": "Pending payment requests",
+          "holdsReleased": "Holds released"
+        }
+      },
+      "serviceAddons": {
+        "activeAddons": "Active Add-ons ({count})",
+        "inactiveAddons": "Inactive Add-ons ({count})",
+        "emptyState": "No add-ons yet. Create your first add-on to offer extra services to customers.",
+        "createFirst": "Create your first add-on →",
+        "addNew": "Add new service add-on",
+        "form": {
+          "editTitle": "Edit Add-on",
+          "createTitle": "Create New Add-on",
+          "fields": {
+            "name": {
+              "label": "Service Name *",
+              "placeholder": "e.g., Deep cleaning, Window washing, Inside fridge"
+            },
+            "description": {
+              "label": "Description",
+              "placeholder": "Describe what this add-on includes..."
+            },
+            "price": {
+              "label": "Price (COP) *",
+              "placeholder": "50000"
+            },
+            "extraTime": {
+              "label": "Extra Time (minutes)",
+              "placeholder": "0",
+              "helper": "Set to 0 if this doesn't add extra time"
+            },
+            "active": {
+              "label": "Active (customers can see and book this add-on)"
+            }
+          },
+          "cancel": "Cancel",
+          "saveChanges": "Save Changes",
+          "createAddon": "Create Add-on"
+        },
+        "duration": {
+          "hour": "1 hour",
+          "minutes": "{minutes} minutes",
+          "noExtra": "No extra time"
+        },
+        "inactive": "Inactive",
+        "actions": {
+          "edit": "Edit",
+          "deactivate": "Deactivate",
+          "activate": "Activate",
+          "delete": "Delete"
+        },
+        "deleteConfirm": "Are you sure you want to delete this add-on?"
+      },
+      "financesOverview": {
+        "metrics": {
+          "totalEarnings": {
+            "label": "Total Earnings",
+            "description": "All time"
+          },
+          "thisMonth": {
+            "label": "This Month"
+          },
+          "avgBookingValue": {
+            "label": "Avg Booking Value",
+            "description": "total bookings"
+          },
+          "pendingPayouts": {
+            "label": "Pending Payouts",
+            "descriptionSuffix": "pending"
+          }
+        },
+        "charts": {
+          "earningsTrend": "Earnings Trend",
+          "bookingsByMonth": "Bookings by Month",
+          "revenueByService": "Revenue by Service",
+          "recentPayouts": "Recent Payouts"
+        }
+      },
+      "portfolioManager": {
+        "fields": {
+          "description": {
+            "label": "Featured Work Description",
+            "placeholder": "Describe your specialties and what makes your work unique...",
+            "helper": "This will appear above your portfolio gallery"
+          }
+        },
+        "upload": {
+          "title": "Upload Portfolio Images",
+          "currentImages": "Current Images ({count})"
+        },
+        "deleteConfirm": "Delete this image?",
+        "actions": {
+          "editCaption": "Edit caption",
+          "moveUp": "↑ Move up",
+          "moveDown": "↓ Move down",
+          "delete": "Delete"
+        },
+        "emptyState": {
+          "title": "No portfolio images yet",
+          "description": "Upload images using the dropzone above to showcase your best work"
+        },
+        "tips": {
+          "title": "Portfolio Tips",
+          "tip1": "Use high-quality images that showcase your best work",
+          "tip2": "Add captions to explain what the project involved",
+          "tip3": "Before/after photos are particularly effective",
+          "tip4": "Keep your portfolio updated with recent work",
+          "tip5": "Aim for 6-12 images for a well-rounded portfolio"
+        },
+        "saving": "Saving...",
+        "save": "Save Portfolio",
+        "success": "Portfolio updated successfully!",
+        "error": "Failed to update portfolio. Please try again."
+      },
+      "availabilityEditor": {
+        "tabs": {
+          "workingHours": "Working Hours",
+          "blockedDates": "Blocked Dates"
+        },
+        "workingHours": {
+          "title": "Set Your Weekly Schedule",
+          "description": "Define which days and hours you're available for bookings. Customers can only book during these times."
+        },
+        "blockedDates": {
+          "title": "Block Specific Dates",
+          "description": "Mark dates when you're unavailable (vacations, holidays, personal time). These dates won't be bookable even if they fall within your working hours."
+        },
+        "infoText": "Changes will be reflected immediately on your public profile",
+        "saving": "Saving...",
+        "save": "Save Availability",
+        "success": "Availability updated successfully!"
+      },
+      "profileEditor": {
+        "sections": {
+          "basicInfo": {
+            "title": "Basic Information",
+            "fields": {
+              "fullName": {
+                "label": "Full Name",
+                "placeholder": "Your full name"
+              },
+              "email": {
+                "label": "Email",
+                "helper": "Email cannot be changed here. Contact support if needed."
+              },
+              "phoneNumber": {
+                "label": "Phone Number",
+                "placeholder": "+57 300 123 4567"
+              },
+              "avatarUrl": {
+                "label": "Avatar URL",
+                "placeholder": "https://example.com/avatar.jpg",
+                "helper": "Public profile photo URL"
+              }
+            }
+          },
+          "professionalSummary": {
+            "title": "Professional Summary",
+            "fields": {
+              "bio": {
+                "label": "Bio",
+                "placeholder": "Tell customers about your experience, specialties, and what makes you great...",
+                "characterCounter": "/500 characters"
+              }
+            }
+          },
+          "languages": {
+            "title": "Languages",
+            "helper": "Select all languages you can communicate in",
+            "options": {
+              "english": "English",
+              "spanish": "Español",
+              "portuguese": "Português",
+              "french": "Français",
+              "german": "Deutsch"
+            }
+          },
+          "services": {
+            "title": "Primary Services",
+            "helper": "Select all services you offer",
+            "options": {
+              "houseCleaning": "House cleaning",
+              "laundry": "Laundry",
+              "cooking": "Cooking",
+              "organization": "Organization",
+              "childcare": "Childcare",
+              "petCare": "Pet care",
+              "errandRunning": "Errand running",
+              "gardening": "Gardening",
+              "elderCare": "Elder care"
+            }
+          }
+        },
+        "saving": "Saving...",
+        "save": "Save Changes",
+        "success": "Profile updated successfully!"
+      },
+      "pendingRatings": {
+        "title": "Rate Your Recent Customers",
+        "description": "Share your feedback to help build a trusted community.",
+        "service": "Service",
+        "customerInfo": "Customer • {date}",
+        "rateButton": "Rate Customer"
+      }
+    }
   }
 }

@@ -1039,5 +1039,612 @@
         "noReviews": "Aún no hay reseñas"
       }
     }
+  },
+  "dashboard": {
+    "pro": {
+      "main": {
+        "welcomeBack": "Bienvenido de nuevo",
+        "dashboardDescription": "Tu panel de control para gestionar reservas, servicios y comunicaciones con clientes.",
+        "onboardingDescription": "Revisa tu progreso de incorporación y completa los siguientes pasos para comenzar a aceptar reservas.",
+        "signOut": "Cerrar sesión",
+        "metrics": {
+          "activeBookings": "Reservas activas",
+          "pendingRequests": "Solicitudes pendientes",
+          "completedThisWeek": "Completados esta semana",
+          "earningsThisWeek": "Ganancias esta semana"
+        },
+        "onboarding": {
+          "title": "Lista de verificación de incorporación",
+          "description": "Completa cada paso para que los clientes puedan descubrirte y reservarte. Los elementos faltantes están resaltados a continuación.",
+          "manageButton": "Gestionar incorporación",
+          "tasks": {
+            "application": {
+              "title": "Detalles de solicitud enviados",
+              "description": "Cuéntanos quién eres, tu experiencia, referencias y dónde trabajas.",
+              "cta": "Actualizar solicitud"
+            },
+            "documents": {
+              "title": "Documentos requeridos cargados",
+              "description": "Carga tu identificación oficial y comprobante de domicilio para verificación.",
+              "cta": "Cargar documentos"
+            },
+            "profile": {
+              "title": "Perfil público listo",
+              "description": "Completa tu biografía, servicios, precios y disponibilidad para activarte.",
+              "cta": "Finalizar perfil"
+            }
+          },
+          "status": {
+            "completed": "Completado",
+            "actionNeeded": "Acción requerida"
+          },
+          "warnings": {
+            "missing": "Falta:",
+            "addService": "Agrega al menos un servicio para mostrar a los clientes lo que ofreces.",
+            "profileActivated": "Perfil activado el",
+            "addReferences": "Agrega dos referencias profesionales para que podamos completar tu verificación de antecedentes."
+          }
+        },
+        "sections": {
+          "pendingRatings": "Calificaciones de Clientes Pendientes",
+          "bookingCalendar": {
+            "title": "Calendario de reservas",
+            "description": "Ve tus próximas reservas, gestiona solicitudes y rastrea visitas completadas.",
+            "updateAvailability": "Actualizar disponibilidad"
+          },
+          "recentBookings": "Reservas recientes",
+          "services": {
+            "title": "Servicios y complementos",
+            "description": "Gestiona tus servicios principales y crea complementos personalizados para aumentar el valor de las reservas.",
+            "editButton": "Editar servicios",
+            "yourServices": "Tus servicios",
+            "noServices": "Aún no has agregado servicios. Agrega servicios en tu perfil.",
+            "customAddons": "Complementos personalizados",
+            "addonsDescription": "Ofrece extras como limpieza profunda, lavandería o cuidado de mascotas."
+          },
+          "documents": {
+            "title": "Centro de documentos",
+            "description": "Mantén tu documentación de verificación actualizada. Carga nuevos archivos si tu información cambia.",
+            "noDocuments": "Aún no tenemos documentos archivados. Por favor carga los documentos requeridos.",
+            "unnamedFile": "Archivo sin nombre",
+            "uploaded": "Cargado",
+            "download": "Descargar",
+            "downloadError": "No pudimos generar un enlace de descarga. Intenta recargar.",
+            "manageLink": "Gestionar documentos",
+            "unknownStatus": "Desconocido"
+          }
+        }
+      },
+      "availability": {
+        "title": "Configuración de Disponibilidad",
+        "description": "Gestiona tus horarios de trabajo y bloquea fechas cuando no estés disponible. Esto controla cuándo los clientes pueden reservarte.",
+        "tips": {
+          "title": "Consejos para Gestionar Disponibilidad",
+          "workingHours": {
+            "label": "Horario de Trabajo:",
+            "text": "Establece horarios realistas que puedas mantener consistentemente. Los clientes valoran la confiabilidad."
+          },
+          "blockedDates": {
+            "label": "Fechas Bloqueadas:",
+            "text": "Bloquea fechas con anticipación para vacaciones o tiempo personal. Actualiza esto regularmente para evitar conflictos de reservas."
+          },
+          "bufferTime": {
+            "label": "Tiempo de Margen:",
+            "text": "Considera dejar tiempo entre reservas para viajes y retrasos inesperados."
+          },
+          "flexibility": {
+            "label": "Flexibilidad:",
+            "text": "Cuantas más horas estés disponible, más oportunidades de reserva tendrás."
+          }
+        }
+      },
+      "bookings": {
+        "title": "Calendario de reservas",
+        "description": "Ve tus próximas reservas, gestiona solicitudes y rastrea visitas completadas.",
+        "updateAvailability": "Actualizar disponibilidad",
+        "allBookings": "Todas las reservas"
+      },
+      "documents": {
+        "title": "Centro de Documentos",
+        "description": "Mantén tu documentación de verificación actualizada. Carga nuevos archivos si tu información cambia.",
+        "uploadButton": "Cargar Documentos"
+      },
+      "finances": {
+        "title": "Finanzas y Analíticas",
+        "description": "Rastrea tus ganancias, ve analíticas y gestiona pagos."
+      },
+      "portfolio": {
+        "title": "Portafolio",
+        "description": "Muestra tu mejor trabajo con fotos y descripciones. Un portafolio sólido ayuda a que los clientes te elijan con confianza."
+      },
+      "profile": {
+        "title": "Configuración de Perfil",
+        "description": "Actualiza tu información pública, detalles de contacto y resumen profesional. Los cambios se reflejan en tu listado público."
+      },
+      "onboarding": {
+        "labels": {
+          "profileSettings": "CONFIGURACIÓN DE PERFIL",
+          "onboarding": "INCORPORACIÓN"
+        },
+        "headings": {
+          "editProfile": "Edita tu perfil",
+          "launchProfile": "Lanza tu perfil de MaidConnect"
+        },
+        "descriptions": {
+          "active": "Actualiza tu información pública, servicios y disponibilidad. Los cambios se reflejan instantáneamente en tu listado.",
+          "notActive": "Completa los pasos a continuación para desbloquear reservas. Puedes guardar y volver en cualquier momento; el progreso se recuerda."
+        },
+        "backToDashboard": "Volver al panel",
+        "steps": {
+          "application": {
+            "title": "Enviar solicitud",
+            "description": "Cuéntanos sobre tu experiencia, servicios y referencias."
+          },
+          "documents": {
+            "title": "Cargar documentos",
+            "description": "Proporciona identificación requerida y comprobante de domicilio."
+          },
+          "profile": {
+            "title": "Construye tu perfil",
+            "description": "Crea una biografía convincente, selecciona servicios y establece tarifas."
+          }
+        },
+        "status": {
+          "completed": "Completado",
+          "inProgress": "En progreso",
+          "pending": "Pendiente"
+        },
+        "success": {
+          "profileLive": "¡Tu perfil está en vivo!",
+          "updateDescription": "Actualiza tu información pública a continuación cuando necesites refrescar tu listado."
+        },
+        "sections": {
+          "publicProfile": {
+            "title": "Perfil público",
+            "description": "Ajusta tu biografía, servicios, idiomas y disponibilidad semanal. Los cambios actualizan tu listado instantáneamente."
+          },
+          "applicationDetails": {
+            "title": "Detalles de Solicitud",
+            "description": "Comparte tu trayectoria profesional. Esta información nos ayuda a verificar tu experiencia y emparejarte con los clientes adecuados."
+          },
+          "uploadDocuments": {
+            "title": "Cargar documentos requeridos",
+            "description": "Carga de forma segura escaneos o fotos de tu identificación. Almacenamos todo en Supabase Storage encriptado.",
+            "required": "Requerido",
+            "requiredDocs": {
+              "governmentId": "Identificación oficial (Cédula de Ciudadanía o Cédula de Extranjería)",
+              "proofOfAddress": "Comprobante de domicilio (recibo de servicios, contrato de arrendamiento)"
+            },
+            "optional": "Opcional",
+            "optionalDocs": {
+              "certifications": "Certificaciones profesionales",
+              "workPermits": "Permisos de trabajo (si aplica)"
+            },
+            "acceptedFormats": "Formatos aceptados:",
+            "formatInfo": "PDF, JPG, PNG (máx 5MB cada uno). Nuestro equipo revisa las cargas en 3-5 días hábiles y te mantiene informado durante el proceso."
+          },
+          "createProfile": {
+            "title": "Crea tu perfil público",
+            "description": "Crea una presencia convincente que genere confianza con nuevos clientes. Esta información aparece en tu listado de MaidConnect."
+          }
+        },
+        "complete": {
+          "title": "¡Incorporación completa!",
+          "description": "Regresa al panel para gestionar reservas y comenzar a conectar con clientes."
+        }
+      },
+      "applicationForm": {
+        "fields": {
+          "fullName": {
+            "label": "Nombre completo",
+            "placeholder": "María Rodríguez"
+          },
+          "idNumber": {
+            "label": "Número de identificación",
+            "placeholder": "CC 1234567890"
+          },
+          "phoneNumber": {
+            "label": "Número de teléfono",
+            "placeholder": "+57 300 123 4567"
+          },
+          "country": {
+            "label": "País",
+            "options": {
+              "colombia": "Colombia",
+              "unitedStates": "Estados Unidos",
+              "canada": "Canadá",
+              "unitedKingdom": "Reino Unido",
+              "mexico": "México",
+              "other": "Otro"
+            }
+          },
+          "city": {
+            "label": "Ciudad",
+            "placeholder": "Medellín"
+          },
+          "services": {
+            "label": "Servicios ofrecidos",
+            "helper": "Selecciona todos los servicios que puedes proporcionar con confianza.",
+            "options": {
+              "houseCleaning": "Limpieza del hogar",
+              "laundry": "Lavandería",
+              "cooking": "Cocina",
+              "organization": "Organización",
+              "childcare": "Cuidado de niños",
+              "petCare": "Cuidado de mascotas",
+              "errandRunning": "Encargos"
+            }
+          },
+          "experience": {
+            "label": "Años de experiencia",
+            "placeholder": "5"
+          },
+          "rate": {
+            "label": "Expectativas de tarifa (por hora)",
+            "helper": "COP/hora",
+            "placeholder": "40000"
+          },
+          "availability": {
+            "label": "Disponibilidad",
+            "helper": "Ejemplo: Lunes a viernes 8am - 4pm. Menciona fines de semana u horas flexibles si aplica.",
+            "placeholder": "Ejemplo: Lunes a viernes 8am - 4pm"
+          },
+          "references": {
+            "label": "Referencias profesionales",
+            "helper": "Proporciona dos referencias que podamos contactar.",
+            "referenceLabel": "Referencia {index}",
+            "namePlaceholder": "Nombre",
+            "relationshipPlaceholder": "Relación",
+            "contactPlaceholder": "Teléfono o correo"
+          },
+          "backgroundCheck": {
+            "label": "Consentimiento de verificación de antecedentes",
+            "checkboxLabel": "Autorizo a MaidConnect a realizar verificaciones de identidad y antecedentes para la incorporación."
+          }
+        },
+        "infoText": "Enviar esta solicitud activa a nuestro equipo de revisión para iniciar la verificación. Aún puedes editar detalles más tarde.",
+        "submitting": "Enviando…",
+        "submit": "Enviar solicitud"
+      },
+      "documentUploadForm": {
+        "badges": {
+          "required": "Requerido",
+          "optional": "Opcional"
+        },
+        "uploadDescription": "Cargar {required, select, true {un escaneo claro} other {un}} escaneo o foto opcional (PDF, JPG, PNG, máx 5MB).",
+        "acceptedTypes": "PDF, JPG, PNG",
+        "validation": {
+          "fileSize": "El archivo debe ser de 5MB o menos.",
+          "fileType": "Solo se admiten archivos PDF, JPG o PNG."
+        },
+        "notesPlaceholder": "Notas (contraseñas, fecha de vencimiento, organización emisora)",
+        "selected": "Seleccionado:",
+        "submitting": "Enviando…",
+        "submit": "Enviar documentos"
+      },
+      "profileBuildForm": {
+        "fields": {
+          "bio": {
+            "label": "Biografía profesional",
+            "placeholder": "Comparte tu trayectoria, especialidades y por qué a los clientes les encanta trabajar contigo."
+          },
+          "languages": {
+            "label": "Idiomas"
+          },
+          "services": {
+            "label": "Servicios y tarifas",
+            "helper": "Dile a los clientes qué esperar de cada servicio."
+          },
+          "hourlyRate": {
+            "label": "Tarifa por hora (COP)",
+            "placeholder": "40000"
+          },
+          "serviceDescription": {
+            "label": "Descripción del servicio",
+            "placeholder": "Describe qué está incluido en este servicio"
+          },
+          "availability": {
+            "label": "Disponibilidad semanal",
+            "helper": "Establece tus horarios de trabajo típicos para cada día.",
+            "start": "Inicio",
+            "end": "Fin"
+          },
+          "notes": {
+            "label": "Notas (opcional)",
+            "placeholder": "ej., Flexible"
+          }
+        },
+        "buttons": {
+          "submitForReview": "Enviar perfil para revisión",
+          "saveProfile": "Guardar perfil",
+          "saving": "Guardando…"
+        },
+        "footnotes": {
+          "submitForReview": "Una vez aprobado, tu perfil se activa en 24 horas. Puedes continuar refinando detalles en cualquier momento.",
+          "saveProfile": "Tus cambios se actualizan instantáneamente en tu listado público."
+        },
+        "characters": "caracteres"
+      },
+      "bookingCalendar": {
+        "days": {
+          "sun": "Dom",
+          "mon": "Lun",
+          "tue": "Mar",
+          "wed": "Mié",
+          "thu": "Jue",
+          "fri": "Vie",
+          "sat": "Sáb"
+        },
+        "details": "Detalles",
+        "noBookings": "No hay reservas programadas para este día.",
+        "booking": "reserva",
+        "bookings": "reservas",
+        "timeTbd": "Hora por definir",
+        "status": {
+          "pendingPayment": "Esperando pago",
+          "authorized": "Retención autorizada",
+          "completed": "Completado",
+          "canceled": "Cancelado"
+        }
+      },
+      "bookingList": {
+        "emptyState": "Aún no hay reservas. Una vez que los clientes autoricen una reserva, aparecerá aquí.",
+        "sections": {
+          "activeServices": "Servicios Activos",
+          "otherBookings": "Otras Reservas",
+          "allBookings": "Todas las Reservas"
+        },
+        "table": {
+          "booking": "Reserva",
+          "service": "Servicio",
+          "scheduled": "Programado",
+          "amount": "Monto (COP)",
+          "status": "Estado",
+          "actions": "Acciones"
+        },
+        "actions": {
+          "accepting": "Aceptando…",
+          "accept": "Aceptar",
+          "declining": "Rechazando…",
+          "decline": "Rechazar",
+          "capturing": "Capturando…",
+          "capture": "Capturar",
+          "canceling": "Cancelando…",
+          "cancelHold": "Cancelar retención",
+          "noActions": "No hay acciones disponibles"
+        },
+        "success": "¡{action} reserva exitosamente!",
+        "successAlternate": "¡Reserva {action}da exitosamente!"
+      },
+      "financialSummary": {
+        "title": "Resumen financiero",
+        "description": "Monitorea pagos capturados, retenciones activas e ingresos próximos.",
+        "stripe": {
+          "opening": "Abriendo Stripe…",
+          "setup": "Configurar pagos de Stripe",
+          "statusLabel": "Estado de Stripe:",
+          "actionRequired": "Acción requerida",
+          "connected": "Conectado"
+        },
+        "emptyState": "Una vez que los clientes autoricen reservas, verás métricas financieras aquí.",
+        "cards": {
+          "availableAfterCompletion": {
+            "title": "Disponible después de completar",
+            "description": "Pagos capturados"
+          },
+          "activeHolds": {
+            "title": "Retenciones activas",
+            "description": "Esperando completar"
+          }
+        },
+        "thisMonth": "Este mes",
+        "metrics": {
+          "capturedPayouts": "Pagos capturados",
+          "upcomingHolds": "Retenciones próximas",
+          "pendingRequests": "Solicitudes de pago pendientes",
+          "holdsReleased": "Retenciones liberadas"
+        }
+      },
+      "serviceAddons": {
+        "activeAddons": "Complementos Activos ({count})",
+        "inactiveAddons": "Complementos Inactivos ({count})",
+        "emptyState": "Aún no hay complementos. Crea tu primer complemento para ofrecer servicios adicionales a los clientes.",
+        "createFirst": "Crear tu primer complemento →",
+        "addNew": "Agregar nuevo complemento de servicio",
+        "form": {
+          "editTitle": "Editar Complemento",
+          "createTitle": "Crear Nuevo Complemento",
+          "fields": {
+            "name": {
+              "label": "Nombre del Servicio *",
+              "placeholder": "ej., Limpieza profunda, Lavado de ventanas, Interior del refrigerador"
+            },
+            "description": {
+              "label": "Descripción",
+              "placeholder": "Describe qué incluye este complemento..."
+            },
+            "price": {
+              "label": "Precio (COP) *",
+              "placeholder": "50000"
+            },
+            "extraTime": {
+              "label": "Tiempo Extra (minutos)",
+              "placeholder": "0",
+              "helper": "Establece en 0 si esto no agrega tiempo extra"
+            },
+            "active": {
+              "label": "Activo (los clientes pueden ver y reservar este complemento)"
+            }
+          },
+          "cancel": "Cancelar",
+          "saveChanges": "Guardar Cambios",
+          "createAddon": "Crear Complemento"
+        },
+        "duration": {
+          "hour": "1 hora",
+          "minutes": "{minutes} minutos",
+          "noExtra": "Sin tiempo extra"
+        },
+        "inactive": "Inactivo",
+        "actions": {
+          "edit": "Editar",
+          "deactivate": "Desactivar",
+          "activate": "Activar",
+          "delete": "Eliminar"
+        },
+        "deleteConfirm": "¿Estás seguro de que quieres eliminar este complemento?"
+      },
+      "financesOverview": {
+        "metrics": {
+          "totalEarnings": {
+            "label": "Ganancias Totales",
+            "description": "Todo el tiempo"
+          },
+          "thisMonth": {
+            "label": "Este Mes"
+          },
+          "avgBookingValue": {
+            "label": "Valor Promedio de Reserva",
+            "description": "reservas totales"
+          },
+          "pendingPayouts": {
+            "label": "Pagos Pendientes",
+            "descriptionSuffix": "pendiente"
+          }
+        },
+        "charts": {
+          "earningsTrend": "Tendencia de Ganancias",
+          "bookingsByMonth": "Reservas por Mes",
+          "revenueByService": "Ingresos por Servicio",
+          "recentPayouts": "Pagos Recientes"
+        }
+      },
+      "portfolioManager": {
+        "fields": {
+          "description": {
+            "label": "Descripción de Trabajo Destacado",
+            "placeholder": "Describe tus especialidades y qué hace único tu trabajo...",
+            "helper": "Esto aparecerá encima de tu galería de portafolio"
+          }
+        },
+        "upload": {
+          "title": "Cargar Imágenes de Portafolio",
+          "currentImages": "Imágenes Actuales ({count})"
+        },
+        "deleteConfirm": "¿Eliminar esta imagen?",
+        "actions": {
+          "editCaption": "Editar leyenda",
+          "moveUp": "↑ Mover arriba",
+          "moveDown": "↓ Mover abajo",
+          "delete": "Eliminar"
+        },
+        "emptyState": {
+          "title": "Aún no hay imágenes de portafolio",
+          "description": "Carga imágenes usando la zona de carga arriba para mostrar tu mejor trabajo"
+        },
+        "tips": {
+          "title": "Consejos de Portafolio",
+          "tip1": "Usa imágenes de alta calidad que muestren tu mejor trabajo",
+          "tip2": "Agrega leyendas para explicar en qué consistió el proyecto",
+          "tip3": "Las fotos de antes/después son particularmente efectivas",
+          "tip4": "Mantén tu portafolio actualizado con trabajo reciente",
+          "tip5": "Apunta a 6-12 imágenes para un portafolio bien equilibrado"
+        },
+        "saving": "Guardando...",
+        "save": "Guardar Portafolio",
+        "success": "¡Portafolio actualizado exitosamente!",
+        "error": "Error al actualizar el portafolio. Por favor intenta de nuevo."
+      },
+      "availabilityEditor": {
+        "tabs": {
+          "workingHours": "Horario de Trabajo",
+          "blockedDates": "Fechas Bloqueadas"
+        },
+        "workingHours": {
+          "title": "Establece tu Horario Semanal",
+          "description": "Define qué días y horas estás disponible para reservas. Los clientes solo pueden reservar durante estos horarios."
+        },
+        "blockedDates": {
+          "title": "Bloquear Fechas Específicas",
+          "description": "Marca fechas cuando no estés disponible (vacaciones, días festivos, tiempo personal). Estas fechas no serán reservables incluso si caen dentro de tu horario de trabajo."
+        },
+        "infoText": "Los cambios se reflejarán inmediatamente en tu perfil público",
+        "saving": "Guardando...",
+        "save": "Guardar Disponibilidad",
+        "success": "¡Disponibilidad actualizada exitosamente!"
+      },
+      "profileEditor": {
+        "sections": {
+          "basicInfo": {
+            "title": "Información Básica",
+            "fields": {
+              "fullName": {
+                "label": "Nombre Completo",
+                "placeholder": "Tu nombre completo"
+              },
+              "email": {
+                "label": "Correo Electrónico",
+                "helper": "El correo no se puede cambiar aquí. Contacta soporte si es necesario."
+              },
+              "phoneNumber": {
+                "label": "Número de Teléfono",
+                "placeholder": "+57 300 123 4567"
+              },
+              "avatarUrl": {
+                "label": "URL del Avatar",
+                "placeholder": "https://ejemplo.com/avatar.jpg",
+                "helper": "URL de foto de perfil público"
+              }
+            }
+          },
+          "professionalSummary": {
+            "title": "Resumen Profesional",
+            "fields": {
+              "bio": {
+                "label": "Biografía",
+                "placeholder": "Cuéntale a los clientes sobre tu experiencia, especialidades y qué te hace genial...",
+                "characterCounter": "/500 caracteres"
+              }
+            }
+          },
+          "languages": {
+            "title": "Idiomas",
+            "helper": "Selecciona todos los idiomas en los que puedes comunicarte",
+            "options": {
+              "english": "English",
+              "spanish": "Español",
+              "portuguese": "Português",
+              "french": "Français",
+              "german": "Deutsch"
+            }
+          },
+          "services": {
+            "title": "Servicios Principales",
+            "helper": "Selecciona todos los servicios que ofreces",
+            "options": {
+              "houseCleaning": "Limpieza del hogar",
+              "laundry": "Lavandería",
+              "cooking": "Cocina",
+              "organization": "Organización",
+              "childcare": "Cuidado de niños",
+              "petCare": "Cuidado de mascotas",
+              "errandRunning": "Encargos",
+              "gardening": "Jardinería",
+              "elderCare": "Cuidado de ancianos"
+            }
+          }
+        },
+        "saving": "Guardando...",
+        "save": "Guardar Cambios",
+        "success": "¡Perfil actualizado exitosamente!"
+      },
+      "pendingRatings": {
+        "title": "Califica a Tus Clientes Recientes",
+        "description": "Comparte tu retroalimentación para ayudar a construir una comunidad confiable.",
+        "service": "Servicio",
+        "customerInfo": "Cliente • {date}",
+        "rateButton": "Calificar Cliente"
+      }
+    }
   }
 }
