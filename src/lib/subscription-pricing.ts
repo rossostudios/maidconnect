@@ -95,7 +95,9 @@ export function getTierDiscountLabel(tier: SubscriptionTier): string | null {
  * Calculate estimated bookings for a time period
  */
 export function estimateBookingsCount(frequency: SubscriptionTier, months = 3): number {
-  if (frequency === "none") return 1;
+  if (frequency === "none") {
+    return 1;
+  }
 
   const bookingsPerMonth = {
     monthly: 1,
@@ -157,8 +159,12 @@ export function getRecommendedTier(
 ): SubscriptionTier | null {
   // If user has 3+ previous bookings, recommend subscription
   if (previousBookingsCount && previousBookingsCount >= 3) {
-    if (previousBookingsCount >= 8) return "weekly";
-    if (previousBookingsCount >= 5) return "biweekly";
+    if (previousBookingsCount >= 8) {
+      return "weekly";
+    }
+    if (previousBookingsCount >= 5) {
+      return "biweekly";
+    }
     return "monthly";
   }
 

@@ -36,7 +36,9 @@ type Props = {
 const columnHelper = createColumnHelper<Document>();
 
 function formatFileSize(bytes?: number) {
-  if (!bytes) return "—";
+  if (!bytes) {
+    return "—";
+  }
   const sizes = ["B", "KB", "MB", "GB"];
   const i = Math.floor(Math.log(bytes) / Math.log(1024));
   const value = bytes / 1024 ** i;

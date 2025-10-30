@@ -25,17 +25,17 @@ async function fetchProfileForUser(
     ]);
 
   if (profileError) {
-    console.error("Failed to load profile", profileError);
     return null;
   }
 
   if (authError) {
-    console.error("Failed to load auth user", authError);
     return null;
   }
 
   const user = authUser.user;
-  if (!user) return null;
+  if (!user) {
+    return null;
+  }
 
   const role = (profile?.role as AppRole | null) ?? roleFallback;
   const locale = profile?.locale ?? "en-US";

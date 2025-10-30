@@ -11,7 +11,9 @@ type CustomerSearchSectionProps = {
 };
 
 function formatCurrencyCOP(value: number | null | undefined) {
-  if (!value || Number.isNaN(value)) return null;
+  if (!value || Number.isNaN(value)) {
+    return null;
+  }
   return new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",

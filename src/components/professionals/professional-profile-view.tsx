@@ -47,7 +47,9 @@ const DEFAULT_PRO_PHOTO =
   "https://images.unsplash.com/photo-1523800503107-5bc3ba2a6f81?auto=format&fit=crop&w=600&q=80";
 
 function formatCurrencyCOP(value: number | null | undefined) {
-  if (!value || Number.isNaN(value)) return null;
+  if (!value || Number.isNaN(value)) {
+    return null;
+  }
   return new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",
@@ -305,7 +307,7 @@ export function ProfessionalProfileView({
                             key={review.id}
                           >
                             <div className="flex items-center gap-2">
-                              {[...Array(5)].map((_, i) => (
+                              {[...new Array(5)].map((_, i) => (
                                 <Star
                                   className={`h-4 w-4 ${
                                     i < review.rating

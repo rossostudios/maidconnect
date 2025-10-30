@@ -65,7 +65,6 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       setSuccess(true);
       setTimeout(() => setSuccess(false), 3000);
     } catch (err) {
-      console.error("Failed to update profile:", err);
       setError(err instanceof Error ? err.message : "Failed to update profile");
     } finally {
       setLoading(false);

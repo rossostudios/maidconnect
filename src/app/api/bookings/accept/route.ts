@@ -81,7 +81,6 @@ export async function POST(request: Request) {
       .eq("id", bookingId);
 
     if (updateError) {
-      console.error("Failed to update booking status:", updateError);
       return NextResponse.json({ error: "Failed to accept booking" }, { status: 500 });
     }
 
@@ -146,8 +145,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ success: true, booking: { id: booking.id, status: "confirmed" } });
-  } catch (error) {
-    console.error("Accept booking error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Unable to accept booking" }, { status: 500 });
   }
 }

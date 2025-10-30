@@ -12,7 +12,9 @@ type TimePickerProps = {
 };
 
 function formatDisplay(value: string | null, placeholder?: string) {
-  if (!value) return placeholder ?? "Select time";
+  if (!value) {
+    return placeholder ?? "Select time";
+  }
   const [hourString, minuteString] = value.split(":");
   const hour = Number(hourString);
   const minute = Number(minuteString);

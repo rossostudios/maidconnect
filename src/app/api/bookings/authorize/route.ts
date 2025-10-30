@@ -156,14 +156,10 @@ export async function POST(request: Request) {
           });
         }
       }
-    } catch (emailError) {
-      // Don't fail the request if email fails
-      console.error("Failed to send booking notification email:", emailError);
-    }
+    } catch (_emailError) {}
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Authorize booking error", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Unable to authorize booking" }, { status: 500 });
   }
 }

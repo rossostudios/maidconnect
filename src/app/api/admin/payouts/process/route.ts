@@ -79,7 +79,6 @@ export async function POST(request: Request) {
     const { data: professionals, error: profError } = await professionalsQuery;
 
     if (profError) {
-      console.error("Failed to fetch professionals:", profError);
       return NextResponse.json({ error: "Failed to fetch professionals" }, { status: 500 });
     }
 
@@ -113,7 +112,6 @@ export async function POST(request: Request) {
           .is("included_in_payout_id", null);
 
         if (bookingsError) {
-          console.error(`Failed to fetch bookings for ${professional.profile_id}:`, bookingsError);
           results.push({
             professionalId: professional.profile_id,
             success: false,
@@ -125,7 +123,9 @@ export async function POST(request: Request) {
         // Filter by current period
         const periodBookings = (pendingBookings || []).filter((booking) => {
           const completedAt = booking.checked_out_at || booking.created_at;
-          if (!completedAt) return false;
+          if (!completedAt) {
+            return false;
+          }
           const completedDate = new Date(completedAt);
           return completedDate >= periodStart && completedDate < periodEnd;
         });
@@ -192,10 +192,6 @@ export async function POST(request: Request) {
           .single();
 
         if (payoutError || !payoutRecord) {
-          console.error(
-            `Failed to create payout record for ${professional.profile_id}:`,
-            payoutError
-          );
           results.push({
             professionalId: professional.profile_id,
             success: false,
@@ -247,8 +243,6 @@ export async function POST(request: Request) {
             bookingCount: payout.bookingCount,
           });
         } catch (stripeError: any) {
-          console.error(`Stripe transfer failed for ${professional.profile_id}:`, stripeError);
-
           // Update payout status to failed
           await supabase
             .from("payouts")
@@ -266,7 +260,6 @@ export async function POST(request: Request) {
           });
         }
       } catch (error: any) {
-        console.error(`Error processing payout for ${professional.profile_id}:`, error);
         results.push({
           professionalId: professional.profile_id,
           success: false,
@@ -304,7 +297,6 @@ export async function POST(request: Request) {
       results,
     });
   } catch (error: any) {
-    console.error("Failed to process payouts:", error);
     return NextResponse.json(
       { error: error.message || "Failed to process payouts" },
       {

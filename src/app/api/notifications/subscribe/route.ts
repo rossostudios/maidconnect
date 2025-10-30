@@ -48,7 +48,6 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
-      console.error("[API] Failed to save subscription:", error);
       return NextResponse.json({ error: "Failed to save subscription" }, { status: 500 });
     }
 
@@ -56,14 +55,13 @@ export async function POST(request: NextRequest) {
       success: true,
       subscription: data,
     });
-  } catch (error) {
-    console.error("[API] Subscription error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
 // Delete push notification subscription
-export async function DELETE(request: NextRequest) {
+export async function DELETE(_request: NextRequest) {
   try {
     const supabase = await createSupabaseServerClient();
 
@@ -84,19 +82,17 @@ export async function DELETE(request: NextRequest) {
       .eq("user_id", user.id);
 
     if (error) {
-      console.error("[API] Failed to delete subscription:", error);
       return NextResponse.json({ error: "Failed to delete subscription" }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("[API] Delete subscription error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
 // Get current subscription status
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const supabase = await createSupabaseServerClient();
 
@@ -117,7 +113,6 @@ export async function GET(request: NextRequest) {
       .eq("user_id", user.id);
 
     if (error) {
-      console.error("[API] Failed to fetch subscriptions:", error);
       return NextResponse.json({ error: "Failed to fetch subscriptions" }, { status: 500 });
     }
 
@@ -125,8 +120,7 @@ export async function GET(request: NextRequest) {
       success: true,
       subscriptions: data || [],
     });
-  } catch (error) {
-    console.error("[API] Fetch subscriptions error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

@@ -43,11 +43,6 @@ export function AvailabilityCalendar({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch availability when month changes
-  useEffect(() => {
-    fetchAvailability();
-  }, [currentMonth, professionalId]);
-
   const fetchAvailability = async () => {
     try {
       setLoading(true);
@@ -77,6 +72,11 @@ export function AvailabilityCalendar({
     }
   };
 
+  // Fetch availability when month changes
+  useEffect(() => {
+    fetchAvailability();
+  }, [fetchAvailability]);
+
   const goToPreviousMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
   };
@@ -91,7 +91,9 @@ export function AvailabilityCalendar({
 
   // Get availability for a specific date
   const getDateAvailability = (date: Date): DayAvailability | null => {
-    if (!availabilityData) return null;
+    if (!availabilityData) {
+      return null;
+    }
     const dateStr = formatDate(date);
     return availabilityData.availability.find((a) => a.date === dateStr) || null;
   };

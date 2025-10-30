@@ -62,7 +62,6 @@ export default async function ProfessionalsPage() {
   const { data, error } = await supabase.rpc("list_active_professionals");
 
   if (error) {
-    console.error("Failed to load professional directory", error);
   }
 
   const professionals: DirectoryProfessional[] = Array.isArray(data)

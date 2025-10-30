@@ -57,13 +57,21 @@ export function RatingPromptModal({
     formData.append("customerId", customerId);
     formData.append("bookingId", bookingId);
     formData.append("rating", rating.toString());
-    if (title) formData.append("title", title);
-    if (comment) formData.append("comment", comment);
-    if (punctualityRating > 0) formData.append("punctualityRating", punctualityRating.toString());
-    if (communicationRating > 0)
+    if (title) {
+      formData.append("title", title);
+    }
+    if (comment) {
+      formData.append("comment", comment);
+    }
+    if (punctualityRating > 0) {
+      formData.append("punctualityRating", punctualityRating.toString());
+    }
+    if (communicationRating > 0) {
       formData.append("communicationRating", communicationRating.toString());
-    if (respectfulnessRating > 0)
+    }
+    if (respectfulnessRating > 0) {
       formData.append("respectfulnessRating", respectfulnessRating.toString());
+    }
 
     try {
       const result = await submitCustomerReviewAction({ status: "idle" }, formData);
@@ -76,14 +84,16 @@ export function RatingPromptModal({
       } else {
         setMessage({ type: "error", text: result.message || "Failed to submit review" });
       }
-    } catch (error) {
+    } catch (_error) {
       setMessage({ type: "error", text: "Failed to submit review" });
     } finally {
       setLoading(false);
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   const StarRating = ({
     value,

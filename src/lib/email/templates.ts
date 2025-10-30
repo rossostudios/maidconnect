@@ -3,7 +3,7 @@
  * Uses simple HTML for maximum email client compatibility
  */
 
-interface BookingEmailData {
+type BookingEmailData = {
   customerName: string;
   professionalName: string;
   serviceName: string;
@@ -13,7 +13,7 @@ interface BookingEmailData {
   address: string;
   bookingId: string;
   amount?: string;
-}
+};
 
 const baseStyles = `
   body {
@@ -263,7 +263,7 @@ export function messageNotificationEmail(
   recipientName: string,
   senderName: string,
   messagePreview: string,
-  bookingId: string,
+  _bookingId: string,
   dashboardUrl: string
 ): string {
   return `

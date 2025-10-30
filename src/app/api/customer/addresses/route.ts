@@ -27,15 +27,13 @@ export async function GET() {
       .single();
 
     if (error) {
-      console.error("Failed to fetch addresses:", error);
       return NextResponse.json({ error: "Failed to fetch addresses" }, { status: 500 });
     }
 
     return NextResponse.json({
       addresses: (profile?.saved_addresses as any[]) || [],
     });
-  } catch (error) {
-    console.error("Addresses API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to fetch addresses" }, { status: 500 });
   }
 }
@@ -70,7 +68,6 @@ export async function PUT(request: Request) {
       .eq("profile_id", user.id);
 
     if (error) {
-      console.error("Failed to update addresses:", error);
       return NextResponse.json({ error: "Failed to update addresses" }, { status: 500 });
     }
 
@@ -78,8 +75,7 @@ export async function PUT(request: Request) {
       success: true,
       addresses: body.addresses,
     });
-  } catch (error) {
-    console.error("Update addresses API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to update addresses" }, { status: 500 });
   }
 }

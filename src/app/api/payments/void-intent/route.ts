@@ -67,8 +67,7 @@ export async function POST(request: Request) {
       .eq("id", booking.id);
 
     return NextResponse.json({ success: true, paymentIntent: canceledIntent });
-  } catch (error) {
-    console.error("Stripe void-intent error", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Unable to cancel payment intent" }, { status: 500 });
   }
 }

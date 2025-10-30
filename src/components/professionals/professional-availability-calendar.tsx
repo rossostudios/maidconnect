@@ -58,7 +58,9 @@ function buildCalendarMatrix(reference: Date): CalendarDay[] {
 }
 
 function formatCOP(value: number | null | undefined) {
-  if (!value || Number.isNaN(value)) return null;
+  if (!value || Number.isNaN(value)) {
+    return null;
+  }
   return new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",
@@ -94,7 +96,9 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
     const map = new Map<string, AvailabilitySlot[]>();
     availability.forEach((slot) => {
       const dayKey = normalizeSlotWeekday(slot);
-      if (!dayKey) return;
+      if (!dayKey) {
+        return;
+      }
       if (!map.has(dayKey)) {
         map.set(dayKey, []);
       }
@@ -106,7 +110,9 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
   const bookingsByDay = useMemo(() => {
     const map = new Map<string, ProfessionalBookingSummary[]>();
     bookings.forEach((booking) => {
-      if (!booking.scheduledStart) return;
+      if (!booking.scheduledStart) {
+        return;
+      }
       const date = new Date(booking.scheduledStart);
       const key = formatDateKey(toStartOfDayUTC(date));
       if (!map.has(key)) {

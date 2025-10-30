@@ -30,7 +30,6 @@ export async function sendPushNotification(payload: NotificationPayload) {
 
     return await response.json();
   } catch (error) {
-    console.error("[Notifications] Failed to send:", error);
     // Don't throw - notifications are nice-to-have, not critical
     return { success: false, error };
   }

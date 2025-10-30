@@ -29,12 +29,16 @@ type FormState = {
 const initialState: FormState = { status: "idle" };
 
 function normalizeServiceName(value: string | null | undefined) {
-  if (!value) return "";
+  if (!value) {
+    return "";
+  }
   return value;
 }
 
 function formatCurrencyCOP(value: number | null | undefined) {
-  if (!value || Number.isNaN(value)) return null;
+  if (!value || Number.isNaN(value)) {
+    return null;
+  }
   return new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",
@@ -319,7 +323,6 @@ async function createBookingAction(_prev: FormState, formData: FormData): Promis
       paymentIntentId,
     };
   } catch (error) {
-    console.error(error);
     return {
       status: "error",
       message: error instanceof Error ? error.message : "Unexpected error",
@@ -341,7 +344,9 @@ function PaymentConfirmation({ bookingId, paymentIntentId, onReset }: PaymentCon
   const [error, setError] = useState<string | null>(null);
 
   const handleConfirm = async () => {
-    if (!(stripe && elements)) return;
+    if (!(stripe && elements)) {
+      return;
+    }
     setSubmitting(true);
     setError(null);
     try {
@@ -369,7 +374,6 @@ function PaymentConfirmation({ bookingId, paymentIntentId, onReset }: PaymentCon
 
       router.refresh();
     } catch (err) {
-      console.error(err);
       setError(err instanceof Error ? err.message : "Unexpected payment error");
     } finally {
       setSubmitting(false);

@@ -57,10 +57,6 @@ export function ProfessionalVettingDashboard() {
     "application_in_review" | "approved" | "application_pending"
   >("application_in_review");
 
-  useEffect(() => {
-    fetchQueue();
-  }, []);
-
   const fetchQueue = async () => {
     try {
       setLoading(true);
@@ -78,6 +74,10 @@ export function ProfessionalVettingDashboard() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchQueue();
+  }, [fetchQueue]);
 
   const handleReviewComplete = () => {
     setSelectedProfessional(null);

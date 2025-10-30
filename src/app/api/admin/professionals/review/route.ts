@@ -137,7 +137,6 @@ export async function POST(request: Request) {
       .single();
 
     if (reviewError) {
-      console.error("Failed to create review:", reviewError);
       return NextResponse.json({ error: "Failed to create review record" }, { status: 500 });
     }
 
@@ -149,7 +148,6 @@ export async function POST(request: Request) {
         .eq("id", professionalId);
 
       if (updateError) {
-        console.error("Failed to update professional status:", updateError);
         return NextResponse.json(
           { error: "Failed to update professional status" },
           { status: 500 }
@@ -197,10 +195,7 @@ export async function POST(request: Request) {
           await sendProfessionalInfoRequestedEmail(professionalEmail, professionalName, notes);
         }
       }
-    } catch (emailError) {
-      // Log but don't fail the operation if email fails
-      console.error("Failed to send professional review email:", emailError);
-    }
+    } catch (_emailError) {}
 
     return NextResponse.json({
       success: true,
@@ -214,7 +209,6 @@ export async function POST(request: Request) {
             : "Information requested from professional",
     });
   } catch (error: any) {
-    console.error("Admin review error:", error);
     return NextResponse.json(
       { error: error.message || "Failed to review professional" },
       { status: error.message === "Not authenticated" ? 401 : 500 }

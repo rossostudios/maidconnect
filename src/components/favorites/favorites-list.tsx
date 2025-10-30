@@ -26,23 +26,24 @@ export function FavoritesList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchFavorites();
-  }, []);
-
   const fetchFavorites = async () => {
     try {
       const response = await fetch("/api/customer/favorites");
-      if (!response.ok) throw new Error(t("errors.fetchFailed"));
+      if (!response.ok) {
+        throw new Error(t("errors.fetchFailed"));
+      }
       const data = await response.json();
       setFavorites(data.favorites || []);
-    } catch (err) {
-      console.error("Failed to fetch favorites:", err);
+    } catch (_err) {
       setError(t("errors.loadFailed"));
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchFavorites();
+  }, [fetchFavorites]);
 
   const handleFavoriteRemoved = (professionalId: string) => {
     // Remove from local state immediately for better UX

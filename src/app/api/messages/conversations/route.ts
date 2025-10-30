@@ -51,8 +51,6 @@ export async function GET() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error("Failed to fetch conversations:", error);
-      console.error("Error details:", JSON.stringify(error, null, 2));
       return NextResponse.json(
         { error: "Failed to fetch conversations", details: error.message },
         { status: 500 }
@@ -60,8 +58,7 @@ export async function GET() {
     }
 
     return NextResponse.json({ conversations: conversations || [] });
-  } catch (error) {
-    console.error("Conversations API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to fetch conversations" }, { status: 500 });
   }
 }
@@ -129,13 +126,11 @@ export async function POST(request: Request) {
       .single();
 
     if (createError) {
-      console.error("Failed to create conversation:", createError);
       return NextResponse.json({ error: "Failed to create conversation" }, { status: 500 });
     }
 
     return NextResponse.json({ conversationId: conversation.id }, { status: 201 });
-  } catch (error) {
-    console.error("Create conversation API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to create conversation" }, { status: 500 });
   }
 }

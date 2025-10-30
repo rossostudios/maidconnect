@@ -41,8 +41,7 @@ export function PortfolioManager({
 
       onUpdate?.(images, featuredWork);
       alert(t("success"));
-    } catch (error) {
-      console.error("Failed to update portfolio:", error);
+    } catch (_error) {
       alert(t("error"));
     } finally {
       setLoading(false);
@@ -62,7 +61,9 @@ export function PortfolioManager({
   };
 
   const handleDeleteImage = (id: string) => {
-    if (!confirm(t("deleteConfirm"))) return;
+    if (!confirm(t("deleteConfirm"))) {
+      return;
+    }
 
     const newImages = images
       .filter((img) => img.id !== id)
@@ -78,7 +79,9 @@ export function PortfolioManager({
 
   const handleMoveUp = (id: string) => {
     const index = images.findIndex((img) => img.id === id);
-    if (index <= 0) return;
+    if (index <= 0) {
+      return;
+    }
 
     const newImages = [...images];
     [newImages[index], newImages[index - 1]] = [newImages[index - 1], newImages[index]];
@@ -89,7 +92,9 @@ export function PortfolioManager({
 
   const handleMoveDown = (id: string) => {
     const index = images.findIndex((img) => img.id === id);
-    if (index < 0 || index >= images.length - 1) return;
+    if (index < 0 || index >= images.length - 1) {
+      return;
+    }
 
     const newImages = [...images];
     [newImages[index], newImages[index + 1]] = [newImages[index + 1], newImages[index]];

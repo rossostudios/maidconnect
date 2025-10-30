@@ -131,7 +131,9 @@ export function isBookingInPayoutPeriod(
   periodEnd: Date
 ): boolean {
   const completedAt = booking.checked_out_at || booking.completed_at;
-  if (!completedAt) return false;
+  if (!completedAt) {
+    return false;
+  }
 
   const completedDate = new Date(completedAt);
   return completedDate >= periodStart && completedDate < periodEnd;

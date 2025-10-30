@@ -54,14 +54,15 @@ export async function GET() {
       .order("checked_out_at", { ascending: false });
 
     if (bookingsError) {
-      console.error("Failed to fetch pending bookings:", bookingsError);
       return NextResponse.json({ error: "Failed to fetch pending earnings" }, { status: 500 });
     }
 
     // Filter bookings by current payout period
     const currentPeriodBookings = (pendingBookings || []).filter((booking) => {
       const completedAt = booking.checked_out_at || booking.created_at;
-      if (!completedAt) return false;
+      if (!completedAt) {
+        return false;
+      }
       const completedDate = new Date(completedAt);
       return completedDate >= periodStart && completedDate < periodEnd;
     });
@@ -98,7 +99,6 @@ export async function GET() {
       .limit(5);
 
     if (payoutsError) {
-      console.error("Failed to fetch payout history:", payoutsError);
       // Don't fail the request, just return empty history
     }
 
@@ -129,8 +129,7 @@ export async function GET() {
       },
       recentPayouts: recentPayouts || [],
     });
-  } catch (error) {
-    console.error("Failed to calculate pending payouts:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to calculate pending payouts" }, { status: 500 });
   }
 }

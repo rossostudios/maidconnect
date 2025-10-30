@@ -24,12 +24,6 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<"all" | "unread">("unread");
 
-  useEffect(() => {
-    if (isOpen) {
-      fetchNotifications();
-    }
-  }, [isOpen, filter]);
-
   const fetchNotifications = async () => {
     try {
       setLoading(true);
@@ -50,12 +44,17 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
 
       const data = await response.json();
       setNotifications(data.notifications || []);
-    } catch (err) {
-      console.error("Failed to fetch notifications:", err);
+    } catch (_err) {
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchNotifications();
+    }
+  }, [isOpen, fetchNotifications]);
 
   const markAsRead = async (notificationIds: string[]) => {
     try {
@@ -77,9 +76,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
             : notif
         )
       );
-    } catch (err) {
-      console.error("Failed to mark as read:", err);
-    }
+    } catch (_err) {}
   };
 
   const markAllAsRead = async () => {
@@ -96,14 +93,14 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
 
       // Refresh notifications
       await fetchNotifications();
-    } catch (err) {
-      console.error("Failed to mark all as read:", err);
-    }
+    } catch (_err) {}
   };
 
   const unreadCount = notifications.filter((n) => !n.read_at).length;
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <>

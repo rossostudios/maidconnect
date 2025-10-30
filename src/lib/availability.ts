@@ -99,7 +99,7 @@ export function isDateBlocked(date: Date, blockedDates: string[]): boolean {
  */
 export function getWorkingHoursForDate(date: Date, settings: AvailabilitySettings): TimeSlot[] {
   // Defensive check: ensure working_hours exists
-  if (!(settings && settings.working_hours)) {
+  if (!settings?.working_hours) {
     return [];
   }
   const dayOfWeek = getDayOfWeek(date);
@@ -139,7 +139,7 @@ export function generateTimeSlots(
     // Generate slots within this period
     for (let time = periodStart; time + slotDurationMinutes <= periodEnd; time += 30) {
       const slotStart = minutesToTime(time);
-      const slotEnd = minutesToTime(time + slotDurationMinutes);
+      const _slotEnd = minutesToTime(time + slotDurationMinutes);
 
       // Check if slot conflicts with existing bookings (including buffer)
       const hasConflict = existingBookings.some((booking) => {
@@ -315,7 +315,7 @@ export function isSlotAvailable(
 
   const startMins = timeToMinutes(startTime);
   const endMins = startMins + durationMinutes;
-  const endTime = minutesToTime(endMins);
+  const _endTime = minutesToTime(endMins);
 
   // Check if slot is within working hours
   const isWithinWorkingHours = workingHours.some((period) => {

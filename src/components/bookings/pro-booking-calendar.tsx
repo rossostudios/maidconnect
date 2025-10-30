@@ -59,7 +59,9 @@ function buildCalendarMatrix(reference: Date): CalendarDay[] {
 }
 
 function formatCOP(value: number | null | undefined) {
-  if (!value || Number.isNaN(value)) return null;
+  if (!value || Number.isNaN(value)) {
+    return null;
+  }
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "COP",
@@ -98,7 +100,9 @@ export function ProBookingCalendar({ bookings }: Props) {
   const bookingsByDay = useMemo(() => {
     const map = new Map<string, CalendarBooking[]>();
     bookings.forEach((booking) => {
-      if (!booking.scheduled_start) return;
+      if (!booking.scheduled_start) {
+        return;
+      }
       const date = new Date(booking.scheduled_start);
       const key = formatDateKey(toStartOfDay(date));
       if (!map.has(key)) {

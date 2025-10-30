@@ -110,7 +110,6 @@ export async function POST(request: Request) {
       .single();
 
     if (updateError) {
-      console.error("Failed to check in:", updateError);
       return NextResponse.json({ error: "Failed to check in" }, { status: 500 });
     }
 
@@ -136,8 +135,7 @@ export async function POST(request: Request) {
         checked_in_at: updatedBooking.checked_in_at,
       },
     });
-  } catch (error) {
-    console.error("Check-in error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Unable to check in" }, { status: 500 });
   }
 }

@@ -12,9 +12,9 @@ import { type Locale } from "@/i18n";
  * Uses next-intl for internationalization support.
  */
 
-interface LanguageSwitcherProps {
+type LanguageSwitcherProps = {
   variant?: "light" | "dark";
-}
+};
 
 export function LanguageSwitcher({ variant = "light" }: LanguageSwitcherProps) {
   const locale = useLocale() as Locale;

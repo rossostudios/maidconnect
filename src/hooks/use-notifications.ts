@@ -23,8 +23,7 @@ export function useNotifications() {
       const result = await Notification.requestPermission();
       setPermission(result);
       return result;
-    } catch (error) {
-      console.error("Failed to request notification permission:", error);
+    } catch (_error) {
       return "denied";
     }
   };
@@ -40,8 +39,7 @@ export function useNotifications() {
         badge: "/badge-72x72.png", // You'll need to add this badge
         ...options,
       });
-    } catch (error) {
-      console.error("Failed to show notification:", error);
+    } catch (_error) {
       return null;
     }
   };

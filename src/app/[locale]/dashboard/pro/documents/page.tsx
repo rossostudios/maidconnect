@@ -56,7 +56,6 @@ export default async function ProDocumentsPage({
     documents = documents.map((doc, index) => {
       const result = signedUrlResults[index];
       if (result.error) {
-        console.error("Failed to generate signed URL", result.error);
       }
       return {
         ...doc,

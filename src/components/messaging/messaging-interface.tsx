@@ -90,6 +90,58 @@ export function MessagingInterface({ userId, userRole }: Props) {
 
   const { permission, supported, requestPermission, showNotification } = useNotifications();
 
+  const fetchConversations = async () => {
+    try {
+      const response = await fetch("/api/messages/conversations");
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.details || "Failed to fetch conversations");
+      }
+      const data = await response.json();
+      setConversations(data.conversations || []);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load conversations");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchMessages = async (conversationId: string) => {
+    setMessagesLoading(true);
+    try {
+      const response = await fetch(`/api/messages/conversations/${conversationId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch messages");
+      }
+      const data = await response.json();
+      setMessages(data.messages || []);
+    } catch (_err) {
+    } finally {
+      setMessagesLoading(false);
+    }
+  };
+
+  const markAsRead = async (conversationId: string) => {
+    try {
+      await fetch(`/api/messages/conversations/${conversationId}/read`, {
+        method: "POST",
+      });
+      // Update unread count locally
+      setConversations((prev) =>
+        prev.map((conv) =>
+          conv.id === conversationId
+            ? {
+                ...conv,
+                customer_unread_count: userRole === "customer" ? 0 : conv.customer_unread_count,
+                professional_unread_count:
+                  userRole === "professional" ? 0 : conv.professional_unread_count,
+              }
+            : conv
+        )
+      );
+    } catch (_err) {}
+  };
+
   // Request notification permission on mount
   useEffect(() => {
     if (supported && permission === "default") {
@@ -111,12 +163,12 @@ export function MessagingInterface({ userId, userRole }: Props) {
       // Always refresh conversations to update unread counts
       await fetchConversations();
     },
-    [selectedConversation?.id]
+    [selectedConversation?.id, fetchMessages, selectedConversation, fetchConversations]
   );
 
   const handleConversationUpdate = useCallback(async () => {
     await fetchConversations();
-  }, []);
+  }, [fetchConversations]);
 
   // Subscribe to real-time updates
   useRealtimeMessages({
@@ -130,21 +182,21 @@ export function MessagingInterface({ userId, userRole }: Props) {
   // Fetch conversations on mount (no polling)
   useEffect(() => {
     fetchConversations();
-  }, []);
+  }, [fetchConversations]);
 
   // Fetch messages when conversation is selected (no polling)
   useEffect(() => {
     if (selectedConversation) {
       fetchMessages(selectedConversation.id);
     }
-  }, [selectedConversation?.id]);
+  }, [selectedConversation?.id, fetchMessages, selectedConversation]);
 
   // Mark messages as read when conversation is opened
   useEffect(() => {
     if (selectedConversation) {
       markAsRead(selectedConversation.id);
     }
-  }, [selectedConversation?.id, messages.length]);
+  }, [selectedConversation?.id, selectedConversation, markAsRead]);
 
   // Monitor for new messages and show notifications
   useEffect(() => {
@@ -176,62 +228,10 @@ export function MessagingInterface({ userId, userRole }: Props) {
     setPreviousUnreadCount(currentUnreadCount);
   }, [conversations, userRole, previousUnreadCount, showNotification]);
 
-  const fetchConversations = async () => {
-    try {
-      const response = await fetch("/api/messages/conversations");
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.details || "Failed to fetch conversations");
-      }
-      const data = await response.json();
-      setConversations(data.conversations || []);
-    } catch (err) {
-      console.error("Failed to fetch conversations:", err);
-      setError(err instanceof Error ? err.message : "Failed to load conversations");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchMessages = async (conversationId: string) => {
-    setMessagesLoading(true);
-    try {
-      const response = await fetch(`/api/messages/conversations/${conversationId}`);
-      if (!response.ok) throw new Error("Failed to fetch messages");
-      const data = await response.json();
-      setMessages(data.messages || []);
-    } catch (err) {
-      console.error("Failed to fetch messages:", err);
-    } finally {
-      setMessagesLoading(false);
-    }
-  };
-
-  const markAsRead = async (conversationId: string) => {
-    try {
-      await fetch(`/api/messages/conversations/${conversationId}/read`, {
-        method: "POST",
-      });
-      // Update unread count locally
-      setConversations((prev) =>
-        prev.map((conv) =>
-          conv.id === conversationId
-            ? {
-                ...conv,
-                customer_unread_count: userRole === "customer" ? 0 : conv.customer_unread_count,
-                professional_unread_count:
-                  userRole === "professional" ? 0 : conv.professional_unread_count,
-              }
-            : conv
-        )
-      );
-    } catch (err) {
-      console.error("Failed to mark as read:", err);
-    }
-  };
-
   const sendMessage = async (messageText: string) => {
-    if (!(selectedConversation && messageText.trim())) return;
+    if (!(selectedConversation && messageText.trim())) {
+      return;
+    }
 
     try {
       const response = await fetch(`/api/messages/conversations/${selectedConversation.id}`, {
@@ -240,12 +240,13 @@ export function MessagingInterface({ userId, userRole }: Props) {
         body: JSON.stringify({ message: messageText }),
       });
 
-      if (!response.ok) throw new Error("Failed to send message");
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
 
       // Real-time subscription will handle the update automatically
       // No need to manually fetch - the message will appear via Supabase Realtime
-    } catch (err) {
-      console.error("Failed to send message:", err);
+    } catch (_err) {
       alert("Failed to send message. Please try again.");
     }
   };
@@ -475,7 +476,7 @@ function MessageThread({
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages.length]);
+  }, []);
 
   if (loading && messages.length === 0) {
     return (
@@ -523,7 +524,9 @@ function MessageInput({ onSend }: { onSend: (message: string) => void }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!message.trim() || sending) return;
+    if (!message.trim() || sending) {
+      return;
+    }
 
     setSending(true);
     try {

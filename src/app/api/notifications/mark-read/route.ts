@@ -31,7 +31,6 @@ export async function POST(request: NextRequest) {
         .is("read_at", null);
 
       if (error) {
-        console.error("Failed to mark all as read:", error);
         return NextResponse.json(
           { error: "Failed to mark notifications as read" },
           { status: 500 }
@@ -49,7 +48,6 @@ export async function POST(request: NextRequest) {
         .eq("user_id", user.id);
 
       if (error) {
-        console.error("Failed to mark notifications as read:", error);
         return NextResponse.json(
           { error: "Failed to mark notifications as read" },
           { status: 500 }
@@ -65,8 +63,7 @@ export async function POST(request: NextRequest) {
       { error: "Invalid request: provide notificationIds or markAllRead" },
       { status: 400 }
     );
-  } catch (error) {
-    console.error("Mark read API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

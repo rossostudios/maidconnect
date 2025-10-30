@@ -78,8 +78,7 @@ export async function POST(request: Request) {
       clientSecret: paymentIntent.client_secret,
       paymentIntentId: paymentIntent.id,
     });
-  } catch (error) {
-    console.error("Stripe create-intent error", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Unable to create payment intent" }, { status: 500 });
   }
 }

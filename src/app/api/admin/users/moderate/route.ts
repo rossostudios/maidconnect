@@ -113,7 +113,6 @@ export async function POST(request: Request) {
           .single();
 
         if (suspendError) {
-          console.error("Failed to create suspension:", suspendError);
           return NextResponse.json({ error: "Failed to suspend user" }, { status: 500 });
         }
 
@@ -162,7 +161,6 @@ export async function POST(request: Request) {
           .single();
 
         if (banError) {
-          console.error("Failed to create ban:", banError);
           return NextResponse.json({ error: "Failed to ban user" }, { status: 500 });
         }
 
@@ -194,7 +192,6 @@ export async function POST(request: Request) {
           .maybeSingle();
 
         if (findError) {
-          console.error("Failed to find suspension:", findError);
           return NextResponse.json({ error: "Failed to find active suspension" }, { status: 500 });
         }
 
@@ -218,7 +215,6 @@ export async function POST(request: Request) {
           .single();
 
         if (liftError) {
-          console.error("Failed to lift suspension:", liftError);
           return NextResponse.json({ error: "Failed to unsuspend user" }, { status: 500 });
         }
 
@@ -255,10 +251,7 @@ export async function POST(request: Request) {
             liftReason || "Suspension lifted by admin"
           );
         }
-      } catch (emailError) {
-        // Log but don't fail the operation if email fails
-        console.error("Failed to send moderation email:", emailError);
-      }
+      } catch (_emailError) {}
     }
 
     return NextResponse.json({
@@ -272,7 +265,6 @@ export async function POST(request: Request) {
             : "User suspension lifted",
     });
   } catch (error: any) {
-    console.error("Admin moderation error:", error);
     return NextResponse.json(
       { error: error.message || "Failed to moderate user" },
       { status: error.message === "Not authenticated" ? 401 : 500 }

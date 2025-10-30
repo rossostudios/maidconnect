@@ -194,7 +194,9 @@ export function BookingSheet({
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <>
@@ -527,7 +529,9 @@ function PaymentStep({
   const [error, setError] = useState<string | null>(null);
 
   const handleConfirm = async () => {
-    if (!(stripe && elements)) return;
+    if (!(stripe && elements)) {
+      return;
+    }
     setSubmitting(true);
     setError(null);
     try {
@@ -553,7 +557,6 @@ function PaymentStep({
 
       router.push("/dashboard/customer");
     } catch (err) {
-      console.error(err);
       setError(err instanceof Error ? err.message : "Unexpected payment error");
     } finally {
       setSubmitting(false);

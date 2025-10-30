@@ -90,10 +90,14 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   const formatAmount = (amount: number | null, currency: string | null) => {
-    if (!amount) return "—";
+    if (!amount) {
+      return "—";
+    }
     return new Intl.NumberFormat("es-CO", {
       style: "currency",
       currency: currency || "COP",

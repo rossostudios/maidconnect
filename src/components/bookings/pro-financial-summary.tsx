@@ -39,7 +39,9 @@ function formatCOP(value: number) {
 }
 
 function isSameMonth(dateInput: string | null, reference: Date) {
-  if (!dateInput) return false;
+  if (!dateInput) {
+    return false;
+  }
   const date = new Date(dateInput);
   return (
     date.getUTCFullYear() === reference.getUTCFullYear() &&
@@ -113,7 +115,6 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
         const payload = (await response.json()) as { url: string };
         window.location.href = payload.url;
       } catch (error) {
-        console.error(error);
         setOnboardingError(
           error instanceof Error ? error.message : "Unexpected error starting onboarding"
         );

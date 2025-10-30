@@ -35,57 +35,15 @@ export function usePushNotifications() {
     if (!isSupported) {
       throw new Error("Push notifications not supported");
     }
-
-    try {
-      const registration = await navigator.serviceWorker.register("/sw.js", {
-        scope: "/",
-      });
-
-      console.log("[Push] Service Worker registered:", registration);
-      return registration;
-    } catch (err) {
-      console.error("[Push] Service Worker registration failed:", err);
-      throw err;
-    }
-  }, [isSupported]);
-
-  // Request notification permission
-  const requestPermission = useCallback(async () => {
-    if (!isSupported) {
-      setError("Push notifications are not supported in this browser");
-      return false;
-    }
-
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const result = await Notification.requestPermission();
-      setPermission(result as NotificationPermission);
-
-      if (result === "granted") {
-        await subscribe();
-        return true;
-      }
-      if (result === "denied") {
-        setError("Notification permission denied");
-        return false;
-      }
-      return false;
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to request permission";
-      setError(message);
-      console.error("[Push] Permission request failed:", err);
-      return false;
-    } finally {
-      setIsLoading(false);
-    }
+    const registration = await navigator.serviceWorker.register("/sw.js", {
+      scope: "/",
+    });
+    return registration;
   }, [isSupported]);
 
   // Subscribe to push notifications
   const subscribe = useCallback(async () => {
     if (!isSupported || permission !== "granted") {
-      console.log("[Push] Cannot subscribe: not supported or no permission");
       return null;
     }
 
@@ -135,16 +93,49 @@ export function usePushNotifications() {
     } catch (err) {
       const message = err instanceof Error ? err.message : "Failed to subscribe";
       setError(message);
-      console.error("[Push] Subscription failed:", err);
       return null;
     } finally {
       setIsLoading(false);
     }
   }, [isSupported, permission, registerServiceWorker]);
 
+  // Request notification permission
+  const requestPermission = useCallback(async () => {
+    if (!isSupported) {
+      setError("Push notifications are not supported in this browser");
+      return false;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const result = await Notification.requestPermission();
+      setPermission(result as NotificationPermission);
+
+      if (result === "granted") {
+        await subscribe();
+        return true;
+      }
+      if (result === "denied") {
+        setError("Notification permission denied");
+        return false;
+      }
+      return false;
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to request permission";
+      setError(message);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  }, [isSupported, subscribe]);
+
   // Unsubscribe from push notifications
   const unsubscribe = useCallback(async () => {
-    if (!isSupported) return false;
+    if (!isSupported) {
+      return false;
+    }
 
     setIsLoading(true);
     setError(null);
@@ -163,7 +154,6 @@ export function usePushNotifications() {
     } catch (err) {
       const message = err instanceof Error ? err.message : "Failed to unsubscribe";
       setError(message);
-      console.error("[Push] Unsubscribe failed:", err);
       return false;
     } finally {
       setIsLoading(false);
@@ -172,7 +162,9 @@ export function usePushNotifications() {
 
   // Load existing subscription on mount
   useEffect(() => {
-    if (!isSupported || permission !== "granted") return;
+    if (!isSupported || permission !== "granted") {
+      return;
+    }
 
     const loadSubscription = async () => {
       try {
@@ -191,9 +183,7 @@ export function usePushNotifications() {
             });
           }
         }
-      } catch (err) {
-        console.error("[Push] Failed to load subscription:", err);
-      }
+      } catch (_err) {}
     };
 
     loadSubscription();
@@ -227,26 +217,19 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array<ArrayBuffer> {
 
 // Save subscription to database
 async function saveSubscription(subscription: PushSubscription) {
-  try {
-    const response = await fetch("/api/notifications/subscribe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        endpoint: subscription.endpoint,
-        p256dh: subscription.keys.p256dh,
-        auth: subscription.keys.auth,
-        userAgent: navigator.userAgent,
-      }),
-    });
+  const response = await fetch("/api/notifications/subscribe", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      endpoint: subscription.endpoint,
+      p256dh: subscription.keys.p256dh,
+      auth: subscription.keys.auth,
+      userAgent: navigator.userAgent,
+    }),
+  });
 
-    if (!response.ok) {
-      throw new Error("Failed to save subscription");
-    }
-
-    console.log("[Push] Subscription saved to database");
-  } catch (err) {
-    console.error("[Push] Failed to save subscription:", err);
-    throw err;
+  if (!response.ok) {
+    throw new Error("Failed to save subscription");
   }
 }
 
@@ -260,9 +243,5 @@ async function deleteSubscription() {
     if (!response.ok) {
       throw new Error("Failed to delete subscription");
     }
-
-    console.log("[Push] Subscription deleted from database");
-  } catch (err) {
-    console.error("[Push] Failed to delete subscription:", err);
-  }
+  } catch (_err) {}
 }

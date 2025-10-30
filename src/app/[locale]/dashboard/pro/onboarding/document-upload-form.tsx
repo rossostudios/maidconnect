@@ -18,7 +18,9 @@ const MAX_FILE_SIZE_LABEL = "5MB";
 
 function formatBytes(bytes: number) {
   const sizes = ["B", "KB", "MB", "GB"];
-  if (!bytes) return "0 B";
+  if (!bytes) {
+    return "0 B";
+  }
   const i = Math.floor(Math.log(bytes) / Math.log(1024));
   const value = bytes / 1024 ** i;
   return `${value.toFixed(i === 0 ? 0 : 1)} ${sizes[i]}`;

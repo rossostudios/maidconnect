@@ -52,7 +52,9 @@ function formatCurrencyCOP(value: number) {
 }
 
 function normalizeServiceName(value: string | null | undefined) {
-  if (!value) return "";
+  if (!value) {
+    return "";
+  }
   return value;
 }
 
@@ -64,7 +66,7 @@ export function EnhancedBookingForm({
   savedAddresses = [],
   availableAddons = [],
 }: BookingFormProps) {
-  const router = useRouter();
+  const _router = useRouter();
   const [currentStep, setCurrentStep] = useState<BookingStep>("service-details");
   const [bookingData, setBookingData] = useState<BookingData>({
     serviceName: "",
@@ -146,9 +148,7 @@ export function EnhancedBookingForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ addresses: newAddresses }),
       });
-    } catch (err) {
-      console.error("Failed to save addresses:", err);
-    }
+    } catch (_err) {}
   };
 
   const handleSubmit = async () => {
@@ -374,7 +374,7 @@ function ServiceDetailsStep({
           onChange={(e) =>
             setBookingData({
               ...bookingData,
-              durationHours: Number.parseInt(e.target.value) || 0,
+              durationHours: Number.parseInt(e.target.value, 10) || 0,
             })
           }
           required
@@ -782,7 +782,9 @@ function PaymentConfirmation({
   const [error, setError] = useState<string | null>(null);
 
   const handleConfirm = async () => {
-    if (!(stripe && elements)) return;
+    if (!(stripe && elements)) {
+      return;
+    }
     setSubmitting(true);
     setError(null);
     try {
@@ -808,7 +810,6 @@ function PaymentConfirmation({
 
       router.push(`/bookings/${bookingId}`);
     } catch (err) {
-      console.error(err);
       setError(err instanceof Error ? err.message : "Unexpected payment error");
     } finally {
       setSubmitting(false);

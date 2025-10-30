@@ -435,8 +435,14 @@ function AddressForm({
 
 function getAddressIcon(label: string): string {
   const lower = label.toLowerCase();
-  if (lower.includes("home") || lower.includes("casa")) return "🏠";
-  if (lower.includes("office") || lower.includes("work") || lower.includes("oficina")) return "🏢";
-  if (lower.includes("apartment") || lower.includes("apt")) return "🏢";
+  if (lower.includes("home") || lower.includes("casa")) {
+    return "🏠";
+  }
+  if (lower.includes("office") || lower.includes("work") || lower.includes("oficina")) {
+    return "🏢";
+  }
+  if (lower.includes("apartment") || lower.includes("apt")) {
+    return "🏢";
+  }
   return "📍";
 }

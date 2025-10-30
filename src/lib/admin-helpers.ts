@@ -89,7 +89,6 @@ export async function createAuditLog(params: AuditLogParams): Promise<void> {
   });
 
   if (error) {
-    console.error("Failed to create audit log:", error);
     // Don't throw - audit log failure shouldn't block the operation
   }
 }

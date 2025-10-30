@@ -135,7 +135,7 @@ export async function POST(request: Request) {
 
     try {
       // Check if there was a time extension and calculate new amount
-      const totalMinutes = (booking.duration_minutes || 0) + (booking.time_extension_minutes || 0);
+      const _totalMinutes = (booking.duration_minutes || 0) + (booking.time_extension_minutes || 0);
       const amountToCapture = booking.amount_authorized + (booking.time_extension_amount || 0);
 
       const paymentIntent = await stripe.paymentIntents.capture(booking.stripe_payment_intent_id, {
@@ -143,8 +143,7 @@ export async function POST(request: Request) {
       });
 
       capturedAmount = paymentIntent.amount_received || amountToCapture;
-    } catch (stripeError) {
-      console.error("Stripe payment capture failed:", stripeError);
+    } catch (_stripeError) {
       return NextResponse.json(
         { error: "Failed to capture payment. Please try again or contact support." },
         { status: 500 }
@@ -170,7 +169,6 @@ export async function POST(request: Request) {
       .single();
 
     if (updateError) {
-      console.error("Failed to update booking after payment capture:", updateError);
       // Payment was captured but booking update failed - log for manual review
       return NextResponse.json(
         { error: "Payment captured but booking update failed. Contact support." },
@@ -228,9 +226,7 @@ export async function POST(request: Request) {
     }
 
     // Send emails in parallel (don't await - let them send in background)
-    Promise.all(emailPromises).catch((error) => {
-      console.error("Failed to send completion emails:", error);
-    });
+    Promise.all(emailPromises).catch((_error) => {});
 
     // Send push notifications
     if (customerUser.user) {
@@ -259,8 +255,7 @@ export async function POST(request: Request) {
         amount_captured: updatedBooking.amount_captured,
       },
     });
-  } catch (error) {
-    console.error("Check-out error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Unable to check out" }, { status: 500 });
   }
 }

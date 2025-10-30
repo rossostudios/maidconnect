@@ -33,8 +33,12 @@ function isVerificationTierAtLeast(current: string | null, target: string) {
     (current ?? "") as (typeof VERIFICATION_ORDER)[number]
   );
   const targetIndex = VERIFICATION_ORDER.indexOf(target as (typeof VERIFICATION_ORDER)[number]);
-  if (targetIndex === -1) return false;
-  if (currentIndex === -1) return false;
+  if (targetIndex === -1) {
+    return false;
+  }
+  if (currentIndex === -1) {
+    return false;
+  }
   return currentIndex >= targetIndex;
 }
 
@@ -43,7 +47,9 @@ function formatPropertyType(
   propertyTypeMap: Record<string, string>,
   notSet: string
 ): string {
-  if (!propertyType) return notSet;
+  if (!propertyType) {
+    return notSet;
+  }
   return propertyTypeMap[propertyType] ?? propertyType;
 }
 
@@ -117,9 +123,7 @@ export default async function CustomerDashboardPage(props: {
         limit: 1,
       });
       hasPaymentMethod = paymentMethods.data.length > 0;
-    } catch (error) {
-      console.error("Failed to load Stripe payment methods", error);
-    }
+    } catch (_error) {}
   }
   const bookings =
     (bookingsData as Array<{

@@ -75,8 +75,7 @@ export async function POST(request: Request) {
     if (booking.stripe_payment_intent_id) {
       try {
         await stripe.paymentIntents.cancel(booking.stripe_payment_intent_id);
-      } catch (stripeError) {
-        console.error("Failed to cancel payment intent:", stripeError);
+      } catch (_stripeError) {
         // Continue even if Stripe cancellation fails - we still want to decline the booking
       }
     }
@@ -92,7 +91,6 @@ export async function POST(request: Request) {
       .eq("id", bookingId);
 
     if (updateError) {
-      console.error("Failed to update booking status:", updateError);
       return NextResponse.json({ error: "Failed to decline booking" }, { status: 500 });
     }
 
@@ -152,8 +150,7 @@ export async function POST(request: Request) {
       success: true,
       booking: { id: booking.id, status: "declined" },
     });
-  } catch (error) {
-    console.error("Decline booking error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Unable to decline booking" }, { status: 500 });
   }
 }

@@ -18,12 +18,10 @@ export async function GET(request: Request) {
   const cronSecret = process.env.CRON_SECRET;
 
   if (!cronSecret) {
-    console.error("CRON_SECRET not configured");
     return NextResponse.json({ error: "Cron job not configured" }, { status: 500 });
   }
 
   if (authHeader !== `Bearer ${cronSecret}`) {
-    console.error("Unauthorized cron job attempt");
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -61,8 +59,6 @@ export async function GET(request: Request) {
       throw new Error(result.error || "Failed to process payouts");
     }
 
-    console.log(`Payout cron completed on ${getDayName(dayOfWeek)}:`, result);
-
     return NextResponse.json({
       success: true,
       message: `Payouts processed successfully on ${getDayName(dayOfWeek)}`,
@@ -70,7 +66,6 @@ export async function GET(request: Request) {
       ...result,
     });
   } catch (error) {
-    console.error("Payout cron job failed:", error);
     return NextResponse.json(
       {
         error: "Failed to process payouts",

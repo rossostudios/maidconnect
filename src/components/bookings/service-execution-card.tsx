@@ -39,7 +39,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
     if (booking.status === "in_progress" && booking.checked_in_at) {
       const interval = setInterval(() => {
         const checkedInTime = new Date(booking.checked_in_at!).getTime();
-        const now = new Date().getTime();
+        const now = Date.now();
         const elapsed = Math.floor((now - checkedInTime) / 1000 / 60); // minutes
         setElapsedTime(elapsed);
       }, 1000);
@@ -174,7 +174,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
   // Handle time extension
   const handleExtendTime = async () => {
     const minutes = Number.parseInt(extensionMinutes, 10);
-    if (isNaN(minutes) || minutes <= 0) {
+    if (Number.isNaN(minutes) || minutes <= 0) {
       setMessage({ type: "error", text: "Please enter a valid number of minutes" });
       return;
     }

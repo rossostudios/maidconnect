@@ -60,8 +60,7 @@ export async function POST() {
     });
 
     return NextResponse.json({ url: accountLink.url });
-  } catch (accountError) {
-    console.error("Stripe Connect onboarding error", accountError);
+  } catch (_accountError) {
     return NextResponse.json({ error: "Unable to start Stripe onboarding" }, { status: 500 });
   }
 }

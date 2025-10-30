@@ -54,13 +54,11 @@ export async function PATCH(request: Request, context: RouteContext) {
       .single();
 
     if (error) {
-      console.error("Failed to update add-on:", error);
       return NextResponse.json({ error: "Failed to update add-on" }, { status: 500 });
     }
 
     return NextResponse.json({ addon });
-  } catch (error) {
-    console.error("Update add-on API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to update add-on" }, { status: 500 });
   }
 }
@@ -69,7 +67,7 @@ export async function PATCH(request: Request, context: RouteContext) {
  * Delete a specific service add-on
  * DELETE /api/professional/addons/[id]
  */
-export async function DELETE(request: Request, context: RouteContext) {
+export async function DELETE(_request: Request, context: RouteContext) {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
@@ -96,13 +94,11 @@ export async function DELETE(request: Request, context: RouteContext) {
     const { error } = await supabase.from("service_addons").delete().eq("id", addonId);
 
     if (error) {
-      console.error("Failed to delete add-on:", error);
       return NextResponse.json({ error: "Failed to delete add-on" }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Delete add-on API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to delete add-on" }, { status: 500 });
   }
 }

@@ -34,7 +34,7 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
     if (onChange) {
       onChange(schedule);
     }
-  }, []);
+  }, [onChange, schedule]);
 
   const handleChange = (newSchedule: DaySchedule[]) => {
     setSchedule(newSchedule);

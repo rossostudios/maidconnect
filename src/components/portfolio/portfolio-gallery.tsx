@@ -100,9 +100,15 @@ function Lightbox({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") onClose();
-    if (e.key === "ArrowLeft" && hasPrevious) handlePrevious();
-    if (e.key === "ArrowRight" && hasNext) handleNext();
+    if (e.key === "Escape") {
+      onClose();
+    }
+    if (e.key === "ArrowLeft" && hasPrevious) {
+      handlePrevious();
+    }
+    if (e.key === "ArrowRight" && hasNext) {
+      handleNext();
+    }
   };
 
   return (
@@ -110,7 +116,6 @@ function Lightbox({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
       onClick={onClose}
       onKeyDown={handleKeyDown}
-      tabIndex={0}
     >
       {/* Close Button */}
       <button
@@ -166,7 +171,9 @@ function Lightbox({
  * Compact portfolio preview (show first 3-4 images)
  */
 export function PortfolioPreview({ images }: { images: PortfolioImage[] }) {
-  if (images.length === 0) return null;
+  if (images.length === 0) {
+    return null;
+  }
 
   const sortedImages = [...images].sort((a, b) => a.order - b.order);
   const previewImages = sortedImages.slice(0, 4);

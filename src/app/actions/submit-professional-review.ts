@@ -8,10 +8,10 @@ type ReviewActionState = {
   message?: string;
 };
 
-const INITIAL_STATE: ReviewActionState = { status: "idle" };
+const _INITIAL_STATE: ReviewActionState = { status: "idle" };
 
 export async function submitProfessionalReviewAction(
-  _prevState: ReviewActionState = INITIAL_STATE,
+  _prevState: ReviewActionState,
   formData: FormData
 ): Promise<ReviewActionState> {
   void _prevState;
@@ -37,7 +37,6 @@ export async function submitProfessionalReviewAction(
     } = await supabase.auth.getUser();
 
     if (authError) {
-      console.error("Failed to load session during review submission", authError);
       return { status: "error", message: "Unable to verify your session. Please sign in again." };
     }
 
@@ -57,14 +56,12 @@ export async function submitProfessionalReviewAction(
     });
 
     if (error) {
-      console.error("Failed to insert review", error);
       return { status: "error", message: "We couldn’t save your review. Please try again." };
     }
 
     revalidatePath(`/professionals/${professionalId}`);
     return { status: "success", message: "Review submitted." };
-  } catch (error) {
-    console.error("Unexpected error while submitting review", error);
+  } catch (_error) {
     return { status: "error", message: "Unexpected error while submitting review." };
   }
 }

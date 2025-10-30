@@ -35,7 +35,6 @@ export async function GET() {
       .single();
 
     if (error) {
-      console.error("Failed to fetch portfolio:", error);
       return NextResponse.json({ error: "Failed to fetch portfolio" }, { status: 500 });
     }
 
@@ -43,8 +42,7 @@ export async function GET() {
       images: (profile?.portfolio_images as PortfolioImage[]) || [],
       featuredWork: profile?.featured_work || "",
     });
-  } catch (error) {
-    console.error("Portfolio API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to fetch portfolio" }, { status: 500 });
   }
 }
@@ -97,7 +95,6 @@ export async function PUT(request: Request) {
       .eq("profile_id", user.id);
 
     if (error) {
-      console.error("Failed to update portfolio:", error);
       return NextResponse.json({ error: "Failed to update portfolio" }, { status: 500 });
     }
 
@@ -106,8 +103,7 @@ export async function PUT(request: Request) {
       images,
       featuredWork: featuredWork || "",
     });
-  } catch (error) {
-    console.error("Update portfolio API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to update portfolio" }, { status: 500 });
   }
 }
@@ -168,13 +164,11 @@ export async function POST(request: Request) {
       .eq("profile_id", user.id);
 
     if (error) {
-      console.error("Failed to add portfolio image:", error);
       return NextResponse.json({ error: "Failed to add image" }, { status: 500 });
     }
 
     return NextResponse.json({ image: newImage }, { status: 201 });
-  } catch (error) {
-    console.error("Add portfolio image API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to add image" }, { status: 500 });
   }
 }

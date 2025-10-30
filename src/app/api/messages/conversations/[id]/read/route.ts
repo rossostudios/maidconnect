@@ -12,7 +12,7 @@ type RouteContext = {
  * Mark all messages in a conversation as read for current user
  * POST /api/messages/conversations/[id]/read
  */
-export async function POST(request: Request, context: RouteContext) {
+export async function POST(_request: Request, context: RouteContext) {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
@@ -49,7 +49,6 @@ export async function POST(request: Request, context: RouteContext) {
       .is("read_at", null);
 
     if (updateError) {
-      console.error("Failed to mark messages as read:", updateError);
       return NextResponse.json({ error: "Failed to mark messages as read" }, { status: 500 });
     }
 
@@ -63,8 +62,7 @@ export async function POST(request: Request, context: RouteContext) {
       .eq("id", conversationId);
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Mark as read API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to mark messages as read" }, { status: 500 });
   }
 }

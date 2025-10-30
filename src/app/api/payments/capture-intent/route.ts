@@ -79,8 +79,7 @@ export async function POST(request: Request) {
       .eq("id", booking.id);
 
     return NextResponse.json({ paymentIntent: intent });
-  } catch (error) {
-    console.error("Stripe capture-intent error", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Unable to capture payment intent" }, { status: 500 });
   }
 }

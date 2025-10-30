@@ -139,13 +139,11 @@ export async function POST(request: Request) {
         clientSecret: paymentIntent.client_secret,
         paymentIntentId: paymentIntent.id,
       });
-    } catch (error) {
-      console.error("Stripe intent creation failed", error);
+    } catch (_error) {
       await supabase.from("bookings").delete().eq("id", insertedBooking.id);
       return NextResponse.json({ error: "Unable to initialize payment" }, { status: 500 });
     }
-  } catch (error) {
-    console.error(error);
+  } catch (_error) {
     return NextResponse.json({ error: "Unexpected error creating booking" }, { status: 500 });
   }
 }

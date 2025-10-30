@@ -26,13 +26,11 @@ export async function GET() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error("Failed to fetch add-ons:", error);
       return NextResponse.json({ error: "Failed to fetch add-ons" }, { status: 500 });
     }
 
     return NextResponse.json({ addons: addons || [] });
-  } catch (error) {
-    console.error("Add-ons API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to fetch add-ons" }, { status: 500 });
   }
 }
@@ -85,13 +83,11 @@ export async function POST(request: Request) {
       .single();
 
     if (error) {
-      console.error("Failed to create add-on:", error);
       return NextResponse.json({ error: "Failed to create add-on" }, { status: 500 });
     }
 
     return NextResponse.json({ addon }, { status: 201 });
-  } catch (error) {
-    console.error("Create add-on API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to create add-on" }, { status: 500 });
   }
 }
@@ -153,13 +149,11 @@ export async function PUT(request: Request) {
       .select();
 
     if (error) {
-      console.error("Failed to update add-ons:", error);
       return NextResponse.json({ error: "Failed to update add-ons" }, { status: 500 });
     }
 
     return NextResponse.json({ addons: updatedAddons || [] });
-  } catch (error) {
-    console.error("Update add-ons API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to update add-ons" }, { status: 500 });
   }
 }

@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     const newStartTime = new Date(newScheduledStart);
     const now = new Date();
 
-    if (isNaN(newStartTime.getTime())) {
+    if (Number.isNaN(newStartTime.getTime())) {
       return NextResponse.json(
         { error: "Invalid datetime format for newScheduledStart" },
         { status: 400 }
@@ -129,7 +129,6 @@ export async function POST(request: Request) {
       .single();
 
     if (updateError) {
-      console.error("Failed to reschedule booking:", updateError);
       return NextResponse.json({ error: "Failed to reschedule booking" }, { status: 500 });
     }
 
@@ -172,10 +171,7 @@ export async function POST(request: Request) {
           true // isForProfessional
         );
       }
-    } catch (emailError) {
-      // Log but don't fail the operation if email fails
-      console.error("Failed to send reschedule email:", emailError);
-    }
+    } catch (_emailError) {}
 
     return NextResponse.json({
       success: true,
@@ -189,8 +185,7 @@ export async function POST(request: Request) {
       message:
         "Booking rescheduled successfully. The professional will need to confirm the new time.",
     });
-  } catch (error) {
-    console.error("Reschedule booking error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Unable to reschedule booking" }, { status: 500 });
   }
 }

@@ -3,7 +3,9 @@ import { AUTH_ROUTES } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 function sanitizeRedirect(path: string | null): string {
-  if (!path) return "/";
+  if (!path) {
+    return "/";
+  }
   if (!path.startsWith("/") || path.startsWith(AUTH_ROUTES.signOut)) {
     return "/";
   }

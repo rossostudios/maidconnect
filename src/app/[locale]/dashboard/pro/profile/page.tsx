@@ -18,7 +18,6 @@ export default async function ProProfilePage({ params }: { params: Promise<{ loc
     .maybeSingle();
 
   if (error) {
-    console.error("Failed to fetch profile:", error);
   }
 
   // Fetch user email

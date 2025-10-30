@@ -124,8 +124,7 @@ export async function POST(request: Request) {
           });
           stripeStatus = "refunded";
         }
-      } catch (stripeError) {
-        console.error("Stripe cancellation/refund failed:", stripeError);
+      } catch (_stripeError) {
         return NextResponse.json(
           { error: "Failed to process refund. Please contact support." },
           { status: 500 }
@@ -148,7 +147,6 @@ export async function POST(request: Request) {
       .single();
 
     if (updateError) {
-      console.error("Failed to update booking after cancellation:", updateError);
       return NextResponse.json(
         { error: "Failed to cancel booking. Please contact support." },
         { status: 500 }
@@ -213,8 +211,7 @@ export async function POST(request: Request) {
         stripe_status: stripeStatus,
       },
     });
-  } catch (error) {
-    console.error("Cancel booking error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Unable to cancel booking" }, { status: 500 });
   }
 }

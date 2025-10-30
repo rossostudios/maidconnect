@@ -34,7 +34,6 @@ export async function GET() {
       .or(`customer_id.eq.${user.id},professional_id.eq.${user.id}`);
 
     if (error) {
-      console.error("Failed to fetch unread counts:", error);
       return NextResponse.json({ error: "Failed to fetch unread count" }, { status: 500 });
     }
 
@@ -47,8 +46,7 @@ export async function GET() {
     }, 0);
 
     return NextResponse.json({ unreadCount: totalUnread });
-  } catch (error) {
-    console.error("Unread count API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to fetch unread count" }, { status: 500 });
   }
 }

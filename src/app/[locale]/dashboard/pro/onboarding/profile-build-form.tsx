@@ -65,7 +65,9 @@ export function ProfileBuildForm({
   const serviceDefaults = new Map<string, { rate: number | null; description: string }>();
   if (initialData?.services) {
     initialData.services.forEach((service) => {
-      if (!service?.name) return;
+      if (!service?.name) {
+        return;
+      }
       const rawRate = service.hourly_rate_cop;
       const parsedRate =
         typeof rawRate === "number"
@@ -83,7 +85,9 @@ export function ProfileBuildForm({
   const availabilityDefaults = new Map<string, { start: string; end: string; notes: string }>();
   if (initialData?.availability) {
     initialData.availability.forEach((slot) => {
-      if (!slot?.day) return;
+      if (!slot?.day) {
+        return;
+      }
       const slug = slot.day.toLowerCase().replace(/\s+/g, "_");
       availabilityDefaults.set(slug, {
         start: slot.start ?? "",

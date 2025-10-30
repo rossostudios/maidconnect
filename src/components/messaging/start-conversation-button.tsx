@@ -34,8 +34,7 @@ export function StartConversationButton({ bookingId, label = "Message", classNam
 
       // Redirect to messages page with conversation selected
       router.push(`/messages?conversation=${conversationId}`);
-    } catch (error) {
-      console.error("Failed to start conversation:", error);
+    } catch (_error) {
       alert("Failed to open conversation. Please try again.");
     } finally {
       setLoading(false);

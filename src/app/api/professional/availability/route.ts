@@ -69,13 +69,11 @@ export async function PUT(request: Request) {
       .eq("profile_id", user.id);
 
     if (updateError) {
-      console.error("Failed to update availability:", updateError);
       return NextResponse.json({ error: "Failed to update availability" }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Availability update error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to update availability" }, { status: 500 });
   }
 }
@@ -102,7 +100,6 @@ export async function GET() {
       .maybeSingle();
 
     if (error) {
-      console.error("Failed to fetch availability:", error);
       return NextResponse.json({ error: "Failed to fetch availability" }, { status: 500 });
     }
 
@@ -114,8 +111,7 @@ export async function GET() {
       availability_settings: profile.availability_settings,
       blocked_dates: profile.blocked_dates || [],
     });
-  } catch (error) {
-    console.error("Availability fetch error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to fetch availability" }, { status: 500 });
   }
 }

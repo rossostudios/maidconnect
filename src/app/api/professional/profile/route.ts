@@ -46,12 +46,24 @@ export async function PUT(request: Request) {
       updated_at: new Date().toISOString(),
     };
 
-    if (body.full_name !== undefined) updates.full_name = body.full_name;
-    if (body.bio !== undefined) updates.bio = body.bio;
-    if (body.languages !== undefined) updates.languages = body.languages;
-    if (body.phone_number !== undefined) updates.phone_number = body.phone_number;
-    if (body.avatar_url !== undefined) updates.avatar_url = body.avatar_url;
-    if (body.primary_services !== undefined) updates.primary_services = body.primary_services;
+    if (body.full_name !== undefined) {
+      updates.full_name = body.full_name;
+    }
+    if (body.bio !== undefined) {
+      updates.bio = body.bio;
+    }
+    if (body.languages !== undefined) {
+      updates.languages = body.languages;
+    }
+    if (body.phone_number !== undefined) {
+      updates.phone_number = body.phone_number;
+    }
+    if (body.avatar_url !== undefined) {
+      updates.avatar_url = body.avatar_url;
+    }
+    if (body.primary_services !== undefined) {
+      updates.primary_services = body.primary_services;
+    }
 
     // Update profile
     const { error: updateError } = await supabase
@@ -60,13 +72,11 @@ export async function PUT(request: Request) {
       .eq("profile_id", user.id);
 
     if (updateError) {
-      console.error("Failed to update profile:", updateError);
       return NextResponse.json({ error: "Failed to update profile" }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Profile update error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to update profile" }, { status: 500 });
   }
 }
@@ -93,7 +103,6 @@ export async function GET() {
       .maybeSingle();
 
     if (error) {
-      console.error("Failed to fetch profile:", error);
       return NextResponse.json({ error: "Failed to fetch profile" }, { status: 500 });
     }
 
@@ -102,8 +111,7 @@ export async function GET() {
     }
 
     return NextResponse.json({ profile });
-  } catch (error) {
-    console.error("Profile fetch error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to fetch profile" }, { status: 500 });
   }
 }

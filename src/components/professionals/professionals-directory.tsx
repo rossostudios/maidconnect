@@ -25,7 +25,9 @@ export type DirectoryProfessional = {
 };
 
 function formatCurrencyCOP(value: number | null | undefined) {
-  if (!value || Number.isNaN(value)) return null;
+  if (!value || Number.isNaN(value)) {
+    return null;
+  }
   return new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",
@@ -74,11 +76,15 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
 
   useEffect(() => {
     const param = searchParams.get("service");
-    if (!param) return;
+    if (!param) {
+      return;
+    }
 
     const normalizedParam = param.toLowerCase();
     const match = serviceOptions.find((option) => {
-      if (option === "all") return false;
+      if (option === "all") {
+        return false;
+      }
       const normalizedOption = option.toLowerCase();
       const slugifiedOption = normalizedOption.replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
       return normalizedOption === normalizedParam || slugifiedOption === normalizedParam;

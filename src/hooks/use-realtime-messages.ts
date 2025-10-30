@@ -49,7 +49,9 @@ export function useRealtimeMessages({
 
   // Subscribe to conversation updates
   useEffect(() => {
-    if (!userId) return;
+    if (!userId) {
+      return;
+    }
 
     const channel = supabase
       .channel(`conversations:${userId}`)
@@ -62,8 +64,7 @@ export function useRealtimeMessages({
           filter:
             userRole === "customer" ? `customer_id=eq.${userId}` : `professional_id=eq.${userId}`,
         },
-        (payload) => {
-          console.log("[Realtime] New conversation:", payload);
+        (_payload) => {
           onConversationUpdate?.();
         }
       )
@@ -76,26 +77,24 @@ export function useRealtimeMessages({
           filter:
             userRole === "customer" ? `customer_id=eq.${userId}` : `professional_id=eq.${userId}`,
         },
-        (payload) => {
-          console.log("[Realtime] Conversation updated:", payload);
+        (_payload) => {
           onConversationUpdate?.();
         }
       )
-      .subscribe((status) => {
-        console.log("[Realtime] Conversations subscription status:", status);
-      });
+      .subscribe((_status) => {});
 
     channelRef.current = channel;
 
     return () => {
-      console.log("[Realtime] Unsubscribing from conversations");
       supabase.removeChannel(channel);
     };
-  }, [userId, userRole, onConversationUpdate]);
+  }, [userId, userRole, onConversationUpdate, supabase.channel, supabase.removeChannel]);
 
   // Subscribe to messages in the selected conversation
   useEffect(() => {
-    if (!selectedConversationId) return;
+    if (!selectedConversationId) {
+      return;
+    }
 
     const messagesChannel = supabase
       .channel(`messages:${selectedConversationId}`)
@@ -108,20 +107,16 @@ export function useRealtimeMessages({
           filter: `conversation_id=eq.${selectedConversationId}`,
         },
         (payload) => {
-          console.log("[Realtime] New message:", payload);
           const newMessage = payload.new as Message;
           onNewMessage?.(newMessage);
         }
       )
-      .subscribe((status) => {
-        console.log("[Realtime] Messages subscription status:", status);
-      });
+      .subscribe((_status) => {});
 
     return () => {
-      console.log("[Realtime] Unsubscribing from messages");
       supabase.removeChannel(messagesChannel);
     };
-  }, [selectedConversationId, onNewMessage]);
+  }, [selectedConversationId, onNewMessage, supabase.channel, supabase.removeChannel]);
 
   return {
     isConnected: channelRef.current?.state === "joined",

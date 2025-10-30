@@ -66,7 +66,7 @@ export function DashboardLayout({
       {/* Main content */}
       <main className="flex-1">
         {fullWidth ? (
-          <>{children}</>
+          children
         ) : (
           <Container className="py-12">
             {title && (

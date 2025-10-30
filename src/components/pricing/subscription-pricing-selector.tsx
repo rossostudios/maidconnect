@@ -161,7 +161,9 @@ export function SubscriptionPricingBadge({
   basePrice: number;
   tier: SubscriptionTier;
 }) {
-  if (tier === "none") return null;
+  if (tier === "none") {
+    return null;
+  }
 
   const pricing = calculateSubscriptionPricing(basePrice, tier);
 

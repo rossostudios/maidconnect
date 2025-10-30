@@ -18,12 +18,18 @@ export type ProfessionalReference = {
 };
 
 export function parseServices(payload: unknown): ProfessionalService[] {
-  if (!payload || typeof payload !== "object") return [];
-  if (!Array.isArray(payload)) return [];
+  if (!payload || typeof payload !== "object") {
+    return [];
+  }
+  if (!Array.isArray(payload)) {
+    return [];
+  }
 
   return payload
     .map((entry) => {
-      if (!entry || typeof entry !== "object") return null;
+      if (!entry || typeof entry !== "object") {
+        return null;
+      }
       const typed = entry as Record<string, unknown>;
       const name = typeof typed.name === "string" ? typed.name : null;
       const rateValue = typed.hourly_rate_cop;
@@ -44,14 +50,20 @@ export function parseServices(payload: unknown): ProfessionalService[] {
 }
 
 export function parseAvailability(payload: unknown): AvailabilitySlot[] {
-  if (!payload || typeof payload !== "object") return [];
+  if (!payload || typeof payload !== "object") {
+    return [];
+  }
   const record = payload as Record<string, unknown>;
   const schedule = record.schedule;
-  if (!Array.isArray(schedule)) return [];
+  if (!Array.isArray(schedule)) {
+    return [];
+  }
 
   return schedule
     .map((entry) => {
-      if (!entry || typeof entry !== "object") return null;
+      if (!entry || typeof entry !== "object") {
+        return null;
+      }
       const typed = entry as Record<string, unknown>;
       return {
         day: typeof typed.day === "string" ? typed.day : null,
@@ -64,12 +76,18 @@ export function parseAvailability(payload: unknown): AvailabilitySlot[] {
 }
 
 export function parseReferences(payload: unknown): ProfessionalReference[] {
-  if (!payload || typeof payload !== "object") return [];
-  if (!Array.isArray(payload)) return [];
+  if (!payload || typeof payload !== "object") {
+    return [];
+  }
+  if (!Array.isArray(payload)) {
+    return [];
+  }
 
   return payload
     .map((entry) => {
-      if (!entry || typeof entry !== "object") return null;
+      if (!entry || typeof entry !== "object") {
+        return null;
+      }
       const typed = entry as Record<string, unknown>;
       return {
         name: typeof typed.name === "string" ? typed.name : null,
@@ -81,7 +99,9 @@ export function parseReferences(payload: unknown): ProfessionalReference[] {
 }
 
 export function computeAvailableToday(schedule: AvailabilitySlot[]): boolean {
-  if (schedule.length === 0) return false;
+  if (schedule.length === 0) {
+    return false;
+  }
   const today = new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(new Date());
   return schedule.some((slot) => slot.day?.toLowerCase() === today.toLowerCase());
 }

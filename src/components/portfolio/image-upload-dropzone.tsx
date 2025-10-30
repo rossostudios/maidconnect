@@ -27,7 +27,9 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
 
   const handleFiles = useCallback(
     async (files: FileList | null) => {
-      if (!files || files.length === 0) return;
+      if (!files || files.length === 0) {
+        return;
+      }
 
       const fileArray = Array.from(files);
       const remainingSlots = maxImages - images.length;
@@ -53,7 +55,9 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
         validFiles.push(file);
       }
 
-      if (validFiles.length === 0) return;
+      if (validFiles.length === 0) {
+        return;
+      }
 
       // Create preview images
       const newImages: UploadedImage[] = await Promise.all(
@@ -114,7 +118,9 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
   }, []);
 
   const handleUpload = async () => {
-    if (images.length === 0) return;
+    if (images.length === 0) {
+      return;
+    }
 
     setUploading(true);
 
@@ -148,8 +154,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
       // Clear images after successful upload
       images.forEach((img) => URL.revokeObjectURL(img.preview));
       setImages([]);
-    } catch (error) {
-      console.error("Upload failed:", error);
+    } catch (_error) {
       alert("Failed to upload images. Please try again.");
     } finally {
       setUploading(false);

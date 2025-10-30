@@ -43,13 +43,17 @@ export function CustomerBookingList({ bookings }: Props) {
   // Separate upcoming and past bookings
   const now = new Date();
   const upcomingBookings = bookings.filter((b) => {
-    if (!b.scheduled_start) return false;
+    if (!b.scheduled_start) {
+      return false;
+    }
     return (
       new Date(b.scheduled_start) > now && !["declined", "canceled", "completed"].includes(b.status)
     );
   });
   const pastBookings = bookings.filter((b) => {
-    if (!b.scheduled_start) return true;
+    if (!b.scheduled_start) {
+      return true;
+    }
     return (
       new Date(b.scheduled_start) <= now || ["declined", "canceled", "completed"].includes(b.status)
     );

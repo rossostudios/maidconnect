@@ -67,7 +67,6 @@ export async function GET(request: Request) {
     const { data: professionals, error: profError } = await professionalsQuery;
 
     if (profError) {
-      console.error("Failed to fetch professionals:", profError);
       return NextResponse.json({ error: "Failed to fetch professionals" }, { status: 500 });
     }
 
@@ -143,7 +142,7 @@ export async function GET(request: Request) {
         documentsCount: documents.length,
         latestReview: reviews[0] || null,
         waitingDays: Math.floor(
-          (new Date().getTime() - new Date(prof.created_at).getTime()) / (1000 * 60 * 60 * 24)
+          (Date.now() - new Date(prof.created_at).getTime()) / (1000 * 60 * 60 * 24)
         ),
       };
     });
@@ -172,7 +171,6 @@ export async function GET(request: Request) {
       },
     });
   } catch (error: any) {
-    console.error("Admin professionals queue error:", error);
     return NextResponse.json(
       { error: error.message || "Failed to fetch vetting queue" },
       { status: error.message === "Not authenticated" ? 401 : 403 }

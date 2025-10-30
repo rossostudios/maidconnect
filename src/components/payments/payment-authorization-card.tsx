@@ -58,7 +58,6 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
       setClientSecret(body.clientSecret);
       setStatus("idle");
     } catch (error) {
-      console.error(error);
       setStatus("error");
       setMessage(
         error instanceof Error ? error.message : "Something went wrong. Please try again."
@@ -129,7 +128,9 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = useCallback(async () => {
-    if (!(stripe && elements)) return;
+    if (!(stripe && elements)) {
+      return;
+    }
     setIsSubmitting(true);
     onError(null);
     try {
@@ -153,7 +154,6 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
         throw new Error("Payment is still pending. Please try again.");
       }
     } catch (error) {
-      console.error(error);
       onError(error instanceof Error ? error.message : "Unexpected error confirming payment.");
     } finally {
       setIsSubmitting(false);

@@ -27,15 +27,23 @@ type ProfessionalPortfolioImage = {
 };
 
 function parsePortfolioImages(payload: unknown): ProfessionalPortfolioImage[] {
-  if (!payload || typeof payload !== "object") return [];
-  if (!Array.isArray(payload)) return [];
+  if (!payload || typeof payload !== "object") {
+    return [];
+  }
+  if (!Array.isArray(payload)) {
+    return [];
+  }
 
   return payload
     .map((entry) => {
-      if (!entry || typeof entry !== "object") return null;
+      if (!entry || typeof entry !== "object") {
+        return null;
+      }
       const record = entry as Record<string, unknown>;
       const url = typeof record.url === "string" ? record.url : null;
-      if (!url) return null;
+      if (!url) {
+        return null;
+      }
       const caption = typeof record.caption === "string" ? record.caption : null;
       return { url, caption } satisfies ProfessionalPortfolioImage;
     })
@@ -119,17 +127,12 @@ async function fetchProfessional(profileId: string): Promise<ProfessionalProfile
   }
 
   if (error) {
-    console.warn(
-      "get_professional_profile failed, falling back to list_active_professionals",
-      error
-    );
   }
 
   const { data: fallbackData, error: fallbackError } = await supabase.rpc(
     "list_active_professionals"
   );
   if (fallbackError) {
-    console.error("Failed to load professionals via fallback", fallbackError);
     return null;
   }
 
@@ -139,7 +142,9 @@ async function fetchProfessional(profileId: string): Promise<ProfessionalProfile
     }
 
     const match = fallbackData.find((row) => {
-      if (!row || typeof row !== "object") return false;
+      if (!row || typeof row !== "object") {
+        return false;
+      }
       const value = (row as { profile_id?: string | null }).profile_id;
       return value === profileId;
     }) as GetProfessionalRow | undefined;

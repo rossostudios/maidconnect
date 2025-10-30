@@ -8,7 +8,7 @@ export type OnboardingStatus =
   | "active"
   | "suspended";
 
-export interface ProfileRecord {
+export type ProfileRecord = {
   id: string;
   role: AppRole;
   locale: string | null;
@@ -18,16 +18,16 @@ export interface ProfileRecord {
   onboarding_status: OnboardingStatus;
   created_at: string;
   updated_at: string;
-}
+};
 
-export interface AppUser {
+export type AppUser = {
   id: string;
   email: string | null;
   role: AppRole;
   onboardingStatus: OnboardingStatus;
   locale: string;
-}
+};
 
-export interface SessionContext {
+export type SessionContext = {
   user: AppUser | null;
-}
+};

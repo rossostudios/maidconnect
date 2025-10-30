@@ -56,21 +56,29 @@ const DOCUMENT_LABELS: Record<string, string> = Object.fromEntries(
   [...REQUIRED_DOCUMENTS, ...OPTIONAL_DOCUMENTS].map((doc) => [doc.key, doc.label])
 );
 
-function formatStatus(status: string | null) {
-  if (!status) return "Unknown";
+function _formatStatus(status: string | null) {
+  if (!status) {
+    return "Unknown";
+  }
   return status.replace(/_/g, " ");
 }
 
 function hasReachedStatus(currentStatus: string | null, targetStatus: string) {
   const currentIndex = STATUS_ORDER.indexOf((currentStatus ?? "") as (typeof STATUS_ORDER)[number]);
   const targetIndex = STATUS_ORDER.indexOf(targetStatus as (typeof STATUS_ORDER)[number]);
-  if (targetIndex === -1) return false;
-  if (currentIndex === -1) return false;
+  if (targetIndex === -1) {
+    return false;
+  }
+  if (currentIndex === -1) {
+    return false;
+  }
   return currentIndex >= targetIndex;
 }
 
 function formatCurrencyCOP(value?: number | null) {
-  if (!value || Number.isNaN(value)) return "—";
+  if (!value || Number.isNaN(value)) {
+    return "—";
+  }
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "COP",
@@ -79,9 +87,13 @@ function formatCurrencyCOP(value?: number | null) {
 }
 
 function formatDate(date: string | null) {
-  if (!date) return "—";
+  if (!date) {
+    return "—";
+  }
   const parsed = new Date(date);
-  if (Number.isNaN(parsed.getTime())) return "—";
+  if (Number.isNaN(parsed.getTime())) {
+    return "—";
+  }
   return parsed.toLocaleString("en-US", {
     year: "numeric",
     month: "short",
@@ -92,7 +104,9 @@ function formatDate(date: string | null) {
 }
 
 function formatFileSize(bytes?: number) {
-  if (!bytes) return "—";
+  if (!bytes) {
+    return "—";
+  }
   const sizes = ["B", "KB", "MB", "GB"];
   const i = Math.floor(Math.log(bytes) / Math.log(1024));
   const value = bytes / 1024 ** i;
@@ -193,19 +207,14 @@ export default async function ProfessionalDashboardPage({
   ]);
 
   if (profileError) {
-    console.error("Failed to load professional profile", profileError);
   }
   if (documentsError) {
-    console.error("Failed to load professional documents", documentsError);
   }
   if (bookingsError) {
-    console.error("Failed to load professional bookings", bookingsError);
   }
   if (customerReviewsError) {
-    console.error("Failed to load customer reviews", customerReviewsError);
   }
   if (addonsError) {
-    console.error("Failed to load service add-ons", addonsError);
   }
 
   const professionalProfile = (profileData as ProfessionalProfile | null) ?? null;
@@ -239,7 +248,6 @@ export default async function ProfessionalDashboardPage({
     documents = documents.map((doc, index) => {
       const result = signedUrlResults[index];
       if (result.error) {
-        console.error("Failed to generate signed URL", result.error);
       }
       return {
         ...doc,
@@ -265,7 +273,9 @@ export default async function ProfessionalDashboardPage({
   ).length;
   const pendingBookings = bookings.filter((b) => b.status === "pending").length;
   const completedThisWeek = bookings.filter((b) => {
-    if (b.status !== "completed" || !b.scheduled_start) return false;
+    if (b.status !== "completed" || !b.scheduled_start) {
+      return false;
+    }
     const bookingDate = new Date(b.scheduled_start);
     const weekAgo = new Date();
     weekAgo.setDate(weekAgo.getDate() - 7);
@@ -273,7 +283,9 @@ export default async function ProfessionalDashboardPage({
   }).length;
   const weeklyEarnings = bookings
     .filter((b) => {
-      if (b.status !== "completed" || !b.scheduled_start || !b.amount_captured) return false;
+      if (b.status !== "completed" || !b.scheduled_start || !b.amount_captured) {
+        return false;
+      }
       const bookingDate = new Date(b.scheduled_start);
       const weekAgo = new Date();
       weekAgo.setDate(weekAgo.getDate() - 7);

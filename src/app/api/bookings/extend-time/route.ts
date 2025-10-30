@@ -120,8 +120,7 @@ export async function POST(request: Request) {
       await stripe.paymentIntents.update(booking.stripe_payment_intent_id, {
         amount: newTotalAmount,
       });
-    } catch (stripeError) {
-      console.error("Failed to update Stripe PaymentIntent:", stripeError);
+    } catch (_stripeError) {
       return NextResponse.json(
         { error: "Failed to update payment amount. Please try again." },
         { status: 500 }
@@ -141,7 +140,6 @@ export async function POST(request: Request) {
       .single();
 
     if (updateError) {
-      console.error("Failed to update booking with extension:", updateError);
       // Stripe was updated but database wasn't - log for manual review
       return NextResponse.json(
         { error: "Failed to record time extension. Contact support." },
@@ -166,8 +164,7 @@ export async function POST(request: Request) {
         }).format(additionalAmount / 100),
       },
     });
-  } catch (error) {
-    console.error("Time extension error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Unable to extend time" }, { status: 500 });
   }
 }

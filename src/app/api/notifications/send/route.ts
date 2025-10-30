@@ -36,7 +36,6 @@ export async function POST(request: NextRequest) {
       .eq("user_id", userId);
 
     if (subError) {
-      console.error("[API] Failed to fetch subscriptions:", subError);
       return NextResponse.json({ error: "Failed to fetch subscriptions" }, { status: 500 });
     }
 
@@ -56,7 +55,6 @@ export async function POST(request: NextRequest) {
     const vapidSubject = process.env.VAPID_SUBJECT || "mailto:support@maidconnect.com";
 
     if (!(vapidPublicKey && vapidPrivateKey)) {
-      console.error("[API] VAPID keys not configured");
       return NextResponse.json({ error: "Push notifications not configured" }, { status: 500 });
     }
 
@@ -87,8 +85,6 @@ export async function POST(request: NextRequest) {
         await webPush.sendNotification(pushSubscription, payload);
         return { success: true, endpoint: sub.endpoint };
       } catch (error: any) {
-        console.error("[API] Failed to send to subscription:", error);
-
         // If subscription is invalid (410 Gone), delete it
         if (error.statusCode === 410) {
           await supabase.from("notification_subscriptions").delete().eq("id", sub.id);
@@ -110,10 +106,7 @@ export async function POST(request: NextRequest) {
         url: url || null,
         tag: tag || null,
       });
-    } catch (historyError) {
-      // Don't fail the request if history save fails
-      console.error("[API] Failed to save notification to history:", historyError);
-    }
+    } catch (_historyError) {}
 
     return NextResponse.json({
       success: true,
@@ -121,8 +114,7 @@ export async function POST(request: NextRequest) {
       total: subscriptions.length,
       results,
     });
-  } catch (error) {
-    console.error("[API] Send notification error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
@@ -138,26 +130,21 @@ export async function sendPushNotification(
     requireInteraction?: boolean;
   }
 ) {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/api/notifications/send`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId,
-          ...notification,
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to send push notification");
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/api/notifications/send`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId,
+        ...notification,
+      }),
     }
+  );
 
-    return await response.json();
-  } catch (error) {
-    console.error("[Helper] Failed to send push notification:", error);
-    throw error;
+  if (!response.ok) {
+    throw new Error("Failed to send push notification");
   }
+
+  return await response.json();
 }

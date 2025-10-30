@@ -8,10 +8,10 @@ type ReviewActionState = {
   message?: string;
 };
 
-const INITIAL_STATE: ReviewActionState = { status: "idle" };
+const _INITIAL_STATE: ReviewActionState = { status: "idle" };
 
 export async function submitCustomerReviewAction(
-  _prevState: ReviewActionState = INITIAL_STATE,
+  _prevState: ReviewActionState,
   formData: FormData
 ): Promise<ReviewActionState> {
   void _prevState;
@@ -47,7 +47,6 @@ export async function submitCustomerReviewAction(
     } = await supabase.auth.getUser();
 
     if (authError) {
-      console.error("Failed to load session during review submission", authError);
       return { status: "error", message: "Unable to verify your session. Please sign in again." };
     }
 
@@ -97,8 +96,6 @@ export async function submitCustomerReviewAction(
     });
 
     if (error) {
-      console.error("Failed to insert customer review", error);
-
       // Check for duplicate review
       if (error.code === "23505") {
         return {
@@ -112,8 +109,7 @@ export async function submitCustomerReviewAction(
 
     revalidatePath("/dashboard/pro");
     return { status: "success", message: "Customer review submitted successfully!" };
-  } catch (error) {
-    console.error("Unexpected error while submitting customer review", error);
+  } catch (_error) {
     return { status: "error", message: "Unexpected error while submitting review." };
   }
 }

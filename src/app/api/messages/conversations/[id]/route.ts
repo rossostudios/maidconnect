@@ -12,7 +12,7 @@ type RouteContext = {
  * Get all messages in a conversation
  * GET /api/messages/conversations/[id]
  */
-export async function GET(request: Request, context: RouteContext) {
+export async function GET(_request: Request, context: RouteContext) {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
@@ -57,13 +57,11 @@ export async function GET(request: Request, context: RouteContext) {
       .order("created_at", { ascending: true });
 
     if (messagesError) {
-      console.error("Failed to fetch messages:", messagesError);
       return NextResponse.json({ error: "Failed to fetch messages" }, { status: 500 });
     }
 
     return NextResponse.json({ messages: messages || [] });
-  } catch (error) {
-    console.error("Messages API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to fetch messages" }, { status: 500 });
   }
 }
@@ -134,7 +132,6 @@ export async function POST(request: Request, context: RouteContext) {
       .single();
 
     if (messageError) {
-      console.error("Failed to create message:", messageError);
       return NextResponse.json({ error: "Failed to send message" }, { status: 500 });
     }
 
@@ -148,8 +145,7 @@ export async function POST(request: Request, context: RouteContext) {
       .eq("id", conversationId);
 
     return NextResponse.json({ message: newMessage }, { status: 201 });
-  } catch (error) {
-    console.error("Send message API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to send message" }, { status: 500 });
   }
 }

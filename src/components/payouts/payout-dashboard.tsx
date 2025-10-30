@@ -48,10 +48,6 @@ export function PayoutDashboard() {
   const [error, setError] = useState<string | null>(null);
   const [showScheduleInfo, setShowScheduleInfo] = useState(false);
 
-  useEffect(() => {
-    fetchPayoutData();
-  }, []);
-
   const fetchPayoutData = async () => {
     try {
       setLoading(true);
@@ -69,6 +65,10 @@ export function PayoutDashboard() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchPayoutData();
+  }, [fetchPayoutData]);
 
   if (loading) {
     return (

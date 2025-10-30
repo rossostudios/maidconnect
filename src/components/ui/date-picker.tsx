@@ -13,7 +13,9 @@ type DatePickerProps = {
 const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
 
 function formatButtonLabel(date: Date | null, placeholder?: string) {
-  if (!date) return placeholder ?? "Select date";
+  if (!date) {
+    return placeholder ?? "Select date";
+  }
   return new Intl.DateTimeFormat("en-US", {
     month: "long",
     day: "numeric",
@@ -66,7 +68,10 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
 
     // next month fill to 6 rows
     while (days.length < 42) {
-      const last = days[days.length - 1];
+      const last = days.at(-1);
+      if (!last) {
+        break;
+      }
       days.push({
         date: new Date(last.date.getFullYear(), last.date.getMonth(), last.date.getDate() + 1),
         inCurrentMonth: false,

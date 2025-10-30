@@ -52,7 +52,6 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
       setSuccess(true);
       setTimeout(() => setSuccess(false), 3000);
     } catch (err) {
-      console.error("Failed to update availability:", err);
       setError(err instanceof Error ? err.message : "Failed to update availability");
     } finally {
       setLoading(false);

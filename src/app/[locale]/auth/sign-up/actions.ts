@@ -9,7 +9,9 @@ import type { SignUpActionState } from "./types";
 const VALID_ROLES: AppRole[] = ["customer", "professional"];
 
 function sanitizeRole(roleCandidate: string | null): AppRole | null {
-  if (!roleCandidate) return null;
+  if (!roleCandidate) {
+    return null;
+  }
   return VALID_ROLES.includes(roleCandidate as AppRole) ? (roleCandidate as AppRole) : null;
 }
 
@@ -19,13 +21,17 @@ const SITE_ORIGIN =
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 
 function stringOrNull(value: FormDataEntryValue | null): string | null {
-  if (!value) return null;
+  if (!value) {
+    return null;
+  }
   const trimmed = value.toString().trim();
   return trimmed.length ? trimmed : null;
 }
 
 function validatePhone(phone: string | null) {
-  if (!phone) return false;
+  if (!phone) {
+    return false;
+  }
   const cleaned = phone.replace(/[^0-9+]/g, "");
   return cleaned.length >= 7;
 }

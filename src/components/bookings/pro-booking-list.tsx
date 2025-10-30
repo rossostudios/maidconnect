@@ -64,7 +64,6 @@ export function ProBookingList({ bookings }: Props) {
         );
         router.refresh();
       } catch (error) {
-        console.error(error);
         setMessage(
           error instanceof Error ? error.message : `Unexpected error ${action}ing booking`
         );
@@ -104,7 +103,6 @@ export function ProBookingList({ bookings }: Props) {
 
       router.refresh();
     } catch (error) {
-      console.error(error);
       setMessage(
         error instanceof Error ? error.message : "Unexpected error running payment action"
       );

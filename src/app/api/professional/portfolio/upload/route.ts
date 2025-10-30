@@ -69,7 +69,6 @@ export async function POST(request: Request) {
       });
 
     if (uploadError) {
-      console.error("Storage upload error:", uploadError);
       return NextResponse.json({ error: "Failed to upload image to storage" }, { status: 500 });
     }
 
@@ -85,8 +84,7 @@ export async function POST(request: Request) {
       url: urlData.publicUrl,
       path: fileName,
     });
-  } catch (error) {
-    console.error("Portfolio upload error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to upload image" }, { status: 500 });
   }
 }
@@ -114,7 +112,7 @@ export async function DELETE(request: Request) {
     }
 
     // Verify path belongs to this user
-    if (!path.startsWith(user.id + "/")) {
+    if (!path.startsWith(`${user.id}/`)) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
 
@@ -122,13 +120,11 @@ export async function DELETE(request: Request) {
     const { error: deleteError } = await supabase.storage.from(BUCKET_NAME).remove([path]);
 
     if (deleteError) {
-      console.error("Storage delete error:", deleteError);
       return NextResponse.json({ error: "Failed to delete image" }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Portfolio delete error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to delete image" }, { status: 500 });
   }
 }

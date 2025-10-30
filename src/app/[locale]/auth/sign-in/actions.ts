@@ -10,8 +10,12 @@ export type SignInActionState = {
 };
 
 function sanitizeRedirectPath(path: string | null): string | null {
-  if (!path) return null;
-  if (!path.startsWith("/")) return null;
+  if (!path) {
+    return null;
+  }
+  if (!path.startsWith("/")) {
+    return null;
+  }
   if (path.startsWith(AUTH_ROUTES.signIn) || path.startsWith(AUTH_ROUTES.signUp)) {
     return null;
   }

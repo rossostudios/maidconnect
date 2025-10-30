@@ -23,7 +23,6 @@ export function useUnreadCount() {
       setUnreadCount(data.unreadCount || 0);
       setError(null);
     } catch (err) {
-      console.error("Failed to fetch unread count:", err);
       setError(err instanceof Error ? err.message : "Unknown error");
     } finally {
       setIsLoading(false);
@@ -79,13 +78,10 @@ export function useUnreadCount() {
             fetchUnreadCount();
           }
         )
-        .subscribe((status) => {
-          console.log("[Realtime] Unread count subscription status:", status);
-        });
+        .subscribe((_status) => {});
 
       // Cleanup function
       return () => {
-        console.log("[Realtime] Unsubscribing from unread count updates");
         supabase.removeChannel(channel);
       };
     });

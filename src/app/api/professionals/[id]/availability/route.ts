@@ -40,7 +40,7 @@ export async function GET(request: Request, context: RouteContext) {
     const startDate = new Date(startDateParam);
     const endDate = new Date(endDateParam);
 
-    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+    if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
       return NextResponse.json({ error: "Invalid date format. Use YYYY-MM-DD" }, { status: 400 });
     }
 
@@ -91,7 +91,6 @@ export async function GET(request: Request, context: RouteContext) {
       .lte("scheduled_start", endDate.toISOString());
 
     if (bookingsError) {
-      console.error("Failed to fetch bookings:", bookingsError);
       return NextResponse.json({ error: "Failed to fetch availability" }, { status: 500 });
     }
 
@@ -114,8 +113,7 @@ export async function GET(request: Request, context: RouteContext) {
         settings: professional.instant_booking_settings || {},
       },
     });
-  } catch (error) {
-    console.error("Availability API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Failed to fetch availability" }, { status: 500 });
   }
 }

@@ -71,8 +71,7 @@ export async function GET() {
         past_due: account.requirements?.past_due || [],
       },
     });
-  } catch (stripeError) {
-    console.error("Failed to fetch Stripe Connect status:", stripeError);
+  } catch (_stripeError) {
     return NextResponse.json({ error: "Failed to fetch account status" }, { status: 500 });
   }
 }

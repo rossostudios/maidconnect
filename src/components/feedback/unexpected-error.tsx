@@ -9,7 +9,9 @@ type Props = {
 export function UnexpectedError({ message }: Props) {
   const [visible, setVisible] = useState(true);
 
-  if (!visible) return null;
+  if (!visible) {
+    return null;
+  }
 
   return (
     <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm">

@@ -7,7 +7,9 @@ import { type OnboardingActionState, OPTIONAL_DOCUMENTS, REQUIRED_DOCUMENTS } fr
 type SupabaseClient = Awaited<ReturnType<typeof createSupabaseServerClient>>;
 
 function stringOrNull(value: FormDataEntryValue | null): string | null {
-  if (!value) return null;
+  if (!value) {
+    return null;
+  }
   const trimmed = value.toString().trim();
   return trimmed.length ? trimmed : null;
 }
@@ -58,8 +60,7 @@ export async function submitApplication(
 
   try {
     await ensureProfessionalProfile(user.id, supabase);
-  } catch (error) {
-    console.error("Failed to ensure professional profile", error);
+  } catch (_error) {
     return { status: "error", error: "Could not initialize professional profile." };
   }
 
@@ -87,17 +88,33 @@ export async function submitApplication(
 
   const fieldErrors: Record<string, string> = {};
 
-  if (!fullName) fieldErrors.fullName = "Full name is required.";
-  if (!idNumber) fieldErrors.idNumber = "ID number is required.";
-  if (!phone) fieldErrors.phone = "Phone number is required.";
-  if (!country) fieldErrors.country = "Country is required.";
-  if (!city) fieldErrors.city = "City is required.";
-  if (experienceYears === null || experienceYears < 0)
+  if (!fullName) {
+    fieldErrors.fullName = "Full name is required.";
+  }
+  if (!idNumber) {
+    fieldErrors.idNumber = "ID number is required.";
+  }
+  if (!phone) {
+    fieldErrors.phone = "Phone number is required.";
+  }
+  if (!country) {
+    fieldErrors.country = "Country is required.";
+  }
+  if (!city) {
+    fieldErrors.city = "City is required.";
+  }
+  if (experienceYears === null || experienceYears < 0) {
     fieldErrors.experienceYears = "Enter your years of experience.";
-  if (hourlyRate === null || hourlyRate <= 0)
+  }
+  if (hourlyRate === null || hourlyRate <= 0) {
     fieldErrors.rate = "Provide your standard hourly rate in COP.";
-  if (primaryServices.length === 0) fieldErrors.services = "Select at least one service you offer.";
-  if (!consentBackgroundCheck) fieldErrors.consent = "Consent is required for background checks.";
+  }
+  if (primaryServices.length === 0) {
+    fieldErrors.services = "Select at least one service you offer.";
+  }
+  if (!consentBackgroundCheck) {
+    fieldErrors.consent = "Consent is required for background checks.";
+  }
 
   const references: Array<ReferenceEntry | null> = [1, 2].map((index) => {
     const name = stringOrNull(formData.get(`reference_name_${index}`));
@@ -287,7 +304,6 @@ export async function submitDocuments(
       .remove(existingPaths);
 
     if (storageRemoveError) {
-      console.error("Failed to remove existing documents", storageRemoveError);
       return {
         status: "error",
         error: "Unable to replace existing documents right now. Please try again.",
@@ -323,7 +339,6 @@ export async function submitDocuments(
       });
 
     if (uploadError) {
-      console.error("Failed to upload professional document", uploadError);
       if (uploadedPaths.length > 0) {
         await supabase.storage.from(DOCUMENTS_BUCKET_ID).remove(uploadedPaths);
       }

@@ -33,7 +33,9 @@ type Props = {
 const columnHelper = createColumnHelper<Booking>();
 
 function formatCurrency(amount: number | null) {
-  if (!amount) return "—";
+  if (!amount) {
+    return "—";
+  }
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "COP",
@@ -110,7 +112,9 @@ export function PaymentHistoryTable({ bookings }: Props) {
         header: "Transaction ID",
         cell: (info) => {
           const id = info.getValue();
-          if (!id) return <span className="text-[#7d7566]">—</span>;
+          if (!id) {
+            return <span className="text-[#7d7566]">—</span>;
+          }
           return <span className="font-mono text-[#7d7566] text-xs">{id.substring(0, 20)}...</span>;
         },
       }),

@@ -40,8 +40,7 @@ export function FavoriteButton({
 
       const data = await response.json();
       setIsFavorite(data.isFavorite);
-    } catch (error) {
-      console.error("Failed to toggle favorite:", error);
+    } catch (_error) {
       alert("Failed to update favorites. Please try again.");
     } finally {
       setLoading(false);

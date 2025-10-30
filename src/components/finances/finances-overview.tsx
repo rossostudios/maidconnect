@@ -226,7 +226,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
                   labelLine={false}
                   outerRadius={100}
                 >
-                  {serviceData.map((entry, index) => (
+                  {serviceData.map((_entry, index) => (
                     <Cell fill={COLORS[index % COLORS.length]} key={`cell-${index}`} />
                   ))}
                 </Pie>

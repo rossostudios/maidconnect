@@ -81,7 +81,9 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
   };
 
   const formatMoney = (amount?: number) => {
-    if (!amount) return "—";
+    if (!amount) {
+      return "—";
+    }
     return new Intl.NumberFormat("es-CO", {
       style: "currency",
       currency: "COP",

@@ -44,7 +44,6 @@ export async function GET(request: Request) {
       .lt("updated_at", twentyFourHoursAgo.toISOString());
 
     if (fetchError) {
-      console.error("Failed to fetch expired bookings:", fetchError);
       return NextResponse.json({ error: "Failed to fetch bookings" }, { status: 500 });
     }
 
@@ -55,8 +54,6 @@ export async function GET(request: Request) {
         declined: 0,
       });
     }
-
-    console.log(`Found ${expiredBookings.length} expired booking(s) to auto-decline`);
 
     const results = {
       declined: 0,
@@ -71,11 +68,7 @@ export async function GET(request: Request) {
         if (booking.stripe_payment_intent_id) {
           try {
             await stripe.paymentIntents.cancel(booking.stripe_payment_intent_id);
-          } catch (stripeError) {
-            console.error(
-              `Failed to cancel payment intent ${booking.stripe_payment_intent_id}:`,
-              stripeError
-            );
+          } catch (_stripeError) {
             // Continue even if Stripe cancellation fails
           }
         }
@@ -91,7 +84,6 @@ export async function GET(request: Request) {
           .eq("id", booking.id);
 
         if (updateError) {
-          console.error(`Failed to update booking ${booking.id}:`, updateError);
           results.failed++;
           results.errors.push(`Booking ${booking.id}: ${updateError.message}`);
           continue;
@@ -141,22 +133,18 @@ export async function GET(request: Request) {
               "The professional did not respond within 24 hours"
             );
           }
-        } catch (emailError) {
-          console.error(`Failed to send email for booking ${booking.id}:`, emailError);
+        } catch (_emailError) {
           // Don't fail the whole operation if email fails
         }
 
         results.declined++;
       } catch (error) {
-        console.error(`Error processing booking ${booking.id}:`, error);
         results.failed++;
         results.errors.push(
           `Booking ${booking.id}: ${error instanceof Error ? error.message : "Unknown error"}`
         );
       }
     }
-
-    console.log(`Auto-decline completed: ${results.declined} declined, ${results.failed} failed`);
 
     return NextResponse.json({
       success: true,
@@ -166,7 +154,6 @@ export async function GET(request: Request) {
       errors: results.errors.length > 0 ? results.errors : undefined,
     });
   } catch (error) {
-    console.error("Auto-decline cron job error:", error);
     return NextResponse.json(
       {
         error: "Internal server error",

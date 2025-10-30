@@ -20,8 +20,8 @@ export async function GET(request: NextRequest) {
 
   try {
     const searchParams = request.nextUrl.searchParams;
-    const limit = Number.parseInt(searchParams.get("limit") || "50");
-    const offset = Number.parseInt(searchParams.get("offset") || "0");
+    const limit = Number.parseInt(searchParams.get("limit") || "50", 10);
+    const offset = Number.parseInt(searchParams.get("offset") || "0", 10);
     const unreadOnly = searchParams.get("unreadOnly") === "true";
 
     let query = supabase
@@ -38,7 +38,6 @@ export async function GET(request: NextRequest) {
     const { data: notifications, error, count } = await query;
 
     if (error) {
-      console.error("Failed to fetch notifications:", error);
       return NextResponse.json({ error: "Failed to fetch notifications" }, { status: 500 });
     }
 
@@ -48,8 +47,7 @@ export async function GET(request: NextRequest) {
       limit,
       offset,
     });
-  } catch (error) {
-    console.error("Notifications history API error:", error);
+  } catch (_error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

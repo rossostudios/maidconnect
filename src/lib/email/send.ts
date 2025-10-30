@@ -4,10 +4,10 @@ import * as templates from "./templates";
 const FROM_EMAIL = "MaidConnect <notifications@maidconnect.co>";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-interface SendEmailResult {
+type SendEmailResult = {
   success: boolean;
   error?: string;
-}
+};
 
 /**
  * Send new booking request notification to professional
@@ -38,7 +38,6 @@ export async function sendNewBookingRequestEmail(
 
     return { success: true };
   } catch (error) {
-    console.error("Failed to send new booking request email:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -72,7 +71,6 @@ export async function sendBookingConfirmedEmail(
 
     return { success: true };
   } catch (error) {
-    console.error("Failed to send booking confirmed email:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -104,7 +102,6 @@ export async function sendBookingDeclinedEmail(
 
     return { success: true };
   } catch (error) {
-    console.error("Failed to send booking declined email:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -136,7 +133,6 @@ export async function sendBookingReminderEmail(
 
     return { success: true };
   } catch (error) {
-    console.error("Failed to send booking reminder email:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -170,7 +166,6 @@ export async function sendMessageNotificationEmail(
 
     return { success: true };
   } catch (error) {
-    console.error("Failed to send message notification email:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -203,7 +198,6 @@ export async function sendServiceCompletedEmail(
 
     return { success: true };
   } catch (error) {
-    console.error("Failed to send service completed email:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -230,7 +224,6 @@ export async function sendAccountSuspensionEmail(
 
     return { success: true };
   } catch (error) {
-    console.error("Failed to send account suspension email:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -253,7 +246,6 @@ export async function sendAccountRestorationEmail(
 
     return { success: true };
   } catch (error) {
-    console.error("Failed to send account restoration email:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -287,7 +279,6 @@ export async function sendBookingRescheduleEmail(
 
     return { success: true };
   } catch (error) {
-    console.error("Failed to send booking reschedule email:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -310,7 +301,6 @@ export async function sendProfessionalApprovedEmail(
 
     return { success: true };
   } catch (error) {
-    console.error("Failed to send professional approved email:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -338,7 +328,6 @@ export async function sendProfessionalRejectedEmail(
 
     return { success: true };
   } catch (error) {
-    console.error("Failed to send professional rejected email:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -361,7 +350,6 @@ export async function sendProfessionalInfoRequestedEmail(
 
     return { success: true };
   } catch (error) {
-    console.error("Failed to send professional info requested email:", error);
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }

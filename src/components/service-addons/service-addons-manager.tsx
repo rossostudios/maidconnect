@@ -314,7 +314,7 @@ function AddonForm({
             className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
             min="0"
             onChange={(e) =>
-              setFormData({ ...formData, price_cop: Number.parseInt(e.target.value) })
+              setFormData({ ...formData, price_cop: Number.parseInt(e.target.value, 10) })
             }
             placeholder={t("form.fields.price.placeholder")}
             required
@@ -334,7 +334,7 @@ function AddonForm({
             onChange={(e) =>
               setFormData({
                 ...formData,
-                duration_minutes: Number.parseInt(e.target.value),
+                duration_minutes: Number.parseInt(e.target.value, 10),
               })
             }
             placeholder={t("form.fields.extraTime.placeholder")}

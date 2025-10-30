@@ -21,10 +21,6 @@ export function NotificationsHistory() {
   const [filter, setFilter] = useState<"all" | "unread">("all");
   const [totalCount, setTotalCount] = useState(0);
 
-  useEffect(() => {
-    fetchNotifications();
-  }, [filter]);
-
   const fetchNotifications = async () => {
     try {
       setLoading(true);
@@ -48,12 +44,15 @@ export function NotificationsHistory() {
       setTotalCount(data.total || 0);
       setError(null);
     } catch (err) {
-      console.error("Failed to fetch notifications:", err);
       setError(err instanceof Error ? err.message : "Unknown error");
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchNotifications();
+  }, [fetchNotifications]);
 
   const markAsRead = async (notificationIds: string[]) => {
     try {
@@ -75,9 +74,7 @@ export function NotificationsHistory() {
             : notif
         )
       );
-    } catch (err) {
-      console.error("Failed to mark as read:", err);
-    }
+    } catch (_err) {}
   };
 
   const markAllAsRead = async () => {
@@ -94,9 +91,7 @@ export function NotificationsHistory() {
 
       // Refresh notifications
       await fetchNotifications();
-    } catch (err) {
-      console.error("Failed to mark all as read:", err);
-    }
+    } catch (_err) {}
   };
 
   const unreadCount = notifications.filter((n) => !n.read_at).length;
