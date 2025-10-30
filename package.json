@@ -13,11 +13,13 @@
     "@stripe/stripe-js": "^8.2.0",
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.76.1",
+    "@tanstack/react-table": "^8.21.3",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.548.0",
     "next": "16.0.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "recharts": "^3.3.0",
     "resend": "^6.3.0",
     "stripe": "^19.1.0",
     "web-push": "^3.6.7"

@@ -192,7 +192,7 @@ export default async function CustomerDashboardPage() {
         </dl>
       </header>
 
-      <section className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+      <section className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-3xl font-semibold text-[#211f1a]">Get ready to book</h2>
@@ -253,7 +253,7 @@ export default async function CustomerDashboardPage() {
         </ol>
       </section>
 
-      <section id="addresses" className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+      <section id="addresses" className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
         <h2 className="text-3xl font-semibold text-[#211f1a]">Saved Addresses</h2>
         <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
           Manage your service locations for faster booking. Add details like building access and parking info.
@@ -264,7 +264,7 @@ export default async function CustomerDashboardPage() {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+        <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
           <h3 className="text-2xl font-semibold text-[#211f1a]">Property preferences</h3>
           <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
             Sharing a few details about your home helps professionals prepare with the right supplies.
@@ -288,7 +288,7 @@ export default async function CustomerDashboardPage() {
           </Link>
         </div>
 
-        <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+        <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
           <h3 className="text-2xl font-semibold text-[#211f1a]">Need help?</h3>
           <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
             Our support team can help with verification, bookings, or anything else you need.
@@ -310,7 +310,7 @@ export default async function CustomerDashboardPage() {
         </div>
       </section>
 
-      <section id="bookings" className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+      <section id="bookings" className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
         <h2 className="text-3xl font-semibold text-[#211f1a]">My Bookings</h2>
         <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
           View and manage your upcoming and past service appointments.
@@ -320,7 +320,7 @@ export default async function CustomerDashboardPage() {
         </div>
       </section>
 
-      <section id="favorites" className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+      <section id="favorites" className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
         <h2 className="text-3xl font-semibold text-[#211f1a]">My Favorites</h2>
         <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
           Quick access to your favorite professionals for easy rebooking.
@@ -330,7 +330,7 @@ export default async function CustomerDashboardPage() {
         </div>
       </section>
 
-      <section id="messages" className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+      <section id="messages" className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
         <h2 className="text-3xl font-semibold text-[#211f1a]">Messages</h2>
         <p className="mt-3 text-base leading-relaxed text-[#5d574b]">
           Chat with professionals about your bookings and service details.
@@ -369,7 +369,7 @@ export default async function CustomerDashboardPage() {
 
 function SummaryCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm">
+    <div className="rounded-2xl bg-white p-6 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
       <dt className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">{label}</dt>
       <dd className="mt-2 text-base font-medium text-[#211f1a]">{value}</dd>
     </div>

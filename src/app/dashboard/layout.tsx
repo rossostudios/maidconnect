@@ -20,15 +20,15 @@ const navByRole: Record<
   professional: [
     { href: "/dashboard/pro", label: "Overview" },
     { href: "/dashboard/pro/bookings", label: "Bookings" },
-    { href: "/dashboard/pro#finances", label: "Finances" },
-    { href: "/dashboard/pro#documents", label: "Documents" },
+    { href: "/dashboard/pro/finances", label: "Finances" },
+    { href: "/dashboard/pro/documents", label: "Documents" },
   ],
   customer: [
     { href: "/dashboard/customer", label: "Overview" },
-    { href: "/dashboard/customer#addresses", label: "Addresses" },
+    { href: "/dashboard/customer/addresses", label: "Addresses" },
     { href: "/dashboard/customer/bookings", label: "Bookings" },
-    { href: "/dashboard/customer#favorites", label: "Favorites" },
-    { href: "/dashboard/customer#payments", label: "Payments" },
+    { href: "/dashboard/customer/favorites", label: "Favorites" },
+    { href: "/dashboard/customer/payments", label: "Payments" },
   ],
 };
 

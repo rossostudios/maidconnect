@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useUnreadCount } from "@/hooks/use-unread-count";
 import { useNotificationUnreadCount } from "@/hooks/use-notification-unread-count";
 import { NotificationsSheet } from "@/components/notifications/notifications-sheet";
@@ -18,6 +19,7 @@ type Props = {
 };
 
 export function DashboardNavigation({ navLinks, userRole }: Props) {
+  const pathname = usePathname();
   const { unreadCount } = useUnreadCount();
   const { unreadCount: notificationUnreadCount, refresh } = useNotificationUnreadCount();
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
@@ -30,23 +32,44 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
 
   const messagesHref = userRole === "customer" ? "/dashboard/customer/messages" : "/dashboard/pro/messages";
 
+  const isActive = (href: string) => {
+    // Handle hash links (e.g., #addresses, #favorites)
+    if (href.includes("#")) {
+      const basePath = href.split("#")[0];
+      return pathname === basePath;
+    }
+    // Exact match for regular links
+    return pathname === href;
+  };
+
   return (
     <>
       <nav className="flex items-center gap-6 text-sm font-medium text-[#524d43]">
-        {navLinks.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="relative transition hover:text-[#ff5d46]"
-          >
-            {item.label}
-          </Link>
-        ))}
+        {navLinks.map((item) => {
+          const active = isActive(item.href);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`relative pb-1 transition hover:text-[#ff5d46] ${
+                active
+                  ? "font-semibold text-[#ff5d46] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#ff5d46] after:content-['']"
+                  : ""
+              }`}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
 
         {/* Messages Icon */}
         <Link
           href={messagesHref}
-          className="relative rounded-lg p-1.5 text-[#524d43] transition hover:bg-[#ebe5d8] hover:text-[#ff5d46]"
+          className={`relative rounded-lg p-1.5 transition hover:bg-[#ebe5d8] hover:text-[#ff5d46] ${
+            pathname === messagesHref
+              ? "bg-[#fff5f2] text-[#ff5d46]"
+              : "text-[#524d43]"
+          }`}
           aria-label={`Messages${unreadCount > 0 ? ` (${unreadCount} unread)` : ""}`}
         >
           <svg

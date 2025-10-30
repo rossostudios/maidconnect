@@ -1,0 +1,51 @@
+import { requireUser } from "@/lib/auth";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { FinancesOverview } from "@/components/finances/finances-overview";
+
+type BookingRow = {
+  id: string;
+  status: string;
+  scheduled_start: string | null;
+  amount_captured: number | null;
+  amount_authorized: number | null;
+  currency: string | null;
+  service_name: string | null;
+  created_at: string;
+};
+
+export default async function ProFinancesPage() {
+  const user = await requireUser({ allowedRoles: ["professional"] });
+  const supabase = await createSupabaseServerClient();
+
+  // Fetch completed bookings for revenue analytics
+  const { data: bookingsData } = await supabase
+    .from("bookings")
+    .select("id, status, scheduled_start, amount_captured, amount_authorized, currency, service_name, created_at")
+    .eq("professional_id", user.id)
+    .eq("status", "completed")
+    .order("scheduled_start", { ascending: true });
+
+  const bookings = (bookingsData as BookingRow[] | null) ?? [];
+
+  // Fetch pending payouts
+  const { data: payoutsData } = await supabase
+    .from("payouts")
+    .select("*")
+    .eq("professional_id", user.id)
+    .order("created_at", { ascending: false });
+
+  const payouts = payoutsData ?? [];
+
+  return (
+    <section className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-semibold text-[#211f1a]">Finances & Analytics</h1>
+        <p className="mt-2 text-base leading-relaxed text-[#5d574b]">
+          Track your earnings, view analytics, and manage payouts.
+        </p>
+      </div>
+
+      <FinancesOverview bookings={bookings} payouts={payouts} />
+    </section>
+  );
+}
