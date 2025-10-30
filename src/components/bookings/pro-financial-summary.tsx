@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import type { LucideIcon } from "lucide-react";
 import { Banknote, DollarSign, RefreshCw, ShieldAlert } from "lucide-react";
 
@@ -44,6 +45,7 @@ function isSameMonth(dateInput: string | null, reference: Date) {
 }
 
 export function ProFinancialSummary({ bookings, connectAccountId, connectStatus }: Props) {
+  const t = useTranslations("dashboard.pro.financialSummary");
   const [onboardingError, setOnboardingError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const totals = useMemo(() => {
@@ -117,7 +119,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <DollarSign className="h-5 w-5 text-[#ff5d46]" />
-          <h3 className="text-lg font-semibold text-[#211f1a]">Financial overview</h3>
+          <h3 className="text-lg font-semibold text-[#211f1a]">{t("title")}</h3>
         </div>
         {needsConnect ? (
           <button
@@ -126,51 +128,51 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
             disabled={isPending}
             className="inline-flex items-center rounded-md bg-[#ff5d46] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
           >
-            {isPending ? "Opening Stripe…" : "Set up Stripe payouts"}
+            {isPending ? t("stripe.opening") : t("stripe.setup")}
           </button>
         ) : null}
       </div>
-      <p className="mt-1 text-sm text-[#7a6d62]">Monitor captured payouts, active holds, and upcoming revenue.</p>
+      <p className="mt-1 text-sm text-[#7a6d62]">{t("description")}</p>
       <p className="mt-2 text-xs font-medium text-[#7a6d62]">
-        Stripe status:{" "}
+        {t("stripe.statusLabel")}{" "}
         <span className={needsConnect ? "text-[#c4534d]" : "text-[#2f7a47]"}>
-          {needsConnect ? "Action required" : "Connected"}
+          {needsConnect ? t("stripe.actionRequired") : t("stripe.connected")}
         </span>
       </p>
       {onboardingError ? <p className="mt-3 text-xs text-red-600">{onboardingError}</p> : null}
 
       {noData ? (
-        <p className="mt-6 text-sm text-[#7a6d62]">Once customers authorize bookings, you&apos;ll see financial metrics here.</p>
+        <p className="mt-6 text-sm text-[#7a6d62]">{t("emptyState")}</p>
       ) : (
         <>
           <dl className="mt-6 grid gap-3 sm:grid-cols-2">
             <SummaryCard
               icon={Banknote}
-              title="Available after completion"
+              title={t("cards.availableAfterCompletion.title")}
               amount={totals.captured}
-              description="Payments captured"
+              description={t("cards.availableAfterCompletion.description")}
               tone="bg-[#f4fbf6]"
               accent="text-[#2f7a47]"
             />
             <SummaryCard
               icon={RefreshCw}
-              title="Active holds"
+              title={t("cards.activeHolds.title")}
               amount={totals.authorized}
-              description="Awaiting completion"
+              description={t("cards.activeHolds.description")}
               tone="bg-[#fef1ee]"
               accent="text-[#c4534d]"
             />
           </dl>
 
           <div className="mt-6 rounded-lg border border-[#efe7dc] bg-[#fbfafa] p-4 text-xs text-[#7a6d62]">
-            <p className="font-semibold text-[#211f1a]">This month</p>
+            <p className="font-semibold text-[#211f1a]">{t("thisMonth")}</p>
             <div className="mt-2 grid gap-3 sm:grid-cols-2">
               <div>
-                <p className="text-xs uppercase tracking-wide text-[#a49c90]">Captured payouts</p>
+                <p className="text-xs uppercase tracking-wide text-[#a49c90]">{t("metrics.capturedPayouts")}</p>
                 <p className="text-sm font-semibold text-[#211f1a]">{formatCOP(totals.thisMonthCaptured)}</p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wide text-[#a49c90]">Upcoming holds</p>
+                <p className="text-xs uppercase tracking-wide text-[#a49c90]">{t("metrics.upcomingHolds")}</p>
                 <p className="text-sm font-semibold text-[#211f1a]">{formatCOP(totals.thisMonthAuthorized)}</p>
               </div>
             </div>
@@ -178,13 +180,13 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
 
           <div className="mt-6 space-y-3 text-sm text-[#5d574b]">
             <div className="flex items-center justify-between rounded-lg border border-[#efe7dc] bg-white/80 px-3 py-2">
-              <span>Pending payment requests</span>
+              <span>{t("metrics.pendingRequests")}</span>
               <span>{formatCOP(totals.pending)}</span>
             </div>
             <div className="flex items-center justify-between rounded-lg border border-[#efe7dc] bg-white/80 px-3 py-2">
               <span className="flex items-center gap-2">
                 <ShieldAlert className="h-4 w-4 text-[#c4534d]" />
-                Holds released
+                {t("metrics.holdsReleased")}
               </span>
               <span>{formatCOP(totals.canceled)}</span>
             </div>

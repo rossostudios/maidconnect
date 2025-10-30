@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { ServiceExecutionCard, type BookingForExecution } from "./service-execution-card";
 
 export type ProfessionalBooking = {
@@ -28,6 +29,7 @@ type Props = {
 
 export function ProBookingList({ bookings }: Props) {
   const router = useRouter();
+  const t = useTranslations("dashboard.pro.bookingList");
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -54,7 +56,7 @@ export function ProBookingList({ bookings }: Props) {
           throw new Error(body.error ?? `Failed to ${action} booking`);
         }
 
-        setMessage(`Booking ${action === "accept" ? "accepted" : "declined"} successfully!`);
+        setMessage(t("success", { action: action === "accept" ? t("actions.accept") : t("actions.decline") }));
         router.refresh();
       } catch (error) {
         console.error(error);
@@ -102,7 +104,7 @@ export function ProBookingList({ bookings }: Props) {
   };
 
   if (bookings.length === 0) {
-    return <p className="text-sm text-[#7a6d62]">No bookings yet. Once customers authorize a booking, it will appear here.</p>;
+    return <p className="text-sm text-[#7a6d62]">{t("emptyState")}</p>;
   }
 
   // Separate active service bookings from others
@@ -125,7 +127,7 @@ export function ProBookingList({ bookings }: Props) {
       {activeServiceBookings.length > 0 && (
         <div>
           <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-[#7a6d62]">
-            Active Services
+            {t("sections.activeServices")}
           </h3>
           <div className="space-y-4">
             {activeServiceBookings.map((booking) => (
@@ -142,18 +144,18 @@ export function ProBookingList({ bookings }: Props) {
       {otherBookings.length > 0 && (
         <div>
           <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-[#7a6d62]">
-            {activeServiceBookings.length > 0 ? "Other Bookings" : "All Bookings"}
+            {activeServiceBookings.length > 0 ? t("sections.otherBookings") : t("sections.allBookings")}
           </h3>
           <div className="overflow-hidden rounded-2xl border border-[#ebe5d8]">
         <table className="min-w-full divide-y divide-[#ebe5d8] text-sm">
           <thead className="bg-[#fbfafa] text-xs uppercase tracking-wide text-[#7a6d62]">
             <tr>
-              <th className="px-4 py-3 text-left">Booking</th>
-              <th className="px-4 py-3 text-left">Service</th>
-              <th className="px-4 py-3 text-left">Scheduled</th>
-              <th className="px-4 py-3 text-left">Amount (COP)</th>
-              <th className="px-4 py-3 text-left">Status</th>
-              <th className="px-4 py-3 text-left">Actions</th>
+              <th className="px-4 py-3 text-left">{t("table.booking")}</th>
+              <th className="px-4 py-3 text-left">{t("table.service")}</th>
+              <th className="px-4 py-3 text-left">{t("table.scheduled")}</th>
+              <th className="px-4 py-3 text-left">{t("table.amount")}</th>
+              <th className="px-4 py-3 text-left">{t("table.status")}</th>
+              <th className="px-4 py-3 text-left">{t("table.actions")}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-[#f0e8dc] bg-white">
@@ -201,7 +203,7 @@ export function ProBookingList({ bookings }: Props) {
                           onClick={() => handleAction(booking, "accept")}
                           disabled={loadingId !== null}
                         >
-                          {loadingId === `${booking.id}-accept` ? "Accepting…" : "Accept"}
+                          {loadingId === `${booking.id}-accept` ? t("actions.accepting") : t("actions.accept")}
                         </button>
                         <button
                           type="button"
@@ -209,7 +211,7 @@ export function ProBookingList({ bookings }: Props) {
                           onClick={() => handleAction(booking, "decline")}
                           disabled={loadingId !== null}
                         >
-                          {loadingId === `${booking.id}-decline` ? "Declining…" : "Decline"}
+                          {loadingId === `${booking.id}-decline` ? t("actions.declining") : t("actions.decline")}
                         </button>
                       </div>
                     ) : showCapture || showVoid ? (
@@ -221,7 +223,7 @@ export function ProBookingList({ bookings }: Props) {
                             onClick={() => handleAction(booking, "capture")}
                             disabled={loadingId !== null}
                           >
-                            {loadingId === `${booking.id}-capture` ? "Capturing…" : "Capture"}
+                            {loadingId === `${booking.id}-capture` ? t("actions.capturing") : t("actions.capture")}
                           </button>
                         ) : null}
                         {showVoid ? (
@@ -231,12 +233,12 @@ export function ProBookingList({ bookings }: Props) {
                             onClick={() => handleAction(booking, "void")}
                             disabled={loadingId !== null}
                           >
-                            {loadingId === `${booking.id}-void` ? "Canceling…" : "Cancel hold"}
+                            {loadingId === `${booking.id}-void` ? t("actions.canceling") : t("actions.cancelHold")}
                           </button>
                         ) : null}
                       </div>
                     ) : (
-                      <span className="text-xs text-[#8a826d]">No actions available</span>
+                      <span className="text-xs text-[#8a826d]">{t("actions.noActions")}</span>
                     )}
                   </td>
                 </tr>

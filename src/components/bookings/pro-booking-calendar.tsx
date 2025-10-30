@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { CalendarDays, ChevronLeft, ChevronRight, Clock } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 
@@ -24,13 +25,6 @@ type CalendarDay = {
 
 type Props = {
   bookings: CalendarBooking[];
-};
-
-const STATUS_LABELS: Record<string, string> = {
-  pending_payment: "Awaiting payment",
-  authorized: "Authorized hold",
-  completed: "Completed",
-  canceled: "Canceled",
 };
 
 function formatDateKey(date: Date) {
@@ -81,9 +75,25 @@ function formatTime(date: Date) {
 }
 
 export function ProBookingCalendar({ bookings }: Props) {
+  const t = useTranslations("dashboard.pro.bookingCalendar");
   const initialDate = toStartOfDay(new Date());
   const [currentMonth, setCurrentMonth] = useState(initialDate);
   const [selectedDayKey, setSelectedDayKey] = useState(formatDateKey(initialDate));
+
+  const getStatusLabel = (status: string): string => {
+    switch (status) {
+      case "pending_payment":
+        return t("status.pendingPayment");
+      case "authorized":
+        return t("status.authorized");
+      case "completed":
+        return t("status.completed");
+      case "canceled":
+        return t("status.canceled");
+      default:
+        return status.replace(/_/g, " ");
+    }
+  };
 
   const bookingsByDay = useMemo(() => {
     const map = new Map<string, CalendarBooking[]>();
@@ -138,9 +148,17 @@ export function ProBookingCalendar({ bookings }: Props) {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(0,_1fr)]">
         <div className="grid grid-cols-7 gap-2">
-          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((label) => (
-            <div key={label} className="text-center text-xs font-semibold uppercase tracking-wide text-[#a49c90]">
-              {label}
+          {[
+            { key: "sun", label: t("days.sun") },
+            { key: "mon", label: t("days.mon") },
+            { key: "tue", label: t("days.tue") },
+            { key: "wed", label: t("days.wed") },
+            { key: "thu", label: t("days.thu") },
+            { key: "fri", label: t("days.fri") },
+            { key: "sat", label: t("days.sat") },
+          ].map((day) => (
+            <div key={day.key} className="text-center text-xs font-semibold uppercase tracking-wide text-[#a49c90]">
+              {day.label}
             </div>
           ))}
           {calendarDays.map((day) => {
@@ -163,7 +181,7 @@ export function ProBookingCalendar({ bookings }: Props) {
                 <span className="text-sm font-semibold">{day.label}</span>
                 {hasBookings ? (
                   <span className="mt-1 rounded-full bg-[#ff5d46]/15 px-2 py-0.5 text-xs font-semibold text-[#8a3934]">
-                    {bookingsCount} {bookingsCount === 1 ? "booking" : "bookings"}
+                    {bookingsCount} {bookingsCount === 1 ? t("booking") : t("bookings")}
                   </span>
                 ) : null}
               </button>
@@ -172,7 +190,7 @@ export function ProBookingCalendar({ bookings }: Props) {
         </div>
 
         <div className="rounded-lg border border-[#efe7dc] bg-[#fbfafa] p-4">
-          <h4 className="text-sm font-semibold text-[#211f1a]">Details</h4>
+          <h4 className="text-sm font-semibold text-[#211f1a]">{t("details")}</h4>
           <p className="mt-1 text-xs text-[#7a6d62]">
             {new Date(selectedDayKey).toLocaleDateString("en-US", {
               weekday: "long",
@@ -182,7 +200,7 @@ export function ProBookingCalendar({ bookings }: Props) {
             })}
           </p>
           {selectedBookings.length === 0 ? (
-            <p className="mt-4 text-sm text-[#7a6d62]">No bookings scheduled for this day.</p>
+            <p className="mt-4 text-sm text-[#7a6d62]">{t("noBookings")}</p>
           ) : (
             <ul className="mt-4 space-y-3">
               {selectedBookings
@@ -194,8 +212,8 @@ export function ProBookingCalendar({ bookings }: Props) {
                 })
                 .map((booking) => {
                   const start = booking.scheduled_start ? new Date(booking.scheduled_start) : null;
-                  const timeLabel = start ? formatTime(start) : "Time TBD";
-                  const statusLabel = STATUS_LABELS[booking.status] ?? booking.status.replace(/_/g, " ");
+                  const timeLabel = start ? formatTime(start) : t("timeTbd");
+                  const statusLabel = getStatusLabel(booking.status);
                   const amount =
                     booking.amount_captured ?? booking.amount_authorized ?? null;
                   return (

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { User, Mail, Phone, Globe, Award, CheckCircle } from "lucide-react";
 
 type Profile = {
@@ -31,6 +32,7 @@ const SERVICE_OPTIONS = [
 ];
 
 export function ProfileEditor({ profile: initialProfile }: Props) {
+  const t = useTranslations("dashboard.pro.profileEditor");
   const [profile, setProfile] = useState(initialProfile);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -94,7 +96,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       {success && (
         <div className="flex items-center gap-3 rounded-xl bg-green-50 p-4 text-green-800">
           <CheckCircle className="h-5 w-5" />
-          <p className="text-sm font-semibold">Profile updated successfully!</p>
+          <p className="text-sm font-semibold">{t("success")}</p>
         </div>
       )}
 
@@ -108,39 +110,39 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       <div className="space-y-4">
         <div className="flex items-center gap-2 text-lg font-semibold text-[#211f1a]">
           <User className="h-5 w-5" />
-          <h3>Basic Information</h3>
+          <h3>{t("sections.basicInfo.title")}</h3>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
           <div>
             <label className="mb-2 block text-sm font-semibold text-[#211f1a]">
-              Full Name
+              {t("sections.basicInfo.fields.fullName.label")}
             </label>
             <input
               type="text"
               value={profile.full_name}
               onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
-              placeholder="Your full name"
+              placeholder={t("sections.basicInfo.fields.fullName.placeholder")}
               className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             />
           </div>
 
           <div>
             <label className="mb-2 block text-sm font-semibold text-[#211f1a]">
-              Email
+              {t("sections.basicInfo.fields.email.label")}
             </label>
             <div className="flex items-center gap-2 rounded-xl border border-[#ebe5d8] bg-[#fbfaf9] px-4 py-3">
               <Mail className="h-4 w-4 text-[#7d7566]" />
               <span className="text-base text-[#7d7566]">{profile.email}</span>
             </div>
             <p className="mt-1 text-xs text-[#7d7566]">
-              Email cannot be changed here. Contact support if needed.
+              {t("sections.basicInfo.fields.email.helper")}
             </p>
           </div>
 
           <div>
             <label className="mb-2 block text-sm font-semibold text-[#211f1a]">
-              Phone Number
+              {t("sections.basicInfo.fields.phoneNumber.label")}
             </label>
             <div className="flex items-center gap-2 rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 shadow-sm">
               <Phone className="h-4 w-4 text-[#7d7566]" />
@@ -148,7 +150,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
                 type="tel"
                 value={profile.phone_number}
                 onChange={(e) => setProfile({ ...profile, phone_number: e.target.value })}
-                placeholder="+57 300 123 4567"
+                placeholder={t("sections.basicInfo.fields.phoneNumber.placeholder")}
                 className="flex-1 text-base focus:outline-none"
               />
             </div>
@@ -156,17 +158,17 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
 
           <div>
             <label className="mb-2 block text-sm font-semibold text-[#211f1a]">
-              Avatar URL
+              {t("sections.basicInfo.fields.avatarUrl.label")}
             </label>
             <input
               type="url"
               value={profile.avatar_url}
               onChange={(e) => setProfile({ ...profile, avatar_url: e.target.value })}
-              placeholder="https://example.com/avatar.jpg"
+              placeholder={t("sections.basicInfo.fields.avatarUrl.placeholder")}
               className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
             />
             <p className="mt-1 text-xs text-[#7d7566]">
-              Public profile photo URL
+              {t("sections.basicInfo.fields.avatarUrl.helper")}
             </p>
           </div>
         </div>
@@ -176,22 +178,22 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       <div className="space-y-4">
         <div className="flex items-center gap-2 text-lg font-semibold text-[#211f1a]">
           <Award className="h-5 w-5" />
-          <h3>Professional Summary</h3>
+          <h3>{t("sections.professionalSummary.title")}</h3>
         </div>
 
         <div>
           <label className="mb-2 block text-sm font-semibold text-[#211f1a]">
-            Bio
+            {t("sections.professionalSummary.fields.bio.label")}
           </label>
           <textarea
             value={profile.bio}
             onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
-            placeholder="Tell customers about your experience, specialties, and what makes you great..."
+            placeholder={t("sections.professionalSummary.fields.bio.placeholder")}
             rows={5}
             className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
           />
           <p className="mt-1 text-xs text-[#7d7566]">
-            {profile.bio.length}/500 characters
+            {profile.bio.length}{t("sections.professionalSummary.fields.bio.characterCounter")}
           </p>
         </div>
       </div>
@@ -200,7 +202,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       <div className="space-y-4">
         <div className="flex items-center gap-2 text-lg font-semibold text-[#211f1a]">
           <Globe className="h-5 w-5" />
-          <h3>Languages</h3>
+          <h3>{t("sections.languages.title")}</h3>
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -219,7 +221,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
           ))}
         </div>
         <p className="text-xs text-[#7d7566]">
-          Select all languages you can communicate in
+          {t("sections.languages.helper")}
         </p>
       </div>
 
@@ -227,7 +229,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       <div className="space-y-4">
         <div className="flex items-center gap-2 text-lg font-semibold text-[#211f1a]">
           <Award className="h-5 w-5" />
-          <h3>Primary Services</h3>
+          <h3>{t("sections.services.title")}</h3>
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -246,7 +248,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
           ))}
         </div>
         <p className="text-xs text-[#7d7566]">
-          Select all services you offer
+          {t("sections.services.helper")}
         </p>
       </div>
 
@@ -275,10 +277,10 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 />
               </svg>
-              Saving...
+              {t("saving")}
             </span>
           ) : (
-            "Save Changes"
+            t("save")
           )}
         </button>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import type { PortfolioImage } from "@/app/api/professional/portfolio/route";
 import { ImageUploadDropzone } from "./image-upload-dropzone";
 
@@ -19,6 +20,7 @@ export function PortfolioManager({
   featuredWork: initialFeaturedWork = "",
   onUpdate,
 }: Props) {
+  const t = useTranslations("dashboard.pro.portfolioManager");
   const [images, setImages] = useState<PortfolioImage[]>(initialImages);
   const [featuredWork, setFeaturedWork] = useState(initialFeaturedWork);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -38,10 +40,10 @@ export function PortfolioManager({
       }
 
       onUpdate?.(images, featuredWork);
-      alert("Portfolio updated successfully!");
+      alert(t("success"));
     } catch (error) {
       console.error("Failed to update portfolio:", error);
-      alert("Failed to update portfolio. Please try again.");
+      alert(t("error"));
     } finally {
       setLoading(false);
     }
@@ -60,7 +62,7 @@ export function PortfolioManager({
   };
 
   const handleDeleteImage = (id: string) => {
-    if (!confirm("Delete this image?")) return;
+    if (!confirm(t("deleteConfirm"))) return;
 
     const newImages = images
       .filter((img) => img.id !== id)
@@ -111,24 +113,24 @@ export function PortfolioManager({
       {/* Featured Work */}
       <div>
         <label className="mb-2 block text-sm font-semibold text-[#211f1a]">
-          Featured Work Description
+          {t("fields.description.label")}
         </label>
         <textarea
           value={featuredWork}
           onChange={(e) => setFeaturedWork(e.target.value)}
-          placeholder="Describe your specialties and what makes your work unique..."
+          placeholder={t("fields.description.placeholder")}
           rows={3}
           className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
         />
         <p className="mt-1 text-xs text-[#7a6d62]">
-          This will appear above your portfolio gallery
+          {t("fields.description.helper")}
         </p>
       </div>
 
       {/* Upload New Images */}
       <div>
         <h3 className="mb-3 text-sm font-semibold text-[#211f1a]">
-          Upload Portfolio Images
+          {t("upload.title")}
         </h3>
         <ImageUploadDropzone
           onImagesUploaded={handleImagesUploaded}
@@ -139,7 +141,7 @@ export function PortfolioManager({
       {/* Current Images */}
       <div>
         <h3 className="mb-3 text-sm font-semibold text-[#211f1a]">
-          Current Images ({images.length})
+          {t("upload.currentImages", { count: images.length })}
         </h3>
 
         {images.length > 0 && (
@@ -163,7 +165,7 @@ export function PortfolioManager({
                       <input
                         type="text"
                         defaultValue={image.caption || ""}
-                        placeholder="Add a caption..."
+                        placeholder={t("actions.editCaption")}
                         onBlur={(e) =>
                           handleUpdateCaption(image.id, e.target.value)
                         }
@@ -192,7 +194,7 @@ export function PortfolioManager({
                           onClick={() => setEditingId(image.id)}
                           className="text-xs text-[#ff5d46] hover:text-[#eb6c65]"
                         >
-                          Edit caption
+                          {t("actions.editCaption")}
                         </button>
                         <span className="text-xs text-[#e5dfd4]">•</span>
                         <button
@@ -200,21 +202,21 @@ export function PortfolioManager({
                           disabled={index === 0}
                           className="text-xs text-[#7a6d62] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                          ↑ Move up
+                          {t("actions.moveUp")}
                         </button>
                         <button
                           onClick={() => handleMoveDown(image.id)}
                           disabled={index === sortedImages.length - 1}
                           className="text-xs text-[#7a6d62] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                          ↓ Move down
+                          {t("actions.moveDown")}
                         </button>
                         <span className="text-xs text-[#e5dfd4]">•</span>
                         <button
                           onClick={() => handleDeleteImage(image.id)}
                           className="text-xs text-red-600 hover:text-red-700"
                         >
-                          Delete
+                          {t("actions.delete")}
                         </button>
                       </div>
                     </>
@@ -236,10 +238,10 @@ export function PortfolioManager({
           <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-12 text-center">
             <p className="text-2xl">📸</p>
             <p className="mt-2 text-sm font-semibold text-[#211f1a]">
-              No portfolio images yet
+              {t("emptyState.title")}
             </p>
             <p className="mt-1 text-sm text-[#7a6d62]">
-              Upload images using the dropzone above to showcase your best work
+              {t("emptyState.description")}
             </p>
           </div>
         )}
@@ -248,14 +250,14 @@ export function PortfolioManager({
       {/* Upload Tips */}
       <div className="rounded-lg border border-[#f0ece5] bg-[#fdfaf6] p-4">
         <h4 className="text-sm font-semibold text-[#211f1a]">
-          📸 Portfolio Tips
+          📸 {t("tips.title")}
         </h4>
         <ul className="mt-2 space-y-1 text-sm text-[#7a6d62]">
-          <li>• Use high-quality images that showcase your best work</li>
-          <li>• Add captions to explain what the project involved</li>
-          <li>• Before/after photos are particularly effective</li>
-          <li>• Keep your portfolio updated with recent work</li>
-          <li>• Aim for 6-12 images for a well-rounded portfolio</li>
+          <li>• {t("tips.tip1")}</li>
+          <li>• {t("tips.tip2")}</li>
+          <li>• {t("tips.tip3")}</li>
+          <li>• {t("tips.tip4")}</li>
+          <li>• {t("tips.tip5")}</li>
         </ul>
       </div>
 
@@ -266,7 +268,7 @@ export function PortfolioManager({
           disabled={loading}
           className="rounded-md bg-[#ff5d46] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {loading ? "Saving..." : "Save Portfolio"}
+          {loading ? t("saving") : t("save")}
         </button>
       </div>
     </div>

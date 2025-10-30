@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Clock, Calendar, CheckCircle } from "lucide-react";
 import { WeeklyHoursEditor } from "./weekly-hours-editor";
 import { BlockedDatesCalendar } from "./blocked-dates-calendar";
@@ -20,6 +21,7 @@ type Props = {
 type Tab = "hours" | "blocked";
 
 export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: Props) {
+  const t = useTranslations("dashboard.pro.availabilityEditor");
   const [activeTab, setActiveTab] = useState<Tab>("hours");
   const [weeklyHours, setWeeklyHours] = useState<DaySchedule[]>(initialWeeklyHours || []);
   const [blockedDates, setBlockedDates] = useState<string[]>(initialBlockedDates || []);
@@ -63,7 +65,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
       {success && (
         <div className="flex items-center gap-3 rounded-xl bg-green-50 p-4 text-green-800">
           <CheckCircle className="h-5 w-5" />
-          <p className="text-sm font-semibold">Availability updated successfully!</p>
+          <p className="text-sm font-semibold">{t("success")}</p>
         </div>
       )}
 
@@ -85,7 +87,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
             }`}
           >
             <Clock className="h-4 w-4" />
-            Working Hours
+            {t("tabs.workingHours")}
           </button>
           <button
             onClick={() => setActiveTab("blocked")}
@@ -96,7 +98,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
             }`}
           >
             <Calendar className="h-4 w-4" />
-            Blocked Dates
+            {t("tabs.blockedDates")}
             {blockedDates.length > 0 && (
               <span className="rounded-full bg-red-500 px-2 py-0.5 text-xs font-bold text-white">
                 {blockedDates.length}
@@ -111,10 +113,9 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
         {activeTab === "hours" && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg font-semibold text-[#211f1a]">Set Your Weekly Schedule</h3>
+              <h3 className="text-lg font-semibold text-[#211f1a]">{t("workingHours.title")}</h3>
               <p className="mt-1 text-sm text-[#7d7566]">
-                Define which days and hours you're available for bookings. Customers can only
-                book during these times.
+                {t("workingHours.description")}
               </p>
             </div>
             <WeeklyHoursEditor initialSchedule={weeklyHours} onChange={setWeeklyHours} />
@@ -124,10 +125,9 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
         {activeTab === "blocked" && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg font-semibold text-[#211f1a]">Block Specific Dates</h3>
+              <h3 className="text-lg font-semibold text-[#211f1a]">{t("blockedDates.title")}</h3>
               <p className="mt-1 text-sm text-[#7d7566]">
-                Mark dates when you're unavailable (vacations, holidays, personal time).
-                These dates won't be bookable even if they fall within your working hours.
+                {t("blockedDates.description")}
               </p>
             </div>
             <BlockedDatesCalendar
@@ -141,7 +141,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
       {/* Save Button */}
       <div className="flex items-center justify-end gap-3 border-t border-[#ebe5d8] pt-6">
         <div className="flex-1 text-sm text-[#7d7566]">
-          Changes will be reflected immediately on your public profile
+          {t("infoText")}
         </div>
         <button
           onClick={handleSave}
@@ -166,10 +166,10 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 />
               </svg>
-              Saving...
+              {t("saving")}
             </span>
           ) : (
-            "Save Availability"
+            t("save")
           )}
         </button>
       </div>
