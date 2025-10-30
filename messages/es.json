@@ -1,0 +1,150 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "professionals": "Profesionales",
+    "howItWorks": "Cómo funciona",
+    "features": "Características",
+    "login": "Iniciar sesión",
+    "signUp": "Registrarse",
+    "dashboard": "Panel",
+    "logout": "Cerrar sesión",
+    "product": "Producto"
+  },
+  "hero": {
+    "title": "Profesionales del hogar de confianza para expatriados en Colombia",
+    "subtitle": "Empleadas domésticas, niñeras, cocineras y cuidadores con verificación de antecedentes. Reserve servicios con confianza a través de nuestra plataforma segura.",
+    "findProfessional": "Encontrar un profesional",
+    "becomeProfessional": "Ser profesional",
+    "learnMore": "Más información"
+  },
+  "features": {
+    "title": "Por qué elegir Maidconnect",
+    "verifiedProfessionals": {
+      "title": "Profesionales verificados",
+      "description": "Cada profesional se somete a verificación de antecedentes e identidad"
+    },
+    "securePayments": {
+      "title": "Pagos seguros",
+      "description": "Pague de forma segura a través de Stripe con protección de depósito en garantía hasta completar el servicio"
+    },
+    "realTimeBooking": {
+      "title": "Reserva en tiempo real",
+      "description": "Vea la disponibilidad y reserve instantáneamente o solicite aprobación para necesidades personalizadas"
+    },
+    "reviewSystem": {
+      "title": "Sistema de reseñas",
+      "description": "Las reseñas bidireccionales garantizan responsabilidad y le ayudan a tomar decisiones informadas"
+    }
+  },
+  "auth": {
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "fullName": "Nombre completo",
+    "phone": "Número de teléfono",
+    "forgotPassword": "¿Olvidó su contraseña?",
+    "noAccount": "¿No tiene una cuenta?",
+    "hasAccount": "¿Ya tiene una cuenta?",
+    "signInButton": "Iniciar sesión",
+    "signUpButton": "Registrarse",
+    "userType": {
+      "title": "Soy un...",
+      "customer": "Cliente",
+      "professional": "Profesional"
+    }
+  },
+  "dashboard": {
+    "welcome": "Bienvenido de nuevo",
+    "bookings": "Reservas",
+    "messages": "Mensajes",
+    "payments": "Pagos",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "availability": "Disponibilidad",
+    "portfolio": "Portafolio",
+    "finances": "Finanzas",
+    "documents": "Documentos",
+    "addresses": "Direcciones",
+    "favorites": "Favoritos"
+  },
+  "booking": {
+    "title": "Reservar un servicio",
+    "selectDate": "Seleccionar fecha",
+    "selectTime": "Seleccionar hora",
+    "duration": "Duración",
+    "hours": "horas",
+    "addons": "Complementos",
+    "totalPrice": "Precio total",
+    "bookNow": "Reservar ahora",
+    "requestBooking": "Solicitar reserva",
+    "status": {
+      "pending": "Pendiente",
+      "confirmed": "Confirmado",
+      "completed": "Completado",
+      "cancelled": "Cancelado"
+    }
+  },
+  "professionals": {
+    "title": "Encuentre su profesional perfecto",
+    "filterBy": "Filtrar por",
+    "serviceType": "Tipo de servicio",
+    "location": "Ubicación",
+    "rating": "Calificación",
+    "hourlyRate": "Tarifa por hora",
+    "availability": "Disponibilidad",
+    "viewProfile": "Ver perfil",
+    "bookNow": "Reservar ahora",
+    "services": {
+      "housekeeping": "Limpieza del hogar",
+      "childcare": "Cuidado de niños",
+      "cooking": "Cocina",
+      "eldercare": "Cuidado de ancianos",
+      "petcare": "Cuidado de mascotas"
+    }
+  },
+  "footer": {
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de servicio",
+    "support": "Soporte",
+    "allRightsReserved": "Todos los derechos reservados"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "confirm": "Confirmar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "submit": "Enviar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "viewMore": "Ver más",
+    "viewLess": "Ver menos",
+    "readMore": "Leer más",
+    "readLess": "Leer menos",
+    "seeAll": "Ver todo",
+    "showMore": "Mostrar más",
+    "showLess": "Mostrar menos"
+  },
+  "errors": {
+    "generic": "Algo salió mal. Por favor, inténtelo de nuevo.",
+    "notFound": "Página no encontrada",
+    "unauthorized": "Debe iniciar sesión para acceder a esta página",
+    "forbidden": "No tiene permiso para acceder a este recurso",
+    "serverError": "Error del servidor. Por favor, inténtelo más tarde.",
+    "networkError": "Error de red. Por favor, verifique su conexión."
+  },
+  "success": {
+    "saved": "Cambios guardados exitosamente",
+    "deleted": "Eliminado exitosamente",
+    "created": "Creado exitosamente",
+    "updated": "Actualizado exitosamente",
+    "bookingCreated": "Reserva creada exitosamente",
+    "messageSent": "Mensaje enviado exitosamente"
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "navigation": {
+    "home": "Home",
+    "professionals": "Professionals",
+    "howItWorks": "How it works",
+    "features": "Features",
+    "login": "Login",
+    "signUp": "Sign up",
+    "dashboard": "Dashboard",
+    "logout": "Logout",
+    "product": "Product"
+  },
+  "hero": {
+    "title": "Trusted home professionals for expats in Colombia",
+    "subtitle": "Background-checked housekeepers, nannies, cooks, and caregivers. Book services with confidence through our secure platform.",
+    "findProfessional": "Find a professional",
+    "becomeProfessional": "Become a professional",
+    "learnMore": "Learn more"
+  },
+  "features": {
+    "title": "Why choose Maidconnect",
+    "verifiedProfessionals": {
+      "title": "Verified professionals",
+      "description": "Every professional undergoes background checks and identity verification"
+    },
+    "securePayments": {
+      "title": "Secure payments",
+      "description": "Pay safely through Stripe with escrow protection until service completion"
+    },
+    "realTimeBooking": {
+      "title": "Real-time booking",
+      "description": "See availability and book instantly or request approval for custom needs"
+    },
+    "reviewSystem": {
+      "title": "Review system",
+      "description": "Two-way reviews ensure accountability and help you make informed decisions"
+    }
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "fullName": "Full name",
+    "phone": "Phone number",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signInButton": "Sign in",
+    "signUpButton": "Sign up",
+    "userType": {
+      "title": "I am a...",
+      "customer": "Customer",
+      "professional": "Professional"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "bookings": "Bookings",
+    "messages": "Messages",
+    "payments": "Payments",
+    "profile": "Profile",
+    "settings": "Settings",
+    "availability": "Availability",
+    "portfolio": "Portfolio",
+    "finances": "Finances",
+    "documents": "Documents",
+    "addresses": "Addresses",
+    "favorites": "Favorites"
+  },
+  "booking": {
+    "title": "Book a service",
+    "selectDate": "Select date",
+    "selectTime": "Select time",
+    "duration": "Duration",
+    "hours": "hours",
+    "addons": "Add-ons",
+    "totalPrice": "Total price",
+    "bookNow": "Book now",
+    "requestBooking": "Request booking",
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "professionals": {
+    "title": "Find your perfect professional",
+    "filterBy": "Filter by",
+    "serviceType": "Service type",
+    "location": "Location",
+    "rating": "Rating",
+    "hourlyRate": "Hourly rate",
+    "availability": "Availability",
+    "viewProfile": "View profile",
+    "bookNow": "Book now",
+    "services": {
+      "housekeeping": "Housekeeping",
+      "childcare": "Childcare",
+      "cooking": "Cooking",
+      "eldercare": "Elder care",
+      "petcare": "Pet care"
+    }
+  },
+  "footer": {
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "support": "Support",
+    "allRightsReserved": "All rights reserved"
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "viewMore": "View more",
+    "viewLess": "View less",
+    "readMore": "Read more",
+    "readLess": "Read less",
+    "seeAll": "See all",
+    "showMore": "Show more",
+    "showLess": "Show less"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "notFound": "Page not found",
+    "unauthorized": "You must be logged in to access this page",
+    "forbidden": "You don't have permission to access this resource",
+    "serverError": "Server error. Please try again later.",
+    "networkError": "Network error. Please check your connection."
+  },
+  "success": {
+    "saved": "Changes saved successfully",
+    "deleted": "Deleted successfully",
+    "created": "Created successfully",
+    "updated": "Updated successfully",
+    "bookingCreated": "Booking created successfully",
+    "messageSent": "Message sent successfully"
+  }
+}

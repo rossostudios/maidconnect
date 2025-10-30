@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, getLocale } from "next-intl/server";
 import "./globals.css";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
 import { CookieConsent } from "@/components/legal/cookie-consent";
@@ -47,16 +49,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Get messages for the current locale from middleware
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <SupabaseProvider>{children}</SupabaseProvider>
-        <CookieConsent />
+        <NextIntlClientProvider messages={messages}>
+          <SupabaseProvider>{children}</SupabaseProvider>
+          <CookieConsent />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

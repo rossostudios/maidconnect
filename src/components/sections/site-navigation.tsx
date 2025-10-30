@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ChevronDown } from "lucide-react";
 
 const productFeatures = [
@@ -37,14 +38,15 @@ const productFeatures = [
   },
 ];
 
-const links = [
-  { href: "/professionals", label: "Find a Professional" },
-  { href: "/contact", label: "Contact" },
-];
-
 export function SiteNavigation() {
+  const t = useTranslations("navigation");
   const [isProductOpen, setIsProductOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const links = [
+    { href: "/professionals", label: t("professionals") },
+    { href: "/contact", label: "Contact" },
+  ];
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
@@ -80,7 +82,7 @@ export function SiteNavigation() {
             className="flex items-center gap-1 whitespace-nowrap text-[#211f1a] transition hover:text-[#5d574b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff5d46]"
             onClick={() => setIsProductOpen(!isProductOpen)}
           >
-            Product
+            {t("product")}
             <ChevronDown className={`h-4 w-4 transition-transform ${isProductOpen ? "rotate-180" : ""}`} />
           </button>
 
