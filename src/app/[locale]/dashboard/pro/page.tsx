@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import {
   OPTIONAL_DOCUMENTS,
@@ -9,6 +10,14 @@ import { ProBookingList } from "@/components/bookings/pro-booking-list";
 import { NotificationPermissionPrompt } from "@/components/notifications/notification-permission-prompt";
 import { PendingRatingsList } from "@/components/reviews/pending-ratings-list";
 import { ServiceAddonsManager } from "@/components/service-addons/service-addons-manager";
+import {
+  BookingCalendarSkeleton,
+  BookingsListSkeleton,
+  DocumentsSkeleton,
+  PendingRatingsSkeleton,
+  ProfileMetricsSkeleton,
+  ServiceAddonsSkeleton,
+} from "@/components/skeletons/dashboard-skeletons";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -319,18 +328,20 @@ export default async function ProfessionalDashboardPage({
           </Link>
         </div>
         {onboardingStatus === "active" ? (
-          <dl className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            <MetricCard label={t("metrics.activeBookings")} value={activeBookings.toString()} />
-            <MetricCard label={t("metrics.pendingRequests")} value={pendingBookings.toString()} />
-            <MetricCard
-              label={t("metrics.completedThisWeek")}
-              value={completedThisWeek.toString()}
-            />
-            <MetricCard
-              label={t("metrics.earningsThisWeek")}
-              value={formatCurrencyCOP(weeklyEarnings)}
-            />
-          </dl>
+          <Suspense fallback={<ProfileMetricsSkeleton />}>
+            <dl className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              <MetricCard label={t("metrics.activeBookings")} value={activeBookings.toString()} />
+              <MetricCard label={t("metrics.pendingRequests")} value={pendingBookings.toString()} />
+              <MetricCard
+                label={t("metrics.completedThisWeek")}
+                value={completedThisWeek.toString()}
+              />
+              <MetricCard
+                label={t("metrics.earningsThisWeek")}
+                value={formatCurrencyCOP(weeklyEarnings)}
+              />
+            </dl>
+          </Suspense>
         ) : null}
       </header>
 
@@ -419,7 +430,9 @@ export default async function ProfessionalDashboardPage({
 
       {/* Pending Customer Ratings */}
       {onboardingStatus === "active" && completedBookings.length > 0 ? (
-        <PendingRatingsList completedBookings={completedBookings} />
+        <Suspense fallback={<PendingRatingsSkeleton />}>
+          <PendingRatingsList completedBookings={completedBookings} />
+        </Suspense>
       ) : null}
 
       {/* Full-Width Booking Calendar & List */}
@@ -442,23 +455,27 @@ export default async function ProfessionalDashboardPage({
             </Link>
           </div>
           <div className="mt-8">
-            <ProBookingCalendar
-              bookings={bookings.map((booking) => ({
-                id: booking.id,
-                status: booking.status,
-                scheduled_start: booking.scheduled_start,
-                duration_minutes: booking.duration_minutes,
-                amount_authorized: booking.amount_authorized,
-                amount_captured: booking.amount_captured,
-                currency: booking.currency,
-              }))}
-            />
+            <Suspense fallback={<BookingCalendarSkeleton />}>
+              <ProBookingCalendar
+                bookings={bookings.map((booking) => ({
+                  id: booking.id,
+                  status: booking.status,
+                  scheduled_start: booking.scheduled_start,
+                  duration_minutes: booking.duration_minutes,
+                  amount_authorized: booking.amount_authorized,
+                  amount_captured: booking.amount_captured,
+                  currency: booking.currency,
+                }))}
+              />
+            </Suspense>
           </div>
           <div className="mt-8">
             <h3 className="mb-4 font-semibold text-[#211f1a] text-xl">
               {t("sections.recentBookings")}
             </h3>
-            <ProBookingList bookings={bookings} />
+            <Suspense fallback={<BookingsListSkeleton />}>
+              <ProBookingList bookings={bookings} />
+            </Suspense>
           </div>
         </section>
       ) : null}
@@ -513,7 +530,9 @@ export default async function ProfessionalDashboardPage({
               {t("sections.services.addonsDescription")}
             </p>
             <div className="mt-4">
-              <ServiceAddonsManager addons={addons} professionalId={user.id} />
+              <Suspense fallback={<ServiceAddonsSkeleton />}>
+                <ServiceAddonsManager addons={addons} professionalId={user.id} />
+              </Suspense>
             </div>
           </div>
         </section>
@@ -528,47 +547,49 @@ export default async function ProfessionalDashboardPage({
         {documents.length === 0 ? (
           <p className="mt-4 text-[#c4534d] text-base">{t("sections.documents.noDocuments")}</p>
         ) : (
-          <ul className="mt-6 divide-y divide-[#efe7dc] text-[#211f1a] text-sm">
-            {documents.map((doc) => (
-              <li className="flex flex-col gap-2 py-4" key={doc.id}>
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <span className="font-medium">
-                      {DOCUMENT_LABELS[doc.document_type] ?? doc.document_type}
-                    </span>
-                    <div className="mt-1 flex flex-wrap items-center gap-3 text-[#7a6d62] text-xs">
-                      <span>
-                        {doc.metadata?.originalName ?? t("sections.documents.unnamedFile")}
+          <Suspense fallback={<DocumentsSkeleton />}>
+            <ul className="mt-6 divide-y divide-[#efe7dc] text-[#211f1a] text-sm">
+              {documents.map((doc) => (
+                <li className="flex flex-col gap-2 py-4" key={doc.id}>
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <span className="font-medium">
+                        {DOCUMENT_LABELS[doc.document_type] ?? doc.document_type}
                       </span>
-                      <span>•</span>
-                      <span>{formatFileSize(doc.metadata?.size)}</span>
-                      {doc.metadata?.note ? (
-                        <>
-                          <span>•</span>
-                          <span>Note: {doc.metadata.note}</span>
-                        </>
-                      ) : null}
+                      <div className="mt-1 flex flex-wrap items-center gap-3 text-[#7a6d62] text-xs">
+                        <span>
+                          {doc.metadata?.originalName ?? t("sections.documents.unnamedFile")}
+                        </span>
+                        <span>•</span>
+                        <span>{formatFileSize(doc.metadata?.size)}</span>
+                        {doc.metadata?.note ? (
+                          <>
+                            <span>•</span>
+                            <span>Note: {doc.metadata.note}</span>
+                          </>
+                        ) : null}
+                      </div>
                     </div>
+                    <span className="text-[#7a6d62] text-xs uppercase tracking-wide">
+                      {t("sections.documents.uploaded")} {formatDate(doc.uploaded_at)}
+                    </span>
                   </div>
-                  <span className="text-[#7a6d62] text-xs uppercase tracking-wide">
-                    {t("sections.documents.uploaded")} {formatDate(doc.uploaded_at)}
-                  </span>
-                </div>
-                {doc.signedUrl ? (
-                  <Link
-                    className="inline-flex w-fit items-center gap-1 rounded-md border border-[#efe7dc] px-3 py-1 font-semibold text-[#ff5d46] text-xs transition hover:border-[#ff5d46] hover:text-[#eb6c65]"
-                    href={doc.signedUrl}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {t("sections.documents.download")}
-                  </Link>
-                ) : (
-                  <p className="text-[#c4534d] text-xs">{t("sections.documents.downloadError")}</p>
-                )}
-              </li>
-            ))}
-          </ul>
+                  {doc.signedUrl ? (
+                    <Link
+                      className="inline-flex w-fit items-center gap-1 rounded-md border border-[#efe7dc] px-3 py-1 font-semibold text-[#ff5d46] text-xs transition hover:border-[#ff5d46] hover:text-[#eb6c65]"
+                      href={doc.signedUrl}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {t("sections.documents.download")}
+                    </Link>
+                  ) : (
+                    <p className="text-[#c4534d] text-xs">{t("sections.documents.downloadError")}</p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </Suspense>
         )}
         <Link
           className="mt-4 inline-flex items-center font-semibold text-[#ff5d46] text-sm hover:text-[#eb6c65]"

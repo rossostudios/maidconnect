@@ -1,3 +1,4 @@
+
 import { BarChart3, CheckCircle2, Star, Users } from "lucide-react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";

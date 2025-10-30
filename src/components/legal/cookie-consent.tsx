@@ -1,7 +1,7 @@
 "use client";
 
 import { Cookie, X } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { useEffect, useState } from "react";
 
 const CONSENT_COOKIE_NAME = "maidconnect-cookie-consent";

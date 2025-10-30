@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { ProfessionalVettingDashboard } from "@/components/admin/professional-vetting-dashboard";
 import { requireUser } from "@/lib/auth";
 

@@ -2,7 +2,7 @@
 
 import { Filter, MapPin, Search, ShieldCheck, SlidersHorizontal, Star } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";

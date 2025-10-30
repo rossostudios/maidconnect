@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { AUTH_ROUTES } from "@/lib/auth";
 
 export default function AccountSuspendedPage() {

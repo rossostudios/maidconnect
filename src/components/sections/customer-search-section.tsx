@@ -1,6 +1,6 @@
 import { Star } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 import { DirectoryProfessional } from "@/components/professionals/professionals-directory";
 import { Button } from "@/components/ui/button";

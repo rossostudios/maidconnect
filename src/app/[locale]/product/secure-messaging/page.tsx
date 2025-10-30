@@ -1,3 +1,4 @@
+
 import { CheckCircle2, FileImage, MessageCircle, Shield } from "lucide-react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";

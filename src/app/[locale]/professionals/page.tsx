@@ -1,9 +1,11 @@
+import { Suspense } from "react";
 import {
   type DirectoryProfessional,
   ProfessionalsDirectory,
 } from "@/components/professionals/professionals-directory";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
+import { ProfessionalsGridSkeleton } from "@/components/skeletons/professionals-skeletons";
 import {
   computeAvailableToday,
   formatLocation,
@@ -57,7 +59,8 @@ function mapRowToDirectoryProfessional(row: ListActiveProfessionalRow): Director
 
 export const dynamic = "force-dynamic";
 
-export default async function ProfessionalsPage() {
+// Async component for professionals grid
+async function ProfessionalsGrid() {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.rpc("list_active_professionals");
 
@@ -75,11 +78,19 @@ export default async function ProfessionalsPage() {
         .map((row) => mapRowToDirectoryProfessional(row as ListActiveProfessionalRow))
     : [];
 
+  return <ProfessionalsDirectory professionals={professionals} />;
+}
+
+export default async function ProfessionalsPage() {
   return (
     <div className="bg-[var(--background)] text-[var(--foreground)]">
+      {/* Static shell - loads instantly */}
       <SiteHeader />
       <main>
-        <ProfessionalsDirectory professionals={professionals} />
+        {/* React 19: Suspense boundary - grid streams in progressively */}
+        <Suspense fallback={<ProfessionalsGridSkeleton />}>
+          <ProfessionalsGrid />
+        </Suspense>
       </main>
       <SiteFooter />
     </div>

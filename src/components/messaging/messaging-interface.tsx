@@ -1,7 +1,7 @@
 "use client";
 
 import { formatDistanceToNow } from "date-fns";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useActionState, useCallback, useEffect, useOptimistic, useRef, useState, useTransition } from "react";
 import { ConversationSkeleton } from "@/components/ui/skeleton";
 import { useNotifications } from "@/hooks/use-notifications";
 import { useRealtimeMessages } from "@/hooks/use-realtime-messages";
@@ -87,6 +87,13 @@ export function MessagingInterface({ userId, userRole }: Props) {
   const [messagesLoading, setMessagesLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [previousUnreadCount, setPreviousUnreadCount] = useState(0);
+  const [isPending, startTransition] = useTransition();
+
+  // React 19: useOptimistic for instant message display
+  const [optimisticMessages, addOptimisticMessage] = useOptimistic(
+    messages,
+    (state, newMessage: Message) => [...state, newMessage]
+  );
 
   const { permission, supported, requestPermission, showNotification } = useNotifications();
 
@@ -233,6 +240,25 @@ export function MessagingInterface({ userId, userRole }: Props) {
       return;
     }
 
+    // React 19: Create optimistic message
+    const optimisticMessage: Message = {
+      id: `temp-${Date.now()}`,
+      conversation_id: selectedConversation.id,
+      sender_id: userId,
+      message: messageText,
+      attachments: [],
+      read_at: null,
+      created_at: new Date().toISOString(),
+      sender: {
+        id: userId,
+        full_name: "You",
+        avatar_url: undefined,
+      },
+    };
+
+    // React 19: Add message optimistically
+    addOptimisticMessage(optimisticMessage);
+
     try {
       const response = await fetch(`/api/messages/conversations/${selectedConversation.id}`, {
         method: "POST",
@@ -339,7 +365,12 @@ export function MessagingInterface({ userId, userRole }: Props) {
                     selectedConversation?.id === conv.id ? "bg-[#ff5d46]/5" : ""
                   }`}
                   key={conv.id}
-                  onClick={() => setSelectedConversation(conv)}
+                  onClick={() => {
+                    // React 19: Use useTransition for smooth UI updates
+                    startTransition(() => {
+                      setSelectedConversation(conv);
+                    });
+                  }}
                 >
                   <div className="flex items-start gap-4">
                     {/* Avatar */}
@@ -426,10 +457,10 @@ export function MessagingInterface({ userId, userRole }: Props) {
             </div>
 
             {/* Messages */}
-            <MessageThread currentUserId={userId} loading={messagesLoading} messages={messages} />
+            <MessageThread currentUserId={userId} loading={messagesLoading} messages={optimisticMessages} />
 
             {/* Message Input */}
-            <MessageInput onSend={sendMessage} />
+            <MessageInput isPending={isPending} onSend={sendMessage} />
           </>
         ) : (
           <div className="flex flex-1 items-center justify-center p-12">
@@ -518,31 +549,35 @@ function MessageThread({
   );
 }
 
-function MessageInput({ onSend }: { onSend: (message: string) => void }) {
+function MessageInput({ onSend, isPending }: { onSend: (message: string) => void; isPending: boolean }) {
   const [message, setMessage] = useState("");
-  const [sending, setSending] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!message.trim() || sending) {
-      return;
-    }
+  // React 19: useActionState for form submission
+  const [state, formAction, isFormPending] = useActionState(
+    async (_prevState: { success: boolean }, formData: FormData) => {
+      const messageText = formData.get("message") as string;
+      if (messageText?.trim()) {
+        await onSend(messageText);
+        setMessage("");
+        // Focus input after sending
+        inputRef.current?.focus();
+      }
+      return { success: true };
+    },
+    { success: false }
+  );
 
-    setSending(true);
-    try {
-      await onSend(message);
-      setMessage("");
-    } finally {
-      setSending(false);
-    }
-  };
+  const isSending = isFormPending || isPending;
 
   return (
-    <form className="border-[#ebe5d8] border-t bg-white p-6" onSubmit={handleSubmit}>
+    <form action={formAction} className="border-[#ebe5d8] border-t bg-white p-6">
       <div className="flex gap-3">
         <input
+          ref={inputRef}
           className="flex-1 rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633] disabled:opacity-50"
-          disabled={sending}
+          disabled={isSending}
+          name="message"
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Type a message..."
           type="text"
@@ -550,10 +585,10 @@ function MessageInput({ onSend }: { onSend: (message: string) => void }) {
         />
         <button
           className="rounded-full bg-[#ff5d46] px-6 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
-          disabled={!message.trim() || sending}
+          disabled={!message.trim() || isSending}
           type="submit"
         >
-          {sending ? "Sending..." : "Send"}
+          {isSending ? "Sending..." : "Send"}
         </button>
       </div>
     </form>

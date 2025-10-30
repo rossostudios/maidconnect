@@ -196,10 +196,9 @@ export async function submitApplication(
   }
 
   revalidatePath("/dashboard/pro");
-  revalidatePath("/dashboard/pro/onboarding");
   return {
     status: "success",
-    message: "Application submitted. We’ll review your details shortly.",
+    message: "Application submitted. We'll review your details shortly.",
     fieldErrors: {},
   };
 }
@@ -379,10 +378,9 @@ export async function submitDocuments(
   }
 
   revalidatePath("/dashboard/pro");
-  revalidatePath("/dashboard/pro/onboarding");
   return {
     status: "success",
-    message: "Documents uploaded successfully. We’ll review and confirm within 3-5 business days.",
+    message: "Documents uploaded successfully. We'll review and confirm within 3-5 business days.",
   };
 }
 
@@ -505,7 +503,6 @@ export async function submitProfile(
   }
 
   revalidatePath("/dashboard/pro");
-  revalidatePath("/dashboard/pro/onboarding");
   return {
     status: "success",
     message: "Profile submitted. Welcome to MaidConnect!",

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useOptimistic, useState } from "react";
 import { RatingPromptModal } from "@/components/reviews/rating-prompt-modal";
 
 export type BookingForExecution = {
@@ -34,11 +34,22 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
   const [extensionMinutes, setExtensionMinutes] = useState<string>("30");
   const [showRatingModal, setShowRatingModal] = useState(false);
 
+  // React 19: useOptimistic for instant status updates
+  const [optimisticBooking, setOptimisticBooking] = useOptimistic(
+    booking,
+    (state, newStatus: string) => ({
+      ...state,
+      status: newStatus,
+      checked_in_at: newStatus === "in_progress" ? new Date().toISOString() : state.checked_in_at,
+      checked_out_at: newStatus === "completed" ? new Date().toISOString() : state.checked_out_at,
+    })
+  );
+
   // Calculate elapsed time for in_progress bookings
   useEffect(() => {
-    if (booking.status === "in_progress" && booking.checked_in_at) {
+    if (optimisticBooking.status === "in_progress" && optimisticBooking.checked_in_at) {
       const interval = setInterval(() => {
-        const checkedInTime = new Date(booking.checked_in_at!).getTime();
+        const checkedInTime = new Date(optimisticBooking.checked_in_at!).getTime();
         const now = Date.now();
         const elapsed = Math.floor((now - checkedInTime) / 1000 / 60); // minutes
         setElapsedTime(elapsed);
@@ -46,7 +57,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
       return () => clearInterval(interval);
     }
-  }, [booking.status, booking.checked_in_at]);
+  }, [optimisticBooking.status, optimisticBooking.checked_in_at]);
 
   // Get GPS coordinates
   const getGPSCoordinates = (): Promise<{ latitude: number; longitude: number }> =>
@@ -93,10 +104,13 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
     setGpsError(null);
 
     try {
-      // Get GPS coordinates
+      // Get GPS coordinates first (not optimistic)
       const { latitude, longitude } = await getGPSCoordinates();
 
-      // Call check-in API
+      // React 19: Update status optimistically - Timer starts instantly!
+      setOptimisticBooking("in_progress");
+
+      // Call check-in API in background
       const response = await fetch("/api/bookings/check-in", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -120,6 +134,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
         setGpsError(errorMessage);
       }
       setMessage({ type: "error", text: errorMessage });
+      // Optimistic update reverts automatically on error
     } finally {
       setLoading(false);
     }
@@ -132,10 +147,13 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
     setGpsError(null);
 
     try {
-      // Get GPS coordinates
+      // Get GPS coordinates first (not optimistic)
       const { latitude, longitude } = await getGPSCoordinates();
 
-      // Call check-out API
+      // React 19: Update status optimistically - Shows "completed" instantly!
+      setOptimisticBooking("completed");
+
+      // Call check-out API in background
       const response = await fetch("/api/bookings/check-out", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -166,6 +184,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
         setGpsError(errorMessage);
       }
       setMessage({ type: "error", text: errorMessage });
+      // Optimistic update reverts automatically on error
     } finally {
       setLoading(false);
     }
@@ -220,15 +239,15 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
     return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
   };
 
-  const scheduledDate = booking.scheduled_start
-    ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
+  const scheduledDate = optimisticBooking.scheduled_start
+    ? new Date(optimisticBooking.scheduled_start).toLocaleString("es-CO", {
         dateStyle: "medium",
         timeStyle: "short",
       })
     : "—";
 
   const totalPlannedMinutes =
-    (booking.duration_minutes || 0) + (booking.time_extension_minutes || 0);
+    (optimisticBooking.duration_minutes || 0) + (optimisticBooking.time_extension_minutes || 0);
   const isOvertime = elapsedTime > totalPlannedMinutes;
 
   return (
@@ -237,37 +256,39 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       <div className="mb-4 flex items-start justify-between">
         <div>
           <h3 className="font-semibold text-[#211f1a] text-lg">
-            {booking.service_name || "Service"}
+            {optimisticBooking.service_name || "Service"}
           </h3>
           <p className="text-[#7a6d62] text-sm">{scheduledDate}</p>
         </div>
         <span
           className={`inline-flex items-center rounded-full px-3 py-1 font-semibold text-xs ${
-            booking.status === "confirmed"
+            optimisticBooking.status === "confirmed"
               ? "bg-green-100 text-green-800"
-              : booking.status === "in_progress"
+              : optimisticBooking.status === "in_progress"
                 ? "bg-blue-100 text-blue-800"
-                : "bg-gray-100 text-gray-800"
+                : optimisticBooking.status === "completed"
+                  ? "bg-purple-100 text-purple-800"
+                  : "bg-gray-100 text-gray-800"
           }`}
         >
-          {booking.status.replace(/_/g, " ")}
+          {optimisticBooking.status.replace(/_/g, " ")}
         </span>
       </div>
 
       {/* Address */}
-      {booking.address && (
+      {optimisticBooking.address && (
         <div className="mb-4">
           <p className="text-[#5d574b] text-sm">
             📍{" "}
-            {typeof booking.address === "object" && "formatted" in booking.address
-              ? String(booking.address.formatted)
-              : JSON.stringify(booking.address)}
+            {typeof optimisticBooking.address === "object" && "formatted" in optimisticBooking.address
+              ? String(optimisticBooking.address.formatted)
+              : JSON.stringify(optimisticBooking.address)}
           </p>
         </div>
       )}
 
       {/* Timer for in_progress bookings */}
-      {booking.status === "in_progress" && (
+      {optimisticBooking.status === "in_progress" && (
         <div className="mb-4 rounded-lg bg-blue-50 p-4">
           <div className="flex items-center justify-between">
             <div>
@@ -311,7 +332,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       {/* Actions */}
       <div className="space-y-3">
         {/* Check-in button for confirmed bookings */}
-        {booking.status === "confirmed" && (
+        {optimisticBooking.status === "confirmed" && (
           <button
             className="w-full rounded-lg bg-green-600 px-4 py-3 font-semibold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-70"
             disabled={loading}
@@ -323,7 +344,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
         )}
 
         {/* Time extension for in_progress bookings */}
-        {booking.status === "in_progress" && (
+        {optimisticBooking.status === "in_progress" && (
           <>
             <div className="flex gap-2">
               <input
@@ -359,10 +380,10 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       </div>
 
       {/* Rating Prompt Modal */}
-      {booking.customer && (
+      {optimisticBooking.customer && (
         <RatingPromptModal
-          bookingId={booking.id}
-          customerId={booking.customer.id}
+          bookingId={optimisticBooking.id}
+          customerId={optimisticBooking.customer.id}
           customerName="Customer"
           isOpen={showRatingModal}
           onClose={() => {

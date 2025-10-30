@@ -2,7 +2,7 @@
 
 import { Award, CheckCircle, Globe, Mail, Phone, User } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 
 type Profile = {
   full_name: string;
@@ -16,6 +16,12 @@ type Profile = {
 
 type Props = {
   profile: Profile;
+};
+
+// React 19: Submission state for useActionState
+type SubmissionState = {
+  status: "idle" | "success" | "error";
+  error: string | null;
 };
 
 const LANGUAGE_OPTIONS = ["English", "Español", "Português", "Français", "Deutsch"];
@@ -34,41 +40,53 @@ const SERVICE_OPTIONS = [
 export function ProfileEditor({ profile: initialProfile }: Props) {
   const t = useTranslations("dashboard.pro.profileEditor");
   const [profile, setProfile] = useState(initialProfile);
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  const handleSave = async () => {
-    setLoading(true);
-    setSuccess(false);
-    setError(null);
+  // React 19: useActionState for form submission - replaces loading, success, error states
+  const [submissionState, submitAction, isPending] = useActionState<SubmissionState, Profile>(
+    async (_prevState: SubmissionState, profileData: Profile): Promise<SubmissionState> => {
+      try {
+        const response = await fetch("/api/professional/profile", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            full_name: profileData.full_name,
+            bio: profileData.bio,
+            languages: profileData.languages,
+            phone_number: profileData.phone_number,
+            avatar_url: profileData.avatar_url,
+            primary_services: profileData.primary_services,
+          }),
+        });
 
-    try {
-      const response = await fetch("/api/professional/profile", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          full_name: profile.full_name,
-          bio: profile.bio,
-          languages: profile.languages,
-          phone_number: profile.phone_number,
-          avatar_url: profile.avatar_url,
-          primary_services: profile.primary_services,
-        }),
-      });
+        if (!response.ok) {
+          const data = await response.json();
+          throw new Error(data.error || "Failed to update profile");
+        }
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Failed to update profile");
+        return { status: "success", error: null };
+      } catch (err) {
+        return {
+          status: "error",
+          error: err instanceof Error ? err.message : "Failed to update profile",
+        };
       }
+    },
+    { status: "idle", error: null }
+  );
 
-      setSuccess(true);
-      setTimeout(() => setSuccess(false), 3000);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to update profile");
-    } finally {
-      setLoading(false);
+  // Auto-dismiss success message after 3 seconds
+  useEffect(() => {
+    if (submissionState.status === "success") {
+      const timeout = setTimeout(() => {
+        // Success message will naturally disappear when status changes
+      }, 3000);
+      return () => clearTimeout(timeout);
     }
+  }, [submissionState.status]);
+
+  // React 19: Simplified save handler - useActionState manages loading, success, and error
+  const handleSave = () => {
+    submitAction(profile);
   };
 
   const handleLanguageToggle = (language: string) => {
@@ -92,16 +110,16 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
   return (
     <div className="space-y-8">
       {/* Success/Error Messages */}
-      {success && (
+      {submissionState.status === "success" && (
         <div className="flex items-center gap-3 rounded-xl bg-green-50 p-4 text-green-800">
           <CheckCircle className="h-5 w-5" />
           <p className="font-semibold text-sm">{t("success")}</p>
         </div>
       )}
 
-      {error && (
+      {submissionState.error && (
         <div className="rounded-xl bg-red-50 p-4 text-red-800">
-          <p className="font-semibold text-sm">{error}</p>
+          <p className="font-semibold text-sm">{submissionState.error}</p>
         </div>
       )}
 
@@ -252,10 +270,10 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       <div className="flex items-center justify-end gap-3 border-[#ebe5d8] border-t pt-6">
         <button
           className="rounded-full bg-[#ff5d46] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
-          disabled={loading}
+          disabled={isPending}
           onClick={handleSave}
         >
-          {loading ? (
+          {isPending ? (
             <span className="flex items-center gap-2">
               <svg className="h-5 w-5 animate-spin" viewBox="0 0 24 24">
                 <circle

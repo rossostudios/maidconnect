@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import type { ReactNode } from "react";
 import { Breadcrumbs } from "@/components/navigation/breadcrumbs";
 import { DashboardFooter } from "@/components/navigation/dashboard-footer";

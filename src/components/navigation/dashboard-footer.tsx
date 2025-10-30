@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 export function DashboardFooter() {
   const currentYear = new Date().getFullYear();

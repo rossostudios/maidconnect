@@ -1,7 +1,7 @@
 "use client";
 
 import { Star } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { useActionState } from "react";
 
 import { submitProfessionalReviewAction } from "@/app/actions/submit-professional-review";

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useOptimistic, useState } from "react";
 import { type BookingForExecution, ServiceExecutionCard } from "./service-execution-card";
 
 export type ProfessionalBooking = {
@@ -33,6 +33,13 @@ export function ProBookingList({ bookings }: Props) {
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
+  // React 19: useOptimistic for instant status updates
+  const [optimisticBookings, updateOptimisticBooking] = useOptimistic(
+    bookings,
+    (state, { id, status }: { id: string; status: string }) =>
+      state.map((booking) => (booking.id === id ? { ...booking, status } : booking))
+  );
+
   const handleAction = async (
     booking: ProfessionalBooking,
     action: "capture" | "void" | "accept" | "decline"
@@ -41,6 +48,10 @@ export function ProBookingList({ bookings }: Props) {
     if (action === "accept" || action === "decline") {
       setLoadingId(`${booking.id}-${action}`);
       setMessage(null);
+
+      // React 19: Update status optimistically - Badge changes instantly!
+      const newStatus = action === "accept" ? "confirmed" : "declined";
+      updateOptimisticBooking({ id: booking.id, status: newStatus });
 
       try {
         const endpoint = action === "accept" ? "/api/bookings/accept" : "/api/bookings/decline";
@@ -67,6 +78,7 @@ export function ProBookingList({ bookings }: Props) {
         setMessage(
           error instanceof Error ? error.message : `Unexpected error ${action}ing booking`
         );
+        // Optimistic update reverts automatically on error
       } finally {
         setLoadingId(null);
       }
@@ -111,15 +123,15 @@ export function ProBookingList({ bookings }: Props) {
     }
   };
 
-  if (bookings.length === 0) {
+  if (optimisticBookings.length === 0) {
     return <p className="text-[#7a6d62] text-sm">{t("emptyState")}</p>;
   }
 
-  // Separate active service bookings from others
-  const activeServiceBookings = bookings.filter(
+  // Separate active service bookings from others (using optimistic state)
+  const activeServiceBookings = optimisticBookings.filter(
     (b) => b.status === "confirmed" || b.status === "in_progress"
   );
-  const otherBookings = bookings.filter(
+  const otherBookings = optimisticBookings.filter(
     (b) => b.status !== "confirmed" && b.status !== "in_progress"
   );
 

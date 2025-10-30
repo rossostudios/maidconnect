@@ -1,7 +1,7 @@
 "use client";
 
 import { Globe } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "@/i18n/routing";
 import { useLocale } from "next-intl";
 import { type Locale } from "@/i18n";
 
@@ -22,12 +22,8 @@ export function LanguageSwitcher({ variant = "light" }: LanguageSwitcherProps) {
   const pathname = usePathname();
 
   const switchLanguage = (newLocale: Locale) => {
-    // Since we're using localePrefix: "always", both locales have prefixes
-    // We need to replace the current locale prefix with the new one
-    const pathWithoutLocale = pathname.replace(`/${locale}`, "");
-    const newPath = `/${newLocale}${pathWithoutLocale || "/"}`;
-
-    router.push(newPath);
+    // Use next-intl's router which automatically handles locale prefixes
+    router.replace(pathname, { locale: newLocale });
   };
 
   const languageNames: Record<Locale, string> = {

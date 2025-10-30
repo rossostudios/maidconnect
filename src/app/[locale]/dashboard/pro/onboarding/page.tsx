@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import { requireUser } from "@/lib/auth";

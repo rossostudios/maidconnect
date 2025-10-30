@@ -3,7 +3,7 @@
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import {
   type SavedAddress,
   SavedAddressesManager,
@@ -41,6 +41,17 @@ type BookingData = {
     frequency: "weekly" | "biweekly" | "monthly";
     endDate?: string;
   };
+};
+
+// React 19: Submission state for useActionState
+type SubmissionState = {
+  status: "idle" | "success" | "error";
+  error: string | null;
+  result: {
+    bookingId: string;
+    clientSecret: string;
+    paymentIntentId: string;
+  } | null;
 };
 
 function formatCurrencyCOP(value: number) {
@@ -82,13 +93,91 @@ export function EnhancedBookingForm({
 
   const [addresses, setAddresses] = useState<SavedAddress[]>(savedAddresses);
   const [addons, setAddons] = useState<ServiceAddon[]>(availableAddons);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [bookingResult, setBookingResult] = useState<{
-    bookingId: string;
-    clientSecret: string;
-    paymentIntentId: string;
-  } | null>(null);
+
+  // React 19: useActionState for form submission - replaces loading, error, bookingResult states
+  const [submissionState, submitAction, isPending] = useActionState<SubmissionState, BookingData>(
+    async (_prevState: SubmissionState, formData: BookingData): Promise<SubmissionState> => {
+      try {
+        const scheduledStart = new Date(
+          `${formData.selectedDate?.toISOString().split("T")[0]}T${formData.selectedTime}:00`
+        );
+        const scheduledEnd = new Date(
+          scheduledStart.getTime() + formData.durationHours * 60 * 60 * 1000
+        );
+
+        const selectedRate =
+          formData.serviceHourlyRate ??
+          services.find((s) => s.name === formData.serviceName)?.hourlyRateCop ??
+          defaultHourlyRate ??
+          0;
+        const baseAmount =
+          selectedRate && formData.durationHours > 0
+            ? Math.round(selectedRate * formData.durationHours)
+            : 0;
+        const addonsTotal = formData.selectedAddons.reduce((sum, addon) => sum + addon.price_cop, 0);
+        const totalAmount = baseAmount + addonsTotal;
+
+        const response = await fetch("/api/bookings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            professionalId,
+            serviceName: formData.serviceName,
+            serviceHourlyRate: selectedRate,
+            scheduledStart: scheduledStart.toISOString(),
+            scheduledEnd: scheduledEnd.toISOString(),
+            durationMinutes: formData.durationHours * 60,
+            amount: totalAmount,
+            specialInstructions: formData.specialInstructions || undefined,
+            address: formData.address
+              ? {
+                  street: formData.address.street,
+                  city: formData.address.city,
+                  neighborhood: formData.address.neighborhood,
+                  postal_code: formData.address.postal_code,
+                  building_access: formData.address.building_access,
+                  parking_info: formData.address.parking_info,
+                  special_notes: formData.address.special_notes,
+                }
+              : formData.customAddress
+                ? { raw: formData.customAddress }
+                : undefined,
+            selectedAddons:
+              formData.selectedAddons.length > 0
+                ? formData.selectedAddons.map((addon) => ({
+                    addon_id: addon.id,
+                    quantity: 1,
+                  }))
+                : undefined,
+            isRecurring: formData.isRecurring,
+            recurrencePattern: formData.recurrencePattern,
+          }),
+        });
+
+        if (!response.ok) {
+          const body = await response.json();
+          throw new Error(body.error ?? "Failed to create booking");
+        }
+
+        const result = await response.json();
+        return { status: "success", error: null, result };
+      } catch (err) {
+        return {
+          status: "error",
+          error: err instanceof Error ? err.message : "Unexpected error",
+          result: null,
+        };
+      }
+    },
+    { status: "idle", error: null, result: null }
+  );
+
+  // React 19: Move to payment step when submission succeeds
+  useEffect(() => {
+    if (submissionState.status === "success" && submissionState.result) {
+      setCurrentStep("payment");
+    }
+  }, [submissionState.status, submissionState.result]);
 
   // Load saved addresses on mount
   useEffect(() => {
@@ -151,73 +240,12 @@ export function EnhancedBookingForm({
     } catch (_err) {}
   };
 
-  const handleSubmit = async () => {
+  // React 19: Simplified submit handler - useActionState manages loading, error, and result
+  const handleSubmit = () => {
     if (!(bookingData.selectedDate && bookingData.selectedTime && bookingData.serviceName)) {
-      setError("Please complete all required fields");
       return;
     }
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      const scheduledStart = new Date(
-        `${bookingData.selectedDate.toISOString().split("T")[0]}T${bookingData.selectedTime}:00`
-      );
-      const scheduledEnd = new Date(
-        scheduledStart.getTime() + bookingData.durationHours * 60 * 60 * 1000
-      );
-
-      const response = await fetch("/api/bookings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          professionalId,
-          serviceName: bookingData.serviceName,
-          serviceHourlyRate: selectedRate,
-          scheduledStart: scheduledStart.toISOString(),
-          scheduledEnd: scheduledEnd.toISOString(),
-          durationMinutes: bookingData.durationHours * 60,
-          amount: totalAmount,
-          specialInstructions: bookingData.specialInstructions || undefined,
-          address: bookingData.address
-            ? {
-                street: bookingData.address.street,
-                city: bookingData.address.city,
-                neighborhood: bookingData.address.neighborhood,
-                postal_code: bookingData.address.postal_code,
-                building_access: bookingData.address.building_access,
-                parking_info: bookingData.address.parking_info,
-                special_notes: bookingData.address.special_notes,
-              }
-            : bookingData.customAddress
-              ? { raw: bookingData.customAddress }
-              : undefined,
-          selectedAddons:
-            bookingData.selectedAddons.length > 0
-              ? bookingData.selectedAddons.map((addon) => ({
-                  addon_id: addon.id,
-                  quantity: 1,
-                }))
-              : undefined,
-          isRecurring: bookingData.isRecurring,
-          recurrencePattern: bookingData.recurrencePattern,
-        }),
-      });
-
-      if (!response.ok) {
-        const body = await response.json();
-        throw new Error(body.error ?? "Failed to create booking");
-      }
-
-      const result = await response.json();
-      setBookingResult(result);
-      setCurrentStep("payment");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Unexpected error");
-    } finally {
-      setLoading(false);
-    }
+    submitAction(bookingData);
   };
 
   return (
@@ -250,9 +278,9 @@ export function EnhancedBookingForm({
         ))}
       </div>
 
-      {error && (
+      {submissionState.error && (
         <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-red-600 text-sm">
-          {error}
+          {submissionState.error}
         </div>
       )}
 
@@ -286,7 +314,7 @@ export function EnhancedBookingForm({
           addonsTotal={addonsTotal}
           baseAmount={baseAmount}
           bookingData={bookingData}
-          loading={loading}
+          loading={isPending}
           onBack={() => setCurrentStep("address-addons")}
           onConfirm={handleSubmit}
           professionalName={professionalName}
@@ -295,18 +323,18 @@ export function EnhancedBookingForm({
       )}
 
       {/* Step 4: Payment */}
-      {currentStep === "payment" && bookingResult && (
+      {currentStep === "payment" && submissionState.result && (
         <Elements
           options={{
-            clientSecret: bookingResult.clientSecret,
+            clientSecret: submissionState.result.clientSecret,
             appearance: stripeAppearance,
           }}
           stripe={stripePromise}
         >
           <PaymentConfirmation
-            bookingId={bookingResult.bookingId}
+            bookingId={submissionState.result.bookingId}
             onReset={() => window.location.reload()}
-            paymentIntentId={bookingResult.paymentIntentId}
+            paymentIntentId={submissionState.result.paymentIntentId}
           />
         </Elements>
       )}

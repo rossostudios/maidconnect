@@ -1,10 +1,16 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import { SavedAddressesManager } from "@/components/addresses/saved-addresses-manager";
 import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
 import { FavoritesList } from "@/components/favorites/favorites-list";
 import { NotificationPermissionPrompt } from "@/components/notifications/notification-permission-prompt";
 import { PaymentAuthorizationCard } from "@/components/payments/payment-authorization-card";
+import {
+  AddressesSkeleton,
+  BookingsListSkeleton,
+  FavoritesListSkeleton,
+} from "@/components/skeletons/dashboard-skeletons";
 import { requireUser } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -267,7 +273,9 @@ export default async function CustomerDashboardPage(props: {
           {t("sections.addresses.description")}
         </p>
         <div className="mt-8">
-          <SavedAddressesManager addresses={savedAddresses} />
+          <Suspense fallback={<AddressesSkeleton />}>
+            <SavedAddressesManager addresses={savedAddresses} />
+          </Suspense>
         </div>
       </section>
 
@@ -355,7 +363,9 @@ export default async function CustomerDashboardPage(props: {
           {t("sections.bookings.description")}
         </p>
         <div className="mt-8">
-          <CustomerBookingList bookings={bookings} />
+          <Suspense fallback={<BookingsListSkeleton />}>
+            <CustomerBookingList bookings={bookings} />
+          </Suspense>
         </div>
       </section>
 
@@ -368,7 +378,9 @@ export default async function CustomerDashboardPage(props: {
           {t("sections.favorites.description")}
         </p>
         <div className="mt-8">
-          <FavoritesList />
+          <Suspense fallback={<FavoritesListSkeleton />}>
+            <FavoritesList />
+          </Suspense>
         </div>
       </section>
 
