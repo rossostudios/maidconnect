@@ -5,6 +5,7 @@ import { UnexpectedError } from "@/components/feedback/unexpected-error";
 import { submitDocuments } from "./actions";
 import { defaultActionState, type OnboardingActionState, REQUIRED_DOCUMENTS, OPTIONAL_DOCUMENTS } from "./state";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 const errorClass = "border-red-300 focus:border-red-400 focus:ring-red-200";
 const ACCEPTED_EXTENSIONS = ".pdf,.jpg,.jpeg,.png";
@@ -31,6 +32,7 @@ type FieldConfig = {
 };
 
 export function DocumentUploadForm({ inputClass }: Props) {
+  const t = useTranslations("dashboard.pro.documentUploadForm");
   const [state, formAction, pending] = useActionState<OnboardingActionState, FormData>(submitDocuments, defaultActionState);
   const formRef = useRef<HTMLFormElement>(null);
   const documents: FieldConfig[] = useMemo(
@@ -74,7 +76,7 @@ export function DocumentUploadForm({ inputClass }: Props) {
             pending && "cursor-not-allowed opacity-70",
           )}
         >
-          {pending ? "Submitting…" : "Submit documents"}
+          {pending ? t("footer.submitting") : t("footer.submit")}
         </button>
       </div>
     </form>
@@ -88,6 +90,7 @@ type DocumentFieldProps = {
 };
 
 function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) {
+  const t = useTranslations("dashboard.pro.documentUploadForm");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [clientError, setClientError] = useState<string | null>(null);
   const inputId = `document_${config.key}`;
@@ -102,14 +105,14 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
 
     if (file.size > 5 * 1024 * 1024) {
       setSelectedFile(null);
-      setClientError(`File must be ${MAX_FILE_SIZE_LABEL} or smaller.`);
+      setClientError(t("errors.fileSize", { size: MAX_FILE_SIZE_LABEL }));
       return;
     }
 
     const mimeType = (file.type || "").toLowerCase();
     if (!mimeType.includes("pdf") && !mimeType.includes("jpeg") && !mimeType.includes("jpg") && !mimeType.includes("png")) {
       setSelectedFile(null);
-      setClientError("Only PDF, JPG, or PNG files are supported.");
+      setClientError(t("errors.fileType"));
       return;
     }
 
@@ -136,11 +139,14 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
               : "bg-gray-100 text-gray-600",
           )}
         >
-          {config.required ? "Required" : "Optional"}
+          {config.required ? t("badges.required") : t("badges.optional")}
         </span>
       </div>
       <p className="mt-3 text-sm text-[#5d574b]">
-        Upload {config.required ? "a clear" : "an optional"} scan or photo ({ACCEPTED_TYPE_LABEL}, max {MAX_FILE_SIZE_LABEL}).
+        {t(config.required ? "uploadInstruction.required" : "uploadInstruction.optional", {
+          formats: ACCEPTED_TYPE_LABEL,
+          maxSize: MAX_FILE_SIZE_LABEL,
+        })}
       </p>
       <input
         id={inputId}
@@ -160,7 +166,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         name={`document_${config.key}_note`}
         rows={2}
         className={`${inputClass} mt-4`}
-        placeholder="Notes (passwords, expiry date, issuing organization)"
+        placeholder={t("notePlaceholder")}
       />
       {selectedFile ? (
         <div className="mt-4 flex items-center gap-2 rounded-xl border border-green-200 bg-green-50 p-3">
@@ -168,7 +174,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
           </svg>
           <p className="text-sm text-green-800">
-            Selected: {selectedFile.name} ({formatBytes(selectedFile.size)})
+            {t("selectedFile", { name: selectedFile.name, size: formatBytes(selectedFile.size) })}
           </p>
         </div>
       ) : null}

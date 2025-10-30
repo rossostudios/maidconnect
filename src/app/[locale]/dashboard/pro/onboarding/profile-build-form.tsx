@@ -4,6 +4,7 @@ import { useActionState, useState } from "react";
 import { submitProfile } from "./actions";
 import { defaultActionState, type OnboardingActionState } from "./state";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 type ServiceOption = {
   name: string;
@@ -46,13 +47,17 @@ export function ProfileBuildForm({
   languages,
   inputClass,
   initialData,
-  submitLabel = "Submit profile for review",
-  footnote = "Once approved, your profile goes live within 24 hours. You can continue refining details anytime.",
+  submitLabel,
+  footnote,
 }: Props) {
+  const t = useTranslations("dashboard.pro.profileBuildForm");
   const [state, formAction, pending] = useActionState<OnboardingActionState, FormData>(submitProfile, defaultActionState);
 
   const fieldError = (key: string) => state.fieldErrors?.[key];
   const hasError = (key: string) => Boolean(fieldError(key));
+
+  const defaultSubmitLabel = submitLabel ?? t("footer.submitDefault");
+  const defaultFootnote = footnote ?? t("footer.footnoteDefault");
 
   const serviceDefaults = new Map<string, { rate: number | null; description: string }>();
   if (initialData?.services) {
@@ -93,7 +98,7 @@ export function ProfileBuildForm({
       <Feedback state={state} />
 
       <FormField
-        label="Professional bio"
+        label={t("bio.label")}
         error={fieldError("bio")}
         characterCount={bioLength}
       >
@@ -102,7 +107,7 @@ export function ProfileBuildForm({
           name="bio"
           rows={8}
           className={cn(`${inputClass} min-h-[200px]`, hasError("bio") && errorClass)}
-          placeholder="Share your background, specialties, and why customers love working with you."
+          placeholder={t("bio.placeholder")}
           minLength={150}
           defaultValue={initialData?.bio ?? ""}
           aria-invalid={hasError("bio")}
@@ -111,7 +116,7 @@ export function ProfileBuildForm({
         />
       </FormField>
 
-      <FormField label="Languages" error={fieldError("languages")}>
+      <FormField label={t("languages.label")} error={fieldError("languages")}>
         <div className="flex flex-wrap gap-3">
           {languages.map((language) => (
             <label
@@ -135,8 +140,8 @@ export function ProfileBuildForm({
       </FormField>
 
       <FormField
-        label="Services & rates"
-        helper="Tell customers what to expect for each service."
+        label={t("services.label")}
+        helper={t("services.helper")}
         error={fieldError("services")}
       >
         <div className="space-y-4">
@@ -157,23 +162,23 @@ export function ProfileBuildForm({
                   return (
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
-                        <label className="mb-2 block text-sm font-medium text-[#5d574b]">Hourly rate (COP)</label>
+                        <label className="mb-2 block text-sm font-medium text-[#5d574b]">{t("services.hourlyRate")}</label>
                         <input
                           type="number"
                           name="service_rate"
                           className={cn(inputClass, hasError("services") && errorClass)}
-                          placeholder="40000"
+                          placeholder={t("services.ratePlaceholder")}
                           min={0}
                           defaultValue={rateValue === "" ? "" : String(rateValue)}
                         />
                       </div>
                       <div className="sm:col-span-2">
-                        <label className="mb-2 block text-sm font-medium text-[#5d574b]">Service description</label>
+                        <label className="mb-2 block text-sm font-medium text-[#5d574b]">{t("services.serviceDescription")}</label>
                         <input
                           type="text"
                           name="service_description"
                           className={cn(inputClass, hasError("services") && errorClass)}
-                          placeholder="Describe what's included in this service"
+                          placeholder={t("services.descriptionPlaceholder")}
                           defaultValue={defaults?.description ?? ""}
                         />
                       </div>
@@ -186,7 +191,7 @@ export function ProfileBuildForm({
         </div>
       </FormField>
 
-      <FormField label="Weekly availability" helper="Set your typical working hours for each day.">
+      <FormField label={t("availability.label")} helper={t("availability.helper")}>
         <div className="space-y-3">
           {availabilityDays.map((day) => (
             <div
@@ -198,7 +203,7 @@ export function ProfileBuildForm({
                   <span className="text-base font-semibold text-[#211f1a]">{day.label}</span>
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">Start</label>
+                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">{t("availability.start")}</label>
                   <input
                     type="time"
                     name={`availability_${day.slug}_start`}
@@ -207,7 +212,7 @@ export function ProfileBuildForm({
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">End</label>
+                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">{t("availability.end")}</label>
                   <input
                     type="time"
                     name={`availability_${day.slug}_end`}
@@ -216,12 +221,12 @@ export function ProfileBuildForm({
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">Notes (optional)</label>
+                  <label className="mb-2 block text-xs font-medium uppercase tracking-wide text-[#7d7566]">{t("availability.notes")}</label>
                   <input
                     type="text"
                     name={`availability_${day.slug}_notes`}
                     className={inputClass}
-                    placeholder="e.g., Flexible"
+                    placeholder={t("availability.notesPlaceholder")}
                     defaultValue={availabilityDefaults.get(day.slug)?.notes ?? ""}
                   />
                 </div>
@@ -232,7 +237,7 @@ export function ProfileBuildForm({
       </FormField>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-[#ebe5d8] pt-8">
-        <p className="text-sm text-[#5d574b]">{footnote}</p>
+        <p className="text-sm text-[#5d574b]">{defaultFootnote}</p>
         <button
           type="submit"
           disabled={pending}
@@ -241,7 +246,7 @@ export function ProfileBuildForm({
             pending && "cursor-not-allowed opacity-70",
           )}
         >
-          {pending ? "Saving…" : submitLabel}
+          {pending ? t("footer.saving") : defaultSubmitLabel}
         </button>
       </div>
     </form>
@@ -289,12 +294,14 @@ type FormFieldProps = {
 };
 
 function FormField({ label, children, helper, error, characterCount }: FormFieldProps) {
+  const t = useTranslations("dashboard.pro.profileBuildForm");
+
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <label className="block text-base font-semibold text-[#211f1a]">{label}</label>
         {characterCount !== undefined ? (
-          <span className="text-sm text-[#7d7566]">{characterCount.toLocaleString()} characters</span>
+          <span className="text-sm text-[#7d7566]">{t("characterCount", { count: characterCount })}</span>
         ) : null}
       </div>
       {helper ? <p className="text-sm text-[#5d574b]">{helper}</p> : null}

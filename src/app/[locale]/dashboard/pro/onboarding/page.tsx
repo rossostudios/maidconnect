@@ -5,6 +5,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { ApplicationForm } from "./application-form";
 import { DocumentUploadForm } from "./document-upload-form";
 import { ProfileBuildForm } from "./profile-build-form";
+import { getTranslations } from "next-intl/server";
 
 const inputClass =
   "w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-4 text-base shadow-sm transition focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]";
@@ -27,26 +28,7 @@ const AVAILABILITY_OPTIONS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Fri
 
 const LANGUAGE_OPTIONS = ["Español", "English", "Português", "Français"];
 
-const STEPS = [
-  {
-    id: "application",
-    title: "Submit application",
-    description: "Tell us about your experience, services, and references.",
-    statusKey: "application_pending",
-  },
-  {
-    id: "documents",
-    title: "Upload documents",
-    description: "Provide required identification and proof of address.",
-    statusKey: "application_in_review",
-  },
-  {
-    id: "profile",
-    title: "Build your profile",
-    description: "Create a compelling bio, select services, and set rates.",
-    statusKey: "approved",
-  },
-];
+const STEP_IDS = ["application", "documents", "profile"] as const;
 
 function currentStepIndex(status: string | null) {
   switch (status) {
@@ -90,11 +72,18 @@ type SupabaseProfessionalProfile = {
   availability: { schedule?: ProfileInitialData["availability"] } | null;
 };
 
-export default async function ProfessionalOnboardingPage() {
+export default async function ProfessionalOnboardingPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "dashboard.pro.onboarding" });
+
   const user = await requireUser({ allowedRoles: ["professional"] });
   const stepIndex = currentStepIndex(user.onboardingStatus);
   const isActive = user.onboardingStatus === "active";
-  const onboardingComplete = stepIndex >= STEPS.length;
+  const onboardingComplete = stepIndex >= STEP_IDS.length;
 
   const supabase = await createSupabaseServerClient();
   const { data: professionalProfileData } = await supabase
@@ -123,34 +112,32 @@ export default async function ProfessionalOnboardingPage() {
       <header className="flex items-start justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7d7566]">
-            {isActive ? "PROFILE SETTINGS" : "ONBOARDING"}
+            {t(isActive ? "header.badgeActive" : "header.badgeOnboarding")}
           </p>
           <h1 className="mt-4 text-4xl font-semibold leading-tight text-[#211f1a] sm:text-5xl">
-            {isActive ? "Edit your profile" : "Launch your MaidConnect profile"}
+            {t(isActive ? "header.titleActive" : "header.titleOnboarding")}
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-[#5d574b]">
-            {isActive
-              ? "Update your public information, services, and availability. Changes are reflected instantly on your listing."
-              : "Complete the steps below to unlock bookings. You can save and return at any time—progress is remembered."}
+            {t(isActive ? "header.descriptionActive" : "header.descriptionOnboarding")}
           </p>
         </div>
         <Link
           href="/dashboard/pro"
           className="inline-flex items-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 text-sm font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
         >
-          Back to dashboard
+          {t("header.backButton")}
         </Link>
       </header>
 
       {isActive ? null : (
         <ol className="grid gap-6 md:grid-cols-3">
-          {STEPS.map((step, index) => {
+          {STEP_IDS.map((stepId, index) => {
             const isCompleted = stepIndex > index;
             const isCurrent = stepIndex === index && !onboardingComplete;
 
             return (
               <li
-                key={step.id}
+                key={stepId}
                 className={`rounded-[28px] border p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)] ${
                   isCompleted
                     ? "border-green-200 bg-green-50"
@@ -164,19 +151,19 @@ export default async function ProfessionalOnboardingPage() {
                     {index + 1}
                   </div>
                   {isCompleted ? (
-                    <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">Completed</span>
+                    <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">{t("steps.statusCompleted")}</span>
                   ) : isCurrent ? (
                     <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-700">
-                      In progress
+                      {t("steps.statusInProgress")}
                     </span>
                   ) : (
                     <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-600">
-                      Pending
+                      {t("steps.statusPending")}
                     </span>
                   )}
                 </div>
-                <h2 className="mt-6 text-xl font-semibold text-[#211f1a]">{step.title}</h2>
-                <p className="mt-3 text-base leading-relaxed text-[#5d574b]">{step.description}</p>
+                <h2 className="mt-6 text-xl font-semibold text-[#211f1a]">{t(`steps.${stepId}.title`)}</h2>
+                <p className="mt-3 text-base leading-relaxed text-[#5d574b]">{t(`steps.${stepId}.description`)}</p>
               </li>
             );
           })}
@@ -193,17 +180,17 @@ export default async function ProfessionalOnboardingPage() {
                 </svg>
               </div>
               <div>
-                <h2 className="text-2xl font-semibold text-green-900">Your profile is live!</h2>
+                <h2 className="text-2xl font-semibold text-green-900">{t("profileLive.title")}</h2>
                 <p className="mt-2 text-base leading-relaxed text-green-800">
-                  Update your public information below whenever you need to refresh your listing.
+                  {t("profileLive.description")}
                 </p>
               </div>
             </div>
           </div>
 
           <SectionWrapper
-            title="Public profile"
-            subtitle="Adjust your bio, services, languages, and weekly availability. Changes update your listing instantly."
+            title={t("sections.publicProfile.title")}
+            subtitle={t("sections.publicProfile.subtitle")}
           >
             <ProfileBuildForm
               services={PROFILE_SERVICE_OPTIONS.map((name) => ({ name }))}
@@ -214,8 +201,8 @@ export default async function ProfessionalOnboardingPage() {
               languages={LANGUAGE_OPTIONS}
               inputClass={inputClass}
               initialData={profileInitialData}
-              submitLabel="Save profile"
-              footnote="Your changes update instantly on your public listing."
+              submitLabel={t("sections.publicProfile.submitLabel")}
+              footnote={t("sections.publicProfile.footnote")}
             />
           </SectionWrapper>
         </div>
@@ -223,8 +210,8 @@ export default async function ProfessionalOnboardingPage() {
         <>
           {stepIndex === 0 ? (
             <SectionWrapper
-              title="Application Details"
-              subtitle="Share your professional background. This information helps us verify your experience and match you with the right clients."
+              title={t("sections.applicationDetails.title")}
+              subtitle={t("sections.applicationDetails.subtitle")}
             >
               <ApplicationForm services={APPLICATION_SERVICE_OPTIONS} countries={COUNTRY_OPTIONS} inputClass={inputClass} />
             </SectionWrapper>
@@ -232,38 +219,38 @@ export default async function ProfessionalOnboardingPage() {
 
           {stepIndex === 1 ? (
             <SectionWrapper
-              title="Upload required documents"
-              subtitle="Securely upload scans or photos of your identification. We store everything in encrypted Supabase Storage."
+              title={t("sections.uploadDocuments.title")}
+              subtitle={t("sections.uploadDocuments.subtitle")}
             >
               <div className="grid gap-8 lg:grid-cols-2">
                 <div>
-                  <h3 className="text-xl font-semibold text-[#211f1a]">Required</h3>
+                  <h3 className="text-xl font-semibold text-[#211f1a]">{t("sections.uploadDocuments.required.title")}</h3>
                   <ul className="mt-4 space-y-3 text-base text-[#5d574b]">
                     <li className="flex items-start gap-3">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#ff5d46]"></span>
-                      <span>Government-issued ID (Cédula de Ciudadanía or Cédula de Extranjería)</span>
+                      <span>{t("sections.uploadDocuments.required.governmentId")}</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#ff5d46]"></span>
-                      <span>Proof of address (utility bill, lease agreement)</span>
+                      <span>{t("sections.uploadDocuments.required.proofOfAddress")}</span>
                     </li>
                   </ul>
 
-                  <h3 className="mt-8 text-xl font-semibold text-[#211f1a]">Optional</h3>
+                  <h3 className="mt-8 text-xl font-semibold text-[#211f1a]">{t("sections.uploadDocuments.optional.title")}</h3>
                   <ul className="mt-4 space-y-3 text-base text-[#5d574b]">
                     <li className="flex items-start gap-3">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-gray-400"></span>
-                      <span>Professional certifications</span>
+                      <span>{t("sections.uploadDocuments.optional.certifications")}</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-gray-400"></span>
-                      <span>Work permits (if applicable)</span>
+                      <span>{t("sections.uploadDocuments.optional.workPermits")}</span>
                     </li>
                   </ul>
 
                   <div className="mt-8 rounded-2xl border border-[#ebe5d8] bg-white p-6">
                     <p className="text-sm leading-relaxed text-[#5d574b]">
-                      <strong className="text-[#211f1a]">Accepted formats:</strong> PDF, JPG, PNG (max 5MB each). Our team reviews uploads within 3-5 business days and keeps you informed throughout the process.
+                      <strong className="text-[#211f1a]">{t("sections.uploadDocuments.formats.label")}</strong> {t("sections.uploadDocuments.formats.text")}
                     </p>
                   </div>
                 </div>
@@ -274,8 +261,8 @@ export default async function ProfessionalOnboardingPage() {
 
           {stepIndex === 2 ? (
             <SectionWrapper
-              title="Create your public profile"
-              subtitle="Craft a compelling presence that builds trust with new customers. This information appears on your MaidConnect listing."
+              title={t("sections.createProfile.title")}
+              subtitle={t("sections.createProfile.subtitle")}
             >
               <ProfileBuildForm
                 services={PROFILE_SERVICE_OPTIONS.map((name) => ({ name }))}
@@ -299,9 +286,9 @@ export default async function ProfessionalOnboardingPage() {
                   </svg>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-semibold text-green-900">Onboarding complete!</h2>
+                  <h2 className="text-2xl font-semibold text-green-900">{t("onboardingComplete.title")}</h2>
                   <p className="mt-2 text-base leading-relaxed text-green-800">
-                    Return to the dashboard to manage bookings and start connecting with customers.
+                    {t("onboardingComplete.description")}
                   </p>
                 </div>
               </div>

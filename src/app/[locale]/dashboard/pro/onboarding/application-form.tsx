@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { submitApplication } from "./actions";
 import { defaultActionState, type OnboardingActionState } from "./state";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 type Props = {
   services: string[];
@@ -14,6 +15,7 @@ type Props = {
 const errorClass = "border-red-300 focus:border-red-400 focus:ring-red-200";
 
 export function ApplicationForm({ services, countries, inputClass }: Props) {
+  const t = useTranslations("dashboard.pro.applicationForm");
   const [state, formAction, pending] = useActionState<OnboardingActionState, FormData>(submitApplication, defaultActionState);
 
   const fieldError = (key: string) => state.fieldErrors?.[key];
@@ -24,24 +26,24 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
       <Feedback state={state} />
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <FormField label="Full name" error={fieldError("fullName")}>
+        <FormField label={t("fullName.label")} error={fieldError("fullName")}>
           <input
             id="fullName"
             name="fullName"
             type="text"
             className={cn(inputClass, hasError("fullName") && errorClass)}
-            placeholder="María Rodríguez"
+            placeholder={t("fullName.placeholder")}
             aria-invalid={hasError("fullName")}
             required
           />
         </FormField>
-        <FormField label="ID number" error={fieldError("idNumber")}>
+        <FormField label={t("idNumber.label")} error={fieldError("idNumber")}>
           <input
             id="idNumber"
             name="idNumber"
             type="text"
             className={cn(inputClass, hasError("idNumber") && errorClass)}
-            placeholder="CC 1234567890"
+            placeholder={t("idNumber.placeholder")}
             aria-invalid={hasError("idNumber")}
             required
           />
@@ -49,18 +51,18 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <FormField label="Phone number" error={fieldError("phone")}>
+        <FormField label={t("phone.label")} error={fieldError("phone")}>
           <input
             id="phone"
             name="phone"
             type="tel"
             className={cn(inputClass, hasError("phone") && errorClass)}
-            placeholder="+57 300 123 4567"
+            placeholder={t("phone.placeholder")}
             aria-invalid={hasError("phone")}
             required
           />
         </FormField>
-        <FormField label="Country" error={fieldError("country")}>
+        <FormField label={t("country.label")} error={fieldError("country")}>
           <select
             id="country"
             name="country"
@@ -78,22 +80,22 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
         </FormField>
       </div>
 
-      <FormField label="City" error={fieldError("city")}>
+      <FormField label={t("city.label")} error={fieldError("city")}>
         <input
           id="city"
           name="city"
           type="text"
           className={cn(inputClass, hasError("city") && errorClass)}
-          placeholder="Medellín"
+          placeholder={t("city.placeholder")}
           aria-invalid={hasError("city")}
           required
         />
       </FormField>
 
       <FormField
-        label="Services offered"
+        label={t("services.label")}
         error={fieldError("services")}
-        helper="Select all services you can confidently provide."
+        helper={t("services.helper")}
       >
         <div className="grid gap-3 sm:grid-cols-2">
           {services.map((service) => (
@@ -112,26 +114,26 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
       </FormField>
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <FormField label="Years of experience" error={fieldError("experienceYears")}>
+        <FormField label={t("experienceYears.label")} error={fieldError("experienceYears")}>
           <input
             id="experienceYears"
             name="experienceYears"
             type="number"
             min={0}
             className={cn(inputClass, hasError("experienceYears") && errorClass)}
-            placeholder="5"
+            placeholder={t("experienceYears.placeholder")}
             aria-invalid={hasError("experienceYears")}
             required
           />
         </FormField>
-        <FormField label="Rate expectations (per hour)" helper="COP/hour" error={fieldError("rate")}>
+        <FormField label={t("rate.label")} helper={t("rate.helper")} error={fieldError("rate")}>
           <input
             id="rate"
             name="rate"
             type="number"
             min={0}
             className={cn(inputClass, hasError("rate") && errorClass)}
-            placeholder="40000"
+            placeholder={t("rate.placeholder")}
             aria-invalid={hasError("rate")}
             required
           />
@@ -139,19 +141,19 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
       </div>
 
       <FormField
-        label="Availability"
-        helper="Example: Monday to Friday 8am - 4pm. Mention weekends or flexible hours if applicable."
+        label={t("availability.label")}
+        helper={t("availability.helper")}
       >
         <textarea
           id="availability"
           name="availability"
           rows={3}
           className={`${inputClass} min-h-[100px]`}
-          placeholder="Example: Monday to Friday 8am - 4pm"
+          placeholder={t("availability.placeholder")}
         />
       </FormField>
 
-      <FormField label="Professional references" helper="Provide two references we can contact." error={fieldError("references")}>
+      <FormField label={t("references.label")} helper={t("references.helper")} error={fieldError("references")}>
         <div className="space-y-4">
           {[1, 2].map((index) => (
             <div key={index} className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
@@ -159,27 +161,27 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#ff5d46] text-sm font-semibold text-white">
                   {index}
                 </div>
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#7d7566]">{`Reference ${index}`}</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#7d7566]">{t("references.referenceLabel", { number: index })}</p>
               </div>
               <div className="mt-4 grid gap-4 sm:grid-cols-3">
                 <input
                   type="text"
                   name={`reference_name_${index}`}
                   className={cn(inputClass, hasError(`reference_name_${index}`) && errorClass)}
-                  placeholder="Name"
+                  placeholder={t("references.namePlaceholder")}
                   aria-invalid={hasError(`reference_name_${index}`)}
                 />
                 <input
                   type="text"
                   name={`reference_relationship_${index}`}
                   className={inputClass}
-                  placeholder="Relationship"
+                  placeholder={t("references.relationshipPlaceholder")}
                 />
                 <input
                   type="text"
                   name={`reference_contact_${index}`}
                   className={cn(inputClass, hasError(`reference_contact_${index}`) && errorClass)}
-                  placeholder="Phone or email"
+                  placeholder={t("references.contactPlaceholder")}
                   aria-invalid={hasError(`reference_contact_${index}`)}
                 />
               </div>
@@ -188,16 +190,16 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
         </div>
       </FormField>
 
-      <FormField label="Background check consent" error={fieldError("consent")}>
+      <FormField label={t("consent.label")} error={fieldError("consent")}>
         <label className="flex items-start gap-3 rounded-xl border-2 border-[#ebe5d8] bg-white p-5 text-base text-[#211f1a] cursor-pointer hover:border-[#ff5d46] hover:bg-[#fff5f2] transition">
           <input type="checkbox" name="consent" className="mt-0.5 h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-[#ff5d46]" aria-invalid={hasError("consent")} />
-          <span>I authorize MaidConnect to conduct identity and background verifications for onboarding.</span>
+          <span>{t("consent.text")}</span>
         </label>
       </FormField>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-[#ebe5d8] pt-8">
         <p className="text-sm text-[#5d574b]">
-          Submitting this application triggers our review team to start verification. You can still edit details later.
+          {t("footer.note")}
         </p>
         <button
           type="submit"
@@ -207,7 +209,7 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
             pending && "cursor-not-allowed opacity-70",
           )}
         >
-          {pending ? "Submitting…" : "Submit application"}
+          {pending ? t("footer.submitting") : t("footer.submit")}
         </button>
       </div>
     </form>
