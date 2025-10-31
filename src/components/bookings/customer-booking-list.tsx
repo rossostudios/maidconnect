@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { Link } from "@/i18n/routing";
 import { CancelBookingModal } from "./cancel-booking-modal";
 import { DisputeModal, isWithinDisputeWindow } from "./dispute-modal";
 import { RebookModal } from "./rebook-modal";
@@ -34,9 +35,9 @@ export function CustomerBookingList({ bookings }: Props) {
         <p className="text-[#5d574b] text-base">{t("emptyState.noBookings")}</p>
         <p className="mt-3 text-[#5d574b] text-base">
           {t("emptyState.browseText")}{" "}
-          <a className="font-semibold text-[#ff5d46] hover:text-[#eb6c65]" href="/professionals">
+          <Link className="font-semibold text-[#ff5d46] hover:text-[#eb6c65]" href="/professionals">
             {t("emptyState.professionalDirectory")}
-          </a>{" "}
+          </Link>{" "}
           {t("emptyState.bookFirstService")}
         </p>
       </div>

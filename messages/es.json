@@ -1943,5 +1943,93 @@
       "flexibleServices": "Servicios flexibles",
       "rateOnRequest": "Tarifa bajo consulta"
     }
+  },
+  "matchWizard": {
+    "title": "Encuentra tu Coincidencia Perfecta",
+    "subtitle": "Responde algunas preguntas para encontrar a los mejores profesionales para tus necesidades",
+    "step": "Paso",
+    "of": "de",
+    "complete": "completo",
+    "exit": "Salir del asistente y explorar todos los profesionales",
+    "location": {
+      "title": "¿Dónde necesitas ayuda?",
+      "description": "Selecciona tu ciudad y barrio para encontrar profesionales cercanos",
+      "cityLabel": "Ciudad",
+      "selectCity": "Selecciona tu ciudad",
+      "neighborhoodLabel": "Barrio",
+      "optional": "opcional",
+      "selectNeighborhood": "Selecciona un barrio",
+      "back": "Atrás",
+      "next": "Siguiente Paso"
+    },
+    "service": {
+      "title": "¿Qué servicio necesitas?",
+      "description": "Elige el tipo de servicio que estás buscando",
+      "serviceTypeLabel": "Tipo de Servicio",
+      "selectService": "Selecciona un servicio",
+      "templateLabel": "Plantilla de Servicio",
+      "selectTemplate": "Elige una plantilla (opcional)",
+      "back": "Atrás",
+      "next": "Siguiente Paso"
+    },
+    "homeDetails": {
+      "title": "Cuéntanos sobre tu hogar",
+      "description": "Esto nos ayuda a encontrar el profesional adecuado para ti",
+      "bedroomsLabel": "Número de habitaciones",
+      "bathroomsLabel": "Número de baños",
+      "squareMetersLabel": "Tamaño aproximado (m²)",
+      "hasPetsLabel": "Tengo mascotas",
+      "petDetailsLabel": "Detalles de mascotas (opcional)",
+      "petDetailsPlaceholder": "ej., 2 perros amigables, gato hipoalergénico",
+      "suppliesLabel": "El profesional debe traer productos de limpieza",
+      "back": "Atrás",
+      "next": "Siguiente Paso"
+    },
+    "timingBudget": {
+      "title": "¿Cuándo y cuánto?",
+      "description": "Ayúdanos a encontrar profesionales que se ajusten a tu horario y presupuesto",
+      "dateLabel": "Fecha Preferida",
+      "timeLabel": "Hora Preferida",
+      "frequencyLabel": "Frecuencia",
+      "oneTime": "Una vez",
+      "weekly": "Semanal",
+      "biweekly": "Quincenal",
+      "monthly": "Mensual",
+      "budgetLabel": "Rango de Presupuesto (COP/hora)",
+      "budgetMin": "Mín",
+      "budgetMax": "Máx",
+      "back": "Atrás",
+      "next": "Siguiente Paso"
+    },
+    "preferences": {
+      "title": "¿Alguna preferencia especial?",
+      "description": "Estas nos ayudan a encontrar la coincidencia perfecta",
+      "languageLabel": "Preferencia de Idioma",
+      "languageEnglish": "Inglés",
+      "languageSpanish": "Español",
+      "languageBilingual": "Bilingüe",
+      "verificationLabel": "Nivel de Verificación",
+      "verificationBasic": "Básico (ID verificado)",
+      "verificationEnhanced": "Mejorado (verificación de antecedentes)",
+      "verificationBackground": "Antecedentes verificados",
+      "experienceLabel": "Experiencia Mínima (años)",
+      "availabilityLabel": "Disponibilidad",
+      "availabilityToday": "Disponible hoy",
+      "availabilityWeek": "Disponible esta semana",
+      "availabilityFlexible": "Flexible",
+      "back": "Atrás",
+      "next": "Ver Coincidencias"
+    },
+    "results": {
+      "title": "¡Encontramos {count} coincidencias perfectas!",
+      "description": "Basado en tus preferencias, aquí están nuestras mejores recomendaciones",
+      "matchScore": "{score}% coincidencia",
+      "viewProfile": "Ver Perfil Completo",
+      "bookNow": "Reservar Ahora",
+      "noMatches": "No se encontraron coincidencias exactas",
+      "noMatchesDescription": "Intenta ajustar tus preferencias o explora todos los profesionales",
+      "browseAll": "Explorar Todos los Profesionales",
+      "startOver": "Empezar de Nuevo"
+    }
   }
 }

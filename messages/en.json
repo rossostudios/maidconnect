@@ -1943,5 +1943,93 @@
       "flexibleServices": "Flexible services",
       "rateOnRequest": "Rate on request"
     }
+  },
+  "matchWizard": {
+    "title": "Find Your Perfect Match",
+    "subtitle": "Answer a few questions to get matched with the best professionals for your needs",
+    "step": "Step",
+    "of": "of",
+    "complete": "complete",
+    "exit": "Exit wizard and browse all professionals",
+    "location": {
+      "title": "Where do you need help?",
+      "description": "Select your city and neighborhood to find nearby professionals",
+      "cityLabel": "City",
+      "selectCity": "Select your city",
+      "neighborhoodLabel": "Neighborhood",
+      "optional": "optional",
+      "selectNeighborhood": "Select a neighborhood",
+      "back": "Back",
+      "next": "Next Step"
+    },
+    "service": {
+      "title": "What service do you need?",
+      "description": "Choose the type of service you're looking for",
+      "serviceTypeLabel": "Service Type",
+      "selectService": "Select a service",
+      "templateLabel": "Service Template",
+      "selectTemplate": "Choose a template (optional)",
+      "back": "Back",
+      "next": "Next Step"
+    },
+    "homeDetails": {
+      "title": "Tell us about your home",
+      "description": "This helps us match you with the right professionals",
+      "bedroomsLabel": "Number of bedrooms",
+      "bathroomsLabel": "Number of bathrooms",
+      "squareMetersLabel": "Approximate size (m²)",
+      "hasPetsLabel": "I have pets",
+      "petDetailsLabel": "Pet details (optional)",
+      "petDetailsPlaceholder": "e.g., 2 friendly dogs, hypoallergenic cat",
+      "suppliesLabel": "Professional should bring cleaning supplies",
+      "back": "Back",
+      "next": "Next Step"
+    },
+    "timingBudget": {
+      "title": "When and how much?",
+      "description": "Help us find professionals that match your schedule and budget",
+      "dateLabel": "Preferred Date",
+      "timeLabel": "Preferred Time",
+      "frequencyLabel": "Frequency",
+      "oneTime": "One-time",
+      "weekly": "Weekly",
+      "biweekly": "Bi-weekly",
+      "monthly": "Monthly",
+      "budgetLabel": "Budget Range (COP/hour)",
+      "budgetMin": "Min",
+      "budgetMax": "Max",
+      "back": "Back",
+      "next": "Next Step"
+    },
+    "preferences": {
+      "title": "Any special preferences?",
+      "description": "These help us narrow down the perfect match",
+      "languageLabel": "Language Preference",
+      "languageEnglish": "English",
+      "languageSpanish": "Spanish",
+      "languageBilingual": "Bilingual",
+      "verificationLabel": "Verification Level",
+      "verificationBasic": "Basic (ID verified)",
+      "verificationEnhanced": "Enhanced (background check)",
+      "verificationBackground": "Background checked",
+      "experienceLabel": "Minimum Experience (years)",
+      "availabilityLabel": "Availability",
+      "availabilityToday": "Available today",
+      "availabilityWeek": "Available this week",
+      "availabilityFlexible": "Flexible",
+      "back": "Back",
+      "next": "See Matches"
+    },
+    "results": {
+      "title": "We found {count} perfect matches!",
+      "description": "Based on your preferences, here are our top recommendations",
+      "matchScore": "{score}% match",
+      "viewProfile": "View Full Profile",
+      "bookNow": "Book Now",
+      "noMatches": "No exact matches found",
+      "noMatchesDescription": "Try adjusting your preferences or browse all professionals",
+      "browseAll": "Browse All Professionals",
+      "startOver": "Start Over"
+    }
   }
 }

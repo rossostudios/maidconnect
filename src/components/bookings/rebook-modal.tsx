@@ -1,8 +1,8 @@
 "use client";
 
 import { RefreshCw } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useActionState } from "react";
+import { useRouter } from "@/i18n/routing";
 import type { CustomerBooking } from "./customer-booking-list";
 
 type Props = {
@@ -40,7 +40,7 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
 
         // Close modal and redirect to booking details
         onClose();
-        router.push(`/dashboard/customer/bookings`);
+        router.push("/dashboard/customer/bookings");
         router.refresh();
 
         return { success: true };
