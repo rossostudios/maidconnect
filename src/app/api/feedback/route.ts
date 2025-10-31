@@ -5,6 +5,8 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
+const EMAIL_VALIDATION_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 /**
  * Submit user feedback
  * POST /api/feedback
@@ -69,7 +71,7 @@ async function handlePOST(request: Request) {
     }
 
     // Validate email if provided
-    if (user_email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user_email)) {
+    if (user_email && !EMAIL_VALIDATION_REGEX.test(user_email)) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 });
     }
 

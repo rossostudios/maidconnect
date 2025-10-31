@@ -50,6 +50,7 @@ export default function Error({
           {/* Actions */}
           <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
             <button
+              type="button"
               className="flex items-center justify-center gap-2 rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-white transition hover:bg-[#ff4529]"
               onClick={reset}
             >

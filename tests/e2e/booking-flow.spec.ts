@@ -8,6 +8,9 @@ import { expectTextPresent, navigateTo } from "../utils/test-helpers";
  * Note: These tests assume test data exists in the database.
  */
 
+const LOGIN_SIGNUP_URL_REGEX = /\/login|\/signup/;
+const LOGIN_URL_REGEX = /\/login/;
+
 test.describe("Booking Flow", () => {
   test.describe("Professional Search", () => {
     test("should display search page", async ({ page }) => {
@@ -150,22 +153,22 @@ test.describe("Booking Flow", () => {
 
           // Should redirect to login or show auth modal
           await page.waitForTimeout(500);
-          await expect(page).toHaveURL(/\/login|\/signup/);
+          await expect(page).toHaveURL(LOGIN_SIGNUP_URL_REGEX);
         }
       }
     });
 
-    test("should show booking form when logged in", async ({ page }) => {
+    test("should show booking form when logged in", async ({ page: _page }) => {
       // Skip - requires authentication setup
       // This would test the booking form after logging in
     });
 
-    test("should validate booking form fields", async ({ page }) => {
+    test("should validate booking form fields", async ({ page: _page }) => {
       // Skip - requires authentication and navigation to booking form
       // This would test form validation
     });
 
-    test("should calculate booking price correctly", async ({ page }) => {
+    test("should calculate booking price correctly", async ({ page: _page }) => {
       // Skip - requires booking form access
       // This would test price calculation based on hours/service
     });
@@ -176,37 +179,37 @@ test.describe("Booking Flow", () => {
       // Try to access bookings page (should redirect to login)
       await page.goto("/dashboard/customer/bookings");
       await page.waitForURL("**/login**");
-      await expect(page).toHaveURL(/\/login/);
+      await expect(page).toHaveURL(LOGIN_URL_REGEX);
     });
 
-    test("should display user bookings", async ({ page }) => {
+    test("should display user bookings", async ({ page: _page }) => {
       // Skip - requires authentication
       // This would test viewing bookings in dashboard
     });
 
-    test("should allow canceling a booking", async ({ page }) => {
+    test("should allow canceling a booking", async ({ page: _page }) => {
       // Skip - requires authenticated state with bookings
       // This would test the cancel booking flow
     });
 
-    test("should allow rescheduling a booking", async ({ page }) => {
+    test("should allow rescheduling a booking", async ({ page: _page }) => {
       // Skip - requires authenticated state with bookings
       // This would test the reschedule booking flow
     });
   });
 
   test.describe("Payment Flow", () => {
-    test("should display Stripe payment form", async ({ page }) => {
+    test("should display Stripe payment form", async ({ page: _page }) => {
       // Skip - requires booking form access
       // This would test Stripe integration
     });
 
-    test("should validate payment information", async ({ page }) => {
+    test("should validate payment information", async ({ page: _page }) => {
       // Skip - requires payment form access
       // This would test payment validation
     });
 
-    test("should complete booking after successful payment", async ({ page }) => {
+    test("should complete booking after successful payment", async ({ page: _page }) => {
       // Skip - requires full flow with test Stripe account
       // This would test end-to-end payment and booking creation
     });

@@ -81,7 +81,10 @@ export async function proxy(request: NextRequest) {
         .maybeSingle();
 
       if (userProfile?.role) {
-        const redirectUrl = new URL(getDashboardRouteForRole(userProfile.role as AppRole), request.url);
+        const redirectUrl = new URL(
+          getDashboardRouteForRole(userProfile.role as AppRole),
+          request.url
+        );
         return NextResponse.redirect(redirectUrl);
       }
     }

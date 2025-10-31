@@ -129,7 +129,9 @@ export default async function CustomerDashboardPage(props: {
         limit: 1,
       });
       hasPaymentMethod = paymentMethods.data.length > 0;
-    } catch (_error) {}
+    } catch (_error) {
+      console.error("Error fetching payment methods:", _error);
+    }
   }
   const bookings =
     (bookingsData as Array<{

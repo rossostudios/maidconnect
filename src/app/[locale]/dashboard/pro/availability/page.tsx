@@ -29,6 +29,7 @@ export default async function ProAvailabilityPage({
     .maybeSingle();
 
   if (error) {
+    console.error("Error fetching availability settings:", error);
   }
 
   // Parse availability settings

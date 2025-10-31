@@ -80,7 +80,9 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
         type: "card",
       });
       paymentMethods = methods.data;
-    } catch (_error) {}
+    } catch (_error) {
+      console.error("Error fetching payment methods:", _error);
+    }
   }
 
   // Calculate totals

@@ -4,6 +4,7 @@ const CACHE_VERSION = "v1";
 const STATIC_CACHE = `maidconnect-static-${CACHE_VERSION}`;
 const OFFLINE_CACHE = `maidconnect-offline-${CACHE_VERSION}`;
 const OFFLINE_PAGE = "/offline.html";
+const ASSET_EXTENSIONS_REGEX = /\.(js|css|woff|woff2|ttf|eot|svg|png|jpg|jpeg|webp|ico)$/;
 
 // Install event - precache offline page for marketing/public pages only
 self.addEventListener("install", (event) => {
@@ -122,7 +123,7 @@ function shouldCache(request) {
   return (
     pathname.startsWith("/_next/static/") || // Next.js static assets
     pathname.startsWith("/images/") || // Public images
-    pathname.match(/\.(js|css|woff|woff2|ttf|eot|svg|png|jpg|jpeg|webp|ico)$/) // Asset extensions
+    pathname.match(ASSET_EXTENSIONS_REGEX) // Asset extensions
   );
 }
 

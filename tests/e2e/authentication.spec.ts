@@ -7,6 +7,9 @@ import { clickButton, navigateTo } from "../utils/test-helpers";
  * Tests for user signup, login, and logout flows.
  */
 
+const LOGIN_URL_REGEX = /\/login/;
+const SIGNUP_URL_REGEX = /\/signup/;
+
 test.describe("Authentication", () => {
   test.describe("Signup Flow", () => {
     test("should display signup form", async ({ page }) => {
@@ -52,7 +55,7 @@ test.describe("Authentication", () => {
       await page.click('a:has-text("Login")');
       await page.waitForURL("**/login");
 
-      await expect(page).toHaveURL(/\/login/);
+      await expect(page).toHaveURL(LOGIN_URL_REGEX);
     });
   });
 
@@ -84,7 +87,7 @@ test.describe("Authentication", () => {
       await page.click('a:has-text("Sign up")');
       await page.waitForURL("**/signup");
 
-      await expect(page).toHaveURL(/\/signup/);
+      await expect(page).toHaveURL(SIGNUP_URL_REGEX);
     });
 
     test("should have password visibility toggle", async ({ page }) => {
@@ -123,19 +126,19 @@ test.describe("Authentication", () => {
 
       // Should redirect to login
       await page.waitForURL("**/login**");
-      await expect(page).toHaveURL(/\/login/);
+      await expect(page).toHaveURL(LOGIN_URL_REGEX);
     });
 
     test("should redirect to login when accessing customer dashboard", async ({ page }) => {
       await page.goto("/dashboard/customer");
       await page.waitForURL("**/login**");
-      await expect(page).toHaveURL(/\/login/);
+      await expect(page).toHaveURL(LOGIN_URL_REGEX);
     });
 
     test("should redirect to login when accessing pro dashboard", async ({ page }) => {
       await page.goto("/dashboard/pro");
       await page.waitForURL("**/login**");
-      await expect(page).toHaveURL(/\/login/);
+      await expect(page).toHaveURL(LOGIN_URL_REGEX);
     });
   });
 

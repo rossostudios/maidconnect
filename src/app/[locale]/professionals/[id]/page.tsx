@@ -21,6 +21,8 @@ import {
 } from "@/lib/professionals/transformers";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 type ProfessionalPortfolioImage = {
   url: string;
   caption: string | null;
@@ -73,7 +75,7 @@ type GetProfessionalRow = {
 };
 
 function isValidUuid(value: string) {
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+  return UUID_REGEX.test(value);
 }
 
 function mapRowToProfessionalDetail(row: GetProfessionalRow): ProfessionalProfileDetail {

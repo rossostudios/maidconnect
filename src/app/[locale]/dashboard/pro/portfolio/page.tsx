@@ -23,6 +23,7 @@ export default async function ProPortfolioPage({
     .maybeSingle();
 
   if (error) {
+    console.error("Error fetching portfolio data:", error);
   }
 
   const images = (profileData?.portfolio_images as PortfolioImage[]) || [];

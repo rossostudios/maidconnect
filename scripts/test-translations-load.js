@@ -25,7 +25,7 @@ try {
 
   console.log("\n📦 Testing product page access:");
   let productPagesOk = true;
-  productPages.forEach((page) => {
+  for (const page of productPages) {
     const enExists = !!en.pages[page];
     const esExists = !!es.pages[page];
     const status = enExists && esExists ? "✅" : "❌";
@@ -33,14 +33,14 @@ try {
     if (!(enExists && esExists)) {
       productPagesOk = false;
     }
-  });
+  }
 
   // Test accessing static pages
   const staticPages = ["contact", "signIn", "signUp", "terms", "privacy", "professionalProfile"];
 
   console.log("\n📄 Testing static page access:");
   let staticPagesOk = true;
-  staticPages.forEach((page) => {
+  for (const page of staticPages) {
     const enExists = !!en.pages[page];
     const esExists = !!es.pages[page];
     const status = enExists && esExists ? "✅" : "❌";
@@ -48,7 +48,7 @@ try {
     if (!(enExists && esExists)) {
       staticPagesOk = false;
     }
-  });
+  }
 
   // Test sample deep access
   console.log("\n🔍 Testing deep property access:");
@@ -72,7 +72,7 @@ try {
   ];
 
   let deepAccessOk = true;
-  tests.forEach((test) => {
+  for (const test of tests) {
     const enOk = typeof test.en === "string" && test.en.length > 0;
     const esOk = typeof test.es === "string" && test.es.length > 0;
     const status = enOk && esOk ? "✅" : "❌";
@@ -86,7 +86,7 @@ try {
     if (!(enOk && esOk)) {
       deepAccessOk = false;
     }
-  });
+  }
 
   // Final summary
   console.log(`\n${"=".repeat(60)}`);

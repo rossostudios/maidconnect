@@ -8,6 +8,8 @@ const path = require("node:path");
  * Merges both occurrences into a single valid "pages" object
  */
 
+const PAGES_OBJECT_REGEX = /"pages":\s*(\{[\s\S]*\})/;
+
 function fixTranslationFile(filePath) {
   console.log(`\n📝 Processing: ${filePath}`);
 
@@ -54,7 +56,7 @@ function fixTranslationFile(filePath) {
   const firstPagesText = content.substring(firstPagesStart, firstPagesEnd);
 
   // Parse just the object part (remove the key)
-  const firstPagesMatch = firstPagesText.match(/"pages":\s*(\{[\s\S]*\})/);
+  const firstPagesMatch = firstPagesText.match(PAGES_OBJECT_REGEX);
   if (!firstPagesMatch) {
     console.log('❌ Could not parse first "pages" object');
     return false;

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
+const FILENAME_REGEX = /filename="(.+)"/;
+
 export default function DataRightsPage() {
   const router = useRouter();
   const [isExporting, setIsExporting] = useState(false);
@@ -34,7 +36,7 @@ export default function DataRightsPage() {
 
       // Get filename from Content-Disposition header
       const contentDisposition = response.headers.get("Content-Disposition");
-      const filenameMatch = contentDisposition?.match(/filename="(.+)"/);
+      const filenameMatch = contentDisposition?.match(FILENAME_REGEX);
       const filename = filenameMatch
         ? filenameMatch[1]
         : `maidconnect_data_export_${Date.now()}.json`;

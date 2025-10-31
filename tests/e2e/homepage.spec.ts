@@ -7,10 +7,14 @@ import { expectTextPresent, navigateTo } from "../utils/test-helpers";
  * Tests for the main landing page and navigation.
  */
 
+const TITLE_REGEX = /Maidconnect/;
+const LOGIN_URL_REGEX = /\/login/;
+const SIGNUP_URL_REGEX = /\/signup/;
+
 test.describe("Homepage", () => {
   test("should load homepage successfully", async ({ page }) => {
     await navigateTo(page, "/");
-    await expect(page).toHaveTitle(/Maidconnect/);
+    await expect(page).toHaveTitle(TITLE_REGEX);
   });
 
   test("should display hero section with CTA", async ({ page }) => {
@@ -30,7 +34,7 @@ test.describe("Homepage", () => {
     await page.click('a:has-text("Login")');
     await page.waitForURL("**/login");
 
-    await expect(page).toHaveURL(/\/login/);
+    await expect(page).toHaveURL(LOGIN_URL_REGEX);
   });
 
   test("should navigate to signup page", async ({ page }) => {
@@ -40,7 +44,7 @@ test.describe("Homepage", () => {
     await page.click('a:has-text("Sign up")');
     await page.waitForURL("**/signup");
 
-    await expect(page).toHaveURL(/\/signup/);
+    await expect(page).toHaveURL(SIGNUP_URL_REGEX);
   });
 
   test("should display features section", async ({ page }) => {
