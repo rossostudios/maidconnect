@@ -1,7 +1,7 @@
 # Professional Onboarding Flow (MVP)
 
 ## Objectives
-- Satisfy P0 user stories 1.1.1, 1.1.2, and 1.1.5 in `documents/use-case.md`.
+- Satisfy P0 user stories 1.1.1, 1.1.2, and 1.1.5 in [user-stories.md](../01-product/user-stories.md).
 - Guide newly registered professionals through required steps without concierge intervention.
 - Persist progress so partially completed onboarding can resume.
 

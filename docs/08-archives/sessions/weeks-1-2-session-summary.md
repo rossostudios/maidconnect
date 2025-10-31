@@ -108,7 +108,7 @@ images: {
 
 ### 3. CSP Nonce Implementation (Documented) ✅
 
-**File:** [documents/csp-nonce-implementation-plan.md](../documents/csp-nonce-implementation-plan.md)
+**File:** [csp-nonce-implementation-plan.md](../planning/csp-nonce-implementation-plan.md) (archived)
 
 **Decision:** Deferred to Week 3-4 to avoid breaking third-party integrations
 
@@ -142,9 +142,9 @@ images: {
 ### 4. Feature Flags System ✅
 
 **Files Created:**
-- [src/lib/feature-flags.ts](../src/lib/feature-flags.ts) - Core feature flag logic
-- [src/hooks/use-feature-flag.ts](../src/hooks/use-feature-flag.ts) - React hooks
-- [documents/feature-flags-guide.md](../documents/feature-flags-guide.md) - Full documentation
+- [src/lib/feature-flags.ts](../../src/lib/feature-flags.ts) - Core feature flag logic
+- [src/hooks/use-feature-flag.ts](../../src/hooks/use-feature-flag.ts) - React hooks
+- [feature-flags.md](../../03-technical/feature-flags.md) - Full documentation
 
 **Features Implemented:**
 
@@ -224,9 +224,9 @@ await logger.info("User action", {
 ### 5. Web Vitals Monitoring ✅
 
 **Files Created:**
-- [src/lib/web-vitals.ts](../src/lib/web-vitals.ts) - Core metrics tracking
-- [src/components/web-vitals.tsx](../src/components/web-vitals.tsx) - React component
-- [documents/web-vitals-monitoring.md](../documents/web-vitals-monitoring.md) - Complete guide
+- [src/lib/web-vitals.ts](../../src/lib/web-vitals.ts) - Core metrics tracking
+- [src/components/web-vitals.tsx](../../src/components/web-vitals.tsx) - React component
+- [performance-monitoring.md](../../06-operations/performance-monitoring.md) - Complete guide
 
 **Metrics Tracked:**
 
@@ -375,9 +375,9 @@ threshold: > 10 events in 5 minutes
 - `src/hooks/use-feature-flag.ts` - React hooks
 - `src/lib/web-vitals.ts` - Web Vitals tracking
 - `src/components/web-vitals.tsx` - React integration
-- `documents/csp-nonce-implementation-plan.md` - CSP roadmap
-- `documents/feature-flags-guide.md` - Feature flags docs
-- `documents/web-vitals-monitoring.md` - Monitoring guide
+- `docs/08-archives/planning/csp-nonce-implementation-plan.md` - CSP roadmap
+- `docs/03-technical/feature-flags.md` - Feature flags docs
+- `docs/06-operations/performance-monitoring.md` - Monitoring guide
 
 **Modified (5 files):**
 - `public/sw.js` - Security hardening
