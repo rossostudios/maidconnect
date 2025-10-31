@@ -4,11 +4,13 @@ import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/routing";
+import { ProductBottomSheet } from "@/components/navigation/product-bottom-sheet";
 
 export function SiteNavigation() {
   const t = useTranslations("navigation");
   const tp = useTranslations("product");
   const [isProductOpen, setIsProductOpen] = useState(false);
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const productFeatures = [
@@ -62,6 +64,16 @@ export function SiteNavigation() {
     }, 150);
   };
 
+  const handleProductClick = () => {
+    // On mobile, open bottom sheet
+    if (window.innerWidth < 768) {
+      setIsBottomSheetOpen(true);
+    } else {
+      // On desktop, toggle dropdown
+      setIsProductOpen(!isProductOpen);
+    }
+  };
+
   useEffect(
     () => () => {
       if (timeoutRef.current) {
@@ -74,11 +86,12 @@ export function SiteNavigation() {
   return (
     <nav className="order-3 flex w-full justify-between gap-6 font-medium text-[#211f1a] text-sm sm:order-none sm:w-auto sm:justify-end">
       <div className="flex w-full items-center justify-between gap-6 overflow-x-auto sm:w-auto sm:overflow-visible">
-        {/* Product Dropdown */}
+        {/* Product Dropdown/Button */}
         <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <button
             className="flex items-center gap-1 whitespace-nowrap text-[#211f1a] transition hover:text-[#5d574b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff5d46] focus-visible:outline-offset-2"
-            onClick={() => setIsProductOpen(!isProductOpen)}
+            onClick={handleProductClick}
+            type="button"
           >
             {t("product")}
             <ChevronDown
@@ -86,8 +99,9 @@ export function SiteNavigation() {
             />
           </button>
 
+          {/* Desktop Dropdown - Hidden on mobile */}
           {isProductOpen && (
-            <div className="absolute top-full left-0 z-50 pt-2">
+            <div className="absolute top-full left-0 z-50 hidden pt-2 md:block">
               <div className="w-[640px] rounded-2xl border border-[#e5dfd4] bg-white p-3 shadow-[0_24px_55px_rgba(15,15,15,0.15)]">
                 <div className="grid grid-cols-2 gap-2">
                   {productFeatures.map((feature) => (
@@ -119,6 +133,13 @@ export function SiteNavigation() {
           </Link>
         ))}
       </div>
+
+      {/* Mobile Bottom Sheet */}
+      <ProductBottomSheet
+        features={productFeatures}
+        isOpen={isBottomSheetOpen}
+        onClose={() => setIsBottomSheetOpen(false)}
+      />
     </nav>
   );
 }

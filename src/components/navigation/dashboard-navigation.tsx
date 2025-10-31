@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { KeyboardBadge } from "@/components/keyboard-shortcuts/keyboard-badge";
+import { DashboardMobileNav } from "@/components/navigation/dashboard-mobile-nav";
 import { NotificationsSheet } from "@/components/notifications/notifications-sheet";
 import { useKeyboardShortcutsContext } from "@/components/providers/keyboard-shortcuts-provider";
 import { useNotificationUnreadCount } from "@/hooks/use-notification-unread-count";
@@ -41,6 +42,12 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
   const messagesHref =
     userRole === "customer" ? "/dashboard/customer/messages" : "/dashboard/pro/messages";
 
+  // Hrefs for mobile nav
+  const dashboardHref = userRole === "customer" ? "/dashboard/customer" : "/dashboard/pro";
+  const bookingsHref =
+    userRole === "customer" ? "/dashboard/customer/bookings" : "/dashboard/pro/bookings";
+  const profileHref = userRole === "customer" ? "/dashboard/customer" : "/dashboard/pro";
+
   const isActive = (href: string) => {
     // Handle hash links (e.g., #addresses, #favorites)
     if (href.includes("#")) {
@@ -53,7 +60,8 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
 
   return (
     <>
-      <nav className="flex items-center gap-6 font-medium text-[#524d43] text-sm">
+      {/* Desktop Navigation - Hidden on mobile */}
+      <nav className="hidden items-center gap-6 font-medium text-[#524d43] text-sm md:flex">
         {navLinks.map((item) => {
           const active = isActive(item.href);
           return (
@@ -133,6 +141,16 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
           )}
         </button>
       </nav>
+
+      {/* Mobile Bottom Navigation - Shown only on mobile */}
+      <DashboardMobileNav
+        bookingsHref={bookingsHref}
+        dashboardHref={dashboardHref}
+        messagesHref={messagesHref}
+        onNotificationsClick={() => setIsNotificationsOpen(true)}
+        profileHref={profileHref}
+        userRole={userRole}
+      />
 
       <NotificationsSheet isOpen={isNotificationsOpen} onClose={handleCloseNotifications} />
     </>
