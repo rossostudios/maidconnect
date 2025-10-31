@@ -9,7 +9,9 @@ import {
   SavedAddressesManager,
 } from "@/components/addresses/saved-addresses-manager";
 import { AvailabilityCalendar } from "@/components/booking/availability-calendar";
+import { PriceBreakdown } from "@/components/pricing/price-breakdown";
 import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
+import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
@@ -670,6 +672,9 @@ function ConfirmationStep({
   onConfirm: () => void;
   loading: boolean;
 }) {
+  // Week 3-4 feature flag
+  const showLivePriceBreakdown = useFeatureFlag("live_price_breakdown");
+  const selectedRate = bookingData.serviceHourlyRate ?? 0;
   return (
     <div className="space-y-6">
       <h3 className="font-semibold text-[#211f1a] text-lg">Review Your Booking</h3>
@@ -750,30 +755,42 @@ function ConfirmationStep({
           </div>
         )}
 
-        {/* Price Breakdown */}
-        <div className="border-[#f0ece5] border-t pt-4">
-          <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-[#7a6d62]">Service</span>
-              <span className="text-[#211f1a]">{formatCurrencyCOP(baseAmount)}</span>
-            </div>
-            {addonsTotal > 0 && (
-              <div className="flex justify-between text-sm">
-                <span className="text-[#7a6d62]">Add-ons</span>
-                <span className="text-[#211f1a]">{formatCurrencyCOP(addonsTotal)}</span>
+        {/* Price Breakdown - Week 3-4 Enhanced or Legacy */}
+        {showLivePriceBreakdown ? (
+          <PriceBreakdown
+            addonsTotal={addonsTotal}
+            baseAmount={baseAmount}
+            hourlyRate={selectedRate}
+            hours={bookingData.durationHours}
+            showPlatformFee={true}
+          />
+        ) : (
+          <>
+            <div className="border-[#f0ece5] border-t pt-4">
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-[#7a6d62]">Service</span>
+                  <span className="text-[#211f1a]">{formatCurrencyCOP(baseAmount)}</span>
+                </div>
+                {addonsTotal > 0 && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-[#7a6d62]">Add-ons</span>
+                    <span className="text-[#211f1a]">{formatCurrencyCOP(addonsTotal)}</span>
+                  </div>
+                )}
+                <div className="flex justify-between border-[#f0ece5] border-t pt-2 font-semibold text-base">
+                  <span className="text-[#211f1a]">Total</span>
+                  <span className="text-[#ff5d46]">{formatCurrencyCOP(totalAmount)}</span>
+                </div>
               </div>
-            )}
-            <div className="flex justify-between border-[#f0ece5] border-t pt-2 font-semibold text-base">
-              <span className="text-[#211f1a]">Total</span>
-              <span className="text-[#ff5d46]">{formatCurrencyCOP(totalAmount)}</span>
             </div>
-          </div>
-        </div>
 
-        <p className="text-[#7a6d62] text-xs">
-          We'll place a temporary hold on your payment method. You'll only be charged after the
-          service is completed.
-        </p>
+            <p className="text-[#7a6d62] text-xs">
+              We'll place a temporary hold on your payment method. You'll only be charged after the
+              service is completed.
+            </p>
+          </>
+        )}
       </div>
 
       <div className="flex justify-between">

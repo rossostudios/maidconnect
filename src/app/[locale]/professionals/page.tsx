@@ -3,6 +3,7 @@ import {
   type DirectoryProfessional,
   ProfessionalsDirectory,
 } from "@/components/professionals/professionals-directory";
+import { type VerificationLevel } from "@/components/professionals/verification-badge";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { ProfessionalsGridSkeleton } from "@/components/skeletons/professionals-skeletons";
@@ -26,6 +27,11 @@ type ListActiveProfessionalRow = {
   country: string | null;
   availability: unknown;
   professional_status: string | null;
+  // Week 3-4: Trust signals
+  verification_level?: string | null;
+  rating?: number | null;
+  review_count?: number | null;
+  on_time_rate?: number | null;
 };
 
 const DEFAULT_PRO_PHOTO =
@@ -38,6 +44,14 @@ function mapRowToDirectoryProfessional(row: ListActiveProfessionalRow): Director
     services.find((service) => Boolean(service.name))?.name ?? row.primary_services?.[0] ?? null;
   const hourlyRate =
     services.find((service) => typeof service.hourlyRateCop === "number")?.hourlyRateCop ?? null;
+
+  // Parse verification level
+  const verificationLevel: VerificationLevel =
+    row.verification_level === "basic" ||
+    row.verification_level === "enhanced" ||
+    row.verification_level === "background-check"
+      ? row.verification_level
+      : "none";
 
   return {
     id: row.profile_id,
@@ -54,6 +68,11 @@ function mapRowToDirectoryProfessional(row: ListActiveProfessionalRow): Director
     availableToday: computeAvailableToday(availability),
     photoUrl: DEFAULT_PRO_PHOTO,
     bio: row.bio,
+    // Week 3-4: Trust signals
+    verificationLevel,
+    rating: row.rating ?? 0,
+    reviewCount: row.review_count ?? 0,
+    onTimeRate: row.on_time_rate ?? 0,
   };
 }
 

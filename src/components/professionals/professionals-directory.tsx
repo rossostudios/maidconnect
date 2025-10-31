@@ -6,7 +6,14 @@ import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { Container } from "@/components/ui/container";
+import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
+import {
+  OnTimeRateBadge,
+  RatingBadge,
+  VerificationBadge,
+  type VerificationLevel,
+} from "./verification-badge";
 
 export type DirectoryProfessional = {
   id: string;
@@ -21,6 +28,11 @@ export type DirectoryProfessional = {
   availableToday: boolean;
   photoUrl: string;
   bio: string | null;
+  // Week 3-4 enhanced trust signals
+  verificationLevel?: VerificationLevel;
+  rating?: number;
+  reviewCount?: number;
+  onTimeRate?: number; // 0-100 percentage
 };
 
 function formatCurrencyCOP(value: number | null | undefined) {
@@ -46,6 +58,9 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
   const [ratingFilter, setRatingFilter] = useState("all");
   const [availableToday, setAvailableToday] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+
+  // Week 3-4 feature flag
+  const showEnhancedTrustBadges = useFeatureFlag("enhanced_trust_badges");
 
   const ratingOptions = [
     { value: "all", label: t("filters.allRatings") },
@@ -249,10 +264,32 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-2 font-semibold text-[#5a5549] text-xs">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1.5">
-                      <Star className="h-3.5 w-3.5 text-[#211f1a]" />
-                      {t("card.newBadge")}
-                    </span>
+                    {/* Enhanced trust badges (Week 3-4) */}
+                    {showEnhancedTrustBadges && (
+                      <>
+                        {professional.verificationLevel &&
+                          professional.verificationLevel !== "none" && (
+                            <VerificationBadge level={professional.verificationLevel} size="sm" />
+                          )}
+                        <RatingBadge
+                          rating={professional.rating ?? 0}
+                          reviewCount={professional.reviewCount ?? 0}
+                          size="sm"
+                        />
+                        {professional.onTimeRate !== undefined && professional.onTimeRate >= 75 && (
+                          <OnTimeRateBadge rate={professional.onTimeRate} size="sm" />
+                        )}
+                      </>
+                    )}
+
+                    {/* Legacy badges (shown when enhanced trust badges are disabled) */}
+                    {!showEnhancedTrustBadges && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1.5">
+                        <Star className="h-3.5 w-3.5 text-[#211f1a]" />
+                        {t("card.newBadge")}
+                      </span>
+                    )}
+
                     {professional.experienceYears !== null ? (
                       <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1.5">
                         <ShieldCheck className="h-3.5 w-3.5 text-[#211f1a]" />

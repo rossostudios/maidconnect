@@ -7,12 +7,14 @@ import { useState } from "react";
 import { BookingSheet } from "@/components/bookings/booking-sheet";
 
 import { LargeAvailabilityCalendar } from "@/components/bookings/large-availability-calendar";
+import { CompactPrice } from "@/components/pricing/price-breakdown";
 import type {
   ProfessionalBookingSummary,
   ProfessionalPortfolioImage,
   ProfessionalReviewSummary,
 } from "@/components/professionals/types";
 import { Container } from "@/components/ui/container";
+import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
 import type { AppUser } from "@/lib/auth/types";
 import { type AvailabilitySlot, type ProfessionalService } from "@/lib/professionals/transformers";
@@ -69,6 +71,9 @@ export function ProfessionalProfileView({
   const [activeTab, setActiveTab] = useState<"about" | "services" | "portfolio" | "reviews">(
     "about"
   );
+
+  // Week 3-4 feature flag
+  const showLivePriceBreakdown = useFeatureFlag("live_price_breakdown");
 
   const locationLabel = professional.location || "Colombia";
   const formattedRate = formatCurrencyCOP(professional.hourlyRateCop);
@@ -252,10 +257,23 @@ export function ProfessionalProfileView({
                               <div className="font-semibold text-[#211f1a] text-base">
                                 {service.name ?? t("servicesSection.serviceFallback")}
                               </div>
-                              <div className="font-semibold text-[#ff5d46] text-lg">
-                                {formatCurrencyCOP(service.hourlyRateCop) ??
-                                  t("servicesSection.rateOnRequest")}
-                              </div>
+                              {service.hourlyRateCop ? (
+                                showLivePriceBreakdown ? (
+                                  <CompactPrice
+                                    className="text-lg"
+                                    hourlyRate={service.hourlyRateCop}
+                                    showBreakdown={true}
+                                  />
+                                ) : (
+                                  <div className="font-semibold text-[#ff5d46] text-lg">
+                                    {formatCurrencyCOP(service.hourlyRateCop)}
+                                  </div>
+                                )
+                              ) : (
+                                <div className="font-semibold text-[#ff5d46] text-lg">
+                                  {t("servicesSection.rateOnRequest")}
+                                </div>
+                              )}
                             </div>
                             {service.description && (
                               <p className="mt-2 text-[#7d7566] text-base">{service.description}</p>

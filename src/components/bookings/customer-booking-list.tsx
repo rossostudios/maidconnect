@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { CancelBookingModal } from "./cancel-booking-modal";
+import { DisputeModal, isWithinDisputeWindow } from "./dispute-modal";
 import { RescheduleBookingModal } from "./reschedule-booking-modal";
 
 export type CustomerBooking = {
@@ -15,6 +16,7 @@ export type CustomerBooking = {
   amount_captured: number | null;
   currency: string | null;
   created_at: string;
+  completed_at?: string | null; // Week 3-4: For dispute window calculation
   professional: { full_name: string | null; profile_id: string } | null;
 };
 
@@ -96,6 +98,10 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
   const t = useTranslations("dashboard.customer.bookingList");
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [showRescheduleModal, setShowRescheduleModal] = useState(false);
+  const [showDisputeModal, setShowDisputeModal] = useState(false);
+
+  // Week 3-4: Check if booking is within 48-hour dispute window
+  const canReportIssue = isWithinDisputeWindow(booking, booking.completed_at);
 
   const scheduled = booking.scheduled_start
     ? new Date(booking.scheduled_start).toLocaleString("en-US", {
@@ -190,6 +196,15 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
               >
                 {t("card.actions.leaveReview")}
               </button>
+              {canReportIssue && (
+                <button
+                  className="inline-flex items-center justify-center rounded-full border-2 border-orange-200 px-5 py-2.5 font-semibold text-orange-700 text-sm transition hover:bg-orange-50"
+                  onClick={() => setShowDisputeModal(true)}
+                  type="button"
+                >
+                  Report Issue
+                </button>
+              )}
               <button
                 className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
                 type="button"
@@ -213,6 +228,13 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
         booking={booking}
         isOpen={showRescheduleModal}
         onClose={() => setShowRescheduleModal(false)}
+      />
+
+      {/* Dispute Modal - Week 3-4 */}
+      <DisputeModal
+        booking={booking}
+        isOpen={showDisputeModal}
+        onClose={() => setShowDisputeModal(false)}
       />
     </div>
   );
