@@ -2034,6 +2034,7 @@
   },
   "changelog": {
     "title": "What's New",
+    "whatsNew": "What's New",
     "viewAllUpdates": "View All Updates",
     "gotIt": "Got it!",
     "marking": "Marking as read...",

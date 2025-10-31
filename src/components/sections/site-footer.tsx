@@ -111,6 +111,9 @@ export function SiteFooter() {
                 <Link className="transition hover:text-[#ff5d46]" href="/support/account-suspended">
                   {t("cookies")}
                 </Link>
+                <Link className="transition hover:text-[#ff5d46]" href="/changelog">
+                  What's New
+                </Link>
               </div>
               <div className="flex items-center gap-4">
                 <KeyboardShortcutsButton variant="dark" />

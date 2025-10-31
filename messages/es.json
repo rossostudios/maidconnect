@@ -2034,6 +2034,7 @@
   },
   "changelog": {
     "title": "Qué hay de nuevo",
+    "whatsNew": "Qué hay de nuevo",
     "viewAllUpdates": "Ver todas las actualizaciones",
     "gotIt": "¡Entendido!",
     "marking": "Marcando como leído...",

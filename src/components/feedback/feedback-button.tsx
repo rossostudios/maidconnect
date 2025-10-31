@@ -15,6 +15,7 @@ export function FeedbackButton() {
     <>
       {/* Floating Button */}
       <button
+        data-feedback-button
         className="group fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-[#ff5d46] px-4 py-3 font-semibold text-white shadow-lg transition hover:bg-[#e54d36] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#ff5d46] focus:ring-offset-2 sm:px-5 sm:py-4"
         onClick={() => setIsOpen(true)}
         type="button"
