@@ -59,7 +59,7 @@ export function SubscriptionPricingSelector({
             >
               {/* Recommended Badge */}
               {isRecommended && (
-                <div className="-right-1 -top-1 absolute rounded-full bg-[#ff5d46] px-2 py-0.5 font-semibold text-white text-xs">
+                <div className="-right-1 -top-1 absolute rounded-full bg-[#ff5d46] px-2 py-1 font-semibold text-white text-xs">
                   Recommended
                 </div>
               )}

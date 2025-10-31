@@ -55,9 +55,9 @@ export function ProductBottomSheet({ isOpen, onClose, features }: Props) {
         onClick={onClose}
       />
 
-      {/* Bottom Sheet */}
+      {/* Bottom Sheet - Optimized for landscape */}
       <div
-        className={`fixed right-0 bottom-0 left-0 z-50 max-h-[85vh] overflow-y-auto rounded-t-3xl bg-white shadow-2xl transition-transform duration-300 ease-out ${
+        className={`fixed right-0 bottom-0 left-0 z-50 max-h-[85vh] overflow-y-auto rounded-t-3xl bg-white shadow-2xl transition-transform duration-300 ease-out landscape:left-1/2 landscape:right-auto landscape:max-w-2xl landscape:-translate-x-1/2 landscape:rounded-2xl ${
           isOpen ? "translate-y-0" : "translate-y-full"
         }`}
       >
@@ -66,7 +66,7 @@ export function ProductBottomSheet({ isOpen, onClose, features }: Props) {
           <h2 className="font-semibold text-[#211f1a] text-lg">Product Features</h2>
           <button
             aria-label="Close product menu"
-            className="flex h-10 w-10 items-center justify-center rounded-full text-[#524d43] transition hover:bg-[#ebe5d8]"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-[#524d43] transition hover:bg-[#ebe5d8] active:scale-95"
             onClick={onClose}
             type="button"
           >
@@ -74,9 +74,9 @@ export function ProductBottomSheet({ isOpen, onClose, features }: Props) {
           </button>
         </div>
 
-        {/* Features List */}
+        {/* Features List - Grid in landscape */}
         <div className="p-6">
-          <div className="space-y-3">
+          <div className="space-y-3 landscape:grid landscape:grid-cols-2 landscape:gap-3 landscape:space-y-0">
             {features.map((feature) => (
               <Link
                 className="group flex flex-col gap-2 rounded-2xl border border-[#ebe5d8] bg-white p-5 transition hover:border-[#ff5d46] hover:bg-[#fff5f2] active:scale-[0.98]"

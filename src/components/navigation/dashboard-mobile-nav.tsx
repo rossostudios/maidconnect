@@ -91,7 +91,7 @@ export function DashboardMobileNav({
             // Button for notifications
             return (
               <button
-                className="relative flex flex-1 flex-col items-center justify-center gap-1 py-3 transition-colors"
+                className="relative flex flex-1 flex-col items-center justify-center gap-1 py-3 transition-colors active:scale-95"
                 key={item.label}
                 onClick={item.onClick}
                 type="button"
@@ -101,13 +101,13 @@ export function DashboardMobileNav({
                     className={`h-6 w-6 ${isItemActive ? "text-[#ff5d46]" : "text-[#7a6d62]"}`}
                   />
                   {item.badge !== undefined && item.badge > 0 && (
-                    <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#ff5d46] px-1 font-bold text-[9px] text-white">
+                    <span className="absolute -top-1 -right-1 flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[#ff5d46] px-1.5 font-bold text-[10px] text-white">
                       {item.badge > 9 ? "9+" : item.badge}
                     </span>
                   )}
                 </div>
                 <span
-                  className={`text-[10px] ${isItemActive ? "font-semibold text-[#ff5d46]" : "text-[#7a6d62]"}`}
+                  className={`text-xs ${isItemActive ? "font-semibold text-[#ff5d46]" : "text-[#7a6d62]"}`}
                 >
                   {item.label}
                 </span>
@@ -118,7 +118,7 @@ export function DashboardMobileNav({
           // Link for navigation items
           return (
             <Link
-              className="relative flex flex-1 flex-col items-center justify-center gap-1 py-3 transition-colors"
+              className="relative flex flex-1 flex-col items-center justify-center gap-1 py-3 transition-colors active:scale-95"
               href={item.href!}
               key={item.label}
             >
@@ -127,13 +127,13 @@ export function DashboardMobileNav({
                   className={`h-6 w-6 ${isItemActive ? "text-[#ff5d46]" : "text-[#7a6d62]"}`}
                 />
                 {item.badge !== undefined && item.badge > 0 && (
-                  <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#ff5d46] px-1 font-bold text-[9px] text-white">
+                  <span className="absolute -top-1 -right-1 flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[#ff5d46] px-1.5 font-bold text-[10px] text-white">
                     {item.badge > 9 ? "9+" : item.badge}
                   </span>
                 )}
               </div>
               <span
-                className={`text-[10px] ${isItemActive ? "font-semibold text-[#ff5d46]" : "text-[#7a6d62]"}`}
+                className={`text-xs ${isItemActive ? "font-semibold text-[#ff5d46]" : "text-[#7a6d62]"}`}
               >
                 {item.label}
               </span>

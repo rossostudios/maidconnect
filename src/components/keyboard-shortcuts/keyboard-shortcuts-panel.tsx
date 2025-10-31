@@ -171,7 +171,7 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
         <div className="absolute right-0 bottom-0 left-0 border-[#dcd6c7] border-t bg-[#fefcf9] px-6 py-4">
           <p className="text-[#7a6d62] text-xs">
             Press{" "}
-            <kbd className="rounded border border-[#dcd6c7] bg-white px-1.5 py-0.5 font-mono text-[10px]">
+            <kbd className="rounded border border-[#dcd6c7] bg-white px-1.5 py-1 font-mono text-xs">
               ?
             </kbd>{" "}
             to toggle this panel

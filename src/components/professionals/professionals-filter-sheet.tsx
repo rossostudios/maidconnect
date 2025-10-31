@@ -109,9 +109,9 @@ export function ProfessionalsFilterSheet({
         onClick={onClose}
       />
 
-      {/* Bottom Sheet */}
+      {/* Bottom Sheet - Optimized for landscape */}
       <div
-        className={`fixed right-0 bottom-0 left-0 z-50 max-h-[90vh] overflow-y-auto rounded-t-3xl bg-white shadow-2xl transition-transform duration-300 ease-out ${
+        className={`fixed right-0 bottom-0 left-0 z-50 max-h-[90vh] overflow-y-auto rounded-t-3xl bg-white shadow-2xl transition-transform duration-300 ease-out landscape:left-1/2 landscape:right-auto landscape:max-w-xl landscape:-translate-x-1/2 landscape:rounded-2xl ${
           isOpen ? "translate-y-0" : "translate-y-full"
         }`}
       >
@@ -128,7 +128,7 @@ export function ProfessionalsFilterSheet({
           </div>
           <button
             aria-label="Close filters"
-            className="flex h-10 w-10 items-center justify-center rounded-full text-[#524d43] transition hover:bg-[#ebe5d8]"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-[#524d43] transition hover:bg-[#ebe5d8] active:scale-95"
             onClick={onClose}
             type="button"
           >
@@ -215,14 +215,14 @@ export function ProfessionalsFilterSheet({
         <div className="sticky bottom-0 border-t border-[#ebe5d8] bg-white p-6">
           <div className="flex gap-3">
             <button
-              className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3.5 font-semibold text-[#211f1a] text-base transition hover:border-[#211f1a]"
+              className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3.5 font-semibold text-[#211f1a] text-base transition hover:border-[#211f1a] active:scale-95"
               onClick={handleReset}
               type="button"
             >
               {t("filters.reset")}
             </button>
             <button
-              className="flex-1 rounded-full bg-[#ff5d46] px-6 py-3.5 font-semibold text-base text-white transition hover:bg-[#eb6c65]"
+              className="flex-1 rounded-full bg-[#ff5d46] px-6 py-3.5 font-semibold text-base text-white transition hover:bg-[#eb6c65] active:scale-95"
               onClick={handleApply}
               type="button"
             >

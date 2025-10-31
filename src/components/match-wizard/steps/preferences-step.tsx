@@ -152,7 +152,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
                         {level.label}
                       </span>
                       {level.recommended && (
-                        <span className="rounded-full bg-[#ff5d46] px-2 py-0.5 font-semibold text-white text-xs">
+                        <span className="rounded-full bg-[#ff5d46] px-2 py-1 font-semibold text-white text-xs">
                           Recommended
                         </span>
                       )}

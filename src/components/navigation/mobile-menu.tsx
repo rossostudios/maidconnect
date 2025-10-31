@@ -30,7 +30,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
       {/* Hamburger Button */}
       <button
         aria-label={isOpen ? "Close menu" : "Open menu"}
-        className="flex h-11 w-11 items-center justify-center rounded-lg text-[#211f1a] transition hover:bg-[#ebe5d8] md:hidden"
+        className="flex h-11 w-11 items-center justify-center rounded-lg text-[#211f1a] transition hover:bg-[#ebe5d8] active:scale-95 md:hidden"
         onClick={toggleMenu}
         type="button"
       >
@@ -57,7 +57,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
           <span className="font-semibold text-[#211f1a] text-lg">Menu</span>
           <button
             aria-label="Close menu"
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-[#211f1a] transition hover:bg-[#ebe5d8]"
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-[#211f1a] transition hover:bg-[#ebe5d8] active:scale-95"
             onClick={closeMenu}
             type="button"
           >
@@ -97,7 +97,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
                 </Link>
               )}
               <button
-                className="mt-3 rounded-lg border-2 border-[#ebe5d8] px-4 py-3 text-center font-semibold text-[#211f1a] text-base transition hover:border-[#211f1a]"
+                className="mt-3 rounded-lg border-2 border-[#ebe5d8] px-4 py-3 text-center font-semibold text-[#211f1a] text-base transition hover:border-[#211f1a] active:scale-95"
                 onClick={() => {
                   onSignOut?.();
                   closeMenu();

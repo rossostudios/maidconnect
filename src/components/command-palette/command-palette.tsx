@@ -321,19 +321,19 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
           <div className="flex items-center justify-between border-[#dcd6c7] border-t px-4 py-3 text-[#7a6d62] text-xs">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1.5">
-                <kbd className="rounded border border-[#dcd6c7] bg-[#f5f0e8] px-1.5 py-0.5 font-mono text-[10px]">
+                <kbd className="rounded border border-[#dcd6c7] bg-[#f5f0e8] px-1.5 py-1 font-mono text-xs">
                   ↑↓
                 </kbd>
                 <span>Navigate</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <kbd className="rounded border border-[#dcd6c7] bg-[#f5f0e8] px-1.5 py-0.5 font-mono text-[10px]">
+                <kbd className="rounded border border-[#dcd6c7] bg-[#f5f0e8] px-1.5 py-1 font-mono text-xs">
                   ↵
                 </kbd>
                 <span>Select</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <kbd className="rounded border border-[#dcd6c7] bg-[#f5f0e8] px-1.5 py-0.5 font-mono text-[10px]">
+                <kbd className="rounded border border-[#dcd6c7] bg-[#f5f0e8] px-1.5 py-1 font-mono text-xs">
                   Esc
                 </kbd>
                 <span>Close</span>
