@@ -159,7 +159,7 @@ export function ProBookingList({ bookings }: Props) {
         </div>
       )}
 
-      {/* Other Bookings - Use table view */}
+      {/* Other Bookings - Table view (Desktop) */}
       {otherBookings.length > 0 && (
         <div>
           <h3 className="mb-4 font-semibold text-[#7a6d62] text-sm uppercase tracking-wide">
@@ -167,7 +167,9 @@ export function ProBookingList({ bookings }: Props) {
               ? t("sections.otherBookings")
               : t("sections.allBookings")}
           </h3>
-          <div className="overflow-hidden rounded-2xl border border-[#ebe5d8]">
+
+          {/* Desktop Table View - Hidden on mobile */}
+          <div className="hidden overflow-hidden rounded-2xl border border-[#ebe5d8] md:block">
             <table className="min-w-full divide-y divide-[#ebe5d8] text-sm">
               <thead className="bg-[#fbfafa] text-[#7a6d62] text-xs uppercase tracking-wide">
                 <tr>
@@ -282,6 +284,142 @@ export function ProBookingList({ bookings }: Props) {
                 })}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile Card View - Hidden on desktop */}
+          <div className="space-y-4 md:hidden">
+            {otherBookings.map((booking) => {
+              const scheduled = booking.scheduled_start
+                ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  })
+                : "—";
+
+              const amountDisplay = booking.amount_authorized
+                ? new Intl.NumberFormat("es-CO", {
+                    style: "currency",
+                    currency: "COP",
+                    maximumFractionDigits: 0,
+                  }).format(booking.amount_authorized)
+                : "—";
+
+              const showAcceptDecline = booking.status === "authorized";
+              const showCapture = booking.status === "confirmed";
+              const showVoid = booking.status === "confirmed";
+
+              return (
+                <div
+                  className="rounded-2xl border border-[#ebe5d8] bg-white p-5 shadow-sm"
+                  key={booking.id}
+                >
+                  {/* Header: Booking ID and Status */}
+                  <div className="mb-4 flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-[#7a6d62] text-xs uppercase tracking-wide">
+                        {t("table.booking")}
+                      </p>
+                      <p className="mt-1 font-semibold text-[#211f1a] text-base">
+                        {booking.id.slice(0, 8)}
+                      </p>
+                    </div>
+                    <span
+                      className={`inline-flex items-center rounded-full px-3 py-1.5 font-semibold text-xs ${
+                        booking.status === "authorized"
+                          ? "bg-yellow-100 text-yellow-800"
+                          : booking.status === "confirmed"
+                            ? "bg-green-100 text-green-800"
+                            : booking.status === "declined"
+                              ? "bg-red-100 text-red-800"
+                              : "bg-[#ff5d46]/10 text-[#8a3934]"
+                      }`}
+                    >
+                      {booking.status.replace(/_/g, " ")}
+                    </span>
+                  </div>
+
+                  {/* Service and Details */}
+                  <div className="space-y-3 border-[#f0e8dc] border-t pt-4">
+                    <div className="flex justify-between">
+                      <span className="text-[#7a6d62] text-sm">{t("table.service")}</span>
+                      <span className="font-medium text-[#211f1a] text-sm">
+                        {booking.service_name || "—"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-[#7a6d62] text-sm">{t("table.scheduled")}</span>
+                      <span className="text-right font-medium text-[#211f1a] text-sm">
+                        {scheduled}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-[#7a6d62] text-sm">{t("table.amount")}</span>
+                      <span className="font-semibold text-[#211f1a] text-base">
+                        {amountDisplay}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  {(showAcceptDecline || showCapture || showVoid) && (
+                    <div className="mt-4 border-[#f0e8dc] border-t pt-4">
+                      {showAcceptDecline && (
+                        <div className="grid grid-cols-2 gap-3">
+                          <button
+                            className="inline-flex items-center justify-center rounded-xl bg-green-600 px-4 py-3 font-semibold text-white text-sm shadow-sm transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-70"
+                            disabled={loadingId !== null}
+                            onClick={() => handleAction(booking, "accept")}
+                            type="button"
+                          >
+                            {loadingId === `${booking.id}-accept`
+                              ? t("actions.accepting")
+                              : t("actions.accept")}
+                          </button>
+                          <button
+                            className="inline-flex items-center justify-center rounded-xl border-2 border-red-300 bg-white px-4 py-3 font-semibold text-red-700 text-sm transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-70"
+                            disabled={loadingId !== null}
+                            onClick={() => handleAction(booking, "decline")}
+                            type="button"
+                          >
+                            {loadingId === `${booking.id}-decline`
+                              ? t("actions.declining")
+                              : t("actions.decline")}
+                          </button>
+                        </div>
+                      )}
+                      {(showCapture || showVoid) && (
+                        <div className="flex flex-col gap-3">
+                          {showCapture && (
+                            <button
+                              className="inline-flex items-center justify-center rounded-xl bg-[#ff5d46] px-4 py-3 font-semibold text-white text-sm shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+                              disabled={loadingId !== null}
+                              onClick={() => handleAction(booking, "capture")}
+                              type="button"
+                            >
+                              {loadingId === `${booking.id}-capture`
+                                ? t("actions.capturing")
+                                : t("actions.capture")}
+                            </button>
+                          )}
+                          {showVoid && (
+                            <button
+                              className="inline-flex items-center justify-center rounded-xl border-2 border-[#ebe5d8] bg-white px-4 py-3 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
+                              disabled={loadingId !== null}
+                              onClick={() => handleAction(booking, "void")}
+                              type="button"
+                            >
+                              {loadingId === `${booking.id}-void`
+                                ? t("actions.canceling")
+                                : t("actions.cancelHold")}
+                            </button>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

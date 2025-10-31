@@ -172,9 +172,10 @@ export function PaymentHistoryTable({ bookings }: Props) {
 
   return (
     <div className="space-y-4">
-      {/* Table */}
+      {/* Table - Horizontally scrollable on mobile */}
       <div className="overflow-hidden rounded-lg border border-[#ebe5d8]">
-        <table className="w-full">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[640px]">
           <thead className="bg-[#fbfaf9]">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
@@ -220,26 +221,29 @@ export function PaymentHistoryTable({ bookings }: Props) {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
 
-      {/* Pagination */}
+      {/* Pagination - Touch-friendly on mobile */}
       {table.getPageCount() > 1 && (
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
           <div className="text-[#7d7566] text-sm">
             Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
           </div>
           <div className="flex items-center gap-2">
             <button
-              className="rounded-lg border border-[#ebe5d8] px-3 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:opacity-50"
+              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:opacity-50"
               disabled={!table.getCanPreviousPage()}
               onClick={() => table.previousPage()}
+              type="button"
             >
               Previous
             </button>
             <button
-              className="rounded-lg border border-[#ebe5d8] px-3 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:opacity-50"
+              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:opacity-50"
               disabled={!table.getCanNextPage()}
               onClick={() => table.nextPage()}
+              type="button"
             >
               Next
             </button>
