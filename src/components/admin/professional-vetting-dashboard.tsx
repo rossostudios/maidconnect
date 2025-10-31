@@ -75,9 +75,11 @@ export function ProfessionalVettingDashboard() {
     }
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: fetchQueue is intentionally excluded to prevent infinite re-renders
   useEffect(() => {
     fetchQueue();
-  }, [fetchQueue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleReviewComplete = () => {
     setSelectedProfessional(null);
