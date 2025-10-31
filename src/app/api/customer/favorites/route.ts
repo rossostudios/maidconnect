@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-
 /**
  * Get customer's favorite professionals
  * GET /api/customer/favorites

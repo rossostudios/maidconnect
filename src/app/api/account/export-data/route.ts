@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { checkRateLimit, getClientIdentifier, RateLimiters } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const dynamic = "force-dynamic";
-
 /**
  * Data Export API - Required by Ley 1581 de 2012 (Colombian Data Protection Law)
  *

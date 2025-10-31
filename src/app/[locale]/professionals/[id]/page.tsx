@@ -208,8 +208,6 @@ async function fetchProfessional(profileId: string): Promise<ProfessionalProfile
   return professional;
 }
 
-export const dynamic = "force-dynamic";
-
 export async function generateMetadata({ params }: RouteParams): Promise<Metadata> {
   const { id: rawId, locale } = await params;
   const t = await getTranslations({ locale, namespace: "pages.professionalProfile.meta" });

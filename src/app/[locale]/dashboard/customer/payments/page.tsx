@@ -11,7 +11,6 @@ const PaymentHistoryTable = dynamic(
       default: mod.PaymentHistoryTable,
     })),
   {
-    ssr: false,
     loading: () => (
       <div className="h-[400px] w-full animate-pulse rounded-lg bg-gradient-to-br from-[#ebe5d8]/30 to-[#ebe5d8]/10" />
     ),

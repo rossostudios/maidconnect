@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 
-export const dynamic = "force-dynamic";
-
 /**
  * Automatic Payout Processing Cron Job
  * Runs twice weekly: Tuesday and Friday at 10:00 AM Colombia time

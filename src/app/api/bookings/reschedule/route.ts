@@ -3,9 +3,6 @@ import { NextResponse } from "next/server";
 import { sendBookingRescheduleEmail } from "@/lib/email/send";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-
 type RescheduleBookingRequest = {
   bookingId: string;
   newScheduledStart: string; // ISO 8601 datetime

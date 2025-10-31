@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/admin-helpers";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-
 /**
  * Get all changelogs (including drafts) for admin
  * GET /api/admin/changelog/list?page=1&limit=20&visibility=all

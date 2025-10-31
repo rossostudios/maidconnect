@@ -388,7 +388,7 @@ type FormFieldProps = {
 
 function FormField({ label, children, helper, error, characterCount }: FormFieldProps) {
   const t = useTranslations("dashboard.pro.profileBuildForm");
-  const childId = (children as React.ReactElement)?.props?.id;
+  const childId = (children as React.ReactElement<{ id?: string }>)?.props?.id;
 
   return (
     <div className="space-y-3">

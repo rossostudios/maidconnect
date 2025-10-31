@@ -7,7 +7,6 @@ import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 
 // Revalidate daily (86400 seconds) - contact page is mostly static
-export const revalidate = 86_400;
 
 type Props = {
   params: Promise<{ locale: string }>;

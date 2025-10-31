@@ -8,8 +8,6 @@ import {
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const dynamic = "force-dynamic";
-
 /**
  * Process payouts for professionals
  * POST /api/admin/payouts/process

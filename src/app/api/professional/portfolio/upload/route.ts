@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const dynamic = "force-dynamic";
-
 const BUCKET_NAME = "portfolio-images";
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 

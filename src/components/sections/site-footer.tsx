@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { Facebook, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { KeyboardShortcutsButton } from "@/components/keyboard-shortcuts/keyboard-shortcuts-button";
@@ -13,6 +14,8 @@ const socialLinks = [
 ];
 
 export async function SiteFooter() {
+  // Access dynamic data first to prevent prerendering issues with Date
+  await headers();
   const t = await getTranslations("footer");
   const year = new Date().getFullYear();
 

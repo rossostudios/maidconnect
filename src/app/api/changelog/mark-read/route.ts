@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-
 /**
  * Mark changelog as read/dismissed
  * POST /api/changelog/mark-read

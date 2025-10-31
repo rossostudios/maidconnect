@@ -7,7 +7,6 @@ import { SiteHeader } from "@/components/sections/site-header";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 
 // Revalidate every hour (3600 seconds)
-export const revalidate = 3600;
 
 export default function Home() {
   return (

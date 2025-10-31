@@ -7,9 +7,6 @@ import {
 } from "@/lib/email/send";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-
 /**
  * Review professional application
  * POST /api/admin/professionals/review

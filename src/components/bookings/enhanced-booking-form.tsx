@@ -886,7 +886,6 @@ function PaymentConfirmation({
           className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={submitting}
           onClick={handleConfirm}
-          type="button"
         >
           {submitting ? "Confirming..." : "Confirm Booking"}
         </button>
@@ -895,7 +894,6 @@ function PaymentConfirmation({
           className="rounded-md border border-[#e5dfd4] px-6 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={submitting}
           onClick={onReset}
-          type="button"
         >
           Cancel
         </button>

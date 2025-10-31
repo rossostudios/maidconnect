@@ -78,7 +78,6 @@ function mapRowToDirectoryProfessional(row: ListActiveProfessionalRow): Director
 }
 
 // Revalidate every 5 minutes (300 seconds) - balance freshness with performance
-export const revalidate = 300;
 
 // Next.js 16: unstable_cache for server-side data caching
 // Benefits:

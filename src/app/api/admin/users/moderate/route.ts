@@ -3,9 +3,6 @@ import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
 import { sendAccountRestorationEmail, sendAccountSuspensionEmail } from "@/lib/email/send";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-
 /**
  * User moderation actions
  * POST /api/admin/users/moderate

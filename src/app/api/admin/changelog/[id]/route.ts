@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-
 /**
  * Get changelog by ID
  * GET /api/admin/changelog/[id]

@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 // Note: This endpoint uses Node.js runtime because web-push doesn't work in edge runtime
-export const runtime = "nodejs";
 
 // Send push notification to user(s)
 export async function POST(request: NextRequest) {

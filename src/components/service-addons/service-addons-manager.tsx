@@ -366,14 +366,12 @@ function AddonForm({
           type="button"
           className="rounded-md border border-[#e5dfd4] px-4 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           onClick={onCancel}
-          type="button"
         >
           {t("form.cancel")}
         </button>
         <button
-          type="button"
-          className="rounded-md bg-[#ff5d46] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65]"
           type="submit"
+          className="rounded-md bg-[#ff5d46] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65]"
         >
           {addon ? t("form.saveChanges") : t("form.createAddon")}
         </button>

@@ -3,8 +3,6 @@ import { sendBookingDeclinedEmail } from "@/lib/email/send";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const dynamic = "force-dynamic";
-
 /**
  * Auto-decline bookings that have been in "authorized" status for more than 24 hours
  * This endpoint should be called by Vercel Cron

@@ -222,7 +222,7 @@ type FieldProps = {
 };
 
 function Field({ label, children, helper, error }: FieldProps) {
-  const childId = (children as React.ReactElement)?.props?.id;
+  const childId = (children as React.ReactElement<{ id?: string }>)?.props?.id;
 
   return (
     <div className="space-y-3">

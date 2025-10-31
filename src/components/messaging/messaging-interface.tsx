@@ -482,7 +482,6 @@ export function MessagingInterface({ userId, userRole }: Props) {
                           : "text-[#7d7566] hover:bg-[#ebe5d8]"
                       }`}
                       onClick={() => setTranslationEnabled(!translationEnabled)}
-                      type="button"
                     >
                       <Languages className="h-4 w-4" />
                       {translationEnabled ? "Translation On" : "Translate"}
@@ -728,10 +727,9 @@ function MessageInput({
           value={message}
         />
         <button
-          type="button"
+          type="submit"
           className="rounded-full bg-[#ff5d46] px-6 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!message.trim() || isSending}
-          type="submit"
         >
           {isSending ? "Sending..." : "Send"}
         </button>

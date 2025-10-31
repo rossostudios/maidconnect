@@ -2,20 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/admin-helpers";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-
 /**
  * Get all feedback submissions for admin
  * GET /api/feedback/admin/list?page=1&limit=20&status=new&type=bug
  */
 export async function GET(request: NextRequest) {
   try {
+    // Access request data first to ensure dynamic rendering
+    const searchParams = request.nextUrl.searchParams;
+
     // Verify admin access
     await requireAdmin();
     const supabase = await createSupabaseServerClient();
-
-    const searchParams = request.nextUrl.searchParams;
     const page = Number.parseInt(searchParams.get("page") || "1", 10);
     const limit = Math.min(Number.parseInt(searchParams.get("limit") || "20", 10), 100);
     const status = searchParams.get("status");

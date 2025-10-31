@@ -252,7 +252,6 @@ export function AvailabilityCalendar({
                       onTimeSelect(null); // Reset time when date changes
                     }
                   }}
-                  type="button"
                 >
                   <div className="flex h-full flex-col">
                     <span className="text-sm">{day.getDate()}</span>
@@ -318,7 +317,6 @@ export function AvailabilityCalendar({
                   `}
                     key={time}
                     onClick={() => onTimeSelect(time)}
-                    type="button"
                   >
                     {formatTime(time)}
                   </button>

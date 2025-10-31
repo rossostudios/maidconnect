@@ -256,7 +256,6 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
                         handleDateClick(day, availability);
                       }
                     }}
-                    type="button"
                   >
                     <div className="flex items-start justify-between">
                       <span className={`font-semibold text-2xl ${isToday ? "text-[#ff5d46]" : ""}`}>

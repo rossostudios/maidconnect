@@ -9,8 +9,6 @@ import {
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const dynamic = "force-dynamic";
-
 type CheckOutRequest = {
   bookingId: string;
   latitude: number;

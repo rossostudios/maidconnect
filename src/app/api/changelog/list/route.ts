@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-
 /**
  * Get paginated list of published changelogs
  * GET /api/changelog/list?page=1&limit=10&category=features

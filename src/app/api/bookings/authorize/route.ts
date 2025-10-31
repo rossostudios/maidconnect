@@ -4,8 +4,6 @@ import { notifyCustomerBookingConfirmed, notifyProfessionalNewBooking } from "@/
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const dynamic = "force-dynamic";
-
 type AuthorizeBody = {
   bookingId: string;
   paymentIntentId: string;

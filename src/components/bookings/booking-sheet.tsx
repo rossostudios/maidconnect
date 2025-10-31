@@ -231,7 +231,6 @@ export function BookingSheet({
             aria-label="Close booking sheet"
             className="flex h-11 w-11 items-center justify-center rounded-full text-[#7d7566] transition hover:bg-[#f0ece5]"
             onClick={onClose}
-            type="button"
           >
             <X className="h-6 w-6" />
           </button>
@@ -260,7 +259,6 @@ export function BookingSheet({
                       key={time}
                       onClick={() => handleTimeSelect(time)}
                       style={{ animationDelay: `${index * 30}ms` }}
-                      type="button"
                     >
                       {formatTime(time)}
                     </button>
@@ -334,7 +332,6 @@ export function BookingSheet({
                         durationHours: Math.max(1, bookingData.durationHours - 1),
                       })
                     }
-                    type="button"
                   >
                     <Minus className="h-5 w-5" />
                   </button>
@@ -351,7 +348,6 @@ export function BookingSheet({
                         durationHours: Math.min(12, bookingData.durationHours + 1),
                       })
                     }
-                    type="button"
                   >
                     <Plus className="h-5 w-5" />
                   </button>
@@ -481,7 +477,6 @@ export function BookingSheet({
                   type="button"
                   className="order-2 rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] md:order-1"
                   onClick={() => setCurrentStep("time")}
-                  type="button"
                 >
                   Back
                 </button>
@@ -494,7 +489,6 @@ export function BookingSheet({
                     !(bookingData.address || bookingData.customAddress)
                   }
                   onClick={handleSubmit}
-                  type="button"
                 >
                   {loading ? "Creating booking..." : "Continue to payment"}
                 </button>
@@ -595,7 +589,6 @@ function PaymentStep({
           className="order-2 rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50 md:order-1"
           disabled={submitting}
           onClick={onBack}
-          type="button"
         >
           Back
         </button>
@@ -604,7 +597,6 @@ function PaymentStep({
           className="order-1 flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
           disabled={submitting}
           onClick={handleConfirm}
-          type="button"
         >
           {submitting ? "Confirming..." : "Confirm booking"}
         </button>

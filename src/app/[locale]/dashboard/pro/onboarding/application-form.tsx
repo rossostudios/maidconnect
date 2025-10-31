@@ -295,7 +295,7 @@ type FormFieldProps = {
 };
 
 function FormField({ label, children, helper, error, className }: FormFieldProps) {
-  const childId = (children as React.ReactElement)?.props?.id;
+  const childId = (children as React.ReactElement<{ id?: string }>)?.props?.id;
 
   return (
     <div className={cn("space-y-3", className)}>

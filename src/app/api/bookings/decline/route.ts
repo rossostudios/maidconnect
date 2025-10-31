@@ -4,8 +4,6 @@ import { notifyCustomerBookingDeclined } from "@/lib/notifications";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const dynamic = "force-dynamic";
-
 type DeclineBookingRequest = {
   bookingId: string;
   reason?: string;

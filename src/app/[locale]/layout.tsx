@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
@@ -90,11 +91,13 @@ export default async function RootLayout({
         <ErrorBoundary>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <ChangelogBanner />
-            <SupabaseProvider>
-              <QueryProvider>
-                <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
-              </QueryProvider>
-            </SupabaseProvider>
+            <Suspense fallback={<div>Loading...</div>}>
+              <SupabaseProvider>
+                <QueryProvider>
+                  <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
+                </QueryProvider>
+              </SupabaseProvider>
+            </Suspense>
             <FeedbackButton />
             <CookieConsent />
           </NextIntlClientProvider>

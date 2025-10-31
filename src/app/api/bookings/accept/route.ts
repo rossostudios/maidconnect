@@ -3,9 +3,6 @@ import { sendBookingConfirmedEmail } from "@/lib/email/send";
 import { notifyCustomerBookingAccepted } from "@/lib/notifications";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-
 type AcceptBookingRequest = {
   bookingId: string;
 };

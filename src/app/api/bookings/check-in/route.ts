@@ -4,9 +4,6 @@ import { logger } from "@/lib/logger";
 import { notifyCustomerServiceStarted } from "@/lib/notifications";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-
 type CheckInRequest = {
   bookingId: string;
   latitude: number;
