@@ -258,6 +258,16 @@ export const RateLimiters = {
     windowMs: 60 * 1000, // 1 minute
     message: "Too many messages. Please slow down.",
   },
+
+  /**
+   * Strict rate limit for feedback submissions
+   * 5 requests per hour
+   */
+  feedback: {
+    maxRequests: 5,
+    windowMs: 60 * 60 * 1000, // 1 hour
+    message: "Too many feedback submissions. Please try again in 1 hour.",
+  },
 } as const;
 
 // ============================================
@@ -273,11 +283,13 @@ let upstashLimiters: {
   api: Ratelimit | null;
   booking: Ratelimit | null;
   messaging: Ratelimit | null;
+  feedback: Ratelimit | null;
 } = {
   auth: null,
   api: null,
   booking: null,
   messaging: null,
+  feedback: null,
 };
 
 // Only initialize Upstash in production or if explicitly configured
@@ -320,6 +332,14 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
         analytics: true,
         prefix: "maidconnect:ratelimit:messaging",
       }),
+
+      // Feedback: 5 requests per hour
+      feedback: new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(5, "1 h"),
+        analytics: true,
+        prefix: "maidconnect:ratelimit:feedback",
+      }),
     };
 
     console.log("✓ Upstash Redis rate limiting initialized");
@@ -334,7 +354,7 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
  */
 export async function rateLimit(
   request: Request,
-  type: "auth" | "api" | "booking" | "messaging" = "api"
+  type: "auth" | "api" | "booking" | "messaging" | "feedback" = "api"
 ): Promise<RateLimitResult> {
   const identifier = getClientIdentifier(request);
   const limiter = upstashLimiters[type];
@@ -409,7 +429,7 @@ export function createRateLimitResponse(result: RateLimitResult): Response {
  */
 export function withRateLimit<
   T extends (request: Request, ...args: unknown[]) => Promise<Response>,
->(handler: T, type: "auth" | "api" | "booking" | "messaging" = "api"): T {
+>(handler: T, type: "auth" | "api" | "booking" | "messaging" | "feedback" = "api"): T {
   return (async (request: Request, ...args: unknown[]) => {
     const result = await rateLimit(request, type);
 
