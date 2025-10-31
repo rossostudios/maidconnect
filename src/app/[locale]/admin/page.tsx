@@ -53,6 +53,7 @@ export default async function AdminHomePage() {
           >
             <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-purple-50 group-hover:bg-purple-100">
               <svg
+                aria-label="Changelog icon"
                 className="h-6 w-6 text-purple-600"
                 fill="none"
                 stroke="currentColor"
@@ -77,6 +78,7 @@ export default async function AdminHomePage() {
           >
             <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 group-hover:bg-blue-100">
               <svg
+                aria-label="Feedback icon"
                 className="h-6 w-6 text-blue-600"
                 fill="none"
                 stroke="currentColor"

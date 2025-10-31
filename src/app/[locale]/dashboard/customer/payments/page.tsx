@@ -133,6 +133,7 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ebe5d8]">
                     <svg
+                      aria-label="Credit card icon"
                       className="h-5 w-5 text-[#211f1a]"
                       fill="none"
                       stroke="currentColor"

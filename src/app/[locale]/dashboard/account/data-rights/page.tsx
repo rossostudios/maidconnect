@@ -149,6 +149,7 @@ export default function DataRightsPage() {
         <div className="mb-4 flex items-start gap-4">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#ff5d46]/10">
             <svg
+              aria-label="Export data icon"
               className="h-6 w-6 text-[#ff5d46]"
               fill="none"
               stroke="currentColor"
@@ -196,6 +197,7 @@ export default function DataRightsPage() {
         <div className="mb-4 flex items-start gap-4">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-100">
             <svg
+              aria-label="Delete account icon"
               className="h-6 w-6 text-red-600"
               fill="none"
               stroke="currentColor"
