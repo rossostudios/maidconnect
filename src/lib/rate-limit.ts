@@ -88,6 +88,28 @@ export type RateLimitResult = {
   retryAfter?: number;
 };
 
+export type SimpleRateLimitResult = {
+  /**
+   * Whether the request is allowed
+   */
+  allowed: boolean;
+
+  /**
+   * Number of requests remaining in the current window
+   */
+  remaining: number;
+
+  /**
+   * Timestamp when the rate limit resets (Unix timestamp in ms)
+   */
+  resetTime: number;
+
+  /**
+   * Optional error message
+   */
+  message?: string;
+};
+
 /**
  * Check if a request should be rate limited
  *
@@ -95,7 +117,7 @@ export type RateLimitResult = {
  * @param config - Rate limit configuration
  * @returns Rate limit result
  */
-export function checkRateLimit(identifier: string, config: RateLimitConfig): RateLimitResult {
+export function checkRateLimit(identifier: string, config: RateLimitConfig): SimpleRateLimitResult {
   const now = Date.now();
   const key = identifier;
   const entry = store.get(key);

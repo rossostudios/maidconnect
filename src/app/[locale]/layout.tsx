@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import "../globals.css";
-import { LogtailProvider } from "@logtail/next";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { CookieConsent } from "@/components/legal/cookie-consent";
 import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
@@ -81,16 +80,14 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <WebVitalsReporter />
-        <LogtailProvider token={process.env.NEXT_PUBLIC_LOGTAIL_TOKEN}>
-          <ErrorBoundary>
-            <NextIntlClientProvider locale={locale} messages={messages}>
-              <SupabaseProvider>
-                <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
-              </SupabaseProvider>
-              <CookieConsent />
-            </NextIntlClientProvider>
-          </ErrorBoundary>
-        </LogtailProvider>
+        <ErrorBoundary>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <SupabaseProvider>
+              <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
+            </SupabaseProvider>
+            <CookieConsent />
+          </NextIntlClientProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

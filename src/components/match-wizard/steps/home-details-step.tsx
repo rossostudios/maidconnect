@@ -111,7 +111,7 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
                 {t("hasPetsLabel", { defaultValue: "I have pets" })}
               </span>
             </div>
-          </input>
+          </label>
         </div>
 
         {/* Pet Details */}

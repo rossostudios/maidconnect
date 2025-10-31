@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getUserFromSession } from "@/lib/auth/session";
+import { getSession } from "@/lib/auth/session";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 /**
@@ -9,7 +9,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
  */
 export async function POST(request: Request) {
   try {
-    const user = await getUserFromSession();
+    const { user } = await getSession();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -121,7 +121,7 @@ export async function POST(request: Request) {
  */
 export async function GET() {
   try {
-    const user = await getUserFromSession();
+    const { user } = await getSession();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

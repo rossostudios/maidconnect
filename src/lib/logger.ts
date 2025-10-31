@@ -8,17 +8,21 @@
  * - Server: import { logger } from '@/lib/logger'
  * - API Routes: Use withLogging() wrapper
  * - Client: Use useLogger() hook from @logtail/next
+ *
+ * Note: Logtail integration temporarily disabled for Edge runtime compatibility
  */
 
-import { Logtail } from "@logtail/node";
-import { LogLevel } from "@logtail/types";
+// TODO: Re-enable Logtail with Edge-compatible implementation
+// import { Logtail } from "@logtail/node";
+import type { LogLevel } from "@logtail/types";
 
 // Initialize Logtail with source token from environment
 // Only initialize if token is present (graceful degradation)
-const logtailToken = process.env.LOGTAIL_SOURCE_TOKEN;
+// const logtailToken = process.env.LOGTAIL_SOURCE_TOKEN;
 
 // Create Logtail instance (server-side only)
-const logtail = logtailToken ? new Logtail(logtailToken) : null;
+// Temporarily disabled for Edge runtime compatibility
+const logtail: any = null;
 
 // Fallback logger for when Logtail is not configured
 const consoleLogger = {

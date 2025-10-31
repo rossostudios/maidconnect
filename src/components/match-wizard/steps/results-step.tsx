@@ -165,7 +165,7 @@ export function ResultsStep({ data, onBack, onRestart }: ResultsStepProps) {
         <h2 className="font-semibold text-2xl text-[#211f1a]">
           {t("title", {
             defaultValue: "We found {count} perfect matches!",
-            values: { count: matches.length },
+            count: matches.length,
           })}
         </h2>
         <p className="mt-2 text-[#7a6d62]">
