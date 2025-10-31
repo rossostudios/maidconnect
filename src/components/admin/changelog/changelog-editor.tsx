@@ -55,7 +55,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
       ? new Date(initialData.published_at).toISOString().split("T")[0]
       : new Date().toISOString().split("T")[0],
     categories: initialData?.categories || [],
-    tags: initialData?.tags?.join(", ") || "",
+    tags: Array.isArray(initialData?.tags) ? initialData.tags.join(", ") : (initialData?.tags || ""),
     target_audience: initialData?.target_audience || ["all"],
     featured_image_url: initialData?.featured_image_url || "",
     visibility: initialData?.visibility || "draft",

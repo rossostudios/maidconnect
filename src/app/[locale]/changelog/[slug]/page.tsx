@@ -98,7 +98,7 @@ export default async function ChangelogDetailPage({
             {/* Categories */}
             {changelog.categories.length > 0 && (
               <div className="flex flex-wrap gap-2">
-                {changelog.categories.map((category) => {
+                {changelog.categories.map((category: string) => {
                   const config = categoryConfig[category as keyof typeof categoryConfig];
                   if (!config) return null;
 
@@ -142,7 +142,7 @@ export default async function ChangelogDetailPage({
             <div className="mt-8 rounded-[28px] border border-[#ebe5d8] bg-white p-6">
               <h3 className="mb-3 font-semibold text-[#211f1a] text-base">Tags</h3>
               <div className="flex flex-wrap gap-2">
-                {changelog.tags.map((tag) => (
+                {changelog.tags.map((tag: string) => (
                   <span
                     className="rounded-full border border-[#ebe5d8] bg-[#fbfaf9] px-3 py-1 text-[#5d574b] text-sm"
                     key={tag}

@@ -132,7 +132,7 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
         {/* Categories */}
         {changelog.categories.length > 0 && (
           <div className="mb-6 flex flex-wrap gap-2">
-            {changelog.categories.map((category) => {
+            {changelog.categories.map((category: string) => {
               const config = categoryConfig[category as keyof typeof categoryConfig];
               if (!config) return null;
 

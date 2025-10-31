@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -21,7 +21,7 @@ export const dynamic = "force-dynamic";
  *
  * Rate limited to 5 submissions per hour
  */
-async function handlePOST(request: NextRequest) {
+async function handlePOST(request: Request) {
   const supabase = await createSupabaseServerClient();
 
   // Get user (may be null for anonymous)
