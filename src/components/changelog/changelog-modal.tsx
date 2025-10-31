@@ -162,12 +162,16 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
             <img
               alt={changelog.title}
               className="h-auto w-full object-cover"
+              height={300}
               src={changelog.featured_image_url}
+              width={600}
             />
           </div>
         )}
 
         {/* Content */}
+        {/* Security: dangerouslySetInnerHTML is required to render rich HTML content from changelog entries.
+            Content is admin-controlled and sanitized before storage in Supabase. */}
         <div
           className="prose prose-lg max-w-none"
           dangerouslySetInnerHTML={{ __html: changelog.content }}

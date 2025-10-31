@@ -216,14 +216,19 @@ export default async function ProfessionalDashboardPage({
   ]);
 
   if (profileError) {
+    console.error("Error fetching professional profile:", profileError);
   }
   if (documentsError) {
+    console.error("Error fetching documents:", documentsError);
   }
   if (bookingsError) {
+    console.error("Error fetching bookings:", bookingsError);
   }
   if (customerReviewsError) {
+    console.error("Error fetching customer reviews:", customerReviewsError);
   }
   if (addonsError) {
+    console.error("Error fetching addons:", addonsError);
   }
 
   const professionalProfile = (profileData as ProfessionalProfile | null) ?? null;
@@ -257,6 +262,7 @@ export default async function ProfessionalDashboardPage({
     documents = documents.map((doc, index) => {
       const result = signedUrlResults[index];
       if (result.error) {
+        console.error("Error creating signed URL for document:", result.error);
       }
       return {
         ...doc,

@@ -146,34 +146,46 @@ export default async function ProfessionalOnboardingPage({
             const isCompleted = stepIndex > index;
             const isCurrent = stepIndex === index && !onboardingComplete;
 
+            const stepClassName = (() => {
+              if (isCompleted) {
+                return "border-green-200 bg-green-50";
+              }
+              if (isCurrent) {
+                return "border-[#ebe5d8] bg-white shadow-[0_10px_40px_rgba(18,17,15,0.04)]";
+              }
+              return "border-[#ebe5d8] bg-white";
+            })();
+
             return (
               <li
-                className={`hover:-translate-y-1 rounded-[28px] border p-8 shadow-sm transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)] ${
-                  isCompleted
-                    ? "border-green-200 bg-green-50"
-                    : isCurrent
-                      ? "border-[#ebe5d8] bg-white shadow-[0_10px_40px_rgba(18,17,15,0.04)]"
-                      : "border-[#ebe5d8] bg-white"
-                }`}
+                className={`hover:-translate-y-1 rounded-[28px] border p-8 shadow-sm transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)] ${stepClassName}`}
                 key={stepId}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ff5d46] font-semibold text-lg text-white">
                     {index + 1}
                   </div>
-                  {isCompleted ? (
-                    <span className="rounded-full bg-green-100 px-3 py-1 font-semibold text-green-700 text-xs">
-                      {t("steps.statusCompleted")}
-                    </span>
-                  ) : isCurrent ? (
-                    <span className="rounded-full bg-orange-50 px-3 py-1 font-semibold text-orange-700 text-xs">
-                      {t("steps.statusInProgress")}
-                    </span>
-                  ) : (
-                    <span className="rounded-full bg-gray-100 px-3 py-1 font-semibold text-gray-600 text-xs">
-                      {t("steps.statusPending")}
-                    </span>
-                  )}
+                  {(() => {
+                    if (isCompleted) {
+                      return (
+                        <span className="rounded-full bg-green-100 px-3 py-1 font-semibold text-green-700 text-xs">
+                          {t("steps.statusCompleted")}
+                        </span>
+                      );
+                    }
+                    if (isCurrent) {
+                      return (
+                        <span className="rounded-full bg-orange-50 px-3 py-1 font-semibold text-orange-700 text-xs">
+                          {t("steps.statusInProgress")}
+                        </span>
+                      );
+                    }
+                    return (
+                      <span className="rounded-full bg-gray-100 px-3 py-1 font-semibold text-gray-600 text-xs">
+                        {t("steps.statusPending")}
+                      </span>
+                    );
+                  })()}
                 </div>
                 <h2 className="mt-6 font-semibold text-[#211f1a] text-xl">
                   {t(`steps.${stepId}.title`)}

@@ -33,12 +33,12 @@ export function parseServices(payload: unknown): ProfessionalService[] {
       const typed = entry as Record<string, unknown>;
       const name = typeof typed.name === "string" ? typed.name : null;
       const rateValue = typed.hourly_rate_cop;
-      const rate =
-        typeof rateValue === "number"
-          ? rateValue
-          : typeof rateValue === "string"
-            ? Number.parseInt(rateValue, 10)
-            : null;
+      let rate: number | null = null;
+      if (typeof rateValue === "number") {
+        rate = rateValue;
+      } else if (typeof rateValue === "string") {
+        rate = Number.parseInt(rateValue, 10);
+      }
       const description = typeof typed.description === "string" ? typed.description : null;
       return {
         name,

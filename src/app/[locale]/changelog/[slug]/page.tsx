@@ -5,20 +5,6 @@ import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-type Changelog = {
-  id: string;
-  sprint_number: number;
-  title: string;
-  slug: string;
-  summary: string | null;
-  content: string;
-  published_at: string;
-  categories: string[];
-  tags: string[];
-  target_audience: string[];
-  featured_image_url: string | null;
-};
-
 const categoryConfig = {
   features: {
     icon: Sparkles,
@@ -127,13 +113,17 @@ export default async function ChangelogDetailPage({
               <img
                 alt={changelog.title}
                 className="h-auto w-full object-cover"
+                height={400}
                 src={changelog.featured_image_url}
+                width={800}
               />
             </div>
           )}
 
           {/* Content */}
           <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
+            {/* Security: dangerouslySetInnerHTML is required here to render rich HTML content from changelog entries.
+                Content is admin-controlled and sanitized before storage in Supabase. */}
             <div
               className="prose prose-lg max-w-none"
               dangerouslySetInnerHTML={{ __html: changelog.content }}

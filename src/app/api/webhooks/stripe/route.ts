@@ -3,7 +3,6 @@ import Stripe from "stripe";
 import { assertStripeSignature, stripe } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase/admin-client";
 
-export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {

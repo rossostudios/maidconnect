@@ -38,11 +38,127 @@ function validatePhone(phone: string | null) {
   return cleaned.length >= 7;
 }
 
+function extractSignUpFormData(formData: FormData) {
+  return {
+    email: String(formData.get("email") ?? "")
+      .trim()
+      .toLowerCase(),
+    password: String(formData.get("password") ?? ""),
+    confirmPassword: String(formData.get("confirmPassword") ?? ""),
+    locale: String(formData.get("locale") ?? "en-US"),
+    role: sanitizeRole(formData.get("role") as string | null),
+    fullName: stringOrNull(formData.get("fullName")),
+    phone: stringOrNull(formData.get("phone")),
+    city: stringOrNull(formData.get("city")),
+    propertyType: stringOrNull(formData.get("propertyType")),
+    privacyConsent: formData.get("privacyConsent") === "on",
+    termsConsent: formData.get("termsConsent") === "on",
+    dataProcessingConsent: formData.get("dataProcessingConsent") === "on",
+    marketingConsent: formData.get("marketingConsent") === "on",
+  };
+}
+
+function validateSignUpFields(data: ReturnType<typeof extractSignUpFormData>): Record<string, string> {
+  const fieldErrors: Record<string, string> = {};
+
+  if (!data.email) {
+    fieldErrors.email = "Email is required.";
+  }
+
+  if (!data.password) {
+    fieldErrors.password = "Password is required.";
+  } else if (data.password.length < 8) {
+    fieldErrors.password = "Password must be at least 8 characters.";
+  }
+
+  if (!data.confirmPassword) {
+    fieldErrors.confirmPassword = "Please confirm your password.";
+  } else if (data.password !== data.confirmPassword) {
+    fieldErrors.confirmPassword = "Passwords do not match.";
+  }
+
+  if (!data.role) {
+    fieldErrors.role = "Select an account type.";
+  }
+
+  if (!data.fullName || data.fullName.length < 3) {
+    fieldErrors.fullName = "Provide your full name.";
+  }
+
+  if (!validatePhone(data.phone)) {
+    fieldErrors.phone = "Enter a valid phone number.";
+  }
+
+  if (!data.city) {
+    fieldErrors.city = "City is required.";
+  }
+
+  if (data.role === "customer" && !data.propertyType) {
+    fieldErrors.propertyType = "Select a property type.";
+  }
+
+  return fieldErrors;
+}
+
+function validateConsents(data: ReturnType<typeof extractSignUpFormData>): Record<string, string> {
+  const fieldErrors: Record<string, string> = {};
+
+  if (!data.privacyConsent) {
+    fieldErrors.privacyConsent = "You must accept the Privacy Policy.";
+  }
+
+  if (!data.termsConsent) {
+    fieldErrors.termsConsent = "You must accept the Terms and Conditions.";
+  }
+
+  if (!data.dataProcessingConsent) {
+    fieldErrors.dataProcessingConsent = "You must authorize data processing to use the platform.";
+  }
+
+  return fieldErrors;
+}
+
+function buildUserMetadata(data: ReturnType<typeof extractSignUpFormData>): Record<string, unknown> {
+  const consentTimestamp = new Date().toISOString();
+
+  const metadata: Record<string, unknown> = {
+    role: data.role,
+    locale: data.locale,
+    phone: data.phone,
+    country: "Colombia",
+    city: data.city,
+    full_name: data.fullName,
+    consents: {
+      privacy_policy: {
+        accepted: data.privacyConsent,
+        timestamp: consentTimestamp,
+      },
+      terms_of_service: {
+        accepted: data.termsConsent,
+        timestamp: consentTimestamp,
+      },
+      data_processing: {
+        accepted: data.dataProcessingConsent,
+        timestamp: consentTimestamp,
+      },
+      marketing: {
+        accepted: data.marketingConsent,
+        timestamp: data.marketingConsent ? consentTimestamp : null,
+      },
+    },
+  };
+
+  if (data.role === "customer") {
+    metadata.property_preferences = data.propertyType ? { property_type: data.propertyType } : {};
+  }
+
+  return metadata;
+}
+
 export async function signUpAction(
   _prev: SignUpActionState,
   formData: FormData
 ): Promise<SignUpActionState> {
-  // Rate limiting check
   const headersList = await headers();
   const forwardedFor = headersList.get("x-forwarded-for");
   const ip = forwardedFor
@@ -58,74 +174,11 @@ export async function signUpAction(
     };
   }
 
-  const email = String(formData.get("email") ?? "")
-    .trim()
-    .toLowerCase();
-  const password = String(formData.get("password") ?? "");
-  const confirmPassword = String(formData.get("confirmPassword") ?? "");
-  const locale = String(formData.get("locale") ?? "en-US");
-  const role = sanitizeRole(formData.get("role") as string | null);
-  const fullName = stringOrNull(formData.get("fullName"));
-  const phone = stringOrNull(formData.get("phone"));
-  const city = stringOrNull(formData.get("city"));
-  const propertyType = stringOrNull(formData.get("propertyType"));
-
-  // Consent fields (required for Colombian law compliance)
-  const privacyConsent = formData.get("privacyConsent") === "on";
-  const termsConsent = formData.get("termsConsent") === "on";
-  const dataProcessingConsent = formData.get("dataProcessingConsent") === "on";
-  const marketingConsent = formData.get("marketingConsent") === "on";
-
-  const fieldErrors: Record<string, string> = {};
-
-  if (!email) {
-    fieldErrors.email = "Email is required.";
-  }
-
-  if (!password) {
-    fieldErrors.password = "Password is required.";
-  } else if (password.length < 8) {
-    fieldErrors.password = "Password must be at least 8 characters.";
-  }
-
-  if (!confirmPassword) {
-    fieldErrors.confirmPassword = "Please confirm your password.";
-  } else if (password !== confirmPassword) {
-    fieldErrors.confirmPassword = "Passwords do not match.";
-  }
-
-  if (!role) {
-    fieldErrors.role = "Select an account type.";
-  }
-
-  if (!fullName || fullName.length < 3) {
-    fieldErrors.fullName = "Provide your full name.";
-  }
-
-  if (!validatePhone(phone)) {
-    fieldErrors.phone = "Enter a valid phone number.";
-  }
-
-  if (!city) {
-    fieldErrors.city = "City is required.";
-  }
-
-  if (role === "customer" && !propertyType) {
-    fieldErrors.propertyType = "Select a property type.";
-  }
-
-  // Validate consent fields (Colombian law compliance - Ley 1581 de 2012)
-  if (!privacyConsent) {
-    fieldErrors.privacyConsent = "You must accept the Privacy Policy.";
-  }
-
-  if (!termsConsent) {
-    fieldErrors.termsConsent = "You must accept the Terms and Conditions.";
-  }
-
-  if (!dataProcessingConsent) {
-    fieldErrors.dataProcessingConsent = "You must authorize data processing to use the platform.";
-  }
+  const signUpData = extractSignUpFormData(formData);
+  const fieldErrors = {
+    ...validateSignUpFields(signUpData),
+    ...validateConsents(signUpData),
+  };
 
   if (Object.keys(fieldErrors).length > 0) {
     return {
@@ -136,45 +189,11 @@ export async function signUpAction(
   }
 
   const supabase = await createSupabaseServerClient();
-
-  // ISO 8601 timestamp for consent records (Ley 1581 de 2012 requirement)
-  const consentTimestamp = new Date().toISOString();
-
-  const metadata: Record<string, unknown> = {
-    role,
-    locale,
-    phone,
-    country: "Colombia",
-    city,
-    full_name: fullName,
-    // Consent records (Colombian law compliance)
-    consents: {
-      privacy_policy: {
-        accepted: privacyConsent,
-        timestamp: consentTimestamp,
-      },
-      terms_of_service: {
-        accepted: termsConsent,
-        timestamp: consentTimestamp,
-      },
-      data_processing: {
-        accepted: dataProcessingConsent,
-        timestamp: consentTimestamp,
-      },
-      marketing: {
-        accepted: marketingConsent,
-        timestamp: marketingConsent ? consentTimestamp : null,
-      },
-    },
-  };
-
-  if (role === "customer") {
-    metadata.property_preferences = propertyType ? { property_type: propertyType } : {};
-  }
+  const metadata = buildUserMetadata(signUpData);
 
   const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
+    email: signUpData.email,
+    password: signUpData.password,
     options: {
       emailRedirectTo: `${SITE_ORIGIN}${AUTH_ROUTES.signIn}`,
       data: metadata,
@@ -186,7 +205,7 @@ export async function signUpAction(
   }
 
   if (data.session?.user) {
-    return redirect(getDashboardRouteForRole(role!));
+    return redirect(getDashboardRouteForRole(signUpData.role!));
   }
 
   return {

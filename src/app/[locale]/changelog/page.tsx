@@ -152,12 +152,16 @@ async function ChangelogList() {
                 <img
                   alt={changelog.title}
                   className="h-auto w-full object-cover"
+                  height={300}
                   src={changelog.featured_image_url}
+                  width={600}
                 />
               </div>
             )}
 
             {/* Content Preview */}
+            {/* Security: dangerouslySetInnerHTML is required to render HTML content preview.
+                Content is admin-controlled and sanitized before storage in Supabase. */}
             <div
               className="prose prose-sm sm:prose-base mb-6 line-clamp-4 max-w-none"
               dangerouslySetInnerHTML={{

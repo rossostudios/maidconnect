@@ -245,16 +245,22 @@ export default async function CustomerDashboardPage(props: {
                 <p className="mt-4 text-[#5d574b] text-base leading-relaxed">
                   {t(`tasks.${taskId}.description`)}
                 </p>
-                {taskId === "payment" ? (
-                  <PaymentAuthorizationCard hasPaymentMethod={hasPaymentMethod} />
-                ) : isComplete ? null : (
-                  <Link
-                    className="mt-4 inline-flex items-center font-semibold text-[#ff5d46] text-base hover:text-[#eb6c65]"
-                    href={CUSTOMER_TASK_HREFS[taskId]}
-                  >
-                    {t(`tasks.${taskId}.cta`)} →
-                  </Link>
-                )}
+                {(() => {
+                  if (taskId === "payment") {
+                    return <PaymentAuthorizationCard hasPaymentMethod={hasPaymentMethod} />;
+                  }
+                  if (isComplete) {
+                    return null;
+                  }
+                  return (
+                    <Link
+                      className="mt-4 inline-flex items-center font-semibold text-[#ff5d46] text-base hover:text-[#eb6c65]"
+                      href={CUSTOMER_TASK_HREFS[taskId]}
+                    >
+                      {t(`tasks.${taskId}.cta`)} →
+                    </Link>
+                  );
+                })()}
                 {taskId === "verification" && !isComplete ? (
                   <p className="mt-4 text-orange-700 text-sm">
                     {t("tasks.verification.upgradeNote")}

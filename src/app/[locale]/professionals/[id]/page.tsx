@@ -129,6 +129,7 @@ async function fetchProfessional(profileId: string): Promise<ProfessionalProfile
   }
 
   if (error) {
+    console.error("Error fetching professional profile:", error);
   }
 
   const { data: fallbackData, error: fallbackError } = await supabase.rpc(

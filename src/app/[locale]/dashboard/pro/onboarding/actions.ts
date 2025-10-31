@@ -45,6 +45,107 @@ async function ensureProfessionalProfile(profileId: string, supabase: SupabaseCl
   }
 }
 
+function parseIntegerField(value: string | null): number | null {
+  if (!value) {
+    return null;
+  }
+  const parsed = Number.parseInt(value, 10);
+  if (Number.isNaN(parsed)) {
+    return null;
+  }
+  return parsed;
+}
+
+function extractApplicationFormData(formData: FormData) {
+  const experienceYears = parseIntegerField(stringOrNull(formData.get("experienceYears")));
+  const hourlyRate = parseIntegerField(stringOrNull(formData.get("rate")));
+  const primaryServices = formData
+    .getAll("services")
+    .map((value) => value.toString())
+    .filter(Boolean);
+
+  return {
+    fullName: stringOrNull(formData.get("fullName")),
+    idNumber: stringOrNull(formData.get("idNumber")),
+    phone: stringOrNull(formData.get("phone")),
+    country: stringOrNull(formData.get("country")),
+    city: stringOrNull(formData.get("city")),
+    availabilityNotes: stringOrNull(formData.get("availability")),
+    consentBackgroundCheck: formData.get("consent") === "on",
+    experienceYears,
+    hourlyRate,
+    primaryServices,
+  };
+}
+
+function validateApplicationFields(
+  data: ReturnType<typeof extractApplicationFormData>
+): Record<string, string> {
+  const fieldErrors: Record<string, string> = {};
+
+  if (!data.fullName) {
+    fieldErrors.fullName = "Full name is required.";
+  }
+  if (!data.idNumber) {
+    fieldErrors.idNumber = "ID number is required.";
+  }
+  if (!data.phone) {
+    fieldErrors.phone = "Phone number is required.";
+  }
+  if (!data.country) {
+    fieldErrors.country = "Country is required.";
+  }
+  if (!data.city) {
+    fieldErrors.city = "City is required.";
+  }
+  if (data.experienceYears === null || data.experienceYears < 0) {
+    fieldErrors.experienceYears = "Enter your years of experience.";
+  }
+  if (data.hourlyRate === null || data.hourlyRate <= 0) {
+    fieldErrors.rate = "Provide your standard hourly rate in COP.";
+  }
+  if (data.primaryServices.length === 0) {
+    fieldErrors.services = "Select at least one service you offer.";
+  }
+  if (!data.consentBackgroundCheck) {
+    fieldErrors.consent = "Consent is required for background checks.";
+  }
+
+  return fieldErrors;
+}
+
+function extractReferences(formData: FormData): ReferenceEntry[] {
+  const references: Array<ReferenceEntry | null> = [1, 2].map((index) => {
+    const name = stringOrNull(formData.get(`reference_name_${index}`));
+    const relationship = stringOrNull(formData.get(`reference_relationship_${index}`));
+    const contact = stringOrNull(formData.get(`reference_contact_${index}`));
+    if (!(name || relationship || contact)) {
+      return null;
+    }
+    return { name, relationship, contact };
+  });
+
+  return references.filter(isNotNull);
+}
+
+function validateReferences(
+  referencesData: ReferenceEntry[],
+  fieldErrors: Record<string, string>
+): void {
+  referencesData.forEach((reference, index) => {
+    if (!reference.name) {
+      fieldErrors[`reference_name_${index + 1}`] = "Reference name is required.";
+    }
+    if (!reference.contact) {
+      fieldErrors[`reference_contact_${index + 1}`] = "Reference contact is required.";
+    }
+  });
+
+  if (referencesData.length < 2) {
+    fieldErrors.references = "Provide two references with contact information.";
+  }
+}
+
 export async function submitApplication(
   _prevState: OnboardingActionState,
   formData: FormData
@@ -64,88 +165,11 @@ export async function submitApplication(
     return { status: "error", error: "Could not initialize professional profile." };
   }
 
-  const fullName = stringOrNull(formData.get("fullName"));
-  const idNumber = stringOrNull(formData.get("idNumber"));
-  const phone = stringOrNull(formData.get("phone"));
-  const country = stringOrNull(formData.get("country"));
-  const city = stringOrNull(formData.get("city"));
-  const availabilityNotes = stringOrNull(formData.get("availability"));
-  const consentBackgroundCheck = formData.get("consent") === "on";
+  const applicationData = extractApplicationFormData(formData);
+  const fieldErrors = validateApplicationFields(applicationData);
 
-  const experienceYearsRaw = stringOrNull(formData.get("experienceYears"));
-  const parsedExperience = experienceYearsRaw ? Number.parseInt(experienceYearsRaw, 10) : null;
-  const experienceYears =
-    parsedExperience !== null && !Number.isNaN(parsedExperience) ? parsedExperience : null;
-
-  const rateRaw = stringOrNull(formData.get("rate"));
-  const parsedRate = rateRaw ? Number.parseInt(rateRaw, 10) : null;
-  const hourlyRate = parsedRate !== null && !Number.isNaN(parsedRate) ? parsedRate : null;
-
-  const primaryServices = formData
-    .getAll("services")
-    .map((value) => value.toString())
-    .filter(Boolean);
-
-  const fieldErrors: Record<string, string> = {};
-
-  if (!fullName) {
-    fieldErrors.fullName = "Full name is required.";
-  }
-  if (!idNumber) {
-    fieldErrors.idNumber = "ID number is required.";
-  }
-  if (!phone) {
-    fieldErrors.phone = "Phone number is required.";
-  }
-  if (!country) {
-    fieldErrors.country = "Country is required.";
-  }
-  if (!city) {
-    fieldErrors.city = "City is required.";
-  }
-  if (experienceYears === null || experienceYears < 0) {
-    fieldErrors.experienceYears = "Enter your years of experience.";
-  }
-  if (hourlyRate === null || hourlyRate <= 0) {
-    fieldErrors.rate = "Provide your standard hourly rate in COP.";
-  }
-  if (primaryServices.length === 0) {
-    fieldErrors.services = "Select at least one service you offer.";
-  }
-  if (!consentBackgroundCheck) {
-    fieldErrors.consent = "Consent is required for background checks.";
-  }
-
-  const references: Array<ReferenceEntry | null> = [1, 2].map((index) => {
-    const name = stringOrNull(formData.get(`reference_name_${index}`));
-    const relationship = stringOrNull(formData.get(`reference_relationship_${index}`));
-    const contact = stringOrNull(formData.get(`reference_contact_${index}`));
-    if (!(name || relationship || contact)) {
-      return null;
-    }
-    return {
-      name,
-      relationship,
-      contact,
-    };
-  });
-
-  const referencesData = references.filter(isNotNull);
-
-  const availabilityData: Record<string, unknown> = {};
-
-  referencesData.forEach((reference, index) => {
-    if (!reference.name) {
-      fieldErrors[`reference_name_${index + 1}`] = "Reference name is required.";
-    }
-    if (!reference.contact) {
-      fieldErrors[`reference_contact_${index + 1}`] = "Reference contact is required.";
-    }
-  });
-
-  if (referencesData.length < 2) {
-    fieldErrors.references = "Provide two references with contact information.";
-  }
+  const referencesData = extractReferences(formData);
+  validateReferences(referencesData, fieldErrors);
 
   if (Object.keys(fieldErrors).length > 0) {
     return {
@@ -155,27 +179,29 @@ export async function submitApplication(
     };
   }
 
-  if (availabilityNotes) {
-    availabilityData.application_notes = availabilityNotes;
+  const availabilityData: Record<string, unknown> = {};
+  if (applicationData.availabilityNotes) {
+    availabilityData.application_notes = applicationData.availabilityNotes;
   }
 
   const profileUpdate = {
-    phone: phone ?? null,
-    country: country ?? null,
-    city: city ?? null,
+    phone: applicationData.phone ?? null,
+    country: applicationData.country ?? null,
+    city: applicationData.city ?? null,
     onboarding_status: "application_in_review",
   };
 
   const professionalUpdate = {
     profile_id: user.id,
-    full_name: fullName ?? null,
-    id_number: idNumber ?? null,
-    experience_years: experienceYears ?? null,
-    primary_services: primaryServices,
-    rate_expectations: hourlyRate != null ? { hourly_cop: hourlyRate } : null,
+    full_name: applicationData.fullName ?? null,
+    id_number: applicationData.idNumber ?? null,
+    experience_years: applicationData.experienceYears ?? null,
+    primary_services: applicationData.primaryServices,
+    rate_expectations:
+      applicationData.hourlyRate != null ? { hourly_cop: applicationData.hourlyRate } : null,
     availability: availabilityData,
     references_data: referencesData,
-    consent_background_check: consentBackgroundCheck,
+    consent_background_check: applicationData.consentBackgroundCheck,
     status: "application_submitted",
   };
 
@@ -222,6 +248,226 @@ function sanitizeFileName(name: string) {
   return name.replace(/[^a-zA-Z0-9.\-_]+/g, "-");
 }
 
+function validateFileSize(file: File): boolean {
+  return file.size <= MAX_DOCUMENT_SIZE_BYTES;
+}
+
+function validateFileType(file: File): boolean {
+  return ALLOWED_DOCUMENT_MIME_TYPES.has(file.type);
+}
+
+function validateRequiredDocument(
+  doc: { key: string; label: string },
+  formData: FormData,
+  fieldErrors: Record<string, string>,
+  uploads: DocumentCandidate[]
+): void {
+  const file = formData.get(`document_${doc.key}`) as File | null;
+  const note = stringOrNull(formData.get(`document_${doc.key}_note`));
+
+  if (!file || file.size === 0) {
+    fieldErrors[`document_${doc.key}`] = `${doc.label} is required.`;
+    return;
+  }
+
+  if (!validateFileSize(file)) {
+    fieldErrors[`document_${doc.key}`] = "File must be 5MB or smaller.";
+  }
+
+  if (!validateFileType(file)) {
+    fieldErrors[`document_${doc.key}`] = "Only PDF, JPG, or PNG files are supported.";
+  }
+
+  uploads.push({ documentType: doc.key, file, note });
+}
+
+function validateOptionalDocument(
+  doc: { key: string; label: string },
+  formData: FormData,
+  fieldErrors: Record<string, string>,
+  uploads: DocumentCandidate[]
+): void {
+  const file = formData.get(`document_${doc.key}`) as File | null;
+  const note = stringOrNull(formData.get(`document_${doc.key}_note`));
+
+  if (!file || file.size === 0) {
+    return;
+  }
+
+  if (!validateFileSize(file)) {
+    fieldErrors[`document_${doc.key}`] = "File must be 5MB or smaller.";
+    return;
+  }
+
+  if (!validateFileType(file)) {
+    fieldErrors[`document_${doc.key}`] = "Only PDF, JPG, or PNG files are supported.";
+    return;
+  }
+
+  uploads.push({ documentType: doc.key, file, note });
+}
+
+async function removeExistingDocuments(
+  supabase: SupabaseClient,
+  userId: string
+): Promise<{ success: boolean; error?: string }> {
+  const { data: existingDocs, error: existingDocsError } = await supabase
+    .from("professional_documents")
+    .select("storage_path")
+    .eq("profile_id", userId);
+
+  if (existingDocsError) {
+    return { success: false, error: existingDocsError.message };
+  }
+
+  if (existingDocs && existingDocs.length > 0) {
+    const existingPaths = existingDocs.map((doc) => doc.storage_path);
+    const { error: storageRemoveError } = await supabase.storage
+      .from(DOCUMENTS_BUCKET_ID)
+      .remove(existingPaths);
+
+    if (storageRemoveError) {
+      return {
+        success: false,
+        error: "Unable to replace existing documents right now. Please try again.",
+      };
+    }
+  }
+
+  const { error: deleteError } = await supabase
+    .from("professional_documents")
+    .delete()
+    .eq("profile_id", userId);
+
+  if (deleteError) {
+    return { success: false, error: deleteError.message };
+  }
+
+  return { success: true };
+}
+
+async function uploadDocumentFile(
+  supabase: SupabaseClient,
+  userId: string,
+  candidate: DocumentCandidate
+): Promise<{ success: boolean; storagePath?: string; error?: string }> {
+  const sanitizedName = sanitizeFileName(candidate.file.name || `${candidate.documentType}.dat`);
+  const storagePath = `${userId}/${candidate.documentType}/${Date.now()}-${sanitizedName}`;
+
+  const { error: uploadError } = await supabase.storage
+    .from(DOCUMENTS_BUCKET_ID)
+    .upload(storagePath, candidate.file, {
+      cacheControl: "3600",
+      upsert: false,
+      contentType: candidate.file.type || undefined,
+    });
+
+  if (uploadError) {
+    return { success: false, error: "We couldn't upload your files. Please try again." };
+  }
+
+  return { success: true, storagePath };
+}
+
+async function uploadAllDocuments(
+  supabase: SupabaseClient,
+  userId: string,
+  uploads: DocumentCandidate[]
+): Promise<{
+  success: boolean;
+  documentRows?: Array<{
+    profile_id: string;
+    document_type: string;
+    storage_path: string;
+    metadata: Record<string, unknown>;
+  }>;
+  uploadedPaths?: string[];
+  error?: string;
+}> {
+  const uploadedPaths: string[] = [];
+  const documentRows: Array<{
+    profile_id: string;
+    document_type: string;
+    storage_path: string;
+    metadata: Record<string, unknown>;
+  }> = [];
+
+  for (const candidate of uploads) {
+    const uploadResult = await uploadDocumentFile(supabase, userId, candidate);
+
+    if (uploadResult.success && uploadResult.storagePath) {
+      // Success - continue processing
+    } else {
+      if (uploadedPaths.length > 0) {
+        await supabase.storage.from(DOCUMENTS_BUCKET_ID).remove(uploadedPaths);
+      }
+      return { success: false, error: uploadResult.error };
+    }
+
+    uploadedPaths.push(uploadResult.storagePath);
+    documentRows.push({
+      profile_id: userId,
+      document_type: candidate.documentType,
+      storage_path: uploadResult.storagePath,
+      metadata: {
+        originalName: candidate.file.name,
+        size: candidate.file.size,
+        mimeType: candidate.file.type,
+        note: candidate.note,
+      },
+    });
+  }
+
+  return { success: true, documentRows, uploadedPaths };
+}
+
+function validateDocuments(
+  formData: FormData
+): { fieldErrors: Record<string, string>; uploads: DocumentCandidate[] } {
+  const fieldErrors: Record<string, string> = {};
+  const uploads: DocumentCandidate[] = [];
+
+  for (const doc of REQUIRED_DOCUMENTS) {
+    validateRequiredDocument(doc, formData, fieldErrors, uploads);
+  }
+
+  for (const doc of OPTIONAL_DOCUMENTS) {
+    validateOptionalDocument(doc, formData, fieldErrors, uploads);
+  }
+
+  return { fieldErrors, uploads };
+}
+
+async function insertDocumentRecords(
+  supabase: SupabaseClient,
+  uploadResult: {
+    documentRows?: Array<{
+      profile_id: string;
+      document_type: string;
+      storage_path: string;
+      metadata: Record<string, unknown>;
+    }>;
+    uploadedPaths?: string[];
+  }
+): Promise<{ success: boolean; error?: string }> {
+  if (!uploadResult.documentRows || uploadResult.documentRows.length === 0) {
+    return { success: true };
+  }
+
+  const { error: insertError } = await supabase
+    .from("professional_documents")
+    .insert(uploadResult.documentRows);
+
+  if (insertError) {
+    if (uploadResult.uploadedPaths) {
+      await supabase.storage.from(DOCUMENTS_BUCKET_ID).remove(uploadResult.uploadedPaths);
+    }
+    return { success: false, error: insertError.message };
+  }
+
+  return { success: true };
+}
+
 export async function submitDocuments(
   _prevState: OnboardingActionState,
   formData: FormData
@@ -235,47 +481,7 @@ export async function submitDocuments(
     return { status: "error", error: "Not authenticated." };
   }
 
-  const fieldErrors: Record<string, string> = {};
-  const uploads: DocumentCandidate[] = [];
-
-  for (const doc of REQUIRED_DOCUMENTS) {
-    const file = formData.get(`document_${doc.key}`) as File | null;
-    const note = stringOrNull(formData.get(`document_${doc.key}_note`));
-    if (!file || file.size === 0) {
-      fieldErrors[`document_${doc.key}`] = `${doc.label} is required.`;
-      continue;
-    }
-
-    if (file.size > MAX_DOCUMENT_SIZE_BYTES) {
-      fieldErrors[`document_${doc.key}`] = "File must be 5MB or smaller.";
-    }
-
-    if (!ALLOWED_DOCUMENT_MIME_TYPES.has(file.type)) {
-      fieldErrors[`document_${doc.key}`] = "Only PDF, JPG, or PNG files are supported.";
-    }
-
-    uploads.push({ documentType: doc.key, file, note });
-  }
-
-  for (const doc of OPTIONAL_DOCUMENTS) {
-    const file = formData.get(`document_${doc.key}`) as File | null;
-    const note = stringOrNull(formData.get(`document_${doc.key}_note`));
-    if (!file || file.size === 0) {
-      continue;
-    }
-
-    if (file.size > MAX_DOCUMENT_SIZE_BYTES) {
-      fieldErrors[`document_${doc.key}`] = "File must be 5MB or smaller.";
-      continue;
-    }
-
-    if (!ALLOWED_DOCUMENT_MIME_TYPES.has(file.type)) {
-      fieldErrors[`document_${doc.key}`] = "Only PDF, JPG, or PNG files are supported.";
-      continue;
-    }
-
-    uploads.push({ documentType: doc.key, file, note });
-  }
+  const { fieldErrors, uploads } = validateDocuments(formData);
 
   if (Object.keys(fieldErrors).length > 0) {
     return {
@@ -285,87 +491,19 @@ export async function submitDocuments(
     };
   }
 
-  const { data: existingDocs, error: existingDocsError } = await supabase
-    .from("professional_documents")
-    .select("storage_path")
-    .eq("profile_id", user.id);
-
-  if (existingDocsError) {
-    return { status: "error", error: existingDocsError.message };
+  const removalResult = await removeExistingDocuments(supabase, user.id);
+  if (!removalResult.success) {
+    return { status: "error", error: removalResult.error || "Failed to remove existing documents" };
   }
 
-  const uploadedPaths: string[] = [];
-
-  if (existingDocs && existingDocs.length > 0) {
-    const existingPaths = existingDocs.map((doc) => doc.storage_path);
-    const { error: storageRemoveError } = await supabase.storage
-      .from(DOCUMENTS_BUCKET_ID)
-      .remove(existingPaths);
-
-    if (storageRemoveError) {
-      return {
-        status: "error",
-        error: "Unable to replace existing documents right now. Please try again.",
-      };
-    }
+  const uploadResult = await uploadAllDocuments(supabase, user.id, uploads);
+  if (!uploadResult.success) {
+    return { status: "error", error: uploadResult.error || "Failed to upload documents" };
   }
 
-  const { error: deleteError } = await supabase
-    .from("professional_documents")
-    .delete()
-    .eq("profile_id", user.id);
-  if (deleteError) {
-    return { status: "error", error: deleteError.message };
-  }
-
-  const documentRows: Array<{
-    profile_id: string;
-    document_type: string;
-    storage_path: string;
-    metadata: Record<string, unknown>;
-  }> = [];
-
-  for (const candidate of uploads) {
-    const sanitizedName = sanitizeFileName(candidate.file.name || `${candidate.documentType}.dat`);
-    const storagePath = `${user.id}/${candidate.documentType}/${Date.now()}-${sanitizedName}`;
-
-    const { error: uploadError } = await supabase.storage
-      .from(DOCUMENTS_BUCKET_ID)
-      .upload(storagePath, candidate.file, {
-        cacheControl: "3600",
-        upsert: false,
-        contentType: candidate.file.type || undefined,
-      });
-
-    if (uploadError) {
-      if (uploadedPaths.length > 0) {
-        await supabase.storage.from(DOCUMENTS_BUCKET_ID).remove(uploadedPaths);
-      }
-      return { status: "error", error: "We couldn't upload your files. Please try again." };
-    }
-
-    uploadedPaths.push(storagePath);
-    documentRows.push({
-      profile_id: user.id,
-      document_type: candidate.documentType,
-      storage_path: storagePath,
-      metadata: {
-        originalName: candidate.file.name,
-        size: candidate.file.size,
-        mimeType: candidate.file.type,
-        note: candidate.note,
-      },
-    });
-  }
-
-  if (documentRows.length > 0) {
-    const { error: insertError } = await supabase
-      .from("professional_documents")
-      .insert(documentRows);
-    if (insertError) {
-      await supabase.storage.from(DOCUMENTS_BUCKET_ID).remove(uploadedPaths);
-      return { status: "error", error: insertError.message };
-    }
+  const insertResult = await insertDocumentRecords(supabase, uploadResult);
+  if (!insertResult.success) {
+    return { status: "error", error: insertResult.error || "Failed to insert document records" };
   }
 
   const { error: statusError } = await supabase

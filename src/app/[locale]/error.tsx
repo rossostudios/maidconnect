@@ -4,7 +4,7 @@ import { AlertTriangle, Home, RefreshCw } from "lucide-react";
 import { useEffect } from "react";
 import { Link } from "@/i18n/routing";
 
-export default function Error({
+export default function ErrorPage({
   error,
   reset,
 }: {

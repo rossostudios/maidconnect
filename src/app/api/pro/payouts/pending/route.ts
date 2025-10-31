@@ -6,7 +6,6 @@ import {
 } from "@/lib/payout-calculator";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
 /**

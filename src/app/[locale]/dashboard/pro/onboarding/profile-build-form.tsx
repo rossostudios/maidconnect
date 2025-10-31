@@ -41,6 +41,72 @@ type Props = {
 
 const errorClass = "border-red-300 focus:border-red-400 focus:ring-red-200";
 
+function parseServiceDefaults(
+  services?: Array<{
+    name?: string | null;
+    hourly_rate_cop?: number | null;
+    description?: string | null;
+  }> | null
+): Map<string, { rate: number | null; description: string }> {
+  const serviceDefaults = new Map<string, { rate: number | null; description: string }>();
+
+  if (!services) {
+    return serviceDefaults;
+  }
+
+  for (const service of services) {
+    if (!service?.name) {
+      continue;
+    }
+
+    const rawRate = service.hourly_rate_cop;
+    let parsedRate: number | null = null;
+
+    if (typeof rawRate === "number") {
+      parsedRate = rawRate;
+    } else if (typeof rawRate === "string") {
+      parsedRate = Number.parseInt(rawRate, 10);
+    }
+
+    serviceDefaults.set(service.name, {
+      rate: Number.isNaN(parsedRate) ? null : parsedRate,
+      description: service.description ?? "",
+    });
+  }
+
+  return serviceDefaults;
+}
+
+function parseAvailabilityDefaults(
+  availability?: Array<{
+    day?: string | null;
+    start?: string | null;
+    end?: string | null;
+    notes?: string | null;
+  }> | null
+): Map<string, { start: string; end: string; notes: string }> {
+  const availabilityDefaults = new Map<string, { start: string; end: string; notes: string }>();
+
+  if (!availability) {
+    return availabilityDefaults;
+  }
+
+  for (const slot of availability) {
+    if (!slot?.day) {
+      continue;
+    }
+
+    const slug = slot.day.toLowerCase().replace(/\s+/g, "_");
+    availabilityDefaults.set(slug, {
+      start: slot.start ?? "",
+      end: slot.end ?? "",
+      notes: slot.notes ?? "",
+    });
+  }
+
+  return availabilityDefaults;
+}
+
 export function ProfileBuildForm({
   services,
   availabilityDays,
@@ -62,40 +128,8 @@ export function ProfileBuildForm({
   const defaultSubmitLabel = submitLabel ?? t("footer.submitDefault");
   const defaultFootnote = footnote ?? t("footer.footnoteDefault");
 
-  const serviceDefaults = new Map<string, { rate: number | null; description: string }>();
-  if (initialData?.services) {
-    for (const service of initialData.services) {
-      if (!service?.name) {
-        continue;
-      }
-      const rawRate = service.hourly_rate_cop;
-      const parsedRate =
-        typeof rawRate === "number"
-          ? rawRate
-          : typeof rawRate === "string"
-            ? Number.parseInt(rawRate, 10)
-            : null;
-      serviceDefaults.set(service.name, {
-        rate: Number.isNaN(parsedRate) ? null : parsedRate,
-        description: service.description ?? "",
-      });
-    }
-  }
-
-  const availabilityDefaults = new Map<string, { start: string; end: string; notes: string }>();
-  if (initialData?.availability) {
-    for (const slot of initialData.availability) {
-      if (!slot?.day) {
-        continue;
-      }
-      const slug = slot.day.toLowerCase().replace(/\s+/g, "_");
-      availabilityDefaults.set(slug, {
-        start: slot.start ?? "",
-        end: slot.end ?? "",
-        notes: slot.notes ?? "",
-      });
-    }
-  }
+  const serviceDefaults = parseServiceDefaults(initialData?.services);
+  const availabilityDefaults = parseAvailabilityDefaults(initialData?.availability);
 
   const initialLanguages = initialData?.languages ?? [];
   const [bioLength, setBioLength] = useState((initialData?.bio ?? "").length);
