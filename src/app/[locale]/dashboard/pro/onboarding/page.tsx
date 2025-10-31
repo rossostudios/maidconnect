@@ -123,20 +123,20 @@ export default async function ProfessionalOnboardingPage({
       <header className="flex items-start justify-between">
         <div>
           <p className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
-            {t(isActive ? "header.badgeActive" : "header.badgeOnboarding")}
+            {t(isActive ? "labels.profileSettings" : "labels.onboarding")}
           </p>
           <h1 className="mt-4 font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
-            {t(isActive ? "header.titleActive" : "header.titleOnboarding")}
+            {t(isActive ? "headings.editProfile" : "headings.launchProfile")}
           </h1>
           <p className="mt-4 max-w-2xl text-[#5d574b] text-lg leading-relaxed">
-            {t(isActive ? "header.descriptionActive" : "header.descriptionOnboarding")}
+            {t(isActive ? "descriptions.active" : "descriptions.notActive")}
           </p>
         </div>
         <Link
           className="inline-flex items-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           href="/dashboard/pro"
         >
-          {t("header.backButton")}
+          {t("backToDashboard")}
         </Link>
       </header>
 
@@ -169,20 +169,20 @@ export default async function ProfessionalOnboardingPage({
                     if (isCompleted) {
                       return (
                         <span className="rounded-full bg-green-100 px-3 py-1 font-semibold text-green-700 text-xs">
-                          {t("steps.statusCompleted")}
+                          {t("status.completed")}
                         </span>
                       );
                     }
                     if (isCurrent) {
                       return (
                         <span className="rounded-full bg-orange-50 px-3 py-1 font-semibold text-orange-700 text-xs">
-                          {t("steps.statusInProgress")}
+                          {t("status.inProgress")}
                         </span>
                       );
                     }
                     return (
                       <span className="rounded-full bg-gray-100 px-3 py-1 font-semibold text-gray-600 text-xs">
-                        {t("steps.statusPending")}
+                        {t("status.pending")}
                       </span>
                     );
                   })()}
@@ -221,37 +221,33 @@ export default async function ProfessionalOnboardingPage({
                 </svg>
               </div>
               <div>
-                <h2 className="font-semibold text-2xl text-green-900">{t("profileLive.title")}</h2>
+                <h2 className="font-semibold text-2xl text-green-900">{t("success.profileLive")}</h2>
                 <p className="mt-2 text-base text-green-800 leading-relaxed">
-                  {t("profileLive.description")}
+                  {t("success.updateDescription")}
                 </p>
               </div>
             </div>
           </div>
 
           <SectionWrapper
-            subtitle={t("sections.publicProfile.subtitle")}
+            subtitle={t("sections.publicProfile.description")}
             title={t("sections.publicProfile.title")}
           >
             <ProfileBuildForm
               availabilityDays={AVAILABILITY_OPTIONS.map((label) => ({
                 label,
                 slug: label.toLowerCase().replace(/\s+/g, "_"),
-              }))}
-              footnote={t("sections.publicProfile.footnote")}
-              initialData={profileInitialData}
+              }))}              initialData={profileInitialData}
               inputClass={inputClass}
               languages={LANGUAGE_OPTIONS}
-              services={PROFILE_SERVICE_OPTIONS.map((name) => ({ name }))}
-              submitLabel={t("sections.publicProfile.submitLabel")}
-            />
+              services={PROFILE_SERVICE_OPTIONS.map((name) => ({ name }))}            />
           </SectionWrapper>
         </div>
       ) : (
         <>
           {stepIndex === 0 ? (
             <SectionWrapper
-              subtitle={t("sections.applicationDetails.subtitle")}
+              subtitle={t("sections.applicationDetails.description")}
               title={t("sections.applicationDetails.title")}
             >
               <ApplicationForm
@@ -264,45 +260,45 @@ export default async function ProfessionalOnboardingPage({
 
           {stepIndex === 1 ? (
             <SectionWrapper
-              subtitle={t("sections.uploadDocuments.subtitle")}
+              subtitle={t("sections.uploadDocuments.description")}
               title={t("sections.uploadDocuments.title")}
             >
               <div className="grid gap-8 lg:grid-cols-2">
                 <div>
                   <h3 className="font-semibold text-[#211f1a] text-xl">
-                    {t("sections.uploadDocuments.required.title")}
+                    {t("sections.uploadDocuments.required")}
                   </h3>
                   <ul className="mt-4 space-y-3 text-[#5d574b] text-base">
                     <li className="flex items-start gap-3">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#ff5d46]" />
-                      <span>{t("sections.uploadDocuments.required.governmentId")}</span>
+                      <span>{t("sections.uploadDocuments.requiredDocs.governmentId")}</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#ff5d46]" />
-                      <span>{t("sections.uploadDocuments.required.proofOfAddress")}</span>
+                      <span>{t("sections.uploadDocuments.requiredDocs.proofOfAddress")}</span>
                     </li>
                   </ul>
 
                   <h3 className="mt-8 font-semibold text-[#211f1a] text-xl">
-                    {t("sections.uploadDocuments.optional.title")}
+                    {t("sections.uploadDocuments.optional")}
                   </h3>
                   <ul className="mt-4 space-y-3 text-[#5d574b] text-base">
                     <li className="flex items-start gap-3">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-gray-400" />
-                      <span>{t("sections.uploadDocuments.optional.certifications")}</span>
+                      <span>{t("sections.uploadDocuments.optionalDocs.certifications")}</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-gray-400" />
-                      <span>{t("sections.uploadDocuments.optional.workPermits")}</span>
+                      <span>{t("sections.uploadDocuments.optionalDocs.workPermits")}</span>
                     </li>
                   </ul>
 
                   <div className="mt-8 rounded-2xl border border-[#ebe5d8] bg-white p-6">
                     <p className="text-[#5d574b] text-sm leading-relaxed">
                       <strong className="text-[#211f1a]">
-                        {t("sections.uploadDocuments.formats.label")}
+                        {t("sections.uploadDocuments.acceptedFormats")}
                       </strong>{" "}
-                      {t("sections.uploadDocuments.formats.text")}
+                      {t("sections.uploadDocuments.formatInfo")}
                     </p>
                   </div>
                 </div>
@@ -313,7 +309,7 @@ export default async function ProfessionalOnboardingPage({
 
           {stepIndex === 2 ? (
             <SectionWrapper
-              subtitle={t("sections.createProfile.subtitle")}
+              subtitle={t("sections.createProfile.description")}
               title={t("sections.createProfile.title")}
             >
               <ProfileBuildForm
@@ -351,10 +347,10 @@ export default async function ProfessionalOnboardingPage({
                 </div>
                 <div>
                   <h2 className="font-semibold text-2xl text-green-900">
-                    {t("onboardingComplete.title")}
+                    {t("complete.title")}
                   </h2>
                   <p className="mt-2 text-base text-green-800 leading-relaxed">
-                    {t("onboardingComplete.description")}
+                    {t("complete.description")}
                   </p>
                 </div>
               </div>
