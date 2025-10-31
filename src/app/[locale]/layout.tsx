@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import "../globals.css";
+import { ChangelogBanner } from "@/components/changelog/changelog-banner";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { FeedbackButton } from "@/components/feedback/feedback-button";
 import { CookieConsent } from "@/components/legal/cookie-consent";
@@ -83,6 +84,7 @@ export default async function RootLayout({
         <WebVitalsReporter />
         <ErrorBoundary>
           <NextIntlClientProvider locale={locale} messages={messages}>
+            <ChangelogBanner />
             <SupabaseProvider>
               <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
             </SupabaseProvider>
