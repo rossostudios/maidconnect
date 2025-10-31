@@ -64,9 +64,9 @@ export function ProfileBuildForm({
 
   const serviceDefaults = new Map<string, { rate: number | null; description: string }>();
   if (initialData?.services) {
-    initialData.services.forEach((service) => {
+    for (const service of initialData.services) {
       if (!service?.name) {
-        return;
+        continue;
       }
       const rawRate = service.hourly_rate_cop;
       const parsedRate =
@@ -79,14 +79,14 @@ export function ProfileBuildForm({
         rate: Number.isNaN(parsedRate) ? null : parsedRate,
         description: service.description ?? "",
       });
-    });
+    }
   }
 
   const availabilityDefaults = new Map<string, { start: string; end: string; notes: string }>();
   if (initialData?.availability) {
-    initialData.availability.forEach((slot) => {
+    for (const slot of initialData.availability) {
       if (!slot?.day) {
-        return;
+        continue;
       }
       const slug = slot.day.toLowerCase().replace(/\s+/g, "_");
       availabilityDefaults.set(slug, {
@@ -94,7 +94,7 @@ export function ProfileBuildForm({
         end: slot.end ?? "",
         notes: slot.notes ?? "",
       });
-    });
+    }
   }
 
   const initialLanguages = initialData?.languages ?? [];
@@ -167,12 +167,16 @@ export function ProfileBuildForm({
                   return (
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
-                        <label className="mb-2 block font-medium text-[#5d574b] text-sm">
+                        <label
+                          className="mb-2 block font-medium text-[#5d574b] text-sm"
+                          htmlFor={`service_rate_${service.name}`}
+                        >
                           {t("services.hourlyRate")}
                         </label>
                         <input
                           className={cn(inputClass, hasError("services") && errorClass)}
                           defaultValue={rateValue === "" ? "" : String(rateValue)}
+                          id={`service_rate_${service.name}`}
                           min={0}
                           name="service_rate"
                           placeholder={t("services.ratePlaceholder")}
@@ -180,12 +184,16 @@ export function ProfileBuildForm({
                         />
                       </div>
                       <div className="sm:col-span-2">
-                        <label className="mb-2 block font-medium text-[#5d574b] text-sm">
+                        <label
+                          className="mb-2 block font-medium text-[#5d574b] text-sm"
+                          htmlFor={`service_description_${service.name}`}
+                        >
                           {t("services.serviceDescription")}
                         </label>
                         <input
                           className={cn(inputClass, hasError("services") && errorClass)}
                           defaultValue={defaults?.description ?? ""}
+                          id={`service_description_${service.name}`}
                           name="service_description"
                           placeholder={t("services.descriptionPlaceholder")}
                           type="text"
@@ -212,34 +220,46 @@ export function ProfileBuildForm({
                   <span className="font-semibold text-[#211f1a] text-base">{day.label}</span>
                 </div>
                 <div>
-                  <label className="mb-2 block font-medium text-[#7d7566] text-xs uppercase tracking-wide">
+                  <label
+                    className="mb-2 block font-medium text-[#7d7566] text-xs uppercase tracking-wide"
+                    htmlFor={`availability_${day.slug}_start`}
+                  >
                     {t("availability.start")}
                   </label>
                   <input
                     className={inputClass}
                     defaultValue={availabilityDefaults.get(day.slug)?.start || "08:00"}
+                    id={`availability_${day.slug}_start`}
                     name={`availability_${day.slug}_start`}
                     type="time"
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block font-medium text-[#7d7566] text-xs uppercase tracking-wide">
+                  <label
+                    className="mb-2 block font-medium text-[#7d7566] text-xs uppercase tracking-wide"
+                    htmlFor={`availability_${day.slug}_end`}
+                  >
                     {t("availability.end")}
                   </label>
                   <input
                     className={inputClass}
                     defaultValue={availabilityDefaults.get(day.slug)?.end || "16:00"}
+                    id={`availability_${day.slug}_end`}
                     name={`availability_${day.slug}_end`}
                     type="time"
                   />
                 </div>
                 <div>
-                  <label className="mb-2 block font-medium text-[#7d7566] text-xs uppercase tracking-wide">
+                  <label
+                    className="mb-2 block font-medium text-[#7d7566] text-xs uppercase tracking-wide"
+                    htmlFor={`availability_${day.slug}_notes`}
+                  >
                     {t("availability.notes")}
                   </label>
                   <input
                     className={inputClass}
                     defaultValue={availabilityDefaults.get(day.slug)?.notes ?? ""}
+                    id={`availability_${day.slug}_notes`}
                     name={`availability_${day.slug}_notes`}
                     placeholder={t("availability.notesPlaceholder")}
                     type="text"
@@ -275,8 +295,10 @@ function Feedback({ state }: { state: OnboardingActionState }) {
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
             <svg
+              aria-label="Error icon"
               className="h-5 w-5 text-red-600"
               fill="none"
+              role="img"
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
@@ -299,8 +321,10 @@ function Feedback({ state }: { state: OnboardingActionState }) {
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
             <svg
+              aria-label="Success icon"
               className="h-5 w-5 text-green-600"
               fill="none"
+              role="img"
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
@@ -330,11 +354,14 @@ type FormFieldProps = {
 
 function FormField({ label, children, helper, error, characterCount }: FormFieldProps) {
   const t = useTranslations("dashboard.pro.profileBuildForm");
+  const childId = (children as React.ReactElement)?.props?.id;
 
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <label className="block font-semibold text-[#211f1a] text-base">{label}</label>
+        <label className="block font-semibold text-[#211f1a] text-base" htmlFor={childId}>
+          {label}
+        </label>
         {characterCount !== undefined ? (
           <span className="text-[#7d7566] text-sm">
             {t("characterCount", { count: characterCount })}
@@ -345,7 +372,13 @@ function FormField({ label, children, helper, error, characterCount }: FormField
       {children}
       {error ? (
         <p className="flex items-center gap-2 text-red-600 text-sm">
-          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+          <svg
+            aria-label="Error icon"
+            className="h-4 w-4"
+            fill="currentColor"
+            role="img"
+            viewBox="0 0 20 20"
+          >
             <path
               clipRule="evenodd"
               d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"

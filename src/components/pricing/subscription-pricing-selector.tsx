@@ -33,6 +33,7 @@ export function SubscriptionPricingSelector({
       <div className="flex items-center justify-between">
         <h3 className="font-semibold text-[#211f1a] text-sm">Booking Frequency</h3>
         <button
+          type="button"
           className="text-[#ff5d46] text-xs hover:text-[#eb6c65]"
           onClick={() => setShowDetails(!showDetails)}
         >
@@ -49,6 +50,7 @@ export function SubscriptionPricingSelector({
 
           return (
             <button
+              type="button"
               className={`relative rounded-lg border p-4 text-left transition ${
                 isSelected
                   ? "border-[#ff5d46] bg-[#ff5d46]/5 ring-2 ring-[#ff5d46]/20"

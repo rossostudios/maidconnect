@@ -113,6 +113,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
         <div className="flex items-center justify-between border-[#ebe5d8] border-b px-6 py-4">
           <h2 className="font-semibold text-[#211f1a] text-xl">Notifications</h2>
           <button
+            type="button"
             className="rounded-lg p-2 text-[#7d7566] transition hover:bg-[#ebe5d8]"
             onClick={onClose}
           >
@@ -131,6 +132,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
         <div className="flex items-center justify-between border-[#ebe5d8] border-b px-6 py-3">
           <div className="flex gap-4">
             <button
+              type="button"
               className={`font-medium text-sm transition ${
                 filter === "unread" ? "text-[#211f1a]" : "text-[#7d7566] hover:text-[#211f1a]"
               }`}
@@ -139,6 +141,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
               Unread {unreadCount > 0 && `(${unreadCount})`}
             </button>
             <button
+              type="button"
               className={`font-medium text-sm transition ${
                 filter === "all" ? "text-[#211f1a]" : "text-[#7d7566] hover:text-[#211f1a]"
               }`}
@@ -149,6 +152,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
           </div>
           {unreadCount > 0 && (
             <button
+              type="button"
               className="font-medium text-[#ff5d46] text-xs transition hover:text-[#e54d3c]"
               onClick={markAllAsRead}
             >
@@ -237,6 +241,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                       </div>
                       {!notification.read_at && (
                         <button
+                          type="button"
                           className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#ff5d46] transition hover:bg-[#e54d3c]"
                           onClick={() => markAsRead([notification.id])}
                         />

@@ -205,10 +205,10 @@ export function FinancesOverview({ bookings, payouts }: Props) {
   const serviceData = useMemo(() => {
     const serviceMap = new Map<string, number>();
 
-    bookings.forEach((b) => {
+    for (const b of bookings) {
       const service = b.service_name || "Other";
       serviceMap.set(service, (serviceMap.get(service) || 0) + (b.amount_captured || 0));
-    });
+    }
 
     return Array.from(serviceMap.entries())
       .map(([name, value]) => ({ name, value: value / 1000 }))

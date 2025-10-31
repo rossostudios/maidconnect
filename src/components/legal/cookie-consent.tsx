@@ -59,12 +59,14 @@ export function CookieConsent() {
             {/* Actions */}
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <button
+                type="button"
                 className="rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
                 onClick={declineCookies}
               >
                 Decline
               </button>
               <button
+                type="button"
                 className="rounded-full bg-[#ff5d46] px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-[#ff4529]"
                 onClick={acceptCookies}
               >
@@ -74,6 +76,7 @@ export function CookieConsent() {
 
             {/* Close button */}
             <button
+              type="button"
               aria-label="Close cookie banner"
               className="absolute top-4 right-4 rounded-full p-2 text-[#7d7566] transition hover:bg-[#fbfaf9] hover:text-[#211f1a] md:relative md:top-0 md:right-0"
               onClick={declineCookies}

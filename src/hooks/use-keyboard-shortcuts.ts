@@ -188,6 +188,9 @@ export function useKeyboardShortcuts(
               navigate("/dashboard/customer/addresses");
             }
             break;
+          default:
+            // Unknown key in "G" sequence, do nothing
+            break;
         }
         return;
       }
@@ -229,6 +232,9 @@ export function useKeyboardShortcuts(
             event.preventDefault();
             navigate("/auth/sign-in");
           }
+          break;
+        default:
+          // Unknown key, do nothing
           break;
       }
     };

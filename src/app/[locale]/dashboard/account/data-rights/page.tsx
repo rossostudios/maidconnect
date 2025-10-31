@@ -152,6 +152,7 @@ export default function DataRightsPage() {
               aria-label="Export data icon"
               className="h-6 w-6 text-[#ff5d46]"
               fill="none"
+              role="img"
               stroke="currentColor"
               strokeWidth={2}
               viewBox="0 0 24 24"
@@ -200,6 +201,7 @@ export default function DataRightsPage() {
               aria-label="Delete account icon"
               className="h-6 w-6 text-red-600"
               fill="none"
+              role="img"
               stroke="currentColor"
               strokeWidth={2}
               viewBox="0 0 24 24"

@@ -28,6 +28,7 @@ export function ContactFAQ() {
               key={key}
             >
               <button
+                type="button"
                 className="flex w-full items-center justify-between p-8 text-left transition"
                 onClick={() => toggleFAQ(index)}
               >

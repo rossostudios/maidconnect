@@ -378,6 +378,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
 
               return (
                 <button
+                  type="button"
                   className={`w-full p-6 text-left transition hover:bg-[#ff5d46]/5 ${
                     selectedConversation?.id === conv.id ? "bg-[#ff5d46]/5" : ""
                   }`}
@@ -393,6 +394,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                     {/* Avatar */}
                     <div className="flex-shrink-0">
                       {otherUser.avatar_url ? (
+                        /* Using img instead of Next.js Image because avatar_url is user-generated content from Supabase Storage with dynamic URLs */
                         <img
                           alt={otherUser.full_name}
                           className="h-12 w-12 rounded-full object-cover"
@@ -444,6 +446,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                 return (
                   <div className="flex items-center gap-4">
                     {otherUser.avatar_url ? (
+                      /* Using img instead of Next.js Image because avatar_url is user-generated content from Supabase Storage with dynamic URLs */
                       <img
                         alt={otherUser.full_name}
                         className="h-12 w-12 rounded-full object-cover"
@@ -472,6 +475,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                 {autoTranslateEnabled && (
                   <div className="flex items-center gap-2">
                     <button
+                      type="button"
                       className={`flex items-center gap-2 rounded-lg px-4 py-2 font-medium text-sm transition ${
                         translationEnabled
                           ? "bg-[#ff5d46] text-white hover:bg-[#eb6c65]"
@@ -495,7 +499,10 @@ export function MessagingInterface({ userId, userRole }: Props) {
                     )}
                   </div>
                 )}
-                <button className="rounded-lg px-4 py-2 font-medium text-[#7d7566] text-sm transition hover:bg-[#ebe5d8]">
+                <button
+                  type="button"
+                  className="rounded-lg px-4 py-2 font-medium text-[#7d7566] text-sm transition hover:bg-[#ebe5d8]"
+                >
                   View Booking
                 </button>
               </div>
@@ -721,6 +728,7 @@ function MessageInput({
           value={message}
         />
         <button
+          type="button"
           className="rounded-full bg-[#ff5d46] px-6 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!message.trim() || isSending}
           type="submit"

@@ -31,9 +31,7 @@ export function SignUpForm() {
   return (
     <form action={formAction} className="space-y-10" noValidate>
       <section className="space-y-5">
-        <label className="block font-semibold text-[#211f1a] text-sm">
-          {t("accountTypeLabel")}
-        </label>
+        <div className="block font-semibold text-[#211f1a] text-sm">{t("accountTypeLabel")}</div>
         <p className="text-[#5d574b] text-xs">{t("accountTypeHelper")}</p>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label
@@ -224,9 +222,13 @@ type FieldProps = {
 };
 
 function Field({ label, children, helper, error }: FieldProps) {
+  const childId = (children as React.ReactElement)?.props?.id;
+
   return (
     <div className="space-y-3">
-      <label className="block font-semibold text-[#211f1a] text-sm">{label}</label>
+      <label className="block font-semibold text-[#211f1a] text-sm" htmlFor={childId}>
+        {label}
+      </label>
       {helper ? <p className="text-[#5d574b] text-xs">{helper}</p> : null}
       {children}
       {error ? <p className="text-red-600 text-xs">{error}</p> : null}

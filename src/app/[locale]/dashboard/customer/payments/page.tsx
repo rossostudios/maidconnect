@@ -136,6 +136,7 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
                       aria-label="Credit card icon"
                       className="h-5 w-5 text-[#211f1a]"
                       fill="none"
+                      role="img"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
                     >

@@ -86,6 +86,9 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
             case error.TIMEOUT:
               message = "Location request timed out.";
               break;
+            default:
+              message = "An unknown error occurred while getting location.";
+              break;
           }
           reject(new Error(message));
         },

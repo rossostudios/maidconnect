@@ -99,9 +99,9 @@ export function ProBookingCalendar({ bookings }: Props) {
 
   const bookingsByDay = useMemo(() => {
     const map = new Map<string, CalendarBooking[]>();
-    bookings.forEach((booking) => {
+    for (const booking of bookings) {
       if (!booking.scheduled_start) {
-        return;
+        continue;
       }
       const date = new Date(booking.scheduled_start);
       const key = formatDateKey(toStartOfDay(date));
@@ -109,7 +109,7 @@ export function ProBookingCalendar({ bookings }: Props) {
         map.set(key, []);
       }
       map.get(key)?.push(booking);
-    });
+    }
     return map;
   }, [bookings]);
 

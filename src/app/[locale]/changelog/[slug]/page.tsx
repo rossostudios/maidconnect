@@ -123,6 +123,7 @@ export default async function ChangelogDetailPage({
           {/* Featured Image */}
           {changelog.featured_image_url && (
             <div className="mb-8 overflow-hidden rounded-[28px]">
+              {/* Using img instead of Next.js Image because featured_image_url is user-generated content from Supabase Storage with dynamic URLs */}
               <img
                 alt={changelog.title}
                 className="h-auto w-full object-cover"

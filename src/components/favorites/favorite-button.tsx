@@ -55,6 +55,7 @@ export function FavoriteButton({
 
   return (
     <button
+      type="button"
       className={`inline-flex items-center justify-center gap-2 rounded-full transition ${
         isFavorite
           ? "bg-[#ff5d46] text-white hover:bg-[#eb6c65]"

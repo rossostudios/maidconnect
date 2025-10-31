@@ -86,6 +86,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <button
+            type="button"
             className="rounded-lg p-2 text-[#7d7566] transition hover:bg-[#ebe5d8] hover:text-[#211f1a]"
             onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
           >
@@ -95,6 +96,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
             {format(currentMonth, "MMMM yyyy")}
           </h3>
           <button
+            type="button"
             className="rounded-lg p-2 text-[#7d7566] transition hover:bg-[#ebe5d8] hover:text-[#211f1a]"
             onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
           >
@@ -104,6 +106,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
 
         <div className="flex gap-2">
           <button
+            type="button"
             className="flex items-center gap-1 rounded-lg border-2 border-[#ebe5d8] bg-white px-3 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={handleBlockWeek}
           >
@@ -112,6 +115,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
           </button>
           {blockedDates.length > 0 && (
             <button
+              type="button"
               className="flex items-center gap-1 rounded-lg border-2 border-[#ebe5d8] bg-white px-3 py-2 font-semibold text-red-600 text-sm transition hover:border-red-500 hover:bg-red-50"
               onClick={handleClearAll}
             >
@@ -150,6 +154,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
 
             return (
               <button
+                type="button"
                 className={`aspect-square p-2 text-sm transition ${
                   isCurrentMonth
                     ? isBlocked

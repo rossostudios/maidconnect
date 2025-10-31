@@ -14,7 +14,6 @@ export async function submitProfessionalReviewAction(
   _prevState: ReviewActionState,
   formData: FormData
 ): Promise<ReviewActionState> {
-  void _prevState;
   try {
     const professionalId = formData.get("professionalId") as string | null;
     const ratingValue = formData.get("rating") as string | null;

@@ -82,6 +82,7 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
         <div className="flex items-center justify-between border-[#dcd6c7] border-b px-6 py-4">
           <h2 className="font-semibold text-[#2e2419] text-xl">Keyboard Shortcuts</h2>
           <button
+            type="button"
             aria-label="Close shortcuts panel"
             className="rounded-lg p-2 text-[#7a6d62] transition-colors hover:bg-[#f5f0e8] hover:text-[#2e2419]"
             onClick={onClose}

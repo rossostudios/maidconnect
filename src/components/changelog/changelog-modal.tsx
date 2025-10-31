@@ -158,6 +158,7 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
         {/* Featured Image */}
         {changelog.featured_image_url && (
           <div className="mb-6 overflow-hidden rounded-2xl">
+            {/* Using img instead of Next.js Image because featured_image_url is user-generated content from Supabase Storage with dynamic URLs */}
             <img
               alt={changelog.title}
               className="h-auto w-full object-cover"

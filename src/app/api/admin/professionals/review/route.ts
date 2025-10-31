@@ -115,6 +115,9 @@ export async function POST(request: Request) {
         reviewStatus = "needs_info";
         // Keep status same
         break;
+
+      default:
+        return NextResponse.json({ error: "Invalid action" }, { status: 400 });
     }
 
     // Create professional review record

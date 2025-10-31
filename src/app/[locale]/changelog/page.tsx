@@ -148,6 +148,7 @@ async function ChangelogList() {
             {/* Featured Image */}
             {changelog.featured_image_url && (
               <div className="mb-6 overflow-hidden rounded-2xl">
+                {/* Using img instead of Next.js Image because featured_image_url is user-generated content from Supabase Storage with dynamic URLs */}
                 <img
                   alt={changelog.title}
                   className="h-auto w-full object-cover"
@@ -181,7 +182,7 @@ async function ChangelogList() {
   );
 }
 
-export default async function ChangelogPage() {
+export default function ChangelogPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />

@@ -39,6 +39,7 @@ export function LanguageSwitcher({ variant = "light" }: LanguageSwitcherProps) {
   return (
     <div className="relative inline-block">
       <button
+        type="button"
         aria-label="Switch language"
         className={buttonStyles}
         onClick={() => {

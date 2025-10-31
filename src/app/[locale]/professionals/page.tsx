@@ -120,7 +120,7 @@ async function ProfessionalsGrid() {
   return <ProfessionalsDirectory professionals={professionals} />;
 }
 
-export default async function ProfessionalsPage() {
+export default function ProfessionalsPage() {
   return (
     <div className="bg-[var(--background)] text-[var(--foreground)]">
       {/* Static shell - loads instantly */}

@@ -9,7 +9,7 @@ import { TestimonialsSection } from "@/components/sections/testimonials-section"
 // Revalidate every hour (3600 seconds)
 export const revalidate = 3600;
 
-export default async function Home() {
+export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <SiteHeader />

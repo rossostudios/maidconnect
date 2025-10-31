@@ -57,6 +57,7 @@ export function NotificationPermissionPrompt({
 
           <div className="flex items-center gap-3">
             <button
+              type="button"
               className="whitespace-nowrap rounded-full bg-[#ff5d46] px-6 py-2.5 font-semibold text-sm text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
               disabled={isLoading}
               onClick={handleEnable}
@@ -65,6 +66,7 @@ export function NotificationPermissionPrompt({
             </button>
 
             <button
+              type="button"
               aria-label="Dismiss"
               className="rounded-full p-2 text-[#5d574b] transition hover:bg-white hover:text-[#211f1a]"
               onClick={handleDismiss}
@@ -115,6 +117,7 @@ export function NotificationPermissionPrompt({
 
             <div className="mt-6 flex items-center gap-3">
               <button
+                type="button"
                 className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
                 disabled={isLoading}
                 onClick={handleEnable}
@@ -123,6 +126,7 @@ export function NotificationPermissionPrompt({
               </button>
 
               <button
+                type="button"
                 className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
                 onClick={handleDismiss}
               >
@@ -137,6 +141,7 @@ export function NotificationPermissionPrompt({
         </div>
 
         <button
+          type="button"
           aria-label="Dismiss"
           className="rounded-full p-2 text-[#5d574b] transition hover:bg-[#ebe5d8] hover:text-[#211f1a]"
           onClick={handleDismiss}

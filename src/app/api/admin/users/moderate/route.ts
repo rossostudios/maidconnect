@@ -77,7 +77,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Cannot suspend or ban other admins" }, { status: 403 });
     }
 
-    let result;
+    let result: any;
 
     switch (action) {
       case "suspend": {

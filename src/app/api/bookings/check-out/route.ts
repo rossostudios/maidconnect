@@ -315,7 +315,7 @@ export async function POST(request: Request) {
     };
 
     // Send completion emails to both parties
-    const emailPromises = [];
+    const emailPromises: Promise<any>[] = [];
 
     if (customerUser.user?.email) {
       emailPromises.push(sendServiceCompletedEmail(customerUser.user.email, emailData, false));

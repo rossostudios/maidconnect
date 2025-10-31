@@ -473,6 +473,7 @@ function ServiceDetailsStep({
 
       <div className="flex justify-end">
         <button
+          type="button"
           className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!canProceed}
           onClick={onNext}
@@ -534,6 +535,7 @@ function AddressAddonsStep({
               showManagement={false}
             />
             <button
+              type="button"
               className="text-[#ff5d46] text-sm hover:text-[#eb6c65]"
               onClick={() => setUseCustomAddress(true)}
             >
@@ -559,6 +561,7 @@ function AddressAddonsStep({
             />
             {addresses.length > 0 && (
               <button
+                type="button"
                 className="text-[#ff5d46] text-sm hover:text-[#eb6c65]"
                 onClick={() => setUseCustomAddress(false)}
               >
@@ -599,6 +602,7 @@ function AddressAddonsStep({
               const isSelected = bookingData.selectedAddons.some((a) => a.id === addon.id);
               return (
                 <button
+                  type="button"
                   className={`w-full rounded-lg border p-3 text-left transition ${
                     isSelected
                       ? "border-[#ff5d46] bg-[#ff5d46]/5 ring-2 ring-[#ff5d46]/20"
@@ -635,12 +639,14 @@ function AddressAddonsStep({
 
       <div className="flex justify-between">
         <button
+          type="button"
           className="rounded-md border border-[#e5dfd4] px-6 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           onClick={onBack}
         >
           ← Back
         </button>
         <button
+          type="button"
           className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!canProceed}
           onClick={onNext}
@@ -795,6 +801,7 @@ function ConfirmationStep({
 
       <div className="flex justify-between">
         <button
+          type="button"
           className="rounded-md border border-[#e5dfd4] px-6 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={onBack}
@@ -802,6 +809,7 @@ function ConfirmationStep({
           ← Back
         </button>
         <button
+          type="button"
           className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={onConfirm}
@@ -874,6 +882,7 @@ function PaymentConfirmation({
       {error && <p className="text-red-600 text-sm">{error}</p>}
       <div className="flex items-center gap-3">
         <button
+          type="button"
           className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={submitting}
           onClick={handleConfirm}
@@ -882,6 +891,7 @@ function PaymentConfirmation({
           {submitting ? "Confirming..." : "Confirm Booking"}
         </button>
         <button
+          type="button"
           className="rounded-md border border-[#e5dfd4] px-6 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={submitting}
           onClick={onReset}

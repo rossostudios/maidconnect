@@ -118,6 +118,7 @@ export function NotificationsHistory() {
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <button
+            type="button"
             className={`font-medium text-base transition ${
               filter === "all" ? "text-[#211f1a]" : "text-[#7d7566] hover:text-[#211f1a]"
             }`}
@@ -126,6 +127,7 @@ export function NotificationsHistory() {
             All ({totalCount})
           </button>
           <button
+            type="button"
             className={`font-medium text-base transition ${
               filter === "unread" ? "text-[#211f1a]" : "text-[#7d7566] hover:text-[#211f1a]"
             }`}
@@ -136,6 +138,7 @@ export function NotificationsHistory() {
         </div>
         {unreadCount > 0 && (
           <button
+            type="button"
             className="font-medium text-[#ff5d46] text-sm transition hover:text-[#e54d3c]"
             onClick={markAllAsRead}
           >
@@ -221,6 +224,7 @@ export function NotificationsHistory() {
 
                 {!notification.read_at && (
                   <button
+                    type="button"
                     className="flex-shrink-0 font-medium text-[#ff5d46] text-xs transition hover:text-[#e54d3c]"
                     onClick={() => markAsRead([notification.id])}
                   >

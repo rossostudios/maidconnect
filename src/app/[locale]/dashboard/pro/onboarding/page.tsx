@@ -193,8 +193,10 @@ export default async function ProfessionalOnboardingPage({
             <div className="flex items-start gap-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
                 <svg
+                  aria-label="Success icon"
                   className="h-6 w-6 text-green-600"
                   fill="none"
+                  role="img"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -320,8 +322,10 @@ export default async function ProfessionalOnboardingPage({
               <div className="flex items-start gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
                   <svg
+                    aria-label="Success icon"
                     className="h-6 w-6 text-green-600"
                     fill="none"
+                    role="img"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                   >

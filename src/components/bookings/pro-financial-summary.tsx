@@ -65,7 +65,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
 
     const reference = new Date();
 
-    bookings.forEach((booking) => {
+    for (const booking of bookings) {
       const captured = booking.amount_captured ?? 0;
       const authorized = booking.amount_authorized ?? 0;
       const estimated = booking.amount_estimated ?? 0;
@@ -92,7 +92,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
         default:
           break;
       }
-    });
+    }
 
     return summary;
   }, [bookings]);

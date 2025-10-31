@@ -114,20 +114,20 @@ export async function GET(request: Request) {
 
     // Group data by professional
     const documentsMap = new Map<string, any[]>();
-    (allDocuments || []).forEach((doc: any) => {
+    for (const doc of allDocuments || []) {
       if (!documentsMap.has(doc.profile_id)) {
         documentsMap.set(doc.profile_id, []);
       }
       documentsMap.get(doc.profile_id)!.push(doc);
-    });
+    }
 
     const reviewsMap = new Map<string, any[]>();
-    (allReviews || []).forEach((review: any) => {
+    for (const review of allReviews || []) {
       if (!reviewsMap.has(review.professional_id)) {
         reviewsMap.set(review.professional_id, []);
       }
       reviewsMap.get(review.professional_id)!.push(review);
-    });
+    }
 
     // Combine data
     const enrichedProfessionals = filteredProfessionals.map((prof: any) => {

@@ -133,12 +133,14 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
         </h2>
         <div className="flex gap-3">
           <button
+            type="button"
             className="rounded-xl border-2 border-[#e5dfd4] px-5 py-2.5 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={goToToday}
           >
             Today
           </button>
           <button
+            type="button"
             aria-label="Previous month"
             className="rounded-xl border-2 border-[#e5dfd4] p-2.5 text-[#7d7566] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={goToPreviousMonth}
@@ -146,6 +148,7 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
             <ChevronLeft className="h-6 w-6" />
           </button>
           <button
+            type="button"
             aria-label="Next month"
             className="rounded-xl border-2 border-[#e5dfd4] p-2.5 text-[#7d7566] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={goToNextMonth}
@@ -167,6 +170,7 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
         <div className="rounded-[32px] border border-red-200 bg-red-50 p-8 text-center">
           <p className="text-base text-red-800">{error}</p>
           <button
+            type="button"
             className="mt-4 rounded-xl bg-red-600 px-6 py-3 font-semibold text-base text-white hover:bg-red-700"
             onClick={fetchAvailability}
           >
@@ -238,6 +242,7 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
 
                 return (
                   <button
+                    type="button"
                     className={`group relative flex min-h-[120px] flex-col rounded-2xl border-2 p-4 text-left transition-all duration-300 ${bgColor}
                       ${isSelected ? "scale-105 ring-4 ring-[#ff5d46] ring-offset-2" : ""}
                       ${isToday ? "border-[#ff5d46]" : ""}

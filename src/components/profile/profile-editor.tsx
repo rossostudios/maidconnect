@@ -226,6 +226,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
         <div className="flex flex-wrap gap-2">
           {LANGUAGE_OPTIONS.map((language) => (
             <button
+              type="button"
               className={`rounded-full border-2 px-4 py-2 font-semibold text-sm transition ${
                 profile.languages.includes(language)
                   ? "border-[#ff5d46] bg-[#ff5d46] text-white"
@@ -251,6 +252,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
         <div className="flex flex-wrap gap-2">
           {SERVICE_OPTIONS.map((service) => (
             <button
+              type="button"
               className={`rounded-full border-2 px-4 py-2 font-semibold text-sm transition ${
                 profile.primary_services.includes(service)
                   ? "border-[#ff5d46] bg-[#ff5d46] text-white"
@@ -269,6 +271,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       {/* Save Button */}
       <div className="flex items-center justify-end gap-3 border-[#ebe5d8] border-t pt-6">
         <button
+          type="button"
           className="rounded-full bg-[#ff5d46] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={isPending}
           onClick={handleSave}

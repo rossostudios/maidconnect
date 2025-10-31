@@ -138,12 +138,14 @@ export function AvailabilityCalendar({
         </h3>
         <div className="flex gap-2">
           <button
+            type="button"
             className="rounded-md border border-[#e5dfd4] px-3 py-1 font-medium text-[#7a6d62] text-xs transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={goToToday}
           >
             Today
           </button>
           <button
+            type="button"
             aria-label="Previous month"
             className="rounded-md border border-[#e5dfd4] px-2 py-1 text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={goToPreviousMonth}
@@ -151,6 +153,7 @@ export function AvailabilityCalendar({
             ←
           </button>
           <button
+            type="button"
             aria-label="Next month"
             className="rounded-md border border-[#e5dfd4] px-2 py-1 text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={goToNextMonth}
@@ -172,6 +175,7 @@ export function AvailabilityCalendar({
         <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-center">
           <p className="text-red-800 text-sm">{error}</p>
           <button
+            type="button"
             className="mt-2 font-semibold text-red-600 text-xs hover:text-red-700"
             onClick={fetchAvailability}
           >
@@ -233,6 +237,7 @@ export function AvailabilityCalendar({
 
               return (
                 <button
+                  type="button"
                   className={`relative min-h-[60px] p-2 text-left transition ${bgColor}
                     ${isSelected ? "ring-2 ring-[#ff5d46] ring-inset" : ""}
                     ${isToday ? "font-bold" : ""}
@@ -304,6 +309,7 @@ export function AvailabilityCalendar({
                 const isSelected = selectedTime === time;
                 return (
                   <button
+                    type="button"
                     className={`rounded-md border px-3 py-2 font-medium text-sm transition ${
                       isSelected
                         ? "border-[#ff5d46] bg-[#ff5d46] text-white"

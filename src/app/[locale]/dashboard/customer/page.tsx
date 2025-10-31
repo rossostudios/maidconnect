@@ -400,7 +400,14 @@ export default async function CustomerDashboardPage(props: {
             href="/dashboard/customer/messages"
           >
             {t("sections.messages.viewAllMessages")}
-            <svg aria-label="Arrow icon" className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              aria-label="Arrow icon"
+              className="h-5 w-5"
+              fill="none"
+              role="img"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
             </svg>
           </Link>

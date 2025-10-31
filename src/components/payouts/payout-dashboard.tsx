@@ -83,6 +83,7 @@ export function PayoutDashboard() {
       <div className="rounded-xl border border-red-200 bg-red-50 p-8 text-center">
         <p className="text-red-800 text-sm">{error}</p>
         <button
+          type="button"
           className="mt-4 rounded-lg bg-red-600 px-4 py-2 font-semibold text-sm text-white hover:bg-red-700"
           onClick={fetchPayoutData}
         >
@@ -115,6 +116,7 @@ export function PayoutDashboard() {
             </p>
           </div>
           <button
+            type="button"
             className="font-medium text-[#ff5d46] text-xs hover:text-[#eb6c65]"
             onClick={() => setShowScheduleInfo(!showScheduleInfo)}
           >

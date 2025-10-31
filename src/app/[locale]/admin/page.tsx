@@ -56,6 +56,7 @@ export default async function AdminHomePage() {
                 aria-label="Changelog icon"
                 className="h-6 w-6 text-purple-600"
                 fill="none"
+                role="img"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
@@ -81,6 +82,7 @@ export default async function AdminHomePage() {
                 aria-label="Feedback icon"
                 className="h-6 w-6 text-blue-600"
                 fill="none"
+                role="img"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >

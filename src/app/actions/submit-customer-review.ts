@@ -14,7 +14,6 @@ export async function submitCustomerReviewAction(
   _prevState: ReviewActionState,
   formData: FormData
 ): Promise<ReviewActionState> {
-  void _prevState;
   try {
     const customerId = formData.get("customerId") as string | null;
     const bookingId = formData.get("bookingId") as string | null;

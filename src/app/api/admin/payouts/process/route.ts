@@ -89,7 +89,19 @@ export async function POST(request: Request) {
       });
     }
 
-    const results = [];
+    const results: Array<{
+      professionalId: string;
+      success: boolean;
+      error?: string;
+      skipped?: boolean;
+      reason?: string;
+      dryRun?: boolean;
+      calculation?: any;
+      payoutId?: string;
+      stripeTransferId?: string;
+      netAmount?: number;
+      bookingCount?: number;
+    }> = [];
 
     // Process each professional
     for (const professional of professionals) {

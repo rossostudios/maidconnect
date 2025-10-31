@@ -93,18 +93,21 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
         <h4 className="mb-3 font-semibold text-[#211f1a] text-sm">Quick Presets</h4>
         <div className="flex flex-wrap gap-2">
           <button
+            type="button"
             className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={() => handlePreset("weekdays")}
           >
             Weekdays (Mon-Fri)
           </button>
           <button
+            type="button"
             className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={() => handlePreset("weekends")}
           >
             Weekends Only
           </button>
           <button
+            type="button"
             className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={() => handlePreset("everyday")}
           >
@@ -162,6 +165,7 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
 
                   {/* Copy Button */}
                   <button
+                    type="button"
                     className="ml-auto flex items-center gap-1 rounded-lg px-3 py-2 font-semibold text-[#7d7566] text-xs transition hover:bg-[#ebe5d8] hover:text-[#211f1a]"
                     onClick={() => handleCopyToAll(index)}
                     title="Copy these hours to all days"

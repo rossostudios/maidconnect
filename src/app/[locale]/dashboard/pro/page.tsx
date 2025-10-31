@@ -267,11 +267,11 @@ export default async function ProfessionalDashboardPage({
 
   const requiredDocKeys = new Set(REQUIRED_DOCUMENTS.map((doc) => doc.key));
   const uploadedDocMap = new Map<string, DocumentRow>();
-  documents.forEach((doc) => {
+  for (const doc of documents) {
     if (!uploadedDocMap.has(doc.document_type)) {
       uploadedDocMap.set(doc.document_type, doc);
     }
-  });
+  }
   const missingDocuments = [...requiredDocKeys].filter((key) => !uploadedDocMap.has(key));
 
   const onboardingStatus = user.onboardingStatus;

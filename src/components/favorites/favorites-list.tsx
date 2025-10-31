@@ -121,6 +121,7 @@ function ProfessionalCard({
           <div className="flex items-start gap-4">
             {/* Avatar */}
             {professional.profile.avatar_url ? (
+              /* Using img instead of Next.js Image because avatar_url is user-generated content from Supabase Storage with dynamic URLs */
               <img
                 alt={professional.profile.full_name}
                 className="h-16 w-16 rounded-full object-cover"

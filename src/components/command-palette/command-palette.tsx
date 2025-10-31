@@ -262,6 +262,7 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
               value={search}
             />
             <button
+              type="button"
               aria-label="Close command palette"
               className="ml-2 rounded-lg p-2 text-[#7a6d62] transition-colors hover:bg-[#f5f0e8] hover:text-[#2e2419]"
               onClick={onClose}
