@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { verifyBookingLocation } from "@/lib/gps-verification";
+import { logger } from "@/lib/logger";
 import { notifyCustomerServiceStarted } from "@/lib/notifications";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -91,9 +93,47 @@ export async function POST(request: Request) {
       );
     }
 
-    // TODO: Optional GPS verification - check if coordinates are within reasonable distance of booking address
-    // This would require geocoding the address and calculating distance
-    // For now, we just store the coordinates
+    // GPS Verification: Check if professional is within reasonable distance of booking address
+    const gpsVerification = verifyBookingLocation(
+      { latitude, longitude },
+      booking.address,
+      150 // 150 meters = ~0.09 miles
+    );
+
+    // Log GPS verification result
+    await logger.info("GPS verification at check-in", {
+      bookingId: booking.id,
+      professionalId: booking.professional_id,
+      verified: gpsVerification.verified,
+      distance: gpsVerification.distance,
+      maxDistance: gpsVerification.maxDistance,
+      reason: gpsVerification.reason,
+      professionalLocation: { latitude, longitude },
+    });
+
+    // Soft enforcement: Log warning if too far but still allow check-in
+    // Hard enforcement could be enabled in future by uncommenting the block below
+    if (!gpsVerification.verified && gpsVerification.distance > 0) {
+      await logger.warn("Professional checking in from unexpected location", {
+        bookingId: booking.id,
+        professionalId: booking.professional_id,
+        distance: gpsVerification.distance,
+        maxDistance: gpsVerification.maxDistance,
+        serviceName: booking.service_name,
+        severity: "MEDIUM",
+        actionRecommended: "Review check-in location for potential fraud",
+      });
+
+      // Uncomment for hard enforcement (block check-in if too far):
+      // return NextResponse.json(
+      //   {
+      //     error: "You must be at the service location to check in",
+      //     distance: gpsVerification.distance,
+      //     maxDistance: gpsVerification.maxDistance,
+      //   },
+      //   { status: 400 }
+      // );
+    }
 
     // Update booking to in_progress status with check-in data
     const { data: updatedBooking, error: updateError } = await supabase
