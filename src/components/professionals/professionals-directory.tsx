@@ -9,6 +9,10 @@ import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
 import {
+  ProfessionalsFilterSheet,
+  type FilterState,
+} from "./professionals-filter-sheet";
+import {
   OnTimeRateBadge,
   RatingBadge,
   VerificationBadge,
@@ -58,6 +62,7 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
   const [ratingFilter, setRatingFilter] = useState("all");
   const [availableToday, setAvailableToday] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
 
   // Week 3-4 feature flag
   const showEnhancedTrustBadges = useFeatureFlag("enhanced_trust_badges");
@@ -141,6 +146,20 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
     setSearchTerm("");
   };
 
+  const handleApplyFilters = (filters: FilterState) => {
+    setServiceFilter(filters.serviceFilter);
+    setCityFilter(filters.cityFilter);
+    setRatingFilter(filters.ratingFilter);
+    setAvailableToday(filters.availableToday);
+  };
+
+  const activeFilterCount = [
+    serviceFilter !== "all",
+    cityFilter !== "all",
+    ratingFilter !== "all",
+    availableToday,
+  ].filter(Boolean).length;
+
   return (
     <section className="py-16 sm:py-20 lg:py-24">
       <Container className="space-y-12">
@@ -166,8 +185,25 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
               />
             </div>
 
-            {/* Filter Controls */}
-            <div className="flex flex-wrap items-center gap-4 font-semibold text-[#5a5549] text-sm">
+            {/* Mobile Filter Button */}
+            <div className="md:hidden">
+              <button
+                className="flex w-full items-center justify-center gap-2 rounded-full border-2 border-[#211f1a] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:bg-[#211f1a] hover:text-white"
+                onClick={() => setIsFilterSheetOpen(true)}
+                type="button"
+              >
+                <SlidersHorizontal className="h-5 w-5" />
+                Filters
+                {activeFilterCount > 0 && (
+                  <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#ff5d46] px-2 font-semibold text-white text-xs">
+                    {activeFilterCount}
+                  </span>
+                )}
+              </button>
+            </div>
+
+            {/* Desktop Filter Controls - Hidden on mobile */}
+            <div className="hidden flex-wrap items-center gap-4 font-semibold text-[#5a5549] text-sm md:flex">
               <label className="flex items-center gap-2.5">
                 <Filter className="h-5 w-5 text-[#211f1a]" />
                 <span>{t("filters.service")}</span>
@@ -333,6 +369,21 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
             ))}
           </div>
         )}
+
+        {/* Mobile Filter Sheet */}
+        <ProfessionalsFilterSheet
+          cityOptions={cityOptions}
+          currentFilters={{
+            serviceFilter,
+            cityFilter,
+            ratingFilter,
+            availableToday,
+          }}
+          isOpen={isFilterSheetOpen}
+          onApply={handleApplyFilters}
+          onClose={() => setIsFilterSheetOpen(false)}
+          serviceOptions={serviceOptions}
+        />
       </Container>
     </section>
   );

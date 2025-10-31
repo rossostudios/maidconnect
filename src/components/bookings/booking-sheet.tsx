@@ -206,17 +206,17 @@ export function BookingSheet({
         onClick={onClose}
       />
 
-      {/* Sheet */}
-      <div className="slide-in-from-right fixed inset-y-0 right-0 z-50 w-full max-w-2xl animate-in overflow-y-auto bg-white shadow-2xl duration-500 ease-out">
-        <div className="sticky top-0 z-10 flex items-center justify-between border-[#ebe5d8] border-b bg-white px-8 py-6">
+      {/* Sheet - Full width on mobile, max-w-2xl on desktop */}
+      <div className="slide-in-from-right fixed inset-y-0 right-0 z-50 w-full animate-in overflow-y-auto bg-white shadow-2xl duration-500 ease-out md:max-w-2xl">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-[#ebe5d8] border-b bg-white px-6 py-5 md:px-8 md:py-6">
           <div>
-            <h2 className="font-semibold text-2xl text-[#211f1a]">
+            <h2 className="font-semibold text-xl text-[#211f1a] md:text-2xl">
               {currentStep === "time" && "Choose time"}
               {currentStep === "details" && "Booking details"}
               {currentStep === "payment" && "Payment"}
             </h2>
             {selectedDate && (
-              <p className="mt-1 text-[#7d7566] text-base">
+              <p className="mt-1 text-[#7d7566] text-sm md:text-base">
                 {selectedDate.toLocaleDateString("en-US", {
                   weekday: "long",
                   month: "long",
@@ -227,14 +227,16 @@ export function BookingSheet({
             )}
           </div>
           <button
-            className="rounded-full p-2 text-[#7d7566] transition hover:bg-[#f0ece5]"
+            aria-label="Close booking sheet"
+            className="flex h-11 w-11 items-center justify-center rounded-full text-[#7d7566] transition hover:bg-[#f0ece5]"
             onClick={onClose}
+            type="button"
           >
             <X className="h-6 w-6" />
           </button>
         </div>
 
-        <div className="p-8">
+        <div className="p-6 md:p-8">
           {error && (
             <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-5 py-4 text-base text-red-600">
               {error}
@@ -249,13 +251,14 @@ export function BookingSheet({
                 <p className="mb-6 text-[#7d7566] text-base">
                   Select a time slot to continue with your booking
                 </p>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
                   {availableSlots.map((time, index) => (
                     <button
-                      className="group fade-in-0 slide-in-from-bottom-4 animate-in rounded-xl border-2 border-[#e5dfd4] bg-white px-5 py-4 font-semibold text-[#211f1a] text-base shadow-sm transition-all duration-300 hover:scale-105 hover:border-[#ff5d46] hover:bg-[#ff5d46]/5 hover:shadow-lg active:scale-95"
+                      className="group fade-in-0 slide-in-from-bottom-4 animate-in rounded-xl border-2 border-[#e5dfd4] bg-white px-5 py-4 font-semibold text-[#211f1a] text-base shadow-sm transition-all duration-300 hover:scale-105 hover:border-[#ff5d46] hover:bg-[#ff5d46]/5 hover:shadow-lg active:scale-95 md:px-5 md:py-4"
                       key={time}
                       onClick={() => handleTimeSelect(time)}
                       style={{ animationDelay: `${index * 30}ms` }}
+                      type="button"
                     >
                       {formatTime(time)}
                     </button>
@@ -284,9 +287,9 @@ export function BookingSheet({
 
               {/* Service Selection */}
               <div>
-                <label className="mb-3 block font-semibold text-[#211f1a] text-lg">Service *</label>
+                <label className="mb-3 block font-semibold text-[#211f1a] text-base md:text-lg">Service *</label>
                 <select
-                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-4 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20 md:px-5"
                   onChange={(e) => {
                     const service = serviceWithName.find((s) => s.name === e.target.value);
                     setBookingData({
@@ -310,34 +313,38 @@ export function BookingSheet({
                 </select>
               </div>
 
-              {/* Duration */}
+              {/* Duration - Touch-friendly controls */}
               <div>
-                <label className="mb-3 block font-semibold text-[#211f1a] text-lg">
+                <label className="mb-3 block font-semibold text-[#211f1a] text-base md:text-lg">
                   Duration *
                 </label>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3 md:gap-4">
                   <button
-                    className="rounded-xl border-2 border-[#e5dfd4] p-3 transition hover:border-[#ff5d46] hover:bg-[#ff5d46]/5"
+                    aria-label="Decrease duration"
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#e5dfd4] transition hover:border-[#ff5d46] hover:bg-[#ff5d46]/5 md:p-3"
                     onClick={() =>
                       setBookingData({
                         ...bookingData,
                         durationHours: Math.max(1, bookingData.durationHours - 1),
                       })
                     }
+                    type="button"
                   >
                     <Minus className="h-5 w-5" />
                   </button>
-                  <div className="flex-1 rounded-xl border-2 border-[#e5dfd4] bg-[#fbfafa] px-5 py-4 text-center font-semibold text-[#211f1a] text-xl">
+                  <div className="flex-1 rounded-xl border-2 border-[#e5dfd4] bg-[#fbfafa] px-4 py-4 text-center font-semibold text-[#211f1a] text-lg md:px-5 md:text-xl">
                     {bookingData.durationHours} {bookingData.durationHours === 1 ? "hour" : "hours"}
                   </div>
                   <button
-                    className="rounded-xl border-2 border-[#e5dfd4] p-3 transition hover:border-[#ff5d46] hover:bg-[#ff5d46]/5"
+                    aria-label="Increase duration"
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#e5dfd4] transition hover:border-[#ff5d46] hover:bg-[#ff5d46]/5 md:p-3"
                     onClick={() =>
                       setBookingData({
                         ...bookingData,
                         durationHours: Math.min(12, bookingData.durationHours + 1),
                       })
                     }
+                    type="button"
                   >
                     <Plus className="h-5 w-5" />
                   </button>
@@ -460,22 +467,24 @@ export function BookingSheet({
                 </div>
               </div>
 
-              {/* Actions */}
-              <div className="flex gap-4">
+              {/* Actions - Touch-friendly */}
+              <div className="flex flex-col gap-3 md:flex-row md:gap-4">
                 <button
-                  className="rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+                  className="order-2 rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] md:order-1"
                   onClick={() => setCurrentStep("time")}
+                  type="button"
                 >
                   Back
                 </button>
                 <button
-                  className="flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="order-1 flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
                   disabled={
                     loading ||
                     !bookingData.serviceName ||
                     !(bookingData.address || bookingData.customAddress)
                   }
                   onClick={handleSubmit}
+                  type="button"
                 >
                   {loading ? "Creating booking..." : "Continue to payment"}
                 </button>
@@ -570,18 +579,20 @@ function PaymentStep({
       </p>
       <PaymentElement />
       {error && <p className="text-base text-red-600">{error}</p>}
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-3 md:flex-row md:gap-4">
         <button
-          className="rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
+          className="order-2 rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50 md:order-1"
           disabled={submitting}
           onClick={onBack}
+          type="button"
         >
           Back
         </button>
         <button
-          className="flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          className="order-1 flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
           disabled={submitting}
           onClick={handleConfirm}
+          type="button"
         >
           {submitting ? "Confirming..." : "Confirm booking"}
         </button>

@@ -185,49 +185,55 @@ export function ProfessionalProfileView({
 
           {/* Right: Info Tabs */}
           <aside className="space-y-8">
-            {/* Tab Navigation */}
+            {/* Tab Navigation - Horizontally scrollable on mobile */}
             <div className="rounded-[32px] border border-[#ebe5d8] bg-white shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
-              <div className="flex border-[#ebe5d8] border-b">
-                <button
-                  className={`flex-1 px-6 py-4 font-semibold text-base transition ${
-                    activeTab === "about"
-                      ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
-                      : "text-[#7d7566] hover:text-[#ff5d46]"
-                  }`}
-                  onClick={() => setActiveTab("about")}
-                >
-                  {t("tabs.about")}
-                </button>
-                <button
-                  className={`flex-1 px-6 py-4 font-semibold text-base transition ${
-                    activeTab === "services"
-                      ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
-                      : "text-[#7d7566] hover:text-[#ff5d46]"
-                  }`}
-                  onClick={() => setActiveTab("services")}
-                >
-                  {t("tabs.services")}
-                </button>
-                <button
-                  className={`flex-1 px-6 py-4 font-semibold text-base transition ${
-                    activeTab === "portfolio"
-                      ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
-                      : "text-[#7d7566] hover:text-[#ff5d46]"
-                  }`}
-                  onClick={() => setActiveTab("portfolio")}
-                >
-                  {t("tabs.portfolio")}
-                </button>
-                <button
-                  className={`flex-1 px-6 py-4 font-semibold text-base transition ${
-                    activeTab === "reviews"
-                      ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
-                      : "text-[#7d7566] hover:text-[#ff5d46]"
-                  }`}
-                  onClick={() => setActiveTab("reviews")}
-                >
-                  {t("tabs.reviews")}
-                </button>
+              <div className="overflow-x-auto">
+                <div className="flex w-max border-[#ebe5d8] border-b md:w-full">
+                  <button
+                    className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
+                      activeTab === "about"
+                        ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
+                        : "text-[#7d7566] hover:text-[#ff5d46]"
+                    }`}
+                    onClick={() => setActiveTab("about")}
+                    type="button"
+                  >
+                    {t("tabs.about")}
+                  </button>
+                  <button
+                    className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
+                      activeTab === "services"
+                        ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
+                        : "text-[#7d7566] hover:text-[#ff5d46]"
+                    }`}
+                    onClick={() => setActiveTab("services")}
+                    type="button"
+                  >
+                    {t("tabs.services")}
+                  </button>
+                  <button
+                    className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
+                      activeTab === "portfolio"
+                        ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
+                        : "text-[#7d7566] hover:text-[#ff5d46]"
+                    }`}
+                    onClick={() => setActiveTab("portfolio")}
+                    type="button"
+                  >
+                    {t("tabs.portfolio")}
+                  </button>
+                  <button
+                    className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
+                      activeTab === "reviews"
+                        ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
+                        : "text-[#7d7566] hover:text-[#ff5d46]"
+                    }`}
+                    onClick={() => setActiveTab("reviews")}
+                    type="button"
+                  >
+                    {t("tabs.reviews")}
+                  </button>
+                </div>
               </div>
 
               {/* Tab Content */}

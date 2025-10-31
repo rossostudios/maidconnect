@@ -74,27 +74,29 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
         </div>
       )}
 
-      {/* Tabs */}
-      <div className="border-[#ebe5d8] border-b">
-        <div className="flex gap-1">
+      {/* Tabs - Horizontally scrollable on mobile */}
+      <div className="overflow-x-auto border-[#ebe5d8] border-b">
+        <div className="flex w-max gap-1 md:w-full">
           <button
-            className={`flex items-center gap-2 border-b-2 px-4 py-3 font-semibold text-sm transition ${
+            className={`flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition ${
               activeTab === "hours"
                 ? "border-[#ff5d46] text-[#ff5d46]"
                 : "border-transparent text-[#7d7566] hover:text-[#211f1a]"
             }`}
             onClick={() => setActiveTab("hours")}
+            type="button"
           >
             <Clock className="h-4 w-4" />
             {t("tabs.workingHours")}
           </button>
           <button
-            className={`flex items-center gap-2 border-b-2 px-4 py-3 font-semibold text-sm transition ${
+            className={`flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition ${
               activeTab === "blocked"
                 ? "border-[#ff5d46] text-[#ff5d46]"
                 : "border-transparent text-[#7d7566] hover:text-[#211f1a]"
             }`}
             onClick={() => setActiveTab("blocked")}
+            type="button"
           >
             <Calendar className="h-4 w-4" />
             {t("tabs.blockedDates")}
