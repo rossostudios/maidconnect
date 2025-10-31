@@ -61,20 +61,20 @@ Historical documentation, session notes, and sprint summaries.
 - weeks-1-2-session-summary.md
 
 #### Sprints
-- SPRINT_4_PHASE_1_SUMMARY.md
-- SPRINT_4_PHASE_2_SUMMARY.md
+- sprint-4-phase-1-summary.md
+- sprint-4-phase-2-summary.md
 
 #### Planning (Historical)
 - gameplan-2025-01.md - Technical audit and 60-90 day roadmap (January 2025)
-- HIGH_PRIORITY_UX_PLAN.md
-- PRODUCT_PAGES_PLAN.md
-- MONITORING_SETUP.md (superseded by monitoring.md)
+- high-priority-ux-plan.md
+- product-pages-plan.md
+- monitoring-setup.md (superseded by monitoring.md)
 - better-stack-setup.md (superseded by monitoring.md)
 - rate-limiting-setup.md (superseded by security-best-practices.md)
 - csp-nonce-implementation-plan.md (superseded by security-best-practices.md)
-- REACT_19_HOOKS_IMPLEMENTATION.md (superseded by react-19-implementation.md)
-- OPTIMISTIC_UI_IMPLEMENTATION.md (superseded by react-19-implementation.md)
-- REACT_19_PHASE_3_USEACTIONSTATE.md (superseded by react-19-implementation.md)
+- react-19-hooks-implementation.md (superseded by react-19-implementation.md)
+- optimistic-ui-implementation.md (superseded by react-19-implementation.md)
+- react-19-phase-3-useactionstate.md (superseded by react-19-implementation.md)
 
 ---
 
@@ -167,7 +167,7 @@ System architecture documentation:
 ### Consolidated Documents
 
 #### Monitoring & Logging
-Merged **MONITORING_SETUP.md** + **better-stack-setup.md** into single comprehensive guide:
+Merged **monitoring-setup.md** + **better-stack-setup.md** into single comprehensive guide:
 - Better Stack (Logtail) setup
 - DIY Supabase logger (free alternative)
 - Best practices
@@ -184,7 +184,7 @@ Merged **rate-limiting-setup.md** + **csp-nonce-implementation-plan.md** into co
 - Dependency management
 
 #### React 19 Implementation
-Merged 3 phase-specific docs into **REACT_19_COMPLETE_IMPLEMENTATION.md**:
+Merged 3 phase-specific docs into **react-19-implementation.md**:
 - Phase 1: useOptimistic (messaging, bookings)
 - Phase 2: useOptimistic (booking actions)
 - Phase 3: useActionState (forms)

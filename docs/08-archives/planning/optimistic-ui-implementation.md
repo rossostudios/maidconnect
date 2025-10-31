@@ -322,7 +322,7 @@ const handleAction = async () => {
 
 - [React 19 useOptimistic Documentation](https://react.dev/reference/react/useOptimistic)
 - [Next.js 16 Release Notes](https://nextjs.org/blog/next-16)
-- [REACT_19_HOOKS_IMPLEMENTATION.md](./REACT_19_HOOKS_IMPLEMENTATION.md) - Messaging interface implementation
+- [react-19-hooks-implementation.md](./react-19-hooks-implementation.md) - Messaging interface implementation
 
 ---
 

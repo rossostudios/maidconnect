@@ -497,7 +497,7 @@ const [submissionState, submitAction, isPending] = useActionState<SubmissionStat
 - Cleaner error handling
 - Progressive enhancement ready
 
-**Detailed Documentation:** [REACT_19_PHASE_3_USEACTIONSTATE.md](./REACT_19_PHASE_3_USEACTIONSTATE.md)
+**Detailed Documentation:** [react-19-phase-3-useactionstate.md](../08-archives/planning/react-19-phase-3-useactionstate.md) (archived)
 
 ---
 
@@ -621,6 +621,6 @@ const [submissionState, submitAction, isPending] = useActionState<SubmissionStat
 **Documentation:** Complete
 
 **Documentation Files:**
-1. [OPTIMISTIC_UI_IMPLEMENTATION.md](./OPTIMISTIC_UI_IMPLEMENTATION.md) - Phase 1
-2. [REACT_19_COMPLETE_IMPLEMENTATION.md](./REACT_19_COMPLETE_IMPLEMENTATION.md) - All phases summary (this file)
-3. [REACT_19_PHASE_3_USEACTIONSTATE.md](./REACT_19_PHASE_3_USEACTIONSTATE.md) - Phase 3 detailed
+1. [optimistic-ui-implementation.md](../08-archives/planning/optimistic-ui-implementation.md) - Phase 1 (archived)
+2. This file - All phases summary
+3. [react-19-phase-3-useactionstate.md](../08-archives/planning/react-19-phase-3-useactionstate.md) - Phase 3 detailed (archived)

@@ -685,8 +685,8 @@ UI updates based on state
 - [React 19 useActionState Docs](https://react.dev/reference/react/useActionState)
 - [React 19 Release Notes](https://react.dev/blog/2024/12/05/react-19)
 - [Next.js 16 Forms Guide](https://nextjs.org/docs/app/building-your-application/data-fetching/forms)
-- [Phase 1: useOptimistic Implementation](./OPTIMISTIC_UI_IMPLEMENTATION.md)
-- [Phase 2: Suspense Boundaries](./REACT_19_COMPLETE_IMPLEMENTATION.md)
+- [Phase 1: useOptimistic Implementation](./optimistic-ui-implementation.md)
+- [Phase 2: Suspense Boundaries](../../03-technical/react-19-implementation.md)
 
 ---
 
