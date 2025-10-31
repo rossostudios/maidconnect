@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { CancelBookingModal } from "./cancel-booking-modal";
 import { DisputeModal, isWithinDisputeWindow } from "./dispute-modal";
+import { RebookModal } from "./rebook-modal";
 import { RescheduleBookingModal } from "./reschedule-booking-modal";
 
 export type CustomerBooking = {
@@ -99,6 +100,7 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [showRescheduleModal, setShowRescheduleModal] = useState(false);
   const [showDisputeModal, setShowDisputeModal] = useState(false);
+  const [showRebookModal, setShowRebookModal] = useState(false);
 
   // Week 3-4: Check if booking is within 48-hour dispute window
   const canReportIssue = isWithinDisputeWindow(booking, booking.completed_at);
@@ -207,6 +209,7 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
               )}
               <button
                 className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+                onClick={() => setShowRebookModal(true)}
                 type="button"
               >
                 {t("card.actions.bookAgain")}
@@ -235,6 +238,13 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
         booking={booking}
         isOpen={showDisputeModal}
         onClose={() => setShowDisputeModal(false)}
+      />
+
+      {/* Rebook Modal - Week 5-6 */}
+      <RebookModal
+        booking={booking}
+        isOpen={showRebookModal}
+        onClose={() => setShowRebookModal(false)}
       />
     </div>
   );

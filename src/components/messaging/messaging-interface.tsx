@@ -1,6 +1,7 @@
 "use client";
 
 import { formatDistanceToNow } from "date-fns";
+import { Languages } from "lucide-react";
 import {
   useActionState,
   useCallback,
@@ -11,8 +12,11 @@ import {
   useTransition,
 } from "react";
 import { ConversationSkeleton } from "@/components/ui/skeleton";
+import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { useNotifications } from "@/hooks/use-notifications";
 import { useRealtimeMessages } from "@/hooks/use-realtime-messages";
+import type { SupportedLanguage } from "@/lib/translation";
+import { detectLanguage, translateText } from "@/lib/translation";
 
 export type Conversation = {
   id: string;
@@ -96,6 +100,11 @@ export function MessagingInterface({ userId, userRole }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [previousUnreadCount, setPreviousUnreadCount] = useState(0);
   const [isPending, startTransition] = useTransition();
+
+  // Week 5-6: Auto-translate feature
+  const autoTranslateEnabled = useFeatureFlag("auto_translate_chat");
+  const [translationEnabled, setTranslationEnabled] = useState(false);
+  const [targetLanguage, setTargetLanguage] = useState<SupportedLanguage>("en");
 
   // React 19: useOptimistic for instant message display
   const [optimisticMessages, addOptimisticMessage] = useOptimistic(
@@ -459,9 +468,37 @@ export function MessagingInterface({ userId, userRole }: Props) {
                   </div>
                 );
               })()}
-              <button className="rounded-lg px-4 py-2 font-medium text-[#7d7566] text-sm transition hover:bg-[#ebe5d8]">
-                View Booking
-              </button>
+              <div className="flex items-center gap-2">
+                {autoTranslateEnabled && (
+                  <div className="flex items-center gap-2">
+                    <button
+                      className={`flex items-center gap-2 rounded-lg px-4 py-2 font-medium text-sm transition ${
+                        translationEnabled
+                          ? "bg-[#ff5d46] text-white hover:bg-[#eb6c65]"
+                          : "text-[#7d7566] hover:bg-[#ebe5d8]"
+                      }`}
+                      onClick={() => setTranslationEnabled(!translationEnabled)}
+                      type="button"
+                    >
+                      <Languages className="h-4 w-4" />
+                      {translationEnabled ? "Translation On" : "Translate"}
+                    </button>
+                    {translationEnabled && (
+                      <select
+                        className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-1 focus:ring-[#ff5d46]"
+                        onChange={(e) => setTargetLanguage(e.target.value as SupportedLanguage)}
+                        value={targetLanguage}
+                      >
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                      </select>
+                    )}
+                  </div>
+                )}
+                <button className="rounded-lg px-4 py-2 font-medium text-[#7d7566] text-sm transition hover:bg-[#ebe5d8]">
+                  View Booking
+                </button>
+              </div>
             </div>
 
             {/* Messages */}
@@ -469,6 +506,8 @@ export function MessagingInterface({ userId, userRole }: Props) {
               currentUserId={userId}
               loading={messagesLoading}
               messages={optimisticMessages}
+              targetLanguage={targetLanguage}
+              translationEnabled={translationEnabled}
             />
 
             {/* Message Input */}
@@ -510,16 +549,68 @@ function MessageThread({
   messages,
   currentUserId,
   loading,
+  translationEnabled,
+  targetLanguage,
 }: {
   messages: Message[];
   currentUserId: string;
   loading: boolean;
+  translationEnabled: boolean;
+  targetLanguage: SupportedLanguage;
 }) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [translations, setTranslations] = useState<Record<string, string>>({});
+  const [translatingIds, setTranslatingIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+  }, [messages]);
+
+  // Translate messages when translation is enabled
+  useEffect(() => {
+    if (!translationEnabled) {
+      setTranslations({});
+      return;
+    }
+
+    const translateMessages = async () => {
+      for (const msg of messages) {
+        // Skip if already translated or currently translating
+        if (translations[msg.id] || translatingIds.has(msg.id)) {
+          continue;
+        }
+
+        // Detect source language
+        const sourceLang = detectLanguage(msg.message);
+
+        // Skip if already in target language
+        if (sourceLang === targetLanguage) {
+          continue;
+        }
+
+        // Mark as translating
+        setTranslatingIds((prev) => new Set([...prev, msg.id]));
+
+        try {
+          const result = await translateText(msg.message, sourceLang, targetLanguage);
+          setTranslations((prev) => ({
+            ...prev,
+            [msg.id]: result.translatedText,
+          }));
+        } catch {
+          // Silently fail - show original message
+        } finally {
+          setTranslatingIds((prev) => {
+            const next = new Set(prev);
+            next.delete(msg.id);
+            return next;
+          });
+        }
+      }
+    };
+
+    translateMessages();
+  }, [translationEnabled, messages, targetLanguage, translations, translatingIds]);
 
   if (loading && messages.length === 0) {
     return (
@@ -538,6 +629,9 @@ function MessageThread({
       ) : (
         messages.map((msg) => {
           const isCurrentUser = msg.sender_id === currentUserId;
+          const hasTranslation = translationEnabled && translations[msg.id];
+          const isTranslating = translationEnabled && translatingIds.has(msg.id);
+
           return (
             <div className={`flex ${isCurrentUser ? "justify-end" : "justify-start"}`} key={msg.id}>
               <div
@@ -545,7 +639,32 @@ function MessageThread({
                   isCurrentUser ? "bg-[#ff5d46] text-white" : "bg-[#ebe5d8] text-[#211f1a]"
                 }`}
               >
-                <p className="text-base leading-relaxed">{msg.message}</p>
+                {hasTranslation ? (
+                  <>
+                    <p className="text-base leading-relaxed">{translations[msg.id]}</p>
+                    <details className="mt-2">
+                      <summary
+                        className={`cursor-pointer text-xs ${isCurrentUser ? "text-white/70" : "text-[#7d7566]"}`}
+                      >
+                        Show original
+                      </summary>
+                      <p
+                        className={`mt-1 text-sm ${isCurrentUser ? "text-white/90" : "text-[#211f1a]"}`}
+                      >
+                        {msg.message}
+                      </p>
+                    </details>
+                  </>
+                ) : (
+                  <p className="text-base leading-relaxed">{msg.message}</p>
+                )}
+                {isTranslating && (
+                  <p
+                    className={`mt-1 text-xs ${isCurrentUser ? "text-white/70" : "text-[#7d7566]"}`}
+                  >
+                    Translating...
+                  </p>
+                )}
                 <p className={`mt-2 text-sm ${isCurrentUser ? "text-white/70" : "text-[#7d7566]"}`}>
                   {formatDistanceToNow(new Date(msg.created_at), {
                     addSuffix: true,
