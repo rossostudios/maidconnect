@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+import { NextRequest, NextResponse } from "next/server";
 import type { AppRole } from "@/lib/auth";
 import { AUTH_ROUTES, getDashboardRouteForRole } from "@/lib/auth";
 
@@ -52,7 +52,7 @@ export async function proxy(request: NextRequest) {
           response.cookies.delete(name);
         },
       },
-    },
+    }
   );
 
   const {

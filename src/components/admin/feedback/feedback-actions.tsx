@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { Loader2, Save } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Save, Loader2 } from "lucide-react";
+import { useState } from "react";
 
 type FeedbackActionsProps = {
   feedbackId: string;
@@ -82,14 +82,14 @@ export function FeedbackActions({
         <div className="grid gap-4 md:grid-cols-2">
           {/* Status */}
           <div>
-            <label htmlFor="status" className="mb-2 block font-medium text-[#211f1a] text-sm">
+            <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="status">
               Status
             </label>
             <select
-              id="status"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
               className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+              id="status"
+              onChange={(e) => setStatus(e.target.value)}
+              value={status}
             >
               {statusOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -101,14 +101,14 @@ export function FeedbackActions({
 
           {/* Priority */}
           <div>
-            <label htmlFor="priority" className="mb-2 block font-medium text-[#211f1a] text-sm">
+            <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="priority">
               Priority
             </label>
             <select
-              id="priority"
-              value={priority}
-              onChange={(e) => setPriority(e.target.value)}
               className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+              id="priority"
+              onChange={(e) => setPriority(e.target.value)}
+              value={priority}
             >
               {priorityOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -125,21 +125,21 @@ export function FeedbackActions({
         <h3 className="mb-4 font-bold text-[#211f1a] text-lg">Add Admin Notes</h3>
 
         <textarea
-          id="admin_notes"
-          value={adminNotes}
-          onChange={(e) => setAdminNotes(e.target.value)}
-          rows={4}
-          placeholder="Add internal notes about this feedback (optional)..."
           className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+          id="admin_notes"
+          onChange={(e) => setAdminNotes(e.target.value)}
+          placeholder="Add internal notes about this feedback (optional)..."
+          rows={4}
+          value={adminNotes}
         />
       </div>
 
       {/* Save Button */}
       <div className="flex justify-end">
         <button
-          onClick={handleSave}
-          disabled={saving}
           className="flex items-center gap-2 rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-white transition hover:bg-[#e54d36] disabled:opacity-50"
+          disabled={saving}
+          onClick={handleSave}
         >
           {saving ? (
             <>

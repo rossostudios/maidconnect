@@ -1,4 +1,4 @@
-import { Sparkles, Bug, Zap, Shield, Palette, Plus, Eye, Edit, Archive } from "lucide-react";
+import { Bug, Edit, Eye, Palette, Plus, Shield, Sparkles, Zap } from "lucide-react";
 import Link from "next/link";
 import { requireUser } from "@/lib/auth/session";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -75,8 +75,8 @@ export default async function AdminChangelogPage({
           </p>
         </div>
         <Link
-          href="/admin/changelog/new"
           className="flex items-center gap-2 rounded-full bg-[#ff5d46] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#e54d36]"
+          href="/admin/changelog/new"
         >
           <Plus className="h-4 w-4" />
           New Changelog
@@ -84,44 +84,44 @@ export default async function AdminChangelogPage({
       </header>
 
       {/* Status Filter Tabs */}
-      <div className="mb-6 flex gap-2 border-b border-[#ebe5d8] pb-4">
+      <div className="mb-6 flex gap-2 border-[#ebe5d8] border-b pb-4">
         <Link
-          href="/admin/changelog"
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
-            !status
-              ? "bg-[#ff5d46] text-white"
-              : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
+            status
+              ? "border border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
+              : "bg-[#ff5d46] text-white"
           }`}
+          href="/admin/changelog"
         >
           All ({counts.all})
         </Link>
         <Link
-          href="/admin/changelog?status=draft"
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "draft"
               ? "bg-[#ff5d46] text-white"
               : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
           }`}
+          href="/admin/changelog?status=draft"
         >
           Draft ({counts.draft})
         </Link>
         <Link
-          href="/admin/changelog?status=published"
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "published"
               ? "bg-[#ff5d46] text-white"
               : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
           }`}
+          href="/admin/changelog?status=published"
         >
           Published ({counts.published})
         </Link>
         <Link
-          href="/admin/changelog?status=archived"
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "archived"
               ? "bg-[#ff5d46] text-white"
               : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
           }`}
+          href="/admin/changelog?status=archived"
         >
           Archived ({counts.archived})
         </Link>
@@ -134,8 +134,8 @@ export default async function AdminChangelogPage({
           <h3 className="mb-2 font-bold text-[#211f1a] text-xl">No Changelogs Yet</h3>
           <p className="mb-6 text-[#5d574b]">Create your first changelog to get started</p>
           <Link
-            href="/admin/changelog/new"
             className="inline-flex items-center gap-2 rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-white transition hover:bg-[#e54d36]"
+            href="/admin/changelog/new"
           >
             <Plus className="h-4 w-4" />
             Create Changelog
@@ -145,8 +145,8 @@ export default async function AdminChangelogPage({
         <div className="space-y-4">
           {changelogList.map((changelog: Changelog) => (
             <article
-              key={changelog.id}
               className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[#ff5d46]"
+              key={changelog.id}
             >
               <div className="flex items-start justify-between gap-4">
                 {/* Content */}
@@ -172,7 +172,7 @@ export default async function AdminChangelogPage({
                   <h2 className="mb-2 font-bold text-[#211f1a] text-xl">{changelog.title}</h2>
 
                   {changelog.summary && (
-                    <p className="mb-3 text-[#5d574b] text-sm line-clamp-2">{changelog.summary}</p>
+                    <p className="mb-3 line-clamp-2 text-[#5d574b] text-sm">{changelog.summary}</p>
                   )}
 
                   {/* Categories */}
@@ -186,8 +186,8 @@ export default async function AdminChangelogPage({
 
                         return (
                           <span
-                            key={category}
                             className={`flex items-center gap-1 rounded-full px-2 py-1 font-medium text-xs ${config.color}`}
+                            key={category}
                           >
                             <Icon className="h-3 w-3" />
                             {config.label}
@@ -201,17 +201,17 @@ export default async function AdminChangelogPage({
                 {/* Actions */}
                 <div className="flex flex-col gap-2">
                   <Link
+                    className="flex items-center gap-2 rounded-lg border border-[#ebe5d8] px-3 py-2 font-medium text-[#5d574b] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
                     href={`/changelog/${changelog.slug}`}
                     target="_blank"
-                    className="flex items-center gap-2 rounded-lg border border-[#ebe5d8] px-3 py-2 font-medium text-[#5d574b] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
                     title="Preview"
                   >
                     <Eye className="h-4 w-4" />
                     Preview
                   </Link>
                   <Link
-                    href={`/admin/changelog/${changelog.id}/edit`}
                     className="flex items-center gap-2 rounded-lg bg-[#ff5d46] px-3 py-2 font-medium text-sm text-white transition hover:bg-[#e54d36]"
+                    href={`/admin/changelog/${changelog.id}/edit`}
                   >
                     <Edit className="h-4 w-4" />
                     Edit
@@ -226,8 +226,8 @@ export default async function AdminChangelogPage({
       {/* Back to Admin */}
       <div className="mt-8">
         <Link
-          href="/admin"
           className="inline-flex items-center gap-2 font-medium text-[#5d574b] text-sm transition hover:text-[#ff5d46]"
+          href="/admin"
         >
           ← Back to Admin Dashboard
         </Link>

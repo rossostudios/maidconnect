@@ -16,11 +16,8 @@ export async function GET(request: NextRequest) {
     const supabase = await createSupabaseServerClient();
 
     const searchParams = request.nextUrl.searchParams;
-    const page = parseInt(searchParams.get("page") || "1", 10);
-    const limit = Math.min(
-      parseInt(searchParams.get("limit") || "20", 10),
-      100
-    );
+    const page = Number.parseInt(searchParams.get("page") || "1", 10);
+    const limit = Math.min(Number.parseInt(searchParams.get("limit") || "20", 10), 100);
     const status = searchParams.get("status");
     const type = searchParams.get("type");
     const priority = searchParams.get("priority");
@@ -49,10 +46,7 @@ export async function GET(request: NextRequest) {
 
     if (error) {
       console.error("Error fetching feedback:", error);
-      return NextResponse.json(
-        { error: "Failed to fetch feedback" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch feedback" }, { status: 500 });
     }
 
     // Get stats

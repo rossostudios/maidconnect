@@ -50,9 +50,12 @@ export function useChangelogUnreadCount() {
 
   // Poll every 5 minutes (changelogs are infrequent)
   useEffect(() => {
-    const interval = setInterval(() => {
-      fetchUnreadCount();
-    }, 5 * 60 * 1000); // 5 minutes
+    const interval = setInterval(
+      () => {
+        fetchUnreadCount();
+      },
+      5 * 60 * 1000
+    ); // 5 minutes
 
     return () => clearInterval(interval);
   }, [fetchUnreadCount]);

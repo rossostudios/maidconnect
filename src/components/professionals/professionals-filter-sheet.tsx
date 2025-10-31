@@ -111,12 +111,12 @@ export function ProfessionalsFilterSheet({
 
       {/* Bottom Sheet - Optimized for landscape */}
       <div
-        className={`fixed right-0 bottom-0 left-0 z-50 max-h-[90vh] overflow-y-auto rounded-t-3xl bg-white shadow-2xl transition-transform duration-300 ease-out landscape:left-1/2 landscape:right-auto landscape:max-w-xl landscape:-translate-x-1/2 landscape:rounded-2xl ${
+        className={`landscape:-translate-x-1/2 fixed right-0 bottom-0 left-0 z-50 max-h-[90vh] overflow-y-auto rounded-t-3xl bg-white shadow-2xl transition-transform duration-300 ease-out landscape:right-auto landscape:left-1/2 landscape:max-w-xl landscape:rounded-2xl ${
           isOpen ? "translate-y-0" : "translate-y-full"
         }`}
       >
         {/* Header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#ebe5d8] bg-white px-6 py-4">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-[#ebe5d8] border-b bg-white px-6 py-4">
           <div className="flex items-center gap-3">
             <Filter className="h-5 w-5 text-[#211f1a]" />
             <h2 className="font-semibold text-[#211f1a] text-lg">Filters</h2>
@@ -212,7 +212,7 @@ export function ProfessionalsFilterSheet({
         </div>
 
         {/* Footer Actions */}
-        <div className="sticky bottom-0 border-t border-[#ebe5d8] bg-white p-6">
+        <div className="sticky bottom-0 border-[#ebe5d8] border-t bg-white p-6">
           <div className="flex gap-3">
             <button
               className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3.5 font-semibold text-[#211f1a] text-base transition hover:border-[#211f1a] active:scale-95"

@@ -94,12 +94,9 @@ const nextConfig: NextConfig = {
           // Controls browser features and APIs
           {
             key: "Permissions-Policy",
-            value: [
-              "camera=()",
-              "microphone=()",
-              "geolocation=(self)",
-              "interest-cohort=()",
-            ].join(", "),
+            value: ["camera=()", "microphone=()", "geolocation=(self)", "interest-cohort=()"].join(
+              ", "
+            ),
           },
           // Enforces HTTPS
           {

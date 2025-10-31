@@ -14,8 +14,11 @@ export async function SiteHeader() {
     <header className="bg-[#fbfaf9] py-4 text-[#211f1a]">
       <Container className="flex items-center justify-between gap-4">
         {/* Logo */}
-        <Link className="flex items-center" href="/">
+        <Link className="flex items-center gap-2" href="/">
           <span className="font-semibold text-xl tracking-tight">MaidConnect</span>
+          <span className="rounded-full bg-[#ff5d46] px-2 py-0.5 font-bold text-[10px] text-white uppercase tracking-wide">
+            Beta
+          </span>
         </Link>
 
         {/* Desktop & Mobile Navigation */}

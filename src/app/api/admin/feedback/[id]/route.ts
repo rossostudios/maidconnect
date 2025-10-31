@@ -3,10 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 
-export async function PATCH(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const supabase = await createSupabaseServerClient();
   const { id } = await params;
 

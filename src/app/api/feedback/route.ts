@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { withRateLimit } from "@/lib/rate-limit";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -43,11 +43,10 @@ async function handlePOST(request: NextRequest) {
     } = body;
 
     // Validation
-    if (!feedback_type || !message || !page_url || !page_path) {
+    if (!(feedback_type && message && page_url && page_path)) {
       return NextResponse.json(
         {
-          error:
-            "Missing required fields: feedback_type, message, page_url, page_path",
+          error: "Missing required fields: feedback_type, message, page_url, page_path",
         },
         { status: 400 }
       );
@@ -111,7 +110,7 @@ async function handlePOST(request: NextRequest) {
       .from("feedback_submissions")
       .insert({
         user_id: user?.id || null,
-        user_email: !user ? user_email : null,
+        user_email: user ? null : user_email,
         user_role: userRole,
         feedback_type,
         subject,
@@ -129,10 +128,7 @@ async function handlePOST(request: NextRequest) {
 
     if (error) {
       console.error("Error submitting feedback:", error);
-      return NextResponse.json(
-        { error: "Failed to submit feedback" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to submit feedback" }, { status: 500 });
     }
 
     return NextResponse.json({
@@ -142,10 +138,7 @@ async function handlePOST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Unexpected error submitting feedback:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 

@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test";
-import { navigateTo, fillFormField, clickButton, waitForToast } from "../utils/test-helpers";
+import { expect, test } from "@playwright/test";
+import { clickButton, navigateTo } from "../utils/test-helpers";
 
 /**
  * Authentication E2E Tests
@@ -149,9 +149,9 @@ test.describe("Authentication", () => {
       if (await customerOption.first().isVisible()) {
         await customerOption.first().click();
         // Verify selection is active
-        await expect(customerOption.first()).toBeChecked().catch(() =>
-          expect(customerOption.first()).toHaveAttribute("aria-pressed", "true")
-        );
+        await expect(customerOption.first())
+          .toBeChecked()
+          .catch(() => expect(customerOption.first()).toHaveAttribute("aria-pressed", "true"));
       }
     });
 
@@ -159,14 +159,16 @@ test.describe("Authentication", () => {
       await navigateTo(page, "/signup");
 
       // Look for user type selection
-      const proOption = page.locator('input[value="professional"], button:has-text("Professional")');
+      const proOption = page.locator(
+        'input[value="professional"], button:has-text("Professional")'
+      );
 
       if (await proOption.first().isVisible()) {
         await proOption.first().click();
         // Verify selection is active
-        await expect(proOption.first()).toBeChecked().catch(() =>
-          expect(proOption.first()).toHaveAttribute("aria-pressed", "true")
-        );
+        await expect(proOption.first())
+          .toBeChecked()
+          .catch(() => expect(proOption.first()).toHaveAttribute("aria-pressed", "true"));
       }
     });
   });

@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Bug, Palette, Shield, Sparkles, X, Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { X, Sparkles, Bug, Zap, Shield, Palette } from "lucide-react";
+import { useEffect, useState } from "react";
 
 type Changelog = {
   id: string;
@@ -89,7 +89,7 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
     }
   };
 
-  if (!isOpen || !changelog) {
+  if (!(isOpen && changelog)) {
     return null;
   }
 
@@ -107,10 +107,10 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
       <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-[28px] bg-white p-8 shadow-xl">
         {/* Close Button */}
         <button
+          aria-label="Close"
           className="absolute top-6 right-6 rounded-full p-2 text-[#5d574b] transition hover:bg-[#ebe5d8]"
           onClick={onClose}
           type="button"
-          aria-label="Close"
         >
           <X className="h-5 w-5" />
         </button>
@@ -140,8 +140,8 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
 
               return (
                 <span
-                  key={category}
                   className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 font-medium text-sm ${config.color}`}
+                  key={category}
                 >
                   <Icon className="h-4 w-4" />
                   {config.label}
@@ -155,9 +155,9 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
         {changelog.featured_image_url && (
           <div className="mb-6 overflow-hidden rounded-2xl">
             <img
-              src={changelog.featured_image_url}
               alt={changelog.title}
               className="h-auto w-full object-cover"
+              src={changelog.featured_image_url}
             />
           </div>
         )}
@@ -169,7 +169,7 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
         />
 
         {/* Actions */}
-        <div className="mt-8 flex flex-col gap-3 border-t border-[#ebe5d8] pt-6 sm:flex-row">
+        <div className="mt-8 flex flex-col gap-3 border-[#ebe5d8] border-t pt-6 sm:flex-row">
           <button
             className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
             onClick={() => router.push("/changelog")}

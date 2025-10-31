@@ -1,7 +1,7 @@
 "use client";
 
+import { Sparkles, X } from "lucide-react";
 import { useState } from "react";
-import { X, Sparkles } from "lucide-react";
 import { useLatestChangelog } from "@/hooks/use-latest-changelog";
 import { ChangelogModal } from "./changelog-modal";
 
@@ -32,12 +32,12 @@ export function ChangelogBanner() {
   return (
     <>
       {/* Banner */}
-      <div className="sticky top-0 z-40 border-b border-[#ebe5d8] bg-gradient-to-r from-purple-50 to-blue-50 px-4 py-3 shadow-sm">
+      <div className="sticky top-0 z-40 border-[#ebe5d8] border-b bg-gradient-to-r from-purple-50 to-blue-50 px-4 py-3 shadow-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
           {/* Content */}
           <button
-            onClick={handleClick}
             className="group flex flex-1 items-center gap-3 text-left transition hover:opacity-80"
+            onClick={handleClick}
             type="button"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100">
@@ -63,10 +63,10 @@ export function ChangelogBanner() {
 
           {/* Dismiss Button */}
           <button
-            onClick={handleDismiss}
-            className="rounded-full p-1.5 text-[#7a6d62] transition hover:bg-white/50 hover:text-[#211f1a]"
-            type="button"
             aria-label="Dismiss"
+            className="rounded-full p-1.5 text-[#7a6d62] transition hover:bg-white/50 hover:text-[#211f1a]"
+            onClick={handleDismiss}
+            type="button"
           >
             <X className="h-5 w-5" />
           </button>
@@ -75,12 +75,12 @@ export function ChangelogBanner() {
 
       {/* Modal */}
       <ChangelogModal
+        changelog={changelog}
         isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
           handleDismiss();
         }}
-        changelog={changelog}
       />
     </>
   );

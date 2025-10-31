@@ -1,15 +1,37 @@
+import {
+  AlertCircle,
+  Bug,
+  Clock,
+  Frown,
+  Lightbulb,
+  Monitor,
+  ThumbsUp,
+  TrendingUp,
+  User,
+} from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FeedbackActions } from "@/components/admin/feedback/feedback-actions";
 import { requireUser } from "@/lib/auth/session";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { FeedbackActions } from "@/components/admin/feedback/feedback-actions";
-import { Bug, Lightbulb, TrendingUp, Frown, ThumbsUp, AlertCircle, Monitor, Clock, User } from "lucide-react";
-import Link from "next/link";
 
 const typeConfig = {
   bug: { icon: Bug, label: "Bug Report", color: "text-red-600 bg-red-50 border-red-200" },
-  feature_request: { icon: Lightbulb, label: "Feature Request", color: "text-purple-600 bg-purple-50 border-purple-200" },
-  improvement: { icon: TrendingUp, label: "Improvement", color: "text-blue-600 bg-blue-50 border-blue-200" },
-  complaint: { icon: Frown, label: "Complaint", color: "text-orange-600 bg-orange-50 border-orange-200" },
+  feature_request: {
+    icon: Lightbulb,
+    label: "Feature Request",
+    color: "text-purple-600 bg-purple-50 border-purple-200",
+  },
+  improvement: {
+    icon: TrendingUp,
+    label: "Improvement",
+    color: "text-blue-600 bg-blue-50 border-blue-200",
+  },
+  complaint: {
+    icon: Frown,
+    label: "Complaint",
+    color: "text-orange-600 bg-orange-50 border-orange-200",
+  },
   praise: { icon: ThumbsUp, label: "Praise", color: "text-green-600 bg-green-50 border-green-200" },
   other: { icon: AlertCircle, label: "Other", color: "text-gray-600 bg-gray-50 border-gray-200" },
 };
@@ -29,11 +51,7 @@ const priorityBadge = {
   critical: "bg-red-100 text-red-600 border-red-200",
 };
 
-export default async function FeedbackDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function FeedbackDetailPage({ params }: { params: Promise<{ id: string }> }) {
   await requireUser({ allowedRoles: ["admin"] });
   const { id } = await params;
   const supabase = await createSupabaseServerClient();
@@ -57,8 +75,8 @@ export default async function FeedbackDetailPage({
       {/* Header */}
       <header className="mb-8">
         <Link
-          href="/admin/feedback"
           className="mb-4 inline-block font-medium text-[#5d574b] text-sm transition hover:text-[#ff5d46]"
+          href="/admin/feedback"
         >
           ← Back to Feedback
         </Link>
@@ -66,21 +84,25 @@ export default async function FeedbackDetailPage({
           <div className="flex-1">
             <div className="mb-3 flex flex-wrap items-center gap-2">
               {typeConf && (
-                <span className={`flex items-center gap-2 rounded-full border px-4 py-1.5 font-semibold text-sm ${typeConf.color}`}>
+                <span
+                  className={`flex items-center gap-2 rounded-full border px-4 py-1.5 font-semibold text-sm ${typeConf.color}`}
+                >
                   <TypeIcon className="h-4 w-4" />
                   {typeConf.label}
                 </span>
               )}
-              <span className={`rounded-full border px-3 py-1 font-medium text-xs capitalize ${statusBadge[feedback.status as keyof typeof statusBadge]}`}>
+              <span
+                className={`rounded-full border px-3 py-1 font-medium text-xs capitalize ${statusBadge[feedback.status as keyof typeof statusBadge]}`}
+              >
                 {feedback.status.replace("_", " ")}
               </span>
-              <span className={`rounded-full border px-3 py-1 font-medium text-xs capitalize ${priorityBadge[feedback.priority as keyof typeof priorityBadge]}`}>
+              <span
+                className={`rounded-full border px-3 py-1 font-medium text-xs capitalize ${priorityBadge[feedback.priority as keyof typeof priorityBadge]}`}
+              >
                 {feedback.priority}
               </span>
             </div>
-            {feedback.subject && (
-              <h1 className="mb-2 font-bold text-3xl">{feedback.subject}</h1>
-            )}
+            {feedback.subject && <h1 className="mb-2 font-bold text-3xl">{feedback.subject}</h1>}
           </div>
         </div>
       </header>
@@ -99,7 +121,9 @@ export default async function FeedbackDetailPage({
             </div>
             <div className="flex justify-between text-sm">
               <dt className="text-[#7a6d62]">Role:</dt>
-              <dd className="font-medium text-[#211f1a] capitalize">{feedback.user_role || "Unknown"}</dd>
+              <dd className="font-medium text-[#211f1a] capitalize">
+                {feedback.user_role || "Unknown"}
+              </dd>
             </div>
           </dl>
         </div>
@@ -139,10 +163,10 @@ export default async function FeedbackDetailPage({
             <dt className="mb-1 font-semibold text-[#7a6d62] text-sm">Page URL</dt>
             <dd className="break-all font-mono text-[#211f1a] text-sm">
               <a
-                href={feedback.page_url}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="text-[#ff5d46] hover:underline"
+                href={feedback.page_url}
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 {feedback.page_url}
               </a>
@@ -182,7 +206,11 @@ export default async function FeedbackDetailPage({
       )}
 
       {/* Actions */}
-      <FeedbackActions feedbackId={id} currentStatus={feedback.status} currentPriority={feedback.priority} />
+      <FeedbackActions
+        currentPriority={feedback.priority}
+        currentStatus={feedback.status}
+        feedbackId={id}
+      />
     </section>
   );
 }

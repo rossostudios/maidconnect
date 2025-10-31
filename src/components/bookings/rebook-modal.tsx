@@ -76,7 +76,7 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
             <RefreshCw className="h-6 w-6 text-green-600" />
           </div>
           <div>
-            <h2 className="font-semibold text-[#211f1a] text-2xl">Book Again</h2>
+            <h2 className="font-semibold text-2xl text-[#211f1a]">Book Again</h2>
             <p className="text-[#7a6d62] text-sm">Rebook your service with the same professional</p>
           </div>
         </div>

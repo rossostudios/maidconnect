@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Offline - MaidConnect</title>
-  <style>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - MaidConnect</title>
+    <style>
     * {
       margin: 0;
       padding: 0;
@@ -89,35 +89,37 @@
       color: #dc2626;
       font-weight: 600;
     }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="icon">📡</div>
-    <h1>You're Offline</h1>
-    <p>
-      It looks like you've lost your internet connection. Please check your network settings and try again.
-    </p>
-    <button onclick="tryReload()">Try Again</button>
-    <div class="status" id="status">Checking connection...</div>
-  </div>
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="icon">📡</div>
+      <h1>You're Offline</h1>
+      <p>
+        It looks like you've lost your internet connection. Please check your network settings and
+        try again.
+      </p>
+      <button onclick="tryReload()">Try Again</button>
+      <div class="status" id="status">Checking connection...</div>
+    </div>
 
-  <script>
+    <script>
+    "use strict";
     function tryReload() {
       window.location.reload();
     }
 
     function checkOnlineStatus() {
-      const statusEl = document.getElementById('status');
+      const statusEl = document.getElementById("status");
       if (navigator.onLine) {
-        statusEl.textContent = '✓ Connection restored';
-        statusEl.className = 'status online';
+        statusEl.textContent = "✓ Connection restored";
+        statusEl.className = "status online";
         setTimeout(() => {
           window.location.reload();
         }, 1000);
       } else {
-        statusEl.textContent = '✗ Still offline';
-        statusEl.className = 'status offline';
+        statusEl.textContent = "✗ Still offline";
+        statusEl.className = "status offline";
       }
     }
 
@@ -126,13 +128,13 @@
     checkOnlineStatus();
 
     // Listen for online event
-    window.addEventListener('online', () => {
-      document.getElementById('status').textContent = '✓ Connection restored! Reloading...';
-      document.getElementById('status').className = 'status online';
+    window.addEventListener("online", () => {
+      document.getElementById("status").textContent = "✓ Connection restored! Reloading...";
+      document.getElementById("status").className = "status online";
       setTimeout(() => {
         window.location.reload();
       }, 500);
     });
-  </script>
-</body>
+    </script>
+  </body>
 </html>

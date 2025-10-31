@@ -366,7 +366,7 @@ export function ProBookingList({ bookings }: Props) {
                       {showAcceptDecline && (
                         <div className="grid grid-cols-2 gap-3">
                           <button
-                            className="inline-flex items-center justify-center rounded-xl bg-green-600 px-4 py-3 font-semibold text-white text-sm shadow-sm transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-70"
+                            className="inline-flex items-center justify-center rounded-xl bg-green-600 px-4 py-3 font-semibold text-sm text-white shadow-sm transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-70"
                             disabled={loadingId !== null}
                             onClick={() => handleAction(booking, "accept")}
                             type="button"
@@ -391,7 +391,7 @@ export function ProBookingList({ bookings }: Props) {
                         <div className="flex flex-col gap-3">
                           {showCapture && (
                             <button
-                              className="inline-flex items-center justify-center rounded-xl bg-[#ff5d46] px-4 py-3 font-semibold text-white text-sm shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+                              className="inline-flex items-center justify-center rounded-xl bg-[#ff5d46] px-4 py-3 font-semibold text-sm text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
                               disabled={loadingId !== null}
                               onClick={() => handleAction(booking, "capture")}
                               type="button"

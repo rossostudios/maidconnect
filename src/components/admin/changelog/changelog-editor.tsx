@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { Bug, Eye, Loader2, Palette, Save, Shield, Sparkles, Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Sparkles, Bug, Zap, Shield, Palette, Save, Eye, Loader2 } from "lucide-react";
+import { useCallback, useState } from "react";
 
 type ChangelogFormData = {
   sprint_number: number;
@@ -62,12 +62,14 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
   });
 
   // Auto-generate slug from title
-  const generateSlug = useCallback((title: string) => {
-    return title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-  }, []);
+  const generateSlug = useCallback(
+    (title: string) =>
+      title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, ""),
+    []
+  );
 
   const handleTitleChange = (title: string) => {
     setFormData((prev) => ({
@@ -114,7 +116,8 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         published_at: new Date(formData.published_at).toISOString(),
       };
 
-      const url = mode === "create" ? "/api/admin/changelog" : `/api/admin/changelog/${changelogId}`;
+      const url =
+        mode === "create" ? "/api/admin/changelog" : `/api/admin/changelog/${changelogId}`;
 
       const method = mode === "create" ? "POST" : "PATCH";
 
@@ -157,49 +160,54 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
           <div className="space-y-4">
             {/* Sprint Number */}
             <div>
-              <label htmlFor="sprint_number" className="mb-2 block font-medium text-[#211f1a] text-sm">
+              <label
+                className="mb-2 block font-medium text-[#211f1a] text-sm"
+                htmlFor="sprint_number"
+              >
                 Sprint Number *
               </label>
               <input
-                type="number"
-                id="sprint_number"
-                value={formData.sprint_number}
-                onChange={(e) => setFormData({ ...formData, sprint_number: parseInt(e.target.value) || 1 })}
-                min="1"
-                required
                 className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+                id="sprint_number"
+                min="1"
+                onChange={(e) =>
+                  setFormData({ ...formData, sprint_number: Number.parseInt(e.target.value) || 1 })
+                }
+                required
+                type="number"
+                value={formData.sprint_number}
               />
             </div>
 
             {/* Title */}
             <div>
-              <label htmlFor="title" className="mb-2 block font-medium text-[#211f1a] text-sm">
+              <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="title">
                 Title *
               </label>
               <input
-                type="text"
-                id="title"
-                value={formData.title}
-                onChange={(e) => handleTitleChange(e.target.value)}
-                required
-                placeholder="e.g., Enhanced Search and New Dashboard Features"
                 className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+                id="title"
+                onChange={(e) => handleTitleChange(e.target.value)}
+                placeholder="e.g., Enhanced Search and New Dashboard Features"
+                required
+                type="text"
+                value={formData.title}
               />
             </div>
 
             {/* Slug */}
             <div>
-              <label htmlFor="slug" className="mb-2 block font-medium text-[#211f1a] text-sm">
+              <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="slug">
                 Slug *
               </label>
               <input
-                type="text"
-                id="slug"
-                value={formData.slug}
-                onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                required
-                placeholder="auto-generated-from-title"
                 className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfaf9] px-4 py-3 font-mono text-[#5d574b] text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+                id="slug"
+                onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                placeholder="auto-generated-from-title"
+                required
+                type="text"
+                value={formData.slug}
               />
               <p className="mt-1 text-[#7a6d62] text-xs">
                 URL-friendly version of the title (auto-generated)
@@ -208,31 +216,34 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
             {/* Summary */}
             <div>
-              <label htmlFor="summary" className="mb-2 block font-medium text-[#211f1a] text-sm">
+              <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="summary">
                 Summary
               </label>
               <textarea
-                id="summary"
-                value={formData.summary}
-                onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
-                rows={3}
-                placeholder="Brief overview of this update (shown in list view)"
                 className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+                id="summary"
+                onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
+                placeholder="Brief overview of this update (shown in list view)"
+                rows={3}
+                value={formData.summary}
               />
             </div>
 
             {/* Published Date */}
             <div>
-              <label htmlFor="published_at" className="mb-2 block font-medium text-[#211f1a] text-sm">
+              <label
+                className="mb-2 block font-medium text-[#211f1a] text-sm"
+                htmlFor="published_at"
+              >
                 Published Date *
               </label>
               <input
-                type="date"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
                 id="published_at"
-                value={formData.published_at}
                 onChange={(e) => setFormData({ ...formData, published_at: e.target.value })}
                 required
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+                type="date"
+                value={formData.published_at}
               />
             </div>
           </div>
@@ -243,9 +254,9 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
           <div className="mb-4 flex items-center justify-between">
             <h3 className="font-bold text-[#211f1a] text-lg">Content *</h3>
             <button
-              type="button"
-              onClick={() => setShowPreview(!showPreview)}
               className="flex items-center gap-2 rounded-lg border border-[#ebe5d8] px-3 py-1.5 text-[#5d574b] text-sm transition hover:border-[#ff5d46]"
+              onClick={() => setShowPreview(!showPreview)}
+              type="button"
             >
               <Eye className="h-4 w-4" />
               {showPreview ? "Edit" : "Preview"}
@@ -259,13 +270,13 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             />
           ) : (
             <textarea
-              id="content"
-              value={formData.content}
-              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-              rows={15}
-              required
-              placeholder="Write your changelog content here (supports HTML)..."
               className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 font-mono text-[#211f1a] text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+              id="content"
+              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+              placeholder="Write your changelog content here (supports HTML)..."
+              required
+              rows={15}
+              value={formData.content}
             />
           )}
 
@@ -282,14 +293,14 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
               return (
                 <button
-                  key={option.value}
-                  type="button"
-                  onClick={() => handleCategoryToggle(option.value)}
                   className={`flex items-center gap-2 rounded-full border-2 px-4 py-2 font-medium text-sm transition ${
                     isSelected
                       ? "border-[#ff5d46] bg-[#ff5d46] text-white"
                       : "border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
                   }`}
+                  key={option.value}
+                  onClick={() => handleCategoryToggle(option.value)}
+                  type="button"
                 >
                   <Icon className="h-4 w-4" />
                   {option.label}
@@ -306,36 +317,38 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
           <div className="space-y-4">
             {/* Tags */}
             <div>
-              <label htmlFor="tags" className="mb-2 block font-medium text-[#211f1a] text-sm">
+              <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="tags">
                 Tags
               </label>
               <input
-                type="text"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
                 id="tags"
-                value={formData.tags}
                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
                 placeholder="performance, ui, mobile (comma-separated)"
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+                type="text"
+                value={formData.tags}
               />
             </div>
 
             {/* Target Audience */}
             <div>
-              <label className="mb-2 block font-medium text-[#211f1a] text-sm">Target Audience</label>
+              <label className="mb-2 block font-medium text-[#211f1a] text-sm">
+                Target Audience
+              </label>
               <div className="flex flex-wrap gap-2">
                 {audienceOptions.map((option) => {
                   const isSelected = formData.target_audience.includes(option.value);
 
                   return (
                     <button
-                      key={option.value}
-                      type="button"
-                      onClick={() => handleAudienceToggle(option.value)}
                       className={`rounded-lg border-2 px-3 py-1.5 font-medium text-sm transition ${
                         isSelected
                           ? "border-[#ff5d46] bg-[#ff5d4620] text-[#ff5d46]"
                           : "border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
                       }`}
+                      key={option.value}
+                      onClick={() => handleAudienceToggle(option.value)}
+                      type="button"
                     >
                       {option.label}
                     </button>
@@ -346,16 +359,19 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
             {/* Featured Image URL */}
             <div>
-              <label htmlFor="featured_image_url" className="mb-2 block font-medium text-[#211f1a] text-sm">
+              <label
+                className="mb-2 block font-medium text-[#211f1a] text-sm"
+                htmlFor="featured_image_url"
+              >
                 Featured Image URL
               </label>
               <input
-                type="url"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
                 id="featured_image_url"
-                value={formData.featured_image_url}
                 onChange={(e) => setFormData({ ...formData, featured_image_url: e.target.value })}
                 placeholder="https://example.com/image.jpg"
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+                type="url"
+                value={formData.featured_image_url}
               />
             </div>
           </div>
@@ -364,20 +380,20 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         {/* Actions */}
         <div className="flex items-center justify-between gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
           <button
-            type="button"
-            onClick={() => router.back()}
             className="rounded-full border border-[#ebe5d8] px-6 py-2.5 font-semibold text-[#5d574b] transition hover:border-[#ff5d46]"
             disabled={saving}
+            onClick={() => router.back()}
+            type="button"
           >
             Cancel
           </button>
 
           <div className="flex gap-3">
             <button
-              type="button"
-              onClick={(e) => handleSubmit(e, "draft")}
-              disabled={saving}
               className="flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-2.5 font-semibold text-[#211f1a] transition hover:border-[#ff5d46] disabled:opacity-50"
+              disabled={saving}
+              onClick={(e) => handleSubmit(e, "draft")}
+              type="button"
             >
               {saving ? (
                 <>
@@ -393,10 +409,10 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             </button>
 
             <button
-              type="button"
-              onClick={(e) => handleSubmit(e, "published")}
-              disabled={saving}
               className="flex items-center gap-2 rounded-full bg-[#ff5d46] px-6 py-2.5 font-semibold text-white transition hover:bg-[#e54d36] disabled:opacity-50"
+              disabled={saving}
+              onClick={(e) => handleSubmit(e, "published")}
+              type="button"
             >
               {saving ? (
                 <>

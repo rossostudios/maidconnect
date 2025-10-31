@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin, createAuditLog } from "@/lib/admin-helpers";
+import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     } = body;
 
     // Validation
-    if (!sprint_number || !title || !slug || !content) {
+    if (!(sprint_number && title && slug && content)) {
       return NextResponse.json(
         {
           error: "Missing required fields: sprint_number, title, slug, content",
@@ -87,10 +87,7 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error("Error creating changelog:", error);
-      return NextResponse.json(
-        { error: "Failed to create changelog" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to create changelog" }, { status: 500 });
     }
 
     // Log audit

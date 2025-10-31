@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     } = body;
 
     // Validation
-    if (!sprint_number || !title || !slug || !content || !published_at) {
+    if (!(sprint_number && title && slug && content && published_at)) {
       return NextResponse.json(
         { error: "Missing required fields: sprint_number, title, slug, content, published_at" },
         { status: 400 }
@@ -60,7 +60,10 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (existing) {
-      return NextResponse.json({ error: "Slug already exists. Please use a unique slug." }, { status: 409 });
+      return NextResponse.json(
+        { error: "Slug already exists. Please use a unique slug." },
+        { status: 409 }
+      );
     }
 
     // Insert changelog

@@ -48,12 +48,12 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
 
       {/* Slide-in Menu */}
       <div
-        className={`fixed right-0 top-0 z-50 h-full w-[280px] transform bg-white shadow-2xl transition-transform duration-300 ease-in-out md:hidden ${
+        className={`fixed top-0 right-0 z-50 h-full w-[280px] transform bg-white shadow-2xl transition-transform duration-300 ease-in-out md:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[#ebe5d8] p-5">
+        <div className="flex items-center justify-between border-[#ebe5d8] border-b p-5">
           <span className="font-semibold text-[#211f1a] text-lg">Menu</span>
           <button
             aria-label="Close menu"
@@ -82,7 +82,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
           ))}
 
           {/* Divider */}
-          {isAuthenticated && <div className="my-4 border-t border-[#ebe5d8]" />}
+          {isAuthenticated && <div className="my-4 border-[#ebe5d8] border-t" />}
 
           {/* Auth Actions */}
           {isAuthenticated ? (

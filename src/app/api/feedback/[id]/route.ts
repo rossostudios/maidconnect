@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin, createAuditLog } from "@/lib/admin-helpers";
+import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
@@ -9,10 +9,7 @@ export const dynamic = "force-dynamic";
  * Get feedback by ID
  * GET /api/feedback/[id]
  */
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
@@ -34,10 +31,7 @@ export async function GET(
 
     const isAdmin = profile?.role === "admin";
 
-    let query = supabase
-      .from("feedback_submissions")
-      .select("*")
-      .eq("id", id);
+    let query = supabase.from("feedback_submissions").select("*").eq("id", id);
 
     // Non-admins can only see their own feedback
     if (!isAdmin) {
@@ -48,10 +42,7 @@ export async function GET(
 
     if (error) {
       console.error("Error fetching feedback:", error);
-      return NextResponse.json(
-        { error: "Feedback not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Feedback not found" }, { status: 404 });
     }
 
     return NextResponse.json({ feedback });
@@ -74,10 +65,7 @@ export async function GET(
  *   admin_notes?: string
  * }
  */
-export async function PATCH(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const admin = await requireAdmin();
     const supabase = await createSupabaseServerClient();
@@ -108,10 +96,7 @@ export async function PATCH(
 
     if (error) {
       console.error("Error updating feedback:", error);
-      return NextResponse.json(
-        { error: "Failed to update feedback" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to update feedback" }, { status: 500 });
     }
 
     // Log audit
@@ -147,17 +132,11 @@ export async function DELETE(
     const supabase = await createSupabaseServerClient();
     const { id } = await params;
 
-    const { error } = await supabase
-      .from("feedback_submissions")
-      .delete()
-      .eq("id", id);
+    const { error } = await supabase.from("feedback_submissions").delete().eq("id", id);
 
     if (error) {
       console.error("Error deleting feedback:", error);
-      return NextResponse.json(
-        { error: "Failed to delete feedback" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to delete feedback" }, { status: 500 });
     }
 
     // Log audit

@@ -1,9 +1,9 @@
+import { ArrowLeft, Bug, Palette, Shield, Sparkles, Zap } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
-import { Sparkles, Bug, Zap, Shield, Palette, ArrowLeft } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import Link from "next/link";
 
 type Changelog = {
   id: string;
@@ -20,8 +20,16 @@ type Changelog = {
 };
 
 const categoryConfig = {
-  features: { icon: Sparkles, label: "Features", color: "text-purple-600 bg-purple-50 border-purple-200" },
-  improvements: { icon: Zap, label: "Improvements", color: "text-blue-600 bg-blue-50 border-blue-200" },
+  features: {
+    icon: Sparkles,
+    label: "Features",
+    color: "text-purple-600 bg-purple-50 border-purple-200",
+  },
+  improvements: {
+    icon: Zap,
+    label: "Improvements",
+    color: "text-blue-600 bg-blue-50 border-blue-200",
+  },
   fixes: { icon: Bug, label: "Fixes", color: "text-green-600 bg-green-50 border-green-200" },
   security: { icon: Shield, label: "Security", color: "text-red-600 bg-red-50 border-red-200" },
   design: { icon: Palette, label: "Design", color: "text-pink-600 bg-pink-50 border-pink-200" },
@@ -61,8 +69,8 @@ export default async function ChangelogDetailPage({
         <article className="mx-auto max-w-4xl">
           {/* Back Link */}
           <Link
-            href="/changelog"
             className="mb-8 inline-flex items-center gap-2 font-medium text-[#7a6d62] text-base transition hover:text-[#ff5d46]"
+            href="/changelog"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to all updates
@@ -77,7 +85,7 @@ export default async function ChangelogDetailPage({
               <span className="text-[#7a6d62] text-sm">{formattedDate}</span>
             </div>
 
-            <h1 className="mb-4 font-bold text-[#211f1a] text-3xl sm:text-4xl lg:text-5xl">
+            <h1 className="mb-4 font-bold text-3xl text-[#211f1a] sm:text-4xl lg:text-5xl">
               {changelog.title}
             </h1>
 
@@ -98,8 +106,8 @@ export default async function ChangelogDetailPage({
 
                   return (
                     <span
-                      key={category}
                       className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-medium text-sm ${config.color}`}
+                      key={category}
                     >
                       <Icon className="h-4 w-4" />
                       {config.label}
@@ -114,9 +122,9 @@ export default async function ChangelogDetailPage({
           {changelog.featured_image_url && (
             <div className="mb-8 overflow-hidden rounded-[28px]">
               <img
-                src={changelog.featured_image_url}
                 alt={changelog.title}
                 className="h-auto w-full object-cover"
+                src={changelog.featured_image_url}
               />
             </div>
           )}
@@ -136,8 +144,8 @@ export default async function ChangelogDetailPage({
               <div className="flex flex-wrap gap-2">
                 {changelog.tags.map((tag) => (
                   <span
-                    key={tag}
                     className="rounded-full border border-[#ebe5d8] bg-[#fbfaf9] px-3 py-1 text-[#5d574b] text-sm"
+                    key={tag}
                   >
                     #{tag}
                   </span>
@@ -149,8 +157,8 @@ export default async function ChangelogDetailPage({
           {/* Back to Top */}
           <div className="mt-12 text-center">
             <Link
-              href="/changelog"
               className="inline-flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+              href="/changelog"
             >
               <ArrowLeft className="h-4 w-4" />
               View all updates

@@ -1,9 +1,9 @@
 "use client";
 
 import { Bell, Calendar, Home, MessageCircle, User } from "lucide-react";
-import { Link, usePathname } from "@/i18n/routing";
 import { useNotificationUnreadCount } from "@/hooks/use-notification-unread-count";
 import { useUnreadCount } from "@/hooks/use-unread-count";
+import { Link, usePathname } from "@/i18n/routing";
 
 type Props = {
   userRole: "customer" | "professional";
@@ -81,7 +81,7 @@ export function DashboardMobileNav({
   ];
 
   return (
-    <nav className="fixed right-0 bottom-0 left-0 z-40 border-t border-[#ebe5d8] bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.08)] md:hidden">
+    <nav className="fixed right-0 bottom-0 left-0 z-40 border-[#ebe5d8] border-t bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.08)] md:hidden">
       <div className="mx-auto flex max-w-screen-xl">
         {navItems.map((item) => {
           const IconComponent = item.icon;
@@ -101,7 +101,7 @@ export function DashboardMobileNav({
                     className={`h-6 w-6 ${isItemActive ? "text-[#ff5d46]" : "text-[#7a6d62]"}`}
                   />
                   {item.badge !== undefined && item.badge > 0 && (
-                    <span className="absolute -top-1 -right-1 flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[#ff5d46] px-1.5 font-bold text-[10px] text-white">
+                    <span className="-top-1 -right-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[#ff5d46] px-1.5 font-bold text-[10px] text-white">
                       {item.badge > 9 ? "9+" : item.badge}
                     </span>
                   )}
@@ -127,7 +127,7 @@ export function DashboardMobileNav({
                   className={`h-6 w-6 ${isItemActive ? "text-[#ff5d46]" : "text-[#7a6d62]"}`}
                 />
                 {item.badge !== undefined && item.badge > 0 && (
-                  <span className="absolute -top-1 -right-1 flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[#ff5d46] px-1.5 font-bold text-[10px] text-white">
+                  <span className="-top-1 -right-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[#ff5d46] px-1.5 font-bold text-[10px] text-white">
                     {item.badge > 9 ? "9+" : item.badge}
                   </span>
                 )}

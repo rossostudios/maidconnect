@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { navigateTo } from "../utils/test-helpers";
 
 /**
@@ -40,7 +40,9 @@ test.describe("Accessibility", () => {
       await navigateTo(page, "/");
 
       // Look for any modal trigger
-      const modalTrigger = page.locator('button:has-text("Menu"), button[aria-haspopup="dialog"]').first();
+      const modalTrigger = page
+        .locator('button:has-text("Menu"), button[aria-haspopup="dialog"]')
+        .first();
 
       if (await modalTrigger.isVisible()) {
         await modalTrigger.click();
@@ -131,12 +133,12 @@ test.describe("Accessibility", () => {
       await navigateTo(page, "/");
 
       // All clickable elements should be buttons or links
-      const clickables = page.locator('[onclick], [click]');
+      const clickables = page.locator("[onclick], [click]");
       const count = await clickables.count();
 
       for (let i = 0; i < Math.min(count, 10); i++) {
         const el = clickables.nth(i);
-        const tagName = await el.evaluate(node => node.tagName.toLowerCase());
+        const tagName = await el.evaluate((node) => node.tagName.toLowerCase());
         const role = await el.getAttribute("role");
 
         expect(["button", "a", "input"].includes(tagName) || role === "button").toBeTruthy();
@@ -186,7 +188,7 @@ test.describe("Accessibility", () => {
       const focused = page.locator(":focus");
 
       // Check if element has focus styles (outline or ring)
-      const outlineStyle = await focused.evaluate(el => {
+      const outlineStyle = await focused.evaluate((el) => {
         const styles = window.getComputedStyle(el);
         return {
           outline: styles.outline,
@@ -248,8 +250,8 @@ test.describe("Accessibility", () => {
 
       // Check that content is visible and not overflowing
       const body = page.locator("body");
-      const scrollWidth = await body.evaluate(el => el.scrollWidth);
-      const clientWidth = await body.evaluate(el => el.clientWidth);
+      const scrollWidth = await body.evaluate((el) => el.scrollWidth);
+      const clientWidth = await body.evaluate((el) => el.clientWidth);
 
       // Should not have horizontal scroll
       expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 10); // 10px tolerance

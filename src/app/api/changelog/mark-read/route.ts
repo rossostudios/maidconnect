@@ -23,10 +23,7 @@ export async function POST(request: NextRequest) {
     const { changelogId } = await request.json();
 
     if (!changelogId) {
-      return NextResponse.json(
-        { error: "changelogId is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "changelogId is required" }, { status: 400 });
     }
 
     // Check if view record exists
@@ -46,10 +43,7 @@ export async function POST(request: NextRequest) {
 
       if (error) {
         console.error("Error updating changelog view:", error);
-        return NextResponse.json(
-          { error: "Failed to mark as read" },
-          { status: 500 }
-        );
+        return NextResponse.json({ error: "Failed to mark as read" }, { status: 500 });
       }
     } else {
       // Create new view record with both viewed_at and dismissed_at
@@ -63,19 +57,13 @@ export async function POST(request: NextRequest) {
 
       if (error) {
         console.error("Error creating changelog view:", error);
-        return NextResponse.json(
-          { error: "Failed to mark as read" },
-          { status: 500 }
-        );
+        return NextResponse.json({ error: "Failed to mark as read" }, { status: 500 });
       }
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Unexpected error marking changelog as read:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

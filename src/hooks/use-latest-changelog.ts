@@ -36,7 +36,7 @@ export function useLatestChangelog() {
 
       const data = await response.json();
       setChangelog(data.changelog || null);
-      setHasViewed(data.hasViewed || false);
+      setHasViewed(data.hasViewed);
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unknown error");

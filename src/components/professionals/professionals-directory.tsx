@@ -8,10 +8,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
-import {
-  ProfessionalsFilterSheet,
-  type FilterState,
-} from "./professionals-filter-sheet";
+import { type FilterState, ProfessionalsFilterSheet } from "./professionals-filter-sheet";
 import {
   OnTimeRateBadge,
   RatingBadge,

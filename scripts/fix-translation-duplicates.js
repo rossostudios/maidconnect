@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 /**
  * Fix duplicate "pages" keys in translation JSON files
@@ -12,7 +12,7 @@ function fixTranslationFile(filePath) {
   console.log(`\n📝 Processing: ${filePath}`);
 
   // Read the file as text to manually parse and merge
-  const content = fs.readFileSync(filePath, 'utf8');
+  const content = fs.readFileSync(filePath, "utf8");
 
   // Find all "pages" key occurrences
   const pagesPattern = /^\s*"pages":\s*\{/gm;
@@ -38,10 +38,10 @@ function fixTranslationFile(filePath) {
   let foundOpen = false;
 
   for (let i = firstPagesStart; i < content.length; i++) {
-    if (content[i] === '{') {
+    if (content[i] === "{") {
       braceCount++;
       foundOpen = true;
-    } else if (content[i] === '}') {
+    } else if (content[i] === "}") {
       braceCount--;
       if (foundOpen && braceCount === 0) {
         firstPagesEnd = i + 1;
@@ -71,7 +71,7 @@ function fixTranslationFile(filePath) {
   // Merge: first object keys + second object keys (second overwrites if there's a conflict)
   const mergedPages = {
     ...firstPagesObject,
-    ...secondPagesObject
+    ...secondPagesObject,
   };
 
   console.log(`Merged "pages" has ${Object.keys(mergedPages).length} keys`);
@@ -93,7 +93,7 @@ function fixTranslationFile(filePath) {
 
   // Build corrected object with original key order
   for (const key of keyOrder) {
-    if (key === 'pages') {
+    if (key === "pages") {
       // Use merged pages only once
       if (!correctedData.pages) {
         correctedData.pages = mergedPages;
@@ -104,13 +104,13 @@ function fixTranslationFile(filePath) {
   }
 
   // Write the corrected JSON back
-  const correctedJson = JSON.stringify(correctedData, null, 2) + '\n';
-  fs.writeFileSync(filePath, correctedJson, 'utf8');
+  const correctedJson = JSON.stringify(correctedData, null, 2) + "\n";
+  fs.writeFileSync(filePath, correctedJson, "utf8");
 
-  console.log('✅ Fixed successfully!');
+  console.log("✅ Fixed successfully!");
 
   // Verify the fix
-  const verifyContent = fs.readFileSync(filePath, 'utf8');
+  const verifyContent = fs.readFileSync(filePath, "utf8");
   const verifyMatches = [...verifyContent.matchAll(pagesPattern)];
 
   if (verifyMatches.length === 1) {
@@ -122,7 +122,7 @@ function fixTranslationFile(filePath) {
       console.log(`✅ Valid JSON with ${Object.keys(parsed.pages).length} page keys`);
       return true;
     } catch (e) {
-      console.log('❌ Invalid JSON after fix:', e.message);
+      console.log("❌ Invalid JSON after fix:", e.message);
       return false;
     }
   } else {
@@ -132,9 +132,9 @@ function fixTranslationFile(filePath) {
 }
 
 // Process both translation files
-const messagesDir = path.join(__dirname, '..', 'messages');
-const enFile = path.join(messagesDir, 'en.json');
-const esFile = path.join(messagesDir, 'es.json');
+const messagesDir = path.join(__dirname, "..", "messages");
+const enFile = path.join(messagesDir, "en.json");
+const esFile = path.join(messagesDir, "es.json");
 
 console.log('🔧 Fixing duplicate "pages" keys in translation files...\n');
 
@@ -155,9 +155,9 @@ if (fs.existsSync(esFile)) {
 }
 
 if (success) {
-  console.log('\n✅ All translation files fixed successfully!');
+  console.log("\n✅ All translation files fixed successfully!");
   process.exit(0);
 } else {
-  console.log('\n❌ Some files failed to fix');
+  console.log("\n❌ Some files failed to fix");
   process.exit(1);
 }

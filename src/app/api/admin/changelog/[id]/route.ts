@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAdmin, createAuditLog } from "@/lib/admin-helpers";
+import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export const runtime = "edge";
@@ -9,10 +9,7 @@ export const dynamic = "force-dynamic";
  * Get changelog by ID
  * GET /api/admin/changelog/[id]
  */
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await requireAdmin();
     const supabase = await createSupabaseServerClient();
@@ -26,10 +23,7 @@ export async function GET(
 
     if (error) {
       console.error("Error fetching changelog:", error);
-      return NextResponse.json(
-        { error: "Changelog not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Changelog not found" }, { status: 404 });
     }
 
     return NextResponse.json({ changelog });
@@ -46,10 +40,7 @@ export async function GET(
  * Update changelog
  * PATCH /api/admin/changelog/[id]
  */
-export async function PATCH(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const admin = await requireAdmin();
     const supabase = await createSupabaseServerClient();
@@ -92,10 +83,7 @@ export async function PATCH(
 
     if (error) {
       console.error("Error updating changelog:", error);
-      return NextResponse.json(
-        { error: "Failed to update changelog" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to update changelog" }, { status: 500 });
     }
 
     // Log audit
@@ -142,10 +130,7 @@ export async function DELETE(
 
     if (error) {
       console.error("Error deleting changelog:", error);
-      return NextResponse.json(
-        { error: "Failed to delete changelog" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to delete changelog" }, { status: 500 });
     }
 
     // Log audit

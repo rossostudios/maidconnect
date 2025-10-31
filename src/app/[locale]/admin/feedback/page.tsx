@@ -1,4 +1,4 @@
-import { Bug, Lightbulb, TrendingUp, Frown, ThumbsUp, AlertCircle, Eye } from "lucide-react";
+import { AlertCircle, Bug, Eye, Frown, Lightbulb, ThumbsUp, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { requireUser } from "@/lib/auth/session";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -20,7 +20,11 @@ type FeedbackSubmission = {
 
 const typeConfig = {
   bug: { icon: Bug, label: "Bug", color: "text-red-600 bg-red-50" },
-  feature_request: { icon: Lightbulb, label: "Feature Request", color: "text-purple-600 bg-purple-50" },
+  feature_request: {
+    icon: Lightbulb,
+    label: "Feature Request",
+    color: "text-purple-600 bg-purple-50",
+  },
   improvement: { icon: TrendingUp, label: "Improvement", color: "text-blue-600 bg-blue-50" },
   complaint: { icon: Frown, label: "Complaint", color: "text-orange-600 bg-orange-50" },
   praise: { icon: ThumbsUp, label: "Praise", color: "text-green-600 bg-green-50" },
@@ -90,50 +94,48 @@ export default async function AdminFeedbackPage({
       {/* Header */}
       <header className="mb-8">
         <h1 className="font-bold text-3xl">Feedback Management</h1>
-        <p className="mt-2 text-[#5d574b] text-sm">
-          Review and manage user feedback submissions
-        </p>
+        <p className="mt-2 text-[#5d574b] text-sm">Review and manage user feedback submissions</p>
       </header>
 
       {/* Status Filter Tabs */}
-      <div className="mb-6 flex gap-2 border-b border-[#ebe5d8] pb-4">
+      <div className="mb-6 flex gap-2 border-[#ebe5d8] border-b pb-4">
         <Link
-          href="/admin/feedback"
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
-            !status
-              ? "bg-[#ff5d46] text-white"
-              : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
+            status
+              ? "border border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
+              : "bg-[#ff5d46] text-white"
           }`}
+          href="/admin/feedback"
         >
           All ({counts.all})
         </Link>
         <Link
-          href="/admin/feedback?status=new"
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "new"
               ? "bg-[#ff5d46] text-white"
               : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
           }`}
+          href="/admin/feedback?status=new"
         >
           New ({counts.new})
         </Link>
         <Link
-          href="/admin/feedback?status=in_review"
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "in_review"
               ? "bg-[#ff5d46] text-white"
               : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
           }`}
+          href="/admin/feedback?status=in_review"
         >
           In Review ({counts.in_review})
         </Link>
         <Link
-          href="/admin/feedback?status=resolved"
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "resolved"
               ? "bg-[#ff5d46] text-white"
               : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
           }`}
+          href="/admin/feedback?status=resolved"
         >
           Resolved ({counts.resolved})
         </Link>
@@ -156,21 +158,27 @@ export default async function AdminFeedbackPage({
 
             return (
               <article
-                key={item.id}
                 className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[#ff5d46]"
+                key={item.id}
               >
                 <div className="flex items-start justify-between gap-4">
                   {/* Content */}
                   <div className="flex-1">
                     <div className="mb-3 flex flex-wrap items-center gap-2">
-                      <span className={`flex items-center gap-1 rounded-full px-3 py-1 font-medium text-xs ${typeConf.color}`}>
+                      <span
+                        className={`flex items-center gap-1 rounded-full px-3 py-1 font-medium text-xs ${typeConf.color}`}
+                      >
                         <TypeIcon className="h-3 w-3" />
                         {typeConf.label}
                       </span>
-                      <span className={`rounded-full px-3 py-1 font-medium text-xs capitalize ${statusBadge[item.status]}`}>
+                      <span
+                        className={`rounded-full px-3 py-1 font-medium text-xs capitalize ${statusBadge[item.status]}`}
+                      >
                         {item.status.replace("_", " ")}
                       </span>
-                      <span className={`rounded-full px-3 py-1 font-medium text-xs capitalize ${priorityBadge[item.priority]}`}>
+                      <span
+                        className={`rounded-full px-3 py-1 font-medium text-xs capitalize ${priorityBadge[item.priority]}`}
+                      >
                         {item.priority}
                       </span>
                       <span className="text-[#7a6d62] text-xs">
@@ -188,11 +196,12 @@ export default async function AdminFeedbackPage({
                       <h3 className="mb-2 font-bold text-[#211f1a] text-lg">{item.subject}</h3>
                     )}
 
-                    <p className="mb-3 text-[#5d574b] text-sm line-clamp-2">{item.message}</p>
+                    <p className="mb-3 line-clamp-2 text-[#5d574b] text-sm">{item.message}</p>
 
                     <div className="flex flex-wrap gap-4 text-xs">
                       <span className="text-[#7a6d62]">
-                        <strong>From:</strong> {item.user_email || "Anonymous"} {item.user_role && `(${item.user_role})`}
+                        <strong>From:</strong> {item.user_email || "Anonymous"}{" "}
+                        {item.user_role && `(${item.user_role})`}
                       </span>
                       <span className="text-[#7a6d62]">
                         <strong>Page:</strong> {item.page_path}
@@ -202,8 +211,8 @@ export default async function AdminFeedbackPage({
 
                   {/* Actions */}
                   <Link
-                    href={`/admin/feedback/${item.id}`}
                     className="flex items-center gap-2 rounded-lg bg-[#ff5d46] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#e54d36]"
+                    href={`/admin/feedback/${item.id}`}
                   >
                     <Eye className="h-4 w-4" />
                     View
@@ -218,8 +227,8 @@ export default async function AdminFeedbackPage({
       {/* Back to Admin */}
       <div className="mt-8">
         <Link
-          href="/admin"
           className="inline-flex items-center gap-2 font-medium text-[#5d574b] text-sm transition hover:text-[#ff5d46]"
+          href="/admin"
         >
           ← Back to Admin Dashboard
         </Link>

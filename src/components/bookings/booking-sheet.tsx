@@ -210,7 +210,7 @@ export function BookingSheet({
       <div className="slide-in-from-right fixed inset-y-0 right-0 z-50 w-full animate-in overflow-y-auto bg-white shadow-2xl duration-500 ease-out md:max-w-2xl">
         <div className="sticky top-0 z-10 flex items-center justify-between border-[#ebe5d8] border-b bg-white px-6 py-5 md:px-8 md:py-6">
           <div>
-            <h2 className="font-semibold text-xl text-[#211f1a] md:text-2xl">
+            <h2 className="font-semibold text-[#211f1a] text-xl md:text-2xl">
               {currentStep === "time" && "Choose time"}
               {currentStep === "details" && "Booking details"}
               {currentStep === "payment" && "Payment"}
@@ -287,7 +287,9 @@ export function BookingSheet({
 
               {/* Service Selection */}
               <div>
-                <label className="mb-3 block font-semibold text-[#211f1a] text-base md:text-lg">Service *</label>
+                <label className="mb-3 block font-semibold text-[#211f1a] text-base md:text-lg">
+                  Service *
+                </label>
                 <select
                   className="w-full rounded-xl border-2 border-[#e5dfd4] px-4 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20 md:px-5"
                   onChange={(e) => {

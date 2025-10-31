@@ -1,6 +1,6 @@
-import { requireUser } from "@/lib/auth/session";
-import { ChangelogEditor } from "@/components/admin/changelog/changelog-editor";
 import Link from "next/link";
+import { ChangelogEditor } from "@/components/admin/changelog/changelog-editor";
+import { requireUser } from "@/lib/auth/session";
 
 export default async function NewChangelogPage() {
   await requireUser({ allowedRoles: ["admin"] });
@@ -10,8 +10,8 @@ export default async function NewChangelogPage() {
       {/* Header */}
       <header className="mb-8">
         <Link
-          href="/admin/changelog"
           className="mb-4 inline-block font-medium text-[#5d574b] text-sm transition hover:text-[#ff5d46]"
+          href="/admin/changelog"
         >
           ← Back to Changelogs
         </Link>

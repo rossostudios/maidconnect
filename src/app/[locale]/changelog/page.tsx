@@ -1,9 +1,9 @@
+import { Bug, ChevronRight, Palette, Shield, Sparkles, Zap } from "lucide-react";
+import Link from "next/link";
 import { Suspense } from "react";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
-import { Sparkles, Bug, Zap, Shield, Palette, ChevronRight } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import Link from "next/link";
 
 type Changelog = {
   id: string;
@@ -20,8 +20,16 @@ type Changelog = {
 };
 
 const categoryConfig = {
-  features: { icon: Sparkles, label: "Features", color: "text-purple-600 bg-purple-50 border-purple-200" },
-  improvements: { icon: Zap, label: "Improvements", color: "text-blue-600 bg-blue-50 border-blue-200" },
+  features: {
+    icon: Sparkles,
+    label: "Features",
+    color: "text-purple-600 bg-purple-50 border-purple-200",
+  },
+  improvements: {
+    icon: Zap,
+    label: "Improvements",
+    color: "text-blue-600 bg-blue-50 border-blue-200",
+  },
   fixes: { icon: Bug, label: "Fixes", color: "text-green-600 bg-green-50 border-green-200" },
   security: { icon: Shield, label: "Security", color: "text-red-600 bg-red-50 border-red-200" },
   design: { icon: Palette, label: "Design", color: "text-pink-600 bg-pink-50 border-pink-200" },
@@ -32,7 +40,7 @@ function ChangelogSkeleton() {
   return (
     <div className="space-y-6">
       {[1, 2, 3].map((i) => (
-        <div key={i} className="animate-pulse rounded-[28px] border border-[#ebe5d8] bg-white p-8">
+        <div className="animate-pulse rounded-[28px] border border-[#ebe5d8] bg-white p-8" key={i}>
           <div className="mb-4 flex items-center gap-3">
             <div className="h-6 w-24 rounded-full bg-[#ebe5d8]" />
             <div className="h-4 w-32 rounded bg-[#ebe5d8]" />
@@ -90,8 +98,8 @@ async function ChangelogList() {
 
         return (
           <article
-            key={changelog.id}
             className="group rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[#ff5d46] hover:shadow-md sm:p-8"
+            key={changelog.id}
           >
             {/* Header */}
             <div className="mb-4 flex flex-wrap items-center gap-3">
@@ -102,7 +110,7 @@ async function ChangelogList() {
             </div>
 
             {/* Title */}
-            <h2 className="mb-3 font-bold text-[#211f1a] text-2xl group-hover:text-[#ff5d46] sm:text-3xl">
+            <h2 className="mb-3 font-bold text-2xl text-[#211f1a] group-hover:text-[#ff5d46] sm:text-3xl">
               {changelog.title}
             </h2>
 
@@ -124,8 +132,8 @@ async function ChangelogList() {
 
                   return (
                     <span
-                      key={category}
                       className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-medium text-sm ${config.color}`}
+                      key={category}
                     >
                       <Icon className="h-4 w-4" />
                       {config.label}
@@ -139,25 +147,27 @@ async function ChangelogList() {
             {changelog.featured_image_url && (
               <div className="mb-6 overflow-hidden rounded-2xl">
                 <img
-                  src={changelog.featured_image_url}
                   alt={changelog.title}
                   className="h-auto w-full object-cover"
+                  src={changelog.featured_image_url}
                 />
               </div>
             )}
 
             {/* Content Preview */}
             <div
-              className="prose prose-sm mb-6 max-w-none line-clamp-4 sm:prose-base"
+              className="prose prose-sm sm:prose-base mb-6 line-clamp-4 max-w-none"
               dangerouslySetInnerHTML={{
-                __html: changelog.content.substring(0, 500) + (changelog.content.length > 500 ? "..." : ""),
+                __html:
+                  changelog.content.substring(0, 500) +
+                  (changelog.content.length > 500 ? "..." : ""),
               }}
             />
 
             {/* Read More Link */}
             <Link
-              href={`/changelog/${changelog.slug}`}
               className="inline-flex items-center gap-2 font-semibold text-[#ff5d46] text-base transition hover:gap-3"
+              href={`/changelog/${changelog.slug}`}
             >
               Read full update
               <ChevronRight className="h-5 w-5" />
@@ -181,7 +191,7 @@ export default async function ChangelogPage() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-100 to-blue-100">
               <Sparkles className="h-8 w-8 text-purple-600" />
             </div>
-            <h1 className="mb-4 font-bold text-[#211f1a] text-4xl sm:text-5xl">What's New</h1>
+            <h1 className="mb-4 font-bold text-4xl text-[#211f1a] sm:text-5xl">What's New</h1>
             <p className="text-[#5d574b] text-lg sm:text-xl">
               Stay up to date with the latest features, improvements, and updates to MaidConnect
             </p>

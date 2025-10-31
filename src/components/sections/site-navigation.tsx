@@ -3,8 +3,8 @@
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "@/i18n/routing";
 import { ProductBottomSheet } from "@/components/navigation/product-bottom-sheet";
+import { Link } from "@/i18n/routing";
 
 export function SiteNavigation() {
   const t = useTranslations("navigation");

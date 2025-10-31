@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test";
-import { navigateTo, expectTextPresent } from "../utils/test-helpers";
+import { expect, test } from "@playwright/test";
+import { expectTextPresent, navigateTo } from "../utils/test-helpers";
 
 /**
  * Homepage E2E Tests
@@ -81,7 +81,7 @@ test.describe("Homepage", () => {
     await page.waitForTimeout(1500); // Banner has 1s delay
 
     // Check if cookie banner is visible
-    const cookieBanner = page.locator('text=We use cookies');
+    const cookieBanner = page.locator("text=We use cookies");
     await expect(cookieBanner).toBeVisible();
 
     // Click accept button

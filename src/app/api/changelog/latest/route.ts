@@ -24,10 +24,7 @@ export async function GET() {
     if (error && error.code !== "PGRST116") {
       // PGRST116 = no rows returned
       console.error("Error fetching latest changelog:", error);
-      return NextResponse.json(
-        { error: "Failed to fetch changelog" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch changelog" }, { status: 500 });
     }
 
     if (!changelog) {
@@ -57,9 +54,6 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Unexpected error fetching changelog:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

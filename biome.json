@@ -1,91 +1,91 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
-	"extends": ["ultracite/core", "ultracite/react", "ultracite/next"],
-	"vcs": {
-		"enabled": true,
-		"clientKind": "git",
-		"useIgnoreFile": true
-	},
-	"files": {
-		"ignoreUnknown": false
-	},
-	"formatter": {
-		"enabled": true,
-		"indentStyle": "space",
-		"indentWidth": 2,
-		"lineWidth": 100
-	},
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true,
-			"suspicious": {
-				"noExplicitAny": "off",
-				"noArrayIndexKey": "off",
-				"noShadowRestrictedNames": "warn",
-				"noEmptyBlockStatements": "warn",
-				"noConsole": "off",
-				"useAwait": "warn",
-				"noAlert": "warn"
-			},
-			"style": {
-				"noNonNullAssertion": "off",
-				"useImportType": "off",
-				"noMagicNumbers": "off",
-				"noNestedTernary": "warn",
-				"useBlockStatements": "warn"
-			},
-			"correctness": {
-				"useExhaustiveDependencies": "warn",
-				"noUnusedVariables": "error"
-			},
-			"complexity": {
-				"noExcessiveCognitiveComplexity": "warn",
-				"noForEach": "warn"
-			},
-			"a11y": {
-				"noSvgWithoutTitle": "warn",
-				"noLabelWithoutControl": "warn",
-				"useButtonType": "warn",
-				"useSemanticElements": "off",
-				"noStaticElementInteractions": "warn",
-				"noNoninteractiveElementInteractions": "warn",
-				"useKeyWithClickEvents": "warn"
-			},
-			"performance": {
-				"noImgElement": "warn",
-				"useTopLevelRegex": "warn",
-				"noBarrelFile": "off"
-			},
-			"nursery": {
-				"noIncrementDecrement": "off",
-				"useMaxParams": "warn"
-			}
-		}
-	},
-	"javascript": {
-		"formatter": {
-			"quoteStyle": "double",
-			"semicolons": "always",
-			"trailingCommas": "es5",
-			"arrowParentheses": "always"
-		}
-	},
-	"css": {
-		"parser": {
-			"cssModules": false,
-			"allowWrongLineComments": true
-		},
-		"formatter": {
-			"enabled": false
-		}
-	},
-	"assist": {
-		"enabled": true,
-		"actions": {
-			"source": {
-				"organizeImports": "on"
-			}
-		}
-	}
+  "$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
+  "extends": ["ultracite/core", "ultracite/react", "ultracite/next"],
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": false
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noArrayIndexKey": "off",
+        "noShadowRestrictedNames": "warn",
+        "noEmptyBlockStatements": "warn",
+        "noConsole": "off",
+        "useAwait": "warn",
+        "noAlert": "warn"
+      },
+      "style": {
+        "noNonNullAssertion": "off",
+        "useImportType": "off",
+        "noMagicNumbers": "off",
+        "noNestedTernary": "warn",
+        "useBlockStatements": "warn"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "warn",
+        "noUnusedVariables": "error"
+      },
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "warn",
+        "noForEach": "warn"
+      },
+      "a11y": {
+        "noSvgWithoutTitle": "warn",
+        "noLabelWithoutControl": "warn",
+        "useButtonType": "warn",
+        "useSemanticElements": "off",
+        "noStaticElementInteractions": "warn",
+        "noNoninteractiveElementInteractions": "warn",
+        "useKeyWithClickEvents": "warn"
+      },
+      "performance": {
+        "noImgElement": "warn",
+        "useTopLevelRegex": "warn",
+        "noBarrelFile": "off"
+      },
+      "nursery": {
+        "noIncrementDecrement": "off",
+        "useMaxParams": "warn"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "semicolons": "always",
+      "trailingCommas": "es5",
+      "arrowParentheses": "always"
+    }
+  },
+  "css": {
+    "parser": {
+      "cssModules": false,
+      "allowWrongLineComments": true
+    },
+    "formatter": {
+      "enabled": false
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  }
 }

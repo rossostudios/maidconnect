@@ -1,4 +1,4 @@
-import { Page, expect } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 
 /**
  * Test Helpers
@@ -18,8 +18,8 @@ export async function waitForPageLoad(page: Page) {
  */
 export async function loginAsCustomer(
   page: Page,
-  email: string = "customer@test.com",
-  password: string = "password123"
+  email = "customer@test.com",
+  password = "password123"
 ) {
   await page.goto("/login");
   await page.fill('input[type="email"]', email);
@@ -33,8 +33,8 @@ export async function loginAsCustomer(
  */
 export async function loginAsProfessional(
   page: Page,
-  email: string = "pro@test.com",
-  password: string = "password123"
+  email = "pro@test.com",
+  password = "password123"
 ) {
   await page.goto("/login");
   await page.fill('input[type="email"]', email);
@@ -83,7 +83,7 @@ export async function waitForToast(page: Page, message?: string) {
   if (message) {
     await expect(page.locator(`[role="alert"]:has-text("${message}")`)).toBeVisible();
   } else {
-    await expect(page.locator("[role=\"alert\"]")).toBeVisible();
+    await expect(page.locator('[role="alert"]')).toBeVisible();
   }
 }
 

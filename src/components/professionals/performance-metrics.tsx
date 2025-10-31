@@ -89,9 +89,7 @@ export function PerformanceMetrics({ metrics, variant = "compact", showLabels = 
   // Detailed variant
   return (
     <div className="space-y-4">
-      {showLabels && (
-        <h3 className="font-semibold text-[#211f1a] text-sm">Performance Metrics</h3>
-      )}
+      {showLabels && <h3 className="font-semibold text-[#211f1a] text-sm">Performance Metrics</h3>}
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {/* On-Time Rate */}
@@ -100,9 +98,7 @@ export function PerformanceMetrics({ metrics, variant = "compact", showLabels = 
             <div className="flex items-center gap-2">
               <Clock className={`h-5 w-5 ${onTimeColor.icon}`} />
               <div>
-                <p className={`font-semibold ${onTimeColor.text}`}>
-                  {Math.round(onTimeRate)}%
-                </p>
+                <p className={`font-semibold ${onTimeColor.text}`}>{Math.round(onTimeRate)}%</p>
                 <p className={`text-xs ${onTimeColor.text}`}>On-Time Arrival</p>
               </div>
             </div>

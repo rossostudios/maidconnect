@@ -57,12 +57,12 @@ export function ProductBottomSheet({ isOpen, onClose, features }: Props) {
 
       {/* Bottom Sheet - Optimized for landscape */}
       <div
-        className={`fixed right-0 bottom-0 left-0 z-50 max-h-[85vh] overflow-y-auto rounded-t-3xl bg-white shadow-2xl transition-transform duration-300 ease-out landscape:left-1/2 landscape:right-auto landscape:max-w-2xl landscape:-translate-x-1/2 landscape:rounded-2xl ${
+        className={`landscape:-translate-x-1/2 fixed right-0 bottom-0 left-0 z-50 max-h-[85vh] overflow-y-auto rounded-t-3xl bg-white shadow-2xl transition-transform duration-300 ease-out landscape:right-auto landscape:left-1/2 landscape:max-w-2xl landscape:rounded-2xl ${
           isOpen ? "translate-y-0" : "translate-y-full"
         }`}
       >
         {/* Header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#ebe5d8] bg-white px-6 py-4">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-[#ebe5d8] border-b bg-white px-6 py-4">
           <h2 className="font-semibold text-[#211f1a] text-lg">Product Features</h2>
           <button
             aria-label="Close product menu"

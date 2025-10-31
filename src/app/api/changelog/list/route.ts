@@ -12,8 +12,8 @@ export async function GET(request: NextRequest) {
   const supabase = await createSupabaseServerClient();
   const searchParams = request.nextUrl.searchParams;
 
-  const page = parseInt(searchParams.get("page") || "1", 10);
-  const limit = Math.min(parseInt(searchParams.get("limit") || "10", 10), 50);
+  const page = Number.parseInt(searchParams.get("page") || "1", 10);
+  const limit = Math.min(Number.parseInt(searchParams.get("limit") || "10", 10), 50);
   const category = searchParams.get("category");
 
   const from = (page - 1) * limit;
@@ -37,10 +37,7 @@ export async function GET(request: NextRequest) {
 
     if (error) {
       console.error("Error fetching changelogs:", error);
-      return NextResponse.json(
-        { error: "Failed to fetch changelogs" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "Failed to fetch changelogs" }, { status: 500 });
     }
 
     return NextResponse.json({
@@ -54,9 +51,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Unexpected error fetching changelogs:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

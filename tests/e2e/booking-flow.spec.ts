@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test";
-import { navigateTo, expectTextPresent } from "../utils/test-helpers";
+import { expect, test } from "@playwright/test";
+import { expectTextPresent, navigateTo } from "../utils/test-helpers";
 
 /**
  * Booking Flow E2E Tests
@@ -21,7 +21,9 @@ test.describe("Booking Flow", () => {
       await navigateTo(page, "/professionals");
 
       // Look for service type filters
-      const serviceFilter = page.locator('select, button:has-text("Housekeeping"), button:has-text("Cleaning")').first();
+      const serviceFilter = page
+        .locator('select, button:has-text("Housekeeping"), button:has-text("Cleaning")')
+        .first();
 
       if (await serviceFilter.isVisible()) {
         await serviceFilter.click();
@@ -30,7 +32,9 @@ test.describe("Booking Flow", () => {
         await page.waitForTimeout(500);
 
         // Verify some results are shown
-        const results = page.locator('[data-testid="professional-card"], .professional-card, article');
+        const results = page.locator(
+          '[data-testid="professional-card"], .professional-card, article'
+        );
         const count = await results.count();
         expect(count).toBeGreaterThanOrEqual(0);
       }
@@ -40,10 +44,12 @@ test.describe("Booking Flow", () => {
       await navigateTo(page, "/professionals");
 
       // Look for location filter
-      const locationFilter = page.locator('select[name*="location"], input[placeholder*="location"]').first();
+      const locationFilter = page
+        .locator('select[name*="location"], input[placeholder*="location"]')
+        .first();
 
       if (await locationFilter.isVisible()) {
-        if (await locationFilter.evaluate(el => el.tagName === "SELECT")) {
+        if (await locationFilter.evaluate((el) => el.tagName === "SELECT")) {
           await locationFilter.selectOption({ index: 1 });
         } else {
           await locationFilter.fill("Medellín");
@@ -60,7 +66,9 @@ test.describe("Booking Flow", () => {
       await page.waitForTimeout(1000);
 
       // Check if professional cards are visible (may be empty if no test data)
-      const cards = page.locator('[data-testid="professional-card"], .professional-card, article').first();
+      const cards = page
+        .locator('[data-testid="professional-card"], .professional-card, article')
+        .first();
 
       // If cards exist, verify they have required info
       if (await cards.isVisible()) {
@@ -75,7 +83,9 @@ test.describe("Booking Flow", () => {
       await navigateTo(page, "/professionals");
 
       // Find and click first professional card
-      const firstPro = page.locator('[data-testid="professional-card"], .professional-card, article').first();
+      const firstPro = page
+        .locator('[data-testid="professional-card"], .professional-card, article')
+        .first();
 
       if (await firstPro.isVisible()) {
         await firstPro.click();
@@ -99,7 +109,7 @@ test.describe("Booking Flow", () => {
         await page.waitForURL("**/professionals/**");
 
         // Check for availability section
-        const availability = page.locator('text=Availability, text=Schedule');
+        const availability = page.locator("text=Availability, text=Schedule");
         await expect(availability.first()).toBeVisible();
       }
     });
@@ -115,7 +125,7 @@ test.describe("Booking Flow", () => {
         await page.waitForURL("**/professionals/**");
 
         // Check for pricing/rates
-        const rate = page.locator('text=/\\$\\d+/, text=/₱\\d+/');
+        const rate = page.locator("text=/\\$\\d+/, text=/₱\\d+/");
         await expect(rate.first()).toBeVisible();
       }
     });

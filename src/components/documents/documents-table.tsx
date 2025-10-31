@@ -213,51 +213,51 @@ export function DocumentsTable({ documents, labels }: Props) {
       <div className="overflow-hidden rounded-lg border border-[#ebe5d8]">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px]">
-          <thead className="bg-[#fbfaf9]">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th
-                    className="px-6 py-4 text-left font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]"
-                    key={header.id}
-                  >
-                    {header.isPlaceholder ? null : (
-                      <div
-                        className={
-                          header.column.getCanSort()
-                            ? "flex cursor-pointer select-none items-center gap-2 hover:text-[#ff5d46]"
-                            : ""
-                        }
-                        onClick={header.column.getToggleSortingHandler()}
-                      >
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                        {header.column.getCanSort() && (
-                          <span className="text-[#d4c9b8]">
-                            {{
-                              asc: "↑",
-                              desc: "↓",
-                            }[header.column.getIsSorted() as string] ?? "↕"}
-                          </span>
-                        )}
-                      </div>
-                    )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody className="divide-y divide-[#ebe5d8] bg-white">
-            {table.getRowModel().rows.map((row) => (
-              <tr className="transition hover:bg-[#fbfaf9]" key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <td className="px-6 py-4" key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+            <thead className="bg-[#fbfaf9]">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th
+                      className="px-6 py-4 text-left font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]"
+                      key={header.id}
+                    >
+                      {header.isPlaceholder ? null : (
+                        <div
+                          className={
+                            header.column.getCanSort()
+                              ? "flex cursor-pointer select-none items-center gap-2 hover:text-[#ff5d46]"
+                              : ""
+                          }
+                          onClick={header.column.getToggleSortingHandler()}
+                        >
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          {header.column.getCanSort() && (
+                            <span className="text-[#d4c9b8]">
+                              {{
+                                asc: "↑",
+                                desc: "↓",
+                              }[header.column.getIsSorted() as string] ?? "↕"}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody className="divide-y divide-[#ebe5d8] bg-white">
+              {table.getRowModel().rows.map((row) => (
+                <tr className="transition hover:bg-[#fbfaf9]" key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <td className="px-6 py-4" key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 
