@@ -9,6 +9,7 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import { CookieConsent } from "@/components/legal/cookie-consent";
 import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
+import { WebVitalsReporter } from "@/components/web-vitals";
 import { locales } from "@/i18n";
 
 const geistSans = Geist({
@@ -79,6 +80,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <WebVitalsReporter />
         <LogtailProvider token={process.env.NEXT_PUBLIC_LOGTAIL_TOKEN}>
           <ErrorBoundary>
             <NextIntlClientProvider locale={locale} messages={messages}>

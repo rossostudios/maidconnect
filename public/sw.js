@@ -1,22 +1,37 @@
-// MaidConnect Service Worker for Push Notifications
+// MaidConnect Service Worker for Push Notifications and Offline Support
 
-const CACHE_NAME = 'maidconnect-v1';
+const CACHE_VERSION = 'v1';
+const STATIC_CACHE = `maidconnect-static-${CACHE_VERSION}`;
+const OFFLINE_CACHE = `maidconnect-offline-${CACHE_VERSION}`;
+const OFFLINE_PAGE = '/offline.html';
 
-// Install event - cache key assets
+// Install event - precache offline page for marketing/public pages only
 self.addEventListener('install', (event) => {
   console.log('[Service Worker] Installing...');
+  event.waitUntil(
+    caches.open(OFFLINE_CACHE).then((cache) => {
+      console.log('[Service Worker] Precaching offline page');
+      return cache.add(OFFLINE_PAGE).catch((err) => {
+        console.warn('[Service Worker] Offline page not found, skipping precache:', err);
+      });
+    })
+  );
   self.skipWaiting();
 });
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
   console.log('[Service Worker] Activating...');
+  const currentCaches = [STATIC_CACHE, OFFLINE_CACHE];
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
+          .filter((name) => !currentCaches.includes(name))
+          .map((name) => {
+            console.log('[Service Worker] Deleting old cache:', name);
+            return caches.delete(name);
+          })
       );
     })
   );
@@ -82,26 +97,107 @@ self.addEventListener('notificationclick', (event) => {
   );
 });
 
-// Fetch event - network-first strategy
+// Helper: Check if request should be cached
+function shouldCache(request) {
+  const url = new URL(request.url);
+  const pathname = url.pathname;
+
+  // Only cache GET requests
+  if (request.method !== 'GET') {
+    return false;
+  }
+
+  // Never cache API routes (could contain sensitive data)
+  if (pathname.startsWith('/api/')) {
+    return false;
+  }
+
+  // Never cache authenticated pages (dashboard, admin)
+  if (pathname.startsWith('/dashboard/') || pathname.startsWith('/admin/')) {
+    return false;
+  }
+
+  // Never cache auth pages (could leak session data)
+  if (pathname.startsWith('/auth/')) {
+    return false;
+  }
+
+  // Cache static assets only
+  return (
+    pathname.startsWith('/_next/static/') || // Next.js static assets
+    pathname.startsWith('/images/') || // Public images
+    pathname.match(/\.(js|css|woff|woff2|ttf|eot|svg|png|jpg|jpeg|webp|ico)$/) // Asset extensions
+  );
+}
+
+// Helper: Check if we should serve offline page
+function shouldServeOffline(request) {
+  const url = new URL(request.url);
+  const pathname = url.pathname;
+
+  // Only serve offline page for public marketing pages
+  return (
+    request.method === 'GET' &&
+    !pathname.startsWith('/api/') &&
+    !pathname.startsWith('/dashboard/') &&
+    !pathname.startsWith('/admin/') &&
+    !pathname.startsWith('/auth/') &&
+    !pathname.startsWith('/_next/') &&
+    request.headers.get('accept')?.includes('text/html')
+  );
+}
+
+// Fetch event - stale-while-revalidate for static assets only
 self.addEventListener('fetch', (event) => {
+  const { request } = event;
+
   // Skip cross-origin requests
-  if (!event.request.url.startsWith(self.location.origin)) {
+  if (!request.url.startsWith(self.location.origin)) {
     return;
   }
 
-  event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        // Clone the response before caching
-        const responseToCache = response.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
+  // Strategy: Stale-while-revalidate for cacheable static assets
+  if (shouldCache(request)) {
+    event.respondWith(
+      caches.open(STATIC_CACHE).then((cache) => {
+        return cache.match(request).then((cachedResponse) => {
+          // Fetch from network and update cache in background
+          const fetchPromise = fetch(request).then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200) {
+              cache.put(request, networkResponse.clone());
+            }
+            return networkResponse;
+          });
+
+          // Return cached version immediately (stale-while-revalidate)
+          // or wait for network if no cache
+          return cachedResponse || fetchPromise;
         });
-        return response;
       })
-      .catch(() => {
-        // If network fails, try cache
-        return caches.match(event.request);
+    );
+    return;
+  }
+
+  // For non-cacheable requests: network-only with offline fallback
+  // (but only serve offline page for public marketing pages)
+  if (shouldServeOffline(request)) {
+    event.respondWith(
+      fetch(request).catch(() => {
+        return caches.match(OFFLINE_PAGE).then((offlineResponse) => {
+          return (
+            offlineResponse ||
+            new Response('Offline - Please check your internet connection', {
+              status: 503,
+              statusText: 'Service Unavailable',
+              headers: new Headers({ 'Content-Type': 'text/plain' }),
+            })
+          );
+        });
       })
-  );
+    );
+    return;
+  }
+
+  // For everything else (API, dashboard, auth): network-only, no offline fallback
+  // Let the browser handle the error naturally
 });
