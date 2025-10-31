@@ -18,9 +18,7 @@ import { LogLevel } from "@logtail/types";
 const logtailToken = process.env.LOGTAIL_SOURCE_TOKEN;
 
 // Create Logtail instance (server-side only)
-const logtail = logtailToken
-  ? new Logtail(logtailToken)
-  : null;
+const logtail = logtailToken ? new Logtail(logtailToken) : null;
 
 // Fallback logger for when Logtail is not configured
 const consoleLogger = {
@@ -151,15 +149,11 @@ export function withLogging<T extends (...args: unknown[]) => Promise<Response>>
     } catch (error) {
       const duration = Date.now() - startTime;
 
-      await logger.error(
-        `API Error: ${request.method} ${route}`,
-        error as Error,
-        {
-          method: request.method,
-          url: request.url,
-          duration,
-        }
-      );
+      await logger.error(`API Error: ${request.method} ${route}`, error as Error, {
+        method: request.method,
+        url: request.url,
+        duration,
+      });
 
       await logger.flush();
 
@@ -172,9 +166,7 @@ export function withLogging<T extends (...args: unknown[]) => Promise<Response>>
 /**
  * Check if Better Stack is configured
  */
-export const isLoggingEnabled = (): boolean => {
-  return logtail !== null;
-};
+export const isLoggingEnabled = (): boolean => logtail !== null;
 
 /**
  * Log level type for Better Stack

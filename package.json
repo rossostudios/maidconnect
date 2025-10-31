@@ -24,6 +24,8 @@
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.76.1",
     "@tanstack/react-table": "^8.21.3",
+    "@upstash/ratelimit": "^2.0.6",
+    "@upstash/redis": "^1.35.6",
     "browser-image-compression": "^2.0.2",
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",

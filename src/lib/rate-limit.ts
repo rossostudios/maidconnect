@@ -1,32 +1,48 @@
 /**
  * Rate Limiting Utility
  *
- * Prevents brute force attacks and API abuse by limiting the number of requests
- * from a single IP address or user within a time window.
+ * Provides production-ready rate limiting with automatic failover:
+ * - Production: Uses Upstash Redis (distributed, scales across Edge functions)
+ * - Development: Uses in-memory store (no setup required)
  *
- * For production with multiple servers, consider using Redis (Upstash) instead
- * of in-memory storage.
+ * Setup:
+ * 1. Development: Works out of the box with in-memory store
+ * 2. Production: Add UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN to .env
+ *
+ * Usage:
+ * import { rateLimit, createRateLimitResponse } from '@/lib/rate-limit'
+ *
+ * export async function GET(request: Request) {
+ *   const result = await rateLimit(request, 'api')
+ *   if (!result.success) {
+ *     return createRateLimitResponse(result)
+ *   }
+ *   // Your handler code
+ * }
  */
+
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
 
 type RateLimitStore = Map<string, { count: number; resetTime: number }>;
 
-// In-memory store for rate limiting
-// Note: This resets on server restart. For production with multiple instances,
-// use Redis (e.g., Upstash) for distributed rate limiting
+// In-memory store for rate limiting (development only)
 const store: RateLimitStore = new Map();
 
-// Clean up expired entries every 5 minutes
-setInterval(
-  () => {
-    const now = Date.now();
-    for (const [key, value] of store.entries()) {
-      if (now > value.resetTime) {
-        store.delete(key);
+// Clean up expired entries every 5 minutes (in-memory only)
+if (typeof setInterval !== "undefined") {
+  setInterval(
+    () => {
+      const now = Date.now();
+      for (const [key, value] of store.entries()) {
+        if (now > value.resetTime) {
+          store.delete(key);
+        }
       }
-    }
-  },
-  5 * 60 * 1000
-);
+    },
+    5 * 60 * 1000
+  );
+}
 
 export type RateLimitConfig = {
   /**
@@ -49,7 +65,7 @@ export type RateLimitResult = {
   /**
    * Whether the request is allowed
    */
-  allowed: boolean;
+  success: boolean;
 
   /**
    * Number of requests remaining in the current window
@@ -57,14 +73,19 @@ export type RateLimitResult = {
   remaining: number;
 
   /**
-   * Timestamp when the rate limit resets (Unix timestamp in ms)
+   * Maximum requests allowed
    */
-  resetTime: number;
+  limit: number;
 
   /**
-   * Error message if rate limit is exceeded
+   * Timestamp when the rate limit resets (Unix timestamp in ms)
    */
-  message?: string;
+  reset: number;
+
+  /**
+   * Seconds until rate limit resets
+   */
+  retryAfter?: number;
 };
 
 /**
@@ -195,4 +216,185 @@ export const RateLimiters = {
     windowMs: 60 * 60 * 1000, // 1 hour
     message: "Too many requests for this sensitive operation. Please try again in 1 hour.",
   },
+
+  /**
+   * Moderate rate limit for booking creation
+   * 20 requests per minute
+   */
+  booking: {
+    maxRequests: 20,
+    windowMs: 60 * 1000, // 1 minute
+    message: "Too many booking requests. Please try again shortly.",
+  },
+
+  /**
+   * Moderate rate limit for messaging
+   * 30 messages per minute
+   */
+  messaging: {
+    maxRequests: 30,
+    windowMs: 60 * 1000, // 1 minute
+    message: "Too many messages. Please slow down.",
+  },
 } as const;
+
+// ============================================
+// Upstash Redis Rate Limiting (Production)
+// ============================================
+
+/**
+ * Initialize Upstash rate limiters (used in production)
+ * Falls back to in-memory if Upstash is not configured
+ */
+let upstashLimiters: {
+  auth: Ratelimit | null;
+  api: Ratelimit | null;
+  booking: Ratelimit | null;
+  messaging: Ratelimit | null;
+} = {
+  auth: null,
+  api: null,
+  booking: null,
+  messaging: null,
+};
+
+// Only initialize Upstash in production or if explicitly configured
+if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
+  try {
+    const redis = new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN,
+    });
+
+    upstashLimiters = {
+      // Auth: 10 requests per minute (stricter than in-memory)
+      auth: new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(10, "1 m"),
+        analytics: true,
+        prefix: "maidconnect:ratelimit:auth",
+      }),
+
+      // API: 100 requests per minute
+      api: new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(100, "1 m"),
+        analytics: true,
+        prefix: "maidconnect:ratelimit:api",
+      }),
+
+      // Booking: 20 requests per minute
+      booking: new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(20, "1 m"),
+        analytics: true,
+        prefix: "maidconnect:ratelimit:booking",
+      }),
+
+      // Messaging: 30 requests per minute
+      messaging: new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(30, "1 m"),
+        analytics: true,
+        prefix: "maidconnect:ratelimit:messaging",
+      }),
+    };
+
+    console.log("✓ Upstash Redis rate limiting initialized");
+  } catch (error) {
+    console.error("Failed to initialize Upstash Redis:", error);
+    console.log("Falling back to in-memory rate limiting");
+  }
+}
+
+/**
+ * Apply rate limit using Upstash (production) or in-memory (development)
+ */
+export async function rateLimit(
+  request: Request,
+  type: "auth" | "api" | "booking" | "messaging" = "api"
+): Promise<RateLimitResult> {
+  const identifier = getClientIdentifier(request);
+  const limiter = upstashLimiters[type];
+
+  // Use Upstash if available
+  if (limiter) {
+    try {
+      const result = await limiter.limit(identifier);
+
+      return {
+        success: result.success,
+        remaining: result.remaining,
+        limit: result.limit,
+        reset: result.reset,
+        retryAfter: result.success ? undefined : Math.ceil((result.reset - Date.now()) / 1000),
+      };
+    } catch (error) {
+      console.error("Upstash rate limit error:", error);
+      // Fall through to in-memory on error
+    }
+  }
+
+  // Fallback to in-memory rate limiting
+  const config = RateLimiters[type];
+  const result = checkRateLimit(identifier, config);
+
+  return {
+    success: result.allowed,
+    remaining: result.remaining,
+    limit: config.maxRequests,
+    reset: result.resetTime,
+    retryAfter: result.allowed ? undefined : Math.ceil((result.resetTime - Date.now()) / 1000),
+  };
+}
+
+/**
+ * Create a rate limit response (429 Too Many Requests)
+ */
+export function createRateLimitResponse(result: RateLimitResult): Response {
+  const headers = new Headers({
+    "Content-Type": "application/json",
+    "X-RateLimit-Limit": result.limit.toString(),
+    "X-RateLimit-Remaining": result.remaining.toString(),
+    "X-RateLimit-Reset": new Date(result.reset).toISOString(),
+  });
+
+  if (result.retryAfter) {
+    headers.set("Retry-After", result.retryAfter.toString());
+  }
+
+  return new Response(
+    JSON.stringify({
+      error: "Too many requests",
+      message: `Rate limit exceeded. Please try again in ${result.retryAfter} seconds.`,
+      retryAfter: result.retryAfter,
+    }),
+    {
+      status: 429,
+      headers,
+    }
+  );
+}
+
+/**
+ * Middleware wrapper for rate limiting
+ * Automatically applies rate limit and returns 429 if exceeded
+ *
+ * Usage:
+ * export const GET = withRateLimit(async (request) => {
+ *   // Your handler code
+ * }, 'api')
+ */
+export function withRateLimit<
+  T extends (request: Request, ...args: unknown[]) => Promise<Response>,
+>(handler: T, type: "auth" | "api" | "booking" | "messaging" = "api"): T {
+  return (async (request: Request, ...args: unknown[]) => {
+    const result = await rateLimit(request, type);
+
+    if (!result.success) {
+      return createRateLimitResponse(result);
+    }
+
+    return handler(request, ...args);
+  }) as T;
+}

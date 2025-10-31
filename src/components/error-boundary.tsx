@@ -8,9 +8,8 @@
  */
 
 import { useLogger } from "@logtail/next";
-import { useEffect } from "react";
 import type { ErrorInfo, ReactNode } from "react";
-import { Component } from "react";
+import { Component, useEffect } from "react";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -26,10 +25,7 @@ interface ErrorBoundaryState {
  * Error Boundary Component
  * Wraps the application to catch and handle React errors
  */
-export class ErrorBoundary extends Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = {
@@ -155,10 +151,7 @@ function ErrorDisplay({ error }: { error: Error }) {
         {/* Support Link */}
         <p className="mt-6 text-center text-[#7a6d62] text-xs">
           Need help?{" "}
-          <a
-            className="text-[#ff5d46] underline hover:text-[#ff4d36]"
-            href="/contact"
-          >
+          <a className="text-[#ff5d46] underline hover:text-[#ff4d36]" href="/contact">
             Contact Support
           </a>
         </p>

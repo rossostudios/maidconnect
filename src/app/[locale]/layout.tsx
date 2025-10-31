@@ -4,12 +4,12 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import "../globals.css";
-import { CookieConsent } from "@/components/legal/cookie-consent";
+import { LogtailProvider } from "@logtail/next";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { CookieConsent } from "@/components/legal/cookie-consent";
 import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
 import { locales } from "@/i18n";
-import { LogtailProvider } from "@logtail/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
