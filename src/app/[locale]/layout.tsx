@@ -5,9 +5,11 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import "../globals.css";
 import { CookieConsent } from "@/components/legal/cookie-consent";
+import { ErrorBoundary } from "@/components/error-boundary";
 import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
 import { locales } from "@/i18n";
+import { LogtailProvider } from "@logtail/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -77,12 +79,16 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <SupabaseProvider>
-            <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
-          </SupabaseProvider>
-          <CookieConsent />
-        </NextIntlClientProvider>
+        <LogtailProvider token={process.env.NEXT_PUBLIC_LOGTAIL_TOKEN}>
+          <ErrorBoundary>
+            <NextIntlClientProvider locale={locale} messages={messages}>
+              <SupabaseProvider>
+                <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
+              </SupabaseProvider>
+              <CookieConsent />
+            </NextIntlClientProvider>
+          </ErrorBoundary>
+        </LogtailProvider>
       </body>
     </html>
   );
