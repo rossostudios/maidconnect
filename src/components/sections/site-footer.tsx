@@ -1,7 +1,5 @@
-"use client";
-
 import { Facebook, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { KeyboardShortcutsButton } from "@/components/keyboard-shortcuts/keyboard-shortcuts-button";
 import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 import { Container } from "@/components/ui/container";
@@ -14,8 +12,8 @@ const socialLinks = [
   { label: "LinkedIn", href: "https://linkedin.com/company/maidconnect", icon: Linkedin },
 ];
 
-export function SiteFooter() {
-  const t = useTranslations("footer");
+export async function SiteFooter() {
+  const t = await getTranslations("footer");
   const year = new Date().getFullYear();
 
   const footerColumns = [
@@ -32,6 +30,7 @@ export function SiteFooter() {
       links: [
         { href: "/auth/sign-in", label: t("loginSignup") },
         { href: "/auth/sign-up?role=professional", label: t("applyProfessional") },
+        { href: "/careers", label: t("careers"), badge: "Hiring" },
         { href: "/support/account-suspended", label: t("support") },
       ],
     },
@@ -81,10 +80,15 @@ export function SiteFooter() {
                   {column.links.map((link) => (
                     <li key={link.label}>
                       <Link
-                        className="text-[#f3ece1] text-base transition hover:text-[#ff5d46]"
+                        className="inline-flex items-center gap-2 text-[#f3ece1] text-base transition hover:text-[#ff5d46]"
                         href={link.href}
                       >
                         {link.label}
+                        {link.badge && (
+                          <span className="rounded-full bg-[#ff5d46]/10 px-2 py-0.5 font-medium text-[#ff5d46] text-xs uppercase tracking-wider">
+                            {link.badge}
+                          </span>
+                        )}
                       </Link>
                     </li>
                   ))}

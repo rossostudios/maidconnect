@@ -1,10 +1,8 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 
-export function ServicesSection() {
-  const t = useTranslations("services");
+export async function ServicesSection() {
+  const t = await getTranslations("services");
 
   const serviceKeys = [
     "housekeeping",

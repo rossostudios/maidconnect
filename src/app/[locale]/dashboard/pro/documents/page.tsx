@@ -1,12 +1,26 @@
+import dynamic from "next/dynamic";
 import { getTranslations } from "next-intl/server";
 import {
   OPTIONAL_DOCUMENTS,
   REQUIRED_DOCUMENTS,
 } from "@/app/[locale]/dashboard/pro/onboarding/state";
-import { DocumentsTable } from "@/components/documents/documents-table";
 import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+
+// Dynamically import TanStack Table component (reduces initial bundle size)
+const DocumentsTable = dynamic(
+  () =>
+    import("@/components/documents/documents-table").then((mod) => ({
+      default: mod.DocumentsTable,
+    })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[400px] w-full animate-pulse rounded-lg bg-gradient-to-br from-[#ebe5d8]/30 to-[#ebe5d8]/10" />
+    ),
+  }
+);
 
 type DocumentRow = {
   id: string;

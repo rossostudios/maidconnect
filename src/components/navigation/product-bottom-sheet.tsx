@@ -18,7 +18,7 @@ type Props = {
 };
 
 export function ProductBottomSheet({ isOpen, onClose, features }: Props) {
-  const t = useTranslations("product");
+  const _t = useTranslations("product");
 
   // Prevent body scroll when bottom sheet is open
   useEffect(() => {

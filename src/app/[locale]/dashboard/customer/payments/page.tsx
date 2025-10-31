@@ -1,8 +1,22 @@
+import dynamic from "next/dynamic";
 import { getTranslations } from "next-intl/server";
-import { PaymentHistoryTable } from "@/components/payments/payment-history-table";
 import { requireUser } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+
+// Dynamically import TanStack Table component (reduces initial bundle size)
+const PaymentHistoryTable = dynamic(
+  () =>
+    import("@/components/payments/payment-history-table").then((mod) => ({
+      default: mod.PaymentHistoryTable,
+    })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[400px] w-full animate-pulse rounded-lg bg-gradient-to-br from-[#ebe5d8]/30 to-[#ebe5d8]/10" />
+    ),
+  }
+);
 
 type BookingRow = {
   id: string;

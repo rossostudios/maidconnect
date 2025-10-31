@@ -104,7 +104,7 @@ export function CustomerSearchSection({ professionals }: CustomerSearchSectionPr
             <p className="font-semibold text-[#211f1a]">Ready to explore more?</p>
             <p>Head to the full directory to filter by service type, language, and availability.</p>
           </div>
-          <Button href="/professionals" label="Browse all professionals" />
+          <Button href="/professionals" kbd="B" label="Browse all professionals" />
         </div>
       </Container>
     </section>

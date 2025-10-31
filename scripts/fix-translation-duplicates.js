@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 /**
  * Fix duplicate "pages" keys in translation JSON files
@@ -104,7 +104,7 @@ function fixTranslationFile(filePath) {
   }
 
   // Write the corrected JSON back
-  const correctedJson = JSON.stringify(correctedData, null, 2) + "\n";
+  const correctedJson = `${JSON.stringify(correctedData, null, 2)}\n`;
   fs.writeFileSync(filePath, correctedJson, "utf8");
 
   console.log("✅ Fixed successfully!");

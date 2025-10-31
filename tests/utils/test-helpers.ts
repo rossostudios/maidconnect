@@ -113,7 +113,7 @@ export async function takeScreenshot(page: Page, name: string) {
  */
 export async function mockAuth(page: Page, userId: string, userType: "customer" | "professional") {
   await page.addInitScript(
-    ({ userId, userType }) => {
+    ({ userId: mockUserId, userType: mockUserType }) => {
       // Mock localStorage for auth session
       localStorage.setItem(
         "supabase.auth.token",
@@ -121,9 +121,9 @@ export async function mockAuth(page: Page, userId: string, userType: "customer" 
           currentSession: {
             access_token: "mock_token",
             user: {
-              id: userId,
-              email: `${userType}@test.com`,
-              user_metadata: { user_type: userType },
+              id: mockUserId,
+              email: `${mockUserType}@test.com`,
+              user_metadata: { user_type: mockUserType },
             },
           },
         })

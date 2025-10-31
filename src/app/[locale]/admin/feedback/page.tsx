@@ -152,7 +152,9 @@ export default async function AdminFeedbackPage({
         <div className="space-y-4">
           {feedbackList.map((item: FeedbackSubmission) => {
             const typeConf = typeConfig[item.feedback_type as keyof typeof typeConfig];
-            if (!typeConf) return null;
+            if (!typeConf) {
+              return null;
+            }
 
             const TypeIcon = typeConf.icon;
 

@@ -100,7 +100,9 @@ export default async function ChangelogDetailPage({
               <div className="flex flex-wrap gap-2">
                 {changelog.categories.map((category: string) => {
                   const config = categoryConfig[category as keyof typeof categoryConfig];
-                  if (!config) return null;
+                  if (!config) {
+                    return null;
+                  }
 
                   const Icon = config.icon;
 

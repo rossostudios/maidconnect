@@ -36,7 +36,7 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
           return { success: false, error: error.error || "Failed to rebook service" };
         }
 
-        const data = await response.json();
+        const _data = await response.json();
 
         // Close modal and redirect to booking details
         onClose();
@@ -44,7 +44,7 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
         router.refresh();
 
         return { success: true };
-      } catch (error) {
+      } catch (_error) {
         return { success: false, error: "An unexpected error occurred" };
       }
     },

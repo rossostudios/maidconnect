@@ -1,12 +1,10 @@
-"use client";
-
 import { Languages, MapPin } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 
-export function ConciergeSection() {
-  const t = useTranslations("concierge");
+export async function ConciergeSection() {
+  const t = await getTranslations("concierge");
 
   return (
     <section className="py-16 sm:py-20 lg:py-24" id="concierge">

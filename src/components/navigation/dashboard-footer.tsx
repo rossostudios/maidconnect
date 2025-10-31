@@ -39,7 +39,9 @@ export function DashboardFooter() {
                 const feedbackBtn = document.querySelector(
                   "[data-feedback-button]"
                 ) as HTMLButtonElement;
-                if (feedbackBtn) feedbackBtn.click();
+                if (feedbackBtn) {
+                  feedbackBtn.click();
+                }
               }}
               type="button"
             >

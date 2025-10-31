@@ -19,11 +19,20 @@ const nextConfig: NextConfig = {
         hostname: "hvnetxfsrtplextvtwfx.supabase.co",
       },
     ],
+    // Image optimization settings
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 2_592_000, // 30 days
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   experimental: {
     serverActions: {
       bodySizeLimit: "6mb",
     },
+    // Optimize package imports to reduce bundle size
+    optimizePackageImports: ["lucide-react", "date-fns", "recharts"],
+    // Enable Partial Pre-Rendering via cacheComponents (Next.js 16 API)
+    cacheComponents: true,
   },
   // Security headers
   async headers() {

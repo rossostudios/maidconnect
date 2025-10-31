@@ -212,6 +212,24 @@ export function useKeyboardShortcuts(
             navigate("/dashboard/pro/availability");
           }
           break;
+        case "f": // Find a professional (public)
+          if (!role) {
+            event.preventDefault();
+            navigate("/professionals");
+          }
+          break;
+        case "b": // Browse all professionals (public)
+          if (!role) {
+            event.preventDefault();
+            navigate("/professionals");
+          }
+          break;
+        case "l": // Login/Signup (public)
+          if (!role) {
+            event.preventDefault();
+            navigate("/auth/sign-in");
+          }
+          break;
       }
     };
 

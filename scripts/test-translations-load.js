@@ -30,7 +30,9 @@ try {
     const esExists = !!es.pages[page];
     const status = enExists && esExists ? "✅" : "❌";
     console.log(`  ${status} ${page}: EN=${enExists}, ES=${esExists}`);
-    if (!(enExists && esExists)) productPagesOk = false;
+    if (!(enExists && esExists)) {
+      productPagesOk = false;
+    }
   });
 
   // Test accessing static pages
@@ -43,7 +45,9 @@ try {
     const esExists = !!es.pages[page];
     const status = enExists && esExists ? "✅" : "❌";
     console.log(`  ${status} ${page}: EN=${enExists}, ES=${esExists}`);
-    if (!(enExists && esExists)) staticPagesOk = false;
+    if (!(enExists && esExists)) {
+      staticPagesOk = false;
+    }
   });
 
   // Test sample deep access
@@ -73,15 +77,19 @@ try {
     const esOk = typeof test.es === "string" && test.es.length > 0;
     const status = enOk && esOk ? "✅" : "❌";
     console.log(`  ${status} ${test.path}`);
-    if (enOk)
+    if (enOk) {
       console.log(`      EN: "${test.en.substring(0, 50)}${test.en.length > 50 ? "..." : ""}"`);
-    if (esOk)
+    }
+    if (esOk) {
       console.log(`      ES: "${test.es.substring(0, 50)}${test.es.length > 50 ? "..." : ""}"`);
-    if (!(enOk && esOk)) deepAccessOk = false;
+    }
+    if (!(enOk && esOk)) {
+      deepAccessOk = false;
+    }
   });
 
   // Final summary
-  console.log("\n" + "=".repeat(60));
+  console.log(`\n${"=".repeat(60)}`);
   if (productPagesOk && staticPagesOk && deepAccessOk) {
     console.log("✅ ALL TESTS PASSED");
     console.log("   Translation files are valid and fully functional!");

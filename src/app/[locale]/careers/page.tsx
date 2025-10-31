@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { ContactCards } from "@/components/contact/contact-cards";
-import { ContactFAQ } from "@/components/contact/contact-faq";
-import { ContactHero } from "@/components/contact/contact-hero";
+import { CareersHero } from "@/components/careers/careers-hero";
+import { CareersPositions } from "@/components/careers/careers-positions";
+import { CareersValues } from "@/components/careers/careers-values";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 
-// Revalidate daily (86400 seconds) - contact page is mostly static
+// Revalidate daily (86400 seconds) - careers don't change frequently
 export const revalidate = 86_400;
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "pages.contact.meta" });
+  const t = await getTranslations({ locale, namespace: "pages.careers.meta" });
 
   return {
     title: t("title"),
@@ -23,14 +23,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function ContactPage() {
+export default function CareersPage() {
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <SiteHeader />
       <main>
-        <ContactHero />
-        <ContactCards />
-        <ContactFAQ />
+        <CareersHero />
+        <CareersValues />
+        <CareersPositions />
       </main>
       <SiteFooter />
     </div>

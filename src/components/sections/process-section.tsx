@@ -1,10 +1,8 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 
-export function ProcessSection() {
-  const t = useTranslations("process");
+export async function ProcessSection() {
+  const t = await getTranslations("process");
 
   const stepKeys = ["step1", "step2", "step3", "step4"] as const;
 

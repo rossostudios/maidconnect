@@ -99,6 +99,8 @@ export function detectLanguage(text: string): SupportedLanguage {
  * Get user's preferred language from locale
  */
 export function getPreferredLanguage(locale?: string): SupportedLanguage {
-  if (!locale) return "en";
+  if (!locale) {
+    return "en";
+  }
   return locale.startsWith("es") ? "es" : "en";
 }

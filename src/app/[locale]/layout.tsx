@@ -9,6 +9,7 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import { FeedbackButton } from "@/components/feedback/feedback-button";
 import { CookieConsent } from "@/components/legal/cookie-consent";
 import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
+import { QueryProvider } from "@/components/providers/query-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
 import { WebVitalsReporter } from "@/components/web-vitals";
 import { locales } from "@/i18n";
@@ -17,11 +18,15 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -86,7 +91,9 @@ export default async function RootLayout({
           <NextIntlClientProvider locale={locale} messages={messages}>
             <ChangelogBanner />
             <SupabaseProvider>
-              <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
+              <QueryProvider>
+                <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
+              </QueryProvider>
             </SupabaseProvider>
             <FeedbackButton />
             <CookieConsent />

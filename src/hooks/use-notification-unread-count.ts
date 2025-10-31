@@ -1,18 +1,24 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 /**
- * Hook to fetch and track unread notification count using Supabase Realtime
- * Provides instant updates when notifications are added or read
+ * Hook to fetch and track unread notification count using TanStack Query + Supabase Realtime
+ *
+ * Benefits over previous implementation:
+ * - Shared cache across all components (no duplicate requests)
+ * - Automatic request deduplication
+ * - Configurable staleTime prevents excessive refetching
+ * - React 19 optimized (no unnecessary memoization)
  */
 export function useNotificationUnreadCount() {
-  const [unreadCount, setUnreadCount] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const queryClient = useQueryClient();
 
-  const fetchUnreadCount = useCallback(async () => {
-    try {
+  // Fetch unread count with TanStack Query
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ["notifications", "unread-count"],
+    queryFn: async () => {
       const response = await fetch("/api/notifications/unread-count");
 
       if (!response.ok) {
@@ -20,21 +26,17 @@ export function useNotificationUnreadCount() {
       }
 
       const data = await response.json();
-      setUnreadCount(data.unreadCount || 0);
-      setError(null);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Unknown error");
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+      return data.unreadCount || 0;
+    },
+    // Consider data stale after 30 seconds
+    staleTime: 30 * 1000,
+    // Refetch every minute in the background
+    refetchInterval: 60 * 1000,
+    // Don't refetch on window focus (too aggressive for unread counts)
+    refetchOnWindowFocus: false,
+  });
 
-  // Fetch on mount (no polling - using Realtime instead)
-  useEffect(() => {
-    fetchUnreadCount();
-  }, [fetchUnreadCount]);
-
-  // Subscribe to real-time updates on notifications table
+  // Subscribe to real-time updates (invalidate cache instead of direct fetch)
   useEffect(() => {
     // Import supabase client dynamically to avoid SSR issues
     import("@/lib/supabase/browser-client").then(({ createSupabaseBrowserClient }) => {
@@ -50,8 +52,8 @@ export function useNotificationUnreadCount() {
             table: "notifications",
           },
           () => {
-            // Refresh count when notifications change
-            fetchUnreadCount();
+            // Invalidate cache to trigger refetch (shared across all components)
+            queryClient.invalidateQueries({ queryKey: ["notifications", "unread-count"] });
           }
         )
         .subscribe((_status) => {});
@@ -61,17 +63,12 @@ export function useNotificationUnreadCount() {
         supabase.removeChannel(channel);
       };
     });
-  }, [fetchUnreadCount]);
-
-  // Manual refresh function
-  const refresh = useCallback(() => {
-    fetchUnreadCount();
-  }, [fetchUnreadCount]);
+  }, [queryClient]);
 
   return {
-    unreadCount,
+    unreadCount: data ?? 0,
     isLoading,
-    error,
-    refresh,
+    error: error ? (error instanceof Error ? error.message : "Unknown error") : null,
+    refresh: () => refetch(),
   };
 }

@@ -1109,6 +1109,7 @@
     "services": "Servicios",
     "loginSignup": "Iniciar sesión / Registrarse",
     "applyProfessional": "Aplicar como Profesional",
+    "careers": "Carreras",
     "support": "Soporte",
     "terms": "Términos",
     "privacy": "Privacidad",
@@ -1760,6 +1761,93 @@
           "becomePro": {
             "question": "¿Cómo me convierto en profesional en MaidConnect?",
             "answer": "Haz clic en 'Solicitar unirme' y completa nuestro formulario de solicitud. Revisaremos tu información, realizaremos una verificación de antecedentes y programaremos una entrevista. Una vez aprobado, completarás la incorporación y podrás comenzar a aceptar reservas. El proceso completo generalmente toma de 5 a 7 días hábiles."
+          }
+        }
+      }
+    },
+    "careers": {
+      "meta": {
+        "title": "Carreras en MaidConnect | Únete a Nuestro Equipo",
+        "description": "Únete al equipo que está transformando los servicios domésticos en Colombia. Estamos contratando ingenieros, diseñadores y profesionales de éxito del cliente para construir el futuro del trabajo doméstico."
+      },
+      "hero": {
+        "badge": "ÚNETE A NUESTRO EQUIPO",
+        "title": "Construyamos juntos el futuro de los servicios domésticos",
+        "description": "Los servicios domésticos están cambiando rápidamente, y también las expectativas de las familias y los profesionales. En MaidConnect, construimos herramientas que brindan claridad y confianza a ambos. Para lograrlo, necesitamos personas curiosas listas para generar un impacto.",
+        "primaryCTA": "Ver Posiciones Abiertas"
+      },
+      "positions": {
+        "title": "Posiciones abiertas",
+        "categories": {
+          "engineering": {
+            "title": "Ingeniería",
+            "jobs": {
+              "fullstack": {
+                "title": "Ingeniero Full Stack",
+                "location": "Remoto / Medellín, Colombia",
+                "salary": "$80k - $120k",
+                "type": "Tiempo completo"
+              },
+              "frontend": {
+                "title": "Ingeniero Frontend",
+                "location": "Remoto",
+                "salary": "$70k - $110k",
+                "type": "Tiempo completo"
+              }
+            }
+          },
+          "product": {
+            "title": "Producto y Diseño",
+            "jobs": {
+              "designer": {
+                "title": "Diseñador de Producto",
+                "location": "Remoto",
+                "salary": "$70k - $100k",
+                "type": "Tiempo completo"
+              }
+            }
+          },
+          "customerSuccess": {
+            "title": "Éxito del Cliente",
+            "jobs": {
+              "csManager": {
+                "title": "Gerente de Éxito del Cliente",
+                "location": "Medellín, Colombia",
+                "salary": "$50k - $70k",
+                "type": "Tiempo completo"
+              }
+            }
+          }
+        },
+        "applyButton": "Aplicar"
+      },
+      "values": {
+        "title": "Los valores que guían cómo trabajamos",
+        "description": "En MaidConnect, la cultura no es un póster en la pared — es cómo tomamos decisiones cada día. Si estos valores resuenan contigo, te sentirás como en casa.",
+        "items": {
+          "clarity": {
+            "title": "Claridad",
+            "description": "Mantenemos las cosas simples y transparentes para que todos sepan hacia dónde nos dirigimos."
+          },
+          "impact": {
+            "title": "Impacto",
+            "description": "Cada decisión y acción está ligada a resultados reales que hacen avanzar el negocio."
+          },
+          "curiosity": {
+            "title": "Curiosidad",
+            "description": "Preguntamos, exploramos y desafiamos suposiciones para seguir aprendiendo y mejorando."
+          },
+          "trust": {
+            "title": "Confianza",
+            "description": "Nos empoderamos mutuamente a través de la responsabilidad, la apertura y el respeto."
+          },
+          "momentum": {
+            "title": "Impulso",
+            "description": "Valoramos el progreso sobre la perfección, avanzando rápidamente mientras aprendemos en el camino."
+          },
+          "collaboration": {
+            "title": "Colaboración",
+            "description": "Logramos más cuando compartimos conocimientos, desafiamos ideas y ganamos como equipo."
           }
         }
       }

@@ -1,10 +1,8 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 
-export function ContactHero() {
-  const t = useTranslations("pages.contact.hero");
+export async function ContactHero() {
+  const t = await getTranslations("pages.contact.hero");
 
   return (
     <section className="bg-[#fbfaf9] py-20 sm:py-24 lg:py-32">

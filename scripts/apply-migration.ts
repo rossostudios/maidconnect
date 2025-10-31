@@ -1,6 +1,6 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
-import { readFileSync } from "fs";
-import { join } from "path";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -13,12 +13,12 @@ if (!(supabaseUrl && supabaseServiceKey) || supabaseServiceKey === "your-service
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-async function applyMigration(migrationFile: string) {
-  const migrationPath = join(process.cwd(), "supabase", "migrations", migrationFile);
+async function applyMigration(migrationFileName: string) {
+  const migrationPath = join(process.cwd(), "supabase", "migrations", migrationFileName);
 
   try {
     const sql = readFileSync(migrationPath, "utf-8");
-    console.log(`📦 Applying migration: ${migrationFile}`);
+    console.log(`📦 Applying migration: ${migrationFileName}`);
 
     const { error } = await supabase.rpc("exec_sql", { sql });
 

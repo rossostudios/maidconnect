@@ -49,9 +49,15 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       updated_at: new Date().toISOString(),
     };
 
-    if (status) updateData.status = status;
-    if (priority) updateData.priority = priority;
-    if (assigned_to !== undefined) updateData.assigned_to = assigned_to;
+    if (status) {
+      updateData.status = status;
+    }
+    if (priority) {
+      updateData.priority = priority;
+    }
+    if (assigned_to !== undefined) {
+      updateData.assigned_to = assigned_to;
+    }
 
     // Append admin notes if provided
     if (admin_notes) {

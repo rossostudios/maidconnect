@@ -1,12 +1,32 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { createContext, useContext, useEffect, useState } from "react";
-import { CommandPalette } from "@/components/command-palette/command-palette";
-import { KeyboardShortcutsPanel } from "@/components/keyboard-shortcuts/keyboard-shortcuts-panel";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 import { usePathname } from "@/i18n/routing";
 import type { AppRole } from "@/lib/auth";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+
+// Dynamically import heavy command palette components
+const CommandPalette = dynamic(
+  () =>
+    import("@/components/command-palette/command-palette").then((mod) => ({
+      default: mod.CommandPalette,
+    })),
+  {
+    ssr: false,
+  }
+);
+
+const KeyboardShortcutsPanel = dynamic(
+  () =>
+    import("@/components/keyboard-shortcuts/keyboard-shortcuts-panel").then((mod) => ({
+      default: mod.KeyboardShortcutsPanel,
+    })),
+  {
+    ssr: false,
+  }
+);
 
 // Create context for keyboard shortcuts
 type KeyboardShortcutsContextType = {
@@ -101,20 +121,24 @@ export function KeyboardShortcutsProvider({ children }: { children: React.ReactN
     <KeyboardShortcutsContext.Provider value={contextValue}>
       {children}
 
-      {/* Command Palette (⌘K) */}
-      <CommandPalette
-        dashboardPath={dashboardPath}
-        onClose={shortcuts.closeCommandPalette}
-        open={shortcuts.commandPaletteOpen}
-        role={role}
-      />
+      {/* Command Palette (⌘K) - only mount when opened */}
+      {shortcuts.commandPaletteOpen && (
+        <CommandPalette
+          dashboardPath={dashboardPath}
+          onClose={shortcuts.closeCommandPalette}
+          open={shortcuts.commandPaletteOpen}
+          role={role}
+        />
+      )}
 
-      {/* Keyboard Shortcuts Panel (?) */}
-      <KeyboardShortcutsPanel
-        onClose={shortcuts.closeShortcutsPanel}
-        open={shortcuts.shortcutsPanelOpen}
-        role={role}
-      />
+      {/* Keyboard Shortcuts Panel (?) - only mount when opened */}
+      {shortcuts.shortcutsPanelOpen && (
+        <KeyboardShortcutsPanel
+          onClose={shortcuts.closeShortcutsPanel}
+          open={shortcuts.shortcutsPanelOpen}
+          role={role}
+        />
+      )}
     </KeyboardShortcutsContext.Provider>
   );
 }

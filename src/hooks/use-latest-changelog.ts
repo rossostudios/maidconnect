@@ -52,7 +52,9 @@ export function useLatestChangelog() {
 
   // Mark as read function
   const markAsRead = useCallback(async () => {
-    if (!changelog) return;
+    if (!changelog) {
+      return;
+    }
 
     try {
       const response = await fetch("/api/changelog/mark-read", {

@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { Kbd } from "@/components/ui/kbd";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -9,6 +10,7 @@ type ButtonProps = {
   label: string;
   variant?: ButtonVariant;
   icon?: boolean;
+  kbd?: string;
   className?: string;
 };
 
@@ -25,14 +27,31 @@ const variantClasses: Record<ButtonVariant, string> = {
   card: "w-full justify-between gap-3 border border-transparent bg-[#211f1a] px-6 py-3 text-sm text-white shadow-[0_12px_36px_rgba(17,16,14,0.22)] hover:bg-[#2b2624] focus-visible:outline-[#ff5d46]",
 };
 
-export function Button({ href, label, variant = "primary", icon = false, className }: ButtonProps) {
+export function Button({
+  href,
+  label,
+  variant = "primary",
+  icon = false,
+  kbd,
+  className,
+}: ButtonProps) {
+  const hasIconOrKbd = icon || kbd;
+
   return (
     <Link
-      className={cn(baseClasses, variantClasses[variant], icon && "gap-3", className)}
+      className={cn(baseClasses, variantClasses[variant], hasIconOrKbd && "gap-3", className)}
       href={href}
     >
       <span>{label}</span>
-      {icon ? (
+      {kbd ? (
+        <Kbd
+          className="border-white/20 bg-white/10 font-medium text-white opacity-70 transition-opacity group-hover:opacity-100"
+          size="lg"
+          variant="outline"
+        >
+          {kbd}
+        </Kbd>
+      ) : icon ? (
         <span className="flex h-7 w-7 items-center justify-center rounded-full bg-current/20 text-current transition group-hover:bg-current/30">
           <ArrowRight aria-hidden="true" className="h-4 w-4" />
         </span>

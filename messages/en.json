@@ -1109,6 +1109,7 @@
     "services": "Services",
     "loginSignup": "Login / Signup",
     "applyProfessional": "Apply as Professional",
+    "careers": "Careers",
     "support": "Support",
     "terms": "Terms",
     "privacy": "Privacy",
@@ -1723,6 +1724,93 @@
           "becomePro": {
             "question": "How do I become a professional on MaidConnect?",
             "answer": "Click 'Apply to join' and complete our application form. We'll review your information, conduct a background check, and schedule an interview. Once approved, you'll complete onboarding and can start accepting bookings. The entire process typically takes 5-7 business days."
+          }
+        }
+      }
+    },
+    "careers": {
+      "meta": {
+        "title": "Careers at MaidConnect | Join Our Team",
+        "description": "Join the team transforming home services in Colombia. We're hiring engineers, designers, and customer success professionals to build the future of domestic work."
+      },
+      "hero": {
+        "badge": "JOIN OUR TEAM",
+        "title": "Let's shape the future of home services, together",
+        "description": "Home services are changing fast — and so are the expectations of families and professionals. At MaidConnect, we build tools that give both clarity and confidence. To do it, we need curious people ready to make an impact.",
+        "primaryCTA": "View Open Positions"
+      },
+      "positions": {
+        "title": "Open positions",
+        "categories": {
+          "engineering": {
+            "title": "Engineering",
+            "jobs": {
+              "fullstack": {
+                "title": "Full Stack Engineer",
+                "location": "Remote / Medellín, Colombia",
+                "salary": "$80k - $120k",
+                "type": "Full-time"
+              },
+              "frontend": {
+                "title": "Frontend Engineer",
+                "location": "Remote",
+                "salary": "$70k - $110k",
+                "type": "Full-time"
+              }
+            }
+          },
+          "product": {
+            "title": "Product & Design",
+            "jobs": {
+              "designer": {
+                "title": "Product Designer",
+                "location": "Remote",
+                "salary": "$70k - $100k",
+                "type": "Full-time"
+              }
+            }
+          },
+          "customerSuccess": {
+            "title": "Customer Success",
+            "jobs": {
+              "csManager": {
+                "title": "Customer Success Manager",
+                "location": "Medellín, Colombia",
+                "salary": "$50k - $70k",
+                "type": "Full-time"
+              }
+            }
+          }
+        },
+        "applyButton": "Apply"
+      },
+      "values": {
+        "title": "The values that guide how we work",
+        "description": "At MaidConnect, culture isn't a poster on the wall — it's how we make decisions every day. If these values resonate with you, you'll feel right at home.",
+        "items": {
+          "clarity": {
+            "title": "Clarity",
+            "description": "We keep things simple and transparent so everyone knows where we're headed."
+          },
+          "impact": {
+            "title": "Impact",
+            "description": "Every decision and action is tied to real outcomes that move the business forward."
+          },
+          "curiosity": {
+            "title": "Curiosity",
+            "description": "We ask, explore, and challenge assumptions to keep learning and improving."
+          },
+          "trust": {
+            "title": "Trust",
+            "description": "We empower one another through accountability, openness, and respect."
+          },
+          "momentum": {
+            "title": "Momentum",
+            "description": "We value progress over perfection, moving quickly while learning along the way."
+          },
+          "collaboration": {
+            "title": "Collaboration",
+            "description": "We achieve more when we share knowledge, challenge ideas, and win as a team."
           }
         }
       }

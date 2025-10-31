@@ -564,7 +564,7 @@ function MessageThread({
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, []);
 
   // Translate messages when translation is enabled
   useEffect(() => {

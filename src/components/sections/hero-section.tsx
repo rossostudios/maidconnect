@@ -16,7 +16,10 @@ export function HeroSection() {
         loop
         muted
         playsInline
+        preload="metadata"
       >
+        {/* TODO: Add compressed WebM version for better compression */}
+        {/* <source src="/hero.webm" type="video/webm" /> */}
         <source src="/hero.mp4" type="video/mp4" />
       </video>
 
@@ -37,7 +40,7 @@ export function HeroSection() {
           <p className="mx-auto max-w-2xl text-white/90 text-xl sm:text-2xl">{t("subtitle")}</p>
 
           <div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
-            <Button href="/professionals" icon label={t("findProfessional")} />
+            <Button href="/professionals" kbd="F" label={t("findProfessional")} />
             <Button
               className="border-white/40 text-white hover:border-white hover:bg-white/10 focus-visible:outline-white"
               href="#how-it-works"

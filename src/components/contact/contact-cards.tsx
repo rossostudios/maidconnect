@@ -1,11 +1,9 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 
-export function ContactCards() {
-  const t = useTranslations("pages.contact.cards");
+export async function ContactCards() {
+  const t = await getTranslations("pages.contact.cards");
 
   const contactOptions = [
     {

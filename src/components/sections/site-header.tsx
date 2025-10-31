@@ -33,6 +33,7 @@ export async function SiteHeader() {
             <Button
               className="bg-[#211f1a] text-white hover:bg-[#2d2822]"
               href={AUTH_ROUTES.signIn}
+              kbd="L"
               label="Login / Signup"
             />
           )}

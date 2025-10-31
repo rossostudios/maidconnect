@@ -74,14 +74,14 @@ export async function proxy(request: NextRequest) {
         return response;
       }
 
-      const { data: profile } = await supabase
+      const { data: userProfile } = await supabase
         .from("profiles")
         .select("role")
         .eq("id", session.user.id)
         .maybeSingle();
 
-      if (profile?.role) {
-        const redirectUrl = new URL(getDashboardRouteForRole(profile.role as AppRole), request.url);
+      if (userProfile?.role) {
+        const redirectUrl = new URL(getDashboardRouteForRole(userProfile.role as AppRole), request.url);
         return NextResponse.redirect(redirectUrl);
       }
     }

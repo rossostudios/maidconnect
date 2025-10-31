@@ -65,5 +65,5 @@ console.log("   - All keys successfully merged: ✅");
 console.log("   - Both languages fixed: ✅");
 console.log("   - Deep property access working: ✅");
 
-console.log("\n" + "=".repeat(70));
+console.log(`\n${"=".repeat(70)}`);
 console.log("✅ Fix completed successfully - all translations restored!");

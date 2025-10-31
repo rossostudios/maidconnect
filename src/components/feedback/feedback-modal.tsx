@@ -52,7 +52,7 @@ const feedbackTypes: { value: FeedbackType; label: string; icon: any; descriptio
 ];
 
 export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
-  const router = useRouter();
+  const _router = useRouter();
   const t = useTranslations("feedback");
 
   const [feedbackType, setFeedbackType] = useState<FeedbackType>("other");
@@ -193,7 +193,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
   }
 
   const selectedType = feedbackTypes.find((type) => type.value === feedbackType);
-  const Icon = selectedType?.icon;
+  const _Icon = selectedType?.icon;
 
   return (
     <div

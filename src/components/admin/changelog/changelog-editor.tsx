@@ -55,7 +55,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
       ? new Date(initialData.published_at).toISOString().split("T")[0]
       : new Date().toISOString().split("T")[0],
     categories: initialData?.categories || [],
-    tags: Array.isArray(initialData?.tags) ? initialData.tags.join(", ") : (initialData?.tags || ""),
+    tags: Array.isArray(initialData?.tags) ? initialData.tags.join(", ") : initialData?.tags || "",
     target_audience: initialData?.target_audience || ["all"],
     featured_image_url: initialData?.featured_image_url || "",
     visibility: initialData?.visibility || "draft",
@@ -132,7 +132,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         throw new Error(data.error || "Failed to save changelog");
       }
 
-      const result = await response.json();
+      const _result = await response.json();
 
       // Redirect to list or show success
       router.push("/admin/changelog");
@@ -171,7 +171,10 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 id="sprint_number"
                 min="1"
                 onChange={(e) =>
-                  setFormData({ ...formData, sprint_number: Number.parseInt(e.target.value) || 1 })
+                  setFormData({
+                    ...formData,
+                    sprint_number: Number.parseInt(e.target.value, 10) || 1,
+                  })
                 }
                 required
                 type="number"

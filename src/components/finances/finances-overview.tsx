@@ -1,22 +1,9 @@
 "use client";
 
 import { eachMonthOfInterval, format, isSameMonth, parseISO, subMonths } from "date-fns";
+import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Cell,
-  Line,
-  LineChart,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
 
 type Booking = {
   id: string;
@@ -43,6 +30,129 @@ type Props = {
 };
 
 const COLORS = ["#ff5d46", "#211f1a", "#7d7566", "#ebe5d8", "#5d574b"];
+
+// Dynamically import Recharts components (150-200KB library)
+const LineChartComponent = dynamic(
+  () =>
+    import("recharts").then((mod) => ({
+      default: ({ data, formatCurrency }: any) => {
+        const { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } = mod;
+        return (
+          <ResponsiveContainer height={300} width="100%">
+            <LineChart data={data}>
+              <CartesianGrid stroke="#ebe5d8" strokeDasharray="3 3" />
+              <XAxis dataKey="month" stroke="#7d7566" style={{ fontSize: 12 }} />
+              <YAxis
+                stroke="#7d7566"
+                style={{ fontSize: 12 }}
+                tickFormatter={(value) => `${value}k`}
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "white",
+                  border: "1px solid #ebe5d8",
+                  borderRadius: "8px",
+                }}
+                formatter={(value: number) => formatCurrency(value)}
+              />
+              <Line
+                activeDot={{ r: 6 }}
+                dataKey="earnings"
+                dot={{ fill: "#ff5d46", r: 4 }}
+                stroke="#ff5d46"
+                strokeWidth={3}
+                type="monotone"
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        );
+      },
+    })),
+  {
+    ssr: false,
+    loading: () => <ChartSkeleton />,
+  }
+);
+
+const BarChartComponent = dynamic(
+  () =>
+    import("recharts").then((mod) => ({
+      default: ({ data, dataKey = "bookings", fill = "#ff5d46", formatter }: any) => {
+        const { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } = mod;
+        return (
+          <ResponsiveContainer height={300} width="100%">
+            <BarChart data={data}>
+              <CartesianGrid stroke="#ebe5d8" strokeDasharray="3 3" />
+              <XAxis
+                dataKey={dataKey === "bookings" ? "month" : "date"}
+                stroke="#7d7566"
+                style={{ fontSize: 12 }}
+              />
+              <YAxis
+                stroke="#7d7566"
+                style={{ fontSize: 12 }}
+                tickFormatter={formatter ? (value: number) => `${value}k` : undefined}
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "white",
+                  border: "1px solid #ebe5d8",
+                  borderRadius: "8px",
+                }}
+                formatter={formatter}
+              />
+              <Bar dataKey={dataKey} fill={fill} radius={[8, 8, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        );
+      },
+    })),
+  {
+    ssr: false,
+    loading: () => <ChartSkeleton />,
+  }
+);
+
+const PieChartComponent = dynamic(
+  () =>
+    import("recharts").then((mod) => ({
+      default: ({ data, formatCurrency }: any) => {
+        const { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } = mod;
+        return (
+          <ResponsiveContainer height={300} width="100%">
+            <PieChart>
+              <Pie
+                cx="50%"
+                cy="50%"
+                data={data}
+                dataKey="value"
+                fill="#8884d8"
+                label={(props: any) => `${props.name} (${(props.percent * 100).toFixed(0)}%)`}
+                labelLine={false}
+                outerRadius={100}
+              >
+                {data.map((_entry: any, index: number) => (
+                  <Cell fill={COLORS[index % COLORS.length]} key={`cell-${index}`} />
+                ))}
+              </Pie>
+              <Tooltip formatter={(value: number) => formatCurrency(value)} />
+            </PieChart>
+          </ResponsiveContainer>
+        );
+      },
+    })),
+  {
+    ssr: false,
+    loading: () => <ChartSkeleton />,
+  }
+);
+
+// Loading skeleton for charts
+function ChartSkeleton() {
+  return (
+    <div className="h-[300px] w-full animate-pulse rounded-lg bg-gradient-to-br from-[#ebe5d8]/30 to-[#ebe5d8]/10" />
+  );
+}
 
 export function FinancesOverview({ bookings, payouts }: Props) {
   const t = useTranslations("dashboard.pro.financesOverview");
@@ -157,33 +267,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
         {/* Earnings Over Time */}
         <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
           <h2 className="mb-6 font-semibold text-[#211f1a] text-xl">{t("charts.earningsTrend")}</h2>
-          <ResponsiveContainer height={300} width="100%">
-            <LineChart data={earningsData}>
-              <CartesianGrid stroke="#ebe5d8" strokeDasharray="3 3" />
-              <XAxis dataKey="month" stroke="#7d7566" style={{ fontSize: 12 }} />
-              <YAxis
-                stroke="#7d7566"
-                style={{ fontSize: 12 }}
-                tickFormatter={(value) => `${value}k`}
-              />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "white",
-                  border: "1px solid #ebe5d8",
-                  borderRadius: "8px",
-                }}
-                formatter={(value: number) => formatCurrency(value)}
-              />
-              <Line
-                activeDot={{ r: 6 }}
-                dataKey="earnings"
-                dot={{ fill: "#ff5d46", r: 4 }}
-                stroke="#ff5d46"
-                strokeWidth={3}
-                type="monotone"
-              />
-            </LineChart>
-          </ResponsiveContainer>
+          <LineChartComponent data={earningsData} formatCurrency={formatCurrency} />
         </div>
 
         {/* Bookings Count Over Time */}
@@ -191,21 +275,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
           <h2 className="mb-6 font-semibold text-[#211f1a] text-xl">
             {t("charts.bookingsByMonth")}
           </h2>
-          <ResponsiveContainer height={300} width="100%">
-            <BarChart data={earningsData}>
-              <CartesianGrid stroke="#ebe5d8" strokeDasharray="3 3" />
-              <XAxis dataKey="month" stroke="#7d7566" style={{ fontSize: 12 }} />
-              <YAxis stroke="#7d7566" style={{ fontSize: 12 }} />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "white",
-                  border: "1px solid #ebe5d8",
-                  borderRadius: "8px",
-                }}
-              />
-              <Bar dataKey="bookings" fill="#ff5d46" radius={[8, 8, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          <BarChartComponent data={earningsData} dataKey="bookings" fill="#ff5d46" />
         </div>
 
         {/* Revenue by Service */}
@@ -214,25 +284,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
             <h2 className="mb-6 font-semibold text-[#211f1a] text-xl">
               {t("charts.revenueByService")}
             </h2>
-            <ResponsiveContainer height={300} width="100%">
-              <PieChart>
-                <Pie
-                  cx="50%"
-                  cy="50%"
-                  data={serviceData}
-                  dataKey="value"
-                  fill="#8884d8"
-                  label={(props: any) => `${props.name} (${(props.percent * 100).toFixed(0)}%)`}
-                  labelLine={false}
-                  outerRadius={100}
-                >
-                  {serviceData.map((_entry, index) => (
-                    <Cell fill={COLORS[index % COLORS.length]} key={`cell-${index}`} />
-                  ))}
-                </Pie>
-                <Tooltip formatter={(value: number) => formatCurrency(value)} />
-              </PieChart>
-            </ResponsiveContainer>
+            <PieChartComponent data={serviceData} formatCurrency={formatCurrency} />
           </div>
         )}
 
@@ -242,26 +294,12 @@ export function FinancesOverview({ bookings, payouts }: Props) {
             <h2 className="mb-6 font-semibold text-[#211f1a] text-xl">
               {t("charts.recentPayouts")}
             </h2>
-            <ResponsiveContainer height={300} width="100%">
-              <BarChart data={payoutHistory}>
-                <CartesianGrid stroke="#ebe5d8" strokeDasharray="3 3" />
-                <XAxis dataKey="date" stroke="#7d7566" style={{ fontSize: 12 }} />
-                <YAxis
-                  stroke="#7d7566"
-                  style={{ fontSize: 12 }}
-                  tickFormatter={(value) => `${value}k`}
-                />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "white",
-                    border: "1px solid #ebe5d8",
-                    borderRadius: "8px",
-                  }}
-                  formatter={(value: number) => formatCurrency(value)}
-                />
-                <Bar dataKey="amount" fill="#211f1a" radius={[8, 8, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+            <BarChartComponent
+              data={payoutHistory}
+              dataKey="amount"
+              fill="#211f1a"
+              formatter={formatCurrency}
+            />
           </div>
         )}
       </div>

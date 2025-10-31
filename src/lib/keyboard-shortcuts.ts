@@ -190,6 +190,24 @@ export const KEYBOARD_SHORTCUTS: Omit<KeyboardShortcut, "action">[] = [
     keys: ["N"],
     roles: ["professional"],
   },
+  {
+    id: "find-professional",
+    category: "actions",
+    description: "Find a professional",
+    keys: ["F"],
+  },
+  {
+    id: "browse-professionals",
+    category: "actions",
+    description: "Browse all professionals",
+    keys: ["B"],
+  },
+  {
+    id: "login-signup",
+    category: "actions",
+    description: "Login or sign up",
+    keys: ["L"],
+  },
 ];
 
 /**
