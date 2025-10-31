@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { KeyboardBadge } from "@/components/keyboard-shortcuts/keyboard-badge";
 import { NotificationsSheet } from "@/components/notifications/notifications-sheet";
+import { useKeyboardShortcutsContext } from "@/components/providers/keyboard-shortcuts-provider";
 import { useNotificationUnreadCount } from "@/hooks/use-notification-unread-count";
 import { useUnreadCount } from "@/hooks/use-unread-count";
 import { Link, usePathname } from "@/i18n/routing";
@@ -22,6 +24,13 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
   const { unreadCount } = useUnreadCount();
   const { unreadCount: notificationUnreadCount, refresh } = useNotificationUnreadCount();
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const { openCommandPalette } = useKeyboardShortcutsContext();
+  const [isMac, setIsMac] = useState(false);
+
+  // Detect platform on mount
+  useEffect(() => {
+    setIsMac(navigator.platform.toUpperCase().indexOf("MAC") >= 0);
+  }, []);
 
   const handleCloseNotifications = () => {
     setIsNotificationsOpen(false);
@@ -61,6 +70,24 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
             </Link>
           );
         })}
+
+        {/* Search Button with ⌘K */}
+        <button
+          aria-label="Search"
+          className="group ml-2 flex items-center gap-2 rounded-lg border border-[#dcd6c7] bg-white px-3 py-1.5 text-[#7a6d62] transition hover:border-[#ff5d46] hover:bg-[#fff5f2] hover:text-[#ff5d46]"
+          onClick={openCommandPalette}
+        >
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+            />
+          </svg>
+          <span className="text-xs">Search</span>
+          <KeyboardBadge className="ml-1" keys={[isMac ? "⌘" : "Ctrl", "K"]} size="sm" />
+        </button>
 
         {/* Messages Icon */}
         <Link

@@ -1,3 +1,6 @@
+"use client";
+
+import { KeyboardShortcutsButton } from "@/components/keyboard-shortcuts/keyboard-shortcuts-button";
 import { Link } from "@/i18n/routing";
 
 export function DashboardFooter() {
@@ -18,6 +21,7 @@ export function DashboardFooter() {
             <Link className="transition hover:text-[#ff5d46]" href="/terms">
               Terms
             </Link>
+            <KeyboardShortcutsButton variant="light" />
           </div>
         </div>
       </div>

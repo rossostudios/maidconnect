@@ -2,6 +2,7 @@
 
 import { Facebook, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { KeyboardShortcutsButton } from "@/components/keyboard-shortcuts/keyboard-shortcuts-button";
 import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
@@ -111,8 +112,11 @@ export function SiteFooter() {
                   {t("cookies")}
                 </Link>
               </div>
-              <div className="footer-language-switcher">
-                <LanguageSwitcher variant="dark" />
+              <div className="flex items-center gap-4">
+                <KeyboardShortcutsButton variant="dark" />
+                <div className="footer-language-switcher">
+                  <LanguageSwitcher variant="dark" />
+                </div>
               </div>
             </div>
           </div>

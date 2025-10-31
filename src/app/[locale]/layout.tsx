@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import "../globals.css";
 import { CookieConsent } from "@/components/legal/cookie-consent";
+import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
 import { locales } from "@/i18n";
 
@@ -77,7 +78,9 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <SupabaseProvider>{children}</SupabaseProvider>
+          <SupabaseProvider>
+            <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
+          </SupabaseProvider>
           <CookieConsent />
         </NextIntlClientProvider>
       </body>
