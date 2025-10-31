@@ -135,34 +135,58 @@ export function useKeyboardShortcuts(
 
         switch (key) {
           case "d": // Go to Dashboard
-            if (dashboardPath) navigate(dashboardPath);
+            if (dashboardPath) {
+              navigate(dashboardPath);
+            }
             break;
           case "b": // Go to Bookings
-            if (role === "customer") navigate("/dashboard/customer/bookings");
-            if (role === "professional") navigate("/dashboard/pro/bookings");
+            if (role === "customer") {
+              navigate("/dashboard/customer/bookings");
+            }
+            if (role === "professional") {
+              navigate("/dashboard/pro/bookings");
+            }
             break;
           case "m": // Go to Messages
-            if (role === "customer") navigate("/dashboard/customer/messages");
-            if (role === "professional") navigate("/dashboard/pro/messages");
+            if (role === "customer") {
+              navigate("/dashboard/customer/messages");
+            }
+            if (role === "professional") {
+              navigate("/dashboard/pro/messages");
+            }
             break;
           case "p": // Go to Profile (professional only)
-            if (role === "professional") navigate("/dashboard/pro/profile");
+            if (role === "professional") {
+              navigate("/dashboard/pro/profile");
+            }
             break;
           case "f": // Go to Favorites (customer only)
-            if (role === "customer") navigate("/dashboard/customer/favorites");
+            if (role === "customer") {
+              navigate("/dashboard/customer/favorites");
+            }
             break;
           case "$": // Go to Payments/Finances
-            if (role === "customer") navigate("/dashboard/customer/payments");
-            if (role === "professional") navigate("/dashboard/pro/finances");
+            if (role === "customer") {
+              navigate("/dashboard/customer/payments");
+            }
+            if (role === "professional") {
+              navigate("/dashboard/pro/finances");
+            }
             break;
           case "a": // Go to Availability (professional only)
-            if (role === "professional") navigate("/dashboard/pro/availability");
+            if (role === "professional") {
+              navigate("/dashboard/pro/availability");
+            }
             break;
           case "o": // Go to Portfolio (professional only)
-            if (role === "professional") navigate("/dashboard/pro/portfolio");
+            if (role === "professional") {
+              navigate("/dashboard/pro/portfolio");
+            }
             break;
           case "l": // Go to Addresses (customer only)
-            if (role === "customer") navigate("/dashboard/customer/addresses");
+            if (role === "customer") {
+              navigate("/dashboard/customer/addresses");
+            }
             break;
         }
         return;

@@ -179,7 +179,7 @@ export function isInRollout(percentage: number, userId: string): boolean {
   for (let i = 0; i < userId.length; i++) {
     const char = userId.charCodeAt(i);
     hash = (hash << 5) - hash + char;
-    hash = hash & hash; // Convert to 32-bit integer
+    hash &= hash; // Convert to 32-bit integer
   }
 
   const bucket = Math.abs(hash) % 100;

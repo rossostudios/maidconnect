@@ -572,7 +572,7 @@ function MessageInput({
   const inputRef = useRef<HTMLInputElement>(null);
 
   // React 19: useActionState for form submission
-  const [state, formAction, isFormPending] = useActionState(
+  const [_state, formAction, isFormPending] = useActionState(
     async (_prevState: { success: boolean }, formData: FormData) => {
       const messageText = formData.get("message") as string;
       if (messageText?.trim()) {

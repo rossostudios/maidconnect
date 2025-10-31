@@ -91,11 +91,11 @@ export function AvailabilityCalendarSkeleton() {
       {/* Calendar grid */}
       <div className="grid grid-cols-7 gap-2">
         {/* Day headers */}
-        {[...Array(7)].map((_, i) => (
+        {[...new Array(7)].map((_, i) => (
           <div className="h-8 rounded bg-[#ebe5d8]" key={`header-${i}`} />
         ))}
         {/* Calendar days */}
-        {[...Array(35)].map((_, i) => (
+        {[...new Array(35)].map((_, i) => (
           <div className="h-20 rounded-lg bg-[#ebe5d8]" key={`day-${i}`} />
         ))}
       </div>

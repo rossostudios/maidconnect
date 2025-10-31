@@ -28,7 +28,7 @@ export function useKeyboardShortcutsContext() {
 }
 
 export function KeyboardShortcutsProvider({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
+  const _pathname = usePathname();
   const [role, setRole] = useState<AppRole | undefined>();
   const [dashboardPath, setDashboardPath] = useState<string | undefined>();
 

@@ -125,7 +125,9 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
               {categories.map((category) => {
                 const categoryShortcuts = filteredShortcuts.filter((s) => s.category === category);
 
-                if (categoryShortcuts.length === 0) return null;
+                if (categoryShortcuts.length === 0) {
+                  return null;
+                }
 
                 return (
                   <div key={category}>

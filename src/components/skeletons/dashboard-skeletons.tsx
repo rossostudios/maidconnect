@@ -60,11 +60,11 @@ export function BookingCalendarSkeleton() {
         {/* Calendar grid */}
         <div className="grid grid-cols-7 gap-2">
           {/* Day headers */}
-          {[...Array(7)].map((_, i) => (
+          {[...new Array(7)].map((_, i) => (
             <div className="h-8 rounded bg-[#ebe5d8]" key={`header-${i}`} />
           ))}
           {/* Calendar days */}
-          {[...Array(35)].map((_, i) => (
+          {[...new Array(35)].map((_, i) => (
             <div className="h-20 rounded-lg bg-[#ebe5d8]" key={`day-${i}`} />
           ))}
         </div>
@@ -75,11 +75,7 @@ export function BookingCalendarSkeleton() {
 
 export function ProfileMetricsSkeleton() {
   return (
-    <dl
-      aria-label="Loading metrics"
-      className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
-      role="status"
-    >
+    <dl aria-label="Loading metrics" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {[1, 2, 3, 4].map((i) => (
         <div
           className="animate-pulse rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm"

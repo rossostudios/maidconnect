@@ -22,21 +22,44 @@
 			"suspicious": {
 				"noExplicitAny": "off",
 				"noArrayIndexKey": "off",
-				"noShadowRestrictedNames": "warn"
+				"noShadowRestrictedNames": "warn",
+				"noEmptyBlockStatements": "warn",
+				"noConsole": "off",
+				"useAwait": "warn",
+				"noAlert": "warn"
 			},
 			"style": {
 				"noNonNullAssertion": "off",
-				"useImportType": "off"
+				"useImportType": "off",
+				"noMagicNumbers": "off",
+				"noNestedTernary": "warn",
+				"useBlockStatements": "warn"
 			},
 			"correctness": {
 				"useExhaustiveDependencies": "warn",
 				"noUnusedVariables": "error"
 			},
+			"complexity": {
+				"noExcessiveCognitiveComplexity": "warn",
+				"noForEach": "warn"
+			},
 			"a11y": {
 				"noSvgWithoutTitle": "warn",
 				"noLabelWithoutControl": "warn",
 				"useButtonType": "warn",
-				"useSemanticElements": "off"
+				"useSemanticElements": "off",
+				"noStaticElementInteractions": "warn",
+				"noNoninteractiveElementInteractions": "warn",
+				"useKeyWithClickEvents": "warn"
+			},
+			"performance": {
+				"noImgElement": "warn",
+				"useTopLevelRegex": "warn",
+				"noBarrelFile": "off"
+			},
+			"nursery": {
+				"noIncrementDecrement": "off",
+				"useMaxParams": "warn"
 			}
 		}
 	},

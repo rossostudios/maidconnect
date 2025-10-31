@@ -15,7 +15,7 @@ export type KeyboardShortcut = {
   description: string;
   keys: string[]; // e.g., ["⌘", "K"] or ["G", "D"]
   keysWindows?: string[]; // Optional Windows-specific keys
-  action: () => void | string; // Function to execute or route to navigate to
+  action: () => undefined | string; // Function to execute or route to navigate to
   roles?: AppRole[]; // If specified, only show for these roles
   sequence?: boolean; // If true, keys must be pressed in sequence (like "G then D")
 };
@@ -24,7 +24,9 @@ export type KeyboardShortcut = {
  * Get platform-specific modifier key symbol
  */
 export function getModifierKey(): string {
-  if (typeof window === "undefined") return "⌘";
+  if (typeof window === "undefined") {
+    return "⌘";
+  }
   return navigator.platform.toLowerCase().includes("mac") ? "⌘" : "Ctrl";
 }
 
@@ -32,7 +34,9 @@ export function getModifierKey(): string {
  * Check if user is on Mac
  */
 export function isMac(): boolean {
-  if (typeof window === "undefined") return false;
+  if (typeof window === "undefined") {
+    return false;
+  }
   return navigator.platform.toLowerCase().includes("mac");
 }
 
@@ -192,10 +196,14 @@ export const KEYBOARD_SHORTCUTS: Omit<KeyboardShortcut, "action">[] = [
  * Get shortcuts filtered by role
  */
 export function getShortcutsByRole(role?: AppRole): typeof KEYBOARD_SHORTCUTS {
-  if (!role) return KEYBOARD_SHORTCUTS;
+  if (!role) {
+    return KEYBOARD_SHORTCUTS;
+  }
 
   return KEYBOARD_SHORTCUTS.filter((shortcut) => {
-    if (!shortcut.roles) return true; // No role restriction
+    if (!shortcut.roles) {
+      return true; // No role restriction
+    }
     return shortcut.roles.includes(role);
   });
 }

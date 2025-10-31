@@ -11,15 +11,15 @@ import { useLogger } from "@logtail/next";
 import type { ErrorInfo, ReactNode } from "react";
 import { Component, useEffect } from "react";
 
-interface ErrorBoundaryProps {
+type ErrorBoundaryProps = {
   children: ReactNode;
   fallback?: ReactNode;
-}
+};
 
-interface ErrorBoundaryState {
+type ErrorBoundaryState = {
   hasError: boolean;
   error: Error | null;
-}
+};
 
 /**
  * Error Boundary Component

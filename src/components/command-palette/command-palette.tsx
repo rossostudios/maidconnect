@@ -46,7 +46,9 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
       description: "View your dashboard home",
       category: "Navigation",
       action: () => {
-        if (dashboardPath) navigate(dashboardPath);
+        if (dashboardPath) {
+          navigate(dashboardPath);
+        }
       },
     },
     // Navigation - Bookings
@@ -56,8 +58,12 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
       description: "Manage your bookings",
       category: "Navigation",
       action: () => {
-        if (role === "customer") navigate("/dashboard/customer/bookings");
-        if (role === "professional") navigate("/dashboard/pro/bookings");
+        if (role === "customer") {
+          navigate("/dashboard/customer/bookings");
+        }
+        if (role === "professional") {
+          navigate("/dashboard/pro/bookings");
+        }
       },
     },
     // Navigation - Messages
@@ -67,8 +73,12 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
       description: "View your messages",
       category: "Navigation",
       action: () => {
-        if (role === "customer") navigate("/dashboard/customer/messages");
-        if (role === "professional") navigate("/dashboard/pro/messages");
+        if (role === "customer") {
+          navigate("/dashboard/customer/messages");
+        }
+        if (role === "professional") {
+          navigate("/dashboard/pro/messages");
+        }
       },
     },
     // Navigation - Notifications
@@ -78,8 +88,12 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
       description: "View your notifications",
       category: "Navigation",
       action: () => {
-        if (role === "customer") navigate("/dashboard/customer/notifications");
-        if (role === "professional") navigate("/dashboard/pro/notifications");
+        if (role === "customer") {
+          navigate("/dashboard/customer/notifications");
+        }
+        if (role === "professional") {
+          navigate("/dashboard/pro/notifications");
+        }
       },
     },
     // Navigation - Profile (professional only)
@@ -108,8 +122,12 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
         role === "professional" ? "View your earnings and payouts" : "View your payment history",
       category: "Navigation",
       action: () => {
-        if (role === "customer") navigate("/dashboard/customer/payments");
-        if (role === "professional") navigate("/dashboard/pro/finances");
+        if (role === "customer") {
+          navigate("/dashboard/customer/payments");
+        }
+        if (role === "professional") {
+          navigate("/dashboard/pro/finances");
+        }
       },
     },
     // Navigation - Availability (professional only)
@@ -164,16 +182,24 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
       description: "Manage your account settings",
       category: "Settings",
       action: () => {
-        if (role === "customer") navigate("/dashboard/customer/settings");
-        if (role === "professional") navigate("/dashboard/pro/settings");
+        if (role === "customer") {
+          navigate("/dashboard/customer/settings");
+        }
+        if (role === "professional") {
+          navigate("/dashboard/pro/settings");
+        }
       },
     },
   ];
 
   // Filter commands by role
   const commands = allCommands.filter((cmd) => {
-    if (!cmd.roles) return true;
-    if (!role) return false;
+    if (!cmd.roles) {
+      return true;
+    }
+    if (!role) {
+      return false;
+    }
     return cmd.roles.includes(role);
   });
 
@@ -199,7 +225,9 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
     return () => document.removeEventListener("keydown", down);
   }, [open, onClose]);
 
-  if (!open) return null;
+  if (!open) {
+    return null;
+  }
 
   return (
     <>

@@ -112,7 +112,7 @@ export function ResultsStep({ data, onBack, onRestart }: ResultsStepProps) {
     };
 
     fetchMatches();
-  }, [data]);
+  }, []);
 
   const formatCurrency = (amount: number) =>
     new Intl.NumberFormat("es-CO", {
