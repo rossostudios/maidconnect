@@ -1,8 +1,9 @@
 -- Week 7-8: Safety Package - Add acceptance rate calculation
 -- Extends list_active_professionals to include acceptance rate metrics
 
--- Drop existing function to replace it (specify full signature)
-drop function if exists public.list_active_professionals(numeric, numeric);
+-- Drop all existing versions of the function
+drop function if exists public.list_active_professionals(); -- Version with no params
+drop function if exists public.list_active_professionals(numeric, numeric); -- Version with 2 params
 
 -- Recreate function with acceptance rate metrics
 create or replace function public.list_active_professionals(
