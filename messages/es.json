@@ -2031,5 +2031,39 @@
       "browseAll": "Explorar Todos los Profesionales",
       "startOver": "Empezar de Nuevo"
     }
+  },
+  "changelog": {
+    "title": "Qué hay de nuevo",
+    "viewAllUpdates": "Ver todas las actualizaciones",
+    "gotIt": "¡Entendido!",
+    "marking": "Marcando como leído...",
+    "noUpdates": "No hay nuevas actualizaciones",
+    "success": {
+      "title": "¡Gracias por revisar!",
+      "message": "Estás al día con las últimas actualizaciones."
+    }
+  },
+  "feedback": {
+    "title": "Enviar comentarios",
+    "description": "Ayúdanos a mejorar MaidConnect compartiendo tus ideas, sugerencias o reportando problemas.",
+    "form": {
+      "typeLabel": "¿Qué tipo de comentario es este?",
+      "subjectLabel": "Asunto",
+      "subjectPlaceholder": "Resumen breve (opcional)",
+      "messageLabel": "Tu comentario",
+      "messagePlaceholder": "Cuéntanos qué piensas...",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@email.com",
+      "emailHelp": "Solo lo usaremos para hacer seguimiento a tu comentario",
+      "optional": "opcional",
+      "consentText": "Acepto que MaidConnect procese estos comentarios para mejorar la plataforma.",
+      "privacyNotice": "Recopilamos tus comentarios, URL de la página e información del navegador para mejorar MaidConnect. Tu correo es opcional para seguimiento. Respetamos tu privacidad y cumplimos con las leyes colombianas de protección de datos.",
+      "submit": "Enviar comentarios",
+      "submitting": "Enviando..."
+    },
+    "success": {
+      "title": "¡Gracias!",
+      "message": "Hemos recibido tu comentario. Apreciamos que te hayas tomado el tiempo para ayudarnos a mejorar."
+    }
   }
 }

@@ -2031,5 +2031,39 @@
       "browseAll": "Browse All Professionals",
       "startOver": "Start Over"
     }
+  },
+  "changelog": {
+    "title": "What's New",
+    "viewAllUpdates": "View All Updates",
+    "gotIt": "Got it!",
+    "marking": "Marking as read...",
+    "noUpdates": "No new updates",
+    "success": {
+      "title": "Thanks for checking!",
+      "message": "You're all caught up with the latest updates."
+    }
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "description": "Help us improve MaidConnect by sharing your thoughts, suggestions, or reporting issues.",
+    "form": {
+      "typeLabel": "What kind of feedback is this?",
+      "subjectLabel": "Subject",
+      "subjectPlaceholder": "Brief summary (optional)",
+      "messageLabel": "Your feedback",
+      "messagePlaceholder": "Tell us what's on your mind...",
+      "emailLabel": "Email",
+      "emailPlaceholder": "your@email.com",
+      "emailHelp": "We'll only use this to follow up on your feedback",
+      "optional": "optional",
+      "consentText": "I consent to MaidConnect processing this feedback to improve the platform.",
+      "privacyNotice": "We collect your feedback, page URL, and browser info to improve MaidConnect. Your email is optional for follow-up. We respect your privacy and comply with Colombian data protection laws.",
+      "submit": "Submit Feedback",
+      "submitting": "Sending..."
+    },
+    "success": {
+      "title": "Thank you!",
+      "message": "Your feedback has been received. We appreciate you taking the time to help us improve."
+    }
   }
 }
