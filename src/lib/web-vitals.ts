@@ -60,6 +60,10 @@ async function sendToAnalytics(metric: Metric) {
   try {
     const token = process.env.NEXT_PUBLIC_LOGTAIL_TOKEN;
     if (!token) {
+      // Silently skip in development if token not configured
+      if (process.env.NODE_ENV === "development") {
+        return;
+      }
       console.warn("[Web Vitals] Better Stack token not configured");
       return;
     }

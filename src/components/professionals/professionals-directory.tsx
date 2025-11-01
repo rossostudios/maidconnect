@@ -9,10 +9,7 @@ import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
 import { type FilterState, ProfessionalsFilterSheet } from "./professionals-filter-sheet";
-import {
-  VerificationBadge,
-  type VerificationLevel,
-} from "./verification-badge";
+import { VerificationBadge, type VerificationLevel } from "./verification-badge";
 
 export type DirectoryProfessional = {
   id: string;
@@ -296,7 +293,7 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                       />
                     </div>
                     <div className="flex-1 space-y-1">
-                      <h2 className="font-semibold text-xl text-[#211f1a] sm:text-2xl">
+                      <h2 className="font-semibold text-[#211f1a] text-xl sm:text-2xl">
                         {professional.name}
                       </h2>
                       <p className="text-[#7d7566] text-sm">
@@ -312,9 +309,9 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                   {/* Right: Action Buttons */}
                   <div className="flex items-center gap-3">
                     <button
+                      aria-label={t("card.favorite")}
                       className="rounded-full border-2 border-[#211f1a] bg-white p-2.5 transition hover:bg-[#f5f2ed]"
                       type="button"
-                      aria-label={t("card.favorite")}
                     >
                       <Heart className="h-5 w-5 text-[#211f1a]" />
                     </button>

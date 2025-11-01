@@ -6,8 +6,8 @@
 
 "use client";
 
-import { useState } from "react";
 import { Check } from "lucide-react";
+import { useState } from "react";
 
 // Placeholder data - will be replaced with API call
 const SAMPLE_PLANS = [
@@ -63,18 +63,16 @@ const SAMPLE_PLANS = [
 export function PricingPlans() {
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "annual">("monthly");
 
-  const getPrice = (plan: typeof SAMPLE_PLANS[0]) => {
+  const getPrice = (plan: (typeof SAMPLE_PLANS)[0]) => {
     if (plan.price_monthly === 0) return "Free";
 
     const price = billingPeriod === "annual" ? plan.price_annual : plan.price_monthly;
     return `$${price}`;
   };
 
-  const getPeriod = () => {
-    return billingPeriod === "annual" ? "/year" : "/month";
-  };
+  const getPeriod = () => (billingPeriod === "annual" ? "/year" : "/month");
 
-  const getMonthlyEquivalent = (plan: typeof SAMPLE_PLANS[0]) => {
+  const getMonthlyEquivalent = (plan: (typeof SAMPLE_PLANS)[0]) => {
     if (billingPeriod === "annual" && plan.price_annual > 0) {
       const monthly = plan.price_annual / 12;
       return `$${monthly.toFixed(2)}/mo`;
@@ -86,27 +84,27 @@ export function PricingPlans() {
     <div className="space-y-12">
       {/* Billing toggle */}
       <div className="flex items-center justify-center">
-        <div className="inline-flex items-center gap-4 p-2 bg-white border-2 border-[#ebe5d8] rounded-[16px]">
+        <div className="inline-flex items-center gap-4 rounded-[16px] border-2 border-[#ebe5d8] bg-white p-2">
           <button
-            onClick={() => setBillingPeriod("monthly")}
-            className={`px-6 py-2 rounded-[12px] font-medium transition-all ${
+            className={`rounded-[12px] px-6 py-2 font-medium transition-all ${
               billingPeriod === "monthly"
                 ? "bg-[#ff5d46] text-white"
                 : "text-[#6B7280] hover:text-[#211f1a]"
             }`}
+            onClick={() => setBillingPeriod("monthly")}
           >
             Monthly
           </button>
           <button
-            onClick={() => setBillingPeriod("annual")}
-            className={`px-6 py-2 rounded-[12px] font-medium transition-all relative ${
+            className={`relative rounded-[12px] px-6 py-2 font-medium transition-all ${
               billingPeriod === "annual"
                 ? "bg-[#ff5d46] text-white"
                 : "text-[#6B7280] hover:text-[#211f1a]"
             }`}
+            onClick={() => setBillingPeriod("annual")}
           >
             Annual
-            <span className="ml-2 px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full">
+            <span className="ml-2 rounded-full bg-green-100 px-2 py-0.5 text-green-700 text-xs">
               Save 20%
             </span>
           </button>
@@ -114,39 +112,39 @@ export function PricingPlans() {
       </div>
 
       {/* Pricing cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-3">
         {SAMPLE_PLANS.map((plan) => (
           <div
-            key={plan.id}
-            className={`relative p-8 bg-white rounded-[28px] transition-all ${
+            className={`relative rounded-[28px] bg-white p-8 transition-all ${
               plan.highlight
-                ? "border-4 border-[#ff5d46] shadow-xl scale-105"
+                ? "scale-105 border-4 border-[#ff5d46] shadow-xl"
                 : "border-2 border-[#ebe5d8] hover:border-[#ff5d46]"
             }`}
+            key={plan.id}
           >
             {/* Most popular badge */}
             {plan.highlight && (
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#ff5d46] text-white text-sm font-semibold rounded-full">
+              <div className="-top-4 -translate-x-1/2 absolute left-1/2 rounded-full bg-[#ff5d46] px-4 py-1 font-semibold text-sm text-white">
                 Most Popular
               </div>
             )}
 
             {/* Plan name and description */}
-            <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold text-[#211f1a] mb-2">{plan.name}</h3>
+            <div className="mb-6 text-center">
+              <h3 className="mb-2 font-bold text-2xl text-[#211f1a]">{plan.name}</h3>
               <p className="text-[#6B7280]">{plan.description}</p>
             </div>
 
             {/* Price */}
-            <div className="text-center mb-8">
-              <div className="text-5xl font-bold text-[#211f1a] mb-2">
+            <div className="mb-8 text-center">
+              <div className="mb-2 font-bold text-5xl text-[#211f1a]">
                 {getPrice(plan)}
                 {plan.price_monthly > 0 && (
-                  <span className="text-xl font-normal text-[#6B7280]">{getPeriod()}</span>
+                  <span className="font-normal text-[#6B7280] text-xl">{getPeriod()}</span>
                 )}
               </div>
               {getMonthlyEquivalent(plan) && (
-                <div className="text-sm text-[#6B7280]">
+                <div className="text-[#6B7280] text-sm">
                   billed annually ({getMonthlyEquivalent(plan)})
                 </div>
               )}
@@ -154,12 +152,12 @@ export function PricingPlans() {
 
             {/* CTA button */}
             <a
-              href="/auth/sign-up"
-              className={`block w-full py-4 text-center font-semibold rounded-[14px] transition-all mb-8 ${
+              className={`mb-8 block w-full rounded-[14px] py-4 text-center font-semibold transition-all ${
                 plan.highlight
                   ? "bg-[#ff5d46] text-white hover:bg-[#e54d36]"
                   : "border-2 border-[#ebe5d8] text-[#211f1a] hover:border-[#211f1a]"
               }`}
+              href="/auth/sign-up"
             >
               {plan.cta_text}
             </a>
@@ -167,8 +165,8 @@ export function PricingPlans() {
             {/* Features */}
             <div className="space-y-3">
               {plan.features.map((feature, idx) => (
-                <div key={idx} className="flex items-start gap-3">
-                  <Check size={20} className="text-[#10B981] flex-shrink-0 mt-0.5" />
+                <div className="flex items-start gap-3" key={idx}>
+                  <Check className="mt-0.5 flex-shrink-0 text-[#10B981]" size={20} />
                   <span className="text-[#211f1a]">{feature.name}</span>
                 </div>
               ))}
@@ -178,20 +176,20 @@ export function PricingPlans() {
       </div>
 
       {/* Trust signals */}
-      <div className="text-center py-8">
-        <p className="text-[#6B7280] mb-6">Trusted by over 10,000+ professionals</p>
-        <div className="flex items-center justify-center gap-8 flex-wrap">
+      <div className="py-8 text-center">
+        <p className="mb-6 text-[#6B7280]">Trusted by over 10,000+ professionals</p>
+        <div className="flex flex-wrap items-center justify-center gap-8">
           <div className="flex items-center gap-2">
             <span className="text-2xl">🔒</span>
-            <span className="text-sm text-[#6B7280]">Bank-level encryption</span>
+            <span className="text-[#6B7280] text-sm">Bank-level encryption</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-2xl">✓</span>
-            <span className="text-sm text-[#6B7280]">SOC 2 compliant</span>
+            <span className="text-[#6B7280] text-sm">SOC 2 compliant</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-2xl">🌟</span>
-            <span className="text-sm text-[#6B7280]">4.9/5 rating</span>
+            <span className="text-[#6B7280] text-sm">4.9/5 rating</span>
           </div>
         </div>
       </div>

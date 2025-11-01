@@ -302,7 +302,7 @@ export interface RoadmapItemValidation {
 export const ROADMAP_VALIDATION: RoadmapItemValidation = {
   title: { min: 3, max: 200 },
   slug: { min: 3, max: 200, pattern: /^[a-z0-9-]+$/ },
-  description: { min: 10, max: 10000 },
+  description: { min: 10, max: 10_000 },
   target_quarter: { pattern: /^Q[1-4] \d{4}$/ },
   tags: { max_items: 10, max_length: 50 },
 };

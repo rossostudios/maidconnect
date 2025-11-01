@@ -6,11 +6,11 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { ChevronUp, Edit, Eye, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { Edit, Eye, Trash2, ChevronUp } from "lucide-react";
-import type { RoadmapItem, RoadmapVisibility, RoadmapListResponse } from "@/types/roadmap";
-import { ROADMAP_STATUS_CONFIG, ROADMAP_CATEGORY_CONFIG } from "@/types/roadmap";
+import { useEffect, useState } from "react";
+import type { RoadmapItem, RoadmapListResponse, RoadmapVisibility } from "@/types/roadmap";
+import { ROADMAP_CATEGORY_CONFIG, ROADMAP_STATUS_CONFIG } from "@/types/roadmap";
 
 export function RoadmapAdminList() {
   const [items, setItems] = useState<RoadmapItem[]>([]);
@@ -79,9 +79,7 @@ export function RoadmapAdminList() {
     };
 
     return (
-      <span
-        className={`px-2 py-1 text-xs font-medium rounded-lg border ${colors[visibility]}`}
-      >
+      <span className={`rounded-lg border px-2 py-1 font-medium text-xs ${colors[visibility]}`}>
         {visibility.charAt(0).toUpperCase() + visibility.slice(1)}
       </span>
     );
@@ -97,19 +95,19 @@ export function RoadmapAdminList() {
   return (
     <div className="space-y-6">
       {/* Filter tabs */}
-      <div className="flex items-center gap-2 border-b border-[#ebe5d8]">
+      <div className="flex items-center gap-2 border-[#ebe5d8] border-b">
         {(["all", "draft", "published", "archived"] as const).map((filter) => (
           <button
-            key={filter}
-            onClick={() => setActiveFilter(filter)}
-            className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+            className={`border-b-2 px-4 py-3 font-medium text-sm transition-colors ${
               activeFilter === filter
                 ? "border-[#ff5d46] text-[#ff5d46]"
                 : "border-transparent text-[#6B7280] hover:text-[#211f1a]"
             }`}
+            key={filter}
+            onClick={() => setActiveFilter(filter)}
           >
             {filter.charAt(0).toUpperCase() + filter.slice(1)}
-            <span className="ml-2 px-2 py-0.5 bg-[#f3f4f6] rounded-full text-xs">
+            <span className="ml-2 rounded-full bg-[#f3f4f6] px-2 py-0.5 text-xs">
               {filterCounts[filter]}
             </span>
           </button>
@@ -119,18 +117,18 @@ export function RoadmapAdminList() {
       {/* Items list */}
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="w-8 h-8 border-4 border-[#ff5d46] border-t-transparent rounded-full animate-spin" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#ff5d46] border-t-transparent" />
         </div>
       ) : items.length === 0 ? (
-        <div className="text-center py-12">
-          <div className="w-16 h-16 mx-auto mb-4 bg-[#f3f4f6] rounded-full flex items-center justify-center">
+        <div className="py-12 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#f3f4f6]">
             <span className="text-3xl">📋</span>
           </div>
-          <h3 className="text-lg font-semibold text-[#211f1a] mb-2">No roadmap items</h3>
-          <p className="text-[#6B7280] mb-4">Get started by creating your first roadmap item</p>
+          <h3 className="mb-2 font-semibold text-[#211f1a] text-lg">No roadmap items</h3>
+          <p className="mb-4 text-[#6B7280]">Get started by creating your first roadmap item</p>
           <Link
+            className="inline-flex items-center gap-2 rounded-[12px] bg-[#ff5d46] px-6 py-3 font-medium text-white transition-all hover:bg-[#e54d36]"
             href="/admin/roadmap/new"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#ff5d46] text-white rounded-[12px] font-medium hover:bg-[#e54d36] transition-all"
           >
             Create Roadmap Item
           </Link>
@@ -143,19 +141,19 @@ export function RoadmapAdminList() {
 
             return (
               <div
+                className="rounded-[20px] border-2 border-[#ebe5d8] bg-white p-6 transition-all hover:border-[#ff5d46]"
                 key={item.id}
-                className="p-6 bg-white border-2 border-[#ebe5d8] rounded-[20px] hover:border-[#ff5d46] transition-all"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-lg font-semibold text-[#211f1a]">{item.title}</h3>
+                  <div className="min-w-0 flex-1">
+                    <div className="mb-2 flex items-center gap-3">
+                      <h3 className="font-semibold text-[#211f1a] text-lg">{item.title}</h3>
                       {getStatusBadge(item.visibility)}
                     </div>
 
-                    <div className="flex items-center gap-3 mb-3">
+                    <div className="mb-3 flex items-center gap-3">
                       <span
-                        className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-lg"
+                        className="inline-flex items-center gap-1 rounded-lg px-2 py-1 font-medium text-xs"
                         style={{
                           backgroundColor: statusConfig.bgColor,
                           color: statusConfig.color,
@@ -165,17 +163,17 @@ export function RoadmapAdminList() {
                         <span>{statusConfig.label}</span>
                       </span>
 
-                      <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-lg bg-[#f3f4f6] text-[#6B7280]">
+                      <span className="inline-flex items-center gap-1 rounded-lg bg-[#f3f4f6] px-2 py-1 font-medium text-[#6B7280] text-xs">
                         <span>{categoryConfig.icon}</span>
                         <span>{categoryConfig.label}</span>
                       </span>
 
                       {item.target_quarter && (
-                        <span className="text-xs text-[#6B7280]">{item.target_quarter}</span>
+                        <span className="text-[#6B7280] text-xs">{item.target_quarter}</span>
                       )}
                     </div>
 
-                    <div className="flex items-center gap-4 text-sm text-[#6B7280]">
+                    <div className="flex items-center gap-4 text-[#6B7280] text-sm">
                       <div className="flex items-center gap-1.5">
                         <ChevronUp size={16} />
                         <span>{item.vote_count} votes</span>
@@ -191,29 +189,29 @@ export function RoadmapAdminList() {
                   <div className="flex items-center gap-2">
                     {item.visibility === "published" && (
                       <Link
+                        className="rounded-lg p-2 transition-colors hover:bg-[#f3f4f6]"
                         href={`/roadmap/${item.slug}`}
                         target="_blank"
-                        className="p-2 hover:bg-[#f3f4f6] rounded-lg transition-colors"
                         title="Preview"
                       >
-                        <Eye size={18} className="text-[#6B7280]" />
+                        <Eye className="text-[#6B7280]" size={18} />
                       </Link>
                     )}
 
                     <Link
+                      className="rounded-lg p-2 transition-colors hover:bg-[#f3f4f6]"
                       href={`/admin/roadmap/${item.id}/edit`}
-                      className="p-2 hover:bg-[#f3f4f6] rounded-lg transition-colors"
                       title="Edit"
                     >
-                      <Edit size={18} className="text-[#6B7280]" />
+                      <Edit className="text-[#6B7280]" size={18} />
                     </Link>
 
                     <button
+                      className="rounded-lg p-2 transition-colors hover:bg-red-50"
                       onClick={() => handleDelete(item.id, item.title)}
-                      className="p-2 hover:bg-red-50 rounded-lg transition-colors"
                       title="Archive"
                     >
-                      <Trash2 size={18} className="text-red-600" />
+                      <Trash2 className="text-red-600" size={18} />
                     </button>
                   </div>
                 </div>

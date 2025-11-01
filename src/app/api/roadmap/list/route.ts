@@ -6,8 +6,8 @@
  */
 
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { handleApiError } from "@/lib/error-handler";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { RoadmapListParams } from "@/types/roadmap";
 
 export async function GET(request: Request) {
@@ -17,11 +17,13 @@ export async function GET(request: Request) {
     const supabase = await createSupabaseServerClient();
 
     // Parse query parameters
-    const page = parseInt(searchParams.get("page") || "1");
-    const limit = parseInt(searchParams.get("limit") || "12");
+    const page = Number.parseInt(searchParams.get("page") || "1");
+    const limit = Number.parseInt(searchParams.get("limit") || "12");
     const statusParam = searchParams.get("status");
     const categoryParam = searchParams.get("category");
-    const targetAudience = searchParams.get("target_audience") as RoadmapListParams["target_audience"];
+    const targetAudience = searchParams.get(
+      "target_audience"
+    ) as RoadmapListParams["target_audience"];
     const search = searchParams.get("search");
     const sortBy = (searchParams.get("sort_by") as RoadmapListParams["sort_by"]) || "vote_count";
     const sortOrder = (searchParams.get("sort_order") as RoadmapListParams["sort_order"]) || "desc";

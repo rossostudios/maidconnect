@@ -6,9 +6,9 @@
  */
 
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { requireUser } from "@/lib/auth/session";
 import { handleApiError } from "@/lib/error-handler";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { VoteToggleRequest } from "@/types/roadmap";
 
 export async function POST(request: Request) {

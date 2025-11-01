@@ -6,8 +6,8 @@
  */
 
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { handleApiError } from "@/lib/error-handler";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export async function GET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
   try {

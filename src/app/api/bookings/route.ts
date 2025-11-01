@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
+import { withRateLimit } from "@/lib/rate-limit";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { withRateLimit } from "@/lib/rate-limit";
 import { validateRequestBody } from "@/lib/validations/api";
 import { createBookingSchema } from "@/lib/validations/booking";
 

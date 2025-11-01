@@ -6,9 +6,9 @@
  */
 
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { requireAdmin } from "@/lib/admin-helpers";
 import { handleApiError } from "@/lib/error-handler";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { RoadmapAdminListParams } from "@/types/roadmap";
 
 export async function GET(request: Request) {
@@ -23,8 +23,8 @@ export async function GET(request: Request) {
     const supabase = await createSupabaseServerClient();
 
     // Parse query parameters
-    const page = parseInt(searchParams.get("page") || "1");
-    const limit = parseInt(searchParams.get("limit") || "20");
+    const page = Number.parseInt(searchParams.get("page") || "1");
+    const limit = Number.parseInt(searchParams.get("limit") || "20");
     const visibility = searchParams.get("visibility") as RoadmapAdminListParams["visibility"];
     const status = searchParams.get("status") as RoadmapAdminListParams["status"];
     const category = searchParams.get("category") as RoadmapAdminListParams["category"];

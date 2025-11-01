@@ -3,10 +3,10 @@ import type {
   ProfessionalProfile,
   ProfessionalRecord,
   ProfessionalService,
-} from './types';
+} from "./types";
 
 export function parseServices(payload: unknown): ProfessionalService[] {
-  if (!payload || typeof payload !== 'object') {
+  if (!payload || typeof payload !== "object") {
     return [];
   }
 
@@ -16,23 +16,23 @@ export function parseServices(payload: unknown): ProfessionalService[] {
 
   return payload
     .map((entry) => {
-      if (!entry || typeof entry !== 'object') {
+      if (!entry || typeof entry !== "object") {
         return null;
       }
 
       const typed = entry as Record<string, unknown>;
-      const name = typeof typed.name === 'string' ? typed.name : null;
+      const name = typeof typed.name === "string" ? typed.name : null;
       const rateValue = typed.hourly_rate_cop;
       let rate: number | null = null;
 
-      if (typeof rateValue === 'number') {
+      if (typeof rateValue === "number") {
         rate = rateValue;
-      } else if (typeof rateValue === 'string') {
+      } else if (typeof rateValue === "string") {
         const parsed = Number.parseInt(rateValue, 10);
         rate = Number.isNaN(parsed) ? null : parsed;
       }
 
-      const description = typeof typed.description === 'string' ? typed.description : null;
+      const description = typeof typed.description === "string" ? typed.description : null;
 
       return {
         name,
@@ -44,7 +44,7 @@ export function parseServices(payload: unknown): ProfessionalService[] {
 }
 
 export function parseAvailability(payload: unknown): AvailabilitySlot[] {
-  if (!payload || typeof payload !== 'object') {
+  if (!payload || typeof payload !== "object") {
     return [];
   }
 
@@ -57,17 +57,17 @@ export function parseAvailability(payload: unknown): AvailabilitySlot[] {
 
   return schedule
     .map((entry) => {
-      if (!entry || typeof entry !== 'object') {
+      if (!entry || typeof entry !== "object") {
         return null;
       }
 
       const typed = entry as Record<string, unknown>;
 
       return {
-        day: typeof typed.day === 'string' ? typed.day : null,
-        start: typeof typed.start === 'string' ? typed.start : null,
-        end: typeof typed.end === 'string' ? typed.end : null,
-        notes: typeof typed.notes === 'string' ? typed.notes : null,
+        day: typeof typed.day === "string" ? typed.day : null,
+        start: typeof typed.start === "string" ? typed.start : null,
+        end: typeof typed.end === "string" ? typed.end : null,
+        notes: typeof typed.notes === "string" ? typed.notes : null,
       };
     })
     .filter((value): value is AvailabilitySlot => Boolean(value?.day));
@@ -78,13 +78,13 @@ export function computeAvailableToday(schedule: AvailabilitySlot[]): boolean {
     return false;
   }
 
-  const today = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(new Date());
+  const today = new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(new Date());
 
   return schedule.some((slot) => slot.day?.toLowerCase() === today.toLowerCase());
 }
 
 export function formatLocation(city: string | null, country: string | null) {
-  return [city, country].filter(Boolean).join(' · ');
+  return [city, country].filter(Boolean).join(" · ");
 }
 
 export function mapProfessionalRecord(record: ProfessionalRecord): ProfessionalProfile | null {

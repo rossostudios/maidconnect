@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { Redirect, useRouter } from "expo-router";
+import { useState } from "react";
 import {
   ActivityIndicator,
   KeyboardAvoidingView,
@@ -8,19 +9,17 @@ import {
   Text,
   TextInput,
   View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Redirect, useRouter } from 'expo-router';
-
-import { supabase } from '@/lib/supabase';
-import { useAuth } from '@/providers/AuthProvider';
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function SignInScreen() {
   const router = useRouter();
   const { session, isLoading } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -48,19 +47,22 @@ export default function SignInScreen() {
     }
 
     setIsSubmitting(false);
-    router.replace('/');
+    router.replace("/");
   };
 
-  const disableSubmit = !email || !password || isSubmitting;
+  const disableSubmit = !(email && password) || isSubmitting;
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
+        behavior={Platform.select({ ios: "padding", android: undefined })}
         style={styles.container}
-        behavior={Platform.select({ ios: 'padding', android: undefined })}>
+      >
         <View style={styles.header}>
           <Text style={styles.title}>Welcome back</Text>
-          <Text style={styles.subtitle}>Sign in to manage bookings and professionals on the go.</Text>
+          <Text style={styles.subtitle}>
+            Sign in to manage bookings and professionals on the go.
+          </Text>
         </View>
 
         <View style={styles.form}>
@@ -70,33 +72,34 @@ export default function SignInScreen() {
             autoComplete="email"
             autoCorrect={false}
             keyboardType="email-address"
-            placeholder="you@maidconnect.com"
-            style={styles.input}
-            value={email}
             onChangeText={setEmail}
+            placeholder="you@maidconnect.com"
             returnKeyType="next"
+            style={styles.input}
             textContentType="emailAddress"
+            value={email}
           />
 
           <Text style={styles.label}>Password</Text>
           <TextInput
             autoCapitalize="none"
+            onChangeText={setPassword}
+            onSubmitEditing={handleSubmit}
             placeholder="••••••••"
+            returnKeyType="done"
             secureTextEntry
             style={styles.input}
-            value={password}
-            onChangeText={setPassword}
-            returnKeyType="done"
             textContentType="password"
-            onSubmitEditing={handleSubmit}
+            value={password}
           />
 
           {errorMessage ? <Text style={styles.error}>{errorMessage}</Text> : null}
 
           <Pressable
-            style={[styles.submitButton, disableSubmit && styles.submitButtonDisabled]}
+            disabled={disableSubmit}
             onPress={handleSubmit}
-            disabled={disableSubmit}>
+            style={[styles.submitButton, disableSubmit && styles.submitButtonDisabled]}
+          >
             {isSubmitting ? (
               <ActivityIndicator color="#FFFFFF" />
             ) : (
@@ -118,7 +121,7 @@ export default function SignInScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: "#F9FAFB",
   },
   container: {
     flex: 1,
@@ -131,57 +134,57 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontWeight: '700',
-    color: '#0F172A',
+    fontWeight: "700",
+    color: "#0F172A",
   },
   subtitle: {
     fontSize: 16,
     lineHeight: 22,
-    color: '#475569',
+    color: "#475569",
   },
   form: {
     gap: 16,
   },
   label: {
     fontSize: 14,
-    fontWeight: '600',
-    color: '#1E293B',
+    fontWeight: "600",
+    color: "#1E293B",
   },
   input: {
     height: 48,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#CBD5F5',
+    borderColor: "#CBD5F5",
     paddingHorizontal: 16,
     fontSize: 16,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
   },
   error: {
-    color: '#DC2626',
+    color: "#DC2626",
     fontSize: 14,
   },
   submitButton: {
     marginTop: 8,
     height: 52,
     borderRadius: 16,
-    backgroundColor: '#2563EB',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#2563EB",
+    alignItems: "center",
+    justifyContent: "center",
   },
   submitButtonDisabled: {
     opacity: 0.5,
   },
   submitLabel: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   footer: {
-    marginTop: 'auto',
+    marginTop: "auto",
   },
   footerText: {
-    textAlign: 'center',
-    color: '#64748B',
+    textAlign: "center",
+    color: "#64748B",
     fontSize: 14,
   },
 });

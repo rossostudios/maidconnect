@@ -1,10 +1,9 @@
-import { PropsWithChildren, createContext, useContext, useEffect, useMemo, useState } from 'react';
+import Constants from "expo-constants";
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
+import { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from "react";
 
-import Constants from 'expo-constants';
-import * as Device from 'expo-device';
-import * as Notifications from 'expo-notifications';
-
-import { deleteMobilePushToken, registerMobilePushToken } from '@/features/notifications/api';
+import { deleteMobilePushToken, registerMobilePushToken } from "@/features/notifications/api";
 
 type NotificationsContextValue = {
   expoPushToken: string | null;
@@ -29,7 +28,7 @@ Notifications.setNotificationHandler({
 export function NotificationsProvider({ children }: PropsWithChildren) {
   const [expoPushToken, setExpoPushToken] = useState<string | null>(null);
   const [permissionsStatus, setPermissionsStatus] = useState<Notifications.PermissionStatus | null>(
-    null,
+    null
   );
   const [isDeviceSupported, setIsDeviceSupported] = useState(false);
   const [isRegistering, setIsRegistering] = useState(true);
@@ -40,7 +39,7 @@ export function NotificationsProvider({ children }: PropsWithChildren) {
       setIsDeviceSupported(true);
     } else {
       setIsDeviceSupported(false);
-      console.warn('[notifications] Push notifications are not supported on simulators.');
+      console.warn("[notifications] Push notifications are not supported on simulators.");
     }
   }, []);
 
@@ -63,14 +62,14 @@ export function NotificationsProvider({ children }: PropsWithChildren) {
     }
 
     registerMobilePushToken({ token: expoPushToken, deviceName }).catch((error) => {
-      console.error('[notifications] Failed to register push token', error);
+      console.error("[notifications] Failed to register push token", error);
     });
   }, [expoPushToken, deviceName]);
 
   useEffect(() => {
     if (permissionsStatus === Notifications.PermissionStatus.DENIED && expoPushToken) {
       deleteMobilePushToken(expoPushToken).catch((error) => {
-        console.error('[notifications] Failed to revoke push token', error);
+        console.error("[notifications] Failed to revoke push token", error);
       });
       setExpoPushToken(null);
     }
@@ -93,7 +92,7 @@ export function NotificationsProvider({ children }: PropsWithChildren) {
       isRegistering,
       requestPermissions,
     }),
-    [expoPushToken, permissionsStatus, isDeviceSupported, isRegistering],
+    [expoPushToken, permissionsStatus, isDeviceSupported, isRegistering]
   );
 
   return <NotificationsContext.Provider value={value}>{children}</NotificationsContext.Provider>;
@@ -103,7 +102,7 @@ export function useNotifications() {
   const context = useContext(NotificationsContext);
 
   if (!context) {
-    throw new Error('useNotifications must be used within a NotificationsProvider');
+    throw new Error("useNotifications must be used within a NotificationsProvider");
   }
 
   return context;
@@ -137,13 +136,11 @@ async function registerForPushNotificationsAsync(): Promise<RegistrationResult> 
 
     const projectId =
       Constants?.expoConfig?.extra?.eas?.projectId ?? Constants?.easConfig?.projectId ?? undefined;
-    const token = await Notifications.getExpoPushTokenAsync(
-      projectId ? { projectId } : undefined,
-    );
+    const token = await Notifications.getExpoPushTokenAsync(projectId ? { projectId } : undefined);
 
     return { status: finalStatus, token: token.data };
   } catch (error) {
-    console.error('[notifications] Failed to register for push notifications', error);
+    console.error("[notifications] Failed to register for push notifications", error);
     return { status: Notifications.PermissionStatus.DENIED, token: null };
   }
 }

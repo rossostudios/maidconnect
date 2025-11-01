@@ -148,7 +148,7 @@ export function calculateSavingsPercentage(
   monthlyPrice: number | null,
   annualPrice: number | null
 ): number {
-  if (!monthlyPrice || !annualPrice) return 0;
+  if (!(monthlyPrice && annualPrice)) return 0;
 
   const monthlyTotal = monthlyPrice * 12;
   const savings = monthlyTotal - annualPrice;
@@ -181,11 +181,7 @@ export function getDisplayPrice(
 /**
  * Format price for display
  */
-export function formatPrice(
-  price: number | null,
-  currency = "USD",
-  showDecimals = true
-): string {
+export function formatPrice(price: number | null, currency = "USD", showDecimals = true): string {
   if (price === null) {
     return "Custom";
   }

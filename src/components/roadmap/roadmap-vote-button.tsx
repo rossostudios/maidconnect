@@ -7,9 +7,9 @@
 "use client";
 
 import { ChevronUp } from "lucide-react";
-import { useRouter } from "@/i18n/routing";
-import { useRoadmapVote } from "@/hooks/use-roadmap-vote";
 import { useState } from "react";
+import { useRoadmapVote } from "@/hooks/use-roadmap-vote";
+import { useRouter } from "@/i18n/routing";
 
 interface RoadmapVoteButtonProps {
   roadmapItemId: string;
@@ -67,38 +67,34 @@ export function RoadmapVoteButton({
   return (
     <div className="relative">
       <button
-        onClick={handleClick}
-        disabled={isLoading}
-        className={`
-          flex flex-col items-center justify-center
-          rounded-[12px] border-2 font-medium
-          transition-all duration-200
-          ${sizeClasses[size]}
+        aria-label={hasVoted ? "Remove vote" : "Upvote this item"}
+        className={`flex flex-col items-center justify-center rounded-[12px] border-2 font-medium transition-all duration-200 ${sizeClasses[size]}
           ${
             hasVoted
               ? "border-[#ff5d46] bg-[#fff5f3] text-[#ff5d46]"
               : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#ff5d46] hover:text-[#ff5d46]"
           }
-          ${isLoading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-          ${!canVote ? "hover:border-[#ff5d46]" : ""}
+          ${isLoading ? "cursor-not-allowed opacity-50" : "cursor-pointer"}
+          ${canVote ? "" : "hover:border-[#ff5d46]"}
         `}
-        aria-label={hasVoted ? "Remove vote" : "Upvote this item"}
+        disabled={isLoading}
+        onClick={handleClick}
         title={hasVoted ? "Remove your vote" : "Upvote this item"}
       >
         <ChevronUp
-          size={iconSizes[size]}
           className={`transition-transform ${hasVoted ? "scale-110" : ""}`}
+          size={iconSizes[size]}
         />
         <span className="font-bold">{voteCount}</span>
-        {showLabel && <span className="text-xs mt-0.5">votes</span>}
+        {showLabel && <span className="mt-0.5 text-xs">votes</span>}
       </button>
 
       {/* Sign in prompt */}
       {showSignInPrompt && !canVote && (
-        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-[#211f1a] text-white text-sm rounded-lg whitespace-nowrap z-10">
+        <div className="-translate-x-1/2 absolute bottom-full left-1/2 z-10 mb-2 whitespace-nowrap rounded-lg bg-[#211f1a] px-3 py-2 text-sm text-white">
           Sign in to vote
-          <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1">
-            <div className="w-2 h-2 bg-[#211f1a] rotate-45" />
+          <div className="-translate-x-1/2 -mt-1 absolute top-full left-1/2">
+            <div className="h-2 w-2 rotate-45 bg-[#211f1a]" />
           </div>
         </div>
       )}

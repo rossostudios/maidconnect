@@ -440,7 +440,10 @@ export function createRateLimitResponse(result: RateLimitResult): Response {
  */
 export function withRateLimit<
   T extends (request: Request, ...args: unknown[]) => Promise<Response>,
->(handler: T, type: "auth" | "api" | "booking" | "messaging" | "feedback" | "sensitive" = "api"): T {
+>(
+  handler: T,
+  type: "auth" | "api" | "booking" | "messaging" | "feedback" | "sensitive" = "api"
+): T {
   return (async (request: Request, ...args: unknown[]) => {
     const result = await rateLimit(request, type);
 

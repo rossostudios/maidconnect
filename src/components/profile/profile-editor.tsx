@@ -82,7 +82,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       }, 3000);
       return () => clearTimeout(timeout);
     }
-    return undefined;
+    return;
   }, [submissionState.status]);
 
   // React 19: Simplified save handler - useActionState manages loading, success, and error

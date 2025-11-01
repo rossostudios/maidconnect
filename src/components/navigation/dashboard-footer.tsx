@@ -2,12 +2,14 @@
 
 import { useTranslations } from "next-intl";
 import { KeyboardShortcutsButton } from "@/components/keyboard-shortcuts/keyboard-shortcuts-button";
+import { useFeedback } from "@/components/providers/feedback-provider";
 import { useChangelogUnreadCount } from "@/hooks/use-changelog-unread-count";
 import { Link } from "@/i18n/routing";
 
 export function DashboardFooter() {
   const currentYear = new Date().getFullYear();
   const { unreadCount } = useChangelogUnreadCount();
+  const { openFeedback } = useFeedback();
   const t = useTranslations("changelog");
 
   return (
@@ -35,14 +37,7 @@ export function DashboardFooter() {
             </Link>
             <button
               className="transition hover:text-[#ff5d46]"
-              onClick={() => {
-                const feedbackBtn = document.querySelector(
-                  "[data-feedback-button]"
-                ) as HTMLButtonElement;
-                if (feedbackBtn) {
-                  feedbackBtn.click();
-                }
-              }}
+              onClick={openFeedback}
               type="button"
             >
               Feedback

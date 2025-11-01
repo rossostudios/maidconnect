@@ -1,8 +1,7 @@
-import { Platform } from 'react-native';
+import Constants from "expo-constants";
+import { Platform } from "react-native";
 
-import Constants from 'expo-constants';
-
-import { supabase } from '@/lib/supabase';
+import { supabase } from "@/lib/supabase";
 
 type RegisterParams = {
   token: string;
@@ -26,7 +25,7 @@ export async function registerMobilePushToken({ token, deviceName }: RegisterPar
   const appVersion =
     Constants?.expoConfig?.version ?? Constants?.manifest2?.extra?.expoClient?.version ?? null;
 
-  const { error } = await supabase.from('mobile_push_tokens').upsert(
+  const { error } = await supabase.from("mobile_push_tokens").upsert(
     {
       user_id: session.user.id,
       expo_push_token: token,
@@ -36,8 +35,8 @@ export async function registerMobilePushToken({ token, deviceName }: RegisterPar
       last_seen_at: new Date().toISOString(),
     },
     {
-      onConflict: 'user_id,expo_push_token',
-    },
+      onConflict: "user_id,expo_push_token",
+    }
   );
 
   if (error) {
@@ -46,10 +45,7 @@ export async function registerMobilePushToken({ token, deviceName }: RegisterPar
 }
 
 export async function deleteMobilePushToken(token: string) {
-  const { error } = await supabase
-    .from('mobile_push_tokens')
-    .delete()
-    .eq('expo_push_token', token);
+  const { error } = await supabase.from("mobile_push_tokens").delete().eq("expo_push_token", token);
 
   if (error) {
     throw error;

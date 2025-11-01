@@ -7,14 +7,14 @@
 
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
-import { logger } from "./logger";
 import {
   AppError,
-  ValidationError,
-  RateLimitError,
   getStatusCode,
   isOperationalError,
+  RateLimitError,
+  ValidationError,
 } from "./errors";
+import { logger } from "./logger";
 
 /**
  * Standard error response format
@@ -200,10 +200,7 @@ export function assert(condition: unknown, error: Error): asserts condition {
 /**
  * Asserts that a value is defined (not null or undefined)
  */
-export function assertDefined<T>(
-  value: T | null | undefined,
-  error: Error
-): asserts value is T {
+export function assertDefined<T>(value: T | null | undefined, error: Error): asserts value is T {
   if (value === null || value === undefined) {
     throw error;
   }

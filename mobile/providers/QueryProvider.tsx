@@ -1,21 +1,15 @@
-import { PropsWithChildren, useEffect } from 'react';
-import { AppState, Platform } from 'react-native';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import NetInfo from '@react-native-community/netinfo';
-import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
-import {
-  QueryCache,
-  QueryClient,
-  focusManager,
-  onlineManager,
-} from '@tanstack/react-query';
-import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import NetInfo from "@react-native-community/netinfo";
+import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
+import { focusManager, onlineManager, QueryCache, QueryClient } from "@tanstack/react-query";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import { PropsWithChildren, useEffect } from "react";
+import { AppState, Platform } from "react-native";
 
 const queryCache = new QueryCache({
   onError: (error, query) => {
     if (query.state.dataUpdatedAt) {
-      console.warn('[react-query] cached query failed', query.queryKey, error);
+      console.warn("[react-query] cached query failed", query.queryKey, error);
     }
   },
 });
@@ -36,14 +30,14 @@ const queryClient = new QueryClient({
 
 const asyncStoragePersister = createAsyncStoragePersister({
   storage: AsyncStorage,
-  key: 'maidconnect-query-cache',
+  key: "maidconnect-query-cache",
   throttleTime: 1000,
 });
 
 export function QueryProvider({ children }: PropsWithChildren) {
   useEffect(() => {
-    const subscription = AppState.addEventListener('change', (status) => {
-      focusManager.setFocused(status === 'active');
+    const subscription = AppState.addEventListener("change", (status) => {
+      focusManager.setFocused(status === "active");
     });
 
     return () => {
@@ -63,7 +57,7 @@ export function QueryProvider({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
-    if (Platform.OS !== 'web') {
+    if (Platform.OS !== "web") {
       return;
     }
 
@@ -71,9 +65,9 @@ export function QueryProvider({ children }: PropsWithChildren) {
       focusManager.setFocused(!document.hidden);
     };
 
-    document.addEventListener('visibilitychange', onVisibilityChange);
+    document.addEventListener("visibilitychange", onVisibilityChange);
     return () => {
-      document.removeEventListener('visibilitychange', onVisibilityChange);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, []);
 
@@ -83,7 +77,8 @@ export function QueryProvider({ children }: PropsWithChildren) {
       persistOptions={{
         persister: asyncStoragePersister,
         maxAge: 1000 * 60 * 60 * 24,
-      }}>
+      }}
+    >
       {children}
     </PersistQueryClientProvider>
   );

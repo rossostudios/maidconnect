@@ -13,7 +13,11 @@ type Props = {
  * Display portfolio gallery in a grid layout
  * Supports lightbox view for full-size images
  */
-export function PortfolioGallery({ images, featuredWork, professionalName: _professionalName }: Props) {
+export function PortfolioGallery({
+  images,
+  featuredWork,
+  professionalName: _professionalName,
+}: Props) {
   const [selectedImage, setSelectedImage] = useState<PortfolioImage | null>(null);
 
   if (images.length === 0) {

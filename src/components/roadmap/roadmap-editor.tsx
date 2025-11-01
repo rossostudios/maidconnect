@@ -6,19 +6,23 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { Eye, Save, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useRouter } from "@/i18n/routing";
-import { Save, X, Eye } from "lucide-react";
 import type {
+  RoadmapAudience,
+  RoadmapCategory,
   RoadmapItem,
   RoadmapItemInput,
-  RoadmapStatus,
-  RoadmapCategory,
   RoadmapPriority,
+  RoadmapStatus,
   RoadmapVisibility,
-  RoadmapAudience,
 } from "@/types/roadmap";
-import { generateRoadmapSlug, ROADMAP_STATUS_CONFIG, ROADMAP_CATEGORY_CONFIG } from "@/types/roadmap";
+import {
+  generateRoadmapSlug,
+  ROADMAP_CATEGORY_CONFIG,
+  ROADMAP_STATUS_CONFIG,
+} from "@/types/roadmap";
 
 interface RoadmapEditorProps {
   mode: "create" | "edit";
@@ -70,11 +74,15 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
         target_quarter: targetQuarter || null,
         visibility: draft ? "draft" : visibility,
         target_audience: targetAudience,
-        tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
+        tags: tags
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean),
         featured_image_url: featuredImageUrl || null,
       };
 
-      const url = mode === "create" ? "/api/admin/roadmap" : `/api/admin/roadmap/${initialData?.id}`;
+      const url =
+        mode === "create" ? "/api/admin/roadmap" : `/api/admin/roadmap/${initialData?.id}`;
       const method = mode === "create" ? "POST" : "PATCH";
 
       const response = await fetch(url, {
@@ -106,83 +114,75 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
   };
 
   return (
-    <form className="max-w-4xl mx-auto space-y-6">
+    <form className="mx-auto max-w-4xl space-y-6">
       {error && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-[16px] text-red-600">
+        <div className="rounded-[16px] border border-red-200 bg-red-50 p-4 text-red-600">
           {error}
         </div>
       )}
 
       {/* Title */}
       <div>
-        <label className="block text-sm font-semibold text-[#211f1a] mb-2">
-          Title *
-        </label>
+        <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Title *</label>
         <input
-          type="text"
-          value={title}
+          className="w-full rounded-[12px] border-2 border-[#ebe5d8] px-4 py-3 outline-none transition-colors focus:border-[#ff5d46]"
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full px-4 py-3 border-2 border-[#ebe5d8] rounded-[12px] focus:border-[#ff5d46] outline-none transition-colors"
           placeholder="Add real-time notifications"
           required
+          type="text"
+          value={title}
         />
       </div>
 
       {/* Slug */}
       <div>
-        <label className="block text-sm font-semibold text-[#211f1a] mb-2">
-          Slug *
-        </label>
+        <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Slug *</label>
         <input
-          type="text"
-          value={slug}
+          className="w-full rounded-[12px] border-2 border-[#ebe5d8] px-4 py-3 font-mono text-sm outline-none transition-colors focus:border-[#ff5d46]"
           onChange={(e) => setSlug(e.target.value)}
-          className="w-full px-4 py-3 border-2 border-[#ebe5d8] rounded-[12px] focus:border-[#ff5d46] outline-none transition-colors font-mono text-sm"
           placeholder="add-real-time-notifications"
           required
+          type="text"
+          value={slug}
         />
       </div>
 
       {/* Description */}
       <div>
-        <label className="block text-sm font-semibold text-[#211f1a] mb-2">
-          Description *
-        </label>
+        <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Description *</label>
         <textarea
-          value={description}
+          className="w-full resize-y rounded-[12px] border-2 border-[#ebe5d8] px-4 py-3 outline-none transition-colors focus:border-[#ff5d46]"
           onChange={(e) => setDescription(e.target.value)}
-          rows={8}
-          className="w-full px-4 py-3 border-2 border-[#ebe5d8] rounded-[12px] focus:border-[#ff5d46] outline-none transition-colors resize-y"
           placeholder="Describe the roadmap item..."
           required
+          rows={8}
+          value={description}
         />
       </div>
 
       {/* Status and Category */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
-          <label className="block text-sm font-semibold text-[#211f1a] mb-2">
-            Status *
-          </label>
+          <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Status *</label>
           <div className="space-y-2">
             {(Object.keys(ROADMAP_STATUS_CONFIG) as RoadmapStatus[]).map((statusOption) => {
               const config = ROADMAP_STATUS_CONFIG[statusOption];
               return (
                 <label
-                  key={statusOption}
-                  className={`flex items-center gap-3 p-3 border-2 rounded-[12px] cursor-pointer transition-all ${
+                  className={`flex cursor-pointer items-center gap-3 rounded-[12px] border-2 p-3 transition-all ${
                     status === statusOption
                       ? "border-[#ff5d46] bg-[#fff5f3]"
                       : "border-[#ebe5d8] hover:border-[#ff5d46]"
                   }`}
+                  key={statusOption}
                 >
                   <input
-                    type="radio"
-                    name="status"
-                    value={statusOption}
                     checked={status === statusOption}
-                    onChange={(e) => setStatus(e.target.value as RoadmapStatus)}
                     className="text-[#ff5d46]"
+                    name="status"
+                    onChange={(e) => setStatus(e.target.value as RoadmapStatus)}
+                    type="radio"
+                    value={statusOption}
                   />
                   <span>{config.icon}</span>
                   <span className="font-medium text-[#211f1a]">{config.label}</span>
@@ -193,28 +193,26 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-[#211f1a] mb-2">
-            Category *
-          </label>
+          <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Category *</label>
           <div className="space-y-2">
             {(Object.keys(ROADMAP_CATEGORY_CONFIG) as RoadmapCategory[]).map((categoryOption) => {
               const config = ROADMAP_CATEGORY_CONFIG[categoryOption];
               return (
                 <label
-                  key={categoryOption}
-                  className={`flex items-center gap-3 p-3 border-2 rounded-[12px] cursor-pointer transition-all ${
+                  className={`flex cursor-pointer items-center gap-3 rounded-[12px] border-2 p-3 transition-all ${
                     category === categoryOption
                       ? "border-[#ff5d46] bg-[#fff5f3]"
                       : "border-[#ebe5d8] hover:border-[#ff5d46]"
                   }`}
+                  key={categoryOption}
                 >
                   <input
-                    type="radio"
-                    name="category"
-                    value={categoryOption}
                     checked={category === categoryOption}
-                    onChange={(e) => setCategory(e.target.value as RoadmapCategory)}
                     className="text-[#ff5d46]"
+                    name="category"
+                    onChange={(e) => setCategory(e.target.value as RoadmapCategory)}
+                    type="radio"
+                    value={categoryOption}
                   />
                   <span>{config.icon}</span>
                   <span className="font-medium text-[#211f1a]">{config.label}</span>
@@ -226,15 +224,13 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
       </div>
 
       {/* Priority and Target Quarter */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
-          <label className="block text-sm font-semibold text-[#211f1a] mb-2">
-            Priority
-          </label>
+          <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Priority</label>
           <select
-            value={priority}
+            className="w-full rounded-[12px] border-2 border-[#ebe5d8] px-4 py-3 outline-none transition-colors focus:border-[#ff5d46]"
             onChange={(e) => setPriority(e.target.value as RoadmapPriority)}
-            className="w-full px-4 py-3 border-2 border-[#ebe5d8] rounded-[12px] focus:border-[#ff5d46] outline-none transition-colors"
+            value={priority}
           >
             <option value="low">Low</option>
             <option value="medium">Medium</option>
@@ -243,39 +239,35 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-[#211f1a] mb-2">
-            Target Quarter
-          </label>
+          <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Target Quarter</label>
           <input
+            className="w-full rounded-[12px] border-2 border-[#ebe5d8] px-4 py-3 outline-none transition-colors focus:border-[#ff5d46]"
+            onChange={(e) => setTargetQuarter(e.target.value)}
+            placeholder="Q1 2025"
             type="text"
             value={targetQuarter}
-            onChange={(e) => setTargetQuarter(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-[#ebe5d8] rounded-[12px] focus:border-[#ff5d46] outline-none transition-colors"
-            placeholder="Q1 2025"
           />
         </div>
       </div>
 
       {/* Target Audience */}
       <div>
-        <label className="block text-sm font-semibold text-[#211f1a] mb-2">
-          Target Audience
-        </label>
+        <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Target Audience</label>
         <div className="flex gap-3">
           {(["all", "customer", "professional"] as RoadmapAudience[]).map((audience) => (
             <label
-              key={audience}
-              className={`flex-1 p-3 border-2 rounded-[12px] cursor-pointer text-center transition-all ${
+              className={`flex-1 cursor-pointer rounded-[12px] border-2 p-3 text-center transition-all ${
                 targetAudience.includes(audience)
                   ? "border-[#ff5d46] bg-[#fff5f3] text-[#ff5d46]"
                   : "border-[#ebe5d8] hover:border-[#ff5d46]"
               }`}
+              key={audience}
             >
               <input
-                type="checkbox"
                 checked={targetAudience.includes(audience)}
-                onChange={() => handleAudienceToggle(audience)}
                 className="sr-only"
+                onChange={() => handleAudienceToggle(audience)}
+                type="checkbox"
               />
               <span className="font-medium capitalize">{audience}</span>
             </label>
@@ -285,61 +277,61 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
 
       {/* Tags */}
       <div>
-        <label className="block text-sm font-semibold text-[#211f1a] mb-2">
+        <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
           Tags (comma separated)
         </label>
         <input
+          className="w-full rounded-[12px] border-2 border-[#ebe5d8] px-4 py-3 outline-none transition-colors focus:border-[#ff5d46]"
+          onChange={(e) => setTags(e.target.value)}
+          placeholder="notifications, realtime, websockets"
           type="text"
           value={tags}
-          onChange={(e) => setTags(e.target.value)}
-          className="w-full px-4 py-3 border-2 border-[#ebe5d8] rounded-[12px] focus:border-[#ff5d46] outline-none transition-colors"
-          placeholder="notifications, realtime, websockets"
         />
       </div>
 
       {/* Featured Image */}
       <div>
-        <label className="block text-sm font-semibold text-[#211f1a] mb-2">
+        <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
           Featured Image URL
         </label>
         <input
+          className="w-full rounded-[12px] border-2 border-[#ebe5d8] px-4 py-3 outline-none transition-colors focus:border-[#ff5d46]"
+          onChange={(e) => setFeaturedImageUrl(e.target.value)}
+          placeholder="https://example.com/image.png"
           type="url"
           value={featuredImageUrl}
-          onChange={(e) => setFeaturedImageUrl(e.target.value)}
-          className="w-full px-4 py-3 border-2 border-[#ebe5d8] rounded-[12px] focus:border-[#ff5d46] outline-none transition-colors"
-          placeholder="https://example.com/image.png"
         />
       </div>
 
       {/* Actions */}
-      <div className="flex items-center justify-between gap-4 pt-6 border-t border-[#ebe5d8]">
+      <div className="flex items-center justify-between gap-4 border-[#ebe5d8] border-t pt-6">
         <button
-          type="button"
+          className="rounded-[12px] border-2 border-[#ebe5d8] px-6 py-3 font-medium text-[#6B7280] transition-all hover:border-[#211f1a] hover:text-[#211f1a]"
           onClick={() => router.back()}
-          className="px-6 py-3 border-2 border-[#ebe5d8] rounded-[12px] font-medium text-[#6B7280] hover:border-[#211f1a] hover:text-[#211f1a] transition-all"
+          type="button"
         >
-          <X size={20} className="inline mr-2" />
+          <X className="mr-2 inline" size={20} />
           Cancel
         </button>
 
         <div className="flex gap-3">
           <button
-            type="button"
-            onClick={(e) => handleSubmit(e, true)}
+            className="rounded-[12px] border-2 border-[#ebe5d8] px-6 py-3 font-medium text-[#6B7280] transition-all hover:border-[#211f1a] hover:text-[#211f1a] disabled:opacity-50"
             disabled={isSubmitting}
-            className="px-6 py-3 border-2 border-[#ebe5d8] rounded-[12px] font-medium text-[#6B7280] hover:border-[#211f1a] hover:text-[#211f1a] transition-all disabled:opacity-50"
+            onClick={(e) => handleSubmit(e, true)}
+            type="button"
           >
-            <Save size={20} className="inline mr-2" />
+            <Save className="mr-2 inline" size={20} />
             Save Draft
           </button>
 
           <button
-            type="submit"
-            onClick={(e) => handleSubmit(e, false)}
+            className="rounded-[12px] bg-[#ff5d46] px-6 py-3 font-medium text-white transition-all hover:bg-[#e54d36] disabled:opacity-50"
             disabled={isSubmitting}
-            className="px-6 py-3 bg-[#ff5d46] text-white rounded-[12px] font-medium hover:bg-[#e54d36] transition-all disabled:opacity-50"
+            onClick={(e) => handleSubmit(e, false)}
+            type="submit"
           >
-            <Eye size={20} className="inline mr-2" />
+            <Eye className="mr-2 inline" size={20} />
             {visibility === "published" ? "Update & Publish" : "Publish"}
           </button>
         </div>

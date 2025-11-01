@@ -7,8 +7,9 @@ import { Suspense } from "react";
 import "../globals.css";
 import { ChangelogBanner } from "@/components/changelog/changelog-banner";
 import { ErrorBoundary } from "@/components/error-boundary";
-import { FeedbackButton } from "@/components/feedback/feedback-button";
+import { EttaFloatingButton } from "@/components/etta/etta-floating-button";
 import { CookieConsent } from "@/components/legal/cookie-consent";
+import { FeedbackProvider } from "@/components/providers/feedback-provider";
 import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
@@ -90,16 +91,20 @@ export default async function RootLayout({
         <WebVitalsReporter />
         <ErrorBoundary>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <ChangelogBanner />
-            <Suspense fallback={<div>Loading...</div>}>
-              <SupabaseProvider>
-                <QueryProvider>
-                  <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
-                </QueryProvider>
-              </SupabaseProvider>
-            </Suspense>
-            <FeedbackButton />
-            <CookieConsent />
+            <FeedbackProvider>
+              <ChangelogBanner />
+              <Suspense fallback={<div>Loading...</div>}>
+                <SupabaseProvider>
+                  <QueryProvider>
+                    <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
+                  </QueryProvider>
+                </SupabaseProvider>
+              </Suspense>
+              <Suspense fallback={null}>
+                <EttaFloatingButton locale={locale} />
+              </Suspense>
+              <CookieConsent />
+            </FeedbackProvider>
           </NextIntlClientProvider>
         </ErrorBoundary>
       </body>

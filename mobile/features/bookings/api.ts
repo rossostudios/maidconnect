@@ -1,20 +1,20 @@
-import { supabase } from '@/lib/supabase';
+import { supabase } from "@/lib/supabase";
 
-import type { Booking, BookingRecord, BookingStatusSummary } from './types';
+import type { Booking, BookingRecord, BookingStatusSummary } from "./types";
 
 const STATUS_DISPLAY_ORDER = [
-  'pending_payment',
-  'authorized',
-  'confirmed',
-  'in_progress',
-  'completed',
-  'declined',
-  'canceled',
+  "pending_payment",
+  "authorized",
+  "confirmed",
+  "in_progress",
+  "completed",
+  "declined",
+  "canceled",
 ];
 
 export async function fetchBookings(limit = 25): Promise<Booking[]> {
   const { data, error } = await supabase
-    .from('bookings')
+    .from("bookings")
     .select(
       `
         id,
@@ -36,9 +36,9 @@ export async function fetchBookings(limit = 25): Promise<Booking[]> {
           id,
           full_name
         )
-      `,
+      `
     )
-    .order('scheduled_start', { ascending: true, nullsFirst: false })
+    .order("scheduled_start", { ascending: true, nullsFirst: false })
     .limit(limit);
 
   if (error) {
@@ -83,7 +83,7 @@ function mapBookingRecord(record: BookingRecord): Booking {
     endsAt: record.scheduled_end ? new Date(record.scheduled_end) : null,
     durationMinutes: record.duration_minutes,
     totalAmount: computeTotalAmount(record),
-    currency: record.currency ?? 'cop',
+    currency: record.currency ?? "cop",
     professionalName: extractProfessionalName(record.professional),
     customerName: extractCustomerName(record.customer),
     addressSummary: summarizeAddress(record.address),
@@ -95,11 +95,11 @@ function summarizeAddress(address: Record<string, unknown> | null): string | nul
     return null;
   }
 
-  const label = typeof address.label === 'string' ? address.label : null;
-  const neighborhood = typeof address.neighborhood === 'string' ? address.neighborhood : null;
-  const city = typeof address.city === 'string' ? address.city : null;
+  const label = typeof address.label === "string" ? address.label : null;
+  const neighborhood = typeof address.neighborhood === "string" ? address.neighborhood : null;
+  const city = typeof address.city === "string" ? address.city : null;
 
-  return [label, neighborhood, city].filter(Boolean).join(' · ') || null;
+  return [label, neighborhood, city].filter(Boolean).join(" · ") || null;
 }
 
 function computeTotalAmount(record: BookingRecord): number | null {
@@ -110,40 +110,40 @@ function computeTotalAmount(record: BookingRecord): number | null {
   return total > 0 ? total : null;
 }
 
-function extractProfessionalName(source: BookingRecord['professional']): string | null {
+function extractProfessionalName(source: BookingRecord["professional"]): string | null {
   if (!source) {
     return null;
   }
 
   if (Array.isArray(source)) {
-    return extractProfessionalName(source[0] as BookingRecord['professional']);
+    return extractProfessionalName(source[0] as BookingRecord["professional"]);
   }
 
-  if (typeof source !== 'object') {
+  if (typeof source !== "object") {
     return null;
   }
 
   const record = source as Record<string, unknown>;
   const name = record.full_name;
 
-  return typeof name === 'string' ? name : null;
+  return typeof name === "string" ? name : null;
 }
 
-function extractCustomerName(source: BookingRecord['customer']): string | null {
+function extractCustomerName(source: BookingRecord["customer"]): string | null {
   if (!source) {
     return null;
   }
 
   if (Array.isArray(source)) {
-    return extractCustomerName(source[0] as BookingRecord['customer']);
+    return extractCustomerName(source[0] as BookingRecord["customer"]);
   }
 
-  if (typeof source !== 'object') {
+  if (typeof source !== "object") {
     return null;
   }
 
   const record = source as Record<string, unknown>;
   const name = record.full_name;
 
-  return typeof name === 'string' ? name : null;
+  return typeof name === "string" ? name : null;
 }

@@ -6,16 +6,16 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import type {
+  RoadmapCategory,
+  RoadmapItemWithVoteStatus,
+  RoadmapListResponse,
+  RoadmapStatus,
+} from "@/types/roadmap";
 import { RoadmapFilters } from "./roadmap-filters";
 import { RoadmapItemCard } from "./roadmap-item-card";
-import type {
-  RoadmapItemWithVoteStatus,
-  RoadmapStatus,
-  RoadmapCategory,
-  RoadmapListResponse,
-} from "@/types/roadmap";
 
 export function RoadmapBoard() {
   const t = useTranslations("roadmap");
@@ -81,17 +81,17 @@ export function RoadmapBoard() {
   );
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
       {/* Filters sidebar */}
       <div className="lg:col-span-1">
         <div className="sticky top-4">
           <RoadmapFilters
-            selectedStatuses={selectedStatuses}
-            selectedCategories={selectedCategories}
-            searchQuery={searchQuery}
-            onStatusChange={setSelectedStatuses}
             onCategoryChange={setSelectedCategories}
             onSearchChange={setSearchQuery}
+            onStatusChange={setSelectedStatuses}
+            searchQuery={searchQuery}
+            selectedCategories={selectedCategories}
+            selectedStatuses={selectedStatuses}
           />
         </div>
       </div>
@@ -100,16 +100,14 @@ export function RoadmapBoard() {
       <div className="lg:col-span-3">
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="w-8 h-8 border-4 border-[#ff5d46] border-t-transparent rounded-full animate-spin" />
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#ff5d46] border-t-transparent" />
           </div>
         ) : items.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="w-16 h-16 mx-auto mb-4 bg-[#f3f4f6] rounded-full flex items-center justify-center">
+          <div className="py-12 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#f3f4f6]">
               <span className="text-3xl">🔍</span>
             </div>
-            <h3 className="text-lg font-semibold text-[#211f1a] mb-2">
-              {t("empty.title")}
-            </h3>
+            <h3 className="mb-2 font-semibold text-[#211f1a] text-lg">{t("empty.title")}</h3>
             <p className="text-[#6B7280]">{t("empty.description")}</p>
           </div>
         ) : (
@@ -120,13 +118,13 @@ export function RoadmapBoard() {
                 {/* In Progress */}
                 {itemsByStatus.in_progress && itemsByStatus.in_progress.length > 0 && (
                   <div>
-                    <h2 className="text-xl font-bold text-[#211f1a] mb-4 flex items-center gap-2">
+                    <h2 className="mb-4 flex items-center gap-2 font-bold text-[#211f1a] text-xl">
                       <span>🚀</span>
                       {t("status.in_progress")}
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                       {itemsByStatus.in_progress.map((item) => (
-                        <RoadmapItemCard key={item.id} item={item} />
+                        <RoadmapItemCard item={item} key={item.id} />
                       ))}
                     </div>
                   </div>
@@ -135,13 +133,13 @@ export function RoadmapBoard() {
                 {/* Planned */}
                 {itemsByStatus.planned && itemsByStatus.planned.length > 0 && (
                   <div>
-                    <h2 className="text-xl font-bold text-[#211f1a] mb-4 flex items-center gap-2">
+                    <h2 className="mb-4 flex items-center gap-2 font-bold text-[#211f1a] text-xl">
                       <span>📅</span>
                       {t("status.planned")}
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                       {itemsByStatus.planned.map((item) => (
-                        <RoadmapItemCard key={item.id} item={item} />
+                        <RoadmapItemCard item={item} key={item.id} />
                       ))}
                     </div>
                   </div>
@@ -151,13 +149,13 @@ export function RoadmapBoard() {
                 {itemsByStatus.under_consideration &&
                   itemsByStatus.under_consideration.length > 0 && (
                     <div>
-                      <h2 className="text-xl font-bold text-[#211f1a] mb-4 flex items-center gap-2">
+                      <h2 className="mb-4 flex items-center gap-2 font-bold text-[#211f1a] text-xl">
                         <span>💡</span>
                         {t("status.under_consideration")}
                       </h2>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                         {itemsByStatus.under_consideration.map((item) => (
-                          <RoadmapItemCard key={item.id} item={item} />
+                          <RoadmapItemCard item={item} key={item.id} />
                         ))}
                       </div>
                     </div>
@@ -166,13 +164,13 @@ export function RoadmapBoard() {
                 {/* Shipped */}
                 {itemsByStatus.shipped && itemsByStatus.shipped.length > 0 && (
                   <div>
-                    <h2 className="text-xl font-bold text-[#211f1a] mb-4 flex items-center gap-2">
+                    <h2 className="mb-4 flex items-center gap-2 font-bold text-[#211f1a] text-xl">
                       <span>✅</span>
                       {t("status.shipped")}
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                       {itemsByStatus.shipped.map((item) => (
-                        <RoadmapItemCard key={item.id} item={item} />
+                        <RoadmapItemCard item={item} key={item.id} />
                       ))}
                     </div>
                   </div>
@@ -180,9 +178,9 @@ export function RoadmapBoard() {
               </>
             ) : (
               /* If status filter is active, show all items in a grid */
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {items.map((item) => (
-                  <RoadmapItemCard key={item.id} item={item} />
+                  <RoadmapItemCard item={item} key={item.id} />
                 ))}
               </div>
             )}

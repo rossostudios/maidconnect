@@ -6,9 +6,9 @@
  */
 
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { requireAdmin } from "@/lib/admin-helpers";
 import { handleApiError } from "@/lib/error-handler";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { RoadmapItemInput } from "@/types/roadmap";
 import { generateRoadmapSlug } from "@/types/roadmap";
 
@@ -23,13 +23,14 @@ export async function POST(request: Request) {
     const body: RoadmapItemInput = await request.json();
 
     // Validate required fields
-    if (!body.title || !body.description || !body.status || !body.category) {
+    if (!(body.title && body.description && body.status && body.category)) {
       return NextResponse.json(
         {
           success: false,
           error: {
             code: "VALIDATION_ERROR",
-            message: "Missing required fields: title, description, status, and category are required",
+            message:
+              "Missing required fields: title, description, status, and category are required",
           },
         },
         { status: 400 }

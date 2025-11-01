@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { withRateLimit } from "@/lib/rate-limit";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 /**
  * Account Deletion API - Required by Ley 1581 de 2012 (Colombian Data Protection Law)
