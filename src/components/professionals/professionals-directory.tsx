@@ -275,96 +275,133 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
             <p className="text-[#5d574b] text-lg">{t("results.noResults")}</p>
           </div>
         ) : (
-          <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+          <div className="space-y-6">
             {filteredProfessionals.map((professional) => (
               <article
-                className="hover:-translate-y-1 flex h-full flex-col overflow-hidden rounded-[28px] border border-[#ebe5d8] bg-white shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[#211f1a] hover:shadow-[0_20px_60px_rgba(18,17,15,0.08)]"
+                className="hover:-translate-y-0.5 overflow-hidden rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[#211f1a] hover:shadow-[0_20px_60px_rgba(18,17,15,0.08)]"
                 key={professional.id}
               >
-                <div className="relative h-64 w-full">
-                  <Image
-                    alt={professional.name}
-                    className="object-cover"
-                    fill
-                    src={professional.photoUrl}
-                  />
-                </div>
-                <div className="flex flex-1 flex-col gap-5 p-7">
-                  <div className="space-y-2">
-                    <h2 className="font-semibold text-2xl text-[#211f1a]">{professional.name}</h2>
-                    <p className="text-[#7d7566] text-base">
-                      {professional.service ?? t("card.flexibleServices")}
-                    </p>
+                {/* Header Row: Profile + Stats + Actions */}
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  {/* Left: Profile Info */}
+                  <div className="flex items-start gap-4">
+                    <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#ebe5d8]">
+                      <Image
+                        alt={professional.name}
+                        className="object-cover"
+                        fill
+                        src={professional.photoUrl}
+                      />
+                    </div>
+                    <div className="flex-1 space-y-1">
+                      <h2 className="font-semibold text-xl text-[#211f1a] sm:text-2xl">
+                        {professional.name}
+                      </h2>
+                      <p className="text-[#7d7566] text-sm">
+                        {professional.service ?? t("card.flexibleServices")}
+                      </p>
+                      <div className="flex items-center gap-1.5 text-[#7d7566] text-sm">
+                        <MapPin className="h-4 w-4" />
+                        <span>{professional.location}</span>
+                      </div>
+                    </div>
                   </div>
-                  <div
-                    className="flex flex-wrap items-center gap-2 font-semibold text-[#5a5549] text-xs"
-                    suppressHydrationWarning
-                  >
-                    {/* Enhanced trust badges (Week 3-4) */}
-                    {showEnhancedTrustBadges && (
-                      <>
-                        {professional.verificationLevel &&
-                          professional.verificationLevel !== "none" && (
-                            <VerificationBadge level={professional.verificationLevel} size="sm" />
-                          )}
-                        <RatingBadge
-                          rating={professional.rating ?? 0}
-                          reviewCount={professional.reviewCount ?? 0}
-                          size="sm"
-                        />
-                        {professional.onTimeRate !== undefined && professional.onTimeRate >= 75 && (
-                          <OnTimeRateBadge rate={professional.onTimeRate} size="sm" />
-                        )}
-                      </>
-                    )}
 
-                    {/* Legacy badges (shown when enhanced trust badges are disabled) */}
-                    {!showEnhancedTrustBadges && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1.5">
-                        <Star className="h-3.5 w-3.5 text-[#211f1a]" />
-                        {t("card.newBadge")}
-                      </span>
-                    )}
-
-                    {professional.experienceYears !== null ? (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1.5">
-                        <ShieldCheck className="h-3.5 w-3.5 text-[#211f1a]" />
-                        {professional.experienceYears} {t("card.yearsExp")}
-                      </span>
-                    ) : null}
-                    {professional.languages.length > 0 ? (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1.5">
-                        {professional.languages.join(" / ")}
-                      </span>
-                    ) : null}
-                    {professional.availableToday && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#211f1a] px-3 py-1.5 text-white">
-                        {t("filters.availableToday")}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex items-center justify-between text-[#5d574b] text-base">
-                    <span>{professional.location}</span>
-                    <span className="font-semibold">
-                      {formatCurrencyCOP(professional.hourlyRateCop) ?? t("card.rateOnRequest")}
-                    </span>
-                  </div>
-                  <p className="text-[#7d7566] text-base leading-relaxed">
-                    {professional.bio
-                      ? professional.bio.length > 140
-                        ? `${professional.bio.slice(0, 140)}…`
-                        : professional.bio
-                      : t("card.noBio")}
-                  </p>
-                  <div className="mt-auto pt-2">
+                  {/* Right: Action Buttons */}
+                  <div className="flex items-center gap-3">
                     <Link
-                      className="inline-flex w-full items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-6 py-3.5 font-semibold text-base text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] transition hover:bg-[#2d2822]"
+                      className="flex-1 rounded-full border-2 border-[#211f1a] bg-white px-6 py-2.5 text-center font-semibold text-[#211f1a] text-sm transition hover:bg-[#f5f2ed] sm:flex-none"
                       href={`/professionals/${professional.id}`}
                     >
                       {t("card.viewProfile")}
                     </Link>
                   </div>
                 </div>
+
+                {/* Stats Row */}
+                <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 border-[#ebe5d8] border-b pb-4 text-sm">
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-semibold text-[#211f1a]">
+                      {formatCurrencyCOP(professional.hourlyRateCop) ?? t("card.rateOnRequest")}
+                    </span>
+                    <span className="text-[#7d7566]">{t("card.hourly")}</span>
+                  </div>
+
+                  {professional.experienceYears !== null && (
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-semibold text-[#211f1a]">
+                        {professional.experienceYears}
+                      </span>
+                      <span className="text-[#7d7566]">{t("card.yearsExp")}</span>
+                    </div>
+                  )}
+
+                  {showEnhancedTrustBadges && professional.rating !== undefined && (
+                    <div className="flex items-center gap-1.5">
+                      <Star className="h-4 w-4 fill-[#211f1a] text-[#211f1a]" />
+                      <span className="font-semibold text-[#211f1a]">
+                        {professional.rating.toFixed(1)}
+                      </span>
+                      {professional.reviewCount !== undefined && professional.reviewCount > 0 && (
+                        <span className="text-[#7d7566]">({professional.reviewCount})</span>
+                      )}
+                    </div>
+                  )}
+
+                  {showEnhancedTrustBadges &&
+                    professional.onTimeRate !== undefined &&
+                    professional.onTimeRate >= 75 && (
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-semibold text-[#211f1a]">
+                          {professional.onTimeRate}%
+                        </span>
+                        <span className="text-[#7d7566]">{t("card.onTime")}</span>
+                      </div>
+                    )}
+                </div>
+
+                {/* Badges Row */}
+                <div
+                  className="mt-4 flex flex-wrap items-center gap-2 text-xs"
+                  suppressHydrationWarning
+                >
+                  {showEnhancedTrustBadges && (
+                    <>
+                      {professional.verificationLevel &&
+                        professional.verificationLevel !== "none" && (
+                          <VerificationBadge level={professional.verificationLevel} size="sm" />
+                        )}
+                    </>
+                  )}
+
+                  {!showEnhancedTrustBadges && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1.5 font-semibold text-[#5a5549]">
+                      <Star className="h-3.5 w-3.5 text-[#211f1a]" />
+                      {t("card.newBadge")}
+                    </span>
+                  )}
+
+                  {professional.languages.length > 0 && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1.5 font-semibold text-[#5a5549]">
+                      {professional.languages.join(" / ")}
+                    </span>
+                  )}
+
+                  {professional.availableToday && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#211f1a] px-3 py-1.5 font-semibold text-white">
+                      {t("filters.availableToday")}
+                    </span>
+                  )}
+                </div>
+
+                {/* Bio */}
+                {professional.bio && (
+                  <p className="mt-4 text-[#7d7566] text-sm leading-relaxed">
+                    {professional.bio.length > 200
+                      ? `${professional.bio.slice(0, 200)}…`
+                      : professional.bio}
+                  </p>
+                )}
               </article>
             ))}
           </div>
