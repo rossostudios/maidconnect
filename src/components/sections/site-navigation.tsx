@@ -47,7 +47,8 @@ export function SiteNavigation() {
   ];
 
   const links = [
-    { href: "/professionals", label: t("professionals") },
+    { href: "/professionals", label: t("hireProfessional") },
+    { href: "/pricing", label: t("pricing") },
     { href: "/contact", label: "Contact" },
   ];
 
@@ -93,7 +94,7 @@ export function SiteNavigation() {
             onClick={handleProductClick}
             type="button"
           >
-            {t("product")}
+            {t("services")}
             <ChevronDown
               className={`h-4 w-4 transition-transform ${isProductOpen ? "rotate-180" : ""}`}
             />

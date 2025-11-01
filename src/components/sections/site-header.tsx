@@ -1,5 +1,4 @@
 import { DashboardButton } from "@/components/navigation/dashboard-button";
-import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
@@ -26,7 +25,6 @@ export async function SiteHeader() {
 
         {/* Desktop Auth Buttons - Hidden on mobile */}
         <div className="hidden items-center gap-3 md:flex">
-          <LanguageSwitcher />
           {user ? (
             <DashboardButton href={getDashboardRouteForRole(user.role)} />
           ) : (
@@ -37,11 +35,6 @@ export async function SiteHeader() {
               label="Login / Signup"
             />
           )}
-        </div>
-
-        {/* Mobile Language Switcher - Show on mobile */}
-        <div className="flex items-center gap-2 md:hidden">
-          <LanguageSwitcher />
         </div>
       </Container>
     </header>

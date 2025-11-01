@@ -2,6 +2,9 @@
   "navigation": {
     "home": "Home",
     "professionals": "Professionals",
+    "hireProfessional": "Hire a Professional",
+    "pricing": "Pricing",
+    "services": "Services",
     "howItWorks": "How it works",
     "features": "Features",
     "login": "Login",
@@ -1104,17 +1107,23 @@
     "description": "Connect with vetted housekeepers and caregivers across Colombia. Fully screened, onboarded, and ready to support your lifestyle.",
     "platform": "Platform",
     "company": "Company",
+    "mobile": "Mobile",
     "findProfessional": "Find a Professional",
+    "pricing": "Pricing",
+    "roadmap": "Roadmap",
     "contact": "Contact",
     "services": "Services",
     "loginSignup": "Login / Signup",
     "applyProfessional": "Apply as Professional",
     "careers": "Careers",
     "support": "Support",
+    "iosApp": "iOS App",
+    "androidApp": "Android App",
     "terms": "Terms",
     "privacy": "Privacy",
     "cookies": "Cookies",
-    "allRightsReserved": "All rights reserved"
+    "allRightsReserved": "All rights reserved",
+    "remoteCompany": "Proud remote company"
   },
   "pages": {
     "bookingPlatform": {
@@ -2159,5 +2168,31 @@
       "title": "Thank you!",
       "message": "Your feedback has been received. We appreciate you taking the time to help us improve."
     }
+  },
+  "pricing": {
+    "meta": {
+      "title": "Pricing - Simple, Transparent Plans | MaidConnect",
+      "description": "Choose the perfect plan for your needs. Transparent pricing with no hidden fees. Start free or upgrade for premium features."
+    },
+    "title": "Simple, transparent pricing",
+    "subtitle": "Choose the plan that works for you. All plans include our core features with no hidden fees.",
+    "faq": {
+      "title": "Frequently asked questions",
+      "subtitle": "Have questions? We're here to help."
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "subtitle": "Join thousands of satisfied customers using MaidConnect.",
+      "primary": "Start Free Trial",
+      "secondary": "Contact Sales"
+    }
+  },
+  "roadmap": {
+    "meta": {
+      "title": "Product Roadmap - What We're Building | MaidConnect",
+      "description": "See what we're working on and vote on features you'd like to see next. Your feedback shapes our product."
+    },
+    "title": "Product Roadmap",
+    "subtitle": "See what we're building and vote on features you want most. Your feedback shapes our future."
   }
 }

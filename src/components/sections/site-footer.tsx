@@ -24,6 +24,8 @@ export async function SiteFooter() {
       title: t("platform"),
       links: [
         { href: "/professionals", label: t("findProfessional") },
+        { href: "/pricing", label: t("pricing") },
+        { href: "/roadmap", label: t("roadmap") },
         { href: "/contact", label: t("contact") },
         { href: "#services", label: t("services") },
       ],
@@ -35,6 +37,13 @@ export async function SiteFooter() {
         { href: "/auth/sign-up?role=professional", label: t("applyProfessional") },
         { href: "/careers", label: t("careers"), badge: "Hiring" },
         { href: "/support/account-suspended", label: t("support") },
+      ],
+    },
+    {
+      title: t("mobile"),
+      links: [
+        { href: "/mobile", label: t("iosApp"), badge: "Coming Soon" },
+        { href: "/mobile", label: t("androidApp"), badge: "Coming Soon" },
       ],
     },
   ];
@@ -73,7 +82,7 @@ export async function SiteFooter() {
           </div>
 
           {/* Right: Links */}
-          <div className="grid gap-12 sm:grid-cols-2 lg:gap-16">
+          <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-3 lg:gap-16">
             {footerColumns.map((column) => (
               <div className="space-y-6" key={column.title}>
                 <h3 className="font-semibold text-[#b1aca5] text-sm uppercase tracking-[0.2em]">
@@ -104,9 +113,15 @@ export async function SiteFooter() {
         {/* Bottom Bar */}
         <div className="mt-16 border-[#26231f] border-t pt-8">
           <div className="flex flex-col gap-6 text-[#a8a095] text-sm sm:flex-row sm:items-center sm:justify-between">
-            <p>
-              © {year} MaidConnect. {t("allRightsReserved")}
-            </p>
+            <div className="space-y-2">
+              <p>
+                © {year} MaidConnect. {t("allRightsReserved")}
+              </p>
+              <p className="flex items-center gap-2">
+                <span>🌍</span>
+                <span>{t("remoteCompany")}</span>
+              </p>
+            </div>
             <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
               <div className="flex items-center gap-6">
                 <Link className="transition hover:text-[#ff5d46]" href="/terms">

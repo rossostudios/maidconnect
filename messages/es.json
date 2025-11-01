@@ -2,6 +2,9 @@
   "navigation": {
     "home": "Inicio",
     "professionals": "Profesionales",
+    "hireProfessional": "Contratar un Profesional",
+    "pricing": "Precios",
+    "services": "Servicios",
     "howItWorks": "Cómo funciona",
     "features": "Características",
     "login": "Iniciar sesión",
@@ -1104,17 +1107,23 @@
     "description": "Conéctese con empleadas domésticas y cuidadores verificados en toda Colombia. Completamente examinados, integrados y listos para apoyar su estilo de vida.",
     "platform": "Plataforma",
     "company": "Empresa",
+    "mobile": "Móvil",
     "findProfessional": "Encontrar un Profesional",
+    "pricing": "Precios",
+    "roadmap": "Hoja de ruta",
     "contact": "Contacto",
     "services": "Servicios",
     "loginSignup": "Iniciar sesión / Registrarse",
     "applyProfessional": "Aplicar como Profesional",
     "careers": "Carreras",
     "support": "Soporte",
+    "iosApp": "App iOS",
+    "androidApp": "App Android",
     "terms": "Términos",
     "privacy": "Privacidad",
     "cookies": "Cookies",
-    "allRightsReserved": "Todos los derechos reservados"
+    "allRightsReserved": "Todos los derechos reservados",
+    "remoteCompany": "Empresa totalmente remota"
   },
   "common": {
     "loading": "Cargando...",
@@ -2159,5 +2168,31 @@
       "title": "¡Gracias!",
       "message": "Hemos recibido tu comentario. Apreciamos que te hayas tomado el tiempo para ayudarnos a mejorar."
     }
+  },
+  "pricing": {
+    "meta": {
+      "title": "Precios - Planes Simples y Transparentes | MaidConnect",
+      "description": "Elige el plan perfecto para tus necesidades. Precios transparentes sin tarifas ocultas. Comienza gratis o actualiza para funciones premium."
+    },
+    "title": "Precios simples y transparentes",
+    "subtitle": "Elige el plan que funcione para ti. Todos los planes incluyen nuestras funciones principales sin tarifas ocultas.",
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "subtitle": "¿Tienes preguntas? Estamos aquí para ayudar."
+    },
+    "cta": {
+      "title": "¿Listo para comenzar?",
+      "subtitle": "Únete a miles de clientes satisfechos que usan MaidConnect.",
+      "primary": "Iniciar Prueba Gratis",
+      "secondary": "Contactar Ventas"
+    }
+  },
+  "roadmap": {
+    "meta": {
+      "title": "Hoja de Ruta del Producto - Lo Que Estamos Construyendo | MaidConnect",
+      "description": "Mira en qué estamos trabajando y vota por las funciones que te gustaría ver. Tu opinión da forma a nuestro producto."
+    },
+    "title": "Hoja de Ruta del Producto",
+    "subtitle": "Mira lo que estamos construyendo y vota por las funciones que más deseas. Tu opinión da forma a nuestro futuro."
   }
 }
