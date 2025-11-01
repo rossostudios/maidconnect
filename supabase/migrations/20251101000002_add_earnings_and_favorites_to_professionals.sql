@@ -143,9 +143,8 @@ begin
 
   from public.professional_profiles pp
   inner join public.profiles p on pp.profile_id = p.id
-  where p.account_status = 'active'
-    and p.onboarding_status = 'active'
-  order by rating desc nulls last, review_count desc;
+  where p.onboarding_status = 'active'
+  order by 13 desc nulls last, 14 desc;
 end;
 $$;
 
