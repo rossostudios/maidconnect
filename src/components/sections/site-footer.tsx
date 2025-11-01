@@ -2,8 +2,7 @@ import { Facebook, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
 import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { FeedbackLink } from "@/components/feedback/feedback-link";
-import { KeyboardShortcutsButton } from "@/components/keyboard-shortcuts/keyboard-shortcuts-button";
-import { LanguageSwitcher } from "@/components/navigation/language-switcher";
+import { SiteFooterActions } from "@/components/sections/site-footer-actions";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 
@@ -139,12 +138,7 @@ export async function SiteFooter() {
                 </Link>
                 <FeedbackLink>Feedback</FeedbackLink>
               </div>
-              <div className="flex items-center gap-4">
-                <KeyboardShortcutsButton variant="dark" />
-                <div className="footer-language-switcher">
-                  <LanguageSwitcher variant="dark" />
-                </div>
-              </div>
+              <SiteFooterActions />
             </div>
           </div>
         </div>

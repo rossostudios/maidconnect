@@ -10,6 +10,16 @@
   --accent: #ff5d46;
 }
 
+.dark {
+  --background: #0f0e0d;
+  --background-alt: #1a1816;
+  --foreground: #fbfaf9;
+  --surface: #211f1a;
+  --surface-contrast: #ffffff;
+  --muted: #3a3530;
+  --accent: #ff6b55;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -24,6 +34,14 @@ body {
   font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
 }
 
 ::selection {

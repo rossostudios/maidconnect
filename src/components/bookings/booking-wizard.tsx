@@ -5,6 +5,7 @@ import { useState } from "react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { DatePicker } from "@/components/ui/date-picker";
 import { TimePicker } from "@/components/ui/time-picker";
+import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
 
 type BookingWizardProps = {
@@ -71,6 +72,27 @@ export function BookingWizard({
     { number: 4, title: "Review", completed: false },
   ];
 
+  // Swipe gesture handlers for mobile navigation
+  const handleSwipeLeft = () => {
+    // Swipe left = next step
+    if (currentStep === 1 && canProceedToStep2) setCurrentStep(2);
+    else if (currentStep === 2 && canProceedToStep3) setCurrentStep(3);
+    else if (currentStep === 3 && canProceedToStep4) setCurrentStep(4);
+  };
+
+  const handleSwipeRight = () => {
+    // Swipe right = previous step
+    if (currentStep === 2) setCurrentStep(1);
+    else if (currentStep === 3) setCurrentStep(2);
+    else if (currentStep === 4) setCurrentStep(3);
+  };
+
+  const swipeRef = useSwipeGesture<HTMLDivElement>({
+    onSwipeLeft: handleSwipeLeft,
+    onSwipeRight: handleSwipeRight,
+    minSwipeDistance: 60,
+  });
+
   return (
     <div className="space-y-8">
       {/* Progress Indicator */}
@@ -120,8 +142,11 @@ export function BookingWizard({
         </div>
       </div>
 
-      {/* Step Content */}
-      <div className="min-h-[400px] rounded-2xl border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+      {/* Step Content - Swipe enabled for mobile */}
+      <div
+        className="min-h-[400px] touch-pan-y rounded-2xl border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]"
+        ref={swipeRef}
+      >
         {currentStep === 1 && (
           <Step1ServiceSelection
             defaultHourlyRate={defaultHourlyRate}

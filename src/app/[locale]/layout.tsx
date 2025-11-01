@@ -13,6 +13,7 @@ import { FeedbackProvider } from "@/components/providers/feedback-provider";
 import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { WebVitalsReporter } from "@/components/web-vitals";
 import { locales } from "@/i18n";
 
@@ -90,22 +91,24 @@ export default async function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <WebVitalsReporter />
         <ErrorBoundary>
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            <FeedbackProvider>
-              <ChangelogBanner />
-              <Suspense fallback={<div>Loading...</div>}>
-                <SupabaseProvider>
-                  <QueryProvider>
-                    <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
-                  </QueryProvider>
-                </SupabaseProvider>
-              </Suspense>
-              <Suspense fallback={null}>
-                <EttaFloatingButton locale={locale} />
-              </Suspense>
-              <CookieConsent />
-            </FeedbackProvider>
-          </NextIntlClientProvider>
+          <ThemeProvider>
+            <NextIntlClientProvider locale={locale} messages={messages}>
+              <FeedbackProvider>
+                <ChangelogBanner />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <SupabaseProvider>
+                    <QueryProvider>
+                      <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
+                    </QueryProvider>
+                  </SupabaseProvider>
+                </Suspense>
+                <Suspense fallback={null}>
+                  <EttaFloatingButton locale={locale} />
+                </Suspense>
+                <CookieConsent />
+              </FeedbackProvider>
+            </NextIntlClientProvider>
+          </ThemeProvider>
         </ErrorBoundary>
       </body>
     </html>

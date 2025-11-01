@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { KeyboardShortcutsButton } from "@/components/keyboard-shortcuts/keyboard-shortcuts-button";
 import { useFeedback } from "@/components/providers/feedback-provider";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useChangelogUnreadCount } from "@/hooks/use-changelog-unread-count";
 import { Link } from "@/i18n/routing";
 
@@ -43,6 +44,7 @@ export function DashboardFooter() {
               Feedback
             </button>
             <KeyboardShortcutsButton variant="light" />
+            <ThemeToggle size="sm" />
           </div>
         </div>
       </div>
