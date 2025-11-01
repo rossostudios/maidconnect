@@ -5,36 +5,78 @@
 
 export function ProfessionalsGridSkeleton() {
   return (
-    <div
-      aria-label="Loading professionals"
-      className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
-      role="status"
-    >
-      {[1, 2, 3, 4, 5, 6].map((i) => (
-        <div className="animate-pulse rounded-[28px] border border-[#ebe5d8] bg-white p-6" key={i}>
-          {/* Avatar */}
-          <div className="flex items-center gap-4">
-            <div className="h-16 w-16 rounded-full bg-[#ebe5d8]" />
-            <div className="flex-1 space-y-2">
-              <div className="h-5 w-3/4 rounded bg-[#ebe5d8]" />
-              <div className="h-4 w-1/2 rounded bg-[#ebe5d8]" />
+    <section className="py-16 sm:py-20 lg:py-24">
+      <div className="container mx-auto max-w-7xl px-6">
+        <div
+          aria-label="Loading professionals"
+          className="space-y-6"
+          role="status"
+        >
+          {/* Search and Filter Skeleton */}
+          <div className="animate-pulse space-y-6 rounded-[32px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+            <div className="h-14 w-full rounded-full bg-[#ebe5d8]" />
+            <div className="flex flex-wrap gap-4">
+              <div className="h-10 w-32 rounded-full bg-[#ebe5d8]" />
+              <div className="h-10 w-32 rounded-full bg-[#ebe5d8]" />
+              <div className="h-10 w-32 rounded-full bg-[#ebe5d8]" />
             </div>
           </div>
 
-          {/* Services */}
-          <div className="mt-4 flex flex-wrap gap-2">
-            <div className="h-6 w-20 rounded-full bg-[#ebe5d8]" />
-            <div className="h-6 w-24 rounded-full bg-[#ebe5d8]" />
-          </div>
+          {/* Professional Cards */}
+          {[1, 2, 3].map((i) => (
+            <div
+              className="animate-pulse overflow-hidden rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)]"
+              key={i}
+            >
+              {/* Header Row */}
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                {/* Profile Info */}
+                <div className="flex items-start gap-4">
+                  <div className="h-16 w-16 flex-shrink-0 rounded-full bg-[#ebe5d8]" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-6 w-48 rounded bg-[#ebe5d8]" />
+                    <div className="h-4 w-32 rounded bg-[#ebe5d8]" />
+                    <div className="h-4 w-40 rounded bg-[#ebe5d8]" />
+                  </div>
+                </div>
 
-          {/* Rating */}
-          <div className="mt-4 h-4 w-32 rounded bg-[#ebe5d8]" />
+                {/* Action Buttons */}
+                <div className="flex items-center gap-3">
+                  <div className="h-11 w-11 rounded-full bg-[#ebe5d8]" />
+                  <div className="h-11 w-32 rounded-full bg-[#ebe5d8]" />
+                </div>
+              </div>
 
-          {/* Button */}
-          <div className="mt-4 h-10 w-full rounded-full bg-[#ebe5d8]" />
+              {/* Activity Indicators Skeleton */}
+              <div className="mt-4 flex flex-wrap gap-2">
+                <div className="h-7 w-40 rounded-full bg-blue-100" />
+                <div className="h-7 w-36 rounded-full bg-green-100" />
+              </div>
+
+              {/* Stats Row */}
+              <div className="mt-4 flex flex-wrap gap-6 border-[#ebe5d8] border-b pb-4">
+                <div className="h-5 w-24 rounded bg-[#ebe5d8]" />
+                <div className="h-5 w-20 rounded bg-[#ebe5d8]" />
+                <div className="h-5 w-28 rounded bg-[#ebe5d8]" />
+              </div>
+
+              {/* Badges Row */}
+              <div className="mt-4 flex flex-wrap gap-2">
+                <div className="h-7 w-24 rounded-full bg-[#ebe5d8]" />
+                <div className="h-7 w-32 rounded-full bg-[#ebe5d8]" />
+              </div>
+
+              {/* Bio */}
+              <div className="mt-4 space-y-2">
+                <div className="h-4 w-full rounded bg-[#ebe5d8]" />
+                <div className="h-4 w-5/6 rounded bg-[#ebe5d8]" />
+                <div className="h-4 w-4/6 rounded bg-[#ebe5d8]" />
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      </div>
+    </section>
   );
 }
 
