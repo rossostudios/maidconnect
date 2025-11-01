@@ -9,20 +9,22 @@
  * - API Routes: Use withLogging() wrapper
  * - Client: Use useLogger() hook from @logtail/next
  *
- * Note: Logtail integration temporarily disabled for Edge runtime compatibility
+ * Edge Runtime Compatible: Uses console logging in Edge, full Logtail in Node.js
  */
 
-// TODO: Re-enable Logtail with Edge-compatible implementation
-// import { Logtail } from "@logtail/node";
+import { Logtail } from "@logtail/node";
 import type { LogLevel } from "@logtail/types";
 
 // Initialize Logtail with source token from environment
-// Only initialize if token is present (graceful degradation)
-// const logtailToken = process.env.LOGTAIL_SOURCE_TOKEN;
+// Only initialize if token is present and we're in Node.js runtime (not Edge)
+const logtailToken = process.env.LOGTAIL_SOURCE_TOKEN;
 
-// Create Logtail instance (server-side only)
-// Temporarily disabled for Edge runtime compatibility
-const logtail: any = null;
+// Check if we're in Edge Runtime (Edge doesn't support Node.js Logtail)
+const isEdgeRuntime = typeof EdgeRuntime !== "undefined" || process.env.NEXT_RUNTIME === "edge";
+
+// Create Logtail instance (server-side Node.js runtime only)
+// Edge runtime will gracefully fallback to console logging
+const logtail: Logtail | null = !isEdgeRuntime && logtailToken ? new Logtail(logtailToken) : null;
 
 // Fallback logger for when Logtail is not configured
 const consoleLogger = {
@@ -171,6 +173,16 @@ export function withLogging<T extends (...args: unknown[]) => Promise<Response>>
  * Check if Better Stack is configured
  */
 export const isLoggingEnabled = (): boolean => logtail !== null;
+
+/**
+ * Get runtime information for debugging
+ */
+export const getRuntimeInfo = () => ({
+  isEdge: isEdgeRuntime,
+  logtailEnabled: logtail !== null,
+  nodeEnv: process.env.NODE_ENV,
+  hasToken: Boolean(logtailToken),
+});
 
 /**
  * Log level type for Better Stack

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { withRateLimit } from "@/lib/rate-limit";
 
 /**
  * Account Deletion API - Required by Ley 1581 de 2012 (Colombian Data Protection Law)
@@ -12,8 +13,10 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
  * Body: { confirmText: "DELETE MY ACCOUNT" }
  *
  * Returns: Success confirmation or error
+ *
+ * Rate limited to 2 requests per hour (sensitive operation)
  */
-export async function DELETE(request: Request) {
+async function handleDELETE(request: Request) {
   try {
     const supabase = await createSupabaseServerClient();
 
@@ -170,10 +173,14 @@ export async function DELETE(request: Request) {
   }
 }
 
+// Apply rate limiting to DELETE (sensitive operation)
+export const DELETE = withRateLimit(handleDELETE, "sensitive");
+
 /**
  * GET endpoint to check if account deletion is possible
+ * Rate limited to protect against abuse
  */
-export async function GET() {
+async function handleGET() {
   try {
     const supabase = await createSupabaseServerClient();
 
@@ -222,3 +229,6 @@ export async function GET() {
     return NextResponse.json({ error: "Failed to check deletion status" }, { status: 500 });
   }
 }
+
+// Apply rate limiting to GET
+export const GET = withRateLimit(handleGET, "api");

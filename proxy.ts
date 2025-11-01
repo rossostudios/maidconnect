@@ -59,26 +59,24 @@ export async function proxy(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        get(name) {
-          return request.cookies.get(name)?.value;
+        getAll() {
+          return request.cookies.getAll();
         },
-        set(name, value, options) {
-          response.cookies.set({
-            name,
-            value,
-            ...options,
-          });
-        },
-        remove(name) {
-          response.cookies.delete(name);
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+          cookiesToSet.forEach(({ name, value, options }) =>
+            response.cookies.set(name, value, options)
+          );
         },
       },
     }
   );
 
+  // CRITICAL: Must use getUser() instead of getSession() to refresh session properly
+  // See: https://supabase.com/docs/guides/auth/server-side/nextjs
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const pathname = request.nextUrl.pathname;
   const locale = getLocaleFromPathname(pathname) || DEFAULT_LOCALE;
@@ -106,14 +104,14 @@ export async function proxy(request: NextRequest) {
 
   if (!matchedRule) {
     if (pathname.match(/^\/(?:en|es)?\/auth/)) {
-      if (!session) {
+      if (!user) {
         return response;
       }
 
       const { data: userProfile } = await supabase
         .from("profiles")
         .select("role")
-        .eq("id", session.user.id)
+        .eq("id", user.id)
         .maybeSingle();
 
       if (userProfile?.role) {
@@ -128,7 +126,7 @@ export async function proxy(request: NextRequest) {
   }
 
   // Protected route handling
-  if (!session) {
+  if (!user) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = addLocaleToPath(AUTH_ROUTES.signIn, locale);
     redirectUrl.searchParams.set("redirectTo", pathname);
@@ -138,7 +136,7 @@ export async function proxy(request: NextRequest) {
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select("role, onboarding_status")
-    .eq("id", session.user.id)
+    .eq("id", user.id)
     .maybeSingle();
 
   if (profileError || !profile?.role) {

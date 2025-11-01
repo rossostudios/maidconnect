@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { withRateLimit } from "@/lib/rate-limit";
 
 type CreateBookingRequest = {
   professionalId: string;
@@ -15,7 +16,7 @@ type CreateBookingRequest = {
   serviceHourlyRate?: number;
 };
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
@@ -144,3 +145,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unexpected error creating booking" }, { status: 500 });
   }
 }
+
+// Apply rate limiting: 20 requests per minute
+export const POST = withRateLimit(handlePOST, "booking");
