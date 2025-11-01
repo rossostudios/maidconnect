@@ -18,17 +18,12 @@ const navByRole: Record<
   }>
 > = {
   professional: [
-    { href: "/dashboard/pro", label: "Overview" },
-    { href: "/dashboard/pro/profile", label: "Profile" },
-    { href: "/dashboard/pro/portfolio", label: "Portfolio" },
-    { href: "/dashboard/pro/availability", label: "Availability" },
     { href: "/dashboard/pro/bookings", label: "Bookings" },
+    { href: "/dashboard/pro/availability", label: "Availability" },
     { href: "/dashboard/pro/finances", label: "Finances" },
-    { href: "/dashboard/pro/documents", label: "Documents" },
+    { href: "/dashboard/pro/profile", label: "Profile" },
   ],
   customer: [
-    { href: "/dashboard/customer", label: "Overview" },
-    { href: "/dashboard/customer/addresses", label: "Addresses" },
     { href: "/dashboard/customer/bookings", label: "Bookings" },
     { href: "/dashboard/customer/favorites", label: "Favorites" },
     { href: "/dashboard/customer/payments", label: "Payments" },

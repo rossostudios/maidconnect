@@ -162,24 +162,16 @@ export default async function CustomerDashboardPage(props: {
       <NotificationPermissionPrompt variant="banner" />
 
       <header className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <div className="flex items-start justify-between gap-6">
-          <div>
-            <p className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
-              {t("header.dashboardLabel")}
-            </p>
-            <h1 className="mt-4 font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
-              {profile?.full_name
-                ? t("header.welcomeBackWithName", { name: profile.full_name })
-                : t("header.welcomeBack")}
-            </h1>
-            <p className="mt-4 text-[#5d574b] text-lg leading-relaxed">{t("header.description")}</p>
-          </div>
-          <Link
-            className="inline-flex items-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
-            href="/auth/sign-out?redirectTo=/"
-          >
-            {t("header.signOut")}
-          </Link>
+        <div>
+          <p className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+            {t("header.dashboardLabel")}
+          </p>
+          <h1 className="mt-4 font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
+            {profile?.full_name
+              ? t("header.welcomeBackWithName", { name: profile.full_name })
+              : t("header.welcomeBack")}
+          </h1>
+          <p className="mt-4 text-[#5d574b] text-lg leading-relaxed">{t("header.description")}</p>
         </div>
 
         <dl className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

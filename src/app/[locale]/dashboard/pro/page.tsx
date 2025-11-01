@@ -307,24 +307,16 @@ export default async function ProfessionalDashboardPage({
       <NotificationPermissionPrompt variant="banner" />
 
       <header className="rounded-[32px] bg-white p-10 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <div className="flex items-start justify-between">
-          <div>
-            <h1 className="font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
-              {t("welcomeBack")}
-              {professionalProfile?.full_name ? `, ${professionalProfile.full_name}` : ""}
-            </h1>
-            <p className="mt-4 max-w-2xl text-[#5d574b] text-lg leading-relaxed">
-              {onboardingStatus === "active"
-                ? t("dashboardDescription")
-                : t("onboardingDescription")}
-            </p>
-          </div>
-          <Link
-            className="font-semibold text-[#ff5d46] text-base transition hover:text-[#eb6c65]"
-            href="/auth/sign-out?redirectTo=/"
-          >
-            {t("signOut")}
-          </Link>
+        <div>
+          <h1 className="font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
+            {t("welcomeBack")}
+            {professionalProfile?.full_name ? `, ${professionalProfile.full_name}` : ""}
+          </h1>
+          <p className="mt-4 max-w-2xl text-[#5d574b] text-lg leading-relaxed">
+            {onboardingStatus === "active"
+              ? t("dashboardDescription")
+              : t("onboardingDescription")}
+          </p>
         </div>
         {onboardingStatus === "active" ? (
           <Suspense fallback={<ProfileMetricsSkeleton />}>
