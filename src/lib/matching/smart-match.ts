@@ -50,12 +50,7 @@ export interface MatchedProfessional extends Professional {
 /**
  * Calculate distance between two coordinates using Haversine formula
  */
-function calculateDistance(
-  lat1: number,
-  lng1: number,
-  lat2: number,
-  lng2: number
-): number {
+function calculateDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const R = 6371; // Earth's radius in km
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLng = ((lng2 - lng1) * Math.PI) / 180;
@@ -82,11 +77,9 @@ export function matchProfessionals(
       const reasons: string[] = [];
 
       // Service Type Match (Weight: 30%)
-      if (criteria.serviceType) {
-        if (professional.services.includes(criteria.serviceType)) {
-          score += 30;
-          reasons.push("Exact service match");
-        }
+      if (criteria.serviceType && professional.services.includes(criteria.serviceType)) {
+        score += 30;
+        reasons.push("Exact service match");
       }
 
       // Location/Distance (Weight: 20%)
@@ -117,10 +110,7 @@ export function matchProfessionals(
         if (professional.hourlyRate >= min && professional.hourlyRate <= max) {
           score += 15;
           reasons.push("Within budget");
-        } else if (
-          professional.hourlyRate < min ||
-          professional.hourlyRate <= max * 1.1
-        ) {
+        } else if (professional.hourlyRate < min || professional.hourlyRate <= max * 1.1) {
           score += 10; // Slightly over budget but close
         }
       }
@@ -150,10 +140,7 @@ export function matchProfessionals(
 
       // Experience (Weight: 5%)
       if (criteria.experienceLevel) {
-        if (
-          criteria.experienceLevel === "expert" &&
-          professional.experienceYears >= 5
-        ) {
+        if (criteria.experienceLevel === "expert" && professional.experienceYears >= 5) {
           score += 5;
           reasons.push("Expert professional");
         } else if (

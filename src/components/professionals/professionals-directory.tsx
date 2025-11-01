@@ -66,10 +66,7 @@ function getActivityIndicators(professional: DirectoryProfessional) {
 
   // High booking frequency (booked many times)
   if (professional.totalCompletedBookings && professional.totalCompletedBookings >= 10) {
-    const recentBookings = Math.min(
-      Math.floor(professional.totalCompletedBookings / 10) + 1,
-      8
-    );
+    const recentBookings = Math.min(Math.floor(professional.totalCompletedBookings / 10) + 1, 8);
     indicators.push({
       text: `Booked ${recentBookings} times this month`,
       type: "booked",

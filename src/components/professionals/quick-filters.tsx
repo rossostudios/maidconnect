@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  Award,
-  Clock,
-  DollarSign,
-  Languages,
-  MapPin,
-  Shield,
-  Star,
-  Zap,
-} from "lucide-react";
+import { Award, Clock, DollarSign, Languages, MapPin, Shield, Star, Zap } from "lucide-react";
 import { useState } from "react";
 
 export interface QuickFilter {

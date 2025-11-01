@@ -201,7 +201,7 @@ export function BookingWizard({
 
       {/* Floating Price Calculator (visible after step 1) */}
       {currentStep > 1 && estimatedAmount > 0 && (
-        <div className="sticky bottom-6 left-0 right-0 mx-auto max-w-md">
+        <div className="sticky right-0 bottom-6 left-0 mx-auto max-w-md">
           <div className="rounded-full border-2 border-[#ff5d46] bg-white px-6 py-4 shadow-lg">
             <div className="flex items-center justify-between">
               <div>
@@ -362,7 +362,7 @@ function Step2DateTime({
         </button>
         <button
           className="rounded-full bg-[#ff5d46] px-8 py-3 font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
-          disabled={!selectedDate || !selectedTime}
+          disabled={!(selectedDate && selectedTime)}
           onClick={onNext}
           type="button"
         >

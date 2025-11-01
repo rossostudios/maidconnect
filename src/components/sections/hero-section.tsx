@@ -64,7 +64,7 @@ export function HeroSection() {
           <div className="flex flex-col items-center justify-center gap-8 pt-6 sm:flex-row sm:gap-12">
             <div className="text-center">
               <div className="font-bold text-4xl text-white sm:text-5xl">
-                <AnimatedCounter suffix="+" target={12847} />
+                <AnimatedCounter suffix="+" target={12_847} />
               </div>
               <p className="mt-2 text-sm text-white/80">Successful Bookings</p>
             </div>

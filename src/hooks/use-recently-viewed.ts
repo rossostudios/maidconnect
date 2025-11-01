@@ -18,9 +18,7 @@ export interface RecentlyViewedItem {
  * Persists to localStorage for cross-session continuity
  */
 export function useRecentlyViewed() {
-  const [recentlyViewed, setRecentlyViewed] = useState<RecentlyViewedItem[]>(
-    []
-  );
+  const [recentlyViewed, setRecentlyViewed] = useState<RecentlyViewedItem[]>([]);
 
   // Load from localStorage on mount
   useEffect(() => {

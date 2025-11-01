@@ -131,9 +131,7 @@ export function SimilarProfessionals({
     <div className="space-y-4">
       <div className="flex items-center gap-2 text-[#211f1a]">
         <Sparkles className="h-5 w-5 text-[#ff5d46]" />
-        <h2 className="font-semibold text-lg">
-          Similar to {currentProfessionalName}
-        </h2>
+        <h2 className="font-semibold text-lg">Similar to {currentProfessionalName}</h2>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -154,17 +152,13 @@ export function SimilarProfessionals({
                   <span className="font-semibold text-[#211f1a] text-sm">
                     {pro.rating.toFixed(1)}
                   </span>
-                  <span className="text-[#7d7566] text-xs">
-                    ({pro.reviewCount})
-                  </span>
+                  <span className="text-[#7d7566] text-xs">({pro.reviewCount})</span>
                 </div>
               </div>
 
               {/* Service Info */}
               <div>
-                <p className="font-semibold text-[#211f1a]">
-                  {pro.services[0]}
-                </p>
+                <p className="font-semibold text-[#211f1a]">{pro.services[0]}</p>
                 <p className="mt-1 font-semibold text-[#ff5d46] text-lg">
                   {formatCurrencyCOP(pro.hourlyRate)}
                   <span className="font-normal text-[#7d7566] text-sm">/hr</span>

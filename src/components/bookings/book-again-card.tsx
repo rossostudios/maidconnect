@@ -57,7 +57,7 @@ export function BookAgainCard({ booking, onBookAgain }: BookAgainCardProps) {
                 src={booking.professionalPhoto}
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-[#ff5d46] font-semibold text-white text-lg">
+              <div className="flex h-full w-full items-center justify-center bg-[#ff5d46] font-semibold text-lg text-white">
                 {booking.professionalName
                   .split(" ")
                   .map((n) => n[0])
@@ -68,9 +68,7 @@ export function BookAgainCard({ booking, onBookAgain }: BookAgainCardProps) {
           </div>
 
           <div>
-            <h3 className="font-semibold text-[#211f1a] text-lg">
-              {booking.professionalName}
-            </h3>
+            <h3 className="font-semibold text-[#211f1a] text-lg">{booking.professionalName}</h3>
             <p className="text-[#7d7566] text-sm">{booking.serviceName}</p>
           </div>
         </div>
@@ -93,9 +91,7 @@ export function BookAgainCard({ booking, onBookAgain }: BookAgainCardProps) {
           <span>{booking.durationHours}h session</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="font-semibold text-[#211f1a]">
-            {formatCurrencyCOP(booking.amount)}
-          </span>
+          <span className="font-semibold text-[#211f1a]">{formatCurrencyCOP(booking.amount)}</span>
         </div>
       </div>
 

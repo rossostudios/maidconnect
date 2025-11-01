@@ -2,8 +2,8 @@
 
 import { Clock, Star } from "lucide-react";
 import Image from "next/image";
-import { Link } from "@/i18n/routing";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
+import { Link } from "@/i18n/routing";
 
 function formatCurrencyCOP(value: number) {
   return new Intl.NumberFormat("es-CO", {
@@ -31,7 +31,7 @@ export function RecentlyViewed() {
         <h2 className="font-semibold text-lg">Recently Viewed</h2>
       </div>
 
-      <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+      <div className="scrollbar-hide flex gap-4 overflow-x-auto pb-4">
         {recentlyViewed.map((item) => (
           <Link
             className="group min-w-[240px] flex-shrink-0 rounded-2xl border border-[#ebe5d8] bg-white p-4 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[#ff5d46] hover:shadow-[0_20px_50px_rgba(18,17,15,0.08)]"
@@ -61,9 +61,7 @@ export function RecentlyViewed() {
                     <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                     <span className="font-semibold">{item.rating.toFixed(1)}</span>
                   </div>
-                  <span className="text-[#7d7566]">
-                    {formatCurrencyCOP(item.hourlyRate)}/hr
-                  </span>
+                  <span className="text-[#7d7566]">{formatCurrencyCOP(item.hourlyRate)}/hr</span>
                 </div>
               </div>
             </div>

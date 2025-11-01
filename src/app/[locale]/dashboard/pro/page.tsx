@@ -313,9 +313,7 @@ export default async function ProfessionalDashboardPage({
             {professionalProfile?.full_name ? `, ${professionalProfile.full_name}` : ""}
           </h1>
           <p className="mt-4 max-w-2xl text-[#5d574b] text-lg leading-relaxed">
-            {onboardingStatus === "active"
-              ? t("dashboardDescription")
-              : t("onboardingDescription")}
+            {onboardingStatus === "active" ? t("dashboardDescription") : t("onboardingDescription")}
           </p>
         </div>
         {onboardingStatus === "active" ? (

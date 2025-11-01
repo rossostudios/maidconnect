@@ -7,11 +7,7 @@ export function ProfessionalsGridSkeleton() {
   return (
     <section className="py-16 sm:py-20 lg:py-24">
       <div className="container mx-auto max-w-7xl px-6">
-        <div
-          aria-label="Loading professionals"
-          className="space-y-6"
-          role="status"
-        >
+        <div aria-label="Loading professionals" className="space-y-6" role="status">
           {/* Search and Filter Skeleton */}
           <div className="animate-pulse space-y-6 rounded-[32px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
             <div className="h-14 w-full rounded-full bg-[#ebe5d8]" />

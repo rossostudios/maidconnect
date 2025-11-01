@@ -37,11 +37,7 @@ export function AvailabilityCalendar({
     0
   ).getDate();
 
-  const firstDayOfMonth = new Date(
-    currentMonth.getFullYear(),
-    currentMonth.getMonth(),
-    1
-  ).getDay();
+  const firstDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
 
   const monthName = currentMonth.toLocaleDateString("en-US", {
     month: "long",
@@ -49,23 +45,15 @@ export function AvailabilityCalendar({
   });
 
   const goToPreviousMonth = () => {
-    setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
-    );
+    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
   };
 
   const goToNextMonth = () => {
-    setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
-    );
+    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
   };
 
   const getDayStatus = (day: number): DayAvailability => {
-    const date = new Date(
-      currentMonth.getFullYear(),
-      currentMonth.getMonth(),
-      day
-    );
+    const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
     const dateString = date.toISOString().split("T")[0] as string;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -102,11 +90,7 @@ export function AvailabilityCalendar({
   };
 
   const getDayIndicator = (day: number): React.ReactElement | null => {
-    const date = new Date(
-      currentMonth.getFullYear(),
-      currentMonth.getMonth(),
-      day
-    );
+    const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
     const dateString = date.toISOString().split("T")[0] as string;
     const dayData = availability[dateString];
 
@@ -133,11 +117,7 @@ export function AvailabilityCalendar({
   const handleDayClick = (day: number) => {
     if (!canSelectDay(day)) return;
 
-    const date = new Date(
-      currentMonth.getFullYear(),
-      currentMonth.getMonth(),
-      day
-    );
+    const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
     onSelectDate(date);
   };
 
