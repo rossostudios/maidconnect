@@ -2,19 +2,8 @@ import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { withRateLimit } from "@/lib/rate-limit";
-
-type CreateBookingRequest = {
-  professionalId: string;
-  scheduledStart?: string;
-  scheduledEnd?: string;
-  durationMinutes?: number;
-  amount: number;
-  currency?: string;
-  specialInstructions?: string;
-  address?: Record<string, unknown>;
-  serviceName?: string;
-  serviceHourlyRate?: number;
-};
+import { validateRequestBody } from "@/lib/validations/api";
+import { createBookingSchema } from "@/lib/validations/booking";
 
 async function handlePOST(request: Request) {
   const supabase = await createSupabaseServerClient();
@@ -27,12 +16,13 @@ async function handlePOST(request: Request) {
   }
 
   try {
-    const body = (await request.json()) as CreateBookingRequest;
+    // Validate request body with Zod schema
+    const body = await validateRequestBody(request, createBookingSchema);
     const {
       professionalId,
       scheduledStart,
       durationMinutes,
-      currency = "cop",
+      currency,
       specialInstructions,
       address,
       serviceName,
@@ -40,10 +30,7 @@ async function handlePOST(request: Request) {
     } = body;
     let { scheduledEnd, amount } = body;
 
-    if (!professionalId) {
-      return NextResponse.json({ error: "professionalId is required" }, { status: 400 });
-    }
-
+    // Auto-calculate scheduledEnd if not provided
     if (scheduledStart && durationMinutes && !scheduledEnd) {
       const startDate = new Date(scheduledStart);
       if (!Number.isNaN(startDate.getTime())) {
@@ -52,12 +39,9 @@ async function handlePOST(request: Request) {
       }
     }
 
+    // Auto-calculate amount if not provided but we have hourly rate and duration
     if ((!amount || amount <= 0) && serviceHourlyRate && durationMinutes) {
       amount = Math.max(20_000, Math.round(serviceHourlyRate * (durationMinutes / 60)));
-    }
-
-    if (!amount || amount <= 0) {
-      return NextResponse.json({ error: "amount must be greater than zero" }, { status: 400 });
     }
 
     const { data: customerProfile } = await supabase

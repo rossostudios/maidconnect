@@ -184,6 +184,196 @@ export const getRuntimeInfo = () => ({
   hasToken: Boolean(logtailToken),
 });
 
+// ============================================
+// Context Builders for Structured Logging
+// ============================================
+
+/**
+ * Creates user context for logging (with PII sanitization)
+ */
+export function withUserContext(userId: string, additionalInfo?: Record<string, unknown>) {
+  return {
+    user: {
+      id: userId,
+      ...additionalInfo,
+    },
+  };
+}
+
+/**
+ * Creates request context for logging
+ */
+export function withRequestContext(request: Request) {
+  const url = new URL(request.url);
+
+  return {
+    request: {
+      method: request.method,
+      path: url.pathname,
+      query: sanitizePII(Object.fromEntries(url.searchParams.entries())),
+      userAgent: request.headers.get("user-agent"),
+      referer: request.headers.get("referer"),
+      ip: request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip"),
+    },
+  };
+}
+
+/**
+ * Creates error context for logging
+ */
+export function withErrorContext(error: unknown) {
+  if (error instanceof Error) {
+    return {
+      error: {
+        name: error.name,
+        message: error.message,
+        stack: error.stack,
+        cause: error.cause,
+      },
+    };
+  }
+
+  return {
+    error: {
+      message: String(error),
+      type: typeof error,
+    },
+  };
+}
+
+/**
+ * Creates performance context for logging
+ */
+export function withPerformanceContext(startTime: number) {
+  const duration = Date.now() - startTime;
+
+  return {
+    performance: {
+      duration,
+      timestamp: new Date().toISOString(),
+    },
+  };
+}
+
+/**
+ * Creates database query context for logging
+ */
+export function withDatabaseContext(
+  operation: string,
+  table: string,
+  additionalInfo?: Record<string, unknown>
+) {
+  return {
+    database: {
+      operation,
+      table,
+      ...additionalInfo,
+    },
+  };
+}
+
+// ============================================
+// PII Sanitization
+// ============================================
+
+/**
+ * Fields that should be sanitized in logs
+ */
+const PII_FIELDS = [
+  "password",
+  "token",
+  "apiKey",
+  "api_key",
+  "secret",
+  "authorization",
+  "creditCard",
+  "credit_card",
+  "ssn",
+  "email", // Partially sanitize emails
+  "phone",
+  "phoneNumber",
+  "phone_number",
+  "address",
+  "streetAddress",
+  "street_address",
+];
+
+/**
+ * Sanitizes PII from log data
+ */
+export function sanitizePII(data: unknown): unknown {
+  if (data === null || data === undefined) {
+    return data;
+  }
+
+  if (typeof data === "string") {
+    // Don't sanitize strings directly, only when they're values in objects
+    return data;
+  }
+
+  if (Array.isArray(data)) {
+    return data.map((item) => sanitizePII(item));
+  }
+
+  if (typeof data === "object") {
+    const sanitized: Record<string, unknown> = {};
+
+    for (const [key, value] of Object.entries(data)) {
+      const lowerKey = key.toLowerCase();
+
+      // Check if this field should be sanitized
+      if (PII_FIELDS.some((field) => lowerKey.includes(field.toLowerCase()))) {
+        if (lowerKey.includes("email") && typeof value === "string") {
+          // Partially sanitize emails: show first 2 chars + domain
+          const [local, domain] = value.split("@");
+          if (local && domain) {
+            sanitized[key] = `${local.slice(0, 2)}***@${domain}`;
+          } else {
+            sanitized[key] = "[REDACTED]";
+          }
+        } else {
+          sanitized[key] = "[REDACTED]";
+        }
+      } else if (typeof value === "object" && value !== null) {
+        // Recursively sanitize nested objects
+        sanitized[key] = sanitizePII(value);
+      } else {
+        sanitized[key] = value;
+      }
+    }
+
+    return sanitized;
+  }
+
+  return data;
+}
+
+/**
+ * Logs with full context (combines multiple context builders)
+ */
+export async function logWithContext(
+  level: LogLevel,
+  message: string,
+  ...contexts: Record<string, unknown>[]
+) {
+  const combinedContext = sanitizePII(Object.assign({}, ...contexts));
+
+  switch (level) {
+    case "debug":
+      await logger.debug(message, combinedContext);
+      break;
+    case "info":
+      await logger.info(message, combinedContext);
+      break;
+    case "warn":
+      await logger.warn(message, combinedContext);
+      break;
+    case "error":
+      await logger.error(message, combinedContext);
+      break;
+  }
+}
+
 /**
  * Log level type for Better Stack
  */

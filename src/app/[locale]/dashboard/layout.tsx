@@ -37,7 +37,7 @@ const navByRole: Record<
 
 export default async function DashboardLayout({ children }: Props) {
   const user = await requireUser();
-  const navLinks = navByRole[user.role] ?? navByRole.professional;
+  const navLinks = navByRole[user.role] ?? navByRole.professional ?? [];
   const userRole =
     user.role === "customer" || user.role === "professional" ? user.role : "professional";
 

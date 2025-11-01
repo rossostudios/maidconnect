@@ -332,5 +332,5 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
 
 // Helper function
 function formatDate(date: Date): string {
-  return date.toISOString().split("T")[0];
+  return date.toISOString().split("T")[0] || "";
 }

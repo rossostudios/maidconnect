@@ -79,7 +79,6 @@ export function EnhancedBookingForm({
   savedAddresses = [],
   availableAddons = [],
 }: BookingFormProps) {
-  const _router = useRouter();
   const [currentStep, setCurrentStep] = useState<BookingStep>("service-details");
   const [bookingData, setBookingData] = useState<BookingData>({
     serviceName: "",

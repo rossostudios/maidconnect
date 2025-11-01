@@ -58,7 +58,7 @@ export function SavedAddressesManager({
 
       // If deleting default address and there are others, make first one default
       const deletedAddress = addresses.find((addr) => addr.id === id);
-      if (deletedAddress?.is_default && newAddresses.length > 0) {
+      if (deletedAddress?.is_default && newAddresses.length > 0 && newAddresses[0]) {
         newAddresses[0].is_default = true;
       }
 

@@ -30,8 +30,9 @@ function ensureEnv() {
 
 function getLocaleFromPathname(pathname: string): string | null {
   const segments = pathname.split("/").filter(Boolean);
-  if (segments.length > 0 && LOCALES.includes(segments[0])) {
-    return segments[0];
+  const firstSegment = segments[0];
+  if (firstSegment && LOCALES.includes(firstSegment)) {
+    return firstSegment;
   }
   return null;
 }

@@ -36,7 +36,7 @@ export function AvailabilityCalendar({
   selectedTime,
   onDateSelect,
   onTimeSelect,
-  durationHours = 2,
+  durationHours: _durationHours = 2,
 }: Props) {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [availabilityData, setAvailabilityData] = useState<AvailabilityData | null>(null);
@@ -348,11 +348,11 @@ export function AvailabilityCalendar({
 
 // Helper functions
 function formatDate(date: Date): string {
-  return date.toISOString().split("T")[0];
+  return date.toISOString().split("T")[0] || "";
 }
 
 function formatTime(time: string): string {
-  const [hours, minutes] = time.split(":").map(Number);
+  const [hours = 0, minutes = 0] = time.split(":").map(Number);
   const period = hours >= 12 ? "PM" : "AM";
   const displayHours = hours % 12 || 12;
   return `${displayHours}:${minutes.toString().padStart(2, "0")} ${period}`;

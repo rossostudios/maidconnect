@@ -52,8 +52,8 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
     summary: initialData?.summary || "",
     content: initialData?.content || "",
     published_at: initialData?.published_at
-      ? new Date(initialData.published_at).toISOString().split("T")[0]
-      : new Date().toISOString().split("T")[0],
+      ? new Date(initialData.published_at).toISOString().split("T")[0] || ""
+      : new Date().toISOString().split("T")[0] || "",
     categories: initialData?.categories || [],
     tags: Array.isArray(initialData?.tags) ? initialData.tags.join(", ") : initialData?.tags || "",
     target_audience: initialData?.target_audience || ["all"],
@@ -131,8 +131,6 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         const data = await response.json();
         throw new Error(data.error || "Failed to save changelog");
       }
-
-      const _result = await response.json();
 
       // Redirect to list or show success
       router.push("/admin/changelog");

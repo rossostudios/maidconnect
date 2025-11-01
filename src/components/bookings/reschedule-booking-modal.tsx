@@ -28,7 +28,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
     if (isOpen && booking.scheduled_start) {
       const currentStart = new Date(booking.scheduled_start);
       // Format for date input (YYYY-MM-DD)
-      const dateStr = currentStart.toISOString().split("T")[0];
+      const dateStr = currentStart.toISOString().split("T")[0] || "";
       // Format for time input (HH:MM)
       const timeStr = currentStart.toTimeString().slice(0, 5);
       setNewDate(dateStr);

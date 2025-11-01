@@ -166,7 +166,7 @@ export async function signUpAction(
   const headersList = await headers();
   const forwardedFor = headersList.get("x-forwarded-for");
   const ip = forwardedFor
-    ? forwardedFor.split(",")[0].trim()
+    ? forwardedFor.split(",")[0]?.trim() || "unknown"
     : headersList.get("x-real-ip") || "unknown";
 
   const rateLimit = checkRateLimit(`signup:${ip}`, RateLimiters.auth);

@@ -43,18 +43,26 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
 
   const handleToggleDay = (index: number) => {
     const newSchedule = [...schedule];
-    newSchedule[index].enabled = !newSchedule[index].enabled;
-    handleChange(newSchedule);
+    const day = newSchedule[index];
+    if (day) {
+      day.enabled = !day.enabled;
+      handleChange(newSchedule);
+    }
   };
 
   const handleTimeChange = (index: number, field: "start" | "end", value: string) => {
     const newSchedule = [...schedule];
-    newSchedule[index][field] = value;
-    handleChange(newSchedule);
+    const day = newSchedule[index];
+    if (day) {
+      day[field] = value;
+      handleChange(newSchedule);
+    }
   };
 
   const handleCopyToAll = (index: number) => {
     const sourceDay = schedule[index];
+    if (!sourceDay) return;
+
     const newSchedule = schedule.map((day) => ({
       ...day,
       start: sourceDay.start,

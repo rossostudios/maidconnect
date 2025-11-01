@@ -255,7 +255,7 @@ export default async function CustomerDashboardPage(props: {
                   return (
                     <Link
                       className="mt-4 inline-flex items-center font-semibold text-[#ff5d46] text-base hover:text-[#eb6c65]"
-                      href={CUSTOMER_TASK_HREFS[taskId]}
+                      href={CUSTOMER_TASK_HREFS[taskId] || "#"}
                     >
                       {t(`tasks.${taskId}.cta`)} →
                     </Link>
@@ -424,7 +424,7 @@ export default async function CustomerDashboardPage(props: {
         {QUICK_LINK_IDS.map((linkId) => (
           <Link
             className="group hover:-translate-y-1 rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-sm transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)]"
-            href={QUICK_LINKS_HREFS[linkId]}
+            href={QUICK_LINKS_HREFS[linkId] || "#"}
             key={linkId}
           >
             <h3 className="font-semibold text-[#211f1a] text-lg">

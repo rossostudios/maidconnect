@@ -35,7 +35,7 @@ function formatCurrencyCOP(value: number) {
 }
 
 function formatTime(time: string): string {
-  const [hours, minutes] = time.split(":").map(Number);
+  const [hours = 0, minutes = 0] = time.split(":").map(Number);
   const period = hours >= 12 ? "PM" : "AM";
   const displayHours = hours % 12 || 12;
   return `${displayHours}:${minutes.toString().padStart(2, "0")} ${period}`;
@@ -45,7 +45,7 @@ export function BookingSheet({
   isOpen,
   onClose,
   professionalId,
-  professionalName,
+  professionalName: _professionalName,
   selectedDate,
   availableSlots,
   services,

@@ -175,7 +175,6 @@ export async function POST(request: Request) {
 
     try {
       // Check if there was a time extension and calculate new amount
-      const _totalMinutes = (booking.duration_minutes || 0) + (booking.time_extension_minutes || 0);
       const amountToCapture = booking.amount_authorized + (booking.time_extension_amount || 0);
 
       // Log payment capture attempt

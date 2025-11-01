@@ -15,7 +15,7 @@ type DeletionCheck = {
 function extractFilenameFromResponse(response: Response): string {
   const contentDisposition = response.headers.get("Content-Disposition");
   const filenameMatch = contentDisposition?.match(FILENAME_REGEX);
-  return filenameMatch ? filenameMatch[1] : `maidconnect_data_export_${Date.now()}.json`;
+  return filenameMatch?.[1] || `maidconnect_data_export_${Date.now()}.json`;
 }
 
 function downloadBlob(blob: Blob, filename: string): void {

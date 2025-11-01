@@ -1,14 +1,7 @@
-import { getTranslations } from "next-intl/server";
 import { MessagingInterface } from "@/components/messaging/messaging-interface";
 import { requireUser } from "@/lib/auth";
 
-export default async function CustomerMessagesPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const _t = await getTranslations({ locale, namespace: "dashboard.customer.messagesPage" });
+export default async function CustomerMessagesPage() {
   const user = await requireUser({ allowedRoles: ["customer"] });
 
   return <MessagingInterface userId={user.id} userRole="customer" />;

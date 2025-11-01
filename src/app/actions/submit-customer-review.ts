@@ -8,8 +8,6 @@ type ReviewActionState = {
   message?: string;
 };
 
-const _INITIAL_STATE: ReviewActionState = { status: "idle" };
-
 export async function submitCustomerReviewAction(
   _prevState: ReviewActionState,
   formData: FormData

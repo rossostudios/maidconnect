@@ -65,13 +65,6 @@ const DOCUMENT_LABELS: Record<string, string> = Object.fromEntries(
   [...REQUIRED_DOCUMENTS, ...OPTIONAL_DOCUMENTS].map((doc) => [doc.key, doc.label])
 );
 
-function _formatStatus(status: string | null) {
-  if (!status) {
-    return "Unknown";
-  }
-  return status.replace(/_/g, " ");
-}
-
 function hasReachedStatus(currentStatus: string | null, targetStatus: string) {
   const currentIndex = STATUS_ORDER.indexOf((currentStatus ?? "") as (typeof STATUS_ORDER)[number]);
   const targetIndex = STATUS_ORDER.indexOf(targetStatus as (typeof STATUS_ORDER)[number]);
@@ -261,12 +254,12 @@ export default async function ProfessionalDashboardPage({
 
     documents = documents.map((doc, index) => {
       const result = signedUrlResults[index];
-      if (result.error) {
+      if (result?.error) {
         console.error("Error creating signed URL for document:", result.error);
       }
       return {
         ...doc,
-        signedUrl: result.data?.signedUrl ?? null,
+        signedUrl: result?.data?.signedUrl ?? null,
       };
     });
   }
