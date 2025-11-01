@@ -6,23 +6,13 @@ export default async function AdminHomePage() {
   const user = await requireUser({ allowedRoles: ["admin"] });
 
   return (
-    <section className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-10 text-[#211f1a]">
-      <header className="mb-6 flex items-start justify-between">
-        <div>
-          <h1 className="font-semibold text-3xl">Admin Control Center</h1>
-          <p className="mt-2 text-[#5d574b] text-sm">
-            Review onboarding queues, monitor incidents, and support MaidConnect users.
-          </p>
-        </div>
-        <Link
-          className="rounded-full border border-[#211f1a] px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46]"
-          href="/auth/sign-out?redirectTo=/"
-        >
-          Sign out
-        </Link>
+    <>
+      <header className="mb-8">
+        <h1 className="font-semibold text-3xl text-[#211f1a]">Admin Control Center</h1>
+        <p className="mt-2 text-[#5d574b] text-sm">
+          Review onboarding queues, monitor incidents, and support MaidConnect users.
+        </p>
       </header>
-
-      <div className="space-y-8">
         {/* Admin Info */}
         <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-4 shadow-sm">
           <dl className="space-y-1">
@@ -98,6 +88,32 @@ export default async function AdminHomePage() {
             <p className="text-[#5d574b] text-xs">Review and manage user feedback</p>
           </Link>
 
+          {/* Roadmap Management */}
+          <Link
+            className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 text-center shadow-sm transition hover:border-[#ff5d46] hover:shadow-md"
+            href="/admin/roadmap"
+          >
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-50 group-hover:bg-green-100">
+              <svg
+                aria-label="Roadmap icon"
+                className="h-6 w-6 text-green-600"
+                fill="none"
+                role="img"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                />
+              </svg>
+            </div>
+            <h3 className="mb-2 font-semibold text-[#211f1a]">Roadmap Management</h3>
+            <p className="text-[#5d574b] text-xs">Manage public roadmap items</p>
+          </Link>
+
           {/* Future sections */}
           <div className="rounded-2xl border border-[#dcd6c7] border-dashed bg-white p-6 text-center text-[#5d574b] text-sm">
             <h3 className="mb-2 font-semibold text-[#211f1a]">User Management</h3>
@@ -112,7 +128,6 @@ export default async function AdminHomePage() {
             <p className="text-xs">View admin action history (coming soon)</p>
           </div>
         </section>
-      </div>
-    </section>
+    </>
   );
 }

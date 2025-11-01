@@ -90,10 +90,10 @@ export default async function AdminFeedbackPage({
   };
 
   return (
-    <section className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-10 text-[#211f1a]">
+    <>
       {/* Header */}
       <header className="mb-8">
-        <h1 className="font-bold text-3xl">Feedback Management</h1>
+        <h1 className="font-bold text-3xl text-[#211f1a]">Feedback Management</h1>
         <p className="mt-2 text-[#5d574b] text-sm">Review and manage user feedback submissions</p>
       </header>
 
@@ -225,16 +225,6 @@ export default async function AdminFeedbackPage({
           })}
         </div>
       )}
-
-      {/* Back to Admin */}
-      <div className="mt-8">
-        <Link
-          className="inline-flex items-center gap-2 font-medium text-[#5d574b] text-sm transition hover:text-[#ff5d46]"
-          href="/admin"
-        >
-          ← Back to Admin Dashboard
-        </Link>
-      </div>
-    </section>
+    </>
   );
 }

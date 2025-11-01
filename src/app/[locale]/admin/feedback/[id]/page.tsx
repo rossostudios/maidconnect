@@ -9,7 +9,6 @@ import {
   TrendingUp,
   User,
 } from "lucide-react";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FeedbackActions } from "@/components/admin/feedback/feedback-actions";
 import { requireUser } from "@/lib/auth/session";
@@ -71,15 +70,9 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
   const TypeIcon = typeConf?.icon || AlertCircle;
 
   return (
-    <section className="mx-auto flex min-h-screen w-full max-w-5xl flex-col px-6 py-10 text-[#211f1a]">
+    <>
       {/* Header */}
       <header className="mb-8">
-        <Link
-          className="mb-4 inline-block font-medium text-[#5d574b] text-sm transition hover:text-[#ff5d46]"
-          href="/admin/feedback"
-        >
-          ← Back to Feedback
-        </Link>
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
             <div className="mb-3 flex flex-wrap items-center gap-2">
@@ -211,6 +204,6 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
         currentStatus={feedback.status}
         feedbackId={id}
       />
-    </section>
+    </>
   );
 }

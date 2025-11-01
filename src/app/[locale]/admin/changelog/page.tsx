@@ -65,7 +65,7 @@ export default async function AdminChangelogPage({
   };
 
   return (
-    <section className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-10 text-[#211f1a]">
+    <>
       {/* Header */}
       <header className="mb-8 flex items-start justify-between">
         <div>
@@ -224,16 +224,6 @@ export default async function AdminChangelogPage({
           ))}
         </div>
       )}
-
-      {/* Back to Admin */}
-      <div className="mt-8">
-        <Link
-          className="inline-flex items-center gap-2 font-medium text-[#5d574b] text-sm transition hover:text-[#ff5d46]"
-          href="/admin"
-        >
-          ← Back to Admin Dashboard
-        </Link>
-      </div>
-    </section>
+    </>
   );
 }
