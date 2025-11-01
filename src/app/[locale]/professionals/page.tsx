@@ -32,6 +32,10 @@ type ListActiveProfessionalRow = {
   rating?: number | null;
   review_count?: number | null;
   on_time_rate?: number | null;
+  // Enhanced stats
+  total_completed_bookings?: number | null;
+  total_earnings?: number | null;
+  favorites_count?: number | null;
 };
 
 const DEFAULT_PRO_PHOTO =
@@ -73,6 +77,10 @@ function mapRowToDirectoryProfessional(row: ListActiveProfessionalRow): Director
     rating: row.rating ?? 0,
     reviewCount: row.review_count ?? 0,
     onTimeRate: row.on_time_rate ?? 0,
+    // Enhanced stats
+    totalCompletedBookings: row.total_completed_bookings ?? 0,
+    totalEarnings: row.total_earnings ?? 0,
+    favoritesCount: row.favorites_count ?? 0,
   };
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Filter, MapPin, Search, ShieldCheck, SlidersHorizontal, Star } from "lucide-react";
+import { Filter, Heart, MapPin, Search, ShieldCheck, SlidersHorizontal, Star } from "lucide-react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -34,6 +34,10 @@ export type DirectoryProfessional = {
   rating?: number;
   reviewCount?: number;
   onTimeRate?: number; // 0-100 percentage
+  // Enhanced stats
+  totalCompletedBookings?: number;
+  totalEarnings?: number; // in COP cents
+  favoritesCount?: number;
 };
 
 function formatCurrencyCOP(value: number | null | undefined) {
@@ -309,6 +313,13 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
 
                   {/* Right: Action Buttons */}
                   <div className="flex items-center gap-3">
+                    <button
+                      className="rounded-full border-2 border-[#211f1a] bg-white p-2.5 transition hover:bg-[#f5f2ed]"
+                      type="button"
+                      aria-label={t("card.favorite")}
+                    >
+                      <Heart className="h-5 w-5 text-[#211f1a]" />
+                    </button>
                     <Link
                       className="flex-1 rounded-full border-2 border-[#211f1a] bg-white px-6 py-2.5 text-center font-semibold text-[#211f1a] text-sm transition hover:bg-[#f5f2ed] sm:flex-none"
                       href={`/professionals/${professional.id}`}
@@ -320,23 +331,29 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
 
                 {/* Stats Row */}
                 <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 border-[#ebe5d8] border-b pb-4 text-sm">
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-semibold text-[#211f1a]">
-                      {formatCurrencyCOP(professional.hourlyRateCop) ?? t("card.rateOnRequest")}
-                    </span>
-                    <span className="text-[#7d7566]">{t("card.hourly")}</span>
-                  </div>
-
-                  {professional.experienceYears !== null && (
+                  {/* Total Earnings */}
+                  {professional.totalEarnings !== undefined && professional.totalEarnings > 0 && (
                     <div className="flex items-center gap-1.5">
                       <span className="font-semibold text-[#211f1a]">
-                        {professional.experienceYears}
+                        {formatCurrencyCOP(professional.totalEarnings)}
                       </span>
-                      <span className="text-[#7d7566]">{t("card.yearsExp")}</span>
+                      <span className="text-[#7d7566]">{t("card.earned")}</span>
                     </div>
                   )}
 
-                  {showEnhancedTrustBadges && professional.rating !== undefined && (
+                  {/* Completed Bookings (Hires) */}
+                  {professional.totalCompletedBookings !== undefined &&
+                    professional.totalCompletedBookings > 0 && (
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-semibold text-[#211f1a]">
+                          {professional.totalCompletedBookings}
+                        </span>
+                        <span className="text-[#7d7566]">{t("card.hired")}</span>
+                      </div>
+                    )}
+
+                  {/* Rating */}
+                  {professional.rating !== undefined && professional.rating > 0 && (
                     <div className="flex items-center gap-1.5">
                       <Star className="h-4 w-4 fill-[#211f1a] text-[#211f1a]" />
                       <span className="font-semibold text-[#211f1a]">
@@ -348,16 +365,15 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                     </div>
                   )}
 
-                  {showEnhancedTrustBadges &&
-                    professional.onTimeRate !== undefined &&
-                    professional.onTimeRate >= 75 && (
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-semibold text-[#211f1a]">
-                          {professional.onTimeRate}%
-                        </span>
-                        <span className="text-[#7d7566]">{t("card.onTime")}</span>
-                      </div>
-                    )}
+                  {/* Favorites Count */}
+                  {professional.favoritesCount !== undefined && professional.favoritesCount > 0 && (
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-semibold text-[#211f1a]">
+                        {professional.favoritesCount}
+                      </span>
+                      <span className="text-[#7d7566]">{t("card.favorites")}</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Badges Row */}
