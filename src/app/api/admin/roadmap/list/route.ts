@@ -14,7 +14,8 @@ import type { RoadmapAdminListParams } from "@/types/roadmap";
 export async function GET(request: Request) {
   try {
     // Access request data first to ensure dynamic rendering
-    const searchParams = request.nextUrl.searchParams;
+    const url = new URL(request.url);
+    const searchParams = url.searchParams;
 
     // Verify admin access
     await requireAdmin();
@@ -84,6 +85,6 @@ export async function GET(request: Request) {
       },
     });
   } catch (error) {
-    return handleApiError(error, "/api/admin/roadmap/list");
+    return handleApiError(error, request);
   }
 }

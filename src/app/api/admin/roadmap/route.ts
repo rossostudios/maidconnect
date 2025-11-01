@@ -110,6 +110,6 @@ export async function POST(request: Request) {
       { status: 201 }
     );
   } catch (error) {
-    return handleApiError(error, "/api/admin/roadmap");
+    return handleApiError(error, request);
   }
 }

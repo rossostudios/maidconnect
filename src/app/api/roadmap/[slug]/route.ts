@@ -97,6 +97,6 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
       comments: formattedComments,
     });
   } catch (error) {
-    return handleApiError(error, "/api/roadmap/[slug]");
+    return handleApiError(error, request);
   }
 }

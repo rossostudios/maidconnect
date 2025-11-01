@@ -7,7 +7,7 @@
 
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { requireUser } from "@/lib/auth-helpers";
+import { requireUser } from "@/lib/auth/session";
 import { handleApiError } from "@/lib/error-handler";
 import type { VoteToggleRequest } from "@/types/roadmap";
 
@@ -149,6 +149,6 @@ export async function POST(request: Request) {
       has_voted: action === "added",
     });
   } catch (error) {
-    return handleApiError(error, "/api/roadmap/vote");
+    return handleApiError(error, request);
   }
 }

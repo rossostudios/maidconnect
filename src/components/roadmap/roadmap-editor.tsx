@@ -38,7 +38,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
   const [category, setCategory] = useState<RoadmapCategory>(initialData?.category || "features");
   const [priority, setPriority] = useState<RoadmapPriority>(initialData?.priority || "medium");
   const [targetQuarter, setTargetQuarter] = useState(initialData?.target_quarter || "");
-  const [visibility, setVisibility] = useState<RoadmapVisibility>(
+  const [visibility, _setVisibility] = useState<RoadmapVisibility>(
     initialData?.visibility || "draft"
   );
   const [targetAudience, setTargetAudience] = useState<RoadmapAudience[]>(

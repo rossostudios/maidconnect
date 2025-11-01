@@ -136,7 +136,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       message: "Roadmap item updated successfully",
     });
   } catch (error) {
-    return handleApiError(error, "/api/admin/roadmap/[id]");
+    return handleApiError(error, request);
   }
 }
 
@@ -198,6 +198,6 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
       message: "Roadmap item archived successfully",
     });
   } catch (error) {
-    return handleApiError(error, "/api/admin/roadmap/[id]");
+    return handleApiError(error, request);
   }
 }

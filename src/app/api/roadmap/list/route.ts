@@ -12,7 +12,8 @@ import type { RoadmapListParams } from "@/types/roadmap";
 
 export async function GET(request: Request) {
   try {
-    const searchParams = request.nextUrl.searchParams;
+    const url = new URL(request.url);
+    const searchParams = url.searchParams;
     const supabase = await createSupabaseServerClient();
 
     // Parse query parameters
@@ -122,6 +123,6 @@ export async function GET(request: Request) {
       },
     });
   } catch (error) {
-    return handleApiError(error, "/api/roadmap/list");
+    return handleApiError(error, request);
   }
 }
