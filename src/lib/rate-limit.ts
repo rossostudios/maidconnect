@@ -284,12 +284,14 @@ let upstashLimiters: {
   booking: Ratelimit | null;
   messaging: Ratelimit | null;
   feedback: Ratelimit | null;
+  sensitive: Ratelimit | null;
 } = {
   auth: null,
   api: null,
   booking: null,
   messaging: null,
   feedback: null,
+  sensitive: null,
 };
 
 // Only initialize Upstash in production or if explicitly configured
@@ -340,6 +342,14 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
         analytics: true,
         prefix: "maidconnect:ratelimit:feedback",
       }),
+
+      // Sensitive: 2 requests per hour (account deletion, data export)
+      sensitive: new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(2, "1 h"),
+        analytics: true,
+        prefix: "maidconnect:ratelimit:sensitive",
+      }),
     };
 
     console.log("✓ Upstash Redis rate limiting initialized");
@@ -354,7 +364,7 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
  */
 export async function rateLimit(
   request: Request,
-  type: "auth" | "api" | "booking" | "messaging" | "feedback" = "api"
+  type: "auth" | "api" | "booking" | "messaging" | "feedback" | "sensitive" = "api"
 ): Promise<RateLimitResult> {
   const identifier = getClientIdentifier(request);
   const limiter = upstashLimiters[type];
@@ -429,7 +439,7 @@ export function createRateLimitResponse(result: RateLimitResult): Response {
  */
 export function withRateLimit<
   T extends (request: Request, ...args: unknown[]) => Promise<Response>,
->(handler: T, type: "auth" | "api" | "booking" | "messaging" | "feedback" = "api"): T {
+>(handler: T, type: "auth" | "api" | "booking" | "messaging" | "feedback" | "sensitive" = "api"): T {
   return (async (request: Request, ...args: unknown[]) => {
     const result = await rateLimit(request, type);
 
