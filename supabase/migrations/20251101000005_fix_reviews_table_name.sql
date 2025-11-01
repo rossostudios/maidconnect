@@ -106,11 +106,23 @@ begin
       0
     ) as total_completed_bookings,
 
-    -- Total earnings
-    coalesce(pp.total_earnings, 0) as total_earnings,
+    -- Total earnings (sum of captured amounts from completed bookings)
+    coalesce(
+      (select sum(b.amount_captured)
+       from bookings b
+       where b.professional_id = pp.profile_id
+         and b.status = 'completed'
+         and b.amount_captured is not null),
+      0
+    ) as total_earnings,
 
-    -- Favorites count
-    coalesce(pp.favorites_count, 0) as favorites_count,
+    -- Favorites count (how many customers favorited this professional)
+    coalesce(
+      (select count(*)
+       from public.customer_profiles cp
+       where pp.profile_id = any(cp.favorite_professionals)),
+      0
+    ) as favorites_count,
 
     -- Distance calculation (optional, based on customer location)
     case
