@@ -1,5 +1,6 @@
 "use client";
 
+import { LogOut } from "lucide-react";
 import { useEffect, useState } from "react";
 import { KeyboardBadge } from "@/components/keyboard-shortcuts/keyboard-badge";
 import { DashboardMobileNav } from "@/components/navigation/dashboard-mobile-nav";
@@ -142,6 +143,16 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
             </span>
           )}
         </button>
+
+        {/* Sign Out Button */}
+        <Link
+          aria-label="Sign out"
+          className="flex items-center gap-2 rounded-lg border border-[#dcd6c7] bg-white px-3 py-1.5 text-[#7a6d62] transition hover:border-[#ff5d46] hover:bg-[#fff5f2] hover:text-[#ff5d46]"
+          href="/auth/sign-out"
+        >
+          <LogOut className="h-4 w-4" />
+          <span className="text-xs">Sign out</span>
+        </Link>
       </nav>
 
       {/* Mobile Bottom Navigation - Shown only on mobile */}
