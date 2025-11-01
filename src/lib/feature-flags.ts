@@ -46,7 +46,7 @@ export type FeatureFlag =
  */
 const defaultFlags: Record<FeatureFlag, boolean> = {
   // Week 1-2 (Ready to enable)
-  show_match_wizard: false,
+  show_match_wizard: true,
   enable_web_vitals: false,
 
   // Week 3-4
