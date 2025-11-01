@@ -2193,6 +2193,10 @@
       "description": "Mira en qué estamos trabajando y vota por las funciones que te gustaría ver. Tu opinión da forma a nuestro producto."
     },
     "title": "Hoja de Ruta del Producto",
-    "subtitle": "Mira lo que estamos construyendo y vota por las funciones que más deseas. Tu opinión da forma a nuestro futuro."
+    "subtitle": "Mira lo que estamos construyendo y vota por las funciones que más deseas. Tu opinión da forma a nuestro futuro.",
+    "empty": {
+      "title": "Aún no hay elementos en la hoja de ruta",
+      "description": "Vuelve pronto para ver en qué estamos trabajando. Sé el primero en sugerir funciones y votar por lo que más te importa."
+    }
   }
 }

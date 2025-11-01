@@ -2193,6 +2193,10 @@
       "description": "See what we're working on and vote on features you'd like to see next. Your feedback shapes our product."
     },
     "title": "Product Roadmap",
-    "subtitle": "See what we're building and vote on features you want most. Your feedback shapes our future."
+    "subtitle": "See what we're building and vote on features you want most. Your feedback shapes our future.",
+    "empty": {
+      "title": "No roadmap items yet",
+      "description": "Check back soon to see what we're working on. Be the first to suggest features and vote on what matters to you."
+    }
   }
 }
