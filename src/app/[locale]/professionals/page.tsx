@@ -88,7 +88,10 @@ function mapRowToDirectoryProfessional(row: ListActiveProfessionalRow): Director
 const getCachedProfessionals = unstable_cache(
   async () => {
     const supabase = await createSupabaseServerClient();
-    const { data, error } = await supabase.rpc("list_active_professionals");
+    const { data, error } = await supabase.rpc("list_active_professionals", {
+      p_customer_lat: null,
+      p_customer_lon: null,
+    });
 
     if (error) {
       console.error("Error fetching professionals:", error);
