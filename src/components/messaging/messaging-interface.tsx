@@ -175,6 +175,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
       }, 2000);
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, [supported, permission, requestPermission]);
 
   // Callbacks for real-time updates

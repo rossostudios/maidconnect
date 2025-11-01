@@ -1,7 +1,6 @@
 "use client";
 
 import { Bug, CheckCircle, Frown, Heart, HelpCircle, Lightbulb, TrendingUp, X } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
@@ -52,7 +51,6 @@ const feedbackTypes: { value: FeedbackType; label: string; icon: any; descriptio
 ];
 
 export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
-  const _router = useRouter();
   const t = useTranslations("feedback");
 
   const [feedbackType, setFeedbackType] = useState<FeedbackType>("other");
@@ -193,7 +191,6 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
   }
 
   const selectedType = feedbackTypes.find((type) => type.value === feedbackType);
-  const _Icon = selectedType?.icon;
 
   return (
     <div

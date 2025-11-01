@@ -67,7 +67,10 @@ export function MatchWizard() {
     ];
     const currentIndex = steps.indexOf(currentStep);
     if (currentIndex < steps.length - 1) {
-      setCurrentStep(steps[currentIndex + 1]);
+      const nextStep = steps[currentIndex + 1];
+      if (nextStep) {
+        setCurrentStep(nextStep);
+      }
     }
   };
 
@@ -82,7 +85,10 @@ export function MatchWizard() {
     ];
     const currentIndex = steps.indexOf(currentStep);
     if (currentIndex > 0) {
-      setCurrentStep(steps[currentIndex - 1]);
+      const prevStep = steps[currentIndex - 1];
+      if (prevStep) {
+        setCurrentStep(prevStep);
+      }
     }
   };
 

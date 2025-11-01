@@ -109,7 +109,7 @@ export async function validateRequestBody<T extends z.ZodTypeAny>(
 
     if (!parsed.success) {
       throw new Error(
-        `Validation error: ${parsed.error.errors.map((e) => `${e.path.join(".")}: ${e.message}`).join(", ")}`
+        `Validation error: ${parsed.error.issues.map((e) => `${e.path.join(".")}: ${e.message}`).join(", ")}`
       );
     }
 
@@ -134,7 +134,7 @@ export function validateSearchParams<T extends z.ZodTypeAny>(
 
   if (!parsed.success) {
     throw new Error(
-      `Invalid query parameters: ${parsed.error.errors.map((e) => `${e.path.join(".")}: ${e.message}`).join(", ")}`
+      `Invalid query parameters: ${parsed.error.issues.map((e) => `${e.path.join(".")}: ${e.message}`).join(", ")}`
     );
   }
 
@@ -161,7 +161,7 @@ export function createErrorResponse(code: string, message: string, details?: unk
     error: {
       code,
       message,
-      ...(details && { details }),
+      ...(details ? { details } : {}),
     },
   };
 }

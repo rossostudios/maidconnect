@@ -356,7 +356,7 @@ export async function logWithContext(
   message: string,
   ...contexts: Record<string, unknown>[]
 ) {
-  const combinedContext = sanitizePII(Object.assign({}, ...contexts));
+  const combinedContext = sanitizePII(Object.assign({}, ...contexts)) as Record<string, unknown>;
 
   switch (level) {
     case "debug":

@@ -1,6 +1,6 @@
 "use client";
 
-import { Filter, Heart, MapPin, Search, ShieldCheck, SlidersHorizontal, Star } from "lucide-react";
+import { Filter, Heart, MapPin, Search, SlidersHorizontal, Star } from "lucide-react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -10,8 +10,6 @@ import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
 import { type FilterState, ProfessionalsFilterSheet } from "./professionals-filter-sheet";
 import {
-  OnTimeRateBadge,
-  RatingBadge,
   VerificationBadge,
   type VerificationLevel,
 } from "./verification-badge";

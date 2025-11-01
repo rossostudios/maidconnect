@@ -1,7 +1,6 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { Link } from "@/i18n/routing";
 
@@ -18,8 +17,6 @@ type Props = {
 };
 
 export function ProductBottomSheet({ isOpen, onClose, features }: Props) {
-  const _t = useTranslations("product");
-
   // Prevent body scroll when bottom sheet is open
   useEffect(() => {
     if (isOpen) {

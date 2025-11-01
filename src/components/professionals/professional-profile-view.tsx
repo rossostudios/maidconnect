@@ -61,7 +61,7 @@ function formatCurrencyCOP(value: number | null | undefined) {
 
 export function ProfessionalProfileView({
   professional,
-  viewer,
+  viewer: _viewer,
   locale,
 }: ProfessionalProfileViewProps) {
   const t = useTranslations("pages.professionalProfile");

@@ -13,7 +13,7 @@ type Props = {
  * Display portfolio gallery in a grid layout
  * Supports lightbox view for full-size images
  */
-export function PortfolioGallery({ images, featuredWork, professionalName }: Props) {
+export function PortfolioGallery({ images, featuredWork, professionalName: _professionalName }: Props) {
   const [selectedImage, setSelectedImage] = useState<PortfolioImage | null>(null);
 
   if (images.length === 0) {
@@ -90,13 +90,19 @@ function Lightbox({
 
   const handlePrevious = () => {
     if (hasPrevious) {
-      onNavigate(allImages[currentIndex - 1]);
+      const prevImage = allImages[currentIndex - 1];
+      if (prevImage) {
+        onNavigate(prevImage);
+      }
     }
   };
 
   const handleNext = () => {
     if (hasNext) {
-      onNavigate(allImages[currentIndex + 1]);
+      const nextImage = allImages[currentIndex + 1];
+      if (nextImage) {
+        onNavigate(nextImage);
+      }
     }
   };
 

@@ -13,7 +13,6 @@ import {
   ValidationError,
   RateLimitError,
   getStatusCode,
-  getErrorCode,
   isOperationalError,
 } from "./errors";
 
@@ -46,7 +45,7 @@ export function formatErrorResponse(error: unknown, path?: string): ErrorRespons
       error: {
         code: "VALIDATION_ERROR",
         message: "Invalid request data",
-        details: error.errors.map((err) => ({
+        details: error.issues.map((err) => ({
           path: err.path.join("."),
           message: err.message,
         })),

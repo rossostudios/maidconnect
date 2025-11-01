@@ -57,6 +57,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
       return () => clearInterval(interval);
     }
+    return undefined;
   }, [optimisticBooking.status, optimisticBooking.checked_in_at]);
 
   // Get GPS coordinates

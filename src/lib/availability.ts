@@ -59,14 +59,16 @@ function getDayOfWeek(date: Date): keyof WorkingHours {
     "friday",
     "saturday",
   ];
-  return days[date.getDay()];
+  // getDay() always returns 0-6, so this is safe
+  return days[date.getDay()]!;
 }
 
 /**
  * Format date as YYYY-MM-DD
  */
 export function formatDate(date: Date): string {
-  return date.toISOString().split("T")[0];
+  // split always returns at least one element
+  return date.toISOString().split("T")[0]!;
 }
 
 /**
@@ -74,7 +76,8 @@ export function formatDate(date: Date): string {
  */
 function timeToMinutes(time: string): number {
   const [hours, minutes] = time.split(":").map(Number);
-  return hours * 60 + minutes;
+  // HH:MM format always has 2 parts
+  return hours! * 60 + minutes!;
 }
 
 /**
@@ -139,7 +142,6 @@ export function generateTimeSlots(
     // Generate slots within this period
     for (let time = periodStart; time + slotDurationMinutes <= periodEnd; time += 30) {
       const slotStart = minutesToTime(time);
-      const _slotEnd = minutesToTime(time + slotDurationMinutes);
 
       // Check if slot conflicts with existing bookings (including buffer)
       const hasConflict = existingBookings.some((booking) => {
@@ -315,7 +317,6 @@ export function isSlotAvailable(
 
   const startMins = timeToMinutes(startTime);
   const endMins = startMins + durationMinutes;
-  const _endTime = minutesToTime(endMins);
 
   // Check if slot is within working hours
   const isWithinWorkingHours = workingHours.some((period) => {

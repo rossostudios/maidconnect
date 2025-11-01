@@ -183,7 +183,8 @@ export function getClientIdentifier(request: Request): string {
   // Try to get real IP from headers (works with proxies/load balancers)
   const forwardedFor = request.headers.get("x-forwarded-for");
   if (forwardedFor) {
-    return forwardedFor.split(",")[0].trim();
+    // split always returns at least one element
+    return forwardedFor.split(",")[0]!.trim();
   }
 
   const realIp = request.headers.get("x-real-ip");

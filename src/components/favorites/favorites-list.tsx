@@ -101,7 +101,7 @@ export function FavoritesList() {
 
 function ProfessionalCard({
   professional,
-  onRemove,
+  onRemove: _onRemove,
 }: {
   professional: FavoriteProfessional;
   onRemove: () => void;

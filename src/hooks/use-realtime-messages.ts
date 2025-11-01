@@ -14,17 +14,6 @@ type Message = {
   created_at: string;
 };
 
-type Conversation = {
-  id: string;
-  booking_id: string;
-  customer_id: string;
-  professional_id: string;
-  last_message_at: string | null;
-  customer_unread_count: number;
-  professional_unread_count: number;
-  created_at: string;
-};
-
 type UseRealtimeMessagesOptions = {
   userId: string;
   userRole: "customer" | "professional";

@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
-import { usePathname } from "@/i18n/routing";
 import type { AppRole } from "@/lib/auth";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
@@ -48,7 +47,6 @@ export function useKeyboardShortcutsContext() {
 }
 
 export function KeyboardShortcutsProvider({ children }: { children: React.ReactNode }) {
-  const _pathname = usePathname();
   const [role, setRole] = useState<AppRole | undefined>();
   const [dashboardPath, setDashboardPath] = useState<string | undefined>();
 

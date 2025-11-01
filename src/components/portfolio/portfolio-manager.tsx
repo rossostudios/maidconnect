@@ -84,10 +84,14 @@ export function PortfolioManager({
     }
 
     const newImages = [...images];
-    [newImages[index], newImages[index - 1]] = [newImages[index - 1], newImages[index]];
-    newImages.forEach((img, i) => (img.order = i));
+    const current = newImages[index];
+    const previous = newImages[index - 1];
 
-    setImages(newImages);
+    if (current && previous) {
+      [newImages[index], newImages[index - 1]] = [previous, current];
+      newImages.forEach((img, i) => (img.order = i));
+      setImages(newImages);
+    }
   };
 
   const handleMoveDown = (id: string) => {
@@ -97,10 +101,14 @@ export function PortfolioManager({
     }
 
     const newImages = [...images];
-    [newImages[index], newImages[index + 1]] = [newImages[index + 1], newImages[index]];
-    newImages.forEach((img, i) => (img.order = i));
+    const current = newImages[index];
+    const next = newImages[index + 1];
 
-    setImages(newImages);
+    if (current && next) {
+      [newImages[index], newImages[index + 1]] = [next, current];
+      newImages.forEach((img, i) => (img.order = i));
+      setImages(newImages);
+    }
   };
 
   const sortedImages = [...images].sort((a, b) => a.order - b.order);

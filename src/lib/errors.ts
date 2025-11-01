@@ -211,19 +211,19 @@ export class InvalidBookingStatusError extends AppError {
 // ============================================
 
 export class ExternalServiceError extends AppError {
-  constructor(service: string, message = "External service error", details?: unknown) {
-    super(`${service}: ${message}`, 502, "EXTERNAL_SERVICE_ERROR", { service, ...details });
+  constructor(service: string, message = "External service error", details?: Record<string, unknown>) {
+    super(`${service}: ${message}`, 502, "EXTERNAL_SERVICE_ERROR", { service, ...(details ?? {}) });
   }
 }
 
 export class StripeError extends ExternalServiceError {
-  constructor(message: string, details?: unknown) {
+  constructor(message: string, details?: Record<string, unknown>) {
     super("Stripe", message, details);
   }
 }
 
 export class EmailServiceError extends ExternalServiceError {
-  constructor(message: string, details?: unknown) {
+  constructor(message: string, details?: Record<string, unknown>) {
     super("Email Service", message, details);
   }
 }

@@ -32,7 +32,7 @@ type MatchedProfessional = {
   availableToday: boolean;
 };
 
-export function ResultsStep({ data, onBack, onRestart }: ResultsStepProps) {
+export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps) {
   const t = useTranslations("matchWizard.results");
   const [matches, setMatches] = useState<MatchedProfessional[]>([]);
   const [loading, setLoading] = useState(true);
