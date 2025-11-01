@@ -19,8 +19,8 @@ const QUICK_LINK_IDS = ["bookProfessional", "viewPastVisits", "updatePayment"] a
 
 const QUICK_LINKS_HREFS: Record<string, string> = {
   bookProfessional: "/professionals",
-  viewPastVisits: "#",
-  updatePayment: "#",
+  viewPastVisits: "/dashboard/customer/bookings",
+  updatePayment: "/dashboard/customer/payments",
 };
 
 const VERIFICATION_ORDER = ["basic", "standard", "enhanced"] as const;
@@ -28,9 +28,9 @@ const VERIFICATION_ORDER = ["basic", "standard", "enhanced"] as const;
 const CUSTOMER_TASK_IDS = ["profile", "verification", "payment", "booking"] as const;
 
 const CUSTOMER_TASK_HREFS: Record<string, string> = {
-  profile: "/dashboard/customer",
-  verification: "#",
-  payment: "#",
+  profile: "/dashboard/customer/settings",
+  verification: "#", // TODO: Create verification upgrade page when tier system is implemented
+  payment: "/dashboard/customer/payments",
   booking: "/professionals",
 };
 
@@ -201,7 +201,7 @@ export default async function CustomerDashboardPage(props: {
           </div>
           <Link
             className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
-            href="#"
+            href="/dashboard/customer/settings"
           >
             {t("tasks.updateProfile")}
           </Link>
@@ -320,7 +320,7 @@ export default async function CustomerDashboardPage(props: {
           </dl>
           <Link
             className="mt-6 inline-flex items-center font-semibold text-[#ff5d46] text-base hover:text-[#eb6c65]"
-            href="#"
+            href="/dashboard/customer/settings"
           >
             {t("sections.propertyPreferences.updatePreferences")}
           </Link>

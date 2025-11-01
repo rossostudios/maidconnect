@@ -967,6 +967,28 @@
       },
       "messagesPage": {
         "description": "Chat with professionals about your bookings and service details."
+      },
+      "settings": {
+        "title": "Account Settings",
+        "description": "Manage your profile information, preferences, and saved addresses",
+        "profile": {
+          "title": "Profile Information",
+          "fullName": "Full Name",
+          "email": "Email",
+          "phone": "Phone",
+          "city": "City",
+          "note": "Note",
+          "noteDescription": "To update your profile information, please contact support at support@maidconnect.com"
+        },
+        "preferences": {
+          "title": "Property Preferences",
+          "propertyType": "Property Type",
+          "comingSoon": "Coming Soon",
+          "comingSoonDescription": "Full property preferences editing will be available soon. For now, you can update these during booking."
+        },
+        "addresses": {
+          "title": "Saved Addresses"
+        }
       }
     }
   },

@@ -967,6 +967,28 @@
       },
       "messagesPage": {
         "description": "Chatea con profesionales sobre tus reservas y detalles del servicio."
+      },
+      "settings": {
+        "title": "Configuración de Cuenta",
+        "description": "Gestiona tu información de perfil, preferencias y direcciones guardadas",
+        "profile": {
+          "title": "Información del Perfil",
+          "fullName": "Nombre Completo",
+          "email": "Correo Electrónico",
+          "phone": "Teléfono",
+          "city": "Ciudad",
+          "note": "Nota",
+          "noteDescription": "Para actualizar tu información de perfil, por favor contacta a soporte en support@maidconnect.com"
+        },
+        "preferences": {
+          "title": "Preferencias de Propiedad",
+          "propertyType": "Tipo de Propiedad",
+          "comingSoon": "Próximamente",
+          "comingSoonDescription": "La edición completa de preferencias de propiedad estará disponible pronto. Por ahora, puedes actualizarlas durante la reserva."
+        },
+        "addresses": {
+          "title": "Direcciones Guardadas"
+        }
       }
     }
   },
