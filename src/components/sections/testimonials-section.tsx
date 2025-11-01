@@ -21,7 +21,20 @@ export function TestimonialsSection() {
                 className="flex flex-col gap-6 rounded-[28px] border border-[#e6e0d4] bg-[#fbfafa] p-10 text-left shadow-[0_10px_40px_rgba(18,17,15,0.04)]"
                 key={testimonial.handle}
               >
-                <p className="text-2xl text-[#211f1a] leading-relaxed">"{testimonial.quote}"</p>
+                <div className="flex flex-col gap-4">
+                  <p className="text-2xl text-[#211f1a] leading-relaxed">"{testimonial.quote}"</p>
+                  {testimonial.outcome && (
+                    <span className="inline-flex w-fit items-center gap-2 rounded-full bg-green-50 px-3 py-1.5 font-medium text-green-700 text-sm">
+                      <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          fillRule="evenodd"
+                        />
+                      </svg>
+                      {testimonial.outcome}
+                    </span>
+                  )}
+                </div>
                 <div className="flex items-center gap-4">
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#ff5d46] font-semibold text-base text-white">
                     {testimonial.name

@@ -999,8 +999,15 @@
   "hero": {
     "badge": "Trusted Domestic Staffing · Colombia",
     "title": "Home professionals who feel like family",
-    "subtitle": "Connect with vetted housekeepers and caregivers across Colombia. Fully screened, onboarded, and ready to support your lifestyle.",
-    "findProfessional": "Find a professional",
+    "subtitle": "Find vetted housekeepers in 48 hours. Save 10+ hours weekly on household tasks.",
+    "description": "Connect with fully screened professionals across Colombia. Onboarded, verified, and ready to support your lifestyle from day one.",
+    "trustSignals": {
+      "verified": "450+ verified professionals",
+      "cities": "Available in 6 cities",
+      "rating": "4.9★ average rating"
+    },
+    "findProfessional": "Find My Perfect Cleaner",
+    "bookConsultation": "Book Free Consultation",
     "howItWorks": "How it works",
     "becomeProfessional": "Become a professional",
     "learnMore": "Learn more"

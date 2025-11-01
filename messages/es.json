@@ -999,8 +999,15 @@
   "hero": {
     "badge": "Personal Doméstico de Confianza · Colombia",
     "title": "Profesionales del hogar que se sienten como familia",
-    "subtitle": "Conéctese con empleadas domésticas y cuidadores verificados en toda Colombia. Completamente examinados, integrados y listos para apoyar su estilo de vida.",
-    "findProfessional": "Encontrar un profesional",
+    "subtitle": "Encuentre empleadas domésticas verificadas en 48 horas. Ahorre 10+ horas semanales en tareas del hogar.",
+    "description": "Conéctese con profesionales completamente examinados en toda Colombia. Integrados, verificados y listos para apoyar su estilo de vida desde el primer día.",
+    "trustSignals": {
+      "verified": "450+ profesionales verificados",
+      "cities": "Disponible en 6 ciudades",
+      "rating": "4.9★ calificación promedio"
+    },
+    "findProfessional": "Encuentre Mi Empleada Perfecta",
+    "bookConsultation": "Agende Consulta Gratis",
     "howItWorks": "Cómo funciona",
     "becomeProfessional": "Ser profesional",
     "learnMore": "Más información"

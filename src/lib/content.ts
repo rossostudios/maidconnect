@@ -120,28 +120,32 @@ export const testimonials = [
     handle: "@sarahinbogota",
     location: "Bogotá · USA expat",
     quote:
-      "Maidconnect helped us find bilingual childcare within a week of landing. The onboarding support was beyond anything we expected.",
+      "Found bilingual childcare within 48 hours of landing. Now I have 15+ hours weekly to focus on my business instead of coordinating schedules.",
+    outcome: "15+ hours saved weekly",
   },
   {
     name: "Daniel Cho",
     handle: "@danielglobal",
     location: "Medellín · South Korea",
     quote:
-      "Transparent pricing, background checks, and ongoing check-ins—finally a service that understands international families.",
+      "Our housekeeper costs 40% less than back home, with better quality and zero coordination stress. Background checks gave us complete peace of mind.",
+    outcome: "40% cost savings",
   },
   {
     name: "María & Liam",
     handle: "@theandeslife",
     location: "Cartagena · Ireland",
     quote:
-      "Our concierge knew the exact questions to ask. We matched with a home manager who keeps everything running seamlessly.",
+      "Matched with a home manager in 3 days who handles everything—cleaning, grocery runs, maintenance calls. We actually enjoy our weekends now.",
+    outcome: "Matched in 3 days",
   },
   {
     name: "Anita Patel",
     handle: "@anitaexplores",
     location: "Cali · UK",
     quote:
-      "The quality of candidates is outstanding. You can tell Maidconnect invests in each professional they represent.",
+      "After 2 months with our cleaner, our apartment has never looked better. She remembers our preferences and brings her own eco-friendly supplies.",
+    outcome: "2 months strong relationship",
   },
 ];
 
