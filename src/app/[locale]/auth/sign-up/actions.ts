@@ -58,7 +58,9 @@ function extractSignUpFormData(formData: FormData) {
   };
 }
 
-function validateSignUpFields(data: ReturnType<typeof extractSignUpFormData>): Record<string, string> {
+function validateSignUpFields(
+  data: ReturnType<typeof extractSignUpFormData>
+): Record<string, string> {
   const fieldErrors: Record<string, string> = {};
 
   if (!data.email) {
@@ -118,7 +120,9 @@ function validateConsents(data: ReturnType<typeof extractSignUpFormData>): Recor
   return fieldErrors;
 }
 
-function buildUserMetadata(data: ReturnType<typeof extractSignUpFormData>): Record<string, unknown> {
+function buildUserMetadata(
+  data: ReturnType<typeof extractSignUpFormData>
+): Record<string, unknown> {
   const consentTimestamp = new Date().toISOString();
 
   const metadata: Record<string, unknown> = {

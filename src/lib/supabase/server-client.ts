@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
 type CookieOptions = {
@@ -36,4 +37,22 @@ export async function createSupabaseServerClient() {
       },
     },
   });
+}
+
+/**
+ * Create a simple anon Supabase client for public data fetching
+ * Use this for data that doesn't require authentication (e.g., public listings)
+ * This client is safe to use inside unstable_cache() since it doesn't access cookies
+ */
+export function createSupabaseAnonClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!(supabaseUrl && supabaseKey)) {
+    throw new Error(
+      "Supabase URL or anon key is missing. Ensure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are set."
+    );
+  }
+
+  return createClient(supabaseUrl, supabaseKey);
 }

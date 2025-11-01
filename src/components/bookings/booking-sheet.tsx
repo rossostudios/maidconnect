@@ -227,10 +227,10 @@ export function BookingSheet({
             )}
           </div>
           <button
-            type="button"
             aria-label="Close booking sheet"
             className="flex h-11 w-11 items-center justify-center rounded-full text-[#7d7566] transition hover:bg-[#f0ece5]"
             onClick={onClose}
+            type="button"
           >
             <X className="h-6 w-6" />
           </button>
@@ -254,11 +254,11 @@ export function BookingSheet({
                 <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
                   {availableSlots.map((time, index) => (
                     <button
-                      type="button"
                       className="group fade-in-0 slide-in-from-bottom-4 animate-in rounded-xl border-2 border-[#e5dfd4] bg-white px-5 py-4 font-semibold text-[#211f1a] text-base shadow-sm transition-all duration-300 hover:scale-105 hover:border-[#ff5d46] hover:bg-[#ff5d46]/5 hover:shadow-lg active:scale-95 md:px-5 md:py-4"
                       key={time}
                       onClick={() => handleTimeSelect(time)}
                       style={{ animationDelay: `${index * 30}ms` }}
+                      type="button"
                     >
                       {formatTime(time)}
                     </button>
@@ -277,9 +277,9 @@ export function BookingSheet({
                   <Clock className="h-5 w-5" />
                   <span className="font-semibold">{selectedTime && formatTime(selectedTime)}</span>
                   <button
-                    type="button"
                     className="ml-auto text-sm underline"
                     onClick={() => setCurrentStep("time")}
+                    type="button"
                   >
                     Change time
                   </button>
@@ -323,7 +323,6 @@ export function BookingSheet({
                 </label>
                 <div className="flex items-center gap-3 md:gap-4">
                   <button
-                    type="button"
                     aria-label="Decrease duration"
                     className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#e5dfd4] transition hover:border-[#ff5d46] hover:bg-[#ff5d46]/5 md:p-3"
                     onClick={() =>
@@ -332,6 +331,7 @@ export function BookingSheet({
                         durationHours: Math.max(1, bookingData.durationHours - 1),
                       })
                     }
+                    type="button"
                   >
                     <Minus className="h-5 w-5" />
                   </button>
@@ -339,7 +339,6 @@ export function BookingSheet({
                     {bookingData.durationHours} {bookingData.durationHours === 1 ? "hour" : "hours"}
                   </div>
                   <button
-                    type="button"
                     aria-label="Increase duration"
                     className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#e5dfd4] transition hover:border-[#ff5d46] hover:bg-[#ff5d46]/5 md:p-3"
                     onClick={() =>
@@ -348,6 +347,7 @@ export function BookingSheet({
                         durationHours: Math.min(12, bookingData.durationHours + 1),
                       })
                     }
+                    type="button"
                   >
                     <Plus className="h-5 w-5" />
                   </button>
@@ -394,7 +394,6 @@ export function BookingSheet({
                       const isSelected = bookingData.selectedAddons.some((a) => a.id === addon.id);
                       return (
                         <button
-                          type="button"
                           className={`w-full rounded-xl border-2 p-5 text-left transition ${
                             isSelected
                               ? "border-[#ff5d46] bg-[#ff5d46]/5"
@@ -402,6 +401,7 @@ export function BookingSheet({
                           }`}
                           key={addon.id}
                           onClick={() => toggleAddon(addon)}
+                          type="button"
                         >
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
@@ -474,14 +474,13 @@ export function BookingSheet({
               {/* Actions - Touch-friendly */}
               <div className="flex flex-col gap-3 md:flex-row md:gap-4">
                 <button
-                  type="button"
                   className="order-2 rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] md:order-1"
                   onClick={() => setCurrentStep("time")}
+                  type="button"
                 >
                   Back
                 </button>
                 <button
-                  type="button"
                   className="order-1 flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
                   disabled={
                     loading ||
@@ -489,6 +488,7 @@ export function BookingSheet({
                     !(bookingData.address || bookingData.customAddress)
                   }
                   onClick={handleSubmit}
+                  type="button"
                 >
                   {loading ? "Creating booking..." : "Continue to payment"}
                 </button>
@@ -585,18 +585,18 @@ function PaymentStep({
       {error && <p className="text-base text-red-600">{error}</p>}
       <div className="flex flex-col gap-3 md:flex-row md:gap-4">
         <button
-          type="button"
           className="order-2 rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50 md:order-1"
           disabled={submitting}
           onClick={onBack}
+          type="button"
         >
           Back
         </button>
         <button
-          type="button"
           className="order-1 flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
           disabled={submitting}
           onClick={handleConfirm}
+          type="button"
         >
           {submitting ? "Confirming..." : "Confirm booking"}
         </button>

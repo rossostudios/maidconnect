@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { Suspense } from "react";
 import "../globals.css";
 import { ChangelogBanner } from "@/components/changelog/changelog-banner";
 import { ErrorBoundary } from "@/components/error-boundary";

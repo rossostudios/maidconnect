@@ -89,7 +89,12 @@ export async function proxy(request: NextRequest) {
   }
 
   // If path doesn't have a locale prefix, redirect to add it
-  if (!getLocaleFromPathname(pathname) && (pathname.startsWith("/dashboard") || pathname.startsWith("/admin") || pathname.startsWith("/auth"))) {
+  if (
+    !getLocaleFromPathname(pathname) &&
+    (pathname.startsWith("/dashboard") ||
+      pathname.startsWith("/admin") ||
+      pathname.startsWith("/auth"))
+  ) {
     const localizedPath = addLocaleToPath(pathname, DEFAULT_LOCALE);
     const url = new URL(localizedPath, request.url);
     // Preserve query params

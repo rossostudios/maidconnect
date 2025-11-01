@@ -99,9 +99,9 @@ export function ProfessionalVettingDashboard() {
       <div className="rounded-xl border border-red-200 bg-red-50 p-8 text-center">
         <p className="text-red-800 text-sm">{error}</p>
         <button
-          type="button"
           className="mt-4 rounded-lg bg-red-600 px-4 py-2 font-semibold text-sm text-white hover:bg-red-700"
           onClick={fetchQueue}
+          type="button"
         >
           Retry
         </button>
@@ -142,7 +142,6 @@ export function ProfessionalVettingDashboard() {
       <div className="flex gap-2 border-[#f0ece5] border-b">
         {tabs.map((tab) => (
           <button
-            type="button"
             className={`relative px-4 py-2 font-semibold text-sm transition ${
               activeTab === tab.key
                 ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
@@ -150,6 +149,7 @@ export function ProfessionalVettingDashboard() {
             }`}
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
+            type="button"
           >
             {tab.label}
             {tab.count > 0 && (
@@ -240,9 +240,9 @@ export function ProfessionalVettingDashboard() {
                 </div>
 
                 <button
-                  type="button"
                   className="ml-4 rounded-lg bg-[#ff5d46] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65]"
                   onClick={() => setSelectedProfessional(professional)}
+                  type="button"
                 >
                   Review
                 </button>

@@ -221,7 +221,9 @@ export default async function ProfessionalOnboardingPage({
                 </svg>
               </div>
               <div>
-                <h2 className="font-semibold text-2xl text-green-900">{t("success.profileLive")}</h2>
+                <h2 className="font-semibold text-2xl text-green-900">
+                  {t("success.profileLive")}
+                </h2>
                 <p className="mt-2 text-base text-green-800 leading-relaxed">
                   {t("success.updateDescription")}
                 </p>
@@ -237,10 +239,12 @@ export default async function ProfessionalOnboardingPage({
               availabilityDays={AVAILABILITY_OPTIONS.map((label) => ({
                 label,
                 slug: label.toLowerCase().replace(/\s+/g, "_"),
-              }))}              initialData={profileInitialData}
+              }))}
+              initialData={profileInitialData}
               inputClass={inputClass}
               languages={LANGUAGE_OPTIONS}
-              services={PROFILE_SERVICE_OPTIONS.map((name) => ({ name }))}            />
+              services={PROFILE_SERVICE_OPTIONS.map((name) => ({ name }))}
+            />
           </SectionWrapper>
         </div>
       ) : (
@@ -346,9 +350,7 @@ export default async function ProfessionalOnboardingPage({
                   </svg>
                 </div>
                 <div>
-                  <h2 className="font-semibold text-2xl text-green-900">
-                    {t("complete.title")}
-                  </h2>
+                  <h2 className="font-semibold text-2xl text-green-900">{t("complete.title")}</h2>
                   <p className="mt-2 text-base text-green-800 leading-relaxed">
                     {t("complete.description")}
                   </p>

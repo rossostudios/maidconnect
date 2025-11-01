@@ -104,9 +104,9 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
               </p>
             </div>
             <button
-              type="button"
               className="rounded-lg p-2 text-[#7a6d62] transition hover:bg-[#f0ece5]"
               onClick={onClose}
+              type="button"
             >
               ✕
             </button>
@@ -234,35 +234,35 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             {/* Action Selection */}
             <div className="mb-4 flex gap-2">
               <button
-                type="button"
                 className={`flex-1 rounded-lg border-2 px-4 py-2 font-semibold text-sm transition ${
                   action === "approve"
                     ? "border-green-600 bg-green-50 text-green-700"
                     : "border-gray-200 bg-white text-gray-700 hover:border-green-300"
                 }`}
                 onClick={() => setAction("approve")}
+                type="button"
               >
                 ✓ Approve
               </button>
               <button
-                type="button"
                 className={`flex-1 rounded-lg border-2 px-4 py-2 font-semibold text-sm transition ${
                   action === "reject"
                     ? "border-red-600 bg-red-50 text-red-700"
                     : "border-gray-200 bg-white text-gray-700 hover:border-red-300"
                 }`}
                 onClick={() => setAction("reject")}
+                type="button"
               >
                 ✕ Reject
               </button>
               <button
-                type="button"
                 className={`flex-1 rounded-lg border-2 px-4 py-2 font-semibold text-sm transition ${
                   action === "request_info"
                     ? "border-yellow-600 bg-yellow-50 text-yellow-700"
                     : "border-gray-200 bg-white text-gray-700 hover:border-yellow-300"
                 }`}
                 onClick={() => setAction("request_info")}
+                type="button"
               >
                 ? Request Info
               </button>
@@ -356,18 +356,18 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
         <div className="sticky bottom-0 border-[#f0ece5] border-t bg-white px-6 py-4">
           <div className="flex justify-end gap-3">
             <button
-              type="button"
               className="rounded-lg border border-[#ebe5d8] px-6 py-2 font-semibold text-[#211f1a] text-sm transition hover:bg-[#f0ece5] disabled:opacity-50"
               disabled={submitting}
               onClick={onClose}
+              type="button"
             >
               Cancel
             </button>
             <button
-              type="button"
               className="rounded-lg bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:opacity-50"
               disabled={submitting}
               onClick={handleSubmit}
+              type="button"
             >
               {submitting
                 ? "Submitting..."

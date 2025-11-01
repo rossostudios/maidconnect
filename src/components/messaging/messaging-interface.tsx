@@ -378,7 +378,6 @@ export function MessagingInterface({ userId, userRole }: Props) {
 
               return (
                 <button
-                  type="button"
                   className={`w-full p-6 text-left transition hover:bg-[#ff5d46]/5 ${
                     selectedConversation?.id === conv.id ? "bg-[#ff5d46]/5" : ""
                   }`}
@@ -389,6 +388,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                       setSelectedConversation(conv);
                     });
                   }}
+                  type="button"
                 >
                   <div className="flex items-start gap-4">
                     {/* Avatar */}
@@ -475,13 +475,13 @@ export function MessagingInterface({ userId, userRole }: Props) {
                 {autoTranslateEnabled && (
                   <div className="flex items-center gap-2">
                     <button
-                      type="button"
                       className={`flex items-center gap-2 rounded-lg px-4 py-2 font-medium text-sm transition ${
                         translationEnabled
                           ? "bg-[#ff5d46] text-white hover:bg-[#eb6c65]"
                           : "text-[#7d7566] hover:bg-[#ebe5d8]"
                       }`}
                       onClick={() => setTranslationEnabled(!translationEnabled)}
+                      type="button"
                     >
                       <Languages className="h-4 w-4" />
                       {translationEnabled ? "Translation On" : "Translate"}
@@ -499,8 +499,8 @@ export function MessagingInterface({ userId, userRole }: Props) {
                   </div>
                 )}
                 <button
-                  type="button"
                   className="rounded-lg px-4 py-2 font-medium text-[#7d7566] text-sm transition hover:bg-[#ebe5d8]"
+                  type="button"
                 >
                   View Booking
                 </button>
@@ -727,9 +727,9 @@ function MessageInput({
           value={message}
         />
         <button
-          type="submit"
           className="rounded-full bg-[#ff5d46] px-6 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!message.trim() || isSending}
+          type="submit"
         >
           {isSending ? "Sending..." : "Send"}
         </button>

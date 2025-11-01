@@ -136,10 +136,10 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
       <div className="flex items-center justify-end gap-3 border-[#ebe5d8] border-t pt-6">
         <div className="flex-1 text-[#7d7566] text-sm">{t("infoText")}</div>
         <button
-          type="button"
           className="rounded-full bg-[#ff5d46] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={handleSave}
+          type="button"
         >
           {loading ? (
             <span className="flex items-center gap-2">

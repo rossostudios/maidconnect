@@ -177,34 +177,34 @@ export function PortfolioManager({
                       <p className="mt-1 truncate text-[#7a6d62] text-xs">{image.url}</p>
                       <div className="mt-2 flex flex-wrap gap-2">
                         <button
-                          type="button"
                           className="text-[#ff5d46] text-xs hover:text-[#eb6c65]"
                           onClick={() => setEditingId(image.id)}
+                          type="button"
                         >
                           {t("actions.editCaption")}
                         </button>
                         <span className="text-[#e5dfd4] text-xs">•</span>
                         <button
-                          type="button"
                           className="text-[#7a6d62] text-xs hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
                           disabled={index === 0}
                           onClick={() => handleMoveUp(image.id)}
+                          type="button"
                         >
                           {t("actions.moveUp")}
                         </button>
                         <button
-                          type="button"
                           className="text-[#7a6d62] text-xs hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
                           disabled={index === sortedImages.length - 1}
                           onClick={() => handleMoveDown(image.id)}
+                          type="button"
                         >
                           {t("actions.moveDown")}
                         </button>
                         <span className="text-[#e5dfd4] text-xs">•</span>
                         <button
-                          type="button"
                           className="text-red-600 text-xs hover:text-red-700"
                           onClick={() => handleDeleteImage(image.id)}
+                          type="button"
                         >
                           {t("actions.delete")}
                         </button>
@@ -248,10 +248,10 @@ export function PortfolioManager({
       {/* Save Button */}
       <div className="flex justify-end gap-3">
         <button
-          type="button"
           className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={handleSave}
+          type="button"
         >
           {loading ? t("saving") : t("save")}
         </button>

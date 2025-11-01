@@ -296,7 +296,10 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                       {professional.service ?? t("card.flexibleServices")}
                     </p>
                   </div>
-                  <div className="flex flex-wrap items-center gap-2 font-semibold text-[#5a5549] text-xs">
+                  <div
+                    className="flex flex-wrap items-center gap-2 font-semibold text-[#5a5549] text-xs"
+                    suppressHydrationWarning
+                  >
                     {/* Enhanced trust badges (Week 3-4) */}
                     {showEnhancedTrustBadges && (
                       <>

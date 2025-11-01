@@ -129,9 +129,9 @@ export function ServiceAddonsManager({
         <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-8 text-center">
           <p className="text-[#7a6d62] text-sm">{t("emptyState")}</p>
           <button
-            type="button"
             className="mt-3 font-semibold text-[#ff5d46] text-sm hover:text-[#eb6c65]"
             onClick={handleAddNew}
+            type="button"
           >
             {t("createFirst")}
           </button>
@@ -141,9 +141,9 @@ export function ServiceAddonsManager({
       {/* Add New Button */}
       {addons.length > 0 && !isAdding && !editingId && (
         <button
-          type="button"
           className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-[#e5dfd4] border-dashed bg-white/90 px-4 py-3 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           onClick={handleAddNew}
+          type="button"
         >
           <span className="text-lg">+</span>
           {t("addNew")}
@@ -214,23 +214,23 @@ function AddonCard({
         {/* Actions */}
         <div className="flex gap-2">
           <button
-            type="button"
             className="rounded-md px-2 py-1 font-medium text-[#7a6d62] text-xs transition hover:bg-[#f0ece5] hover:text-[#ff5d46]"
             onClick={onEdit}
+            type="button"
           >
             {t("actions.edit")}
           </button>
           <button
-            type="button"
             className="rounded-md px-2 py-1 font-medium text-[#7a6d62] text-xs transition hover:bg-[#f0ece5] hover:text-[#ff5d46]"
             onClick={onToggleActive}
+            type="button"
           >
             {addon.is_active ? t("actions.deactivate") : t("actions.activate")}
           </button>
           <button
-            type="button"
             className="rounded-md px-2 py-1 font-medium text-red-600 text-xs transition hover:bg-red-50"
             onClick={onDelete}
+            type="button"
           >
             {t("actions.delete")}
           </button>
@@ -363,15 +363,15 @@ function AddonForm({
 
       <div className="flex justify-end gap-3">
         <button
-          type="button"
           className="rounded-md border border-[#e5dfd4] px-4 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           onClick={onCancel}
+          type="button"
         >
           {t("form.cancel")}
         </button>
         <button
-          type="submit"
           className="rounded-md bg-[#ff5d46] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65]"
+          type="submit"
         >
           {addon ? t("form.saveChanges") : t("form.createAddon")}
         </button>

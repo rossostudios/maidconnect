@@ -137,10 +137,10 @@ export function FeedbackActions({
       {/* Save Button */}
       <div className="flex justify-end">
         <button
-          type="button"
           className="flex items-center gap-2 rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-white transition hover:bg-[#e54d36] disabled:opacity-50"
           disabled={saving}
           onClick={handleSave}
+          type="button"
         >
           {saving ? (
             <>

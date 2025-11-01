@@ -55,7 +55,6 @@ export function FavoriteButton({
 
   return (
     <button
-      type="button"
       className={`inline-flex items-center justify-center gap-2 rounded-full transition ${
         isFavorite
           ? "bg-[#ff5d46] text-white hover:bg-[#eb6c65]"
@@ -64,6 +63,7 @@ export function FavoriteButton({
       disabled={loading}
       onClick={handleToggle}
       title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+      type="button"
     >
       <span className={loading ? "animate-pulse" : ""}>{isFavorite ? "❤️" : "🤍"}</span>
       {showLabel && (

@@ -208,12 +208,12 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
               {images.length} image{images.length !== 1 ? "s" : ""} ready to upload
             </p>
             <button
-              type="button"
               className="text-[#7d7566] text-sm hover:text-[#ff5d46]"
               onClick={() => {
                 images.forEach((img) => URL.revokeObjectURL(img.preview));
                 setImages([]);
               }}
+              type="button"
             >
               Clear all
             </button>
@@ -243,9 +243,9 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
 
                 {/* Remove Button */}
                 <button
-                  type="button"
                   className="absolute top-2 right-2 rounded-full bg-white/90 p-1.5 opacity-0 shadow-lg transition hover:bg-red-500 hover:text-white group-hover:opacity-100"
                   onClick={() => removeImage(image.id)}
+                  type="button"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -255,10 +255,10 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
 
           {/* Upload Button */}
           <button
-            type="button"
             className="w-full rounded-xl bg-[#ff5d46] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={uploading || images.length === 0}
             onClick={handleUpload}
+            type="button"
           >
             {uploading ? (
               <span className="flex items-center justify-center gap-2">

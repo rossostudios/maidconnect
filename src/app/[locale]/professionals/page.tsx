@@ -1,4 +1,3 @@
-import { unstable_cache } from "next/cache";
 import { Suspense } from "react";
 import {
   type DirectoryProfessional,
@@ -77,46 +76,35 @@ function mapRowToDirectoryProfessional(row: ListActiveProfessionalRow): Director
   };
 }
 
-// Revalidate every 5 minutes (300 seconds) - balance freshness with performance
-
-// Next.js 16: unstable_cache for server-side data caching
-// Benefits:
-// - Additional caching layer at the data-fetching level
-// - Shared cache across requests (not just per-page)
-// - Manual cache invalidation via tags
-// - Works with ISR revalidation
-const getCachedProfessionals = unstable_cache(
-  async () => {
-    const supabase = await createSupabaseServerClient();
-    const { data, error } = await supabase.rpc("list_active_professionals", {
-      p_customer_lat: null,
-      p_customer_lon: null,
-    });
-
-    if (error) {
-      console.error("Error fetching professionals:", error);
-      return [];
-    }
-
-    return Array.isArray(data)
-      ? data.filter(
-          (row): row is ListActiveProfessionalRow =>
-            row !== null &&
-            typeof row === "object" &&
-            typeof (row as ListActiveProfessionalRow).profile_id === "string"
-        )
-      : [];
-  },
-  ["professionals-list"], // Cache key
-  {
-    revalidate: 300, // 5 minutes - matches page-level ISR
-    tags: ["professionals"], // Tag for manual invalidation
-  }
-);
-
 // Async component for professionals grid
 async function ProfessionalsGrid() {
-  const rows = await getCachedProfessionals();
+  const supabase = await createSupabaseServerClient();
+
+  const { data, error } = await supabase.rpc("list_active_professionals", {
+    p_customer_lat: null,
+    p_customer_lon: null,
+  });
+
+  if (error) {
+    console.error("Error fetching professionals:", {
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+      code: error.code,
+      fullError: error,
+    });
+    return <ProfessionalsDirectory professionals={[]} />;
+  }
+
+  const rows = Array.isArray(data)
+    ? data.filter(
+        (row): row is ListActiveProfessionalRow =>
+          row !== null &&
+          typeof row === "object" &&
+          typeof (row as ListActiveProfessionalRow).profile_id === "string"
+      )
+    : [];
+
   const professionals = rows.map((row) => mapRowToDirectoryProfessional(row));
 
   return <ProfessionalsDirectory professionals={professionals} />;

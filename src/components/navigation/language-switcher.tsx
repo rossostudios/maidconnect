@@ -39,13 +39,13 @@ export function LanguageSwitcher({ variant = "light" }: LanguageSwitcherProps) {
   return (
     <div className="relative inline-block">
       <button
-        type="button"
         aria-label="Switch language"
         className={buttonStyles}
         onClick={() => {
           const nextLocale = locale === "en" ? "es" : "en";
           switchLanguage(nextLocale as Locale);
         }}
+        type="button"
       >
         <Globe className="h-4 w-4" />
         <span>{languageNames[locale]}</span>

@@ -28,9 +28,9 @@ export function ContactFAQ() {
               key={key}
             >
               <button
-                type="button"
                 className="flex w-full items-center justify-between p-8 text-left transition"
                 onClick={() => toggleFAQ(index)}
+                type="button"
               >
                 <span className="pr-8 font-semibold text-[#211f1a] text-xl">
                   {t(`questions.${key}.question`)}

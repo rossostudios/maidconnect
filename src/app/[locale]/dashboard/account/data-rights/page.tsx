@@ -267,8 +267,8 @@ function ExportDataSection({
         <div className="flex-1">
           <h2 className="mb-2 font-semibold text-[#211f1a] text-xl">Export Your Data</h2>
           <p className="mb-4 text-[#5d574b] text-sm">
-            Download a complete copy of your personal data stored on MaidConnect. This includes
-            your profile, bookings, messages, reviews, and consent records.
+            Download a complete copy of your personal data stored on MaidConnect. This includes your
+            profile, bookings, messages, reviews, and consent records.
           </p>
           <ul className="mb-6 ml-4 list-disc space-y-1 text-[#5d574b] text-sm">
             <li>Profile information (name, contact details, preferences)</li>
@@ -470,9 +470,7 @@ function DeletionConfirmation({
 function LegalNoticeSection() {
   return (
     <section className="rounded-xl bg-[#fbfaf9] p-6">
-      <h3 className="mb-2 font-semibold text-[#211f1a] text-sm">
-        Your Rights Under Colombian Law
-      </h3>
+      <h3 className="mb-2 font-semibold text-[#211f1a] text-sm">Your Rights Under Colombian Law</h3>
       <p className="mb-3 text-[#7a6d62] text-sm">
         According to Ley 1581 de 2012 (Colombian Data Protection Law), you have the following
         rights:
@@ -496,10 +494,7 @@ function LegalNoticeSection() {
       </ul>
       <p className="mt-4 text-[#7a6d62] text-sm">
         For questions about your data rights, contact us at{" "}
-        <a
-          className="font-semibold text-[#ff5d46] underline"
-          href="mailto:privacy@maidconnect.com"
-        >
+        <a className="font-semibold text-[#ff5d46] underline" href="mailto:privacy@maidconnect.com">
           privacy@maidconnect.com
         </a>
       </p>

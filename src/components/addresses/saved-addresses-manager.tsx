@@ -120,9 +120,9 @@ export function SavedAddressesManager({
           <p className="text-[#5d574b] text-base">{t("emptyState.message")}</p>
           {showManagement && (
             <button
-              type="button"
               className="mt-4 font-semibold text-[#ff5d46] text-base hover:text-[#eb6c65]"
               onClick={handleAddNew}
+              type="button"
             >
               {t("emptyState.addFirstButton")} →
             </button>
@@ -133,9 +133,9 @@ export function SavedAddressesManager({
       {/* Add New Button */}
       {addresses.length > 0 && !isAdding && !editingId && showManagement && (
         <button
-          type="button"
           className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-[#ebe5d8] border-dashed bg-white px-6 py-4 font-semibold text-[#5d574b] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
           onClick={handleAddNew}
+          type="button"
         >
           <span className="text-xl">+</span>
           {t("addNewButton")}
@@ -221,24 +221,24 @@ function AddressCard({
           <div className="flex gap-2">
             {onEdit && (
               <button
-                type="button"
                 className="rounded-full border-2 border-[#ebe5d8] px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
                 onClick={(e) => {
                   e.stopPropagation();
                   onEdit();
                 }}
+                type="button"
               >
                 {t("addressCard.editButton")}
               </button>
             )}
             {onDelete && (
               <button
-                type="button"
                 className="rounded-full border-2 border-red-200 px-4 py-2 font-semibold text-red-700 text-sm transition hover:bg-red-50"
                 onClick={(e) => {
                   e.stopPropagation();
                   onDelete();
                 }}
+                type="button"
               >
                 {t("addressCard.deleteButton")}
               </button>

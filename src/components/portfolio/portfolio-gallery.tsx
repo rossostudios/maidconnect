@@ -37,10 +37,10 @@ export function PortfolioGallery({ images, featuredWork, professionalName }: Pro
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {sortedImages.map((image) => (
           <button
-            type="button"
             className="group relative aspect-square overflow-hidden rounded-lg border border-[#e5dfd4] bg-[#f0ece5] transition hover:border-[#ff5d46] hover:shadow-md"
             key={image.id}
             onClick={() => setSelectedImage(image)}
+            type="button"
           >
             <img
               alt={image.caption || "Portfolio image"}
@@ -120,9 +120,9 @@ function Lightbox({
     >
       {/* Close Button */}
       <button
-        type="button"
         className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-2xl text-white transition hover:bg-white/20"
         onClick={onClose}
+        type="button"
       >
         ✕
       </button>
@@ -130,12 +130,12 @@ function Lightbox({
       {/* Previous Button */}
       {hasPrevious && (
         <button
-          type="button"
           className="-translate-y-1/2 absolute top-1/2 left-4 rounded-full bg-white/10 p-3 text-2xl text-white transition hover:bg-white/20"
           onClick={(e) => {
             e.stopPropagation();
             handlePrevious();
           }}
+          type="button"
         >
           ←
         </button>
@@ -144,12 +144,12 @@ function Lightbox({
       {/* Next Button */}
       {hasNext && (
         <button
-          type="button"
           className="-translate-y-1/2 absolute top-1/2 right-4 rounded-full bg-white/10 p-3 text-2xl text-white transition hover:bg-white/20"
           onClick={(e) => {
             e.stopPropagation();
             handleNext();
           }}
+          type="button"
         >
           →
         </button>

@@ -106,7 +106,6 @@ export default function GlobalError({
                 }}
               >
                 <button
-                  type="button"
                   onClick={reset}
                   style={{
                     backgroundColor: "#ff5d46",
@@ -117,6 +116,7 @@ export default function GlobalError({
                     border: "none",
                     cursor: "pointer",
                   }}
+                  type="button"
                 >
                   Try Again
                 </button>

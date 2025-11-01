@@ -421,9 +421,10 @@ async function uploadAllDocuments(
   return { success: true, documentRows, uploadedPaths };
 }
 
-function validateDocuments(
-  formData: FormData
-): { fieldErrors: Record<string, string>; uploads: DocumentCandidate[] } {
+function validateDocuments(formData: FormData): {
+  fieldErrors: Record<string, string>;
+  uploads: DocumentCandidate[];
+} {
   const fieldErrors: Record<string, string> = {};
   const uploads: DocumentCandidate[] = [];
 

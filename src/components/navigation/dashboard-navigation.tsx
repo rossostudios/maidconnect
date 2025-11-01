@@ -81,10 +81,10 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
 
         {/* Search Button with ⌘K */}
         <button
-          type="button"
           aria-label="Search"
           className="group ml-2 flex items-center gap-2 rounded-lg border border-[#dcd6c7] bg-white px-3 py-1.5 text-[#7a6d62] transition hover:border-[#ff5d46] hover:bg-[#fff5f2] hover:text-[#ff5d46]"
           onClick={openCommandPalette}
+          type="button"
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -123,10 +123,10 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
 
         {/* Notifications Icon */}
         <button
-          type="button"
           aria-label={`Notifications${notificationUnreadCount > 0 ? ` (${notificationUnreadCount} unread)` : ""}`}
           className="relative rounded-lg p-1.5 text-[#524d43] transition hover:bg-[#ebe5d8] hover:text-[#ff5d46]"
           onClick={() => setIsNotificationsOpen(true)}
+          type="button"
         >
           <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path

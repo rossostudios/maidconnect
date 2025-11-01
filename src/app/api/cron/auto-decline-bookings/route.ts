@@ -9,6 +9,10 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
  *
  * GET /api/cron/auto-decline-bookings
  */
+
+// Force dynamic rendering since we access request.headers for authentication
+export const dynamic = "force-dynamic";
+
 export async function GET(request: Request) {
   try {
     // Verify this is a cron request (Vercel adds this header)

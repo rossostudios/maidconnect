@@ -1,5 +1,5 @@
-import { headers } from "next/headers";
 import { Facebook, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
+import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { KeyboardShortcutsButton } from "@/components/keyboard-shortcuts/keyboard-shortcuts-button";
 import { LanguageSwitcher } from "@/components/navigation/language-switcher";
