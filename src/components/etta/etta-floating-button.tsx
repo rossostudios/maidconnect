@@ -29,12 +29,13 @@ export function EttaFloatingButton({ className, locale }: EttaFloatingButtonProp
         <button
           aria-label={t("openChat")}
           className={cn(
-            "fixed right-6 bottom-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-[#ff5d46] text-white shadow-lg transition-shadow hover:shadow-xl",
+            "fixed right-4 bottom-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#ff5d46] text-white shadow-lg transition-all hover:shadow-xl active:scale-95 sm:right-6 sm:bottom-6 sm:h-16 sm:w-16",
             className
           )}
           onClick={() => setIsOpen(true)}
+          type="button"
         >
-          <EttaIcon className="text-white" size={36} />
+          <EttaIcon className="text-white" size={32} />
         </button>
       )}
 

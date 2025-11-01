@@ -100,9 +100,9 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="etta-chat-window fixed right-6 bottom-6 z-50 flex h-[680px] w-full max-w-[420px] flex-col rounded-2xl border border-gray-200/60 bg-white shadow-[0_16px_60px_rgba(0,0,0,0.15)] transition-all duration-300">
+    <div className="etta-chat-window fixed inset-0 z-50 flex flex-col bg-white sm:inset-auto sm:right-4 sm:bottom-4 sm:h-[600px] sm:w-full sm:max-w-[420px] sm:rounded-2xl sm:border sm:border-gray-200/60 sm:shadow-[0_16px_60px_rgba(0,0,0,0.15)] md:right-6 md:bottom-6 md:h-[680px] md:max-w-[480px] transition-all duration-300">
       {/* Header */}
-      <div className="flex items-center justify-between rounded-t-2xl border-gray-100 border-b bg-white px-6 py-4">
+      <div className="flex items-center justify-between border-b border-gray-100 bg-white px-4 py-3 sm:rounded-t-2xl sm:px-6 sm:py-4">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center">
             <EttaIcon className="text-[#ff5d46]" size={40} />
@@ -114,15 +114,16 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
         </div>
         <button
           aria-label={t("closeChat")}
-          className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
+          className="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600 active:bg-gray-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
           onClick={onClose}
+          type="button"
         >
-          <X className="h-5 w-5" />
+          <X className="h-5 w-5 sm:h-5 sm:w-5" />
         </button>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 space-y-4 overflow-y-auto bg-gray-50/50 px-6 py-6">
+      <div className="flex-1 space-y-4 overflow-y-auto bg-gray-50/50 px-4 py-4 sm:px-6 sm:py-6">
         {/* Greeting Section */}
         {messages.length === 1 && (
           <div className="space-y-4 pb-6">
@@ -130,7 +131,7 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
               <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
                 <EttaIcon className="text-[#ff5d46]" size={32} />
               </div>
-              <div className="max-w-[75%] rounded-2xl border border-gray-100 bg-white px-4 py-3 text-gray-900 shadow-sm">
+              <div className="max-w-[85%] sm:max-w-[75%] rounded-2xl border border-gray-100 bg-white px-4 py-3 text-gray-900 shadow-sm">
                 <p className="text-[15px] leading-relaxed">{t("greeting")}</p>
               </div>
             </div>
@@ -155,7 +156,7 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
             <div className="group flex flex-col">
               <div
                 className={cn(
-                  "max-w-[75%] rounded-2xl px-4 py-3 shadow-sm transition-shadow hover:shadow-md",
+                  "max-w-[85%] sm:max-w-[75%] rounded-2xl px-4 py-3 shadow-sm transition-shadow hover:shadow-md",
                   message.role === "user"
                     ? "bg-[#ff5d46] text-white"
                     : "border border-gray-100 bg-white text-gray-900"
@@ -252,35 +253,35 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
 
       {/* Action Buttons */}
       {messages.length === 1 && (
-        <div className="border-gray-100 border-t bg-gray-50/50 px-6 py-4">
+        <div className="border-t border-gray-100 bg-gray-50/50 px-4 py-3 sm:px-6 sm:py-4">
           <div className="grid grid-cols-4 gap-2">
             <Link
-              className="flex flex-col items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-3 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50"
+              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 sm:px-3"
               href="/"
             >
               <Home className="h-5 w-5 text-gray-600" />
-              <span className="font-medium text-gray-700 text-xs">Home</span>
+              <span className="text-xs font-medium text-gray-700">Home</span>
             </Link>
             <button
-              className="flex flex-col items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-3 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50"
+              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 sm:px-3"
               type="button"
             >
               <MessageSquare className="h-5 w-5 text-gray-600" />
-              <span className="font-medium text-gray-700 text-xs">Messages</span>
+              <span className="text-xs font-medium text-gray-700">Messages</span>
             </button>
             <Link
-              className="flex flex-col items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-3 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50"
+              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 sm:px-3"
               href="/support/account-suspended"
             >
               <HelpCircle className="h-5 w-5 text-gray-600" />
-              <span className="font-medium text-gray-700 text-xs">Help</span>
+              <span className="text-xs font-medium text-gray-700">Help</span>
             </Link>
             <Link
-              className="flex flex-col items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-3 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50"
+              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 sm:px-3"
               href="/changelog"
             >
               <Newspaper className="h-5 w-5 text-gray-600" />
-              <span className="font-medium text-gray-700 text-xs">News</span>
+              <span className="text-xs font-medium text-gray-700">News</span>
             </Link>
           </div>
         </div>
@@ -288,7 +289,7 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
 
       {/* Input */}
       <form
-        className="rounded-b-2xl border-gray-100 border-t bg-white px-6 py-3"
+        className="border-t border-gray-100 bg-white px-4 py-3 sm:rounded-b-2xl sm:px-6"
         onSubmit={async (e) => {
           e.preventDefault();
           if (!input.trim() || isLoading) return;
@@ -302,7 +303,7 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
           });
         }}
       >
-        <div className="mb-3 flex items-end gap-3">
+        <div className="mb-3 flex items-end gap-2 sm:gap-3">
           <div className="relative flex-1">
             <input
               className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900 transition placeholder:text-gray-400 focus:border-[#ff5d46] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/10"
@@ -317,7 +318,7 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
           </div>
           <button
             aria-label={t("send")}
-            className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-[#ff5d46] text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-[#ff5d46]"
+            className="flex h-11 w-11 min-h-[44px] min-w-[44px] flex-shrink-0 items-center justify-center rounded-xl bg-[#ff5d46] text-white shadow-sm transition hover:bg-[#eb6c65] active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-[#ff5d46]"
             disabled={isLoading || !input.trim()}
             type="submit"
           >
@@ -330,7 +331,7 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
         </div>
 
         {/* Privacy Policy Text */}
-        <p className="text-center text-gray-500 text-xs">
+        <p className="text-center text-xs text-gray-500">
           By chatting with Etta, you agree to our{" "}
           <Link className="text-[#ff5d46] hover:underline" href="/privacy">
             Privacy Policy
