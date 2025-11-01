@@ -1,0 +1,189 @@
+/**
+ * Etta Chat Animations
+ *
+ * Smooth, Intercom-style animations for the chat interface
+ */
+
+/* Chat window slide-in animation */
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Message entrance animation */
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Bounce animation for typing indicator dots */
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Pulse animation for new message notification */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Shimmer effect for loading states */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Shake animation for errors */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+/* Scale in animation for quick replies */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Apply animations */
+.etta-chat-window {
+  animation: slideInFromBottom 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.etta-message {
+  animation: messageSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.etta-quick-reply {
+  animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+}
+
+/* Stagger animation for multiple quick replies */
+.etta-quick-reply:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.etta-quick-reply:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.etta-quick-reply:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+.etta-quick-reply:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+.etta-quick-reply:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+.etta-typing-indicator {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.etta-typing-dot {
+  animation: bounce 1.4s infinite ease-in-out;
+}
+
+.etta-typing-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.etta-typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.etta-typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.etta-error {
+  animation: shake 0.5s ease-in-out, fadeIn 0.3s ease-in-out;
+}
+
+.etta-message-actions {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.etta-message:hover .etta-message-actions {
+  opacity: 1;
+}
+
+/* Smooth transitions */
+.etta-button-transition {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.etta-button-transition:hover {
+  transform: translateY(-1px);
+}
+
+.etta-button-transition:active {
+  transform: translateY(0);
+}
+
+/* Loading shimmer effect */
+.etta-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}

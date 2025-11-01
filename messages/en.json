@@ -2198,5 +2198,34 @@
       "title": "No roadmap items yet",
       "description": "Check back soon to see what we're working on. Be the first to suggest features and vote on what matters to you."
     }
+  },
+  "etta": {
+    "title": "Etta",
+    "subtitle": "AI Booking Assistant",
+    "greeting": "👋 Hi there! Welcome to MaidConnect.",
+    "welcomeMessage": "Hi! I'm Etta, your AI booking assistant. How can I help you find the perfect cleaning professional today?",
+    "openChat": "Chat with Etta",
+    "closeChat": "Close chat",
+    "inputPlaceholder": "Type your message...",
+    "send": "Send message",
+    "errorMessage": "Sorry, I had trouble processing that. Could you try rephrasing?",
+    "searchingProfessionals": "Searching for professionals...",
+    "checkingAvailability": "Checking availability...",
+    "creatingBookingDraft": "Creating booking preview...",
+    "thumbsUp": "Helpful response",
+    "thumbsDown": "Not helpful",
+    "copyMessage": "Copy message",
+    "retry": "Retry",
+    "quickReply": {
+      "searchProfessionals": "Find a cleaner",
+      "checkAvailability": "Check availability",
+      "topRated": "Top rated cleaners",
+      "nearMe": "Cleaners near me",
+      "checkTheirAvailability": "Check their availability",
+      "searchDifferent": "Search different area",
+      "seeReviews": "See their reviews",
+      "bookNow": "Book this time",
+      "checkOtherTimes": "Check other times"
+    }
   }
 }

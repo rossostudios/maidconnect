@@ -1,6 +1,7 @@
 import { Facebook, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
 import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
+import { FeedbackLink } from "@/components/feedback/feedback-link";
 import { KeyboardShortcutsButton } from "@/components/keyboard-shortcuts/keyboard-shortcuts-button";
 import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 import { Container } from "@/components/ui/container";
@@ -136,6 +137,7 @@ export async function SiteFooter() {
                 <Link className="transition hover:text-[#ff5d46]" href="/changelog">
                   What's New
                 </Link>
+                <FeedbackLink>Feedback</FeedbackLink>
               </div>
               <div className="flex items-center gap-4">
                 <KeyboardShortcutsButton variant="dark" />

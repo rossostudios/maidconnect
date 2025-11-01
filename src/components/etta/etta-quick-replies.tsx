@@ -1,0 +1,122 @@
+"use client";
+
+/**
+ * Etta Quick Replies Component
+ *
+ * Displays contextual quick reply buttons to guide user interactions.
+ * Provides common actions like searching for professionals, checking availability, etc.
+ */
+
+import { Calendar, MapPin, Search, Star } from "lucide-react";
+
+export interface QuickReply {
+  id: string;
+  text: string;
+  icon?: React.ReactNode;
+}
+
+interface EttaQuickRepliesProps {
+  replies: QuickReply[];
+  onSelect: (reply: QuickReply) => void;
+  disabled?: boolean;
+}
+
+export function EttaQuickReplies({ replies, onSelect, disabled = false }: EttaQuickRepliesProps) {
+  if (replies.length === 0) return null;
+
+  return (
+    <div className="flex flex-wrap gap-2">
+      {replies.map((reply) => (
+        <button
+          className="etta-quick-reply group hover:-translate-y-0.5 inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-4 py-2 font-medium text-gray-700 text-sm shadow-sm transition-all hover:border-[#ff5d46] hover:bg-[#ff5d46] hover:text-white hover:shadow-md active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50"
+          disabled={disabled}
+          key={reply.id}
+          onClick={() => onSelect(reply)}
+        >
+          {reply.icon && (
+            <span className="text-gray-500 transition-colors group-hover:text-white">
+              {reply.icon}
+            </span>
+          )}
+          <span>{reply.text}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * Get context-aware quick replies based on conversation state
+ */
+export function getContextualQuickReplies(
+  messageCount: number,
+  lastMessage?: string,
+  t?: any
+): QuickReply[] {
+  // Welcome screen replies
+  if (messageCount === 1) {
+    return [
+      {
+        id: "search",
+        text: t?.("quickReply.searchProfessionals") || "Find a cleaner",
+        icon: <Search className="h-4 w-4" />,
+      },
+      {
+        id: "availability",
+        text: t?.("quickReply.checkAvailability") || "Check availability",
+        icon: <Calendar className="h-4 w-4" />,
+      },
+      {
+        id: "topRated",
+        text: t?.("quickReply.topRated") || "Top rated cleaners",
+        icon: <Star className="h-4 w-4" />,
+      },
+      {
+        id: "nearMe",
+        text: t?.("quickReply.nearMe") || "Cleaners near me",
+        icon: <MapPin className="h-4 w-4" />,
+      },
+    ];
+  }
+
+  // After professional search results
+  if (
+    lastMessage?.toLowerCase().includes("professional") ||
+    lastMessage?.toLowerCase().includes("cleaner")
+  ) {
+    return [
+      {
+        id: "check-availability",
+        text: t?.("quickReply.checkTheirAvailability") || "Check their availability",
+        icon: <Calendar className="h-4 w-4" />,
+      },
+      {
+        id: "search-different",
+        text: t?.("quickReply.searchDifferent") || "Search different area",
+        icon: <MapPin className="h-4 w-4" />,
+      },
+      {
+        id: "see-reviews",
+        text: t?.("quickReply.seeReviews") || "See their reviews",
+        icon: <Star className="h-4 w-4" />,
+      },
+    ];
+  }
+
+  // After availability check
+  if (lastMessage?.toLowerCase().includes("available")) {
+    return [
+      {
+        id: "book-now",
+        text: t?.("quickReply.bookNow") || "Book this time",
+      },
+      {
+        id: "check-other-times",
+        text: t?.("quickReply.checkOtherTimes") || "Check other times",
+        icon: <Calendar className="h-4 w-4" />,
+      },
+    ];
+  }
+
+  return [];
+}

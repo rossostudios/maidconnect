@@ -2198,5 +2198,34 @@
       "title": "Aún no hay elementos en la hoja de ruta",
       "description": "Vuelve pronto para ver en qué estamos trabajando. Sé el primero en sugerir funciones y votar por lo que más te importa."
     }
+  },
+  "etta": {
+    "title": "Etta",
+    "subtitle": "Asistente de Reservas IA",
+    "greeting": "👋 ¡Hola! Bienvenido a MaidConnect.",
+    "welcomeMessage": "¡Hola! Soy Etta, tu asistente de reservas con IA. ¿Cómo puedo ayudarte a encontrar el profesional de limpieza perfecto hoy?",
+    "openChat": "Chatear con Etta",
+    "closeChat": "Cerrar chat",
+    "inputPlaceholder": "Escribe tu mensaje...",
+    "send": "Enviar mensaje",
+    "errorMessage": "Lo siento, tuve problemas procesando eso. ¿Podrías reformular tu pregunta?",
+    "searchingProfessionals": "Buscando profesionales...",
+    "checkingAvailability": "Verificando disponibilidad...",
+    "creatingBookingDraft": "Creando vista previa de reserva...",
+    "thumbsUp": "Respuesta útil",
+    "thumbsDown": "No útil",
+    "copyMessage": "Copiar mensaje",
+    "retry": "Reintentar",
+    "quickReply": {
+      "searchProfessionals": "Buscar limpiador",
+      "checkAvailability": "Ver disponibilidad",
+      "topRated": "Limpiadores mejor valorados",
+      "nearMe": "Limpiadores cerca de mí",
+      "checkTheirAvailability": "Ver su disponibilidad",
+      "searchDifferent": "Buscar en otra área",
+      "seeReviews": "Ver sus reseñas",
+      "bookNow": "Reservar esta hora",
+      "checkOtherTimes": "Ver otros horarios"
+    }
   }
 }
