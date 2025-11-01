@@ -26,10 +26,6 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
  * - Admin user authentication (manual trigger)
  * - OR cron secret via Bearer token (automated trigger)
  */
-
-// Force dynamic rendering since we access request.headers
-export const dynamic = "force-dynamic";
-
 export async function POST(request: Request) {
   try {
     const supabase = await createSupabaseServerClient();

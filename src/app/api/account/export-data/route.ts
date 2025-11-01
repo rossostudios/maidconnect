@@ -12,10 +12,6 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
  *
  * Returns: JSON file with all user data
  */
-
-// Force dynamic rendering since we access request.headers for rate limiting
-export const dynamic = "force-dynamic";
-
 export async function GET(request: Request) {
   try {
     // Rate limiting check (sensitive operation)

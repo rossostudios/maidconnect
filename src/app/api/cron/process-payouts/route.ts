@@ -9,10 +9,6 @@ import { NextResponse } from "next/server";
  *
  * Protected by CRON_SECRET to ensure only Vercel can trigger it
  */
-
-// Force dynamic rendering since we access request.headers for authentication
-export const dynamic = "force-dynamic";
-
 export async function GET(request: Request) {
   // Verify cron secret
   const authHeader = request.headers.get("authorization");
