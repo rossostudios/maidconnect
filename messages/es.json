@@ -29,6 +29,10 @@
       "cooking": "Cocina",
       "eldercare": "Cuidado de ancianos",
       "petcare": "Cuidado de mascotas"
+    },
+    "viewToggle": {
+      "list": "Lista",
+      "map": "Mapa"
     }
   },
   "features": {

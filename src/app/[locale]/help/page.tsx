@@ -7,8 +7,8 @@ import {
   ShieldCheck,
   Wrench,
 } from "lucide-react";
-import Link from "next/link";
 import { headers } from "next/headers";
+import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { HelpSearchBar } from "@/components/help/search-bar";
 import { Container } from "@/components/ui/container";

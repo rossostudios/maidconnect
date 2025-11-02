@@ -141,15 +141,13 @@ async function getArticleData(
   }> | null;
 
   const relatedArticles =
-    relatedArticlesData?.map((rel) => {
-      return {
-        id: rel.related_article.id,
-        category_slug: rel.related_article.category.slug,
-        slug: rel.related_article.slug,
-        title: rel.related_article.title,
-        excerpt: rel.related_article.excerpt,
-      };
-    }) || [];
+    relatedArticlesData?.map((rel) => ({
+      id: rel.related_article.id,
+      category_slug: rel.related_article.category.slug,
+      slug: rel.related_article.slug,
+      title: rel.related_article.title,
+      excerpt: rel.related_article.excerpt,
+    })) || [];
 
   // If no explicit relations, get articles from same category
   if (relatedArticles.length === 0) {

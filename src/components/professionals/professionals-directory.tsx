@@ -17,9 +17,11 @@ import { useEffect, useMemo, useState } from "react";
 import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
+import { MapView } from "./map-view";
 import { type FilterState, ProfessionalsFilterSheet } from "./professionals-filter-sheet";
 import { SearchBar, type SearchSuggestion } from "./search-bar";
 import { VerificationBadge, type VerificationLevel } from "./verification-badge";
+import { type ViewMode, ViewToggle } from "./view-toggle";
 
 export type DirectoryProfessional = {
   id: string;
@@ -130,6 +132,7 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
   const [availableToday, setAvailableToday] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<ViewMode>("list");
 
   // Week 3-4 feature flag
   const showEnhancedTrustBadges = useFeatureFlag("enhanced_trust_badges");
@@ -251,6 +254,11 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
               placeholder={t("filters.search")}
             />
 
+            {/* View Toggle (List / Map) */}
+            <div className="flex justify-end">
+              <ViewToggle currentView={viewMode} onViewChange={setViewMode} />
+            </div>
+
             {/* Mobile Filter Button */}
             <div className="md:hidden">
               <button
@@ -342,6 +350,10 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
         {filteredProfessionals.length === 0 ? (
           <div className="rounded-[32px] border border-[#f0ece4] bg-[#fbfafa] p-12 text-center">
             <p className="text-[#5d574b] text-lg">{t("results.noResults")}</p>
+          </div>
+        ) : viewMode === "map" ? (
+          <div className="h-[600px] overflow-hidden rounded-[32px] border border-[#ebe5d8] shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+            <MapView professionals={filteredProfessionals} />
           </div>
         ) : (
           <div className="space-y-6">

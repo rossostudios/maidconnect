@@ -29,6 +29,10 @@
       "cooking": "Cooking",
       "eldercare": "Elder care",
       "petcare": "Pet care"
+    },
+    "viewToggle": {
+      "list": "List",
+      "map": "Map"
     }
   },
   "features": {
