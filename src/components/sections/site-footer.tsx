@@ -33,6 +33,7 @@ export async function SiteFooter() {
     {
       title: t("company"),
       links: [
+        { href: "/about", label: t("about") },
         { href: "/auth/sign-in", label: t("loginSignup") },
         { href: "/auth/sign-up?role=professional", label: t("applyProfessional") },
         { href: "/careers", label: t("careers"), badge: "Hiring" },

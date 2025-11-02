@@ -1144,6 +1144,7 @@
     "roadmap": "Hoja de ruta",
     "contact": "Contacto",
     "services": "Servicios",
+    "about": "Acerca de",
     "loginSignup": "Iniciar sesión / Registrarse",
     "applyProfessional": "Aplicar como Profesional",
     "careers": "Carreras",
@@ -2263,6 +2264,138 @@
       "seeReviews": "Ver sus reseñas",
       "bookNow": "Reservar esta hora",
       "checkOtherTimes": "Ver otros horarios"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Sobre Nosotros - Nuestra Historia | MaidConnect",
+      "description": "Conoce la misión de MaidConnect de conectar expatriados en Colombia con profesionales de servicios domésticos bilingües y verificados a través de nuestro marketplace con asistencia personalizada."
+    },
+    "story": {
+      "title": "Conectando Culturas, Construyendo Confianza",
+      "subtitle": "Estamos construyendo el marketplace confiable que conecta extranjeros en Colombia con profesionales de servicios domésticos verificados y bilingües.",
+      "problem": {
+        "title": "El Desafío que Estamos Resolviendo",
+        "paragraph1": "Mudarse a un nuevo país es emocionante, pero encontrar ayuda doméstica confiable no debería ser estresante. Los expatriados en Colombia enfrentan barreras idiomáticas, incertidumbre sobre confianza y seguridad, y falta de profesionales verificados que comprendan sus necesidades.",
+        "paragraph2": "Las recomendaciones tradicionales de boca en boca son limitadas, y las plataformas existentes no ofrecen el soporte bilingüe, verificación o asistencia continua que los extranjeros realmente necesitan."
+      },
+      "solution": {
+        "title": "Nuestra Solución",
+        "paragraph1": "MaidConnect es el primer marketplace con asistencia personalizada diseñado específicamente para expatriados. Combinamos tecnología con toque humano para crear una experiencia fluida y confiable:",
+        "feature1": {
+          "title": "Profesionales Verificados",
+          "description": "Cada profesional pasa por verificaciones de antecedentes, verificación de identidad y evaluación de habilidades antes de unirse a nuestra plataforma."
+        },
+        "feature2": {
+          "title": "Soporte Bilingüe",
+          "description": "Toda nuestra plataforma y equipo de asistencia opera en inglés y español, eliminando barreras de comunicación."
+        },
+        "feature3": {
+          "title": "Asistencia Continua",
+          "description": "Desde la reserva hasta la finalización, nuestro equipo está disponible para ayudar a resolver cualquier problema y asegurar un servicio de calidad."
+        }
+      },
+      "journey": {
+        "title": "Nuestro Camino",
+        "paragraph1": "Fundada por expatriados que experimentaron estos desafíos de primera mano, MaidConnect nació de una idea simple: encontrar ayuda doméstica confiable en un país extranjero debería ser fácil, seguro y sin estrés. Hoy, estamos orgullosos de servir a cientos de familias expatriadas y empoderar a profesionales locales en toda Colombia."
+      }
+    },
+    "missionVision": {
+      "sectionTitle": "Nuestra Misión y Visión",
+      "sectionSubtitle": "Estamos en una misión de hacer los servicios domésticos accesibles, transparentes y confiables para todos.",
+      "mission": {
+        "title": "Nuestra Misión",
+        "description": "Conectar a extranjeros viviendo en Colombia con profesionales de servicios domésticos bilingües y verificados a través de un marketplace seguro y transparente impulsado por soporte personalizado y tecnología moderna."
+      },
+      "vision": {
+        "title": "Nuestra Visión",
+        "description": "Convertirnos en la plataforma más confiable para servicios de expatriados en América Latina, empoderando tanto a clientes como a profesionales con seguridad, transparencia y oportunidad."
+      },
+      "values": {
+        "title": "Nuestros Valores Fundamentales",
+        "subtitle": "Estos principios guían todo lo que hacemos",
+        "trust": {
+          "title": "Confianza Primero",
+          "description": "Verificamos a cada profesional y mantenemos comunicación transparente para ganar y mantener tu confianza."
+        },
+        "quality": {
+          "title": "Servicio de Calidad",
+          "description": "Establecemos altos estándares para profesionales y monitoreamos continuamente la calidad del servicio a través de reseñas y comentarios."
+        },
+        "bilingual": {
+          "title": "Excelencia Bilingüe",
+          "description": "Eliminamos barreras idiomáticas al soportar tanto inglés como español en toda nuestra plataforma."
+        },
+        "empowerment": {
+          "title": "Empoderamiento",
+          "description": "Empoderamos tanto a expatriados para encontrar ayuda confiable como a profesionales locales para desarrollar negocios sostenibles."
+        }
+      }
+    },
+    "team": {
+      "title": "Nuestro Equipo Remoto",
+      "subtitle": "Somos un equipo distribuido que abarca Colombia y Estados Unidos, unidos por nuestra misión de servir a expatriados y profesionales.",
+      "remoteFirst": {
+        "title": "Construido para Impacto Global",
+        "description": "Como una empresa con trabajo remoto primero, practicamos lo que predicamos. Nuestro equipo distribuido aporta perspectivas diversas, conocimiento local profundo y una comprensión genuina de la experiencia de los expatriados. Trabajamos de forma asíncrona a través de zonas horarias para proporcionar soporte 24/7 a nuestra comunidad."
+      },
+      "stats": {
+        "locations": "2+",
+        "locationsLabel": "Países",
+        "timezones": "3",
+        "timezonesLabel": "Zonas Horarias",
+        "languages": "2",
+        "languagesLabel": "Idiomas"
+      },
+      "benefits": {
+        "distributed": {
+          "title": "Globalmente Distribuido",
+          "description": "Nuestro equipo abarca Colombia y EE.UU., dándonos una visión profunda de las necesidades tanto de expatriados como locales."
+        },
+        "bilingual": {
+          "title": "Completamente Bilingüe",
+          "description": "Cada miembro del equipo habla inglés y español con fluidez, asegurando comunicación perfecta."
+        },
+        "available": {
+          "title": "Siempre Disponible",
+          "description": "Con miembros del equipo en diferentes zonas horarias, brindamos soporte receptivo cuando lo necesitas."
+        },
+        "expertise": {
+          "title": "Experiencia Diversa",
+          "description": "Nuestros antecedentes en hospitalidad, tecnología y operaciones aportan soluciones integrales a desafíos complejos."
+        }
+      },
+      "joinTeam": {
+        "title": "¿Quieres Unirte a Nuestra Misión?",
+        "description": "Siempre estamos buscando personas apasionadas que quieran hacer una diferencia en las vidas de expatriados y profesionales.",
+        "cta": "Contáctanos"
+      }
+    },
+    "trust": {
+      "title": "¿Por Qué Confiar en MaidConnect?",
+      "subtitle": "Seguridad, protección y transparencia están en el corazón de todo lo que hacemos.",
+      "verification": {
+        "title": "Profesionales Verificados",
+        "description": "Verificaciones de antecedentes, verificación de identidad y evaluación de habilidades para cada profesional en nuestra plataforma."
+      },
+      "secure": {
+        "title": "Pagos Seguros",
+        "description": "Todas las transacciones se procesan a través de Stripe con encriptación de nivel bancario y protección al comprador."
+      },
+      "support": {
+        "title": "Soporte Personalizado",
+        "description": "Nuestro equipo bilingüe está disponible para ayudar a resolver cualquier problema antes, durante y después de tu servicio."
+      },
+      "transparency": {
+        "title": "Transparencia Total",
+        "description": "Reseñas verificadas, precios claros y perfiles detallados de profesionales para que puedas reservar con confianza."
+      }
+    },
+    "cta": {
+      "title": "¿Listo para Experimentar la Diferencia?",
+      "subtitle": "Únete a miles de expatriados que confían en MaidConnect para sus necesidades de servicios domésticos.",
+      "browseProfessionals": "Explorar Profesionales",
+      "signUp": "Regístrate Gratis"
     }
   }
 }

@@ -1144,6 +1144,7 @@
     "roadmap": "Roadmap",
     "contact": "Contact",
     "services": "Services",
+    "about": "About",
     "loginSignup": "Login / Signup",
     "applyProfessional": "Apply as Professional",
     "careers": "Careers",
@@ -2263,6 +2264,138 @@
       "seeReviews": "See their reviews",
       "bookNow": "Book this time",
       "checkOtherTimes": "Check other times"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "About Us - Our Story | MaidConnect",
+      "description": "Learn about MaidConnect's mission to connect expats in Colombia with trusted, bilingual domestic service professionals through our concierge-led marketplace."
+    },
+    "story": {
+      "title": "Bridging Cultures, Building Trust",
+      "subtitle": "We're building the trusted marketplace that connects foreigners in Colombia with verified, bilingual domestic service professionals.",
+      "problem": {
+        "title": "The Challenge We're Solving",
+        "paragraph1": "Moving to a new country is exciting—but finding reliable domestic help shouldn't be stressful. Expats in Colombia face language barriers, uncertainty about trust and safety, and a lack of vetted professionals who understand their needs.",
+        "paragraph2": "Traditional word-of-mouth recommendations are limited, and existing platforms don't offer the bilingual support, verification, or ongoing concierge assistance that foreigners truly need."
+      },
+      "solution": {
+        "title": "Our Solution",
+        "paragraph1": "MaidConnect is the first concierge-led marketplace designed specifically for expats. We combine technology with human touch to create a seamless, trustworthy experience:",
+        "feature1": {
+          "title": "Verified Professionals",
+          "description": "Every professional goes through background checks, ID verification, and skills assessment before joining our platform."
+        },
+        "feature2": {
+          "title": "Bilingual Support",
+          "description": "Our entire platform and concierge team operates in both English and Spanish, eliminating communication barriers."
+        },
+        "feature3": {
+          "title": "Ongoing Assistance",
+          "description": "From booking to completion, our concierge team is available to help resolve any issues and ensure quality service."
+        }
+      },
+      "journey": {
+        "title": "Our Journey",
+        "paragraph1": "Founded by expats who experienced these challenges firsthand, MaidConnect was born from a simple idea: finding trustworthy domestic help in a foreign country should be easy, safe, and stress-free. Today, we're proud to serve hundreds of expat families and empower local professionals across Colombia."
+      }
+    },
+    "missionVision": {
+      "sectionTitle": "Our Mission & Vision",
+      "sectionSubtitle": "We're on a mission to make domestic services accessible, transparent, and trustworthy for everyone.",
+      "mission": {
+        "title": "Our Mission",
+        "description": "To connect foreigners living in Colombia with verified, bilingual domestic service professionals through a secure, transparent marketplace powered by concierge support and modern technology."
+      },
+      "vision": {
+        "title": "Our Vision",
+        "description": "To become the most trusted platform for expat services across Latin America, empowering both customers and professionals with safety, transparency, and opportunity."
+      },
+      "values": {
+        "title": "Our Core Values",
+        "subtitle": "These principles guide everything we do",
+        "trust": {
+          "title": "Trust First",
+          "description": "We verify every professional and maintain transparent communication to earn and keep your trust."
+        },
+        "quality": {
+          "title": "Quality Service",
+          "description": "We set high standards for professionals and continuously monitor service quality through reviews and feedback."
+        },
+        "bilingual": {
+          "title": "Bilingual Excellence",
+          "description": "We eliminate language barriers by supporting both English and Spanish across our entire platform."
+        },
+        "empowerment": {
+          "title": "Empowerment",
+          "description": "We empower both expats to find reliable help and local professionals to grow sustainable businesses."
+        }
+      }
+    },
+    "team": {
+      "title": "Our Remote-First Team",
+      "subtitle": "We're a distributed team spanning Colombia and the United States, united by our mission to serve expats and professionals.",
+      "remoteFirst": {
+        "title": "Built for Global Impact",
+        "description": "As a remote-first company, we practice what we preach. Our distributed team brings diverse perspectives, deep local knowledge, and a genuine understanding of the expat experience. We work asynchronously across time zones to provide 24/7 support for our community."
+      },
+      "stats": {
+        "locations": "2+",
+        "locationsLabel": "Countries",
+        "timezones": "3",
+        "timezonesLabel": "Time Zones",
+        "languages": "2",
+        "languagesLabel": "Languages"
+      },
+      "benefits": {
+        "distributed": {
+          "title": "Globally Distributed",
+          "description": "Our team spans Colombia and the US, giving us deep insight into both expat and local needs."
+        },
+        "bilingual": {
+          "title": "Fully Bilingual",
+          "description": "Every team member speaks both English and Spanish fluently, ensuring seamless communication."
+        },
+        "available": {
+          "title": "Always Available",
+          "description": "With team members across time zones, we provide responsive support when you need it."
+        },
+        "expertise": {
+          "title": "Diverse Expertise",
+          "description": "Our backgrounds in hospitality, tech, and operations bring well-rounded solutions to complex challenges."
+        }
+      },
+      "joinTeam": {
+        "title": "Want to Join Our Mission?",
+        "description": "We're always looking for passionate people who want to make a difference in the lives of expats and professionals.",
+        "cta": "Get in Touch"
+      }
+    },
+    "trust": {
+      "title": "Why Trust MaidConnect?",
+      "subtitle": "Safety, security, and transparency are at the core of everything we do.",
+      "verification": {
+        "title": "Verified Professionals",
+        "description": "Background checks, ID verification, and skills assessment for every professional on our platform."
+      },
+      "secure": {
+        "title": "Secure Payments",
+        "description": "All transactions are processed through Stripe with bank-level encryption and buyer protection."
+      },
+      "support": {
+        "title": "Concierge Support",
+        "description": "Our bilingual team is available to help resolve any issues before, during, and after your service."
+      },
+      "transparency": {
+        "title": "Full Transparency",
+        "description": "Verified reviews, clear pricing, and detailed professional profiles so you can book with confidence."
+      }
+    },
+    "cta": {
+      "title": "Ready to Experience the Difference?",
+      "subtitle": "Join thousands of expats who trust MaidConnect for their domestic service needs.",
+      "browseProfessionals": "Browse Professionals",
+      "signUp": "Sign Up Free"
     }
   }
 }
