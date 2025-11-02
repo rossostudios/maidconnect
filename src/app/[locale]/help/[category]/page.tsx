@@ -62,7 +62,7 @@ async function getCategoryWithArticles(categorySlug: string, locale: string) {
   }
 
   // Get articles for this category
-  const { data: articles } = await supabase
+  const { data: rawArticles } = await supabase
     .from("help_articles")
     .select(
       `
@@ -80,9 +80,12 @@ async function getCategoryWithArticles(categorySlug: string, locale: string) {
     .order("display_order")
     .order("created_at", { ascending: false });
 
+  // Type assertion for the dynamic query result
+  const articles = (rawArticles || []) as unknown as Article[];
+
   return {
     category,
-    articles: (articles || []) as Article[],
+    articles,
   };
 }
 

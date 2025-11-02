@@ -231,7 +231,7 @@ export async function POST(request: Request) {
         professionalName,
         customerName,
         amount: booking.amount_authorized + (booking.time_extension_amount || 0),
-        errorMessage: error.message,
+        errorMessage: stripeError instanceof Error ? stripeError.message : "Payment capture failed",
       });
 
       return NextResponse.json(

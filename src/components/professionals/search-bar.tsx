@@ -105,7 +105,7 @@ export function SearchBar({
         case "Enter":
           event.preventDefault();
           if (selectedIndex >= 0 && selectedIndex < suggestions.length) {
-            handleSuggestionClick(suggestions[selectedIndex]);
+            handleSuggestionClick(suggestions[selectedIndex]!);
           } else {
             handleSearch();
           }

@@ -133,21 +133,21 @@ async function handlePOST(request: Request) {
       professionalName: booking.professional?.full_name,
       message: "Tip processed successfully. Thank you for your generosity!",
     });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (err) {
+    if (err instanceof z.ZodError) {
       return NextResponse.json(
         {
           error: "Invalid request data",
-          details: error.errors,
+          details: err.issues,
         },
         { status: 400 }
       );
     }
 
-    console.error("[Process Tip API] Error:", error);
+    console.error("[Process Tip API] Error:", err);
     return NextResponse.json({ error: "Unexpected error processing tip" }, { status: 500 });
   }
 }
 
 // Apply rate limiting: 10 tips per hour (prevent abuse)
-export const POST = withRateLimit(handlePOST, "process-tip");
+export const POST = withRateLimit(handlePOST, "api");

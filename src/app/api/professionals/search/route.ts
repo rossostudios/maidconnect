@@ -166,7 +166,4 @@ async function handleGET(request: Request) {
 }
 
 // Apply rate limiting: 100 searches per minute (prevent abuse while allowing natural usage)
-export const GET = withRateLimit(handleGET, "search-professionals", {
-  windowMs: 60 * 1000, // 1 minute
-  max: 100, // 100 requests per minute
-});
+export const GET = withRateLimit(handleGET, "api");

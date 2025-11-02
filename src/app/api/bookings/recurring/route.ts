@@ -83,7 +83,7 @@ async function handlePOST(request: Request) {
       rruleComponents.push(`COUNT=${occurrences}`);
     } else if (endType === "date" && endDate) {
       // Format: YYYYMMDD
-      const until = new Date(endDate).toISOString().split("T")[0].replace(/-/g, "");
+      const until = new Date(endDate).toISOString().split("T")[0]!.replace(/-/g, "");
       rruleComponents.push(`UNTIL=${until}`);
     }
 
@@ -180,18 +180,18 @@ async function handlePOST(request: Request) {
         ? `/dashboard/customer/bookings/${firstBookingId}/payment`
         : `/dashboard/customer/recurring-bookings/${subscription.id}`,
     });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (err) {
+    if (err instanceof z.ZodError) {
       return NextResponse.json(
         {
           error: "Invalid request data",
-          details: error.errors,
+          details: err.issues,
         },
         { status: 400 }
       );
     }
 
-    console.error("[Recurring Bookings API] Error:", error);
+    console.error("[Recurring Bookings API] Error:", err);
     return NextResponse.json(
       { error: "Unexpected error creating recurring booking" },
       { status: 500 }
@@ -200,4 +200,4 @@ async function handlePOST(request: Request) {
 }
 
 // Apply rate limiting: 5 recurring bookings per hour
-export const POST = withRateLimit(handlePOST, "recurring-booking");
+export const POST = withRateLimit(handlePOST, "booking");

@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-async function getCategories(locale: string): Promise<Category[]> {
+async function getCategories(_locale: string): Promise<Category[]> {
   const supabase = createSupabaseAnonClient();
 
   const { data: categories } = await supabase
@@ -86,7 +86,7 @@ async function getCategories(locale: string): Promise<Category[]> {
 async function getPopularArticles(locale: string): Promise<PopularArticle[]> {
   const supabase = createSupabaseAnonClient();
 
-  const { data: articles } = await supabase
+  const { data: rawArticles } = await supabase
     .from("help_articles")
     .select(
       `
@@ -102,17 +102,27 @@ async function getPopularArticles(locale: string): Promise<PopularArticle[]> {
     .order("view_count", { ascending: false })
     .limit(6);
 
-  if (!articles) return [];
+  if (!rawArticles) return [];
+
+  // Type assertion for the dynamic query result
+  const articles = rawArticles as unknown as Array<{
+    id: string;
+    slug: string;
+    title: string;
+    excerpt: string | null;
+    view_count: number;
+    category: { slug: string };
+  }>;
 
   return articles.map((article) => ({
     ...article,
-    category_slug: (article.category as unknown as { slug: string }).slug,
+    category_slug: article.category.slug,
   })) as PopularArticle[];
 }
 
 export default async function HelpCenterPage({
   params,
-  searchParams,
+  searchParams: _searchParams,
 }: {
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ q?: string }>;

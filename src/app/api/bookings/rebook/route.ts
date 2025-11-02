@@ -119,18 +119,18 @@ async function handlePOST(request: Request) {
         ? `/dashboard/customer/bookings/${newBooking.id}/payment`
         : `/dashboard/customer/bookings/${newBooking.id}/schedule`,
     });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
+  } catch (err) {
+    if (err instanceof z.ZodError) {
       return NextResponse.json(
-        { error: "Invalid request data", details: error.errors },
+        { error: "Invalid request data", details: err.issues },
         { status: 400 }
       );
     }
 
-    console.error("[Rebook API] Error:", error);
+    console.error("[Rebook API] Error:", err);
     return NextResponse.json({ error: "Unexpected error during rebook" }, { status: 500 });
   }
 }
 
 // Apply rate limiting: 10 rebooks per minute
-export const POST = withRateLimit(handlePOST, "rebook");
+export const POST = withRateLimit(handlePOST, "booking");

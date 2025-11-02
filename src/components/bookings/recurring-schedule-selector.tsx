@@ -56,7 +56,7 @@ export function RecurringScheduleSelector({
     initialSchedule?.frequency || "biweekly"
   );
   const [startDate, setStartDate] = useState(
-    initialSchedule?.startDate || new Date().toISOString().split("T")[0]
+    initialSchedule?.startDate || new Date().toISOString().split("T")[0]!
   );
   const [dayOfWeek, setDayOfWeek] = useState(initialSchedule?.dayOfWeek ?? 1); // Default Monday
   const [endType, setEndType] = useState<"occurrences" | "date" | "never">(
@@ -65,7 +65,7 @@ export function RecurringScheduleSelector({
   const [occurrences, setOccurrences] = useState(initialSchedule?.occurrences || 12);
   const [endDate, setEndDate] = useState(
     initialSchedule?.endDate ||
-      new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]
+      new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]!
   );
 
   // Calculate pricing

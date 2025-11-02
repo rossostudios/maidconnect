@@ -100,26 +100,28 @@ export function TourTooltip({
   useEffect(() => {
     const targetElement = document.querySelector(step.target);
 
-    if (targetElement) {
-      const originalOutline = (targetElement as HTMLElement).style.outline;
-      const originalZIndex = (targetElement as HTMLElement).style.zIndex;
-      const originalPosition = (targetElement as HTMLElement).style.position;
-
-      // Highlight target
-      (targetElement as HTMLElement).style.outline = "2px solid #ff5d46";
-      (targetElement as HTMLElement).style.outlineOffset = "4px";
-      (targetElement as HTMLElement).style.zIndex = "9998";
-
-      if (window.getComputedStyle(targetElement).position === "static") {
-        (targetElement as HTMLElement).style.position = "relative";
-      }
-
-      return () => {
-        (targetElement as HTMLElement).style.outline = originalOutline;
-        (targetElement as HTMLElement).style.zIndex = originalZIndex;
-        (targetElement as HTMLElement).style.position = originalPosition;
-      };
+    if (!targetElement) {
+      return; // No cleanup needed if element doesn't exist
     }
+
+    const originalOutline = (targetElement as HTMLElement).style.outline;
+    const originalZIndex = (targetElement as HTMLElement).style.zIndex;
+    const originalPosition = (targetElement as HTMLElement).style.position;
+
+    // Highlight target
+    (targetElement as HTMLElement).style.outline = "2px solid #ff5d46";
+    (targetElement as HTMLElement).style.outlineOffset = "4px";
+    (targetElement as HTMLElement).style.zIndex = "9998";
+
+    if (window.getComputedStyle(targetElement).position === "static") {
+      (targetElement as HTMLElement).style.position = "relative";
+    }
+
+    return () => {
+      (targetElement as HTMLElement).style.outline = originalOutline;
+      (targetElement as HTMLElement).style.zIndex = originalZIndex;
+      (targetElement as HTMLElement).style.position = originalPosition;
+    };
   }, [step.target]);
 
   const isFirstStep = currentStepIndex === 0;

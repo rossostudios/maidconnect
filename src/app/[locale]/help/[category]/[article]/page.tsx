@@ -56,9 +56,12 @@ export async function generateMetadata({
     };
   }
 
+  // Type assertion for the dynamic query result
+  const typedArticle = article as unknown as { title: string; excerpt: string | null };
+
   return {
-    title: `${article.title} - Help Center`,
-    description: article.excerpt || article.title,
+    title: `${typedArticle.title} - Help Center`,
+    description: typedArticle.excerpt || typedArticle.title,
   };
 }
 
@@ -70,7 +73,7 @@ async function getArticleData(
   const supabase = createSupabaseAnonClient();
 
   // Get article with category
-  const { data: article, error } = await supabase
+  const { data: rawArticle, error } = await supabase
     .from("help_articles")
     .select(
       `
@@ -95,9 +98,14 @@ async function getArticleData(
     .eq("is_published", true)
     .single();
 
-  if (error || !article) {
+  if (error || !rawArticle) {
     return null;
   }
+
+  // Type assertion for the dynamic query result
+  const article = rawArticle as unknown as Omit<ArticleData, "category"> & {
+    category: { slug: string; name: string };
+  };
 
   // Increment view count (fire and forget)
   void supabase.rpc("increment_article_view_count", {
@@ -105,7 +113,7 @@ async function getArticleData(
   });
 
   // Get related articles
-  const { data: relatedArticlesData } = await supabase
+  const { data: rawRelatedArticlesData } = await supabase
     .from("help_article_relations")
     .select(
       `
@@ -121,28 +129,31 @@ async function getArticleData(
     .eq("article_id", article.id)
     .limit(4);
 
+  // Type assertion for the related articles query result
+  const relatedArticlesData = rawRelatedArticlesData as unknown as Array<{
+    related_article: {
+      id: string;
+      slug: string;
+      title: string;
+      excerpt: string | null;
+      category: { slug: string };
+    };
+  }> | null;
+
   const relatedArticles =
     relatedArticlesData?.map((rel) => {
-      const relatedArticle = rel.related_article as unknown as {
-        id: string;
-        slug: string;
-        title: string;
-        excerpt: string | null;
-        category: { slug: string };
-      };
-
       return {
-        id: relatedArticle.id,
-        category_slug: relatedArticle.category.slug,
-        slug: relatedArticle.slug,
-        title: relatedArticle.title,
-        excerpt: relatedArticle.excerpt,
+        id: rel.related_article.id,
+        category_slug: rel.related_article.category.slug,
+        slug: rel.related_article.slug,
+        title: rel.related_article.title,
+        excerpt: rel.related_article.excerpt,
       };
     }) || [];
 
   // If no explicit relations, get articles from same category
   if (relatedArticles.length === 0) {
-    const { data: sameCategoryArticles } = await supabase
+    const { data: rawSameCategoryArticles } = await supabase
       .from("help_articles")
       .select(
         `
@@ -158,6 +169,14 @@ async function getArticleData(
       .neq("id", article.id)
       .order("view_count", { ascending: false })
       .limit(4);
+
+    // Type assertion for the dynamic query result
+    const sameCategoryArticles = rawSameCategoryArticles as unknown as Array<{
+      id: string;
+      slug: string;
+      title: string;
+      excerpt: string | null;
+    }> | null;
 
     if (sameCategoryArticles) {
       relatedArticles.push(
@@ -186,8 +205,8 @@ export default async function HelpArticlePage({
 }: {
   params: Promise<{ locale: string; category: string; article: string }>;
 }) {
-  const { locale, category, article } = await params;
-  const data = await getArticleData(category, article, locale);
+  const { locale, category, article: articleSlug } = await params;
+  const data = await getArticleData(category, articleSlug, locale);
 
   if (!data) {
     notFound();
