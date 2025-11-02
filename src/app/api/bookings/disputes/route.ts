@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
+import {
+  notifyAdminDisputeFiled,
+  notifyAllAdmins,
+  notifyProfessionalDisputeFiled,
+} from "@/lib/notifications";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 /**
@@ -37,7 +42,15 @@ export async function POST(request: Request) {
     // Verify booking exists, belongs to user, is completed, and within 48-hour window
     const { data: booking, error: bookingError } = await supabase
       .from("bookings")
-      .select("id, status, customer_id, professional_id, completed_at")
+      .select(`
+        id,
+        status,
+        customer_id,
+        professional_id,
+        completed_at,
+        customer_profiles:profiles!bookings_customer_id_fkey(full_name),
+        professional_profiles:profiles!bookings_professional_id_fkey(full_name)
+      `)
       .eq("id", bookingId)
       .eq("customer_id", user.id)
       .single();
@@ -99,8 +112,24 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Failed to create dispute" }, { status: 500 });
     }
 
-    // TODO: Send notification to admin team
-    // TODO: Send notification to professional
+    // Notify professional about the dispute
+    const customerName = (booking.customer_profiles as any)?.full_name || "Customer";
+    await notifyProfessionalDisputeFiled(booking.professional_id, {
+      id: dispute.id,
+      bookingId: booking.id,
+      reason,
+      customerName,
+    });
+
+    // Notify all admins about new dispute requiring review
+    const professionalName = (booking.professional_profiles as any)?.full_name || "Professional";
+    await notifyAllAdmins(notifyAdminDisputeFiled, {
+      id: dispute.id,
+      bookingId: booking.id,
+      reason,
+      customerName,
+      professionalName,
+    });
 
     return NextResponse.json({
       success: true,

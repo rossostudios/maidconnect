@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { NextResponse } from "next/server";
 import { sendBookingRescheduleEmail } from "@/lib/email/send";
+import { notifyProfessionalBookingRescheduled } from "@/lib/notifications";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type RescheduleBookingRequest = {
@@ -18,7 +19,7 @@ type RescheduleBookingRequest = {
  * - Validates new datetime is in the future
  * - Updates booking schedule
  * - Resets booking to "authorized" status (professional must re-confirm)
- * - TODO: Send notification to professional about reschedule
+ * - Sends email and in-app notification to professional
  *
  * Note: Rescheduling resets the booking to "authorized" status,
  * requiring the professional to accept the new time.
@@ -169,6 +170,15 @@ export async function POST(request: Request) {
         );
       }
     } catch (_emailError) {}
+
+    // Send in-app notification to professional
+    const customerName = (booking.customer_profiles as any)?.full_name || "Customer";
+    await notifyProfessionalBookingRescheduled(booking.professional_id, {
+      id: booking.id,
+      serviceName: booking.service_name || "Service",
+      customerName,
+      newScheduledStart: newStartTime.toISOString(),
+    });
 
     return NextResponse.json({
       success: true,

@@ -3,6 +3,9 @@ import { sendServiceCompletedEmail } from "@/lib/email/send";
 import { verifyBookingLocation } from "@/lib/gps-verification";
 import { logger } from "@/lib/logger";
 import {
+  notifyAdminPaymentCapturedButDBFailed,
+  notifyAdminPaymentFailure,
+  notifyAllAdmins,
   notifyCustomerServiceCompleted,
   notifyProfessionalPaymentReceived,
 } from "@/lib/notifications";
@@ -65,7 +68,7 @@ export async function POST(request: Request) {
     }
 
     // Fetch the booking with all necessary data
-    const { data: booking, error: bookingError } = await supabase
+    const { data: booking, error: bookingError} = await supabase
       .from("bookings")
       .select(`
         id,
@@ -82,7 +85,9 @@ export async function POST(request: Request) {
         time_extension_amount,
         currency,
         address,
-        stripe_payment_intent_id
+        stripe_payment_intent_id,
+        customer_profiles:profiles!bookings_customer_id_fkey(full_name),
+        professional_profiles:profiles!bookings_professional_id_fkey(full_name)
       `)
       .eq("id", bookingId)
       .maybeSingle();
@@ -218,8 +223,16 @@ export async function POST(request: Request) {
       });
       await logger.flush();
 
-      // TODO: Add admin notification system for payment failures requiring manual review
-      // This should trigger an alert to platform administrators with booking context
+      // Notify all admins about payment failure requiring manual review
+      const professionalName = (booking.professional_profiles as any)?.full_name || "Professional";
+      const customerName = (booking.customer_profiles as any)?.full_name || "Customer";
+      await notifyAllAdmins(notifyAdminPaymentFailure, {
+        bookingId: booking.id,
+        professionalName,
+        customerName,
+        amount: booking.amount_authorized + (booking.time_extension_amount || 0),
+        errorMessage: error.message,
+      });
 
       return NextResponse.json(
         { error: "Failed to capture payment. Please try again or contact support." },
@@ -263,8 +276,16 @@ export async function POST(request: Request) {
       });
       await logger.flush();
 
-      // TODO: Add urgent admin notification for this critical scenario
-      // Payment was taken but booking status not updated - requires immediate manual intervention
+      // URGENT: Notify all admins about critical payment captured + DB failure
+      const professionalName = (booking.professional_profiles as any)?.full_name || "Professional";
+      const customerName = (booking.customer_profiles as any)?.full_name || "Customer";
+      await notifyAllAdmins(notifyAdminPaymentCapturedButDBFailed, {
+        bookingId: booking.id,
+        professionalName,
+        customerName,
+        amountCaptured: capturedAmount,
+        paymentIntentId: booking.stripe_payment_intent_id,
+      });
 
       return NextResponse.json(
         { error: "Payment captured but booking update failed. Contact support." },
