@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { sendPushNotification } from "@/lib/notifications";
 
 type ExtendTimeRequest = {
   bookingId: string;
@@ -52,7 +53,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // Fetch the booking
+    // Fetch the booking with professional name for notification
     const { data: booking, error: bookingError } = await supabase
       .from("bookings")
       .select(`
@@ -60,12 +61,14 @@ export async function POST(request: Request) {
         professional_id,
         customer_id,
         status,
+        service_name,
         service_hourly_rate,
         amount_authorized,
         time_extension_minutes,
         time_extension_amount,
         stripe_payment_intent_id,
-        currency
+        currency,
+        professional_profiles:profiles!bookings_professional_id_fkey(full_name)
       `)
       .eq("id", bookingId)
       .maybeSingle();
@@ -144,6 +147,23 @@ export async function POST(request: Request) {
       );
     }
 
+    // Send notification to customer about time extension
+    const professionalName =
+      (booking.professional_profiles as any)?.full_name || "Your professional";
+    const formattedAmount = new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: booking.currency || "COP",
+    }).format(additionalAmount / 100);
+
+    await sendPushNotification({
+      userId: booking.customer_id,
+      title: "Service Time Extended",
+      body: `${professionalName} extended your ${booking.service_name || "service"} by ${additionalMinutes} minutes. Additional charge: ${formattedAmount}`,
+      url: `/dashboard/customer/bookings`,
+      tag: `time-extension-${booking.id}`,
+      requireInteraction: false,
+    });
+
     return NextResponse.json({
       success: true,
       booking: {
@@ -155,10 +175,7 @@ export async function POST(request: Request) {
       extension: {
         additional_minutes: additionalMinutes,
         additional_amount: additionalAmount,
-        formatted_amount: new Intl.NumberFormat("es-CO", {
-          style: "currency",
-          currency: booking.currency || "COP",
-        }).format(additionalAmount / 100),
+        formatted_amount: formattedAmount,
       },
     });
   } catch (_error) {

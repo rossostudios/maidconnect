@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useOptimistic, useState } from "react";
 import { RatingPromptModal } from "@/components/reviews/rating-prompt-modal";
+import { TimeExtensionModal } from "@/components/bookings/time-extension-modal";
 
 export type BookingForExecution = {
   id: string;
@@ -31,7 +32,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [gpsError, setGpsError] = useState<string | null>(null);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
-  const [extensionMinutes, setExtensionMinutes] = useState<string>("30");
+  const [showTimeExtensionModal, setShowTimeExtensionModal] = useState(false);
   const [showRatingModal, setShowRatingModal] = useState(false);
 
   // React 19: useOptimistic for instant status updates
@@ -194,46 +195,13 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
     }
   };
 
-  // Handle time extension
-  const handleExtendTime = async () => {
-    const minutes = Number.parseInt(extensionMinutes, 10);
-    if (Number.isNaN(minutes) || minutes <= 0) {
-      setMessage({ type: "error", text: "Please enter a valid number of minutes" });
-      return;
-    }
-
-    setLoading(true);
-    setMessage(null);
-
-    try {
-      const response = await fetch("/api/bookings/extend-time", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          bookingId: booking.id,
-          additionalMinutes: minutes,
-        }),
-      });
-
-      if (!response.ok) {
-        const body = await response.json().catch(() => ({}));
-        throw new Error(body.error ?? "Failed to extend time");
-      }
-
-      const result = await response.json();
-      setMessage({
-        type: "success",
-        text: `Extended by ${minutes} minutes (+${result.extension.formatted_amount})`,
-      });
-      router.refresh();
-    } catch (error) {
-      setMessage({
-        type: "error",
-        text: error instanceof Error ? error.message : "Failed to extend time",
-      });
-    } finally {
-      setLoading(false);
-    }
+  // Handle time extension success
+  const handleExtensionSuccess = (minutes: number, formattedAmount: string) => {
+    setMessage({
+      type: "success",
+      text: `Extended by ${minutes} minutes (+${formattedAmount})`,
+    });
+    router.refresh();
   };
 
   // Format time display
@@ -351,25 +319,14 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
         {/* Time extension for in_progress bookings */}
         {optimisticBooking.status === "in_progress" && (
           <>
-            <div className="flex gap-2">
-              <input
-                className="flex-1 rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
-                max="240"
-                min="1"
-                onChange={(e) => setExtensionMinutes(e.target.value)}
-                placeholder="Minutes"
-                type="number"
-                value={extensionMinutes}
-              />
-              <button
-                className="rounded-lg border border-[#ff5d46] bg-white px-4 py-2 font-semibold text-[#ff5d46] text-sm transition hover:bg-[#ff5d46] hover:text-white disabled:cursor-not-allowed disabled:opacity-70"
-                disabled={loading}
-                onClick={handleExtendTime}
-                type="button"
-              >
-                {loading ? "Extending..." : "Extend Time"}
-              </button>
-            </div>
+            {/* Extend Time Button */}
+            <button
+              className="w-full rounded-lg border-2 border-[#ff5d46] bg-white px-4 py-3 font-semibold text-[#ff5d46] transition hover:bg-[#ff5d46] hover:text-white"
+              onClick={() => setShowTimeExtensionModal(true)}
+              type="button"
+            >
+              ⏱️ Request More Time
+            </button>
 
             {/* Check-out button */}
             <button
@@ -383,6 +340,16 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
           </>
         )}
       </div>
+
+      {/* Time Extension Modal */}
+      <TimeExtensionModal
+        bookingId={optimisticBooking.id}
+        currency={optimisticBooking.currency || "COP"}
+        hourlyRate={optimisticBooking.service_hourly_rate || 0}
+        isOpen={showTimeExtensionModal}
+        onClose={() => setShowTimeExtensionModal(false)}
+        onSuccess={handleExtensionSuccess}
+      />
 
       {/* Rating Prompt Modal */}
       {optimisticBooking.customer && (

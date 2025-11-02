@@ -62,7 +62,7 @@ const defaultFlags: Record<FeatureFlag, boolean> = {
   // Week 7-8 (GPS already implemented)
   gps_check_in_out: true, // Already live
   arrival_notifications: false,
-  time_extension_ui: false,
+  time_extension_ui: true, // Improved modal with preset options
 
   // Week 9-12 (Admin queue already implemented)
   admin_verification_queue: true, // Already live
