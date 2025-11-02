@@ -69,7 +69,7 @@ const defaultFlags: Record<FeatureFlag, boolean> = {
   // Week 9-12 (Admin queue already implemented)
   admin_verification_queue: true, // Already live
   payout_ledger: false,
-  city_landing_pages: false,
+  city_landing_pages: true, // SEO-optimized city-specific landing pages
 
   // Pricing Experiments
   show_platform_fee: false,

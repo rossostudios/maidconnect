@@ -2607,5 +2607,43 @@
       "updatedMinutesAgo": "Actualizado hace {minutes} minutos",
       "privacyNotice": "La ubicación de tu profesional es privada. Solo se comparten ventanas de tiempo de llegada para respetar la privacidad."
     }
+  },
+  "city": {
+    "meta": {
+      "title": "Servicios Profesionales de Limpieza en {city} | MaidConnect",
+      "description": "Encuentra profesionales de limpieza verificados y confiables en {city}. Reserva limpieza del hogar, limpieza profunda y más. Profesionales con verificación de antecedentes y reseñas reales."
+    },
+    "hero": {
+      "title": "Servicios de Limpieza Confiables en {city}",
+      "description": "Conéctate con profesionales de limpieza verificados en {city}. Todos nuestros profesionales tienen verificación de antecedentes, están asegurados y calificados por clientes reales de tu comunidad.",
+      "visualTagline": "Tu Marketplace Local de Limpieza",
+      "popularServices": "Servicios Populares",
+      "services": {
+        "cleaning": "Limpieza del Hogar",
+        "deepCleaning": "Limpieza Profunda",
+        "moving": "Mudanza"
+      },
+      "stats": {
+        "professionals": "Profesionales",
+        "reviews": "reseñas"
+      },
+      "cta": {
+        "primary": "Encontrar Profesionales",
+        "secondary": "Cómo Funciona"
+      }
+    },
+    "professionals": {
+      "title": "Profesionales Mejor Calificados en {city}",
+      "description": "{count} profesionales de limpieza verificados listos para ayudarte",
+      "empty": "Aún no hay profesionales en {city}",
+      "emptyDescription": "¡Vuelve pronto! Estamos expandiéndonos a nuevas áreas regularmente.",
+      "viewAll": "Ver Todos los Profesionales",
+      "card": {
+        "verified": "Verificado",
+        "unnamed": "Profesional",
+        "reviews": "reseñas",
+        "startingAt": "Desde"
+      }
+    }
   }
 }

@@ -2607,5 +2607,43 @@
       "updatedMinutesAgo": "Updated {minutes} minutes ago",
       "privacyNotice": "Your professional location is private. Only arrival time windows are shared to respect privacy."
     }
+  },
+  "city": {
+    "meta": {
+      "title": "Professional Cleaning Services in {city} | MaidConnect",
+      "description": "Find verified, trusted cleaning professionals in {city}. Book house cleaning, deep cleaning, and more. Background-checked pros with real reviews."
+    },
+    "hero": {
+      "title": "Trusted Cleaning Services in {city}",
+      "description": "Connect with verified cleaning professionals in {city}. All our pros are background-checked, insured, and rated by real customers in your community.",
+      "visualTagline": "Your Local Cleaning Marketplace",
+      "popularServices": "Popular Services",
+      "services": {
+        "cleaning": "House Cleaning",
+        "deepCleaning": "Deep Cleaning",
+        "moving": "Move-in/out"
+      },
+      "stats": {
+        "professionals": "Professionals",
+        "reviews": "reviews"
+      },
+      "cta": {
+        "primary": "Find Professionals",
+        "secondary": "How It Works"
+      }
+    },
+    "professionals": {
+      "title": "Top-Rated Professionals in {city}",
+      "description": "{count} verified cleaning professionals ready to help",
+      "empty": "No professionals found in {city} yet",
+      "emptyDescription": "Check back soon! We are expanding to new areas regularly.",
+      "viewAll": "View All Professionals",
+      "card": {
+        "verified": "Verified",
+        "unnamed": "Professional",
+        "reviews": "reviews",
+        "startingAt": "Starting at"
+      }
+    }
   }
 }
