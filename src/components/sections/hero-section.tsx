@@ -4,9 +4,16 @@ import { useTranslations } from "next-intl";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { usePlatformStats } from "@/lib/stats/real-time-stats";
 
 export function HeroSection() {
   const t = useTranslations("hero");
+  const { stats } = usePlatformStats();
+
+  // Use live stats if available, otherwise fallback to defaults
+  const totalBookings = stats?.totalBookings || 12847;
+  const totalProfessionals = stats?.totalProfessionals || 450;
+  const averageRating = stats?.averageRating || 4.9;
 
   return (
     <section className="relative overflow-hidden px-[25px] py-20 sm:py-24 lg:py-32">
@@ -19,8 +26,9 @@ export function HeroSection() {
         playsInline
         preload="metadata"
       >
-        {/* TODO: Add compressed WebM version for better compression */}
-        {/* <source src="/hero.webm" type="video/webm" /> */}
+        {/* WebM version for better compression (71MB MP4 → ~5MB WebM target) */}
+        <source src="/hero.webm" type="video/webm" />
+        {/* MP4 fallback for broader compatibility */}
         <source src="/hero.mp4" type="video/mp4" />
       </video>
 
@@ -64,19 +72,19 @@ export function HeroSection() {
           <div className="flex flex-col items-center justify-center gap-8 pt-6 sm:flex-row sm:gap-12">
             <div className="text-center">
               <div className="font-bold text-4xl text-white sm:text-5xl">
-                <AnimatedCounter suffix="+" target={12_847} />
+                <AnimatedCounter suffix="+" target={totalBookings} />
               </div>
               <p className="mt-2 text-sm text-white/80">Successful Bookings</p>
             </div>
             <div className="text-center">
               <div className="font-bold text-4xl text-white sm:text-5xl">
-                <AnimatedCounter suffix="+" target={450} />
+                <AnimatedCounter suffix="+" target={totalProfessionals} />
               </div>
               <p className="mt-2 text-sm text-white/80">Verified Professionals</p>
             </div>
             <div className="text-center">
               <div className="font-bold text-4xl text-white sm:text-5xl">
-                <AnimatedCounter decimals={1} target={4.9} />
+                <AnimatedCounter decimals={1} target={averageRating} />
                 <span className="text-3xl">★</span>
               </div>
               <p className="mt-2 text-sm text-white/80">Average Rating</p>
