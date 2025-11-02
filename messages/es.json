@@ -2583,5 +2583,29 @@
         "button": "Contactar Soporte"
       }
     }
+  },
+  "bookings": {
+    "arrivalTracker": {
+      "status": {
+        "enRoute": {
+          "title": "{name} está en camino",
+          "description": "Tu profesional está viajando a tu ubicación."
+        },
+        "arrivingSoon": {
+          "title": "{name} está llegando pronto",
+          "description": "Tu profesional debería llegar en los próximos 30 minutos."
+        },
+        "arrived": {
+          "title": "{name} ha llegado",
+          "description": "Tu profesional está en tu ubicación y registrará su llegada en breve."
+        }
+      },
+      "timeWindow": "Esperado entre {start} - {end}",
+      "estimatedArrival": "Llegada estimada: {time}",
+      "updatedJustNow": "Actualizado justo ahora",
+      "updatedMinuteAgo": "Actualizado hace 1 minuto",
+      "updatedMinutesAgo": "Actualizado hace {minutes} minutos",
+      "privacyNotice": "La ubicación de tu profesional es privada. Solo se comparten ventanas de tiempo de llegada para respetar la privacidad."
+    }
   }
 }

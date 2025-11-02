@@ -62,7 +62,7 @@ const defaultFlags: Record<FeatureFlag, boolean> = {
 
   // Week 7-8 (GPS already implemented)
   gps_check_in_out: true, // Already live
-  arrival_notifications: false,
+  arrival_notifications: true, // Arrival window tracker with 30-min notifications
   time_extension_ui: true, // Improved modal with preset options
   show_etta_assistant: true, // AI assistant with onboarding tooltip
 

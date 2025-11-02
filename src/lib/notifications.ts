@@ -166,6 +166,37 @@ export async function notifyCustomerReviewReminder(
   });
 }
 
+export async function notifyCustomerProfessionalEnRoute(
+  customerId: string,
+  booking: {
+    bookingId: string;
+    professionalName: string;
+    serviceName: string;
+    estimatedArrival: string;
+    windowStart: string;
+    windowEnd: string;
+  }
+) {
+  // Format arrival window times
+  const startTime = new Date(booking.windowStart).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+  });
+  const endTime = new Date(booking.windowEnd).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+  });
+
+  return sendPushNotification({
+    userId: customerId,
+    title: `${booking.professionalName} is on the way! 🚗`,
+    body: `Your ${booking.serviceName} professional is arriving soon. Expect arrival between ${startTime} and ${endTime}.`,
+    url: "/dashboard/customer#bookings",
+    tag: `arriving-soon-${booking.bookingId}`,
+    requireInteraction: true,
+  });
+}
+
 /**
  * PROFESSIONAL NOTIFICATIONS
  */
