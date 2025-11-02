@@ -8,6 +8,7 @@ import {
   Wrench,
 } from "lucide-react";
 import Link from "next/link";
+import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { HelpSearchBar } from "@/components/help/search-bar";
 import { Container } from "@/components/ui/container";
@@ -127,6 +128,9 @@ export default async function HelpCenterPage({
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ q?: string }>;
 }) {
+  // Force dynamic rendering to avoid prerendering issues with Math.random() in Supabase client
+  await headers();
+
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "help" });
   const categories = await getCategories(locale);
