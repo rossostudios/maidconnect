@@ -1140,6 +1140,7 @@
     "company": "Empresa",
     "mobile": "Móvil",
     "findProfessional": "Encontrar un Profesional",
+    "howItWorks": "Cómo Funciona",
     "pricing": "Precios",
     "roadmap": "Hoja de ruta",
     "contact": "Contacto",
@@ -2396,6 +2397,110 @@
       "subtitle": "Únete a miles de expatriados que confían en MaidConnect para sus necesidades de servicios domésticos.",
       "browseProfessionals": "Explorar Profesionales",
       "signUp": "Regístrate Gratis"
+    }
+  },
+  "howItWorks": {
+    "meta": {
+      "title": "Cómo Funciona - Pasos Simples para Servicio de Calidad | MaidConnect",
+      "description": "Descubre cómo MaidConnect facilita encontrar profesionales de servicios domésticos confiables. Explora perfiles verificados, reserva servicios y recibe apoyo en cada paso."
+    },
+    "hero": {
+      "title": "Cómo Funciona MaidConnect",
+      "subtitle": "Ya sea que busques ayuda u ofrezcas tus servicios, hemos hecho el proceso simple, seguro y transparente."
+    },
+    "customer": {
+      "title": "Para Clientes",
+      "subtitle": "Encuentra profesionales confiables en 4 sencillos pasos",
+      "steps": {
+        "search": {
+          "title": "Buscar y Explorar",
+          "description": "Explora profesionales verificados por tipo de servicio, ubicación y disponibilidad. Filtra por idioma, calificaciones y experiencia para encontrar tu coincidencia perfecta."
+        },
+        "book": {
+          "title": "Reserva tu Servicio",
+          "description": "Elige tu fecha y hora preferida, revisa precios transparentes y reserva al instante. Nuestro equipo de asistencia está disponible si necesitas ayuda."
+        },
+        "service": {
+          "title": "Disfruta Servicio de Calidad",
+          "description": "El profesional llega a tiempo y brinda un servicio excepcional. Nuestro equipo de soporte está disponible si necesitas asistencia."
+        },
+        "review": {
+          "title": "Opina y Reserva de Nuevo",
+          "description": "Comparte tu experiencia para ayudar a otros. ¿Te encantó tu profesional? Guárdalo como favorito y vuelve a reservar con un clic."
+        }
+      },
+      "cta": "Explorar Profesionales"
+    },
+    "professional": {
+      "title": "Para Profesionales",
+      "subtitle": "Haz crecer tu negocio en 5 pasos sencillos",
+      "steps": {
+        "apply": {
+          "title": "Solicita Unirte",
+          "description": "Completa nuestra solicitud simple con tu experiencia, habilidades y disponibilidad. El proceso toma menos de 10 minutos."
+        },
+        "verify": {
+          "title": "Verifica tu Perfil",
+          "description": "Completa verificación de antecedentes, verificación de ID y evaluación de habilidades. Nuestro equipo te guía en cada paso en inglés o español."
+        },
+        "match": {
+          "title": "Obtén Coincidencias",
+          "description": "Crea tu perfil, establece tus tarifas y obtén coincidencias con clientes que necesitan tus servicios. Tú controlas tu horario."
+        },
+        "serve": {
+          "title": "Brinda Excelente Servicio",
+          "description": "Llega a tiempo, proporciona un servicio excelente y construye tu reputación a través de opiniones y calificaciones de clientes."
+        },
+        "earn": {
+          "title": "Gana y Crece",
+          "description": "Recibe pagos de forma segura después de cada trabajo. Construye una base de clientes leales, gana más mediante reservas repetidas y haz crecer tu negocio."
+        }
+      },
+      "cta": "Aplicar como Profesional"
+    },
+    "safety": {
+      "title": "Seguridad y Confianza",
+      "subtitle": "Tu seguridad es nuestra máxima prioridad. Así es como te mantenemos protegido.",
+      "verification": {
+        "title": "Verificación Rigurosa",
+        "description": "Cada profesional se somete a verificación de antecedentes, verificación de ID y evaluación de habilidades antes de unirse a nuestra plataforma. Monitoreamos continuamente la calidad a través de opiniones."
+      },
+      "payments": {
+        "title": "Pagos Seguros",
+        "description": "Todos los pagos se procesan a través de Stripe con encriptación de nivel bancario. Los clientes están protegidos y los profesionales reciben pagos de manera confiable después de cada trabajo."
+      },
+      "support": {
+        "title": "Soporte 24/7",
+        "description": "Nuestro equipo de soporte bilingüe está disponible las 24 horas para ayudar a resolver cualquier problema, responder preguntas y garantizar una prestación de servicio fluida."
+      }
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "subtitle": "¿Tienes preguntas? Tenemos respuestas.",
+      "q1": {
+        "question": "¿Cómo se verifican los profesionales?",
+        "answer": "Cada profesional pasa por un proceso de verificación integral que incluye verificación de antecedentes, verificación de ID, verificación de referencias y evaluación de habilidades. También monitoreamos continuamente la calidad del servicio a través de opiniones y calificaciones de clientes."
+      },
+      "q2": {
+        "question": "¿Qué pasa si no estoy satisfecho con el servicio?",
+        "answer": "Tu satisfacción está garantizada. Si no estás contento con un servicio, contacta a nuestro equipo de asistencia dentro de las 24 horas y trabajaremos para resolver el problema, ya sea organizando una repetición, encontrando un profesional diferente o emitiendo un reembolso."
+      },
+      "q3": {
+        "question": "¿Cómo funcionan los pagos?",
+        "answer": "Para clientes: Paga de forma segura a través de la plataforma usando tarjetas de crédito/débito o transferencias bancarias. Tu pago se mantiene seguro hasta que se complete el servicio. Para profesionales: Recibes el pago automáticamente después de cada trabajo completado, menos nuestra pequeña tarifa de servicio."
+      },
+      "q4": {
+        "question": "¿Puedo comunicarme en inglés aunque esté en Colombia?",
+        "answer": "¡Absolutamente! Toda nuestra plataforma, equipo de soporte y muchos de nuestros profesionales son completamente bilingües. Puedes explorar, reservar y obtener soporte completamente en inglés o español, lo que te resulte más cómodo."
+      },
+      "stillHaveQuestions": "¿Aún tienes preguntas?",
+      "contactUs": "Contacta a nuestro equipo de soporte"
+    },
+    "cta": {
+      "title": "¿Listo para Comenzar?",
+      "subtitle": "Únete a miles de clientes y profesionales que confían en MaidConnect.",
+      "browseButton": "Explorar Profesionales",
+      "signUpButton": "Regístrate Gratis"
     }
   }
 }

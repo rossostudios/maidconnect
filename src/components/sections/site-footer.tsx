@@ -24,6 +24,7 @@ export async function SiteFooter() {
       title: t("platform"),
       links: [
         { href: "/professionals", label: t("findProfessional") },
+        { href: "/how-it-works", label: t("howItWorks") },
         { href: "/pricing", label: t("pricing") },
         { href: "/roadmap", label: t("roadmap") },
         { href: "/contact", label: t("contact") },

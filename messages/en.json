@@ -1140,6 +1140,7 @@
     "company": "Company",
     "mobile": "Mobile",
     "findProfessional": "Find a Professional",
+    "howItWorks": "How It Works",
     "pricing": "Pricing",
     "roadmap": "Roadmap",
     "contact": "Contact",
@@ -2396,6 +2397,110 @@
       "subtitle": "Join thousands of expats who trust MaidConnect for their domestic service needs.",
       "browseProfessionals": "Browse Professionals",
       "signUp": "Sign Up Free"
+    }
+  },
+  "howItWorks": {
+    "meta": {
+      "title": "How It Works - Simple Steps to Quality Service | MaidConnect",
+      "description": "Discover how MaidConnect makes it easy to find trusted domestic service professionals. Browse verified profiles, book services, and get support every step of the way."
+    },
+    "hero": {
+      "title": "How MaidConnect Works",
+      "subtitle": "Whether you're looking for help or offering your services, we've made the process simple, safe, and transparent."
+    },
+    "customer": {
+      "title": "For Customers",
+      "subtitle": "Find trusted professionals in 4 easy steps",
+      "steps": {
+        "search": {
+          "title": "Search & Browse",
+          "description": "Browse verified professionals by service type, location, and availability. Filter by language, ratings, and experience to find your perfect match."
+        },
+        "book": {
+          "title": "Book Your Service",
+          "description": "Choose your preferred date and time, review transparent pricing, and book instantly. Our concierge team is available if you need help."
+        },
+        "service": {
+          "title": "Enjoy Quality Service",
+          "description": "The professional arrives on time and delivers exceptional service. Our support team is standing by if you need any assistance."
+        },
+        "review": {
+          "title": "Review & Rebook",
+          "description": "Share your experience to help others. Loved your professional? Save them as a favorite and rebook with one click."
+        }
+      },
+      "cta": "Browse Professionals"
+    },
+    "professional": {
+      "title": "For Professionals",
+      "subtitle": "Grow your business in 5 straightforward steps",
+      "steps": {
+        "apply": {
+          "title": "Apply to Join",
+          "description": "Fill out our simple application with your experience, skills, and availability. The process takes less than 10 minutes."
+        },
+        "verify": {
+          "title": "Get Verified",
+          "description": "Complete background checks, ID verification, and skills assessment. Our concierge team guides you through every step in English or Spanish."
+        },
+        "match": {
+          "title": "Get Matched",
+          "description": "Create your profile, set your rates, and get matched with customers who need your services. You're in control of your schedule."
+        },
+        "serve": {
+          "title": "Deliver Great Service",
+          "description": "Show up on time, provide excellent service, and build your reputation through customer reviews and ratings."
+        },
+        "earn": {
+          "title": "Earn & Grow",
+          "description": "Get paid securely after each job. Build a loyal client base, earn more through repeat bookings, and grow your business."
+        }
+      },
+      "cta": "Apply as a Professional"
+    },
+    "safety": {
+      "title": "Safety & Trust",
+      "subtitle": "Your security is our top priority. Here's how we keep you protected.",
+      "verification": {
+        "title": "Rigorous Verification",
+        "description": "Every professional undergoes background checks, ID verification, and skills assessment before joining our platform. We continuously monitor quality through reviews."
+      },
+      "payments": {
+        "title": "Secure Payments",
+        "description": "All payments are processed through Stripe with bank-level encryption. Customers are protected, and professionals get paid reliably after each job."
+      },
+      "support": {
+        "title": "24/7 Concierge Support",
+        "description": "Our bilingual support team is available around the clock to help resolve any issues, answer questions, and ensure smooth service delivery."
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Got questions? We've got answers.",
+      "q1": {
+        "question": "How are professionals verified?",
+        "answer": "Every professional goes through a comprehensive verification process including background checks, ID verification, reference checks, and skills assessment. We also continuously monitor service quality through customer reviews and ratings."
+      },
+      "q2": {
+        "question": "What if I'm not satisfied with the service?",
+        "answer": "Your satisfaction is guaranteed. If you're not happy with a service, contact our concierge team within 24 hours and we'll work to resolve the issue—whether that's arranging a redo, finding a different professional, or issuing a refund."
+      },
+      "q3": {
+        "question": "How do payments work?",
+        "answer": "For customers: Pay securely through the platform using credit/debit cards or bank transfers. Your payment is held securely until the service is completed. For professionals: You receive payment automatically after each completed job, minus our small service fee."
+      },
+      "q4": {
+        "question": "Can I communicate in English even though I'm in Colombia?",
+        "answer": "Absolutely! Our entire platform, support team, and many of our professionals are fully bilingual. You can browse, book, and get support entirely in English or Spanish—whatever you're most comfortable with."
+      },
+      "stillHaveQuestions": "Still have questions?",
+      "contactUs": "Contact our support team"
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "subtitle": "Join thousands of customers and professionals who trust MaidConnect.",
+      "browseButton": "Browse Professionals",
+      "signUpButton": "Sign Up Free"
     }
   }
 }
