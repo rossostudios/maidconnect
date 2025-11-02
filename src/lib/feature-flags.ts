@@ -24,6 +24,7 @@ export type FeatureFlag =
   | "gps_check_in_out" // GPS verification (already implemented)
   | "arrival_notifications" // Notify customer when pro is nearby
   | "time_extension_ui" // In-booking time extension requests
+  | "show_etta_assistant" // AI booking assistant with onboarding
 
   // Week 9-12 Features
   | "admin_verification_queue" // Admin moderation UI (already implemented)
@@ -63,6 +64,7 @@ const defaultFlags: Record<FeatureFlag, boolean> = {
   gps_check_in_out: true, // Already live
   arrival_notifications: false,
   time_extension_ui: true, // Improved modal with preset options
+  show_etta_assistant: true, // AI assistant with onboarding tooltip
 
   // Week 9-12 (Admin queue already implemented)
   admin_verification_queue: true, // Already live

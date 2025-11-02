@@ -2240,6 +2240,12 @@
     "inputPlaceholder": "Escribe tu mensaje...",
     "send": "Enviar mensaje",
     "errorMessage": "Lo siento, tuve problemas procesando eso. ¿Podrías reformular tu pregunta?",
+    "onboarding": {
+      "title": "Conoce a Etta, Tu Asistente IA",
+      "description": "Puedo ayudarte a encontrar profesionales, verificar disponibilidad y reservar servicios al instante. ¡Pregúntame lo que quieras!",
+      "dismiss": "¡Entendido!",
+      "hint": "¡Nuevo! Haz clic para chatear"
+    },
     "searchingProfessionals": "Buscando profesionales...",
     "checkingAvailability": "Verificando disponibilidad...",
     "creatingBookingDraft": "Creando vista previa de reserva...",

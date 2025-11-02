@@ -60,6 +60,22 @@
   }
 }
 
+/* Pulse ring animation for onboarding */
+@keyframes pulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
 /* Shimmer effect for loading states */
 @keyframes shimmer {
   0% {
@@ -186,4 +202,9 @@
   );
   background-size: 1000px 100%;
   animation: shimmer 2s infinite linear;
+}
+
+/* Pulse ring for onboarding attention */
+.etta-pulse-ring {
+  animation: pulseRing 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 }
