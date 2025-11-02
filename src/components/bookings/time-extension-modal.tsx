@@ -1,7 +1,7 @@
 "use client";
 
+import { Clock, DollarSign, X } from "lucide-react";
 import { useState } from "react";
-import { X, Clock, DollarSign } from "lucide-react";
 
 type TimeExtensionOption = {
   minutes: number;
@@ -40,17 +40,14 @@ export function TimeExtensionModal({
   if (!isOpen) return null;
 
   // Calculate cost for selected time
-  const calculateCost = (minutes: number): number => {
-    return Math.round((hourlyRate / 60) * minutes);
-  };
+  const calculateCost = (minutes: number): number => Math.round((hourlyRate / 60) * minutes);
 
-  const formatCurrency = (amountInCents: number): string => {
-    return new Intl.NumberFormat("es-CO", {
+  const formatCurrency = (amountInCents: number): string =>
+    new Intl.NumberFormat("es-CO", {
       style: "currency",
       currency: currency || "COP",
       minimumFractionDigits: 0,
     }).format(amountInCents / 100);
-  };
 
   const currentMinutes = customMinutes ? Number.parseInt(customMinutes, 10) : selectedMinutes;
   const estimatedCost = currentMinutes && currentMinutes > 0 ? calculateCost(currentMinutes) : 0;
@@ -130,9 +127,7 @@ export function TimeExtensionModal({
 
         {/* Preset Options */}
         <div className="mb-6">
-          <label className="mb-3 block font-medium text-[#211f1a] text-sm">
-            Quick Options
-          </label>
+          <label className="mb-3 block font-medium text-[#211f1a] text-sm">Quick Options</label>
           <div className="grid grid-cols-2 gap-3">
             {PRESET_OPTIONS.map((option) => {
               const isSelected = selectedMinutes === option.minutes;
@@ -150,13 +145,8 @@ export function TimeExtensionModal({
                   type="button"
                 >
                   <div className="mb-1 flex items-center gap-2">
-                    <Clock
-                      className={isSelected ? "text-[#ff5d46]" : "text-[#7a6d62]"}
-                      size={16}
-                    />
-                    <span className="font-semibold text-[#211f1a] text-sm">
-                      {option.label}
-                    </span>
+                    <Clock className={isSelected ? "text-[#ff5d46]" : "text-[#7a6d62]"} size={16} />
+                    <span className="font-semibold text-[#211f1a] text-sm">{option.label}</span>
                   </div>
                   <p className="text-[#7a6d62] text-xs">{formatCurrency(cost)}</p>
                 </button>
@@ -201,9 +191,7 @@ export function TimeExtensionModal({
         )}
 
         {/* Error Message */}
-        {error && (
-          <div className="mb-4 rounded-lg bg-red-50 p-3 text-red-800 text-sm">{error}</div>
-        )}
+        {error && <div className="mb-4 rounded-lg bg-red-50 p-3 text-red-800 text-sm">{error}</div>}
 
         {/* Actions */}
         <div className="flex gap-3">

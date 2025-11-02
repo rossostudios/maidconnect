@@ -8,9 +8,9 @@
  * Stores dismissal state in localStorage.
  */
 
+import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { X } from "lucide-react";
 import { EttaIcon } from "./etta-icon";
 
 const STORAGE_KEY = "etta_onboarding_dismissed";
@@ -90,7 +90,7 @@ export function EttaOnboardingTooltip({ onDismiss }: EttaOnboardingTooltipProps)
       </div>
 
       {/* Pointer Arrow */}
-      <div className="absolute right-8 -bottom-2 h-4 w-4 rotate-45 border-[#ff5d46]/20 border-b border-r bg-white" />
+      <div className="-bottom-2 absolute right-8 h-4 w-4 rotate-45 border-[#ff5d46]/20 border-r border-b bg-white" />
     </div>
   );
 }

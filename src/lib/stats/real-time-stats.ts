@@ -17,7 +17,7 @@ export interface PlatformStats {
  * @param refreshInterval - Interval in milliseconds to refresh stats (default: 60000ms = 1 minute)
  * @returns Platform statistics with loading and error states
  */
-export function usePlatformStats(refreshInterval = 60000) {
+export function usePlatformStats(refreshInterval = 60_000) {
   const [stats, setStats] = useState<PlatformStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -52,7 +52,7 @@ export function usePlatformStats(refreshInterval = 60000) {
 
           // Set fallback stats on error
           setStats({
-            totalBookings: 12847,
+            totalBookings: 12_847,
             totalProfessionals: 450,
             averageRating: 4.9,
             lastUpdated: new Date().toISOString(),
@@ -104,7 +104,7 @@ export async function fetchPlatformStats(): Promise<PlatformStats> {
 
     // Return fallback stats on error
     return {
-      totalBookings: 12847,
+      totalBookings: 12_847,
       totalProfessionals: 450,
       averageRating: 4.9,
       lastUpdated: new Date().toISOString(),

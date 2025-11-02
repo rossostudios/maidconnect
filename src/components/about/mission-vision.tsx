@@ -7,8 +7,8 @@
  * Built following 2025 best practices for trust-building and authenticity.
  */
 
+import { CheckCircle, Compass, Globe, Heart, Star, Target } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Target, Compass, Heart, Users, CheckCircle, Star, Globe } from "lucide-react";
 
 export function MissionVision() {
   const t = useTranslations("about.missionVision");
@@ -79,7 +79,7 @@ export function MissionVision() {
             {values.map((value, index) => {
               const Icon = value.icon;
               return (
-                <div key={index} className="text-center">
+                <div className="text-center" key={index}>
                   <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#ff5d46]/10">
                     <Icon className="h-6 w-6 text-[#ff5d46]" />
                   </div>

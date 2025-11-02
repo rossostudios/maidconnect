@@ -1143,6 +1143,7 @@
     "howItWorks": "How It Works",
     "pricing": "Pricing",
     "roadmap": "Roadmap",
+    "helpCenter": "Help Center",
     "contact": "Contact",
     "services": "Services",
     "about": "About",
@@ -2501,6 +2502,82 @@
       "subtitle": "Join thousands of customers and professionals who trust MaidConnect.",
       "browseButton": "Browse Professionals",
       "signUpButton": "Sign Up Free"
+    }
+  },
+  "help": {
+    "meta": {
+      "title": "Help Center",
+      "description": "Find answers to common questions and learn how to use MaidConnect"
+    },
+    "hero": {
+      "title": "How can we help you?",
+      "subtitle": "Search our knowledge base or browse categories below"
+    },
+    "search": {
+      "placeholder": "Search for help...",
+      "searching": "Searching...",
+      "noResults": "No articles found matching your search",
+      "viewAll": "View all results",
+      "browseAll": "Browse all articles"
+    },
+    "categories": {
+      "title": "Browse by Category",
+      "article": "article",
+      "articles": "articles",
+      "browse": "Browse articles"
+    },
+    "popular": {
+      "title": "Popular Articles",
+      "view": "view",
+      "views": "views"
+    },
+    "contact": {
+      "title": "Still need help?",
+      "description": "Our support team is here to assist you",
+      "button": "Contact Support"
+    },
+    "breadcrumb": {
+      "home": "Help Center"
+    },
+    "category": {
+      "articlesCount": "{count, plural, =1 {1 article} other {# articles}}",
+      "view": "view",
+      "views": "views",
+      "helpful": "helpful",
+      "backToHelp": "Back to Help Center",
+      "noArticles": {
+        "title": "No articles yet",
+        "description": "Check back soon for helpful articles in this category",
+        "button": "Browse Other Categories"
+      }
+    },
+    "article": {
+      "meta": {
+        "updated": "Updated {date}",
+        "views": "{count, plural, =1 {1 view} other {# views}}"
+      },
+      "feedback": {
+        "question": "Was this article helpful?",
+        "helpful": "Yes, helpful",
+        "notHelpful": "Not helpful",
+        "thanksHelpful": "Thanks for your feedback!",
+        "thanksNotHelpful": "Thanks for your feedback. We'll work to improve this article.",
+        "tellUsMore": "Tell us what we could improve:",
+        "placeholder": "How can we make this article better?",
+        "submit": "Submit Feedback",
+        "skip": "Skip",
+        "alreadySubmitted": "You've already provided feedback for this article",
+        "error": "Failed to submit feedback. Please try again."
+      },
+      "related": {
+        "title": "Related Articles",
+        "readMore": "Read more"
+      },
+      "contact": {
+        "title": "Still have questions?",
+        "description": "Our support team is here to help",
+        "button": "Contact Support"
+      }
     }
   }
 }

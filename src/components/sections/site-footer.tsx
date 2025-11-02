@@ -27,6 +27,7 @@ export async function SiteFooter() {
         { href: "/how-it-works", label: t("howItWorks") },
         { href: "/pricing", label: t("pricing") },
         { href: "/roadmap", label: t("roadmap") },
+        { href: "/help", label: t("helpCenter") },
         { href: "/contact", label: t("contact") },
         { href: "#services", label: t("services") },
       ],
@@ -95,6 +96,7 @@ export async function SiteFooter() {
                     <li key={link.label}>
                       <Link
                         className="inline-flex items-center gap-2 text-[#f3ece1] text-base transition hover:text-[#ff5d46]"
+                        data-tour={link.href === "/help" ? "help" : undefined}
                         href={link.href}
                       >
                         {link.label}

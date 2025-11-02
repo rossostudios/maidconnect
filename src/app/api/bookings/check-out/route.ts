@@ -68,7 +68,7 @@ export async function POST(request: Request) {
     }
 
     // Fetch the booking with all necessary data
-    const { data: booking, error: bookingError} = await supabase
+    const { data: booking, error: bookingError } = await supabase
       .from("bookings")
       .select(`
         id,

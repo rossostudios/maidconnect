@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useOptimistic, useState } from "react";
-import { RatingPromptModal } from "@/components/reviews/rating-prompt-modal";
 import { TimeExtensionModal } from "@/components/bookings/time-extension-modal";
+import { RatingPromptModal } from "@/components/reviews/rating-prompt-modal";
 
 export type BookingForExecution = {
   id: string;

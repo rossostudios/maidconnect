@@ -1,7 +1,9 @@
 "use client";
 
-import { Calendar, Check, Clock, Repeat } from "lucide-react";
+import { Calendar, Check, Clock, Repeat, Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { isFeatureEnabled } from "@/lib/feature-flags";
 
 type PreviousBooking = {
   id: string;
@@ -17,7 +19,7 @@ type PreviousBooking = {
 
 type BookAgainCardProps = {
   booking: PreviousBooking;
-  onBookAgain: (bookingId: string) => void;
+  onBookAgain?: (bookingId: string) => void;
 };
 
 function formatCurrencyCOP(value: number) {
@@ -29,17 +31,55 @@ function formatCurrencyCOP(value: number) {
 }
 
 /**
- * BookAgainCard - One-click rebook for previous customers
- * Research: Repeat bookings are 5x easier to convert
+ * BookAgainCard - One-tap rebook for previous customers
+ *
+ * Research insights applied:
+ * - Xanh SM doubled repeat orders with optimized re-engagement
+ * - Hyatt saw 2.5% conversion lift with "Complete Your Booking" feature
+ * - Pre-filled forms reduce booking time by 70%
+ * - Repeat bookings are 5x easier to convert than new bookings
  */
 export function BookAgainCard({ booking, onBookAgain }: BookAgainCardProps) {
   const [isRebooking, setIsRebooking] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+  const oneTapEnabled = isFeatureEnabled("one_tap_rebook");
 
   const handleBookAgain = async () => {
     setIsRebooking(true);
+    setError(null);
+
     try {
-      await onBookAgain(booking.id);
-    } finally {
+      if (oneTapEnabled) {
+        // New one-tap rebook flow
+        const response = await fetch("/api/bookings/rebook", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            originalBookingId: booking.id,
+            // Don't set scheduledStart - let user pick new date
+          }),
+        });
+
+        if (!response.ok) {
+          const data = await response.json();
+          throw new Error(data.error || "Failed to create rebook");
+        }
+
+        const data = await response.json();
+
+        // Redirect to scheduling or payment page
+        router.push(data.redirectTo);
+      } else {
+        // Legacy flow - call the provided callback
+        if (onBookAgain) {
+          await onBookAgain(booking.id);
+        }
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to rebook");
       setIsRebooking(false);
     }
   };
@@ -95,6 +135,11 @@ export function BookAgainCard({ booking, onBookAgain }: BookAgainCardProps) {
         </div>
       </div>
 
+      {/* Error Message */}
+      {error && (
+        <div className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-red-700 text-sm">{error}</div>
+      )}
+
       {/* Quick Rebook Button */}
       <button
         className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-60"
@@ -102,12 +147,23 @@ export function BookAgainCard({ booking, onBookAgain }: BookAgainCardProps) {
         onClick={handleBookAgain}
         type="button"
       >
-        <Repeat className="h-4 w-4" />
-        {isRebooking ? "Preparing..." : "Book Again"}
+        {oneTapEnabled ? (
+          <>
+            <Sparkles className="h-4 w-4" />
+            {isRebooking ? "Creating booking..." : "Book Again (1-Tap)"}
+          </>
+        ) : (
+          <>
+            <Repeat className="h-4 w-4" />
+            {isRebooking ? "Preparing..." : "Book Again"}
+          </>
+        )}
       </button>
 
       <p className="mt-2 text-center text-[#7d7566] text-xs">
-        Same service, new date. We'll prefill your preferences.
+        {oneTapEnabled
+          ? "All details pre-filled. Just pick a new date!"
+          : "Same service, new date. We'll prefill your preferences."}
       </p>
     </div>
   );
@@ -118,7 +174,7 @@ export function BookAgainCard({ booking, onBookAgain }: BookAgainCardProps) {
  */
 type BookAgainSectionProps = {
   previousBookings: PreviousBooking[];
-  onBookAgain: (bookingId: string) => void;
+  onBookAgain?: (bookingId: string) => void;
 };
 
 export function BookAgainSection({ previousBookings, onBookAgain }: BookAgainSectionProps) {

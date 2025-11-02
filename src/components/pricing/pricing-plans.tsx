@@ -64,9 +64,7 @@ export function PricingPlans() {
   };
 
   // Get all features from a plan as a flat list
-  const getAllFeatures = (plan: PricingPlan) => {
-    return plan.features.flatMap((category) => category.items);
-  };
+  const getAllFeatures = (plan: PricingPlan) => plan.features.flatMap((category) => category.items);
 
   if (loading) {
     return (

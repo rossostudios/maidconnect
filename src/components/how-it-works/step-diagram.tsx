@@ -40,7 +40,7 @@ export function StepDiagram({
 
       {/* Connector line */}
       {!isLast && (
-        <div className="absolute top-8 -right-1/2 hidden h-0.5 w-full bg-gradient-to-r from-[#ff5d46]/50 to-transparent md:block" />
+        <div className="-right-1/2 absolute top-8 hidden h-0.5 w-full bg-gradient-to-r from-[#ff5d46]/50 to-transparent md:block" />
       )}
     </div>
   );

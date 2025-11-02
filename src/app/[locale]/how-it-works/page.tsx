@@ -1,11 +1,11 @@
+import { ArrowRight, HelpCircle, Lock, MessageSquare, Shield } from "lucide-react";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { ProcessTimeline } from "@/components/how-it-works/process-timeline";
-import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
+import { SiteHeader } from "@/components/sections/site-header";
 import { Link } from "@/i18n/routing";
-import { ArrowRight, Shield, Lock, MessageSquare, HelpCircle } from "lucide-react";
 
 export async function generateMetadata({
   params,
@@ -206,8 +206,8 @@ function SafetyTrustSection() {
             const Icon = feature.icon;
             return (
               <div
-                key={index}
                 className="rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm transition hover:shadow-md"
+                key={index}
               >
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#ff5d46]/10 to-[#e54d36]/10">
                   <Icon className="h-8 w-8 text-[#ff5d46]" />
@@ -256,7 +256,7 @@ function FAQSection() {
 
         <div className="space-y-6">
           {faqs.map((faq, index) => (
-            <div key={index} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm" key={index}>
               <h3 className="mb-3 font-semibold text-gray-900 text-lg">{t(faq.questionKey)}</h3>
               <p className="text-gray-600 leading-relaxed">{t(faq.answerKey)}</p>
             </div>

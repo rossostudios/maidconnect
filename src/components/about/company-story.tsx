@@ -7,8 +7,8 @@
  * Explains why we exist and the problem we're solving for expats in Colombia.
  */
 
+import { Globe, Shield, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Sparkles, Globe, Shield } from "lucide-react";
 
 export function CompanyStory() {
   const t = useTranslations("about.story");
@@ -21,9 +21,7 @@ export function CompanyStory() {
           <h1 className="mb-6 font-bold text-4xl text-[#211f1a] sm:text-5xl lg:text-6xl">
             {t("title")}
           </h1>
-          <p className="mb-8 text-[#5d574b] text-lg leading-relaxed sm:text-xl">
-            {t("subtitle")}
-          </p>
+          <p className="mb-8 text-[#5d574b] text-lg leading-relaxed sm:text-xl">{t("subtitle")}</p>
         </div>
 
         {/* Story Content */}
@@ -47,7 +45,9 @@ export function CompanyStory() {
                   <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[#ff5d46]/10">
                     <Shield className="h-6 w-6 text-[#ff5d46]" />
                   </div>
-                  <h3 className="mb-2 font-semibold text-[#211f1a]">{t("solution.feature1.title")}</h3>
+                  <h3 className="mb-2 font-semibold text-[#211f1a]">
+                    {t("solution.feature1.title")}
+                  </h3>
                   <p className="text-[#5d574b] text-sm">{t("solution.feature1.description")}</p>
                 </div>
 
@@ -55,7 +55,9 @@ export function CompanyStory() {
                   <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[#ff5d46]/10">
                     <Globe className="h-6 w-6 text-[#ff5d46]" />
                   </div>
-                  <h3 className="mb-2 font-semibold text-[#211f1a]">{t("solution.feature2.title")}</h3>
+                  <h3 className="mb-2 font-semibold text-[#211f1a]">
+                    {t("solution.feature2.title")}
+                  </h3>
                   <p className="text-[#5d574b] text-sm">{t("solution.feature2.description")}</p>
                 </div>
 
@@ -63,7 +65,9 @@ export function CompanyStory() {
                   <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[#ff5d46]/10">
                     <Sparkles className="h-6 w-6 text-[#ff5d46]" />
                   </div>
-                  <h3 className="mb-2 font-semibold text-[#211f1a]">{t("solution.feature3.title")}</h3>
+                  <h3 className="mb-2 font-semibold text-[#211f1a]">
+                    {t("solution.feature3.title")}
+                  </h3>
                   <p className="text-[#5d574b] text-sm">{t("solution.feature3.description")}</p>
                 </div>
               </div>

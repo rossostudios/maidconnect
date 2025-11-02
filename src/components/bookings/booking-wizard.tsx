@@ -6,7 +6,9 @@ import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { DatePicker } from "@/components/ui/date-picker";
 import { TimePicker } from "@/components/ui/time-picker";
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
+import { isFeatureEnabled } from "@/lib/feature-flags";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
+import { type RecurringSchedule, RecurringScheduleSelector } from "./recurring-schedule-selector";
 
 type BookingWizardProps = {
   professionalId: string;
@@ -43,6 +45,7 @@ export function BookingWizard({
   const [durationHours, setDurationHours] = useState<number>(2);
   const [specialInstructions, setSpecialInstructions] = useState<string>("");
   const [address, setAddress] = useState<string>("");
+  const [recurringSchedule, setRecurringSchedule] = useState<RecurringSchedule | null>(null);
 
   const serviceWithName = services.filter((service) => Boolean(service.name));
   const selectedService = serviceWithName.find((s) => s.name === selectedServiceName);
@@ -172,10 +175,13 @@ export function BookingWizard({
         {currentStep === 3 && (
           <Step3Details
             address={address}
+            basePrice={estimatedAmount}
             onBack={() => setCurrentStep(2)}
             onNext={() => setCurrentStep(4)}
             onUpdateAddress={setAddress}
             onUpdateInstructions={setSpecialInstructions}
+            onUpdateRecurringSchedule={setRecurringSchedule}
+            recurringSchedule={recurringSchedule}
             specialInstructions={specialInstructions}
           />
         )}
@@ -188,6 +194,7 @@ export function BookingWizard({
             onBack={() => setCurrentStep(3)}
             onUpdateDuration={setDurationHours}
             professionalName={professionalName}
+            recurringSchedule={recurringSchedule}
             selectedDate={selectedDate}
             selectedRate={selectedRate}
             selectedServiceName={selectedServiceName}
@@ -379,6 +386,9 @@ function Step3Details({
   address,
   onUpdateInstructions,
   onUpdateAddress,
+  recurringSchedule,
+  onUpdateRecurringSchedule,
+  basePrice,
   onNext,
   onBack,
 }: {
@@ -386,9 +396,14 @@ function Step3Details({
   address: string;
   onUpdateInstructions: (value: string) => void;
   onUpdateAddress: (value: string) => void;
+  recurringSchedule: RecurringSchedule | null;
+  onUpdateRecurringSchedule: (schedule: RecurringSchedule | null) => void;
+  basePrice: number;
   onNext: () => void;
   onBack: () => void;
 }) {
+  const recurringEnabled = isFeatureEnabled("recurring_plans");
+
   return (
     <div className="space-y-6">
       <div>
@@ -420,6 +435,18 @@ function Step3Details({
             value={address}
           />
         </div>
+
+        {/* Recurring Booking Option - Feature Flagged */}
+        {recurringEnabled && basePrice > 0 && (
+          <div>
+            <RecurringScheduleSelector
+              basePrice={basePrice}
+              currency="COP"
+              initialSchedule={recurringSchedule ?? undefined}
+              onScheduleChange={onUpdateRecurringSchedule}
+            />
+          </div>
+        )}
       </div>
 
       <div className="flex justify-between pt-4">
@@ -456,6 +483,7 @@ function Step4Review({
   estimatedAmount,
   taxAmount,
   totalAmount,
+  recurringSchedule,
   onBack,
 }: {
   professionalName: string;
@@ -470,8 +498,14 @@ function Step4Review({
   estimatedAmount: number;
   taxAmount: number;
   totalAmount: number;
+  recurringSchedule: RecurringSchedule | null;
   onBack: () => void;
 }) {
+  const FREQUENCY_LABELS: Record<string, string> = {
+    weekly: "Weekly",
+    biweekly: "Every 2 Weeks",
+    monthly: "Monthly",
+  };
   return (
     <div className="space-y-6">
       <div>
@@ -505,6 +539,31 @@ function Step4Review({
             at {selectedTime}
           </p>
         </div>
+
+        {/* Recurring Schedule Info */}
+        {recurringSchedule && (
+          <div className="border-[#ebe5d8] border-t pt-4">
+            <p className="text-[#7d7566] text-xs">Recurring Schedule</p>
+            <div className="space-y-1">
+              <p className="font-semibold text-[#211f1a]">
+                {FREQUENCY_LABELS[recurringSchedule.frequency]}
+              </p>
+              <p className="text-[#7d7566] text-sm">
+                {recurringSchedule.endType === "occurrences" &&
+                  `${recurringSchedule.occurrences} bookings`}
+                {recurringSchedule.endType === "date" &&
+                  `Until ${new Date(recurringSchedule.endDate!).toLocaleDateString()}`}
+                {recurringSchedule.endType === "never" && "Ongoing (cancel anytime)"}
+              </p>
+              <div className="mt-2 flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2">
+                <Check className="h-4 w-4 text-green-600" />
+                <span className="font-medium text-green-700 text-xs">
+                  Recurring discount applied
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Duration Adjuster */}
         <div className="border-[#ebe5d8] border-t pt-4">

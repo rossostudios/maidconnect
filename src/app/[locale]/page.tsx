@@ -1,3 +1,4 @@
+import { WelcomeTour } from "@/components/onboarding";
 import { ConciergeSection } from "@/components/sections/concierge-section";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ProcessSection } from "@/components/sections/process-section";
@@ -12,7 +13,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <SiteHeader />
-      <main>
+      <main data-tour="welcome">
         <HeroSection />
         <ServicesSection />
         <ProcessSection />
@@ -20,6 +21,7 @@ export default function Home() {
         <ConciergeSection />
       </main>
       <SiteFooter />
+      <WelcomeTour autoStart />
     </div>
   );
 }

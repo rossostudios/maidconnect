@@ -1143,6 +1143,7 @@
     "howItWorks": "Cómo Funciona",
     "pricing": "Precios",
     "roadmap": "Hoja de ruta",
+    "helpCenter": "Centro de Ayuda",
     "contact": "Contacto",
     "services": "Servicios",
     "about": "Acerca de",
@@ -2501,6 +2502,82 @@
       "subtitle": "Únete a miles de clientes y profesionales que confían en MaidConnect.",
       "browseButton": "Explorar Profesionales",
       "signUpButton": "Regístrate Gratis"
+    }
+  },
+  "help": {
+    "meta": {
+      "title": "Centro de Ayuda",
+      "description": "Encuentra respuestas a preguntas comunes y aprende a usar MaidConnect"
+    },
+    "hero": {
+      "title": "¿Cómo podemos ayudarte?",
+      "subtitle": "Busca en nuestra base de conocimientos o explora las categorías a continuación"
+    },
+    "search": {
+      "placeholder": "Buscar ayuda...",
+      "searching": "Buscando...",
+      "noResults": "No se encontraron artículos que coincidan con tu búsqueda",
+      "viewAll": "Ver todos los resultados",
+      "browseAll": "Explorar todos los artículos"
+    },
+    "categories": {
+      "title": "Explorar por Categoría",
+      "article": "artículo",
+      "articles": "artículos",
+      "browse": "Explorar artículos"
+    },
+    "popular": {
+      "title": "Artículos Populares",
+      "view": "vista",
+      "views": "vistas"
+    },
+    "contact": {
+      "title": "¿Aún necesitas ayuda?",
+      "description": "Nuestro equipo de soporte está aquí para asistirte",
+      "button": "Contactar Soporte"
+    },
+    "breadcrumb": {
+      "home": "Centro de Ayuda"
+    },
+    "category": {
+      "articlesCount": "{count, plural, =1 {1 artículo} other {# artículos}}",
+      "view": "vista",
+      "views": "vistas",
+      "helpful": "útil",
+      "backToHelp": "Volver al Centro de Ayuda",
+      "noArticles": {
+        "title": "Aún no hay artículos",
+        "description": "Vuelve pronto para ver artículos útiles en esta categoría",
+        "button": "Explorar Otras Categorías"
+      }
+    },
+    "article": {
+      "meta": {
+        "updated": "Actualizado {date}",
+        "views": "{count, plural, =1 {1 vista} other {# vistas}}"
+      },
+      "feedback": {
+        "question": "¿Te resultó útil este artículo?",
+        "helpful": "Sí, útil",
+        "notHelpful": "No útil",
+        "thanksHelpful": "¡Gracias por tu comentario!",
+        "thanksNotHelpful": "Gracias por tu comentario. Trabajaremos para mejorar este artículo.",
+        "tellUsMore": "Dinos qué podríamos mejorar:",
+        "placeholder": "¿Cómo podemos mejorar este artículo?",
+        "submit": "Enviar Comentario",
+        "skip": "Omitir",
+        "alreadySubmitted": "Ya has proporcionado comentarios para este artículo",
+        "error": "Error al enviar comentarios. Por favor, inténtalo de nuevo."
+      },
+      "related": {
+        "title": "Artículos Relacionados",
+        "readMore": "Leer más"
+      },
+      "contact": {
+        "title": "¿Aún tienes preguntas?",
+        "description": "Nuestro equipo de soporte está aquí para ayudarte",
+        "button": "Contactar Soporte"
+      }
     }
   }
 }

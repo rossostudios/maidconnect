@@ -47,7 +47,7 @@ export async function GET(request: Request) {
       currency: plan.currency || "USD",
       billing_period: plan.billing_period || "monthly",
       features: plan.features || [],
-      highlight_as_popular: plan.highlight_as_popular || false,
+      highlight_as_popular: plan.highlight_as_popular,
       recommended_for: plan.recommended_for,
       cta_text: plan.cta_text || "Get Started",
       cta_url: plan.cta_url,
@@ -65,9 +65,6 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error("Error in GET /api/pricing/plans:", error);
-    return NextResponse.json(
-      { success: false, error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: "Internal server error" }, { status: 500 });
   }
 }

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
+import { sendPushNotification } from "@/lib/notifications";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { sendPushNotification } from "@/lib/notifications";
 
 type ExtendTimeRequest = {
   bookingId: string;
@@ -159,7 +159,7 @@ export async function POST(request: Request) {
       userId: booking.customer_id,
       title: "Service Time Extended",
       body: `${professionalName} extended your ${booking.service_name || "service"} by ${additionalMinutes} minutes. Additional charge: ${formattedAmount}`,
-      url: `/dashboard/customer/bookings`,
+      url: "/dashboard/customer/bookings",
       tag: `time-extension-${booking.id}`,
       requireInteraction: false,
     });

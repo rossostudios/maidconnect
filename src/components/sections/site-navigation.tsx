@@ -85,7 +85,10 @@ export function SiteNavigation() {
   );
 
   return (
-    <nav className="order-3 flex w-full justify-between gap-6 font-medium text-[#211f1a] text-sm sm:order-none sm:w-auto sm:justify-end">
+    <nav
+      className="order-3 flex w-full justify-between gap-6 font-medium text-[#211f1a] text-sm sm:order-none sm:w-auto sm:justify-end"
+      data-tour="navigation"
+    >
       <div className="flex w-full items-center justify-between gap-6 overflow-x-auto sm:w-auto sm:overflow-visible">
         {/* Product Dropdown/Button */}
         <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>

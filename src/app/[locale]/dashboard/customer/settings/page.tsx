@@ -3,9 +3,7 @@ import { SavedAddressesManager } from "@/components/addresses/saved-addresses-ma
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export default async function CustomerSettingsPage(props: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function CustomerSettingsPage(props: { params: Promise<{ locale: string }> }) {
   const params = await props.params;
   const t = await getTranslations({
     locale: params.locale,
@@ -28,17 +26,19 @@ export default async function CustomerSettingsPage(props: {
       .maybeSingle(),
   ]);
 
-  const profile = (profileData as {
-    phone: string | null;
-    city: string | null;
-    country: string | null;
-    full_name: string | null;
-  } | null) ?? null;
+  const profile =
+    (profileData as {
+      phone: string | null;
+      city: string | null;
+      country: string | null;
+      full_name: string | null;
+    } | null) ?? null;
 
-  const customerProfile = (customerData as {
-    property_preferences: Record<string, unknown> | null;
-    saved_addresses: unknown;
-  } | null) ?? null;
+  const customerProfile =
+    (customerData as {
+      property_preferences: Record<string, unknown> | null;
+      saved_addresses: unknown;
+    } | null) ?? null;
 
   const savedAddresses = (customerProfile?.saved_addresses as any[]) || [];
   const propertyType =
@@ -103,9 +103,7 @@ export default async function CustomerSettingsPage(props: {
               {t("preferences.propertyType")}
             </label>
             <p className="text-[#211f1a]">
-              {propertyType
-                ? propertyType.charAt(0).toUpperCase() + propertyType.slice(1)
-                : "—"}
+              {propertyType ? propertyType.charAt(0).toUpperCase() + propertyType.slice(1) : "—"}
             </p>
           </div>
 

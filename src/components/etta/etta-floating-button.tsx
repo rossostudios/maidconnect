@@ -8,9 +8,9 @@
  */
 
 import { useTranslations } from "next-intl";
-import { useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 import { isFeatureEnabled } from "@/lib/feature-flags";
+import { cn } from "@/lib/utils";
 import { EttaChatInterface } from "./etta-chat-interface";
 import { EttaIcon } from "./etta-icon";
 import { EttaOnboardingTooltip } from "./etta-onboarding-tooltip";

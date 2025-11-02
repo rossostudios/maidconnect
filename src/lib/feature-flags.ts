@@ -57,8 +57,8 @@ const defaultFlags: Record<FeatureFlag, boolean> = {
 
   // Week 5-6
   auto_translate_chat: false,
-  one_tap_rebook: false,
-  recurring_plans: false,
+  one_tap_rebook: true,
+  recurring_plans: true,
 
   // Week 7-8 (GPS already implemented)
   gps_check_in_out: true, // Already live
@@ -73,7 +73,7 @@ const defaultFlags: Record<FeatureFlag, boolean> = {
 
   // Pricing Experiments
   show_platform_fee: false,
-  enable_tipping: false,
+  enable_tipping: true,
   subscription_discount_badges: false,
 
   // Beta Features

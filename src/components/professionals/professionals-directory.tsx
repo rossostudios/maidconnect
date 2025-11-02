@@ -6,7 +6,6 @@ import {
   Filter,
   Heart,
   MapPin,
-  Search,
   SlidersHorizontal,
   Star,
   TrendingUp,
@@ -19,6 +18,7 @@ import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
 import { type FilterState, ProfessionalsFilterSheet } from "./professionals-filter-sheet";
+import { SearchBar, type SearchSuggestion } from "./search-bar";
 import { VerificationBadge, type VerificationLevel } from "./verification-badge";
 
 export type DirectoryProfessional = {
@@ -241,16 +241,15 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
 
         <div className="space-y-6 rounded-[32px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
           <div className="space-y-6">
-            {/* Search Bar */}
-            <div className="relative">
-              <Search className="-translate-y-1/2 pointer-events-none absolute top-1/2 left-5 h-6 w-6 text-[#a49c90]" />
-              <input
-                className="w-full rounded-full border border-[#e2ddd2] bg-[#fbfafa] py-4 pr-6 pl-14 text-[#211f1a] text-base shadow-black/5 shadow-inner outline-none transition focus:border-[#211f1a]"
-                onChange={(event) => setSearchTerm(event.target.value)}
-                placeholder={t("filters.search")}
-                value={searchTerm}
-              />
-            </div>
+            {/* Search Bar with Autocomplete */}
+            <SearchBar
+              onSearch={setSearchTerm}
+              onSuggestionSelect={(suggestion: SearchSuggestion) => {
+                // When user selects a suggestion, navigate to their profile
+                window.location.href = `/professionals/${suggestion.id}`;
+              }}
+              placeholder={t("filters.search")}
+            />
 
             {/* Mobile Filter Button */}
             <div className="md:hidden">

@@ -1,13 +1,13 @@
+import { ArrowRight, CheckCircle } from "lucide-react";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { CompanyStory } from "@/components/about/company-story";
 import { MissionVision } from "@/components/about/mission-vision";
 import { TeamSection } from "@/components/about/team-section";
-import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
+import { SiteHeader } from "@/components/sections/site-header";
 import { Link } from "@/i18n/routing";
-import { ArrowRight, CheckCircle } from "lucide-react";
 
 export async function generateMetadata({
   params,
@@ -91,7 +91,7 @@ function TrustIndicators() {
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {indicators.map((indicator, index) => (
-            <div key={index} className="text-center">
+            <div className="text-center" key={index}>
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
                 <CheckCircle className="h-6 w-6 text-green-600" />
               </div>
