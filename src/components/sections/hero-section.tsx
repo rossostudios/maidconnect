@@ -1,5 +1,6 @@
 "use client";
 
+import { MapPin, ShieldCheck, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -7,9 +8,15 @@ import { Container } from "@/components/ui/container";
 export function HeroSection() {
   const t = useTranslations("hero");
 
+  const trustSignals = [
+    { icon: ShieldCheck, label: t("trustSignals.verified") },
+    { icon: MapPin, label: t("trustSignals.cities") },
+    { icon: Sparkles, label: t("trustSignals.rating") },
+  ] as const;
+
   return (
-    <section className="relative overflow-hidden px-[25px] py-32 sm:py-40 lg:py-48">
-      {/* Video Background */}
+    <section className="relative overflow-hidden px-[25px] py-28 sm:py-36 lg:py-44">
+      {/* Immersive background */}
       <video
         autoPlay
         className="absolute inset-0 right-[25px] left-[25px] h-full w-[calc(100%-50px)] rounded-3xl object-cover"
@@ -18,36 +25,59 @@ export function HeroSection() {
         playsInline
         preload="metadata"
       >
-        {/* WebM version for better compression (71MB MP4 → ~5MB WebM target) */}
         <source src="/hero.webm" type="video/webm" />
-        {/* MP4 fallback for broader compatibility */}
         <source src="/hero.mp4" type="video/mp4" />
       </video>
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 right-[25px] left-[25px] w-[calc(100%-50px)] rounded-3xl bg-black/50" />
+      {/* Atmosphere overlay */}
+      <div className="pointer-events-none absolute inset-0 right-[25px] left-[25px] h-full w-[calc(100%-50px)] rounded-3xl bg-[radial-gradient(circle_at_top_right,rgba(215,183,135,0.24),transparent_58%),linear-gradient(165deg,rgba(17,16,14,0.82),rgba(17,16,14,0.54))]" />
 
-      {/* Content */}
-      <Container className="relative z-10 text-center">
-        <div className="mx-auto max-w-4xl space-y-12">
-          <h1 className="font-[family-name:var(--font-cinzel)] text-6xl text-white leading-[1.1] tracking-wide sm:text-7xl lg:text-8xl">
+      <Container className="relative z-10 flex flex-col items-center text-center lg:flex-row lg:items-start lg:justify-between">
+        <div className="max-w-2xl space-y-6 text-left text-white">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
+            {t("badge")}
+          </span>
+
+          <h1 className="font-[family-name:var(--font-cinzel)] text-5xl leading-tight tracking-[0.18em] text-white sm:text-6xl lg:text-7xl">
             {t("title")}
           </h1>
 
-          <p className="mx-auto max-w-2xl text-white/90 text-xl sm:text-2xl leading-relaxed">
-            {t("subtitle")}
-          </p>
+          <p className="text-lg leading-relaxed text-white/85 sm:text-xl">{t("subtitle")}</p>
 
-          <div className="flex flex-col items-center justify-center gap-4 pt-8 sm:flex-row" data-tour="search">
-            <Button href="/professionals" kbd="F" label={t("browseAll")} size="lg" />
+          <p className="text-base leading-relaxed text-white/70">{t("description")}</p>
+
+          <div className="flex w-full flex-col gap-3 pt-10 sm:flex-row sm:items-center" data-tour="search">
             <Button
-              className="border-white/40 text-white hover:border-white hover:bg-white/10 focus-visible:outline-white"
+              className="w-full sm:w-auto shadow-[var(--shadow-elevated)]"
               href="/contact"
               label={t("bookConsultation")}
+              size="lg"
+              variant="primary"
+            />
+            <Button
+              className="w-full sm:w-auto sm:ml-1"
+              href="/professionals"
+              label={t("browseAll")}
               size="lg"
               variant="secondary"
             />
           </div>
+          <ul className="mt-12 grid w-full gap-4 text-left sm:grid-cols-3">
+            {trustSignals.map(({ icon: Icon, label }) => (
+              <li className="glass-card flex items-start gap-3 rounded-2xl p-5 text-[var(--foreground)]" key={label}>
+                <span
+                  aria-hidden="true"
+                  className="flex h-12 w-12 items-center justify-center rounded-full"
+                  style={{
+                    background: "color-mix(in srgb, var(--accent) 24%, transparent)",
+                  }}
+                >
+                  <Icon className="h-5 w-5 text-[var(--accent)]" />
+                </span>
+                <p className="text-sm font-medium leading-snug text-current">{label}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </Container>
     </section>

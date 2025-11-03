@@ -92,16 +92,20 @@ export function SiteNavigation() {
 
   return (
     <nav
-      className="order-3 flex w-full justify-between gap-6 font-medium text-[#211f1a] text-sm sm:order-none sm:w-auto sm:justify-end"
+      className="order-3 flex w-full justify-between gap-6 font-medium text-[var(--foreground)] text-sm sm:order-none sm:w-auto sm:justify-end"
       data-tour="navigation"
     >
       <div className="flex w-full items-center justify-between gap-6 overflow-x-auto sm:w-auto sm:overflow-visible">
         {/* Product Dropdown/Button */}
         <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <button
-            className="flex items-center gap-1 whitespace-nowrap text-[#211f1a] transition hover:text-[#5d574b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#8B7355] focus-visible:outline-offset-2"
+            aria-controls="site-product-menu"
+            aria-expanded={isProductOpen}
+            aria-haspopup="true"
+            className="flex items-center gap-1 whitespace-nowrap text-[var(--foreground)] transition hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)] focus-visible:outline-offset-2"
             onClick={handleProductClick}
             type="button"
+            id="site-product-toggle"
           >
             {t("services")}
             <ChevronDown
@@ -111,19 +115,25 @@ export function SiteNavigation() {
 
           {/* Desktop Dropdown - Hidden on mobile */}
           {isProductOpen && (
-            <div className="absolute top-full left-0 z-50 hidden pt-2 md:block">
-              <div className="w-[640px] rounded-2xl border border-[#e5dfd4] bg-white p-3 shadow-[0_24px_55px_rgba(15,15,15,0.15)]">
+            <div
+              aria-labelledby="site-product-toggle"
+              className="absolute top-full left-0 z-50 hidden pt-2 md:block"
+              id="site-product-menu"
+              role="menu"
+            >
+              <div className="glass-card w-[640px] rounded-2xl border p-3 shadow-[0_24px_55px_rgba(15,15,15,0.12)]">
                 <div className="grid grid-cols-2 gap-2">
                   {productFeatures.map((feature) => (
                     <Link
-                      className="group flex flex-col gap-1 rounded-xl p-3 transition hover:bg-[#fbfafa]"
+                      className="group flex flex-col gap-1 rounded-xl p-3 transition hover:bg-[color-mix(in_srgb,var(--accent)_12%,transparent)] hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)] focus-visible:outline-offset-2"
                       href={feature.href}
                       key={feature.name}
+                      role="menuitem"
                     >
-                      <span className="font-semibold text-[#211f1a] text-sm group-hover:text-[#8B7355]">
+                      <span className="font-semibold text-sm text-[var(--foreground)] transition group-hover:text-[var(--accent)]">
                         {feature.name}
                       </span>
-                      <span className="text-[#7a6d62] text-xs">{feature.description}</span>
+                      <span className="text-xs text-[var(--muted-foreground)]">{feature.description}</span>
                     </Link>
                   ))}
                 </div>
@@ -135,7 +145,7 @@ export function SiteNavigation() {
         {/* Regular Links */}
         {links.map((link) => (
           <Link
-            className="whitespace-nowrap text-[#211f1a] transition hover:text-[#5d574b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#8B7355] focus-visible:outline-offset-2"
+            className="whitespace-nowrap text-[var(--foreground)] transition hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)] focus-visible:outline-offset-2"
             href={link.href}
             key={link.href}
           >

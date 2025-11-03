@@ -452,6 +452,23 @@ small,
   box-shadow: var(--shadow-elevated) !important;
 }
 
+/* ============================================
+   UTILITY SURFACES
+   ============================================ */
+
+.glass-card {
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  box-shadow: var(--shadow-subtle);
+  backdrop-filter: blur(14px);
+}
+
+.dark .glass-card {
+  border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+  background: color-mix(in srgb, var(--surface-soft) 58%, transparent);
+  box-shadow: var(--shadow-card);
+}
+
 /* Smooth transitions for theme changes */
 * {
   transition-property: background-color, border-color, color, fill, stroke;

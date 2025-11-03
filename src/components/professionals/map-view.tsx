@@ -6,7 +6,6 @@ import { MapPin, Star } from "lucide-react";
 import Image from "next/image";
 import { memo, useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import MarkerClusterGroup from "react-leaflet-cluster";
 import { Link } from "@/i18n/routing";
 import { type DirectoryProfessional } from "./professionals-directory";
 import { VerificationBadge } from "./verification-badge";
@@ -16,7 +15,6 @@ import { VerificationBadge } from "./verification-badge";
  *
  * Research insights applied:
  * - Leaflet: Open-source, free, 5x more popular than Mapbox
- * - react-leaflet-cluster: Efficient clustering for performance
  * - Marketplace UX: Show price, rating, distance on map markers
  * - Mobile: Keep map simple, prioritize essential info
  * - OpenStreetMap tiles: Free alternative to Google Maps
@@ -24,6 +22,9 @@ import { VerificationBadge } from "./verification-badge";
  * Performance optimizations:
  * - React.memo: Prevents re-renders when professionals array unchanged
  * - useMemo: Memoizes expensive coordinate filtering and center calculation
+ *
+ * Note: Marker clustering removed temporarily due to react-leaflet v5 compatibility.
+ * Will be re-added when a compatible clustering library is available.
  */
 
 type MapViewProps = {
@@ -149,29 +150,22 @@ const MapViewComponent = memo(
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {/* Marker clustering for performance */}
-        <MarkerClusterGroup
-          chunkedLoading
-          maxClusterRadius={60}
-          showCoverageOnHover={false}
-          spiderfyOnMaxZoom
-          zoomToBoundsOnClick
-        >
-          {professionalsWithCoords.map((professional) => {
-            const parts = professional.location.split(",").map(Number);
-            const position: LatLngExpression = [parts[0] || 0, parts[1] || 0];
+        {/* Individual markers - clustering removed for react-leaflet v5 compatibility */}
+        {professionalsWithCoords.map((professional) => {
+          const parts = professional.location.split(",").map(Number);
+          const position: LatLngExpression = [parts[0] || 0, parts[1] || 0];
 
-            return (
-              <Marker
-                icon={createCustomIcon(
-                  professional.hourlyRateCop,
-                  !!(professional.verificationLevel &&
-                    (professional.verificationLevel === "enhanced" ||
-                      professional.verificationLevel === "background-check"))
-                )}
-                key={professional.id}
-                position={position}
-              >
+          return (
+            <Marker
+              icon={createCustomIcon(
+                professional.hourlyRateCop,
+                !!(professional.verificationLevel &&
+                  (professional.verificationLevel === "enhanced" ||
+                    professional.verificationLevel === "background-check"))
+              )}
+              key={professional.id}
+              position={position}
+            >
                 <Popup maxWidth={300} minWidth={250}>
                   <Link
                     className="block hover:opacity-80"
@@ -239,7 +233,6 @@ const MapViewComponent = memo(
               </Marker>
             );
           })}
-        </MarkerClusterGroup>
       </MapContainer>
 
       {/* No results message */}
