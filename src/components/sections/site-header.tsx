@@ -1,8 +1,6 @@
-import { DashboardButton } from "@/components/navigation/dashboard-button";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
-import { AUTH_ROUTES, getDashboardRouteForRole, getSession } from "@/lib/auth";
+import { getDashboardRouteForRole, getSession } from "@/lib/auth";
 import { SiteHeaderClient } from "./site-header-client";
 
 export async function SiteHeader() {
@@ -14,28 +12,14 @@ export async function SiteHeader() {
       <Container className="flex items-center justify-between gap-4">
         {/* Logo */}
         <Link className="flex items-center gap-2" href="/">
-          <span className="font-semibold text-xl tracking-tight">MaidConnect</span>
+          <img alt="MaidConnect" className="h-8 w-auto" src="/maidconnect logo.svg" />
           <span className="rounded-full bg-[#ff5d46] px-2 py-0.5 font-bold text-[10px] text-white uppercase tracking-wide">
             Beta
           </span>
         </Link>
 
-        {/* Desktop & Mobile Navigation */}
+        {/* Hamburger Menu for All Screen Sizes */}
         <SiteHeaderClient dashboardHref={dashboardHref} isAuthenticated={!!user} />
-
-        {/* Desktop Auth Buttons - Hidden on mobile */}
-        <div className="hidden items-center gap-3 md:flex">
-          {user ? (
-            <DashboardButton href={getDashboardRouteForRole(user.role)} />
-          ) : (
-            <Button
-              className="bg-[#211f1a] text-white hover:bg-[#2d2822]"
-              href={AUTH_ROUTES.signIn}
-              kbd="L"
-              label="Login / Signup"
-            />
-          )}
-        </div>
       </Container>
     </header>
   );

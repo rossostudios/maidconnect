@@ -27,10 +27,10 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
 
   return (
     <>
-      {/* Hamburger Button */}
+      {/* Hamburger Button - Shows on all screen sizes */}
       <button
         aria-label={isOpen ? "Close menu" : "Open menu"}
-        className="flex h-11 w-11 items-center justify-center rounded-lg text-[#211f1a] transition hover:bg-[#ebe5d8] active:scale-95 md:hidden"
+        className="flex h-11 w-11 items-center justify-center rounded-lg text-[#211f1a] transition hover:bg-[#ebe5d8] active:scale-95"
         onClick={toggleMenu}
         type="button"
       >
@@ -41,14 +41,14 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
       {isOpen && (
         <div
           aria-hidden="true"
-          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
           onClick={closeMenu}
         />
       )}
 
-      {/* Slide-in Menu */}
+      {/* Slide-in Menu - Shows on all screen sizes */}
       <div
-        className={`fixed top-0 right-0 z-50 h-full w-[280px] transform bg-white shadow-2xl transition-transform duration-300 ease-in-out md:hidden ${
+        className={`fixed top-0 right-0 z-50 h-full w-[320px] transform bg-white shadow-2xl transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
