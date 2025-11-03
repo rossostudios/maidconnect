@@ -56,7 +56,7 @@ const defaultFlags: Record<FeatureFlag, boolean> = {
   show_on_time_metrics: false,
 
   // Week 5-6
-  auto_translate_chat: false,
+  auto_translate_chat: true, // Real-time ES/EN translation in messaging
   one_tap_rebook: true,
   recurring_plans: true,
 
