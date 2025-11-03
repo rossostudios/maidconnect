@@ -50,7 +50,7 @@ export function ReferralCard({
 
   const handleShare = (platform: "whatsapp" | "twitter" | "facebook") => {
     const shareUrl = `${window.location.origin}/auth/sign-up?ref=${code}`;
-    const message = `Join MaidConnect and get ${formatCurrencyCOP(refereeReward / 100)} off your first booking! Use my code: ${code}`;
+    const message = `Join Casaora and get ${formatCurrencyCOP(refereeReward / 100)} off your first booking! Use my code: ${code}`;
 
     const urls = {
       whatsapp: `https://wa.me/?text=${encodeURIComponent(`${message} ${shareUrl}`)}`,
@@ -67,16 +67,16 @@ export function ReferralCard({
       <div className="mb-6 flex items-start justify-between">
         <div>
           <div className="mb-2 flex items-center gap-2">
-            <Gift className="h-6 w-6 text-[#ff5d46]" />
+            <Gift className="h-6 w-6 text-[#8B7355]" />
             <h2 className="font-bold text-2xl text-[#211f1a]">Your Referral Code</h2>
           </div>
           <p className="text-[#5d574b] text-sm">Share with friends and you both earn rewards</p>
         </div>
-        <Sparkles className="h-8 w-8 text-[#ff5d46]" />
+        <Sparkles className="h-8 w-8 text-[#8B7355]" />
       </div>
 
       {/* Referral Code Display */}
-      <div className="mb-6 rounded-xl border-2 border-[#ff5d46] border-dashed bg-white p-6">
+      <div className="mb-6 rounded-xl border-2 border-[#8B7355] border-dashed bg-white p-6">
         <div className="mb-2 text-center text-[#5d574b] text-xs uppercase tracking-wider">
           Your Code
         </div>
@@ -84,7 +84,7 @@ export function ReferralCard({
           {code}
         </div>
         <button
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#ff5d46] px-4 py-3 font-semibold text-sm text-white transition hover:bg-[#e54d3a] active:scale-95 disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#8B7355] px-4 py-3 font-semibold text-sm text-white transition hover:bg-[#e54d3a] active:scale-95 disabled:opacity-50"
           onClick={handleCopy}
           type="button"
         >
@@ -103,11 +103,11 @@ export function ReferralCard({
       </div>
 
       {/* Rewards Explanation */}
-      <div className="mb-6 rounded-xl bg-[#ff5d46]/5 p-5">
+      <div className="mb-6 rounded-xl bg-[#8B7355]/5 p-5">
         <h3 className="mb-3 font-semibold text-[#211f1a] text-sm">How it works:</h3>
         <ul className="space-y-2">
           <li className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46] text-white text-xs">
+            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355] text-white text-xs">
               1
             </div>
             <p className="text-[#5d574b] text-sm">
@@ -116,7 +116,7 @@ export function ReferralCard({
             </p>
           </li>
           <li className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46] text-white text-xs">
+            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355] text-white text-xs">
               2
             </div>
             <p className="text-[#5d574b] text-sm">
@@ -127,7 +127,7 @@ export function ReferralCard({
             </p>
           </li>
           <li className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46] text-white text-xs">
+            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355] text-white text-xs">
               3
             </div>
             <p className="text-[#5d574b] text-sm">

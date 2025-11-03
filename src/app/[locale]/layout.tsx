@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cinzel, Spectral, Work_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -7,7 +7,7 @@ import { Suspense } from "react";
 import "../globals.css";
 import { ChangelogBanner } from "@/components/changelog/changelog-banner";
 import { ErrorBoundary } from "@/components/error-boundary";
-import { EttaFloatingButton } from "@/components/etta/etta-floating-button";
+import { AmaraFloatingButton } from "@/components/amara/amara-floating-button";
 import { CookieConsent } from "@/components/legal/cookie-consent";
 import { FeedbackProvider } from "@/components/providers/feedback-provider";
 import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
@@ -17,50 +17,64 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { WebVitalsReporter } from "@/components/web-vitals";
 import { locales } from "@/i18n";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Cinzel for brand/logo/headers (SemiBold weight)
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["600"], // SemiBold
   display: "swap",
   preload: true,
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Spectral for body text (Regular weight)
+const spectral = Spectral({
+  variable: "--font-spectral",
   subsets: ["latin"],
+  weight: ["400"], // Regular
+  display: "swap",
+  preload: true,
+});
+
+// Work Sans for taglines/UI microcopy (Thin & Regular weights)
+const workSans = Work_Sans({
+  variable: "--font-work-sans",
+  subsets: ["latin"],
+  weight: ["100", "400"], // Thin for taglines, Regular for UI
   display: "swap",
   preload: true,
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://maidconnect.co"),
+  metadataBase: new URL("https://casaora.com"),
   title: {
-    default: "Maidconnect · Trusted home professionals for expats in Colombia",
-    template: "%s · Maidconnect",
+    default: "Casaora · The Art of Home",
+    template: "%s · Casaora",
   },
   description:
-    "Maidconnect is the concierge marketplace that pairs foreigners living in Colombia with vetted domestic service professionals, bilingual support, and ongoing concierge assistance.",
+    "Casaora is Colombia's premier boutique domestic staffing agency. Browse our curated network of exceptional household professionals—only the top 5% make it onto our platform. Pre-vetted excellence for discerning homes.",
   keywords: [
-    "Maidconnect",
-    "domestic services Colombia",
-    "housekeeping Medellín",
-    "expat concierge Colombia",
-    "bilingual home staff",
+    "Casaora",
+    "luxury domestic staffing Colombia",
+    "private household staff Bogotá",
+    "boutique staffing agency",
+    "premium housekeepers Colombia",
+    "private chef Cartagena",
+    "estate staff Medellín",
   ],
   openGraph: {
-    title: "Maidconnect · Trusted home professionals for expats in Colombia",
+    title: "Casaora · The Art of Home",
     description:
-      "Concierge-led marketplace connecting foreigners with vetted domestic service professionals and ongoing support across Colombia.",
-    url: "https://maidconnect.co",
-    siteName: "Maidconnect",
+      "Colombia's premier boutique domestic staffing agency. Exceptional household professionals for exceptional homes. Only the top 5% accepted.",
+    url: "https://casaora.com",
+    siteName: "Casaora",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Maidconnect · Trusted home professionals for expats in Colombia",
+    title: "Casaora · The Art of Home",
     description:
-      "Smart matching, bilingual support, and concierge-led onboarding for domestic services across Colombia.",
+      "Browse Colombia's most exceptional household professionals. Pre-vetted, curated excellence. The Art of Home.",
   },
 };
 
@@ -88,7 +102,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${cinzel.variable} ${spectral.variable} ${workSans.variable} antialiased`}>
         <WebVitalsReporter />
         <ErrorBoundary>
           <ThemeProvider>
@@ -103,7 +117,7 @@ export default async function RootLayout({
                   </SupabaseProvider>
                 </Suspense>
                 <Suspense fallback={null}>
-                  <EttaFloatingButton locale={locale} />
+                  <AmaraFloatingButton locale={locale} />
                 </Suspense>
                 <CookieConsent />
               </FeedbackProvider>

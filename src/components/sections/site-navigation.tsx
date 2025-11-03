@@ -1,10 +1,16 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { ProductBottomSheet } from "@/components/navigation/product-bottom-sheet";
 import { Link } from "@/i18n/routing";
+
+// Dynamic import for bottom sheet (lazy load on demand)
+const ProductBottomSheet = dynamic(
+  () => import("@/components/navigation/product-bottom-sheet").then((mod) => mod.ProductBottomSheet),
+  { ssr: false }
+);
 
 export function SiteNavigation() {
   const t = useTranslations("navigation");
@@ -93,7 +99,7 @@ export function SiteNavigation() {
         {/* Product Dropdown/Button */}
         <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <button
-            className="flex items-center gap-1 whitespace-nowrap text-[#211f1a] transition hover:text-[#5d574b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff5d46] focus-visible:outline-offset-2"
+            className="flex items-center gap-1 whitespace-nowrap text-[#211f1a] transition hover:text-[#5d574b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#8B7355] focus-visible:outline-offset-2"
             onClick={handleProductClick}
             type="button"
           >
@@ -114,7 +120,7 @@ export function SiteNavigation() {
                       href={feature.href}
                       key={feature.name}
                     >
-                      <span className="font-semibold text-[#211f1a] text-sm group-hover:text-[#ff5d46]">
+                      <span className="font-semibold text-[#211f1a] text-sm group-hover:text-[#8B7355]">
                         {feature.name}
                       </span>
                       <span className="text-[#7a6d62] text-xs">{feature.description}</span>
@@ -129,7 +135,7 @@ export function SiteNavigation() {
         {/* Regular Links */}
         {links.map((link) => (
           <Link
-            className="whitespace-nowrap text-[#211f1a] transition hover:text-[#5d574b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff5d46] focus-visible:outline-offset-2"
+            className="whitespace-nowrap text-[#211f1a] transition hover:text-[#5d574b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#8B7355] focus-visible:outline-offset-2"
             href={link.href}
             key={link.href}
           >

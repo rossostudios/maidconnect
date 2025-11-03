@@ -7,10 +7,10 @@ import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 
 const socialLinks = [
-  { label: "Facebook", href: "https://facebook.com/maidconnect", icon: Facebook },
-  { label: "Twitter", href: "https://twitter.com/maidconnect", icon: Twitter },
-  { label: "Instagram", href: "https://instagram.com/maidconnect", icon: Instagram },
-  { label: "LinkedIn", href: "https://linkedin.com/company/maidconnect", icon: Linkedin },
+  { label: "Facebook", href: "https://facebook.com/casaora", icon: Facebook },
+  { label: "Twitter", href: "https://twitter.com/casaora", icon: Twitter },
+  { label: "Instagram", href: "https://instagram.com/casaora", icon: Instagram },
+  { label: "LinkedIn", href: "https://linkedin.com/company/casaora", icon: Linkedin },
 ];
 
 export async function SiteFooter() {
@@ -39,6 +39,7 @@ export async function SiteFooter() {
         { href: "/auth/sign-in", label: t("loginSignup") },
         { href: "/auth/sign-up?role=professional", label: t("applyProfessional") },
         { href: "/careers", label: t("careers"), badge: "Hiring" },
+        { href: "/aguaora", label: "AGUAORA", badge: "Coming Soon" },
         { href: "/support/account-suspended", label: t("support") },
       ],
     },
@@ -57,26 +58,24 @@ export async function SiteFooter() {
         <div className="grid gap-12 lg:grid-cols-[1fr_auto]">
           {/* Left: Brand & Description */}
           <div className="max-w-md space-y-6">
-            <img
-              alt="MaidConnect"
-              className="h-16 w-auto"
-              src="/maidconnect_logo_light.svg"
-            />
+            <span className="font-[family-name:var(--font-cinzel)] text-3xl font-semibold tracking-[0.15em] text-[#f3ece1]">
+              CASAORA
+            </span>
             <p className="text-[#cfc8be] text-base leading-relaxed">{t("description")}</p>
             <div className="space-y-3">
               <a
-                className="flex items-center gap-3 text-[#cfc8be] text-base transition hover:text-[#ff5d46]"
-                href="mailto:support@maidconnect.co"
+                className="flex items-center gap-3 text-[#cfc8be] text-base transition hover:text-[#8B7355]"
+                href="mailto:hello@casaora.com"
               >
                 <Mail className="h-5 w-5" />
-                <span>support@maidconnect.co</span>
+                <span>hello@casaora.com</span>
               </a>
             </div>
             <div className="flex items-center gap-4 pt-4">
               {socialLinks.map(({ label, href, icon: Icon }) => (
                 <a
                   aria-label={label}
-                  className="rounded-full border border-[#26231f] p-3 text-[#f3ece1] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+                  className="rounded-full border border-[#26231f] p-3 text-[#f3ece1] transition hover:border-[#8B7355] hover:text-[#8B7355]"
                   href={href}
                   key={label}
                   rel="noreferrer"
@@ -99,13 +98,13 @@ export async function SiteFooter() {
                   {column.links.map((link) => (
                     <li key={link.label}>
                       <Link
-                        className="inline-flex items-center gap-2 text-[#f3ece1] text-base transition hover:text-[#ff5d46]"
+                        className="inline-flex items-center gap-2 text-[#f3ece1] text-base transition hover:text-[#8B7355]"
                         data-tour={link.href === "/help" ? "help" : undefined}
                         href={link.href}
                       >
                         {link.label}
                         {link.badge && (
-                          <span className="rounded-full bg-[#ff5d46]/10 px-2 py-0.5 font-medium text-[#ff5d46] text-xs uppercase tracking-wider">
+                          <span className="rounded-full bg-[#8B7355]/10 px-2 py-0.5 font-medium text-[#8B7355] text-xs uppercase tracking-wider">
                             {link.badge}
                           </span>
                         )}
@@ -123,22 +122,22 @@ export async function SiteFooter() {
           <div className="flex flex-col gap-6 text-[#a8a095] text-sm sm:flex-row sm:items-center sm:justify-between">
             <div className="space-y-2">
               <p>
-                © {year} MaidConnect. {t("allRightsReserved")}
+                © {year} Casaora. {t("allRightsReserved")}
               </p>
               <p>{t("remoteCompany")}</p>
             </div>
             <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
               <div className="flex items-center gap-6">
-                <Link className="transition hover:text-[#ff5d46]" href="/terms">
+                <Link className="transition hover:text-[#8B7355]" href="/terms">
                   {t("terms")}
                 </Link>
-                <Link className="transition hover:text-[#ff5d46]" href="/privacy">
+                <Link className="transition hover:text-[#8B7355]" href="/privacy">
                   {t("privacy")}
                 </Link>
-                <Link className="transition hover:text-[#ff5d46]" href="/support/account-suspended">
+                <Link className="transition hover:text-[#8B7355]" href="/support/account-suspended">
                   {t("cookies")}
                 </Link>
-                <Link className="transition hover:text-[#ff5d46]" href="/changelog">
+                <Link className="transition hover:text-[#8B7355]" href="/changelog">
                   What's New
                 </Link>
                 <FeedbackLink>Feedback</FeedbackLink>

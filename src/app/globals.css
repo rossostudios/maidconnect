@@ -1,40 +1,455 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
+
+  /* ============================================
+     CASAORA TYPOGRAPHY SYSTEM
+     Based on typography.md specifications
+     ============================================ */
+
+  /* Typography Color Palette */
+  --graphite: #2C2C2C;           /* Primary text */
+  --ivory: #FAF8F3;              /* Background (Sandstone) */
+  --gold: #D7B787;               /* Accent lines, highlights */
+  --clay: #CDAA84;               /* Hover, secondary highlights */
+
+  /* Existing Brand Colors (keeping for compatibility) */
   --background: #fbfaf9;
-  --background-alt: #fbfafa;
-  --foreground: #211f1a;
+  --background-alt: #faf8f3;
+  --foreground: #2C2C2C;         /* Updated to Graphite */
   --surface: #ffffff;
+  --surface-soft: #f4efe7;
+  --surface-elevated: #ffffff;
   --surface-contrast: #11100e;
   --muted: #e7e4dd;
-  --accent: #ff5d46;
+  --muted-foreground: #6f6658;
+  --border: #ebe5d8;
+  --border-subtle: #f2ede4;
+  --input-background: #ffffff;
+  --input-border: #ebe5d8;
+  --focus-ring: rgba(139, 115, 85, 0.35);
+
+  /* Luxury Accent Colors */
+  --accent: #8B7355;
+  --accent-bronze: #8B7355;
+  --accent-taupe: #9B8B7E;
+  --accent-gold: #D7B787;        /* Updated to Gold */
+
+  /* Warm Neutrals */
+  --warm-gray: #5d574b;
+  --warm-cream: #fbfaf9;
+
+  /* Refined Status Colors */
+  --status-success: #6B7F5C;
+  --status-warning: #B8976A;
+  --status-error: #8B5A5A;
+
+  /* Luxury Shadows */
+  --shadow-subtle: 0 2px 12px rgba(33, 31, 26, 0.04);
+  --shadow-card: 0 10px 40px rgba(33, 31, 26, 0.06);
+  --shadow-elevated: 0 20px 60px rgba(33, 31, 26, 0.10);
+  --shadow-dramatic: 0 30px 80px rgba(33, 31, 26, 0.15);
+
+  /* Vertical Rhythm Spacing System (8px base unit) */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 96px;
+
+  /* Typography Scale (Fluid with clamp) */
+  --font-display: clamp(38px, 5vw, 64px);
+  --font-h1: clamp(30px, 3.8vw, 48px);
+  --font-h2: clamp(26px, 3vw, 36px);
+  --font-h3: clamp(22px, 2.4vw, 28px);
+  --font-tagline: clamp(12px, 1.1vw, 14px);
+  --font-body: clamp(16px, 1.2vw, 18px);
+  --font-small: clamp(14px, 1vw, 16px);
+  --font-nav: clamp(13px, 1vw, 14px);
+
+  /* Line Heights */
+  --leading-display: 1.18;
+  --leading-h1: 1.2;
+  --leading-h2: 1.22;
+  --leading-h3: 1.25;
+  --leading-tagline: 1.3;
+  --leading-body: 1.6;
+  --leading-small: 1.55;
+  --leading-nav: 1.2;
+
+  /* Letter Spacing */
+  --tracking-wide: 0.08em;       /* Cinzel headings */
+  --tracking-medium: 0.06em;     /* H3 */
+  --tracking-ultra: 0.18em;      /* Work Sans taglines */
+  --tracking-nav: 0.1em;         /* Navigation */
 }
 
 .dark {
-  --background: #0f0e0d;
-  --background-alt: #1a1816;
-  --foreground: #fbfaf9;
-  --surface: #211f1a;
-  --surface-contrast: #ffffff;
-  --muted: #3a3530;
-  --accent: #ff6b55;
+  color-scheme: dark;
+
+  --background: #11100e;
+  --background-alt: #191613;
+  --foreground: #f6f2ea;
+  --surface: #1d1a17;
+  --surface-soft: #181612;
+  --surface-elevated: #23201b;
+  --surface-contrast: #f8f5ef;
+  --muted: #3c362f;
+  --muted-foreground: #c8bfb3;
+  --border: #3b352e;
+  --border-subtle: #292520;
+  --input-background: #171512;
+  --input-border: #3c352e;
+  --focus-ring: rgba(226, 201, 153, 0.4);
+
+  --accent: #c2a881;
+  --accent-bronze: #b19068;
+  --accent-taupe: #a49584;
+  --accent-gold: #e4c899;
+  --gold: #e4c899;               /* Elevated warmth for dark mode */
+  --clay: #b99670;
+
+  --graphite: #f6f2ea;           /* Inverted for dark mode */
+  --ivory: #1a1816;              /* Inverted for dark mode */
+
+  --shadow-subtle: 0 2px 18px rgba(7, 6, 5, 0.55);
+  --shadow-card: 0 14px 44px rgba(6, 5, 4, 0.45);
+  --shadow-elevated: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --shadow-dramatic: 0 40px 80px rgba(0, 0, 0, 0.65);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-spectral);
+  --font-display: var(--font-cinzel);
+  --font-ui: var(--font-work-sans);
+}
+
+/* ============================================
+   BASE TYPOGRAPHY
+   ============================================ */
+
+html {
+  background: var(--background);
+  color: var(--foreground);
 }
 
 body {
   min-height: 100%;
-  background: var(--background);
+  background-color: var(--background);
+  background: linear-gradient(160deg, color-mix(in srgb, var(--background) 94%, transparent) 0%, color-mix(in srgb, var(--background-alt) 85%, transparent) 100%);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+  font-family: var(--font-spectral), "Spectral", Georgia, serif;
+  font-size: var(--font-body);
+  line-height: var(--leading-body);
+  letter-spacing: 0;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1;
+  font-variant-ligatures: common-ligatures;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
+  accent-color: var(--accent);
+  margin: 0;
+}
+
+/* ============================================
+   FORM CONTROLS
+   ============================================ */
+
+input,
+textarea,
+select {
+  background-color: var(--input-background);
+  border-color: var(--input-border);
+  color: inherit;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: color-mix(in srgb, var(--muted-foreground) 65%, transparent);
+  opacity: 1;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: color-mix(in srgb, var(--muted-foreground) 50%, transparent);
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   HEADING HIERARCHY
+   Keep typography styling, remove layout (margins)
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6,
+.display {
+  font-family: var(--font-cinzel), "Cinzel", serif;
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.display {
+  font-size: var(--font-display);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-wide);
+}
+
+h1 {
+  font-size: var(--font-h1);
+  line-height: var(--leading-h1);
+}
+
+h2 {
+  font-size: var(--font-h2);
+  line-height: var(--leading-h2);
+}
+
+h3 {
+  font-size: var(--font-h3);
+  line-height: var(--leading-h3);
+  letter-spacing: var(--tracking-medium);
+}
+
+h4 {
+  font-size: var(--font-small);
+  line-height: var(--leading-small);
+  letter-spacing: var(--tracking-medium);
+}
+
+/* ============================================
+   PARAGRAPHS & TEXT BLOCKS
+   No global margins - let Tailwind handle layout
+   ============================================ */
+
+.lead {
+  font-size: clamp(18px, 1.3vw, 19px);
+  line-height: 1.65;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+small,
+.caption {
+  font-size: var(--font-small);
+  line-height: var(--leading-small);
+  opacity: 0.9;
+}
+
+/* Utility classes for content width (opt-in) */
+.prose-width {
+  max-width: 70ch;
+}
+
+.prose-narrow {
+  max-width: 58ch;
+}
+
+/* ============================================
+   TAGLINES & MICROCOPY
+   ============================================ */
+
+.tagline {
+  font-family: var(--font-work-sans), "Work Sans", sans-serif;
+  font-weight: 100; /* Thin */
+  text-transform: uppercase;
+  font-size: var(--font-tagline);
+  letter-spacing: var(--tracking-ultra);
+  line-height: var(--leading-tagline);
+  color: var(--graphite);
+}
+
+/* ============================================
+   DECORATIVE ELEMENTS
+   ============================================ */
+
+.hr-gold {
+  width: min(80px, 20%);
+  height: 2px;
+  background: var(--gold);
+  opacity: 0.6;
+  border: none;
+}
+
+/* ============================================
+   CONTENT WIDTH CONTROLS (Opt-in utilities)
+   ============================================ */
+
+.content {
+  max-width: 70ch;
+}
+
+.content--narrow {
+  max-width: 58ch;
+}
+
+/* Editorial wrapper - use when needed for article-style content */
+.wrapper {
+  max-width: 70ch;
+  margin: 0 auto;
+}
+
+/* ============================================
+   LISTS (No forced margins - let Tailwind control)
+   ============================================ */
+
+/* Typography-specific list styling - opt in via .prose class */
+.prose ul,
+.prose ol {
+  padding-left: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.prose li {
+  margin-bottom: 12px;
+  line-height: var(--leading-body);
+}
+
+/* ============================================
+   NAVIGATION & BUTTONS
+   ============================================ */
+
+.nav,
+.btn {
+  font-family: var(--font-work-sans), "Work Sans", sans-serif;
+  letter-spacing: var(--tracking-nav);
+  line-height: var(--leading-nav);
+}
+
+.btn {
+  padding: 12px 20px;
+  border: 1px solid color-mix(in srgb, var(--gold) 80%, transparent);
+  background: transparent;
+  color: var(--graphite);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  border-color: var(--clay);
+  background: color-mix(in srgb, var(--clay) 10%, transparent);
+}
+
+/* ============================================
+   RESPONSIVE REFINEMENTS
+   ============================================ */
+
+@media (min-width: 900px) {
+  .display, h1 {
+    letter-spacing: 0.07em; /* Slightly reduced tracking at larger sizes */
+  }
+
+  h2 {
+    letter-spacing: 0.07em;
+  }
+
+  h3 {
+    letter-spacing: 0.06em;
+  }
+}
+
+/* ============================================
+   SELECTION & INTERACTIONS
+   ============================================ */
+
+::selection {
+  background-color: color-mix(in srgb, var(--accent-gold) 35%, transparent);
+  color: var(--surface-contrast);
+}
+
+.dark ::selection {
+  background-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  color: var(--foreground);
+}
+
+/* ============================================
+   DARK MODE OVERRIDES FOR LEGACY UTILITIES
+   ============================================ */
+
+.dark .bg-white,
+.dark .bg-\[\#ffffff\],
+.dark .bg-white\/90,
+.dark .bg-white\/80,
+.dark .bg-white\/50,
+.dark .bg-white\/20,
+.dark .bg-white\/10,
+.dark .bg-\[\#fbfaf9\],
+.dark .bg-\[\#fbfafa\],
+.dark .bg-\[\#faf8f3\],
+.dark .bg-\[\#f5f0e8\],
+.dark .bg-\[\#f5efe6\],
+.dark .bg-\[\#fdfaf5\] {
+  background-color: var(--surface-elevated) !important;
+  color: inherit;
+}
+
+.dark .bg-\[\#ebe5d8\],
+.dark .hover\:bg-\[\#ebe5d8\]:hover,
+.dark .hover\:bg-white\/50:hover,
+.dark .hover\:bg-white\/10:hover,
+.dark .hover\:bg-white\/20:hover {
+  background-color: color-mix(in srgb, var(--surface-elevated) 82%, var(--accent) 18%) !important;
+  color: var(--foreground) !important;
+}
+
+.dark .border-\[\#ebe5d8\],
+.dark .border-\[\#f0ece5\],
+.dark .border-\[\#efe7dc\],
+.dark .border-\[\#e7e4dd\],
+.dark .border-\[\#f0ece3\],
+.dark .border-\[\#dcd6c7\],
+.dark .border-gray-200,
+.dark .border-gray-100 {
+  border-color: var(--border) !important;
+}
+
+.dark .border-white\/40 {
+  border-color: color-mix(in srgb, var(--surface-contrast) 35%, transparent) !important;
+}
+
+.dark .border-white {
+  border-color: color-mix(in srgb, var(--surface-contrast) 60%, transparent) !important;
+}
+
+.dark .text-\[\#211f1a\],
+.dark .text-\[\#2c2c2c\],
+.dark .text-\[\#2C2C2C\],
+.dark .text-\[\#5d574b\],
+.dark .text-\[\#7d7566\],
+.dark .text-\[\#2e2419\] {
+  color: var(--foreground) !important;
+}
+
+.dark .text-\[\#8B7355\],
+.dark .text-\[\#7a6d62\] {
+  color: var(--accent) !important;
+}
+
+.dark .shadow-sm {
+  box-shadow: var(--shadow-subtle) !important;
+}
+
+.dark .shadow,
+.dark .shadow-md {
+  box-shadow: var(--shadow-card) !important;
+}
+
+.dark .shadow-lg,
+.dark .shadow-xl,
+.dark .shadow-2xl {
+  box-shadow: var(--shadow-elevated) !important;
 }
 
 /* Smooth transitions for theme changes */
@@ -44,7 +459,22 @@ body {
   transition-duration: 200ms;
 }
 
-::selection {
-  background-color: rgba(253, 133, 127, 0.3);
-  color: var(--surface-contrast);
+/* ============================================
+   OPENTYPE FEATURES
+   ============================================ */
+
+.spectral-text {
+  font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

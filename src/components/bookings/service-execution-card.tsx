@@ -1,9 +1,18 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useEffect, useOptimistic, useState } from "react";
-import { TimeExtensionModal } from "@/components/bookings/time-extension-modal";
-import { RatingPromptModal } from "@/components/reviews/rating-prompt-modal";
+
+// Dynamic imports for modals (lazy load on demand)
+const TimeExtensionModal = dynamic(
+  () => import("@/components/bookings/time-extension-modal").then((mod) => mod.TimeExtensionModal),
+  { ssr: false }
+);
+const RatingPromptModal = dynamic(
+  () => import("@/components/reviews/rating-prompt-modal").then((mod) => mod.RatingPromptModal),
+  { ssr: false }
+);
 
 export type BookingForExecution = {
   id: string;
@@ -321,7 +330,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
           <>
             {/* Extend Time Button */}
             <button
-              className="w-full rounded-lg border-2 border-[#ff5d46] bg-white px-4 py-3 font-semibold text-[#ff5d46] transition hover:bg-[#ff5d46] hover:text-white"
+              className="w-full rounded-lg border-2 border-[#8B7355] bg-white px-4 py-3 font-semibold text-[#8B7355] transition hover:bg-[#8B7355] hover:text-white"
               onClick={() => setShowTimeExtensionModal(true)}
               type="button"
             >
@@ -330,7 +339,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
             {/* Check-out button */}
             <button
-              className="w-full rounded-lg bg-[#ff5d46] px-4 py-3 font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+              className="w-full rounded-lg bg-[#8B7355] px-4 py-3 font-semibold text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-70"
               disabled={loading}
               onClick={() => handleCheckOut()}
               type="button"

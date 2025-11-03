@@ -55,28 +55,28 @@ export default async function ProAvailabilityPage({
         <h3 className="font-semibold text-[#211f1a] text-lg">{t("tips.title")}</h3>
         <ul className="mt-4 space-y-3 text-[#5d574b] text-base">
           <li className="flex gap-3">
-            <span className="flex-shrink-0 text-[#ff5d46]">•</span>
+            <span className="flex-shrink-0 text-[#8B7355]">•</span>
             <span>
               <strong className="text-[#211f1a]">{t("tips.workingHours.label")}</strong>{" "}
               {t("tips.workingHours.text")}
             </span>
           </li>
           <li className="flex gap-3">
-            <span className="flex-shrink-0 text-[#ff5d46]">•</span>
+            <span className="flex-shrink-0 text-[#8B7355]">•</span>
             <span>
               <strong className="text-[#211f1a]">{t("tips.blockedDates.label")}</strong>{" "}
               {t("tips.blockedDates.text")}
             </span>
           </li>
           <li className="flex gap-3">
-            <span className="flex-shrink-0 text-[#ff5d46]">•</span>
+            <span className="flex-shrink-0 text-[#8B7355]">•</span>
             <span>
               <strong className="text-[#211f1a]">{t("tips.bufferTime.label")}</strong>{" "}
               {t("tips.bufferTime.text")}
             </span>
           </li>
           <li className="flex gap-3">
-            <span className="flex-shrink-0 text-[#ff5d46]">•</span>
+            <span className="flex-shrink-0 text-[#8B7355]">•</span>
             <span>
               <strong className="text-[#211f1a]">{t("tips.flexibility.label")}</strong>{" "}
               {t("tips.flexibility.text")}

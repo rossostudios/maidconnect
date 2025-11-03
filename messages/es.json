@@ -182,7 +182,7 @@
         },
         "headings": {
           "editProfile": "Edita tu perfil",
-          "launchProfile": "Lanza tu perfil de MaidConnect"
+          "launchProfile": "Lanza tu perfil de Casaora"
         },
         "descriptions": {
           "active": "Actualiza tu información pública, servicios y disponibilidad. Los cambios se reflejan instantáneamente en tu listado.",
@@ -239,7 +239,7 @@
           },
           "createProfile": {
             "title": "Crea tu perfil público",
-            "description": "Crea una presencia convincente que genere confianza con nuevos clientes. Esta información aparece en tu listado de MaidConnect."
+            "description": "Crea una presencia convincente que genere confianza con nuevos clientes. Esta información aparece en tu listado de Casaora."
           }
         },
         "complete": {
@@ -313,7 +313,7 @@
           },
           "backgroundCheck": {
             "label": "Consentimiento de verificación de antecedentes",
-            "checkboxLabel": "Autorizo a MaidConnect a realizar verificaciones de identidad y antecedentes para la incorporación."
+            "checkboxLabel": "Autorizo a Casaora a realizar verificaciones de identidad y antecedentes para la incorporación."
           }
         },
         "infoText": "Enviar esta solicitud activa a nuestro equipo de revisión para iniciar la verificación. Aún puedes editar detalles más tarde.",
@@ -1270,7 +1270,7 @@
       },
       "cta": {
         "title": "¿Listo para reservar su primer servicio?",
-        "description": "Únase a cientos de clientes satisfechos que confían en MaidConnect para sus necesidades de servicio doméstico",
+        "description": "Únase a cientos de clientes satisfechos que confían en Casaora para sus necesidades de servicio doméstico",
         "browseProfessionals": "Explorar Profesionales",
         "signUpFree": "Registrarse Gratis"
       }
@@ -1757,7 +1757,7 @@
     },
     "contact": {
       "meta": {
-        "title": "Contáctanos | MaidConnect",
+        "title": "Contáctanos | Casaora",
         "description": "Ponte en contacto con nuestro equipo de soporte, aprende sobre cómo convertirte en profesional o comunícate para oportunidades de asociación."
       },
       "hero": {
@@ -1786,7 +1786,7 @@
         "title": "Preguntas frecuentes",
         "questions": {
           "verification": {
-            "question": "¿Cómo verifica MaidConnect a los profesionales?",
+            "question": "¿Cómo verifica Casaora a los profesionales?",
             "answer": "Todos los profesionales pasan por un proceso integral de evaluación que incluye verificación de antecedentes, verificación de referencias y evaluación de habilidades. Verificamos documentos de identidad, historial laboral y realizamos entrevistas en persona para garantizar calidad y seguridad."
           },
           "payments": {
@@ -1806,7 +1806,7 @@
             "answer": "Actualmente operamos en 6 ciudades principales de Colombia incluyendo Bogotá, Medellín, Cali, Barranquilla, Cartagena y Bucaramanga. Estamos expandiéndonos activamente a nuevas áreas según la demanda."
           },
           "becomePro": {
-            "question": "¿Cómo me convierto en profesional en MaidConnect?",
+            "question": "¿Cómo me convierto en profesional en Casaora?",
             "answer": "Haz clic en 'Solicitar unirme' y completa nuestro formulario de solicitud. Revisaremos tu información, realizaremos una verificación de antecedentes y programaremos una entrevista. Una vez aprobado, completarás la incorporación y podrás comenzar a aceptar reservas. El proceso completo generalmente toma de 5 a 7 días hábiles."
           }
         }
@@ -1814,13 +1814,13 @@
     },
     "careers": {
       "meta": {
-        "title": "Carreras en MaidConnect | Únete a Nuestro Equipo",
+        "title": "Carreras en Casaora | Únete a Nuestro Equipo",
         "description": "Únete al equipo que está transformando los servicios domésticos en Colombia. Estamos contratando ingenieros, diseñadores y profesionales de éxito del cliente para construir el futuro del trabajo doméstico."
       },
       "hero": {
         "badge": "ÚNETE A NUESTRO EQUIPO",
         "title": "Construyamos juntos el futuro de los servicios domésticos",
-        "description": "Los servicios domésticos están cambiando rápidamente, y también las expectativas de las familias y los profesionales. En MaidConnect, construimos herramientas que brindan claridad y confianza a ambos. Para lograrlo, necesitamos personas curiosas listas para generar un impacto.",
+        "description": "Los servicios domésticos están cambiando rápidamente, y también las expectativas de las familias y los profesionales. En Casaora, construimos herramientas que brindan claridad y confianza a ambos. Para lograrlo, necesitamos personas curiosas listas para generar un impacto.",
         "primaryCTA": "Ver Posiciones Abiertas"
       },
       "positions": {
@@ -1870,7 +1870,7 @@
       },
       "values": {
         "title": "Los valores que guían cómo trabajamos",
-        "description": "En MaidConnect, la cultura no es un póster en la pared — es cómo tomamos decisiones cada día. Si estos valores resuenan contigo, te sentirás como en casa.",
+        "description": "En Casaora, la cultura no es un póster en la pared — es cómo tomamos decisiones cada día. Si estos valores resuenan contigo, te sentirás como en casa.",
         "items": {
           "clarity": {
             "title": "Claridad",
@@ -1901,7 +1901,7 @@
     },
     "signIn": {
       "meta": {
-        "title": "Iniciar sesión | MaidConnect"
+        "title": "Iniciar sesión | Casaora"
       },
       "header": {
         "createAccount": "Crear cuenta"
@@ -1924,7 +1924,7 @@
         "support": "El soporte de conserjería está disponible 7 días a la semana para asistencia con la incorporación."
       },
       "sidebar": {
-        "imageAlt": "Hospitalidad MaidConnect",
+        "imageAlt": "Hospitalidad Casaora",
         "badge": "Talento doméstico de confianza",
         "title": "Profesionales meticulosos seleccionados para hogares de expatriados.",
         "description": "Nuestro equipo bilingüe de conserjería verifica cada perfil con entrevistas, visitas de prueba y controles de calidad continuos."
@@ -1932,18 +1932,18 @@
     },
     "signUp": {
       "meta": {
-        "title": "Crear cuenta | MaidConnect"
+        "title": "Crear cuenta | Casaora"
       },
       "header": {
         "signIn": "Iniciar sesión"
       },
       "hero": {
-        "title": "Crea tu cuenta de MaidConnect",
+        "title": "Crea tu cuenta de Casaora",
         "description": "Cuéntanos cómo planeas usar la plataforma y adaptaremos la experiencia para hogares o profesionales."
       },
       "form": {
         "accountTypeLabel": "Tipo de cuenta",
-        "accountTypeHelper": "Elige la experiencia que mejor se adapte a cómo planeas usar MaidConnect.",
+        "accountTypeHelper": "Elige la experiencia que mejor se adapte a cómo planeas usar Casaora.",
         "customerLabel": "Cliente",
         "customerDescription": "Reserva profesionales pre-verificados para tu hogar.",
         "professionalLabel": "Profesional",
@@ -1971,7 +1971,7 @@
         "confirmPasswordPlaceholder": "Repite la contraseña",
         "termsLabel": "Acepto los",
         "termsLink": "términos de servicio",
-        "termsConfirm": "de MaidConnect y confirmo que entiendo las pautas de respeto mutuo.",
+        "termsConfirm": "de Casaora y confirmo que entiendo las pautas de respeto mutuo.",
         "successMessage": "Cuenta creada. Por favor revisa tu correo electrónico para verificar y finalizar el inicio de sesión.",
         "createAccountButton": "Crear cuenta",
         "creatingAccountButton": "Creando cuenta…",
@@ -1982,7 +1982,7 @@
         "support": "Te guiaremos con incorporación de conserjería después de enviar tus detalles."
       },
       "sidebar": {
-        "imageAlt": "Incorporación MaidConnect",
+        "imageAlt": "Incorporación Casaora",
         "badge": "Incorporación de conserjería",
         "title": "Entrevistamos, verificamos antecedentes y capacitamos a cada profesional.",
         "description": "Construye confianza desde la primera visita con incorporación estructurada, manuales del hogar y soporte receptivo."
@@ -1990,25 +1990,25 @@
     },
     "terms": {
       "meta": {
-        "title": "Términos de Servicio - MaidConnect",
-        "description": "Términos de servicio y acuerdo de usuario de MaidConnect"
+        "title": "Términos de Servicio - Casaora",
+        "description": "Términos de servicio y acuerdo de usuario de Casaora"
       },
       "title": "Términos de Servicio",
       "lastUpdated": "Última actualización: {date}"
     },
     "privacy": {
       "meta": {
-        "title": "Política de Privacidad - MaidConnect",
-        "description": "Política de privacidad y prácticas de protección de datos de MaidConnect"
+        "title": "Política de Privacidad - Casaora",
+        "description": "Política de privacidad y prácticas de protección de datos de Casaora"
       },
       "title": "Política de Privacidad",
       "lastUpdated": "Última actualización: {date}"
     },
     "professionalProfile": {
       "meta": {
-        "notFoundTitle": "Profesional no encontrado · MaidConnect",
-        "defaultName": "Profesional de MaidConnect",
-        "descriptionTemplate": "Ver el perfil de MaidConnect de {name}{service}{location}."
+        "notFoundTitle": "Profesional no encontrado · Casaora",
+        "defaultName": "Profesional de Casaora",
+        "descriptionTemplate": "Ver el perfil de Casaora de {name}{service}{location}."
       },
       "backToDirectory": "← Volver al directorio",
       "availableForBookings": "Disponible para reservas",
@@ -2079,7 +2079,7 @@
       "favorites": "favoritos",
       "favorite": "Agregar a favoritos",
       "noBio": "Este profesional está preparando su biografía pública. Vuelve pronto.",
-      "newBadge": "Nuevo en MaidConnect",
+      "newBadge": "Nuevo en Casaora",
       "flexibleServices": "Servicios flexibles",
       "rateOnRequest": "Tarifa bajo consulta"
     }
@@ -2186,7 +2186,7 @@
   },
   "feedback": {
     "title": "Enviar comentarios",
-    "description": "Ayúdanos a mejorar MaidConnect compartiendo tus ideas, sugerencias o reportando problemas.",
+    "description": "Ayúdanos a mejorar Casaora compartiendo tus ideas, sugerencias o reportando problemas.",
     "form": {
       "typeLabel": "¿Qué tipo de comentario es este?",
       "subjectLabel": "Asunto",
@@ -2197,8 +2197,8 @@
       "emailPlaceholder": "tu@email.com",
       "emailHelp": "Solo lo usaremos para hacer seguimiento a tu comentario",
       "optional": "opcional",
-      "consentText": "Acepto que MaidConnect procese estos comentarios para mejorar la plataforma.",
-      "privacyNotice": "Recopilamos tus comentarios, URL de la página e información del navegador para mejorar MaidConnect. Tu correo es opcional para seguimiento. Respetamos tu privacidad y cumplimos con las leyes colombianas de protección de datos.",
+      "consentText": "Acepto que Casaora procese estos comentarios para mejorar la plataforma.",
+      "privacyNotice": "Recopilamos tus comentarios, URL de la página e información del navegador para mejorar Casaora. Tu correo es opcional para seguimiento. Respetamos tu privacidad y cumplimos con las leyes colombianas de protección de datos.",
       "submit": "Enviar comentarios",
       "submitting": "Enviando..."
     },
@@ -2209,7 +2209,7 @@
   },
   "pricing": {
     "meta": {
-      "title": "Precios - Planes Simples y Transparentes | MaidConnect",
+      "title": "Precios - Planes Simples y Transparentes | Casaora",
       "description": "Elige el plan perfecto para tus necesidades. Precios transparentes sin tarifas ocultas. Comienza gratis o actualiza para funciones premium."
     },
     "title": "Precios simples y transparentes",
@@ -2220,14 +2220,14 @@
     },
     "cta": {
       "title": "¿Listo para comenzar?",
-      "subtitle": "Únete a miles de clientes satisfechos que usan MaidConnect.",
+      "subtitle": "Únete a miles de clientes satisfechos que usan Casaora.",
       "primary": "Iniciar Prueba Gratis",
       "secondary": "Contactar Ventas"
     }
   },
   "roadmap": {
     "meta": {
-      "title": "Hoja de Ruta del Producto - Lo Que Estamos Construyendo | MaidConnect",
+      "title": "Hoja de Ruta del Producto - Lo Que Estamos Construyendo | Casaora",
       "description": "Mira en qué estamos trabajando y vota por las funciones que te gustaría ver. Tu opinión da forma a nuestro producto."
     },
     "title": "Hoja de Ruta del Producto",
@@ -2237,18 +2237,18 @@
       "description": "Vuelve pronto para ver en qué estamos trabajando. Sé el primero en sugerir funciones y votar por lo que más te importa."
     }
   },
-  "etta": {
-    "title": "Etta",
+  "amara": {
+    "title": "Amara",
     "subtitle": "Asistente de Reservas IA",
-    "greeting": "👋 ¡Hola! Bienvenido a MaidConnect.",
-    "welcomeMessage": "¡Hola! Soy Etta, tu asistente de reservas con IA. ¿Cómo puedo ayudarte a encontrar el profesional de limpieza perfecto hoy?",
-    "openChat": "Chatear con Etta",
+    "greeting": "👋 ¡Hola! Bienvenido a Casaora.",
+    "welcomeMessage": "¡Hola! Soy Amara, tu asistente de reservas con IA. ¿Cómo puedo ayudarte a encontrar el profesional de limpieza perfecto hoy?",
+    "openChat": "Chatear con Amara",
     "closeChat": "Cerrar chat",
     "inputPlaceholder": "Escribe tu mensaje...",
     "send": "Enviar mensaje",
     "errorMessage": "Lo siento, tuve problemas procesando eso. ¿Podrías reformular tu pregunta?",
     "onboarding": {
-      "title": "Conoce a Etta, Tu Asistente IA",
+      "title": "Conoce a Amara, Tu Asistente IA",
       "description": "Puedo ayudarte a encontrar profesionales, verificar disponibilidad y reservar servicios al instante. ¡Pregúntame lo que quieras!",
       "dismiss": "¡Entendido!",
       "hint": "¡Nuevo! Haz clic para chatear"
@@ -2274,8 +2274,8 @@
   },
   "about": {
     "meta": {
-      "title": "Sobre Nosotros - Nuestra Historia | MaidConnect",
-      "description": "Conoce la misión de MaidConnect de conectar expatriados en Colombia con profesionales de servicios domésticos bilingües y verificados a través de nuestro marketplace con asistencia personalizada."
+      "title": "Sobre Nosotros - Nuestra Historia | Casaora",
+      "description": "Conoce la misión de Casaora de conectar expatriados en Colombia con profesionales de servicios domésticos bilingües y verificados a través de nuestro marketplace con asistencia personalizada."
     },
     "story": {
       "title": "Conectando Culturas, Construyendo Confianza",
@@ -2287,7 +2287,7 @@
       },
       "solution": {
         "title": "Nuestra Solución",
-        "paragraph1": "MaidConnect es el primer marketplace con asistencia personalizada diseñado específicamente para expatriados. Combinamos tecnología con toque humano para crear una experiencia fluida y confiable:",
+        "paragraph1": "Casaora es el primer marketplace con asistencia personalizada diseñado específicamente para expatriados. Combinamos tecnología con toque humano para crear una experiencia fluida y confiable:",
         "feature1": {
           "title": "Profesionales Verificados",
           "description": "Cada profesional pasa por verificaciones de antecedentes, verificación de identidad y evaluación de habilidades antes de unirse a nuestra plataforma."
@@ -2303,7 +2303,7 @@
       },
       "journey": {
         "title": "Nuestro Camino",
-        "paragraph1": "Fundada por expatriados que experimentaron estos desafíos de primera mano, MaidConnect nació de una idea simple: encontrar ayuda doméstica confiable en un país extranjero debería ser fácil, seguro y sin estrés. Hoy, estamos orgullosos de servir a cientos de familias expatriadas y empoderar a profesionales locales en toda Colombia."
+        "paragraph1": "Fundada por expatriados que experimentaron estos desafíos de primera mano, Casaora nació de una idea simple: encontrar ayuda doméstica confiable en un país extranjero debería ser fácil, seguro y sin estrés. Hoy, estamos orgullosos de servir a cientos de familias expatriadas y empoderar a profesionales locales en toda Colombia."
       }
     },
     "missionVision": {
@@ -2378,7 +2378,7 @@
       }
     },
     "trust": {
-      "title": "¿Por Qué Confiar en MaidConnect?",
+      "title": "¿Por Qué Confiar en Casaora?",
       "subtitle": "Seguridad, protección y transparencia están en el corazón de todo lo que hacemos.",
       "verification": {
         "title": "Profesionales Verificados",
@@ -2399,18 +2399,18 @@
     },
     "cta": {
       "title": "¿Listo para Experimentar la Diferencia?",
-      "subtitle": "Únete a miles de expatriados que confían en MaidConnect para sus necesidades de servicios domésticos.",
+      "subtitle": "Únete a miles de expatriados que confían en Casaora para sus necesidades de servicios domésticos.",
       "browseProfessionals": "Explorar Profesionales",
       "signUp": "Regístrate Gratis"
     }
   },
   "howItWorks": {
     "meta": {
-      "title": "Cómo Funciona - Pasos Simples para Servicio de Calidad | MaidConnect",
-      "description": "Descubre cómo MaidConnect facilita encontrar profesionales de servicios domésticos confiables. Explora perfiles verificados, reserva servicios y recibe apoyo en cada paso."
+      "title": "Cómo Funciona - Pasos Simples para Servicio de Calidad | Casaora",
+      "description": "Descubre cómo Casaora facilita encontrar profesionales de servicios domésticos confiables. Explora perfiles verificados, reserva servicios y recibe apoyo en cada paso."
     },
     "hero": {
-      "title": "Cómo Funciona MaidConnect",
+      "title": "Cómo Funciona Casaora",
       "subtitle": "Ya sea que busques ayuda u ofrezcas tus servicios, hemos hecho el proceso simple, seguro y transparente."
     },
     "customer": {
@@ -2503,7 +2503,7 @@
     },
     "cta": {
       "title": "¿Listo para Comenzar?",
-      "subtitle": "Únete a miles de clientes y profesionales que confían en MaidConnect.",
+      "subtitle": "Únete a miles de clientes y profesionales que confían en Casaora.",
       "browseButton": "Explorar Profesionales",
       "signUpButton": "Regístrate Gratis"
     }
@@ -2511,7 +2511,7 @@
   "help": {
     "meta": {
       "title": "Centro de Ayuda",
-      "description": "Encuentra respuestas a preguntas comunes y aprende a usar MaidConnect"
+      "description": "Encuentra respuestas a preguntas comunes y aprende a usar Casaora"
     },
     "hero": {
       "title": "¿Cómo podemos ayudarte?",
@@ -2610,7 +2610,7 @@
   },
   "city": {
     "meta": {
-      "title": "Servicios Profesionales de Limpieza en {city} | MaidConnect",
+      "title": "Servicios Profesionales de Limpieza en {city} | Casaora",
       "description": "Encuentra profesionales de limpieza verificados y confiables en {city}. Reserva limpieza del hogar, limpieza profunda y más. Profesionales con verificación de antecedentes y reseñas reales."
     },
     "hero": {
@@ -2644,6 +2644,16 @@
         "reviews": "reseñas",
         "startingAt": "Desde"
       }
+    },
+    "aguaora": {
+      "meta": {
+        "title": "AGUAORA - Lujos Botánicos para el Hogar Próximamente",
+        "description": "AGUAORA ofrece sales de baño botánicas, velas artesanales y productos de lujo para el hogar. Una empresa hermana de Casaora. Próximamente."
+      },
+      "tagline": "Lujos Botánicos para Tu Hogar",
+      "description": "AGUAORA selecciona sales de baño botánicas premium, velas artesanales y productos refinados para el hogar que transforman momentos cotidianos en experiencias sensoriales.",
+      "comingSoon": "Próximamente",
+      "sisterCompany": "Una empresa hermana de"
     }
   }
 }

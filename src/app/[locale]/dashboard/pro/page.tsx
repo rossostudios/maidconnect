@@ -344,7 +344,7 @@ export default async function ProfessionalDashboardPage({
               </p>
             </div>
             <Link
-              className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
+              className="inline-flex items-center justify-center rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]"
               href="/dashboard/pro/onboarding"
             >
               {t("onboarding.manageButton")}
@@ -360,7 +360,7 @@ export default async function ProfessionalDashboardPage({
                   key={task.id}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-[#ff5d46] text-xs uppercase tracking-[0.2em]">
+                    <span className="font-semibold text-[#8B7355] text-xs uppercase tracking-[0.2em]">
                       {t(`onboarding.tasks.${task.id}.title`)}
                     </span>
                     {isComplete ? (
@@ -378,7 +378,7 @@ export default async function ProfessionalDashboardPage({
                   </p>
                   {isComplete ? null : (
                     <Link
-                      className="mt-3 inline-flex items-center font-semibold text-[#ff5d46] text-sm hover:text-[#eb6c65]"
+                      className="mt-3 inline-flex items-center font-semibold text-[#8B7355] text-sm hover:text-[#9B8B7E]"
                       href={task.cta.href}
                     >
                       {t(`onboarding.tasks.${task.id}.cta`)} →
@@ -437,7 +437,7 @@ export default async function ProfessionalDashboardPage({
               </p>
             </div>
             <Link
-              className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+              className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
               href="/dashboard/pro/onboarding"
             >
               {t("sections.bookingCalendar.updateAvailability")}
@@ -482,7 +482,7 @@ export default async function ProfessionalDashboardPage({
               </p>
             </div>
             <Link
-              className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-5 py-2.5 font-semibold text-sm text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
+              className="inline-flex items-center justify-center rounded-full bg-[#8B7355] px-5 py-2.5 font-semibold text-sm text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]"
               href="/dashboard/pro/onboarding"
             >
               {t("sections.services.editButton")}
@@ -565,7 +565,7 @@ export default async function ProfessionalDashboardPage({
                   </div>
                   {doc.signedUrl ? (
                     <Link
-                      className="inline-flex w-fit items-center gap-1 rounded-md border border-[#efe7dc] px-3 py-1 font-semibold text-[#ff5d46] text-xs transition hover:border-[#ff5d46] hover:text-[#eb6c65]"
+                      className="inline-flex w-fit items-center gap-1 rounded-md border border-[#efe7dc] px-3 py-1 font-semibold text-[#8B7355] text-xs transition hover:border-[#8B7355] hover:text-[#9B8B7E]"
                       href={doc.signedUrl}
                       rel="noopener noreferrer"
                       target="_blank"
@@ -583,7 +583,7 @@ export default async function ProfessionalDashboardPage({
           </Suspense>
         )}
         <Link
-          className="mt-4 inline-flex items-center font-semibold text-[#ff5d46] text-sm hover:text-[#eb6c65]"
+          className="mt-4 inline-flex items-center font-semibold text-[#8B7355] text-sm hover:text-[#9B8B7E]"
           href="/dashboard/pro/onboarding"
         >
           {t("sections.documents.manageLink")} →

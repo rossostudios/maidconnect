@@ -25,7 +25,7 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
     () => ({
       theme: "flat" as const,
       variables: {
-        colorPrimary: "#ff5d46",
+        colorPrimary: "#8B7355",
         colorText: "#211f1a",
         colorBackground: "#ffffff",
         borderRadius: "12px",
@@ -88,7 +88,7 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
         )}
         {message ? <p className="text-red-600 text-sm">{message}</p> : null}
         <button
-          className="inline-flex w-fit items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex w-fit items-center justify-center rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={status === "loading"}
           onClick={handleStart}
           type="button"
@@ -165,7 +165,7 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
       <PaymentElement options={{ layout: "tabs" }} />
       <div className="flex items-center gap-3">
         <button
-          className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center justify-center rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={isSubmitting}
           onClick={handleSubmit}
           type="button"
@@ -173,7 +173,7 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
           {isSubmitting ? "Authorizing…" : "Authorize"}
         </button>
         <button
-          className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={isSubmitting}
           onClick={reset}
           type="button"

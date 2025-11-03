@@ -6,6 +6,7 @@ import { ServicesSection } from "@/components/sections/services-section";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { ValuePropositionSection } from "@/components/sections/value-proposition-section";
 
 // Revalidate every hour (3600 seconds)
 
@@ -15,6 +16,7 @@ export default function Home() {
       <SiteHeader />
       <main data-tour="welcome">
         <HeroSection />
+        <ValuePropositionSection />
         <ServicesSection />
         <ProcessSection />
         <TestimonialsSection />

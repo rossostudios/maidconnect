@@ -152,7 +152,7 @@ export function RecurringScheduleSelector({
         </div>
         <button
           className={`relative h-7 w-12 rounded-full transition ${
-            isEnabled ? "bg-[#ff5d46]" : "bg-[#e5dfd4]"
+            isEnabled ? "bg-[#8B7355]" : "bg-[#e5dfd4]"
           }`}
           onClick={() => handleToggle(!isEnabled)}
           type="button"
@@ -175,7 +175,7 @@ export function RecurringScheduleSelector({
                 <button
                   className={`flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition ${
                     frequency === freq
-                      ? "border-[#ff5d46] bg-[#fff5f3]"
+                      ? "border-[#8B7355] bg-[#fff5f3]"
                       : "border-[#e5dfd4] bg-white hover:border-[#d4cabb]"
                   }`}
                   key={freq}
@@ -201,7 +201,7 @@ export function RecurringScheduleSelector({
             <div className="relative">
               <Calendar className="absolute top-3 left-3 h-5 w-5 text-[#7d7566]" />
               <input
-                className="w-full rounded-xl border border-[#e5dfd4] py-3 pr-4 pl-11 text-[#211f1a] transition focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                className="w-full rounded-xl border border-[#e5dfd4] py-3 pr-4 pl-11 text-[#211f1a] transition focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
                 id="start-date"
                 min={new Date().toISOString().split("T")[0]}
                 onChange={(e) => handleStartDateChange(e.target.value)}
@@ -220,7 +220,7 @@ export function RecurringScheduleSelector({
                   <button
                     className={`rounded-lg border-2 px-2 py-3 text-xs transition ${
                       dayOfWeek === index
-                        ? "border-[#ff5d46] bg-[#fff5f3] font-semibold text-[#ff5d46]"
+                        ? "border-[#8B7355] bg-[#fff5f3] font-semibold text-[#8B7355]"
                         : "border-[#e5dfd4] bg-white text-[#7d7566] hover:border-[#d4cabb]"
                     }`}
                     key={day}
@@ -241,7 +241,7 @@ export function RecurringScheduleSelector({
               <button
                 className={`rounded-xl border-2 px-4 py-3 text-sm transition ${
                   endType === "occurrences"
-                    ? "border-[#ff5d46] bg-[#fff5f3] font-semibold text-[#ff5d46]"
+                    ? "border-[#8B7355] bg-[#fff5f3] font-semibold text-[#8B7355]"
                     : "border-[#e5dfd4] bg-white text-[#7d7566] hover:border-[#d4cabb]"
                 }`}
                 onClick={() => handleEndTypeChange("occurrences")}
@@ -252,7 +252,7 @@ export function RecurringScheduleSelector({
               <button
                 className={`rounded-xl border-2 px-4 py-3 text-sm transition ${
                   endType === "date"
-                    ? "border-[#ff5d46] bg-[#fff5f3] font-semibold text-[#ff5d46]"
+                    ? "border-[#8B7355] bg-[#fff5f3] font-semibold text-[#8B7355]"
                     : "border-[#e5dfd4] bg-white text-[#7d7566] hover:border-[#d4cabb]"
                 }`}
                 onClick={() => handleEndTypeChange("date")}
@@ -263,7 +263,7 @@ export function RecurringScheduleSelector({
               <button
                 className={`rounded-xl border-2 px-4 py-3 text-sm transition ${
                   endType === "never"
-                    ? "border-[#ff5d46] bg-[#fff5f3] font-semibold text-[#ff5d46]"
+                    ? "border-[#8B7355] bg-[#fff5f3] font-semibold text-[#8B7355]"
                     : "border-[#e5dfd4] bg-white text-[#7d7566] hover:border-[#d4cabb]"
                 }`}
                 onClick={() => handleEndTypeChange("never")}
@@ -276,7 +276,7 @@ export function RecurringScheduleSelector({
             {endType === "occurrences" && (
               <div className="mt-3">
                 <input
-                  className="w-full rounded-xl border border-[#e5dfd4] px-4 py-3 text-[#211f1a] transition focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                  className="w-full rounded-xl border border-[#e5dfd4] px-4 py-3 text-[#211f1a] transition focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
                   max="52"
                   min="2"
                   onChange={(e) => handleOccurrencesChange(Number(e.target.value))}
@@ -291,7 +291,7 @@ export function RecurringScheduleSelector({
               <div className="relative mt-3">
                 <Calendar className="absolute top-3 left-3 h-5 w-5 text-[#7d7566]" />
                 <input
-                  className="w-full rounded-xl border border-[#e5dfd4] py-3 pr-4 pl-11 text-[#211f1a] transition focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                  className="w-full rounded-xl border border-[#e5dfd4] py-3 pr-4 pl-11 text-[#211f1a] transition focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
                   min={startDate}
                   onChange={(e) => handleEndDateChange(e.target.value)}
                   type="date"
@@ -304,8 +304,8 @@ export function RecurringScheduleSelector({
           {/* Pricing Summary */}
           <div className="space-y-4 rounded-xl bg-gradient-to-br from-[#fff5f3] to-[#fef8f6] p-5">
             <div className="flex items-start gap-3">
-              <div className="rounded-full bg-[#ff5d46]/10 p-2">
-                <Info className="h-5 w-5 text-[#ff5d46]" />
+              <div className="rounded-full bg-[#8B7355]/10 p-2">
+                <Info className="h-5 w-5 text-[#8B7355]" />
               </div>
               <div className="flex-1 space-y-2">
                 <h4 className="font-semibold text-[#211f1a]">Your Savings</h4>
@@ -316,7 +316,7 @@ export function RecurringScheduleSelector({
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[#211f1a]">Your price:</span>
-                    <span className="font-semibold text-[#ff5d46]">
+                    <span className="font-semibold text-[#8B7355]">
                       {formatCurrency(discountedPrice)}
                     </span>
                   </div>

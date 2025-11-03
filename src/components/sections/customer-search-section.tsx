@@ -31,7 +31,7 @@ export function CustomerSearchSection({ professionals }: CustomerSearchSectionPr
             Discover pre-vetted professionals ready to book
           </h2>
           <p className="text-[#5d574b] text-base">
-            Browse bilingual specialists who have completed MaidConnect’s onboarding and background
+            Browse bilingual specialists who have completed Casaora’s onboarding and background
             checks. Compare services, languages, and rates before requesting a hold.
           </p>
         </div>
@@ -66,7 +66,7 @@ export function CustomerSearchSection({ professionals }: CustomerSearchSectionPr
                   <div className="flex flex-wrap items-center gap-2 font-semibold text-[#5a5549] text-xs">
                     <span className="inline-flex items-center gap-1 rounded-full bg-[#211f1a] px-3 py-1 text-white">
                       <Star className="h-3.5 w-3.5 text-white" />
-                      New to MaidConnect
+                      New to Casaora
                     </span>
                     {professional.languages.length > 0 ? (
                       <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1">

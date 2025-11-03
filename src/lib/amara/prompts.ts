@@ -1,7 +1,7 @@
 /**
- * Etta AI System Prompts
+ * Amara AI System Prompts
  *
- * Defines Etta's personality, capabilities, and behavior across
+ * Defines Amara's personality, capabilities, and behavior across
  * English and Spanish languages.
  */
 
@@ -13,9 +13,9 @@ export interface UserContext {
 }
 
 /**
- * Get the main system prompt for Etta based on user context
+ * Get the main system prompt for Amara based on user context
  */
-export function getEttaSystemPrompt(context: UserContext): string {
+export function getAmaraSystemPrompt(context: UserContext): string {
   const isSpanish = context.locale === "es";
 
   if (isSpanish) {
@@ -34,7 +34,7 @@ function getEnglishSystemPrompt(context: UserContext): string {
     ? `The user is located in ${context.city}, Colombia.`
     : "The user is in Colombia.";
 
-  return `You are Etta, MaidConnect's friendly AI booking concierge assistant. Your role is to help customers find and book the perfect cleaning professional in Colombia.
+  return `You are Amara, Casaora's friendly AI booking concierge assistant. Your role is to help customers find and book the perfect cleaning professional in Colombia.
 
 **Your Personality:**
 - Warm, helpful, and professional
@@ -100,7 +100,7 @@ function getSpanishSystemPrompt(context: UserContext): string {
     ? `El usuario está ubicado en ${context.city}, Colombia.`
     : "El usuario está en Colombia.";
 
-  return `Eres Etta, la asistente virtual de reservas de MaidConnect. Tu función es ayudar a los clientes a encontrar y reservar el profesional de limpieza perfecto en Colombia.
+  return `Eres Amara, la asistente virtual de reservas de Casaora. Tu función es ayudar a los clientes a encontrar y reservar el profesional de limpieza perfecto en Colombia.
 
 **Tu Personalidad:**
 - Cálida, servicial y profesional
@@ -158,20 +158,20 @@ Inicia conversaciones con un saludo cálido y pregunta: "¿Cómo puedo ayudarte 
 }
 
 /**
- * Get a brief introduction message for Etta
+ * Get a brief introduction message for Amara
  */
-export function getEttaWelcomeMessage(locale: string): string {
+export function getAmaraWelcomeMessage(locale: string): string {
   if (locale === "es") {
-    return "¡Hola! Soy Etta, tu asistente de reservas con IA. ¿Cómo puedo ayudarte a encontrar el profesional de limpieza perfecto hoy?";
+    return "¡Hola! Soy Amara, tu asistente de reservas con IA. ¿Cómo puedo ayudarte a encontrar el profesional de limpieza perfecto hoy?";
   }
 
-  return "Hi! I'm Etta, your AI booking assistant. How can I help you find the perfect cleaning professional today?";
+  return "Hi! I'm Amara, your AI booking assistant. How can I help you find the perfect cleaning professional today?";
 }
 
 /**
  * Get error message in the appropriate language
  */
-export function getEttaErrorMessage(locale: string): string {
+export function getAmaraErrorMessage(locale: string): string {
   if (locale === "es") {
     return "Lo siento, tuve un problema procesando tu solicitud. ¿Podrías intentar reformular tu pregunta?";
   }

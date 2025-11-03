@@ -105,14 +105,14 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
       ) : null}
       <button
         className={cn(
-          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[#211f1a] text-sm shadow-black/5 shadow-inner transition hover:border-[#ff5d46] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff5d46] focus-visible:outline-offset-2",
+          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[#211f1a] text-sm shadow-black/5 shadow-inner transition hover:border-[#8B7355] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#8B7355] focus-visible:outline-offset-2",
           !value && "text-[#8a826d]"
         )}
         onClick={() => setOpen((prev) => !prev)}
         type="button"
       >
         <span className="flex items-center gap-2">
-          <CalendarDays aria-hidden="true" className="h-4 w-4 text-[#ff5d46]" />
+          <CalendarDays aria-hidden="true" className="h-4 w-4 text-[#8B7355]" />
           {formatButtonLabel(value, placeholder)}
         </span>
         <ChevronRight
@@ -124,7 +124,7 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
         <div className="absolute z-50 mt-3 w-full min-w-[280px] rounded-3xl border border-[#ebe5d8] bg-white p-4 shadow-[0_24px_60px_rgba(18,17,15,0.12)]">
           <div className="flex items-center justify-between">
             <button
-              className="rounded-full border border-[#ebe5d8] p-1 text-[#5d574b] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+              className="rounded-full border border-[#ebe5d8] p-1 text-[#5d574b] transition hover:border-[#8B7355] hover:text-[#8B7355]"
               onClick={() =>
                 setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))
               }
@@ -139,7 +139,7 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
               )}
             </div>
             <button
-              className="rounded-full border border-[#ebe5d8] p-1 text-[#5d574b] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+              className="rounded-full border border-[#ebe5d8] p-1 text-[#5d574b] transition hover:border-[#8B7355] hover:text-[#8B7355]"
               onClick={() =>
                 setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))
               }
@@ -179,7 +179,7 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
                     inCurrentMonth ? "text-[#211f1a]" : "text-[#c9c2b6]",
                     isSelected &&
                       "bg-[#211f1a] text-white shadow-[0_10px_20px_rgba(18,17,15,0.16)]",
-                    !isSelected && isToday && "border border-[#ff5d46] text-[#ff5d46]",
+                    !isSelected && isToday && "border border-[#8B7355] text-[#8B7355]",
                     !(isSelected || isToday) && "hover:bg-[#f6f1ea]"
                   )}
                   key={date.toISOString()}
@@ -194,14 +194,14 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
 
           <div className="mt-4 flex items-center justify-between text-[#8a826d] text-xs">
             <button
-              className="rounded-full border border-transparent px-3 py-1 font-semibold text-[#ff5d46] transition hover:border-[#ff5d46]/40"
+              className="rounded-full border border-transparent px-3 py-1 font-semibold text-[#8B7355] transition hover:border-[#8B7355]/40"
               onClick={() => onChange(null)}
               type="button"
             >
               Clear
             </button>
             <button
-              className="rounded-full border border-[#211f1a] px-3 py-1 font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+              className="rounded-full border border-[#211f1a] px-3 py-1 font-semibold text-[#211f1a] transition hover:border-[#8B7355] hover:text-[#8B7355]"
               onClick={handleToday}
               type="button"
             >

@@ -137,15 +137,15 @@ export function TimeExtensionModal({
                 <button
                   className={`rounded-xl border-2 p-4 text-left transition ${
                     isSelected
-                      ? "border-[#ff5d46] bg-[#ff5d46]/5"
-                      : "border-[#ebe5d8] hover:border-[#ff5d46]/50"
+                      ? "border-[#8B7355] bg-[#8B7355]/5"
+                      : "border-[#ebe5d8] hover:border-[#8B7355]/50"
                   }`}
                   key={option.minutes}
                   onClick={() => handlePresetClick(option.minutes)}
                   type="button"
                 >
                   <div className="mb-1 flex items-center gap-2">
-                    <Clock className={isSelected ? "text-[#ff5d46]" : "text-[#7a6d62]"} size={16} />
+                    <Clock className={isSelected ? "text-[#8B7355]" : "text-[#7a6d62]"} size={16} />
                     <span className="font-semibold text-[#211f1a] text-sm">{option.label}</span>
                   </div>
                   <p className="text-[#7a6d62] text-xs">{formatCurrency(cost)}</p>
@@ -161,7 +161,7 @@ export function TimeExtensionModal({
             Custom Duration (minutes)
           </label>
           <input
-            className="w-full rounded-lg border-2 border-[#ebe5d8] px-4 py-3 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+            className="w-full rounded-lg border-2 border-[#ebe5d8] px-4 py-3 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
             id="custom"
             max="240"
             min="1"
@@ -204,7 +204,7 @@ export function TimeExtensionModal({
             Cancel
           </button>
           <button
-            className="flex-1 rounded-lg bg-[#ff5d46] px-4 py-3 font-semibold text-white transition hover:bg-[#e54d36] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-lg bg-[#8B7355] px-4 py-3 font-semibold text-white transition hover:bg-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={loading || !currentMinutes || currentMinutes <= 0}
             onClick={handleExtend}
             type="button"

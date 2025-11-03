@@ -89,7 +89,7 @@ export async function CareersPositions() {
 
                         {/* Apply Button */}
                         <Button
-                          href={`mailto:careers@maidconnect.co?subject=Application: ${jobTitle}`}
+                          href={`mailto:careers@casaora.co?subject=Application: ${jobTitle}`}
                           label={t("applyButton")}
                           variant="primary"
                         />
@@ -113,7 +113,7 @@ export async function CareersPositions() {
           </p>
           <div className="mt-8">
             <Button
-              href="mailto:careers@maidconnect.co?subject=General Application"
+              href="mailto:careers@casaora.co?subject=General Application"
               icon
               label="Get in Touch"
             />

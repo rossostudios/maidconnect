@@ -121,7 +121,7 @@ export function PortfolioManager({
           {t("fields.description.label")}
         </label>
         <textarea
-          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
           onChange={(e) => setFeaturedWork(e.target.value)}
           placeholder={t("fields.description.placeholder")}
           rows={3}
@@ -165,7 +165,7 @@ export function PortfolioManager({
                     <div className="space-y-2">
                       <input
                         autoFocus
-                        className="w-full rounded-md border border-[#e5dfd4] px-2 py-1 text-sm focus:border-[#ff5d46] focus:outline-none"
+                        className="w-full rounded-md border border-[#e5dfd4] px-2 py-1 text-sm focus:border-[#8B7355] focus:outline-none"
                         defaultValue={image.caption || ""}
                         onBlur={(e) => handleUpdateCaption(image.id, e.target.value)}
                         onKeyDown={(e) => {
@@ -185,7 +185,7 @@ export function PortfolioManager({
                       <p className="mt-1 truncate text-[#7a6d62] text-xs">{image.url}</p>
                       <div className="mt-2 flex flex-wrap gap-2">
                         <button
-                          className="text-[#ff5d46] text-xs hover:text-[#eb6c65]"
+                          className="text-[#8B7355] text-xs hover:text-[#9B8B7E]"
                           onClick={() => setEditingId(image.id)}
                           type="button"
                         >
@@ -193,7 +193,7 @@ export function PortfolioManager({
                         </button>
                         <span className="text-[#e5dfd4] text-xs">•</span>
                         <button
-                          className="text-[#7a6d62] text-xs hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
+                          className="text-[#7a6d62] text-xs hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-50"
                           disabled={index === 0}
                           onClick={() => handleMoveUp(image.id)}
                           type="button"
@@ -201,7 +201,7 @@ export function PortfolioManager({
                           {t("actions.moveUp")}
                         </button>
                         <button
-                          className="text-[#7a6d62] text-xs hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
+                          className="text-[#7a6d62] text-xs hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-50"
                           disabled={index === sortedImages.length - 1}
                           onClick={() => handleMoveDown(image.id)}
                           type="button"
@@ -256,7 +256,7 @@ export function PortfolioManager({
       {/* Save Button */}
       <div className="flex justify-end gap-3">
         <button
-          className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md bg-[#8B7355] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={handleSave}
           type="button"

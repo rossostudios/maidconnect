@@ -110,7 +110,7 @@ export function CheckoutSummary({
           {tippingEnabled && tipAmount > 0 && (
             <div className="flex justify-between">
               <span className="text-[#7d7566] text-sm">Tip</span>
-              <span className="font-medium text-[#ff5d46] text-sm">
+              <span className="font-medium text-[#8B7355] text-sm">
                 {formatCurrency(tipAmount)}
               </span>
             </div>
@@ -119,7 +119,7 @@ export function CheckoutSummary({
           {/* Total */}
           <div className="flex justify-between border-[#ebe5d8] border-t pt-3">
             <span className="font-bold text-[#211f1a]">Total</span>
-            <span className="font-bold text-2xl text-[#ff5d46]">{formatCurrency(totalAmount)}</span>
+            <span className="font-bold text-2xl text-[#8B7355]">{formatCurrency(totalAmount)}</span>
           </div>
         </div>
       </div>

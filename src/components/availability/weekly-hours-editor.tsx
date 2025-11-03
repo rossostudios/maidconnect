@@ -101,21 +101,21 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
         <h4 className="mb-3 font-semibold text-[#211f1a] text-sm">Quick Presets</h4>
         <div className="flex flex-wrap gap-2">
           <button
-            className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
             onClick={() => handlePreset("weekdays")}
             type="button"
           >
             Weekdays (Mon-Fri)
           </button>
           <button
-            className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
             onClick={() => handlePreset("weekends")}
             type="button"
           >
             Weekends Only
           </button>
           <button
-            className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            className="rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
             onClick={() => handlePreset("everyday")}
             type="button"
           >
@@ -129,7 +129,7 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
         {schedule.map((day, index) => (
           <div
             className={`rounded-xl border-2 p-4 transition ${
-              day.enabled ? "border-[#ff5d46]/20 bg-white" : "border-[#ebe5d8] bg-[#fbfaf9]"
+              day.enabled ? "border-[#8B7355]/20 bg-white" : "border-[#ebe5d8] bg-[#fbfaf9]"
             }`}
             key={day.day}
           >
@@ -138,7 +138,7 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
               <label className="flex w-32 items-center gap-3">
                 <input
                   checked={day.enabled}
-                  className="h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-2 focus:ring-[#ff5d46]/20"
+                  className="h-5 w-5 rounded border-[#ebe5d8] text-[#8B7355] focus:ring-2 focus:ring-[#8B7355]/20"
                   onChange={() => handleToggleDay(index)}
                   type="checkbox"
                 />
@@ -157,14 +157,14 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
                   <div className="flex items-center gap-2">
                     <Clock className="h-4 w-4 text-[#7d7566]" />
                     <input
-                      className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm accent-[#ff5d46] [color-scheme:light] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                      className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm accent-[#8B7355] [color-scheme:light] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
                       onChange={(e) => handleTimeChange(index, "start", e.target.value)}
                       type="time"
                       value={day.start}
                     />
                     <span className="text-[#7d7566] text-sm">to</span>
                     <input
-                      className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm accent-[#ff5d46] [color-scheme:light] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                      className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm accent-[#8B7355] [color-scheme:light] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
                       onChange={(e) => handleTimeChange(index, "end", e.target.value)}
                       type="time"
                       value={day.end}

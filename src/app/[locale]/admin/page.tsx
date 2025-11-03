@@ -10,7 +10,7 @@ export default async function AdminHomePage() {
       <header className="mb-8">
         <h1 className="font-semibold text-3xl text-[#211f1a]">Admin Control Center</h1>
         <p className="mt-2 text-[#5d574b] text-sm">
-          Review onboarding queues, monitor incidents, and support MaidConnect users.
+          Review onboarding queues, monitor incidents, and support Casaora users.
         </p>
       </header>
       {/* Admin Info */}
@@ -38,7 +38,7 @@ export default async function AdminHomePage() {
       <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {/* Changelog Management */}
         <Link
-          className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 text-center shadow-sm transition hover:border-[#ff5d46] hover:shadow-md"
+          className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 text-center shadow-sm transition hover:border-[#8B7355] hover:shadow-md"
           href="/admin/changelog"
         >
           <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-purple-50 group-hover:bg-purple-100">
@@ -64,7 +64,7 @@ export default async function AdminHomePage() {
 
         {/* Feedback Management */}
         <Link
-          className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 text-center shadow-sm transition hover:border-[#ff5d46] hover:shadow-md"
+          className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 text-center shadow-sm transition hover:border-[#8B7355] hover:shadow-md"
           href="/admin/feedback"
         >
           <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 group-hover:bg-blue-100">
@@ -90,7 +90,7 @@ export default async function AdminHomePage() {
 
         {/* Roadmap Management */}
         <Link
-          className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 text-center shadow-sm transition hover:border-[#ff5d46] hover:shadow-md"
+          className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 text-center shadow-sm transition hover:border-[#8B7355] hover:shadow-md"
           href="/admin/roadmap"
         >
           <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-green-50 group-hover:bg-green-100">

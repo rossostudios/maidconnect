@@ -138,7 +138,7 @@ export function AvailabilityCalendar({
         </h3>
         <div className="flex gap-2">
           <button
-            className="rounded-md border border-[#e5dfd4] px-3 py-1 font-medium text-[#7a6d62] text-xs transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            className="rounded-md border border-[#e5dfd4] px-3 py-1 font-medium text-[#7a6d62] text-xs transition hover:border-[#8B7355] hover:text-[#8B7355]"
             onClick={goToToday}
             type="button"
           >
@@ -146,7 +146,7 @@ export function AvailabilityCalendar({
           </button>
           <button
             aria-label="Previous month"
-            className="rounded-md border border-[#e5dfd4] px-2 py-1 text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            className="rounded-md border border-[#e5dfd4] px-2 py-1 text-[#7a6d62] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
             onClick={goToPreviousMonth}
             type="button"
           >
@@ -154,7 +154,7 @@ export function AvailabilityCalendar({
           </button>
           <button
             aria-label="Next month"
-            className="rounded-md border border-[#e5dfd4] px-2 py-1 text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            className="rounded-md border border-[#e5dfd4] px-2 py-1 text-[#7a6d62] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
             onClick={goToNextMonth}
             type="button"
           >
@@ -238,9 +238,9 @@ export function AvailabilityCalendar({
               return (
                 <button
                   className={`relative min-h-[60px] p-2 text-left transition ${bgColor}
-                    ${isSelected ? "ring-2 ring-[#ff5d46] ring-inset" : ""}
+                    ${isSelected ? "ring-2 ring-[#8B7355] ring-inset" : ""}
                     ${isToday ? "font-bold" : ""}
-                    ${canSelect ? "cursor-pointer hover:ring-2 hover:ring-[#ff5d4633]" : "cursor-not-allowed opacity-60"}
+                    ${canSelect ? "cursor-pointer hover:ring-2 hover:ring-[#8B735533]" : "cursor-not-allowed opacity-60"}
                     ${isPast ? "text-gray-400" : "text-[#211f1a]"}
                   `}
                   disabled={!canSelect}
@@ -310,8 +310,8 @@ export function AvailabilityCalendar({
                   <button
                     className={`rounded-md border px-3 py-2 font-medium text-sm transition ${
                       isSelected
-                        ? "border-[#ff5d46] bg-[#ff5d46] text-white"
-                        : "border-[#e5dfd4] bg-white text-[#211f1a] hover:border-[#ff5d46] hover:text-[#ff5d46]"
+                        ? "border-[#8B7355] bg-[#8B7355] text-white"
+                        : "border-[#e5dfd4] bg-white text-[#211f1a] hover:border-[#8B7355] hover:text-[#8B7355]"
                     }
                   `}
                     key={time}

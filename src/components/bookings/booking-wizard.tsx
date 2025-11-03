@@ -116,7 +116,7 @@ export function BookingWizard({
               <button
                 className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-full border-2 font-semibold text-sm transition ${
                   currentStep === step.number
-                    ? "border-[#ff5d46] bg-[#ff5d46] text-white"
+                    ? "border-[#8B7355] bg-[#8B7355] text-white"
                     : step.completed
                       ? "border-green-500 bg-green-500 text-white"
                       : "border-gray-300 bg-white text-gray-400"
@@ -209,7 +209,7 @@ export function BookingWizard({
       {/* Floating Price Calculator (visible after step 1) */}
       {currentStep > 1 && estimatedAmount > 0 && (
         <div className="sticky right-0 bottom-6 left-0 mx-auto max-w-md">
-          <div className="rounded-full border-2 border-[#ff5d46] bg-white px-6 py-4 shadow-lg">
+          <div className="rounded-full border-2 border-[#8B7355] bg-white px-6 py-4 shadow-lg">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[#7d7566] text-sm">Estimated Total</p>
@@ -261,7 +261,7 @@ function Step1ServiceSelection({
             <button
               className={`rounded-2xl border-2 p-6 text-left transition ${
                 isSelected
-                  ? "border-[#ff5d46] bg-[#fff8f6]"
+                  ? "border-[#8B7355] bg-[#fff8f6]"
                   : "border-[#ebe5d8] bg-white hover:border-[#211f1a]"
               }`}
               key={service.name}
@@ -270,7 +270,7 @@ function Step1ServiceSelection({
             >
               <h3 className="font-semibold text-[#211f1a] text-lg">{service.name}</h3>
               {rate && (
-                <p className="mt-2 font-semibold text-[#ff5d46] text-xl">
+                <p className="mt-2 font-semibold text-[#8B7355] text-xl">
                   {formatCurrencyCOP(rate)}/hour
                 </p>
               )}
@@ -278,7 +278,7 @@ function Step1ServiceSelection({
                 <p className="mt-2 text-[#7d7566] text-sm">{service.description}</p>
               )}
               {isSelected && (
-                <div className="mt-4 flex items-center gap-2 text-[#ff5d46] text-sm">
+                <div className="mt-4 flex items-center gap-2 text-[#8B7355] text-sm">
                   <Check className="h-4 w-4" />
                   <span>Selected</span>
                 </div>
@@ -290,7 +290,7 @@ function Step1ServiceSelection({
 
       <div className="flex justify-end pt-4">
         <button
-          className="rounded-full bg-[#ff5d46] px-8 py-3 font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[#8B7355] px-8 py-3 font-semibold text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!selectedServiceName}
           onClick={onNext}
           type="button"
@@ -368,7 +368,7 @@ function Step2DateTime({
           ← Back
         </button>
         <button
-          className="rounded-full bg-[#ff5d46] px-8 py-3 font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[#8B7355] px-8 py-3 font-semibold text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!(selectedDate && selectedTime)}
           onClick={onNext}
           type="button"
@@ -417,7 +417,7 @@ function Step3Details({
             Special Instructions
           </label>
           <textarea
-            className="w-full rounded-xl border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+            className="w-full rounded-xl border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
             onChange={(e) => onUpdateInstructions(e.target.value)}
             placeholder="Building entry, pets, cleaning priorities, allergies..."
             rows={4}
@@ -428,7 +428,7 @@ function Step3Details({
         <div>
           <label className="mb-2 block font-medium text-[#211f1a] text-sm">Service Address</label>
           <textarea
-            className="w-full rounded-xl border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+            className="w-full rounded-xl border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
             onChange={(e) => onUpdateAddress(e.target.value)}
             placeholder="Street address, apartment number, city..."
             rows={3}
@@ -458,7 +458,7 @@ function Step3Details({
           ← Back
         </button>
         <button
-          className="rounded-full bg-[#ff5d46] px-8 py-3 font-semibold text-white transition hover:bg-[#eb6c65]"
+          className="rounded-full bg-[#8B7355] px-8 py-3 font-semibold text-white transition hover:bg-[#9B8B7E]"
           onClick={onNext}
           type="button"
         >
@@ -606,7 +606,7 @@ function Step4Review({
             </div>
             <div className="flex justify-between border-[#ebe5d8] border-t pt-2">
               <span className="font-bold text-[#211f1a]">Total</span>
-              <span className="font-bold text-2xl text-[#ff5d46]">
+              <span className="font-bold text-2xl text-[#8B7355]">
                 {formatCurrencyCOP(totalAmount)}
               </span>
             </div>
@@ -623,7 +623,7 @@ function Step4Review({
           ← Back
         </button>
         <button
-          className="rounded-full bg-[#ff5d46] px-8 py-3 font-semibold text-white transition hover:bg-[#eb6c65]"
+          className="rounded-full bg-[#8B7355] px-8 py-3 font-semibold text-white transition hover:bg-[#9B8B7E]"
           type="button"
         >
           Proceed to Payment →

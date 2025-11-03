@@ -152,7 +152,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
           </div>
           {unreadCount > 0 && (
             <button
-              className="font-medium text-[#ff5d46] text-xs transition hover:text-[#e54d3c]"
+              className="font-medium text-[#8B7355] text-xs transition hover:text-[#e54d3c]"
               onClick={markAllAsRead}
               type="button"
             >
@@ -165,7 +165,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
         <div className="flex-1 overflow-y-auto">
           {loading ? (
             <div className="flex items-center justify-center p-12">
-              <div className="h-8 w-8 animate-spin rounded-full border-[#ff5d46] border-b-2" />
+              <div className="h-8 w-8 animate-spin rounded-full border-[#8B7355] border-b-2" />
             </div>
           ) : notifications.length === 0 ? (
             <div className="flex flex-col items-center justify-center p-12">
@@ -198,7 +198,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
               {notifications.map((notification) => (
                 <div
                   className={`p-4 transition hover:bg-[#fbfaf9] ${
-                    notification.read_at ? "" : "bg-[#ff5d46]/5"
+                    notification.read_at ? "" : "bg-[#8B7355]/5"
                   }`}
                   key={notification.id}
                 >
@@ -224,7 +224,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                           </p>
                         </div>
                         {!notification.read_at && (
-                          <div className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#ff5d46]" />
+                          <div className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#8B7355]" />
                         )}
                       </div>
                     </Link>
@@ -241,7 +241,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                       </div>
                       {!notification.read_at && (
                         <button
-                          className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#ff5d46] transition hover:bg-[#e54d3c]"
+                          className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#8B7355] transition hover:bg-[#e54d3c]"
                           onClick={() => markAsRead([notification.id])}
                           type="button"
                         />

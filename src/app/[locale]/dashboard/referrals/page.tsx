@@ -37,11 +37,10 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
   // Fetch user's referral code (or create if doesn't exist)
   let referralCode: string | null = null;
   let usesCount = 0;
-  let _createdAt: string | null = null;
 
   const { data: existingCode } = await supabase
     .from("referral_codes")
-    .select("code, uses_count, created_at")
+    .select("code, uses_count")
     .eq("user_id", user.id)
     .eq("is_active", true)
     .maybeSingle();
@@ -49,7 +48,6 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
   if (existingCode) {
     referralCode = existingCode.code;
     usesCount = existingCode.uses_count;
-    _createdAt = existingCode.created_at;
   } else {
     // Generate new code via API (we'll let the component handle this on client side)
     // For now, show a message to generate code
@@ -83,14 +81,14 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
       <div>
         <h1 className="font-semibold text-3xl text-[#211f1a]">Refer & Earn</h1>
         <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
-          Share MaidConnect with friends and earn rewards when they book their first service
+          Share Casaora with friends and earn rewards when they book their first service
         </p>
       </div>
 
       {/* Stats Cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="rounded-2xl border border-[#ebe5d8] bg-gradient-to-br from-[#ff5d46]/10 to-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#ff5d46]">
+        <div className="rounded-2xl border border-[#ebe5d8] bg-gradient-to-br from-[#8B7355]/10 to-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#8B7355]">
             <Gift className="h-6 w-6 text-white" />
           </div>
           <div className="mb-1 text-[#5d574b] text-sm">Total Earnings</div>
@@ -132,14 +130,14 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
           />
         ) : (
           <div className="rounded-2xl border border-[#ebe5d8] bg-white p-8 text-center shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
-            <Gift className="mx-auto mb-4 h-12 w-12 text-[#ff5d46]" />
+            <Gift className="mx-auto mb-4 h-12 w-12 text-[#8B7355]" />
             <h3 className="mb-2 font-semibold text-[#211f1a] text-xl">Get Your Referral Code</h3>
             <p className="mb-6 text-[#5d574b]">
               Generate your unique referral code to start earning rewards
             </p>
             <form action="/api/referrals/generate-code" method="POST">
               <button
-                className="rounded-lg bg-[#ff5d46] px-6 py-3 font-semibold text-white transition hover:bg-[#e54d3a] active:scale-95"
+                className="rounded-lg bg-[#8B7355] px-6 py-3 font-semibold text-white transition hover:bg-[#e54d3a] active:scale-95"
                 type="submit"
               >
                 Generate My Code

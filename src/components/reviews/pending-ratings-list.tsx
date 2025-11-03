@@ -1,8 +1,14 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { RatingPromptModal } from "./rating-prompt-modal";
+
+// Dynamic import for modal (lazy load on demand)
+const RatingPromptModal = dynamic(
+  () => import("./rating-prompt-modal").then((mod) => mod.RatingPromptModal),
+  { ssr: false }
+);
 
 type CompletedBooking = {
   id: string;
@@ -54,7 +60,7 @@ export function PendingRatingsList({ completedBookings }: Props) {
                 </p>
               </div>
               <button
-                className="rounded-lg bg-[#ff5d46] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65]"
+                className="rounded-lg bg-[#8B7355] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#9B8B7E]"
                 onClick={() => setSelectedBooking(booking)}
                 type="button"
               >

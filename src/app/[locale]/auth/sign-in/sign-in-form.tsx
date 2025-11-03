@@ -55,7 +55,7 @@ export function SignInForm({ redirectTo }: Props) {
       {state.error ? <p className="text-red-600 text-sm">{state.error}</p> : null}
 
       <button
-        className="w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:border-[#8B7355] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
         disabled={isPending}
         type="submit"
       >

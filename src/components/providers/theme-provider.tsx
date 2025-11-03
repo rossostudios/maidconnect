@@ -41,6 +41,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       setResolvedTheme(resolved);
 
       // Update DOM
+      root.dataset.theme = resolved;
+      root.style.colorScheme = resolved;
+
       if (resolved === "dark") {
         root.classList.add("dark");
       } else {

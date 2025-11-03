@@ -70,7 +70,7 @@ export function PricingPlans() {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
-          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-[#ff5d46]" />
+          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-[#8B7355]" />
           <p className="text-[#6B7280]">Loading pricing plans...</p>
         </div>
       </div>
@@ -81,7 +81,7 @@ export function PricingPlans() {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
-          <p className="mb-4 text-[#ff5d46]">Error loading pricing plans</p>
+          <p className="mb-4 text-[#8B7355]">Error loading pricing plans</p>
           <p className="text-[#6B7280] text-sm">{error}</p>
           <button
             className="mt-4 rounded-[14px] border-2 border-[#ebe5d8] px-6 py-2 font-semibold text-[#211f1a] hover:border-[#211f1a]"
@@ -102,7 +102,7 @@ export function PricingPlans() {
           <button
             className={`rounded-[12px] px-6 py-2 font-medium transition-all ${
               billingPeriod === "monthly"
-                ? "bg-[#ff5d46] text-white"
+                ? "bg-[#8B7355] text-white"
                 : "text-[#6B7280] hover:text-[#211f1a]"
             }`}
             onClick={() => setBillingPeriod("monthly")}
@@ -112,7 +112,7 @@ export function PricingPlans() {
           <button
             className={`relative rounded-[12px] px-6 py-2 font-medium transition-all ${
               billingPeriod === "annual"
-                ? "bg-[#ff5d46] text-white"
+                ? "bg-[#8B7355] text-white"
                 : "text-[#6B7280] hover:text-[#211f1a]"
             }`}
             onClick={() => setBillingPeriod("annual")}
@@ -134,14 +134,14 @@ export function PricingPlans() {
             <div
               className={`relative rounded-[28px] bg-white p-8 transition-all ${
                 plan.highlight_as_popular
-                  ? "scale-105 border-4 border-[#ff5d46] shadow-xl"
-                  : "border-2 border-[#ebe5d8] hover:border-[#ff5d46]"
+                  ? "scale-105 border-4 border-[#8B7355] shadow-xl"
+                  : "border-2 border-[#ebe5d8] hover:border-[#8B7355]"
               }`}
               key={plan.id}
             >
               {/* Most popular badge */}
               {plan.highlight_as_popular && (
-                <div className="-top-4 -translate-x-1/2 absolute left-1/2 rounded-full bg-[#ff5d46] px-4 py-1 font-semibold text-sm text-white">
+                <div className="-top-4 -translate-x-1/2 absolute left-1/2 rounded-full bg-[#8B7355] px-4 py-1 font-semibold text-sm text-white">
                   Most Popular
                 </div>
               )}
@@ -176,7 +176,7 @@ export function PricingPlans() {
               <a
                 className={`mb-8 block w-full rounded-[14px] py-4 text-center font-semibold transition-all ${
                   plan.highlight_as_popular
-                    ? "bg-[#ff5d46] text-white hover:bg-[#e54d36]"
+                    ? "bg-[#8B7355] text-white hover:bg-[#8B7355]"
                     : "border-2 border-[#ebe5d8] text-[#211f1a] hover:border-[#211f1a]"
                 }`}
                 href={plan.cta_url || "/auth/sign-up"}

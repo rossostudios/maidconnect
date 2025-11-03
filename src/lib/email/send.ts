@@ -1,7 +1,7 @@
 import { resend } from "./client";
 import * as templates from "./templates";
 
-const FROM_EMAIL = "MaidConnect <notifications@maidconnect.co>";
+const FROM_EMAIL = "Casaora <notifications@casaora.com>";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 type SendEmailResult = {

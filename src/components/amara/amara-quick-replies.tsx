@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Etta Quick Replies Component
+ * Amara Quick Replies Component
  *
  * Displays contextual quick reply buttons to guide user interactions.
  * Provides common actions like searching for professionals, checking availability, etc.
@@ -15,20 +15,20 @@ export interface QuickReply {
   icon?: React.ReactNode;
 }
 
-interface EttaQuickRepliesProps {
+interface AmaraQuickRepliesProps {
   replies: QuickReply[];
   onSelect: (reply: QuickReply) => void;
   disabled?: boolean;
 }
 
-export function EttaQuickReplies({ replies, onSelect, disabled = false }: EttaQuickRepliesProps) {
+export function AmaraQuickReplies({ replies, onSelect, disabled = false }: AmaraQuickRepliesProps) {
   if (replies.length === 0) return null;
 
   return (
     <div className="flex flex-wrap gap-2">
       {replies.map((reply) => (
         <button
-          className="etta-quick-reply group hover:-translate-y-0.5 inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-gray-200 bg-white px-4 py-2.5 font-medium text-gray-700 text-sm shadow-sm transition-all hover:border-[#ff5d46] hover:bg-[#ff5d46] hover:text-white hover:shadow-md active:translate-y-0 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 sm:px-4 sm:py-2"
+          className="amara-quick-reply group hover:-translate-y-0.5 inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-gray-200 bg-white px-4 py-2.5 font-medium text-gray-700 text-sm shadow-sm transition-all hover:border-[#8B7355] hover:bg-[#8B7355] hover:text-white hover:shadow-md active:translate-y-0 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 sm:px-4 sm:py-2"
           disabled={disabled}
           key={reply.id}
           onClick={() => onSelect(reply)}

@@ -76,12 +76,12 @@ export function ProductBottomSheet({ isOpen, onClose, features }: Props) {
           <div className="space-y-3 landscape:grid landscape:grid-cols-2 landscape:gap-3 landscape:space-y-0">
             {features.map((feature) => (
               <Link
-                className="group flex flex-col gap-2 rounded-2xl border border-[#ebe5d8] bg-white p-5 transition hover:border-[#ff5d46] hover:bg-[#fff5f2] active:scale-[0.98]"
+                className="group flex flex-col gap-2 rounded-2xl border border-[#ebe5d8] bg-white p-5 transition hover:border-[#8B7355] hover:bg-[#fff5f2] active:scale-[0.98]"
                 href={feature.href}
                 key={feature.name}
                 onClick={onClose}
               >
-                <span className="font-semibold text-[#211f1a] text-base group-hover:text-[#ff5d46]">
+                <span className="font-semibold text-[#211f1a] text-base group-hover:text-[#8B7355]">
                   {feature.name}
                 </span>
                 <span className="text-[#7a6d62] text-sm leading-relaxed">

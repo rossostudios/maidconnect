@@ -266,7 +266,7 @@ export function EnhancedBookingForm({
             <div
               className={`flex h-8 w-8 items-center justify-center rounded-full font-semibold text-xs ${
                 currentStep === step.key
-                  ? "bg-[#ff5d46] text-white"
+                  ? "bg-[#8B7355] text-white"
                   : index <
                       ["service-details", "address-addons", "confirmation", "payment"].indexOf(
                         currentStep
@@ -374,7 +374,7 @@ function ServiceDetailsStep({
       <div>
         <label className="mb-2 block font-medium text-[#211f1a] text-sm">Service *</label>
         <select
-          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
           onChange={(e) => {
             const service = services.find((s) => s.name === e.target.value);
             setBookingData({
@@ -400,7 +400,7 @@ function ServiceDetailsStep({
       <div>
         <label className="mb-2 block font-medium text-[#211f1a] text-sm">Duration (hours) *</label>
         <input
-          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
           max={12}
           min={1}
           onChange={(e) =>
@@ -452,7 +452,7 @@ function ServiceDetailsStep({
         <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4">
           <label className="mb-2 block font-medium text-[#211f1a] text-sm">Frequency</label>
           <select
-            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
             onChange={(e) =>
               setBookingData({
                 ...bookingData,
@@ -472,7 +472,7 @@ function ServiceDetailsStep({
 
       <div className="flex justify-end">
         <button
-          className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md bg-[#8B7355] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!canProceed}
           onClick={onNext}
           type="button"
@@ -534,7 +534,7 @@ function AddressAddonsStep({
               showManagement={false}
             />
             <button
-              className="text-[#ff5d46] text-sm hover:text-[#eb6c65]"
+              className="text-[#8B7355] text-sm hover:text-[#9B8B7E]"
               onClick={() => setUseCustomAddress(true)}
               type="button"
             >
@@ -546,7 +546,7 @@ function AddressAddonsStep({
         {(useCustomAddress || addresses.length === 0) && (
           <div className="space-y-2">
             <textarea
-              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
               onChange={(e) =>
                 setBookingData({
                   ...bookingData,
@@ -560,7 +560,7 @@ function AddressAddonsStep({
             />
             {addresses.length > 0 && (
               <button
-                className="text-[#ff5d46] text-sm hover:text-[#eb6c65]"
+                className="text-[#8B7355] text-sm hover:text-[#9B8B7E]"
                 onClick={() => setUseCustomAddress(false)}
                 type="button"
               >
@@ -577,7 +577,7 @@ function AddressAddonsStep({
           Special Instructions
         </label>
         <textarea
-          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
           onChange={(e) =>
             setBookingData({
               ...bookingData,
@@ -603,8 +603,8 @@ function AddressAddonsStep({
                 <button
                   className={`w-full rounded-lg border p-3 text-left transition ${
                     isSelected
-                      ? "border-[#ff5d46] bg-[#ff5d46]/5 ring-2 ring-[#ff5d46]/20"
-                      : "border-[#e5dfd4] bg-white hover:border-[#ff5d46]/50"
+                      ? "border-[#8B7355] bg-[#8B7355]/5 ring-2 ring-[#8B7355]/20"
+                      : "border-[#e5dfd4] bg-white hover:border-[#8B7355]/50"
                   }`}
                   key={addon.id}
                   onClick={() => toggleAddon(addon)}
@@ -622,7 +622,7 @@ function AddressAddonsStep({
                         <p className="mt-1 text-[#7a6d62] text-sm">{addon.description}</p>
                       )}
                       <div className="mt-1 flex gap-3 text-[#7a6d62] text-xs">
-                        <span className="font-semibold text-[#ff5d46]">
+                        <span className="font-semibold text-[#8B7355]">
                           {formatCurrencyCOP(addon.price_cop)}
                         </span>
                         {addon.duration_minutes > 0 && <span>+{addon.duration_minutes} min</span>}
@@ -638,14 +638,14 @@ function AddressAddonsStep({
 
       <div className="flex justify-between">
         <button
-          className="rounded-md border border-[#e5dfd4] px-6 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+          className="rounded-md border border-[#e5dfd4] px-6 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
           onClick={onBack}
           type="button"
         >
           ← Back
         </button>
         <button
-          className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md bg-[#8B7355] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!canProceed}
           onClick={onNext}
           type="button"
@@ -707,7 +707,7 @@ function ConfirmationStep({
           </p>
           <p className="text-[#7a6d62] text-xs">Duration: {bookingData.durationHours} hours</p>
           {bookingData.isRecurring && (
-            <p className="mt-1 text-[#ff5d46] text-xs">
+            <p className="mt-1 text-[#8B7355] text-xs">
               ⏱️ Recurring {bookingData.recurrencePattern?.frequency}
             </p>
           )}
@@ -785,7 +785,7 @@ function ConfirmationStep({
                 )}
                 <div className="flex justify-between border-[#f0ece5] border-t pt-2 font-semibold text-base">
                   <span className="text-[#211f1a]">Total</span>
-                  <span className="text-[#ff5d46]">{formatCurrencyCOP(totalAmount)}</span>
+                  <span className="text-[#8B7355]">{formatCurrencyCOP(totalAmount)}</span>
                 </div>
               </div>
             </div>
@@ -800,7 +800,7 @@ function ConfirmationStep({
 
       <div className="flex justify-between">
         <button
-          className="rounded-md border border-[#e5dfd4] px-6 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md border border-[#e5dfd4] px-6 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={onBack}
           type="button"
@@ -808,7 +808,7 @@ function ConfirmationStep({
           ← Back
         </button>
         <button
-          className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md bg-[#8B7355] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={onConfirm}
           type="button"
@@ -881,7 +881,7 @@ function PaymentConfirmation({
       {error && <p className="text-red-600 text-sm">{error}</p>}
       <div className="flex items-center gap-3">
         <button
-          className="rounded-md bg-[#ff5d46] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md bg-[#8B7355] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={submitting}
           onClick={handleConfirm}
           type="button"
@@ -889,7 +889,7 @@ function PaymentConfirmation({
           {submitting ? "Confirming..." : "Confirm Booking"}
         </button>
         <button
-          className="rounded-md border border-[#e5dfd4] px-6 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md border border-[#e5dfd4] px-6 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={submitting}
           onClick={onReset}
           type="button"
@@ -905,7 +905,7 @@ function PaymentConfirmation({
 const stripeAppearance = {
   theme: "flat" as const,
   variables: {
-    colorPrimary: "#ff5d46",
+    colorPrimary: "#8B7355",
     colorText: "#211f1a",
     borderRadius: "8px",
   },

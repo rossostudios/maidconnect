@@ -34,7 +34,7 @@ export function RecentlyViewed() {
       <div className="scrollbar-hide flex gap-4 overflow-x-auto pb-4">
         {recentlyViewed.map((item) => (
           <Link
-            className="group min-w-[240px] flex-shrink-0 rounded-2xl border border-[#ebe5d8] bg-white p-4 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[#ff5d46] hover:shadow-[0_20px_50px_rgba(18,17,15,0.08)]"
+            className="group min-w-[240px] flex-shrink-0 rounded-2xl border border-[#ebe5d8] bg-white p-4 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[#8B7355] hover:shadow-[0_20px_50px_rgba(18,17,15,0.08)]"
             href={`/professionals/${item.id}`}
             key={item.id}
           >
@@ -52,7 +52,7 @@ export function RecentlyViewed() {
 
               {/* Info */}
               <div className="flex-1 space-y-1">
-                <h3 className="font-semibold text-[#211f1a] text-base leading-tight group-hover:text-[#ff5d46]">
+                <h3 className="font-semibold text-[#211f1a] text-base leading-tight group-hover:text-[#8B7355]">
                   {item.name}
                 </h3>
                 <p className="text-[#7d7566] text-sm">{item.service}</p>

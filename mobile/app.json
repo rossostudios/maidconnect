@@ -1,19 +1,19 @@
 {
   "expo": {
-    "name": "MaidConnect",
-    "slug": "maidconnect-mobile",
+    "name": "Casaora",
+    "slug": "casaora-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "maidconnect",
+    "scheme": "casaora",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.maidconnect.app"
+      "bundleIdentifier": "com.casaora.app"
     },
     "android": {
-      "package": "com.maidconnect.app",
+      "package": "com.casaora.app",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",

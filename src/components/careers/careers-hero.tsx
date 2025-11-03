@@ -27,12 +27,12 @@ export async function CareersHero() {
 
           {/* Right Column - Team Image */}
           <div className="relative">
-            <div className="aspect-[4/3] overflow-hidden rounded-[28px] bg-gradient-to-br from-[#ff5d46]/10 to-[#ff5d46]/5 shadow-[0_20px_60px_rgba(18,17,15,0.08)]">
+            <div className="aspect-[4/3] overflow-hidden rounded-[28px] bg-gradient-to-br from-[#8B7355]/10 to-[#8B7355]/5 shadow-[0_20px_60px_rgba(18,17,15,0.08)]">
               {/* Placeholder for team image */}
               <div className="flex h-full w-full items-center justify-center">
                 <div className="text-center text-[#7d7566]">
                   <svg
-                    className="mx-auto h-24 w-24 text-[#ff5d46]/20"
+                    className="mx-auto h-24 w-24 text-[#8B7355]/20"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

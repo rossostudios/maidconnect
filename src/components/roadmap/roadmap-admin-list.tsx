@@ -100,7 +100,7 @@ export function RoadmapAdminList() {
           <button
             className={`border-b-2 px-4 py-3 font-medium text-sm transition-colors ${
               activeFilter === filter
-                ? "border-[#ff5d46] text-[#ff5d46]"
+                ? "border-[#8B7355] text-[#8B7355]"
                 : "border-transparent text-[#6B7280] hover:text-[#211f1a]"
             }`}
             key={filter}
@@ -117,7 +117,7 @@ export function RoadmapAdminList() {
       {/* Items list */}
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#ff5d46] border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#8B7355] border-t-transparent" />
         </div>
       ) : items.length === 0 ? (
         <div className="py-12 text-center">
@@ -127,7 +127,7 @@ export function RoadmapAdminList() {
           <h3 className="mb-2 font-semibold text-[#211f1a] text-lg">No roadmap items</h3>
           <p className="mb-4 text-[#6B7280]">Get started by creating your first roadmap item</p>
           <Link
-            className="inline-flex items-center gap-2 rounded-[12px] bg-[#ff5d46] px-6 py-3 font-medium text-white transition-all hover:bg-[#e54d36]"
+            className="inline-flex items-center gap-2 rounded-[12px] bg-[#8B7355] px-6 py-3 font-medium text-white transition-all hover:bg-[#8B7355]"
             href="/admin/roadmap/new"
           >
             Create Roadmap Item
@@ -141,7 +141,7 @@ export function RoadmapAdminList() {
 
             return (
               <div
-                className="rounded-[20px] border-2 border-[#ebe5d8] bg-white p-6 transition-all hover:border-[#ff5d46]"
+                className="rounded-[20px] border-2 border-[#ebe5d8] bg-white p-6 transition-all hover:border-[#8B7355]"
                 key={item.id}
               >
                 <div className="flex items-start justify-between gap-4">

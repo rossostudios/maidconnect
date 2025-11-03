@@ -94,7 +94,7 @@ function mapRowToProfessionalDetail(row: GetProfessionalRow): ProfessionalProfil
 
   return {
     id: row.profile_id,
-    name: row.full_name ?? "MaidConnect Professional",
+    name: row.full_name ?? "Casaora Professional",
     service: primaryService,
     bio: row.bio,
     experienceYears: row.experience_years ?? null,
@@ -231,7 +231,7 @@ export async function generateMetadata({ params }: RouteParams): Promise<Metadat
   const serviceSnippet = professional.service ? ` for ${professional.service}` : "";
 
   return {
-    title: `${professional.name} · MaidConnect`,
+    title: `${professional.name} · Casaora`,
     description: t("descriptionTemplate", {
       name: professional.name,
       service: serviceSnippet,

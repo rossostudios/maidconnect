@@ -27,11 +27,11 @@ export function RoadmapItemCard({ item }: RoadmapItemCardProps) {
   return (
     <div className="group relative">
       <Link href={`/roadmap/${item.slug}`}>
-        <div className="relative rounded-[20px] border-2 border-[#ebe5d8] bg-white p-4 transition-all duration-200 hover:border-[#ff5d46]">
+        <div className="relative rounded-[20px] border-2 border-[#ebe5d8] bg-white p-4 transition-all duration-200 hover:border-[#8B7355]">
           {/* Header with status and category */}
           <div className="mb-3 flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
-              <h3 className="mb-2 line-clamp-2 font-semibold text-[#211f1a] text-base transition-colors group-hover:text-[#ff5d46]">
+              <h3 className="mb-2 line-clamp-2 font-semibold text-[#211f1a] text-base transition-colors group-hover:text-[#8B7355]">
                 {item.title}
               </h3>
 

@@ -66,7 +66,7 @@ export function PricingFaqSection() {
     <div className="space-y-4">
       {SAMPLE_FAQS.map((faq) => (
         <div
-          className="overflow-hidden rounded-[20px] border-2 border-[#ebe5d8] bg-white transition-all hover:border-[#ff5d46]"
+          className="overflow-hidden rounded-[20px] border-2 border-[#ebe5d8] bg-white transition-all hover:border-[#8B7355]"
           key={faq.id}
         >
           <button

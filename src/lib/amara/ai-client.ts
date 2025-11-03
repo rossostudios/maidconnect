@@ -1,7 +1,7 @@
 /**
- * Etta AI Client Configuration
+ * Amara AI Client Configuration
  *
- * Sets up Vercel AI SDK with Claude Haiku 4.5 for the Etta booking concierge.
+ * Sets up Vercel AI SDK with Claude Haiku 4.5 for the Amara booking concierge.
  * Uses Anthropic's Claude Haiku 4.5 model via Vercel AI Gateway for optimal
  * performance and cost-efficiency.
  */
@@ -9,7 +9,7 @@
 import { anthropic } from "@ai-sdk/anthropic";
 
 /**
- * Etta's AI model configuration
+ * Amara's AI model configuration
  *
  * Using Claude Haiku 4.5 for:
  * - Fast response times (2-3 seconds)
@@ -17,12 +17,12 @@ import { anthropic } from "@ai-sdk/anthropic";
  * - Strong multilingual support (EN/ES)
  * - Excellent tool calling capabilities
  */
-export const ettaModel = anthropic("claude-haiku-4-5");
+export const amaraModel = anthropic("claude-haiku-4-5");
 
 /**
  * Model configuration constants
  */
-export const ETTA_MODEL_CONFIG = {
+export const AMARA_MODEL_CONFIG = {
   name: "claude-haiku-4-5",
   provider: "anthropic",
   maxTokens: 1000, // Limit response length
@@ -33,8 +33,8 @@ export const ETTA_MODEL_CONFIG = {
 /**
  * Validate that the required API key is present
  */
-export function validateEttaConfig(): void {
+export function validateAmaraConfig(): void {
   if (!process.env.ANTHROPIC_API_KEY) {
-    throw new Error("ANTHROPIC_API_KEY environment variable is required for Etta AI");
+    throw new Error("ANTHROPIC_API_KEY environment variable is required for Amara AI");
   }
 }

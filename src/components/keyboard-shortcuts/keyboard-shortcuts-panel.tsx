@@ -108,7 +108,7 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
               />
             </svg>
             <input
-              className="w-full rounded-lg border border-[#dcd6c7] bg-white py-2 pr-4 pl-10 text-[#2e2419] text-sm placeholder:text-[#7a6d62] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+              className="w-full rounded-lg border border-[#dcd6c7] bg-white py-2 pr-4 pl-10 text-[#2e2419] text-sm placeholder:text-[#7a6d62] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search shortcuts..."
               type="text"

@@ -80,7 +80,7 @@ export function DocumentUploadForm({ inputClass }: Props) {
       <div className="flex justify-end border-[#ebe5d8] border-t pt-8">
         <button
           className={cn(
-            "inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]",
+            "inline-flex items-center justify-center rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}
@@ -168,7 +168,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         aria-invalid={Boolean(serverError || clientError)}
         className={cn(
           inputClass,
-          "mt-4 cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-[#ff5d46] file:px-4 file:py-2 file:font-semibold file:text-sm file:text-white hover:file:bg-[#eb6c65]",
+          "mt-4 cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-[#8B7355] file:px-4 file:py-2 file:font-semibold file:text-sm file:text-white hover:file:bg-[#9B8B7E]",
           (serverError || clientError) && errorClass
         )}
         id={inputId}

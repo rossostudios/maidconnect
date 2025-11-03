@@ -3,34 +3,46 @@ import { Kbd } from "@/components/ui/kbd";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-type ButtonVariant = "primary" | "secondary" | "ghost" | "card";
+type ButtonVariant = "primary" | "secondary" | "ghost" | "card" | "luxury";
+type ButtonSize = "sm" | "md" | "lg";
 
 type ButtonProps = {
   href: string;
   label: string;
   variant?: ButtonVariant;
+  size?: ButtonSize;
   icon?: boolean;
   kbd?: string;
   className?: string;
 };
 
 const baseClasses =
-  "group inline-flex items-center justify-center rounded-full border font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2";
+  "group inline-flex items-center justify-center rounded-full border font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]";
+
+const sizeClasses: Record<ButtonSize, string> = {
+  sm: "px-5 py-[0.7rem] text-sm",
+  md: "px-6 py-[0.85rem] text-sm",
+  lg: "px-8 py-[1.1rem] text-base",
+};
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "border-[#211f1a] bg-[#211f1a] px-6 py-[0.85rem] text-sm text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] hover:border-[#ff5d46] hover:bg-[#2b2624] focus-visible:outline-[#ff5d46]",
+    "border-transparent bg-[var(--surface-contrast)] text-[var(--background)] shadow-[var(--shadow-card)] hover:bg-[color-mix(in_srgb,var(--surface-contrast)_88%,var(--accent)_12%)] hover:shadow-[var(--shadow-elevated)] active:translate-y-px",
   secondary:
-    "border-[#ff5d46] bg-transparent px-6 py-[0.85rem] text-sm text-[#ff5d46] hover:border-[#211f1a] hover:text-[#211f1a] focus-visible:outline-[#ff5d46]",
+    "border-[color:var(--accent)] bg-transparent text-[var(--accent)] hover:bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] hover:text-[var(--surface-contrast)] active:translate-y-px",
   ghost:
-    "border-transparent px-4 py-2 text-sm text-[#2b2624] hover:text-[#d7b59f] focus-visible:outline-[#d7b59f]",
-  card: "w-full justify-between gap-3 border border-transparent bg-[#211f1a] px-6 py-3 text-sm text-white shadow-[0_12px_36px_rgba(17,16,14,0.22)] hover:bg-[#2b2624] focus-visible:outline-[#ff5d46]",
+    "border-transparent text-[var(--foreground)] hover:text-[var(--accent)] hover:bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] active:translate-y-px",
+  card:
+    "w-full justify-between gap-3 border border-transparent bg-[var(--surface-contrast)] text-[var(--background)] shadow-[var(--shadow-elevated)] hover:bg-[color-mix(in_srgb,var(--surface-contrast)_88%,var(--accent)_12%)] hover:shadow-[var(--shadow-dramatic)] active:translate-y-px",
+  luxury:
+    "border-[color:var(--surface-contrast)] bg-[var(--background)] text-[var(--surface-contrast)] hover:bg-[var(--surface-contrast)] hover:text-[var(--background)] active:translate-y-px",
 };
 
 export function Button({
   href,
   label,
   variant = "primary",
+  size = "md",
   icon = false,
   kbd,
   className,
@@ -39,13 +51,19 @@ export function Button({
 
   return (
     <Link
-      className={cn(baseClasses, variantClasses[variant], hasIconOrKbd && "gap-3", className)}
+      className={cn(
+        baseClasses,
+        sizeClasses[size],
+        variantClasses[variant],
+        hasIconOrKbd && "gap-3",
+        className
+      )}
       href={href}
     >
       <span>{label}</span>
       {kbd ? (
         <Kbd
-          className="border-white/20 bg-white/10 font-medium text-white opacity-70 transition-opacity group-hover:opacity-100"
+          className="border-[color:var(--border)] bg-[color-mix(in_srgb,var(--surface-contrast)_12%,transparent)] font-medium text-[var(--surface-contrast)] opacity-80 transition-opacity group-hover:opacity-100"
           size="lg"
           variant="outline"
         >

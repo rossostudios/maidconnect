@@ -221,7 +221,7 @@ export async function submitApplication(
     return { status: "error", error: professionalError.message };
   }
 
-  revalidatePath("/dashboard/pro");
+  revalidatePath("/[locale]/dashboard/pro");
   return {
     status: "success",
     message: "Application submitted. We'll review your details shortly.",
@@ -516,7 +516,7 @@ export async function submitDocuments(
     return { status: "error", error: statusError.message };
   }
 
-  revalidatePath("/dashboard/pro");
+  revalidatePath("/[locale]/dashboard/pro");
   return {
     status: "success",
     message: "Documents uploaded successfully. We'll review and confirm within 3-5 business days.",
@@ -641,9 +641,9 @@ export async function submitProfile(
     return { status: "error", error: statusError.message };
   }
 
-  revalidatePath("/dashboard/pro");
+  revalidatePath("/[locale]/dashboard/pro");
   return {
     status: "success",
-    message: "Profile submitted. Welcome to MaidConnect!",
+    message: "Profile submitted. Welcome to Casaora!",
   };
 }

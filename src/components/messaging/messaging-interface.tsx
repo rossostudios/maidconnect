@@ -322,7 +322,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
         <div className="border-[#ebe5d8] border-b bg-white px-6 py-4">
           <div className="relative">
             <input
-              className="w-full rounded-lg border border-[#ebe5d8] px-4 py-2 pl-10 text-[#211f1a] text-sm placeholder-[#7d7566] focus:border-[#ff5d46] focus:outline-none focus:ring-1 focus:ring-[#ff5d46]"
+              className="w-full rounded-lg border border-[#ebe5d8] px-4 py-2 pl-10 text-[#211f1a] text-sm placeholder-[#7d7566] focus:border-[#8B7355] focus:outline-none focus:ring-1 focus:ring-[#8B7355]"
               placeholder="Search conversations..."
               type="text"
             />
@@ -379,8 +379,8 @@ export function MessagingInterface({ userId, userRole }: Props) {
 
               return (
                 <button
-                  className={`w-full p-6 text-left transition hover:bg-[#ff5d46]/5 ${
-                    selectedConversation?.id === conv.id ? "bg-[#ff5d46]/5" : ""
+                  className={`w-full p-6 text-left transition hover:bg-[#8B7355]/5 ${
+                    selectedConversation?.id === conv.id ? "bg-[#8B7355]/5" : ""
                   }`}
                   key={conv.id}
                   onClick={() => {
@@ -402,7 +402,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                           src={otherUser.avatar_url}
                         />
                       ) : (
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff5d46] font-semibold text-base text-white">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#8B7355] font-semibold text-base text-white">
                           {otherUser.full_name.charAt(0).toUpperCase()}
                         </div>
                       )}
@@ -414,7 +414,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                           {otherUser.full_name}
                         </h3>
                         {unreadCount > 0 && (
-                          <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#ff5d46] px-2 font-semibold text-white text-xs">
+                          <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#8B7355] px-2 font-semibold text-white text-xs">
                             {unreadCount}
                           </span>
                         )}
@@ -454,7 +454,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                         src={otherUser.avatar_url}
                       />
                     ) : (
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff5d46] font-semibold text-base text-white">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#8B7355] font-semibold text-base text-white">
                         {otherUser.full_name.charAt(0).toUpperCase()}
                       </div>
                     )}
@@ -478,7 +478,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                     <button
                       className={`flex items-center gap-2 rounded-lg px-4 py-2 font-medium text-sm transition ${
                         translationEnabled
-                          ? "bg-[#ff5d46] text-white hover:bg-[#eb6c65]"
+                          ? "bg-[#8B7355] text-white hover:bg-[#9B8B7E]"
                           : "text-[#7d7566] hover:bg-[#ebe5d8]"
                       }`}
                       onClick={() => setTranslationEnabled(!translationEnabled)}
@@ -489,7 +489,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                     </button>
                     {translationEnabled && (
                       <select
-                        className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-1 focus:ring-[#ff5d46]"
+                        className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-1 focus:ring-[#8B7355]"
                         onChange={(e) => setTargetLanguage(e.target.value as SupportedLanguage)}
                         value={targetLanguage}
                       >
@@ -643,7 +643,7 @@ function MessageThread({
             <div className={`flex ${isCurrentUser ? "justify-end" : "justify-start"}`} key={msg.id}>
               <div
                 className={`max-w-[70%] rounded-2xl px-4 py-3 ${
-                  isCurrentUser ? "bg-[#ff5d46] text-white" : "bg-[#ebe5d8] text-[#211f1a]"
+                  isCurrentUser ? "bg-[#8B7355] text-white" : "bg-[#ebe5d8] text-[#211f1a]"
                 }`}
               >
                 {hasTranslation ? (
@@ -718,7 +718,7 @@ function MessageInput({
     <form action={formAction} className="border-[#ebe5d8] border-t bg-white p-6">
       <div className="flex gap-3">
         <input
-          className="flex-1 rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633] disabled:opacity-50"
+          className="flex-1 rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533] disabled:opacity-50"
           disabled={isSending}
           name="message"
           onChange={(e) => setMessage(e.target.value)}
@@ -728,7 +728,7 @@ function MessageInput({
           value={message}
         />
         <button
-          className="rounded-full bg-[#ff5d46] px-6 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[#8B7355] px-6 py-4 font-semibold text-base text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!message.trim() || isSending}
           type="submit"
         >

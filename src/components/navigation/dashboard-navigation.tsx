@@ -1,14 +1,20 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { LogOut } from "lucide-react";
 import { useEffect, useState } from "react";
 import { KeyboardBadge } from "@/components/keyboard-shortcuts/keyboard-badge";
 import { DashboardMobileNav } from "@/components/navigation/dashboard-mobile-nav";
-import { NotificationsSheet } from "@/components/notifications/notifications-sheet";
 import { useKeyboardShortcutsContext } from "@/components/providers/keyboard-shortcuts-provider";
 import { useNotificationUnreadCount } from "@/hooks/use-notification-unread-count";
 import { useUnreadCount } from "@/hooks/use-unread-count";
 import { Link, usePathname } from "@/i18n/routing";
+
+// Dynamic import for sheet (lazy load on demand)
+const NotificationsSheet = dynamic(
+  () => import("@/components/notifications/notifications-sheet").then((mod) => mod.NotificationsSheet),
+  { ssr: false }
+);
 
 type NavLink = {
   href: string;
@@ -67,9 +73,9 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
           const active = isActive(item.href);
           return (
             <Link
-              className={`relative pb-1 transition hover:text-[#ff5d46] ${
+              className={`relative pb-1 transition hover:text-[#8B7355] ${
                 active
-                  ? "font-semibold text-[#ff5d46] after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:bg-[#ff5d46] after:content-['']"
+                  ? "font-semibold text-[#8B7355] after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:bg-[#8B7355] after:content-['']"
                   : ""
               }`}
               href={item.href}
@@ -83,7 +89,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
         {/* Search Button with ⌘K */}
         <button
           aria-label="Search"
-          className="group ml-2 flex items-center gap-2 rounded-lg border border-[#dcd6c7] bg-white px-3 py-1.5 text-[#7a6d62] transition hover:border-[#ff5d46] hover:bg-[#fff5f2] hover:text-[#ff5d46]"
+          className="group ml-2 flex items-center gap-2 rounded-lg border border-[#dcd6c7] bg-white px-3 py-1.5 text-[#7a6d62] transition hover:border-[#8B7355] hover:bg-[#fff5f2] hover:text-[#8B7355]"
           onClick={openCommandPalette}
           type="button"
         >
@@ -102,8 +108,8 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
         {/* Messages Icon */}
         <Link
           aria-label={`Messages${unreadCount > 0 ? ` (${unreadCount} unread)` : ""}`}
-          className={`relative rounded-lg p-1.5 transition hover:bg-[#ebe5d8] hover:text-[#ff5d46] ${
-            pathname === messagesHref ? "bg-[#fff5f2] text-[#ff5d46]" : "text-[#524d43]"
+          className={`relative rounded-lg p-1.5 transition hover:bg-[#ebe5d8] hover:text-[#8B7355] ${
+            pathname === messagesHref ? "bg-[#fff5f2] text-[#8B7355]" : "text-[#524d43]"
           }`}
           href={messagesHref}
         >
@@ -116,7 +122,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
             />
           </svg>
           {unreadCount > 0 && (
-            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#ff5d46] px-1 font-bold text-[10px] text-white">
+            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#8B7355] px-1 font-bold text-[10px] text-white">
               {unreadCount > 9 ? "9+" : unreadCount}
             </span>
           )}
@@ -125,7 +131,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
         {/* Notifications Icon */}
         <button
           aria-label={`Notifications${notificationUnreadCount > 0 ? ` (${notificationUnreadCount} unread)` : ""}`}
-          className="relative rounded-lg p-1.5 text-[#524d43] transition hover:bg-[#ebe5d8] hover:text-[#ff5d46]"
+          className="relative rounded-lg p-1.5 text-[#524d43] transition hover:bg-[#ebe5d8] hover:text-[#8B7355]"
           onClick={() => setIsNotificationsOpen(true)}
           type="button"
         >
@@ -138,7 +144,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
             />
           </svg>
           {notificationUnreadCount > 0 && (
-            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#ff5d46] px-1 font-bold text-[10px] text-white">
+            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#8B7355] px-1 font-bold text-[10px] text-white">
               {notificationUnreadCount > 9 ? "9+" : notificationUnreadCount}
             </span>
           )}
@@ -147,7 +153,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
         {/* Sign Out Button */}
         <Link
           aria-label="Sign out"
-          className="flex items-center gap-2 rounded-lg border border-[#dcd6c7] bg-white px-3 py-1.5 text-[#7a6d62] transition hover:border-[#ff5d46] hover:bg-[#fff5f2] hover:text-[#ff5d46]"
+          className="flex items-center gap-2 rounded-lg border border-[#dcd6c7] bg-white px-3 py-1.5 text-[#7a6d62] transition hover:border-[#8B7355] hover:bg-[#fff5f2] hover:text-[#8B7355]"
           href="/auth/sign-out"
         >
           <LogOut className="h-4 w-4" />

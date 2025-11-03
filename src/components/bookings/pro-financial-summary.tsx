@@ -126,12 +126,12 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
     <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <DollarSign className="h-5 w-5 text-[#ff5d46]" />
+          <DollarSign className="h-5 w-5 text-[#8B7355]" />
           <h3 className="font-semibold text-[#211f1a] text-lg">{t("title")}</h3>
         </div>
         {needsConnect ? (
           <button
-            className="inline-flex items-center rounded-md bg-[#ff5d46] px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex items-center rounded-md bg-[#8B7355] px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={isPending}
             onClick={startStripeOnboarding}
             type="button"

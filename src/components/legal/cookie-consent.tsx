@@ -4,7 +4,7 @@ import { Cookie, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/routing";
 
-const CONSENT_COOKIE_NAME = "maidconnect-cookie-consent";
+const CONSENT_COOKIE_NAME = "casaora-cookie-consent";
 
 export function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false);
@@ -41,7 +41,7 @@ export function CookieConsent() {
             <div className="flex flex-1 items-start gap-4">
               <div className="flex-shrink-0">
                 <div className="rounded-full bg-[#fbfaf9] p-3">
-                  <Cookie className="h-6 w-6 text-[#ff5d46]" />
+                  <Cookie className="h-6 w-6 text-[#8B7355]" />
                 </div>
               </div>
               <div className="flex-1">
@@ -49,7 +49,7 @@ export function CookieConsent() {
                 <p className="text-[#7d7566] text-sm">
                   We use cookies to improve your experience, analyze site traffic, and provide
                   personalized content. By clicking "Accept", you consent to our use of cookies.{" "}
-                  <Link className="font-semibold text-[#ff5d46] hover:underline" href="/privacy">
+                  <Link className="font-semibold text-[#8B7355] hover:underline" href="/privacy">
                     Learn more
                   </Link>
                 </p>
@@ -59,14 +59,14 @@ export function CookieConsent() {
             {/* Actions */}
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <button
-                className="rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+                className="rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
                 onClick={declineCookies}
                 type="button"
               >
                 Decline
               </button>
               <button
-                className="rounded-full bg-[#ff5d46] px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-[#ff4529]"
+                className="rounded-full bg-[#8B7355] px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-[#ff4529]"
                 onClick={acceptCookies}
                 type="button"
               >

@@ -23,9 +23,9 @@ export function KeyboardShortcutsButton({
         className={cn(
           "flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200",
           variant === "light" &&
-            "border-[#dcd6c7] bg-white text-[#5d574b] hover:border-[#ff5d46] hover:bg-[#fff5f3] hover:text-[#ff5d46]",
+            "border-[#dcd6c7] bg-white text-[#5d574b] hover:border-[#8B7355] hover:bg-[#fff5f3] hover:text-[#8B7355]",
           variant === "dark" &&
-            "border-[#26231f] bg-transparent text-[#f3ece1] hover:border-[#ff5d46] hover:bg-[#ff5d46]/10 hover:text-[#ff5d46]",
+            "border-[#26231f] bg-transparent text-[#f3ece1] hover:border-[#8B7355] hover:bg-[#8B7355]/10 hover:text-[#8B7355]",
           className
         )}
         onClick={openShortcutsPanel}

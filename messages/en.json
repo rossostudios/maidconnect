@@ -182,7 +182,7 @@
         },
         "headings": {
           "editProfile": "Edit your profile",
-          "launchProfile": "Launch your MaidConnect profile"
+          "launchProfile": "Launch your Casaora profile"
         },
         "descriptions": {
           "active": "Update your public information, services, and availability. Changes are reflected instantly on your listing.",
@@ -239,7 +239,7 @@
           },
           "createProfile": {
             "title": "Create your public profile",
-            "description": "Craft a compelling presence that builds trust with new customers. This information appears on your MaidConnect listing."
+            "description": "Craft a compelling presence that builds trust with new customers. This information appears on your Casaora listing."
           }
         },
         "complete": {
@@ -313,7 +313,7 @@
           },
           "backgroundCheck": {
             "label": "Background check consent",
-            "checkboxLabel": "I authorize MaidConnect to conduct identity and background verifications for onboarding."
+            "checkboxLabel": "I authorize Casaora to conduct identity and background verifications for onboarding."
           }
         },
         "infoText": "Submitting this application triggers our review team to start verification. You can still edit details later.",
@@ -1023,85 +1023,85 @@
     }
   },
   "hero": {
-    "badge": "Trusted Domestic Staffing · Colombia",
-    "title": "Home professionals who feel like family",
-    "subtitle": "Find vetted housekeepers in 48 hours. Save 10+ hours weekly on household tasks.",
-    "description": "Connect with fully screened professionals across Colombia. Onboarded, verified, and ready to support your lifestyle from day one.",
+    "badge": "Casaora · The Art of Home",
+    "title": "The Art of Home.",
+    "subtitle": "Browse Colombia's most exceptional household professionals—already vetted, so you can choose with confidence.",
+    "description": "Every professional on Casaora has passed rigorous screening and personal interviews. We only accept the top 5%—so you can focus on finding your perfect match.",
     "trustSignals": {
-      "verified": "450+ verified professionals",
-      "cities": "Available in 6 cities",
-      "rating": "4.9★ average rating"
+      "verified": "Only the top 5% accepted",
+      "cities": "Serving Colombia's finest homes",
+      "rating": "Every profile verified"
     },
-    "matchWizard": "Find My Perfect Match",
-    "browseAll": "Browse All Professionals",
-    "findProfessional": "Find My Perfect Cleaner",
-    "bookConsultation": "Book Free Consultation",
-    "howItWorks": "How it works",
-    "becomeProfessional": "Become a professional",
+    "matchWizard": "Find Your Perfect Match",
+    "browseAll": "Browse Exceptional Professionals",
+    "findProfessional": "Explore Our Network",
+    "bookConsultation": "Schedule a Consultation",
+    "howItWorks": "Our vetting process",
+    "becomeProfessional": "Join our network",
     "learnMore": "Learn more"
   },
   "services": {
     "badge": "Services",
-    "title": "Curated professionals for every routine",
+    "title": "Exceptional Professionals in Every Category",
     "items": {
       "housekeeping": {
-        "title": "Housekeeping & Deep Cleaning",
-        "description": "Recurring or one-time solutions tailored to meticulous homes."
+        "title": "Housekeeping & Estate Care",
+        "description": "Impeccable standards, eco-conscious practices, attention to every detail. Our housekeepers transform spaces."
       },
       "childcare": {
-        "title": "Family & Childcare Support",
-        "description": "Trusted nannies and caregivers experienced with international households."
+        "title": "Childcare & Family Support",
+        "description": "Experienced nannies with educational backgrounds, CPR certification, and language skills. Your children deserve the best."
       },
       "relocation": {
-        "title": "Move-in & Relocation Prep",
-        "description": "Arrival day setup, unpacking, and home organization services."
+        "title": "Property & Relocation Services",
+        "description": "Seamless transitions for new arrivals. Professional setup, organization, and household coordination."
       },
       "elderCare": {
         "title": "Elder & Wellness Care",
-        "description": "Companionship, medication reminders, and wellness-focused care."
+        "description": "Compassionate professionals providing companionship, wellness support, and dignified care."
       },
       "petCare": {
         "title": "Pet & Home Management",
-        "description": "Reliable sitters, walkers, and property check-ins while you travel."
+        "description": "Trusted specialists for your home and beloved pets. Reliable care when you're away."
       },
       "lifestyle": {
-        "title": "Personal Lifestyle Support",
-        "description": "Private chefs, errand specialists, and personal assistants on demand."
+        "title": "Culinary & Lifestyle Professionals",
+        "description": "Private chefs, personal assistants, and lifestyle specialists. Hospitality-trained excellence for your home."
       }
     }
   },
   "process": {
     "badge": "How it works",
-    "title": "From search to support in four simple steps",
+    "title": "We Curate. You Choose.",
     "steps": {
       "step1": {
         "number": "01",
-        "title": "Share your household profile",
-        "description": "Complete our guided intake detailing routines, preferences, languages, and required certifications."
+        "title": "We vet rigorously",
+        "description": "Only 5% of applicants make it onto Casaora. Every professional completes background verification, skill assessments, and in-person interviews before you ever see their profile."
       },
       "step2": {
         "number": "02",
-        "title": "Meet curated professionals",
-        "description": "Receive a shortlist with video intros, verified credentials, and transparent pricing to compare with ease."
+        "title": "You browse our curated network",
+        "description": "Search and filter by your needs—language, experience, availability, location. Watch video introductions. Compare profiles. Everything is transparent."
       },
       "step3": {
         "number": "03",
-        "title": "Book and confirm",
-        "description": "Schedule your service with instant or approved booking. Communicate directly through secure messaging."
+        "title": "You choose & connect",
+        "description": "Found your match? Book a consultation or trial day. Communicate directly through our secure platform. Your choice, your timeline."
       },
       "step4": {
         "number": "04",
-        "title": "Rate and rebook",
-        "description": "Share feedback after each visit. Save your favorites and rebook with one click for ongoing support."
+        "title": "We support ongoing",
+        "description": "From onboarding to ongoing support, we're here. Rate your experience, provide feedback, and know we maintain standards long-term."
       }
     }
   },
   "concierge": {
-    "title": "Ready to find your perfect match?",
-    "subtitle": "Schedule a consultation to discuss your household needs. We'll introduce you to vetted professionals within 48 hours.",
-    "browseProfessionals": "Browse professionals",
-    "bookConsultation": "Book a consultation",
-    "cities": "Available in 6 major Colombian cities",
+    "title": "Ready to Find Your Exceptional Match?",
+    "subtitle": "Browse our curated network of Colombia's top household professionals. Every profile is verified, every professional is vetted, every choice is yours.",
+    "browseProfessionals": "Browse Exceptional Professionals",
+    "bookConsultation": "Schedule a Consultation",
+    "cities": "Serving Bogotá, Medellín, Cartagena, Cali & beyond",
     "languages": "English, Spanish & Portuguese support"
   },
   "auth": {
@@ -1139,11 +1139,11 @@
     }
   },
   "footer": {
-    "description": "Connect with vetted housekeepers and caregivers across Colombia. Fully screened, onboarded, and ready to support your lifestyle.",
+    "description": "Casaora — Colombia's premier boutique domestic staffing agency. Exceptional household professionals for exceptional homes. The Art of Home.",
     "platform": "Platform",
     "company": "Company",
     "mobile": "Mobile",
-    "findProfessional": "Find a Professional",
+    "findProfessional": "Browse Professionals",
     "howItWorks": "How It Works",
     "pricing": "Pricing",
     "roadmap": "Roadmap",
@@ -1152,7 +1152,7 @@
     "services": "Services",
     "about": "About",
     "loginSignup": "Login / Signup",
-    "applyProfessional": "Apply as Professional",
+    "applyProfessional": "Join Our Network",
     "careers": "Careers",
     "support": "Support",
     "iosApp": "iOS App",
@@ -1233,7 +1233,7 @@
       },
       "cta": {
         "title": "Ready to book your first service?",
-        "description": "Join hundreds of satisfied customers who trust MaidConnect for their home service needs",
+        "description": "Join hundreds of satisfied customers who trust Casaora for their home service needs",
         "browseProfessionals": "Browse Professionals",
         "signUpFree": "Sign Up Free"
       }
@@ -1720,7 +1720,7 @@
     },
     "contact": {
       "meta": {
-        "title": "Contact Us | MaidConnect",
+        "title": "Contact Us | Casaora",
         "description": "Get in touch with our support team, learn about becoming a professional, or reach out for partnership opportunities."
       },
       "hero": {
@@ -1749,7 +1749,7 @@
         "title": "Frequently asked questions",
         "questions": {
           "verification": {
-            "question": "How does MaidConnect verify professionals?",
+            "question": "How does Casaora verify professionals?",
             "answer": "All professionals undergo a comprehensive screening process including background checks, reference verification, and skills assessment. We verify identity documents, work history, and conduct in-person interviews to ensure quality and safety."
           },
           "payments": {
@@ -1769,7 +1769,7 @@
             "answer": "We currently operate across 6 major cities in Colombia including Bogotá, Medellín, Cali, Barranquilla, Cartagena, and Bucaramanga. We're actively expanding to new areas based on demand."
           },
           "becomePro": {
-            "question": "How do I become a professional on MaidConnect?",
+            "question": "How do I become a professional on Casaora?",
             "answer": "Click 'Apply to join' and complete our application form. We'll review your information, conduct a background check, and schedule an interview. Once approved, you'll complete onboarding and can start accepting bookings. The entire process typically takes 5-7 business days."
           }
         }
@@ -1777,13 +1777,13 @@
     },
     "careers": {
       "meta": {
-        "title": "Careers at MaidConnect | Join Our Team",
+        "title": "Careers at Casaora | Join Our Team",
         "description": "Join the team transforming home services in Colombia. We're hiring engineers, designers, and customer success professionals to build the future of domestic work."
       },
       "hero": {
         "badge": "JOIN OUR TEAM",
         "title": "Let's shape the future of home services, together",
-        "description": "Home services are changing fast — and so are the expectations of families and professionals. At MaidConnect, we build tools that give both clarity and confidence. To do it, we need curious people ready to make an impact.",
+        "description": "Home services are changing fast — and so are the expectations of families and professionals. At Casaora, we build tools that give both clarity and confidence. To do it, we need curious people ready to make an impact.",
         "primaryCTA": "View Open Positions"
       },
       "positions": {
@@ -1833,7 +1833,7 @@
       },
       "values": {
         "title": "The values that guide how we work",
-        "description": "At MaidConnect, culture isn't a poster on the wall — it's how we make decisions every day. If these values resonate with you, you'll feel right at home.",
+        "description": "At Casaora, culture isn't a poster on the wall — it's how we make decisions every day. If these values resonate with you, you'll feel right at home.",
         "items": {
           "clarity": {
             "title": "Clarity",
@@ -1864,7 +1864,7 @@
     },
     "signIn": {
       "meta": {
-        "title": "Sign in | MaidConnect"
+        "title": "Sign in | Casaora"
       },
       "header": {
         "createAccount": "Create account"
@@ -1887,7 +1887,7 @@
         "support": "Concierge support is available 7 days a week for onboarding assistance."
       },
       "sidebar": {
-        "imageAlt": "MaidConnect hospitality",
+        "imageAlt": "Casaora hospitality",
         "badge": "Trusted domestic talent",
         "title": "Meticulous professionals handpicked for expat households.",
         "description": "Our bilingual concierge team vets every profile with interviews, trial visits, and ongoing quality checks."
@@ -1895,18 +1895,18 @@
     },
     "signUp": {
       "meta": {
-        "title": "Create account | MaidConnect"
+        "title": "Create account | Casaora"
       },
       "header": {
         "signIn": "Sign in"
       },
       "hero": {
-        "title": "Create your MaidConnect account",
+        "title": "Create your Casaora account",
         "description": "Tell us how you plan to use the platform and we'll tailor the experience for households or professionals."
       },
       "form": {
         "accountTypeLabel": "Account type",
-        "accountTypeHelper": "Choose the experience that best matches how you plan to use MaidConnect.",
+        "accountTypeHelper": "Choose the experience that best matches how you plan to use Casaora.",
         "customerLabel": "Customer",
         "customerDescription": "Book pre-vetted professionals for your home.",
         "professionalLabel": "Professional",
@@ -1932,7 +1932,7 @@
         "passwordPlaceholder": "Create a password",
         "confirmPasswordLabel": "Confirm password",
         "confirmPasswordPlaceholder": "Repeat password",
-        "termsLabel": "I agree to the MaidConnect",
+        "termsLabel": "I agree to the Casaora",
         "termsLink": "terms of service",
         "termsConfirm": "and confirm that I understand the mutual respect guidelines.",
         "successMessage": "Account created. Please check your email to verify and finish signing in.",
@@ -1945,7 +1945,7 @@
         "support": "We'll guide you with concierge onboarding after you submit your details."
       },
       "sidebar": {
-        "imageAlt": "MaidConnect onboarding",
+        "imageAlt": "Casaora onboarding",
         "badge": "Concierge onboarding",
         "title": "We interview, background check, and coach every professional.",
         "description": "Build trust from the first visit with structured onboarding, household manuals, and responsive support."
@@ -1953,25 +1953,25 @@
     },
     "terms": {
       "meta": {
-        "title": "Terms of Service - MaidConnect",
-        "description": "MaidConnect's terms of service and user agreement"
+        "title": "Terms of Service - Casaora",
+        "description": "Casaora's terms of service and user agreement"
       },
       "title": "Terms of Service",
       "lastUpdated": "Last updated: {date}"
     },
     "privacy": {
       "meta": {
-        "title": "Privacy Policy - MaidConnect",
-        "description": "MaidConnect's privacy policy and data protection practices"
+        "title": "Privacy Policy - Casaora",
+        "description": "Casaora's privacy policy and data protection practices"
       },
       "title": "Privacy Policy",
       "lastUpdated": "Last updated: {date}"
     },
     "professionalProfile": {
       "meta": {
-        "notFoundTitle": "Professional not found · MaidConnect",
-        "defaultName": "MaidConnect Professional",
-        "descriptionTemplate": "View {name}'s MaidConnect profile{service}{location}."
+        "notFoundTitle": "Professional not found · Casaora",
+        "defaultName": "Casaora Professional",
+        "descriptionTemplate": "View {name}'s Casaora profile{service}{location}."
       },
       "backToDirectory": "← Back to directory",
       "availableForBookings": "Available for bookings",
@@ -2079,7 +2079,7 @@
       "favorites": "favorites",
       "favorite": "Favorite this professional",
       "noBio": "This professional is preparing their public bio. Check back soon.",
-      "newBadge": "New to MaidConnect",
+      "newBadge": "New to Casaora",
       "flexibleServices": "Flexible services",
       "rateOnRequest": "Rate on request"
     }
@@ -2186,7 +2186,7 @@
   },
   "feedback": {
     "title": "Send Feedback",
-    "description": "Help us improve MaidConnect by sharing your thoughts, suggestions, or reporting issues.",
+    "description": "Help us improve Casaora by sharing your thoughts, suggestions, or reporting issues.",
     "form": {
       "typeLabel": "What kind of feedback is this?",
       "subjectLabel": "Subject",
@@ -2197,8 +2197,8 @@
       "emailPlaceholder": "your@email.com",
       "emailHelp": "We'll only use this to follow up on your feedback",
       "optional": "optional",
-      "consentText": "I consent to MaidConnect processing this feedback to improve the platform.",
-      "privacyNotice": "We collect your feedback, page URL, and browser info to improve MaidConnect. Your email is optional for follow-up. We respect your privacy and comply with Colombian data protection laws.",
+      "consentText": "I consent to Casaora processing this feedback to improve the platform.",
+      "privacyNotice": "We collect your feedback, page URL, and browser info to improve Casaora. Your email is optional for follow-up. We respect your privacy and comply with Colombian data protection laws.",
       "submit": "Submit Feedback",
       "submitting": "Sending..."
     },
@@ -2209,7 +2209,7 @@
   },
   "pricing": {
     "meta": {
-      "title": "Pricing - Simple, Transparent Plans | MaidConnect",
+      "title": "Pricing - Simple, Transparent Plans | Casaora",
       "description": "Choose the perfect plan for your needs. Transparent pricing with no hidden fees. Start free or upgrade for premium features."
     },
     "title": "Simple, transparent pricing",
@@ -2220,14 +2220,14 @@
     },
     "cta": {
       "title": "Ready to get started?",
-      "subtitle": "Join thousands of satisfied customers using MaidConnect.",
+      "subtitle": "Join thousands of satisfied customers using Casaora.",
       "primary": "Start Free Trial",
       "secondary": "Contact Sales"
     }
   },
   "roadmap": {
     "meta": {
-      "title": "Product Roadmap - What We're Building | MaidConnect",
+      "title": "Product Roadmap - What We're Building | Casaora",
       "description": "See what we're working on and vote on features you'd like to see next. Your feedback shapes our product."
     },
     "title": "Product Roadmap",
@@ -2237,18 +2237,18 @@
       "description": "Check back soon to see what we're working on. Be the first to suggest features and vote on what matters to you."
     }
   },
-  "etta": {
-    "title": "Etta",
+  "amara": {
+    "title": "Amara",
     "subtitle": "AI Booking Assistant",
-    "greeting": "👋 Hi there! Welcome to MaidConnect.",
-    "welcomeMessage": "Hi! I'm Etta, your AI booking assistant. How can I help you find the perfect cleaning professional today?",
-    "openChat": "Chat with Etta",
+    "greeting": "👋 Hi there! Welcome to Casaora.",
+    "welcomeMessage": "Hi! I'm Amara, your AI booking assistant. How can I help you find the perfect cleaning professional today?",
+    "openChat": "Chat with Amara",
     "closeChat": "Close chat",
     "inputPlaceholder": "Type your message...",
     "send": "Send message",
     "errorMessage": "Sorry, I had trouble processing that. Could you try rephrasing?",
     "onboarding": {
-      "title": "Meet Etta, Your AI Assistant",
+      "title": "Meet Amara, Your AI Assistant",
       "description": "I can help you find professionals, check availability, and book services instantly. Just ask me anything!",
       "dismiss": "Got it!",
       "hint": "New! Click to chat"
@@ -2274,8 +2274,8 @@
   },
   "about": {
     "meta": {
-      "title": "About Us - Our Story | MaidConnect",
-      "description": "Learn about MaidConnect's mission to connect expats in Colombia with trusted, bilingual domestic service professionals through our concierge-led marketplace."
+      "title": "About Us - Our Story | Casaora",
+      "description": "Learn about Casaora's mission to connect expats in Colombia with trusted, bilingual domestic service professionals through our concierge-led marketplace."
     },
     "story": {
       "title": "Bridging Cultures, Building Trust",
@@ -2287,7 +2287,7 @@
       },
       "solution": {
         "title": "Our Solution",
-        "paragraph1": "MaidConnect is the first concierge-led marketplace designed specifically for expats. We combine technology with human touch to create a seamless, trustworthy experience:",
+        "paragraph1": "Casaora is the first concierge-led marketplace designed specifically for expats. We combine technology with human touch to create a seamless, trustworthy experience:",
         "feature1": {
           "title": "Verified Professionals",
           "description": "Every professional goes through background checks, ID verification, and skills assessment before joining our platform."
@@ -2303,7 +2303,7 @@
       },
       "journey": {
         "title": "Our Journey",
-        "paragraph1": "Founded by expats who experienced these challenges firsthand, MaidConnect was born from a simple idea: finding trustworthy domestic help in a foreign country should be easy, safe, and stress-free. Today, we're proud to serve hundreds of expat families and empower local professionals across Colombia."
+        "paragraph1": "Founded by expats who experienced these challenges firsthand, Casaora was born from a simple idea: finding trustworthy domestic help in a foreign country should be easy, safe, and stress-free. Today, we're proud to serve hundreds of expat families and empower local professionals across Colombia."
       }
     },
     "missionVision": {
@@ -2378,7 +2378,7 @@
       }
     },
     "trust": {
-      "title": "Why Trust MaidConnect?",
+      "title": "Why Trust Casaora?",
       "subtitle": "Safety, security, and transparency are at the core of everything we do.",
       "verification": {
         "title": "Verified Professionals",
@@ -2399,18 +2399,18 @@
     },
     "cta": {
       "title": "Ready to Experience the Difference?",
-      "subtitle": "Join thousands of expats who trust MaidConnect for their domestic service needs.",
+      "subtitle": "Join thousands of expats who trust Casaora for their domestic service needs.",
       "browseProfessionals": "Browse Professionals",
       "signUp": "Sign Up Free"
     }
   },
   "howItWorks": {
     "meta": {
-      "title": "How It Works - Simple Steps to Quality Service | MaidConnect",
-      "description": "Discover how MaidConnect makes it easy to find trusted domestic service professionals. Browse verified profiles, book services, and get support every step of the way."
+      "title": "How It Works - Simple Steps to Quality Service | Casaora",
+      "description": "Discover how Casaora makes it easy to find trusted domestic service professionals. Browse verified profiles, book services, and get support every step of the way."
     },
     "hero": {
-      "title": "How MaidConnect Works",
+      "title": "How Casaora Works",
       "subtitle": "Whether you're looking for help or offering your services, we've made the process simple, safe, and transparent."
     },
     "customer": {
@@ -2503,7 +2503,7 @@
     },
     "cta": {
       "title": "Ready to Get Started?",
-      "subtitle": "Join thousands of customers and professionals who trust MaidConnect.",
+      "subtitle": "Join thousands of customers and professionals who trust Casaora.",
       "browseButton": "Browse Professionals",
       "signUpButton": "Sign Up Free"
     }
@@ -2511,7 +2511,7 @@
   "help": {
     "meta": {
       "title": "Help Center",
-      "description": "Find answers to common questions and learn how to use MaidConnect"
+      "description": "Find answers to common questions and learn how to use Casaora"
     },
     "hero": {
       "title": "How can we help you?",
@@ -2610,7 +2610,7 @@
   },
   "city": {
     "meta": {
-      "title": "Professional Cleaning Services in {city} | MaidConnect",
+      "title": "Professional Cleaning Services in {city} | Casaora",
       "description": "Find verified, trusted cleaning professionals in {city}. Book house cleaning, deep cleaning, and more. Background-checked pros with real reviews."
     },
     "hero": {
@@ -2644,6 +2644,16 @@
         "reviews": "reviews",
         "startingAt": "Starting at"
       }
+    },
+    "aguaora": {
+      "meta": {
+        "title": "AGUAORA - Botanical Home Luxuries Coming Soon",
+        "description": "AGUAORA brings botanical bath salts, artisan candles, and luxury home products. A Casaora sister company. Coming soon."
+      },
+      "tagline": "Botanical Luxuries for Your Home",
+      "description": "AGUAORA curates premium botanical bath salts, artisan candles, and refined home products that transform everyday moments into sensory experiences.",
+      "comingSoon": "Coming Soon",
+      "sisterCompany": "A sister company of"
     }
   }
 }

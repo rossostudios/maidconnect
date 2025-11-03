@@ -22,10 +22,10 @@ export function CapabilitiesSection() {
             <div className="grid gap-4 sm:grid-cols-2">
               {productPillars.map((pillar) => (
                 <div
-                  className="flex flex-col gap-3 rounded-[28px] border border-[#26231f] bg-[#181612] p-6 text-left transition hover:border-[#ff5d46]/60"
+                  className="flex flex-col gap-3 rounded-[28px] border border-[#26231f] bg-[#181612] p-6 text-left transition hover:border-[#8B7355]/60"
                   key={pillar.title}
                 >
-                  <pillar.icon className="h-6 w-6 text-[#ff5d46]" />
+                  <pillar.icon className="h-6 w-6 text-[#8B7355]" />
                   <h3 className="font-semibold text-lg text-white">{pillar.title}</h3>
                   <p className="text-[#cfc8be] text-sm">{pillar.description}</p>
                 </div>

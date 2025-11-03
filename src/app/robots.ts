@@ -8,7 +8,7 @@ import { MetadataRoute } from "next";
  */
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://maidconnect.co";
+  const baseUrl = "https://casaora.com";
 
   return {
     rules: [

@@ -32,7 +32,7 @@ function ReviewCard({ review }: { review: ProfessionalReviewSummary }) {
     <li className="space-y-2 rounded-2xl border border-[#efe7dc] bg-[#fbfafa] p-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 font-semibold text-[#211f1a] text-sm">
-          <Star aria-hidden="true" className="h-4 w-4 fill-[#ff5d46] text-[#ff5d46]" />
+          <Star aria-hidden="true" className="h-4 w-4 fill-[#8B7355] text-[#8B7355]" />
           <span>{review.rating.toFixed(1)}</span>
         </div>
         <p className="text-[#7a6d62] text-xs">{formatDate(review.createdAt)}</p>
@@ -72,7 +72,7 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
         </div>
         {averageRating ? (
           <div className="flex items-center gap-2 rounded-full border border-[#efe7dc] bg-[#fbfafa] px-4 py-2 font-semibold text-[#211f1a] text-sm">
-            <Star aria-hidden="true" className="h-4 w-4 fill-[#ff5d46] text-[#ff5d46]" />
+            <Star aria-hidden="true" className="h-4 w-4 fill-[#8B7355] text-[#8B7355]" />
             {averageRating.toFixed(1)}{" "}
             <span className="text-[#7a6d62] text-xs">({reviews.length})</span>
           </div>
@@ -89,7 +89,7 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
             <label className="flex items-center gap-2 font-medium text-[#211f1a] text-sm">
               Rating
               <select
-                className="rounded-full border border-[#e5dfd4] bg-white px-3 py-1 font-medium text-[#211f1a] text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff5d46] focus-visible:outline-offset-2"
+                className="rounded-full border border-[#e5dfd4] bg-white px-3 py-1 font-medium text-[#211f1a] text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#8B7355] focus-visible:outline-offset-2"
                 defaultValue="5"
                 name="rating"
                 required
@@ -102,14 +102,14 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
               </select>
             </label>
             <input
-              className="w-full rounded-full border border-[#e5dfd4] bg-white px-4 py-2 text-[#211f1a] text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4626]"
+              className="w-full rounded-full border border-[#e5dfd4] bg-white px-4 py-2 text-[#211f1a] text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735526]"
               name="title"
               placeholder="Headline"
               type="text"
             />
           </div>
           <textarea
-            className="w-full rounded-2xl border border-[#e5dfd4] bg-white px-4 py-3 text-[#211f1a] text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4626]"
+            className="w-full rounded-2xl border border-[#e5dfd4] bg-white px-4 py-3 text-[#211f1a] text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735526]"
             name="comment"
             placeholder="Share the experience, what went well, and anything future households should know."
             required
@@ -125,7 +125,7 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
           ) : null}
           <div className="flex justify-end">
             <button
-              className="inline-flex items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2 font-semibold text-sm text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2 font-semibold text-sm text-white shadow-sm transition hover:border-[#8B7355] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
               disabled={pending}
               type="submit"
             >

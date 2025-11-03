@@ -1,14 +1,14 @@
 /**
- * Etta Icon - Intercom-style rounded square speech bubble with smile
+ * Amara Icon - Intercom-style rounded square speech bubble with smile
  * Matches Intercom's clean, modern aesthetic
  */
 
-interface EttaIconProps {
+interface AmaraIconProps {
   className?: string;
   size?: number;
 }
 
-export function EttaIcon({ className, size = 32 }: EttaIconProps) {
+export function AmaraIcon({ className, size = 32 }: AmaraIconProps) {
   return (
     <svg
       className={className}

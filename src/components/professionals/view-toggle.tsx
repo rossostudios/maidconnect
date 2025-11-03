@@ -61,7 +61,7 @@ export function ViewToggle({
         aria-pressed={view === "list"}
         className={`flex items-center gap-2 rounded-md px-3 py-2 font-medium text-sm transition-colors ${
           view === "list"
-            ? "bg-[#ff5d46] text-white shadow-sm"
+            ? "bg-[#8B7355] text-white shadow-sm"
             : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
         }`}
         onClick={() => handleViewChange("list")}
@@ -76,7 +76,7 @@ export function ViewToggle({
         aria-pressed={view === "map"}
         className={`flex items-center gap-2 rounded-md px-3 py-2 font-medium text-sm transition-colors ${
           view === "map"
-            ? "bg-[#ff5d46] text-white shadow-sm"
+            ? "bg-[#8B7355] text-white shadow-sm"
             : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
         }`}
         onClick={() => handleViewChange("map")}

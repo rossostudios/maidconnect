@@ -57,8 +57,8 @@ export function FavoriteButton({
     <button
       className={`inline-flex items-center justify-center gap-2 rounded-full transition ${
         isFavorite
-          ? "bg-[#ff5d46] text-white hover:bg-[#eb6c65]"
-          : "border border-[#e5dfd4] bg-white text-[#7a6d62] hover:border-[#ff5d46] hover:text-[#ff5d46]"
+          ? "bg-[#8B7355] text-white hover:bg-[#9B8B7E]"
+          : "border border-[#e5dfd4] bg-white text-[#7a6d62] hover:border-[#8B7355] hover:text-[#8B7355]"
       } ${sizeClasses[size]} disabled:cursor-not-allowed disabled:opacity-50`}
       disabled={loading}
       onClick={handleToggle}

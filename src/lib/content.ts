@@ -116,36 +116,36 @@ export const steps = [
 
 export const testimonials = [
   {
-    name: "Sarah Williamson",
-    handle: "@sarahinbogota",
-    location: "Bogotá · USA expat",
+    name: "Private Client",
+    handle: "@casaoraclient",
+    location: "Rosales, Bogotá",
     quote:
-      "Found bilingual childcare within 48 hours of landing. Now I have 15+ hours weekly to focus on my business instead of coordinating schedules.",
-    outcome: "15+ hours saved weekly",
+      "The quality difference is extraordinary. Instead of sorting through dozens of profiles, I browsed only exceptional candidates—and found our perfect housekeeper within days.",
+    outcome: "Curated excellence",
   },
   {
-    name: "Daniel Cho",
-    handle: "@danielglobal",
-    location: "Medellín · South Korea",
+    name: "International Family",
+    handle: "@casaorafamily",
+    location: "El Poblado, Medellín",
     quote:
-      "Our housekeeper costs 40% less than back home, with better quality and zero coordination stress. Background checks gave us complete peace of mind.",
-    outcome: "40% cost savings",
+      "I appreciated being able to filter by English fluency and childcare certifications. Every profile I viewed was impressive—it made choosing actually enjoyable.",
+    outcome: "Verified quality",
   },
   {
-    name: "María & Liam",
-    handle: "@theandeslife",
-    location: "Cartagena · Ireland",
+    name: "Estate Owner",
+    handle: "@casaoravilla",
+    location: "Cartagena",
     quote:
-      "Matched with a home manager in 3 days who handles everything—cleaning, grocery runs, maintenance calls. We actually enjoy our weekends now.",
-    outcome: "Matched in 3 days",
+      "Casaora's vetting gave me confidence to browse independently. I could focus on personality fit and schedule, knowing the skills were already verified.",
+    outcome: "Peace of mind",
   },
   {
-    name: "Anita Patel",
-    handle: "@anitaexplores",
-    location: "Cali · UK",
+    name: "Villa Manager",
+    handle: "@casaoramanager",
+    location: "Coffee Region",
     quote:
-      "After 2 months with our cleaner, our apartment has never looked better. She remembers our preferences and brings her own eco-friendly supplies.",
-    outcome: "2 months strong relationship",
+      "Like having a luxury boutique instead of a department store. Smaller selection, but everything is exceptional quality.",
+    outcome: "Top 5% only",
   },
 ];
 

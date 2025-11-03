@@ -137,7 +137,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
               {t("sections.basicInfo.fields.fullName.label")}
             </label>
             <input
-              className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+              className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
               onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
               placeholder={t("sections.basicInfo.fields.fullName.placeholder")}
               type="text"
@@ -179,7 +179,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
               {t("sections.basicInfo.fields.avatarUrl.label")}
             </label>
             <input
-              className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+              className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
               onChange={(e) => setProfile({ ...profile, avatar_url: e.target.value })}
               placeholder={t("sections.basicInfo.fields.avatarUrl.placeholder")}
               type="url"
@@ -204,7 +204,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             {t("sections.professionalSummary.fields.bio.label")}
           </label>
           <textarea
-            className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+            className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
             onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
             placeholder={t("sections.professionalSummary.fields.bio.placeholder")}
             rows={5}
@@ -229,8 +229,8 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             <button
               className={`rounded-full border-2 px-4 py-2 font-semibold text-sm transition ${
                 profile.languages.includes(language)
-                  ? "border-[#ff5d46] bg-[#ff5d46] text-white"
-                  : "border-[#ebe5d8] bg-white text-[#211f1a] hover:border-[#ff5d46] hover:text-[#ff5d46]"
+                  ? "border-[#8B7355] bg-[#8B7355] text-white"
+                  : "border-[#ebe5d8] bg-white text-[#211f1a] hover:border-[#8B7355] hover:text-[#8B7355]"
               }`}
               key={language}
               onClick={() => handleLanguageToggle(language)}
@@ -255,8 +255,8 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             <button
               className={`rounded-full border-2 px-4 py-2 font-semibold text-sm transition ${
                 profile.primary_services.includes(service)
-                  ? "border-[#ff5d46] bg-[#ff5d46] text-white"
-                  : "border-[#ebe5d8] bg-white text-[#211f1a] hover:border-[#ff5d46] hover:text-[#ff5d46]"
+                  ? "border-[#8B7355] bg-[#8B7355] text-white"
+                  : "border-[#ebe5d8] bg-white text-[#211f1a] hover:border-[#8B7355] hover:text-[#8B7355]"
               }`}
               key={service}
               onClick={() => handleServiceToggle(service)}
@@ -272,7 +272,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       {/* Save Button */}
       <div className="flex items-center justify-end gap-3 border-[#ebe5d8] border-t pt-6">
         <button
-          className="rounded-full bg-[#ff5d46] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[#8B7355] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={isPending}
           onClick={handleSave}
           type="button"

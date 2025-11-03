@@ -33,8 +33,8 @@ export function LanguageSwitcher({ variant = "light" }: LanguageSwitcherProps) {
 
   const buttonStyles =
     variant === "dark"
-      ? "flex items-center gap-2 rounded-full border-2 border-[#26231f] bg-[#11100e] px-4 py-2 text-sm font-medium text-[#f3ece1] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
-      : "flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 text-sm font-medium text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]";
+      ? "flex items-center gap-2 rounded-full border-2 border-[#26231f] bg-[#11100e] px-4 py-2 text-sm font-medium text-[#f3ece1] transition hover:border-[#8B7355] hover:text-[#8B7355]"
+      : "flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 text-sm font-medium text-[#211f1a] transition hover:border-[#8B7355] hover:text-[#8B7355]";
 
   return (
     <div className="relative inline-block">

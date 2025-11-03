@@ -99,7 +99,7 @@ export function NotificationsHistory() {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-12">
-        <div className="h-8 w-8 animate-spin rounded-full border-[#ff5d46] border-b-2" />
+        <div className="h-8 w-8 animate-spin rounded-full border-[#8B7355] border-b-2" />
       </div>
     );
   }
@@ -138,7 +138,7 @@ export function NotificationsHistory() {
         </div>
         {unreadCount > 0 && (
           <button
-            className="font-medium text-[#ff5d46] text-sm transition hover:text-[#e54d3c]"
+            className="font-medium text-[#8B7355] text-sm transition hover:text-[#e54d3c]"
             onClick={markAllAsRead}
             type="button"
           >
@@ -182,10 +182,10 @@ export function NotificationsHistory() {
         <div className="space-y-2">
           {notifications.map((notification) => (
             <div
-              className={`rounded-2xl border p-6 transition hover:border-[#ff5d46]/30 ${
+              className={`rounded-2xl border p-6 transition hover:border-[#8B7355]/30 ${
                 notification.read_at
                   ? "border-[#ebe5d8] bg-white"
-                  : "border-[#ff5d46]/20 bg-[#ff5d46]/5"
+                  : "border-[#8B7355]/20 bg-[#8B7355]/5"
               }`}
               key={notification.id}
             >
@@ -224,7 +224,7 @@ export function NotificationsHistory() {
 
                 {!notification.read_at && (
                   <button
-                    className="flex-shrink-0 font-medium text-[#ff5d46] text-xs transition hover:text-[#e54d3c]"
+                    className="flex-shrink-0 font-medium text-[#8B7355] text-xs transition hover:text-[#e54d3c]"
                     onClick={() => markAsRead([notification.id])}
                     type="button"
                   >

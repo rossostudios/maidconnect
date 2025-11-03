@@ -1,0 +1,2648 @@
+{
+  "navigation": {
+    "home": "Home",
+    "professionals": "Professionals",
+    "hireProfessional": "Hire a Professional",
+    "pricing": "Pricing",
+    "services": "Services",
+    "howItWorks": "How it works",
+    "features": "Features",
+    "login": "Login",
+    "signUp": "Sign up",
+    "dashboard": "Dashboard",
+    "logout": "Logout",
+    "product": "Product"
+  },
+  "professionals": {
+    "title": "Find your perfect professional",
+    "filterBy": "Filter by",
+    "serviceType": "Service type",
+    "location": "Location",
+    "rating": "Rating",
+    "hourlyRate": "Hourly rate",
+    "availability": "Availability",
+    "viewProfile": "View profile",
+    "bookNow": "Book now",
+    "services": {
+      "housekeeping": "Housekeeping",
+      "childcare": "Childcare",
+      "cooking": "Cooking",
+      "eldercare": "Elder care",
+      "petcare": "Pet care"
+    },
+    "viewToggle": {
+      "list": "List",
+      "map": "Map"
+    }
+  },
+  "features": {
+    "title": "Why choose Maidconnect",
+    "verifiedProfessionals": {
+      "title": "Verified professionals",
+      "description": "Every professional undergoes background checks and identity verification"
+    },
+    "securePayments": {
+      "title": "Secure payments",
+      "description": "Pay safely through Stripe with escrow protection until service completion"
+    },
+    "realTimeBooking": {
+      "title": "Real-time booking",
+      "description": "See availability and book instantly or request approval for custom needs"
+    },
+    "reviewSystem": {
+      "title": "Review system",
+      "description": "Two-way reviews ensure accountability and help you make informed decisions"
+    }
+  },
+  "dashboard": {
+    "pro": {
+      "main": {
+        "welcomeBack": "Welcome back",
+        "dashboardDescription": "Your dashboard overview for managing bookings, services, and customer communications.",
+        "onboardingDescription": "Review your onboarding progress and take the next steps to start accepting bookings.",
+        "signOut": "Sign out",
+        "metrics": {
+          "activeBookings": "Active bookings",
+          "pendingRequests": "Pending requests",
+          "completedThisWeek": "Completed this week",
+          "earningsThisWeek": "Earnings this week"
+        },
+        "onboarding": {
+          "title": "Onboarding checklist",
+          "description": "Complete each step so customers can discover and book you. Missing items are highlighted below.",
+          "manageButton": "Manage onboarding",
+          "tasks": {
+            "application": {
+              "title": "Application details submitted",
+              "description": "Tell us who you are, your experience, references, and where you work.",
+              "cta": "Update application"
+            },
+            "documents": {
+              "title": "Required documents uploaded",
+              "description": "Upload your government ID and proof of address for verification.",
+              "cta": "Upload documents"
+            },
+            "profile": {
+              "title": "Public profile ready",
+              "description": "Complete your bio, services, pricing, and availability to go live.",
+              "cta": "Finish profile"
+            }
+          },
+          "status": {
+            "completed": "Completed",
+            "actionNeeded": "Action needed"
+          },
+          "warnings": {
+            "missing": "Missing:",
+            "addService": "Add at least one service to show customers what you offer.",
+            "profileActivated": "Profile activated on",
+            "addReferences": "Add two professional references so we can complete your background check."
+          }
+        },
+        "sections": {
+          "pendingRatings": "Pending Customer Ratings",
+          "bookingCalendar": {
+            "title": "Booking calendar",
+            "description": "View your upcoming bookings, manage requests, and track completed visits.",
+            "updateAvailability": "Update availability"
+          },
+          "recentBookings": "Recent bookings",
+          "services": {
+            "title": "Services & add-ons",
+            "description": "Manage your core services and create custom add-ons to increase booking value.",
+            "editButton": "Edit services",
+            "yourServices": "Your services",
+            "noServices": "No services added yet. Add services in your profile.",
+            "customAddons": "Custom add-ons",
+            "addonsDescription": "Offer extras like deep cleaning, laundry, or pet care."
+          },
+          "documents": {
+            "title": "Document center",
+            "description": "Keep your verification paperwork current. Upload new files if your information changes.",
+            "noDocuments": "We don't have any documents on file yet. Please upload the required documents.",
+            "unnamedFile": "Unnamed file",
+            "uploaded": "Uploaded",
+            "download": "Download",
+            "downloadError": "We couldn't generate a download link. Try reloading.",
+            "manageLink": "Manage documents",
+            "unknownStatus": "Unknown"
+          }
+        }
+      },
+      "availability": {
+        "title": "Availability Settings",
+        "description": "Manage your working hours and block dates when you're unavailable. This controls when customers can book you.",
+        "tips": {
+          "title": "Tips for Managing Availability",
+          "workingHours": {
+            "label": "Working Hours:",
+            "text": "Set realistic hours that you can consistently maintain. Customers value reliability."
+          },
+          "blockedDates": {
+            "label": "Blocked Dates:",
+            "text": "Block dates in advance for vacations or personal time. Update this regularly to avoid booking conflicts."
+          },
+          "bufferTime": {
+            "label": "Buffer Time:",
+            "text": "Consider leaving time between bookings for travel and unexpected delays."
+          },
+          "flexibility": {
+            "label": "Flexibility:",
+            "text": "The more hours you're available, the more booking opportunities you'll have."
+          }
+        }
+      },
+      "bookings": {
+        "title": "Booking calendar",
+        "description": "View your upcoming bookings, manage requests, and track completed visits.",
+        "updateAvailability": "Update availability",
+        "allBookings": "All bookings"
+      },
+      "documents": {
+        "title": "Document Center",
+        "description": "Keep your verification paperwork current. Upload new files if your information changes.",
+        "uploadButton": "Upload Documents"
+      },
+      "finances": {
+        "title": "Finances & Analytics",
+        "description": "Track your earnings, view analytics, and manage payouts."
+      },
+      "portfolio": {
+        "title": "Portfolio",
+        "description": "Showcase your best work with photos and descriptions. A strong portfolio helps customers choose you with confidence."
+      },
+      "profile": {
+        "title": "Profile Settings",
+        "description": "Update your public information, contact details, and professional summary. Changes are reflected on your public listing."
+      },
+      "onboarding": {
+        "labels": {
+          "profileSettings": "PROFILE SETTINGS",
+          "onboarding": "ONBOARDING"
+        },
+        "headings": {
+          "editProfile": "Edit your profile",
+          "launchProfile": "Launch your Casaora profile"
+        },
+        "descriptions": {
+          "active": "Update your public information, services, and availability. Changes are reflected instantly on your listing.",
+          "notActive": "Complete the steps below to unlock bookings. You can save and return at any time—progress is remembered."
+        },
+        "backToDashboard": "Back to dashboard",
+        "steps": {
+          "application": {
+            "title": "Submit application",
+            "description": "Tell us about your experience, services, and references."
+          },
+          "documents": {
+            "title": "Upload documents",
+            "description": "Provide required identification and proof of address."
+          },
+          "profile": {
+            "title": "Build your profile",
+            "description": "Create a compelling bio, select services, and set rates."
+          }
+        },
+        "status": {
+          "completed": "Completed",
+          "inProgress": "In progress",
+          "pending": "Pending"
+        },
+        "success": {
+          "profileLive": "Your profile is live!",
+          "updateDescription": "Update your public information below whenever you need to refresh your listing."
+        },
+        "sections": {
+          "publicProfile": {
+            "title": "Public profile",
+            "description": "Adjust your bio, services, languages, and weekly availability. Changes update your listing instantly."
+          },
+          "applicationDetails": {
+            "title": "Application Details",
+            "description": "Share your professional background. This information helps us verify your experience and match you with the right clients."
+          },
+          "uploadDocuments": {
+            "title": "Upload required documents",
+            "description": "Securely upload scans or photos of your identification. We store everything in encrypted Supabase Storage.",
+            "required": "Required",
+            "requiredDocs": {
+              "governmentId": "Government-issued ID (Cédula de Ciudadanía or Cédula de Extranjería)",
+              "proofOfAddress": "Proof of address (utility bill, lease agreement)"
+            },
+            "optional": "Optional",
+            "optionalDocs": {
+              "certifications": "Professional certifications",
+              "workPermits": "Work permits (if applicable)"
+            },
+            "acceptedFormats": "Accepted formats:",
+            "formatInfo": "PDF, JPG, PNG (max 5MB each). Our team reviews uploads within 3-5 business days and keeps you informed throughout the process."
+          },
+          "createProfile": {
+            "title": "Create your public profile",
+            "description": "Craft a compelling presence that builds trust with new customers. This information appears on your Casaora listing."
+          }
+        },
+        "complete": {
+          "title": "Onboarding complete!",
+          "description": "Return to the dashboard to manage bookings and start connecting with customers."
+        }
+      },
+      "applicationForm": {
+        "fields": {
+          "fullName": {
+            "label": "Full name",
+            "placeholder": "María Rodríguez"
+          },
+          "idNumber": {
+            "label": "ID number",
+            "placeholder": "CC 1234567890"
+          },
+          "phoneNumber": {
+            "label": "Phone number",
+            "placeholder": "+57 300 123 4567"
+          },
+          "country": {
+            "label": "Country",
+            "options": {
+              "colombia": "Colombia",
+              "unitedStates": "United States",
+              "canada": "Canada",
+              "unitedKingdom": "United Kingdom",
+              "mexico": "Mexico",
+              "other": "Other"
+            }
+          },
+          "city": {
+            "label": "City",
+            "placeholder": "Medellín"
+          },
+          "services": {
+            "label": "Services offered",
+            "helper": "Select all services you can confidently provide.",
+            "options": {
+              "houseCleaning": "House cleaning",
+              "laundry": "Laundry",
+              "cooking": "Cooking",
+              "organization": "Organization",
+              "childcare": "Childcare",
+              "petCare": "Pet care",
+              "errandRunning": "Errand running"
+            }
+          },
+          "experience": {
+            "label": "Years of experience",
+            "placeholder": "5"
+          },
+          "rate": {
+            "label": "Rate expectations (per hour)",
+            "helper": "COP/hour",
+            "placeholder": "40000"
+          },
+          "availability": {
+            "label": "Availability",
+            "helper": "Example: Monday to Friday 8am - 4pm. Mention weekends or flexible hours if applicable.",
+            "placeholder": "Example: Monday to Friday 8am - 4pm"
+          },
+          "references": {
+            "label": "Professional references",
+            "helper": "Provide two references we can contact.",
+            "referenceLabel": "Reference {index}",
+            "namePlaceholder": "Name",
+            "relationshipPlaceholder": "Relationship",
+            "contactPlaceholder": "Phone or email"
+          },
+          "backgroundCheck": {
+            "label": "Background check consent",
+            "checkboxLabel": "I authorize Casaora to conduct identity and background verifications for onboarding."
+          }
+        },
+        "infoText": "Submitting this application triggers our review team to start verification. You can still edit details later.",
+        "submitting": "Submitting…",
+        "submit": "Submit application"
+      },
+      "documentUploadForm": {
+        "badges": {
+          "required": "Required",
+          "optional": "Optional"
+        },
+        "uploadDescription": "Upload {required, select, true {a clear} other {an optional}} scan or photo (PDF, JPG, PNG, max 5MB).",
+        "acceptedTypes": "PDF, JPG, PNG",
+        "validation": {
+          "fileSize": "File must be 5MB or smaller.",
+          "fileType": "Only PDF, JPG, or PNG files are supported."
+        },
+        "notesPlaceholder": "Notes (passwords, expiry date, issuing organization)",
+        "selected": "Selected:",
+        "submitting": "Submitting…",
+        "submit": "Submit documents"
+      },
+      "profileBuildForm": {
+        "fields": {
+          "bio": {
+            "label": "Professional bio",
+            "placeholder": "Share your background, specialties, and why customers love working with you."
+          },
+          "languages": {
+            "label": "Languages"
+          },
+          "services": {
+            "label": "Services & rates",
+            "helper": "Tell customers what to expect for each service."
+          },
+          "hourlyRate": {
+            "label": "Hourly rate (COP)",
+            "placeholder": "40000"
+          },
+          "serviceDescription": {
+            "label": "Service description",
+            "placeholder": "Describe what's included in this service"
+          },
+          "availability": {
+            "label": "Weekly availability",
+            "helper": "Set your typical working hours for each day.",
+            "start": "Start",
+            "end": "End"
+          },
+          "notes": {
+            "label": "Notes (optional)",
+            "placeholder": "e.g., Flexible"
+          }
+        },
+        "buttons": {
+          "submitForReview": "Submit profile for review",
+          "saveProfile": "Save profile",
+          "saving": "Saving…"
+        },
+        "footnotes": {
+          "submitForReview": "Once approved, your profile goes live within 24 hours. You can continue refining details anytime.",
+          "saveProfile": "Your changes update instantly on your public listing."
+        },
+        "characters": "characters"
+      },
+      "bookingCalendar": {
+        "days": {
+          "sun": "Sun",
+          "mon": "Mon",
+          "tue": "Tue",
+          "wed": "Wed",
+          "thu": "Thu",
+          "fri": "Fri",
+          "sat": "Sat"
+        },
+        "details": "Details",
+        "noBookings": "No bookings scheduled for this day.",
+        "booking": "booking",
+        "bookings": "bookings",
+        "timeTbd": "Time TBD",
+        "status": {
+          "pendingPayment": "Awaiting payment",
+          "authorized": "Authorized hold",
+          "completed": "Completed",
+          "canceled": "Canceled"
+        }
+      },
+      "bookingList": {
+        "emptyState": "No bookings yet. Once customers authorize a booking, it will appear here.",
+        "sections": {
+          "activeServices": "Active Services",
+          "otherBookings": "Other Bookings",
+          "allBookings": "All Bookings"
+        },
+        "table": {
+          "booking": "Booking",
+          "service": "Service",
+          "scheduled": "Scheduled",
+          "amount": "Amount (COP)",
+          "status": "Status",
+          "actions": "Actions"
+        },
+        "actions": {
+          "accepting": "Accepting…",
+          "accept": "Accept",
+          "declining": "Declining…",
+          "decline": "Decline",
+          "capturing": "Capturing…",
+          "capture": "Capture",
+          "canceling": "Canceling…",
+          "cancelHold": "Cancel hold",
+          "noActions": "No actions available"
+        },
+        "success": "{action} booking successfully!",
+        "successAlternate": "Booking {action}ed successfully!"
+      },
+      "financialSummary": {
+        "title": "Financial overview",
+        "description": "Monitor captured payouts, active holds, and upcoming revenue.",
+        "stripe": {
+          "opening": "Opening Stripe…",
+          "setup": "Set up Stripe payouts",
+          "statusLabel": "Stripe status:",
+          "actionRequired": "Action required",
+          "connected": "Connected"
+        },
+        "emptyState": "Once customers authorize bookings, you'll see financial metrics here.",
+        "cards": {
+          "availableAfterCompletion": {
+            "title": "Available after completion",
+            "description": "Payments captured"
+          },
+          "activeHolds": {
+            "title": "Active holds",
+            "description": "Awaiting completion"
+          }
+        },
+        "thisMonth": "This month",
+        "metrics": {
+          "capturedPayouts": "Captured payouts",
+          "upcomingHolds": "Upcoming holds",
+          "pendingRequests": "Pending payment requests",
+          "holdsReleased": "Holds released"
+        }
+      },
+      "serviceAddons": {
+        "activeAddons": "Active Add-ons ({count})",
+        "inactiveAddons": "Inactive Add-ons ({count})",
+        "emptyState": "No add-ons yet. Create your first add-on to offer extra services to customers.",
+        "createFirst": "Create your first add-on →",
+        "addNew": "Add new service add-on",
+        "form": {
+          "editTitle": "Edit Add-on",
+          "createTitle": "Create New Add-on",
+          "fields": {
+            "name": {
+              "label": "Service Name *",
+              "placeholder": "e.g., Deep cleaning, Window washing, Inside fridge"
+            },
+            "description": {
+              "label": "Description",
+              "placeholder": "Describe what this add-on includes..."
+            },
+            "price": {
+              "label": "Price (COP) *",
+              "placeholder": "50000"
+            },
+            "extraTime": {
+              "label": "Extra Time (minutes)",
+              "placeholder": "0",
+              "helper": "Set to 0 if this doesn't add extra time"
+            },
+            "active": {
+              "label": "Active (customers can see and book this add-on)"
+            }
+          },
+          "cancel": "Cancel",
+          "saveChanges": "Save Changes",
+          "createAddon": "Create Add-on"
+        },
+        "duration": {
+          "hour": "1 hour",
+          "minutes": "{minutes} minutes",
+          "noExtra": "No extra time"
+        },
+        "inactive": "Inactive",
+        "actions": {
+          "edit": "Edit",
+          "deactivate": "Deactivate",
+          "activate": "Activate",
+          "delete": "Delete"
+        },
+        "deleteConfirm": "Are you sure you want to delete this add-on?"
+      },
+      "financesOverview": {
+        "metrics": {
+          "totalEarnings": {
+            "label": "Total Earnings",
+            "description": "All time"
+          },
+          "thisMonth": {
+            "label": "This Month"
+          },
+          "avgBookingValue": {
+            "label": "Avg Booking Value",
+            "description": "total bookings"
+          },
+          "pendingPayouts": {
+            "label": "Pending Payouts",
+            "descriptionSuffix": "pending"
+          }
+        },
+        "charts": {
+          "earningsTrend": "Earnings Trend",
+          "bookingsByMonth": "Bookings by Month",
+          "revenueByService": "Revenue by Service",
+          "recentPayouts": "Recent Payouts"
+        }
+      },
+      "portfolioManager": {
+        "fields": {
+          "description": {
+            "label": "Featured Work Description",
+            "placeholder": "Describe your specialties and what makes your work unique...",
+            "helper": "This will appear above your portfolio gallery"
+          }
+        },
+        "upload": {
+          "title": "Upload Portfolio Images",
+          "currentImages": "Current Images ({count})"
+        },
+        "deleteConfirm": "Delete this image?",
+        "actions": {
+          "editCaption": "Edit caption",
+          "moveUp": "↑ Move up",
+          "moveDown": "↓ Move down",
+          "delete": "Delete"
+        },
+        "emptyState": {
+          "title": "No portfolio images yet",
+          "description": "Upload images using the dropzone above to showcase your best work"
+        },
+        "tips": {
+          "title": "Portfolio Tips",
+          "tip1": "Use high-quality images that showcase your best work",
+          "tip2": "Add captions to explain what the project involved",
+          "tip3": "Before/after photos are particularly effective",
+          "tip4": "Keep your portfolio updated with recent work",
+          "tip5": "Aim for 6-12 images for a well-rounded portfolio"
+        },
+        "saving": "Saving...",
+        "save": "Save Portfolio",
+        "success": "Portfolio updated successfully!",
+        "error": "Failed to update portfolio. Please try again."
+      },
+      "availabilityEditor": {
+        "tabs": {
+          "workingHours": "Working Hours",
+          "blockedDates": "Blocked Dates"
+        },
+        "workingHours": {
+          "title": "Set Your Weekly Schedule",
+          "description": "Define which days and hours you're available for bookings. Customers can only book during these times."
+        },
+        "blockedDates": {
+          "title": "Block Specific Dates",
+          "description": "Mark dates when you're unavailable (vacations, holidays, personal time). These dates won't be bookable even if they fall within your working hours."
+        },
+        "infoText": "Changes will be reflected immediately on your public profile",
+        "saving": "Saving...",
+        "save": "Save Availability",
+        "success": "Availability updated successfully!"
+      },
+      "profileEditor": {
+        "sections": {
+          "basicInfo": {
+            "title": "Basic Information",
+            "fields": {
+              "fullName": {
+                "label": "Full Name",
+                "placeholder": "Your full name"
+              },
+              "email": {
+                "label": "Email",
+                "helper": "Email cannot be changed here. Contact support if needed."
+              },
+              "phoneNumber": {
+                "label": "Phone Number",
+                "placeholder": "+57 300 123 4567"
+              },
+              "avatarUrl": {
+                "label": "Avatar URL",
+                "placeholder": "https://example.com/avatar.jpg",
+                "helper": "Public profile photo URL"
+              }
+            }
+          },
+          "professionalSummary": {
+            "title": "Professional Summary",
+            "fields": {
+              "bio": {
+                "label": "Bio",
+                "placeholder": "Tell customers about your experience, specialties, and what makes you great...",
+                "characterCounter": "/500 characters"
+              }
+            }
+          },
+          "languages": {
+            "title": "Languages",
+            "helper": "Select all languages you can communicate in",
+            "options": {
+              "english": "English",
+              "spanish": "Español",
+              "portuguese": "Português",
+              "french": "Français",
+              "german": "Deutsch"
+            }
+          },
+          "services": {
+            "title": "Primary Services",
+            "helper": "Select all services you offer",
+            "options": {
+              "houseCleaning": "House cleaning",
+              "laundry": "Laundry",
+              "cooking": "Cooking",
+              "organization": "Organization",
+              "childcare": "Childcare",
+              "petCare": "Pet care",
+              "errandRunning": "Errand running",
+              "gardening": "Gardening",
+              "elderCare": "Elder care"
+            }
+          }
+        },
+        "saving": "Saving...",
+        "save": "Save Changes",
+        "success": "Profile updated successfully!"
+      },
+      "pendingRatings": {
+        "title": "Rate Your Recent Customers",
+        "description": "Share your feedback to help build a trusted community.",
+        "service": "Service",
+        "customerInfo": "Customer • {date}",
+        "rateButton": "Rate Customer"
+      }
+    },
+    "customer": {
+      "main": {
+        "header": {
+          "dashboardLabel": "CUSTOMER DASHBOARD",
+          "welcomeBack": "Welcome back",
+          "welcomeBackWithName": "Welcome back, {name}",
+          "description": "Explore vetted professionals, review upcoming visits, and manage payments in one place.",
+          "signOut": "Sign out"
+        },
+        "summary": {
+          "accountEmail": "Account email",
+          "phone": "Phone",
+          "addYourPhone": "Add your phone",
+          "city": "City",
+          "addYourCity": "Add your city",
+          "verificationTier": "Verification tier",
+          "propertyType": "Property type",
+          "country": "Country",
+          "notSet": "Not set",
+          "propertyTypes": {
+            "apartment": "Apartment",
+            "house": "House",
+            "office": "Office",
+            "other": "Other"
+          }
+        },
+        "tasks": {
+          "title": "Get ready to book",
+          "description": "Complete these quick steps to unlock instant booking confirmations and top-rated professionals.",
+          "updateProfile": "Update profile",
+          "profile": {
+            "title": "Complete your profile",
+            "description": "Add your contact details and where services will take place so professionals can prepare.",
+            "cta": "Edit profile"
+          },
+          "verification": {
+            "title": "Verify your identity",
+            "description": "Upload a passport or government ID to earn a verified badge and faster bookings.",
+            "cta": "Start verification",
+            "upgradeNote": "Upgrade to Standard to unlock the verification badge."
+          },
+          "payment": {
+            "title": "Add a payment method",
+            "description": "Securely store a card or local payment option to confirm bookings instantly.",
+            "cta": "Add payment method"
+          },
+          "booking": {
+            "title": "Book your first visit",
+            "description": "Choose a trusted professional and schedule your first home service.",
+            "cta": "Find professionals"
+          },
+          "status": {
+            "completed": "Completed",
+            "actionNeeded": "Action needed"
+          }
+        },
+        "quickLinks": {
+          "bookProfessional": {
+            "title": "Book a professional",
+            "description": "Browse verified experts by service, language, and availability."
+          },
+          "viewPastVisits": {
+            "title": "View past visits",
+            "description": "Download receipts, add tips, or rebook your favorites."
+          },
+          "updatePayment": {
+            "title": "Update payment method",
+            "description": "Manage cards and local payment options securely."
+          },
+          "goNow": "Go now →"
+        },
+        "sections": {
+          "addresses": {
+            "title": "Saved Addresses",
+            "description": "Manage your service locations for faster booking. Add details like building access and parking info."
+          },
+          "propertyPreferences": {
+            "title": "Property preferences",
+            "description": "Sharing a few details about your home helps professionals prepare with the right supplies.",
+            "updatePreferences": "Update preferences →"
+          },
+          "needHelp": {
+            "title": "Need help?",
+            "description": "Our support team can help with verification, bookings, or anything else you need.",
+            "liveChat": "Live chat:",
+            "liveChatHours": "Weekdays 8:00–20:00 COT",
+            "email": "Email:",
+            "emailAddress": "help@maidconnect.com",
+            "emergencyLine": "Emergency line:",
+            "emergencyPhone": "+57 123 456 7890",
+            "browseHelpCenter": "Browse help center →"
+          },
+          "bookings": {
+            "title": "My Bookings",
+            "description": "View and manage your upcoming and past service appointments."
+          },
+          "favorites": {
+            "title": "My Favorites",
+            "description": "Quick access to your favorite professionals for easy rebooking."
+          },
+          "messages": {
+            "title": "Messages",
+            "description": "Chat with professionals about your bookings and service details.",
+            "viewAllMessages": "View all messages"
+          }
+        }
+      },
+      "bookingList": {
+        "emptyState": {
+          "noBookings": "No bookings yet.",
+          "browseText": "Browse our",
+          "professionalDirectory": "professional directory",
+          "bookFirstService": "to book your first service."
+        },
+        "sections": {
+          "upcomingServices": "Upcoming Services",
+          "pastServices": "Past Services"
+        },
+        "card": {
+          "service": "Service",
+          "professional": "Professional:",
+          "notAssigned": "Not assigned",
+          "scheduled": "Scheduled:",
+          "notScheduled": "Not scheduled",
+          "duration": "Duration:",
+          "minutes": "{minutes} minutes",
+          "amount": "Amount:",
+          "status": {
+            "pending_payment": "pending payment",
+            "authorized": "authorized",
+            "confirmed": "confirmed",
+            "declined": "declined",
+            "canceled": "canceled",
+            "completed": "completed"
+          },
+          "actions": {
+            "reschedule": "Reschedule",
+            "cancel": "Cancel",
+            "leaveReview": "Leave Review",
+            "bookAgain": "Book Again"
+          }
+        }
+      },
+      "favoritesList": {
+        "emptyState": {
+          "emoji": "🤍",
+          "title": "No favorites yet",
+          "description": "Click the heart icon on any professional to save them here for quick access.",
+          "browseProfessionals": "Browse Professionals"
+        },
+        "title": "Your Favorites ({count})",
+        "card": {
+          "verified": "Verified",
+          "startingAt": "Starting at",
+          "perHour": "/hr",
+          "viewProfile": "View profile →"
+        },
+        "errors": {
+          "failedToLoad": "Failed to load favorites"
+        }
+      },
+      "addressManager": {
+        "emptyState": {
+          "noAddresses": "No saved addresses yet.",
+          "addFirst": "Add your first address →"
+        },
+        "addNew": "Add new address",
+        "card": {
+          "default": "Default",
+          "buildingAccess": "🔑 {access}",
+          "parkingInfo": "🅿️ {parking}",
+          "specialNotes": "📝 {notes}",
+          "edit": "Edit",
+          "delete": "Delete"
+        },
+        "form": {
+          "editTitle": "Edit Address",
+          "addTitle": "Add New Address",
+          "fields": {
+            "label": {
+              "label": "Label *",
+              "placeholder": "Home, Office, etc."
+            },
+            "city": {
+              "label": "City *",
+              "placeholder": "Bogotá"
+            },
+            "street": {
+              "label": "Street Address *",
+              "placeholder": "Calle 123 #45-67"
+            },
+            "neighborhood": {
+              "label": "Neighborhood",
+              "placeholder": "Chapinero"
+            },
+            "postalCode": {
+              "label": "Postal Code",
+              "placeholder": "110111"
+            },
+            "buildingAccess": {
+              "label": "Building Access Instructions",
+              "placeholder": "Ring apartment 301, gate code 1234"
+            },
+            "parkingInfo": {
+              "label": "Parking Information",
+              "placeholder": "Visitor parking in basement"
+            },
+            "specialNotes": {
+              "label": "Special Notes",
+              "placeholder": "Dogs in backyard, use side entrance, etc."
+            },
+            "setAsDefault": "Set as default address"
+          },
+          "cancel": "Cancel",
+          "saveChanges": "Save Changes",
+          "addAddress": "Add Address"
+        },
+        "confirmDelete": "Are you sure you want to delete this address?"
+      },
+      "cancelBookingModal": {
+        "title": "Cancel Booking",
+        "serviceInfo": "{service} • {date}",
+        "policy": {
+          "title": "View Cancellation Policy",
+          "refund": "Refund:",
+          "refundPercent": "{percent}% ({amount})",
+          "timeUntilService": "Time until service:",
+          "hours": "{hours} hours"
+        },
+        "reasonLabel": "Reason for cancellation (optional)",
+        "reasonPlaceholder": "Let the professional know why you need to cancel...",
+        "actions": {
+          "keepBooking": "Keep Booking",
+          "cancelBooking": "Cancel Booking",
+          "canceling": "Canceling..."
+        },
+        "messages": {
+          "cannotCancel": "Cannot cancel this booking",
+          "success": "Booking canceled successfully! {refund} will be refunded."
+        }
+      },
+      "rescheduleBookingModal": {
+        "title": "Reschedule Booking",
+        "serviceInfo": "{service}",
+        "currentSchedule": {
+          "label": "Current Schedule",
+          "date": "{date}"
+        },
+        "fields": {
+          "newDate": {
+            "label": "New Date"
+          },
+          "newTime": {
+            "label": "New Time"
+          }
+        },
+        "importantNotice": {
+          "title": "Important",
+          "description": "The professional will need to confirm the new time. Your booking will be reset to \"pending confirmation\" status."
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "reschedule": "Reschedule",
+          "rescheduling": "Rescheduling..."
+        },
+        "messages": {
+          "selectDateTime": "Please select a new date and time",
+          "futureDate": "New time must be in the future",
+          "success": "Booking rescheduled successfully!"
+        }
+      },
+      "bookingsPage": {
+        "title": "My Bookings",
+        "description": "View and manage your upcoming and past service appointments."
+      },
+      "favoritesPage": {
+        "title": "My Favorites",
+        "description": "Quick access to your favorite professionals for easy rebooking."
+      },
+      "addressesPage": {
+        "title": "Saved Addresses",
+        "description": "Manage your service locations for faster booking. Add details like building access and parking info."
+      },
+      "paymentsPage": {
+        "title": "Payments & History",
+        "description": "View your payment history, manage payment methods, and track spending.",
+        "metrics": {
+          "totalSpent": {
+            "label": "Total Spent",
+            "description": "All completed bookings"
+          },
+          "pendingCharges": {
+            "label": "Pending Charges",
+            "description": "Authorized but not captured"
+          },
+          "totalBookings": {
+            "label": "Total Bookings",
+            "description": "With payment information"
+          }
+        },
+        "paymentMethods": {
+          "title": "Payment Methods",
+          "cardBrand": "{brand} •••• {last4}",
+          "expires": "Expires {month}/{year}"
+        },
+        "paymentHistory": {
+          "title": "Payment History"
+        }
+      },
+      "messagesPage": {
+        "description": "Chat with professionals about your bookings and service details."
+      },
+      "settings": {
+        "title": "Account Settings",
+        "description": "Manage your profile information, preferences, and saved addresses",
+        "profile": {
+          "title": "Profile Information",
+          "fullName": "Full Name",
+          "email": "Email",
+          "phone": "Phone",
+          "city": "City",
+          "note": "Note",
+          "noteDescription": "To update your profile information, please contact support at support@maidconnect.com"
+        },
+        "preferences": {
+          "title": "Property Preferences",
+          "propertyType": "Property Type",
+          "comingSoon": "Coming Soon",
+          "comingSoonDescription": "Full property preferences editing will be available soon. For now, you can update these during booking."
+        },
+        "addresses": {
+          "title": "Saved Addresses"
+        }
+      }
+    }
+  },
+  "product": {
+    "bookingPlatform": {
+      "title": "Booking Platform",
+      "description": "Schedule services with instant or approved booking"
+    },
+    "professionalProfiles": {
+      "title": "Professional Profiles",
+      "description": "Verified profiles with reviews and portfolios"
+    },
+    "secureMessaging": {
+      "title": "Secure Messaging",
+      "description": "Direct communication with your professionals"
+    },
+    "paymentProcessing": {
+      "title": "Payment Processing",
+      "description": "Safe, transparent payments with receipt tracking"
+    },
+    "reviewsRatings": {
+      "title": "Reviews & Ratings",
+      "description": "Community-driven trust and quality assurance"
+    },
+    "adminDashboard": {
+      "title": "Admin Dashboard",
+      "description": "Complete platform management and moderation"
+    }
+  },
+  "hero": {
+    "badge": "Casaora · The Art of Home",
+    "title": "The Art of Home.",
+    "subtitle": "Browse Colombia's most exceptional household professionals—already vetted, so you can choose with confidence.",
+    "description": "Every professional on Casaora has passed rigorous screening and personal interviews. We only accept the top 5%—so you can focus on finding your perfect match.",
+    "trustSignals": {
+      "verified": "Only the top 5% accepted",
+      "cities": "Serving Colombia's finest homes",
+      "rating": "Every profile verified"
+    },
+    "matchWizard": "Find Your Perfect Match",
+    "browseAll": "Browse Exceptional Professionals",
+    "findProfessional": "Explore Our Network",
+    "bookConsultation": "Schedule a Consultation",
+    "howItWorks": "Our vetting process",
+    "becomeProfessional": "Join our network",
+    "learnMore": "Learn more"
+  },
+  "services": {
+    "badge": "Services",
+    "title": "Exceptional Professionals in Every Category",
+    "items": {
+      "housekeeping": {
+        "title": "Housekeeping & Estate Care",
+        "description": "Impeccable standards, eco-conscious practices, attention to every detail. Our housekeepers transform spaces."
+      },
+      "childcare": {
+        "title": "Childcare & Family Support",
+        "description": "Experienced nannies with educational backgrounds, CPR certification, and language skills. Your children deserve the best."
+      },
+      "relocation": {
+        "title": "Property & Relocation Services",
+        "description": "Seamless transitions for new arrivals. Professional setup, organization, and household coordination."
+      },
+      "elderCare": {
+        "title": "Elder & Wellness Care",
+        "description": "Compassionate professionals providing companionship, wellness support, and dignified care."
+      },
+      "petCare": {
+        "title": "Pet & Home Management",
+        "description": "Trusted specialists for your home and beloved pets. Reliable care when you're away."
+      },
+      "lifestyle": {
+        "title": "Culinary & Lifestyle Professionals",
+        "description": "Private chefs, personal assistants, and lifestyle specialists. Hospitality-trained excellence for your home."
+      }
+    }
+  },
+  "process": {
+    "badge": "How it works",
+    "title": "We Curate. You Choose.",
+    "steps": {
+      "step1": {
+        "number": "01",
+        "title": "We vet rigorously",
+        "description": "Only 5% of applicants make it onto Casaora. Every professional completes background verification, skill assessments, and in-person interviews before you ever see their profile."
+      },
+      "step2": {
+        "number": "02",
+        "title": "You browse our curated network",
+        "description": "Search and filter by your needs—language, experience, availability, location. Watch video introductions. Compare profiles. Everything is transparent."
+      },
+      "step3": {
+        "number": "03",
+        "title": "You choose & connect",
+        "description": "Found your match? Book a consultation or trial day. Communicate directly through our secure platform. Your choice, your timeline."
+      },
+      "step4": {
+        "number": "04",
+        "title": "We support ongoing",
+        "description": "From onboarding to ongoing support, we're here. Rate your experience, provide feedback, and know we maintain standards long-term."
+      }
+    }
+  },
+  "concierge": {
+    "title": "Ready to Find Your Exceptional Match?",
+    "subtitle": "Browse our curated network of Colombia's top household professionals. Every profile is verified, every professional is vetted, every choice is yours.",
+    "browseProfessionals": "Browse Exceptional Professionals",
+    "bookConsultation": "Schedule a Consultation",
+    "cities": "Serving Bogotá, Medellín, Cartagena, Cali & beyond",
+    "languages": "English, Spanish & Portuguese support"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "fullName": "Full name",
+    "phone": "Phone number",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signInButton": "Sign in",
+    "signUpButton": "Sign up",
+    "userType": {
+      "title": "I am a...",
+      "customer": "Customer",
+      "professional": "Professional"
+    }
+  },
+  "booking": {
+    "title": "Book a service",
+    "selectDate": "Select date",
+    "selectTime": "Select time",
+    "duration": "Duration",
+    "hours": "hours",
+    "addons": "Add-ons",
+    "totalPrice": "Total price",
+    "bookNow": "Book now",
+    "requestBooking": "Request booking",
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "footer": {
+    "description": "Casaora — Colombia's premier boutique domestic staffing agency. Exceptional household professionals for exceptional homes. The Art of Home.",
+    "platform": "Platform",
+    "company": "Company",
+    "mobile": "Mobile",
+    "findProfessional": "Browse Professionals",
+    "howItWorks": "How It Works",
+    "pricing": "Pricing",
+    "roadmap": "Roadmap",
+    "helpCenter": "Help Center",
+    "contact": "Contact",
+    "services": "Services",
+    "about": "About",
+    "loginSignup": "Login / Signup",
+    "applyProfessional": "Join Our Network",
+    "careers": "Careers",
+    "support": "Support",
+    "iosApp": "iOS App",
+    "androidApp": "Android App",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "cookies": "Cookies",
+    "allRightsReserved": "All rights reserved",
+    "remoteCompany": "We Work Remotely"
+  },
+  "pages": {
+    "bookingPlatform": {
+      "meta": {
+        "title": "Booking Platform - Instant Service Scheduling | Maidconnect",
+        "description": "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless. 500+ bookings monthly."
+      },
+      "hero": {
+        "headline": "Book trusted professionals in minutes",
+        "description": "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless.",
+        "primaryCTA": "Browse Professionals",
+        "secondaryCTA": "Learn More",
+        "badge": "500+ bookings this month"
+      },
+      "features": {
+        "title": "Powerful booking features",
+        "subtitle": "Everything you need to schedule services quickly and confidently",
+        "instantBooking": {
+          "title": "Instant & Approved Booking",
+          "description": "Book immediately with verified professionals or request approval for custom needs. Get instant confirmation for standard services."
+        },
+        "realTimeAvailability": {
+          "title": "Real-Time Availability",
+          "description": "See professional calendars and available time slots before booking. Never waste time requesting unavailable dates."
+        },
+        "smartScheduling": {
+          "title": "Smart Scheduling",
+          "description": "Set up recurring bookings, sync with your calendar, and receive automated reminders before every service."
+        }
+      },
+      "howItWorks": {
+        "title": "How it works",
+        "description": "Four simple steps to book your perfect professional",
+        "step1": {
+          "title": "Filter & Search",
+          "description": "Filter by service type, date, location, and professional ratings"
+        },
+        "step2": {
+          "title": "Select Professional",
+          "description": "View availability, read reviews, and browse portfolio galleries"
+        },
+        "step3": {
+          "title": "Confirm Booking",
+          "description": "Choose date and time, add service add-ons, and authorize payment"
+        },
+        "step4": {
+          "title": "Get Reminders",
+          "description": "Receive automatic reminders and communicate via secure messaging"
+        }
+      },
+      "benefits": {
+        "title": "Why customers love our booking system",
+        "noPhoneTag": {
+          "title": "No more phone tag",
+          "description": "See real-time availability and book instantly without endless back-and-forth calls or emails."
+        },
+        "transparentPricing": {
+          "title": "Transparent pricing",
+          "description": "Know exactly what you'll pay before booking. See hourly rates, add-on costs, and total price upfront."
+        },
+        "flexibleScheduling": {
+          "title": "Flexible scheduling",
+          "description": "Book one-time services or set up weekly, biweekly, or monthly recurring appointments with automatic discounts."
+        },
+        "easyRescheduling": {
+          "title": "Easy rescheduling",
+          "description": "Life happens. Reschedule or cancel bookings with just a few clicks, subject to professional's cancellation policy."
+        }
+      },
+      "cta": {
+        "title": "Ready to book your first service?",
+        "description": "Join hundreds of satisfied customers who trust Casaora for their home service needs",
+        "browseProfessionals": "Browse Professionals",
+        "signUpFree": "Sign Up Free"
+      }
+    },
+    "professionalProfiles": {
+      "meta": {
+        "title": "Verified Professional Profiles - Background Checked | Maidconnect",
+        "description": "Meet verified professionals with background checks, credentials, customer reviews, and portfolio galleries. 100% verified professionals you can trust in Colombia."
+      },
+      "hero": {
+        "headline": "Meet verified professionals you can trust",
+        "description": "Every profile includes background checks, verified credentials, customer reviews, and portfolio galleries showcasing their work.",
+        "primaryCTA": "View Professionals",
+        "secondaryCTA": "Learn More",
+        "badge": "100% verified professionals"
+      },
+      "features": {
+        "title": "Trust built into every profile",
+        "subtitle": "We verify every detail so you can book with complete confidence",
+        "verifiedCredentials": {
+          "title": "Verified Credentials",
+          "description": "Background checks, identity verification, and certification validation ensure every professional meets our high standards."
+        },
+        "customerReviews": {
+          "title": "Customer Reviews & Ratings",
+          "description": "Real feedback from verified bookings with detailed ratings on quality, communication, punctuality, and value."
+        },
+        "portfolioGalleries": {
+          "title": "Portfolio Galleries",
+          "description": "Before/after photos and work samples from past projects showcase the quality you can expect."
+        }
+      },
+      "howItWorks": {
+        "title": "How we verify professionals",
+        "description": "Our rigorous vetting process ensures quality and safety",
+        "step1": {
+          "title": "Application Review",
+          "description": "We review every application for experience, qualifications, and professionalism"
+        },
+        "step2": {
+          "title": "Document Verification",
+          "description": "Background checks, ID verification, and certification validation"
+        },
+        "step3": {
+          "title": "Portfolio Assessment",
+          "description": "Review work samples and past projects to ensure quality standards"
+        },
+        "step4": {
+          "title": "Ongoing Monitoring",
+          "description": "Continuous review of ratings, feedback, and service quality"
+        }
+      },
+      "profileFeatures": {
+        "title": "What you'll find in every profile",
+        "professionalInfo": {
+          "title": "Professional Information",
+          "items": {
+            "experience": "Years of experience and specializations",
+            "certifications": "Certifications and training completed",
+            "services": "Services offered and hourly rates",
+            "areas": "Service areas and availability"
+          }
+        },
+        "socialProof": {
+          "title": "Social Proof",
+          "items": {
+            "rating": "Overall rating from verified bookings",
+            "reviews": "Detailed reviews from past customers",
+            "portfolio": "Portfolio gallery with before/after photos",
+            "bookings": "Total bookings and repeat customer rate"
+          }
+        },
+        "safetyTrust": {
+          "title": "Safety & Trust",
+          "items": {
+            "backgroundCheck": "Background check status and date",
+            "identity": "Identity verification badge",
+            "insurance": "Insurance and bonding information",
+            "verified": "Platform-verified reviews only"
+          }
+        },
+        "workExamples": {
+          "title": "Work Examples",
+          "items": {
+            "galleryPhotos": "Portfolio gallery with real project photos",
+            "beforeAfter": "Before and after transformations",
+            "serviceExamples": "Service-specific examples and results",
+            "bio": "Professional bio and service approach"
+          }
+        }
+      },
+      "cta": {
+        "title": "Find your perfect professional match",
+        "description": "Browse verified profiles, read authentic reviews, and book with confidence knowing every professional has been thoroughly vetted",
+        "browseProfessionals": "Browse Professionals",
+        "becomeProfessional": "Become a Professional"
+      }
+    },
+    "paymentProcessing": {
+      "meta": {
+        "title": "Secure Payment Processing - Stripe Powered | Maidconnect",
+        "description": "Safe, transparent payments with Stripe. Track expenses, manage receipts, and handle tips all in one place. Secure escrow and automatic payouts."
+      },
+      "hero": {
+        "headline": "Safe, transparent payments every time",
+        "description": "Secure payment processing with Stripe. Track expenses, manage receipts, and handle tips all in one place with complete transparency.",
+        "primaryCTA": "See How It Works",
+        "secondaryCTA": "Book a Service",
+        "badge": "Powered by Stripe"
+      },
+      "features": {
+        "title": "Payment processing you can trust",
+        "subtitle": "Enterprise-grade security with consumer-friendly transparency",
+        "stripeIntegration": {
+          "title": "Secure Stripe Integration",
+          "description": "Industry-standard payment security with encrypted transactions. Your card information never touches our servers."
+        },
+        "transparentPricing": {
+          "title": "Transparent Pricing",
+          "description": "Clear breakdown of service fees, add-ons, and total costs before payment. No hidden charges or surprise fees."
+        },
+        "automaticReceipts": {
+          "title": "Automatic Receipts",
+          "description": "Digital receipts and expense tracking for every booking. Perfect for tax deductions and household budgets."
+        }
+      },
+      "howItWorks": {
+        "title": "How payments work",
+        "description": "Simple, secure, and transparent from start to finish",
+        "step1": {
+          "title": "Review Pricing",
+          "description": "See complete breakdown of base service, add-ons, and total before booking"
+        },
+        "step2": {
+          "title": "Authorize Payment",
+          "description": "Secure payment authorization through Stripe holds funds until service completion"
+        },
+        "step3": {
+          "title": "Service Completed",
+          "description": "Professional receives payment after service completion and check-out"
+        },
+        "step4": {
+          "title": "Get Receipt",
+          "description": "Automatic digital receipt with full transaction details sent to your email"
+        }
+      },
+      "paymentTimeline": {
+        "title": "Payment timeline explained",
+        "booking": {
+          "title": "Booking confirmation - Authorization hold placed",
+          "description": "When you book, we place a temporary authorization hold on your card for the total amount. This isn't a charge yet - it just reserves the funds."
+        },
+        "serviceDay": {
+          "title": "Service day - Check-in begins service",
+          "description": "Professional checks in when they arrive. The authorization hold remains in place during the service. You can track service progress in real-time."
+        },
+        "serviceComplete": {
+          "title": "Service complete - Check-out captures payment",
+          "description": "When the professional checks out and marks service complete, the authorization converts to an actual charge. This is when you're billed."
+        },
+        "postService": {
+          "title": "Post-service - Receipt and payout processing",
+          "description": "You receive a digital receipt immediately. The professional receives their payout (minus platform fees) within 2-3 business days."
+        }
+      },
+      "protection": {
+        "title": "Your payment protection",
+        "chargedAfter": {
+          "title": "Only charged after service completion",
+          "description": "Authorization holds aren't charges. You're only billed when the professional marks the service complete and checks out."
+        },
+        "cancellation": {
+          "title": "Cancellation protections",
+          "description": "Cancel before the cancellation window closes and the hold releases automatically. No charge, no hassle, no questions asked."
+        },
+        "dispute": {
+          "title": "Dispute resolution support",
+          "description": "If service wasn't delivered as promised, contact support within 24 hours. We review disputes and process refunds when appropriate."
+        },
+        "encrypted": {
+          "title": "Encrypted card storage",
+          "description": "Your payment information is tokenized and encrypted by Stripe. We never see or store your full card details on our servers."
+        }
+      },
+      "acceptedMethods": {
+        "title": "Accepted payment methods",
+        "creditCards": {
+          "title": "Credit Cards",
+          "description": "Visa, Mastercard, American Express, Discover"
+        },
+        "debitCards": {
+          "title": "Debit Cards",
+          "description": "All major debit cards with card number and CVV"
+        },
+        "digitalReceipts": {
+          "title": "Digital Receipts",
+          "description": "Automatic receipts sent via email for all transactions"
+        }
+      },
+      "cta": {
+        "title": "Ready for secure, transparent payments?",
+        "description": "Experience hassle-free payment processing backed by Stripe's industry-leading security",
+        "bookService": "Book Your First Service",
+        "signUpFree": "Sign Up Free"
+      }
+    },
+    "secureMessaging": {
+      "meta": {
+        "title": "Secure Messaging Platform - Direct Communication | Maidconnect",
+        "description": "Direct messaging unlocked after booking. Coordinate details, send photos, and stay connected throughout your service relationship. Booking-based security."
+      },
+      "hero": {
+        "headline": "Communicate securely with your professionals",
+        "description": "Direct messaging unlocked after booking. Coordinate details, send photos, and stay connected throughout your service relationship.",
+        "primaryCTA": "Book a Service",
+        "secondaryCTA": "Learn More",
+        "badge": "Booking-based security"
+      },
+      "features": {
+        "title": "Safe, convenient communication",
+        "subtitle": "Built-in messaging that protects your privacy while enabling seamless coordination",
+        "bookingBased": {
+          "title": "Booking-Based Access",
+          "description": "Messaging available only for confirmed bookings, ensuring safety and preventing spam. Your contact information stays private."
+        },
+        "realTime": {
+          "title": "Real-Time Conversations",
+          "description": "Instant message delivery with read receipts and notifications. Stay connected from booking confirmation to service completion."
+        },
+        "photoSharing": {
+          "title": "Photo & File Sharing",
+          "description": "Share instructions, references, and updates easily. Send photos of areas that need attention or special requests."
+        }
+      },
+      "howItWorks": {
+        "title": "How it works",
+        "description": "Simple, secure messaging tied to your bookings",
+        "step1": {
+          "title": "Complete Booking",
+          "description": "Book a service with any professional to unlock messaging access"
+        },
+        "step2": {
+          "title": "Access Chat",
+          "description": "Find the conversation thread in your dashboard messages section"
+        },
+        "step3": {
+          "title": "Coordinate Details",
+          "description": "Discuss service details, timing, special requests, or access instructions"
+        },
+        "step4": {
+          "title": "Stay Connected",
+          "description": "Keep communication history for reference throughout your service relationship"
+        }
+      },
+      "benefits": {
+        "title": "Why our messaging system is different",
+        "privacy": {
+          "title": "Privacy protected",
+          "description": "Your phone number and email stay private. All communication happens through the platform with full message history for safety."
+        },
+        "noSpam": {
+          "title": "No spam or solicitation",
+          "description": "Only confirmed bookings unlock messaging. Professionals can't contact you without a booking, eliminating unwanted messages."
+        },
+        "history": {
+          "title": "Message history & receipts",
+          "description": "All messages are saved and tied to the booking. Perfect for referencing past conversations and instructions."
+        },
+        "notifications": {
+          "title": "Real-time notifications",
+          "description": "Get notified instantly when professionals respond. Never miss important updates about your booking."
+        }
+      },
+      "useCases": {
+        "title": "Common messaging scenarios",
+        "beforeService": {
+          "title": "Before the service",
+          "items": {
+            "access": "Share building access codes and parking instructions",
+            "photos": "Send photos of areas needing special attention",
+            "timing": "Confirm arrival time and any last-minute changes",
+            "products": "Discuss specific cleaning products or preferences"
+          }
+        },
+        "duringService": {
+          "title": "During the service",
+          "items": {
+            "updates": "Get updates on service progress and completion",
+            "questions": "Answer questions about specific areas or items",
+            "beforeAfter": "Receive before/after photos of completed work",
+            "realTime": "Address any issues or requests in real-time"
+          }
+        }
+      },
+      "cta": {
+        "title": "Ready to experience seamless communication?",
+        "description": "Book your first service and unlock secure messaging with verified professionals",
+        "browseProfessionals": "Browse Professionals",
+        "signUpFree": "Sign Up Free"
+      }
+    },
+    "reviewsRatings": {
+      "meta": {
+        "title": "Reviews & Ratings System - Two-Way Accountability | Maidconnect",
+        "description": "Community-driven trust and quality. Two-way reviews ensure accountability. Verified reviews only from real bookings. Build your reputation."
+      },
+      "hero": {
+        "headline": "Community-driven trust and quality",
+        "description": "Two-way reviews ensure accountability. Rate professionals after every service and build your own reputation as a reliable customer.",
+        "primaryCTA": "Read Reviews",
+        "secondaryCTA": "Learn More",
+        "badge": "Verified reviews only"
+      },
+      "features": {
+        "title": "Authentic feedback that matters",
+        "subtitle": "Only real bookings, real experiences, and real accountability",
+        "verifiedBooking": {
+          "title": "Verified Booking Reviews",
+          "description": "Only customers who completed bookings can leave reviews. Every review is tied to a real service, ensuring authenticity."
+        },
+        "twoWay": {
+          "title": "Two-Way Accountability",
+          "description": "Professionals rate customers too, building mutual trust and respect. Great customers get better service and priority booking."
+        },
+        "detailedCategories": {
+          "title": "Detailed Rating Categories",
+          "description": "Rate quality, communication, punctuality, and value separately. Get the full picture beyond a single star rating."
+        }
+      },
+      "howItWorks": {
+        "title": "How reviews work",
+        "description": "Simple, fair, and transparent for everyone",
+        "step1": {
+          "title": "Complete Service",
+          "description": "Finish a booking and ensure all check-in/check-out steps are done"
+        },
+        "step2": {
+          "title": "Receive Prompt",
+          "description": "Get a review request within 48 hours of service completion"
+        },
+        "step3": {
+          "title": "Rate Experience",
+          "description": "Rate across multiple categories with detailed feedback options"
+        },
+        "step4": {
+          "title": "Build Reputation",
+          "description": "Your review helps others and builds your customer reputation score"
+        }
+      },
+      "categories": {
+        "title": "What gets rated",
+        "forProfessionals": {
+          "title": "For Professionals",
+          "serviceQuality": "Service Quality: Thoroughness, attention to detail, results",
+          "communication": "Communication: Responsiveness, clarity, professionalism",
+          "punctuality": "Punctuality: On-time arrival, schedule adherence",
+          "value": "Value: Fair pricing, worth the cost"
+        },
+        "forCustomers": {
+          "title": "For Customers",
+          "clarity": "Clarity: Clear instructions, reasonable expectations",
+          "respect": "Respect: Professional treatment, safe environment",
+          "payment": "Payment: Timely payment, proper tipping",
+          "communication": "Communication: Responsiveness, cooperation"
+        }
+      },
+      "benefits": {
+        "title": "Why our review system works",
+        "mutualRespect": {
+          "title": "Mutual respect and fairness",
+          "description": "Two-way reviews mean customers and professionals both have accountability. This creates a respectful, professional environment for everyone."
+        },
+        "verifiedOnly": {
+          "title": "Verified reviews only",
+          "description": "No fake reviews, no incentivized ratings. Every review comes from a completed booking, ensuring authenticity and trust."
+        },
+        "accountability": {
+          "title": "Platform-wide accountability",
+          "description": "Low-rated users on either side get flagged for review. Repeat issues result in account suspension, keeping the platform safe for everyone."
+        },
+        "balancedFeedback": {
+          "title": "Honest, balanced feedback",
+          "description": "Detailed categories prevent unfair single-issue ratings. You can rate service quality highly while noting communication needs improvement."
+        }
+      },
+      "cta": {
+        "title": "Join a community built on trust",
+        "description": "Start building your reputation today. Great customers and professionals both benefit from our two-way review system.",
+        "browseProfessionals": "Browse Professionals",
+        "signUpFree": "Sign Up Free"
+      }
+    },
+    "adminDashboard": {
+      "meta": {
+        "title": "Admin Dashboard - Platform Management Tools | Maidconnect",
+        "description": "Enterprise-grade admin tools for moderating professionals, reviewing bookings, processing payouts, and maintaining platform quality. Complete oversight."
+      },
+      "hero": {
+        "headline": "Complete platform management and oversight",
+        "description": "Enterprise-grade admin tools for moderating professionals, reviewing bookings, processing payouts, and maintaining platform quality.",
+        "primaryCTA": "Request Demo",
+        "secondaryCTA": "Learn More",
+        "badge": "Admin access only"
+      },
+      "features": {
+        "title": "Comprehensive admin control",
+        "subtitle": "Everything you need to manage and moderate the platform",
+        "professionalModeration": {
+          "title": "Professional Moderation",
+          "description": "Review applications, verify credentials, approve or reject profiles. Monitor ongoing performance and handle complaints."
+        },
+        "bookingOversight": {
+          "title": "Booking Oversight",
+          "description": "View all bookings, resolve disputes, process refunds, and handle cancellations. Complete transaction visibility."
+        },
+        "payoutProcessing": {
+          "title": "Payout Processing",
+          "description": "Manage professional payouts, review financial transactions, handle disputes, and ensure platform fee compliance."
+        }
+      },
+      "howItWorks": {
+        "title": "Key admin workflows",
+        "description": "Core processes for platform management",
+        "step1": {
+          "title": "Professional Onboarding",
+          "description": "Review applications, verify documents, and approve new professionals joining the platform"
+        },
+        "step2": {
+          "title": "Quality Monitoring",
+          "description": "Track ratings, review complaints, and identify professionals or customers needing attention"
+        },
+        "step3": {
+          "title": "Transaction Management",
+          "description": "Process payouts, handle disputes, manage refunds, and ensure proper fee collection"
+        },
+        "step4": {
+          "title": "Platform Health",
+          "description": "Monitor metrics, analyze trends, and maintain overall platform quality and safety"
+        }
+      },
+      "capabilities": {
+        "title": "Admin capabilities",
+        "professionalManagement": "Professional Management: Approve, suspend, or ban professional accounts",
+        "bookingReview": "Booking Review: View all transactions and service details",
+        "payoutControl": "Payout Control: Approve or hold professional payments",
+        "disputeResolution": "Dispute Resolution: Mediate conflicts and process refunds",
+        "userModeration": "User Moderation: Manage customer accounts and flags",
+        "analytics": "Analytics Dashboard: Platform metrics and business intelligence"
+      },
+      "security": {
+        "title": "Security and access control",
+        "roleBasedAccess": {
+          "title": "Role-based access control",
+          "description": "Different admin levels with specific permissions. Not all admins see everything - compartmentalized access for security."
+        },
+        "auditLogs": {
+          "title": "Complete audit logging",
+          "description": "Every admin action is logged with timestamps and user details. Full accountability for all platform changes."
+        },
+        "dataProtection": {
+          "title": "Data protection and privacy",
+          "description": "Sensitive customer data is masked. Admins see only what's necessary for their role, protecting user privacy."
+        },
+        "twoFactorAuth": {
+          "title": "Two-factor authentication",
+          "description": "Admin accounts require 2FA for login. Additional verification for sensitive actions like payouts and bans."
+        }
+      },
+      "tools": {
+        "title": "Available admin tools",
+        "professionalApproval": "Professional Approval: Review and approve new applications",
+        "documentVerification": "Document Verification: Check credentials and certifications",
+        "payoutQueue": "Payout Queue: Process scheduled professional payments",
+        "userManagement": "User Management: Suspend, ban, or reinstate user accounts",
+        "disputeResolution": "Dispute Resolution: Handle customer complaints and refund requests",
+        "analytics": "Analytics Dashboard: Platform metrics and business intelligence"
+      },
+      "cta": {
+        "title": "See the admin dashboard in action",
+        "description": "Request a demo to explore our comprehensive platform management tools and see how we maintain quality and safety",
+        "requestDemo": "Request Demo",
+        "learnMore": "Learn More"
+      }
+    },
+    "contact": {
+      "meta": {
+        "title": "Contact Us | Casaora",
+        "description": "Get in touch with our support team, learn about becoming a professional, or reach out for partnership opportunities."
+      },
+      "hero": {
+        "badge": "CONTACT",
+        "title": "How can we help?",
+        "description": "Whether you're looking to hire trusted professionals, interested in joining our network, or just have a question, our team is here to help."
+      },
+      "cards": {
+        "support": {
+          "title": "Support",
+          "description": "Fill out our form or email us at support@maidconnect.co with your question.",
+          "buttonText": "Submit an inquiry"
+        },
+        "customers": {
+          "title": "For customers",
+          "description": "Browse our verified professionals and book trusted help for your home.",
+          "buttonText": "Find a professional"
+        },
+        "professionals": {
+          "title": "For professionals",
+          "description": "Join our network and connect with families looking for reliable help.",
+          "buttonText": "Apply to join"
+        }
+      },
+      "faq": {
+        "title": "Frequently asked questions",
+        "questions": {
+          "verification": {
+            "question": "How does Casaora verify professionals?",
+            "answer": "All professionals undergo a comprehensive screening process including background checks, reference verification, and skills assessment. We verify identity documents, work history, and conduct in-person interviews to ensure quality and safety."
+          },
+          "payments": {
+            "question": "How do payments work?",
+            "answer": "When you book a service, we authorize a hold on your payment method. Funds are only captured after the service is completed. Professionals receive payment within 2-3 business days after service completion. All payments are processed securely through Stripe."
+          },
+          "cancellation": {
+            "question": "What happens if I need to cancel?",
+            "answer": "You can cancel any booking before the scheduled start time through your dashboard. Cancellations made 24+ hours in advance receive a full refund. Cancellations within 24 hours may incur a cancellation fee to compensate the professional for their reserved time."
+          },
+          "recurring": {
+            "question": "Can I book recurring services?",
+            "answer": "Yes! During the booking process, you can set up recurring appointments on a weekly, biweekly, or monthly basis. This ensures you have consistent help and builds a long-term relationship with your preferred professional."
+          },
+          "areas": {
+            "question": "What areas do you serve?",
+            "answer": "We currently operate across 6 major cities in Colombia including Bogotá, Medellín, Cali, Barranquilla, Cartagena, and Bucaramanga. We're actively expanding to new areas based on demand."
+          },
+          "becomePro": {
+            "question": "How do I become a professional on Casaora?",
+            "answer": "Click 'Apply to join' and complete our application form. We'll review your information, conduct a background check, and schedule an interview. Once approved, you'll complete onboarding and can start accepting bookings. The entire process typically takes 5-7 business days."
+          }
+        }
+      }
+    },
+    "careers": {
+      "meta": {
+        "title": "Careers at Casaora | Join Our Team",
+        "description": "Join the team transforming home services in Colombia. We're hiring engineers, designers, and customer success professionals to build the future of domestic work."
+      },
+      "hero": {
+        "badge": "JOIN OUR TEAM",
+        "title": "Let's shape the future of home services, together",
+        "description": "Home services are changing fast — and so are the expectations of families and professionals. At Casaora, we build tools that give both clarity and confidence. To do it, we need curious people ready to make an impact.",
+        "primaryCTA": "View Open Positions"
+      },
+      "positions": {
+        "title": "Open positions",
+        "categories": {
+          "engineering": {
+            "title": "Engineering",
+            "jobs": {
+              "fullstack": {
+                "title": "Full Stack Engineer",
+                "location": "Remote / Medellín, Colombia",
+                "salary": "$80k - $120k",
+                "type": "Full-time"
+              },
+              "frontend": {
+                "title": "Frontend Engineer",
+                "location": "Remote",
+                "salary": "$70k - $110k",
+                "type": "Full-time"
+              }
+            }
+          },
+          "product": {
+            "title": "Product & Design",
+            "jobs": {
+              "designer": {
+                "title": "Product Designer",
+                "location": "Remote",
+                "salary": "$70k - $100k",
+                "type": "Full-time"
+              }
+            }
+          },
+          "customerSuccess": {
+            "title": "Customer Success",
+            "jobs": {
+              "csManager": {
+                "title": "Customer Success Manager",
+                "location": "Medellín, Colombia",
+                "salary": "$50k - $70k",
+                "type": "Full-time"
+              }
+            }
+          }
+        },
+        "applyButton": "Apply"
+      },
+      "values": {
+        "title": "The values that guide how we work",
+        "description": "At Casaora, culture isn't a poster on the wall — it's how we make decisions every day. If these values resonate with you, you'll feel right at home.",
+        "items": {
+          "clarity": {
+            "title": "Clarity",
+            "description": "We keep things simple and transparent so everyone knows where we're headed."
+          },
+          "impact": {
+            "title": "Impact",
+            "description": "Every decision and action is tied to real outcomes that move the business forward."
+          },
+          "curiosity": {
+            "title": "Curiosity",
+            "description": "We ask, explore, and challenge assumptions to keep learning and improving."
+          },
+          "trust": {
+            "title": "Trust",
+            "description": "We empower one another through accountability, openness, and respect."
+          },
+          "momentum": {
+            "title": "Momentum",
+            "description": "We value progress over perfection, moving quickly while learning along the way."
+          },
+          "collaboration": {
+            "title": "Collaboration",
+            "description": "We achieve more when we share knowledge, challenge ideas, and win as a team."
+          }
+        }
+      }
+    },
+    "signIn": {
+      "meta": {
+        "title": "Sign in | Casaora"
+      },
+      "header": {
+        "createAccount": "Create account"
+      },
+      "hero": {
+        "title": "Welcome back",
+        "description": "Sign in to manage your bookings, documents, and payouts in one workspace."
+      },
+      "form": {
+        "emailLabel": "Email",
+        "emailPlaceholder": "you@example.com",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "••••••••",
+        "signInButton": "Sign in",
+        "signingInButton": "Signing in…",
+        "needAccount": "Need an account?",
+        "createOneNow": "Create one now"
+      },
+      "footer": {
+        "support": "Concierge support is available 7 days a week for onboarding assistance."
+      },
+      "sidebar": {
+        "imageAlt": "Casaora hospitality",
+        "badge": "Trusted domestic talent",
+        "title": "Meticulous professionals handpicked for expat households.",
+        "description": "Our bilingual concierge team vets every profile with interviews, trial visits, and ongoing quality checks."
+      }
+    },
+    "signUp": {
+      "meta": {
+        "title": "Create account | Casaora"
+      },
+      "header": {
+        "signIn": "Sign in"
+      },
+      "hero": {
+        "title": "Create your Casaora account",
+        "description": "Tell us how you plan to use the platform and we'll tailor the experience for households or professionals."
+      },
+      "form": {
+        "accountTypeLabel": "Account type",
+        "accountTypeHelper": "Choose the experience that best matches how you plan to use Casaora.",
+        "customerLabel": "Customer",
+        "customerDescription": "Book pre-vetted professionals for your home.",
+        "professionalLabel": "Professional",
+        "professionalDescription": "Manage your profile, bookings, and payouts.",
+        "fullNameLabel": "Full name",
+        "fullNamePlaceholder": "Andrea Martínez",
+        "phoneLabel": "Phone",
+        "phonePlaceholder": "+57 300 123 4567",
+        "cityLabel": "City",
+        "cityPlaceholder": "Medellín",
+        "preferredLanguageLabel": "Preferred language",
+        "languageEnglish": "English",
+        "languageSpanish": "Español (Colombia)",
+        "emailLabel": "Email",
+        "emailPlaceholder": "you@example.com",
+        "propertyTypeLabel": "Property type",
+        "propertyTypePlaceholder": "Select a property type",
+        "propertyApartment": "Apartment",
+        "propertyHouse": "House",
+        "propertyOffice": "Office",
+        "propertyOther": "Other",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "Create a password",
+        "confirmPasswordLabel": "Confirm password",
+        "confirmPasswordPlaceholder": "Repeat password",
+        "termsLabel": "I agree to the Casaora",
+        "termsLink": "terms of service",
+        "termsConfirm": "and confirm that I understand the mutual respect guidelines.",
+        "successMessage": "Account created. Please check your email to verify and finish signing in.",
+        "createAccountButton": "Create account",
+        "creatingAccountButton": "Creating account…",
+        "haveAccount": "Already have an account?",
+        "signInInstead": "Sign in instead"
+      },
+      "footer": {
+        "support": "We'll guide you with concierge onboarding after you submit your details."
+      },
+      "sidebar": {
+        "imageAlt": "Casaora onboarding",
+        "badge": "Concierge onboarding",
+        "title": "We interview, background check, and coach every professional.",
+        "description": "Build trust from the first visit with structured onboarding, household manuals, and responsive support."
+      }
+    },
+    "terms": {
+      "meta": {
+        "title": "Terms of Service - Casaora",
+        "description": "Casaora's terms of service and user agreement"
+      },
+      "title": "Terms of Service",
+      "lastUpdated": "Last updated: {date}"
+    },
+    "privacy": {
+      "meta": {
+        "title": "Privacy Policy - Casaora",
+        "description": "Casaora's privacy policy and data protection practices"
+      },
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated: {date}"
+    },
+    "professionalProfile": {
+      "meta": {
+        "notFoundTitle": "Professional not found · Casaora",
+        "defaultName": "Casaora Professional",
+        "descriptionTemplate": "View {name}'s Casaora profile{service}{location}."
+      },
+      "backToDirectory": "← Back to directory",
+      "availableForBookings": "Available for bookings",
+      "perHour": "/ hr",
+      "yearsExperience": "yrs experience",
+      "reviews": "reviews",
+      "availableToday": "Available today",
+      "bookingSection": {
+        "title": "Book an appointment",
+        "description": "Choose a date to see available times and request a booking"
+      },
+      "tabs": {
+        "about": "About",
+        "services": "Services",
+        "portfolio": "Portfolio",
+        "reviews": "Reviews"
+      },
+      "aboutTab": {
+        "title": "About",
+        "defaultBio": "This professional is finalizing their public bio. Reach out with a booking request to learn more about their experience."
+      },
+      "servicesTab": {
+        "title": "Services & rates",
+        "serviceLabel": "Service",
+        "rateOnRequest": "Rate on request",
+        "noServicesMessage": "Services are being finalized. Submit a booking request with the details you need and we'll confirm pricing."
+      },
+      "portfolioTab": {
+        "title": "Portfolio",
+        "imageAlt": "Portfolio image",
+        "noImages": "No portfolio images yet"
+      },
+      "reviewsTab": {
+        "title": "Reviews",
+        "moreReviews": "+ {count} more reviews",
+        "noReviews": "No reviews yet"
+      }
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "viewMore": "View more",
+    "viewLess": "View less",
+    "readMore": "Read more",
+    "readLess": "Read less",
+    "seeAll": "See all",
+    "showMore": "Show more",
+    "showLess": "Show less"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "notFound": "Page not found",
+    "unauthorized": "You must be logged in to access this page",
+    "forbidden": "You don't have permission to access this resource",
+    "serverError": "Server error. Please try again later.",
+    "networkError": "Network error. Please check your connection."
+  },
+  "success": {
+    "saved": "Changes saved successfully",
+    "deleted": "Deleted successfully",
+    "created": "Created successfully",
+    "updated": "Updated successfully",
+    "bookingCreated": "Booking created successfully",
+    "messageSent": "Message sent successfully"
+  },
+  "professionalsDirectory": {
+    "header": {
+      "title": "Maidconnect professionals",
+      "subtitle": "Every specialist listed below has cleared Maidconnect's four-stage vetting process and is authorised to serve customers via our platform. These steps include submission and approval of their cédula (Colombian government ID), proof of work eligibility, references, and an in-person interview."
+    },
+    "filters": {
+      "search": "Search by name, service, or neighbourhood",
+      "service": "Service",
+      "allServices": "All services",
+      "city": "City",
+      "allCities": "All cities",
+      "rating": "Rating",
+      "allRatings": "All ratings",
+      "rating45": "4.5+",
+      "rating48": "4.8+",
+      "availableToday": "Available today",
+      "reset": "Reset"
+    },
+    "results": {
+      "noResults": "No professionals match these filters yet."
+    },
+    "card": {
+      "viewProfile": "View profile",
+      "hourly": "COP / hr",
+      "yearsExp": "yrs exp",
+      "onTime": "on-time",
+      "earned": "earned",
+      "hired": "hired",
+      "favorites": "favorites",
+      "favorite": "Favorite this professional",
+      "noBio": "This professional is preparing their public bio. Check back soon.",
+      "newBadge": "New to Casaora",
+      "flexibleServices": "Flexible services",
+      "rateOnRequest": "Rate on request"
+    }
+  },
+  "matchWizard": {
+    "title": "Find Your Perfect Match",
+    "subtitle": "Answer a few questions to get matched with the best professionals for your needs",
+    "step": "Step",
+    "of": "of",
+    "complete": "complete",
+    "exit": "Exit wizard and browse all professionals",
+    "location": {
+      "title": "Where do you need help?",
+      "description": "Select your city and neighborhood to find nearby professionals",
+      "cityLabel": "City",
+      "selectCity": "Select your city",
+      "neighborhoodLabel": "Neighborhood",
+      "optional": "optional",
+      "selectNeighborhood": "Select a neighborhood",
+      "back": "Back",
+      "next": "Next Step"
+    },
+    "service": {
+      "title": "What service do you need?",
+      "description": "Choose the type of service you're looking for",
+      "serviceTypeLabel": "Service Type",
+      "selectService": "Select a service",
+      "templateLabel": "Service Template",
+      "selectTemplate": "Choose a template (optional)",
+      "back": "Back",
+      "next": "Next Step"
+    },
+    "homeDetails": {
+      "title": "Tell us about your home",
+      "description": "This helps us match you with the right professionals",
+      "bedroomsLabel": "Number of bedrooms",
+      "bathroomsLabel": "Number of bathrooms",
+      "squareMetersLabel": "Approximate size (m²)",
+      "hasPetsLabel": "I have pets",
+      "petDetailsLabel": "Pet details (optional)",
+      "petDetailsPlaceholder": "e.g., 2 friendly dogs, hypoallergenic cat",
+      "suppliesLabel": "Professional should bring cleaning supplies",
+      "back": "Back",
+      "next": "Next Step"
+    },
+    "timingBudget": {
+      "title": "When and how much?",
+      "description": "Help us find professionals that match your schedule and budget",
+      "dateLabel": "Preferred Date",
+      "timeLabel": "Preferred Time",
+      "frequencyLabel": "Frequency",
+      "oneTime": "One-time",
+      "weekly": "Weekly",
+      "biweekly": "Bi-weekly",
+      "monthly": "Monthly",
+      "budgetLabel": "Budget Range (COP/hour)",
+      "budgetMin": "Min",
+      "budgetMax": "Max",
+      "back": "Back",
+      "next": "Next Step"
+    },
+    "preferences": {
+      "title": "Any special preferences?",
+      "description": "These help us narrow down the perfect match",
+      "languageLabel": "Language Preference",
+      "languageEnglish": "English",
+      "languageSpanish": "Spanish",
+      "languageBilingual": "Bilingual",
+      "verificationLabel": "Verification Level",
+      "verificationBasic": "Basic (ID verified)",
+      "verificationEnhanced": "Enhanced (background check)",
+      "verificationBackground": "Background checked",
+      "experienceLabel": "Minimum Experience (years)",
+      "availabilityLabel": "Availability",
+      "availabilityToday": "Available today",
+      "availabilityWeek": "Available this week",
+      "availabilityFlexible": "Flexible",
+      "back": "Back",
+      "next": "See Matches"
+    },
+    "results": {
+      "title": "We found {count} perfect matches!",
+      "description": "Based on your preferences, here are our top recommendations",
+      "matchScore": "{score}% match",
+      "viewProfile": "View Full Profile",
+      "bookNow": "Book Now",
+      "noMatches": "No exact matches found",
+      "noMatchesDescription": "Try adjusting your preferences or browse all professionals",
+      "browseAll": "Browse All Professionals",
+      "startOver": "Start Over"
+    }
+  },
+  "changelog": {
+    "title": "What's New",
+    "whatsNew": "What's New",
+    "viewAllUpdates": "View All Updates",
+    "gotIt": "Got it!",
+    "marking": "Marking as read...",
+    "noUpdates": "No new updates",
+    "success": {
+      "title": "Thanks for checking!",
+      "message": "You're all caught up with the latest updates."
+    }
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "description": "Help us improve Casaora by sharing your thoughts, suggestions, or reporting issues.",
+    "form": {
+      "typeLabel": "What kind of feedback is this?",
+      "subjectLabel": "Subject",
+      "subjectPlaceholder": "Brief summary (optional)",
+      "messageLabel": "Your feedback",
+      "messagePlaceholder": "Tell us what's on your mind...",
+      "emailLabel": "Email",
+      "emailPlaceholder": "your@email.com",
+      "emailHelp": "We'll only use this to follow up on your feedback",
+      "optional": "optional",
+      "consentText": "I consent to Casaora processing this feedback to improve the platform.",
+      "privacyNotice": "We collect your feedback, page URL, and browser info to improve Casaora. Your email is optional for follow-up. We respect your privacy and comply with Colombian data protection laws.",
+      "submit": "Submit Feedback",
+      "submitting": "Sending..."
+    },
+    "success": {
+      "title": "Thank you!",
+      "message": "Your feedback has been received. We appreciate you taking the time to help us improve."
+    }
+  },
+  "pricing": {
+    "meta": {
+      "title": "Pricing - Simple, Transparent Plans | Casaora",
+      "description": "Choose the perfect plan for your needs. Transparent pricing with no hidden fees. Start free or upgrade for premium features."
+    },
+    "title": "Simple, transparent pricing",
+    "subtitle": "Choose the plan that works for you. All plans include our core features with no hidden fees.",
+    "faq": {
+      "title": "Frequently asked questions",
+      "subtitle": "Have questions? We're here to help."
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "subtitle": "Join thousands of satisfied customers using Casaora.",
+      "primary": "Start Free Trial",
+      "secondary": "Contact Sales"
+    }
+  },
+  "roadmap": {
+    "meta": {
+      "title": "Product Roadmap - What We're Building | Casaora",
+      "description": "See what we're working on and vote on features you'd like to see next. Your feedback shapes our product."
+    },
+    "title": "Product Roadmap",
+    "subtitle": "See what we're building and vote on features you want most. Your feedback shapes our future.",
+    "empty": {
+      "title": "No roadmap items yet",
+      "description": "Check back soon to see what we're working on. Be the first to suggest features and vote on what matters to you."
+    }
+  },
+  "amara": {
+    "title": "Amara",
+    "subtitle": "AI Booking Assistant",
+    "greeting": "👋 Hi there! Welcome to Casaora.",
+    "welcomeMessage": "Hi! I'm Amara, your AI booking assistant. How can I help you find the perfect cleaning professional today?",
+    "openChat": "Chat with Amara",
+    "closeChat": "Close chat",
+    "inputPlaceholder": "Type your message...",
+    "send": "Send message",
+    "errorMessage": "Sorry, I had trouble processing that. Could you try rephrasing?",
+    "onboarding": {
+      "title": "Meet Amara, Your AI Assistant",
+      "description": "I can help you find professionals, check availability, and book services instantly. Just ask me anything!",
+      "dismiss": "Got it!",
+      "hint": "New! Click to chat"
+    },
+    "searchingProfessionals": "Searching for professionals...",
+    "checkingAvailability": "Checking availability...",
+    "creatingBookingDraft": "Creating booking preview...",
+    "thumbsUp": "Helpful response",
+    "thumbsDown": "Not helpful",
+    "copyMessage": "Copy message",
+    "retry": "Retry",
+    "quickReply": {
+      "searchProfessionals": "Find a cleaner",
+      "checkAvailability": "Check availability",
+      "topRated": "Top rated cleaners",
+      "nearMe": "Cleaners near me",
+      "checkTheirAvailability": "Check their availability",
+      "searchDifferent": "Search different area",
+      "seeReviews": "See their reviews",
+      "bookNow": "Book this time",
+      "checkOtherTimes": "Check other times"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "About Us - Our Story | Casaora",
+      "description": "Learn about Casaora's mission to connect expats in Colombia with trusted, bilingual domestic service professionals through our concierge-led marketplace."
+    },
+    "story": {
+      "title": "Bridging Cultures, Building Trust",
+      "subtitle": "We're building the trusted marketplace that connects foreigners in Colombia with verified, bilingual domestic service professionals.",
+      "problem": {
+        "title": "The Challenge We're Solving",
+        "paragraph1": "Moving to a new country is exciting—but finding reliable domestic help shouldn't be stressful. Expats in Colombia face language barriers, uncertainty about trust and safety, and a lack of vetted professionals who understand their needs.",
+        "paragraph2": "Traditional word-of-mouth recommendations are limited, and existing platforms don't offer the bilingual support, verification, or ongoing concierge assistance that foreigners truly need."
+      },
+      "solution": {
+        "title": "Our Solution",
+        "paragraph1": "Casaora is the first concierge-led marketplace designed specifically for expats. We combine technology with human touch to create a seamless, trustworthy experience:",
+        "feature1": {
+          "title": "Verified Professionals",
+          "description": "Every professional goes through background checks, ID verification, and skills assessment before joining our platform."
+        },
+        "feature2": {
+          "title": "Bilingual Support",
+          "description": "Our entire platform and concierge team operates in both English and Spanish, eliminating communication barriers."
+        },
+        "feature3": {
+          "title": "Ongoing Assistance",
+          "description": "From booking to completion, our concierge team is available to help resolve any issues and ensure quality service."
+        }
+      },
+      "journey": {
+        "title": "Our Journey",
+        "paragraph1": "Founded by expats who experienced these challenges firsthand, Casaora was born from a simple idea: finding trustworthy domestic help in a foreign country should be easy, safe, and stress-free. Today, we're proud to serve hundreds of expat families and empower local professionals across Colombia."
+      }
+    },
+    "missionVision": {
+      "sectionTitle": "Our Mission & Vision",
+      "sectionSubtitle": "We're on a mission to make domestic services accessible, transparent, and trustworthy for everyone.",
+      "mission": {
+        "title": "Our Mission",
+        "description": "To connect foreigners living in Colombia with verified, bilingual domestic service professionals through a secure, transparent marketplace powered by concierge support and modern technology."
+      },
+      "vision": {
+        "title": "Our Vision",
+        "description": "To become the most trusted platform for expat services across Latin America, empowering both customers and professionals with safety, transparency, and opportunity."
+      },
+      "values": {
+        "title": "Our Core Values",
+        "subtitle": "These principles guide everything we do",
+        "trust": {
+          "title": "Trust First",
+          "description": "We verify every professional and maintain transparent communication to earn and keep your trust."
+        },
+        "quality": {
+          "title": "Quality Service",
+          "description": "We set high standards for professionals and continuously monitor service quality through reviews and feedback."
+        },
+        "bilingual": {
+          "title": "Bilingual Excellence",
+          "description": "We eliminate language barriers by supporting both English and Spanish across our entire platform."
+        },
+        "empowerment": {
+          "title": "Empowerment",
+          "description": "We empower both expats to find reliable help and local professionals to grow sustainable businesses."
+        }
+      }
+    },
+    "team": {
+      "title": "Our Remote-First Team",
+      "subtitle": "We're a distributed team spanning Colombia and the United States, united by our mission to serve expats and professionals.",
+      "remoteFirst": {
+        "title": "Built for Global Impact",
+        "description": "As a remote-first company, we practice what we preach. Our distributed team brings diverse perspectives, deep local knowledge, and a genuine understanding of the expat experience. We work asynchronously across time zones to provide 24/7 support for our community."
+      },
+      "stats": {
+        "locations": "2+",
+        "locationsLabel": "Countries",
+        "timezones": "3",
+        "timezonesLabel": "Time Zones",
+        "languages": "2",
+        "languagesLabel": "Languages"
+      },
+      "benefits": {
+        "distributed": {
+          "title": "Globally Distributed",
+          "description": "Our team spans Colombia and the US, giving us deep insight into both expat and local needs."
+        },
+        "bilingual": {
+          "title": "Fully Bilingual",
+          "description": "Every team member speaks both English and Spanish fluently, ensuring seamless communication."
+        },
+        "available": {
+          "title": "Always Available",
+          "description": "With team members across time zones, we provide responsive support when you need it."
+        },
+        "expertise": {
+          "title": "Diverse Expertise",
+          "description": "Our backgrounds in hospitality, tech, and operations bring well-rounded solutions to complex challenges."
+        }
+      },
+      "joinTeam": {
+        "title": "Want to Join Our Mission?",
+        "description": "We're always looking for passionate people who want to make a difference in the lives of expats and professionals.",
+        "cta": "Get in Touch"
+      }
+    },
+    "trust": {
+      "title": "Why Trust Casaora?",
+      "subtitle": "Safety, security, and transparency are at the core of everything we do.",
+      "verification": {
+        "title": "Verified Professionals",
+        "description": "Background checks, ID verification, and skills assessment for every professional on our platform."
+      },
+      "secure": {
+        "title": "Secure Payments",
+        "description": "All transactions are processed through Stripe with bank-level encryption and buyer protection."
+      },
+      "support": {
+        "title": "Concierge Support",
+        "description": "Our bilingual team is available to help resolve any issues before, during, and after your service."
+      },
+      "transparency": {
+        "title": "Full Transparency",
+        "description": "Verified reviews, clear pricing, and detailed professional profiles so you can book with confidence."
+      }
+    },
+    "cta": {
+      "title": "Ready to Experience the Difference?",
+      "subtitle": "Join thousands of expats who trust Casaora for their domestic service needs.",
+      "browseProfessionals": "Browse Professionals",
+      "signUp": "Sign Up Free"
+    }
+  },
+  "howItWorks": {
+    "meta": {
+      "title": "How It Works - Simple Steps to Quality Service | Casaora",
+      "description": "Discover how Casaora makes it easy to find trusted domestic service professionals. Browse verified profiles, book services, and get support every step of the way."
+    },
+    "hero": {
+      "title": "How Casaora Works",
+      "subtitle": "Whether you're looking for help or offering your services, we've made the process simple, safe, and transparent."
+    },
+    "customer": {
+      "title": "For Customers",
+      "subtitle": "Find trusted professionals in 4 easy steps",
+      "steps": {
+        "search": {
+          "title": "Search & Browse",
+          "description": "Browse verified professionals by service type, location, and availability. Filter by language, ratings, and experience to find your perfect match."
+        },
+        "book": {
+          "title": "Book Your Service",
+          "description": "Choose your preferred date and time, review transparent pricing, and book instantly. Our concierge team is available if you need help."
+        },
+        "service": {
+          "title": "Enjoy Quality Service",
+          "description": "The professional arrives on time and delivers exceptional service. Our support team is standing by if you need any assistance."
+        },
+        "review": {
+          "title": "Review & Rebook",
+          "description": "Share your experience to help others. Loved your professional? Save them as a favorite and rebook with one click."
+        }
+      },
+      "cta": "Browse Professionals"
+    },
+    "professional": {
+      "title": "For Professionals",
+      "subtitle": "Grow your business in 5 straightforward steps",
+      "steps": {
+        "apply": {
+          "title": "Apply to Join",
+          "description": "Fill out our simple application with your experience, skills, and availability. The process takes less than 10 minutes."
+        },
+        "verify": {
+          "title": "Get Verified",
+          "description": "Complete background checks, ID verification, and skills assessment. Our concierge team guides you through every step in English or Spanish."
+        },
+        "match": {
+          "title": "Get Matched",
+          "description": "Create your profile, set your rates, and get matched with customers who need your services. You're in control of your schedule."
+        },
+        "serve": {
+          "title": "Deliver Great Service",
+          "description": "Show up on time, provide excellent service, and build your reputation through customer reviews and ratings."
+        },
+        "earn": {
+          "title": "Earn & Grow",
+          "description": "Get paid securely after each job. Build a loyal client base, earn more through repeat bookings, and grow your business."
+        }
+      },
+      "cta": "Apply as a Professional"
+    },
+    "safety": {
+      "title": "Safety & Trust",
+      "subtitle": "Your security is our top priority. Here's how we keep you protected.",
+      "verification": {
+        "title": "Rigorous Verification",
+        "description": "Every professional undergoes background checks, ID verification, and skills assessment before joining our platform. We continuously monitor quality through reviews."
+      },
+      "payments": {
+        "title": "Secure Payments",
+        "description": "All payments are processed through Stripe with bank-level encryption. Customers are protected, and professionals get paid reliably after each job."
+      },
+      "support": {
+        "title": "24/7 Concierge Support",
+        "description": "Our bilingual support team is available around the clock to help resolve any issues, answer questions, and ensure smooth service delivery."
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Got questions? We've got answers.",
+      "q1": {
+        "question": "How are professionals verified?",
+        "answer": "Every professional goes through a comprehensive verification process including background checks, ID verification, reference checks, and skills assessment. We also continuously monitor service quality through customer reviews and ratings."
+      },
+      "q2": {
+        "question": "What if I'm not satisfied with the service?",
+        "answer": "Your satisfaction is guaranteed. If you're not happy with a service, contact our concierge team within 24 hours and we'll work to resolve the issue—whether that's arranging a redo, finding a different professional, or issuing a refund."
+      },
+      "q3": {
+        "question": "How do payments work?",
+        "answer": "For customers: Pay securely through the platform using credit/debit cards or bank transfers. Your payment is held securely until the service is completed. For professionals: You receive payment automatically after each completed job, minus our small service fee."
+      },
+      "q4": {
+        "question": "Can I communicate in English even though I'm in Colombia?",
+        "answer": "Absolutely! Our entire platform, support team, and many of our professionals are fully bilingual. You can browse, book, and get support entirely in English or Spanish—whatever you're most comfortable with."
+      },
+      "stillHaveQuestions": "Still have questions?",
+      "contactUs": "Contact our support team"
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "subtitle": "Join thousands of customers and professionals who trust Casaora.",
+      "browseButton": "Browse Professionals",
+      "signUpButton": "Sign Up Free"
+    }
+  },
+  "help": {
+    "meta": {
+      "title": "Help Center",
+      "description": "Find answers to common questions and learn how to use Casaora"
+    },
+    "hero": {
+      "title": "How can we help you?",
+      "subtitle": "Search our knowledge base or browse categories below"
+    },
+    "search": {
+      "placeholder": "Search for help...",
+      "searching": "Searching...",
+      "noResults": "No articles found matching your search",
+      "viewAll": "View all results",
+      "browseAll": "Browse all articles"
+    },
+    "categories": {
+      "title": "Browse by Category",
+      "article": "article",
+      "articles": "articles",
+      "browse": "Browse articles"
+    },
+    "popular": {
+      "title": "Popular Articles",
+      "view": "view",
+      "views": "views"
+    },
+    "contact": {
+      "title": "Still need help?",
+      "description": "Our support team is here to assist you",
+      "button": "Contact Support"
+    },
+    "breadcrumb": {
+      "home": "Help Center"
+    },
+    "category": {
+      "articlesCount": "{count, plural, =1 {1 article} other {# articles}}",
+      "view": "view",
+      "views": "views",
+      "helpful": "helpful",
+      "backToHelp": "Back to Help Center",
+      "noArticles": {
+        "title": "No articles yet",
+        "description": "Check back soon for helpful articles in this category",
+        "button": "Browse Other Categories"
+      }
+    },
+    "article": {
+      "meta": {
+        "updated": "Updated {date}",
+        "views": "{count, plural, =1 {1 view} other {# views}}"
+      },
+      "feedback": {
+        "question": "Was this article helpful?",
+        "helpful": "Yes, helpful",
+        "notHelpful": "Not helpful",
+        "thanksHelpful": "Thanks for your feedback!",
+        "thanksNotHelpful": "Thanks for your feedback. We'll work to improve this article.",
+        "tellUsMore": "Tell us what we could improve:",
+        "placeholder": "How can we make this article better?",
+        "submit": "Submit Feedback",
+        "skip": "Skip",
+        "alreadySubmitted": "You've already provided feedback for this article",
+        "error": "Failed to submit feedback. Please try again."
+      },
+      "related": {
+        "title": "Related Articles",
+        "readMore": "Read more"
+      },
+      "contact": {
+        "title": "Still have questions?",
+        "description": "Our support team is here to help",
+        "button": "Contact Support"
+      }
+    }
+  },
+  "bookings": {
+    "arrivalTracker": {
+      "status": {
+        "enRoute": {
+          "title": "{name} is on the way",
+          "description": "Your professional is traveling to your location."
+        },
+        "arrivingSoon": {
+          "title": "{name} is arriving soon",
+          "description": "Your professional should arrive within the next 30 minutes."
+        },
+        "arrived": {
+          "title": "{name} has arrived",
+          "description": "Your professional is at your location and will check in shortly."
+        }
+      },
+      "timeWindow": "Expected between {start} - {end}",
+      "estimatedArrival": "Estimated arrival: {time}",
+      "updatedJustNow": "Updated just now",
+      "updatedMinuteAgo": "Updated 1 minute ago",
+      "updatedMinutesAgo": "Updated {minutes} minutes ago",
+      "privacyNotice": "Your professional location is private. Only arrival time windows are shared to respect privacy."
+    }
+  },
+  "city": {
+    "meta": {
+      "title": "Professional Cleaning Services in {city} | Casaora",
+      "description": "Find verified, trusted cleaning professionals in {city}. Book house cleaning, deep cleaning, and more. Background-checked pros with real reviews."
+    },
+    "hero": {
+      "title": "Trusted Cleaning Services in {city}",
+      "description": "Connect with verified cleaning professionals in {city}. All our pros are background-checked, insured, and rated by real customers in your community.",
+      "visualTagline": "Your Local Cleaning Marketplace",
+      "popularServices": "Popular Services",
+      "services": {
+        "cleaning": "House Cleaning",
+        "deepCleaning": "Deep Cleaning",
+        "moving": "Move-in/out"
+      },
+      "stats": {
+        "professionals": "Professionals",
+        "reviews": "reviews"
+      },
+      "cta": {
+        "primary": "Find Professionals",
+        "secondary": "How It Works"
+      }
+    },
+    "professionals": {
+      "title": "Top-Rated Professionals in {city}",
+      "description": "{count} verified cleaning professionals ready to help",
+      "empty": "No professionals found in {city} yet",
+      "emptyDescription": "Check back soon! We are expanding to new areas regularly.",
+      "viewAll": "View All Professionals",
+      "card": {
+        "verified": "Verified",
+        "unnamed": "Professional",
+        "reviews": "reviews",
+        "startingAt": "Starting at"
+      }
+    }
+  }

@@ -188,7 +188,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
                         <div
                           className={
                             header.column.getCanSort()
-                              ? "flex cursor-pointer select-none items-center gap-2 hover:text-[#ff5d46]"
+                              ? "flex cursor-pointer select-none items-center gap-2 hover:text-[#8B7355]"
                               : ""
                           }
                           onClick={header.column.getToggleSortingHandler()}
@@ -232,7 +232,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
           </div>
           <div className="flex items-center gap-2">
             <button
-              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:opacity-50"
+              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:opacity-50"
               disabled={!table.getCanPreviousPage()}
               onClick={() => table.previousPage()}
               type="button"
@@ -240,7 +240,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
               Previous
             </button>
             <button
-              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:opacity-50"
+              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:opacity-50"
               disabled={!table.getCanNextPage()}
               onClick={() => table.nextPage()}
               type="button"

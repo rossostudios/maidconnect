@@ -41,7 +41,7 @@ export function PortfolioGallery({
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {sortedImages.map((image) => (
           <button
-            className="group relative aspect-square overflow-hidden rounded-lg border border-[#e5dfd4] bg-[#f0ece5] transition hover:border-[#ff5d46] hover:shadow-md"
+            className="group relative aspect-square overflow-hidden rounded-lg border border-[#e5dfd4] bg-[#f0ece5] transition hover:border-[#8B7355] hover:shadow-md"
             key={image.id}
             onClick={() => setSelectedImage(image)}
             type="button"

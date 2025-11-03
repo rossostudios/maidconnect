@@ -69,7 +69,7 @@ export function FavoritesList() {
         <p className="mt-4 font-semibold text-[#211f1a] text-lg">{t("empty.title")}</p>
         <p className="mt-2 text-[#5d574b] text-base leading-relaxed">{t("empty.description")}</p>
         <Link
-          className="mt-6 inline-flex rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
+          className="mt-6 inline-flex rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]"
           href="/professionals"
         >
           {t("empty.browseProfessionals")}
@@ -128,7 +128,7 @@ function ProfessionalCard({
                 src={professional.profile.avatar_url}
               />
             ) : (
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#ff5d46] font-semibold text-white text-xl">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#8B7355] font-semibold text-white text-xl">
                 {professional.profile.full_name.charAt(0).toUpperCase()}
               </div>
             )}
@@ -165,12 +165,12 @@ function ProfessionalCard({
           <div className="mt-6 flex items-center justify-between">
             <div>
               <p className="font-medium text-[#7d7566] text-sm">{t("card.startingAt")}</p>
-              <p className="mt-1 font-semibold text-[#ff5d46] text-lg">
+              <p className="mt-1 font-semibold text-[#8B7355] text-lg">
                 {priceFormatted}
                 {t("card.perHour")}
               </p>
             </div>
-            <span className="font-semibold text-[#5d574b] text-base group-hover:text-[#ff5d46]">
+            <span className="font-semibold text-[#5d574b] text-base group-hover:text-[#8B7355]">
               {t("card.viewProfile")}
             </span>
           </div>

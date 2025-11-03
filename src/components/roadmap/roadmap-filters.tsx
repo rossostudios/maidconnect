@@ -60,7 +60,7 @@ export function RoadmapFilters({
       {/* Search bar */}
       <div className="relative">
         <div
-          className={`relative flex items-center gap-2 rounded-[16px] border-2 bg-white px-4 py-3 transition-all ${isSearchFocused ? "border-[#ff5d46]" : "border-[#ebe5d8]"}
+          className={`relative flex items-center gap-2 rounded-[16px] border-2 bg-white px-4 py-3 transition-all ${isSearchFocused ? "border-[#8B7355]" : "border-[#ebe5d8]"}
         `}
         >
           <Search className="flex-shrink-0 text-[#6B7280]" size={20} />
@@ -97,8 +97,8 @@ export function RoadmapFilters({
               <button
                 className={`inline-flex items-center gap-1.5 rounded-[12px] border-2 px-3 py-2 font-medium text-sm transition-all duration-200 ${
                   isSelected
-                    ? "border-[#ff5d46] bg-[#fff5f3] text-[#ff5d46]"
-                    : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#ff5d46]"
+                    ? "border-[#8B7355] bg-[#fff5f3] text-[#8B7355]"
+                    : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#8B7355]"
                 }
                 `}
                 key={status}
@@ -124,8 +124,8 @@ export function RoadmapFilters({
               <button
                 className={`inline-flex items-center gap-1.5 rounded-[12px] border-2 px-3 py-2 font-medium text-sm transition-all duration-200 ${
                   isSelected
-                    ? "border-[#ff5d46] bg-[#fff5f3] text-[#ff5d46]"
-                    : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#ff5d46]"
+                    ? "border-[#8B7355] bg-[#fff5f3] text-[#8B7355]"
+                    : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#8B7355]"
                 }
                 `}
                 key={category}
@@ -142,7 +142,7 @@ export function RoadmapFilters({
       {/* Clear filters */}
       {hasActiveFilters && (
         <button
-          className="font-medium text-[#ff5d46] text-sm transition-colors hover:text-[#e54d36]"
+          className="font-medium text-[#8B7355] text-sm transition-colors hover:text-[#8B7355]"
           onClick={clearAllFilters}
         >
           Clear all filters

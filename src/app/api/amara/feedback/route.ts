@@ -1,8 +1,8 @@
 /**
- * Etta Feedback API Route
+ * Amara Feedback API Route
  *
- * Handles user feedback (thumbs up/down) for Etta's responses.
- * Stores feedback in the etta_messages table for analytics and improvement.
+ * Handles user feedback (thumbs up/down) for Amara's responses.
+ * Stores feedback in the amara_messages table for analytics and improvement.
  */
 
 import { NextResponse } from "next/server";
@@ -43,7 +43,7 @@ async function feedbackHandler(request: Request) {
 
     // First, get the current message to retrieve existing metadata
     const { data: message, error: fetchError } = await supabase
-      .from("etta_messages")
+      .from("amara_messages")
       .select("metadata")
       .eq("id", messageId)
       .eq("role", "assistant")
@@ -64,7 +64,7 @@ async function feedbackHandler(request: Request) {
     };
 
     const { error: updateError } = await supabase
-      .from("etta_messages")
+      .from("amara_messages")
       .update({
         metadata: updatedMetadata,
       })

@@ -50,7 +50,7 @@ export function Breadcrumbs() {
       <ol className="flex items-center gap-2 rounded-[28px] bg-white px-4 py-3 text-sm shadow-sm">
         <li>
           <Link
-            className="flex items-center gap-1.5 text-[#7d7566] transition hover:text-[#ff5d46]"
+            className="flex items-center gap-1.5 text-[#7d7566] transition hover:text-[#8B7355]"
             href="/"
           >
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,7 +75,7 @@ export function Breadcrumbs() {
               <path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
             </svg>
             {item.href ? (
-              <Link className="text-[#7d7566] transition hover:text-[#ff5d46]" href={item.href}>
+              <Link className="text-[#7d7566] transition hover:text-[#8B7355]" href={item.href}>
                 {item.label}
               </Link>
             ) : (

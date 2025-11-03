@@ -298,7 +298,7 @@ export async function GET(request: Request) {
     };
 
     // Return as downloadable JSON file
-    const filename = `maidconnect_data_export_${userId}_${Date.now()}.json`;
+    const filename = `casaora_data_export_${userId}_${Date.now()}.json`;
 
     return new NextResponse(JSON.stringify(exportData, null, 2), {
       status: 200,

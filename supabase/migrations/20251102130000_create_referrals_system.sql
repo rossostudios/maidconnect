@@ -26,12 +26,12 @@ CREATE TABLE IF NOT EXISTS public.referral_codes (
 );
 
 -- Indexes for performance
-CREATE INDEX idx_referral_codes_user_id ON public.referral_codes(user_id);
-CREATE INDEX idx_referral_codes_code ON public.referral_codes(code) WHERE is_active = true;
-CREATE INDEX idx_referral_codes_active ON public.referral_codes(is_active) WHERE is_active = true;
+CREATE INDEX IF NOT EXISTS idx_referral_codes_user_id ON public.referral_codes(user_id);
+CREATE INDEX IF NOT EXISTS idx_referral_codes_code ON public.referral_codes(code) WHERE is_active = true;
+CREATE INDEX IF NOT EXISTS idx_referral_codes_active ON public.referral_codes(is_active) WHERE is_active = true;
 
 -- Ensure one active code per user (partial unique index)
-CREATE UNIQUE INDEX idx_unique_active_code_per_user ON public.referral_codes(user_id) WHERE is_active = true;
+CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_active_code_per_user ON public.referral_codes(user_id) WHERE is_active = true;
 
 -- =============================================
 -- 2. Referrals Table
@@ -67,10 +67,10 @@ CREATE TABLE IF NOT EXISTS public.referrals (
 );
 
 -- Indexes
-CREATE INDEX idx_referrals_referrer_id ON public.referrals(referrer_id);
-CREATE INDEX idx_referrals_referee_id ON public.referrals(referee_id);
-CREATE INDEX idx_referrals_status ON public.referrals(status);
-CREATE INDEX idx_referrals_code_id ON public.referrals(referral_code_id);
+CREATE INDEX IF NOT EXISTS idx_referrals_referrer_id ON public.referrals(referrer_id);
+CREATE INDEX IF NOT EXISTS idx_referrals_referee_id ON public.referrals(referee_id);
+CREATE INDEX IF NOT EXISTS idx_referrals_status ON public.referrals(status);
+CREATE INDEX IF NOT EXISTS idx_referrals_code_id ON public.referrals(referral_code_id);
 
 -- =============================================
 -- 3. Referral Credits Table
@@ -102,10 +102,10 @@ CREATE TABLE IF NOT EXISTS public.referral_credits (
 );
 
 -- Indexes
-CREATE INDEX idx_referral_credits_user_id ON public.referral_credits(user_id);
-CREATE INDEX idx_referral_credits_referral_id ON public.referral_credits(referral_id);
-CREATE INDEX idx_referral_credits_type ON public.referral_credits(transaction_type);
-CREATE INDEX idx_referral_credits_expires_at ON public.referral_credits(expires_at) WHERE expires_at IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_referral_credits_user_id ON public.referral_credits(user_id);
+CREATE INDEX IF NOT EXISTS idx_referral_credits_referral_id ON public.referral_credits(referral_id);
+CREATE INDEX IF NOT EXISTS idx_referral_credits_type ON public.referral_credits(transaction_type);
+CREATE INDEX IF NOT EXISTS idx_referral_credits_expires_at ON public.referral_credits(expires_at) WHERE expires_at IS NOT NULL;
 
 -- =============================================
 -- 4. Helper Functions
@@ -117,6 +117,7 @@ CREATE OR REPLACE FUNCTION public.generate_referral_code()
 RETURNS text
 LANGUAGE plpgsql
 SECURITY DEFINER
+SET search_path = public, pg_temp
 AS $$
 DECLARE
   alphabet text := 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; -- 32 characters (no I, L, O, 0, 1)
@@ -160,6 +161,7 @@ CREATE OR REPLACE FUNCTION public.get_user_referral_credits(p_user_id uuid)
 RETURNS integer
 LANGUAGE plpgsql
 SECURITY DEFINER
+SET search_path = public, pg_temp
 AS $$
 DECLARE
   total_credits integer;
@@ -183,6 +185,7 @@ CREATE OR REPLACE FUNCTION public.award_referral_credits(
 RETURNS void
 LANGUAGE plpgsql
 SECURITY DEFINER
+SET search_path = public, pg_temp
 AS $$
 DECLARE
   v_referral record;
@@ -258,6 +261,13 @@ ALTER TABLE public.referral_codes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.referrals ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.referral_credits ENABLE ROW LEVEL SECURITY;
 
+-- Drop existing policies if they exist (for idempotency)
+DROP POLICY IF EXISTS "Users can view their own referral codes" ON public.referral_codes;
+DROP POLICY IF EXISTS "Users can create their own referral codes" ON public.referral_codes;
+DROP POLICY IF EXISTS "Users can update their own referral codes" ON public.referral_codes;
+DROP POLICY IF EXISTS "Users can view referrals they're involved in" ON public.referrals;
+DROP POLICY IF EXISTS "Users can view their own credits" ON public.referral_credits;
+
 -- Referral Codes Policies
 CREATE POLICY "Users can view their own referral codes"
   ON public.referral_codes FOR SELECT
@@ -296,6 +306,11 @@ BEGIN
 END;
 $$;
 
+-- Drop existing triggers if they exist (for idempotency)
+DROP TRIGGER IF EXISTS update_referral_codes_updated_at ON public.referral_codes;
+DROP TRIGGER IF EXISTS update_referrals_updated_at ON public.referrals;
+
+-- Create triggers
 CREATE TRIGGER update_referral_codes_updated_at
   BEFORE UPDATE ON public.referral_codes
   FOR EACH ROW

@@ -168,7 +168,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
               {t("form.reasonLabel")}
             </label>
             <textarea
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
               id="reason"
               onChange={(e) => setReason(e.target.value)}
               placeholder={t("form.reasonPlaceholder")}
@@ -192,7 +192,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
         {/* Actions */}
         <div className="mt-8 flex gap-3">
           <button
-            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={loading}
             onClick={onClose}
             type="button"

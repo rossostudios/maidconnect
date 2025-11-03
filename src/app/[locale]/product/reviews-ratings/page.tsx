@@ -31,14 +31,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: t("title"),
       description: t("description"),
-      url: "https://maidconnect.co/product/reviews-ratings",
-      siteName: "Maidconnect",
+      url: "https://casaora.co/product/reviews-ratings",
+      siteName: "Casaora",
       images: [
         {
-          url: "https://maidconnect.co/og-reviews-ratings.png",
+          url: "https://casaora.co/og-reviews-ratings.png",
           width: 1200,
           height: 630,
-          alt: "Maidconnect Reviews & Ratings",
+          alt: "Casaora Reviews & Ratings",
         },
       ],
       locale: locale === "es" ? "es_ES" : "en_US",
@@ -48,10 +48,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: t("title"),
       description: t("description"),
-      images: ["https://maidconnect.co/og-reviews-ratings.png"],
+      images: ["https://casaora.co/og-reviews-ratings.png"],
     },
     alternates: {
-      canonical: "https://maidconnect.co/product/reviews-ratings",
+      canonical: "https://casaora.co/product/reviews-ratings",
     },
   };
 }
@@ -63,11 +63,11 @@ export default async function ReviewsRatingsPage({ params }: Props) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: "Maidconnect Reviews & Ratings System",
+    name: "Casaora Reviews & Ratings System",
     description: t("hero.description"),
     brand: {
       "@type": "Brand",
-      name: "Maidconnect",
+      name: "Casaora",
     },
     aggregateRating: {
       "@type": "AggregateRating",
@@ -167,54 +167,54 @@ export default async function ReviewsRatingsPage({ params }: Props) {
 
             <div className="mt-16 grid gap-8 md:grid-cols-2">
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff5d46]/10">
-                  <Star className="h-6 w-6 text-[#ff5d46]" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#8B7355]/10">
+                  <Star className="h-6 w-6 text-[#8B7355]" />
                 </div>
                 <h3 className="mt-6 font-semibold text-2xl text-[#211f1a]">
                   {t("categories.forProfessionals.title")}
                 </h3>
                 <ul className="mt-4 space-y-3 text-[#5d574b] text-base">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#8B7355]" />
                     <span>{t("categories.forProfessionals.serviceQuality")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#8B7355]" />
                     <span>{t("categories.forProfessionals.communication")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#8B7355]" />
                     <span>{t("categories.forProfessionals.punctuality")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#8B7355]" />
                     <span>{t("categories.forProfessionals.value")}</span>
                   </li>
                 </ul>
               </div>
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff5d46]/10">
-                  <Users className="h-6 w-6 text-[#ff5d46]" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#8B7355]/10">
+                  <Users className="h-6 w-6 text-[#8B7355]" />
                 </div>
                 <h3 className="mt-6 font-semibold text-2xl text-[#211f1a]">
                   {t("categories.forCustomers.title")}
                 </h3>
                 <ul className="mt-4 space-y-3 text-[#5d574b] text-base">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#8B7355]" />
                     <span>{t("categories.forCustomers.clarity")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#8B7355]" />
                     <span>{t("categories.forCustomers.respect")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#8B7355]" />
                     <span>{t("categories.forCustomers.payment")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#ff5d46]" />
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#8B7355]" />
                     <span>{t("categories.forCustomers.communication")}</span>
                   </li>
                 </ul>
@@ -232,7 +232,7 @@ export default async function ReviewsRatingsPage({ params }: Props) {
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -246,7 +246,7 @@ export default async function ReviewsRatingsPage({ params }: Props) {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -260,7 +260,7 @@ export default async function ReviewsRatingsPage({ params }: Props) {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -274,7 +274,7 @@ export default async function ReviewsRatingsPage({ params }: Props) {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -303,14 +303,14 @@ export default async function ReviewsRatingsPage({ params }: Props) {
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
+                className="inline-flex items-center justify-center rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]"
                 href="/professionals"
               >
                 {t("cta.browseProfessionals")}
               </Link>
 
               <Link
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] hover:text-[#8B7355]"
                 href="/auth/sign-up"
               >
                 {t("cta.signUpFree")}

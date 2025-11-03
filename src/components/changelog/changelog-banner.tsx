@@ -1,9 +1,15 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Sparkles, X } from "lucide-react";
 import { useState } from "react";
 import { useLatestChangelog } from "@/hooks/use-latest-changelog";
-import { ChangelogModal } from "./changelog-modal";
+
+// Dynamic import for modal (lazy load on demand)
+const ChangelogModal = dynamic(
+  () => import("./changelog-modal").then((mod) => mod.ChangelogModal),
+  { ssr: false }
+);
 
 /**
  * Banner notification for new changelog entries
@@ -56,7 +62,7 @@ export function ChangelogBanner() {
                 })}
               </p>
             </div>
-            <span className="hidden rounded-full border border-[#ff5d46] px-3 py-1 font-medium text-[#ff5d46] text-sm transition group-hover:bg-[#ff5d46] group-hover:text-white sm:inline-block">
+            <span className="hidden rounded-full border border-[#8B7355] px-3 py-1 font-medium text-[#8B7355] text-sm transition group-hover:bg-[#8B7355] group-hover:text-white sm:inline-block">
               View Details
             </span>
           </button>

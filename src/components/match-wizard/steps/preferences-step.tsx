@@ -130,7 +130,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
                     isSelected
                       ? "border-[#211f1a] bg-[#211f1a]/5"
                       : "border-[#ebe5d8] bg-white hover:border-[#211f1a]/30"
-                  } ${level.recommended ? "ring-2 ring-[#ff5d46]/20" : ""}`}
+                  } ${level.recommended ? "ring-2 ring-[#8B7355]/20" : ""}`}
                   key={level.value}
                   onClick={() =>
                     onUpdate({
@@ -152,7 +152,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
                         {level.label}
                       </span>
                       {level.recommended && (
-                        <span className="rounded-full bg-[#ff5d46] px-2 py-1 font-semibold text-white text-xs">
+                        <span className="rounded-full bg-[#8B7355] px-2 py-1 font-semibold text-white text-xs">
                           Recommended
                         </span>
                       )}

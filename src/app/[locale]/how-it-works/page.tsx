@@ -47,12 +47,12 @@ function HeroSection() {
   const t = useTranslations("howItWorks.hero");
 
   return (
-    <section className="bg-gradient-to-b from-white to-gray-50 px-4 py-16 sm:py-24">
+    <section className="bg-[#fbfaf9] px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-4xl text-center">
-        <h1 className="mb-6 font-bold text-4xl text-gray-900 sm:text-5xl lg:text-6xl">
+        <h1 className="font-[family-name:var(--font-cinzel)] mb-6 text-4xl text-[#211f1a] tracking-wide sm:text-5xl lg:text-6xl">
           {t("title")}
         </h1>
-        <p className="mx-auto mb-8 max-w-2xl text-gray-600 text-xl leading-relaxed">
+        <p className="mx-auto mb-8 max-w-2xl text-[#5d574b] text-xl leading-relaxed">
           {t("subtitle")}
         </p>
       </div>
@@ -90,8 +90,8 @@ function CustomerFlowSection() {
     <section className="bg-white px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 font-bold text-3xl text-gray-900 sm:text-4xl">{t("title")}</h2>
-          <p className="mx-auto max-w-2xl text-gray-600 text-lg">{t("subtitle")}</p>
+          <h2 className="font-[family-name:var(--font-cinzel)] mb-4 text-3xl text-[#211f1a] tracking-wide sm:text-4xl">{t("title")}</h2>
+          <p className="mx-auto max-w-2xl text-[#5d574b] text-lg">{t("subtitle")}</p>
         </div>
 
         <div className="mx-auto max-w-3xl">
@@ -100,7 +100,7 @@ function CustomerFlowSection() {
 
         <div className="mt-12 text-center">
           <Link
-            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#ff5d46] to-[#e54d36] px-8 py-4 font-semibold text-white transition hover:shadow-lg"
+            className="inline-flex items-center gap-2 rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-white shadow-[var(--shadow-card)] transition hover:bg-[#9B8B7E]"
             href="/professionals"
           >
             {t("cta")}
@@ -144,11 +144,11 @@ function ProfessionalFlowSection() {
   ];
 
   return (
-    <section className="bg-gray-50 px-4 py-16 sm:py-24">
+    <section className="bg-[#faf8f3] px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 font-bold text-3xl text-gray-900 sm:text-4xl">{t("title")}</h2>
-          <p className="mx-auto max-w-2xl text-gray-600 text-lg">{t("subtitle")}</p>
+          <h2 className="font-[family-name:var(--font-cinzel)] mb-4 text-3xl text-[#211f1a] tracking-wide sm:text-4xl">{t("title")}</h2>
+          <p className="mx-auto max-w-2xl text-[#5d574b] text-lg">{t("subtitle")}</p>
         </div>
 
         <div className="mx-auto max-w-3xl">
@@ -160,7 +160,7 @@ function ProfessionalFlowSection() {
 
         <div className="mt-12 text-center">
           <Link
-            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#ff5d46] to-[#e54d36] px-8 py-4 font-semibold text-white transition hover:shadow-lg"
+            className="inline-flex items-center gap-2 rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-white shadow-[var(--shadow-card)] transition hover:bg-[#9B8B7E]"
             href="/auth/sign-up?role=professional"
           >
             {t("cta")}
@@ -197,8 +197,8 @@ function SafetyTrustSection() {
     <section className="bg-white px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 font-bold text-3xl text-gray-900 sm:text-4xl">{t("title")}</h2>
-          <p className="mx-auto max-w-2xl text-gray-600 text-lg">{t("subtitle")}</p>
+          <h2 className="font-[family-name:var(--font-cinzel)] mb-4 text-3xl text-[#211f1a] tracking-wide sm:text-4xl">{t("title")}</h2>
+          <p className="mx-auto max-w-2xl text-[#5d574b] text-lg">{t("subtitle")}</p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
@@ -206,14 +206,14 @@ function SafetyTrustSection() {
             const Icon = feature.icon;
             return (
               <div
-                className="rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm transition hover:shadow-md"
+                className="rounded-xl border border-[#ebe5d8] bg-white p-8 text-center shadow-[var(--shadow-subtle)] transition hover:shadow-[var(--shadow-card)]"
                 key={index}
               >
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#ff5d46]/10 to-[#e54d36]/10">
-                  <Icon className="h-8 w-8 text-[#ff5d46]" />
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#8B7355]/10">
+                  <Icon className="h-8 w-8 text-[#8B7355]" />
                 </div>
-                <h3 className="mb-3 font-semibold text-gray-900 text-xl">{t(feature.titleKey)}</h3>
-                <p className="text-gray-600 leading-relaxed">{t(feature.descriptionKey)}</p>
+                <h3 className="mb-3 font-semibold text-[#211f1a] text-xl">{t(feature.titleKey)}</h3>
+                <p className="text-[#5d574b] leading-relaxed">{t(feature.descriptionKey)}</p>
               </div>
             );
           })}
@@ -246,27 +246,27 @@ function FAQSection() {
   ];
 
   return (
-    <section className="bg-gray-50 px-4 py-16 sm:py-24">
+    <section className="bg-[#faf8f3] px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-4xl">
         <div className="mb-12 text-center">
-          <HelpCircle className="mx-auto mb-4 h-12 w-12 text-[#ff5d46]" />
-          <h2 className="mb-4 font-bold text-3xl text-gray-900 sm:text-4xl">{t("title")}</h2>
-          <p className="text-gray-600 text-lg">{t("subtitle")}</p>
+          <HelpCircle className="mx-auto mb-4 h-12 w-12 text-[#8B7355]" />
+          <h2 className="font-[family-name:var(--font-cinzel)] mb-4 text-3xl text-[#211f1a] tracking-wide sm:text-4xl">{t("title")}</h2>
+          <p className="text-[#5d574b] text-lg">{t("subtitle")}</p>
         </div>
 
         <div className="space-y-6">
           {faqs.map((faq, index) => (
-            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm" key={index}>
-              <h3 className="mb-3 font-semibold text-gray-900 text-lg">{t(faq.questionKey)}</h3>
-              <p className="text-gray-600 leading-relaxed">{t(faq.answerKey)}</p>
+            <div className="rounded-xl border border-[#ebe5d8] bg-white p-6 shadow-[var(--shadow-subtle)]" key={index}>
+              <h3 className="mb-3 font-semibold text-[#211f1a] text-lg">{t(faq.questionKey)}</h3>
+              <p className="text-[#5d574b] leading-relaxed">{t(faq.answerKey)}</p>
             </div>
           ))}
         </div>
 
         <div className="mt-8 text-center">
-          <p className="mb-4 text-gray-600">{t("stillHaveQuestions")}</p>
+          <p className="mb-4 text-[#5d574b]">{t("stillHaveQuestions")}</p>
           <Link
-            className="inline-flex items-center gap-2 font-semibold text-[#ff5d46] transition hover:text-[#e54d36]"
+            className="inline-flex items-center gap-2 font-semibold text-[#8B7355] transition hover:text-[#9B8B7E]"
             href="/contact"
           >
             {t("contactUs")}
@@ -282,19 +282,19 @@ function CTASection() {
   const t = useTranslations("howItWorks.cta");
 
   return (
-    <section className="bg-gradient-to-br from-[#ff5d46] to-[#e54d36] px-4 py-16 sm:py-24">
+    <section className="bg-[#211f1a] px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-4xl text-center">
-        <h2 className="mb-6 font-bold text-3xl text-white sm:text-4xl">{t("title")}</h2>
+        <h2 className="font-[family-name:var(--font-cinzel)] mb-6 text-3xl text-white tracking-wide sm:text-4xl">{t("title")}</h2>
         <p className="mb-8 text-white/90 text-xl">{t("subtitle")}</p>
         <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <Link
-            className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white bg-white px-8 py-4 font-semibold text-[#ff5d46] transition hover:bg-white/90"
+            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white bg-white px-8 py-4 font-semibold text-[#211f1a] shadow-[var(--shadow-card)] transition hover:bg-[#f3ece1]"
             href="/professionals"
           >
             {t("browseButton")}
           </Link>
           <Link
-            className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white px-8 py-4 font-semibold text-white transition hover:bg-white/10"
+            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white px-8 py-4 font-semibold text-white transition hover:bg-white/10"
             href="/auth/sign-up"
           >
             {t("signUpButton")}

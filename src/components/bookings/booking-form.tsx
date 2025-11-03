@@ -123,7 +123,7 @@ export function BookingForm({
         <div className="grid gap-4 sm:grid-cols-2">
           <FormField label="Service">
             <select
-              className="w-full rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[#211f1a] text-sm shadow-black/5 shadow-inner transition hover:border-[#ff5d46] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff5d46] focus-visible:outline-offset-2"
+              className="w-full rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[#211f1a] text-sm shadow-black/5 shadow-inner transition hover:border-[#8B7355] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#8B7355] focus-visible:outline-offset-2"
               name="serviceName"
               onChange={(event) => setSelectedServiceName(event.target.value)}
               required
@@ -160,7 +160,7 @@ export function BookingForm({
           </FormField>
           <FormField label="Estimated duration (hours)">
             <input
-              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
               max={12}
               min={1}
               name="duration"
@@ -188,7 +188,7 @@ export function BookingForm({
         </div>
         <FormField label="Special instructions">
           <textarea
-            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
             name="specialInstructions"
             placeholder="Building entry instructions, pets, cleaning priorities..."
             rows={3}
@@ -196,7 +196,7 @@ export function BookingForm({
         </FormField>
         <FormField label="Service address">
           <textarea
-            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]"
+            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
             name="address"
             placeholder="Street, city, any access info"
             rows={2}
@@ -204,7 +204,7 @@ export function BookingForm({
         </FormField>
         <div className="flex justify-end">
           <button
-            className="inline-flex items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2 font-semibold text-sm text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2 font-semibold text-sm text-white shadow-sm transition hover:border-[#8B7355] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
             disabled={
               pending ||
               state.status === "loading" ||
@@ -240,7 +240,7 @@ export function BookingForm({
 const stripeAppearance = {
   theme: "flat" as const,
   variables: {
-    colorPrimary: "#ff5d46",
+    colorPrimary: "#8B7355",
     colorText: "#211f1a",
     borderRadius: "8px",
   },
@@ -387,7 +387,7 @@ function PaymentConfirmation({ bookingId, paymentIntentId, onReset }: PaymentCon
       {error ? <p className="text-red-600 text-xs">{error}</p> : null}
       <div className="flex items-center gap-3">
         <button
-          className="inline-flex items-center justify-center rounded-md bg-[#ff5d46] px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center justify-center rounded-md bg-[#8B7355] px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={submitting}
           onClick={handleConfirm}
           type="button"
@@ -395,7 +395,7 @@ function PaymentConfirmation({ bookingId, paymentIntentId, onReset }: PaymentCon
           {submitting ? "Confirming…" : "Confirm hold"}
         </button>
         <button
-          className="inline-flex items-center justify-center rounded-md border border-[#e5dfd4] px-3 py-1.5 font-semibold text-[#7a6d62] text-xs transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center justify-center rounded-md border border-[#e5dfd4] px-3 py-1.5 font-semibold text-[#7a6d62] text-xs transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={submitting}
           onClick={onReset}
           type="button"

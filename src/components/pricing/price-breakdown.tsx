@@ -79,7 +79,7 @@ export function PriceBreakdown({
                 <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-64 rounded-lg border border-[#e8e4db] bg-white p-3 opacity-0 shadow-lg transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
                   <p className="text-[#5a5549] text-xs leading-relaxed">
                     This fee supports platform operations including payment processing, customer
-                    support, insurance, and technology infrastructure that keeps MaidConnect safe
+                    support, insurance, and technology infrastructure that keeps Casaora safe
                     and reliable.
                   </p>
                 </div>
@@ -92,7 +92,7 @@ export function PriceBreakdown({
         {/* Total */}
         <div className="flex justify-between border-[#e8e4db] border-t pt-3 font-semibold text-base">
           <span className="text-[#211f1a]">Total</span>
-          <span className="text-[#ff5d46]">{formatCurrency(totalWithFees)}</span>
+          <span className="text-[#8B7355]">{formatCurrency(totalWithFees)}</span>
         </div>
       </div>
 

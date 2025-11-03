@@ -11,7 +11,7 @@ export function TestimonialsSection() {
               Testimonials
             </p>
             <h2 className="mx-auto max-w-3xl font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl lg:text-6xl">
-              Trusted by expats across Colombia
+              Trusted by Colombia's Finest Families
             </h2>
           </div>
 
@@ -36,7 +36,7 @@ export function TestimonialsSection() {
                   )}
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#ff5d46] font-semibold text-base text-white">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#8B7355] font-semibold text-base text-white">
                     {testimonial.name
                       .split(" ")
                       .map((part) => part[0])

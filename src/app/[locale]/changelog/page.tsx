@@ -98,19 +98,19 @@ async function ChangelogList() {
 
         return (
           <article
-            className="group rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[#ff5d46] hover:shadow-md sm:p-8"
+            className="group rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[#8B7355] hover:shadow-md sm:p-8"
             key={changelog.id}
           >
             {/* Header */}
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-[#ff5d4620] px-3 py-1 font-semibold text-[#ff5d46] text-sm">
+              <span className="rounded-full bg-[#8B735520] px-3 py-1 font-semibold text-[#8B7355] text-sm">
                 Sprint {changelog.sprint_number}
               </span>
               <span className="text-[#7a6d62] text-sm">{formattedDate}</span>
             </div>
 
             {/* Title */}
-            <h2 className="mb-3 font-bold text-2xl text-[#211f1a] group-hover:text-[#ff5d46] sm:text-3xl">
+            <h2 className="mb-3 font-bold text-2xl text-[#211f1a] group-hover:text-[#8B7355] sm:text-3xl">
               {changelog.title}
             </h2>
 
@@ -173,7 +173,7 @@ async function ChangelogList() {
 
             {/* Read More Link */}
             <Link
-              className="inline-flex items-center gap-2 font-semibold text-[#ff5d46] text-base transition hover:gap-3"
+              className="inline-flex items-center gap-2 font-semibold text-[#8B7355] text-base transition hover:gap-3"
               href={`/changelog/${changelog.slug}`}
             >
               Read full update
@@ -200,7 +200,7 @@ export default function ChangelogPage() {
             </div>
             <h1 className="mb-4 font-bold text-4xl text-[#211f1a] sm:text-5xl">What's New</h1>
             <p className="text-[#5d574b] text-lg sm:text-xl">
-              Stay up to date with the latest features, improvements, and updates to MaidConnect
+              Stay up to date with the latest features, improvements, and updates to Casaora
             </p>
           </div>
 

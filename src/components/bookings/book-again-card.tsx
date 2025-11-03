@@ -2,7 +2,7 @@
 
 import { Calendar, Check, Clock, Repeat, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { isFeatureEnabled } from "@/lib/feature-flags";
 
 type PreviousBooking = {
@@ -22,6 +22,7 @@ type BookAgainCardProps = {
   onBookAgain?: (bookingId: string) => void;
 };
 
+// Moved outside component - no dependencies on component state (React 19 best practice)
 function formatCurrencyCOP(value: number) {
   return new Intl.NumberFormat("es-CO", {
     style: "currency",
@@ -38,8 +39,12 @@ function formatCurrencyCOP(value: number) {
  * - Hyatt saw 2.5% conversion lift with "Complete Your Booking" feature
  * - Pre-filled forms reduce booking time by 70%
  * - Repeat bookings are 5x easier to convert than new bookings
+ *
+ * Performance optimizations:
+ * - React.memo: Prevents re-renders when booking prop unchanged
  */
-export function BookAgainCard({ booking, onBookAgain }: BookAgainCardProps) {
+const BookAgainCardComponent = memo(
+  function BookAgainCard({ booking, onBookAgain }: BookAgainCardProps) {
   const [isRebooking, setIsRebooking] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -85,7 +90,7 @@ export function BookAgainCard({ booking, onBookAgain }: BookAgainCardProps) {
   };
 
   return (
-    <div className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[#ff5d46] hover:shadow-[0_20px_60px_rgba(18,17,15,0.08)]">
+    <div className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[#8B7355] hover:shadow-[0_20px_60px_rgba(18,17,15,0.08)]">
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-start gap-4">
@@ -97,7 +102,7 @@ export function BookAgainCard({ booking, onBookAgain }: BookAgainCardProps) {
                 src={booking.professionalPhoto}
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-[#ff5d46] font-semibold text-lg text-white">
+              <div className="flex h-full w-full items-center justify-center bg-[#8B7355] font-semibold text-lg text-white">
                 {booking.professionalName
                   .split(" ")
                   .map((n) => n[0])
@@ -142,7 +147,7 @@ export function BookAgainCard({ booking, onBookAgain }: BookAgainCardProps) {
 
       {/* Quick Rebook Button */}
       <button
-        className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-60"
         disabled={isRebooking}
         onClick={handleBookAgain}
         type="button"
@@ -167,7 +172,15 @@ export function BookAgainCard({ booking, onBookAgain }: BookAgainCardProps) {
       </p>
     </div>
   );
-}
+  },
+  // Custom comparison: only re-render if booking ID changes
+  (prevProps, nextProps) => {
+    return prevProps.booking.id === nextProps.booking.id && prevProps.onBookAgain === nextProps.onBookAgain;
+  }
+);
+
+// Export the memoized component
+export const BookAgainCard = BookAgainCardComponent;
 
 /**
  * BookAgainSection - Display recent bookings for quick rebook

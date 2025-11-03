@@ -18,6 +18,12 @@ const PROTECTED_ROUTES: RouteRule[] = [
   { pattern: /^\/(?:en|es)?\/admin(?:\/|$)/, allowedRoles: ["admin"] },
 ];
 
+// Routes that should skip CSRF validation (e.g., webhooks with signature verification)
+const CSRF_EXEMPT_ROUTES = [
+  /^\/api\/webhooks\/stripe$/,
+  /^\/api\/webhooks\//,
+];
+
 const REQUIRED_ENV = ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"] as const;
 
 function ensureEnv() {
@@ -46,14 +52,119 @@ function addLocaleToPath(pathname: string, locale: string = DEFAULT_LOCALE): str
   return `/${locale}${pathname}`;
 }
 
+/**
+ * CSRF Protection: Validate origin/referer for state-changing operations
+ * Prevents cross-site request forgery attacks
+ */
+function validateCSRF(request: NextRequest): boolean {
+  const { method } = request;
+
+  // Only validate state-changing methods
+  if (!["POST", "PUT", "DELETE", "PATCH"].includes(method)) {
+    return true;
+  }
+
+  // Check if route is exempt from CSRF validation
+  const pathname = request.nextUrl.pathname;
+  if (CSRF_EXEMPT_ROUTES.some((pattern) => pattern.test(pathname))) {
+    return true;
+  }
+
+  const origin = request.headers.get("origin");
+  const referer = request.headers.get("referer");
+  const host = request.headers.get("host");
+
+  // If we have an origin header, validate it
+  if (origin) {
+    const originUrl = new URL(origin);
+    if (originUrl.host !== host) {
+      console.warn("[CSRF] Blocked request with mismatched origin", {
+        origin: originUrl.host,
+        host,
+        method,
+        pathname,
+      });
+      return false;
+    }
+    return true;
+  }
+
+  // Fallback to referer validation
+  if (referer) {
+    const refererUrl = new URL(referer);
+    if (refererUrl.host !== host) {
+      console.warn("[CSRF] Blocked request with mismatched referer", {
+        referer: refererUrl.host,
+        host,
+        method,
+        pathname,
+      });
+      return false;
+    }
+    return true;
+  }
+
+  // No origin or referer - likely a direct API call or old browser
+  // Block it to be safe
+  console.warn("[CSRF] Blocked request with no origin/referer", {
+    method,
+    pathname,
+  });
+  return false;
+}
+
+/**
+ * Add security headers to response
+ */
+function addSecurityHeaders(response: NextResponse): NextResponse {
+  // Prevent clickjacking attacks
+  response.headers.set("X-Frame-Options", "DENY");
+
+  // Prevent MIME type sniffing
+  response.headers.set("X-Content-Type-Options", "nosniff");
+
+  // Enable browser XSS protection
+  response.headers.set("X-XSS-Protection", "1; mode=block");
+
+  // Referrer policy for privacy
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+
+  // Content Security Policy (basic - adjust as needed)
+  response.headers.set(
+    "Content-Security-Policy",
+    "frame-ancestors 'none';"
+  );
+
+  // Permissions policy
+  response.headers.set(
+    "Permissions-Policy",
+    "camera=(), microphone=(), geolocation=()"
+  );
+
+  return response;
+}
+
 export async function proxy(request: NextRequest) {
   ensureEnv();
 
-  const response = NextResponse.next({
+  // CSRF Protection: Validate origin/referer for state-changing operations
+  if (!validateCSRF(request)) {
+    return new NextResponse("Forbidden: CSRF validation failed", {
+      status: 403,
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    });
+  }
+
+  let response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   });
+
+  // Add security headers to all responses
+  response = addSecurityHeaders(response);
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -171,5 +282,7 @@ export const config = {
     "/dashboard/:path*",
     "/admin/:path*",
     "/auth/:path*",
+    // API routes for CSRF protection
+    "/api/:path*",
   ],
 };

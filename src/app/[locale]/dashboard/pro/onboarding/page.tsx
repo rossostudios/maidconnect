@@ -8,7 +8,7 @@ import { DocumentUploadForm } from "./document-upload-form";
 import { ProfileBuildForm } from "./profile-build-form";
 
 const inputClass =
-  "w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-4 text-base shadow-sm transition focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633]";
+  "w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-4 text-base shadow-sm transition focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]";
 
 const APPLICATION_SERVICE_OPTIONS = [
   "House cleaning",
@@ -133,7 +133,7 @@ export default async function ProfessionalOnboardingPage({
           </p>
         </div>
         <Link
-          className="inline-flex items-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+          className="inline-flex items-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
           href="/dashboard/pro"
         >
           {t("backToDashboard")}
@@ -162,7 +162,7 @@ export default async function ProfessionalOnboardingPage({
                 key={stepId}
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ff5d46] font-semibold text-lg text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#8B7355] font-semibold text-lg text-white">
                     {index + 1}
                   </div>
                   {(() => {
@@ -274,11 +274,11 @@ export default async function ProfessionalOnboardingPage({
                   </h3>
                   <ul className="mt-4 space-y-3 text-[#5d574b] text-base">
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#ff5d46]" />
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#8B7355]" />
                       <span>{t("sections.uploadDocuments.requiredDocs.governmentId")}</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#ff5d46]" />
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#8B7355]" />
                       <span>{t("sections.uploadDocuments.requiredDocs.proofOfAddress")}</span>
                     </li>
                   </ul>

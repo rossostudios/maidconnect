@@ -86,7 +86,7 @@ export function FeedbackActions({
               Status
             </label>
             <select
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
               id="status"
               onChange={(e) => setStatus(e.target.value)}
               value={status}
@@ -105,7 +105,7 @@ export function FeedbackActions({
               Priority
             </label>
             <select
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
               id="priority"
               onChange={(e) => setPriority(e.target.value)}
               value={priority}
@@ -125,7 +125,7 @@ export function FeedbackActions({
         <h3 className="mb-4 font-bold text-[#211f1a] text-lg">Add Admin Notes</h3>
 
         <textarea
-          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
           id="admin_notes"
           onChange={(e) => setAdminNotes(e.target.value)}
           placeholder="Add internal notes about this feedback (optional)..."
@@ -137,7 +137,7 @@ export function FeedbackActions({
       {/* Save Button */}
       <div className="flex justify-end">
         <button
-          className="flex items-center gap-2 rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-white transition hover:bg-[#e54d36] disabled:opacity-50"
+          className="flex items-center gap-2 rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-white transition hover:bg-[#8B7355] disabled:opacity-50"
           disabled={saving}
           onClick={handleSave}
           type="button"

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { sanitizeRichContent } from "@/lib/sanitize";
 
 const categoryConfig = {
   features: {
@@ -47,6 +48,10 @@ export default async function ChangelogDetailPage({
     day: "numeric",
   });
 
+  // Sanitize changelog content to prevent XSS attacks
+  // Admin-controlled content, but sanitized for security defense-in-depth
+  const sanitizedContent = sanitizeRichContent(changelog.content);
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
@@ -55,7 +60,7 @@ export default async function ChangelogDetailPage({
         <article className="mx-auto max-w-4xl">
           {/* Back Link */}
           <Link
-            className="mb-8 inline-flex items-center gap-2 font-medium text-[#7a6d62] text-base transition hover:text-[#ff5d46]"
+            className="mb-8 inline-flex items-center gap-2 font-medium text-[#7a6d62] text-base transition hover:text-[#8B7355]"
             href="/changelog"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -65,7 +70,7 @@ export default async function ChangelogDetailPage({
           {/* Header */}
           <div className="mb-8 rounded-[28px] border border-[#ebe5d8] bg-white p-8">
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-[#ff5d4620] px-3 py-1 font-semibold text-[#ff5d46] text-sm">
+              <span className="rounded-full bg-[#8B735520] px-3 py-1 font-semibold text-[#8B7355] text-sm">
                 Sprint {changelog.sprint_number}
               </span>
               <span className="text-[#7a6d62] text-sm">{formattedDate}</span>
@@ -122,11 +127,11 @@ export default async function ChangelogDetailPage({
 
           {/* Content */}
           <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
-            {/* Security: dangerouslySetInnerHTML is required here to render rich HTML content from changelog entries.
-                Content is admin-controlled and sanitized before storage in Supabase. */}
+            {/* Security: Content is sanitized with DOMPurify to prevent XSS attacks.
+                Admin-controlled HTML content is cleaned while preserving formatting. */}
             <div
               className="prose prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: changelog.content }}
+              dangerouslySetInnerHTML={{ __html: sanitizedContent }}
             />
           </div>
 
@@ -150,7 +155,7 @@ export default async function ChangelogDetailPage({
           {/* Back to Top */}
           <div className="mt-12 text-center">
             <Link
-              className="inline-flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] hover:text-[#8B7355]"
               href="/changelog"
             >
               <ArrowLeft className="h-4 w-4" />

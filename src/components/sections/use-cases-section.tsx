@@ -11,7 +11,7 @@ export function UseCasesSection() {
               End-to-end marketplace flows
             </p>
             <h2 className="font-semibold text-[#211f1a] text-[2.2rem] leading-tight">
-              Designed around the journeys that power Maidconnect
+              Designed around the journeys that power Casaora
             </h2>
           </div>
           <p className="max-w-xl text-[#5d574b] text-base">
@@ -26,7 +26,7 @@ export function UseCasesSection() {
               key={flow.name}
             >
               <div className="space-y-1">
-                <p className="font-semibold text-[#ff5d46] text-xs uppercase tracking-[0.26em]">
+                <p className="font-semibold text-[#8B7355] text-xs uppercase tracking-[0.26em]">
                   {flow.persona}
                 </p>
                 <h3 className="font-semibold text-[#211f1a] text-xl">{flow.name}</h3>
@@ -35,7 +35,7 @@ export function UseCasesSection() {
               <ul className="space-y-3 text-[#4d473d] text-sm">
                 {flow.steps.map((step) => (
                   <li className="flex items-start gap-2" key={step}>
-                    <span className="mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-[#ff5d46]" />
+                    <span className="mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-[#8B7355]" />
                     <span>{step}</span>
                   </li>
                 ))}

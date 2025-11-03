@@ -1,5 +1,5 @@
 /**
- * Cancellation Policy for MaidConnect
+ * Cancellation Policy for Casaora
  *
  * Defines refund percentages based on when cancellation occurs
  * relative to scheduled service time

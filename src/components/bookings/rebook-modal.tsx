@@ -156,7 +156,7 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
               Cancel
             </button>
             <button
-              className="flex-1 rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-white shadow-[0_4px_12px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex-1 rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-white shadow-[0_4px_12px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isPending}
               type="submit"
             >

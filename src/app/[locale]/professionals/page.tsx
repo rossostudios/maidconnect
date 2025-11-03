@@ -59,7 +59,7 @@ function mapRowToDirectoryProfessional(row: ListActiveProfessionalRow): Director
 
   return {
     id: row.profile_id,
-    name: row.full_name ?? "MaidConnect Professional",
+    name: row.full_name ?? "Casaora Professional",
     service: primaryService,
     experienceYears: row.experience_years ?? null,
     hourlyRateCop: hourlyRate,

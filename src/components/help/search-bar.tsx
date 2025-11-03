@@ -97,7 +97,7 @@ export function HelpSearchBar({
 
         <input
           autoFocus={autoFocus}
-          className="w-full rounded-lg border border-gray-300 bg-white py-3 pr-10 pl-12 text-gray-900 placeholder-gray-500 focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+          className="w-full rounded-lg border border-gray-300 bg-white py-3 pr-10 pl-12 text-gray-900 placeholder-gray-500 focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
           onChange={(e) => {
             setQuery(e.target.value);
             setShowResults(true);
@@ -125,7 +125,7 @@ export function HelpSearchBar({
         <div className="absolute z-50 mt-2 w-full overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg">
           {isLoading && results.length === 0 ? (
             <div className="flex items-center justify-center px-4 py-8">
-              <Loader2 className="mr-2 h-5 w-5 animate-spin text-[#ff5d46]" />
+              <Loader2 className="mr-2 h-5 w-5 animate-spin text-[#8B7355]" />
               <span className="text-gray-600 text-sm">{t("search.searching")}</span>
             </div>
           ) : results.length > 0 ? (
@@ -151,7 +151,7 @@ export function HelpSearchBar({
 
               <div className="border-gray-100 border-t bg-gray-50 px-4 py-2 text-center">
                 <button
-                  className="text-[#ff5d46] text-sm hover:underline"
+                  className="text-[#8B7355] text-sm hover:underline"
                   onClick={() => {
                     router.push(`/${locale}/help?q=${encodeURIComponent(query)}`);
                     setShowResults(false);
@@ -166,7 +166,7 @@ export function HelpSearchBar({
             <div className="px-4 py-8 text-center">
               <p className="text-gray-600 text-sm">{t("search.noResults")}</p>
               <button
-                className="mt-2 text-[#ff5d46] text-sm hover:underline"
+                className="mt-2 text-[#8B7355] text-sm hover:underline"
                 onClick={() => router.push(`/${locale}/help`)}
                 type="button"
               >

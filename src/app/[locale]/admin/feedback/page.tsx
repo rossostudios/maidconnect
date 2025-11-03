@@ -102,8 +102,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status
-              ? "border border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
-              : "bg-[#ff5d46] text-white"
+              ? "border border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
+              : "bg-[#8B7355] text-white"
           }`}
           href="/admin/feedback"
         >
@@ -112,8 +112,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "new"
-              ? "bg-[#ff5d46] text-white"
-              : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
+              ? "bg-[#8B7355] text-white"
+              : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
           }`}
           href="/admin/feedback?status=new"
         >
@@ -122,8 +122,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "in_review"
-              ? "bg-[#ff5d46] text-white"
-              : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
+              ? "bg-[#8B7355] text-white"
+              : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
           }`}
           href="/admin/feedback?status=in_review"
         >
@@ -132,8 +132,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "resolved"
-              ? "bg-[#ff5d46] text-white"
-              : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
+              ? "bg-[#8B7355] text-white"
+              : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
           }`}
           href="/admin/feedback?status=resolved"
         >
@@ -160,7 +160,7 @@ export default async function AdminFeedbackPage({
 
             return (
               <article
-                className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[#ff5d46]"
+                className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[#8B7355]"
                 key={item.id}
               >
                 <div className="flex items-start justify-between gap-4">
@@ -213,7 +213,7 @@ export default async function AdminFeedbackPage({
 
                   {/* Actions */}
                   <Link
-                    className="flex items-center gap-2 rounded-lg bg-[#ff5d46] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#e54d36]"
+                    className="flex items-center gap-2 rounded-lg bg-[#8B7355] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#8B7355]"
                     href={`/admin/feedback/${item.id}`}
                   >
                     <Eye className="h-4 w-4" />

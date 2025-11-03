@@ -50,20 +50,20 @@ export function MissionVision() {
         {/* Mission & Vision Cards */}
         <div className="mb-16 grid gap-8 lg:grid-cols-2">
           {/* Mission Card */}
-          <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-8 shadow-sm">
-            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[#ff5d46]/10">
-              <Target className="h-7 w-7 text-[#ff5d46]" />
+          <div className="rounded-2xl border border-[#ebe5d8] bg-white p-10 shadow-[var(--shadow-card)]">
+            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[#8B7355]/10">
+              <Target className="h-7 w-7 text-[#8B7355]" />
             </div>
-            <h3 className="mb-3 font-semibold text-2xl text-[#211f1a]">{t("mission.title")}</h3>
+            <h3 className="font-[family-name:var(--font-cinzel)] mb-3 text-2xl text-[#211f1a] tracking-wide">{t("mission.title")}</h3>
             <p className="text-[#5d574b] leading-relaxed">{t("mission.description")}</p>
           </div>
 
           {/* Vision Card */}
-          <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-8 shadow-sm">
-            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[#ff5d46]/10">
-              <Compass className="h-7 w-7 text-[#ff5d46]" />
+          <div className="rounded-2xl border border-[#ebe5d8] bg-white p-10 shadow-[var(--shadow-card)]">
+            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[#8B7355]/10">
+              <Compass className="h-7 w-7 text-[#8B7355]" />
             </div>
-            <h3 className="mb-3 font-semibold text-2xl text-[#211f1a]">{t("vision.title")}</h3>
+            <h3 className="font-[family-name:var(--font-cinzel)] mb-3 text-2xl text-[#211f1a] tracking-wide">{t("vision.title")}</h3>
             <p className="text-[#5d574b] leading-relaxed">{t("vision.description")}</p>
           </div>
         </div>
@@ -80,8 +80,8 @@ export function MissionVision() {
               const Icon = value.icon;
               return (
                 <div className="text-center" key={index}>
-                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#ff5d46]/10">
-                    <Icon className="h-6 w-6 text-[#ff5d46]" />
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#8B7355]/10">
+                    <Icon className="h-6 w-6 text-[#8B7355]" />
                   </div>
                   <h4 className="mb-2 font-semibold text-[#211f1a]">{t(value.titleKey)}</h4>
                   <p className="text-[#5d574b] text-sm">{t(value.descKey)}</p>

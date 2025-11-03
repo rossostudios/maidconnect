@@ -104,13 +104,13 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
           {services.map((service) => (
             <label
               className={cn(
-                "flex cursor-pointer items-center gap-3 rounded-xl border-2 border-[#ebe5d8] bg-white p-4 font-medium text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:bg-[#fff5f2]",
+                "flex cursor-pointer items-center gap-3 rounded-xl border-2 border-[#ebe5d8] bg-white p-4 font-medium text-[#211f1a] text-base transition hover:border-[#8B7355] hover:bg-[#fff5f2]",
                 hasError("services") && "border-red-300"
               )}
               key={service}
             >
               <input
-                className="h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-[#ff5d46]"
+                className="h-5 w-5 rounded border-[#ebe5d8] text-[#8B7355] focus:ring-[#8B7355]"
                 name="services"
                 type="checkbox"
                 value={service}
@@ -167,7 +167,7 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
           {[1, 2].map((index) => (
             <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6" key={index}>
               <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#ff5d46] font-semibold text-sm text-white">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#8B7355] font-semibold text-sm text-white">
                   {index}
                 </div>
                 <p className="font-semibold text-[#7d7566] text-sm uppercase tracking-[0.2em]">
@@ -202,10 +202,10 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
       </FormField>
 
       <FormField error={fieldError("consent")} label={t("consent.label")}>
-        <label className="flex cursor-pointer items-start gap-3 rounded-xl border-2 border-[#ebe5d8] bg-white p-5 text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:bg-[#fff5f2]">
+        <label className="flex cursor-pointer items-start gap-3 rounded-xl border-2 border-[#ebe5d8] bg-white p-5 text-[#211f1a] text-base transition hover:border-[#8B7355] hover:bg-[#fff5f2]">
           <input
             aria-invalid={hasError("consent")}
-            className="mt-0.5 h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-[#ff5d46]"
+            className="mt-0.5 h-5 w-5 rounded border-[#ebe5d8] text-[#8B7355] focus:ring-[#8B7355]"
             name="consent"
             type="checkbox"
           />
@@ -217,7 +217,7 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
         <p className="text-[#5d574b] text-sm">{t("footer.note")}</p>
         <button
           className={cn(
-            "inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]",
+            "inline-flex items-center justify-center rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}

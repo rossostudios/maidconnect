@@ -8,13 +8,12 @@ export async function SiteHeader() {
   const dashboardHref = user ? getDashboardRouteForRole(user.role) : undefined;
 
   return (
-    <header className="bg-[#fbfaf9] py-4 text-[#211f1a]">
+    <header className="bg-[var(--background)] py-4 text-[var(--foreground)] transition-colors duration-300 backdrop-blur-[2px] dark:bg-black/50 dark:text-white">
       <Container className="flex items-center justify-between gap-4">
         {/* Logo */}
         <Link className="flex items-center gap-2" href="/">
-          <img alt="MaidConnect" className="h-6 w-auto" src="/maidconnect logo.svg" />
-          <span className="rounded-full bg-[#ff5d46] px-2 py-0.5 font-bold text-[10px] text-white uppercase tracking-wide">
-            Beta
+          <span className="font-[family-name:var(--font-cinzel)] text-2xl font-semibold tracking-[0.15em] text-[var(--foreground)] dark:text-white">
+            CASAORA
           </span>
         </Link>
 

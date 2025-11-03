@@ -309,7 +309,7 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
         redis,
         limiter: Ratelimit.slidingWindow(10, "1 m"),
         analytics: true,
-        prefix: "maidconnect:ratelimit:auth",
+        prefix: "casaora:ratelimit:auth",
       }),
 
       // API: 100 requests per minute
@@ -317,7 +317,7 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
         redis,
         limiter: Ratelimit.slidingWindow(100, "1 m"),
         analytics: true,
-        prefix: "maidconnect:ratelimit:api",
+        prefix: "casaora:ratelimit:api",
       }),
 
       // Booking: 20 requests per minute
@@ -325,7 +325,7 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
         redis,
         limiter: Ratelimit.slidingWindow(20, "1 m"),
         analytics: true,
-        prefix: "maidconnect:ratelimit:booking",
+        prefix: "casaora:ratelimit:booking",
       }),
 
       // Messaging: 30 requests per minute
@@ -333,7 +333,7 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
         redis,
         limiter: Ratelimit.slidingWindow(30, "1 m"),
         analytics: true,
-        prefix: "maidconnect:ratelimit:messaging",
+        prefix: "casaora:ratelimit:messaging",
       }),
 
       // Feedback: 5 requests per hour
@@ -341,7 +341,7 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
         redis,
         limiter: Ratelimit.slidingWindow(5, "1 h"),
         analytics: true,
-        prefix: "maidconnect:ratelimit:feedback",
+        prefix: "casaora:ratelimit:feedback",
       }),
 
       // Sensitive: 2 requests per hour (account deletion, data export)
@@ -349,7 +349,7 @@ if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) 
         redis,
         limiter: Ratelimit.slidingWindow(2, "1 h"),
         analytics: true,
-        prefix: "maidconnect:ratelimit:sensitive",
+        prefix: "casaora:ratelimit:sensitive",
       }),
     };
 

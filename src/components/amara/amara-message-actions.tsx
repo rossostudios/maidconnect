@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Etta Message Actions Component
+ * Amara Message Actions Component
  *
  * Provides interactive actions for assistant messages:
  * - Thumbs up/down feedback
@@ -14,7 +14,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-interface EttaMessageActionsProps {
+interface AmaraMessageActionsProps {
   messageId: string;
   content: string;
   onFeedback?: (messageId: string, feedback: "positive" | "negative") => void;
@@ -22,14 +22,14 @@ interface EttaMessageActionsProps {
   showRetry?: boolean;
 }
 
-export function EttaMessageActions({
+export function AmaraMessageActions({
   messageId,
   content,
   onFeedback,
   onRetry,
   showRetry = false,
-}: EttaMessageActionsProps) {
-  const t = useTranslations("etta");
+}: AmaraMessageActionsProps) {
+  const t = useTranslations("amara");
   const [feedback, setFeedback] = useState<"positive" | "negative" | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -42,7 +42,7 @@ export function EttaMessageActions({
 
     // Send feedback to API
     try {
-      await fetch("/api/etta/feedback", {
+      await fetch("/api/amara/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

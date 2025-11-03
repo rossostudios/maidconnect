@@ -254,7 +254,7 @@ export function BookingSheet({
                 <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
                   {availableSlots.map((time, index) => (
                     <button
-                      className="group fade-in-0 slide-in-from-bottom-4 animate-in rounded-xl border-2 border-[#e5dfd4] bg-white px-5 py-4 font-semibold text-[#211f1a] text-base shadow-sm transition-all duration-300 hover:scale-105 hover:border-[#ff5d46] hover:bg-[#ff5d46]/5 hover:shadow-lg active:scale-95 md:px-5 md:py-4"
+                      className="group fade-in-0 slide-in-from-bottom-4 animate-in rounded-xl border-2 border-[#e5dfd4] bg-white px-5 py-4 font-semibold text-[#211f1a] text-base shadow-sm transition-all duration-300 hover:scale-105 hover:border-[#8B7355] hover:bg-[#8B7355]/5 hover:shadow-lg active:scale-95 md:px-5 md:py-4"
                       key={time}
                       onClick={() => handleTimeSelect(time)}
                       style={{ animationDelay: `${index * 30}ms` }}
@@ -272,7 +272,7 @@ export function BookingSheet({
           {currentStep === "details" && (
             <div className="fade-in-50 animate-in space-y-8 duration-500">
               {/* Selected Time Display */}
-              <div className="rounded-2xl bg-[#ff5d46]/5 p-6">
+              <div className="rounded-2xl bg-[#8B7355]/5 p-6">
                 <div className="flex items-center gap-3 text-[#8a3934] text-base">
                   <Clock className="h-5 w-5" />
                   <span className="font-semibold">{selectedTime && formatTime(selectedTime)}</span>
@@ -292,7 +292,7 @@ export function BookingSheet({
                   Service *
                 </label>
                 <select
-                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-4 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20 md:px-5"
+                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-4 py-4 text-base focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20 md:px-5"
                   onChange={(e) => {
                     const service = serviceWithName.find((s) => s.name === e.target.value);
                     setBookingData({
@@ -324,7 +324,7 @@ export function BookingSheet({
                 <div className="flex items-center gap-3 md:gap-4">
                   <button
                     aria-label="Decrease duration"
-                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#e5dfd4] transition hover:border-[#ff5d46] hover:bg-[#ff5d46]/5 md:p-3"
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#e5dfd4] transition hover:border-[#8B7355] hover:bg-[#8B7355]/5 md:p-3"
                     onClick={() =>
                       setBookingData({
                         ...bookingData,
@@ -340,7 +340,7 @@ export function BookingSheet({
                   </div>
                   <button
                     aria-label="Increase duration"
-                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#e5dfd4] transition hover:border-[#ff5d46] hover:bg-[#ff5d46]/5 md:p-3"
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#e5dfd4] transition hover:border-[#8B7355] hover:bg-[#8B7355]/5 md:p-3"
                     onClick={() =>
                       setBookingData({
                         ...bookingData,
@@ -369,7 +369,7 @@ export function BookingSheet({
                   />
                 ) : (
                   <textarea
-                    className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                    className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
                     onChange={(e) =>
                       setBookingData({
                         ...bookingData,
@@ -396,8 +396,8 @@ export function BookingSheet({
                         <button
                           className={`w-full rounded-xl border-2 p-5 text-left transition ${
                             isSelected
-                              ? "border-[#ff5d46] bg-[#ff5d46]/5"
-                              : "border-[#e5dfd4] bg-white hover:border-[#ff5d46]/50"
+                              ? "border-[#8B7355] bg-[#8B7355]/5"
+                              : "border-[#e5dfd4] bg-white hover:border-[#8B7355]/50"
                           }`}
                           key={addon.id}
                           onClick={() => toggleAddon(addon)}
@@ -412,7 +412,7 @@ export function BookingSheet({
                                 <p className="mt-1 text-[#7a6d62] text-sm">{addon.description}</p>
                               )}
                             </div>
-                            <div className="ml-4 font-semibold text-[#ff5d46] text-base">
+                            <div className="ml-4 font-semibold text-[#8B7355] text-base">
                               {formatCurrencyCOP(addon.price_cop)}
                             </div>
                           </div>
@@ -429,7 +429,7 @@ export function BookingSheet({
                   Special instructions
                 </label>
                 <textarea
-                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
                   onChange={(e) =>
                     setBookingData({
                       ...bookingData,
@@ -463,7 +463,7 @@ export function BookingSheet({
                   <div className="border-[#ebe5d8] border-t pt-3">
                     <div className="flex justify-between text-xl">
                       <span className="font-semibold text-[#211f1a]">Total</span>
-                      <span className="font-bold text-[#ff5d46]">
+                      <span className="font-bold text-[#8B7355]">
                         {formatCurrencyCOP(totalAmount)}
                       </span>
                     </div>
@@ -474,14 +474,14 @@ export function BookingSheet({
               {/* Actions - Touch-friendly */}
               <div className="flex flex-col gap-3 md:flex-row md:gap-4">
                 <button
-                  className="order-2 rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] md:order-1"
+                  className="order-2 rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#8B7355] hover:text-[#8B7355] md:order-1"
                   onClick={() => setCurrentStep("time")}
                   type="button"
                 >
                   Back
                 </button>
                 <button
-                  className="order-1 flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
+                  className="order-1 flex-1 rounded-xl bg-[#8B7355] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
                   disabled={
                     loading ||
                     !bookingData.serviceName ||
@@ -504,7 +504,7 @@ export function BookingSheet({
                 appearance: {
                   theme: "flat" as const,
                   variables: {
-                    colorPrimary: "#ff5d46",
+                    colorPrimary: "#8B7355",
                     colorText: "#211f1a",
                     borderRadius: "12px",
                   },
@@ -585,7 +585,7 @@ function PaymentStep({
       {error && <p className="text-base text-red-600">{error}</p>}
       <div className="flex flex-col gap-3 md:flex-row md:gap-4">
         <button
-          className="order-2 rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-50 md:order-1"
+          className="order-2 rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-50 md:order-1"
           disabled={submitting}
           onClick={onBack}
           type="button"
@@ -593,7 +593,7 @@ function PaymentStep({
           Back
         </button>
         <button
-          className="order-1 flex-1 rounded-xl bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
+          className="order-1 flex-1 rounded-xl bg-[#8B7355] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
           disabled={submitting}
           onClick={handleConfirm}
           type="button"

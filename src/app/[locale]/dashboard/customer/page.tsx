@@ -200,7 +200,7 @@ export default async function CustomerDashboardPage(props: {
             </p>
           </div>
           <Link
-            className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
+            className="inline-flex items-center justify-center rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]"
             href="/dashboard/customer/settings"
           >
             {t("tasks.updateProfile")}
@@ -217,7 +217,7 @@ export default async function CustomerDashboardPage(props: {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#ff5d46] font-semibold text-sm text-white">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#8B7355] font-semibold text-sm text-white">
                       {index + 1}
                     </div>
                     <span className="font-semibold text-[#211f1a] text-base">
@@ -246,7 +246,7 @@ export default async function CustomerDashboardPage(props: {
                   }
                   return (
                     <Link
-                      className="mt-4 inline-flex items-center font-semibold text-[#ff5d46] text-base hover:text-[#eb6c65]"
+                      className="mt-4 inline-flex items-center font-semibold text-[#8B7355] text-base hover:text-[#9B8B7E]"
                       href={CUSTOMER_TASK_HREFS[taskId] || "#"}
                     >
                       {t(`tasks.${taskId}.cta`)} →
@@ -319,7 +319,7 @@ export default async function CustomerDashboardPage(props: {
             </div>
           </dl>
           <Link
-            className="mt-6 inline-flex items-center font-semibold text-[#ff5d46] text-base hover:text-[#eb6c65]"
+            className="mt-6 inline-flex items-center font-semibold text-[#8B7355] text-base hover:text-[#9B8B7E]"
             href="/dashboard/customer/settings"
           >
             {t("sections.propertyPreferences.updatePreferences")}
@@ -346,7 +346,7 @@ export default async function CustomerDashboardPage(props: {
             </li>
           </ul>
           <Link
-            className="mt-6 inline-flex items-center font-semibold text-[#ff5d46] text-base hover:text-[#eb6c65]"
+            className="mt-6 inline-flex items-center font-semibold text-[#8B7355] text-base hover:text-[#9B8B7E]"
             href="/support/account-suspended"
           >
             {t("sections.needHelp.browseHelpCenter")}
@@ -394,7 +394,7 @@ export default async function CustomerDashboardPage(props: {
         </p>
         <div className="mt-8">
           <Link
-            className="inline-flex items-center gap-2 rounded-full bg-[#ff5d46] px-6 py-3 font-medium text-base text-white transition hover:bg-[#e54d3c]"
+            className="inline-flex items-center gap-2 rounded-full bg-[#8B7355] px-6 py-3 font-medium text-base text-white transition hover:bg-[#e54d3c]"
             href="/dashboard/customer/messages"
           >
             {t("sections.messages.viewAllMessages")}
@@ -425,7 +425,7 @@ export default async function CustomerDashboardPage(props: {
             <p className="mt-3 text-[#5d574b] text-base leading-relaxed">
               {t(`quickLinks.${linkId}.description`)}
             </p>
-            <span className="mt-4 inline-flex items-center font-semibold text-[#ff5d46] text-base group-hover:text-[#eb6c65]">
+            <span className="mt-4 inline-flex items-center font-semibold text-[#8B7355] text-base group-hover:text-[#9B8B7E]">
               {t("quickLinks.goNow")}
             </span>
           </Link>

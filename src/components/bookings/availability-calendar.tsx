@@ -72,7 +72,7 @@ export function AvailabilityCalendar({
 
   const getDayStyles = (status: DayAvailability, isSelected: boolean) => {
     if (isSelected) {
-      return "bg-[#ff5d46] text-white border-[#ff5d46] ring-2 ring-[#ff5d46] ring-offset-2";
+      return "bg-[#8B7355] text-white border-[#8B7355] ring-2 ring-[#8B7355] ring-offset-2";
     }
 
     switch (status) {

@@ -158,13 +158,13 @@ export function ProfileBuildForm({
           {languages.map((language) => (
             <label
               className={cn(
-                "flex cursor-pointer items-center gap-3 rounded-full border-2 border-[#ebe5d8] bg-white px-5 py-3 font-medium text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:bg-[#fff5f2]",
+                "flex cursor-pointer items-center gap-3 rounded-full border-2 border-[#ebe5d8] bg-white px-5 py-3 font-medium text-[#211f1a] text-base transition hover:border-[#8B7355] hover:bg-[#fff5f2]",
                 hasError("languages") && "border-red-300"
               )}
               key={language}
             >
               <input
-                className="h-5 w-5 rounded border-[#ebe5d8] text-[#ff5d46] focus:ring-[#ff5d46]"
+                className="h-5 w-5 rounded border-[#ebe5d8] text-[#8B7355] focus:ring-[#8B7355]"
                 defaultChecked={initialLanguages.includes(language)}
                 name="languages"
                 type="checkbox"
@@ -309,7 +309,7 @@ export function ProfileBuildForm({
         <p className="text-[#5d574b] text-sm">{defaultFootnote}</p>
         <button
           className={cn(
-            "inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]",
+            "inline-flex items-center justify-center rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}

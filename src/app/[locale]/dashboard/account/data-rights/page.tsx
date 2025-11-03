@@ -15,7 +15,7 @@ type DeletionCheck = {
 function extractFilenameFromResponse(response: Response): string {
   const contentDisposition = response.headers.get("Content-Disposition");
   const filenameMatch = contentDisposition?.match(FILENAME_REGEX);
-  return filenameMatch?.[1] || `maidconnect_data_export_${Date.now()}.json`;
+  return filenameMatch?.[1] || `casaora_data_export_${Date.now()}.json`;
 }
 
 function downloadBlob(blob: Blob, filename: string): void {
@@ -247,10 +247,10 @@ function ExportDataSection({
   return (
     <section className="rounded-[28px] border border-[#dcd6c7] bg-white p-8 shadow-sm">
       <div className="mb-4 flex items-start gap-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#ff5d46]/10">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#8B7355]/10">
           <svg
             aria-label="Export data icon"
-            className="h-6 w-6 text-[#ff5d46]"
+            className="h-6 w-6 text-[#8B7355]"
             fill="none"
             role="img"
             stroke="currentColor"
@@ -267,7 +267,7 @@ function ExportDataSection({
         <div className="flex-1">
           <h2 className="mb-2 font-semibold text-[#211f1a] text-xl">Export Your Data</h2>
           <p className="mb-4 text-[#5d574b] text-sm">
-            Download a complete copy of your personal data stored on MaidConnect. This includes your
+            Download a complete copy of your personal data stored on Casaora. This includes your
             profile, bookings, messages, reviews, and consent records.
           </p>
           <ul className="mb-6 ml-4 list-disc space-y-1 text-[#5d574b] text-sm">
@@ -494,8 +494,8 @@ function LegalNoticeSection() {
       </ul>
       <p className="mt-4 text-[#7a6d62] text-sm">
         For questions about your data rights, contact us at{" "}
-        <a className="font-semibold text-[#ff5d46] underline" href="mailto:privacy@maidconnect.com">
-          privacy@maidconnect.com
+        <a className="font-semibold text-[#8B7355] underline" href="mailto:privacy@casaora.com">
+          privacy@casaora.com
         </a>
       </p>
     </section>

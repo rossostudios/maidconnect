@@ -8,7 +8,7 @@ export async function ContactCards() {
   const contactOptions = [
     {
       key: "support",
-      buttonHref: "mailto:support@maidconnect.co",
+      buttonHref: "mailto:support@casaora.co",
     },
     {
       key: "customers",

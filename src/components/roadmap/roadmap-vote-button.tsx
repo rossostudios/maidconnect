@@ -71,11 +71,11 @@ export function RoadmapVoteButton({
         className={`flex flex-col items-center justify-center rounded-[12px] border-2 font-medium transition-all duration-200 ${sizeClasses[size]}
           ${
             hasVoted
-              ? "border-[#ff5d46] bg-[#fff5f3] text-[#ff5d46]"
-              : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#ff5d46] hover:text-[#ff5d46]"
+              ? "border-[#8B7355] bg-[#fff5f3] text-[#8B7355]"
+              : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#8B7355] hover:text-[#8B7355]"
           }
           ${isLoading ? "cursor-not-allowed opacity-50" : "cursor-pointer"}
-          ${canVote ? "" : "hover:border-[#ff5d46]"}
+          ${canVote ? "" : "hover:border-[#8B7355]"}
         `}
         disabled={isLoading}
         onClick={handleClick}

@@ -3,8 +3,8 @@ import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | MaidConnect",
-  description: "Terms and conditions for using MaidConnect platform",
+  title: "Terms of Service | Casaora",
+  description: "Terms and conditions for using Casaora platform",
 };
 
 type Props = {
@@ -49,15 +49,15 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             1. Aceptación de los Términos
           </h2>
           <p className="text-[#5d574b]">
-            Al acceder y utilizar la plataforma MaidConnect (&quot;la Plataforma&quot;), usted
+            Al acceder y utilizar la plataforma Casaora (&quot;la Plataforma&quot;), usted
             (&quot;Usuario&quot;) acepta estar sujeto a estos Términos y Condiciones de Uso
             (&quot;Términos&quot;). Si no está de acuerdo con estos Términos, no debe utilizar la
             Plataforma.
           </p>
           <p className="mt-3 text-[#5d574b]">
-            MaidConnect es operada por <strong>[NOMBRE DE LA EMPRESA]</strong>, NIT{" "}
+            Casaora es operada por <strong>[NOMBRE DE LA EMPRESA]</strong>, NIT{" "}
             <strong>[NIT DE LA EMPRESA]</strong>, con domicilio en <strong>[DIRECCIÓN]</strong>,
-            Colombia (&quot;MaidConnect&quot;, &quot;nosotros&quot;, &quot;nuestro&quot;).
+            Colombia (&quot;Casaora&quot;, &quot;nosotros&quot;, &quot;nuestro&quot;).
           </p>
         </section>
 
@@ -66,13 +66,13 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             2. Descripción del Servicio
           </h2>
           <p className="text-[#5d574b]">
-            MaidConnect es una <strong>plataforma de intermediación digital</strong> que conecta a
+            Casaora es una <strong>plataforma de intermediación digital</strong> que conecta a
             clientes que buscan servicios de limpieza doméstica con profesionales independientes que
             ofrecen dichos servicios.
           </p>
           <div className="mt-3 space-y-2">
             <p className="text-[#5d574b]">
-              <strong>MaidConnect NO es:</strong>
+              <strong>Casaora NO es:</strong>
             </p>
             <ul className="ml-6 list-disc space-y-1 text-[#5d574b]">
               <li>Un empleador de los profesionales de limpieza</li>
@@ -85,7 +85,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             </ul>
           </div>
           <p className="mt-3 text-[#5d574b]">
-            <strong>MaidConnect SÍ es:</strong> Una plataforma tecnológica que facilita la conexión,
+            <strong>Casaora SÍ es:</strong> Una plataforma tecnológica que facilita la conexión,
             comunicación, reservación, y procesamiento de pagos entre clientes y profesionales
             independientes.
           </p>
@@ -103,7 +103,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
               <p className="text-[#5d574b]">
                 Los profesionales de limpieza registrados en la Plataforma son{" "}
                 <strong>contratistas independientes</strong> que operan su propio negocio. NO existe
-                relación laboral, de subordinación, ni de dependencia entre MaidConnect y los
+                relación laboral, de subordinación, ni de dependencia entre Casaora y los
                 profesionales.
               </p>
               <ul className="mt-2 ml-6 list-disc space-y-1 text-[#5d574b]">
@@ -127,7 +127,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
               <p className="text-[#5d574b]">
                 Cuando un cliente reserva un servicio a través de la Plataforma, se establece un{" "}
                 <strong>contrato directo de prestación de servicios</strong> entre el cliente y el
-                profesional. MaidConnect actúa únicamente como intermediario tecnológico.
+                profesional. Casaora actúa únicamente como intermediario tecnológico.
               </p>
             </div>
           </div>
@@ -307,7 +307,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
               </h3>
               <p className="text-[#5d574b]">
                 Todos los pagos se procesan a través de <strong>Stripe</strong>, un procesador de
-                pagos certificado PCI DSS. MaidConnect no almacena información completa de tarjetas
+                pagos certificado PCI DSS. Casaora no almacena información completa de tarjetas
                 de crédito o débito.
               </p>
             </div>
@@ -325,7 +325,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
                   <strong>Profesional:</strong> Recibe el precio del servicio menos:
                   <ul className="mt-1 ml-6 list-disc space-y-1">
                     <li>
-                      Comisión de MaidConnect: <strong>[X]%</strong> del valor del servicio
+                      Comisión de Casaora: <strong>[X]%</strong> del valor del servicio
                     </li>
                     <li>Tarifas de procesamiento de Stripe (~3.2% + COP $700 por transacción)</li>
                   </ul>
@@ -379,7 +379,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
               reales
             </li>
             <li>
-              MaidConnect se reserva el derecho de eliminar reseñas que:
+              Casaora se reserva el derecho de eliminar reseñas que:
               <ul className="mt-1 ml-6 list-disc space-y-1">
                 <li>Contengan lenguaje ofensivo, discriminatorio o inapropiado</li>
                 <li>Violen la privacidad de terceros</li>
@@ -413,7 +413,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
           </h2>
           <div className="space-y-3">
             <p className="text-[#5d574b]">
-              MaidConnect ofrece un sistema de mediación para ayudar a resolver disputas entre
+              Casaora ofrece un sistema de mediación para ayudar a resolver disputas entre
               clientes y profesionales, pero NO es responsable de:
             </p>
             <ul className="ml-6 list-disc space-y-1 text-[#5d574b]">
@@ -426,11 +426,11 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             <ol className="ml-6 list-decimal space-y-1 text-[#5d574b]">
               <li>Intentar resolver directamente con la otra parte</li>
               <li>
-                Si no se resuelve, reportar a MaidConnect dentro de las 48 horas siguientes al
+                Si no se resuelve, reportar a Casaora dentro de las 48 horas siguientes al
                 servicio
               </li>
               <li>Proporcionar evidencia relevante (fotos, mensajes, etc.)</li>
-              <li>MaidConnect puede ofrecer mediación pero la decisión final es de las partes</li>
+              <li>Casaora puede ofrecer mediación pero la decisión final es de las partes</li>
             </ol>
           </div>
         </section>
@@ -445,22 +445,22 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             </p>
             <ul className="ml-6 list-disc space-y-2 text-[#5d574b]">
               <li>
-                MaidConnect NO es responsable de los servicios prestados por profesionales
+                Casaora NO es responsable de los servicios prestados por profesionales
                 independientes, ni de su calidad, puntualidad, o resultados
               </li>
               <li>
-                MaidConnect NO es responsable de daños, pérdidas, lesiones, o perjuicios resultantes
+                Casaora NO es responsable de daños, pérdidas, lesiones, o perjuicios resultantes
                 de la interacción entre usuarios
               </li>
               <li>
                 La Plataforma se proporciona &quot;TAL CUAL&quot; sin garantías de ningún tipo
               </li>
               <li>
-                MaidConnect NO garantiza que la Plataforma estará disponible 24/7 sin interrupciones
+                Casaora NO garantiza que la Plataforma estará disponible 24/7 sin interrupciones
                 o errores
               </li>
               <li>
-                La responsabilidad máxima de MaidConnect hacia cualquier usuario no excederá el
+                La responsabilidad máxima de Casaora hacia cualquier usuario no excederá el
                 monto de las comisiones pagadas por ese usuario en los últimos 6 meses
               </li>
             </ul>
@@ -474,7 +474,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         <section>
           <h2 className="mb-3 font-semibold text-2xl text-[#211f1a]">13. Indemnización</h2>
           <p className="text-[#5d574b]">
-            El Usuario acepta defender, indemnizar y mantener indemne a MaidConnect, sus directores,
+            El Usuario acepta defender, indemnizar y mantener indemne a Casaora, sus directores,
             empleados, contratistas y representantes de cualquier reclamación, demanda, daño,
             responsabilidad, costo o gasto (incluyendo honorarios de abogados razonables) que surjan
             de:
@@ -493,9 +493,9 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
           </h2>
           <div className="space-y-3">
             <div>
-              <h3 className="mb-2 font-semibold text-[#211f1a] text-lg">14.1 Por MaidConnect</h3>
+              <h3 className="mb-2 font-semibold text-[#211f1a] text-lg">14.1 Por Casaora</h3>
               <p className="text-[#5d574b]">
-                MaidConnect puede suspender o terminar su cuenta inmediatamente si:
+                Casaora puede suspender o terminar su cuenta inmediatamente si:
               </p>
               <ul className="mt-1 ml-6 list-disc space-y-1 text-[#5d574b]">
                 <li>Viola estos Términos</li>
@@ -526,7 +526,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
                 </li>
                 <li>Los pagos pendientes se procesarán según lo acordado</li>
                 <li>
-                  MaidConnect puede retener cierta información según requisitos legales y de
+                  Casaora puede retener cierta información según requisitos legales y de
                   Política de Privacidad
                 </li>
               </ul>
@@ -544,10 +544,10 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             <li>Código fuente y software</li>
             <li>Diseño, interfaz de usuario y experiencia</li>
             <li>Logotipos, marcas comerciales y nombres comerciales</li>
-            <li>Contenido original creado por MaidConnect</li>
+            <li>Contenido original creado por Casaora</li>
           </ul>
           <p className="mt-3 text-[#5d574b]">
-            Son propiedad exclusiva de MaidConnect o sus licenciantes. El Usuario recibe únicamente
+            Son propiedad exclusiva de Casaora o sus licenciantes. El Usuario recibe únicamente
             una licencia limitada, no exclusiva, no transferible para usar la Plataforma según estos
             Términos.
           </p>
@@ -558,7 +558,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             16. Modificaciones a los Términos
           </h2>
           <p className="text-[#5d574b]">
-            MaidConnect se reserva el derecho de modificar estos Términos en cualquier momento. Los
+            Casaora se reserva el derecho de modificar estos Términos en cualquier momento. Los
             cambios materiales serán notificados a través de:
           </p>
           <ul className="mt-2 ml-6 list-disc space-y-1 text-[#5d574b]">
@@ -603,7 +603,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             </li>
             <li>
               <strong>Cesión:</strong> No puede transferir sus derechos u obligaciones sin
-              consentimiento escrito de MaidConnect
+              consentimiento escrito de Casaora
             </li>
             <li>
               <strong>Acuerdo Completo:</strong> Estos Términos constituyen el acuerdo completo
@@ -625,7 +625,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
           </p>
           <ul className="mt-2 ml-6 list-none space-y-1 text-[#5d574b]">
             <li>
-              <strong>Correo electrónico:</strong> legal@maidconnect.com
+              <strong>Correo electrónico:</strong> legal@casaora.com
             </li>
             <li>
               <strong>Dirección postal:</strong> [DIRECCIÓN COMPLETA], Colombia
@@ -665,27 +665,27 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
         <section>
           <h2 className="mb-3 font-semibold text-2xl text-[#211f1a]">1. Acceptance of Terms</h2>
           <p className="text-[#5d574b]">
-            By accessing and using the MaidConnect platform (&quot;the Platform&quot;), you
+            By accessing and using the Casaora platform (&quot;the Platform&quot;), you
             (&quot;User&quot;) agree to be bound by these Terms and Conditions of Use
             (&quot;Terms&quot;). If you do not agree to these Terms, you must not use the Platform.
           </p>
           <p className="mt-3 text-[#5d574b]">
-            MaidConnect is operated by <strong>[COMPANY NAME]</strong>, NIT{" "}
+            Casaora is operated by <strong>[COMPANY NAME]</strong>, NIT{" "}
             <strong>[COMPANY NIT]</strong>, domiciled at <strong>[ADDRESS]</strong>, Colombia
-            (&quot;MaidConnect&quot;, &quot;we&quot;, &quot;our&quot;).
+            (&quot;Casaora&quot;, &quot;we&quot;, &quot;our&quot;).
           </p>
         </section>
 
         <section>
           <h2 className="mb-3 font-semibold text-2xl text-[#211f1a]">2. Service Description</h2>
           <p className="text-[#5d574b]">
-            MaidConnect is a <strong>digital intermediation platform</strong> that connects clients
+            Casaora is a <strong>digital intermediation platform</strong> that connects clients
             seeking domestic cleaning services with independent professionals who offer such
             services.
           </p>
           <div className="mt-3 space-y-2">
             <p className="text-[#5d574b]">
-              <strong>MaidConnect IS NOT:</strong>
+              <strong>Casaora IS NOT:</strong>
             </p>
             <ul className="ml-6 list-disc space-y-1 text-[#5d574b]">
               <li>An employer of cleaning professionals</li>
@@ -698,7 +698,7 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
             </ul>
           </div>
           <p className="mt-3 text-[#5d574b]">
-            <strong>MaidConnect IS:</strong> A technology platform that facilitates connection,
+            <strong>Casaora IS:</strong> A technology platform that facilitates connection,
             communication, booking, and payment processing between clients and independent
             professionals.
           </p>
@@ -716,7 +716,7 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
               <p className="text-[#5d574b]">
                 Cleaning professionals registered on the Platform are{" "}
                 <strong>independent contractors</strong> operating their own business. There is NO
-                employment, subordination, or dependency relationship between MaidConnect and the
+                employment, subordination, or dependency relationship between Casaora and the
                 professionals.
               </p>
             </div>
@@ -728,7 +728,7 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
               <p className="text-[#5d574b]">
                 When a client books a service through the Platform, a{" "}
                 <strong>direct service provision contract</strong> is established between the client
-                and the professional. MaidConnect acts solely as a technology intermediary.
+                and the professional. Casaora acts solely as a technology intermediary.
               </p>
             </div>
           </div>
@@ -738,10 +738,10 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
           <h2 className="mb-3 font-semibold text-2xl text-[#211f1a]">4. Payment Processing</h2>
           <p className="text-[#5d574b]">
             All payments are processed through <strong>Stripe</strong>, a PCI DSS certified payment
-            processor. MaidConnect does not store complete credit or debit card information.
+            processor. Casaora does not store complete credit or debit card information.
           </p>
           <p className="mt-3 text-[#5d574b]">
-            Professionals receive payment 24 hours after check-out, minus MaidConnect&apos;s
+            Professionals receive payment 24 hours after check-out, minus Casaora&apos;s
             commission and Stripe processing fees. Professionals are responsible for declaring this
             income to tax authorities.
           </p>
@@ -765,7 +765,7 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
         <section>
           <h2 className="mb-3 font-semibold text-2xl text-[#211f1a]">6. Limitation of Liability</h2>
           <p className="text-[#5d574b]">
-            <strong>TO THE MAXIMUM EXTENT PERMITTED BY LAW:</strong> MaidConnect is NOT responsible
+            <strong>TO THE MAXIMUM EXTENT PERMITTED BY LAW:</strong> Casaora is NOT responsible
             for services provided by independent professionals, nor for their quality, timeliness,
             or results. The Platform is provided &quot;AS IS&quot; without warranties of any kind.
           </p>
@@ -790,7 +790,7 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
           <p className="text-[#5d574b]">For questions about these Terms, contact us:</p>
           <ul className="mt-2 ml-6 list-none space-y-1 text-[#5d574b]">
             <li>
-              <strong>Email:</strong> legal@maidconnect.com
+              <strong>Email:</strong> legal@casaora.com
             </li>
             <li>
               <strong>Address:</strong> [FULL ADDRESS], Colombia

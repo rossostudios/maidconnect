@@ -3,7 +3,7 @@
 /**
  * Company Story Component
  *
- * Hero section for About Us page telling MaidConnect's founding story.
+ * Hero section for About Us page telling Casaora's founding story.
  * Explains why we exist and the problem we're solving for expats in Colombia.
  */
 
@@ -14,11 +14,11 @@ export function CompanyStory() {
   const t = useTranslations("about.story");
 
   return (
-    <section className="bg-gradient-to-b from-white to-gray-50 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <section className="bg-[#fbfaf9] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-7xl">
         {/* Hero Content */}
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="mb-6 font-bold text-4xl text-[#211f1a] sm:text-5xl lg:text-6xl">
+          <h1 className="font-[family-name:var(--font-cinzel)] mb-6 text-4xl text-[#211f1a] tracking-wide sm:text-5xl lg:text-6xl">
             {t("title")}
           </h1>
           <p className="mb-8 text-[#5d574b] text-lg leading-relaxed sm:text-xl">{t("subtitle")}</p>
@@ -42,8 +42,8 @@ export function CompanyStory() {
               {/* Key Features Grid */}
               <div className="grid gap-6 sm:grid-cols-3">
                 <div className="flex flex-col items-start">
-                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[#ff5d46]/10">
-                    <Shield className="h-6 w-6 text-[#ff5d46]" />
+                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[#8B7355]/10">
+                    <Shield className="h-6 w-6 text-[#8B7355]" />
                   </div>
                   <h3 className="mb-2 font-semibold text-[#211f1a]">
                     {t("solution.feature1.title")}
@@ -52,8 +52,8 @@ export function CompanyStory() {
                 </div>
 
                 <div className="flex flex-col items-start">
-                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[#ff5d46]/10">
-                    <Globe className="h-6 w-6 text-[#ff5d46]" />
+                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[#8B7355]/10">
+                    <Globe className="h-6 w-6 text-[#8B7355]" />
                   </div>
                   <h3 className="mb-2 font-semibold text-[#211f1a]">
                     {t("solution.feature2.title")}
@@ -62,8 +62,8 @@ export function CompanyStory() {
                 </div>
 
                 <div className="flex flex-col items-start">
-                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[#ff5d46]/10">
-                    <Sparkles className="h-6 w-6 text-[#ff5d46]" />
+                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[#8B7355]/10">
+                    <Sparkles className="h-6 w-6 text-[#8B7355]" />
                   </div>
                   <h3 className="mb-2 font-semibold text-[#211f1a]">
                     {t("solution.feature3.title")}

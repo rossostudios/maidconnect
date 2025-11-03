@@ -1,7 +1,7 @@
 /**
- * Etta Validation Schemas
+ * Amara Validation Schemas
  *
- * Zod schemas for validating Etta chat requests and responses.
+ * Zod schemas for validating Amara chat requests and responses.
  */
 
 import { z } from "zod";
@@ -18,7 +18,7 @@ export const chatMessageSchema = z.object({
 /**
  * Schema for chat request to the API
  */
-export const ettaChatRequestSchema = z.object({
+export const amaraChatRequestSchema = z.object({
   messages: z
     .array(chatMessageSchema)
     .min(1, "At least one message is required")
@@ -60,7 +60,7 @@ export const createMessageSchema = z.object({
  * Type exports
  */
 export type ChatMessage = z.infer<typeof chatMessageSchema>;
-export type EttaChatRequest = z.infer<typeof ettaChatRequestSchema>;
+export type AmaraChatRequest = z.infer<typeof amaraChatRequestSchema>;
 export type CreateConversation = z.infer<typeof createConversationSchema>;
 export type UpdateConversation = z.infer<typeof updateConversationSchema>;
 export type CreateMessage = z.infer<typeof createMessageSchema>;

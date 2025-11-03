@@ -50,7 +50,7 @@ export default function ErrorPage({
           {/* Actions */}
           <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
             <button
-              className="flex items-center justify-center gap-2 rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-white transition hover:bg-[#ff4529]"
+              className="flex items-center justify-center gap-2 rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-white transition hover:bg-[#ff4529]"
               onClick={reset}
               type="button"
             >
@@ -58,7 +58,7 @@ export default function ErrorPage({
               Try Again
             </button>
             <Link
-              className="flex items-center justify-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+              className="flex items-center justify-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] transition hover:border-[#8B7355] hover:text-[#8B7355]"
               href="/"
             >
               <Home className="h-4 w-4" />
@@ -69,7 +69,7 @@ export default function ErrorPage({
           {/* Support Link */}
           <p className="mt-6 text-[#7d7566] text-sm">
             Need help?{" "}
-            <Link className="text-[#ff5d46] hover:underline" href="/contact">
+            <Link className="text-[#8B7355] hover:underline" href="/contact">
               Contact Support
             </Link>
           </p>

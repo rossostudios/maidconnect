@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import {
   Calendar,
   Eye,
@@ -13,15 +14,21 @@ import {
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
-import { MapView } from "./map-view";
-import { type FilterState, ProfessionalsFilterSheet } from "./professionals-filter-sheet";
 import { SearchBar, type SearchSuggestion } from "./search-bar";
 import { VerificationBadge, type VerificationLevel } from "./verification-badge";
 import { type ViewMode, ViewToggle } from "./view-toggle";
+import type { FilterState } from "./professionals-filter-sheet";
+
+// Dynamic imports for heavy components (lazy load on demand)
+const MapView = dynamic(() => import("./map-view").then((mod) => mod.MapView), { ssr: false });
+const ProfessionalsFilterSheet = dynamic(
+  () => import("./professionals-filter-sheet").then((mod) => mod.ProfessionalsFilterSheet),
+  { ssr: false }
+);
 
 export type DirectoryProfessional = {
   id: string;
@@ -47,6 +54,7 @@ export type DirectoryProfessional = {
   favoritesCount?: number;
 };
 
+// Moved outside component - no dependencies on component state (React 19 best practice)
 function formatCurrencyCOP(value: number | null | undefined) {
   if (!value || Number.isNaN(value)) {
     return null;
@@ -58,6 +66,7 @@ function formatCurrencyCOP(value: number | null | undefined) {
   }).format(value);
 }
 
+// Moved outside component - no dependencies on component state (React 19 best practice)
 // Generate real-time activity indicators based on professional stats
 function getActivityIndicators(professional: DirectoryProfessional) {
   const indicators: Array<{
@@ -123,7 +132,10 @@ type ProfessionalsDirectoryProps = {
   professionals: DirectoryProfessional[];
 };
 
-export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectoryProps) {
+// React.memo optimization for heavy component rendering 100+ professionals
+// Custom comparison: only re-render if professionals array reference changes
+const ProfessionalsDirectoryComponent = memo(
+  function ProfessionalsDirectory({ professionals }: ProfessionalsDirectoryProps) {
   const t = useTranslations("professionalsDirectory");
   const searchParams = useSearchParams();
   const [serviceFilter, setServiceFilter] = useState("all");
@@ -232,9 +244,9 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
 
   return (
     <section className="py-16 sm:py-20 lg:py-24">
-      <Container className="space-y-12">
+      <Container className="space-y-16">
         <header className="space-y-6 text-center">
-          <h1 className="font-semibold text-5xl text-[#211f1a] tracking-tight sm:text-6xl lg:text-7xl">
+          <h1 className="font-[family-name:var(--font-cinzel)] text-5xl text-[#211f1a] tracking-tight sm:text-6xl lg:text-7xl">
             {t("header.title")}
           </h1>
           <p className="mx-auto max-w-3xl text-[#5d574b] text-xl sm:text-2xl">
@@ -269,7 +281,7 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                 <SlidersHorizontal className="h-5 w-5" />
                 Filters
                 {activeFilterCount > 0 && (
-                  <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#ff5d46] px-2 font-semibold text-white text-xs">
+                  <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#8B7355] px-2 font-semibold text-white text-xs">
                     {activeFilterCount}
                   </span>
                 )}
@@ -356,17 +368,17 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
             <MapView professionals={filteredProfessionals} />
           </div>
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-12">
             {filteredProfessionals.map((professional) => (
               <article
-                className="hover:-translate-y-0.5 overflow-hidden rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[#211f1a] hover:shadow-[0_20px_60px_rgba(18,17,15,0.08)]"
+                className="hover:-translate-y-0.5 overflow-hidden rounded-[32px] border border-[#ebe5d8] bg-white p-8 shadow-[var(--shadow-card)] transition hover:border-[#8B7355] hover:shadow-[var(--shadow-elevated)] sm:p-10"
                 key={professional.id}
               >
                 {/* Header Row: Profile + Stats + Actions */}
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
                   {/* Left: Profile Info */}
-                  <div className="flex items-start gap-4">
-                    <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#ebe5d8]">
+                  <div className="flex items-start gap-5">
+                    <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#ebe5d8] shadow-[var(--shadow-subtle)]">
                       <Image
                         alt={professional.name}
                         className="object-cover"
@@ -374,8 +386,8 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                         src={professional.photoUrl}
                       />
                     </div>
-                    <div className="flex-1 space-y-1">
-                      <h2 className="font-semibold text-[#211f1a] text-xl sm:text-2xl">
+                    <div className="flex-1 space-y-2">
+                      <h2 className="font-[family-name:var(--font-cinzel)] text-2xl text-[#211f1a] tracking-wide sm:text-3xl">
                         {professional.name}
                       </h2>
                       <p className="text-[#7d7566] text-sm">
@@ -427,15 +439,15 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
                   const getStyles = (type: string) => {
                     switch (type) {
                       case "viewing":
-                        return "bg-blue-50 text-blue-700 border-blue-200";
+                        return "bg-[#f5f2ed] text-[#8B7355] border-[#e2ddd2]";
                       case "booked":
-                        return "bg-green-50 text-green-700 border-green-200";
+                        return "bg-[#6B7F5C]/10 text-[#6B7F5C] border-[#6B7F5C]/20";
                       case "demand":
-                        return "bg-orange-50 text-orange-700 border-orange-200";
+                        return "bg-[#8B7355]/10 text-[#8B7355] border-[#8B7355]/20";
                       case "rare":
-                        return "bg-purple-50 text-purple-700 border-purple-200";
+                        return "bg-[#9B8B7E]/10 text-[#9B8B7E] border-[#9B8B7E]/20";
                       default:
-                        return "bg-gray-50 text-gray-700 border-gray-200";
+                        return "bg-[#f5f2ed] text-[#5d574b] border-[#e2ddd2]";
                     }
                   };
 
@@ -565,4 +577,15 @@ export function ProfessionalsDirectory({ professionals }: ProfessionalsDirectory
       </Container>
     </section>
   );
-}
+  },
+  // Custom comparison: only re-render if professionals array reference changes
+  (prevProps, nextProps) => {
+    return (
+      prevProps.professionals === nextProps.professionals &&
+      prevProps.professionals.length === nextProps.professionals.length
+    );
+  }
+);
+
+// Export the memoized component
+export const ProfessionalsDirectory = ProfessionalsDirectoryComponent;

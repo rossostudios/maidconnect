@@ -80,7 +80,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
           <button
             className={`flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition ${
               activeTab === "hours"
-                ? "border-[#ff5d46] text-[#ff5d46]"
+                ? "border-[#8B7355] text-[#8B7355]"
                 : "border-transparent text-[#7d7566] hover:text-[#211f1a]"
             }`}
             onClick={() => setActiveTab("hours")}
@@ -92,7 +92,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
           <button
             className={`flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition ${
               activeTab === "blocked"
-                ? "border-[#ff5d46] text-[#ff5d46]"
+                ? "border-[#8B7355] text-[#8B7355]"
                 : "border-transparent text-[#7d7566] hover:text-[#211f1a]"
             }`}
             onClick={() => setActiveTab("blocked")}
@@ -136,7 +136,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
       <div className="flex items-center justify-end gap-3 border-[#ebe5d8] border-t pt-6">
         <div className="flex-1 text-[#7d7566] text-sm">{t("infoText")}</div>
         <button
-          className="rounded-full bg-[#ff5d46] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[#8B7355] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={handleSave}
           type="button"

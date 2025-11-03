@@ -9,7 +9,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 /**
  * City Landing Pages - Dynamic Route
  *
- * SEO-optimized landing pages for each Colombian city where MaidConnect operates.
+ * SEO-optimized landing pages for each Colombian city where Casaora operates.
  * Following 2025 local SEO best practices:
  *
  * - Dynamic meta tags with city name
@@ -23,7 +23,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
  * Research: Top-ranking local pages see 612% increase in search traffic
  */
 
-// Colombian cities where MaidConnect operates
+// Colombian cities where Casaora operates
 const SUPPORTED_CITIES = {
   bogota: { name: "Bogotá", nameEn: "Bogota", coordinates: { lat: 4.711, lng: -74.0721 } },
   medellin: { name: "Medellín", nameEn: "Medellin", coordinates: { lat: 6.2442, lng: -75.5812 } },
@@ -92,7 +92,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       title: t("meta.title", { city: cityName }),
       description: t("meta.description", { city: cityName }),
       url: `/${locale}/${citySlug}`,
-      siteName: "MaidConnect",
+      siteName: "Casaora",
       locale: locale === "es" ? "es_CO" : "en_US",
       type: "website",
     },
@@ -170,8 +170,8 @@ export default async function CityLandingPage({ params }: { params: Params }) {
     serviceType: "Home Cleaning Services",
     provider: {
       "@type": "Organization",
-      name: "MaidConnect",
-      url: `https://maidconnect.com/${locale}/${citySlug}`,
+      name: "Casaora",
+      url: `https://casaora.com/${locale}/${citySlug}`,
     },
     areaServed: {
       "@type": "City",
@@ -232,13 +232,13 @@ export default async function CityLandingPage({ params }: { params: Params }) {
           <div className="prose prose-lg mx-auto">
             <h2 className="font-bold text-[#211f1a]">
               {locale === "es"
-                ? `Por qué elegir MaidConnect en ${cityName}`
-                : `Why Choose MaidConnect in ${cityName}`}
+                ? `Por qué elegir Casaora en ${cityName}`
+                : `Why Choose Casaora in ${cityName}`}
             </h2>
             <p className="text-[#5d574b]">
               {locale === "es"
-                ? `MaidConnect conecta a los residentes de ${cityName} con profesionales de limpieza verificados y confiables. Todos nuestros profesionales pasan por verificación de antecedentes y están calificados por clientes reales.`
-                : `MaidConnect connects ${cityName} residents with verified, trusted cleaning professionals. All our professionals undergo background checks and are rated by real customers.`}
+                ? `Casaora conecta a los residentes de ${cityName} con profesionales de limpieza verificados y confiables. Todos nuestros profesionales pasan por verificación de antecedentes y están calificados por clientes reales.`
+                : `Casaora connects ${cityName} residents with verified, trusted cleaning professionals. All our professionals undergo background checks and are rated by real customers.`}
             </p>
             <h3 className="font-semibold text-[#211f1a]">
               {locale === "es" ? "Servicios Disponibles" : "Available Services"}

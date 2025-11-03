@@ -111,7 +111,7 @@ export function newBookingRequestEmail(data: BookingEmailData, dashboardUrl: str
           <p>You can accept or decline this booking from your dashboard.</p>
         </div>
         <div class="footer">
-          <p>MaidConnect - Connecting you with trusted service</p>
+          <p>Casaora - Connecting you with trusted service</p>
           <p>This is an automated message. Please do not reply to this email.</p>
         </div>
       </div>
@@ -164,7 +164,7 @@ export function bookingConfirmedEmailForCustomer(
           </ul>
         </div>
         <div class="footer">
-          <p>MaidConnect - Connecting you with trusted service</p>
+          <p>Casaora - Connecting you with trusted service</p>
           <p>Need help? Contact our support team.</p>
         </div>
       </div>
@@ -207,7 +207,7 @@ export function bookingDeclinedEmailForCustomer(data: BookingEmailData, reason?:
           <p>We have many other qualified professionals available. Browse our directory to find your perfect match!</p>
         </div>
         <div class="footer">
-          <p>MaidConnect - Connecting you with trusted service</p>
+          <p>Casaora - Connecting you with trusted service</p>
           <p>Need help finding a professional? Contact our support team.</p>
         </div>
       </div>
@@ -251,7 +251,7 @@ export function bookingReminderEmail(data: BookingEmailData, isForProfessional: 
           }
         </div>
         <div class="footer">
-          <p>MaidConnect - Connecting you with trusted service</p>
+          <p>Casaora - Connecting you with trusted service</p>
         </div>
       </div>
     </body>
@@ -292,7 +292,7 @@ export function messageNotificationEmail(
           </div>
         </div>
         <div class="footer">
-          <p>MaidConnect - Connecting you with trusted service</p>
+          <p>Casaora - Connecting you with trusted service</p>
         </div>
       </div>
     </body>
@@ -339,7 +339,7 @@ export function serviceCompletedEmail(data: BookingEmailData, isForProfessional:
           <p>We'd love to hear about your experience! Please take a moment to leave a rating.</p>
         </div>
         <div class="footer">
-          <p>MaidConnect - Connecting you with trusted service</p>
+          <p>Casaora - Connecting you with trusted service</p>
         </div>
       </div>
     </body>
@@ -368,7 +368,7 @@ export function accountSuspendedEmail(
         </div>
         <div class="content">
           <p>Hi ${userName},</p>
-          <p>Your MaidConnect account has been ${expiresAt ? "temporarily suspended" : "permanently banned"}.</p>
+          <p>Your Casaora account has been ${expiresAt ? "temporarily suspended" : "permanently banned"}.</p>
 
           <div class="booking-details">
             <p><span class="label">Reason:</span> ${reason}</p>
@@ -378,15 +378,15 @@ export function accountSuspendedEmail(
 
           ${
             expiresAt
-              ? "<p>During this suspension period, you will not be able to access your account or use MaidConnect services.</p>"
-              : "<p>You will no longer be able to access your account or use MaidConnect services.</p>"
+              ? "<p>During this suspension period, you will not be able to access your account or use Casaora services.</p>"
+              : "<p>You will no longer be able to access your account or use Casaora services.</p>"
           }
 
           <p>If you believe this action was taken in error or would like to appeal, please contact our support team.</p>
         </div>
         <div class="footer">
-          <p>MaidConnect - Connecting you with trusted service</p>
-          <p>Contact support: support@maidconnect.co</p>
+          <p>Casaora - Connecting you with trusted service</p>
+          <p>Contact support: support@casaora.co</p>
         </div>
       </div>
     </body>
@@ -416,7 +416,7 @@ export function accountUnsuspendedEmail(userName: string, liftReason: string): s
             <p><span class="label">Note:</span> ${liftReason}</p>
           </div>
 
-          <p>You can now access your account and use MaidConnect services again.</p>
+          <p>You can now access your account and use Casaora services again.</p>
 
           <div style="text-align: center; margin: 30px 0;">
             <a href="/auth/sign-in" class="button">Sign In to Your Account</a>
@@ -425,7 +425,7 @@ export function accountUnsuspendedEmail(userName: string, liftReason: string): s
           <p>Thank you for your patience and understanding.</p>
         </div>
         <div class="footer">
-          <p>MaidConnect - Connecting you with trusted service</p>
+          <p>Casaora - Connecting you with trusted service</p>
         </div>
       </div>
     </body>
@@ -474,7 +474,7 @@ export function bookingRescheduleEmail(
           </div>
         </div>
         <div class="footer">
-          <p>MaidConnect - Connecting you with trusted service</p>
+          <p>Casaora - Connecting you with trusted service</p>
         </div>
       </div>
     </body>
@@ -518,10 +518,10 @@ export function professionalApplicationApprovedEmail(
             <a href="/dashboard/pro" class="button">Complete Your Profile</a>
           </div>
 
-          <p>Welcome to the MaidConnect professional community!</p>
+          <p>Welcome to the Casaora professional community!</p>
         </div>
         <div class="footer">
-          <p>MaidConnect - Connecting you with trusted service</p>
+          <p>Casaora - Connecting you with trusted service</p>
         </div>
       </div>
     </body>
@@ -549,7 +549,7 @@ export function professionalApplicationRejectedEmail(
         </div>
         <div class="content">
           <p>Hi ${professionalName},</p>
-          <p>Thank you for your interest in joining MaidConnect as a professional service provider.</p>
+          <p>Thank you for your interest in joining Casaora as a professional service provider.</p>
 
           <p>After careful review, we're unable to approve your application at this time.</p>
 
@@ -568,8 +568,8 @@ export function professionalApplicationRejectedEmail(
           <p>If you have questions or would like more information, please contact our support team.</p>
         </div>
         <div class="footer">
-          <p>MaidConnect - Connecting you with trusted service</p>
-          <p>Contact support: support@maidconnect.co</p>
+          <p>Casaora - Connecting you with trusted service</p>
+          <p>Contact support: support@casaora.co</p>
         </div>
       </div>
     </body>
@@ -606,8 +606,8 @@ export function professionalInfoRequestedEmail(professionalName: string, notes?:
           <p>If you have any questions, please don't hesitate to contact our support team.</p>
         </div>
         <div class="footer">
-          <p>MaidConnect - Connecting you with trusted service</p>
-          <p>Contact support: support@maidconnect.co</p>
+          <p>Casaora - Connecting you with trusted service</p>
+          <p>Contact support: support@casaora.co</p>
         </div>
       </div>
     </body>

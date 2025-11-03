@@ -167,15 +167,15 @@ export default async function HelpCenterPage({
 
               return (
                 <Link
-                  className="group rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:border-[#ff5d46] hover:shadow-md"
+                  className="group rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:border-[#8B7355] hover:shadow-md"
                   href={`/${locale}/help/${category.slug}`}
                   key={category.id}
                 >
                   <div className="mb-4 flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#ff5d46]/10 text-[#ff5d46] transition group-hover:bg-[#ff5d46] group-hover:text-white">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#8B7355]/10 text-[#8B7355] transition group-hover:bg-[#8B7355] group-hover:text-white">
                       <Icon className="h-6 w-6" />
                     </div>
-                    <span className="rounded-full bg-gray-100 px-3 py-1 text-gray-600 text-sm group-hover:bg-[#ff5d46]/10 group-hover:text-[#ff5d46]">
+                    <span className="rounded-full bg-gray-100 px-3 py-1 text-gray-600 text-sm group-hover:bg-[#8B7355]/10 group-hover:text-[#8B7355]">
                       {category.article_count}{" "}
                       {category.article_count === 1
                         ? t("categories.article")
@@ -183,13 +183,13 @@ export default async function HelpCenterPage({
                     </span>
                   </div>
 
-                  <h3 className="mb-2 font-semibold text-gray-900 text-lg group-hover:text-[#ff5d46]">
+                  <h3 className="mb-2 font-semibold text-gray-900 text-lg group-hover:text-[#8B7355]">
                     {name}
                   </h3>
 
                   {description && <p className="text-gray-600 text-sm">{description}</p>}
 
-                  <div className="mt-4 flex items-center text-[#ff5d46] text-sm">
+                  <div className="mt-4 flex items-center text-[#8B7355] text-sm">
                     <span>{t("categories.browse")}</span>
                     <ArrowRight className="ml-1 h-4 w-4 transition group-hover:translate-x-1" />
                   </div>
@@ -209,11 +209,11 @@ export default async function HelpCenterPage({
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {popularArticles.map((article) => (
                 <Link
-                  className="group rounded-lg border border-gray-200 bg-white p-5 transition hover:border-[#ff5d46] hover:shadow-md"
+                  className="group rounded-lg border border-gray-200 bg-white p-5 transition hover:border-[#8B7355] hover:shadow-md"
                   href={`/${locale}/help/${article.category_slug}/${article.slug}`}
                   key={article.id}
                 >
-                  <h3 className="mb-2 font-semibold text-gray-900 group-hover:text-[#ff5d46]">
+                  <h3 className="mb-2 font-semibold text-gray-900 group-hover:text-[#8B7355]">
                     {article.title}
                   </h3>
 
@@ -226,7 +226,7 @@ export default async function HelpCenterPage({
                       {article.view_count}{" "}
                       {article.view_count === 1 ? t("popular.view") : t("popular.views")}
                     </span>
-                    <ArrowRight className="h-4 w-4 text-[#ff5d46] opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100" />
+                    <ArrowRight className="h-4 w-4 text-[#8B7355] opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100" />
                   </div>
                 </Link>
               ))}
@@ -239,7 +239,7 @@ export default async function HelpCenterPage({
           <h2 className="mb-4 font-bold text-2xl text-gray-900">{t("contact.title")}</h2>
           <p className="mb-6 text-gray-600 text-lg">{t("contact.description")}</p>
           <Link
-            className="inline-flex items-center gap-2 rounded-lg bg-[#ff5d46] px-8 py-3 font-semibold text-white transition hover:bg-[#e54d36]"
+            className="inline-flex items-center gap-2 rounded-lg bg-[#8B7355] px-8 py-3 font-semibold text-white transition hover:bg-[#8B7355]"
             href={`/${locale}/contact`}
           >
             {t("contact.button")}

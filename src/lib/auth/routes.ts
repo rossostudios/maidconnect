@@ -6,8 +6,9 @@ export const DASHBOARD_ROUTES: Record<AppRole, string> = {
   admin: "/admin",
 };
 
-export function getDashboardRouteForRole(role: AppRole): string {
-  return DASHBOARD_ROUTES[role] ?? "/dashboard";
+export function getDashboardRouteForRole(role: AppRole, locale?: string): string {
+  const path = DASHBOARD_ROUTES[role] ?? "/dashboard";
+  return locale ? `/${locale}${path}` : path;
 }
 
 export const AUTH_ROUTES = {
@@ -15,3 +16,8 @@ export const AUTH_ROUTES = {
   signUp: "/auth/sign-up",
   signOut: "/auth/sign-out",
 };
+
+export function getAuthRoute(route: keyof typeof AUTH_ROUTES, locale?: string): string {
+  const path = AUTH_ROUTES[route];
+  return locale ? `/${locale}${path}` : path;
+}

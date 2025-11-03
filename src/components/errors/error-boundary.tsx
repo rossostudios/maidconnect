@@ -57,7 +57,7 @@ export class ErrorBoundary extends Component<Props, State> {
               We've been notified of this issue and are working to fix it.
             </p>
             <button
-              className="rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-white transition hover:bg-[#ff4529]"
+              className="rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-white transition hover:bg-[#ff4529]"
               onClick={() => window.location.reload()}
               type="button"
             >

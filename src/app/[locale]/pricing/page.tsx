@@ -43,7 +43,7 @@ export default async function PricingPage() {
           <Suspense
             fallback={
               <div className="flex items-center justify-center py-12">
-                <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#ff5d46] border-t-transparent" />
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#8B7355] border-t-transparent" />
               </div>
             }
           >
@@ -64,7 +64,7 @@ export default async function PricingPage() {
             <Suspense
               fallback={
                 <div className="flex items-center justify-center py-8">
-                  <div className="h-6 w-6 animate-spin rounded-full border-4 border-[#ff5d46] border-t-transparent" />
+                  <div className="h-6 w-6 animate-spin rounded-full border-4 border-[#8B7355] border-t-transparent" />
                 </div>
               }
             >
@@ -80,7 +80,7 @@ export default async function PricingPage() {
             <p className="mb-8 text-[#6B7280] text-lg">{t("cta.subtitle")}</p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
-                className="rounded-[14px] bg-[#ff5d46] px-8 py-4 font-semibold text-lg text-white transition-all hover:bg-[#e54d36]"
+                className="rounded-[14px] bg-[#8B7355] px-8 py-4 font-semibold text-lg text-white transition-all hover:bg-[#8B7355]"
                 href="/auth/sign-up"
               >
                 {t("cta.primary")}

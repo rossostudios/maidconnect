@@ -106,7 +106,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
 
         <div className="flex gap-2">
           <button
-            className="flex items-center gap-1 rounded-lg border-2 border-[#ebe5d8] bg-white px-3 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            className="flex items-center gap-1 rounded-lg border-2 border-[#ebe5d8] bg-white px-3 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
             onClick={handleBlockWeek}
             type="button"
           >
@@ -159,8 +159,8 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
                     ? isBlocked
                       ? "bg-red-500 font-semibold text-white hover:bg-red-600"
                       : isTodayDate
-                        ? "bg-[#fff5f2] font-semibold text-[#ff5d46] hover:bg-[#ff5d46] hover:text-white"
-                        : "bg-white font-medium text-[#211f1a] hover:bg-[#ff5d46] hover:text-white"
+                        ? "bg-[#fff5f2] font-semibold text-[#8B7355] hover:bg-[#8B7355] hover:text-white"
+                        : "bg-white font-medium text-[#211f1a] hover:bg-[#8B7355] hover:text-white"
                     : "cursor-not-allowed bg-[#fbfaf9] text-[#d4cec0]"
                 }`}
                 disabled={!isCurrentMonth}

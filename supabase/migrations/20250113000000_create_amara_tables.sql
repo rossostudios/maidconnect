@@ -1,12 +1,12 @@
 -- =============================================
--- Etta AI Chat System Database Schema
+-- Amara AI Chat System Database Schema
 -- =============================================
--- Description: Creates tables for Etta AI assistant conversations and messages
+-- Description: Creates tables for Amara AI assistant conversations and messages
 -- Created: 2025-01-13
 -- =============================================
 
--- Create etta_conversations table
-CREATE TABLE IF NOT EXISTS public.etta_conversations (
+-- Create amara_conversations table
+CREATE TABLE IF NOT EXISTS public.amara_conversations (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
   -- User reference
@@ -28,12 +28,12 @@ CREATE TABLE IF NOT EXISTS public.etta_conversations (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Create etta_messages table
-CREATE TABLE IF NOT EXISTS public.etta_messages (
+-- Create amara_messages table
+CREATE TABLE IF NOT EXISTS public.amara_messages (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
   -- Conversation reference
-  conversation_id UUID NOT NULL REFERENCES public.etta_conversations(id) ON DELETE CASCADE,
+  conversation_id UUID NOT NULL REFERENCES public.amara_conversations(id) ON DELETE CASCADE,
 
   -- Message details
   role TEXT NOT NULL CHECK (role IN ('user', 'assistant', 'system')),
@@ -54,59 +54,59 @@ CREATE TABLE IF NOT EXISTS public.etta_messages (
 -- Indexes
 -- =============================================
 
--- Performance indexes for etta_conversations
-CREATE INDEX idx_etta_conversations_user_id ON public.etta_conversations(user_id);
-CREATE INDEX idx_etta_conversations_active ON public.etta_conversations(user_id, is_active) WHERE is_active = true;
-CREATE INDEX idx_etta_conversations_last_message ON public.etta_conversations(user_id, last_message_at DESC);
+-- Performance indexes for amara_conversations
+CREATE INDEX idx_amara_conversations_user_id ON public.amara_conversations(user_id);
+CREATE INDEX idx_amara_conversations_active ON public.amara_conversations(user_id, is_active) WHERE is_active = true;
+CREATE INDEX idx_amara_conversations_last_message ON public.amara_conversations(user_id, last_message_at DESC);
 
--- Performance indexes for etta_messages
-CREATE INDEX idx_etta_messages_conversation_id ON public.etta_messages(conversation_id);
-CREATE INDEX idx_etta_messages_created_at ON public.etta_messages(conversation_id, created_at ASC);
-CREATE INDEX idx_etta_messages_role ON public.etta_messages(role);
+-- Performance indexes for amara_messages
+CREATE INDEX idx_amara_messages_conversation_id ON public.amara_messages(conversation_id);
+CREATE INDEX idx_amara_messages_created_at ON public.amara_messages(conversation_id, created_at ASC);
+CREATE INDEX idx_amara_messages_role ON public.amara_messages(role);
 
 -- =============================================
 -- Row Level Security (RLS)
 -- =============================================
 
 -- Enable RLS
-ALTER TABLE public.etta_conversations ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.etta_messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.amara_conversations ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.amara_messages ENABLE ROW LEVEL SECURITY;
 
 -- =============================================
--- RLS Policies for etta_conversations
+-- RLS Policies for amara_conversations
 -- =============================================
 
 -- Users can view their own conversations
 CREATE POLICY "Users can view own conversations"
-  ON public.etta_conversations
+  ON public.amara_conversations
   FOR SELECT
   TO authenticated
   USING (user_id = auth.uid());
 
 -- Users can create their own conversations
 CREATE POLICY "Users can create own conversations"
-  ON public.etta_conversations
+  ON public.amara_conversations
   FOR INSERT
   TO authenticated
   WITH CHECK (user_id = auth.uid());
 
 -- Users can update their own conversations
 CREATE POLICY "Users can update own conversations"
-  ON public.etta_conversations
+  ON public.amara_conversations
   FOR UPDATE
   TO authenticated
   USING (user_id = auth.uid());
 
 -- Users can delete their own conversations
 CREATE POLICY "Users can delete own conversations"
-  ON public.etta_conversations
+  ON public.amara_conversations
   FOR DELETE
   TO authenticated
   USING (user_id = auth.uid());
 
 -- Admins can view all conversations
 CREATE POLICY "Admins can view all conversations"
-  ON public.etta_conversations
+  ON public.amara_conversations
   FOR SELECT
   TO authenticated
   USING (
@@ -118,38 +118,38 @@ CREATE POLICY "Admins can view all conversations"
   );
 
 -- =============================================
--- RLS Policies for etta_messages
+-- RLS Policies for amara_messages
 -- =============================================
 
 -- Users can view messages from their own conversations
 CREATE POLICY "Users can view own conversation messages"
-  ON public.etta_messages
+  ON public.amara_messages
   FOR SELECT
   TO authenticated
   USING (
     EXISTS (
-      SELECT 1 FROM public.etta_conversations
-      WHERE etta_conversations.id = etta_messages.conversation_id
-      AND etta_conversations.user_id = auth.uid()
+      SELECT 1 FROM public.amara_conversations
+      WHERE amara_conversations.id = amara_messages.conversation_id
+      AND amara_conversations.user_id = auth.uid()
     )
   );
 
 -- Users can create messages in their own conversations
 CREATE POLICY "Users can create messages in own conversations"
-  ON public.etta_messages
+  ON public.amara_messages
   FOR INSERT
   TO authenticated
   WITH CHECK (
     EXISTS (
-      SELECT 1 FROM public.etta_conversations
-      WHERE etta_conversations.id = etta_messages.conversation_id
-      AND etta_conversations.user_id = auth.uid()
+      SELECT 1 FROM public.amara_conversations
+      WHERE amara_conversations.id = amara_messages.conversation_id
+      AND amara_conversations.user_id = auth.uid()
     )
   );
 
 -- Admins can view all messages
 CREATE POLICY "Admins can view all messages"
-  ON public.etta_messages
+  ON public.amara_messages
   FOR SELECT
   TO authenticated
   USING (
@@ -164,8 +164,8 @@ CREATE POLICY "Admins can view all messages"
 -- Functions and Triggers
 -- =============================================
 
--- Function to automatically update updated_at timestamp for etta_conversations
-CREATE OR REPLACE FUNCTION update_etta_conversations_updated_at()
+-- Function to automatically update updated_at timestamp for amara_conversations
+CREATE OR REPLACE FUNCTION update_amara_conversations_updated_at()
 RETURNS TRIGGER AS $$
 BEGIN
   NEW.updated_at = NOW();
@@ -173,17 +173,17 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Trigger for etta_conversations updated_at
-CREATE TRIGGER set_etta_conversations_updated_at
-  BEFORE UPDATE ON public.etta_conversations
+-- Trigger for amara_conversations updated_at
+CREATE TRIGGER set_amara_conversations_updated_at
+  BEFORE UPDATE ON public.amara_conversations
   FOR EACH ROW
-  EXECUTE FUNCTION update_etta_conversations_updated_at();
+  EXECUTE FUNCTION update_amara_conversations_updated_at();
 
 -- Function to update conversation's last_message_at when a new message is added
 CREATE OR REPLACE FUNCTION update_conversation_last_message_at()
 RETURNS TRIGGER AS $$
 BEGIN
-  UPDATE public.etta_conversations
+  UPDATE public.amara_conversations
   SET last_message_at = NEW.created_at
   WHERE id = NEW.conversation_id;
   RETURN NEW;
@@ -192,7 +192,7 @@ $$ LANGUAGE plpgsql;
 
 -- Trigger to update last_message_at on new messages
 CREATE TRIGGER set_conversation_last_message_at
-  AFTER INSERT ON public.etta_messages
+  AFTER INSERT ON public.amara_messages
   FOR EACH ROW
   EXECUTE FUNCTION update_conversation_last_message_at();
 
@@ -200,15 +200,15 @@ CREATE TRIGGER set_conversation_last_message_at
 -- Comments
 -- =============================================
 
-COMMENT ON TABLE public.etta_conversations IS 'Stores Etta AI assistant chat conversations for users';
-COMMENT ON TABLE public.etta_messages IS 'Stores individual messages within Etta conversations';
+COMMENT ON TABLE public.amara_conversations IS 'Stores Amara AI assistant chat conversations for users';
+COMMENT ON TABLE public.amara_messages IS 'Stores individual messages within Amara conversations';
 
-COMMENT ON COLUMN public.etta_conversations.user_id IS 'Reference to the user who owns this conversation';
-COMMENT ON COLUMN public.etta_conversations.title IS 'Optional conversation title, auto-generated from first message';
-COMMENT ON COLUMN public.etta_conversations.locale IS 'User''s preferred language for this conversation (en or es)';
-COMMENT ON COLUMN public.etta_conversations.metadata IS 'Additional context like user location, search filters, etc.';
+COMMENT ON COLUMN public.amara_conversations.user_id IS 'Reference to the user who owns this conversation';
+COMMENT ON COLUMN public.amara_conversations.title IS 'Optional conversation title, auto-generated from first message';
+COMMENT ON COLUMN public.amara_conversations.locale IS 'User''s preferred language for this conversation (en or es)';
+COMMENT ON COLUMN public.amara_conversations.metadata IS 'Additional context like user location, search filters, etc.';
 
-COMMENT ON COLUMN public.etta_messages.role IS 'Message role: user, assistant, or system';
-COMMENT ON COLUMN public.etta_messages.tool_calls IS 'JSONB array of AI tool invocations from Vercel AI SDK';
-COMMENT ON COLUMN public.etta_messages.tool_results IS 'JSONB array of tool execution results';
-COMMENT ON COLUMN public.etta_messages.metadata IS 'Additional data like model used, token count, processing time';
+COMMENT ON COLUMN public.amara_messages.role IS 'Message role: user, assistant, or system';
+COMMENT ON COLUMN public.amara_messages.tool_calls IS 'JSONB array of AI tool invocations from Vercel AI SDK';
+COMMENT ON COLUMN public.amara_messages.tool_results IS 'JSONB array of tool execution results';
+COMMENT ON COLUMN public.amara_messages.metadata IS 'Additional data like model used, token count, processing time';

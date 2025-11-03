@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const STORAGE_KEY = "maidconnect_recently_viewed";
+const STORAGE_KEY = "casaora_recently_viewed";
 const MAX_ITEMS = 10;
 
 export interface RecentlyViewedItem {

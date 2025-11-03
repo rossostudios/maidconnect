@@ -133,7 +133,7 @@ function ErrorDisplay({ error }: { error: Error }) {
         {/* Actions */}
         <div className="flex flex-col gap-3">
           <button
-            className="w-full rounded-lg bg-[#ff5d46] px-4 py-3 font-medium text-sm text-white transition hover:bg-[#ff4d36]"
+            className="w-full rounded-lg bg-[#8B7355] px-4 py-3 font-medium text-sm text-white transition hover:bg-[#ff4d36]"
             onClick={() => window.location.reload()}
             type="button"
           >
@@ -151,7 +151,7 @@ function ErrorDisplay({ error }: { error: Error }) {
         {/* Support Link */}
         <p className="mt-6 text-center text-[#7a6d62] text-xs">
           Need help?{" "}
-          <a className="text-[#ff5d46] underline hover:text-[#ff4d36]" href="/contact">
+          <a className="text-[#8B7355] underline hover:text-[#ff4d36]" href="/contact">
             Contact Support
           </a>
         </p>

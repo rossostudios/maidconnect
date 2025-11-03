@@ -87,7 +87,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
         {/* Header */}
         <div className="flex items-center justify-between border-[#ebe5d8] border-b px-6 py-5">
           <div className="flex items-center gap-3">
-            <AlertTriangle className="h-6 w-6 text-[#ff5d46]" />
+            <AlertTriangle className="h-6 w-6 text-[#8B7355]" />
             <h2 className="font-semibold text-[#211f1a] text-xl">Report an Issue</h2>
           </div>
           <button
@@ -145,7 +145,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
               {/* Reason Selection */}
               <div className="space-y-2">
                 <label className="block font-semibold text-[#211f1a] text-sm">
-                  What went wrong? <span className="text-[#ff5d46]">*</span>
+                  What went wrong? <span className="text-[#8B7355]">*</span>
                 </label>
                 <select
                   className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3 text-[#211f1a] text-base transition focus:border-[#211f1a] focus:outline-none"
@@ -164,7 +164,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
               {/* Description */}
               <div className="space-y-2">
                 <label className="block font-semibold text-[#211f1a] text-sm">
-                  Please describe what happened <span className="text-[#ff5d46]">*</span>
+                  Please describe what happened <span className="text-[#8B7355]">*</span>
                 </label>
                 <textarea
                   className="min-h-32 w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3 text-[#211f1a] text-base leading-relaxed transition focus:border-[#211f1a] focus:outline-none"
@@ -195,7 +195,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
                   Cancel
                 </button>
                 <button
-                  className="flex-1 rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-base text-white shadow-[0_4px_12px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex-1 rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-base text-white shadow-[0_4px_12px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
                   disabled={isSubmitting || !reason || !description.trim()}
                   onClick={handleSubmit}
                   type="button"

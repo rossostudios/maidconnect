@@ -33,7 +33,7 @@ type CityHeroSectionProps = {
 export function CityHeroSection({
   cityName,
   citySlug,
-  locale,
+  locale: _locale,
   stats,
   className = "",
 }: CityHeroSectionProps) {
@@ -41,7 +41,7 @@ export function CityHeroSection({
 
   return (
     <section
-      className={`relative overflow-hidden bg-gradient-to-br from-[#ff5d46]/5 via-white to-[#ff5d46]/5 ${className}`}
+      className={`relative overflow-hidden bg-gradient-to-br from-[#8B7355]/5 via-white to-[#8B7355]/5 ${className}`}
     >
       {/* Background Pattern */}
       <div
@@ -58,7 +58,7 @@ export function CityHeroSection({
           <div className="flex flex-col justify-center">
             {/* Location Badge */}
             <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-[#ebe5d8] bg-white px-4 py-2 shadow-sm">
-              <MapPin className="h-4 w-4 text-[#ff5d46]" />
+              <MapPin className="h-4 w-4 text-[#8B7355]" />
               <span className="font-medium text-[#211f1a] text-sm">{cityName}</span>
             </div>
 
@@ -75,14 +75,14 @@ export function CityHeroSection({
             {/* Trust Signals - Research shows local trust indicators improve conversion */}
             <div className="mb-8 flex flex-wrap gap-6">
               <div className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-[#ff5d46]" />
+                <Users className="h-5 w-5 text-[#8B7355]" />
                 <span className="font-semibold text-[#211f1a] text-base">
                   {stats.professionalCount}+ {t("hero.stats.professionals")}
                 </span>
               </div>
 
               <div className="flex items-center gap-2">
-                <Star className="h-5 w-5 fill-[#ff5d46] text-[#ff5d46]" />
+                <Star className="h-5 w-5 fill-[#8B7355] text-[#8B7355]" />
                 <span className="font-semibold text-[#211f1a] text-base">
                   {stats.averageRating.toFixed(1)} ({stats.totalReviews.toLocaleString()}{" "}
                   {t("hero.stats.reviews")})
@@ -93,7 +93,7 @@ export function CityHeroSection({
             {/* Primary CTA - Linked to professionals directory filtered by city */}
             <div className="flex flex-col gap-4 sm:flex-row">
               <Link
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white shadow-[0_4px_12px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-base text-white shadow-[0_4px_12px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]"
                 href={`/professionals?city=${citySlug}`}
               >
                 {t("hero.cta.primary")}
@@ -101,7 +101,7 @@ export function CityHeroSection({
               </Link>
 
               <Link
-                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#ebe5d8] px-8 py-4 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#ebe5d8] px-8 py-4 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] hover:text-[#8B7355]"
                 href="/how-it-works"
               >
                 {t("hero.cta.secondary")}
@@ -112,11 +112,11 @@ export function CityHeroSection({
           {/* Right Column - Visual */}
           <div className="relative lg:flex lg:items-center">
             {/* Hero Image */}
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#ff5d46]/10 to-[#ff5d46]/5 p-12 shadow-xl">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#8B7355]/10 to-[#8B7355]/5 p-12 shadow-xl">
               {/* Placeholder for city-specific imagery */}
               <div className="relative aspect-square">
                 <div className="flex h-full flex-col items-center justify-center gap-6">
-                  <MapPin className="h-24 w-24 text-[#ff5d46]" />
+                  <MapPin className="h-24 w-24 text-[#8B7355]" />
                   <div className="text-center">
                     <p className="font-bold text-2xl text-[#211f1a]">{cityName}</p>
                     <p className="mt-2 text-[#5d574b] text-base">{t("hero.visualTagline")}</p>
@@ -125,8 +125,8 @@ export function CityHeroSection({
               </div>
 
               {/* Decorative Elements */}
-              <div className="absolute top-8 right-8 h-32 w-32 rounded-full bg-[#ff5d46]/10 blur-3xl" />
-              <div className="absolute bottom-8 left-8 h-32 w-32 rounded-full bg-[#ff5d46]/10 blur-3xl" />
+              <div className="absolute top-8 right-8 h-32 w-32 rounded-full bg-[#8B7355]/10 blur-3xl" />
+              <div className="absolute bottom-8 left-8 h-32 w-32 rounded-full bg-[#8B7355]/10 blur-3xl" />
             </div>
 
             {/* Floating Stats Card */}
@@ -137,7 +137,7 @@ export function CityHeroSection({
               <div className="flex flex-wrap gap-2">
                 {["cleaning", "deepCleaning", "moving"].map((service) => (
                   <span
-                    className="rounded-full bg-[#ff5d46]/10 px-3 py-1 text-[#ff5d46] text-xs"
+                    className="rounded-full bg-[#8B7355]/10 px-3 py-1 text-[#8B7355] text-xs"
                     key={service}
                   >
                     {t(`hero.services.${service}` as any)}

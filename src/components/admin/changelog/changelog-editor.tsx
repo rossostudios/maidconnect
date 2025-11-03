@@ -165,7 +165,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 Sprint Number *
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
                 id="sprint_number"
                 min="1"
                 onChange={(e) =>
@@ -186,7 +186,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 Title *
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
                 id="title"
                 onChange={(e) => handleTitleChange(e.target.value)}
                 placeholder="e.g., Enhanced Search and New Dashboard Features"
@@ -202,7 +202,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 Slug *
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfaf9] px-4 py-3 font-mono text-[#5d574b] text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+                className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfaf9] px-4 py-3 font-mono text-[#5d574b] text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
                 id="slug"
                 onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                 placeholder="auto-generated-from-title"
@@ -221,7 +221,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 Summary
               </label>
               <textarea
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
                 id="summary"
                 onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
                 placeholder="Brief overview of this update (shown in list view)"
@@ -239,7 +239,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 Published Date *
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
                 id="published_at"
                 onChange={(e) => setFormData({ ...formData, published_at: e.target.value })}
                 required
@@ -255,7 +255,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
           <div className="mb-4 flex items-center justify-between">
             <h3 className="font-bold text-[#211f1a] text-lg">Content *</h3>
             <button
-              className="flex items-center gap-2 rounded-lg border border-[#ebe5d8] px-3 py-1.5 text-[#5d574b] text-sm transition hover:border-[#ff5d46]"
+              className="flex items-center gap-2 rounded-lg border border-[#ebe5d8] px-3 py-1.5 text-[#5d574b] text-sm transition hover:border-[#8B7355]"
               onClick={() => setShowPreview(!showPreview)}
               type="button"
             >
@@ -271,7 +271,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             />
           ) : (
             <textarea
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 font-mono text-[#211f1a] text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 font-mono text-[#211f1a] text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
               id="content"
               onChange={(e) => setFormData({ ...formData, content: e.target.value })}
               placeholder="Write your changelog content here (supports HTML)..."
@@ -296,8 +296,8 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 <button
                   className={`flex items-center gap-2 rounded-full border-2 px-4 py-2 font-medium text-sm transition ${
                     isSelected
-                      ? "border-[#ff5d46] bg-[#ff5d46] text-white"
-                      : "border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
+                      ? "border-[#8B7355] bg-[#8B7355] text-white"
+                      : "border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
                   }`}
                   key={option.value}
                   onClick={() => handleCategoryToggle(option.value)}
@@ -322,7 +322,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 Tags
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
                 id="tags"
                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
                 placeholder="performance, ui, mobile (comma-separated)"
@@ -344,8 +344,8 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                     <button
                       className={`rounded-lg border-2 px-3 py-1.5 font-medium text-sm transition ${
                         isSelected
-                          ? "border-[#ff5d46] bg-[#ff5d4620] text-[#ff5d46]"
-                          : "border-[#ebe5d8] text-[#5d574b] hover:border-[#ff5d46]"
+                          ? "border-[#8B7355] bg-[#8B735520] text-[#8B7355]"
+                          : "border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
                       }`}
                       key={option.value}
                       onClick={() => handleAudienceToggle(option.value)}
@@ -367,7 +367,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 Featured Image URL
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4620]"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
                 id="featured_image_url"
                 onChange={(e) => setFormData({ ...formData, featured_image_url: e.target.value })}
                 placeholder="https://example.com/image.jpg"
@@ -381,7 +381,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         {/* Actions */}
         <div className="flex items-center justify-between gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
           <button
-            className="rounded-full border border-[#ebe5d8] px-6 py-2.5 font-semibold text-[#5d574b] transition hover:border-[#ff5d46]"
+            className="rounded-full border border-[#ebe5d8] px-6 py-2.5 font-semibold text-[#5d574b] transition hover:border-[#8B7355]"
             disabled={saving}
             onClick={() => router.back()}
             type="button"
@@ -391,7 +391,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
           <div className="flex gap-3">
             <button
-              className="flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-2.5 font-semibold text-[#211f1a] transition hover:border-[#ff5d46] disabled:opacity-50"
+              className="flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-2.5 font-semibold text-[#211f1a] transition hover:border-[#8B7355] disabled:opacity-50"
               disabled={saving}
               onClick={(e) => handleSubmit(e, "draft")}
               type="button"
@@ -410,7 +410,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             </button>
 
             <button
-              className="flex items-center gap-2 rounded-full bg-[#ff5d46] px-6 py-2.5 font-semibold text-white transition hover:bg-[#e54d36] disabled:opacity-50"
+              className="flex items-center gap-2 rounded-full bg-[#8B7355] px-6 py-2.5 font-semibold text-white transition hover:bg-[#8B7355] disabled:opacity-50"
               disabled={saving}
               onClick={(e) => handleSubmit(e, "published")}
               type="button"

@@ -87,7 +87,7 @@ export function TipSelector({
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#fff5f3]">
-          <Heart className="h-5 w-5 text-[#ff5d46]" />
+          <Heart className="h-5 w-5 text-[#8B7355]" />
         </div>
         <div>
           <h3 className="font-semibold text-[#211f1a] text-base">Add a Tip</h3>
@@ -105,7 +105,7 @@ export function TipSelector({
             <button
               className={`flex flex-col items-center justify-center gap-1 rounded-xl border-2 p-4 transition ${
                 isSelected
-                  ? "border-[#ff5d46] bg-[#fff5f3]"
+                  ? "border-[#8B7355] bg-[#fff5f3]"
                   : "border-[#e5dfd4] bg-white hover:border-[#d4cabb]"
               }`}
               key={percentage}
@@ -113,7 +113,7 @@ export function TipSelector({
               type="button"
             >
               <span
-                className={`font-bold text-base ${isSelected ? "text-[#ff5d46]" : "text-[#211f1a]"}`}
+                className={`font-bold text-base ${isSelected ? "text-[#8B7355]" : "text-[#211f1a]"}`}
               >
                 {percentage}%
               </span>
@@ -128,7 +128,7 @@ export function TipSelector({
         <button
           className={`w-full rounded-xl border-2 px-4 py-3 text-left text-sm transition ${
             selectedType === "custom"
-              ? "border-[#ff5d46] bg-[#fff5f3] font-semibold text-[#ff5d46]"
+              ? "border-[#8B7355] bg-[#fff5f3] font-semibold text-[#8B7355]"
               : "border-[#e5dfd4] bg-white text-[#7d7566] hover:border-[#d4cabb]"
           }`}
           onClick={handleCustomClick}
@@ -141,7 +141,7 @@ export function TipSelector({
           <div className="relative">
             <span className="absolute top-3 left-3 text-[#7d7566] text-base">$</span>
             <input
-              className="w-full rounded-xl border border-[#e5dfd4] py-3 pr-4 pl-8 text-[#211f1a] transition focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+              className="w-full rounded-xl border border-[#e5dfd4] py-3 pr-4 pl-8 text-[#211f1a] transition focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
               inputMode="decimal"
               onChange={(e) => handleCustomAmountChange(e.target.value)}
               placeholder="0"

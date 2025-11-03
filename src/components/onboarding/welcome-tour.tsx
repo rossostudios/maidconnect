@@ -7,7 +7,7 @@ import { TourTooltip } from "./tour-tooltip";
 const steps: TourStep[] = [
   {
     target: '[data-tour="welcome"]',
-    title: "Welcome to MaidConnect! 👋",
+    title: "Welcome to Casaora! 👋",
     content:
       "We're excited to have you here. Let's take a quick tour to help you get started with finding trusted household professionals.",
     placement: "bottom",

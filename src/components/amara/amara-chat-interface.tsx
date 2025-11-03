@@ -1,9 +1,9 @@
 "use client";
 
 /**
- * Etta Chat Interface
+ * Amara Chat Interface
  *
- * Main chat window component for the Etta AI assistant.
+ * Main chat window component for the Amara AI assistant.
  * Uses Vercel AI SDK's useChat hook for streaming responses.
  */
 
@@ -14,19 +14,19 @@ import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
-import { EttaIcon } from "./etta-icon";
-import { EttaMessageActions } from "./etta-message-actions";
-import { EttaQuickReplies, getContextualQuickReplies, type QuickReply } from "./etta-quick-replies";
-import "./etta-animations.css";
+import { AmaraIcon } from "./amara-icon";
+import { AmaraMessageActions } from "./amara-message-actions";
+import { AmaraQuickReplies, getContextualQuickReplies, type QuickReply } from "./amara-quick-replies";
+import "./amara-animations.css";
 
-interface EttaChatInterfaceProps {
+interface AmaraChatInterfaceProps {
   isOpen: boolean;
   onClose: () => void;
   locale?: string;
 }
 
-export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
-  const t = useTranslations("etta");
+export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps) {
+  const t = useTranslations("amara");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [quickReplies, setQuickReplies] = useState<QuickReply[]>([]);
@@ -34,10 +34,10 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
 
   const { messages, sendMessage, status, error, setMessages } = useChat({
     transport: new DefaultChatTransport({
-      api: "/api/etta/chat",
+      api: "/api/amara/chat",
     }),
     onError: (error) => {
-      console.error("Etta chat error:", error);
+      console.error("Amara chat error:", error);
     },
   });
 
@@ -100,12 +100,12 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="etta-chat-window fixed inset-0 z-50 flex flex-col bg-white transition-all duration-300 sm:inset-auto sm:right-4 sm:bottom-4 sm:h-[600px] sm:w-full sm:max-w-[420px] sm:rounded-2xl sm:border sm:border-gray-200/60 sm:shadow-[0_16px_60px_rgba(0,0,0,0.15)] md:right-6 md:bottom-6 md:h-[680px] md:max-w-[480px]">
+    <div className="amara-chat-window fixed inset-0 z-50 flex flex-col bg-white transition-all duration-300 sm:inset-auto sm:right-4 sm:bottom-4 sm:h-[600px] sm:w-full sm:max-w-[420px] sm:rounded-2xl sm:border sm:border-gray-200/60 sm:shadow-[0_16px_60px_rgba(0,0,0,0.15)] md:right-6 md:bottom-6 md:h-[680px] md:max-w-[480px]">
       {/* Header */}
       <div className="flex items-center justify-between border-gray-100 border-b bg-white px-4 py-3 sm:rounded-t-2xl sm:px-6 sm:py-4">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center">
-            <EttaIcon className="text-[#ff5d46]" size={40} />
+            <AmaraIcon className="text-[#8B7355]" size={40} />
           </div>
           <div>
             <h3 className="font-semibold text-base text-gray-900">{t("title")}</h3>
@@ -127,9 +127,9 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
         {/* Greeting Section */}
         {messages.length === 1 && (
           <div className="space-y-4 pb-6">
-            <div className="etta-message flex justify-start gap-3">
+            <div className="amara-message flex justify-start gap-3">
               <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
-                <EttaIcon className="text-[#ff5d46]" size={32} />
+                <AmaraIcon className="text-[#8B7355]" size={32} />
               </div>
               <div className="max-w-[85%] rounded-2xl border border-gray-100 bg-white px-4 py-3 text-gray-900 shadow-sm sm:max-w-[75%]">
                 <p className="text-[15px] leading-relaxed">{t("greeting")}</p>
@@ -141,7 +141,7 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
         {messages.map((message) => (
           <div
             className={cn(
-              "etta-message flex gap-3",
+              "amara-message flex gap-3",
               message.role === "user" ? "justify-end" : "justify-start"
             )}
             key={message.id}
@@ -149,7 +149,7 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
             {/* Assistant avatar */}
             {message.role === "assistant" && (
               <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
-                <EttaIcon className="text-[#ff5d46]" size={32} />
+                <AmaraIcon className="text-[#8B7355]" size={32} />
               </div>
             )}
 
@@ -158,7 +158,7 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
                 className={cn(
                   "max-w-[85%] rounded-2xl px-4 py-3 shadow-sm transition-shadow hover:shadow-md sm:max-w-[75%]",
                   message.role === "user"
-                    ? "bg-[#ff5d46] text-white"
+                    ? "bg-[#8B7355] text-white"
                     : "border border-gray-100 bg-white text-gray-900"
                 )}
               >
@@ -203,7 +203,7 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
 
               {/* Message Actions (only for assistant messages) */}
               {message.role === "assistant" && message.id !== "welcome" && (
-                <EttaMessageActions
+                <AmaraMessageActions
                   content={message.parts?.find((p) => p.type === "text")?.text || ""}
                   messageId={message.id}
                 />
@@ -214,15 +214,15 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
 
         {/* Typing indicator */}
         {isLoading && (
-          <div className="etta-typing-indicator flex justify-start gap-3">
+          <div className="amara-typing-indicator flex justify-start gap-3">
             <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
-              <EttaIcon className="text-[#ff5d46]" size={32} />
+              <AmaraIcon className="text-[#8B7355]" size={32} />
             </div>
             <div className="rounded-2xl border border-gray-100 bg-white px-4 py-3 shadow-sm">
               <div className="flex space-x-1.5">
-                <div className="etta-typing-dot h-2 w-2 rounded-full bg-gray-400" />
-                <div className="etta-typing-dot h-2 w-2 rounded-full bg-gray-400" />
-                <div className="etta-typing-dot h-2 w-2 rounded-full bg-gray-400" />
+                <div className="amara-typing-dot h-2 w-2 rounded-full bg-gray-400" />
+                <div className="amara-typing-dot h-2 w-2 rounded-full bg-gray-400" />
+                <div className="amara-typing-dot h-2 w-2 rounded-full bg-gray-400" />
               </div>
             </div>
           </div>
@@ -231,7 +231,7 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
         {/* Error message */}
         {error && (
           <div className="flex justify-center">
-            <div className="etta-error rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm">
+            <div className="amara-error rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm">
               {t("errorMessage")}
             </div>
           </div>
@@ -240,7 +240,7 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
         {/* Quick Replies */}
         {!isLoading && quickReplies.length > 0 && (
           <div className="pt-2">
-            <EttaQuickReplies
+            <AmaraQuickReplies
               disabled={isLoading}
               onSelect={handleQuickReplySelect}
               replies={quickReplies}
@@ -306,7 +306,7 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
         <div className="mb-3 flex items-end gap-2 sm:gap-3">
           <div className="relative flex-1">
             <input
-              className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900 transition placeholder:text-gray-400 focus:border-[#ff5d46] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/10"
+              className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900 transition placeholder:text-gray-400 focus:border-[#8B7355] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#8B7355]/10"
               disabled={isLoading}
               maxLength={500}
               name="message"
@@ -318,7 +318,7 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
           </div>
           <button
             aria-label={t("send")}
-            className="flex h-11 min-h-[44px] w-11 min-w-[44px] flex-shrink-0 items-center justify-center rounded-xl bg-[#ff5d46] text-white shadow-sm transition hover:bg-[#eb6c65] active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-[#ff5d46]"
+            className="flex h-11 min-h-[44px] w-11 min-w-[44px] flex-shrink-0 items-center justify-center rounded-xl bg-[#8B7355] text-white shadow-sm transition hover:bg-[#9B8B7E] active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-[#8B7355]"
             disabled={isLoading || !input.trim()}
             type="submit"
           >
@@ -332,8 +332,8 @@ export function EttaChatInterface({ isOpen, onClose }: EttaChatInterfaceProps) {
 
         {/* Privacy Policy Text */}
         <p className="text-center text-gray-500 text-xs">
-          By chatting with Etta, you agree to our{" "}
-          <Link className="text-[#ff5d46] hover:underline" href="/privacy">
+          By chatting with Amara, you agree to our{" "}
+          <Link className="text-[#8B7355] hover:underline" href="/privacy">
             Privacy Policy
           </Link>
         </p>

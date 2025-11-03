@@ -218,7 +218,7 @@ export function ProBookingList({ bookings }: Props) {
                                 ? "bg-green-100 text-green-800"
                                 : booking.status === "declined"
                                   ? "bg-red-100 text-red-800"
-                                  : "bg-[#ff5d46]/10 text-[#8a3934]"
+                                  : "bg-[#8B7355]/10 text-[#8a3934]"
                           }`}
                         >
                           {booking.status.replace(/_/g, " ")}
@@ -252,7 +252,7 @@ export function ProBookingList({ bookings }: Props) {
                           <div className="flex flex-wrap items-center gap-2">
                             {showCapture ? (
                               <button
-                                className="inline-flex items-center rounded-md bg-[#ff5d46] px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+                                className="inline-flex items-center rounded-md bg-[#8B7355] px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-70"
                                 disabled={loadingId !== null}
                                 onClick={() => handleAction(booking, "capture")}
                                 type="button"
@@ -264,7 +264,7 @@ export function ProBookingList({ bookings }: Props) {
                             ) : null}
                             {showVoid ? (
                               <button
-                                className="inline-flex items-center rounded-md border border-[#f0e1dc] px-3 py-1.5 font-semibold text-[#7a6d62] text-xs transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
+                                className="inline-flex items-center rounded-md border border-[#f0e1dc] px-3 py-1.5 font-semibold text-[#7a6d62] text-xs transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
                                 disabled={loadingId !== null}
                                 onClick={() => handleAction(booking, "void")}
                                 type="button"
@@ -331,7 +331,7 @@ export function ProBookingList({ bookings }: Props) {
                             ? "bg-green-100 text-green-800"
                             : booking.status === "declined"
                               ? "bg-red-100 text-red-800"
-                              : "bg-[#ff5d46]/10 text-[#8a3934]"
+                              : "bg-[#8B7355]/10 text-[#8a3934]"
                       }`}
                     >
                       {booking.status.replace(/_/g, " ")}
@@ -391,7 +391,7 @@ export function ProBookingList({ bookings }: Props) {
                         <div className="flex flex-col gap-3">
                           {showCapture && (
                             <button
-                              className="inline-flex items-center justify-center rounded-xl bg-[#ff5d46] px-4 py-3 font-semibold text-sm text-white shadow-sm transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+                              className="inline-flex items-center justify-center rounded-xl bg-[#8B7355] px-4 py-3 font-semibold text-sm text-white shadow-sm transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-70"
                               disabled={loadingId !== null}
                               onClick={() => handleAction(booking, "capture")}
                               type="button"
@@ -403,7 +403,7 @@ export function ProBookingList({ bookings }: Props) {
                           )}
                           {showVoid && (
                             <button
-                              className="inline-flex items-center justify-center rounded-xl border-2 border-[#ebe5d8] bg-white px-4 py-3 font-semibold text-[#7a6d62] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
+                              className="inline-flex items-center justify-center rounded-xl border-2 border-[#ebe5d8] bg-white px-4 py-3 font-semibold text-[#7a6d62] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
                               disabled={loadingId !== null}
                               onClick={() => handleAction(booking, "void")}
                               type="button"

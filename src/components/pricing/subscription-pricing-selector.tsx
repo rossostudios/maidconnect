@@ -33,7 +33,7 @@ export function SubscriptionPricingSelector({
       <div className="flex items-center justify-between">
         <h3 className="font-semibold text-[#211f1a] text-sm">Booking Frequency</h3>
         <button
-          className="text-[#ff5d46] text-xs hover:text-[#eb6c65]"
+          className="text-[#8B7355] text-xs hover:text-[#9B8B7E]"
           onClick={() => setShowDetails(!showDetails)}
           type="button"
         >
@@ -52,8 +52,8 @@ export function SubscriptionPricingSelector({
             <button
               className={`relative rounded-lg border p-4 text-left transition ${
                 isSelected
-                  ? "border-[#ff5d46] bg-[#ff5d46]/5 ring-2 ring-[#ff5d46]/20"
-                  : "border-[#e5dfd4] bg-white hover:border-[#ff5d46]/50"
+                  ? "border-[#8B7355] bg-[#8B7355]/5 ring-2 ring-[#8B7355]/20"
+                  : "border-[#e5dfd4] bg-white hover:border-[#8B7355]/50"
               }`}
               key={tier}
               onClick={() => onTierChange(tier)}
@@ -61,7 +61,7 @@ export function SubscriptionPricingSelector({
             >
               {/* Recommended Badge */}
               {isRecommended && (
-                <div className="-right-1 -top-1 absolute rounded-full bg-[#ff5d46] px-2 py-1 font-semibold text-white text-xs">
+                <div className="-right-1 -top-1 absolute rounded-full bg-[#8B7355] px-2 py-1 font-semibold text-white text-xs">
                   Recommended
                 </div>
               )}
@@ -76,7 +76,7 @@ export function SubscriptionPricingSelector({
                     <h4 className="font-semibold text-[#211f1a]">{getTierDescription(tier)}</h4>
                   </div>
                   {discountLabel && (
-                    <p className="mt-1 font-semibold text-[#ff5d46] text-xs">💰 {discountLabel}</p>
+                    <p className="mt-1 font-semibold text-[#8B7355] text-xs">💰 {discountLabel}</p>
                   )}
                 </div>
               </div>
@@ -92,7 +92,7 @@ export function SubscriptionPricingSelector({
                     <p className="text-[#7a6d62] text-xs line-through">
                       {formatCOP(pricing.basePrice)}
                     </p>
-                    <p className="font-bold text-[#ff5d46] text-lg">
+                    <p className="font-bold text-[#8B7355] text-lg">
                       {formatCOP(pricing.finalPrice)}
                     </p>
                   </div>
@@ -123,7 +123,7 @@ export function SubscriptionPricingSelector({
           <ul className="mt-3 space-y-2">
             {getTierBenefits(selectedTier).map((benefit, index) => (
               <li className="flex items-start gap-2 text-sm" key={index}>
-                <span className="text-[#ff5d46]">✓</span>
+                <span className="text-[#8B7355]">✓</span>
                 <span className="text-[#7a6d62]">{benefit}</span>
               </li>
             ))}
@@ -170,8 +170,8 @@ export function SubscriptionPricingBadge({
   const pricing = calculateSubscriptionPricing(basePrice, tier);
 
   return (
-    <div className="inline-flex items-center gap-2 rounded-full bg-[#ff5d46]/10 px-3 py-1">
-      <span className="font-semibold text-[#ff5d46] text-xs">
+    <div className="inline-flex items-center gap-2 rounded-full bg-[#8B7355]/10 px-3 py-1">
+      <span className="font-semibold text-[#8B7355] text-xs">
         💰 {pricing.discountPercent}% OFF
       </span>
       <span className="text-[#7a6d62] text-xs">

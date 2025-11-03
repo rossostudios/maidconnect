@@ -231,18 +231,18 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                   <button
                     className={`flex flex-col items-center gap-2 rounded-xl border-2 p-4 text-center transition ${
                       isSelected
-                        ? "border-[#ff5d46] bg-[#ff5d4610]"
-                        : "border-[#ebe5d8] bg-white hover:border-[#ff5d46]/50"
+                        ? "border-[#8B7355] bg-[#8B735510]"
+                        : "border-[#ebe5d8] bg-white hover:border-[#8B7355]/50"
                     }`}
                     key={type.value}
                     onClick={() => setFeedbackType(type.value)}
                     type="button"
                   >
                     <TypeIcon
-                      className={`h-6 w-6 ${isSelected ? "text-[#ff5d46]" : "text-[#7a6d62]"}`}
+                      className={`h-6 w-6 ${isSelected ? "text-[#8B7355]" : "text-[#7a6d62]"}`}
                     />
                     <span
-                      className={`font-medium text-sm ${isSelected ? "text-[#ff5d46]" : "text-[#211f1a]"}`}
+                      className={`font-medium text-sm ${isSelected ? "text-[#8B7355]" : "text-[#211f1a]"}`}
                     >
                       {type.label}
                     </span>
@@ -262,7 +262,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
               <span className="text-[#7a6d62]">({t("form.optional")})</span>
             </label>
             <input
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633] disabled:opacity-60"
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533] disabled:opacity-60"
               disabled={loading}
               id="subject"
               maxLength={200}
@@ -279,7 +279,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
               {t("form.messageLabel")} <span className="text-red-500">*</span>
             </label>
             <textarea
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633] disabled:opacity-60"
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533] disabled:opacity-60"
               disabled={loading}
               id="message"
               maxLength={5000}
@@ -301,7 +301,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
               {t("form.emailLabel")} <span className="text-[#7a6d62]">({t("form.optional")})</span>
             </label>
             <input
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d4633] disabled:opacity-60"
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533] disabled:opacity-60"
               disabled={loading}
               id="email"
               onChange={(e) => setEmail(e.target.value)}
@@ -317,7 +317,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
             <label className="flex items-start gap-3">
               <input
                 checked={consent}
-                className="mt-1 h-4 w-4 rounded border-[#ebe5d8] text-[#ff5d46] transition focus:ring-2 focus:ring-[#ff5d4633] disabled:opacity-60"
+                className="mt-1 h-4 w-4 rounded border-[#ebe5d8] text-[#8B7355] transition focus:ring-2 focus:ring-[#8B735533] disabled:opacity-60"
                 disabled={loading}
                 onChange={(e) => setConsent(e.target.checked)}
                 required
@@ -341,7 +341,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
           {/* Submit Button */}
           <button
-            className="w-full rounded-full bg-[#ff5d46] px-6 py-4 font-semibold text-base text-white transition hover:bg-[#e54d36] disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full rounded-full bg-[#8B7355] px-6 py-4 font-semibold text-base text-white transition hover:bg-[#8B7355] disabled:cursor-not-allowed disabled:opacity-60"
             disabled={loading || !consent || message.length < 10}
             type="submit"
           >

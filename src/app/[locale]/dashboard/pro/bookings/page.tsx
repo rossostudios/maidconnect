@@ -53,7 +53,7 @@ export default async function ProBookingsPage({ params }: { params: Promise<{ lo
           <p className="mt-2 text-[#5d574b] text-base leading-relaxed">{t("description")}</p>
         </div>
         <Link
-          className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+          className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
           href="/dashboard/pro/onboarding"
         >
           {t("updateAvailability")}

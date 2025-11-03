@@ -1,12 +1,28 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Link } from "@/i18n/routing";
-import { CancelBookingModal } from "./cancel-booking-modal";
-import { DisputeModal, isWithinDisputeWindow } from "./dispute-modal";
-import { RebookModal } from "./rebook-modal";
-import { RescheduleBookingModal } from "./reschedule-booking-modal";
+import { isWithinDisputeWindow } from "./dispute-modal";
+
+// Dynamic imports for modals (lazy load on demand)
+const CancelBookingModal = dynamic(
+  () => import("./cancel-booking-modal").then((mod) => mod.CancelBookingModal),
+  { ssr: false }
+);
+const DisputeModal = dynamic(
+  () => import("./dispute-modal").then((mod) => mod.DisputeModal),
+  { ssr: false }
+);
+const RebookModal = dynamic(
+  () => import("./rebook-modal").then((mod) => mod.RebookModal),
+  { ssr: false }
+);
+const RescheduleBookingModal = dynamic(
+  () => import("./reschedule-booking-modal").then((mod) => mod.RescheduleBookingModal),
+  { ssr: false }
+);
 
 export type CustomerBooking = {
   id: string;
@@ -35,7 +51,7 @@ export function CustomerBookingList({ bookings }: Props) {
         <p className="text-[#5d574b] text-base">{t("emptyState.noBookings")}</p>
         <p className="mt-3 text-[#5d574b] text-base">
           {t("emptyState.browseText")}{" "}
-          <Link className="font-semibold text-[#ff5d46] hover:text-[#eb6c65]" href="/professionals">
+          <Link className="font-semibold text-[#8B7355] hover:text-[#9B8B7E]" href="/professionals">
             {t("emptyState.professionalDirectory")}
           </Link>{" "}
           {t("emptyState.bookFirstService")}
@@ -176,7 +192,7 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
           {(booking.status === "confirmed" || booking.status === "authorized") && isUpcoming && (
             <>
               <button
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
                 onClick={() => setShowRescheduleModal(true)}
                 type="button"
               >
@@ -194,7 +210,7 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
           {booking.status === "completed" && !isUpcoming && (
             <>
               <button
-                className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-5 py-2.5 font-semibold text-sm text-white shadow-[0_4px_12px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
+                className="inline-flex items-center justify-center rounded-full bg-[#8B7355] px-5 py-2.5 font-semibold text-sm text-white shadow-[0_4px_12px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]"
                 type="button"
               >
                 {t("card.actions.leaveReview")}
@@ -209,7 +225,7 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
                 </button>
               )}
               <button
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
                 onClick={() => setShowRebookModal(true)}
                 type="button"
               >

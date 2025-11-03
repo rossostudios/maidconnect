@@ -3,8 +3,9 @@
 import { ArrowRight, Calendar, Eye, MessageCircle, ThumbsDown, ThumbsUp } from "lucide-react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import { sanitizeRichContent } from "@/lib/sanitize";
 
 interface HelpArticle {
   id: string;
@@ -140,15 +141,22 @@ export function ArticleViewer({
     }).format(date);
   };
 
+  // Sanitize article content to prevent XSS attacks
+  // Admin-controlled content, but still sanitized for safety
+  const sanitizedContent = useMemo(
+    () => sanitizeRichContent(article.content),
+    [article.content]
+  );
+
   return (
     <div className="mx-auto max-w-4xl">
       {/* Breadcrumb */}
       <nav className="mb-6 flex items-center gap-2 text-gray-600 text-sm">
-        <Link className="hover:text-[#ff5d46]" href={`/${locale}/help`}>
+        <Link className="hover:text-[#8B7355]" href={`/${locale}/help`}>
           {t("breadcrumb.home")}
         </Link>
         <span>/</span>
-        <Link className="hover:text-[#ff5d46]" href={`/${locale}/help/${categorySlug}`}>
+        <Link className="hover:text-[#8B7355]" href={`/${locale}/help/${categorySlug}`}>
           {categoryName}
         </Link>
       </nav>
@@ -171,8 +179,8 @@ export function ArticleViewer({
 
       {/* Article Content */}
       <div
-        className="prose prose-lg mb-12 max-w-none prose-code:rounded prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-headings:font-semibold prose-a:text-[#ff5d46] prose-code:text-gray-900 prose-headings:text-gray-900 prose-strong:text-gray-900 prose-a:no-underline prose-code:before:content-none prose-code:after:content-none hover:prose-a:underline"
-        dangerouslySetInnerHTML={{ __html: article.content }}
+        className="prose prose-lg mb-12 max-w-none prose-code:rounded prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-headings:font-semibold prose-a:text-[#8B7355] prose-code:text-gray-900 prose-headings:text-gray-900 prose-strong:text-gray-900 prose-a:no-underline prose-code:before:content-none prose-code:after:content-none hover:prose-a:underline"
+        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
       />
 
       {/* Feedback Section */}
@@ -216,7 +224,7 @@ export function ArticleViewer({
           <div className="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-6">
             <h4 className="mb-3 font-semibold text-gray-900">{t("feedback.tellUsMore")}</h4>
             <textarea
-              className="mb-4 w-full rounded-lg border border-gray-300 p-3 focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+              className="mb-4 w-full rounded-lg border border-gray-300 p-3 focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
               onChange={(e) => setFeedbackText(e.target.value)}
               placeholder={t("feedback.placeholder")}
               rows={4}
@@ -224,7 +232,7 @@ export function ArticleViewer({
             />
             <div className="flex gap-3">
               <button
-                className="rounded-lg bg-[#ff5d46] px-6 py-2 font-medium text-white transition hover:bg-[#e54d36] disabled:opacity-50"
+                className="rounded-lg bg-[#8B7355] px-6 py-2 font-medium text-white transition hover:bg-[#8B7355] disabled:opacity-50"
                 disabled={submitting}
                 onClick={() => void handleFeedbackTextSubmit()}
                 type="button"
@@ -250,15 +258,15 @@ export function ArticleViewer({
           <div className="grid gap-4 md:grid-cols-2">
             {relatedArticles.map((related) => (
               <Link
-                className="group rounded-lg border border-gray-200 p-4 transition hover:border-[#ff5d46] hover:shadow-md"
+                className="group rounded-lg border border-gray-200 p-4 transition hover:border-[#8B7355] hover:shadow-md"
                 href={`/${locale}/help/${related.category_slug}/${related.slug}`}
                 key={related.id}
               >
-                <h4 className="mb-2 font-semibold text-gray-900 group-hover:text-[#ff5d46]">
+                <h4 className="mb-2 font-semibold text-gray-900 group-hover:text-[#8B7355]">
                   {related.title}
                 </h4>
                 {related.excerpt && <p className="text-gray-600 text-sm">{related.excerpt}</p>}
-                <div className="mt-3 flex items-center text-[#ff5d46] text-sm">
+                <div className="mt-3 flex items-center text-[#8B7355] text-sm">
                   <span>{t("related.readMore")}</span>
                   <ArrowRight className="ml-1 h-4 w-4" />
                 </div>
@@ -270,11 +278,11 @@ export function ArticleViewer({
 
       {/* Contact Support CTA */}
       <div className="rounded-lg border border-gray-200 bg-gradient-to-br from-gray-50 to-white p-8 text-center">
-        <MessageCircle className="mx-auto mb-4 h-12 w-12 text-[#ff5d46]" />
+        <MessageCircle className="mx-auto mb-4 h-12 w-12 text-[#8B7355]" />
         <h3 className="mb-2 font-semibold text-gray-900 text-xl">{t("contact.title")}</h3>
         <p className="mb-6 text-gray-600">{t("contact.description")}</p>
         <Link
-          className="inline-flex items-center gap-2 rounded-lg bg-[#ff5d46] px-6 py-3 font-semibold text-white transition hover:bg-[#e54d36]"
+          className="inline-flex items-center gap-2 rounded-lg bg-[#8B7355] px-6 py-3 font-semibold text-white transition hover:bg-[#8B7355]"
           href={`/${locale}/contact`}
         >
           {t("contact.button")}

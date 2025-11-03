@@ -104,7 +104,7 @@ export async function submitCustomerReviewAction(
       return { status: "error", message: "We couldn't save your review. Please try again." };
     }
 
-    revalidatePath("/dashboard/pro");
+    revalidatePath("/[locale]/dashboard/pro");
     return { status: "success", message: "Customer review submitted successfully!" };
   } catch (_error) {
     return { status: "error", message: "Unexpected error while submitting review." };

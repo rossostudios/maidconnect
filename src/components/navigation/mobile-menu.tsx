@@ -30,7 +30,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
       {/* Hamburger Button - Shows on all screen sizes */}
       <button
         aria-label={isOpen ? "Close menu" : "Open menu"}
-        className="flex h-11 w-11 items-center justify-center rounded-lg text-[#211f1a] transition hover:bg-[#ebe5d8] active:scale-95"
+        className="flex h-11 w-11 items-center justify-center rounded-lg text-[var(--foreground)] transition hover:bg-[color-mix(in_srgb,var(--accent)_18%,transparent)] hover:text-[var(--surface-contrast)] active:scale-95"
         onClick={toggleMenu}
         type="button"
       >
@@ -48,16 +48,16 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
 
       {/* Slide-in Menu - Shows on all screen sizes */}
       <div
-        className={`fixed top-0 right-0 z-50 h-full w-[320px] transform bg-white shadow-2xl transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 z-50 h-full w-[320px] transform bg-[var(--surface)] text-[var(--foreground)] shadow-[var(--shadow-elevated)] transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-[#ebe5d8] border-b p-5">
-          <span className="font-semibold text-[#211f1a] text-lg">Menu</span>
+        <div className="flex items-center justify-between border-[var(--border)] border-b p-5">
+          <span className="font-semibold text-lg text-[var(--foreground)]">Menu</span>
           <button
             aria-label="Close menu"
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-[#211f1a] transition hover:bg-[#ebe5d8] active:scale-95"
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-[var(--foreground)] transition hover:bg-[color-mix(in_srgb,var(--accent)_18%,transparent)] hover:text-[var(--surface-contrast)] active:scale-95"
             onClick={closeMenu}
             type="button"
           >
@@ -69,7 +69,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
         <nav className="flex flex-col p-5">
           {links.map((link) => (
             <Link
-              className="rounded-lg px-4 py-3 font-medium text-[#211f1a] text-base transition hover:bg-[#ebe5d8]"
+              className="rounded-lg px-4 py-3 text-base font-medium text-[var(--foreground)] transition hover:bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] hover:text-[var(--surface-contrast)]"
               href={link.href}
               key={link.href}
               onClick={() => {
@@ -82,14 +82,14 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
           ))}
 
           {/* Divider */}
-          {isAuthenticated && <div className="my-4 border-[#ebe5d8] border-t" />}
+          {isAuthenticated && <div className="my-4 border-[var(--border)] border-t" />}
 
           {/* Auth Actions */}
           {isAuthenticated ? (
             <>
               {dashboardHref && (
                 <Link
-                  className="rounded-lg bg-[#ff5d46] px-4 py-3 text-center font-semibold text-base text-white transition hover:bg-[#eb6c65]"
+                  className="rounded-lg bg-[var(--accent)] px-4 py-3 text-center text-base font-semibold text-[var(--surface-contrast)] transition hover:bg-[color-mix(in_srgb,var(--accent)_85%,var(--accent-gold)_15%)]"
                   href={dashboardHref}
                   onClick={closeMenu}
                 >
@@ -97,7 +97,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
                 </Link>
               )}
               <button
-                className="mt-3 rounded-lg border-2 border-[#ebe5d8] px-4 py-3 text-center font-semibold text-[#211f1a] text-base transition hover:border-[#211f1a] active:scale-95"
+                className="mt-3 rounded-lg border-2 border-[var(--border)] px-4 py-3 text-center text-base font-semibold text-[var(--foreground)] transition hover:border-[var(--surface-contrast)] hover:text-[var(--surface-contrast)] active:scale-95"
                 onClick={() => {
                   onSignOut?.();
                   closeMenu();
@@ -110,14 +110,14 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
           ) : (
             <div className="flex flex-col gap-3">
               <Link
-                className="rounded-lg border-2 border-[#ebe5d8] px-4 py-3 text-center font-semibold text-[#211f1a] text-base transition hover:border-[#211f1a]"
+                className="rounded-lg border-2 border-[var(--border)] px-4 py-3 text-center text-base font-semibold text-[var(--foreground)] transition hover:border-[var(--surface-contrast)] hover:text-[var(--surface-contrast)]"
                 href="/auth/sign-in"
                 onClick={closeMenu}
               >
                 {t("login")}
               </Link>
               <Link
-                className="rounded-lg bg-[#ff5d46] px-4 py-3 text-center font-semibold text-base text-white transition hover:bg-[#eb6c65]"
+                className="rounded-lg bg-[var(--accent)] px-4 py-3 text-center text-base font-semibold text-[var(--surface-contrast)] transition hover:bg-[color-mix(in_srgb,var(--accent)_85%,var(--accent-gold)_15%)]"
                 href="/auth/sign-up"
                 onClick={closeMenu}
               >

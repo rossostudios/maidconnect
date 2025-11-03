@@ -1,21 +1,21 @@
 /**
- * Etta Chat API Endpoint
+ * Amara Chat API Endpoint
  *
- * Handles streaming chat conversations with Etta AI assistant.
+ * Handles streaming chat conversations with Amara AI assistant.
  * Uses Vercel AI SDK with Claude Haiku 4.5 for fast, cost-effective responses.
  */
 
 import { streamText } from "ai";
 import { NextResponse } from "next/server";
 import { handleApiError } from "@/lib/error-handler";
-import { ETTA_MODEL_CONFIG, ettaModel, validateEttaConfig } from "@/lib/etta/ai-client";
-import { getEttaSystemPrompt } from "@/lib/etta/prompts";
-import { ettaTools } from "@/lib/etta/tools";
+import { AMARA_MODEL_CONFIG, amaraModel, validateAmaraConfig } from "@/lib/amara/ai-client";
+import { getAmaraSystemPrompt } from "@/lib/amara/prompts";
+import { amaraTools } from "@/lib/amara/tools";
 import { logger } from "@/lib/logger";
 import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { validateRequestBody } from "@/lib/validations/api";
-import { ettaChatRequestSchema } from "@/lib/validations/etta";
+import { amaraChatRequestSchema } from "@/lib/validations/amara";
 
 /**
  * Handle POST requests to the chat endpoint
@@ -23,7 +23,7 @@ import { ettaChatRequestSchema } from "@/lib/validations/etta";
 async function handlePOST(request: Request) {
   try {
     // Validate AI configuration
-    validateEttaConfig();
+    validateAmaraConfig();
 
     // Authenticate user
     const supabase = await createSupabaseServerClient();
@@ -36,7 +36,7 @@ async function handlePOST(request: Request) {
     }
 
     // Validate request body
-    const body = await validateRequestBody(request, ettaChatRequestSchema);
+    const body = await validateRequestBody(request, amaraChatRequestSchema);
     const { messages, conversationId } = body;
 
     // Get user profile for context
@@ -62,10 +62,10 @@ async function handlePOST(request: Request) {
     };
 
     // Get system prompt
-    const systemPrompt = getEttaSystemPrompt(userContext);
+    const systemPrompt = getAmaraSystemPrompt(userContext);
 
     // Log chat initiation for analytics
-    logger.info("Etta chat initiated", {
+    logger.info("Amara chat initiated", {
       userId: user.id,
       conversationId: conversationId || "new",
       messageCount: messages.length,
@@ -74,7 +74,7 @@ async function handlePOST(request: Request) {
 
     // Stream AI response using Vercel AI SDK
     const result = streamText({
-      model: ettaModel,
+      model: amaraModel,
       messages: [
         {
           role: "system",
@@ -82,8 +82,8 @@ async function handlePOST(request: Request) {
         },
         ...messages,
       ],
-      tools: ettaTools,
-      // Note: maxTokens and temperature are configured in the model itself via ETTA_MODEL_CONFIG
+      tools: amaraTools,
+      // Note: maxTokens and temperature are configured in the model itself via AMARA_MODEL_CONFIG
       onFinish: async ({ text, toolCalls, usage }) => {
         // Save conversation to database after response completes
         try {
@@ -92,7 +92,7 @@ async function handlePOST(request: Request) {
           // Create conversation if this is the first message
           if (!currentConversationId) {
             const { data: newConversation, error: conversationError } = await supabase
-              .from("etta_conversations")
+              .from("amara_conversations")
               .insert({
                 user_id: user.id,
                 locale: userContext.locale,
@@ -114,13 +114,13 @@ async function handlePOST(request: Request) {
 
           // Save assistant message
           if (currentConversationId) {
-            const { error: messageError } = await supabase.from("etta_messages").insert({
+            const { error: messageError } = await supabase.from("amara_messages").insert({
               conversation_id: currentConversationId,
               role: "assistant",
               content: text,
               tool_calls: toolCalls ? JSON.stringify(toolCalls) : null,
               metadata: {
-                model: ETTA_MODEL_CONFIG.name,
+                model: AMARA_MODEL_CONFIG.name,
                 usage,
                 timestamp: new Date().toISOString(),
               },
@@ -135,13 +135,13 @@ async function handlePOST(request: Request) {
 
             // Update conversation's last_message_at
             await supabase
-              .from("etta_conversations")
+              .from("amara_conversations")
               .update({ last_message_at: new Date().toISOString() })
               .eq("id", currentConversationId);
           }
 
           // Log completion for analytics
-          logger.info("Etta chat completed", {
+          logger.info("Amara chat completed", {
             userId: user.id,
             conversationId: currentConversationId,
             tokensUsed: usage?.totalTokens || 0,
@@ -159,13 +159,13 @@ async function handlePOST(request: Request) {
     // Return streaming response
     return result.toTextStreamResponse();
   } catch (error) {
-    logger.error("Etta chat error", {
+    logger.error("Amara chat error", {
       error,
       message: error instanceof Error ? error.message : "Unknown error",
     });
 
     return handleApiError(error, request, {
-      context: "etta_chat",
+      context: "amara_chat",
       userId: "unknown",
     });
   }
@@ -175,6 +175,6 @@ async function handlePOST(request: Request) {
  * Export with rate limiting
  *
  * Using 'api' rate limit type (100 req/min) for now.
- * Can create a custom 'etta' rate limit if needed.
+ * Can create a custom 'amara' rate limit if needed.
  */
 export const POST = withRateLimit(handlePOST, "api");

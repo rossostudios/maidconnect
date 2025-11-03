@@ -35,8 +35,8 @@ export async function CareersValues() {
             return (
               <div className="flex flex-col" key={valueKey}>
                 {/* Icon */}
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#ff5d46]/10">
-                  <Icon className="h-6 w-6 text-[#ff5d46]" strokeWidth={2} />
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#8B7355]/10">
+                  <Icon className="h-6 w-6 text-[#8B7355]" strokeWidth={2} />
                 </div>
 
                 {/* Title */}

@@ -104,7 +104,7 @@ export function DocumentsTable({ documents, labels }: Props) {
           }
           return (
             <a
-              className="inline-flex items-center gap-1.5 rounded-lg border border-[#ebe5d8] px-3 py-1.5 font-semibold text-[#ff5d46] text-sm transition hover:border-[#ff5d46] hover:bg-[#fff5f2]"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-[#ebe5d8] px-3 py-1.5 font-semibold text-[#8B7355] text-sm transition hover:border-[#8B7355] hover:bg-[#fff5f2]"
               href={url}
               rel="noopener noreferrer"
               target="_blank"
@@ -183,7 +183,7 @@ export function DocumentsTable({ documents, labels }: Props) {
       <div className="flex items-center gap-4">
         <div className="relative flex-1">
           <input
-            className="w-full rounded-lg border border-[#ebe5d8] px-4 py-2 pl-10 text-[#211f1a] text-sm placeholder-[#7d7566] focus:border-[#ff5d46] focus:outline-none focus:ring-1 focus:ring-[#ff5d46]"
+            className="w-full rounded-lg border border-[#ebe5d8] px-4 py-2 pl-10 text-[#211f1a] text-sm placeholder-[#7d7566] focus:border-[#8B7355] focus:outline-none focus:ring-1 focus:ring-[#8B7355]"
             onChange={(e) => table.getColumn("document_type")?.setFilterValue(e.target.value)}
             placeholder="Search documents..."
             type="text"
@@ -225,7 +225,7 @@ export function DocumentsTable({ documents, labels }: Props) {
                         <div
                           className={
                             header.column.getCanSort()
-                              ? "flex cursor-pointer select-none items-center gap-2 hover:text-[#ff5d46]"
+                              ? "flex cursor-pointer select-none items-center gap-2 hover:text-[#8B7355]"
                               : ""
                           }
                           onClick={header.column.getToggleSortingHandler()}
@@ -269,7 +269,7 @@ export function DocumentsTable({ documents, labels }: Props) {
           </div>
           <div className="flex items-center gap-2">
             <button
-              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:opacity-50"
+              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:opacity-50"
               disabled={!table.getCanPreviousPage()}
               onClick={() => table.previousPage()}
               type="button"
@@ -277,7 +277,7 @@ export function DocumentsTable({ documents, labels }: Props) {
               Previous
             </button>
             <button
-              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:opacity-50"
+              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:opacity-50"
               disabled={!table.getCanNextPage()}
               onClick={() => table.nextPage()}
               type="button"

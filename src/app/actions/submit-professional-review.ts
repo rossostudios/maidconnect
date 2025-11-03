@@ -41,7 +41,44 @@ export async function submitProfessionalReviewAction(
       return { status: "error", message: "Please sign in to leave a review." };
     }
 
-    const reviewerName = user.email ? user.email.split("@")[0] : "MaidConnect member";
+    // SECURITY: Verify user has a completed booking with this professional
+    // Prevent fake reviews from users who haven't worked with the professional
+    const { data: completedBooking, error: bookingError } = await supabase
+      .from("bookings")
+      .select("id, status")
+      .eq("customer_id", user.id)
+      .eq("professional_id", professionalId)
+      .eq("status", "completed")
+      .maybeSingle();
+
+    if (bookingError) {
+      console.error("[Review] Booking verification error:", bookingError);
+      return { status: "error", message: "Unable to verify booking. Please try again." };
+    }
+
+    if (!completedBooking) {
+      return {
+        status: "error",
+        message: "You can only review professionals you've worked with. Complete a booking first.",
+      };
+    }
+
+    // Check if user has already reviewed this professional
+    const { data: existingReview } = await supabase
+      .from("professional_reviews")
+      .select("id")
+      .eq("customer_id", user.id)
+      .eq("professional_id", professionalId)
+      .maybeSingle();
+
+    if (existingReview) {
+      return {
+        status: "error",
+        message: "You've already reviewed this professional. Edit your existing review instead.",
+      };
+    }
+
+    const reviewerName = user.email ? user.email.split("@")[0] : "Casaora member";
 
     const { error } = await supabase.from("professional_reviews").insert({
       professional_id: professionalId,
@@ -56,7 +93,7 @@ export async function submitProfessionalReviewAction(
       return { status: "error", message: "We couldn’t save your review. Please try again." };
     }
 
-    revalidatePath(`/professionals/${professionalId}`);
+    revalidatePath(`/[locale]/professionals/${professionalId}`);
     return { status: "success", message: "Review submitted." };
   } catch (_error) {
     return { status: "error", message: "Unexpected error while submitting review." };

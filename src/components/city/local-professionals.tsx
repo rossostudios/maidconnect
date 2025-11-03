@@ -77,7 +77,7 @@ export function LocalProfessionals({
         {/* View All CTA */}
         <div className="mt-12 text-center">
           <Link
-            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#ff5d46] px-8 py-4 font-semibold text-[#ff5d46] text-base transition hover:bg-[#ff5d46] hover:text-white"
+            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#8B7355] px-8 py-4 font-semibold text-[#8B7355] text-base transition hover:bg-[#8B7355] hover:text-white"
             href={`/professionals?city=${cityName.toLowerCase().replace(/\s+/g, "-")}`}
           >
             {t("professionals.viewAll")}
@@ -115,7 +115,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
       )}
 
       {/* Profile Image */}
-      <div className="mb-4 aspect-square overflow-hidden rounded-xl bg-gradient-to-br from-[#ff5d46]/10 to-[#ff5d46]/5">
+      <div className="mb-4 aspect-square overflow-hidden rounded-xl bg-gradient-to-br from-[#8B7355]/10 to-[#8B7355]/5">
         {professional.profile_image_url ? (
           <img
             alt={professional.full_name || "Professional"}
@@ -124,7 +124,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
           />
         ) : (
           <div className="flex h-full items-center justify-center">
-            <span className="font-bold text-5xl text-[#ff5d46]">
+            <span className="font-bold text-5xl text-[#8B7355]">
               {professional.full_name?.charAt(0).toUpperCase() || "?"}
             </span>
           </div>
@@ -133,7 +133,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
 
       {/* Professional Info */}
       <div>
-        <h3 className="mb-2 font-semibold text-[#211f1a] text-lg group-hover:text-[#ff5d46]">
+        <h3 className="mb-2 font-semibold text-[#211f1a] text-lg group-hover:text-[#8B7355]">
           {professional.full_name || t("professionals.card.unnamed")}
         </h3>
 
@@ -148,7 +148,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
         {/* Rating */}
         {professional.average_rating && professional.total_reviews > 0 && (
           <div className="mb-3 flex items-center gap-2">
-            <Star className="h-4 w-4 fill-[#ff5d46] text-[#ff5d46]" />
+            <Star className="h-4 w-4 fill-[#8B7355] text-[#8B7355]" />
             <span className="font-medium text-[#211f1a] text-sm">
               {professional.average_rating.toFixed(1)}
             </span>
@@ -163,7 +163,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
           <div className="mb-4 flex flex-wrap gap-2">
             {professional.services.slice(0, 2).map((service, index) => (
               <span
-                className="rounded-full bg-[#ff5d46]/10 px-3 py-1 text-[#ff5d46] text-xs"
+                className="rounded-full bg-[#8B7355]/10 px-3 py-1 text-[#8B7355] text-xs"
                 key={index}
               >
                 {service.name}

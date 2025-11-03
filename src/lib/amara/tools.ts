@@ -1,8 +1,8 @@
 /**
- * Etta AI Tools
+ * Amara AI Tools
  *
- * Defines the tools/functions that Etta can use to interact with
- * the MaidConnect platform (search professionals, check availability, etc.)
+ * Defines the tools/functions that Amara can use to interact with
+ * the Casaora platform (search professionals, check availability, etc.)
  */
 
 import { tool } from "ai";
@@ -13,7 +13,7 @@ import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 /**
  * Tool: Search for cleaning professionals
  *
- * Searches the MaidConnect database for professionals matching the criteria.
+ * Searches the Casaora database for professionals matching the criteria.
  * Returns top 3 matches with basic info, ratings, and pricing.
  */
 export const searchProfessionalsTool = tool({
@@ -77,7 +77,7 @@ export const searchProfessionalsTool = tool({
 
         return {
           id: row.profile_id,
-          name: row.full_name || "MaidConnect Professional",
+          name: row.full_name || "Casaora Professional",
           service: primaryService,
           experienceYears: row.experience_years || 0,
           hourlyRateCop: hourlyRate,
@@ -313,7 +313,7 @@ export const createBookingDraftTool = tool({
 /**
  * Export all tools as a collection
  */
-export const ettaTools = {
+export const amaraTools = {
   searchProfessionals: searchProfessionalsTool,
   checkAvailability: checkAvailabilityTool,
   createBookingDraft: createBookingDraftTool,

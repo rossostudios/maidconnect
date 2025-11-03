@@ -36,7 +36,7 @@ export function SignUpForm() {
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label
             className={cn(
-              "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition focus-within:border-[#ff5d46] hover:border-[#ff5d46]",
+              "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition focus-within:border-[#8B7355] hover:border-[#8B7355]",
               fieldError("role") &&
                 "border-red-400 focus-within:border-red-400 hover:border-red-400"
             )}
@@ -55,7 +55,7 @@ export function SignUpForm() {
           </label>
           <label
             className={cn(
-              "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition focus-within:border-[#ff5d46] hover:border-[#ff5d46]",
+              "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition focus-within:border-[#8B7355] hover:border-[#8B7355]",
               fieldError("role") &&
                 "border-red-400 focus-within:border-red-400 hover:border-red-400"
             )}
@@ -202,7 +202,7 @@ export function SignUpForm() {
 
       <button
         className={cn(
-          "w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:border-[#ff5d46] hover:bg-[#2b2624]",
+          "w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:border-[#8B7355] hover:bg-[#2b2624]",
           isPending && "cursor-not-allowed opacity-60"
         )}
         disabled={isPending}

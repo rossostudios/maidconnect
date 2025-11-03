@@ -33,7 +33,7 @@ export function DashboardLayout({
         <Container>
           <div className="flex items-center justify-between py-4">
             <Link className="font-semibold text-[#211f1a] text-xl tracking-tight" href="/">
-              MaidConnect
+              Casaora
             </Link>
 
             {/* Navigation tabs */}

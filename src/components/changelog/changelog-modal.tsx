@@ -120,7 +120,7 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
         {/* Header */}
         <div className="mb-6 pr-12">
           <div className="mb-2 flex items-center gap-2">
-            <span className="rounded-full bg-[#ff5d4620] px-3 py-1 font-semibold text-[#ff5d46] text-sm">
+            <span className="rounded-full bg-[#8B735520] px-3 py-1 font-semibold text-[#8B7355] text-sm">
               Sprint {changelog.sprint_number}
             </span>
             <span className="text-[#7a6d62] text-sm">{formattedDate}</span>
@@ -180,14 +180,14 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
         {/* Actions */}
         <div className="mt-8 flex flex-col gap-3 border-[#ebe5d8] border-t pt-6 sm:flex-row">
           <button
-            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] hover:text-[#8B7355]"
             onClick={() => router.push("/changelog")}
             type="button"
           >
             {t("viewAllUpdates")}
           </button>
           <button
-            className="flex-1 rounded-full bg-[#ff5d46] px-6 py-3 font-semibold text-base text-white transition hover:bg-[#e54d36] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-base text-white transition hover:bg-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={marking}
             onClick={handleMarkAsRead}
             type="button"

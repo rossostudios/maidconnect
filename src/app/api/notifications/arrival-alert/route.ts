@@ -3,7 +3,7 @@ import { isFeatureEnabled } from "@/lib/feature-flags";
 import { notifyCustomerProfessionalEnRoute } from "@/lib/notifications";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-export const dynamic = "force-dynamic";
+// Note: API routes are dynamic by default, no config needed with cacheComponents
 
 /**
  * Arrival Alert API
@@ -118,10 +118,17 @@ export async function GET(request: NextRequest) {
         .single();
 
       if (!sentNotification) {
+        const professional = Array.isArray(booking.professional)
+          ? booking.professional[0]
+          : booking.professional;
+        const service = Array.isArray(booking.service)
+          ? booking.service[0]
+          : booking.service;
+
         await notifyCustomerProfessionalEnRoute(booking.customer_id, {
           bookingId: booking.id,
-          professionalName: booking.professional?.full_name || "Your professional",
-          serviceName: booking.service?.name || "service",
+          professionalName: professional?.full_name || "Your professional",
+          serviceName: service?.name || "service",
           estimatedArrival: scheduledStart.toISOString(),
           windowStart: windowStart.toISOString(),
           windowEnd: windowEnd.toISOString(),
@@ -224,10 +231,15 @@ export async function POST(request: NextRequest) {
     const windowEnd = new Date(scheduledStart.getTime() + 15 * 60 * 1000);
 
     // Send "en route" notification to customer
+    const professional = Array.isArray(booking.professional)
+      ? booking.professional[0]
+      : booking.professional;
+    const service = Array.isArray(booking.service) ? booking.service[0] : booking.service;
+
     await notifyCustomerProfessionalEnRoute(booking.customer_id, {
       bookingId: booking.id,
-      professionalName: booking.professional?.full_name || "Your professional",
-      serviceName: booking.service?.name || "service",
+      professionalName: professional?.full_name || "Your professional",
+      serviceName: service?.name || "service",
       estimatedArrival: scheduledStart.toISOString(),
       windowStart: windowStart.toISOString(),
       windowEnd: windowEnd.toISOString(),

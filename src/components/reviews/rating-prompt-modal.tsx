@@ -178,7 +178,7 @@ export function RatingPromptModal({
               Title (optional)
             </label>
             <input
-              className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+              className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
               id="title"
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Sum up your experience in one line"
@@ -193,7 +193,7 @@ export function RatingPromptModal({
               Comment (optional)
             </label>
             <textarea
-              className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20"
+              className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
               id="comment"
               onChange={(e) => setComment(e.target.value)}
               placeholder="Share details about your experience (e.g., were they on time? responsive? respectful of your time?)"
@@ -216,7 +216,7 @@ export function RatingPromptModal({
           {/* Actions */}
           <div className="flex gap-3">
             <button
-              className="flex-1 rounded-lg border border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#7a6d62] transition hover:border-[#ff5d46] hover:text-[#ff5d46] disabled:cursor-not-allowed disabled:opacity-70"
+              className="flex-1 rounded-lg border border-[#ebe5d8] bg-white px-4 py-2 font-semibold text-[#7a6d62] transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
               disabled={loading}
               onClick={onClose}
               type="button"
@@ -224,7 +224,7 @@ export function RatingPromptModal({
               Skip for now
             </button>
             <button
-              className="flex-1 rounded-lg bg-[#ff5d46] px-4 py-2 font-semibold text-white transition hover:bg-[#eb6c65] disabled:cursor-not-allowed disabled:opacity-70"
+              className="flex-1 rounded-lg bg-[#8B7355] px-4 py-2 font-semibold text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-70"
               disabled={loading || rating === 0}
               type="submit"
             >

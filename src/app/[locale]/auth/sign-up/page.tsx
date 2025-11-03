@@ -27,7 +27,7 @@ export default async function SignUpPage({ params }: Props) {
       <div className="flex h-full flex-col border-[#e5dfd4] border-r bg-[#fbfaf9] px-8 py-10 md:h-screen md:overflow-y-auto md:px-16 md:py-16">
         <header className="flex items-center justify-between border-[#ece6da] border-b pb-6 text-[#211f1a] text-sm md:pb-10">
           <Link className="font-semibold" href="/">
-            MaidConnect
+            Casaora
           </Link>
           <Link className="font-semibold" href={AUTH_ROUTES.signIn}>
             {t("header.signIn")}

@@ -121,7 +121,7 @@ export function ProfessionalsFilterSheet({
             <Filter className="h-5 w-5 text-[#211f1a]" />
             <h2 className="font-semibold text-[#211f1a] text-lg">Filters</h2>
             {activeFilterCount > 0 && (
-              <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#ff5d46] px-2 font-semibold text-white text-xs">
+              <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#8B7355] px-2 font-semibold text-white text-xs">
                 {activeFilterCount}
               </span>
             )}
@@ -200,7 +200,7 @@ export function ProfessionalsFilterSheet({
             <label className="flex cursor-pointer items-center gap-3">
               <input
                 checked={availableToday}
-                className="h-6 w-6 cursor-pointer rounded border-[#e2ddd2] text-[#ff5d46] focus:ring-[#ff5d46]"
+                className="h-6 w-6 cursor-pointer rounded border-[#e2ddd2] text-[#8B7355] focus:ring-[#8B7355]"
                 onChange={(e) => setAvailableToday(e.target.checked)}
                 type="checkbox"
               />
@@ -215,14 +215,14 @@ export function ProfessionalsFilterSheet({
         <div className="sticky bottom-0 border-[#ebe5d8] border-t bg-white p-6">
           <div className="flex gap-3">
             <button
-              className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3.5 font-semibold text-[#211f1a] text-base transition hover:border-[#211f1a] active:scale-95"
+              className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3.5 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] active:scale-95"
               onClick={handleReset}
               type="button"
             >
               {t("filters.reset")}
             </button>
             <button
-              className="flex-1 rounded-full bg-[#ff5d46] px-6 py-3.5 font-semibold text-base text-white transition hover:bg-[#eb6c65] active:scale-95"
+              className="flex-1 rounded-full bg-[#8B7355] px-6 py-3.5 font-semibold text-base text-white shadow-[var(--shadow-card)] transition hover:bg-[#9B8B7E] active:scale-95"
               onClick={handleApply}
               type="button"
             >

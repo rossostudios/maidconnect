@@ -1,5 +1,5 @@
 /**
- * Etta Chat Animations
+ * Amara Chat Animations
  *
  * Smooth, Intercom-style animations for the chat interface
  */
@@ -112,88 +112,88 @@
 }
 
 /* Apply animations */
-.etta-chat-window {
+.amara-chat-window {
   animation: slideInFromBottom 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.etta-message {
+.amara-message {
   animation: messageSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.etta-quick-reply {
+.amara-quick-reply {
   animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   animation-fill-mode: both;
 }
 
 /* Stagger animation for multiple quick replies */
-.etta-quick-reply:nth-child(1) {
+.amara-quick-reply:nth-child(1) {
   animation-delay: 0.05s;
 }
 
-.etta-quick-reply:nth-child(2) {
+.amara-quick-reply:nth-child(2) {
   animation-delay: 0.1s;
 }
 
-.etta-quick-reply:nth-child(3) {
+.amara-quick-reply:nth-child(3) {
   animation-delay: 0.15s;
 }
 
-.etta-quick-reply:nth-child(4) {
+.amara-quick-reply:nth-child(4) {
   animation-delay: 0.2s;
 }
 
-.etta-quick-reply:nth-child(5) {
+.amara-quick-reply:nth-child(5) {
   animation-delay: 0.25s;
 }
 
-.etta-typing-indicator {
+.amara-typing-indicator {
   animation: fadeIn 0.3s ease-in-out;
 }
 
-.etta-typing-dot {
+.amara-typing-dot {
   animation: bounce 1.4s infinite ease-in-out;
 }
 
-.etta-typing-dot:nth-child(1) {
+.amara-typing-dot:nth-child(1) {
   animation-delay: 0s;
 }
 
-.etta-typing-dot:nth-child(2) {
+.amara-typing-dot:nth-child(2) {
   animation-delay: 0.15s;
 }
 
-.etta-typing-dot:nth-child(3) {
+.amara-typing-dot:nth-child(3) {
   animation-delay: 0.3s;
 }
 
-.etta-error {
+.amara-error {
   animation: shake 0.5s ease-in-out, fadeIn 0.3s ease-in-out;
 }
 
-.etta-message-actions {
+.amara-message-actions {
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
 }
 
-.etta-message:hover .etta-message-actions {
+.amara-message:hover .amara-message-actions {
   opacity: 1;
 }
 
 /* Smooth transitions */
-.etta-button-transition {
+.amara-button-transition {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.etta-button-transition:hover {
+.amara-button-transition:hover {
   transform: translateY(-1px);
 }
 
-.etta-button-transition:active {
+.amara-button-transition:active {
   transform: translateY(0);
 }
 
 /* Loading shimmer effect */
-.etta-shimmer {
+.amara-shimmer {
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
@@ -205,6 +205,6 @@
 }
 
 /* Pulse ring for onboarding attention */
-.etta-pulse-ring {
+.amara-pulse-ring {
   animation: pulseRing 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 }

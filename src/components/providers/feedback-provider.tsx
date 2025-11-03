@@ -1,7 +1,13 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { createContext, type ReactNode, useContext, useState } from "react";
-import { FeedbackModal } from "@/components/feedback/feedback-modal";
+
+// Dynamic import for modal (lazy load on demand)
+const FeedbackModal = dynamic(
+  () => import("@/components/feedback/feedback-modal").then((mod) => mod.FeedbackModal),
+  { ssr: false }
+);
 
 interface FeedbackContextType {
   openFeedback: () => void;

@@ -187,7 +187,7 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
             >
               {/* Match Score Badge */}
               {index === 0 && (
-                <div className="bg-gradient-to-r from-[#ff5d46] to-[#ff8a75] px-4 py-2 text-center font-semibold text-sm text-white">
+                <div className="bg-gradient-to-r from-[#8B7355] to-[#9B8B7E] px-4 py-2 text-center font-semibold text-sm text-white">
                   ⭐ {t("topMatch", { defaultValue: "Top Match" })} - {match.matchScore}%{" "}
                   {t("compatibility", { defaultValue: "Compatibility" })}
                 </div>

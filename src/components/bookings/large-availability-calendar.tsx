@@ -133,7 +133,7 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
         </h2>
         <div className="flex gap-3">
           <button
-            className="rounded-xl border-2 border-[#e5dfd4] px-5 py-2.5 font-semibold text-[#7d7566] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            className="rounded-xl border-2 border-[#e5dfd4] px-5 py-2.5 font-semibold text-[#7d7566] text-base transition hover:border-[#8B7355] hover:text-[#8B7355]"
             onClick={goToToday}
             type="button"
           >
@@ -141,7 +141,7 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
           </button>
           <button
             aria-label="Previous month"
-            className="rounded-xl border-2 border-[#e5dfd4] p-2.5 text-[#7d7566] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            className="rounded-xl border-2 border-[#e5dfd4] p-2.5 text-[#7d7566] transition hover:border-[#8B7355] hover:text-[#8B7355]"
             onClick={goToPreviousMonth}
             type="button"
           >
@@ -149,7 +149,7 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
           </button>
           <button
             aria-label="Next month"
-            className="rounded-xl border-2 border-[#e5dfd4] p-2.5 text-[#7d7566] transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            className="rounded-xl border-2 border-[#e5dfd4] p-2.5 text-[#7d7566] transition hover:border-[#8B7355] hover:text-[#8B7355]"
             onClick={goToNextMonth}
             type="button"
           >
@@ -243,8 +243,8 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
                 return (
                   <button
                     className={`group relative flex min-h-[120px] flex-col rounded-2xl border-2 p-4 text-left transition-all duration-300 ${bgColor}
-                      ${isSelected ? "scale-105 ring-4 ring-[#ff5d46] ring-offset-2" : ""}
-                      ${isToday ? "border-[#ff5d46]" : ""}
+                      ${isSelected ? "scale-105 ring-4 ring-[#8B7355] ring-offset-2" : ""}
+                      ${isToday ? "border-[#8B7355]" : ""}
                       ${canSelect ? "hover:-translate-y-1 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-100" : "cursor-not-allowed opacity-60"}
                       ${isPast ? "text-gray-400" : "text-[#211f1a]"}
                     `}
@@ -258,7 +258,7 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
                     type="button"
                   >
                     <div className="flex items-start justify-between">
-                      <span className={`font-semibold text-2xl ${isToday ? "text-[#ff5d46]" : ""}`}>
+                      <span className={`font-semibold text-2xl ${isToday ? "text-[#8B7355]" : ""}`}>
                         {day.getDate()}
                       </span>
                       {availability && !isPast && (

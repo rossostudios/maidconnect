@@ -1,7 +1,13 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { ProfessionalReviewModal } from "./professional-review-modal";
+
+// Dynamic import for modal (lazy load on demand)
+const ProfessionalReviewModal = dynamic(
+  () => import("./professional-review-modal").then((mod) => mod.ProfessionalReviewModal),
+  { ssr: false }
+);
 
 type ProfessionalInQueue = {
   profile_id: string;
@@ -144,7 +150,7 @@ export function ProfessionalVettingDashboard() {
           <button
             className={`relative px-4 py-2 font-semibold text-sm transition ${
               activeTab === tab.key
-                ? "border-[#ff5d46] border-b-2 text-[#ff5d46]"
+                ? "border-[#8B7355] border-b-2 text-[#8B7355]"
                 : "text-[#7a6d62] hover:text-[#211f1a]"
             }`}
             key={tab.key}
@@ -240,7 +246,7 @@ export function ProfessionalVettingDashboard() {
                 </div>
 
                 <button
-                  className="ml-4 rounded-lg bg-[#ff5d46] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#eb6c65]"
+                  className="ml-4 rounded-lg bg-[#8B7355] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#9B8B7E]"
                   onClick={() => setSelectedProfessional(professional)}
                   type="button"
                 >

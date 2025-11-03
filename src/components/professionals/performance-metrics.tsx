@@ -141,7 +141,7 @@ export function PerformanceMetrics({ metrics, variant = "compact", showLabels = 
           <TrendingUp className="h-4 w-4 text-blue-600" />
           <p className="text-[#5d574b] text-sm">
             <span className="font-semibold text-[#211f1a]">{totalCompletedBookings}</span>{" "}
-            {totalCompletedBookings === 1 ? "service" : "services"} completed on Maidconnect
+            {totalCompletedBookings === 1 ? "service" : "services"} completed on Casaora
           </p>
         </div>
       )}

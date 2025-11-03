@@ -28,8 +28,39 @@ export async function POST(request: Request) {
       customerEmail?: string;
     } = body ?? {};
 
+    // Comprehensive amount validation to prevent fraud
     if (!amount || amount <= 0) {
       return NextResponse.json({ error: "Amount must be greater than zero" }, { status: 400 });
+    }
+
+    // Maximum amount: 1M COP (1,000,000,000 centavos)
+    // This prevents accidental or malicious billion-dollar charges
+    const MAX_AMOUNT_COP = 1_000_000_000; // 1M COP in centavos
+    if (amount > MAX_AMOUNT_COP) {
+      return NextResponse.json(
+        {
+          error: "Amount exceeds maximum allowed",
+          maxAmount: MAX_AMOUNT_COP,
+        },
+        { status: 400 }
+      );
+    }
+
+    // Stripe requires amounts in smallest currency unit (integers)
+    if (!Number.isInteger(amount)) {
+      return NextResponse.json({ error: "Amount must be an integer (smallest currency unit)" }, { status: 400 });
+    }
+
+    // Currency whitelist - only allow supported currencies
+    const SUPPORTED_CURRENCIES = ["cop", "usd", "eur"];
+    if (!SUPPORTED_CURRENCIES.includes(currency.toLowerCase())) {
+      return NextResponse.json(
+        {
+          error: "Unsupported currency",
+          supportedCurrencies: SUPPORTED_CURRENCIES,
+        },
+        { status: 400 }
+      );
     }
 
     const { data: customerRow } = await supabase

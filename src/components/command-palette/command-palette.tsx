@@ -291,7 +291,7 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
                         "group relative flex cursor-pointer items-center gap-3 rounded-lg px-3 py-3 text-sm transition-colors",
                         "text-[#2e2419]",
                         "hover:bg-[#f5f0e8]",
-                        "aria-selected:bg-[#ff5d46] aria-selected:text-white"
+                        "aria-selected:bg-[#8B7355] aria-selected:text-white"
                       )}
                       key={cmd.id}
                       onSelect={() => {

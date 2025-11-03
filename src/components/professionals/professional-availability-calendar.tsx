@@ -146,7 +146,7 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
         <p className="text-[#7a6d62] text-sm">Browse upcoming availability and see booked dates</p>
         <div className="flex items-center gap-3">
           <button
-            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-[#5d574b] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-[#5d574b] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
             onClick={() => changeMonth(-1)}
             type="button"
           >
@@ -154,7 +154,7 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
           </button>
           <p className="font-semibold text-[#211f1a] text-sm capitalize">{monthLabel}</p>
           <button
-            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-[#5d574b] text-sm transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-[#5d574b] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
             onClick={() => changeMonth(1)}
             type="button"
           >
@@ -187,9 +187,9 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
                   day.inCurrentMonth
                     ? "border-[#efe7dc] bg-white"
                     : "border-transparent bg-[#fbfafa] text-[#c4bbaf]",
-                  hasAvailability ? "ring-1 ring-[#ff5d46]/30 ring-inset" : "",
+                  hasAvailability ? "ring-1 ring-[#8B7355]/30 ring-inset" : "",
                   hasBookings ? "shadow-[0_6px_14px_rgba(18,17,15,0.08)]" : "",
-                  isSelected ? "border-[#ff5d46] ring-2 ring-[#ff5d4633]" : ""
+                  isSelected ? "border-[#8B7355] ring-2 ring-[#8B735533]" : ""
                 )}
                 key={day.key}
                 onClick={() => setSelectedDayKey(day.key)}
@@ -197,7 +197,7 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
               >
                 <span className="font-semibold text-sm">{day.label}</span>
                 {hasAvailability ? (
-                  <span className="mt-1 rounded-full bg-[#ff5d46]/12 px-2 py-0.5 font-semibold text-[#8a3934] text-xs">
+                  <span className="mt-1 rounded-full bg-[#8B7355]/12 px-2 py-0.5 font-semibold text-[#8a3934] text-xs">
                     Open
                   </span>
                 ) : null}
@@ -232,7 +232,7 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
                     className="flex items-center gap-2"
                     key={`${slot.day}-${slot.start}-${slot.end}-${index}`}
                   >
-                    <Clock aria-hidden="true" className="h-3.5 w-3.5 text-[#ff5d46]" />
+                    <Clock aria-hidden="true" className="h-3.5 w-3.5 text-[#8B7355]" />
                     <span>
                       {slot.start ?? "--"} – {slot.end ?? "--"}
                     </span>

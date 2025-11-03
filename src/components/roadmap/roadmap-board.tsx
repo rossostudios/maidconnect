@@ -100,7 +100,7 @@ export function RoadmapBoard() {
       <div className="lg:col-span-3">
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#ff5d46] border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#8B7355] border-t-transparent" />
           </div>
         ) : items.length === 0 ? (
           <div className="py-12 text-center">

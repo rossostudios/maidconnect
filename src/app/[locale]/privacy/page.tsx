@@ -72,8 +72,8 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </p>
             <p className="mb-2 text-[#211f1a]">
               <strong>Correo Electrónico:</strong>{" "}
-              <a className="text-[#ff5d46] hover:underline" href="mailto:privacy@maidconnect.com">
-                privacy@maidconnect.com
+              <a className="text-[#8B7355] hover:underline" href="mailto:privacy@casaora.com">
+                privacy@casaora.com
               </a>
             </p>
             <p className="mb-2 text-[#211f1a]">
@@ -81,7 +81,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </p>
           </div>
           <p className="text-[#7d7566]">
-            MaidConnect actúa como responsable del tratamiento de sus datos personales conforme a lo
+            Casaora actúa como responsable del tratamiento de sus datos personales conforme a lo
             establecido en la Ley 1581 de 2012 y el Decreto 1377 de 2013.
           </p>
         </section>
@@ -220,7 +220,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </li>
           </ul>
 
-          <div className="rounded-lg border-[#ff5d46] border-l-4 bg-[#fff5f2] p-4">
+          <div className="rounded-lg border-[#8B7355] border-l-4 bg-[#fff5f2] p-4">
             <h3 className="mb-2 font-semibold text-[#211f1a]">¿Cómo Ejercer Sus Derechos?</h3>
             <p className="mb-2 text-[#7d7566]">
               Para ejercer cualquiera de estos derechos, puede contactarnos por los siguientes
@@ -229,8 +229,8 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <ul className="ml-6 list-disc text-[#7d7566]">
               <li>
                 <strong>Correo electrónico:</strong>{" "}
-                <a className="text-[#ff5d46] hover:underline" href="mailto:privacy@maidconnect.com">
-                  privacy@maidconnect.com
+                <a className="text-[#8B7355] hover:underline" href="mailto:privacy@casaora.com">
+                  privacy@casaora.com
                 </a>
               </li>
               <li>
@@ -272,7 +272,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           </h3>
           <p className="mb-4 text-[#7d7566]">
             Puede revocar su autorización en cualquier momento contactando a
-            privacy@maidconnect.com. La revocación no tendrá efectos retroactivos.
+            privacy@casaora.com. La revocación no tendrá efectos retroactivos.
           </p>
         </section>
 
@@ -320,7 +320,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <li>Dirección del servicio (solo para el profesional asignado)</li>
           </ul>
 
-          <p className="font-semibold text-[#ff5d46]">
+          <p className="font-semibold text-[#8B7355]">
             ⚠️ NO vendemos sus datos personales a terceros bajo ninguna circunstancia.
           </p>
         </section>
@@ -428,7 +428,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         <section>
           <h2 className="mb-4 font-bold text-2xl text-[#211f1a]">11. Menores de Edad</h2>
           <p className="text-[#7d7566]">
-            MaidConnect está dirigido a personas mayores de 18 años. No recopilamos intencionalmente
+            Casaora está dirigido a personas mayores de 18 años. No recopilamos intencionalmente
             información de menores de edad. Si detectamos que hemos recopilado datos de un menor,
             procederemos a eliminarlos inmediatamente.
           </p>
@@ -468,7 +468,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <p className="text-[#7d7566]">
               Web:{" "}
               <a
-                className="text-[#ff5d46] hover:underline"
+                className="text-[#8B7355] hover:underline"
                 href="https://www.sic.gov.co"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -489,8 +489,8 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <div className="rounded-lg border border-[#ebe5d8] bg-white p-4">
             <p className="mb-2 text-[#211f1a]">
               <strong>Correo Electrónico:</strong>{" "}
-              <a className="text-[#ff5d46] hover:underline" href="mailto:privacy@maidconnect.com">
-                privacy@maidconnect.com
+              <a className="text-[#8B7355] hover:underline" href="mailto:privacy@casaora.com">
+                privacy@casaora.com
               </a>
             </p>
             <p className="mb-2 text-[#211f1a]">
@@ -503,9 +503,9 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         {/* Legal Declaration */}
-        <section className="rounded-lg border-2 border-[#ff5d46] bg-[#fff5f2] p-6">
+        <section className="rounded-lg border-2 border-[#8B7355] bg-[#fff5f2] p-6">
           <h2 className="mb-4 font-bold text-[#211f1a] text-xl">Declaración de Consentimiento</h2>
-          <p className="text-[#7d7566]">Al registrarse y usar MaidConnect, usted declara que:</p>
+          <p className="text-[#7d7566]">Al registrarse y usar Casaora, usted declara que:</p>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
             <li>Ha leído y entendido esta Política de Privacidad</li>
             <li>Autoriza el tratamiento de sus datos personales conforme a lo aquí establecido</li>
@@ -550,8 +550,8 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </p>
             <p className="mb-2 text-[#211f1a]">
               <strong>Email:</strong>{" "}
-              <a className="text-[#ff5d46] hover:underline" href="mailto:privacy@maidconnect.com">
-                privacy@maidconnect.com
+              <a className="text-[#8B7355] hover:underline" href="mailto:privacy@casaora.com">
+                privacy@casaora.com
               </a>
             </p>
             <p className="mb-2 text-[#211f1a]">
@@ -559,7 +559,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </p>
           </div>
           <p className="text-[#7d7566]">
-            MaidConnect acts as the data controller for your personal data in accordance with
+            Casaora acts as the data controller for your personal data in accordance with
             Colombian Law 1581 of 2012 and Decree 1377 of 2013.
           </p>
         </section>
@@ -619,14 +619,14 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </li>
           </ul>
 
-          <div className="rounded-lg border-[#ff5d46] border-l-4 bg-[#fff5f2] p-4">
+          <div className="rounded-lg border-[#8B7355] border-l-4 bg-[#fff5f2] p-4">
             <h3 className="mb-2 font-semibold text-[#211f1a]">How to Exercise Your Rights</h3>
             <p className="mb-2 text-[#7d7566]">Contact us at:</p>
             <ul className="ml-6 list-disc text-[#7d7566]">
               <li>
                 <strong>Email:</strong>{" "}
-                <a className="text-[#ff5d46] hover:underline" href="mailto:privacy@maidconnect.com">
-                  privacy@maidconnect.com
+                <a className="text-[#8B7355] hover:underline" href="mailto:privacy@casaora.com">
+                  privacy@casaora.com
                 </a>
               </li>
               <li>
@@ -664,7 +664,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
               </p>
             </div>
           </div>
-          <p className="font-semibold text-[#ff5d46]">
+          <p className="font-semibold text-[#8B7355]">
             ⚠️ We NEVER sell your personal data to third parties.
           </p>
         </section>
@@ -719,8 +719,8 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           <div className="rounded-lg border border-[#ebe5d8] bg-white p-4">
             <p className="mb-2 text-[#211f1a]">
               <strong>Email:</strong>{" "}
-              <a className="text-[#ff5d46] hover:underline" href="mailto:privacy@maidconnect.com">
-                privacy@maidconnect.com
+              <a className="text-[#8B7355] hover:underline" href="mailto:privacy@casaora.com">
+                privacy@casaora.com
               </a>
             </p>
             <p className="text-[#211f1a]">
@@ -729,9 +729,9 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
           </div>
         </section>
 
-        <section className="rounded-lg border-2 border-[#ff5d46] bg-[#fff5f2] p-6">
+        <section className="rounded-lg border-2 border-[#8B7355] bg-[#fff5f2] p-6">
           <h2 className="mb-4 font-bold text-[#211f1a] text-xl">Consent Declaration</h2>
-          <p className="text-[#7d7566]">By registering and using MaidConnect, you declare that:</p>
+          <p className="text-[#7d7566]">By registering and using Casaora, you declare that:</p>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
             <li>You have read and understood this Privacy Policy</li>
             <li>You authorize the processing of your personal data as established herein</li>

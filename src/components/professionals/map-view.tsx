@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 import { Icon, type LatLngExpression } from "leaflet";
 import { MapPin, Star } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { Link } from "@/i18n/routing";
@@ -20,6 +20,10 @@ import { VerificationBadge } from "./verification-badge";
  * - Marketplace UX: Show price, rating, distance on map markers
  * - Mobile: Keep map simple, prioritize essential info
  * - OpenStreetMap tiles: Free alternative to Google Maps
+ *
+ * Performance optimizations:
+ * - React.memo: Prevents re-renders when professionals array unchanged
+ * - useMemo: Memoizes expensive coordinate filtering and center calculation
  */
 
 type MapViewProps = {
@@ -33,10 +37,11 @@ type MapViewProps = {
 const DEFAULT_CENTER: LatLngExpression = [4.711, -74.0721];
 const DEFAULT_ZOOM = 6;
 
+// Moved outside component - no dependencies on component state (React 19 best practice)
 // Custom marker icon with price overlay
 function createCustomIcon(price: number | null, verified: boolean) {
   const priceText = price ? `$${Math.round(price / 100)}k` : "N/A";
-  const bgColor = verified ? "#10b981" : "#ff5d46";
+  const bgColor = verified ? "#10b981" : "#8B7355";
 
   return new Icon({
     iconUrl: `data:image/svg+xml,${encodeURIComponent(`
@@ -55,6 +60,7 @@ function createCustomIcon(price: number | null, verified: boolean) {
   });
 }
 
+// Moved outside component - no dependencies on component state (React 19 best practice)
 function formatCurrencyCOP(value: number | null | undefined) {
   if (!value || Number.isNaN(value)) {
     return null;
@@ -67,18 +73,55 @@ function formatCurrencyCOP(value: number | null | undefined) {
   }).format(value / 100);
 }
 
-export function MapView({
-  professionals,
-  center = DEFAULT_CENTER,
-  zoom = DEFAULT_ZOOM,
-  className = "",
-}: MapViewProps) {
+// React.memo optimization for heavy map component with Leaflet library
+const MapViewComponent = memo(
+  function MapView({
+    professionals,
+    center = DEFAULT_CENTER,
+    zoom = DEFAULT_ZOOM,
+    className = "",
+  }: MapViewProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   // Only render map on client side (Leaflet doesn't work with SSR)
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  // useMemo: Expensive computation - filter professionals with valid coordinates
+  const professionalsWithCoords = useMemo(
+    () =>
+      professionals.filter((pro) => {
+        if (!pro.location || !pro.location.includes(",")) {
+          return false;
+        }
+        const parts = pro.location.split(",");
+        return (
+          parts.length >= 2 &&
+          !Number.isNaN(Number.parseFloat(parts[0] || "")) &&
+          !Number.isNaN(Number.parseFloat(parts[1] || ""))
+        );
+      }),
+    [professionals]
+  );
+
+  // useMemo: Expensive computation - calculate map center based on professionals
+  const mapCenter = useMemo(() => {
+    if (professionalsWithCoords.length > 0 && center === DEFAULT_CENTER) {
+      const avgLat =
+        professionalsWithCoords.reduce((sum, pro) => {
+          const parts = pro.location.split(",").map(Number);
+          return sum + (parts[0] || 0);
+        }, 0) / professionalsWithCoords.length;
+      const avgLng =
+        professionalsWithCoords.reduce((sum, pro) => {
+          const parts = pro.location.split(",").map(Number);
+          return sum + (parts[1] || 0);
+        }, 0) / professionalsWithCoords.length;
+      return [avgLat, avgLng] as LatLngExpression;
+    }
+    return center;
+  }, [professionalsWithCoords, center]);
 
   if (!isMounted) {
     return (
@@ -89,31 +132,6 @@ export function MapView({
         </div>
       </div>
     );
-  }
-
-  // Filter professionals with valid coordinates
-  const professionalsWithCoords = professionals.filter(
-    (pro) =>
-      pro.location &&
-      pro.location.includes(",") &&
-      !Number.isNaN(Number.parseFloat(pro.location.split(",")[0])) &&
-      !Number.isNaN(Number.parseFloat(pro.location.split(",")[1]))
-  );
-
-  // Calculate map center based on professionals if no center provided
-  let mapCenter = center;
-  if (professionalsWithCoords.length > 0 && center === DEFAULT_CENTER) {
-    const avgLat =
-      professionalsWithCoords.reduce((sum, pro) => {
-        const [lat] = pro.location.split(",").map(Number);
-        return sum + lat;
-      }, 0) / professionalsWithCoords.length;
-    const avgLng =
-      professionalsWithCoords.reduce((sum, pro) => {
-        const [, lng] = pro.location.split(",").map(Number);
-        return sum + lng;
-      }, 0) / professionalsWithCoords.length;
-    mapCenter = [avgLat, avgLng];
   }
 
   return (
@@ -140,15 +158,16 @@ export function MapView({
           zoomToBoundsOnClick
         >
           {professionalsWithCoords.map((professional) => {
-            const [lat, lng] = professional.location.split(",").map(Number);
-            const position: LatLngExpression = [lat, lng];
+            const parts = professional.location.split(",").map(Number);
+            const position: LatLngExpression = [parts[0] || 0, parts[1] || 0];
 
             return (
               <Marker
                 icon={createCustomIcon(
                   professional.hourlyRateCop,
-                  professional.verificationLevel === "verified" ||
-                    professional.verificationLevel === "elite"
+                  !!(professional.verificationLevel &&
+                    (professional.verificationLevel === "enhanced" ||
+                      professional.verificationLevel === "background-check"))
                 )}
                 key={professional.id}
                 position={position}
@@ -179,7 +198,7 @@ export function MapView({
                             {professional.name}
                           </h3>
                           {professional.verificationLevel && (
-                            <VerificationBadge level={professional.verificationLevel} size="xs" />
+                            <VerificationBadge level={professional.verificationLevel} size="sm" />
                           )}
                         </div>
 
@@ -200,7 +219,7 @@ export function MapView({
 
                         {/* Price */}
                         {professional.hourlyRateCop ? (
-                          <p className="font-semibold text-[#ff5d46] text-sm">
+                          <p className="font-semibold text-[#8B7355] text-sm">
                             {formatCurrencyCOP(professional.hourlyRateCop)}/hr
                           </p>
                         ) : null}
@@ -212,7 +231,7 @@ export function MapView({
                       </div>
                     </div>
 
-                    <div className="mt-2 border-gray-200 border-t pt-2 text-center text-[#ff5d46] text-xs">
+                    <div className="mt-2 border-gray-200 border-t pt-2 text-center text-[#8B7355] text-xs">
                       View Profile →
                     </div>
                   </Link>
@@ -235,4 +254,18 @@ export function MapView({
       )}
     </div>
   );
-}
+  },
+  // Custom comparison: only re-render if professionals array or other props change
+  (prevProps, nextProps) => {
+    return (
+      prevProps.professionals === nextProps.professionals &&
+      prevProps.professionals.length === nextProps.professionals.length &&
+      prevProps.center === nextProps.center &&
+      prevProps.zoom === nextProps.zoom &&
+      prevProps.className === nextProps.className
+    );
+  }
+);
+
+// Export the memoized component
+export const MapView = MapViewComponent;

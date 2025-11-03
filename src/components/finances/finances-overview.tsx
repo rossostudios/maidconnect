@@ -29,7 +29,7 @@ type Props = {
   payouts: Payout[];
 };
 
-const COLORS = ["#ff5d46", "#211f1a", "#7d7566", "#ebe5d8", "#5d574b"];
+const COLORS = ["#8B7355", "#211f1a", "#7d7566", "#ebe5d8", "#5d574b"];
 
 // Dynamically import Recharts components (150-200KB library)
 const LineChartComponent = dynamic(
@@ -58,8 +58,8 @@ const LineChartComponent = dynamic(
               <Line
                 activeDot={{ r: 6 }}
                 dataKey="earnings"
-                dot={{ fill: "#ff5d46", r: 4 }}
-                stroke="#ff5d46"
+                dot={{ fill: "#8B7355", r: 4 }}
+                stroke="#8B7355"
                 strokeWidth={3}
                 type="monotone"
               />
@@ -77,7 +77,7 @@ const LineChartComponent = dynamic(
 const BarChartComponent = dynamic(
   () =>
     import("recharts").then((mod) => ({
-      default: ({ data, dataKey = "bookings", fill = "#ff5d46", formatter }: any) => {
+      default: ({ data, dataKey = "bookings", fill = "#8B7355", formatter }: any) => {
         const { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } = mod;
         return (
           <ResponsiveContainer height={300} width="100%">
@@ -275,7 +275,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
           <h2 className="mb-6 font-semibold text-[#211f1a] text-xl">
             {t("charts.bookingsByMonth")}
           </h2>
-          <BarChartComponent data={earningsData} dataKey="bookings" fill="#ff5d46" />
+          <BarChartComponent data={earningsData} dataKey="bookings" fill="#8B7355" />
         </div>
 
         {/* Revenue by Service */}

@@ -98,16 +98,16 @@ export function DashboardMobileNav({
               >
                 <div className="relative">
                   <IconComponent
-                    className={`h-6 w-6 ${isItemActive ? "text-[#ff5d46]" : "text-[#7a6d62]"}`}
+                    className={`h-6 w-6 ${isItemActive ? "text-[#8B7355]" : "text-[#7a6d62]"}`}
                   />
                   {item.badge !== undefined && item.badge > 0 && (
-                    <span className="-top-1 -right-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[#ff5d46] px-1.5 font-bold text-[10px] text-white">
+                    <span className="-top-1 -right-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[#8B7355] px-1.5 font-bold text-[10px] text-white">
                       {item.badge > 9 ? "9+" : item.badge}
                     </span>
                   )}
                 </div>
                 <span
-                  className={`text-xs ${isItemActive ? "font-semibold text-[#ff5d46]" : "text-[#7a6d62]"}`}
+                  className={`text-xs ${isItemActive ? "font-semibold text-[#8B7355]" : "text-[#7a6d62]"}`}
                 >
                   {item.label}
                 </span>
@@ -124,16 +124,16 @@ export function DashboardMobileNav({
             >
               <div className="relative">
                 <IconComponent
-                  className={`h-6 w-6 ${isItemActive ? "text-[#ff5d46]" : "text-[#7a6d62]"}`}
+                  className={`h-6 w-6 ${isItemActive ? "text-[#8B7355]" : "text-[#7a6d62]"}`}
                 />
                 {item.badge !== undefined && item.badge > 0 && (
-                  <span className="-top-1 -right-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[#ff5d46] px-1.5 font-bold text-[10px] text-white">
+                  <span className="-top-1 -right-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[#8B7355] px-1.5 font-bold text-[10px] text-white">
                     {item.badge > 9 ? "9+" : item.badge}
                   </span>
                 )}
               </div>
               <span
-                className={`text-xs ${isItemActive ? "font-semibold text-[#ff5d46]" : "text-[#7a6d62]"}`}
+                className={`text-xs ${isItemActive ? "font-semibold text-[#8B7355]" : "text-[#7a6d62]"}`}
               >
                 {item.label}
               </span>

@@ -1,0 +1,2649 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "professionals": "Profesionales",
+    "hireProfessional": "Contratar un Profesional",
+    "pricing": "Precios",
+    "services": "Servicios",
+    "howItWorks": "Cómo funciona",
+    "features": "Características",
+    "login": "Iniciar sesión",
+    "signUp": "Registrarse",
+    "dashboard": "Panel",
+    "logout": "Cerrar sesión",
+    "product": "Producto"
+  },
+  "professionals": {
+    "title": "Encuentre su profesional perfecto",
+    "filterBy": "Filtrar por",
+    "serviceType": "Tipo de servicio",
+    "location": "Ubicación",
+    "rating": "Calificación",
+    "hourlyRate": "Tarifa por hora",
+    "availability": "Disponibilidad",
+    "viewProfile": "Ver perfil",
+    "bookNow": "Reservar ahora",
+    "services": {
+      "housekeeping": "Limpieza del hogar",
+      "childcare": "Cuidado de niños",
+      "cooking": "Cocina",
+      "eldercare": "Cuidado de ancianos",
+      "petcare": "Cuidado de mascotas"
+    },
+    "viewToggle": {
+      "list": "Lista",
+      "map": "Mapa"
+    }
+  },
+  "features": {
+    "title": "Por qué elegir Maidconnect",
+    "verifiedProfessionals": {
+      "title": "Profesionales verificados",
+      "description": "Cada profesional se somete a verificación de antecedentes e identidad"
+    },
+    "securePayments": {
+      "title": "Pagos seguros",
+      "description": "Pague de forma segura a través de Stripe con protección de depósito en garantía hasta completar el servicio"
+    },
+    "realTimeBooking": {
+      "title": "Reserva en tiempo real",
+      "description": "Vea la disponibilidad y reserve instantáneamente o solicite aprobación para necesidades personalizadas"
+    },
+    "reviewSystem": {
+      "title": "Sistema de reseñas",
+      "description": "Las reseñas bidireccionales garantizan responsabilidad y le ayudan a tomar decisiones informadas"
+    }
+  },
+  "dashboard": {
+    "pro": {
+      "main": {
+        "welcomeBack": "Bienvenido de nuevo",
+        "dashboardDescription": "Tu panel de control para gestionar reservas, servicios y comunicaciones con clientes.",
+        "onboardingDescription": "Revisa tu progreso de incorporación y completa los siguientes pasos para comenzar a aceptar reservas.",
+        "signOut": "Cerrar sesión",
+        "metrics": {
+          "activeBookings": "Reservas activas",
+          "pendingRequests": "Solicitudes pendientes",
+          "completedThisWeek": "Completados esta semana",
+          "earningsThisWeek": "Ganancias esta semana"
+        },
+        "onboarding": {
+          "title": "Lista de verificación de incorporación",
+          "description": "Completa cada paso para que los clientes puedan descubrirte y reservarte. Los elementos faltantes están resaltados a continuación.",
+          "manageButton": "Gestionar incorporación",
+          "tasks": {
+            "application": {
+              "title": "Detalles de solicitud enviados",
+              "description": "Cuéntanos quién eres, tu experiencia, referencias y dónde trabajas.",
+              "cta": "Actualizar solicitud"
+            },
+            "documents": {
+              "title": "Documentos requeridos cargados",
+              "description": "Carga tu identificación oficial y comprobante de domicilio para verificación.",
+              "cta": "Cargar documentos"
+            },
+            "profile": {
+              "title": "Perfil público listo",
+              "description": "Completa tu biografía, servicios, precios y disponibilidad para activarte.",
+              "cta": "Finalizar perfil"
+            }
+          },
+          "status": {
+            "completed": "Completado",
+            "actionNeeded": "Acción requerida"
+          },
+          "warnings": {
+            "missing": "Falta:",
+            "addService": "Agrega al menos un servicio para mostrar a los clientes lo que ofreces.",
+            "profileActivated": "Perfil activado el",
+            "addReferences": "Agrega dos referencias profesionales para que podamos completar tu verificación de antecedentes."
+          }
+        },
+        "sections": {
+          "pendingRatings": "Calificaciones de Clientes Pendientes",
+          "bookingCalendar": {
+            "title": "Calendario de reservas",
+            "description": "Ve tus próximas reservas, gestiona solicitudes y rastrea visitas completadas.",
+            "updateAvailability": "Actualizar disponibilidad"
+          },
+          "recentBookings": "Reservas recientes",
+          "services": {
+            "title": "Servicios y complementos",
+            "description": "Gestiona tus servicios principales y crea complementos personalizados para aumentar el valor de las reservas.",
+            "editButton": "Editar servicios",
+            "yourServices": "Tus servicios",
+            "noServices": "Aún no has agregado servicios. Agrega servicios en tu perfil.",
+            "customAddons": "Complementos personalizados",
+            "addonsDescription": "Ofrece extras como limpieza profunda, lavandería o cuidado de mascotas."
+          },
+          "documents": {
+            "title": "Centro de documentos",
+            "description": "Mantén tu documentación de verificación actualizada. Carga nuevos archivos si tu información cambia.",
+            "noDocuments": "Aún no tenemos documentos archivados. Por favor carga los documentos requeridos.",
+            "unnamedFile": "Archivo sin nombre",
+            "uploaded": "Cargado",
+            "download": "Descargar",
+            "downloadError": "No pudimos generar un enlace de descarga. Intenta recargar.",
+            "manageLink": "Gestionar documentos",
+            "unknownStatus": "Desconocido"
+          }
+        }
+      },
+      "availability": {
+        "title": "Configuración de Disponibilidad",
+        "description": "Gestiona tus horarios de trabajo y bloquea fechas cuando no estés disponible. Esto controla cuándo los clientes pueden reservarte.",
+        "tips": {
+          "title": "Consejos para Gestionar Disponibilidad",
+          "workingHours": {
+            "label": "Horario de Trabajo:",
+            "text": "Establece horarios realistas que puedas mantener consistentemente. Los clientes valoran la confiabilidad."
+          },
+          "blockedDates": {
+            "label": "Fechas Bloqueadas:",
+            "text": "Bloquea fechas con anticipación para vacaciones o tiempo personal. Actualiza esto regularmente para evitar conflictos de reservas."
+          },
+          "bufferTime": {
+            "label": "Tiempo de Margen:",
+            "text": "Considera dejar tiempo entre reservas para viajes y retrasos inesperados."
+          },
+          "flexibility": {
+            "label": "Flexibilidad:",
+            "text": "Cuantas más horas estés disponible, más oportunidades de reserva tendrás."
+          }
+        }
+      },
+      "bookings": {
+        "title": "Calendario de reservas",
+        "description": "Ve tus próximas reservas, gestiona solicitudes y rastrea visitas completadas.",
+        "updateAvailability": "Actualizar disponibilidad",
+        "allBookings": "Todas las reservas"
+      },
+      "documents": {
+        "title": "Centro de Documentos",
+        "description": "Mantén tu documentación de verificación actualizada. Carga nuevos archivos si tu información cambia.",
+        "uploadButton": "Cargar Documentos"
+      },
+      "finances": {
+        "title": "Finanzas y Analíticas",
+        "description": "Rastrea tus ganancias, ve analíticas y gestiona pagos."
+      },
+      "portfolio": {
+        "title": "Portafolio",
+        "description": "Muestra tu mejor trabajo con fotos y descripciones. Un portafolio sólido ayuda a que los clientes te elijan con confianza."
+      },
+      "profile": {
+        "title": "Configuración de Perfil",
+        "description": "Actualiza tu información pública, detalles de contacto y resumen profesional. Los cambios se reflejan en tu listado público."
+      },
+      "onboarding": {
+        "labels": {
+          "profileSettings": "CONFIGURACIÓN DE PERFIL",
+          "onboarding": "INCORPORACIÓN"
+        },
+        "headings": {
+          "editProfile": "Edita tu perfil",
+          "launchProfile": "Lanza tu perfil de Casaora"
+        },
+        "descriptions": {
+          "active": "Actualiza tu información pública, servicios y disponibilidad. Los cambios se reflejan instantáneamente en tu listado.",
+          "notActive": "Completa los pasos a continuación para desbloquear reservas. Puedes guardar y volver en cualquier momento; el progreso se recuerda."
+        },
+        "backToDashboard": "Volver al panel",
+        "steps": {
+          "application": {
+            "title": "Enviar solicitud",
+            "description": "Cuéntanos sobre tu experiencia, servicios y referencias."
+          },
+          "documents": {
+            "title": "Cargar documentos",
+            "description": "Proporciona identificación requerida y comprobante de domicilio."
+          },
+          "profile": {
+            "title": "Construye tu perfil",
+            "description": "Crea una biografía convincente, selecciona servicios y establece tarifas."
+          }
+        },
+        "status": {
+          "completed": "Completado",
+          "inProgress": "En progreso",
+          "pending": "Pendiente"
+        },
+        "success": {
+          "profileLive": "¡Tu perfil está en vivo!",
+          "updateDescription": "Actualiza tu información pública a continuación cuando necesites refrescar tu listado."
+        },
+        "sections": {
+          "publicProfile": {
+            "title": "Perfil público",
+            "description": "Ajusta tu biografía, servicios, idiomas y disponibilidad semanal. Los cambios actualizan tu listado instantáneamente."
+          },
+          "applicationDetails": {
+            "title": "Detalles de Solicitud",
+            "description": "Comparte tu trayectoria profesional. Esta información nos ayuda a verificar tu experiencia y emparejarte con los clientes adecuados."
+          },
+          "uploadDocuments": {
+            "title": "Cargar documentos requeridos",
+            "description": "Carga de forma segura escaneos o fotos de tu identificación. Almacenamos todo en Supabase Storage encriptado.",
+            "required": "Requerido",
+            "requiredDocs": {
+              "governmentId": "Identificación oficial (Cédula de Ciudadanía o Cédula de Extranjería)",
+              "proofOfAddress": "Comprobante de domicilio (recibo de servicios, contrato de arrendamiento)"
+            },
+            "optional": "Opcional",
+            "optionalDocs": {
+              "certifications": "Certificaciones profesionales",
+              "workPermits": "Permisos de trabajo (si aplica)"
+            },
+            "acceptedFormats": "Formatos aceptados:",
+            "formatInfo": "PDF, JPG, PNG (máx 5MB cada uno). Nuestro equipo revisa las cargas en 3-5 días hábiles y te mantiene informado durante el proceso."
+          },
+          "createProfile": {
+            "title": "Crea tu perfil público",
+            "description": "Crea una presencia convincente que genere confianza con nuevos clientes. Esta información aparece en tu listado de Casaora."
+          }
+        },
+        "complete": {
+          "title": "¡Incorporación completa!",
+          "description": "Regresa al panel para gestionar reservas y comenzar a conectar con clientes."
+        }
+      },
+      "applicationForm": {
+        "fields": {
+          "fullName": {
+            "label": "Nombre completo",
+            "placeholder": "María Rodríguez"
+          },
+          "idNumber": {
+            "label": "Número de identificación",
+            "placeholder": "CC 1234567890"
+          },
+          "phoneNumber": {
+            "label": "Número de teléfono",
+            "placeholder": "+57 300 123 4567"
+          },
+          "country": {
+            "label": "País",
+            "options": {
+              "colombia": "Colombia",
+              "unitedStates": "Estados Unidos",
+              "canada": "Canadá",
+              "unitedKingdom": "Reino Unido",
+              "mexico": "México",
+              "other": "Otro"
+            }
+          },
+          "city": {
+            "label": "Ciudad",
+            "placeholder": "Medellín"
+          },
+          "services": {
+            "label": "Servicios ofrecidos",
+            "helper": "Selecciona todos los servicios que puedes proporcionar con confianza.",
+            "options": {
+              "houseCleaning": "Limpieza del hogar",
+              "laundry": "Lavandería",
+              "cooking": "Cocina",
+              "organization": "Organización",
+              "childcare": "Cuidado de niños",
+              "petCare": "Cuidado de mascotas",
+              "errandRunning": "Encargos"
+            }
+          },
+          "experience": {
+            "label": "Años de experiencia",
+            "placeholder": "5"
+          },
+          "rate": {
+            "label": "Expectativas de tarifa (por hora)",
+            "helper": "COP/hora",
+            "placeholder": "40000"
+          },
+          "availability": {
+            "label": "Disponibilidad",
+            "helper": "Ejemplo: Lunes a viernes 8am - 4pm. Menciona fines de semana u horas flexibles si aplica.",
+            "placeholder": "Ejemplo: Lunes a viernes 8am - 4pm"
+          },
+          "references": {
+            "label": "Referencias profesionales",
+            "helper": "Proporciona dos referencias que podamos contactar.",
+            "referenceLabel": "Referencia {index}",
+            "namePlaceholder": "Nombre",
+            "relationshipPlaceholder": "Relación",
+            "contactPlaceholder": "Teléfono o correo"
+          },
+          "backgroundCheck": {
+            "label": "Consentimiento de verificación de antecedentes",
+            "checkboxLabel": "Autorizo a Casaora a realizar verificaciones de identidad y antecedentes para la incorporación."
+          }
+        },
+        "infoText": "Enviar esta solicitud activa a nuestro equipo de revisión para iniciar la verificación. Aún puedes editar detalles más tarde.",
+        "submitting": "Enviando…",
+        "submit": "Enviar solicitud"
+      },
+      "documentUploadForm": {
+        "badges": {
+          "required": "Requerido",
+          "optional": "Opcional"
+        },
+        "uploadDescription": "Cargar {required, select, true {un escaneo claro} other {un}} escaneo o foto opcional (PDF, JPG, PNG, máx 5MB).",
+        "acceptedTypes": "PDF, JPG, PNG",
+        "validation": {
+          "fileSize": "El archivo debe ser de 5MB o menos.",
+          "fileType": "Solo se admiten archivos PDF, JPG o PNG."
+        },
+        "notesPlaceholder": "Notas (contraseñas, fecha de vencimiento, organización emisora)",
+        "selected": "Seleccionado:",
+        "submitting": "Enviando…",
+        "submit": "Enviar documentos"
+      },
+      "profileBuildForm": {
+        "fields": {
+          "bio": {
+            "label": "Biografía profesional",
+            "placeholder": "Comparte tu trayectoria, especialidades y por qué a los clientes les encanta trabajar contigo."
+          },
+          "languages": {
+            "label": "Idiomas"
+          },
+          "services": {
+            "label": "Servicios y tarifas",
+            "helper": "Dile a los clientes qué esperar de cada servicio."
+          },
+          "hourlyRate": {
+            "label": "Tarifa por hora (COP)",
+            "placeholder": "40000"
+          },
+          "serviceDescription": {
+            "label": "Descripción del servicio",
+            "placeholder": "Describe qué está incluido en este servicio"
+          },
+          "availability": {
+            "label": "Disponibilidad semanal",
+            "helper": "Establece tus horarios de trabajo típicos para cada día.",
+            "start": "Inicio",
+            "end": "Fin"
+          },
+          "notes": {
+            "label": "Notas (opcional)",
+            "placeholder": "ej., Flexible"
+          }
+        },
+        "buttons": {
+          "submitForReview": "Enviar perfil para revisión",
+          "saveProfile": "Guardar perfil",
+          "saving": "Guardando…"
+        },
+        "footnotes": {
+          "submitForReview": "Una vez aprobado, tu perfil se activa en 24 horas. Puedes continuar refinando detalles en cualquier momento.",
+          "saveProfile": "Tus cambios se actualizan instantáneamente en tu listado público."
+        },
+        "characters": "caracteres"
+      },
+      "bookingCalendar": {
+        "days": {
+          "sun": "Dom",
+          "mon": "Lun",
+          "tue": "Mar",
+          "wed": "Mié",
+          "thu": "Jue",
+          "fri": "Vie",
+          "sat": "Sáb"
+        },
+        "details": "Detalles",
+        "noBookings": "No hay reservas programadas para este día.",
+        "booking": "reserva",
+        "bookings": "reservas",
+        "timeTbd": "Hora por definir",
+        "status": {
+          "pendingPayment": "Esperando pago",
+          "authorized": "Retención autorizada",
+          "completed": "Completado",
+          "canceled": "Cancelado"
+        }
+      },
+      "bookingList": {
+        "emptyState": "Aún no hay reservas. Una vez que los clientes autoricen una reserva, aparecerá aquí.",
+        "sections": {
+          "activeServices": "Servicios Activos",
+          "otherBookings": "Otras Reservas",
+          "allBookings": "Todas las Reservas"
+        },
+        "table": {
+          "booking": "Reserva",
+          "service": "Servicio",
+          "scheduled": "Programado",
+          "amount": "Monto (COP)",
+          "status": "Estado",
+          "actions": "Acciones"
+        },
+        "actions": {
+          "accepting": "Aceptando…",
+          "accept": "Aceptar",
+          "declining": "Rechazando…",
+          "decline": "Rechazar",
+          "capturing": "Capturando…",
+          "capture": "Capturar",
+          "canceling": "Cancelando…",
+          "cancelHold": "Cancelar retención",
+          "noActions": "No hay acciones disponibles"
+        },
+        "success": "¡{action} reserva exitosamente!",
+        "successAlternate": "¡Reserva {action}da exitosamente!"
+      },
+      "financialSummary": {
+        "title": "Resumen financiero",
+        "description": "Monitorea pagos capturados, retenciones activas e ingresos próximos.",
+        "stripe": {
+          "opening": "Abriendo Stripe…",
+          "setup": "Configurar pagos de Stripe",
+          "statusLabel": "Estado de Stripe:",
+          "actionRequired": "Acción requerida",
+          "connected": "Conectado"
+        },
+        "emptyState": "Una vez que los clientes autoricen reservas, verás métricas financieras aquí.",
+        "cards": {
+          "availableAfterCompletion": {
+            "title": "Disponible después de completar",
+            "description": "Pagos capturados"
+          },
+          "activeHolds": {
+            "title": "Retenciones activas",
+            "description": "Esperando completar"
+          }
+        },
+        "thisMonth": "Este mes",
+        "metrics": {
+          "capturedPayouts": "Pagos capturados",
+          "upcomingHolds": "Retenciones próximas",
+          "pendingRequests": "Solicitudes de pago pendientes",
+          "holdsReleased": "Retenciones liberadas"
+        }
+      },
+      "serviceAddons": {
+        "activeAddons": "Complementos Activos ({count})",
+        "inactiveAddons": "Complementos Inactivos ({count})",
+        "emptyState": "Aún no hay complementos. Crea tu primer complemento para ofrecer servicios adicionales a los clientes.",
+        "createFirst": "Crear tu primer complemento →",
+        "addNew": "Agregar nuevo complemento de servicio",
+        "form": {
+          "editTitle": "Editar Complemento",
+          "createTitle": "Crear Nuevo Complemento",
+          "fields": {
+            "name": {
+              "label": "Nombre del Servicio *",
+              "placeholder": "ej., Limpieza profunda, Lavado de ventanas, Interior del refrigerador"
+            },
+            "description": {
+              "label": "Descripción",
+              "placeholder": "Describe qué incluye este complemento..."
+            },
+            "price": {
+              "label": "Precio (COP) *",
+              "placeholder": "50000"
+            },
+            "extraTime": {
+              "label": "Tiempo Extra (minutos)",
+              "placeholder": "0",
+              "helper": "Establece en 0 si esto no agrega tiempo extra"
+            },
+            "active": {
+              "label": "Activo (los clientes pueden ver y reservar este complemento)"
+            }
+          },
+          "cancel": "Cancelar",
+          "saveChanges": "Guardar Cambios",
+          "createAddon": "Crear Complemento"
+        },
+        "duration": {
+          "hour": "1 hora",
+          "minutes": "{minutes} minutos",
+          "noExtra": "Sin tiempo extra"
+        },
+        "inactive": "Inactivo",
+        "actions": {
+          "edit": "Editar",
+          "deactivate": "Desactivar",
+          "activate": "Activar",
+          "delete": "Eliminar"
+        },
+        "deleteConfirm": "¿Estás seguro de que quieres eliminar este complemento?"
+      },
+      "financesOverview": {
+        "metrics": {
+          "totalEarnings": {
+            "label": "Ganancias Totales",
+            "description": "Todo el tiempo"
+          },
+          "thisMonth": {
+            "label": "Este Mes"
+          },
+          "avgBookingValue": {
+            "label": "Valor Promedio de Reserva",
+            "description": "reservas totales"
+          },
+          "pendingPayouts": {
+            "label": "Pagos Pendientes",
+            "descriptionSuffix": "pendiente"
+          }
+        },
+        "charts": {
+          "earningsTrend": "Tendencia de Ganancias",
+          "bookingsByMonth": "Reservas por Mes",
+          "revenueByService": "Ingresos por Servicio",
+          "recentPayouts": "Pagos Recientes"
+        }
+      },
+      "portfolioManager": {
+        "fields": {
+          "description": {
+            "label": "Descripción de Trabajo Destacado",
+            "placeholder": "Describe tus especialidades y qué hace único tu trabajo...",
+            "helper": "Esto aparecerá encima de tu galería de portafolio"
+          }
+        },
+        "upload": {
+          "title": "Cargar Imágenes de Portafolio",
+          "currentImages": "Imágenes Actuales ({count})"
+        },
+        "deleteConfirm": "¿Eliminar esta imagen?",
+        "actions": {
+          "editCaption": "Editar leyenda",
+          "moveUp": "↑ Mover arriba",
+          "moveDown": "↓ Mover abajo",
+          "delete": "Eliminar"
+        },
+        "emptyState": {
+          "title": "Aún no hay imágenes de portafolio",
+          "description": "Carga imágenes usando la zona de carga arriba para mostrar tu mejor trabajo"
+        },
+        "tips": {
+          "title": "Consejos de Portafolio",
+          "tip1": "Usa imágenes de alta calidad que muestren tu mejor trabajo",
+          "tip2": "Agrega leyendas para explicar en qué consistió el proyecto",
+          "tip3": "Las fotos de antes/después son particularmente efectivas",
+          "tip4": "Mantén tu portafolio actualizado con trabajo reciente",
+          "tip5": "Apunta a 6-12 imágenes para un portafolio bien equilibrado"
+        },
+        "saving": "Guardando...",
+        "save": "Guardar Portafolio",
+        "success": "¡Portafolio actualizado exitosamente!",
+        "error": "Error al actualizar el portafolio. Por favor intenta de nuevo."
+      },
+      "availabilityEditor": {
+        "tabs": {
+          "workingHours": "Horario de Trabajo",
+          "blockedDates": "Fechas Bloqueadas"
+        },
+        "workingHours": {
+          "title": "Establece tu Horario Semanal",
+          "description": "Define qué días y horas estás disponible para reservas. Los clientes solo pueden reservar durante estos horarios."
+        },
+        "blockedDates": {
+          "title": "Bloquear Fechas Específicas",
+          "description": "Marca fechas cuando no estés disponible (vacaciones, días festivos, tiempo personal). Estas fechas no serán reservables incluso si caen dentro de tu horario de trabajo."
+        },
+        "infoText": "Los cambios se reflejarán inmediatamente en tu perfil público",
+        "saving": "Guardando...",
+        "save": "Guardar Disponibilidad",
+        "success": "¡Disponibilidad actualizada exitosamente!"
+      },
+      "profileEditor": {
+        "sections": {
+          "basicInfo": {
+            "title": "Información Básica",
+            "fields": {
+              "fullName": {
+                "label": "Nombre Completo",
+                "placeholder": "Tu nombre completo"
+              },
+              "email": {
+                "label": "Correo Electrónico",
+                "helper": "El correo no se puede cambiar aquí. Contacta soporte si es necesario."
+              },
+              "phoneNumber": {
+                "label": "Número de Teléfono",
+                "placeholder": "+57 300 123 4567"
+              },
+              "avatarUrl": {
+                "label": "URL del Avatar",
+                "placeholder": "https://ejemplo.com/avatar.jpg",
+                "helper": "URL de foto de perfil público"
+              }
+            }
+          },
+          "professionalSummary": {
+            "title": "Resumen Profesional",
+            "fields": {
+              "bio": {
+                "label": "Biografía",
+                "placeholder": "Cuéntale a los clientes sobre tu experiencia, especialidades y qué te hace genial...",
+                "characterCounter": "/500 caracteres"
+              }
+            }
+          },
+          "languages": {
+            "title": "Idiomas",
+            "helper": "Selecciona todos los idiomas en los que puedes comunicarte",
+            "options": {
+              "english": "English",
+              "spanish": "Español",
+              "portuguese": "Português",
+              "french": "Français",
+              "german": "Deutsch"
+            }
+          },
+          "services": {
+            "title": "Servicios Principales",
+            "helper": "Selecciona todos los servicios que ofreces",
+            "options": {
+              "houseCleaning": "Limpieza del hogar",
+              "laundry": "Lavandería",
+              "cooking": "Cocina",
+              "organization": "Organización",
+              "childcare": "Cuidado de niños",
+              "petCare": "Cuidado de mascotas",
+              "errandRunning": "Encargos",
+              "gardening": "Jardinería",
+              "elderCare": "Cuidado de ancianos"
+            }
+          }
+        },
+        "saving": "Guardando...",
+        "save": "Guardar Cambios",
+        "success": "¡Perfil actualizado exitosamente!"
+      },
+      "pendingRatings": {
+        "title": "Califica a Tus Clientes Recientes",
+        "description": "Comparte tu retroalimentación para ayudar a construir una comunidad confiable.",
+        "service": "Servicio",
+        "customerInfo": "Cliente • {date}",
+        "rateButton": "Calificar Cliente"
+      }
+    },
+    "customer": {
+      "main": {
+        "header": {
+          "dashboardLabel": "PANEL DE CLIENTE",
+          "welcomeBack": "Bienvenido de nuevo",
+          "welcomeBackWithName": "Bienvenido de nuevo, {name}",
+          "description": "Explora profesionales verificados, revisa próximas visitas y gestiona pagos en un solo lugar.",
+          "signOut": "Cerrar sesión"
+        },
+        "summary": {
+          "accountEmail": "Correo de cuenta",
+          "phone": "Teléfono",
+          "addYourPhone": "Agrega tu teléfono",
+          "city": "Ciudad",
+          "addYourCity": "Agrega tu ciudad",
+          "verificationTier": "Nivel de verificación",
+          "propertyType": "Tipo de propiedad",
+          "country": "País",
+          "notSet": "No establecido",
+          "propertyTypes": {
+            "apartment": "Apartamento",
+            "house": "Casa",
+            "office": "Oficina",
+            "other": "Otro"
+          }
+        },
+        "tasks": {
+          "title": "Prepárate para reservar",
+          "description": "Completa estos pasos rápidos para desbloquear confirmaciones de reserva instantáneas y profesionales mejor calificados.",
+          "updateProfile": "Actualizar perfil",
+          "profile": {
+            "title": "Completa tu perfil",
+            "description": "Agrega tus datos de contacto y dónde se realizarán los servicios para que los profesionales puedan prepararse.",
+            "cta": "Editar perfil"
+          },
+          "verification": {
+            "title": "Verifica tu identidad",
+            "description": "Sube un pasaporte o identificación oficial para obtener una insignia verificada y reservas más rápidas.",
+            "cta": "Iniciar verificación",
+            "upgradeNote": "Actualiza a Estándar para desbloquear la insignia de verificación."
+          },
+          "payment": {
+            "title": "Agrega un método de pago",
+            "description": "Almacena de forma segura una tarjeta u opción de pago local para confirmar reservas al instante.",
+            "cta": "Agregar método de pago"
+          },
+          "booking": {
+            "title": "Reserva tu primera visita",
+            "description": "Elige un profesional de confianza y programa tu primer servicio doméstico.",
+            "cta": "Encontrar profesionales"
+          },
+          "status": {
+            "completed": "Completado",
+            "actionNeeded": "Acción requerida"
+          }
+        },
+        "quickLinks": {
+          "bookProfessional": {
+            "title": "Reservar un profesional",
+            "description": "Explora expertos verificados por servicio, idioma y disponibilidad."
+          },
+          "viewPastVisits": {
+            "title": "Ver visitas pasadas",
+            "description": "Descarga recibos, agrega propinas o vuelve a reservar tus favoritos."
+          },
+          "updatePayment": {
+            "title": "Actualizar método de pago",
+            "description": "Gestiona tarjetas y opciones de pago locales de forma segura."
+          },
+          "goNow": "Ir ahora →"
+        },
+        "sections": {
+          "addresses": {
+            "title": "Direcciones Guardadas",
+            "description": "Gestiona tus ubicaciones de servicio para reservas más rápidas. Agrega detalles como acceso al edificio e información de estacionamiento."
+          },
+          "propertyPreferences": {
+            "title": "Preferencias de propiedad",
+            "description": "Compartir algunos detalles sobre tu hogar ayuda a los profesionales a prepararse con los suministros adecuados.",
+            "updatePreferences": "Actualizar preferencias →"
+          },
+          "needHelp": {
+            "title": "¿Necesitas ayuda?",
+            "description": "Nuestro equipo de soporte puede ayudarte con verificación, reservas o cualquier otra cosa que necesites.",
+            "liveChat": "Chat en vivo:",
+            "liveChatHours": "Días laborales 8:00–20:00 COT",
+            "email": "Correo electrónico:",
+            "emailAddress": "help@maidconnect.com",
+            "emergencyLine": "Línea de emergencia:",
+            "emergencyPhone": "+57 123 456 7890",
+            "browseHelpCenter": "Explorar centro de ayuda →"
+          },
+          "bookings": {
+            "title": "Mis Reservas",
+            "description": "Ve y gestiona tus citas de servicio próximas y pasadas."
+          },
+          "favorites": {
+            "title": "Mis Favoritos",
+            "description": "Acceso rápido a tus profesionales favoritos para volver a reservar fácilmente."
+          },
+          "messages": {
+            "title": "Mensajes",
+            "description": "Chatea con profesionales sobre tus reservas y detalles del servicio.",
+            "viewAllMessages": "Ver todos los mensajes"
+          }
+        }
+      },
+      "bookingList": {
+        "emptyState": {
+          "noBookings": "Aún no hay reservas.",
+          "browseText": "Explora nuestro",
+          "professionalDirectory": "directorio de profesionales",
+          "bookFirstService": "para reservar tu primer servicio."
+        },
+        "sections": {
+          "upcomingServices": "Servicios Próximos",
+          "pastServices": "Servicios Pasados"
+        },
+        "card": {
+          "service": "Servicio",
+          "professional": "Profesional:",
+          "notAssigned": "No asignado",
+          "scheduled": "Programado:",
+          "notScheduled": "No programado",
+          "duration": "Duración:",
+          "minutes": "{minutes} minutos",
+          "amount": "Monto:",
+          "status": {
+            "pending_payment": "pago pendiente",
+            "authorized": "autorizado",
+            "confirmed": "confirmado",
+            "declined": "rechazado",
+            "canceled": "cancelado",
+            "completed": "completado"
+          },
+          "actions": {
+            "reschedule": "Reprogramar",
+            "cancel": "Cancelar",
+            "leaveReview": "Dejar Reseña",
+            "bookAgain": "Reservar de Nuevo"
+          }
+        }
+      },
+      "favoritesList": {
+        "emptyState": {
+          "emoji": "🤍",
+          "title": "Aún no hay favoritos",
+          "description": "Haz clic en el ícono de corazón en cualquier profesional para guardarlos aquí para acceso rápido.",
+          "browseProfessionals": "Explorar Profesionales"
+        },
+        "title": "Tus Favoritos ({count})",
+        "card": {
+          "verified": "Verificado",
+          "startingAt": "Desde",
+          "perHour": "/hr",
+          "viewProfile": "Ver perfil →"
+        },
+        "errors": {
+          "failedToLoad": "Error al cargar favoritos"
+        }
+      },
+      "addressManager": {
+        "emptyState": {
+          "noAddresses": "Aún no hay direcciones guardadas.",
+          "addFirst": "Agrega tu primera dirección →"
+        },
+        "addNew": "Agregar nueva dirección",
+        "card": {
+          "default": "Predeterminada",
+          "buildingAccess": "🔑 {access}",
+          "parkingInfo": "🅿️ {parking}",
+          "specialNotes": "📝 {notes}",
+          "edit": "Editar",
+          "delete": "Eliminar"
+        },
+        "form": {
+          "editTitle": "Editar Dirección",
+          "addTitle": "Agregar Nueva Dirección",
+          "fields": {
+            "label": {
+              "label": "Etiqueta *",
+              "placeholder": "Casa, Oficina, etc."
+            },
+            "city": {
+              "label": "Ciudad *",
+              "placeholder": "Bogotá"
+            },
+            "street": {
+              "label": "Dirección *",
+              "placeholder": "Calle 123 #45-67"
+            },
+            "neighborhood": {
+              "label": "Barrio",
+              "placeholder": "Chapinero"
+            },
+            "postalCode": {
+              "label": "Código Postal",
+              "placeholder": "110111"
+            },
+            "buildingAccess": {
+              "label": "Instrucciones de Acceso al Edificio",
+              "placeholder": "Timbre apartamento 301, código de puerta 1234"
+            },
+            "parkingInfo": {
+              "label": "Información de Estacionamiento",
+              "placeholder": "Estacionamiento de visitantes en sótano"
+            },
+            "specialNotes": {
+              "label": "Notas Especiales",
+              "placeholder": "Perros en patio trasero, usar entrada lateral, etc."
+            },
+            "setAsDefault": "Establecer como dirección predeterminada"
+          },
+          "cancel": "Cancelar",
+          "saveChanges": "Guardar Cambios",
+          "addAddress": "Agregar Dirección"
+        },
+        "confirmDelete": "¿Estás seguro de que quieres eliminar esta dirección?"
+      },
+      "cancelBookingModal": {
+        "title": "Cancelar Reserva",
+        "serviceInfo": "{service} • {date}",
+        "policy": {
+          "title": "Ver Política de Cancelación",
+          "refund": "Reembolso:",
+          "refundPercent": "{percent}% ({amount})",
+          "timeUntilService": "Tiempo hasta el servicio:",
+          "hours": "{hours} horas"
+        },
+        "reasonLabel": "Motivo de cancelación (opcional)",
+        "reasonPlaceholder": "Hazle saber al profesional por qué necesitas cancelar...",
+        "actions": {
+          "keepBooking": "Mantener Reserva",
+          "cancelBooking": "Cancelar Reserva",
+          "canceling": "Cancelando..."
+        },
+        "messages": {
+          "cannotCancel": "No se puede cancelar esta reserva",
+          "success": "¡Reserva cancelada exitosamente! {refund} será reembolsado."
+        }
+      },
+      "rescheduleBookingModal": {
+        "title": "Reprogramar Reserva",
+        "serviceInfo": "{service}",
+        "currentSchedule": {
+          "label": "Horario Actual",
+          "date": "{date}"
+        },
+        "fields": {
+          "newDate": {
+            "label": "Nueva Fecha"
+          },
+          "newTime": {
+            "label": "Nueva Hora"
+          }
+        },
+        "importantNotice": {
+          "title": "Importante",
+          "description": "El profesional deberá confirmar la nueva hora. Tu reserva se restablecerá al estado \"pendiente de confirmación\"."
+        },
+        "actions": {
+          "cancel": "Cancelar",
+          "reschedule": "Reprogramar",
+          "rescheduling": "Reprogramando..."
+        },
+        "messages": {
+          "selectDateTime": "Por favor selecciona una nueva fecha y hora",
+          "futureDate": "La nueva hora debe estar en el futuro",
+          "success": "¡Reserva reprogramada exitosamente!"
+        }
+      },
+      "bookingsPage": {
+        "title": "Mis Reservas",
+        "description": "Ve y gestiona tus citas de servicio próximas y pasadas."
+      },
+      "favoritesPage": {
+        "title": "Mis Favoritos",
+        "description": "Acceso rápido a tus profesionales favoritos para volver a reservar fácilmente."
+      },
+      "addressesPage": {
+        "title": "Direcciones Guardadas",
+        "description": "Gestiona tus ubicaciones de servicio para reservas más rápidas. Agrega detalles como acceso al edificio e información de estacionamiento."
+      },
+      "paymentsPage": {
+        "title": "Pagos e Historial",
+        "description": "Ve tu historial de pagos, gestiona métodos de pago y rastrea gastos.",
+        "metrics": {
+          "totalSpent": {
+            "label": "Total Gastado",
+            "description": "Todas las reservas completadas"
+          },
+          "pendingCharges": {
+            "label": "Cargos Pendientes",
+            "description": "Autorizados pero no capturados"
+          },
+          "totalBookings": {
+            "label": "Reservas Totales",
+            "description": "Con información de pago"
+          }
+        },
+        "paymentMethods": {
+          "title": "Métodos de Pago",
+          "cardBrand": "{brand} •••• {last4}",
+          "expires": "Vence {month}/{year}"
+        },
+        "paymentHistory": {
+          "title": "Historial de Pagos"
+        }
+      },
+      "messagesPage": {
+        "description": "Chatea con profesionales sobre tus reservas y detalles del servicio."
+      },
+      "settings": {
+        "title": "Configuración de Cuenta",
+        "description": "Gestiona tu información de perfil, preferencias y direcciones guardadas",
+        "profile": {
+          "title": "Información del Perfil",
+          "fullName": "Nombre Completo",
+          "email": "Correo Electrónico",
+          "phone": "Teléfono",
+          "city": "Ciudad",
+          "note": "Nota",
+          "noteDescription": "Para actualizar tu información de perfil, por favor contacta a soporte en support@maidconnect.com"
+        },
+        "preferences": {
+          "title": "Preferencias de Propiedad",
+          "propertyType": "Tipo de Propiedad",
+          "comingSoon": "Próximamente",
+          "comingSoonDescription": "La edición completa de preferencias de propiedad estará disponible pronto. Por ahora, puedes actualizarlas durante la reserva."
+        },
+        "addresses": {
+          "title": "Direcciones Guardadas"
+        }
+      }
+    }
+  },
+  "product": {
+    "bookingPlatform": {
+      "title": "Plataforma de Reservas",
+      "description": "Programe servicios con reserva instantánea o aprobada"
+    },
+    "professionalProfiles": {
+      "title": "Perfiles Profesionales",
+      "description": "Perfiles verificados con reseñas y portafolios"
+    },
+    "secureMessaging": {
+      "title": "Mensajería Segura",
+      "description": "Comunicación directa con sus profesionales"
+    },
+    "paymentProcessing": {
+      "title": "Procesamiento de Pagos",
+      "description": "Pagos seguros y transparentes con seguimiento de recibos"
+    },
+    "reviewsRatings": {
+      "title": "Reseñas y Calificaciones",
+      "description": "Confianza y garantía de calidad impulsadas por la comunidad"
+    },
+    "adminDashboard": {
+      "title": "Panel de Administración",
+      "description": "Gestión y moderación completa de la plataforma"
+    }
+  },
+  "hero": {
+    "badge": "Personal Doméstico de Confianza · Colombia",
+    "title": "Profesionales del hogar que se sienten como familia",
+    "subtitle": "Encuentre empleadas domésticas verificadas en 48 horas. Ahorre 10+ horas semanales en tareas del hogar.",
+    "description": "Conéctese con profesionales completamente examinados en toda Colombia. Integrados, verificados y listos para apoyar su estilo de vida desde el primer día.",
+    "trustSignals": {
+      "verified": "450+ profesionales verificados",
+      "cities": "Disponible en 6 ciudades",
+      "rating": "4.9★ calificación promedio"
+    },
+    "matchWizard": "Encuentre Mi Pareja Perfecta",
+    "browseAll": "Ver Todos los Profesionales",
+    "findProfessional": "Encuentre Mi Empleada Perfecta",
+    "bookConsultation": "Agende Consulta Gratis",
+    "howItWorks": "Cómo funciona",
+    "becomeProfessional": "Ser profesional",
+    "learnMore": "Más información"
+  },
+  "services": {
+    "badge": "Servicios",
+    "title": "Profesionales seleccionados para cada rutina",
+    "items": {
+      "housekeeping": {
+        "title": "Servicio Doméstico y Limpieza Profunda",
+        "description": "Soluciones recurrentes o únicas adaptadas a hogares meticulosos."
+      },
+      "childcare": {
+        "title": "Apoyo Familiar y Cuidado Infantil",
+        "description": "Niñeras y cuidadores de confianza con experiencia en hogares internacionales."
+      },
+      "relocation": {
+        "title": "Preparación de Mudanza y Reubicación",
+        "description": "Configuración del día de llegada, desempaque y servicios de organización del hogar."
+      },
+      "elderCare": {
+        "title": "Cuidado de Ancianos y Bienestar",
+        "description": "Compañía, recordatorios de medicamentos y atención centrada en el bienestar."
+      },
+      "petCare": {
+        "title": "Gestión de Mascotas y Hogar",
+        "description": "Cuidadores, paseadores confiables y revisiones de propiedad mientras viaja."
+      },
+      "lifestyle": {
+        "title": "Apoyo de Estilo de Vida Personal",
+        "description": "Chefs privados, especialistas en encargos y asistentes personales bajo demanda."
+      }
+    }
+  },
+  "process": {
+    "badge": "Cómo funciona",
+    "title": "De la búsqueda al soporte en cuatro pasos simples",
+    "steps": {
+      "step1": {
+        "number": "01",
+        "title": "Comparta su perfil de hogar",
+        "description": "Complete nuestra entrada guiada detallando rutinas, preferencias, idiomas y certificaciones requeridas."
+      },
+      "step2": {
+        "number": "02",
+        "title": "Conozca profesionales seleccionados",
+        "description": "Reciba una lista corta con videos de presentación, credenciales verificadas y precios transparentes para comparar con facilidad."
+      },
+      "step3": {
+        "number": "03",
+        "title": "Reserve y confirme",
+        "description": "Programe su servicio con reserva instantánea o aprobada. Comuníquese directamente a través de mensajería segura."
+      },
+      "step4": {
+        "number": "04",
+        "title": "Califique y vuelva a reservar",
+        "description": "Comparta comentarios después de cada visita. Guarde sus favoritos y vuelva a reservar con un clic para soporte continuo."
+      }
+    }
+  },
+  "concierge": {
+    "title": "¿Listo para encontrar su pareja perfecta?",
+    "subtitle": "Programe una consulta para discutir las necesidades de su hogar. Le presentaremos profesionales verificados dentro de 48 horas.",
+    "browseProfessionals": "Explorar profesionales",
+    "bookConsultation": "Reservar una consulta",
+    "cities": "Disponible en 6 ciudades principales de Colombia",
+    "languages": "Soporte en inglés, español y portugués"
+  },
+  "auth": {
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "fullName": "Nombre completo",
+    "phone": "Número de teléfono",
+    "forgotPassword": "¿Olvidó su contraseña?",
+    "noAccount": "¿No tiene una cuenta?",
+    "hasAccount": "¿Ya tiene una cuenta?",
+    "signInButton": "Iniciar sesión",
+    "signUpButton": "Registrarse",
+    "userType": {
+      "title": "Soy un...",
+      "customer": "Cliente",
+      "professional": "Profesional"
+    }
+  },
+  "booking": {
+    "title": "Reservar un servicio",
+    "selectDate": "Seleccionar fecha",
+    "selectTime": "Seleccionar hora",
+    "duration": "Duración",
+    "hours": "horas",
+    "addons": "Complementos",
+    "totalPrice": "Precio total",
+    "bookNow": "Reservar ahora",
+    "requestBooking": "Solicitar reserva",
+    "status": {
+      "pending": "Pendiente",
+      "confirmed": "Confirmado",
+      "completed": "Completado",
+      "cancelled": "Cancelado"
+    }
+  },
+  "footer": {
+    "description": "Conéctese con empleadas domésticas y cuidadores verificados en toda Colombia. Completamente examinados, integrados y listos para apoyar su estilo de vida.",
+    "platform": "Plataforma",
+    "company": "Empresa",
+    "mobile": "Móvil",
+    "findProfessional": "Encontrar un Profesional",
+    "howItWorks": "Cómo Funciona",
+    "pricing": "Precios",
+    "roadmap": "Hoja de ruta",
+    "helpCenter": "Centro de Ayuda",
+    "contact": "Contacto",
+    "services": "Servicios",
+    "about": "Acerca de",
+    "loginSignup": "Iniciar sesión / Registrarse",
+    "applyProfessional": "Aplicar como Profesional",
+    "careers": "Carreras",
+    "support": "Soporte",
+    "iosApp": "App iOS",
+    "androidApp": "App Android",
+    "terms": "Términos",
+    "privacy": "Privacidad",
+    "cookies": "Cookies",
+    "allRightsReserved": "Todos los derechos reservados",
+    "remoteCompany": "Trabajamos de Forma Remota"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "confirm": "Confirmar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "submit": "Enviar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "viewMore": "Ver más",
+    "viewLess": "Ver menos",
+    "readMore": "Leer más",
+    "readLess": "Leer menos",
+    "seeAll": "Ver todo",
+    "showMore": "Mostrar más",
+    "showLess": "Mostrar menos"
+  },
+  "errors": {
+    "generic": "Algo salió mal. Por favor, inténtelo de nuevo.",
+    "notFound": "Página no encontrada",
+    "unauthorized": "Debe iniciar sesión para acceder a esta página",
+    "forbidden": "No tiene permiso para acceder a este recurso",
+    "serverError": "Error del servidor. Por favor, inténtelo más tarde.",
+    "networkError": "Error de red. Por favor, verifique su conexión."
+  },
+  "success": {
+    "saved": "Cambios guardados exitosamente",
+    "deleted": "Eliminado exitosamente",
+    "created": "Creado exitosamente",
+    "updated": "Actualizado exitosamente",
+    "bookingCreated": "Reserva creada exitosamente",
+    "messageSent": "Mensaje enviado exitosamente"
+  },
+  "pages": {
+    "bookingPlatform": {
+      "meta": {
+        "title": "Plataforma de Reservas - Programación Instantánea de Servicios | Maidconnect",
+        "description": "Programe servicios con reserva instantánea o solicite aprobación. Disponibilidad en tiempo real y filtros inteligentes hacen que encontrar la pareja perfecta sea fácil. Más de 500 reservas mensuales."
+      },
+      "hero": {
+        "headline": "Reserve profesionales de confianza en minutos",
+        "description": "Programe servicios con reserva instantánea o solicite aprobación. Disponibilidad en tiempo real y filtros inteligentes hacen que encontrar la pareja perfecta sea fácil.",
+        "primaryCTA": "Explorar Profesionales",
+        "secondaryCTA": "Más Información",
+        "badge": "Más de 500 reservas este mes"
+      },
+      "features": {
+        "title": "Potentes funciones de reserva",
+        "subtitle": "Todo lo que necesita para programar servicios de manera rápida y segura",
+        "instantBooking": {
+          "title": "Reserva Instantánea y Aprobada",
+          "description": "Reserve inmediatamente con profesionales verificados o solicite aprobación para necesidades personalizadas. Obtenga confirmación instantánea para servicios estándar."
+        },
+        "realTimeAvailability": {
+          "title": "Disponibilidad en Tiempo Real",
+          "description": "Vea los calendarios profesionales y las franjas horarias disponibles antes de reservar. Nunca pierda tiempo solicitando fechas no disponibles."
+        },
+        "smartScheduling": {
+          "title": "Programación Inteligente",
+          "description": "Configure reservas recurrentes, sincronice con su calendario y reciba recordatorios automáticos antes de cada servicio."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo funciona",
+        "description": "Cuatro pasos simples para reservar su profesional perfecto",
+        "step1": {
+          "title": "Filtrar y Buscar",
+          "description": "Filtre por tipo de servicio, fecha, ubicación y calificaciones profesionales"
+        },
+        "step2": {
+          "title": "Seleccionar Profesional",
+          "description": "Vea disponibilidad, lea reseñas y explore galerías de portafolio"
+        },
+        "step3": {
+          "title": "Confirmar Reserva",
+          "description": "Elija fecha y hora, agregue complementos de servicio y autorice el pago"
+        },
+        "step4": {
+          "title": "Recibir Recordatorios",
+          "description": "Reciba recordatorios automáticos y comuníquese a través de mensajería segura"
+        }
+      },
+      "benefits": {
+        "title": "Por qué los clientes aman nuestro sistema de reservas",
+        "noPhoneTag": {
+          "title": "No más llamadas interminables",
+          "description": "Vea la disponibilidad en tiempo real y reserve instantáneamente sin llamadas o correos electrónicos sin fin."
+        },
+        "transparentPricing": {
+          "title": "Precios transparentes",
+          "description": "Sepa exactamente lo que pagará antes de reservar. Vea tarifas por hora, costos de complementos y precio total por adelantado."
+        },
+        "flexibleScheduling": {
+          "title": "Programación flexible",
+          "description": "Reserve servicios únicos o configure citas recurrentes semanales, quincenales o mensuales con descuentos automáticos."
+        },
+        "easyRescheduling": {
+          "title": "Reprogramación fácil",
+          "description": "La vida pasa. Reprograme o cancele reservas con solo unos clics, sujeto a la política de cancelación del profesional."
+        }
+      },
+      "cta": {
+        "title": "¿Listo para reservar su primer servicio?",
+        "description": "Únase a cientos de clientes satisfechos que confían en Casaora para sus necesidades de servicio doméstico",
+        "browseProfessionals": "Explorar Profesionales",
+        "signUpFree": "Registrarse Gratis"
+      }
+    },
+    "professionalProfiles": {
+      "meta": {
+        "title": "Perfiles Profesionales Verificados - Verificación de Antecedentes | Maidconnect",
+        "description": "Conozca profesionales verificados con verificación de antecedentes, credenciales, reseñas de clientes y galerías de portafolio. 100% profesionales verificados en los que puede confiar en Colombia."
+      },
+      "hero": {
+        "headline": "Conozca profesionales verificados en los que puede confiar",
+        "description": "Cada perfil incluye verificación de antecedentes, credenciales verificadas, reseñas de clientes y galerías de portafolio que muestran su trabajo.",
+        "primaryCTA": "Ver Profesionales",
+        "secondaryCTA": "Más Información",
+        "badge": "100% profesionales verificados"
+      },
+      "features": {
+        "title": "Confianza integrada en cada perfil",
+        "subtitle": "Verificamos cada detalle para que pueda reservar con total confianza",
+        "verifiedCredentials": {
+          "title": "Credenciales Verificadas",
+          "description": "Verificación de antecedentes, verificación de identidad y validación de certificaciones garantizan que cada profesional cumpla con nuestros altos estándares."
+        },
+        "customerReviews": {
+          "title": "Reseñas y Calificaciones de Clientes",
+          "description": "Comentarios reales de reservas verificadas con calificaciones detalladas sobre calidad, comunicación, puntualidad y valor."
+        },
+        "portfolioGalleries": {
+          "title": "Galerías de Portafolio",
+          "description": "Fotos de antes/después y muestras de trabajo de proyectos anteriores muestran la calidad que puede esperar."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo verificamos a los profesionales",
+        "description": "Nuestro riguroso proceso de evaluación garantiza calidad y seguridad",
+        "step1": {
+          "title": "Revisión de Aplicación",
+          "description": "Revisamos cada solicitud en busca de experiencia, calificaciones y profesionalismo"
+        },
+        "step2": {
+          "title": "Verificación de Documentos",
+          "description": "Verificación de antecedentes, verificación de identificación y validación de certificaciones"
+        },
+        "step3": {
+          "title": "Evaluación de Portafolio",
+          "description": "Revisión de muestras de trabajo y proyectos anteriores para garantizar estándares de calidad"
+        },
+        "step4": {
+          "title": "Monitoreo Continuo",
+          "description": "Revisión continua de calificaciones, comentarios y calidad del servicio"
+        }
+      },
+      "profileFeatures": {
+        "title": "Lo que encontrará en cada perfil",
+        "professionalInfo": {
+          "title": "Información Profesional",
+          "items": {
+            "experience": "Años de experiencia y especializaciones",
+            "certifications": "Certificaciones y capacitación completada",
+            "services": "Servicios ofrecidos y tarifas por hora",
+            "areas": "Áreas de servicio y disponibilidad"
+          }
+        },
+        "socialProof": {
+          "title": "Prueba Social",
+          "items": {
+            "rating": "Calificación general de reservas verificadas",
+            "reviews": "Reseñas detalladas de clientes anteriores",
+            "portfolio": "Galería de portafolio con fotos de antes/después",
+            "bookings": "Total de reservas y tasa de clientes recurrentes"
+          }
+        },
+        "safetyTrust": {
+          "title": "Seguridad y Confianza",
+          "items": {
+            "backgroundCheck": "Estado y fecha de verificación de antecedentes",
+            "identity": "Insignia de verificación de identidad",
+            "insurance": "Información de seguro y fianza",
+            "verified": "Solo reseñas verificadas por la plataforma"
+          }
+        },
+        "workExamples": {
+          "title": "Ejemplos de Trabajo",
+          "items": {
+            "galleryPhotos": "Galería de portafolio con fotos reales de proyectos",
+            "beforeAfter": "Transformaciones de antes y después",
+            "serviceExamples": "Ejemplos específicos de servicio y resultados",
+            "bio": "Biografía profesional y enfoque de servicio"
+          }
+        }
+      },
+      "cta": {
+        "title": "Encuentre su pareja profesional perfecta",
+        "description": "Explore perfiles verificados, lea reseñas auténticas y reserve con confianza sabiendo que cada profesional ha sido completamente evaluado",
+        "browseProfessionals": "Explorar Profesionales",
+        "becomeProfessional": "Ser Profesional"
+      }
+    },
+    "paymentProcessing": {
+      "meta": {
+        "title": "Procesamiento de Pagos Seguros - Impulsado por Stripe | Maidconnect",
+        "description": "Pagos seguros y transparentes con Stripe. Rastree gastos, administre recibos y maneje propinas, todo en un solo lugar. Depósito en garantía seguro y pagos automáticos."
+      },
+      "hero": {
+        "headline": "Pagos seguros y transparentes en todo momento",
+        "description": "Procesamiento de pagos seguro con Stripe. Rastree gastos, administre recibos y maneje propinas, todo en un solo lugar con total transparencia.",
+        "primaryCTA": "Ver Cómo Funciona",
+        "secondaryCTA": "Reservar un Servicio",
+        "badge": "Impulsado por Stripe"
+      },
+      "features": {
+        "title": "Procesamiento de pagos en el que puede confiar",
+        "subtitle": "Seguridad de nivel empresarial con transparencia para el consumidor",
+        "stripeIntegration": {
+          "title": "Integración Segura con Stripe",
+          "description": "Seguridad de pago estándar de la industria con transacciones encriptadas. La información de su tarjeta nunca toca nuestros servidores."
+        },
+        "transparentPricing": {
+          "title": "Precios Transparentes",
+          "description": "Desglose claro de tarifas de servicio, complementos y costos totales antes del pago. Sin cargos ocultos ni tarifas sorpresa."
+        },
+        "automaticReceipts": {
+          "title": "Recibos Automáticos",
+          "description": "Recibos digitales y seguimiento de gastos para cada reserva. Perfecto para deducciones fiscales y presupuestos domésticos."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo funcionan los pagos",
+        "description": "Simple, seguro y transparente de principio a fin",
+        "step1": {
+          "title": "Revisar Precios",
+          "description": "Vea el desglose completo del servicio base, complementos y total antes de reservar"
+        },
+        "step2": {
+          "title": "Autorizar Pago",
+          "description": "La autorización de pago segura a través de Stripe retiene los fondos hasta que se complete el servicio"
+        },
+        "step3": {
+          "title": "Servicio Completado",
+          "description": "El profesional recibe el pago después de completar el servicio y registrar la salida"
+        },
+        "step4": {
+          "title": "Obtener Recibo",
+          "description": "Recibo digital automático con todos los detalles de la transacción enviado a su correo electrónico"
+        }
+      },
+      "paymentTimeline": {
+        "title": "Cronología de pagos explicada",
+        "booking": {
+          "title": "Confirmación de reserva - Retención de autorización colocada",
+          "description": "Cuando reserva, colocamos una retención de autorización temporal en su tarjeta por el monto total. Esto no es un cargo todavía, solo reserva los fondos."
+        },
+        "serviceDay": {
+          "title": "Día del servicio - El registro comienza el servicio",
+          "description": "El profesional se registra cuando llega. La retención de autorización permanece en su lugar durante el servicio. Puede rastrear el progreso del servicio en tiempo real."
+        },
+        "serviceComplete": {
+          "title": "Servicio completo - La salida captura el pago",
+          "description": "Cuando el profesional se registra de salida y marca el servicio como completo, la autorización se convierte en un cargo real. Aquí es cuando se le factura."
+        },
+        "postService": {
+          "title": "Post-servicio - Procesamiento de recibo y pago",
+          "description": "Recibe un recibo digital de inmediato. El profesional recibe su pago (menos las tarifas de la plataforma) dentro de 2-3 días hábiles."
+        }
+      },
+      "protection": {
+        "title": "Su protección de pago",
+        "chargedAfter": {
+          "title": "Solo se cobra después de completar el servicio",
+          "description": "Las retenciones de autorización no son cargos. Solo se le factura cuando el profesional marca el servicio como completo y se registra de salida."
+        },
+        "cancellation": {
+          "title": "Protecciones de cancelación",
+          "description": "Cancele antes de que cierre la ventana de cancelación y la retención se libera automáticamente. Sin cargo, sin complicaciones, sin preguntas."
+        },
+        "dispute": {
+          "title": "Soporte de resolución de disputas",
+          "description": "Si el servicio no se entregó como se prometió, comuníquese con soporte dentro de las 24 horas. Revisamos las disputas y procesamos reembolsos cuando sea apropiado."
+        },
+        "encrypted": {
+          "title": "Almacenamiento de tarjeta encriptado",
+          "description": "Su información de pago está tokenizada y encriptada por Stripe. Nunca vemos ni almacenamos los detalles completos de su tarjeta en nuestros servidores."
+        }
+      },
+      "acceptedMethods": {
+        "title": "Métodos de pago aceptados",
+        "creditCards": {
+          "title": "Tarjetas de Crédito",
+          "description": "Visa, Mastercard, American Express, Discover"
+        },
+        "debitCards": {
+          "title": "Tarjetas de Débito",
+          "description": "Todas las principales tarjetas de débito con número de tarjeta y CVV"
+        },
+        "digitalReceipts": {
+          "title": "Recibos Digitales",
+          "description": "Recibos automáticos enviados por correo electrónico para todas las transacciones"
+        }
+      },
+      "cta": {
+        "title": "¿Listo para pagos seguros y transparentes?",
+        "description": "Experimente el procesamiento de pagos sin complicaciones respaldado por la seguridad líder en la industria de Stripe",
+        "bookService": "Reserve Su Primer Servicio",
+        "signUpFree": "Registrarse Gratis"
+      }
+    },
+    "secureMessaging": {
+      "meta": {
+        "title": "Plataforma de Mensajería Segura - Comunicación Directa | Maidconnect",
+        "description": "Mensajería directa desbloqueada después de reservar. Coordine detalles, envíe fotos y manténgase conectado durante toda su relación de servicio. Seguridad basada en reservas."
+      },
+      "hero": {
+        "headline": "Comuníquese de forma segura con sus profesionales",
+        "description": "Mensajería directa desbloqueada después de reservar. Coordine detalles, envíe fotos y manténgase conectado durante toda su relación de servicio.",
+        "primaryCTA": "Reservar un Servicio",
+        "secondaryCTA": "Más Información",
+        "badge": "Seguridad basada en reservas"
+      },
+      "features": {
+        "title": "Comunicación segura y conveniente",
+        "subtitle": "Mensajería integrada que protege su privacidad mientras permite una coordinación sin problemas",
+        "bookingBased": {
+          "title": "Acceso Basado en Reservas",
+          "description": "Mensajería disponible solo para reservas confirmadas, garantizando seguridad y previniendo spam. Su información de contacto permanece privada."
+        },
+        "realTime": {
+          "title": "Conversaciones en Tiempo Real",
+          "description": "Entrega de mensajes instantánea con confirmaciones de lectura y notificaciones. Manténgase conectado desde la confirmación de la reserva hasta la finalización del servicio."
+        },
+        "photoSharing": {
+          "title": "Compartir Fotos y Archivos",
+          "description": "Comparta instrucciones, referencias y actualizaciones fácilmente. Envíe fotos de áreas que necesitan atención o solicitudes especiales."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo funciona",
+        "description": "Mensajería simple y segura vinculada a sus reservas",
+        "step1": {
+          "title": "Completar Reserva",
+          "description": "Reserve un servicio con cualquier profesional para desbloquear el acceso a mensajería"
+        },
+        "step2": {
+          "title": "Acceder al Chat",
+          "description": "Encuentre el hilo de conversación en la sección de mensajes de su panel"
+        },
+        "step3": {
+          "title": "Coordinar Detalles",
+          "description": "Discuta detalles del servicio, horarios, solicitudes especiales o instrucciones de acceso"
+        },
+        "step4": {
+          "title": "Mantenerse Conectado",
+          "description": "Mantenga el historial de comunicación como referencia durante toda su relación de servicio"
+        }
+      },
+      "benefits": {
+        "title": "Por qué nuestro sistema de mensajería es diferente",
+        "privacy": {
+          "title": "Privacidad protegida",
+          "description": "Su número de teléfono y correo electrónico permanecen privados. Toda la comunicación ocurre a través de la plataforma con historial completo de mensajes por seguridad."
+        },
+        "noSpam": {
+          "title": "Sin spam ni solicitación",
+          "description": "Solo las reservas confirmadas desbloquean la mensajería. Los profesionales no pueden contactarlo sin una reserva, eliminando mensajes no deseados."
+        },
+        "history": {
+          "title": "Historial de mensajes y recibos",
+          "description": "Todos los mensajes se guardan y vinculan a la reserva. Perfecto para hacer referencia a conversaciones e instrucciones pasadas."
+        },
+        "notifications": {
+          "title": "Notificaciones en tiempo real",
+          "description": "Reciba notificaciones instantáneas cuando los profesionales respondan. Nunca pierda actualizaciones importantes sobre su reserva."
+        }
+      },
+      "useCases": {
+        "title": "Escenarios comunes de mensajería",
+        "beforeService": {
+          "title": "Antes del servicio",
+          "items": {
+            "access": "Comparta códigos de acceso al edificio e instrucciones de estacionamiento",
+            "photos": "Envíe fotos de áreas que necesitan atención especial",
+            "timing": "Confirme la hora de llegada y cualquier cambio de último minuto",
+            "products": "Discuta productos de limpieza específicos o preferencias"
+          }
+        },
+        "duringService": {
+          "title": "Durante el servicio",
+          "items": {
+            "updates": "Obtenga actualizaciones sobre el progreso y finalización del servicio",
+            "questions": "Responda preguntas sobre áreas o artículos específicos",
+            "beforeAfter": "Reciba fotos de antes/después del trabajo completado",
+            "realTime": "Aborde cualquier problema o solicitud en tiempo real"
+          }
+        }
+      },
+      "cta": {
+        "title": "¿Listo para experimentar una comunicación sin problemas?",
+        "description": "Reserve su primer servicio y desbloquee mensajería segura con profesionales verificados",
+        "browseProfessionals": "Explorar Profesionales",
+        "signUpFree": "Registrarse Gratis"
+      }
+    },
+    "reviewsRatings": {
+      "meta": {
+        "title": "Sistema de Reseñas y Calificaciones - Responsabilidad Bidireccional | Maidconnect",
+        "description": "Confianza y calidad impulsadas por la comunidad. Las reseñas bidireccionales garantizan responsabilidad. Solo reseñas verificadas de reservas reales. Construya su reputación."
+      },
+      "hero": {
+        "headline": "Confianza y calidad impulsadas por la comunidad",
+        "description": "Las reseñas bidireccionales garantizan responsabilidad. Califique a los profesionales después de cada servicio y construya su propia reputación como cliente confiable.",
+        "primaryCTA": "Leer Reseñas",
+        "secondaryCTA": "Más Información",
+        "badge": "Solo reseñas verificadas"
+      },
+      "features": {
+        "title": "Comentarios auténticos que importan",
+        "subtitle": "Solo reservas reales, experiencias reales y responsabilidad real",
+        "verifiedBooking": {
+          "title": "Reseñas de Reservas Verificadas",
+          "description": "Solo los clientes que completaron reservas pueden dejar reseñas. Cada reseña está vinculada a un servicio real, garantizando autenticidad."
+        },
+        "twoWay": {
+          "title": "Responsabilidad Bidireccional",
+          "description": "Los profesionales también califican a los clientes, construyendo confianza y respeto mutuo. Los grandes clientes obtienen mejor servicio y reserva prioritaria."
+        },
+        "detailedCategories": {
+          "title": "Categorías de Calificación Detalladas",
+          "description": "Califique calidad, comunicación, puntualidad y valor por separado. Obtenga la imagen completa más allá de una sola calificación de estrellas."
+        }
+      },
+      "howItWorks": {
+        "title": "Cómo funcionan las reseñas",
+        "description": "Simple, justo y transparente para todos",
+        "step1": {
+          "title": "Completar Servicio",
+          "description": "Finalice una reserva y asegúrese de que se completen todos los pasos de entrada/salida"
+        },
+        "step2": {
+          "title": "Recibir Solicitud",
+          "description": "Obtenga una solicitud de reseña dentro de las 48 horas posteriores a la finalización del servicio"
+        },
+        "step3": {
+          "title": "Calificar Experiencia",
+          "description": "Califique en múltiples categorías con opciones de comentarios detalladas"
+        },
+        "step4": {
+          "title": "Construir Reputación",
+          "description": "Su reseña ayuda a otros y construye su puntaje de reputación como cliente"
+        }
+      },
+      "categories": {
+        "title": "Lo que se califica",
+        "forProfessionals": {
+          "title": "Para Profesionales",
+          "serviceQuality": "Calidad del Servicio: Minuciosidad, atención al detalle, resultados",
+          "communication": "Comunicación: Capacidad de respuesta, claridad, profesionalismo",
+          "punctuality": "Puntualidad: Llegada a tiempo, cumplimiento del horario",
+          "value": "Valor: Precio justo, vale la pena el costo"
+        },
+        "forCustomers": {
+          "title": "Para Clientes",
+          "clarity": "Claridad: Instrucciones claras, expectativas razonables",
+          "respect": "Respeto: Trato profesional, ambiente seguro",
+          "payment": "Pago: Pago oportuno, propina adecuada",
+          "communication": "Comunicación: Capacidad de respuesta, cooperación"
+        }
+      },
+      "benefits": {
+        "title": "Por qué funciona nuestro sistema de reseñas",
+        "mutualRespect": {
+          "title": "Respeto mutuo y equidad",
+          "description": "Las reseñas bidireccionales significan que tanto los clientes como los profesionales tienen responsabilidad. Esto crea un ambiente respetuoso y profesional para todos."
+        },
+        "verifiedOnly": {
+          "title": "Solo reseñas verificadas",
+          "description": "Sin reseñas falsas, sin calificaciones incentivadas. Cada reseña proviene de una reserva completada, garantizando autenticidad y confianza."
+        },
+        "accountability": {
+          "title": "Responsabilidad en toda la plataforma",
+          "description": "Los usuarios con calificaciones bajas en cualquier lado se marcan para revisión. Los problemas repetidos resultan en suspensión de cuenta, manteniendo la plataforma segura para todos."
+        },
+        "balancedFeedback": {
+          "title": "Comentarios honestos y equilibrados",
+          "description": "Las categorías detalladas previenen calificaciones injustas de un solo problema. Puede calificar la calidad del servicio altamente mientras nota que la comunicación necesita mejorar."
+        }
+      },
+      "cta": {
+        "title": "Únase a una comunidad construida sobre la confianza",
+        "description": "Comience a construir su reputación hoy. Los grandes clientes y profesionales se benefician de nuestro sistema de reseñas bidireccional.",
+        "browseProfessionals": "Explorar Profesionales",
+        "signUpFree": "Registrarse Gratis"
+      }
+    },
+    "adminDashboard": {
+      "meta": {
+        "title": "Panel de Administración - Herramientas de Gestión de Plataforma | Maidconnect",
+        "description": "Herramientas de administración de nivel empresarial para moderar profesionales, revisar reservas, procesar pagos y mantener la calidad de la plataforma. Supervisión completa."
+      },
+      "hero": {
+        "headline": "Gestión y supervisión completa de la plataforma",
+        "description": "Herramientas de administración de nivel empresarial para moderar profesionales, revisar reservas, procesar pagos y mantener la calidad de la plataforma.",
+        "primaryCTA": "Solicitar Demo",
+        "secondaryCTA": "Más Información",
+        "badge": "Solo acceso de administrador"
+      },
+      "features": {
+        "title": "Control de administración integral",
+        "subtitle": "Todo lo que necesita para administrar y moderar la plataforma",
+        "professionalModeration": {
+          "title": "Moderación Profesional",
+          "description": "Revise solicitudes, verifique credenciales, apruebe o rechace perfiles. Supervise el rendimiento continuo y maneje quejas."
+        },
+        "bookingOversight": {
+          "title": "Supervisión de Reservas",
+          "description": "Vea todas las reservas, resuelva disputas, procese reembolsos y maneje cancelaciones. Visibilidad completa de transacciones."
+        },
+        "payoutProcessing": {
+          "title": "Procesamiento de Pagos",
+          "description": "Administre pagos profesionales, revise transacciones financieras, maneje disputas y garantice el cumplimiento de las tarifas de la plataforma."
+        }
+      },
+      "howItWorks": {
+        "title": "Flujos de trabajo clave del administrador",
+        "description": "Procesos centrales para la gestión de la plataforma",
+        "step1": {
+          "title": "Incorporación Profesional",
+          "description": "Revise solicitudes, verifique documentos y apruebe nuevos profesionales que se unen a la plataforma"
+        },
+        "step2": {
+          "title": "Monitoreo de Calidad",
+          "description": "Rastree calificaciones, revise quejas e identifique profesionales o clientes que necesitan atención"
+        },
+        "step3": {
+          "title": "Gestión de Transacciones",
+          "description": "Procese pagos, maneje disputas, administre reembolsos y garantice la recolección adecuada de tarifas"
+        },
+        "step4": {
+          "title": "Salud de la Plataforma",
+          "description": "Supervise métricas, analice tendencias y mantenga la calidad general y la seguridad de la plataforma"
+        }
+      },
+      "capabilities": {
+        "title": "Capacidades del administrador",
+        "professionalManagement": "Gestión Profesional: Aprobar, suspender o prohibir cuentas profesionales",
+        "bookingReview": "Revisión de Reservas: Ver todas las transacciones y detalles del servicio",
+        "payoutControl": "Control de Pagos: Aprobar o retener pagos profesionales",
+        "disputeResolution": "Resolución de Disputas: Mediar conflictos y procesar reembolsos",
+        "userModeration": "Moderación de Usuarios: Administrar cuentas de clientes y banderas",
+        "analytics": "Panel de Análisis: Métricas de plataforma e inteligencia empresarial"
+      },
+      "security": {
+        "title": "Seguridad y control de acceso",
+        "roleBasedAccess": {
+          "title": "Control de acceso basado en roles",
+          "description": "Diferentes niveles de administrador con permisos específicos. No todos los administradores ven todo: acceso compartimentado por seguridad."
+        },
+        "auditLogs": {
+          "title": "Registro de auditoría completo",
+          "description": "Cada acción de administrador se registra con marcas de tiempo y detalles del usuario. Responsabilidad total por todos los cambios de la plataforma."
+        },
+        "dataProtection": {
+          "title": "Protección de datos y privacidad",
+          "description": "Los datos sensibles de los clientes están enmascarados. Los administradores ven solo lo necesario para su rol, protegiendo la privacidad del usuario."
+        },
+        "twoFactorAuth": {
+          "title": "Autenticación de dos factores",
+          "description": "Las cuentas de administrador requieren 2FA para iniciar sesión. Verificación adicional para acciones sensibles como pagos y prohibiciones."
+        }
+      },
+      "tools": {
+        "title": "Herramientas de administrador disponibles",
+        "professionalApproval": "Aprobación Profesional: Revisar y aprobar nuevas solicitudes",
+        "documentVerification": "Verificación de Documentos: Verificar credenciales y certificaciones",
+        "payoutQueue": "Cola de Pagos: Procesar pagos profesionales programados",
+        "userManagement": "Gestión de Usuarios: Suspender, prohibir o reinstaurar cuentas de usuario",
+        "disputeResolution": "Resolución de Disputas: Manejar quejas de clientes y solicitudes de reembolso",
+        "analytics": "Panel de Análisis: Métricas de plataforma e inteligencia empresarial"
+      },
+      "cta": {
+        "title": "Vea el panel de administración en acción",
+        "description": "Solicite una demostración para explorar nuestras herramientas integrales de gestión de plataforma y vea cómo mantenemos la calidad y la seguridad",
+        "requestDemo": "Solicitar Demo",
+        "learnMore": "Más Información"
+      }
+    },
+    "contact": {
+      "meta": {
+        "title": "Contáctanos | Casaora",
+        "description": "Ponte en contacto con nuestro equipo de soporte, aprende sobre cómo convertirte en profesional o comunícate para oportunidades de asociación."
+      },
+      "hero": {
+        "badge": "CONTACTO",
+        "title": "¿Cómo podemos ayudarte?",
+        "description": "Ya sea que estés buscando contratar profesionales de confianza, interesado en unirte a nuestra red, o simplemente tengas una pregunta, nuestro equipo está aquí para ayudarte."
+      },
+      "cards": {
+        "support": {
+          "title": "Soporte",
+          "description": "Completa nuestro formulario o envíanos un correo a support@maidconnect.co con tu pregunta.",
+          "buttonText": "Enviar consulta"
+        },
+        "customers": {
+          "title": "Para clientes",
+          "description": "Explora nuestros profesionales verificados y reserva ayuda confiable para tu hogar.",
+          "buttonText": "Encontrar un profesional"
+        },
+        "professionals": {
+          "title": "Para profesionales",
+          "description": "Únete a nuestra red y conéctate con familias que buscan ayuda confiable.",
+          "buttonText": "Solicitar unirme"
+        }
+      },
+      "faq": {
+        "title": "Preguntas frecuentes",
+        "questions": {
+          "verification": {
+            "question": "¿Cómo verifica Casaora a los profesionales?",
+            "answer": "Todos los profesionales pasan por un proceso integral de evaluación que incluye verificación de antecedentes, verificación de referencias y evaluación de habilidades. Verificamos documentos de identidad, historial laboral y realizamos entrevistas en persona para garantizar calidad y seguridad."
+          },
+          "payments": {
+            "question": "¿Cómo funcionan los pagos?",
+            "answer": "Cuando reservas un servicio, autorizamos una retención en tu método de pago. Los fondos solo se capturan después de que se completa el servicio. Los profesionales reciben el pago dentro de 2-3 días hábiles después de completar el servicio. Todos los pagos se procesan de forma segura a través de Stripe."
+          },
+          "cancellation": {
+            "question": "¿Qué sucede si necesito cancelar?",
+            "answer": "Puedes cancelar cualquier reserva antes de la hora de inicio programada a través de tu panel. Las cancelaciones realizadas con 24+ horas de anticipación reciben un reembolso completo. Las cancelaciones dentro de las 24 horas pueden incurrir en una tarifa de cancelación para compensar al profesional por su tiempo reservado."
+          },
+          "recurring": {
+            "question": "¿Puedo reservar servicios recurrentes?",
+            "answer": "¡Sí! Durante el proceso de reserva, puedes configurar citas recurrentes semanales, quincenales o mensuales. Esto asegura que tengas ayuda consistente y construyas una relación a largo plazo con tu profesional preferido."
+          },
+          "areas": {
+            "question": "¿Qué áreas cubren?",
+            "answer": "Actualmente operamos en 6 ciudades principales de Colombia incluyendo Bogotá, Medellín, Cali, Barranquilla, Cartagena y Bucaramanga. Estamos expandiéndonos activamente a nuevas áreas según la demanda."
+          },
+          "becomePro": {
+            "question": "¿Cómo me convierto en profesional en Casaora?",
+            "answer": "Haz clic en 'Solicitar unirme' y completa nuestro formulario de solicitud. Revisaremos tu información, realizaremos una verificación de antecedentes y programaremos una entrevista. Una vez aprobado, completarás la incorporación y podrás comenzar a aceptar reservas. El proceso completo generalmente toma de 5 a 7 días hábiles."
+          }
+        }
+      }
+    },
+    "careers": {
+      "meta": {
+        "title": "Carreras en Casaora | Únete a Nuestro Equipo",
+        "description": "Únete al equipo que está transformando los servicios domésticos en Colombia. Estamos contratando ingenieros, diseñadores y profesionales de éxito del cliente para construir el futuro del trabajo doméstico."
+      },
+      "hero": {
+        "badge": "ÚNETE A NUESTRO EQUIPO",
+        "title": "Construyamos juntos el futuro de los servicios domésticos",
+        "description": "Los servicios domésticos están cambiando rápidamente, y también las expectativas de las familias y los profesionales. En Casaora, construimos herramientas que brindan claridad y confianza a ambos. Para lograrlo, necesitamos personas curiosas listas para generar un impacto.",
+        "primaryCTA": "Ver Posiciones Abiertas"
+      },
+      "positions": {
+        "title": "Posiciones abiertas",
+        "categories": {
+          "engineering": {
+            "title": "Ingeniería",
+            "jobs": {
+              "fullstack": {
+                "title": "Ingeniero Full Stack",
+                "location": "Remoto / Medellín, Colombia",
+                "salary": "$80k - $120k",
+                "type": "Tiempo completo"
+              },
+              "frontend": {
+                "title": "Ingeniero Frontend",
+                "location": "Remoto",
+                "salary": "$70k - $110k",
+                "type": "Tiempo completo"
+              }
+            }
+          },
+          "product": {
+            "title": "Producto y Diseño",
+            "jobs": {
+              "designer": {
+                "title": "Diseñador de Producto",
+                "location": "Remoto",
+                "salary": "$70k - $100k",
+                "type": "Tiempo completo"
+              }
+            }
+          },
+          "customerSuccess": {
+            "title": "Éxito del Cliente",
+            "jobs": {
+              "csManager": {
+                "title": "Gerente de Éxito del Cliente",
+                "location": "Medellín, Colombia",
+                "salary": "$50k - $70k",
+                "type": "Tiempo completo"
+              }
+            }
+          }
+        },
+        "applyButton": "Aplicar"
+      },
+      "values": {
+        "title": "Los valores que guían cómo trabajamos",
+        "description": "En Casaora, la cultura no es un póster en la pared — es cómo tomamos decisiones cada día. Si estos valores resuenan contigo, te sentirás como en casa.",
+        "items": {
+          "clarity": {
+            "title": "Claridad",
+            "description": "Mantenemos las cosas simples y transparentes para que todos sepan hacia dónde nos dirigimos."
+          },
+          "impact": {
+            "title": "Impacto",
+            "description": "Cada decisión y acción está ligada a resultados reales que hacen avanzar el negocio."
+          },
+          "curiosity": {
+            "title": "Curiosidad",
+            "description": "Preguntamos, exploramos y desafiamos suposiciones para seguir aprendiendo y mejorando."
+          },
+          "trust": {
+            "title": "Confianza",
+            "description": "Nos empoderamos mutuamente a través de la responsabilidad, la apertura y el respeto."
+          },
+          "momentum": {
+            "title": "Impulso",
+            "description": "Valoramos el progreso sobre la perfección, avanzando rápidamente mientras aprendemos en el camino."
+          },
+          "collaboration": {
+            "title": "Colaboración",
+            "description": "Logramos más cuando compartimos conocimientos, desafiamos ideas y ganamos como equipo."
+          }
+        }
+      }
+    },
+    "signIn": {
+      "meta": {
+        "title": "Iniciar sesión | Casaora"
+      },
+      "header": {
+        "createAccount": "Crear cuenta"
+      },
+      "hero": {
+        "title": "Bienvenido de nuevo",
+        "description": "Inicia sesión para gestionar tus reservas, documentos y pagos en un solo espacio."
+      },
+      "form": {
+        "emailLabel": "Correo electrónico",
+        "emailPlaceholder": "tu@ejemplo.com",
+        "passwordLabel": "Contraseña",
+        "passwordPlaceholder": "••••••••",
+        "signInButton": "Iniciar sesión",
+        "signingInButton": "Iniciando sesión…",
+        "needAccount": "¿Necesitas una cuenta?",
+        "createOneNow": "Crear una ahora"
+      },
+      "footer": {
+        "support": "El soporte de conserjería está disponible 7 días a la semana para asistencia con la incorporación."
+      },
+      "sidebar": {
+        "imageAlt": "Hospitalidad Casaora",
+        "badge": "Talento doméstico de confianza",
+        "title": "Profesionales meticulosos seleccionados para hogares de expatriados.",
+        "description": "Nuestro equipo bilingüe de conserjería verifica cada perfil con entrevistas, visitas de prueba y controles de calidad continuos."
+      }
+    },
+    "signUp": {
+      "meta": {
+        "title": "Crear cuenta | Casaora"
+      },
+      "header": {
+        "signIn": "Iniciar sesión"
+      },
+      "hero": {
+        "title": "Crea tu cuenta de Casaora",
+        "description": "Cuéntanos cómo planeas usar la plataforma y adaptaremos la experiencia para hogares o profesionales."
+      },
+      "form": {
+        "accountTypeLabel": "Tipo de cuenta",
+        "accountTypeHelper": "Elige la experiencia que mejor se adapte a cómo planeas usar Casaora.",
+        "customerLabel": "Cliente",
+        "customerDescription": "Reserva profesionales pre-verificados para tu hogar.",
+        "professionalLabel": "Profesional",
+        "professionalDescription": "Gestiona tu perfil, reservas y pagos.",
+        "fullNameLabel": "Nombre completo",
+        "fullNamePlaceholder": "Andrea Martínez",
+        "phoneLabel": "Teléfono",
+        "phonePlaceholder": "+57 300 123 4567",
+        "cityLabel": "Ciudad",
+        "cityPlaceholder": "Medellín",
+        "preferredLanguageLabel": "Idioma preferido",
+        "languageEnglish": "English",
+        "languageSpanish": "Español (Colombia)",
+        "emailLabel": "Correo electrónico",
+        "emailPlaceholder": "tu@ejemplo.com",
+        "propertyTypeLabel": "Tipo de propiedad",
+        "propertyTypePlaceholder": "Selecciona un tipo de propiedad",
+        "propertyApartment": "Apartamento",
+        "propertyHouse": "Casa",
+        "propertyOffice": "Oficina",
+        "propertyOther": "Otro",
+        "passwordLabel": "Contraseña",
+        "passwordPlaceholder": "Crea una contraseña",
+        "confirmPasswordLabel": "Confirmar contraseña",
+        "confirmPasswordPlaceholder": "Repite la contraseña",
+        "termsLabel": "Acepto los",
+        "termsLink": "términos de servicio",
+        "termsConfirm": "de Casaora y confirmo que entiendo las pautas de respeto mutuo.",
+        "successMessage": "Cuenta creada. Por favor revisa tu correo electrónico para verificar y finalizar el inicio de sesión.",
+        "createAccountButton": "Crear cuenta",
+        "creatingAccountButton": "Creando cuenta…",
+        "haveAccount": "¿Ya tienes una cuenta?",
+        "signInInstead": "Iniciar sesión"
+      },
+      "footer": {
+        "support": "Te guiaremos con incorporación de conserjería después de enviar tus detalles."
+      },
+      "sidebar": {
+        "imageAlt": "Incorporación Casaora",
+        "badge": "Incorporación de conserjería",
+        "title": "Entrevistamos, verificamos antecedentes y capacitamos a cada profesional.",
+        "description": "Construye confianza desde la primera visita con incorporación estructurada, manuales del hogar y soporte receptivo."
+      }
+    },
+    "terms": {
+      "meta": {
+        "title": "Términos de Servicio - Casaora",
+        "description": "Términos de servicio y acuerdo de usuario de Casaora"
+      },
+      "title": "Términos de Servicio",
+      "lastUpdated": "Última actualización: {date}"
+    },
+    "privacy": {
+      "meta": {
+        "title": "Política de Privacidad - Casaora",
+        "description": "Política de privacidad y prácticas de protección de datos de Casaora"
+      },
+      "title": "Política de Privacidad",
+      "lastUpdated": "Última actualización: {date}"
+    },
+    "professionalProfile": {
+      "meta": {
+        "notFoundTitle": "Profesional no encontrado · Casaora",
+        "defaultName": "Profesional de Casaora",
+        "descriptionTemplate": "Ver el perfil de Casaora de {name}{service}{location}."
+      },
+      "backToDirectory": "← Volver al directorio",
+      "availableForBookings": "Disponible para reservas",
+      "perHour": "/ hr",
+      "yearsExperience": "años exp",
+      "reviews": "reseñas",
+      "availableToday": "Disponible hoy",
+      "bookingSection": {
+        "title": "Reservar una cita",
+        "description": "Elige una fecha para ver los horarios disponibles y solicitar una reserva"
+      },
+      "tabs": {
+        "about": "Acerca de",
+        "services": "Servicios",
+        "portfolio": "Portafolio",
+        "reviews": "Reseñas"
+      },
+      "aboutTab": {
+        "title": "Acerca de",
+        "defaultBio": "Este profesional está finalizando su biografía pública. Comunícate con una solicitud de reserva para conocer más sobre su experiencia."
+      },
+      "servicesTab": {
+        "title": "Servicios y tarifas",
+        "serviceLabel": "Servicio",
+        "rateOnRequest": "Tarifa bajo consulta",
+        "noServicesMessage": "Los servicios se están finalizando. Envía una solicitud de reserva con los detalles que necesitas y confirmaremos el precio."
+      },
+      "portfolioTab": {
+        "title": "Portafolio",
+        "imageAlt": "Imagen de portafolio",
+        "noImages": "Aún no hay imágenes de portafolio"
+      },
+      "reviewsTab": {
+        "title": "Reseñas",
+        "moreReviews": "+ {count} reseñas más",
+        "noReviews": "Aún no hay reseñas"
+      }
+    }
+  },
+  "professionalsDirectory": {
+    "header": {
+      "title": "Profesionales de Maidconnect",
+      "subtitle": "Cada especialista listado a continuación ha superado el proceso de verificación de cuatro etapas de Maidconnect y está autorizado para atender clientes a través de nuestra plataforma. Estos pasos incluyen la presentación y aprobación de su cédula (documento de identidad del gobierno colombiano), prueba de elegibilidad laboral, referencias y una entrevista en persona."
+    },
+    "filters": {
+      "search": "Buscar por nombre, servicio o barrio",
+      "service": "Servicio",
+      "allServices": "Todos los servicios",
+      "city": "Ciudad",
+      "allCities": "Todas las ciudades",
+      "rating": "Calificación",
+      "allRatings": "Todas las calificaciones",
+      "rating45": "4.5+",
+      "rating48": "4.8+",
+      "availableToday": "Disponible hoy",
+      "reset": "Restablecer"
+    },
+    "results": {
+      "noResults": "Ningún profesional coincide con estos filtros aún."
+    },
+    "card": {
+      "viewProfile": "Ver perfil",
+      "hourly": "COP / hr",
+      "yearsExp": "años exp",
+      "onTime": "a tiempo",
+      "earned": "ganado",
+      "hired": "contratado",
+      "favorites": "favoritos",
+      "favorite": "Agregar a favoritos",
+      "noBio": "Este profesional está preparando su biografía pública. Vuelve pronto.",
+      "newBadge": "Nuevo en Casaora",
+      "flexibleServices": "Servicios flexibles",
+      "rateOnRequest": "Tarifa bajo consulta"
+    }
+  },
+  "matchWizard": {
+    "title": "Encuentra tu Coincidencia Perfecta",
+    "subtitle": "Responde algunas preguntas para encontrar a los mejores profesionales para tus necesidades",
+    "step": "Paso",
+    "of": "de",
+    "complete": "completo",
+    "exit": "Salir del asistente y explorar todos los profesionales",
+    "location": {
+      "title": "¿Dónde necesitas ayuda?",
+      "description": "Selecciona tu ciudad y barrio para encontrar profesionales cercanos",
+      "cityLabel": "Ciudad",
+      "selectCity": "Selecciona tu ciudad",
+      "neighborhoodLabel": "Barrio",
+      "optional": "opcional",
+      "selectNeighborhood": "Selecciona un barrio",
+      "back": "Atrás",
+      "next": "Siguiente Paso"
+    },
+    "service": {
+      "title": "¿Qué servicio necesitas?",
+      "description": "Elige el tipo de servicio que estás buscando",
+      "serviceTypeLabel": "Tipo de Servicio",
+      "selectService": "Selecciona un servicio",
+      "templateLabel": "Plantilla de Servicio",
+      "selectTemplate": "Elige una plantilla (opcional)",
+      "back": "Atrás",
+      "next": "Siguiente Paso"
+    },
+    "homeDetails": {
+      "title": "Cuéntanos sobre tu hogar",
+      "description": "Esto nos ayuda a encontrar el profesional adecuado para ti",
+      "bedroomsLabel": "Número de habitaciones",
+      "bathroomsLabel": "Número de baños",
+      "squareMetersLabel": "Tamaño aproximado (m²)",
+      "hasPetsLabel": "Tengo mascotas",
+      "petDetailsLabel": "Detalles de mascotas (opcional)",
+      "petDetailsPlaceholder": "ej., 2 perros amigables, gato hipoalergénico",
+      "suppliesLabel": "El profesional debe traer productos de limpieza",
+      "back": "Atrás",
+      "next": "Siguiente Paso"
+    },
+    "timingBudget": {
+      "title": "¿Cuándo y cuánto?",
+      "description": "Ayúdanos a encontrar profesionales que se ajusten a tu horario y presupuesto",
+      "dateLabel": "Fecha Preferida",
+      "timeLabel": "Hora Preferida",
+      "frequencyLabel": "Frecuencia",
+      "oneTime": "Una vez",
+      "weekly": "Semanal",
+      "biweekly": "Quincenal",
+      "monthly": "Mensual",
+      "budgetLabel": "Rango de Presupuesto (COP/hora)",
+      "budgetMin": "Mín",
+      "budgetMax": "Máx",
+      "back": "Atrás",
+      "next": "Siguiente Paso"
+    },
+    "preferences": {
+      "title": "¿Alguna preferencia especial?",
+      "description": "Estas nos ayudan a encontrar la coincidencia perfecta",
+      "languageLabel": "Preferencia de Idioma",
+      "languageEnglish": "Inglés",
+      "languageSpanish": "Español",
+      "languageBilingual": "Bilingüe",
+      "verificationLabel": "Nivel de Verificación",
+      "verificationBasic": "Básico (ID verificado)",
+      "verificationEnhanced": "Mejorado (verificación de antecedentes)",
+      "verificationBackground": "Antecedentes verificados",
+      "experienceLabel": "Experiencia Mínima (años)",
+      "availabilityLabel": "Disponibilidad",
+      "availabilityToday": "Disponible hoy",
+      "availabilityWeek": "Disponible esta semana",
+      "availabilityFlexible": "Flexible",
+      "back": "Atrás",
+      "next": "Ver Coincidencias"
+    },
+    "results": {
+      "title": "¡Encontramos {count} coincidencias perfectas!",
+      "description": "Basado en tus preferencias, aquí están nuestras mejores recomendaciones",
+      "matchScore": "{score}% coincidencia",
+      "viewProfile": "Ver Perfil Completo",
+      "bookNow": "Reservar Ahora",
+      "noMatches": "No se encontraron coincidencias exactas",
+      "noMatchesDescription": "Intenta ajustar tus preferencias o explora todos los profesionales",
+      "browseAll": "Explorar Todos los Profesionales",
+      "startOver": "Empezar de Nuevo"
+    }
+  },
+  "changelog": {
+    "title": "Qué hay de nuevo",
+    "whatsNew": "Qué hay de nuevo",
+    "viewAllUpdates": "Ver todas las actualizaciones",
+    "gotIt": "¡Entendido!",
+    "marking": "Marcando como leído...",
+    "noUpdates": "No hay nuevas actualizaciones",
+    "success": {
+      "title": "¡Gracias por revisar!",
+      "message": "Estás al día con las últimas actualizaciones."
+    }
+  },
+  "feedback": {
+    "title": "Enviar comentarios",
+    "description": "Ayúdanos a mejorar Casaora compartiendo tus ideas, sugerencias o reportando problemas.",
+    "form": {
+      "typeLabel": "¿Qué tipo de comentario es este?",
+      "subjectLabel": "Asunto",
+      "subjectPlaceholder": "Resumen breve (opcional)",
+      "messageLabel": "Tu comentario",
+      "messagePlaceholder": "Cuéntanos qué piensas...",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@email.com",
+      "emailHelp": "Solo lo usaremos para hacer seguimiento a tu comentario",
+      "optional": "opcional",
+      "consentText": "Acepto que Casaora procese estos comentarios para mejorar la plataforma.",
+      "privacyNotice": "Recopilamos tus comentarios, URL de la página e información del navegador para mejorar Casaora. Tu correo es opcional para seguimiento. Respetamos tu privacidad y cumplimos con las leyes colombianas de protección de datos.",
+      "submit": "Enviar comentarios",
+      "submitting": "Enviando..."
+    },
+    "success": {
+      "title": "¡Gracias!",
+      "message": "Hemos recibido tu comentario. Apreciamos que te hayas tomado el tiempo para ayudarnos a mejorar."
+    }
+  },
+  "pricing": {
+    "meta": {
+      "title": "Precios - Planes Simples y Transparentes | Casaora",
+      "description": "Elige el plan perfecto para tus necesidades. Precios transparentes sin tarifas ocultas. Comienza gratis o actualiza para funciones premium."
+    },
+    "title": "Precios simples y transparentes",
+    "subtitle": "Elige el plan que funcione para ti. Todos los planes incluyen nuestras funciones principales sin tarifas ocultas.",
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "subtitle": "¿Tienes preguntas? Estamos aquí para ayudar."
+    },
+    "cta": {
+      "title": "¿Listo para comenzar?",
+      "subtitle": "Únete a miles de clientes satisfechos que usan Casaora.",
+      "primary": "Iniciar Prueba Gratis",
+      "secondary": "Contactar Ventas"
+    }
+  },
+  "roadmap": {
+    "meta": {
+      "title": "Hoja de Ruta del Producto - Lo Que Estamos Construyendo | Casaora",
+      "description": "Mira en qué estamos trabajando y vota por las funciones que te gustaría ver. Tu opinión da forma a nuestro producto."
+    },
+    "title": "Hoja de Ruta del Producto",
+    "subtitle": "Mira lo que estamos construyendo y vota por las funciones que más deseas. Tu opinión da forma a nuestro futuro.",
+    "empty": {
+      "title": "Aún no hay elementos en la hoja de ruta",
+      "description": "Vuelve pronto para ver en qué estamos trabajando. Sé el primero en sugerir funciones y votar por lo que más te importa."
+    }
+  },
+  "amara": {
+    "title": "Amara",
+    "subtitle": "Asistente de Reservas IA",
+    "greeting": "👋 ¡Hola! Bienvenido a Casaora.",
+    "welcomeMessage": "¡Hola! Soy Amara, tu asistente de reservas con IA. ¿Cómo puedo ayudarte a encontrar el profesional de limpieza perfecto hoy?",
+    "openChat": "Chatear con Amara",
+    "closeChat": "Cerrar chat",
+    "inputPlaceholder": "Escribe tu mensaje...",
+    "send": "Enviar mensaje",
+    "errorMessage": "Lo siento, tuve problemas procesando eso. ¿Podrías reformular tu pregunta?",
+    "onboarding": {
+      "title": "Conoce a Amara, Tu Asistente IA",
+      "description": "Puedo ayudarte a encontrar profesionales, verificar disponibilidad y reservar servicios al instante. ¡Pregúntame lo que quieras!",
+      "dismiss": "¡Entendido!",
+      "hint": "¡Nuevo! Haz clic para chatear"
+    },
+    "searchingProfessionals": "Buscando profesionales...",
+    "checkingAvailability": "Verificando disponibilidad...",
+    "creatingBookingDraft": "Creando vista previa de reserva...",
+    "thumbsUp": "Respuesta útil",
+    "thumbsDown": "No útil",
+    "copyMessage": "Copiar mensaje",
+    "retry": "Reintentar",
+    "quickReply": {
+      "searchProfessionals": "Buscar limpiador",
+      "checkAvailability": "Ver disponibilidad",
+      "topRated": "Limpiadores mejor valorados",
+      "nearMe": "Limpiadores cerca de mí",
+      "checkTheirAvailability": "Ver su disponibilidad",
+      "searchDifferent": "Buscar en otra área",
+      "seeReviews": "Ver sus reseñas",
+      "bookNow": "Reservar esta hora",
+      "checkOtherTimes": "Ver otros horarios"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Sobre Nosotros - Nuestra Historia | Casaora",
+      "description": "Conoce la misión de Casaora de conectar expatriados en Colombia con profesionales de servicios domésticos bilingües y verificados a través de nuestro marketplace con asistencia personalizada."
+    },
+    "story": {
+      "title": "Conectando Culturas, Construyendo Confianza",
+      "subtitle": "Estamos construyendo el marketplace confiable que conecta extranjeros en Colombia con profesionales de servicios domésticos verificados y bilingües.",
+      "problem": {
+        "title": "El Desafío que Estamos Resolviendo",
+        "paragraph1": "Mudarse a un nuevo país es emocionante, pero encontrar ayuda doméstica confiable no debería ser estresante. Los expatriados en Colombia enfrentan barreras idiomáticas, incertidumbre sobre confianza y seguridad, y falta de profesionales verificados que comprendan sus necesidades.",
+        "paragraph2": "Las recomendaciones tradicionales de boca en boca son limitadas, y las plataformas existentes no ofrecen el soporte bilingüe, verificación o asistencia continua que los extranjeros realmente necesitan."
+      },
+      "solution": {
+        "title": "Nuestra Solución",
+        "paragraph1": "Casaora es el primer marketplace con asistencia personalizada diseñado específicamente para expatriados. Combinamos tecnología con toque humano para crear una experiencia fluida y confiable:",
+        "feature1": {
+          "title": "Profesionales Verificados",
+          "description": "Cada profesional pasa por verificaciones de antecedentes, verificación de identidad y evaluación de habilidades antes de unirse a nuestra plataforma."
+        },
+        "feature2": {
+          "title": "Soporte Bilingüe",
+          "description": "Toda nuestra plataforma y equipo de asistencia opera en inglés y español, eliminando barreras de comunicación."
+        },
+        "feature3": {
+          "title": "Asistencia Continua",
+          "description": "Desde la reserva hasta la finalización, nuestro equipo está disponible para ayudar a resolver cualquier problema y asegurar un servicio de calidad."
+        }
+      },
+      "journey": {
+        "title": "Nuestro Camino",
+        "paragraph1": "Fundada por expatriados que experimentaron estos desafíos de primera mano, Casaora nació de una idea simple: encontrar ayuda doméstica confiable en un país extranjero debería ser fácil, seguro y sin estrés. Hoy, estamos orgullosos de servir a cientos de familias expatriadas y empoderar a profesionales locales en toda Colombia."
+      }
+    },
+    "missionVision": {
+      "sectionTitle": "Nuestra Misión y Visión",
+      "sectionSubtitle": "Estamos en una misión de hacer los servicios domésticos accesibles, transparentes y confiables para todos.",
+      "mission": {
+        "title": "Nuestra Misión",
+        "description": "Conectar a extranjeros viviendo en Colombia con profesionales de servicios domésticos bilingües y verificados a través de un marketplace seguro y transparente impulsado por soporte personalizado y tecnología moderna."
+      },
+      "vision": {
+        "title": "Nuestra Visión",
+        "description": "Convertirnos en la plataforma más confiable para servicios de expatriados en América Latina, empoderando tanto a clientes como a profesionales con seguridad, transparencia y oportunidad."
+      },
+      "values": {
+        "title": "Nuestros Valores Fundamentales",
+        "subtitle": "Estos principios guían todo lo que hacemos",
+        "trust": {
+          "title": "Confianza Primero",
+          "description": "Verificamos a cada profesional y mantenemos comunicación transparente para ganar y mantener tu confianza."
+        },
+        "quality": {
+          "title": "Servicio de Calidad",
+          "description": "Establecemos altos estándares para profesionales y monitoreamos continuamente la calidad del servicio a través de reseñas y comentarios."
+        },
+        "bilingual": {
+          "title": "Excelencia Bilingüe",
+          "description": "Eliminamos barreras idiomáticas al soportar tanto inglés como español en toda nuestra plataforma."
+        },
+        "empowerment": {
+          "title": "Empoderamiento",
+          "description": "Empoderamos tanto a expatriados para encontrar ayuda confiable como a profesionales locales para desarrollar negocios sostenibles."
+        }
+      }
+    },
+    "team": {
+      "title": "Nuestro Equipo Remoto",
+      "subtitle": "Somos un equipo distribuido que abarca Colombia y Estados Unidos, unidos por nuestra misión de servir a expatriados y profesionales.",
+      "remoteFirst": {
+        "title": "Construido para Impacto Global",
+        "description": "Como una empresa con trabajo remoto primero, practicamos lo que predicamos. Nuestro equipo distribuido aporta perspectivas diversas, conocimiento local profundo y una comprensión genuina de la experiencia de los expatriados. Trabajamos de forma asíncrona a través de zonas horarias para proporcionar soporte 24/7 a nuestra comunidad."
+      },
+      "stats": {
+        "locations": "2+",
+        "locationsLabel": "Países",
+        "timezones": "3",
+        "timezonesLabel": "Zonas Horarias",
+        "languages": "2",
+        "languagesLabel": "Idiomas"
+      },
+      "benefits": {
+        "distributed": {
+          "title": "Globalmente Distribuido",
+          "description": "Nuestro equipo abarca Colombia y EE.UU., dándonos una visión profunda de las necesidades tanto de expatriados como locales."
+        },
+        "bilingual": {
+          "title": "Completamente Bilingüe",
+          "description": "Cada miembro del equipo habla inglés y español con fluidez, asegurando comunicación perfecta."
+        },
+        "available": {
+          "title": "Siempre Disponible",
+          "description": "Con miembros del equipo en diferentes zonas horarias, brindamos soporte receptivo cuando lo necesitas."
+        },
+        "expertise": {
+          "title": "Experiencia Diversa",
+          "description": "Nuestros antecedentes en hospitalidad, tecnología y operaciones aportan soluciones integrales a desafíos complejos."
+        }
+      },
+      "joinTeam": {
+        "title": "¿Quieres Unirte a Nuestra Misión?",
+        "description": "Siempre estamos buscando personas apasionadas que quieran hacer una diferencia en las vidas de expatriados y profesionales.",
+        "cta": "Contáctanos"
+      }
+    },
+    "trust": {
+      "title": "¿Por Qué Confiar en Casaora?",
+      "subtitle": "Seguridad, protección y transparencia están en el corazón de todo lo que hacemos.",
+      "verification": {
+        "title": "Profesionales Verificados",
+        "description": "Verificaciones de antecedentes, verificación de identidad y evaluación de habilidades para cada profesional en nuestra plataforma."
+      },
+      "secure": {
+        "title": "Pagos Seguros",
+        "description": "Todas las transacciones se procesan a través de Stripe con encriptación de nivel bancario y protección al comprador."
+      },
+      "support": {
+        "title": "Soporte Personalizado",
+        "description": "Nuestro equipo bilingüe está disponible para ayudar a resolver cualquier problema antes, durante y después de tu servicio."
+      },
+      "transparency": {
+        "title": "Transparencia Total",
+        "description": "Reseñas verificadas, precios claros y perfiles detallados de profesionales para que puedas reservar con confianza."
+      }
+    },
+    "cta": {
+      "title": "¿Listo para Experimentar la Diferencia?",
+      "subtitle": "Únete a miles de expatriados que confían en Casaora para sus necesidades de servicios domésticos.",
+      "browseProfessionals": "Explorar Profesionales",
+      "signUp": "Regístrate Gratis"
+    }
+  },
+  "howItWorks": {
+    "meta": {
+      "title": "Cómo Funciona - Pasos Simples para Servicio de Calidad | Casaora",
+      "description": "Descubre cómo Casaora facilita encontrar profesionales de servicios domésticos confiables. Explora perfiles verificados, reserva servicios y recibe apoyo en cada paso."
+    },
+    "hero": {
+      "title": "Cómo Funciona Casaora",
+      "subtitle": "Ya sea que busques ayuda u ofrezcas tus servicios, hemos hecho el proceso simple, seguro y transparente."
+    },
+    "customer": {
+      "title": "Para Clientes",
+      "subtitle": "Encuentra profesionales confiables en 4 sencillos pasos",
+      "steps": {
+        "search": {
+          "title": "Buscar y Explorar",
+          "description": "Explora profesionales verificados por tipo de servicio, ubicación y disponibilidad. Filtra por idioma, calificaciones y experiencia para encontrar tu coincidencia perfecta."
+        },
+        "book": {
+          "title": "Reserva tu Servicio",
+          "description": "Elige tu fecha y hora preferida, revisa precios transparentes y reserva al instante. Nuestro equipo de asistencia está disponible si necesitas ayuda."
+        },
+        "service": {
+          "title": "Disfruta Servicio de Calidad",
+          "description": "El profesional llega a tiempo y brinda un servicio excepcional. Nuestro equipo de soporte está disponible si necesitas asistencia."
+        },
+        "review": {
+          "title": "Opina y Reserva de Nuevo",
+          "description": "Comparte tu experiencia para ayudar a otros. ¿Te encantó tu profesional? Guárdalo como favorito y vuelve a reservar con un clic."
+        }
+      },
+      "cta": "Explorar Profesionales"
+    },
+    "professional": {
+      "title": "Para Profesionales",
+      "subtitle": "Haz crecer tu negocio en 5 pasos sencillos",
+      "steps": {
+        "apply": {
+          "title": "Solicita Unirte",
+          "description": "Completa nuestra solicitud simple con tu experiencia, habilidades y disponibilidad. El proceso toma menos de 10 minutos."
+        },
+        "verify": {
+          "title": "Verifica tu Perfil",
+          "description": "Completa verificación de antecedentes, verificación de ID y evaluación de habilidades. Nuestro equipo te guía en cada paso en inglés o español."
+        },
+        "match": {
+          "title": "Obtén Coincidencias",
+          "description": "Crea tu perfil, establece tus tarifas y obtén coincidencias con clientes que necesitan tus servicios. Tú controlas tu horario."
+        },
+        "serve": {
+          "title": "Brinda Excelente Servicio",
+          "description": "Llega a tiempo, proporciona un servicio excelente y construye tu reputación a través de opiniones y calificaciones de clientes."
+        },
+        "earn": {
+          "title": "Gana y Crece",
+          "description": "Recibe pagos de forma segura después de cada trabajo. Construye una base de clientes leales, gana más mediante reservas repetidas y haz crecer tu negocio."
+        }
+      },
+      "cta": "Aplicar como Profesional"
+    },
+    "safety": {
+      "title": "Seguridad y Confianza",
+      "subtitle": "Tu seguridad es nuestra máxima prioridad. Así es como te mantenemos protegido.",
+      "verification": {
+        "title": "Verificación Rigurosa",
+        "description": "Cada profesional se somete a verificación de antecedentes, verificación de ID y evaluación de habilidades antes de unirse a nuestra plataforma. Monitoreamos continuamente la calidad a través de opiniones."
+      },
+      "payments": {
+        "title": "Pagos Seguros",
+        "description": "Todos los pagos se procesan a través de Stripe con encriptación de nivel bancario. Los clientes están protegidos y los profesionales reciben pagos de manera confiable después de cada trabajo."
+      },
+      "support": {
+        "title": "Soporte 24/7",
+        "description": "Nuestro equipo de soporte bilingüe está disponible las 24 horas para ayudar a resolver cualquier problema, responder preguntas y garantizar una prestación de servicio fluida."
+      }
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "subtitle": "¿Tienes preguntas? Tenemos respuestas.",
+      "q1": {
+        "question": "¿Cómo se verifican los profesionales?",
+        "answer": "Cada profesional pasa por un proceso de verificación integral que incluye verificación de antecedentes, verificación de ID, verificación de referencias y evaluación de habilidades. También monitoreamos continuamente la calidad del servicio a través de opiniones y calificaciones de clientes."
+      },
+      "q2": {
+        "question": "¿Qué pasa si no estoy satisfecho con el servicio?",
+        "answer": "Tu satisfacción está garantizada. Si no estás contento con un servicio, contacta a nuestro equipo de asistencia dentro de las 24 horas y trabajaremos para resolver el problema, ya sea organizando una repetición, encontrando un profesional diferente o emitiendo un reembolso."
+      },
+      "q3": {
+        "question": "¿Cómo funcionan los pagos?",
+        "answer": "Para clientes: Paga de forma segura a través de la plataforma usando tarjetas de crédito/débito o transferencias bancarias. Tu pago se mantiene seguro hasta que se complete el servicio. Para profesionales: Recibes el pago automáticamente después de cada trabajo completado, menos nuestra pequeña tarifa de servicio."
+      },
+      "q4": {
+        "question": "¿Puedo comunicarme en inglés aunque esté en Colombia?",
+        "answer": "¡Absolutamente! Toda nuestra plataforma, equipo de soporte y muchos de nuestros profesionales son completamente bilingües. Puedes explorar, reservar y obtener soporte completamente en inglés o español, lo que te resulte más cómodo."
+      },
+      "stillHaveQuestions": "¿Aún tienes preguntas?",
+      "contactUs": "Contacta a nuestro equipo de soporte"
+    },
+    "cta": {
+      "title": "¿Listo para Comenzar?",
+      "subtitle": "Únete a miles de clientes y profesionales que confían en Casaora.",
+      "browseButton": "Explorar Profesionales",
+      "signUpButton": "Regístrate Gratis"
+    }
+  },
+  "help": {
+    "meta": {
+      "title": "Centro de Ayuda",
+      "description": "Encuentra respuestas a preguntas comunes y aprende a usar Casaora"
+    },
+    "hero": {
+      "title": "¿Cómo podemos ayudarte?",
+      "subtitle": "Busca en nuestra base de conocimientos o explora las categorías a continuación"
+    },
+    "search": {
+      "placeholder": "Buscar ayuda...",
+      "searching": "Buscando...",
+      "noResults": "No se encontraron artículos que coincidan con tu búsqueda",
+      "viewAll": "Ver todos los resultados",
+      "browseAll": "Explorar todos los artículos"
+    },
+    "categories": {
+      "title": "Explorar por Categoría",
+      "article": "artículo",
+      "articles": "artículos",
+      "browse": "Explorar artículos"
+    },
+    "popular": {
+      "title": "Artículos Populares",
+      "view": "vista",
+      "views": "vistas"
+    },
+    "contact": {
+      "title": "¿Aún necesitas ayuda?",
+      "description": "Nuestro equipo de soporte está aquí para asistirte",
+      "button": "Contactar Soporte"
+    },
+    "breadcrumb": {
+      "home": "Centro de Ayuda"
+    },
+    "category": {
+      "articlesCount": "{count, plural, =1 {1 artículo} other {# artículos}}",
+      "view": "vista",
+      "views": "vistas",
+      "helpful": "útil",
+      "backToHelp": "Volver al Centro de Ayuda",
+      "noArticles": {
+        "title": "Aún no hay artículos",
+        "description": "Vuelve pronto para ver artículos útiles en esta categoría",
+        "button": "Explorar Otras Categorías"
+      }
+    },
+    "article": {
+      "meta": {
+        "updated": "Actualizado {date}",
+        "views": "{count, plural, =1 {1 vista} other {# vistas}}"
+      },
+      "feedback": {
+        "question": "¿Te resultó útil este artículo?",
+        "helpful": "Sí, útil",
+        "notHelpful": "No útil",
+        "thanksHelpful": "¡Gracias por tu comentario!",
+        "thanksNotHelpful": "Gracias por tu comentario. Trabajaremos para mejorar este artículo.",
+        "tellUsMore": "Dinos qué podríamos mejorar:",
+        "placeholder": "¿Cómo podemos mejorar este artículo?",
+        "submit": "Enviar Comentario",
+        "skip": "Omitir",
+        "alreadySubmitted": "Ya has proporcionado comentarios para este artículo",
+        "error": "Error al enviar comentarios. Por favor, inténtalo de nuevo."
+      },
+      "related": {
+        "title": "Artículos Relacionados",
+        "readMore": "Leer más"
+      },
+      "contact": {
+        "title": "¿Aún tienes preguntas?",
+        "description": "Nuestro equipo de soporte está aquí para ayudarte",
+        "button": "Contactar Soporte"
+      }
+    }
+  },
+  "bookings": {
+    "arrivalTracker": {
+      "status": {
+        "enRoute": {
+          "title": "{name} está en camino",
+          "description": "Tu profesional está viajando a tu ubicación."
+        },
+        "arrivingSoon": {
+          "title": "{name} está llegando pronto",
+          "description": "Tu profesional debería llegar en los próximos 30 minutos."
+        },
+        "arrived": {
+          "title": "{name} ha llegado",
+          "description": "Tu profesional está en tu ubicación y registrará su llegada en breve."
+        }
+      },
+      "timeWindow": "Esperado entre {start} - {end}",
+      "estimatedArrival": "Llegada estimada: {time}",
+      "updatedJustNow": "Actualizado justo ahora",
+      "updatedMinuteAgo": "Actualizado hace 1 minuto",
+      "updatedMinutesAgo": "Actualizado hace {minutes} minutos",
+      "privacyNotice": "La ubicación de tu profesional es privada. Solo se comparten ventanas de tiempo de llegada para respetar la privacidad."
+    }
+  },
+  "city": {
+    "meta": {
+      "title": "Servicios Profesionales de Limpieza en {city} | Casaora",
+      "description": "Encuentra profesionales de limpieza verificados y confiables en {city}. Reserva limpieza del hogar, limpieza profunda y más. Profesionales con verificación de antecedentes y reseñas reales."
+    },
+    "hero": {
+      "title": "Servicios de Limpieza Confiables en {city}",
+      "description": "Conéctate con profesionales de limpieza verificados en {city}. Todos nuestros profesionales tienen verificación de antecedentes, están asegurados y calificados por clientes reales de tu comunidad.",
+      "visualTagline": "Tu Marketplace Local de Limpieza",
+      "popularServices": "Servicios Populares",
+      "services": {
+        "cleaning": "Limpieza del Hogar",
+        "deepCleaning": "Limpieza Profunda",
+        "moving": "Mudanza"
+      },
+      "stats": {
+        "professionals": "Profesionales",
+        "reviews": "reseñas"
+      },
+      "cta": {
+        "primary": "Encontrar Profesionales",
+        "secondary": "Cómo Funciona"
+      }
+    },
+    "professionals": {
+      "title": "Profesionales Mejor Calificados en {city}",
+      "description": "{count} profesionales de limpieza verificados listos para ayudarte",
+      "empty": "Aún no hay profesionales en {city}",
+      "emptyDescription": "¡Vuelve pronto! Estamos expandiéndonos a nuevas áreas regularmente.",
+      "viewAll": "Ver Todos los Profesionales",
+      "card": {
+        "verified": "Verificado",
+        "unnamed": "Profesional",
+        "reviews": "reseñas",
+        "startingAt": "Desde"
+      }
+    }
+  }
+}

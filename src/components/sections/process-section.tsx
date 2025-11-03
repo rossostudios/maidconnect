@@ -22,7 +22,7 @@ export async function ProcessSection() {
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {stepKeys.map((key) => (
               <div className="flex flex-col items-center text-center" key={key}>
-                <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#ff5d46] font-semibold text-white text-xl">
+                <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#8B7355] font-semibold text-white text-xl">
                   {t(`steps.${key}.number`)}
                 </span>
                 <h3 className="mt-6 font-semibold text-[#211f1a] text-xl">

@@ -31,14 +31,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: t("title"),
       description: t("description"),
-      url: "https://maidconnect.co/product/payment-processing",
-      siteName: "Maidconnect",
+      url: "https://casaora.co/product/payment-processing",
+      siteName: "Casaora",
       images: [
         {
-          url: "https://maidconnect.co/og-payment-processing.png",
+          url: "https://casaora.co/og-payment-processing.png",
           width: 1200,
           height: 630,
-          alt: "Maidconnect Secure Payment Processing",
+          alt: "Casaora Secure Payment Processing",
         },
       ],
       locale: locale === "es" ? "es_ES" : "en_US",
@@ -48,10 +48,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: t("title"),
       description: t("description"),
-      images: ["https://maidconnect.co/og-payment-processing.png"],
+      images: ["https://casaora.co/og-payment-processing.png"],
     },
     alternates: {
-      canonical: "https://maidconnect.co/product/payment-processing",
+      canonical: "https://casaora.co/product/payment-processing",
     },
   };
 }
@@ -63,7 +63,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Maidconnect Payment Processing",
+    name: "Casaora Payment Processing",
     applicationCategory: "FinanceApplication",
     description: t("hero.description"),
     featureList: [
@@ -165,7 +165,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
                   <span className="font-semibold text-sm text-white">1</span>
                 </div>
                 <div>
@@ -179,7 +179,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
                   <span className="font-semibold text-sm text-white">2</span>
                 </div>
                 <div>
@@ -193,7 +193,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
                   <span className="font-semibold text-sm text-white">3</span>
                 </div>
                 <div>
@@ -207,7 +207,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
                   <span className="font-semibold text-sm text-white">4</span>
                 </div>
                 <div>
@@ -232,7 +232,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -246,7 +246,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -260,7 +260,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -274,7 +274,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff5d46]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
                   <CheckCircle2 className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -299,8 +299,8 @@ export default async function PaymentProcessingPage({ params }: Props) {
 
             <div className="mt-16 grid gap-8 md:grid-cols-3">
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#ff5d46]/10">
-                  <CreditCard className="h-8 w-8 text-[#ff5d46]" />
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#8B7355]/10">
+                  <CreditCard className="h-8 w-8 text-[#8B7355]" />
                 </div>
                 <h3 className="mt-6 font-semibold text-[#211f1a] text-xl">
                   {t("acceptedMethods.creditCards.title")}
@@ -311,8 +311,8 @@ export default async function PaymentProcessingPage({ params }: Props) {
               </div>
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#ff5d46]/10">
-                  <CreditCard className="h-8 w-8 text-[#ff5d46]" />
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#8B7355]/10">
+                  <CreditCard className="h-8 w-8 text-[#8B7355]" />
                 </div>
                 <h3 className="mt-6 font-semibold text-[#211f1a] text-xl">
                   {t("acceptedMethods.debitCards.title")}
@@ -323,8 +323,8 @@ export default async function PaymentProcessingPage({ params }: Props) {
               </div>
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#ff5d46]/10">
-                  <Receipt className="h-8 w-8 text-[#ff5d46]" />
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#8B7355]/10">
+                  <Receipt className="h-8 w-8 text-[#8B7355]" />
                 </div>
                 <h3 className="mt-6 font-semibold text-[#211f1a] text-xl">
                   {t("acceptedMethods.digitalReceipts.title")}
@@ -350,14 +350,14 @@ export default async function PaymentProcessingPage({ params }: Props) {
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                className="inline-flex items-center justify-center rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#eb6c65]"
+                className="inline-flex items-center justify-center rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]"
                 href="/professionals"
               >
                 {t("cta.bookService")}
               </Link>
 
               <Link
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[#211f1a] text-base transition hover:border-[#ff5d46] hover:text-[#ff5d46]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] hover:text-[#8B7355]"
                 href="/auth/sign-up"
               >
                 {t("cta.signUpFree")}
