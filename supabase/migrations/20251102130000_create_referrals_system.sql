@@ -22,16 +22,16 @@ CREATE TABLE IF NOT EXISTS public.referral_codes (
   -- Timestamps
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
-  expires_at timestamptz, -- NULL = never expires
-
-  -- Ensure one active code per user
-  CONSTRAINT unique_active_code_per_user UNIQUE (user_id, is_active) WHERE is_active = true
+  expires_at timestamptz -- NULL = never expires
 );
 
 -- Indexes for performance
 CREATE INDEX idx_referral_codes_user_id ON public.referral_codes(user_id);
 CREATE INDEX idx_referral_codes_code ON public.referral_codes(code) WHERE is_active = true;
 CREATE INDEX idx_referral_codes_active ON public.referral_codes(is_active) WHERE is_active = true;
+
+-- Ensure one active code per user (partial unique index)
+CREATE UNIQUE INDEX idx_unique_active_code_per_user ON public.referral_codes(user_id) WHERE is_active = true;
 
 -- =============================================
 -- 2. Referrals Table
