@@ -79,7 +79,7 @@ const defaultFlags: Record<FeatureFlag, boolean> = {
   // Beta Features
   caregiver_profiles: false,
   maintenance_reminders: false,
-  referral_program: false,
+  referral_program: true, // Two-sided referral credit system
 };
 
 /**

@@ -59,7 +59,7 @@ export async function SiteFooter() {
           <div className="max-w-md space-y-6">
             <img
               alt="MaidConnect"
-              className="h-8 w-auto"
+              className="h-16 w-auto"
               src="/maidconnect_logo_light.svg"
             />
             <p className="text-[#cfc8be] text-base leading-relaxed">{t("description")}</p>
