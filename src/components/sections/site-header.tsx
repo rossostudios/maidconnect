@@ -12,7 +12,7 @@ export async function SiteHeader() {
       <Container className="flex items-center justify-between gap-4">
         {/* Logo */}
         <Link className="flex items-center gap-2" href="/">
-          <img alt="MaidConnect" className="h-8 w-auto" src="/maidconnect logo.svg" />
+          <img alt="MaidConnect" className="h-6 w-auto" src="/maidconnect logo.svg" />
           <span className="rounded-full bg-[#ff5d46] px-2 py-0.5 font-bold text-[10px] text-white uppercase tracking-wide">
             Beta
           </span>

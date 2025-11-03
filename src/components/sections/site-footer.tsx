@@ -57,7 +57,11 @@ export async function SiteFooter() {
         <div className="grid gap-12 lg:grid-cols-[1fr_auto]">
           {/* Left: Brand & Description */}
           <div className="max-w-md space-y-6">
-            <h2 className="font-semibold text-3xl text-white">MaidConnect</h2>
+            <img
+              alt="MaidConnect"
+              className="h-8 w-auto"
+              src="/maidconnect_logo_light.svg"
+            />
             <p className="text-[#cfc8be] text-base leading-relaxed">{t("description")}</p>
             <div className="space-y-3">
               <a
