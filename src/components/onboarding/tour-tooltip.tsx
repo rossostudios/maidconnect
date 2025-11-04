@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft01Icon, ArrowRight01Icon } from "hugeicons-react";
+import { ArrowLeft01Icon, ArrowRight01Icon, Cancel01Icon } from "hugeicons-react";
 import { useEffect, useRef, useState } from "react";
 import { TourStep } from "@/hooks/use-onboarding-tour";
 

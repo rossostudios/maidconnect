@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  Alert01Icon,
+  AlertCircleIcon,
+  CheckmarkCircle01Icon,
+  InformationCircleIcon,
+} from "hugeicons-react";
 import { BaseModal } from "./base-modal";
 
 export type ConfirmationModalProps = {
@@ -16,27 +22,27 @@ export type ConfirmationModalProps = {
 
 const variantConfig = {
   default: {
-    icon: Info,
+    icon: InformationCircleIcon,
     iconColor: "text-[var(--red)]",
     confirmButton: "bg-[var(--red)] hover:bg-[var(--red-hover)]",
   },
   danger: {
-    icon: XCircle,
+    icon: AlertCircleIcon,
     iconColor: "text-red-600",
     confirmButton: "bg-red-600 hover:bg-red-700",
   },
   success: {
-    icon: CheckCircle,
+    icon: CheckmarkCircle01Icon,
     iconColor: "text-green-600",
     confirmButton: "bg-green-600 hover:bg-green-700",
   },
   warning: {
-    icon: AlertTriangle,
+    icon: Alert01Icon,
     iconColor: "text-yellow-600",
     confirmButton: "bg-yellow-600 hover:bg-yellow-700",
   },
   info: {
-    icon: Info,
+    icon: InformationCircleIcon,
     iconColor: "text-blue-600",
     confirmButton: "bg-blue-600 hover:bg-blue-700",
   },

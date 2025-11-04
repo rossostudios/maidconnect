@@ -1,3 +1,9 @@
+import {
+  CheckmarkCircle01Icon,
+  SecurityCheckIcon,
+  Tick02Icon,
+} from "hugeicons-react";
+
 export type VerificationLevel = "none" | "basic" | "enhanced" | "background-check";
 
 type VerificationBadgeProps = {
@@ -17,21 +23,21 @@ export function VerificationBadge({ level, size = "sm" }: VerificationBadgeProps
 
   const config = {
     basic: {
-      icon: Check,
+      icon: Tick02Icon,
       label: "ID Verified",
       bgColor: "bg-[#e8f5e9]",
       textColor: "text-[#2e7d32]",
       iconColor: "text-[#2e7d32]",
     },
     enhanced: {
-      icon: CheckCheck,
+      icon: CheckmarkCircle01Icon,
       label: "Enhanced Verified",
       bgColor: "bg-[#e3f2fd]",
       textColor: "text-[#1565c0]",
       iconColor: "text-[#1565c0]",
     },
     "background-check": {
-      icon: ShieldCheck,
+      icon: SecurityCheckIcon,
       label: "Background Checked",
       bgColor: "bg-[#f3e5f5]",
       textColor: "text-[#6a1b9a]",

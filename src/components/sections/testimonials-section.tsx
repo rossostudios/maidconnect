@@ -24,6 +24,11 @@ export function TestimonialsSection() {
 
   const active = slides[current];
 
+  // Don't render if no testimonials
+  if (!active) {
+    return null;
+  }
+
   return (
     <section className="py-20 sm:py-24 lg:py-28" id="testimonials">
       <Container className="max-w-6xl px-4 sm:px-6">

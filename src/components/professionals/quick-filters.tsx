@@ -1,6 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import {
+  Award01Icon,
+  Clock01Icon,
+  DollarCircleIcon,
+  FlashIcon,
+  Location01Icon,
+  Shield01Icon,
+  StarIcon,
+  TranslateIcon,
+} from "hugeicons-react";
 
 export type QuickFilter = {
   id: string;
@@ -17,49 +27,49 @@ const DEFAULT_FILTERS: QuickFilter[] = [
   {
     id: "available-today",
     label: "Available Today",
-    icon: Zap,
+    icon: FlashIcon,
     active: false,
   },
   {
     id: "top-rated",
     label: "Top Rated (4.8+)",
-    icon: Star,
+    icon: StarIcon,
     active: false,
   },
   {
     id: "nearby",
     label: "Nearby (< 5km)",
-    icon: MapPin,
+    icon: Location01Icon,
     active: false,
   },
   {
     id: "budget-friendly",
     label: "Under 30k/hr",
-    icon: DollarSign,
+    icon: DollarCircleIcon,
     active: false,
   },
   {
     id: "bilingual",
     label: "Bilingual",
-    icon: Languages,
+    icon: TranslateIcon,
     active: false,
   },
   {
     id: "verified",
     label: "Background Checked",
-    icon: Shield,
+    icon: Shield01Icon,
     active: false,
   },
   {
     id: "experienced",
     label: "5+ Years Experience",
-    icon: Award,
+    icon: Award01Icon,
     active: false,
   },
   {
     id: "quick-response",
     label: "Fast Response",
-    icon: Clock,
+    icon: Clock01Icon,
     active: false,
   },
 ];

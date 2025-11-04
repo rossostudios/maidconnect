@@ -121,7 +121,7 @@ export function BaseModal({
       }
 
       const firstElement = focusableElements[0] as HTMLElement;
-      const lastElement = focusableElements.at(-1) as HTMLElement;
+      const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 
       if (e.shiftKey) {
         // Shift + Tab
