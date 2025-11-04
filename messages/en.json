@@ -2677,6 +2677,96 @@
         "description": "Quick payment using your Nequi app. Instant and convenient."
       },
       "securityNote": "Secure payment powered by Stripe • All transactions encrypted"
+    },
+    "onboardingChecklist": {
+      "title": "Complete Your Profile",
+      "ready": "Ready to accept bookings!",
+      "incomplete": "{completed} of {total} required items complete",
+      "requiredItems": "Required Items",
+      "optionalItems": "Optional Items (Recommended)",
+      "helpTitle": "Complete all required items to start accepting bookings",
+      "helpDescription": "These steps help customers trust you and increase your booking success rate.",
+      "items": {
+        "profile_photo": "Upload profile photo",
+        "services": "Add at least one service",
+        "availability": "Set your working hours",
+        "service_radius": "Define service area",
+        "bio": "Write a bio (min 100 chars)",
+        "background_check": "Complete background check",
+        "portfolio": "Add portfolio photos",
+        "certifications": "Upload certifications",
+        "completedOn": "Completed on {date}"
+      }
+    },
+    "weeklyHoursEditor": {
+      "title": "Working Hours",
+      "edit": "Edit",
+      "save": "Save",
+      "saving": "Saving...",
+      "cancel": "Cancel",
+      "unavailable": "Unavailable",
+      "helpTitle": "Set your weekly availability",
+      "helpDescription": "Customers can only book you during these hours. Be specific to avoid conflicts.",
+      "days": {
+        "sunday": "Sunday",
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday"
+      }
+    },
+    "serviceRadiusEditor": {
+      "title": "Service Area",
+      "edit": "Edit",
+      "save": "Save",
+      "saving": "Saving...",
+      "cancel": "Cancel",
+      "radiusLabel": "Service Radius",
+      "radiusDescription": "You'll be visible to customers within {radius} km of your service location",
+      "bufferBeforeLabel": "Travel Time Before",
+      "bufferAfterLabel": "Travel Time After",
+      "minutes": "minutes",
+      "locationLabel": "Service Center Location",
+      "currentLocation": "Current location",
+      "noLocationSet": "No location set yet",
+      "updateLocation": "Update Location",
+      "helpTitle": "Define where you want to work",
+      "helpDescription": "Travel buffers prevent double-bookings by reserving time before/after each job."
+    },
+    "calendarHealth": {
+      "title": "Calendar Health",
+      "overallHealth": "Overall Health",
+      "availableDays": "Available Days",
+      "hasWorkingHours": "Working hours configured",
+      "hasServiceRadius": "Service area defined",
+      "hasTravelBuffers": "Travel buffers set",
+      "recommendations": "Recommendations",
+      "perfectHealth": "Perfect calendar health!",
+      "perfectHealthDescription": "Your calendar is fully configured and ready to accept bookings."
+    },
+    "bundleCard": {
+      "off": "OFF",
+      "totalDuration": "Total Duration",
+      "usageCount": "Used",
+      "times": "times",
+      "youSave": "You save",
+      "quickQuote": "Quick Quote",
+      "inactive": "Inactive Bundle"
+    },
+    "bundleManager": {
+      "title": "Service Bundles",
+      "createBundle": "Create Bundle",
+      "description": "Create reusable service packages to speed up quoting and increase booking value.",
+      "all": "All",
+      "active": "Active",
+      "inactive": "Inactive",
+      "noBundles": "No bundles yet",
+      "noBundlesDescription": "Create your first service bundle to save time and increase your average booking value.",
+      "createFirstBundle": "Create Your First Bundle",
+      "helpTitle": "Why use service bundles?",
+      "helpDescription": "Bundles help customers book multiple services at once, increase your average booking value, and save you time on custom quotes."
     }
   }
 }

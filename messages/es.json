@@ -2677,6 +2677,96 @@
         "description": "Pago rápido usando tu app Nequi. Instantáneo y conveniente."
       },
       "securityNote": "Pago seguro con Stripe • Todas las transacciones encriptadas"
+    },
+    "onboardingChecklist": {
+      "title": "Completa tu Perfil",
+      "ready": "¡Listo para aceptar reservas!",
+      "incomplete": "{completed} de {total} elementos requeridos completos",
+      "requiredItems": "Elementos Requeridos",
+      "optionalItems": "Elementos Opcionales (Recomendados)",
+      "helpTitle": "Completa todos los elementos requeridos para comenzar a aceptar reservas",
+      "helpDescription": "Estos pasos ayudan a que los clientes confíen en ti y aumentan tu tasa de éxito de reservas.",
+      "items": {
+        "profile_photo": "Subir foto de perfil",
+        "services": "Agregar al menos un servicio",
+        "availability": "Configurar horario de trabajo",
+        "service_radius": "Definir área de servicio",
+        "bio": "Escribir biografía (mín. 100 caracteres)",
+        "background_check": "Completar verificación de antecedentes",
+        "portfolio": "Agregar fotos de portafolio",
+        "certifications": "Subir certificaciones",
+        "completedOn": "Completado el {date}"
+      }
+    },
+    "weeklyHoursEditor": {
+      "title": "Horario de Trabajo",
+      "edit": "Editar",
+      "save": "Guardar",
+      "saving": "Guardando...",
+      "cancel": "Cancelar",
+      "unavailable": "No disponible",
+      "helpTitle": "Configura tu disponibilidad semanal",
+      "helpDescription": "Los clientes solo pueden reservarte durante estas horas. Sé específico para evitar conflictos.",
+      "days": {
+        "sunday": "Domingo",
+        "monday": "Lunes",
+        "tuesday": "Martes",
+        "wednesday": "Miércoles",
+        "thursday": "Jueves",
+        "friday": "Viernes",
+        "saturday": "Sábado"
+      }
+    },
+    "serviceRadiusEditor": {
+      "title": "Área de Servicio",
+      "edit": "Editar",
+      "save": "Guardar",
+      "saving": "Guardando...",
+      "cancel": "Cancelar",
+      "radiusLabel": "Radio de Servicio",
+      "radiusDescription": "Serás visible para clientes dentro de {radius} km de tu ubicación de servicio",
+      "bufferBeforeLabel": "Tiempo de Viaje Antes",
+      "bufferAfterLabel": "Tiempo de Viaje Después",
+      "minutes": "minutos",
+      "locationLabel": "Ubicación Central de Servicio",
+      "currentLocation": "Ubicación actual",
+      "noLocationSet": "Aún no se ha configurado ubicación",
+      "updateLocation": "Actualizar Ubicación",
+      "helpTitle": "Define dónde quieres trabajar",
+      "helpDescription": "Los tiempos de viaje previenen reservas dobles al reservar tiempo antes/después de cada trabajo."
+    },
+    "calendarHealth": {
+      "title": "Salud del Calendario",
+      "overallHealth": "Salud General",
+      "availableDays": "Días Disponibles",
+      "hasWorkingHours": "Horario de trabajo configurado",
+      "hasServiceRadius": "Área de servicio definida",
+      "hasTravelBuffers": "Tiempos de viaje configurados",
+      "recommendations": "Recomendaciones",
+      "perfectHealth": "¡Salud del calendario perfecta!",
+      "perfectHealthDescription": "Tu calendario está completamente configurado y listo para aceptar reservas."
+    },
+    "bundleCard": {
+      "off": "DESC",
+      "totalDuration": "Duración Total",
+      "usageCount": "Usado",
+      "times": "veces",
+      "youSave": "Ahorras",
+      "quickQuote": "Cotización Rápida",
+      "inactive": "Paquete Inactivo"
+    },
+    "bundleManager": {
+      "title": "Paquetes de Servicios",
+      "createBundle": "Crear Paquete",
+      "description": "Crea paquetes de servicios reutilizables para acelerar cotizaciones y aumentar el valor de reservas.",
+      "all": "Todos",
+      "active": "Activos",
+      "inactive": "Inactivos",
+      "noBundles": "Aún no hay paquetes",
+      "noBundlesDescription": "Crea tu primer paquete de servicios para ahorrar tiempo y aumentar el valor promedio de tus reservas.",
+      "createFirstBundle": "Crear Tu Primer Paquete",
+      "helpTitle": "¿Por qué usar paquetes de servicios?",
+      "helpDescription": "Los paquetes ayudan a los clientes a reservar múltiples servicios a la vez, aumentan el valor promedio de tus reservas y te ahorran tiempo en cotizaciones personalizadas."
     }
   }
 }
