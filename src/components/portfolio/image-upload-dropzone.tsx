@@ -152,7 +152,9 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
       onImagesUploaded(uploadedImages);
 
       // Clear images after successful upload
-      images.forEach((img) => URL.revokeObjectURL(img.preview));
+      for (const img of images) {
+        URL.revokeObjectURL(img.preview);
+      }
       setImages([]);
     } catch (_error) {
       alert("Failed to upload images. Please try again.");
@@ -210,7 +212,9 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
             <button
               className="text-[#7d7566] text-sm hover:text-[#8B7355]"
               onClick={() => {
-                images.forEach((img) => URL.revokeObjectURL(img.preview));
+                for (const img of images) {
+                  URL.revokeObjectURL(img.preview);
+                }
                 setImages([]);
               }}
               type="button"

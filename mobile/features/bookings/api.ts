@@ -1,7 +1,13 @@
-import { supabase } from "@/lib/supabase";
 import { env } from "@/lib/env";
+import { supabase } from "@/lib/supabase";
 
-import type { Booking, BookingRecord, BookingStatusSummary, CreateBookingParams, CreateBookingResponse } from "./types";
+import type {
+  Booking,
+  BookingRecord,
+  BookingStatusSummary,
+  CreateBookingParams,
+  CreateBookingResponse,
+} from "./types";
 
 const STATUS_DISPLAY_ORDER = [
   "pending_payment",
@@ -83,10 +89,10 @@ export async function createBooking(params: CreateBookingParams): Promise<Create
 export function summarizeStatuses(bookings: Booking[]): BookingStatusSummary[] {
   const counts = new Map<string, number>();
 
-  bookings.forEach((booking) => {
+  for (const booking of bookings) {
     const current = counts.get(booking.status) ?? 0;
     counts.set(booking.status, current + 1);
-  });
+  }
 
   const sortedStatuses = [...counts.entries()].sort((a, b) => {
     const aIndex = STATUS_DISPLAY_ORDER.indexOf(a[0]);

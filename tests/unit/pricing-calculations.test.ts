@@ -1,6 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
 import {
-  type SubscriptionTier,
   calculateSubscriptionPricing,
   estimateBookingsCount,
   formatCOP,
@@ -8,6 +7,7 @@ import {
   getTierBenefits,
   getTierDescription,
   getTierDiscountLabel,
+  type SubscriptionTier,
   shouldRecommendSubscription,
 } from "@/lib/subscription-pricing";
 
@@ -45,7 +45,7 @@ describe("Pricing Calculations", () => {
       const result = calculateSubscriptionPricing(basePrice, "monthly");
 
       expect(result.discountPercent).toBe(5); // Monthly = 5% off
-      expect(result.discountAmount).toBe(5_000);
+      expect(result.discountAmount).toBe(5000);
       expect(result.finalPrice).toBe(95_000);
     });
 
@@ -281,12 +281,12 @@ describe("Pricing Calculations", () => {
     it("should handle all tier types correctly", () => {
       const tiers: SubscriptionTier[] = ["none", "monthly", "biweekly", "weekly"];
 
-      tiers.forEach((tier) => {
+      for (const tier of tiers) {
         const result = calculateSubscriptionPricing(100_000, tier);
         expect(result.tier).toBe(tier);
         expect(result.basePrice).toBe(100_000);
         expect(result.finalPrice).toBeGreaterThanOrEqual(0);
-      });
+      }
     });
 
     it("should maintain pricing consistency across calculations", () => {
@@ -303,10 +303,10 @@ describe("Pricing Calculations", () => {
       const tiers: SubscriptionTier[] = ["none", "monthly", "biweekly", "weekly"];
       const basePrice = 200_000;
 
-      tiers.forEach((tier) => {
+      for (const tier of tiers) {
         const result = calculateSubscriptionPricing(basePrice, tier);
         expect(result.finalPrice).toBeLessThanOrEqual(result.basePrice);
-      });
+      }
     });
 
     it("should handle negative base price gracefully", () => {

@@ -17,7 +17,8 @@ export function Breadcrumbs() {
 
   // Build breadcrumb items
   let currentPath = "";
-  segments.forEach((segment, index) => {
+  for (let index = 0; index < segments.length; index++) {
+    const segment = segments[index];
     currentPath += `/${segment}`;
 
     // Format label
@@ -39,7 +40,7 @@ export function Breadcrumbs() {
     } else {
       breadcrumbs.push({ label, href: currentPath });
     }
-  });
+  }
 
   if (breadcrumbs.length === 0) {
     return null;

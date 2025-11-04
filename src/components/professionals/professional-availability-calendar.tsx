@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import { Clock } from "lucide-react";
-import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
+import { useMemo, useState } from "react";
 import type { ProfessionalBookingSummary } from "@/components/professionals/types";
-import type { AvailabilitySlot } from "@/lib/professionals/transformers";
+import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
 import type { DayAvailability } from "@/hooks/use-availability-data";
+import type { AvailabilitySlot } from "@/lib/professionals/transformers";
 
 /**
  * Props for the professional availability calendar
@@ -58,25 +58,25 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
   // Map availability by weekday
   const availabilityByWeekday = useMemo(() => {
     const map = new Map<string, AvailabilitySlot[]>();
-    availability.forEach((slot) => {
+    for (const slot of availability) {
       const dayKey = normalizeSlotWeekday(slot);
       if (!dayKey) {
-        return;
+        continue;
       }
       if (!map.has(dayKey)) {
         map.set(dayKey, []);
       }
       map.get(dayKey)?.push(slot);
-    });
+    }
     return map;
   }, [availability]);
 
   // Map bookings by date
   const bookingsByDate = useMemo(() => {
     const map = new Map<string, ProfessionalBookingSummary[]>();
-    bookings.forEach((booking) => {
+    for (const booking of bookings) {
       if (!booking.scheduledStart) {
-        return;
+        continue;
       }
       const date = new Date(booking.scheduledStart);
       const key = formatDateKey(date);
@@ -84,7 +84,7 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
         map.set(key, []);
       }
       map.get(key)?.push(booking);
-    });
+    }
     return map;
   }, [bookings]);
 
@@ -126,9 +126,9 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
   const selectedDateKey = selectedDate ? formatDateKey(selectedDate) : null;
   const selectedWeekday = selectedDate ? normalizeWeekdayLabel(selectedDate) : null;
   const selectedAvailability = selectedWeekday
-    ? availabilityByWeekday.get(selectedWeekday) ?? []
+    ? (availabilityByWeekday.get(selectedWeekday) ?? [])
     : [];
-  const selectedBookings = selectedDateKey ? bookingsByDate.get(selectedDateKey) ?? [] : [];
+  const selectedBookings = selectedDateKey ? (bookingsByDate.get(selectedDateKey) ?? []) : [];
 
   return (
     <div>
@@ -145,24 +145,24 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
               availability: [], // Not used for this calendar
               getDateAvailability,
             }}
-            size="compact"
-            theme="professional"
-            selectedDate={selectedDate}
-            onDateSelect={setSelectedDate}
-            showTimeSlots={false}
-            showLegend={false}
-            showTodayButton={true}
             locale="es-CO"
+            onDateSelect={setSelectedDate}
             renderDayContent={(date, availability) => (
               <CustomDayContent
-                date={date}
                 availability={availability}
+                bookingsCount={bookingsByDate.get(formatDateKey(date))?.length ?? 0}
+                date={date}
                 hasAvailability={Boolean(
                   availabilityByWeekday.get(normalizeWeekdayLabel(date))?.length
                 )}
-                bookingsCount={bookingsByDate.get(formatDateKey(date))?.length ?? 0}
               />
             )}
+            selectedDate={selectedDate}
+            showLegend={false}
+            showTimeSlots={false}
+            showTodayButton={true}
+            size="compact"
+            theme="professional"
           />
         </div>
 

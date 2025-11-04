@@ -4,7 +4,7 @@
  * Type definitions for pricing plans and FAQs
  */
 
-import { formatCurrency, type Currency } from "@/lib/format";
+import { type Currency, formatCurrency } from "@/lib/format";
 
 // =============================================
 // Pricing Plan Types
@@ -16,19 +16,19 @@ export type PricingAudience = "customer" | "professional" | "both";
 
 export type PricingFaqCategory = "billing" | "security" | "features" | "general" | "support";
 
-export interface PricingFeatureItem {
+export type PricingFeatureItem = {
   name: string;
   included: boolean;
   limit?: string | null; // e.g., "Up to 10 users", "5GB storage"
   tooltip?: string; // Optional explanation
-}
+};
 
-export interface PricingFeatureCategory {
+export type PricingFeatureCategory = {
   category: string; // e.g., "Core Features", "Advanced", "Support"
   items: PricingFeatureItem[];
-}
+};
 
-export interface PricingPlan {
+export type PricingPlan = {
   id: string;
   name: string;
   slug: string;
@@ -48,9 +48,9 @@ export interface PricingPlan {
   metadata: Record<string, unknown>;
   created_at: string;
   updated_at: string;
-}
+};
 
-export interface PricingPlanInput {
+export type PricingPlanInput = {
   name: string;
   slug: string;
   description: string;
@@ -67,13 +67,13 @@ export interface PricingPlanInput {
   display_order?: number;
   is_visible?: boolean;
   metadata?: Record<string, unknown>;
-}
+};
 
 // =============================================
 // Pricing FAQ Types
 // =============================================
 
-export interface PricingFaq {
+export type PricingFaq = {
   id: string;
   question: string;
   answer: string;
@@ -82,45 +82,45 @@ export interface PricingFaq {
   is_visible: boolean;
   created_at: string;
   updated_at: string;
-}
+};
 
-export interface PricingFaqInput {
+export type PricingFaqInput = {
   question: string;
   answer: string;
   category?: PricingFaqCategory;
   display_order?: number;
   is_visible?: boolean;
-}
+};
 
 // =============================================
 // API Response Types
 // =============================================
 
-export interface PricingPlansResponse {
+export type PricingPlansResponse = {
   success: boolean;
   data: PricingPlan[];
-}
+};
 
-export interface PricingFaqsResponse {
+export type PricingFaqsResponse = {
   success: boolean;
   data: PricingFaq[];
-}
+};
 
 // =============================================
 // Helper Types for UI
 // =============================================
 
-export interface PricingToggleOption {
+export type PricingToggleOption = {
   value: "monthly" | "annual";
   label: string;
   discount?: string; // e.g., "Save 20%"
-}
+};
 
-export interface PricingCardProps {
+export type PricingCardProps = {
   plan: PricingPlan;
   billingPeriod: "monthly" | "annual";
   isHighlighted?: boolean;
-}
+};
 
 // =============================================
 // Constants
@@ -150,7 +150,9 @@ export function calculateSavingsPercentage(
   monthlyPrice: number | null,
   annualPrice: number | null
 ): number {
-  if (!(monthlyPrice && annualPrice)) return 0;
+  if (!(monthlyPrice && annualPrice)) {
+    return 0;
+  }
 
   const monthlyTotal = monthlyPrice * 12;
   const savings = monthlyTotal - annualPrice;
@@ -183,7 +185,11 @@ export function getDisplayPrice(
 /**
  * Format price for display
  */
-export function formatPrice(price: number | null, currency: Currency = "USD", showDecimals = true): string {
+export function formatPrice(
+  price: number | null,
+  currency: Currency = "USD",
+  showDecimals = true
+): string {
   if (price === null) {
     return "Custom";
   }
@@ -234,9 +240,9 @@ export function groupFaqsByCategory(faqs: PricingFaq[]): Record<PricingFaqCatego
     support: [],
   } as Record<PricingFaqCategory, PricingFaq[]>;
 
-  faqs.forEach((faq) => {
+  for (const faq of faqs) {
     grouped[faq.category].push(faq);
-  });
+  }
 
   return grouped;
 }
