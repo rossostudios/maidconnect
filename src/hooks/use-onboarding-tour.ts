@@ -2,27 +2,27 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-export interface TourStep {
+export type TourStep = {
   target: string; // CSS selector
   title: string;
   content: string;
   placement?: "top" | "bottom" | "left" | "right";
   action?: "next" | "complete" | "skip";
-}
+};
 
-export interface TourState {
+export type TourState = {
   isActive: boolean;
   currentStep: number;
   isCompleted: boolean;
   isSkipped: boolean;
-}
+};
 
-interface UseOnboardingTourProps {
+type UseOnboardingTourProps = {
   tourId: string;
   steps: TourStep[];
   onComplete?: () => void;
   onSkip?: () => void;
-}
+};
 
 export function useOnboardingTour({ tourId, steps, onComplete, onSkip }: UseOnboardingTourProps) {
   const storageKey = `tour_${tourId}`;

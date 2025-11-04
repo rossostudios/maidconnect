@@ -9,10 +9,10 @@ const FeedbackModal = dynamic(
   { ssr: false }
 );
 
-interface FeedbackContextType {
+type FeedbackContextType = {
   openFeedback: () => void;
   closeFeedback: () => void;
-}
+};
 
 const FeedbackContext = createContext<FeedbackContextType | undefined>(undefined);
 

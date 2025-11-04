@@ -1,5 +1,6 @@
+import { Ionicons } from "@expo/vector-icons";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -13,16 +14,10 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
-
-import { supabase } from "@/lib/supabase";
-import {
-  fetchMessages,
-  sendMessage,
-  markConversationAsRead,
-} from "@/features/messaging/api";
+import { fetchMessages, markConversationAsRead, sendMessage } from "@/features/messaging/api";
 import type { Message } from "@/features/messaging/types";
 import { useRealtimeMessages } from "@/features/messaging/use-realtime-messages";
+import { supabase } from "@/lib/supabase";
 
 export default function ChatScreen() {
   const { id: conversationId } = useLocalSearchParams<{ id: string }>();
@@ -77,13 +72,15 @@ export default function ChatScreen() {
         flatListRef.current?.scrollToEnd({ animated: true });
       }, 100);
     },
-    onError: (error: Error) => {
-      console.error("Failed to send message:", error);
+    onError: (sendError: Error) => {
+      console.error("Failed to send message:", sendError);
     },
   });
 
   const handleSend = () => {
-    if (!messageText.trim() || sendMutation.isPending) return;
+    if (!messageText.trim() || sendMutation.isPending) {
+      return;
+    }
     sendMutation.mutate(messageText.trim());
   };
 
@@ -107,7 +104,10 @@ export default function ChatScreen() {
           ]}
         >
           <Text
-            style={[styles.messageText, isOwnMessage ? styles.ownMessageText : styles.otherMessageText]}
+            style={[
+              styles.messageText,
+              isOwnMessage ? styles.ownMessageText : styles.otherMessageText,
+            ]}
           >
             {item.content}
           </Text>
@@ -134,10 +134,10 @@ export default function ChatScreen() {
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.errorContainer}>
-          <Ionicons name="alert-circle-outline" size={48} color="#DC2626" />
+          <Ionicons color="#DC2626" name="alert-circle-outline" size={48} />
           <Text style={styles.errorTitle}>Unable to load messages</Text>
           <Text style={styles.errorMessage}>{error.message}</Text>
-          <Pressable style={styles.backButton} onPress={() => router.back()}>
+          <Pressable onPress={() => router.back()} style={styles.backButton}>
             <Text style={styles.backButtonText}>Go Back</Text>
           </Pressable>
         </View>
@@ -146,16 +146,16 @@ export default function ChatScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+    <SafeAreaView edges={["bottom"]} style={styles.safeArea}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
         keyboardVerticalOffset={0}
+        style={styles.container}
       >
         {/* Header */}
         <View style={styles.header}>
-          <Pressable style={styles.backIconButton} onPress={() => router.back()}>
-            <Ionicons name="arrow-back" size={24} color="#0F172A" />
+          <Pressable onPress={() => router.back()} style={styles.backIconButton}>
+            <Ionicons color="#0F172A" name="arrow-back" size={24} />
           </Pressable>
           <Text style={styles.headerTitle}>
             {messages.length > 0
@@ -167,44 +167,44 @@ export default function ChatScreen() {
 
         {/* Messages List */}
         <FlatList
-          ref={flatListRef}
-          data={messages}
-          renderItem={renderMessage}
-          keyExtractor={(item) => item.id}
           contentContainerStyle={styles.messagesList}
+          data={messages}
           inverted={false}
-          onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
+          keyExtractor={(item) => item.id}
           ListEmptyComponent={
             <View style={styles.emptyState}>
-              <Ionicons name="chatbubble-outline" size={64} color="#CBD5E1" />
+              <Ionicons color="#CBD5E1" name="chatbubble-outline" size={64} />
               <Text style={styles.emptyTitle}>No messages yet</Text>
               <Text style={styles.emptyDescription}>
                 Start the conversation by sending a message below.
               </Text>
             </View>
           }
+          onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
+          ref={flatListRef}
+          renderItem={renderMessage}
         />
 
         {/* Input Bar */}
         <View style={styles.inputContainer}>
           <TextInput
-            style={styles.input}
+            maxLength={1000}
+            multiline
+            onChangeText={setMessageText}
             placeholder="Type a message..."
             placeholderTextColor="#94A3B8"
+            style={styles.input}
             value={messageText}
-            onChangeText={setMessageText}
-            multiline
-            maxLength={1000}
           />
           <Pressable
-            style={[styles.sendButton, !messageText.trim() && styles.sendButtonDisabled]}
-            onPress={handleSend}
             disabled={!messageText.trim() || sendMutation.isPending}
+            onPress={handleSend}
+            style={[styles.sendButton, !messageText.trim() && styles.sendButtonDisabled]}
           >
             {sendMutation.isPending ? (
               <ActivityIndicator color="#FFFFFF" size="small" />
             ) : (
-              <Ionicons name="send" size={20} color="#FFFFFF" />
+              <Ionicons color="#FFFFFF" name="send" size={20} />
             )}
           </Pressable>
         </View>

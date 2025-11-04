@@ -47,7 +47,9 @@ export function PricingPlans() {
   }, []);
 
   const getPrice = (plan: PricingPlan) => {
-    if (plan.price_monthly === 0) return "Free";
+    if (plan.price_monthly === 0) {
+      return "Free";
+    }
 
     const price = billingPeriod === "annual" ? plan.price_annual : plan.price_monthly;
     return `$${price}`;
@@ -86,6 +88,7 @@ export function PricingPlans() {
           <button
             className="mt-4 rounded-[14px] border-2 border-[#ebe5d8] px-6 py-2 font-semibold text-[#211f1a] hover:border-[#211f1a]"
             onClick={() => window.location.reload()}
+            type="button"
           >
             Try Again
           </button>
@@ -106,6 +109,7 @@ export function PricingPlans() {
                 : "text-[#6B7280] hover:text-[#211f1a]"
             }`}
             onClick={() => setBillingPeriod("monthly")}
+            type="button"
           >
             Monthly
           </button>
@@ -116,6 +120,7 @@ export function PricingPlans() {
                 : "text-[#6B7280] hover:text-[#211f1a]"
             }`}
             onClick={() => setBillingPeriod("annual")}
+            type="button"
           >
             Annual
             <span className="ml-2 rounded-full bg-green-100 px-2 py-0.5 text-green-700 text-xs">

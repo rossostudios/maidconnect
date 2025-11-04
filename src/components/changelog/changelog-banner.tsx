@@ -1,7 +1,7 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { Sparkles, X } from "lucide-react";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useLatestChangelog } from "@/hooks/use-latest-changelog";
 

@@ -121,9 +121,7 @@ export async function GET(request: NextRequest) {
         const professional = Array.isArray(booking.professional)
           ? booking.professional[0]
           : booking.professional;
-        const service = Array.isArray(booking.service)
-          ? booking.service[0]
-          : booking.service;
+        const service = Array.isArray(booking.service) ? booking.service[0] : booking.service;
 
         await notifyCustomerProfessionalEnRoute(booking.customer_id, {
           bookingId: booking.id,

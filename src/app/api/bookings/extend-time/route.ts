@@ -6,15 +6,19 @@
  * AFTER: 102 lines (45% reduction)
  */
 
-import { withProfessional, ok, requireProfessionalOwnership } from "@/lib/api";
+import { z } from "zod";
+import { ok, requireProfessionalOwnership, withProfessional } from "@/lib/api";
+import { BusinessRuleError, InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 import { sendPushNotification } from "@/lib/notifications";
 import { stripe } from "@/lib/stripe";
-import { InvalidBookingStatusError, ValidationError, BusinessRuleError } from "@/lib/errors";
-import { z } from "zod";
 
 const extendTimeSchema = z.object({
   bookingId: z.string().uuid("Invalid booking ID format"),
-  additionalMinutes: z.number().int().positive().max(240, "Cannot extend more than 240 minutes (4 hours) at a time"),
+  additionalMinutes: z
+    .number()
+    .int()
+    .positive()
+    .max(240, "Cannot extend more than 240 minutes (4 hours) at a time"),
 });
 
 export const POST = withProfessional(async ({ user, supabase }, request: Request) => {
@@ -23,7 +27,11 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
   const { bookingId, additionalMinutes } = extendTimeSchema.parse(body);
 
   // Fetch the booking with professional name for notification
-  const booking = await requireProfessionalOwnership(supabase, user.id, bookingId, `
+  const booking = await requireProfessionalOwnership(
+    supabase,
+    user.id,
+    bookingId,
+    `
     id,
     professional_id,
     customer_id,
@@ -36,7 +44,8 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
     stripe_payment_intent_id,
     currency,
     professional_profiles:profiles!bookings_professional_id_fkey(full_name)
-  `);
+  `
+  );
 
   // Can only extend in_progress bookings
   if (booking.status !== "in_progress") {
@@ -92,8 +101,7 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
   }
 
   // Send notification to customer about time extension
-  const professionalName =
-    (booking.professional_profiles as any)?.full_name || "Your professional";
+  const professionalName = (booking.professional_profiles as any)?.full_name || "Your professional";
   const formattedAmount = new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: booking.currency || "COP",

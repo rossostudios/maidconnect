@@ -107,6 +107,14 @@ export function ProfessionalsFilterSheet({
       <div
         className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm transition-opacity"
         onClick={onClose}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onClose();
+          }
+        }}
+        role="button"
+        tabIndex={0}
       />
 
       {/* Bottom Sheet - Optimized for landscape */}
@@ -140,10 +148,10 @@ export function ProfessionalsFilterSheet({
         <div className="space-y-6 p-6">
           {/* Service Filter */}
           <div className="space-y-3">
-            <label className="flex items-center gap-2 font-semibold text-[#211f1a] text-sm">
+            <div className="flex items-center gap-2 font-semibold text-[#211f1a] text-sm">
               <Filter className="h-5 w-5" />
               {t("filters.service")}
-            </label>
+            </div>
             <select
               className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-[#211f1a] text-base transition focus:border-[#211f1a] focus:outline-none"
               onChange={(e) => setServiceFilter(e.target.value)}
@@ -159,10 +167,10 @@ export function ProfessionalsFilterSheet({
 
           {/* City Filter */}
           <div className="space-y-3">
-            <label className="flex items-center gap-2 font-semibold text-[#211f1a] text-sm">
+            <div className="flex items-center gap-2 font-semibold text-[#211f1a] text-sm">
               <MapPin className="h-5 w-5" />
               {t("filters.city")}
-            </label>
+            </div>
             <select
               className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-[#211f1a] text-base transition focus:border-[#211f1a] focus:outline-none"
               onChange={(e) => setCityFilter(e.target.value)}
@@ -178,10 +186,10 @@ export function ProfessionalsFilterSheet({
 
           {/* Rating Filter */}
           <div className="space-y-3">
-            <label className="flex items-center gap-2 font-semibold text-[#211f1a] text-sm">
+            <div className="flex items-center gap-2 font-semibold text-[#211f1a] text-sm">
               <SlidersHorizontal className="h-5 w-5" />
               {t("filters.rating")}
-            </label>
+            </div>
             <select
               className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-[#211f1a] text-base transition focus:border-[#211f1a] focus:outline-none"
               onChange={(e) => setRatingFilter(e.target.value)}

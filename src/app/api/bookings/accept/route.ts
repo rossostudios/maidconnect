@@ -6,11 +6,11 @@
  * AFTER: 62 lines (58% reduction)
  */
 
-import { withProfessional, ok, requireProfessionalOwnership } from "@/lib/api";
-import { sendBookingConfirmedEmail } from "@/lib/email/send";
-import { notifyCustomerBookingAccepted } from "@/lib/notifications";
-import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 import { z } from "zod";
+import { ok, requireProfessionalOwnership, withProfessional } from "@/lib/api";
+import { sendBookingConfirmedEmail } from "@/lib/email/send";
+import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
+import { notifyCustomerBookingAccepted } from "@/lib/notifications";
 
 const acceptBookingSchema = z.object({
   bookingId: z.string().uuid("Invalid booking ID format"),

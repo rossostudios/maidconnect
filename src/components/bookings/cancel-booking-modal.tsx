@@ -25,7 +25,7 @@ type CancelBookingModalProps = {
 };
 
 export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingModalProps) {
-  const router = useRouter();
+  const _router = useRouter();
   const t = useTranslations("dashboard.customer.cancelBookingModal");
   const [policy, setPolicy] = useState<ReturnType<typeof calculateCancellationPolicy> | null>(null);
 
@@ -41,10 +41,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
     method: "POST",
     refreshOnSuccess: true,
     onSuccess: (result) => {
-      form.setMessage(
-        t("messages.success", { refund: result.refund.formatted_refund }),
-        "success"
-      );
+      form.setMessage(t("messages.success", { refund: result.refund.formatted_refund }), "success");
       setTimeout(() => {
         onClose();
       }, 2000);
@@ -68,7 +65,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       setPolicy(null);
       form.reset();
     }
-  }, [isOpen]);
+  }, [isOpen, form.reset]);
 
   const handleCancel = async () => {
     if (!policy?.canCancel) {
@@ -76,14 +73,19 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       return;
     }
 
-    await form.handleSubmit(async (data) => await cancelMutation.mutate({
-        bookingId: booking.id,
-        reason: data.reason || undefined,
-      }));
+    await form.handleSubmit(
+      async (data) =>
+        await cancelMutation.mutate({
+          bookingId: booking.id,
+          reason: data.reason || undefined,
+        })
+    );
   };
 
   const formatAmount = (amount: number | null, currency: string | null) => {
-    if (!amount) return "—";
+    if (!amount) {
+      return "—";
+    }
     return new Intl.NumberFormat("es-CO", {
       style: "currency",
       currency: currency || "COP",

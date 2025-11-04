@@ -2,6 +2,7 @@
 
 import { formatDistanceToNow } from "date-fns";
 import { Languages } from "lucide-react";
+import Image from "next/image";
 import {
   useActionState,
   useCallback,
@@ -12,19 +13,20 @@ import {
   useTransition,
 } from "react";
 import { ConversationSkeleton } from "@/components/ui/skeleton";
+import { useConversations } from "@/hooks/use-conversations";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
+import { useMessageTranslation } from "@/hooks/use-message-translation";
+import { useMessages } from "@/hooks/use-messages";
 import { useNotifications } from "@/hooks/use-notifications";
 import { useRealtimeMessages } from "@/hooks/use-realtime-messages";
-import { useConversations } from "@/hooks/use-conversations";
-import { useMessages } from "@/hooks/use-messages";
-import { useMessageTranslation } from "@/hooks/use-message-translation";
-import type { SupportedLanguage } from "@/lib/translation";
 import {
-  normalizeUser,
-  getTotalUnreadCount,
   getConversationUnreadCount,
+  getTotalUnreadCount,
+  normalizeUser,
   updateConversationUnreadCount,
 } from "@/lib/messaging-utils";
+import { toast } from "@/lib/toast";
+import type { SupportedLanguage } from "@/lib/translation";
 
 export type Conversation = {
   id: string;
@@ -56,11 +58,11 @@ export type Conversation = {
   };
 };
 
-type NormalizedUser = {
-  id: string;
-  full_name: string;
-  avatar_url?: string;
-};
+// type NormalizedUser = {
+//   id: string;
+//   full_name: string;
+//   avatar_url?: string;
+// };
 
 export type Message = {
   id: string;
@@ -98,7 +100,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
 
   const {
     messages,
-    setMessages,
+    setMessages: _setMessages,
     loading: messagesLoading,
   } = useMessages(selectedConversation?.id || null);
 
@@ -116,7 +118,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
   const { permission, supported, requestPermission, showNotification } = useNotifications();
 
   // Mark conversation as read and update state
-  const markAsRead = useCallback(
+  const _markAsRead = useCallback(
     async (conversationId: string) => {
       try {
         await fetch(`/api/messages/conversations/${conversationId}/read`, {
@@ -170,7 +172,9 @@ export function MessagingInterface({ userId, userRole }: Props) {
     // If unread count increased and we're not looking at messages
     if (currentUnreadCount > previousUnreadCount && !document.hasFocus()) {
       const newMessages = currentUnreadCount - previousUnreadCount;
-      const latestConversation = conversations.find((conv) => getConversationUnreadCount(conv, userRole) > 0);
+      const latestConversation = conversations.find(
+        (conv) => getConversationUnreadCount(conv, userRole) > 0
+      );
 
       if (latestConversation) {
         const sender = normalizeUser(latestConversation, userRole);
@@ -221,8 +225,9 @@ export function MessagingInterface({ userId, userRole }: Props) {
 
       // Real-time subscription will handle the update automatically
       // No need to manually fetch - the message will appear via Supabase Realtime
-    } catch (_err) {
-      alert("Failed to send message. Please try again.");
+    } catch (err) {
+      console.error("Failed to send message:", err);
+      toast.error("Failed to send message. Please try again.");
     }
   };
 
@@ -258,6 +263,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
               type="text"
             />
             <svg
+              aria-hidden="true"
               className="absolute top-2.5 left-3 h-5 w-5 text-[#7d7566]"
               fill="none"
               stroke="currentColor"
@@ -279,6 +285,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
               <div className="mb-4 flex justify-center">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ebe5d8]">
                   <svg
+                    aria-hidden="true"
                     className="h-6 w-6 text-[#7d7566]"
                     fill="none"
                     stroke="currentColor"
@@ -323,11 +330,13 @@ export function MessagingInterface({ userId, userRole }: Props) {
                     {/* Avatar */}
                     <div className="flex-shrink-0">
                       {otherUser.avatar_url ? (
-                        /* Using img instead of Next.js Image because avatar_url is user-generated content from Supabase Storage with dynamic URLs */
-                        <img
+                        <Image
                           alt={otherUser.full_name}
                           className="h-12 w-12 rounded-full object-cover"
+                          height={48}
+                          loading="lazy"
                           src={otherUser.avatar_url}
+                          width={48}
                         />
                       ) : (
                         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#8B7355] font-semibold text-base text-white">
@@ -375,11 +384,13 @@ export function MessagingInterface({ userId, userRole }: Props) {
                 return (
                   <div className="flex items-center gap-4">
                     {otherUser.avatar_url ? (
-                      /* Using img instead of Next.js Image because avatar_url is user-generated content from Supabase Storage with dynamic URLs */
-                      <img
+                      <Image
                         alt={otherUser.full_name}
                         className="h-12 w-12 rounded-full object-cover"
+                        height={48}
+                        loading="lazy"
                         src={otherUser.avatar_url}
+                        width={48}
                       />
                     ) : (
                       <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#8B7355] font-semibold text-base text-white">
@@ -454,6 +465,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
               <div className="mb-4 flex justify-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#ebe5d8]">
                   <svg
+                    aria-hidden="true"
                     className="h-8 w-8 text-[#7d7566]"
                     fill="none"
                     stroke="currentColor"

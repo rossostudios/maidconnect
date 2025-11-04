@@ -1,10 +1,11 @@
 import { ArrowLeft, Bug, Palette, Shield, Sparkles, Zap } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { sanitizeRichContent } from "@/lib/sanitize";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 const categoryConfig = {
   features: {
@@ -114,11 +115,12 @@ export default async function ChangelogDetailPage({
           {/* Featured Image */}
           {changelog.featured_image_url && (
             <div className="mb-8 overflow-hidden rounded-[28px]">
-              {/* Using img instead of Next.js Image because featured_image_url is user-generated content from Supabase Storage with dynamic URLs */}
-              <img
+              <Image
                 alt={changelog.title}
                 className="h-auto w-full object-cover"
                 height={400}
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 896px, 896px"
                 src={changelog.featured_image_url}
                 width={800}
               />

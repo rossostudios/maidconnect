@@ -6,12 +6,12 @@
  * AFTER: 103 lines (42% reduction)
  */
 
-import { withProfessional, ok, requireProfessionalOwnership } from "@/lib/api";
+import { z } from "zod";
+import { ok, requireProfessionalOwnership, withProfessional } from "@/lib/api";
+import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 import { verifyBookingLocation } from "@/lib/gps-verification";
 import { logger } from "@/lib/logger";
 import { notifyCustomerServiceStarted } from "@/lib/notifications";
-import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
-import { z } from "zod";
 
 const checkInSchema = z.object({
   bookingId: z.string().uuid("Invalid booking ID format"),
@@ -25,7 +25,11 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
   const { bookingId, latitude, longitude } = checkInSchema.parse(body);
 
   // Verify professional owns this booking and get full booking data
-  const booking = await requireProfessionalOwnership(supabase, user.id, bookingId, `
+  const booking = await requireProfessionalOwnership(
+    supabase,
+    user.id,
+    bookingId,
+    `
     id,
     professional_id,
     customer_id,
@@ -33,7 +37,8 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
     scheduled_start,
     service_name,
     address
-  `);
+  `
+  );
 
   // Can only check in to confirmed bookings
   if (booking.status !== "confirmed") {

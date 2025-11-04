@@ -19,7 +19,7 @@ import { logger } from "./logger";
 /**
  * Standard error response format
  */
-interface ErrorResponse {
+type ErrorResponse = {
   success: false;
   error: {
     code: string;
@@ -29,7 +29,7 @@ interface ErrorResponse {
   };
   timestamp: string;
   path?: string;
-}
+};
 
 /**
  * Formats an error into a standardized API response

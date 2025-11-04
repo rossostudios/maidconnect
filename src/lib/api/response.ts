@@ -12,12 +12,12 @@ import { NextResponse } from "next/server";
 /**
  * Standard success response format
  */
-interface SuccessResponse<T = unknown> {
+type SuccessResponse<T = unknown> = {
   success: true;
   data?: T;
   message?: string;
   metadata?: Record<string, unknown>;
-}
+};
 
 /**
  * Create a successful JSON response

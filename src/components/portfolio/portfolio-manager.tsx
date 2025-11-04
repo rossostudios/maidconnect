@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { PortfolioImage } from "@/app/api/professional/portfolio/route";
+import { confirm, toast } from "@/lib/toast";
 import { ImageUploadDropzone } from "./image-upload-dropzone";
 
 type Props = {
@@ -40,9 +42,10 @@ export function PortfolioManager({
       }
 
       onUpdate?.(images, featuredWork);
-      alert(t("success"));
-    } catch (_error) {
-      alert(t("error"));
+      toast.success(t("success"));
+    } catch (error) {
+      console.error("Failed to update portfolio:", error);
+      toast.error(t("error"));
     } finally {
       setLoading(false);
     }
@@ -60,8 +63,9 @@ export function PortfolioManager({
     setImages([...images, ...newImages]);
   };
 
-  const handleDeleteImage = (id: string) => {
-    if (!confirm(t("deleteConfirm"))) {
+  const handleDeleteImage = async (id: string) => {
+    const confirmed = await confirm(t("deleteConfirm"), "Delete Image");
+    if (!confirmed) {
       return;
     }
 
@@ -121,11 +125,12 @@ export function PortfolioManager({
     <div className="space-y-6">
       {/* Featured Work */}
       <div>
-        <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
+        <label className="mb-2 block font-semibold text-[#211f1a] text-sm" htmlFor="featured-work">
           {t("fields.description.label")}
         </label>
         <textarea
           className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+          id="featured-work"
           onChange={(e) => setFeaturedWork(e.target.value)}
           placeholder={t("fields.description.placeholder")}
           rows={3}
@@ -157,10 +162,13 @@ export function PortfolioManager({
                 key={image.id}
               >
                 {/* Thumbnail */}
-                <img
+                <Image
                   alt={image.caption || `Image ${index + 1}`}
                   className="h-20 w-20 flex-shrink-0 rounded-md object-cover"
+                  height={80}
+                  loading="lazy"
                   src={image.thumbnail_url || image.url}
+                  width={80}
                 />
 
                 {/* Details */}

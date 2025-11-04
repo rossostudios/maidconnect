@@ -1,20 +1,37 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * Theme Configuration
+ * Integrates with design-tokens.ts for a comprehensive design system.
+ * Use the design tokens directly for new components, or use this theme for legacy compatibility.
  */
 
 import { Platform } from "react-native";
+import {
+  animation,
+  borderRadius,
+  colors,
+  layout,
+  opacity,
+  semanticColors,
+  shadows,
+  spacing,
+  typography,
+} from "./design-tokens";
 
-const tintColorLight = "#0a7ea4";
-const tintColorDark = "#fff";
+// Updated to use the primary brand color from design tokens
+const tintColorLight = colors.primary[500]; // #2563EB
+const tintColorDark = colors.neutral[0]; // #FFFFFF
 
+/**
+ * Legacy Colors export (maintained for backward compatibility)
+ * @deprecated Use semanticColors from design-tokens.ts for new code
+ */
 export const Colors = {
   light: {
-    text: "#11181C",
-    background: "#fff",
+    text: semanticColors.text.primary,
+    background: semanticColors.background.primary,
     tint: tintColorLight,
-    icon: "#687076",
-    tabIconDefault: "#687076",
+    icon: semanticColors.text.secondary,
+    tabIconDefault: semanticColors.text.tertiary,
     tabIconSelected: tintColorLight,
   },
   dark: {
@@ -27,6 +44,9 @@ export const Colors = {
   },
 };
 
+/**
+ * Font families by platform
+ */
 export const Fonts = Platform.select({
   ios: {
     /** iOS `UIFontDescriptorSystemDesignDefault` */
@@ -51,3 +71,25 @@ export const Fonts = Platform.select({
     mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
   },
 });
+
+/**
+ * Comprehensive Theme Export
+ * Re-exports all design tokens for centralized access
+ */
+export const theme = {
+  colors,
+  semanticColors,
+  typography,
+  spacing,
+  borderRadius,
+  shadows,
+  opacity,
+  layout,
+  animation,
+  fonts: Fonts,
+} as const;
+
+/**
+ * Type export for TypeScript support
+ */
+export type Theme = typeof theme;

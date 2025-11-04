@@ -85,23 +85,23 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
             longitude: position.coords.longitude,
           });
         },
-        (error) => {
-          let message = "Unable to get location";
-          switch (error.code) {
-            case error.PERMISSION_DENIED:
-              message = "Location permission denied. Please enable location access.";
+        (geoError) => {
+          let errorMessage = "Unable to get location";
+          switch (geoError.code) {
+            case geoError.PERMISSION_DENIED:
+              errorMessage = "Location permission denied. Please enable location access.";
               break;
-            case error.POSITION_UNAVAILABLE:
-              message = "Location information unavailable.";
+            case geoError.POSITION_UNAVAILABLE:
+              errorMessage = "Location information unavailable.";
               break;
-            case error.TIMEOUT:
-              message = "Location request timed out.";
+            case geoError.TIMEOUT:
+              errorMessage = "Location request timed out.";
               break;
             default:
-              message = "An unknown error occurred while getting location.";
+              errorMessage = "An unknown error occurred while getting location.";
               break;
           }
-          reject(new Error(message));
+          reject(new Error(errorMessage));
         },
         {
           enableHighAccuracy: true,
@@ -242,15 +242,19 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
           <p className="text-[#7a6d62] text-sm">{scheduledDate}</p>
         </div>
         <span
-          className={`inline-flex items-center rounded-full px-3 py-1 font-semibold text-xs ${
-            optimisticBooking.status === "confirmed"
-              ? "bg-green-100 text-green-800"
-              : optimisticBooking.status === "in_progress"
-                ? "bg-blue-100 text-blue-800"
-                : optimisticBooking.status === "completed"
-                  ? "bg-purple-100 text-purple-800"
-                  : "bg-gray-100 text-gray-800"
-          }`}
+          className={`inline-flex items-center rounded-full px-3 py-1 font-semibold text-xs ${(() => {
+            const status = optimisticBooking.status;
+            if (status === "confirmed") {
+              return "bg-green-100 text-green-800";
+            }
+            if (status === "in_progress") {
+              return "bg-blue-100 text-blue-800";
+            }
+            if (status === "completed") {
+              return "bg-purple-100 text-purple-800";
+            }
+            return "bg-gray-100 text-gray-800";
+          })()}`}
         >
           {optimisticBooking.status.replace(/_/g, " ")}
         </span>

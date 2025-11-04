@@ -195,18 +195,26 @@ export async function POST(request: Request) {
           await sendProfessionalInfoRequestedEmail(professionalEmail, professionalName, notes);
         }
       }
-    } catch (_emailError) {}
+    } catch (emailError) {
+      // Intentionally suppress email errors - notification emails are non-critical
+      console.warn("Failed to send professional review notification email:", emailError);
+    }
+
+    const getMessage = () => {
+      if (action === "approve") {
+        return "Professional approved successfully";
+      }
+      if (action === "reject") {
+        return "Professional application rejected";
+      }
+      return "Information requested from professional";
+    };
 
     return NextResponse.json({
       success: true,
       review,
       newStatus: newStatus || profile.onboarding_status,
-      message:
-        action === "approve"
-          ? "Professional approved successfully"
-          : action === "reject"
-            ? "Professional application rejected"
-            : "Information requested from professional",
+      message: getMessage(),
     });
   } catch (error: any) {
     return NextResponse.json(

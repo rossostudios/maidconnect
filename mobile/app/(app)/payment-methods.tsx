@@ -1,20 +1,19 @@
-import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Pressable,
-  Alert,
-  ActivityIndicator,
-  SafeAreaView,
-} from "react-native";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Ionicons } from "@expo/vector-icons";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import {
-  fetchPaymentMethods,
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import {
   deletePaymentMethod,
+  fetchPaymentMethods,
   setDefaultPaymentMethod,
 } from "@/features/payments/api";
 import type { PaymentMethod } from "@/features/payments/types";
@@ -38,8 +37,8 @@ export default function PaymentMethodsScreen() {
       queryClient.invalidateQueries({ queryKey: ["paymentMethods"] });
       Alert.alert("Success", "Payment method deleted");
     },
-    onError: (error: Error) => {
-      Alert.alert("Error", error.message);
+    onError: (deleteError: Error) => {
+      Alert.alert("Error", deleteError.message);
     },
   });
 
@@ -49,8 +48,8 @@ export default function PaymentMethodsScreen() {
       queryClient.invalidateQueries({ queryKey: ["paymentMethods"] });
       Alert.alert("Success", "Default payment method updated");
     },
-    onError: (error: Error) => {
-      Alert.alert("Error", error.message);
+    onError: (setDefaultError: Error) => {
+      Alert.alert("Error", setDefaultError.message);
     },
   });
 
@@ -91,16 +90,14 @@ export default function PaymentMethodsScreen() {
       <View style={styles.cardContent}>
         <View style={styles.cardLeft}>
           <Ionicons
+            color="#2563EB"
             name={getCardIcon(item.card.brand)}
             size={32}
-            color="#2563EB"
             style={styles.cardIcon}
           />
           <View style={styles.cardInfo}>
             <View style={styles.cardTitleRow}>
-              <Text style={styles.cardBrand}>
-                {item.card.brand?.toUpperCase() || "Card"}
-              </Text>
+              <Text style={styles.cardBrand}>{item.card.brand?.toUpperCase() || "Card"}</Text>
               {item.isDefault && (
                 <View style={styles.defaultBadge}>
                   <Text style={styles.defaultText}>Default</Text>
@@ -110,25 +107,21 @@ export default function PaymentMethodsScreen() {
             <Text style={styles.cardNumber}>•••• {item.card.last4}</Text>
             {item.card.expMonth && item.card.expYear && (
               <Text style={styles.expiry}>
-                Expires {String(item.card.expMonth).padStart(2, "0")}/
-                {item.card.expYear}
+                Expires {String(item.card.expMonth).padStart(2, "0")}/{item.card.expYear}
               </Text>
             )}
           </View>
         </View>
 
-        <Pressable
-          style={styles.deleteButton}
-          onPress={() => handleDelete(item)}
-        >
-          <Ionicons name="trash-outline" size={20} color="#DC2626" />
+        <Pressable onPress={() => handleDelete(item)} style={styles.deleteButton}>
+          <Ionicons color="#DC2626" name="trash-outline" size={20} />
         </Pressable>
       </View>
 
       {!item.isDefault && (
         <Pressable
-          style={styles.setDefaultButton}
           onPress={() => setDefaultMutation.mutate(item.id)}
+          style={styles.setDefaultButton}
         >
           <Text style={styles.setDefaultText}>Set as Default</Text>
         </Pressable>
@@ -138,13 +131,11 @@ export default function PaymentMethodsScreen() {
 
   const renderEmptyState = () => (
     <View style={styles.emptyState}>
-      <Ionicons name="card-outline" size={64} color="#CBD5E1" />
+      <Ionicons color="#CBD5E1" name="card-outline" size={64} />
       <Text style={styles.emptyTitle}>No Payment Methods</Text>
-      <Text style={styles.emptyDescription}>
-        Add a payment method to book services
-      </Text>
-      <Pressable style={styles.addButton} onPress={handleAddNew}>
-        <Ionicons name="add" size={20} color="#FFFFFF" />
+      <Text style={styles.emptyDescription}>Add a payment method to book services</Text>
+      <Pressable onPress={handleAddNew} style={styles.addButton}>
+        <Ionicons color="#FFFFFF" name="add" size={20} />
         <Text style={styles.addButtonText}>Add Payment Method</Text>
       </Pressable>
     </View>
@@ -154,7 +145,7 @@ export default function PaymentMethodsScreen() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#2563EB" />
+          <ActivityIndicator color="#2563EB" size="large" />
         </View>
       </SafeAreaView>
     );
@@ -164,9 +155,9 @@ export default function PaymentMethodsScreen() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.errorContainer}>
-          <Ionicons name="alert-circle-outline" size={48} color="#DC2626" />
+          <Ionicons color="#DC2626" name="alert-circle-outline" size={48} />
           <Text style={styles.errorText}>{error.message}</Text>
-          <Pressable style={styles.retryButton} onPress={() => refetch()}>
+          <Pressable onPress={() => refetch()} style={styles.retryButton}>
             <Text style={styles.retryText}>Try Again</Text>
           </Pressable>
         </View>
@@ -177,25 +168,25 @@ export default function PaymentMethodsScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Pressable style={styles.backButton} onPress={() => router.back()}>
-          <Ionicons name="chevron-back" size={24} color="#1E293B" />
+        <Pressable onPress={() => router.back()} style={styles.backButton}>
+          <Ionicons color="#1E293B" name="chevron-back" size={24} />
         </Pressable>
         <Text style={styles.headerTitle}>Payment Methods</Text>
         <View style={styles.headerRight} />
       </View>
 
       <FlatList
-        data={paymentMethods}
-        renderItem={renderPaymentMethod}
-        keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
+        data={paymentMethods}
+        keyExtractor={(item) => item.id}
         ListEmptyComponent={renderEmptyState}
+        renderItem={renderPaymentMethod}
       />
 
       {paymentMethods && paymentMethods.length > 0 && (
         <View style={styles.footer}>
-          <Pressable style={styles.addButton} onPress={handleAddNew}>
-            <Ionicons name="add" size={20} color="#FFFFFF" />
+          <Pressable onPress={handleAddNew} style={styles.addButton}>
+            <Ionicons color="#FFFFFF" name="add" size={20} />
             <Text style={styles.addButtonText}>Add Payment Method</Text>
           </Pressable>
         </View>

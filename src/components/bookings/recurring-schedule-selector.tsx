@@ -169,7 +169,7 @@ export function RecurringScheduleSelector({
         <>
           {/* Frequency Selection */}
           <div className="space-y-3">
-            <label className="block font-medium text-[#211f1a] text-sm">Frequency</label>
+            <div className="block font-medium text-[#211f1a] text-sm">Frequency</div>
             <div className="grid grid-cols-3 gap-3">
               {(["weekly", "biweekly", "monthly"] as RecurringFrequency[]).map((freq) => (
                 <button
@@ -214,7 +214,7 @@ export function RecurringScheduleSelector({
           {/* Day of Week (for weekly/biweekly) */}
           {frequency !== "monthly" && (
             <div className="space-y-3">
-              <label className="block font-medium text-[#211f1a] text-sm">Day of Week</label>
+              <div className="block font-medium text-[#211f1a] text-sm">Day of Week</div>
               <div className="grid grid-cols-7 gap-2">
                 {DAY_NAMES.map((day, index) => (
                   <button
@@ -236,7 +236,7 @@ export function RecurringScheduleSelector({
 
           {/* End Condition */}
           <div className="space-y-3">
-            <label className="block font-medium text-[#211f1a] text-sm">End Condition</label>
+            <div className="block font-medium text-[#211f1a] text-sm">End Condition</div>
             <div className="grid grid-cols-3 gap-3">
               <button
                 className={`rounded-xl border-2 px-4 py-3 text-sm transition ${

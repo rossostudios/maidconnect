@@ -6,7 +6,7 @@
  * AFTER: 101 lines (2 handlers) (21% reduction)
  */
 
-import { withProfessional, ok, badRequest, forbidden, requireProfessionalProfile } from "@/lib/api";
+import { badRequest, forbidden, ok, requireProfessionalProfile, withProfessional } from "@/lib/api";
 import { ValidationError } from "@/lib/errors";
 
 const BUCKET_NAME = "portfolio-images";

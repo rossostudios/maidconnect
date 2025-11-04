@@ -83,11 +83,21 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       updateData.slug = body.slug;
     }
 
-    if (body.description !== undefined) updateData.description = body.description;
-    if (body.status !== undefined) updateData.status = body.status;
-    if (body.category !== undefined) updateData.category = body.category;
-    if (body.priority !== undefined) updateData.priority = body.priority;
-    if (body.target_quarter !== undefined) updateData.target_quarter = body.target_quarter;
+    if (body.description !== undefined) {
+      updateData.description = body.description;
+    }
+    if (body.status !== undefined) {
+      updateData.status = body.status;
+    }
+    if (body.category !== undefined) {
+      updateData.category = body.category;
+    }
+    if (body.priority !== undefined) {
+      updateData.priority = body.priority;
+    }
+    if (body.target_quarter !== undefined) {
+      updateData.target_quarter = body.target_quarter;
+    }
     if (body.visibility !== undefined) {
       updateData.visibility = body.visibility;
 
@@ -96,11 +106,18 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
         updateData.published_at = new Date().toISOString();
       }
     }
-    if (body.target_audience !== undefined) updateData.target_audience = body.target_audience;
-    if (body.tags !== undefined) updateData.tags = body.tags;
-    if (body.featured_image_url !== undefined)
+    if (body.target_audience !== undefined) {
+      updateData.target_audience = body.target_audience;
+    }
+    if (body.tags !== undefined) {
+      updateData.tags = body.tags;
+    }
+    if (body.featured_image_url !== undefined) {
       updateData.featured_image_url = body.featured_image_url;
-    if (body.metadata !== undefined) updateData.metadata = body.metadata;
+    }
+    if (body.metadata !== undefined) {
+      updateData.metadata = body.metadata;
+    }
 
     // Set shipped_at if status changed to shipped
     if (body.status === "shipped" && existingItem.status !== "shipped") {

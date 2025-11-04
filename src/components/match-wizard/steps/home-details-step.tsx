@@ -40,12 +40,16 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
       <div className="space-y-4">
         {/* Bedrooms */}
         <div>
-          <label className="mb-2 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
+          <label
+            className="mb-2 flex items-center gap-2 font-medium text-[#211f1a] text-sm"
+            htmlFor="bedrooms"
+          >
             <Building className="h-4 w-4" />
             {t("bedroomsLabel", { defaultValue: "Bedrooms" })}
           </label>
           <select
             className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
+            id="bedrooms"
             onChange={(e) => onUpdate({ bedrooms: Number(e.target.value) })}
             value={data.bedrooms || ""}
           >
@@ -62,12 +66,16 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
 
         {/* Bathrooms */}
         <div>
-          <label className="mb-2 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
+          <label
+            className="mb-2 flex items-center gap-2 font-medium text-[#211f1a] text-sm"
+            htmlFor="bathrooms"
+          >
             <Bath className="h-4 w-4" />
             {t("bathroomsLabel", { defaultValue: "Bathrooms" })}
           </label>
           <select
             className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
+            id="bathrooms"
             onChange={(e) => onUpdate({ bathrooms: Number(e.target.value) })}
             value={data.bathrooms || ""}
           >
@@ -83,11 +91,12 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
 
         {/* Square Meters */}
         <div>
-          <label className="mb-2 block font-medium text-[#211f1a] text-sm">
+          <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="square-meters">
             {t("squareMetersLabel", { defaultValue: "Approximate size (m²)" })}
           </label>
           <input
             className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
+            id="square-meters"
             min="20"
             onChange={(e) => onUpdate({ squareMeters: Number(e.target.value) })}
             placeholder={t("squareMetersPlaceholder", { defaultValue: "e.g., 80" })}
@@ -117,11 +126,12 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
         {/* Pet Details */}
         {data.hasPets && (
           <div>
-            <label className="mb-2 block font-medium text-[#211f1a] text-sm">
+            <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="pet-details">
               {t("petDetailsLabel", { defaultValue: "Pet details (optional)" })}
             </label>
             <input
               className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
+              id="pet-details"
               onChange={(e) => onUpdate({ petDetails: e.target.value })}
               placeholder={t("petDetailsPlaceholder", {
                 defaultValue: "e.g., 2 friendly dogs, hypoallergenic cat",

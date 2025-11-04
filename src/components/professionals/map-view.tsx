@@ -7,9 +7,9 @@ import Image from "next/image";
 import { memo, useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Link } from "@/i18n/routing";
+import { formatCOP } from "@/lib/format";
 import { type DirectoryProfessional } from "./professionals-directory";
 import { VerificationBadge } from "./verification-badge";
-import { formatCOP } from "@/lib/format";
 
 /**
  * Map View Component for Professionals Directory
@@ -66,96 +66,98 @@ function createCustomIcon(price: number | null, verified: boolean) {
 
 // React.memo optimization for heavy map component with Leaflet library
 const MapViewComponent = memo(
-  function MapView({
+  function MapViewInner({
     professionals,
     center = DEFAULT_CENTER,
     zoom = DEFAULT_ZOOM,
     className = "",
   }: MapViewProps) {
-  const [isMounted, setIsMounted] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
-  // Only render map on client side (Leaflet doesn't work with SSR)
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    // Only render map on client side (Leaflet doesn't work with SSR)
+    useEffect(() => {
+      setIsMounted(true);
+    }, []);
 
-  // useMemo: Expensive computation - filter professionals with valid coordinates
-  const professionalsWithCoords = useMemo(
-    () =>
-      professionals.filter((pro) => {
-        if (!(pro.location && pro.location.includes(","))) {
-          return false;
-        }
-        const parts = pro.location.split(",");
-        return (
-          parts.length >= 2 &&
-          !Number.isNaN(Number.parseFloat(parts[0] || "")) &&
-          !Number.isNaN(Number.parseFloat(parts[1] || ""))
-        );
-      }),
-    [professionals]
-  );
-
-  // useMemo: Expensive computation - calculate map center based on professionals
-  const mapCenter = useMemo(() => {
-    if (professionalsWithCoords.length > 0 && center === DEFAULT_CENTER) {
-      const avgLat =
-        professionalsWithCoords.reduce((sum, pro) => {
-          const parts = pro.location.split(",").map(Number);
-          return sum + (parts[0] || 0);
-        }, 0) / professionalsWithCoords.length;
-      const avgLng =
-        professionalsWithCoords.reduce((sum, pro) => {
-          const parts = pro.location.split(",").map(Number);
-          return sum + (parts[1] || 0);
-        }, 0) / professionalsWithCoords.length;
-      return [avgLat, avgLng] as LatLngExpression;
-    }
-    return center;
-  }, [professionalsWithCoords, center]);
-
-  if (!isMounted) {
-    return (
-      <div className={`flex h-full items-center justify-center bg-gray-100 ${className}`}>
-        <div className="flex flex-col items-center gap-2 text-gray-600">
-          <MapPin className="h-8 w-8 animate-pulse" />
-          <p className="text-sm">Loading map...</p>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className={className}>
-      <MapContainer
-        center={mapCenter}
-        className="h-full w-full"
-        scrollWheelZoom
-        style={{ minHeight: "400px" }}
-        zoom={zoom}
-      >
-        {/* OpenStreetMap tiles (free) */}
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-
-        {/* Individual markers - clustering removed for react-leaflet v5 compatibility */}
-        {professionalsWithCoords.map((professional) => {
-          const parts = professional.location.split(",").map(Number);
-          const position: LatLngExpression = [parts[0] || 0, parts[1] || 0];
-
+    // useMemo: Expensive computation - filter professionals with valid coordinates
+    const professionalsWithCoords = useMemo(
+      () =>
+        professionals.filter((pro) => {
+          if (!pro.location?.includes(",")) {
+            return false;
+          }
+          const parts = pro.location.split(",");
           return (
-            <Marker
-              icon={createCustomIcon(
-                professional.hourlyRateCop,
-                !!(professional.verificationLevel &&
-                  (professional.verificationLevel === "enhanced" ||
-                    professional.verificationLevel === "background-check"))
-              )}
-              key={professional.id}
-              position={position}
-            >
+            parts.length >= 2 &&
+            !Number.isNaN(Number.parseFloat(parts[0] || "")) &&
+            !Number.isNaN(Number.parseFloat(parts[1] || ""))
+          );
+        }),
+      [professionals]
+    );
+
+    // useMemo: Expensive computation - calculate map center based on professionals
+    const mapCenter = useMemo(() => {
+      if (professionalsWithCoords.length > 0 && center === DEFAULT_CENTER) {
+        const avgLat =
+          professionalsWithCoords.reduce((sum, pro) => {
+            const parts = pro.location.split(",").map(Number);
+            return sum + (parts[0] || 0);
+          }, 0) / professionalsWithCoords.length;
+        const avgLng =
+          professionalsWithCoords.reduce((sum, pro) => {
+            const parts = pro.location.split(",").map(Number);
+            return sum + (parts[1] || 0);
+          }, 0) / professionalsWithCoords.length;
+        return [avgLat, avgLng] as LatLngExpression;
+      }
+      return center;
+    }, [professionalsWithCoords, center]);
+
+    if (!isMounted) {
+      return (
+        <div className={`flex h-full items-center justify-center bg-gray-100 ${className}`}>
+          <div className="flex flex-col items-center gap-2 text-gray-600">
+            <MapPin className="h-8 w-8 animate-pulse" />
+            <p className="text-sm">Loading map...</p>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className={className}>
+        <MapContainer
+          center={mapCenter}
+          className="h-full w-full"
+          scrollWheelZoom
+          style={{ minHeight: "400px" }}
+          zoom={zoom}
+        >
+          {/* OpenStreetMap tiles (free) */}
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+
+          {/* Individual markers - clustering removed for react-leaflet v5 compatibility */}
+          {professionalsWithCoords.map((professional) => {
+            const parts = professional.location.split(",").map(Number);
+            const position: LatLngExpression = [parts[0] || 0, parts[1] || 0];
+
+            return (
+              <Marker
+                icon={createCustomIcon(
+                  professional.hourlyRateCop,
+                  !!(
+                    professional.verificationLevel &&
+                    (professional.verificationLevel === "enhanced" ||
+                      professional.verificationLevel === "background-check")
+                  )
+                )}
+                key={professional.id}
+                position={position}
+              >
                 <Popup maxWidth={300} minWidth={250}>
                   <Link
                     className="block hover:opacity-80"
@@ -223,29 +225,28 @@ const MapViewComponent = memo(
               </Marker>
             );
           })}
-      </MapContainer>
+        </MapContainer>
 
-      {/* No results message */}
-      {professionalsWithCoords.length === 0 && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white/80">
-          <div className="text-center">
-            <MapPin className="mx-auto mb-2 h-12 w-12 text-gray-400" />
-            <p className="font-medium text-gray-900">No professionals found on map</p>
-            <p className="text-gray-600 text-sm">Try adjusting your filters or search criteria</p>
+        {/* No results message */}
+        {professionalsWithCoords.length === 0 && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white/80">
+            <div className="text-center">
+              <MapPin className="mx-auto mb-2 h-12 w-12 text-gray-400" />
+              <p className="font-medium text-gray-900">No professionals found on map</p>
+              <p className="text-gray-600 text-sm">Try adjusting your filters or search criteria</p>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
   },
   // Custom comparison: only re-render if professionals array or other props change
-  (prevProps, nextProps) => (
-      prevProps.professionals === nextProps.professionals &&
-      prevProps.professionals.length === nextProps.professionals.length &&
-      prevProps.center === nextProps.center &&
-      prevProps.zoom === nextProps.zoom &&
-      prevProps.className === nextProps.className
-    )
+  (prevProps, nextProps) =>
+    prevProps.professionals === nextProps.professionals &&
+    prevProps.professionals.length === nextProps.professionals.length &&
+    prevProps.center === nextProps.center &&
+    prevProps.zoom === nextProps.zoom &&
+    prevProps.className === nextProps.className
 );
 
 // Export the memoized component

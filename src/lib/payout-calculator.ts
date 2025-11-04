@@ -5,7 +5,7 @@
  * Payouts are processed twice weekly (per operations manual)
  */
 
-import { formatCurrency, type Currency } from "@/lib/format";
+import { type Currency, formatCurrency } from "@/lib/format";
 
 // Platform commission rate
 export const COMMISSION_RATE = 0.18; // 18%
@@ -81,7 +81,7 @@ export function formatPayoutAmount(amountInCents: number, currency: Currency = "
   return formatCurrency(amountInCents / 100, {
     locale: "es-CO",
     currency,
-    maximumFractionDigits: 0
+    maximumFractionDigits: 0,
   });
 }
 

@@ -8,17 +8,17 @@
  */
 
 import type { SupabaseClient, User } from "@supabase/supabase-js";
-import { AuthenticationError, UnauthorizedError, NotFoundError } from "@/lib/errors";
+import { AuthenticationError, NotFoundError, UnauthorizedError } from "@/lib/errors";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { Database } from "@/types/database.types";
 
 /**
  * Authentication context returned by auth helpers
  */
-export interface AuthContext {
+export type AuthContext = {
   user: User;
   supabase: SupabaseClient<Database>;
-}
+};
 
 /**
  * Get authenticated user or throw 401
@@ -35,7 +35,7 @@ export interface AuthContext {
  *
  * @throws {AuthenticationError} If user is not authenticated
  */
-export async function requireAuth(request: Request): Promise<AuthContext> {
+export async function requireAuth(_request: Request): Promise<AuthContext> {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
@@ -64,7 +64,7 @@ export async function requireAuth(request: Request): Promise<AuthContext> {
  * }
  * ```
  */
-export async function getOptionalAuth(request: Request): Promise<AuthContext | null> {
+export async function getOptionalAuth(_request: Request): Promise<AuthContext | null> {
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
@@ -88,7 +88,10 @@ export async function getOptionalAuth(request: Request): Promise<AuthContext | n
  *
  * @throws {UnauthorizedError} If user doesn't have the required role
  */
-export async function requireRole(user: User, role: "admin" | "professional" | "customer"): Promise<void> {
+export async function requireRole(
+  user: User,
+  role: "admin" | "professional" | "customer"
+): Promise<void> {
   const userRole = user.user_metadata?.role;
 
   if (userRole !== role) {

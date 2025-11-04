@@ -49,10 +49,10 @@ const steps: TourStep[] = [
   },
 ];
 
-interface ProfessionalTourProps {
+type ProfessionalTourProps = {
   autoStart?: boolean;
   onComplete?: () => void;
-}
+};
 
 export function ProfessionalTour({ autoStart = false, onComplete }: ProfessionalTourProps) {
   const tour = useOnboardingTour({
@@ -70,7 +70,7 @@ export function ProfessionalTour({ autoStart = false, onComplete }: Professional
         tour.start();
       }, 1000);
     }
-  }, [autoStart]);
+  }, [autoStart, tour.shouldShowTour, tour.start]);
 
   if (!(tour.state.isActive && tour.currentStep)) {
     return null;

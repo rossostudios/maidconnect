@@ -10,7 +10,6 @@ type CustomerSearchSectionProps = {
   professionals: DirectoryProfessional[];
 };
 
-
 export function CustomerSearchSection({ professionals }: CustomerSearchSectionProps) {
   const featuredProfessionals = professionals.slice(0, 3);
 
@@ -74,9 +73,7 @@ export function CustomerSearchSection({ professionals }: CustomerSearchSectionPr
                       : "This professional is finalizing their public bio. Request a booking to see availability."}
                   </p>
                   <div className="mt-auto flex items-center justify-between text-[#5d574b] text-sm">
-                    <span>
-                      {formatCOP(professional.hourlyRateCop) ?? "Rate on request"}
-                    </span>
+                    <span>{formatCOP(professional.hourlyRateCop) ?? "Rate on request"}</span>
                     <Link
                       className="font-semibold text-[#211f1a] text-sm underline-offset-4 transition hover:underline"
                       href={`/professionals/${professional.id}`}

@@ -3,13 +3,13 @@
 import type { LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-interface StepDiagramProps {
+type StepDiagramProps = {
   stepNumber: number;
   icon: LucideIcon;
   titleKey: string;
   descriptionKey: string;
   isLast?: boolean;
-}
+};
 
 export function StepDiagram({
   stepNumber,

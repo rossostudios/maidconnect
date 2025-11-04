@@ -1,6 +1,7 @@
 "use client";
 
 import { Bug, Palette, Shield, Sparkles, Zap } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { BaseModal } from "@/components/shared/base-modal";
@@ -48,7 +49,9 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
   });
 
   const handleMarkAsRead = async () => {
-    if (!changelog) return;
+    if (!changelog) {
+      return;
+    }
 
     try {
       await markAsReadMutation.mutate({ changelogId: changelog.id });
@@ -57,7 +60,9 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
     }
   };
 
-  if (!changelog) return null;
+  if (!changelog) {
+    return null;
+  }
 
   const formattedDate = new Date(changelog.published_at).toLocaleDateString("en-US", {
     year: "numeric",
@@ -67,12 +72,12 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
 
   return (
     <BaseModal
-      isOpen={isOpen}
-      onClose={onClose}
-      size="2xl"
-      showCloseButton={true}
       closeOnBackdropClick={true}
       closeOnEscape={true}
+      isOpen={isOpen}
+      onClose={onClose}
+      showCloseButton={true}
+      size="2xl"
     >
       {/* Header */}
       <div className="mb-6">
@@ -93,7 +98,9 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
         <div className="mb-6 flex flex-wrap gap-2">
           {changelog.categories.map((category: string) => {
             const config = categoryConfig[category as keyof typeof categoryConfig];
-            if (!config) return null;
+            if (!config) {
+              return null;
+            }
 
             const Icon = config.icon;
 
@@ -113,11 +120,12 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
       {/* Featured Image */}
       {changelog.featured_image_url && (
         <div className="mb-6 overflow-hidden rounded-2xl">
-          {/* Using img instead of Next.js Image because featured_image_url is user-generated content from Supabase Storage with dynamic URLs */}
-          <img
+          <Image
             alt={changelog.title}
             className="h-auto w-full object-cover"
             height={300}
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 600px"
             src={changelog.featured_image_url}
             width={600}
           />

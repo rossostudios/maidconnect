@@ -24,11 +24,11 @@ export function useChangelogUnreadCount() {
         throw new Error("Failed to fetch changelog status");
       }
 
-      const data = await response.json();
+      const responseData = await response.json();
 
       // If there's a changelog and it hasn't been viewed, count is 1
       // In the future, this could query all unread changelogs
-      if (data.changelog && !data.hasViewed) {
+      if (responseData.changelog && !responseData.hasViewed) {
         return 1;
       }
 

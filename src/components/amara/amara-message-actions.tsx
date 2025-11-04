@@ -14,13 +14,13 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-interface AmaraMessageActionsProps {
+type AmaraMessageActionsProps = {
   messageId: string;
   content: string;
   onFeedback?: (messageId: string, feedback: "positive" | "negative") => void;
   onRetry?: () => void;
   showRetry?: boolean;
-}
+};
 
 export function AmaraMessageActions({
   messageId,
@@ -77,6 +77,7 @@ export function AmaraMessageActions({
           )}
           onClick={() => handleFeedback("positive")}
           title={t("thumbsUp")}
+          type="button"
         >
           <ThumbsUp
             className={cn(
@@ -96,6 +97,7 @@ export function AmaraMessageActions({
           )}
           onClick={() => handleFeedback("negative")}
           title={t("thumbsDown")}
+          type="button"
         >
           <ThumbsDown
             className={cn(
@@ -117,6 +119,7 @@ export function AmaraMessageActions({
         className="group rounded-md p-1.5 transition-all hover:bg-gray-100"
         onClick={handleCopy}
         title={t("copyMessage")}
+        type="button"
       >
         {copied ? (
           <Check className="h-3.5 w-3.5 text-green-600" />
@@ -134,6 +137,7 @@ export function AmaraMessageActions({
             className="group rounded-md p-1.5 transition-all hover:bg-gray-100"
             onClick={onRetry}
             title={t("retry")}
+            type="button"
           >
             <RotateCw className="h-3.5 w-3.5 text-gray-400 transition-colors group-hover:text-gray-600" />
           </button>

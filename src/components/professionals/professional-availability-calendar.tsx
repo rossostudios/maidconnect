@@ -147,11 +147,11 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
             }}
             locale="es-CO"
             onDateSelect={setSelectedDate}
-            renderDayContent={(date, availability) => (
+            renderDayContent={(calendarDate, dayAvailability) => (
               <CustomDayContent
-                availability={availability}
-                bookingsCount={bookingsByDate.get(formatDateKey(date))?.length ?? 0}
-                date={date}
+                availability={dayAvailability}
+                bookingsCount={bookingsByDate.get(formatDateKey(calendarDate))?.length ?? 0}
+                date={calendarDate}
                 hasAvailability={Boolean(
                   availabilityByWeekday.get(normalizeWeekdayLabel(date))?.length
                 )}
@@ -275,7 +275,7 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
  */
 function CustomDayContent({
   date,
-  availability,
+  availability: _availability,
   hasAvailability,
   bookingsCount,
 }: {

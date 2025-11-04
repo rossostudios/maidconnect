@@ -1,7 +1,7 @@
 import { useActionState, useEffect } from "react";
-import type { ProfessionalService } from "@/lib/professionals/transformers";
-import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
 import type { SavedAddress } from "@/components/addresses/saved-addresses-manager";
+import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
+import type { ProfessionalService } from "@/lib/professionals/transformers";
 
 type BookingData = {
   serviceName: string;
@@ -80,8 +80,9 @@ export function useBookingSubmission({
             durationMinutes: formData.durationHours * 60,
             amount: totalAmount,
             specialInstructions: formData.specialInstructions || undefined,
-            address: formData.address
-              ? {
+            address: (() => {
+              if (formData.address) {
+                return {
                   street: formData.address.street,
                   city: formData.address.city,
                   neighborhood: formData.address.neighborhood,
@@ -89,10 +90,13 @@ export function useBookingSubmission({
                   building_access: formData.address.building_access,
                   parking_info: formData.address.parking_info,
                   special_notes: formData.address.special_notes,
-                }
-              : formData.customAddress
-                ? { raw: formData.customAddress }
-                : undefined,
+                };
+              }
+              if (formData.customAddress) {
+                return { raw: formData.customAddress };
+              }
+              return;
+            })(),
             selectedAddons:
               formData.selectedAddons.length > 0
                 ? formData.selectedAddons.map((addon) => ({

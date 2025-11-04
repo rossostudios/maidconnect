@@ -32,6 +32,7 @@ export async function CareersHero() {
               <div className="flex h-full w-full items-center justify-center">
                 <div className="text-center text-[#7d7566]">
                   <svg
+                    aria-hidden="true"
                     className="mx-auto h-24 w-24 text-[#8B7355]/20"
                     fill="none"
                     stroke="currentColor"

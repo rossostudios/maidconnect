@@ -20,6 +20,11 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
  * - Rate limiting to prevent abuse (100 searches/minute)
  */
 
+// Regex for splitting search query into tokens (whitespace)
+const QUERY_SPLIT_PATTERN = /\s+/;
+// Regex for removing special characters from tokens
+const SPECIAL_CHARS_PATTERN = /[^\w]/g;
+
 type SearchResult = {
   id: string;
   name: string;
@@ -64,9 +69,9 @@ async function handleGET(request: Request) {
 
     // Sanitize query for tsquery (replace spaces with &, handle special chars)
     const tsquery = query
-      .split(/\s+/)
+      .split(QUERY_SPLIT_PATTERN)
       .filter((word) => word.length > 0)
-      .map((word) => word.replace(/[^\w]/g, ""))
+      .map((word) => word.replace(SPECIAL_CHARS_PATTERN, ""))
       .filter((word) => word.length > 0)
       .join(" & ");
 

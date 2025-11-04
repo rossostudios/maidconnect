@@ -89,10 +89,13 @@ export function TimeExtensionModal({
       return;
     }
 
-    await form.handleSubmit(async () => await extendTime.mutate({
-        bookingId,
-        additionalMinutes: currentMinutes,
-      }));
+    await form.handleSubmit(
+      async () =>
+        await extendTime.mutate({
+          bookingId,
+          additionalMinutes: currentMinutes,
+        })
+    );
   };
 
   const handlePresetClick = (minutes: number) => {
@@ -136,7 +139,7 @@ export function TimeExtensionModal({
     >
       {/* Preset Options */}
       <div className="mb-6">
-        <label className="mb-3 block font-medium text-[#211f1a] text-sm">Quick Options</label>
+        <div className="mb-3 block font-medium text-[#211f1a] text-sm">Quick Options</div>
         <div className="grid grid-cols-2 gap-3">
           {PRESET_OPTIONS.map((option) => {
             const isSelected = selectedMinutes === option.minutes;

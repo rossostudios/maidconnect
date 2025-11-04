@@ -23,8 +23,8 @@ export async function GET(request: Request) {
     const supabase = await createSupabaseServerClient();
 
     // Parse query parameters
-    const page = Number.parseInt(searchParams.get("page") || "1");
-    const limit = Number.parseInt(searchParams.get("limit") || "20");
+    const page = Number.parseInt(searchParams.get("page") || "1", 10);
+    const limit = Number.parseInt(searchParams.get("limit") || "20", 10);
     const visibility = searchParams.get("visibility") as RoadmapAdminListParams["visibility"];
     const status = searchParams.get("status") as RoadmapAdminListParams["status"];
     const category = searchParams.get("category") as RoadmapAdminListParams["category"];

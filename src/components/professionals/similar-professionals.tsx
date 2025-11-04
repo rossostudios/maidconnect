@@ -3,14 +3,13 @@
 import { Sparkles, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/routing";
-import type { MatchedProfessional } from "@/lib/matching/smart-match";
 import { formatCOP } from "@/lib/format";
+import type { MatchedProfessional } from "@/lib/matching/smart-match";
 
-interface SimilarProfessionalsProps {
+type SimilarProfessionalsProps = {
   currentProfessionalId: string;
   currentProfessionalName: string;
-}
-
+};
 
 /**
  * Similar Professionals Component
@@ -102,7 +101,7 @@ export function SimilarProfessionals({
     };
 
     fetchSimilar();
-  }, [_currentProfessionalId]);
+  }, []);
 
   if (loading) {
     return (

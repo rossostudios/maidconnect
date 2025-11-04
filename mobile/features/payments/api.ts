@@ -1,5 +1,5 @@
-import { supabase } from "@/lib/supabase";
 import { env } from "@/lib/env";
+import { supabase } from "@/lib/supabase";
 import type { CreatePaymentIntentParams, PaymentIntent, PaymentMethod } from "./types";
 
 /**
@@ -124,10 +124,7 @@ export async function voidPaymentIntent(paymentIntentId: string): Promise<void> 
 /**
  * Process a tip payment
  */
-export async function processTip(params: {
-  bookingId: string;
-  amount: number;
-}): Promise<void> {
+export async function processTip(params: { bookingId: string; amount: number }): Promise<void> {
   const {
     data: { session },
   } = await supabase.auth.getSession();

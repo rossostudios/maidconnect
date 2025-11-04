@@ -18,7 +18,7 @@ export type RoadmapVisibility = "draft" | "published" | "archived";
 
 export type RoadmapAudience = "all" | "customer" | "professional";
 
-export interface RoadmapItem {
+export type RoadmapItem = {
   id: string;
   title: string;
   slug: string;
@@ -40,10 +40,10 @@ export interface RoadmapItem {
   shipped_at: string | null;
   created_at: string;
   updated_at: string;
-}
+};
 
 // For create/update operations
-export interface RoadmapItemInput {
+export type RoadmapItemInput = {
   title: string;
   slug?: string; // Auto-generated from title if not provided
   description: string;
@@ -56,7 +56,7 @@ export interface RoadmapItemInput {
   tags?: string[];
   featured_image_url?: string | null;
   metadata?: Record<string, unknown>;
-}
+};
 
 // For API responses with user interaction data
 export interface RoadmapItemWithVoteStatus extends RoadmapItem {
@@ -68,29 +68,29 @@ export interface RoadmapItemWithVoteStatus extends RoadmapItem {
 // Roadmap Vote Types
 // =============================================
 
-export interface RoadmapVote {
+export type RoadmapVote = {
   id: string;
   user_id: string;
   roadmap_item_id: string;
   created_at: string;
-}
+};
 
-export interface VoteToggleRequest {
+export type VoteToggleRequest = {
   roadmap_item_id: string;
-}
+};
 
-export interface VoteToggleResponse {
+export type VoteToggleResponse = {
   success: boolean;
   action: "added" | "removed";
   vote_count: number;
   has_voted: boolean;
-}
+};
 
 // =============================================
 // Roadmap Comment Types
 // =============================================
 
-export interface RoadmapComment {
+export type RoadmapComment = {
   id: string;
   roadmap_item_id: string;
   user_id: string;
@@ -99,7 +99,7 @@ export interface RoadmapComment {
   is_from_admin: boolean;
   created_at: string;
   updated_at: string;
-}
+};
 
 // Comment with user profile data
 export interface RoadmapCommentWithUser extends RoadmapComment {
@@ -110,22 +110,22 @@ export interface RoadmapCommentWithUser extends RoadmapComment {
   };
 }
 
-export interface RoadmapCommentInput {
+export type RoadmapCommentInput = {
   roadmap_item_id: string;
   comment: string;
-}
+};
 
 // =============================================
 // Filter and Query Types
 // =============================================
 
-export interface RoadmapFilters {
+export type RoadmapFilters = {
   status?: RoadmapStatus | RoadmapStatus[];
   category?: RoadmapCategory | RoadmapCategory[];
   target_audience?: RoadmapAudience;
   search?: string;
   tags?: string[];
-}
+};
 
 export interface RoadmapListParams extends RoadmapFilters {
   page?: number;
@@ -138,7 +138,7 @@ export interface RoadmapListParams extends RoadmapFilters {
 // API Response Types
 // =============================================
 
-export interface RoadmapListResponse {
+export type RoadmapListResponse = {
   success: boolean;
   data: RoadmapItemWithVoteStatus[];
   pagination: {
@@ -147,15 +147,15 @@ export interface RoadmapListResponse {
     total: number;
     total_pages: number;
   };
-}
+};
 
-export interface RoadmapDetailResponse {
+export type RoadmapDetailResponse = {
   success: boolean;
   data: RoadmapItemWithVoteStatus;
   comments?: RoadmapCommentWithUser[];
-}
+};
 
-export interface RoadmapStatsResponse {
+export type RoadmapStatsResponse = {
   success: boolean;
   stats: {
     total_items: number;
@@ -164,35 +164,35 @@ export interface RoadmapStatsResponse {
     total_votes: number;
     total_comments: number;
   };
-}
+};
 
 // =============================================
 // Admin Types
 // =============================================
 
-export interface RoadmapAdminListParams {
+export type RoadmapAdminListParams = {
   page?: number;
   limit?: number;
   visibility?: RoadmapVisibility;
   status?: RoadmapStatus;
   category?: RoadmapCategory;
   search?: string;
-}
+};
 
-export interface RoadmapAdminStats {
+export type RoadmapAdminStats = {
   draft_count: number;
   published_count: number;
   archived_count: number;
   total_votes: number;
   total_comments: number;
   pending_comments: number; // Not approved
-}
+};
 
 // =============================================
 // UI Component Types
 // =============================================
 
-export interface RoadmapStatusConfig {
+export type RoadmapStatusConfig = {
   status: RoadmapStatus;
   label: string;
   color: string;
@@ -200,15 +200,15 @@ export interface RoadmapStatusConfig {
   borderColor: string;
   icon: string; // Icon component name or emoji
   description: string;
-}
+};
 
-export interface RoadmapCategoryConfig {
+export type RoadmapCategoryConfig = {
   category: RoadmapCategory;
   label: string;
   icon: string; // Icon component name or emoji
   color: string;
   description: string;
-}
+};
 
 export const ROADMAP_STATUS_CONFIG: Record<RoadmapStatus, RoadmapStatusConfig> = {
   under_consideration: {
@@ -291,13 +291,13 @@ export const ROADMAP_CATEGORY_CONFIG: Record<RoadmapCategory, RoadmapCategoryCon
 // Validation Schemas (Zod-compatible shapes)
 // =============================================
 
-export interface RoadmapItemValidation {
+export type RoadmapItemValidation = {
   title: { min: number; max: number };
   slug: { min: number; max: number; pattern: RegExp };
   description: { min: number; max: number };
   target_quarter: { pattern: RegExp }; // e.g., Q1 2025, Q2 2025
   tags: { max_items: number; max_length: number };
-}
+};
 
 export const ROADMAP_VALIDATION: RoadmapItemValidation = {
   title: { min: 3, max: 200 },
@@ -355,7 +355,9 @@ export function canVoteOnItem(item: RoadmapItem): boolean {
  * Format target quarter for display
  */
 export function formatTargetQuarter(quarter: string | null): string {
-  if (!quarter) return "TBD";
+  if (!quarter) {
+    return "TBD";
+  }
   return quarter;
 }
 

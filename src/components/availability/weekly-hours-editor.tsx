@@ -61,7 +61,9 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
 
   const handleCopyToAll = (index: number) => {
     const sourceDay = schedule[index];
-    if (!sourceDay) return;
+    if (!sourceDay) {
+      return;
+    }
 
     const newSchedule = schedule.map((day) => ({
       ...day,

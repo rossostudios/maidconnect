@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 
-export interface PlatformStats {
+export type PlatformStats = {
   totalBookings: number;
   totalProfessionals: number;
   averageRating: number;
   lastUpdated: string;
   error?: string;
-}
+};
 
 /**
  * Hook to fetch and manage real-time platform statistics
@@ -63,12 +63,16 @@ export function usePlatformStats(refreshInterval = 60_000) {
     };
 
     // Initial fetch
-    void fetchStats();
+    fetchStats().catch(() => {
+      // Handle error silently
+    });
 
     // Set up periodic refresh if interval is provided
     if (refreshInterval > 0) {
       intervalId = setInterval(() => {
-        void fetchStats();
+        fetchStats().catch(() => {
+          // Handle error silently
+        });
       }, refreshInterval);
     }
 

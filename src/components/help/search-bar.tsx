@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
-interface SearchResult {
+type SearchResult = {
   id: string;
   category_id: string;
   category_slug: string;
@@ -16,13 +16,13 @@ interface SearchResult {
   title: string;
   excerpt: string | null;
   rank: number;
-}
+};
 
-interface HelpSearchBarProps {
+type HelpSearchBarProps = {
   placeholder?: string;
   autoFocus?: boolean;
   className?: string;
-}
+};
 
 export function HelpSearchBar({
   placeholder,
@@ -72,7 +72,9 @@ export function HelpSearchBar({
   );
 
   useEffect(() => {
-    void searchArticles(debouncedQuery);
+    searchArticles(debouncedQuery).catch(() => {
+      // Handle error silently
+    });
   }, [debouncedQuery, searchArticles]);
 
   const handleResultClick = (result: SearchResult) => {
@@ -123,57 +125,65 @@ export function HelpSearchBar({
       {/* Search Results Dropdown */}
       {showResults && query.length >= 2 && (
         <div className="absolute z-50 mt-2 w-full overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg">
-          {isLoading && results.length === 0 ? (
-            <div className="flex items-center justify-center px-4 py-8">
-              <Loader2 className="mr-2 h-5 w-5 animate-spin text-[#8B7355]" />
-              <span className="text-gray-600 text-sm">{t("search.searching")}</span>
-            </div>
-          ) : results.length > 0 ? (
-            <div className="max-h-96 overflow-y-auto">
-              {results.map((result) => (
-                <button
-                  className="w-full border-gray-100 border-b px-4 py-3 text-left transition last:border-b-0 hover:bg-gray-50"
-                  key={result.id}
-                  onClick={() => handleResultClick(result)}
-                  type="button"
-                >
-                  <div className="mb-1 flex items-center gap-2">
-                    <span className="rounded bg-gray-100 px-2 py-0.5 text-gray-600 text-xs">
-                      {result.category_name}
-                    </span>
-                  </div>
-                  <div className="font-medium text-gray-900">{result.title}</div>
-                  {result.excerpt && (
-                    <p className="mt-1 line-clamp-2 text-gray-600 text-sm">{result.excerpt}</p>
-                  )}
-                </button>
-              ))}
+          {(() => {
+            if (isLoading && results.length === 0) {
+              return (
+                <div className="flex items-center justify-center px-4 py-8">
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin text-[#8B7355]" />
+                  <span className="text-gray-600 text-sm">{t("search.searching")}</span>
+                </div>
+              );
+            }
+            if (results.length > 0) {
+              return (
+                <div className="max-h-96 overflow-y-auto">
+                  {results.map((result) => (
+                    <button
+                      className="w-full border-gray-100 border-b px-4 py-3 text-left transition last:border-b-0 hover:bg-gray-50"
+                      key={result.id}
+                      onClick={() => handleResultClick(result)}
+                      type="button"
+                    >
+                      <div className="mb-1 flex items-center gap-2">
+                        <span className="rounded bg-gray-100 px-2 py-0.5 text-gray-600 text-xs">
+                          {result.category_name}
+                        </span>
+                      </div>
+                      <div className="font-medium text-gray-900">{result.title}</div>
+                      {result.excerpt && (
+                        <p className="mt-1 line-clamp-2 text-gray-600 text-sm">{result.excerpt}</p>
+                      )}
+                    </button>
+                  ))}
 
-              <div className="border-gray-100 border-t bg-gray-50 px-4 py-2 text-center">
+                  <div className="border-gray-100 border-t bg-gray-50 px-4 py-2 text-center">
+                    <button
+                      className="text-[#8B7355] text-sm hover:underline"
+                      onClick={() => {
+                        router.push(`/${locale}/help?q=${encodeURIComponent(query)}`);
+                        setShowResults(false);
+                      }}
+                      type="button"
+                    >
+                      {t("search.viewAll")}
+                    </button>
+                  </div>
+                </div>
+              );
+            }
+            return (
+              <div className="px-4 py-8 text-center">
+                <p className="text-gray-600 text-sm">{t("search.noResults")}</p>
                 <button
-                  className="text-[#8B7355] text-sm hover:underline"
-                  onClick={() => {
-                    router.push(`/${locale}/help?q=${encodeURIComponent(query)}`);
-                    setShowResults(false);
-                  }}
+                  className="mt-2 text-[#8B7355] text-sm hover:underline"
+                  onClick={() => router.push(`/${locale}/help`)}
                   type="button"
                 >
-                  {t("search.viewAll")}
+                  {t("search.browseAll")}
                 </button>
               </div>
-            </div>
-          ) : (
-            <div className="px-4 py-8 text-center">
-              <p className="text-gray-600 text-sm">{t("search.noResults")}</p>
-              <button
-                className="mt-2 text-[#8B7355] text-sm hover:underline"
-                onClick={() => router.push(`/${locale}/help`)}
-                type="button"
-              >
-                {t("search.browseAll")}
-              </button>
-            </div>
-          )}
+            );
+          })()}
         </div>
       )}
 
@@ -183,7 +193,9 @@ export function HelpSearchBar({
           className="fixed inset-0 z-40"
           onClick={() => setShowResults(false)}
           onKeyDown={(e) => {
-            if (e.key === "Escape") setShowResults(false);
+            if (e.key === "Escape") {
+              setShowResults(false);
+            }
           }}
           tabIndex={-1}
           type="button"

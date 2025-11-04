@@ -137,12 +137,12 @@ export function ServiceStep({ data, onUpdate, onNext, onBack }: ServiceStepProps
       {/* Service Templates */}
       {selectedService && selectedService.templates.length > 0 && (
         <div className="space-y-3">
-          <label className="block font-medium text-[#211f1a] text-sm">
+          <div className="block font-medium text-[#211f1a] text-sm">
             {t("templateLabel", { defaultValue: "Select a template" })}{" "}
             <span className="font-normal text-[#7a6d62]">
               ({t("optional", { defaultValue: "optional" })})
             </span>
-          </label>
+          </div>
           <div className="space-y-2">
             {selectedService.templates.map((template) => {
               const isSelected = data.serviceTemplate === template.value;

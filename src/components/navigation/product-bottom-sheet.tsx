@@ -50,6 +50,14 @@ export function ProductBottomSheet({ isOpen, onClose, features }: Props) {
       <div
         className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm transition-opacity"
         onClick={onClose}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " " || e.key === "Escape") {
+            e.preventDefault();
+            onClose();
+          }
+        }}
+        role="button"
+        tabIndex={0}
       />
 
       {/* Bottom Sheet - Optimized for landscape */}

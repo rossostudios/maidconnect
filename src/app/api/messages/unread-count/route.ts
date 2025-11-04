@@ -6,7 +6,7 @@
  * AFTER: 36 lines (1 handler) (28% reduction)
  */
 
-import { withAuth, ok } from "@/lib/api";
+import { ok, withAuth } from "@/lib/api";
 import { ValidationError } from "@/lib/errors";
 
 /**

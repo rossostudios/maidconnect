@@ -72,6 +72,7 @@ export function PricingFaqSection() {
           <button
             className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
             onClick={() => toggleFaq(faq.id)}
+            type="button"
           >
             <span className="font-semibold text-[#211f1a] text-lg">{faq.question}</span>
             <ChevronDown

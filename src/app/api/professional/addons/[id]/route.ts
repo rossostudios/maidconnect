@@ -6,9 +6,9 @@
  * AFTER: 70 lines (2 handlers) (31% reduction)
  */
 
-import { withProfessional, ok, noContent, requireResourceOwnership } from "@/lib/api";
-import { ValidationError } from "@/lib/errors";
 import { z } from "zod";
+import { noContent, ok, requireResourceOwnership, withProfessional } from "@/lib/api";
+import { ValidationError } from "@/lib/errors";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -30,13 +30,7 @@ export const PATCH = withProfessional(
     const { id: addonId } = await context.params;
 
     // Verify ownership
-    await requireResourceOwnership(
-      supabase,
-      "service_addons",
-      addonId,
-      "professional_id",
-      user.id
-    );
+    await requireResourceOwnership(supabase, "service_addons", addonId, "professional_id", user.id);
 
     // Parse and validate request body
     const body = await request.json();
@@ -68,13 +62,7 @@ export const DELETE = withProfessional(
     const { id: addonId } = await context.params;
 
     // Verify ownership
-    await requireResourceOwnership(
-      supabase,
-      "service_addons",
-      addonId,
-      "professional_id",
-      user.id
-    );
+    await requireResourceOwnership(supabase, "service_addons", addonId, "professional_id", user.id);
 
     const { error } = await supabase.from("service_addons").delete().eq("id", addonId);
 

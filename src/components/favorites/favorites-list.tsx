@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ListSkeleton } from "@/components/ui/skeleton";
 import { Link } from "@/i18n/routing";
 import { FavoriteButton } from "./favorite-button";
@@ -26,7 +27,7 @@ export function FavoritesList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchFavorites = async () => {
+  const fetchFavorites = useCallback(async () => {
     try {
       const response = await fetch("/api/customer/favorites");
       if (!response.ok) {
@@ -39,7 +40,7 @@ export function FavoritesList() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [t]);
 
   useEffect(() => {
     fetchFavorites();
@@ -121,11 +122,13 @@ function ProfessionalCard({
           <div className="flex items-start gap-4">
             {/* Avatar */}
             {professional.profile.avatar_url ? (
-              /* Using img instead of Next.js Image because avatar_url is user-generated content from Supabase Storage with dynamic URLs */
-              <img
+              <Image
                 alt={professional.profile.full_name}
                 className="h-16 w-16 rounded-full object-cover"
+                height={64}
+                loading="lazy"
                 src={professional.profile.avatar_url}
+                width={64}
               />
             ) : (
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#8B7355] font-semibold text-white text-xl">
@@ -179,7 +182,16 @@ function ProfessionalCard({
 
       {/* Favorite Button (Positioned absolutely) */}
       <div className="absolute top-3 right-3">
-        <div onClick={(e) => e.preventDefault()}>
+        <div
+          onClick={(e) => e.preventDefault()}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+            }
+          }}
+          role="button"
+          tabIndex={0}
+        >
           <FavoriteButton
             initialIsFavorite={true}
             professionalId={professional.profile_id}

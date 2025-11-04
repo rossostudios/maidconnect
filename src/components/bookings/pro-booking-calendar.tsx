@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import { Clock } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
 import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
 import type { DayAvailability } from "@/hooks/use-availability-data";
 
@@ -106,7 +106,7 @@ export function ProBookingCalendar({ bookings }: Props) {
 
   // Get bookings for selected date
   const selectedBookings = selectedDate
-    ? bookingsByDate.get(formatDateKey(selectedDate)) ?? []
+    ? (bookingsByDate.get(formatDateKey(selectedDate)) ?? [])
     : [];
 
   // Status label translation
@@ -136,22 +136,22 @@ export function ProBookingCalendar({ bookings }: Props) {
               availability,
               getDateAvailability,
             }}
-            size="compact"
-            theme="professional"
-            selectedDate={selectedDate}
-            onDateSelect={setSelectedDate}
-            showTimeSlots={false}
-            showLegend={false}
-            showTodayButton={true}
             locale="en-US"
-            renderDayContent={(date, availability) => (
+            onDateSelect={setSelectedDate}
+            renderDayContent={(calendarDate, dayAvailability) => (
               <CustomDayContent
-                date={date}
-                availability={availability}
-                bookingsCount={bookingsByDate.get(formatDateKey(date))?.length ?? 0}
+                availability={dayAvailability}
+                bookingsCount={bookingsByDate.get(formatDateKey(calendarDate))?.length ?? 0}
+                date={calendarDate}
                 t={t}
               />
             )}
+            selectedDate={selectedDate}
+            showLegend={false}
+            showTimeSlots={false}
+            showTodayButton={true}
+            size="compact"
+            theme="professional"
           />
         </div>
 
@@ -217,7 +217,7 @@ export function ProBookingCalendar({ bookings }: Props) {
  */
 function CustomDayContent({
   date,
-  availability,
+  availability: _availability,
   bookingsCount,
   t,
 }: {

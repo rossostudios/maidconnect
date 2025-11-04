@@ -3,12 +3,12 @@
  * Subscribes to new messages using Supabase Realtime for instant updates
  */
 
-import { useEffect, useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useCallback, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Message, MessageRecord } from "./types";
 
-export function useRealtimeMessages(conversationId: string | null, userId: string) {
+export function useRealtimeMessages(conversationId: string | null, _userId: string) {
   const queryClient = useQueryClient();
 
   const handleNewMessage = useCallback(
@@ -24,11 +24,15 @@ export function useRealtimeMessages(conversationId: string | null, userId: strin
       queryClient.setQueryData(
         ["messages", conversationId],
         (oldMessages: Message[] | undefined) => {
-          if (!oldMessages) return oldMessages;
+          if (!oldMessages) {
+            return oldMessages;
+          }
 
           // Check if message already exists (prevent duplicates)
           const exists = oldMessages.some((msg) => msg.id === newMessage.id);
-          if (exists) return oldMessages;
+          if (exists) {
+            return oldMessages;
+          }
 
           // Transform and append new message
           const transformedMessage: Message = {
@@ -54,7 +58,9 @@ export function useRealtimeMessages(conversationId: string | null, userId: strin
   );
 
   useEffect(() => {
-    if (!conversationId) return;
+    if (!conversationId) {
+      return;
+    }
 
     console.log(`[realtime] Subscribing to messages for conversation: ${conversationId}`);
 

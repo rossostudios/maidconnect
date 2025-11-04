@@ -10,48 +10,46 @@
  * ```
  */
 
+// Rate Limiting
+export { withRateLimit } from "../rate-limit";
 // Authentication & Authorization
 export {
-  requireAuth,
-  getOptionalAuth,
-  requireRole,
-  requireAdmin,
-  requireProfessional,
-  requireCustomer,
-  requireProfessionalOwnership,
-  requireCustomerOwnership,
-  requireProfessionalProfile,
-  requireCustomerProfile,
-  requireResourceOwnership,
   type AuthContext,
+  getOptionalAuth,
+  requireAdmin,
+  requireAuth,
+  requireCustomer,
+  requireCustomerOwnership,
+  requireCustomerProfile,
+  requireProfessional,
+  requireProfessionalOwnership,
+  requireProfessionalProfile,
+  requireResourceOwnership,
+  requireRole,
 } from "./auth";
-
-// Response Helpers
-export {
-  successResponse,
-  ok,
-  created,
-  noContent,
-  badRequest,
-  unauthorized,
-  forbidden,
-  notFound,
-  conflict,
-  internalError,
-  paginated,
-} from "./response";
 
 // Middleware
 export {
-  withAuth,
-  withAdmin,
-  withProfessional,
-  withCustomer,
-  withValidation,
   compose,
+  withAdmin,
+  withAuth,
   withAuthMethods,
   withCors,
+  withCustomer,
+  withProfessional,
+  withValidation,
 } from "./middleware";
-
-// Rate Limiting
-export { withRateLimit } from "../rate-limit";
+// Response Helpers
+export {
+  badRequest,
+  conflict,
+  created,
+  forbidden,
+  internalError,
+  noContent,
+  notFound,
+  ok,
+  paginated,
+  successResponse,
+  unauthorized,
+} from "./response";

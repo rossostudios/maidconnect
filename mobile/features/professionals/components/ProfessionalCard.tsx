@@ -12,7 +12,7 @@ type ProfessionalCardProps = {
 };
 
 const ProfessionalCardComponent = ({ professional, onPress }: ProfessionalCardProps) => {
-  const availability = 'availability' in professional ? professional.availability : [];
+  const availability = "availability" in professional ? professional.availability : [];
   const availabilityLabel = useMemo(() => {
     if (computeAvailableToday(availability)) {
       return "Available today";
@@ -23,21 +23,20 @@ const ProfessionalCardComponent = ({ professional, onPress }: ProfessionalCardPr
     return "Availability on request";
   }, [availability]);
 
-  const primaryServices = 'primaryServices' in professional ? professional.primaryServices : [];
+  const primaryServices = "primaryServices" in professional ? professional.primaryServices : [];
   const serviceLabel =
-    primaryServices[0] ??
-    professional.services[0]?.name ??
-    "Professional home services";
+    primaryServices[0] ?? professional.services[0]?.name ?? "Professional home services";
 
   const handlePress = () => {
     onPress?.(professional.profileId);
   };
 
-  const verificationLevel = 'verificationLevel' in professional ? professional.verificationLevel : null;
-  const city = 'city' in professional ? professional.city : null;
-  const country = 'country' in professional ? professional.country : null;
-  const acceptanceRate = 'acceptanceRate' in professional ? professional.acceptanceRate : null;
-  const distanceKm = 'distanceKm' in professional ? professional.distanceKm : null;
+  const verificationLevel =
+    "verificationLevel" in professional ? professional.verificationLevel : null;
+  const city = "city" in professional ? professional.city : null;
+  const country = "country" in professional ? professional.country : null;
+  const acceptanceRate = "acceptanceRate" in professional ? professional.acceptanceRate : null;
+  const distanceKm = "distanceKm" in professional ? professional.distanceKm : null;
 
   return (
     <Pressable onPress={handlePress} style={styles.container}>
@@ -55,9 +54,7 @@ const ProfessionalCardComponent = ({ professional, onPress }: ProfessionalCardPr
       {(city || country) && (
         <View style={styles.metaRow}>
           <IconSymbol color="#475569" name="mappin.and.ellipse" size={18} />
-          <Text style={styles.metaText}>
-            {formatLocation(city, country)}
-          </Text>
+          <Text style={styles.metaText}>{formatLocation(city, country)}</Text>
         </View>
       )}
       <View style={styles.metaRow}>

@@ -1,7 +1,7 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { LogOut } from "lucide-react";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { KeyboardBadge } from "@/components/keyboard-shortcuts/keyboard-badge";
 import { DashboardMobileNav } from "@/components/navigation/dashboard-mobile-nav";
@@ -12,7 +12,8 @@ import { Link, usePathname } from "@/i18n/routing";
 
 // Dynamic import for sheet (lazy load on demand)
 const NotificationsSheet = dynamic(
-  () => import("@/components/notifications/notifications-sheet").then((mod) => mod.NotificationsSheet),
+  () =>
+    import("@/components/notifications/notifications-sheet").then((mod) => mod.NotificationsSheet),
   { ssr: false }
 );
 
@@ -93,7 +94,13 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
           onClick={openCommandPalette}
           type="button"
         >
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            aria-hidden="true"
+            className="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               strokeLinecap="round"
@@ -113,7 +120,13 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
           }`}
           href={messagesHref}
         >
-          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            aria-hidden="true"
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path
               d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
               strokeLinecap="round"
@@ -135,7 +148,13 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
           onClick={() => setIsNotificationsOpen(true)}
           type="button"
         >
-          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            aria-hidden="true"
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path
               d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
               strokeLinecap="round"

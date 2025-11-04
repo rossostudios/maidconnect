@@ -1,28 +1,27 @@
+import { Ionicons } from "@expo/vector-icons";
+import { useQuery } from "@tanstack/react-query";
+import { router } from "expo-router";
 import React from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Pressable,
   ActivityIndicator,
+  Pressable,
   RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useQuery } from "@tanstack/react-query";
-import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
-
-import { useAuth } from "@/providers/AuthProvider";
 import {
-  fetchDashboardStats,
-  fetchUpcomingBookings,
-  fetchFavoriteProfessionals,
   type DashboardStats,
+  fetchDashboardStats,
+  fetchFavoriteProfessionals,
+  fetchUpcomingBookings,
   type UpcomingBooking,
 } from "@/features/dashboard/api";
-import type { ProfessionalSummary } from "@/features/professionals/types";
 import { ProfessionalCard } from "@/features/professionals/components/ProfessionalCard";
+import type { ProfessionalSummary } from "@/features/professionals/types";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function DashboardScreen() {
   const { session } = useAuth();
@@ -68,9 +67,9 @@ export default function DashboardScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView
-        style={styles.container}
         contentContainerStyle={styles.scrollContent}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
+        refreshControl={<RefreshControl onRefresh={handleRefresh} refreshing={refreshing} />}
+        style={styles.container}
       >
         {/* Welcome Section */}
         <View style={styles.welcomeSection}>
@@ -83,7 +82,7 @@ export default function DashboardScreen() {
           <View style={styles.statsRow}>
             <View style={styles.statCard}>
               <View style={[styles.statIconContainer, { backgroundColor: "#DBEAFE" }]}>
-                <Ionicons name="calendar-outline" size={24} color="#2563EB" />
+                <Ionicons color="#2563EB" name="calendar-outline" size={24} />
               </View>
               <Text style={styles.statNumber}>{stats.upcomingBookingsCount}</Text>
               <Text style={styles.statLabel}>Upcoming</Text>
@@ -91,7 +90,7 @@ export default function DashboardScreen() {
 
             <View style={styles.statCard}>
               <View style={[styles.statIconContainer, { backgroundColor: "#DCFCE7" }]}>
-                <Ionicons name="checkmark-circle-outline" size={24} color="#16A34A" />
+                <Ionicons color="#16A34A" name="checkmark-circle-outline" size={24} />
               </View>
               <Text style={styles.statNumber}>{stats.completedBookingsCount}</Text>
               <Text style={styles.statLabel}>Completed</Text>
@@ -99,7 +98,7 @@ export default function DashboardScreen() {
 
             <View style={styles.statCard}>
               <View style={[styles.statIconContainer, { backgroundColor: "#FEE2E2" }]}>
-                <Ionicons name="heart-outline" size={24} color="#DC2626" />
+                <Ionicons color="#DC2626" name="heart-outline" size={24} />
               </View>
               <Text style={styles.statNumber}>{stats.favoritesCount}</Text>
               <Text style={styles.statLabel}>Favorites</Text>
@@ -118,79 +117,85 @@ export default function DashboardScreen() {
             )}
           </View>
 
-          {bookingsLoading ? (
-            <View style={styles.loadingContainer}>
-              <ActivityIndicator color="#2563EB" />
-            </View>
-          ) : upcomingBookings && upcomingBookings.length > 0 ? (
-            <View style={styles.bookingsList}>
-              {upcomingBookings.map((booking) => (
+          {(() => {
+            if (bookingsLoading) {
+              return (
+                <View style={styles.loadingContainer}>
+                  <ActivityIndicator color="#2563EB" />
+                </View>
+              );
+            }
+            if (upcomingBookings && upcomingBookings.length > 0) {
+              return (
+                <View style={styles.bookingsList}>
+                  {upcomingBookings.map((booking) => (
+                    <Pressable
+                      key={booking.id}
+                      onPress={() => router.push(`/booking/${booking.id}`)}
+                      style={styles.bookingCard}
+                    >
+                      <View style={styles.bookingHeader}>
+                        <View style={styles.bookingIcon}>
+                          <Ionicons color="#2563EB" name="person-circle-outline" size={40} />
+                        </View>
+                        <View style={styles.bookingInfo}>
+                          <Text style={styles.bookingProfessional}>{booking.professionalName}</Text>
+                          <Text style={styles.bookingService}>{booking.serviceName}</Text>
+                        </View>
+                      </View>
+
+                      <View style={styles.bookingDetails}>
+                        <View style={styles.bookingDetailRow}>
+                          <Ionicons color="#64748B" name="calendar" size={16} />
+                          <Text style={styles.bookingDetailText}>
+                            {booking.scheduledFor.toLocaleDateString("en-US", {
+                              weekday: "short",
+                              month: "short",
+                              day: "numeric",
+                            })}
+                          </Text>
+                        </View>
+                        <View style={styles.bookingDetailRow}>
+                          <Ionicons color="#64748B" name="time" size={16} />
+                          <Text style={styles.bookingDetailText}>
+                            {booking.scheduledFor.toLocaleTimeString("en-US", {
+                              hour: "numeric",
+                              minute: "2-digit",
+                            })}
+                          </Text>
+                        </View>
+                      </View>
+
+                      <View style={styles.bookingFooter}>
+                        <Text style={styles.bookingAmount}>
+                          ${booking.totalAmount.toLocaleString()} COP
+                        </Text>
+                        <View style={styles.bookingActions}>
+                          <Pressable style={styles.bookingActionButton}>
+                            <Ionicons color="#2563EB" name="chatbubble-outline" size={16} />
+                            <Text style={styles.bookingActionText}>Message</Text>
+                          </Pressable>
+                        </View>
+                      </View>
+                    </Pressable>
+                  ))}
+                </View>
+              );
+            }
+            return (
+              <View style={styles.emptyState}>
+                <Ionicons color="#CBD5E1" name="calendar-outline" size={48} />
+                <Text style={styles.emptyTitle}>No Upcoming Bookings</Text>
+                <Text style={styles.emptyDescription}>Book a service to get started</Text>
                 <Pressable
-                  key={booking.id}
-                  style={styles.bookingCard}
-                  onPress={() => router.push(`/booking/${booking.id}`)}
+                  onPress={() => router.push("/professionals")}
+                  style={styles.browseProfessionalsButton}
                 >
-                  <View style={styles.bookingHeader}>
-                    <View style={styles.bookingIcon}>
-                      <Ionicons name="person-circle-outline" size={40} color="#2563EB" />
-                    </View>
-                    <View style={styles.bookingInfo}>
-                      <Text style={styles.bookingProfessional}>{booking.professionalName}</Text>
-                      <Text style={styles.bookingService}>{booking.serviceName}</Text>
-                    </View>
-                  </View>
-
-                  <View style={styles.bookingDetails}>
-                    <View style={styles.bookingDetailRow}>
-                      <Ionicons name="calendar" size={16} color="#64748B" />
-                      <Text style={styles.bookingDetailText}>
-                        {booking.scheduledFor.toLocaleDateString("en-US", {
-                          weekday: "short",
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </Text>
-                    </View>
-                    <View style={styles.bookingDetailRow}>
-                      <Ionicons name="time" size={16} color="#64748B" />
-                      <Text style={styles.bookingDetailText}>
-                        {booking.scheduledFor.toLocaleTimeString("en-US", {
-                          hour: "numeric",
-                          minute: "2-digit",
-                        })}
-                      </Text>
-                    </View>
-                  </View>
-
-                  <View style={styles.bookingFooter}>
-                    <Text style={styles.bookingAmount}>
-                      ${booking.totalAmount.toLocaleString()} COP
-                    </Text>
-                    <View style={styles.bookingActions}>
-                      <Pressable style={styles.bookingActionButton}>
-                        <Ionicons name="chatbubble-outline" size={16} color="#2563EB" />
-                        <Text style={styles.bookingActionText}>Message</Text>
-                      </Pressable>
-                    </View>
-                  </View>
+                  <Text style={styles.browseProfessionalsText}>Browse Professionals</Text>
                 </Pressable>
-              ))}
-            </View>
-          ) : (
-            <View style={styles.emptyState}>
-              <Ionicons name="calendar-outline" size={48} color="#CBD5E1" />
-              <Text style={styles.emptyTitle}>No Upcoming Bookings</Text>
-              <Text style={styles.emptyDescription}>
-                Book a service to get started
-              </Text>
-              <Pressable
-                style={styles.browseProfessionalsButton}
-                onPress={() => router.push("/professionals")}
-              >
-                <Text style={styles.browseProfessionalsText}>Browse Professionals</Text>
-              </Pressable>
-            </View>
-          )}
+              </View>
+            );
+          })()}
         </View>
 
         {/* Favorites Section */}
@@ -207,8 +212,8 @@ export default function DashboardScreen() {
               {favoriteProfessionals.map((professional) => (
                 <View key={professional.profileId} style={styles.favoriteProfessionalItem}>
                   <ProfessionalCard
-                    professional={professional}
                     onPress={(id) => router.push(`/professionals/${id}`)}
+                    professional={professional}
                   />
                 </View>
               ))}
@@ -221,36 +226,33 @@ export default function DashboardScreen() {
           <Text style={styles.sectionTitle}>Quick Actions</Text>
 
           <View style={styles.quickActionsGrid}>
-            <Pressable
-              style={styles.quickActionCard}
-              onPress={() => router.push("/professionals")}
-            >
+            <Pressable onPress={() => router.push("/professionals")} style={styles.quickActionCard}>
               <View style={[styles.quickActionIcon, { backgroundColor: "#DBEAFE" }]}>
-                <Ionicons name="search" size={24} color="#2563EB" />
+                <Ionicons color="#2563EB" name="search" size={24} />
               </View>
               <Text style={styles.quickActionText}>Browse</Text>
             </Pressable>
 
-            <Pressable style={styles.quickActionCard} onPress={() => router.push("/bookings")}>
+            <Pressable onPress={() => router.push("/bookings")} style={styles.quickActionCard}>
               <View style={[styles.quickActionIcon, { backgroundColor: "#DCFCE7" }]}>
-                <Ionicons name="calendar" size={24} color="#16A34A" />
+                <Ionicons color="#16A34A" name="calendar" size={24} />
               </View>
               <Text style={styles.quickActionText}>Bookings</Text>
             </Pressable>
 
-            <Pressable style={styles.quickActionCard} onPress={() => router.push("/messages")}>
+            <Pressable onPress={() => router.push("/messages")} style={styles.quickActionCard}>
               <View style={[styles.quickActionIcon, { backgroundColor: "#FEF3C7" }]}>
-                <Ionicons name="chatbubbles" size={24} color="#D97706" />
+                <Ionicons color="#D97706" name="chatbubbles" size={24} />
               </View>
               <Text style={styles.quickActionText}>Messages</Text>
             </Pressable>
 
             <Pressable
-              style={styles.quickActionCard}
               onPress={() => router.push("/payment-methods")}
+              style={styles.quickActionCard}
             >
               <View style={[styles.quickActionIcon, { backgroundColor: "#F3E8FF" }]}>
-                <Ionicons name="card" size={24} color="#9333EA" />
+                <Ionicons color="#9333EA" name="card" size={24} />
               </View>
               <Text style={styles.quickActionText}>Payments</Text>
             </Pressable>
@@ -260,7 +262,7 @@ export default function DashboardScreen() {
 
       {isLoading && !refreshing && (
         <View style={styles.loadingOverlay}>
-          <ActivityIndicator size="large" color="#2563EB" />
+          <ActivityIndicator color="#2563EB" size="large" />
         </View>
       )}
     </SafeAreaView>

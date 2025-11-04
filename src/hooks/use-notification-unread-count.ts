@@ -25,8 +25,8 @@ export function useNotificationUnreadCount() {
         throw new Error("Failed to fetch unread count");
       }
 
-      const data = await response.json();
-      return data.unreadCount || 0;
+      const responseData = await response.json();
+      return responseData.unreadCount || 0;
     },
     // Consider data stale after 30 seconds
     staleTime: 30 * 1000,
@@ -56,7 +56,12 @@ export function useNotificationUnreadCount() {
             queryClient.invalidateQueries({ queryKey: ["notifications", "unread-count"] });
           }
         )
-        .subscribe((_status) => {});
+        .subscribe((status) => {
+          // Subscribe callback required for Supabase Realtime - status changes are handled internally
+          if (status === "CHANNEL_ERROR") {
+            console.warn("Notification channel error");
+          }
+        });
 
       // Cleanup function
       return () => {

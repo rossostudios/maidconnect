@@ -54,10 +54,11 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
         type: "api",
         professionalId,
       }}
-      size="large"
-      theme="customer"
+      locale="en-US"
       onDateSelect={(date) => {
-        if (!date) return;
+        if (!date) {
+          return;
+        }
 
         // Fetch the availability for the selected date
         // In the unified component, we can access this through the data hook
@@ -65,10 +66,6 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
         // through the time slot selector
         onDateSelect(date, []);
       }}
-      showTimeSlots={false} // Original component doesn't show time slots
-      showLegend={true}
-      showTodayButton={true}
-      locale="en-US"
       renderDayContent={(date, availability) => {
         // Custom rendering to match the large calendar style
         const isPast = date < new Date();
@@ -92,6 +89,11 @@ export function LargeAvailabilityCalendar({ professionalId, onDateSelect }: Prop
           </div>
         );
       }}
+      showLegend={true} // Original component doesn't show time slots
+      showTimeSlots={false}
+      showTodayButton={true}
+      size="large"
+      theme="customer"
     />
   );
 }

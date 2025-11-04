@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const STORAGE_KEY = "casaora_recently_viewed";
 const MAX_ITEMS = 10;
 
-export interface RecentlyViewedItem {
+export type RecentlyViewedItem = {
   id: string;
   name: string;
   photo: string;
@@ -11,7 +11,7 @@ export interface RecentlyViewedItem {
   rating: number;
   hourlyRate: number;
   viewedAt: number; // timestamp
-}
+};
 
 /**
  * Hook to track and retrieve recently viewed professionals

@@ -6,9 +6,9 @@
  * AFTER: 40 lines (39% reduction)
  */
 
-import { withAuth, ok } from "@/lib/api";
-import { ValidationError } from "@/lib/errors";
 import { z } from "zod";
+import { ok, withAuth } from "@/lib/api";
+import { ValidationError } from "@/lib/errors";
 
 const markReadSchema = z
   .object({
@@ -26,13 +26,13 @@ export const POST = withAuth(async ({ user, supabase }, request: Request) => {
 
   if (markAllRead) {
     // Mark all unread notifications as read
-    const { error } = await supabase
+    const { error: markAllError } = await supabase
       .from("notifications")
       .update({ read_at: new Date().toISOString() })
       .eq("user_id", user.id)
       .is("read_at", null);
 
-    if (error) {
+    if (markAllError) {
       throw new ValidationError("Failed to mark notifications as read");
     }
 
@@ -40,15 +40,18 @@ export const POST = withAuth(async ({ user, supabase }, request: Request) => {
   }
 
   // Mark specific notifications as read
-  const { error } = await supabase
+  const { error: markError } = await supabase
     .from("notifications")
     .update({ read_at: new Date().toISOString() })
     .in("id", notificationIds!)
     .eq("user_id", user.id);
 
-  if (error) {
+  if (markError) {
     throw new ValidationError("Failed to mark notifications as read");
   }
 
-  return ok({ marked: notificationIds!.length }, `${notificationIds!.length} notifications marked as read`);
+  return ok(
+    { marked: notificationIds!.length },
+    `${notificationIds!.length} notifications marked as read`
+  );
 });

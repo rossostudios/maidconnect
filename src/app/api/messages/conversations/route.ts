@@ -6,9 +6,9 @@
  * AFTER: 98 lines (2 handlers) (27% reduction)
  */
 
-import { withAuth, ok, created, notFound, forbidden } from "@/lib/api";
-import { ValidationError } from "@/lib/errors";
 import { z } from "zod";
+import { created, forbidden, notFound, ok, withAuth } from "@/lib/api";
+import { ValidationError } from "@/lib/errors";
 
 const createConversationSchema = z.object({
   bookingId: z.string().uuid(),

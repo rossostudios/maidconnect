@@ -152,6 +152,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
+                <title>Credit card icon</title>
                 <path
                   d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
                   strokeLinecap="round"
@@ -184,25 +185,22 @@ export function PaymentHistoryTable({ bookings }: Props) {
                       className="px-6 py-4 text-left font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]"
                       key={header.id}
                     >
-                      {header.isPlaceholder ? null : (
-                        <div
-                          className={
-                            header.column.getCanSort()
-                              ? "flex cursor-pointer select-none items-center gap-2 hover:text-[#8B7355]"
-                              : ""
-                          }
+                      {header.isPlaceholder ? null : header.column.getCanSort() ? (
+                        <button
+                          className="flex w-full cursor-pointer select-none items-center gap-2 text-left hover:text-[#8B7355]"
                           onClick={header.column.getToggleSortingHandler()}
+                          type="button"
                         >
                           {flexRender(header.column.columnDef.header, header.getContext())}
-                          {header.column.getCanSort() && (
-                            <span className="text-[#d4c9b8]">
-                              {{
-                                asc: "↑",
-                                desc: "↓",
-                              }[header.column.getIsSorted() as string] ?? "↕"}
-                            </span>
-                          )}
-                        </div>
+                          <span className="text-[#d4c9b8]">
+                            {{
+                              asc: "↑",
+                              desc: "↓",
+                            }[header.column.getIsSorted() as string] ?? "↕"}
+                          </span>
+                        </button>
+                      ) : (
+                        <div>{flexRender(header.column.columnDef.header, header.getContext())}</div>
                       )}
                     </th>
                   ))}

@@ -2,7 +2,7 @@
 
 import { Heart } from "lucide-react";
 import { useState } from "react";
-import { formatCurrency, type Currency } from "@/lib/format";
+import { type Currency, formatCurrency } from "@/lib/format";
 
 /**
  * Tip Selector Component
@@ -111,7 +111,9 @@ export function TipSelector({
               >
                 {percentage}%
               </span>
-              <span className="text-[#7d7566] text-xs">{formatCurrency(tipAmount, { currency })}</span>
+              <span className="text-[#7d7566] text-xs">
+                {formatCurrency(tipAmount, { currency })}
+              </span>
             </button>
           );
         })}

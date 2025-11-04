@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { submitCustomerReviewAction } from "@/app/actions/submit-customer-review";
 import { FormModal } from "@/components/shared/form-modal";
 import { useModalForm } from "@/hooks/use-modal-form";
-import { submitCustomerReviewAction } from "@/app/actions/submit-customer-review";
 
 type RatingPromptModalProps = {
   isOpen: boolean;
@@ -115,35 +115,33 @@ export function RatingPromptModal({
       } else {
         form.setError(result.message || "Failed to submit review");
       }
-    } catch (error) {
+    } catch (_error) {
       form.setError("Failed to submit review");
     }
   };
 
   return (
     <FormModal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={`Rate Your Experience with ${customerName}`}
-      description="Your feedback helps maintain a trusted community. This review is private and only visible to you and the customer."
-      size="lg"
-      onSubmit={handleSubmit}
-      submitLabel={form.isSubmitting ? "Submitting..." : "Submit Review"}
       cancelLabel="Skip for now"
-      isSubmitting={form.isSubmitting}
-      submitDisabled={form.formData.rating === 0}
       closeOnBackdropClick={!form.isSubmitting}
       closeOnEscape={!form.isSubmitting}
+      description="Your feedback helps maintain a trusted community. This review is private and only visible to you and the customer."
+      isOpen={isOpen}
+      isSubmitting={form.isSubmitting}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      size="lg"
+      submitDisabled={form.formData.rating === 0}
+      submitLabel={form.isSubmitting ? "Submitting..." : "Submit Review"}
+      title={`Rate Your Experience with ${customerName}`}
     >
       {/* Overall Rating */}
       <div>
-        <label className="mb-2 block font-medium text-[#211f1a] text-sm">
-          Overall Rating *
-        </label>
+        <div className="mb-2 block font-medium text-[#211f1a] text-sm">Overall Rating *</div>
         <StarRating
+          disabled={form.isSubmitting}
           onChange={(val) => form.updateField("rating", val)}
           value={form.formData.rating}
-          disabled={form.isSubmitting}
         />
       </div>
 
@@ -153,22 +151,22 @@ export function RatingPromptModal({
           Optional: Rate by category
         </p>
         <StarRating
+          disabled={form.isSubmitting}
           label="Punctuality"
           onChange={(val) => form.updateField("punctualityRating", val)}
           value={form.formData.punctualityRating}
-          disabled={form.isSubmitting}
         />
         <StarRating
+          disabled={form.isSubmitting}
           label="Communication"
           onChange={(val) => form.updateField("communicationRating", val)}
           value={form.formData.communicationRating}
-          disabled={form.isSubmitting}
         />
         <StarRating
+          disabled={form.isSubmitting}
           label="Respectfulness"
           onChange={(val) => form.updateField("respectfulnessRating", val)}
           value={form.formData.respectfulnessRating}
-          disabled={form.isSubmitting}
         />
       </div>
 
@@ -179,12 +177,12 @@ export function RatingPromptModal({
         </label>
         <input
           className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+          disabled={form.isSubmitting}
           id="title"
           onChange={(e) => form.updateField("title", e.target.value)}
           placeholder="Sum up your experience in one line"
           type="text"
           value={form.formData.title}
-          disabled={form.isSubmitting}
         />
       </div>
 
@@ -195,12 +193,12 @@ export function RatingPromptModal({
         </label>
         <textarea
           className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+          disabled={form.isSubmitting}
           id="comment"
           onChange={(e) => form.updateField("comment", e.target.value)}
           placeholder="Share details about your experience (e.g., were they on time? responsive? respectful of your time?)"
           rows={4}
           value={form.formData.comment}
-          disabled={form.isSubmitting}
         />
       </div>
 

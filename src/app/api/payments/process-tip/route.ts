@@ -6,9 +6,9 @@
  * AFTER: 84 lines (45% reduction)
  */
 
-import { withCustomer, ok, withRateLimit, requireCustomerOwnership } from "@/lib/api";
-import { InvalidBookingStatusError, BusinessRuleError, ValidationError } from "@/lib/errors";
 import { z } from "zod";
+import { ok, requireCustomerOwnership, withCustomer, withRateLimit } from "@/lib/api";
+import { BusinessRuleError, InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 
 const tipSchema = z.object({
   bookingId: z.string().uuid(),
@@ -22,14 +22,19 @@ const handler = withCustomer(async ({ user, supabase }, request: Request) => {
   const { bookingId, tipAmount, tipPercentage } = tipSchema.parse(body);
 
   // Fetch booking to validate ownership and status
-  const booking = await requireCustomerOwnership(supabase, user.id, bookingId, `
+  const booking = await requireCustomerOwnership(
+    supabase,
+    user.id,
+    bookingId,
+    `
     *,
     professional:profiles!professional_id (
       id,
       full_name,
       email
     )
-  `);
+  `
+  );
 
   // Only allow tipping on completed bookings
   if (booking.status !== "completed") {
@@ -38,11 +43,9 @@ const handler = withCustomer(async ({ user, supabase }, request: Request) => {
 
   // Check if tip was already added
   if (booking.tip_amount && booking.tip_amount > 0) {
-    throw new BusinessRuleError(
-      "Tip already added to this booking",
-      "TIP_ALREADY_ADDED",
-      { existingTip: booking.tip_amount }
-    );
+    throw new BusinessRuleError("Tip already added to this booking", "TIP_ALREADY_ADDED", {
+      existingTip: booking.tip_amount,
+    });
   }
 
   // Validate tip amount is reasonable (not more than 100% of service cost)

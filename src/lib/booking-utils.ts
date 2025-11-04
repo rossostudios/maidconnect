@@ -30,8 +30,7 @@ export function calculateBookingAmount(
   durationHours: number,
   addonsTotal = 0
 ): { baseAmount: number; totalAmount: number } {
-  const baseAmount =
-    hourlyRate && durationHours > 0 ? Math.round(hourlyRate * durationHours) : 0;
+  const baseAmount = hourlyRate && durationHours > 0 ? Math.round(hourlyRate * durationHours) : 0;
   const totalAmount = baseAmount + addonsTotal;
 
   return { baseAmount, totalAmount };

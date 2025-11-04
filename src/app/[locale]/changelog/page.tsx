@@ -1,4 +1,5 @@
 import { Bug, ChevronRight, Palette, Shield, Sparkles, Zap } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { SiteFooter } from "@/components/sections/site-footer";
@@ -148,11 +149,12 @@ async function ChangelogList() {
             {/* Featured Image */}
             {changelog.featured_image_url && (
               <div className="mb-6 overflow-hidden rounded-2xl">
-                {/* Using img instead of Next.js Image because featured_image_url is user-generated content from Supabase Storage with dynamic URLs */}
-                <img
+                <Image
                   alt={changelog.title}
                   className="h-auto w-full object-cover"
                   height={300}
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 672px, 672px"
                   src={changelog.featured_image_url}
                   width={600}
                 />

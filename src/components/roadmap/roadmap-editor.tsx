@@ -24,10 +24,10 @@ import {
   ROADMAP_STATUS_CONFIG,
 } from "@/types/roadmap";
 
-interface RoadmapEditorProps {
+type RoadmapEditorProps = {
   mode: "create" | "edit";
   initialData?: RoadmapItem;
-}
+};
 
 export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
   const router = useRouter();
@@ -123,9 +123,12 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
 
       {/* Title */}
       <div>
-        <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Title *</label>
+        <label className="mb-2 block font-semibold text-[#211f1a] text-sm" htmlFor="roadmap-title">
+          Title *
+        </label>
         <input
           className="w-full rounded-[12px] border-2 border-[#ebe5d8] px-4 py-3 outline-none transition-colors focus:border-[#8B7355]"
+          id="roadmap-title"
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Add real-time notifications"
           required
@@ -136,9 +139,12 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
 
       {/* Slug */}
       <div>
-        <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Slug *</label>
+        <label className="mb-2 block font-semibold text-[#211f1a] text-sm" htmlFor="roadmap-slug">
+          Slug *
+        </label>
         <input
           className="w-full rounded-[12px] border-2 border-[#ebe5d8] px-4 py-3 font-mono text-sm outline-none transition-colors focus:border-[#8B7355]"
+          id="roadmap-slug"
           onChange={(e) => setSlug(e.target.value)}
           placeholder="add-real-time-notifications"
           required
@@ -149,9 +155,15 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
 
       {/* Description */}
       <div>
-        <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Description *</label>
+        <label
+          className="mb-2 block font-semibold text-[#211f1a] text-sm"
+          htmlFor="roadmap-description"
+        >
+          Description *
+        </label>
         <textarea
           className="w-full resize-y rounded-[12px] border-2 border-[#ebe5d8] px-4 py-3 outline-none transition-colors focus:border-[#8B7355]"
+          id="roadmap-description"
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Describe the roadmap item..."
           required
@@ -163,7 +175,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
       {/* Status and Category */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
-          <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Status *</label>
+          <div className="mb-2 block font-semibold text-[#211f1a] text-sm">Status *</div>
           <div className="space-y-2">
             {(Object.keys(ROADMAP_STATUS_CONFIG) as RoadmapStatus[]).map((statusOption) => {
               const config = ROADMAP_STATUS_CONFIG[statusOption];
@@ -193,7 +205,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
         </div>
 
         <div>
-          <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Category *</label>
+          <div className="mb-2 block font-semibold text-[#211f1a] text-sm">Category *</div>
           <div className="space-y-2">
             {(Object.keys(ROADMAP_CATEGORY_CONFIG) as RoadmapCategory[]).map((categoryOption) => {
               const config = ROADMAP_CATEGORY_CONFIG[categoryOption];
@@ -226,9 +238,15 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
       {/* Priority and Target Quarter */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
-          <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Priority</label>
+          <label
+            className="mb-2 block font-semibold text-[#211f1a] text-sm"
+            htmlFor="roadmap-priority"
+          >
+            Priority
+          </label>
           <select
             className="w-full rounded-[12px] border-2 border-[#ebe5d8] px-4 py-3 outline-none transition-colors focus:border-[#8B7355]"
+            id="roadmap-priority"
             onChange={(e) => setPriority(e.target.value as RoadmapPriority)}
             value={priority}
           >
@@ -239,9 +257,15 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
         </div>
 
         <div>
-          <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Target Quarter</label>
+          <label
+            className="mb-2 block font-semibold text-[#211f1a] text-sm"
+            htmlFor="roadmap-quarter"
+          >
+            Target Quarter
+          </label>
           <input
             className="w-full rounded-[12px] border-2 border-[#ebe5d8] px-4 py-3 outline-none transition-colors focus:border-[#8B7355]"
+            id="roadmap-quarter"
             onChange={(e) => setTargetQuarter(e.target.value)}
             placeholder="Q1 2025"
             type="text"
@@ -252,7 +276,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
 
       {/* Target Audience */}
       <div>
-        <label className="mb-2 block font-semibold text-[#211f1a] text-sm">Target Audience</label>
+        <div className="mb-2 block font-semibold text-[#211f1a] text-sm">Target Audience</div>
         <div className="flex gap-3">
           {(["all", "customer", "professional"] as RoadmapAudience[]).map((audience) => (
             <label
@@ -277,11 +301,12 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
 
       {/* Tags */}
       <div>
-        <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
+        <label className="mb-2 block font-semibold text-[#211f1a] text-sm" htmlFor="roadmap-tags">
           Tags (comma separated)
         </label>
         <input
           className="w-full rounded-[12px] border-2 border-[#ebe5d8] px-4 py-3 outline-none transition-colors focus:border-[#8B7355]"
+          id="roadmap-tags"
           onChange={(e) => setTags(e.target.value)}
           placeholder="notifications, realtime, websockets"
           type="text"
@@ -291,11 +316,12 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
 
       {/* Featured Image */}
       <div>
-        <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
+        <label className="mb-2 block font-semibold text-[#211f1a] text-sm" htmlFor="roadmap-image">
           Featured Image URL
         </label>
         <input
           className="w-full rounded-[12px] border-2 border-[#ebe5d8] px-4 py-3 outline-none transition-colors focus:border-[#8B7355]"
+          id="roadmap-image"
           onChange={(e) => setFeaturedImageUrl(e.target.value)}
           placeholder="https://example.com/image.png"
           type="url"

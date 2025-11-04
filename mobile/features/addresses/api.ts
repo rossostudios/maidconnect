@@ -82,7 +82,7 @@ export async function createAddress(params: CreateAddressParams): Promise<Addres
       country: params.country,
       apartment_unit: params.apartmentUnit || null,
       access_instructions: params.accessInstructions || null,
-      is_default: params.isDefault || false,
+      is_default: params.isDefault,
     })
     .select()
     .single();
@@ -127,7 +127,7 @@ export async function updateAddress(params: UpdateAddressParams): Promise<Addres
       country: params.country,
       apartment_unit: params.apartmentUnit || null,
       access_instructions: params.accessInstructions || null,
-      is_default: params.isDefault || false,
+      is_default: params.isDefault,
     })
     .eq("id", params.id)
     .eq("user_id", session.user.id)

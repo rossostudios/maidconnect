@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import {
@@ -10,7 +11,6 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
 
 import { fetchConversations } from "@/features/messaging/api";
 import type { Conversation } from "@/features/messaging/types";
@@ -64,27 +64,27 @@ export default function MessagesScreen() {
 
       {error && (
         <View style={styles.errorBanner}>
-          <Ionicons name="alert-circle-outline" size={20} color="#DC2626" />
+          <Ionicons color="#DC2626" name="alert-circle-outline" size={20} />
           <Text style={styles.errorText}>Unable to load messages. Pull to refresh.</Text>
         </View>
       )}
 
       <FlatList
-        data={conversations}
-        renderItem={renderConversation}
-        keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
-        refreshControl={<RefreshControl onRefresh={refetch} refreshing={isRefetching} />}
+        data={conversations}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        keyExtractor={(item) => item.id}
         ListEmptyComponent={
           <View style={styles.emptyState}>
-            <Ionicons name="chatbubbles-outline" size={64} color="#CBD5E1" />
+            <Ionicons color="#CBD5E1" name="chatbubbles-outline" size={64} />
             <Text style={styles.emptyTitle}>No messages yet</Text>
             <Text style={styles.emptyDescription}>
               Start a conversation with a professional from their profile or booking details.
             </Text>
           </View>
         }
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        refreshControl={<RefreshControl onRefresh={refetch} refreshing={isRefetching} />}
+        renderItem={renderConversation}
       />
     </SafeAreaView>
   );
@@ -104,7 +104,7 @@ function ConversationCard({
     : "";
 
   return (
-    <Pressable style={styles.conversationCard} onPress={handlePress}>
+    <Pressable onPress={handlePress} style={styles.conversationCard}>
       <View style={styles.avatar}>
         <Text style={styles.avatarText}>
           {conversation.otherParticipantName?.charAt(0).toUpperCase() || "?"}
@@ -113,7 +113,7 @@ function ConversationCard({
 
       <View style={styles.conversationContent}>
         <View style={styles.conversationHeader}>
-          <Text style={styles.participantName} numberOfLines={1}>
+          <Text numberOfLines={1} style={styles.participantName}>
             {conversation.otherParticipantName || "Unknown User"}
           </Text>
           {formattedTime && <Text style={styles.timestamp}>{formattedTime}</Text>}
@@ -121,11 +121,8 @@ function ConversationCard({
 
         <View style={styles.messageRow}>
           <Text
-            style={[
-              styles.lastMessage,
-              conversation.unreadCount > 0 && styles.lastMessageUnread,
-            ]}
             numberOfLines={2}
+            style={[styles.lastMessage, conversation.unreadCount > 0 && styles.lastMessageUnread]}
           >
             {conversation.lastMessage || "No messages yet"}
           </Text>
@@ -146,9 +143,9 @@ function ConversationCard({
 function formatMessageTime(date: Date): string {
   const now = new Date();
   const diffMs = now.getTime() - date.getTime();
-  const diffMins = Math.floor(diffMs / 60000);
-  const diffHours = Math.floor(diffMs / 3600000);
-  const diffDays = Math.floor(diffMs / 86400000);
+  const diffMins = Math.floor(diffMs / 60_000);
+  const diffHours = Math.floor(diffMs / 3_600_000);
+  const diffDays = Math.floor(diffMs / 86_400_000);
 
   if (diffMins < 1) {
     return "Just now";

@@ -127,7 +127,9 @@ export const searchProfessionalsTool = tool({
 
       // Sort by rating and review count, then take top 3
       professionals.sort((a: any, b: any) => {
-        if (b.rating !== a.rating) return b.rating - a.rating;
+        if (b.rating !== a.rating) {
+          return b.rating - a.rating;
+        }
         return b.reviewCount - a.reviewCount;
       });
 

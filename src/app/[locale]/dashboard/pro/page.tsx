@@ -65,6 +65,72 @@ const DOCUMENT_LABELS: Record<string, string> = Object.fromEntries(
   [...REQUIRED_DOCUMENTS, ...OPTIONAL_DOCUMENTS].map((doc) => [doc.key, doc.label])
 );
 
+function OnboardingTaskItem({
+  task,
+  isComplete,
+  missingDocuments,
+  professionalProfile,
+  t,
+}: {
+  task: (typeof TASKS)[number];
+  isComplete: boolean;
+  missingDocuments: string[];
+  professionalProfile: ProfessionalProfile | null;
+  t: (key: string, values?: Record<string, unknown>) => string;
+}) {
+  return (
+    <li className="hover:-translate-y-1 rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)]">
+      <div className="flex items-center justify-between">
+        <span className="font-semibold text-[#8B7355] text-xs uppercase tracking-[0.2em]">
+          {t(`onboarding.tasks.${task.id}.title`)}
+        </span>
+        {isComplete ? (
+          <span className="rounded-full bg-green-50 px-3 py-1 font-semibold text-green-700 text-xs">
+            {t("onboarding.status.completed")}
+          </span>
+        ) : (
+          <span className="rounded-full bg-orange-50 px-3 py-1 font-semibold text-orange-700 text-xs">
+            {t("onboarding.status.actionNeeded")}
+          </span>
+        )}
+      </div>
+      <p className="mt-4 text-[#211f1a] text-base leading-relaxed">
+        {t(`onboarding.tasks.${task.id}.description`)}
+      </p>
+      {isComplete ? null : (
+        <Link
+          className="mt-3 inline-flex items-center font-semibold text-[#8B7355] text-sm hover:text-[#9B8B7E]"
+          href={task.cta.href}
+        >
+          {t(`onboarding.tasks.${task.id}.cta`)} →
+        </Link>
+      )}
+      {task.id === "documents" && missingDocuments.length > 0 ? (
+        <p className="mt-3 text-[#c4534d] text-xs">
+          {t("onboarding.warnings.missing")}{" "}
+          {missingDocuments.map((doc) => DOCUMENT_LABELS[doc] ?? doc).join(", ")}
+        </p>
+      ) : null}
+      {task.id === "profile" &&
+      professionalProfile?.primary_services &&
+      professionalProfile.primary_services.length === 0 ? (
+        <p className="mt-3 text-[#c4534d] text-xs">{t("onboarding.warnings.addService")}</p>
+      ) : null}
+      {task.id === "profile" && professionalProfile?.onboarding_completed_at ? (
+        <p className="mt-3 text-[#2f7a47] text-xs">
+          {t("onboarding.warnings.profileActivated")}{" "}
+          {formatDate(professionalProfile.onboarding_completed_at)}.
+        </p>
+      ) : null}
+      {task.id === "application" &&
+      professionalProfile?.references_data &&
+      professionalProfile.references_data.length < 2 ? (
+        <p className="mt-3 text-[#c4534d] text-xs">{t("onboarding.warnings.addReferences")}</p>
+      ) : null}
+    </li>
+  );
+}
+
 function hasReachedStatus(currentStatus: string | null, targetStatus: string) {
   const currentIndex = STATUS_ORDER.indexOf((currentStatus ?? "") as (typeof STATUS_ORDER)[number]);
   const targetIndex = STATUS_ORDER.indexOf(targetStatus as (typeof STATUS_ORDER)[number]);
@@ -162,17 +228,125 @@ type ProfessionalBookingRow = {
   customer: { id: string } | null;
 };
 
-export default async function ProfessionalDashboardPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "dashboard.pro.main" });
+type CompletedBooking = {
+  id: string;
+  service_name: string | null;
+  scheduled_start: string | null;
+  customer: { id: string } | null;
+  hasReview: boolean;
+};
 
-  const user = await requireUser({ allowedRoles: ["professional"] });
-  const supabase = await createSupabaseServerClient();
+type DataErrors = {
+  profileError?: any;
+  documentsError?: any;
+  bookingsError?: any;
+  customerReviewsError?: any;
+  addonsError?: any;
+};
 
+function logDataErrors(errors: DataErrors): void {
+  if (errors.profileError) {
+    console.error("Error fetching professional profile:", errors.profileError);
+  }
+  if (errors.documentsError) {
+    console.error("Error fetching documents:", errors.documentsError);
+  }
+  if (errors.bookingsError) {
+    console.error("Error fetching bookings:", errors.bookingsError);
+  }
+  if (errors.customerReviewsError) {
+    console.error("Error fetching customer reviews:", errors.customerReviewsError);
+  }
+  if (errors.addonsError) {
+    console.error("Error fetching addons:", errors.addonsError);
+  }
+}
+
+function prepareCompletedBookings(
+  bookings: ProfessionalBookingRow[],
+  reviewedBookingIds: Set<string>
+): CompletedBooking[] {
+  return bookings
+    .filter((b) => b.status === "completed")
+    .map((b) => ({
+      id: b.id,
+      service_name: b.service_name,
+      scheduled_start: b.scheduled_start,
+      customer: b.customer,
+      hasReview: reviewedBookingIds.has(b.id),
+    }))
+    .slice(0, 5);
+}
+
+async function addSignedUrlsToDocuments(
+  documents: DocumentRow[],
+  supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>
+): Promise<DocumentRow[]> {
+  if (documents.length === 0) {
+    return documents;
+  }
+
+  const signedUrlResults = await Promise.all(
+    documents.map((doc) =>
+      supabase.storage.from("professional-documents").createSignedUrl(doc.storage_path, 120)
+    )
+  );
+
+  return documents.map((doc, index) => {
+    const result = signedUrlResults[index];
+    if (result?.error) {
+      console.error("Error creating signed URL for document:", result.error);
+    }
+    return {
+      ...doc,
+      signedUrl: result?.data?.signedUrl ?? null,
+    };
+  });
+}
+
+function findMissingDocuments(documents: DocumentRow[]): string[] {
+  const requiredDocKeys = new Set(REQUIRED_DOCUMENTS.map((doc) => doc.key));
+  const uploadedDocMap = new Map<string, DocumentRow>();
+  for (const doc of documents) {
+    if (!uploadedDocMap.has(doc.document_type)) {
+      uploadedDocMap.set(doc.document_type, doc);
+    }
+  }
+  return [...requiredDocKeys].filter((key) => !uploadedDocMap.has(key));
+}
+
+function isBookingCompletedThisWeek(booking: ProfessionalBookingRow): boolean {
+  if (booking.status !== "completed" || !booking.scheduled_start) {
+    return false;
+  }
+  const bookingDate = new Date(booking.scheduled_start);
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 7);
+  return bookingDate >= weekAgo;
+}
+
+function calculateMetrics(bookings: ProfessionalBookingRow[]): {
+  activeBookings: number;
+  pendingBookings: number;
+  completedThisWeek: number;
+  weeklyEarnings: number;
+} {
+  const activeBookings = bookings.filter(
+    (b) => b.status === "confirmed" || b.status === "in_progress"
+  ).length;
+  const pendingBookings = bookings.filter((b) => b.status === "pending").length;
+  const completedThisWeek = bookings.filter(isBookingCompletedThisWeek).length;
+  const weeklyEarnings = bookings
+    .filter((b) => isBookingCompletedThisWeek(b) && b.amount_captured)
+    .reduce((sum, b) => sum + (b.amount_captured || 0), 0);
+
+  return { activeBookings, pendingBookings, completedThisWeek, weeklyEarnings };
+}
+
+async function fetchProfessionalData(
+  userId: string,
+  supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>
+) {
   const [
     { data: profileData, error: profileError },
     { data: documentsData, error: documentsError },
@@ -185,12 +359,12 @@ export default async function ProfessionalDashboardPage({
       .select(
         "full_name, status, onboarding_completed_at, primary_services, rate_expectations, references_data, stripe_connect_account_id, stripe_connect_onboarding_status"
       )
-      .eq("profile_id", user.id)
+      .eq("profile_id", userId)
       .maybeSingle(),
     supabase
       .from("professional_documents")
       .select("id, document_type, storage_path, uploaded_at, metadata")
-      .eq("profile_id", user.id)
+      .eq("profile_id", userId)
       .order("uploaded_at", { ascending: false }),
     supabase
       .from("bookings")
@@ -198,108 +372,91 @@ export default async function ProfessionalDashboardPage({
         `id, status, scheduled_start, scheduled_end, duration_minutes, amount_estimated, amount_authorized, amount_captured, currency, stripe_payment_intent_id, stripe_payment_status, created_at, service_name, service_hourly_rate, checked_in_at, checked_out_at, time_extension_minutes, address,
         customer:profiles!customer_id(id)`
       )
-      .eq("professional_id", user.id)
+      .eq("professional_id", userId)
       .order("created_at", { ascending: false }),
-    supabase.from("customer_reviews").select("booking_id").eq("professional_id", user.id),
+    supabase.from("customer_reviews").select("booking_id").eq("professional_id", userId),
     supabase
       .from("service_addons")
       .select("*")
-      .eq("professional_id", user.id)
+      .eq("professional_id", userId)
       .order("created_at", { ascending: false }),
   ]);
 
-  if (profileError) {
-    console.error("Error fetching professional profile:", profileError);
-  }
-  if (documentsError) {
-    console.error("Error fetching documents:", documentsError);
-  }
-  if (bookingsError) {
-    console.error("Error fetching bookings:", bookingsError);
-  }
-  if (customerReviewsError) {
-    console.error("Error fetching customer reviews:", customerReviewsError);
-  }
-  if (addonsError) {
-    console.error("Error fetching addons:", addonsError);
-  }
+  logDataErrors({
+    profileError,
+    documentsError,
+    bookingsError,
+    customerReviewsError,
+    addonsError,
+  });
 
-  const professionalProfile = (profileData as ProfessionalProfile | null) ?? null;
-  let documents = (documentsData as DocumentRow[] | null) ?? [];
-  const bookings = (bookingsData as ProfessionalBookingRow[] | null) ?? [];
-  const customerReviews = (customerReviewsData as { booking_id: string }[] | null) ?? [];
-  const addons = (addonsData as any[] | null) ?? [];
+  return {
+    profileData,
+    documentsData,
+    bookingsData,
+    customerReviewsData,
+    addonsData,
+  };
+}
 
-  // Create a Set of booking IDs that have been reviewed
+async function processProfessionalData(options: {
+  profileData: any;
+  documentsData: any;
+  bookingsData: any;
+  customerReviewsData: any;
+  supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>;
+}) {
+  const professionalProfile = (options.profileData as ProfessionalProfile | null) ?? null;
+  const bookings = (options.bookingsData as ProfessionalBookingRow[] | null) ?? [];
+  const customerReviews = (options.customerReviewsData as { booking_id: string }[] | null) ?? [];
+
   const reviewedBookingIds = new Set(customerReviews.map((r) => r.booking_id));
+  const completedBookings = prepareCompletedBookings(bookings, reviewedBookingIds);
 
-  // Filter completed bookings and mark which have reviews
-  const completedBookings = bookings
-    .filter((b) => b.status === "completed")
-    .map((b) => ({
-      id: b.id,
-      service_name: b.service_name,
-      scheduled_start: b.scheduled_start,
-      customer: b.customer,
-      hasReview: reviewedBookingIds.has(b.id),
-    }))
-    .slice(0, 5); // Show max 5 recent completed bookings
+  const documentsWithUrls = await addSignedUrlsToDocuments(
+    (options.documentsData as DocumentRow[] | null) ?? [],
+    options.supabase
+  );
 
-  if (documents.length > 0) {
-    const signedUrlResults = await Promise.all(
-      documents.map((doc) =>
-        supabase.storage.from("professional-documents").createSignedUrl(doc.storage_path, 120)
-      )
-    );
+  const missingDocuments = findMissingDocuments(documentsWithUrls);
+  const metrics = calculateMetrics(bookings);
 
-    documents = documents.map((doc, index) => {
-      const result = signedUrlResults[index];
-      if (result?.error) {
-        console.error("Error creating signed URL for document:", result.error);
-      }
-      return {
-        ...doc,
-        signedUrl: result?.data?.signedUrl ?? null,
-      };
+  return {
+    professionalProfile,
+    bookings,
+    completedBookings,
+    documents: documentsWithUrls,
+    missingDocuments,
+    metrics,
+  };
+}
+
+export default async function ProfessionalDashboardPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "dashboard.pro.main" });
+
+  const user = await requireUser({ allowedRoles: ["professional"] });
+  const supabase = await createSupabaseServerClient();
+
+  const { profileData, documentsData, bookingsData, customerReviewsData, addonsData } =
+    await fetchProfessionalData(user.id, supabase);
+
+  const { professionalProfile, bookings, completedBookings, documents, missingDocuments, metrics } =
+    await processProfessionalData({
+      profileData,
+      documentsData,
+      bookingsData,
+      customerReviewsData,
+      supabase,
     });
-  }
 
-  const requiredDocKeys = new Set(REQUIRED_DOCUMENTS.map((doc) => doc.key));
-  const uploadedDocMap = new Map<string, DocumentRow>();
-  for (const doc of documents) {
-    if (!uploadedDocMap.has(doc.document_type)) {
-      uploadedDocMap.set(doc.document_type, doc);
-    }
-  }
-  const missingDocuments = [...requiredDocKeys].filter((key) => !uploadedDocMap.has(key));
-
+  const addons = (addonsData as any[] | null) ?? [];
   const onboardingStatus = user.onboardingStatus;
-
-  // Calculate real-time metrics
-  const activeBookings = bookings.filter(
-    (b) => b.status === "confirmed" || b.status === "in_progress"
-  ).length;
-  const pendingBookings = bookings.filter((b) => b.status === "pending").length;
-  const completedThisWeek = bookings.filter((b) => {
-    if (b.status !== "completed" || !b.scheduled_start) {
-      return false;
-    }
-    const bookingDate = new Date(b.scheduled_start);
-    const weekAgo = new Date();
-    weekAgo.setDate(weekAgo.getDate() - 7);
-    return bookingDate >= weekAgo;
-  }).length;
-  const weeklyEarnings = bookings
-    .filter((b) => {
-      if (b.status !== "completed" || !b.scheduled_start || !b.amount_captured) {
-        return false;
-      }
-      const bookingDate = new Date(b.scheduled_start);
-      const weekAgo = new Date();
-      weekAgo.setDate(weekAgo.getDate() - 7);
-      return bookingDate >= weekAgo;
-    })
-    .reduce((sum, b) => sum + (b.amount_captured || 0), 0);
+  const { activeBookings, pendingBookings, completedThisWeek, weeklyEarnings } = metrics;
 
   return (
     <section className="flex-1 space-y-8">
@@ -352,67 +509,16 @@ export default async function ProfessionalDashboardPage({
           </div>
 
           <ol className="mt-8 grid gap-6 md:grid-cols-3">
-            {TASKS.map((task) => {
-              const isComplete = hasReachedStatus(onboardingStatus, task.targetStatus);
-              return (
-                <li
-                  className="hover:-translate-y-1 rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)]"
-                  key={task.id}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-semibold text-[#8B7355] text-xs uppercase tracking-[0.2em]">
-                      {t(`onboarding.tasks.${task.id}.title`)}
-                    </span>
-                    {isComplete ? (
-                      <span className="rounded-full bg-green-50 px-3 py-1 font-semibold text-green-700 text-xs">
-                        {t("onboarding.status.completed")}
-                      </span>
-                    ) : (
-                      <span className="rounded-full bg-orange-50 px-3 py-1 font-semibold text-orange-700 text-xs">
-                        {t("onboarding.status.actionNeeded")}
-                      </span>
-                    )}
-                  </div>
-                  <p className="mt-4 text-[#211f1a] text-base leading-relaxed">
-                    {t(`onboarding.tasks.${task.id}.description`)}
-                  </p>
-                  {isComplete ? null : (
-                    <Link
-                      className="mt-3 inline-flex items-center font-semibold text-[#8B7355] text-sm hover:text-[#9B8B7E]"
-                      href={task.cta.href}
-                    >
-                      {t(`onboarding.tasks.${task.id}.cta`)} →
-                    </Link>
-                  )}
-                  {task.id === "documents" && missingDocuments.length > 0 ? (
-                    <p className="mt-3 text-[#c4534d] text-xs">
-                      {t("onboarding.warnings.missing")}{" "}
-                      {missingDocuments.map((doc) => DOCUMENT_LABELS[doc] ?? doc).join(", ")}
-                    </p>
-                  ) : null}
-                  {task.id === "profile" &&
-                  professionalProfile?.primary_services &&
-                  professionalProfile.primary_services.length === 0 ? (
-                    <p className="mt-3 text-[#c4534d] text-xs">
-                      {t("onboarding.warnings.addService")}
-                    </p>
-                  ) : null}
-                  {task.id === "profile" && professionalProfile?.onboarding_completed_at ? (
-                    <p className="mt-3 text-[#2f7a47] text-xs">
-                      {t("onboarding.warnings.profileActivated")}{" "}
-                      {formatDate(professionalProfile.onboarding_completed_at)}.
-                    </p>
-                  ) : null}
-                  {task.id === "application" &&
-                  professionalProfile?.references_data &&
-                  professionalProfile.references_data.length < 2 ? (
-                    <p className="mt-3 text-[#c4534d] text-xs">
-                      {t("onboarding.warnings.addReferences")}
-                    </p>
-                  ) : null}
-                </li>
-              );
-            })}
+            {TASKS.map((task) => (
+              <OnboardingTaskItem
+                isComplete={hasReachedStatus(onboardingStatus, task.targetStatus)}
+                key={task.id}
+                missingDocuments={missingDocuments}
+                professionalProfile={professionalProfile}
+                t={t}
+                task={task}
+              />
+            ))}
           </ol>
         </section>
       )}

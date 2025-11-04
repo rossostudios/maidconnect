@@ -6,7 +6,7 @@
  * AFTER: 52 lines (1 handler) (21% reduction)
  */
 
-import { withAuth, ok, notFound, forbidden } from "@/lib/api";
+import { forbidden, notFound, ok, withAuth } from "@/lib/api";
 import { ValidationError } from "@/lib/errors";
 
 type RouteContext = {
@@ -51,7 +51,10 @@ export const POST = withAuth(
     const isCustomer = user.id === conversation.customer_id;
     const unreadField = isCustomer ? "customer_unread_count" : "professional_unread_count";
 
-    await supabase.from("conversations").update({ [unreadField]: 0 }).eq("id", conversationId);
+    await supabase
+      .from("conversations")
+      .update({ [unreadField]: 0 })
+      .eq("id", conversationId);
 
     return ok({ success: true });
   }

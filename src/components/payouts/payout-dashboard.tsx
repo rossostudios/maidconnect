@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { formatPayoutAmount, getPayoutScheduleDescription } from "@/lib/payout-calculator";
+import { useCallback, useEffect, useState } from "react";
 import type { Currency } from "@/lib/format";
+import { formatPayoutAmount, getPayoutScheduleDescription } from "@/lib/payout-calculator";
 
 type PendingPayoutData = {
   currentPeriod: {
@@ -49,7 +49,7 @@ export function PayoutDashboard() {
   const [error, setError] = useState<string | null>(null);
   const [showScheduleInfo, setShowScheduleInfo] = useState(false);
 
-  const fetchPayoutData = async () => {
+  const fetchPayoutData = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch("/api/pro/payouts/pending");
@@ -65,7 +65,7 @@ export function PayoutDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchPayoutData();
@@ -240,15 +240,19 @@ export function PayoutDashboard() {
                       {formatPayoutAmount(payout.net_amount, payout.currency)}
                     </p>
                     <span
-                      className={`inline-flex items-center rounded-full px-2 py-0.5 font-semibold text-xs ${
-                        payout.status === "paid"
-                          ? "bg-green-100 text-green-800"
-                          : payout.status === "processing"
-                            ? "bg-yellow-100 text-yellow-800"
-                            : payout.status === "failed"
-                              ? "bg-red-100 text-red-800"
-                              : "bg-gray-100 text-gray-800"
-                      }`}
+                      className={`inline-flex items-center rounded-full px-2 py-0.5 font-semibold text-xs ${(() => {
+                        const status = payout.status;
+                        if (status === "paid") {
+                          return "bg-green-100 text-green-800";
+                        }
+                        if (status === "processing") {
+                          return "bg-yellow-100 text-yellow-800";
+                        }
+                        if (status === "failed") {
+                          return "bg-red-100 text-red-800";
+                        }
+                        return "bg-gray-100 text-gray-800";
+                      })()}`}
                     >
                       {payout.status}
                     </span>

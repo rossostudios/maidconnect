@@ -6,9 +6,9 @@
  * AFTER: 107 lines (2 handlers) (28% reduction)
  */
 
-import { withAuth, ok, created, notFound, forbidden } from "@/lib/api";
-import { ValidationError } from "@/lib/errors";
 import { z } from "zod";
+import { created, forbidden, notFound, ok, withAuth } from "@/lib/api";
+import { ValidationError } from "@/lib/errors";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -43,17 +43,18 @@ async function verifyConversationAccess(supabase: any, conversationId: string, u
 /**
  * Get all messages in a conversation
  */
-export const GET = withAuth(async ({ user, supabase }, _request: Request, context: RouteContext) => {
-  const { id: conversationId } = await context.params;
+export const GET = withAuth(
+  async ({ user, supabase }, _request: Request, context: RouteContext) => {
+    const { id: conversationId } = await context.params;
 
-  // Verify access
-  await verifyConversationAccess(supabase, conversationId, user.id);
+    // Verify access
+    await verifyConversationAccess(supabase, conversationId, user.id);
 
-  // Fetch messages with sender info
-  const { data: messages, error: messagesError } = await supabase
-    .from("messages")
-    .select(
-      `
+    // Fetch messages with sender info
+    const { data: messages, error: messagesError } = await supabase
+      .from("messages")
+      .select(
+        `
       *,
       sender:profiles!sender_id(
         id,
@@ -61,16 +62,17 @@ export const GET = withAuth(async ({ user, supabase }, _request: Request, contex
         avatar_url
       )
     `
-    )
-    .eq("conversation_id", conversationId)
-    .order("created_at", { ascending: true });
+      )
+      .eq("conversation_id", conversationId)
+      .order("created_at", { ascending: true });
 
-  if (messagesError) {
-    throw new ValidationError("Failed to fetch messages");
+    if (messagesError) {
+      throw new ValidationError("Failed to fetch messages");
+    }
+
+    return ok({ messages: messages || [] });
   }
-
-  return ok({ messages: messages || [] });
-});
+);
 
 /**
  * Send a message in a conversation

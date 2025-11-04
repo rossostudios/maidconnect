@@ -7,14 +7,14 @@
  * AFTER: 114 lines (46% reduction)
  */
 
-import { withAuth, withCustomer, ok, requireCustomerOwnership } from "@/lib/api";
+import { z } from "zod";
+import { ok, requireCustomerOwnership, withAuth, withCustomer } from "@/lib/api";
+import { BusinessRuleError, InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 import {
   notifyAdminDisputeFiled,
   notifyAllAdmins,
   notifyProfessionalDisputeFiled,
 } from "@/lib/notifications";
-import { InvalidBookingStatusError, BusinessRuleError, ValidationError } from "@/lib/errors";
-import { z } from "zod";
 
 const disputeSchema = z.object({
   bookingId: z.string().uuid("Invalid booking ID format"),
@@ -28,7 +28,11 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
   const { bookingId, reason, description } = disputeSchema.parse(body);
 
   // Verify booking exists, belongs to user, is completed, and within 48-hour window
-  const booking = await requireCustomerOwnership(supabase, user.id, bookingId, `
+  const booking = await requireCustomerOwnership(
+    supabase,
+    user.id,
+    bookingId,
+    `
     id,
     status,
     customer_id,
@@ -36,7 +40,8 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
     completed_at,
     customer_profiles:profiles!bookings_customer_id_fkey(full_name),
     professional_profiles:profiles!bookings_professional_id_fkey(full_name)
-  `);
+  `
+  );
 
   if (booking.status !== "completed") {
     throw new InvalidBookingStatusError(booking.status, "dispute");

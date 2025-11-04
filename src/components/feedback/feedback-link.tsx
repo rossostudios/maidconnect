@@ -2,9 +2,9 @@
 
 import { useFeedback } from "@/components/providers/feedback-provider";
 
-interface FeedbackLinkProps {
+type FeedbackLinkProps = {
   children: React.ReactNode;
-}
+};
 
 export function FeedbackLink({ children }: FeedbackLinkProps) {
   const { openFeedback } = useFeedback();

@@ -15,9 +15,9 @@ import { AmaraIcon } from "./amara-icon";
 
 const STORAGE_KEY = "amara_onboarding_dismissed";
 
-interface AmaraOnboardingTooltipProps {
+type AmaraOnboardingTooltipProps = {
   onDismiss?: () => void;
-}
+};
 
 export function AmaraOnboardingTooltip({ onDismiss }: AmaraOnboardingTooltipProps) {
   const t = useTranslations("amara.onboarding");
@@ -48,7 +48,9 @@ export function AmaraOnboardingTooltip({ onDismiss }: AmaraOnboardingTooltipProp
     }, 300);
   };
 
-  if (isDismissed) return null;
+  if (isDismissed) {
+    return null;
+  }
 
   return (
     <div

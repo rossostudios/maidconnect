@@ -6,9 +6,9 @@
  * AFTER: 78 lines (2 handlers) (40% reduction)
  */
 
-import { withCustomer, ok, requireCustomerProfile } from "@/lib/api";
-import { ValidationError } from "@/lib/errors";
 import { z } from "zod";
+import { ok, requireCustomerProfile, withCustomer } from "@/lib/api";
+import { ValidationError } from "@/lib/errors";
 
 const updateFavoritesSchema = z.object({
   professionalId: z.string().uuid("Invalid professional ID format"),

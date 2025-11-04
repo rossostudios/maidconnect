@@ -11,22 +11,25 @@
  * Note: These tests require mocking Supabase client and Stripe SDK
  */
 
-import { describe, expect, it, jest } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
+
+// Top-level regex patterns for validation
+const REFERRAL_CODE_PATTERN = /^[A-Z0-9]{4}-[A-Z0-9]{4}$/;
 
 /**
  * Mock setup helpers
  * In a real test environment, these would use actual mocking libraries
  */
-type MockRequest = {
-  json: () => Promise<any>;
-  headers: Headers;
-};
+// type MockRequest = {
+//   json: () => Promise<any>;
+//   headers: Headers;
+// };
 
-type MockResponse = {
-  status: number;
-  body: any;
-  headers: Record<string, string>;
-};
+// type MockResponse = {
+//   status: number;
+//   body: any;
+//   headers: Record<string, string>;
+// };
 
 function createMockRequest(body: any = {}, headers: Record<string, string> = {}): Request {
   return {
@@ -40,7 +43,7 @@ describe("API Routes Integration Tests", () => {
     describe("PUT /api/professional/profile", () => {
       it("should return 401 when not authenticated", async () => {
         // Mock unauthenticated request
-        const req = createMockRequest({
+        const _req = createMockRequest({
           full_name: "Test Professional",
           bio: "Experienced cleaner",
         });
@@ -144,7 +147,7 @@ describe("API Routes Integration Tests", () => {
         const newCode = "WXYZ-9876";
 
         // Expected format: XXXX-YYYY (8 chars + hyphen)
-        expect(newCode).toMatch(/^[A-Z0-9]{4}-[A-Z0-9]{4}$/);
+        expect(newCode).toMatch(REFERRAL_CODE_PATTERN);
       });
 
       it("should create code with correct defaults", async () => {
@@ -191,7 +194,7 @@ describe("API Routes Integration Tests", () => {
   describe("Translation API", () => {
     describe("POST /api/messages/translate", () => {
       it("should return 401 when not authenticated", async () => {
-        const req = createMockRequest({
+        const _req = createMockRequest({
           text: "Hola, ¿cómo estás?",
           sourceLanguage: "es",
           targetLanguage: "en",
@@ -202,7 +205,7 @@ describe("API Routes Integration Tests", () => {
       });
 
       it("should return 400 for missing required fields", async () => {
-        const req = createMockRequest({
+        const _req = createMockRequest({
           text: "Hello",
           // Missing sourceLanguage and targetLanguage
         });
@@ -218,7 +221,7 @@ describe("API Routes Integration Tests", () => {
           targetLanguage: "en",
         };
 
-        const expectedTranslation = {
+        const _expectedTranslation = {
           translation: "Hello, how are you?",
           cached: false,
         };
@@ -228,7 +231,7 @@ describe("API Routes Integration Tests", () => {
       });
 
       it("should return cached translation on second request", async () => {
-        const sameRequest = {
+        const _sameRequest = {
           text: "Hola",
           sourceLanguage: "es",
           targetLanguage: "en",
@@ -267,7 +270,7 @@ describe("API Routes Integration Tests", () => {
 
       it("should handle API errors gracefully", async () => {
         // Mock API failure scenario
-        const errorScenario = {
+        const _errorScenario = {
           text: "Test",
           sourceLanguage: "es",
           targetLanguage: "en",

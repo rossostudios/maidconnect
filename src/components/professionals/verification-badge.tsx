@@ -88,14 +88,14 @@ export function OnTimeRateBadge({ rate, size = "sm" }: OnTimeRateBadgeProps) {
     return null;
   }
 
-  const getColor = (rate: number) => {
-    if (rate >= 95) {
+  const getColor = (rateValue: number) => {
+    if (rateValue >= 95) {
       return {
         bgColor: "bg-[#f1f8e9]",
         textColor: "text-[#558b2f]",
       };
     }
-    if (rate >= 85) {
+    if (rateValue >= 85) {
       return {
         bgColor: "bg-[#fff3e0]",
         textColor: "text-[#e65100]",

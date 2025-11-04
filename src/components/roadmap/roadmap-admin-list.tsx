@@ -8,7 +8,8 @@
 
 import { ChevronUp, Edit, Eye, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { confirm, toast } from "@/lib/toast";
 import type { RoadmapItem, RoadmapListResponse, RoadmapVisibility } from "@/types/roadmap";
 import { ROADMAP_CATEGORY_CONFIG, ROADMAP_STATUS_CONFIG } from "@/types/roadmap";
 
@@ -17,11 +18,7 @@ export function RoadmapAdminList() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState<RoadmapVisibility | "all">("all");
 
-  useEffect(() => {
-    fetchRoadmapItems();
-  }, [activeFilter]);
-
-  const fetchRoadmapItems = async () => {
+  const fetchRoadmapItems = useCallback(async () => {
     setIsLoading(true);
 
     try {
@@ -47,10 +44,18 @@ export function RoadmapAdminList() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [activeFilter]);
+
+  useEffect(() => {
+    fetchRoadmapItems();
+  }, [fetchRoadmapItems]);
 
   const handleDelete = async (id: string, title: string) => {
-    if (!confirm(`Are you sure you want to archive "${title}"?`)) {
+    const confirmed = await confirm(
+      `Are you sure you want to archive "${title}"?`,
+      "Archive Roadmap Item"
+    );
+    if (!confirmed) {
       return;
     }
 
@@ -65,9 +70,10 @@ export function RoadmapAdminList() {
 
       // Refresh list
       fetchRoadmapItems();
+      toast.success("Roadmap item archived successfully");
     } catch (error) {
       console.error("Error deleting roadmap item:", error);
-      alert("Failed to delete roadmap item");
+      toast.error("Failed to delete roadmap item");
     }
   };
 
@@ -105,6 +111,7 @@ export function RoadmapAdminList() {
             }`}
             key={filter}
             onClick={() => setActiveFilter(filter)}
+            type="button"
           >
             {filter.charAt(0).toUpperCase() + filter.slice(1)}
             <span className="ml-2 rounded-full bg-[#f3f4f6] px-2 py-0.5 text-xs">
@@ -210,6 +217,7 @@ export function RoadmapAdminList() {
                       className="rounded-lg p-2 transition-colors hover:bg-red-50"
                       onClick={() => handleDelete(item.id, item.title)}
                       title="Archive"
+                      type="button"
                     >
                       <Trash2 className="text-red-600" size={18} />
                     </button>

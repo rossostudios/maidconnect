@@ -68,6 +68,13 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
         <div
           className="fixed inset-0 z-60 bg-black/50 backdrop-blur-sm transition-opacity"
           onClick={onClose}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") {
+              onClose();
+            }
+          }}
+          role="button"
+          tabIndex={0}
         />
       )}
 
@@ -95,6 +102,7 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
         <div className="border-[#dcd6c7] border-b px-6 py-4">
           <div className="relative">
             <svg
+              aria-hidden="true"
               className="-translate-y-1/2 absolute top-1/2 left-3 h-5 w-5 text-[#7a6d62]"
               fill="none"
               stroke="currentColor"

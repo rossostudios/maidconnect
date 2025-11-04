@@ -16,14 +16,18 @@ import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { AmaraIcon } from "./amara-icon";
 import { AmaraMessageActions } from "./amara-message-actions";
-import { AmaraQuickReplies, getContextualQuickReplies, type QuickReply } from "./amara-quick-replies";
+import {
+  AmaraQuickReplies,
+  getContextualQuickReplies,
+  type QuickReply,
+} from "./amara-quick-replies";
 import "./amara-animations.css";
 
-interface AmaraChatInterfaceProps {
+type AmaraChatInterfaceProps = {
   isOpen: boolean;
   onClose: () => void;
   locale?: string;
-}
+};
 
 export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps) {
   const t = useTranslations("amara");
@@ -36,8 +40,8 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
     transport: new DefaultChatTransport({
       api: "/api/amara/chat",
     }),
-    onError: (error) => {
-      console.error("Amara chat error:", error);
+    onError: (chatError) => {
+      console.error("Amara chat error:", chatError);
     },
   });
 
@@ -55,14 +59,14 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
       ]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [messages.length, setMessages, t]);
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages]);
+  }, []);
 
   // Focus input when opened
   useEffect(() => {
@@ -73,7 +77,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
 
   // Update quick replies based on conversation state
   useEffect(() => {
-    const lastAssistantMessage = messages.filter((m) => m.role === "assistant").slice(-1)[0];
+    const lastAssistantMessage = messages.filter((m) => m.role === "assistant").at(-1);
 
     // Extract text from parts array (v6 format)
     const lastMessageText = lastAssistantMessage?.parts?.find((p) => p.type === "text")?.text;
@@ -97,7 +101,9 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
     }, 100);
   };
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <div className="amara-chat-window fixed inset-0 z-50 flex flex-col bg-white transition-all duration-300 sm:inset-auto sm:right-4 sm:bottom-4 sm:h-[600px] sm:w-full sm:max-w-[420px] sm:rounded-2xl sm:border sm:border-gray-200/60 sm:shadow-[0_16px_60px_rgba(0,0,0,0.15)] md:right-6 md:bottom-6 md:h-[680px] md:max-w-[480px]">
@@ -292,7 +298,9 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         className="border-gray-100 border-t bg-white px-4 py-3 sm:rounded-b-2xl sm:px-6"
         onSubmit={async (e) => {
           e.preventDefault();
-          if (!input.trim() || isLoading) return;
+          if (!input.trim() || isLoading) {
+            return;
+          }
 
           const message = input;
           setInput(""); // Clear input immediately

@@ -109,7 +109,13 @@ export function DocumentsTable({ documents, labels }: Props) {
               rel="noopener noreferrer"
               target="_blank"
             >
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                aria-hidden="true"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                   strokeLinecap="round"
@@ -154,6 +160,7 @@ export function DocumentsTable({ documents, labels }: Props) {
           <div className="mb-4 flex justify-center">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ebe5d8]">
               <svg
+                aria-hidden="true"
                 className="h-6 w-6 text-[#7d7566]"
                 fill="none"
                 stroke="currentColor"
@@ -190,6 +197,7 @@ export function DocumentsTable({ documents, labels }: Props) {
             value={(table.getColumn("document_type")?.getFilterValue() as string) ?? ""}
           />
           <svg
+            aria-hidden="true"
             className="absolute top-2.5 left-3 h-5 w-5 text-[#7d7566]"
             fill="none"
             stroke="currentColor"
@@ -221,25 +229,22 @@ export function DocumentsTable({ documents, labels }: Props) {
                       className="px-6 py-4 text-left font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]"
                       key={header.id}
                     >
-                      {header.isPlaceholder ? null : (
-                        <div
-                          className={
-                            header.column.getCanSort()
-                              ? "flex cursor-pointer select-none items-center gap-2 hover:text-[#8B7355]"
-                              : ""
-                          }
+                      {header.isPlaceholder ? null : header.column.getCanSort() ? (
+                        <button
+                          className="flex w-full cursor-pointer select-none items-center gap-2 text-left hover:text-[#8B7355]"
                           onClick={header.column.getToggleSortingHandler()}
+                          type="button"
                         >
                           {flexRender(header.column.columnDef.header, header.getContext())}
-                          {header.column.getCanSort() && (
-                            <span className="text-[#d4c9b8]">
-                              {{
-                                asc: "↑",
-                                desc: "↓",
-                              }[header.column.getIsSorted() as string] ?? "↕"}
-                            </span>
-                          )}
-                        </div>
+                          <span className="text-[#d4c9b8]">
+                            {{
+                              asc: "↑",
+                              desc: "↓",
+                            }[header.column.getIsSorted() as string] ?? "↕"}
+                          </span>
+                        </button>
+                      ) : (
+                        <div>{flexRender(header.column.columnDef.header, header.getContext())}</div>
                       )}
                     </th>
                   ))}

@@ -73,8 +73,8 @@ export function PriceBreakdown({
                 <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-64 rounded-lg border border-[#e8e4db] bg-white p-3 opacity-0 shadow-lg transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
                   <p className="text-[#5a5549] text-xs leading-relaxed">
                     This fee supports platform operations including payment processing, customer
-                    support, insurance, and technology infrastructure that keeps Casaora safe
-                    and reliable.
+                    support, insurance, and technology infrastructure that keeps Casaora safe and
+                    reliable.
                   </p>
                 </div>
               </div>
@@ -123,18 +123,14 @@ export function CompactPrice({
 
   if (!showBreakdown) {
     return (
-      <div className={`font-semibold text-[#211f1a] ${className}`}>
-        {formatCOP(hourlyRate)}/hr
-      </div>
+      <div className={`font-semibold text-[#211f1a] ${className}`}>{formatCOP(hourlyRate)}/hr</div>
     );
   }
 
   return (
     <div className={`${className}`}>
       <div className="font-semibold text-[#211f1a]">{formatCOP(hourlyRate)}/hr</div>
-      <div className="text-[#7a6d62] text-xs">
-        {formatCOP(totalWithFee)}/hr total with fees
-      </div>
+      <div className="text-[#7a6d62] text-xs">{formatCOP(totalWithFee)}/hr total with fees</div>
     </div>
   );
 }

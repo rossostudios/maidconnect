@@ -1,17 +1,37 @@
 import { useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
-import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-
+import { useMemo, useState } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { EmptyState } from "@/components/ui/empty-state";
 import { fetchBookings, summarizeStatuses } from "@/features/bookings/api";
 import { BookingCard } from "@/features/bookings/components/BookingCard";
 import type { Booking, BookingStatusSummary } from "@/features/bookings/types";
 
 const EMPTY_BOOKINGS: Booking[] = [];
 
+const STATUS_FILTERS = [
+  { label: "All", value: null },
+  { label: "Pending", value: "pending_payment" },
+  { label: "Confirmed", value: "confirmed" },
+  { label: "In Progress", value: "in_progress" },
+  { label: "Completed", value: "completed" },
+  { label: "Canceled", value: "canceled" },
+] as const;
+
 export default function BookingsScreen() {
   const router = useRouter();
+  const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
+
   const { data, error, isLoading, isRefetching, refetch } = useQuery<Booking[], Error>({
     queryKey: ["bookings", { limit: 30 }],
     queryFn: () => fetchBookings(30),
@@ -21,6 +41,14 @@ export default function BookingsScreen() {
   const bookings = data ?? EMPTY_BOOKINGS;
   const summaries = useMemo<BookingStatusSummary[]>(() => summarizeStatuses(bookings), [bookings]);
   const errorMessage = error ? "Unable to load bookings. Pull to refresh to retry." : null;
+
+  // Filter bookings by selected status
+  const filteredBookings = useMemo(() => {
+    if (!selectedStatus) {
+      return bookings;
+    }
+    return bookings.filter((booking) => booking.status === selectedStatus);
+  }, [bookings, selectedStatus]);
 
   const handleBookingPress = (bookingId: string) => {
     router.push(`/booking/${bookingId}`);
@@ -54,6 +82,44 @@ export default function BookingsScreen() {
           ))
         )}
       </View>
+
+      {/* Status Filter Chips */}
+      <View>
+        <Text style={styles.filterLabel}>Filter by status:</Text>
+        <ScrollView
+          contentContainerStyle={styles.filterChips}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        >
+          {STATUS_FILTERS.map((filter) => (
+            <Pressable
+              key={filter.label}
+              onPress={() => setSelectedStatus(filter.value)}
+              style={[
+                styles.filterChip,
+                selectedStatus === filter.value && styles.filterChipActive,
+              ]}
+            >
+              <Text
+                style={[
+                  styles.filterChipText,
+                  selectedStatus === filter.value && styles.filterChipTextActive,
+                ]}
+              >
+                {filter.label}
+              </Text>
+            </Pressable>
+          ))}
+        </ScrollView>
+      </View>
+
+      {/* Results Count */}
+      <Text style={styles.resultsCount}>
+        {filteredBookings.length} booking{filteredBookings.length !== 1 ? "s" : ""}
+        {selectedStatus
+          ? ` (${STATUS_FILTERS.find((f) => f.value === selectedStatus)?.label})`
+          : ""}
+      </Text>
     </View>
   );
 
@@ -61,17 +127,29 @@ export default function BookingsScreen() {
     <SafeAreaView style={styles.safeArea}>
       <FlatList
         contentContainerStyle={styles.listContent}
-        data={bookings}
+        data={filteredBookings}
         ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
         keyExtractor={keyExtractor}
         ListEmptyComponent={
           isLoading ? null : (
-            <View style={styles.emptyState}>
-              <Text style={styles.emptyTitle}>No bookings yet</Text>
-              <Text style={styles.emptyDescription}>
-                When customers confirm appointments, you will see the full itinerary here.
-              </Text>
-            </View>
+            <EmptyState
+              action={
+                selectedStatus
+                  ? {
+                      label: "Clear Filter",
+                      onPress: () => setSelectedStatus(null),
+                      variant: "outline",
+                    }
+                  : undefined
+              }
+              description={
+                selectedStatus
+                  ? "Try selecting a different status filter"
+                  : "When customers confirm appointments, you will see the full itinerary here."
+              }
+              icon="calendar-outline"
+              title={selectedStatus ? "No matching bookings" : "No bookings yet"}
+            />
           )
         }
         ListHeaderComponent={renderHeader}
@@ -177,6 +255,54 @@ const styles = StyleSheet.create({
     color: "#475569",
     textAlign: "center",
     lineHeight: 22,
+  },
+  clearFilterButton: {
+    marginTop: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    backgroundColor: "#2563EB",
+    borderRadius: 8,
+  },
+  clearFilterText: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#FFFFFF",
+  },
+  filterLabel: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#64748B",
+    marginBottom: 8,
+  },
+  filterChips: {
+    paddingVertical: 8,
+    gap: 8,
+  },
+  filterChip: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#E2E8F0",
+  },
+  filterChipActive: {
+    backgroundColor: "#2563EB",
+    borderColor: "#2563EB",
+  },
+  filterChipText: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#64748B",
+  },
+  filterChipTextActive: {
+    color: "#FFFFFF",
+  },
+  resultsCount: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: "#64748B",
+    marginTop: 8,
   },
   loadingOverlay: {
     position: "absolute",

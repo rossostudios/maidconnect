@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-interface AnimatedCounterProps {
+type AnimatedCounterProps = {
   /**
    * The target number to count to
    */
@@ -29,7 +29,7 @@ interface AnimatedCounterProps {
    * Optional className for styling
    */
   className?: string;
-}
+};
 
 /**
  * AnimatedCounter component that counts up from 0 to target when in viewport

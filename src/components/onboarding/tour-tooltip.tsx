@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { TourStep } from "@/hooks/use-onboarding-tour";
 
-interface TourTooltipProps {
+type TourTooltipProps = {
   step: TourStep;
   currentStepIndex: number;
   totalSteps: number;
@@ -13,7 +13,7 @@ interface TourTooltipProps {
   onPrevious: () => void;
   onSkip: () => void;
   onClose: () => void;
-}
+};
 
 export function TourTooltip({
   step,
@@ -41,7 +41,9 @@ export function TourTooltip({
       const rect = targetElement.getBoundingClientRect();
       const tooltipRect = tooltipRef.current?.getBoundingClientRect();
 
-      if (!tooltipRect) return;
+      if (!tooltipRect) {
+        return;
+      }
 
       let top = 0;
       let left = 0;
@@ -133,6 +135,14 @@ export function TourTooltip({
       <div
         className="fixed inset-0 z-[9997] bg-black/40 backdrop-blur-sm transition-opacity"
         onClick={onClose}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onClose();
+          }
+        }}
+        role="button"
+        tabIndex={0}
       />
 
       {/* Tooltip */}

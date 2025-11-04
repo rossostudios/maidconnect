@@ -6,13 +6,13 @@
  * AFTER: 108 lines (50% reduction)
  */
 
-import { withCustomer, ok, requireCustomerOwnership } from "@/lib/api";
+import { z } from "zod";
+import { ok, requireCustomerOwnership, withCustomer } from "@/lib/api";
 import { calculateCancellationPolicy, calculateRefundAmount } from "@/lib/cancellation-policy";
 import { sendBookingDeclinedEmail } from "@/lib/email/send";
+import { BusinessRuleError, ValidationError } from "@/lib/errors";
 import { notifyProfessionalBookingCanceled } from "@/lib/notifications";
 import { stripe } from "@/lib/stripe";
-import { ValidationError, BusinessRuleError } from "@/lib/errors";
-import { z } from "zod";
 
 const cancelBookingSchema = z.object({
   bookingId: z.string().uuid("Invalid booking ID format"),
@@ -44,9 +44,13 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
   const policy = calculateCancellationPolicy(booking.scheduled_start, booking.status);
 
   if (!policy.canCancel) {
-    throw new BusinessRuleError(policy.reason || "Cannot cancel booking", "CANCELLATION_NOT_ALLOWED", {
-      policy,
-    });
+    throw new BusinessRuleError(
+      policy.reason || "Cannot cancel booking",
+      "CANCELLATION_NOT_ALLOWED",
+      {
+        policy,
+      }
+    );
   }
 
   // Calculate refund amount
@@ -72,7 +76,7 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
         });
         stripeStatus = "refunded";
       }
-    } catch (stripeError) {
+    } catch (_stripeError) {
       throw new ValidationError("Failed to process refund. Please contact support.");
     }
   }

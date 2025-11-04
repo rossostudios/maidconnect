@@ -7,11 +7,11 @@
  */
 
 import { format } from "date-fns";
-import { withCustomer, ok, requireCustomerOwnership } from "@/lib/api";
-import { sendBookingRescheduleEmail } from "@/lib/email/send";
-import { notifyProfessionalBookingRescheduled } from "@/lib/notifications";
-import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 import { z } from "zod";
+import { ok, requireCustomerOwnership, withCustomer } from "@/lib/api";
+import { sendBookingRescheduleEmail } from "@/lib/email/send";
+import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
+import { notifyProfessionalBookingRescheduled } from "@/lib/notifications";
 
 const rescheduleBookingSchema = z.object({
   bookingId: z.string().uuid("Invalid booking ID format"),
@@ -33,7 +33,11 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
   }
 
   // Fetch the booking with names and address
-  const booking = await requireCustomerOwnership(supabase, user.id, bookingId, `
+  const booking = await requireCustomerOwnership(
+    supabase,
+    user.id,
+    bookingId,
+    `
     id,
     customer_id,
     professional_id,
@@ -46,15 +50,13 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
     address_city,
     customer_profiles:profiles!bookings_customer_id_fkey(full_name),
     professional_profiles:profiles!bookings_professional_id_fkey(full_name)
-  `);
+  `
+  );
 
   // Check if booking can be rescheduled
   const validStatuses = ["authorized", "confirmed"];
   if (!validStatuses.includes(booking.status)) {
-    throw new InvalidBookingStatusError(
-      booking.status,
-      "reschedule"
-    );
+    throw new InvalidBookingStatusError(booking.status, "reschedule");
   }
 
   // Calculate new end time
@@ -89,8 +91,7 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
 
     if (professionalEmail) {
       const customerName = (booking.customer_profiles as any)?.full_name || "Customer";
-      const professionalName =
-        (booking.professional_profiles as any)?.full_name || "Professional";
+      const professionalName = (booking.professional_profiles as any)?.full_name || "Professional";
       const address = [booking.address_line1, booking.address_line2, booking.address_city]
         .filter(Boolean)
         .join(", ");

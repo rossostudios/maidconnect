@@ -3,11 +3,12 @@
 import { ArrowRight, Calendar, Eye, MessageCircle, ThumbsDown, ThumbsUp } from "lucide-react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
-import { useState, useMemo } from "react";
-import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import { useMemo, useState } from "react";
 import { sanitizeRichContent } from "@/lib/sanitize";
+import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import { toast } from "@/lib/toast";
 
-interface HelpArticle {
+type HelpArticle = {
   id: string;
   title: string;
   content: string;
@@ -16,22 +17,22 @@ interface HelpArticle {
   not_helpful_count: number;
   created_at: string;
   updated_at: string;
-}
+};
 
-interface RelatedArticle {
+type RelatedArticle = {
   id: string;
   category_slug: string;
   slug: string;
   title: string;
   excerpt: string | null;
-}
+};
 
-interface ArticleViewerProps {
+type ArticleViewerProps = {
   article: HelpArticle;
   categorySlug: string;
   categoryName: string;
   relatedArticles?: RelatedArticle[];
-}
+};
 
 export function ArticleViewer({
   article,
@@ -48,7 +49,9 @@ export function ArticleViewer({
   const [submitting, setSubmitting] = useState(false);
 
   const handleFeedback = async (isHelpful: boolean) => {
-    if (feedbackSubmitted) return;
+    if (feedbackSubmitted) {
+      return;
+    }
 
     setSubmitting(true);
 
@@ -79,10 +82,10 @@ export function ArticleViewer({
         // Check if already submitted
         if (error.code === "23505") {
           // Unique constraint violation
-          alert(t("feedback.alreadySubmitted"));
+          toast.info(t("feedback.alreadySubmitted"));
         } else {
           console.error("Feedback error:", error);
-          alert(t("feedback.error"));
+          toast.error(t("feedback.error"));
         }
       } else {
         setFeedbackSubmitted(true);
@@ -95,7 +98,7 @@ export function ArticleViewer({
       }
     } catch (error) {
       console.error("Feedback submission failed:", error);
-      alert(t("feedback.error"));
+      toast.error(t("feedback.error"));
     } finally {
       setSubmitting(false);
     }
@@ -143,10 +146,7 @@ export function ArticleViewer({
 
   // Sanitize article content to prevent XSS attacks
   // Admin-controlled content, but still sanitized for safety
-  const sanitizedContent = useMemo(
-    () => sanitizeRichContent(article.content),
-    [article.content]
-  );
+  const sanitizedContent = useMemo(() => sanitizeRichContent(article.content), [article.content]);
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -234,7 +234,9 @@ export function ArticleViewer({
               <button
                 className="rounded-lg bg-[#8B7355] px-6 py-2 font-medium text-white transition hover:bg-[#8B7355] disabled:opacity-50"
                 disabled={submitting}
-                onClick={() => void handleFeedbackTextSubmit()}
+                onClick={() => {
+                  handleFeedbackTextSubmit();
+                }}
                 type="button"
               >
                 {t("feedback.submit")}

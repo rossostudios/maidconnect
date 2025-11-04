@@ -3,7 +3,7 @@
  * Scores professionals based on multiple criteria with weighted importance
  */
 
-export interface MatchCriteria {
+export type MatchCriteria = {
   serviceType?: string;
   location?: {
     lat: number;
@@ -17,9 +17,9 @@ export interface MatchCriteria {
   preferredTimes?: string[]; // e.g., ["morning", "afternoon"]
   experienceLevel?: "any" | "beginner" | "intermediate" | "expert";
   verificationRequired?: boolean;
-}
+};
 
-export interface Professional {
+export type Professional = {
   id: string;
   services: string[];
   location: {
@@ -39,7 +39,7 @@ export interface Professional {
   };
   responseTimeMinutes: number;
   onTimeRate: number;
-}
+};
 
 export interface MatchedProfessional extends Professional {
   matchScore: number;
@@ -64,6 +64,231 @@ function calculateDistance(lat1: number, lng1: number, lat2: number, lng2: numbe
   return R * c;
 }
 
+type ScoringResult = {
+  score: number;
+  reasons: string[];
+  distance?: number;
+};
+
+/**
+ * Calculate service type match score (Weight: 30%)
+ */
+function scoreServiceMatch(professional: Professional, criteria: MatchCriteria): ScoringResult {
+  if (criteria.serviceType && professional.services.includes(criteria.serviceType)) {
+    return { score: 30, reasons: ["Exact service match"] };
+  }
+  return { score: 0, reasons: [] };
+}
+
+/**
+ * Calculate location/distance score (Weight: 20%)
+ */
+function scoreLocation(professional: Professional, criteria: MatchCriteria): ScoringResult {
+  if (!criteria.location) {
+    return { score: 0, reasons: [] };
+  }
+
+  const distance = calculateDistance(
+    criteria.location.lat,
+    criteria.location.lng,
+    professional.location.lat,
+    professional.location.lng
+  );
+
+  if (distance <= 5) {
+    return { score: 20, reasons: ["Very close"], distance };
+  }
+  if (distance <= 10) {
+    return { score: 15, reasons: ["Nearby"], distance };
+  }
+  if (distance <= 20) {
+    return { score: 10, reasons: [], distance };
+  }
+
+  return { score: 0, reasons: [], distance };
+}
+
+/**
+ * Calculate budget match score (Weight: 15%)
+ */
+function scoreBudget(professional: Professional, criteria: MatchCriteria): ScoringResult {
+  if (!criteria.budget) {
+    return { score: 0, reasons: [] };
+  }
+
+  const { min, max } = criteria.budget;
+  if (professional.hourlyRate >= min && professional.hourlyRate <= max) {
+    return { score: 15, reasons: ["Within budget"] };
+  }
+  if (professional.hourlyRate < min || professional.hourlyRate <= max * 1.1) {
+    return { score: 10, reasons: [] }; // Slightly over budget but close
+  }
+
+  return { score: 0, reasons: [] };
+}
+
+/**
+ * Calculate language match score (Weight: 15%)
+ */
+function scoreLanguages(professional: Professional, criteria: MatchCriteria): ScoringResult {
+  if (!criteria.languages || criteria.languages.length === 0) {
+    return { score: 0, reasons: [] };
+  }
+
+  const matchedLanguages = professional.languages.filter((lang) =>
+    criteria.languages?.includes(lang)
+  );
+
+  if (matchedLanguages.length === criteria.languages.length) {
+    return { score: 15, reasons: ["Speaks your languages"] };
+  }
+  if (matchedLanguages.length > 0) {
+    return { score: 10, reasons: [] };
+  }
+
+  return { score: 0, reasons: [] };
+}
+
+/**
+ * Calculate rating & reviews score (Weight: 10%)
+ */
+function scoreRating(professional: Professional): ScoringResult {
+  if (professional.rating >= 4.8 && professional.reviewCount >= 20) {
+    return { score: 10, reasons: ["Highly rated"] };
+  }
+  if (professional.rating >= 4.5) {
+    return { score: 7, reasons: [] };
+  }
+  if (professional.rating >= 4.0) {
+    return { score: 5, reasons: [] };
+  }
+  return { score: 0, reasons: [] };
+}
+
+/**
+ * Calculate experience score (Weight: 5%)
+ */
+function scoreExperience(professional: Professional, criteria: MatchCriteria): ScoringResult {
+  if (criteria.experienceLevel) {
+    if (criteria.experienceLevel === "expert" && professional.experienceYears >= 5) {
+      return { score: 5, reasons: ["Expert professional"] };
+    }
+    if (criteria.experienceLevel === "intermediate" && professional.experienceYears >= 2) {
+      return { score: 5, reasons: [] };
+    }
+    if (criteria.experienceLevel === "any") {
+      return { score: 3, reasons: [] };
+    }
+    return { score: 0, reasons: [] };
+  }
+
+  // Default: more experience is better
+  return { score: Math.min(5, professional.experienceYears), reasons: [] };
+}
+
+/**
+ * Calculate verification score (Weight: 5%)
+ */
+function scoreVerification(professional: Professional, criteria: MatchCriteria): ScoringResult {
+  if (!criteria.verificationRequired) {
+    return { score: 0, reasons: [] };
+  }
+
+  if (professional.verificationLevel === "background-check") {
+    return { score: 5, reasons: ["Background checked"] };
+  }
+  if (professional.verificationLevel === "enhanced") {
+    return { score: 3, reasons: [] };
+  }
+
+  return { score: 0, reasons: [] };
+}
+
+/**
+ * Calculate bonus scores (availability, reliability, response time)
+ */
+function scoreBonuses(professional: Professional, criteria: MatchCriteria): ScoringResult {
+  let score = 0;
+  const reasons: string[] = [];
+
+  // Availability bonus
+  if (criteria.preferredTimes && criteria.preferredTimes.length > 0) {
+    const availableForPreferredTimes = criteria.preferredTimes.some(
+      (time) => professional.availability[time as keyof typeof professional.availability]
+    );
+    if (availableForPreferredTimes) {
+      score += 3;
+      reasons.push("Available at preferred times");
+    }
+  }
+
+  // Reliability bonus
+  if (professional.onTimeRate >= 95) {
+    score += 2;
+    reasons.push("Consistently on-time");
+  }
+
+  // Response time bonus
+  if (professional.responseTimeMinutes <= 60) {
+    score += 2;
+    reasons.push("Quick to respond");
+  }
+
+  return { score, reasons };
+}
+
+/**
+ * Calculate total match score for a professional
+ */
+function scoreProfessional(
+  professional: Professional,
+  criteria: MatchCriteria
+): MatchedProfessional {
+  let totalScore = 0;
+  const allReasons: string[] = [];
+  let distance: number | undefined;
+
+  const serviceResult = scoreServiceMatch(professional, criteria);
+  totalScore += serviceResult.score;
+  allReasons.push(...serviceResult.reasons);
+
+  const locationResult = scoreLocation(professional, criteria);
+  totalScore += locationResult.score;
+  allReasons.push(...locationResult.reasons);
+  distance = locationResult.distance;
+
+  const budgetResult = scoreBudget(professional, criteria);
+  totalScore += budgetResult.score;
+  allReasons.push(...budgetResult.reasons);
+
+  const languageResult = scoreLanguages(professional, criteria);
+  totalScore += languageResult.score;
+  allReasons.push(...languageResult.reasons);
+
+  const ratingResult = scoreRating(professional);
+  totalScore += ratingResult.score;
+  allReasons.push(...ratingResult.reasons);
+
+  const experienceResult = scoreExperience(professional, criteria);
+  totalScore += experienceResult.score;
+  allReasons.push(...experienceResult.reasons);
+
+  const verificationResult = scoreVerification(professional, criteria);
+  totalScore += verificationResult.score;
+  allReasons.push(...verificationResult.reasons);
+
+  const bonusResult = scoreBonuses(professional, criteria);
+  totalScore += bonusResult.score;
+  allReasons.push(...bonusResult.reasons);
+
+  return {
+    ...professional,
+    matchScore: Math.min(100, totalScore),
+    matchReasons: allReasons,
+    distance,
+  };
+}
+
 /**
  * Smart matching algorithm with weighted scoring
  */
@@ -72,129 +297,7 @@ export function matchProfessionals(
   criteria: MatchCriteria
 ): MatchedProfessional[] {
   const results: MatchedProfessional[] = professionals
-    .map((professional) => {
-      let score = 0;
-      const reasons: string[] = [];
-
-      // Service Type Match (Weight: 30%)
-      if (criteria.serviceType && professional.services.includes(criteria.serviceType)) {
-        score += 30;
-        reasons.push("Exact service match");
-      }
-
-      // Location/Distance (Weight: 20%)
-      if (criteria.location) {
-        const distance = calculateDistance(
-          criteria.location.lat,
-          criteria.location.lng,
-          professional.location.lat,
-          professional.location.lng
-        );
-
-        if (distance <= 5) {
-          score += 20;
-          reasons.push("Very close");
-        } else if (distance <= 10) {
-          score += 15;
-          reasons.push("Nearby");
-        } else if (distance <= 20) {
-          score += 10;
-        }
-
-        (professional as MatchedProfessional).distance = distance;
-      }
-
-      // Budget Match (Weight: 15%)
-      if (criteria.budget) {
-        const { min, max } = criteria.budget;
-        if (professional.hourlyRate >= min && professional.hourlyRate <= max) {
-          score += 15;
-          reasons.push("Within budget");
-        } else if (professional.hourlyRate < min || professional.hourlyRate <= max * 1.1) {
-          score += 10; // Slightly over budget but close
-        }
-      }
-
-      // Language Match (Weight: 15%)
-      if (criteria.languages && criteria.languages.length > 0) {
-        const matchedLanguages = professional.languages.filter((lang) =>
-          criteria.languages?.includes(lang)
-        );
-        if (matchedLanguages.length === criteria.languages.length) {
-          score += 15;
-          reasons.push("Speaks your languages");
-        } else if (matchedLanguages.length > 0) {
-          score += 10;
-        }
-      }
-
-      // Rating & Reviews (Weight: 10%)
-      if (professional.rating >= 4.8 && professional.reviewCount >= 20) {
-        score += 10;
-        reasons.push("Highly rated");
-      } else if (professional.rating >= 4.5) {
-        score += 7;
-      } else if (professional.rating >= 4.0) {
-        score += 5;
-      }
-
-      // Experience (Weight: 5%)
-      if (criteria.experienceLevel) {
-        if (criteria.experienceLevel === "expert" && professional.experienceYears >= 5) {
-          score += 5;
-          reasons.push("Expert professional");
-        } else if (
-          criteria.experienceLevel === "intermediate" &&
-          professional.experienceYears >= 2
-        ) {
-          score += 5;
-        } else if (criteria.experienceLevel === "any") {
-          score += 3;
-        }
-      } else {
-        // Default: more experience is better
-        score += Math.min(5, professional.experienceYears);
-      }
-
-      // Verification (Weight: 5%)
-      if (criteria.verificationRequired) {
-        if (professional.verificationLevel === "background-check") {
-          score += 5;
-          reasons.push("Background checked");
-        } else if (professional.verificationLevel === "enhanced") {
-          score += 3;
-        }
-      }
-
-      // Availability (Bonus)
-      if (criteria.preferredTimes && criteria.preferredTimes.length > 0) {
-        const availableForPreferredTimes = criteria.preferredTimes.some(
-          (time) => professional.availability[time as keyof typeof professional.availability]
-        );
-        if (availableForPreferredTimes) {
-          score += 3;
-          reasons.push("Available at preferred times");
-        }
-      }
-
-      // Reliability Bonus (based on on-time rate)
-      if (professional.onTimeRate >= 95) {
-        score += 2;
-        reasons.push("Consistently on-time");
-      }
-
-      // Response Time Bonus
-      if (professional.responseTimeMinutes <= 60) {
-        score += 2;
-        reasons.push("Quick to respond");
-      }
-
-      return {
-        ...professional,
-        matchScore: Math.min(100, score),
-        matchReasons: reasons,
-      } as MatchedProfessional;
-    })
+    .map((professional) => scoreProfessional(professional, criteria))
     .filter((match) => match.matchScore >= 40) // Minimum threshold
     .sort((a, b) => b.matchScore - a.matchScore); // Sort by score descending
 

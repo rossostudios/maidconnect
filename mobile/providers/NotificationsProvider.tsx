@@ -1,7 +1,15 @@
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-import { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { deleteMobilePushToken, registerMobilePushToken } from "@/features/notifications/api";
 
@@ -75,14 +83,14 @@ export function NotificationsProvider({ children }: PropsWithChildren) {
     }
   }, [permissionsStatus, expoPushToken]);
 
-  const requestPermissions = async () => {
+  const requestPermissions = useCallback(async () => {
     setIsRegistering(true);
     const result = await registerForPushNotificationsAsync();
     setPermissionsStatus(result.status);
     setExpoPushToken(result.token);
     setIsRegistering(false);
     return result.status;
-  };
+  }, []);
 
   const value = useMemo<NotificationsContextValue>(
     () => ({
@@ -92,7 +100,7 @@ export function NotificationsProvider({ children }: PropsWithChildren) {
       isRegistering,
       requestPermissions,
     }),
-    [expoPushToken, permissionsStatus, isDeviceSupported, isRegistering]
+    [expoPushToken, permissionsStatus, isDeviceSupported, isRegistering, requestPermissions]
   );
 
   return <NotificationsContext.Provider value={value}>{children}</NotificationsContext.Provider>;

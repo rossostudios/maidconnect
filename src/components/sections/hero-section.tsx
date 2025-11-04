@@ -46,7 +46,10 @@ export function HeroSection() {
 
           <p className="text-base text-white/70 leading-relaxed">{t("description")}</p>
 
-          <div className="flex w-full flex-col gap-3 pt-10 sm:flex-row sm:items-center" data-tour="search">
+          <div
+            className="flex w-full flex-col gap-3 pt-10 sm:flex-row sm:items-center"
+            data-tour="search"
+          >
             <Button
               className="w-full shadow-[var(--shadow-elevated)] sm:w-auto"
               href="/contact"
@@ -64,7 +67,10 @@ export function HeroSection() {
           </div>
           <ul className="mt-12 grid w-full gap-4 text-left sm:grid-cols-3">
             {trustSignals.map(({ icon: Icon, label }) => (
-              <li className="glass-card flex items-start gap-3 rounded-2xl p-5 text-[var(--foreground)]" key={label}>
+              <li
+                className="glass-card flex items-start gap-3 rounded-2xl p-5 text-[var(--foreground)]"
+                key={label}
+              >
                 <span
                   aria-hidden="true"
                   className="flex h-12 w-12 items-center justify-center rounded-full"

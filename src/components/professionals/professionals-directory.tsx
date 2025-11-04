@@ -126,7 +126,7 @@ type ProfessionalsDirectoryProps = {
 // React.memo optimization for heavy component rendering 100+ professionals
 // Custom comparison: only re-render if professionals array reference changes
 const ProfessionalsDirectoryComponent = memo(
-  function ProfessionalsDirectory({ professionals }: ProfessionalsDirectoryProps) {
+  function ProfessionalsDirectoryInner({ professionals }: ProfessionalsDirectoryProps) {
     const t = useTranslations("professionalsDirectory");
     const searchParams = useSearchParams();
     const [serviceFilter, setServiceFilter] = useState("all");

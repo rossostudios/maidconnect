@@ -6,11 +6,11 @@
  * AFTER: 85 lines (37% reduction)
  */
 
-import { withAuth, ok, withRateLimit } from "@/lib/api";
-import { stripe } from "@/lib/stripe";
+import { ok, withAuth, withRateLimit } from "@/lib/api";
 import { ValidationError } from "@/lib/errors";
-import { createBookingSchema } from "@/lib/validations/booking";
 import { notifyProfessionalNewBooking } from "@/lib/notifications";
+import { stripe } from "@/lib/stripe";
+import { createBookingSchema } from "@/lib/validations/booking";
 
 const handler = withAuth(async ({ user, supabase }, request: Request) => {
   // Validate request body with Zod schema

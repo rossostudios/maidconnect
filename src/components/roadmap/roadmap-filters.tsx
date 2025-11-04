@@ -11,14 +11,14 @@ import { useState } from "react";
 import type { RoadmapCategory, RoadmapStatus } from "@/types/roadmap";
 import { ROADMAP_CATEGORY_CONFIG, ROADMAP_STATUS_CONFIG } from "@/types/roadmap";
 
-interface RoadmapFiltersProps {
+type RoadmapFiltersProps = {
   selectedStatuses: RoadmapStatus[];
   selectedCategories: RoadmapCategory[];
   searchQuery: string;
   onStatusChange: (statuses: RoadmapStatus[]) => void;
   onCategoryChange: (categories: RoadmapCategory[]) => void;
   onSearchChange: (query: string) => void;
-}
+};
 
 export function RoadmapFilters({
   selectedStatuses,
@@ -78,6 +78,7 @@ export function RoadmapFilters({
               aria-label="Clear search"
               className="rounded-lg p-1 transition-colors hover:bg-[#f3f4f6]"
               onClick={() => onSearchChange("")}
+              type="button"
             >
               <X className="text-[#6B7280]" size={16} />
             </button>
@@ -103,6 +104,7 @@ export function RoadmapFilters({
                 `}
                 key={status}
                 onClick={() => handleStatusToggle(status)}
+                type="button"
               >
                 <span>{config.icon}</span>
                 <span>{config.label}</span>
@@ -130,6 +132,7 @@ export function RoadmapFilters({
                 `}
                 key={category}
                 onClick={() => handleCategoryToggle(category)}
+                type="button"
               >
                 <span>{config.icon}</span>
                 <span>{config.label}</span>
@@ -144,6 +147,7 @@ export function RoadmapFilters({
         <button
           className="font-medium text-[#8B7355] text-sm transition-colors hover:text-[#8B7355]"
           onClick={clearAllFilters}
+          type="button"
         >
           Clear all filters
         </button>

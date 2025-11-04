@@ -11,6 +11,10 @@ import {
   shouldRecommendSubscription,
 } from "@/lib/subscription-pricing";
 
+// Top-level regex patterns for formatting tests
+const PATTERN_100 = /100/;
+const PATTERN_1 = /1/;
+
 /**
  * Unit Tests for Pricing Calculations
  *
@@ -253,7 +257,7 @@ describe("Pricing Calculations", () => {
     it("should format Colombian Pesos correctly", () => {
       const formatted = formatCOP(100_000);
       // Colombian Peso format: $ 100.000
-      expect(formatted).toMatch(/100/);
+      expect(formatted).toMatch(PATTERN_100);
       expect(formatted).toContain("$");
     });
 
@@ -272,7 +276,7 @@ describe("Pricing Calculations", () => {
 
     it("should handle large numbers", () => {
       const formatted = formatCOP(1_000_000);
-      expect(formatted).toMatch(/1/);
+      expect(formatted).toMatch(PATTERN_1);
       expect(formatted).toContain("$");
     });
   });

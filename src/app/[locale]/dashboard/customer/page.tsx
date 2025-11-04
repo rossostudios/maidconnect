@@ -59,6 +59,64 @@ function formatPropertyType(
   return propertyTypeMap[propertyType] ?? propertyType;
 }
 
+type ProfileData = {
+  phone: string | null;
+  city: string | null;
+  country: string | null;
+  full_name: string | null;
+  stripe_customer_id: string | null;
+} | null;
+
+type CustomerProfileData = {
+  verification_tier: string | null;
+  property_preferences: Record<string, unknown> | null;
+  saved_addresses: unknown;
+} | null;
+
+type BookingData = {
+  id: string;
+  status: string;
+  scheduled_start: string | null;
+  duration_minutes: number | null;
+  service_name: string | null;
+  amount_authorized: number | null;
+  amount_captured: number | null;
+  currency: string | null;
+  created_at: string;
+  professional: { full_name: string | null; profile_id: string } | null;
+};
+
+async function checkHasPaymentMethod(stripeCustomerId: string | null): Promise<boolean> {
+  if (!stripeCustomerId) {
+    return false;
+  }
+  try {
+    const paymentMethods = await stripe.paymentMethods.list({
+      customer: stripeCustomerId,
+      type: "card",
+      limit: 1,
+    });
+    return paymentMethods.data.length > 0;
+  } catch (_error) {
+    console.error("Error fetching payment methods:", _error);
+    return false;
+  }
+}
+
+function calculateCompletedTasks(
+  hasProfileDetails: boolean,
+  verificationTier: string,
+  hasPaymentMethod: boolean,
+  hasCompletedBooking: boolean
+): Record<(typeof CUSTOMER_TASK_IDS)[number], boolean> {
+  return {
+    profile: hasProfileDetails,
+    verification: isVerificationTierAtLeast(verificationTier, "standard"),
+    payment: hasPaymentMethod,
+    booking: hasCompletedBooking,
+  };
+}
+
 export default async function CustomerDashboardPage(props: {
   params: Promise<{ locale: string }>;
 }) {
@@ -99,20 +157,8 @@ export default async function CustomerDashboardPage(props: {
     ]
   );
 
-  const profile =
-    (profileData as {
-      phone: string | null;
-      city: string | null;
-      country: string | null;
-      full_name: string | null;
-      stripe_customer_id: string | null;
-    } | null) ?? null;
-  const customerProfile =
-    (customerData as {
-      verification_tier: string | null;
-      property_preferences: Record<string, unknown> | null;
-      saved_addresses: unknown;
-    } | null) ?? null;
+  const profile = (profileData as ProfileData) ?? null;
+  const customerProfile = (customerData as CustomerProfileData) ?? null;
 
   const verificationTier = customerProfile?.verification_tier ?? "basic";
   const propertyType =
@@ -120,41 +166,17 @@ export default async function CustomerDashboardPage(props: {
   const savedAddresses = (customerProfile?.saved_addresses as any[]) || [];
 
   const hasProfileDetails = Boolean(profile?.phone && profile.city);
-  let hasPaymentMethod = false;
-  if (profile?.stripe_customer_id) {
-    try {
-      const paymentMethods = await stripe.paymentMethods.list({
-        customer: profile.stripe_customer_id,
-        type: "card",
-        limit: 1,
-      });
-      hasPaymentMethod = paymentMethods.data.length > 0;
-    } catch (_error) {
-      console.error("Error fetching payment methods:", _error);
-    }
-  }
-  const bookings =
-    (bookingsData as Array<{
-      id: string;
-      status: string;
-      scheduled_start: string | null;
-      duration_minutes: number | null;
-      service_name: string | null;
-      amount_authorized: number | null;
-      amount_captured: number | null;
-      currency: string | null;
-      created_at: string;
-      professional: { full_name: string | null; profile_id: string } | null;
-    }> | null) ?? [];
+  const hasPaymentMethod = await checkHasPaymentMethod(profile?.stripe_customer_id);
+  const bookings = (bookingsData as BookingData[] | null) ?? [];
 
   const hasCompletedBooking = bookings.some((b) => b.status === "completed");
 
-  const completedTasks = {
-    profile: hasProfileDetails,
-    verification: isVerificationTierAtLeast(verificationTier, "standard"),
-    payment: hasPaymentMethod,
-    booking: hasCompletedBooking,
-  } as Record<(typeof CUSTOMER_TASK_IDS)[number], boolean>;
+  const completedTasks = calculateCompletedTasks(
+    hasProfileDetails,
+    verificationTier,
+    hasPaymentMethod,
+    hasCompletedBooking
+  );
 
   return (
     <section className="flex-1 space-y-8">

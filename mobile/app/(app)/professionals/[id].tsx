@@ -1,9 +1,9 @@
+import { Ionicons } from "@expo/vector-icons";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   ActivityIndicator,
   Alert,
-  Image,
   Pressable,
   RefreshControl,
   ScrollView,
@@ -12,11 +12,9 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
-
-import { fetchProfessionalDetails } from "@/features/professionals/api";
-import { createConversation } from "@/features/messaging/api";
 import { isFavorited, toggleFavorite } from "@/features/favorites/api";
+import { createConversation } from "@/features/messaging/api";
+import { fetchProfessionalDetails } from "@/features/professionals/api";
 import type { ProfessionalProfile } from "@/features/professionals/types";
 
 export default function ProfessionalDetailScreen() {
@@ -24,10 +22,13 @@ export default function ProfessionalDetailScreen() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const { data: professional, error, isLoading, isRefetching, refetch } = useQuery<
-    ProfessionalProfile,
-    Error
-  >({
+  const {
+    data: professional,
+    error,
+    isLoading,
+    isRefetching,
+    refetch,
+  } = useQuery<ProfessionalProfile, Error>({
     queryKey: ["professional", id],
     queryFn: () => fetchProfessionalDetails(id!),
     enabled: !!id,
@@ -37,6 +38,28 @@ export default function ProfessionalDetailScreen() {
     queryKey: ["favorite", id],
     queryFn: () => isFavorited(id!),
     enabled: !!id,
+  });
+
+  const createConversationMutation = useMutation({
+    mutationFn: () => createConversation({ otherUserId: id! }),
+    onSuccess: (conversationId) => {
+      router.push(`/messages/${conversationId}`);
+    },
+    onError: (conversationError: Error) => {
+      Alert.alert("Error", conversationError.message || "Failed to start conversation");
+    },
+  });
+
+  const favoriteMutation = useMutation({
+    mutationFn: () => toggleFavorite(id!),
+    onSuccess: (newFavoriteState) => {
+      queryClient.invalidateQueries({ queryKey: ["favorite", id] });
+      queryClient.invalidateQueries({ queryKey: ["favorites"] });
+      Alert.alert("Success", newFavoriteState ? "Added to favorites!" : "Removed from favorites");
+    },
+    onError: (favoriteError: Error) => {
+      Alert.alert("Error", favoriteError.message || "Failed to update favorite");
+    },
   });
 
   if (isLoading) {
@@ -54,46 +77,19 @@ export default function ProfessionalDetailScreen() {
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.errorContainer}>
-          <Ionicons name="alert-circle-outline" size={48} color="#DC2626" />
+          <Ionicons color="#DC2626" name="alert-circle-outline" size={48} />
           <Text style={styles.errorTitle}>Unable to load professional</Text>
-          <Text style={styles.errorMessage}>
-            {error?.message || "Professional not found"}
-          </Text>
-          <Pressable style={styles.retryButton} onPress={() => refetch()}>
+          <Text style={styles.errorMessage}>{error?.message || "Professional not found"}</Text>
+          <Pressable onPress={() => refetch()} style={styles.retryButton}>
             <Text style={styles.retryButtonText}>Try Again</Text>
           </Pressable>
-          <Pressable style={styles.backButton} onPress={() => router.back()}>
+          <Pressable onPress={() => router.back()} style={styles.backButton}>
             <Text style={styles.backButtonText}>Go Back</Text>
           </Pressable>
         </View>
       </SafeAreaView>
     );
   }
-
-  const createConversationMutation = useMutation({
-    mutationFn: () => createConversation({ otherUserId: id! }),
-    onSuccess: (conversationId) => {
-      router.push(`/messages/${conversationId}`);
-    },
-    onError: (error: Error) => {
-      Alert.alert("Error", error.message || "Failed to start conversation");
-    },
-  });
-
-  const favoriteMutation = useMutation({
-    mutationFn: () => toggleFavorite(id!),
-    onSuccess: (newFavoriteState) => {
-      queryClient.invalidateQueries({ queryKey: ["favorite", id] });
-      queryClient.invalidateQueries({ queryKey: ["favorites"] });
-      Alert.alert(
-        "Success",
-        newFavoriteState ? "Added to favorites!" : "Removed from favorites"
-      );
-    },
-    onError: (error: Error) => {
-      Alert.alert("Error", error.message || "Failed to update favorite");
-    },
-  });
 
   const handleBookNow = () => {
     router.push({
@@ -111,28 +107,28 @@ export default function ProfessionalDetailScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+    <SafeAreaView edges={["bottom"]} style={styles.safeArea}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         refreshControl={<RefreshControl onRefresh={refetch} refreshing={isRefetching} />}
       >
         {/* Header with Back Button */}
         <View style={styles.header}>
-          <Pressable style={styles.backIconButton} onPress={() => router.back()}>
-            <Ionicons name="arrow-back" size={24} color="#0F172A" />
+          <Pressable onPress={() => router.back()} style={styles.backIconButton}>
+            <Ionicons color="#0F172A" name="arrow-back" size={24} />
           </Pressable>
           <Pressable
-            style={styles.favoriteButton}
-            onPress={handleToggleFavorite}
             disabled={favoriteMutation.isPending || loadingFavorite}
+            onPress={handleToggleFavorite}
+            style={styles.favoriteButton}
           >
             {favoriteMutation.isPending ? (
               <ActivityIndicator color="#DC2626" size="small" />
             ) : (
               <Ionicons
+                color={favorited ? "#DC2626" : "#64748B"}
                 name={favorited ? "heart" : "heart-outline"}
                 size={28}
-                color={favorited ? "#DC2626" : "#64748B"}
               />
             )}
           </Pressable>
@@ -148,7 +144,7 @@ export default function ProfessionalDetailScreen() {
             </View>
             {professional.verificationLevel && (
               <View style={styles.verificationBadge}>
-                <Ionicons name="checkmark-circle" size={20} color="#22C55E" />
+                <Ionicons color="#22C55E" name="checkmark-circle" size={20} />
               </View>
             )}
           </View>
@@ -158,26 +154,28 @@ export default function ProfessionalDetailScreen() {
           <View style={styles.statsRow}>
             {professional.rating !== null && (
               <View style={styles.statItem}>
-                <Ionicons name="star" size={16} color="#F59E0B" />
+                <Ionicons color="#F59E0B" name="star" size={16} />
                 <Text style={styles.statText}>
                   {professional.rating.toFixed(1)} ({professional.reviewCount})
                 </Text>
               </View>
             )}
             <View style={styles.statItem}>
-              <Ionicons name="checkmark-done" size={16} color="#2563EB" />
+              <Ionicons color="#2563EB" name="checkmark-done" size={16} />
               <Text style={styles.statText}>{professional.totalCompletedBookings} jobs</Text>
             </View>
             {professional.onTimeRate !== null && (
               <View style={styles.statItem}>
-                <Ionicons name="time" size={16} color="#10B981" />
-                <Text style={styles.statText}>{(professional.onTimeRate * 100).toFixed(0)}% on-time</Text>
+                <Ionicons color="#10B981" name="time" size={16} />
+                <Text style={styles.statText}>
+                  {(professional.onTimeRate * 100).toFixed(0)}% on-time
+                </Text>
               </View>
             )}
           </View>
 
           <View style={styles.locationRow}>
-            <Ionicons name="location-outline" size={16} color="#64748B" />
+            <Ionicons color="#64748B" name="location-outline" size={16} />
             <Text style={styles.locationText}>
               {[professional.city, professional.country].filter(Boolean).join(", ") ||
                 "Location not specified"}
@@ -197,7 +195,7 @@ export default function ProfessionalDetailScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Experience & Languages</Text>
           <View style={styles.infoRow}>
-            <Ionicons name="briefcase-outline" size={20} color="#2563EB" />
+            <Ionicons color="#2563EB" name="briefcase-outline" size={20} />
             <Text style={styles.infoText}>
               {professional.experienceYears
                 ? `${professional.experienceYears} years of experience`
@@ -206,7 +204,7 @@ export default function ProfessionalDetailScreen() {
           </View>
           {professional.languages.length > 0 && (
             <View style={styles.infoRow}>
-              <Ionicons name="language-outline" size={20} color="#2563EB" />
+              <Ionicons color="#2563EB" name="language-outline" size={20} />
               <Text style={styles.infoText}>{professional.languages.join(", ")}</Text>
             </View>
           )}
@@ -275,20 +273,20 @@ export default function ProfessionalDetailScreen() {
       {/* Fixed Bottom Action Buttons */}
       <View style={styles.bottomBar}>
         <Pressable
-          style={styles.messageButton}
-          onPress={handleMessage}
           disabled={createConversationMutation.isPending}
+          onPress={handleMessage}
+          style={styles.messageButton}
         >
           {createConversationMutation.isPending ? (
             <ActivityIndicator color="#2563EB" size="small" />
           ) : (
             <>
-              <Ionicons name="chatbubble-outline" size={20} color="#2563EB" />
+              <Ionicons color="#2563EB" name="chatbubble-outline" size={20} />
               <Text style={styles.messageButtonText}>Message</Text>
             </>
           )}
         </Pressable>
-        <Pressable style={styles.bookButton} onPress={handleBookNow}>
+        <Pressable onPress={handleBookNow} style={styles.bookButton}>
           <Text style={styles.bookButtonText}>Book Now</Text>
         </Pressable>
       </View>

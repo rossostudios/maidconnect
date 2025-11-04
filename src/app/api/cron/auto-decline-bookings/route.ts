@@ -1,8 +1,120 @@
 import { NextResponse } from "next/server";
 import { sendBookingDeclinedEmail } from "@/lib/email/send";
+import { formatDate, formatTime } from "@/lib/format";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { formatDate, formatTime } from "@/lib/format";
+
+// Helper: Verify cron authorization
+function verifyCronAuth(request: Request): boolean {
+  const authHeader = request.headers.get("authorization");
+  return authHeader === `Bearer ${process.env.CRON_SECRET}`;
+}
+
+// Helper: Get formatted address from booking
+function getFormattedAddress(address: Record<string, any> | null): string {
+  if (!address) {
+    return "Not specified";
+  }
+  if (typeof address === "object" && "formatted" in address) {
+    return String(address.formatted);
+  }
+  return JSON.stringify(address);
+}
+
+// Helper: Cancel stripe payment intent
+async function cancelStripePayment(paymentIntentId: string): Promise<void> {
+  try {
+    await stripe.paymentIntents.cancel(paymentIntentId);
+  } catch (_stripeError) {
+    // Continue even if Stripe cancellation fails
+  }
+}
+
+// Helper: Update booking to declined status
+async function declineBooking(supabase: any, bookingId: string): Promise<boolean> {
+  const { error: updateError } = await supabase
+    .from("bookings")
+    .update({
+      status: "declined",
+      stripe_payment_status: "canceled",
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", bookingId);
+
+  return !updateError;
+}
+
+// Helper: Send decline notification email
+async function sendDeclineNotification(supabase: any, booking: any): Promise<void> {
+  try {
+    const { data: professionalProfile } = await supabase
+      .from("professional_profiles")
+      .select("full_name")
+      .eq("profile_id", booking.professional_id)
+      .single();
+
+    const { data: customerUser } = await supabase.auth.admin.getUserById(booking.customer_id);
+
+    if (!customerUser?.user?.email) {
+      return;
+    }
+
+    const scheduledDate = booking.scheduled_start
+      ? formatDate(new Date(booking.scheduled_start))
+      : "TBD";
+    const scheduledTime = booking.scheduled_start
+      ? formatTime(new Date(booking.scheduled_start))
+      : "TBD";
+    const duration = booking.duration_minutes ? `${booking.duration_minutes} minutes` : "TBD";
+    const address = getFormattedAddress(booking.address);
+
+    await sendBookingDeclinedEmail(
+      customerUser.user.email,
+      {
+        customerName: customerUser.user.user_metadata?.full_name || "there",
+        professionalName: professionalProfile?.full_name || "The professional",
+        serviceName: booking.service_name || "Service",
+        scheduledDate,
+        scheduledTime,
+        duration,
+        address,
+        bookingId: booking.id,
+      },
+      "The professional did not respond within 24 hours"
+    );
+  } catch (_emailError) {
+    // Don't fail the whole operation if email fails
+  }
+}
+
+// Helper: Process a single expired booking
+async function processExpiredBooking(
+  supabase: any,
+  booking: any
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    // Cancel the payment intent if it exists
+    if (booking.stripe_payment_intent_id) {
+      await cancelStripePayment(booking.stripe_payment_intent_id);
+    }
+
+    // Update booking status to declined
+    const declined = await declineBooking(supabase, booking.id);
+    if (!declined) {
+      return { success: false, error: "Failed to update booking status" };
+    }
+
+    // Send email notification to customer
+    await sendDeclineNotification(supabase, booking);
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    };
+  }
+}
 
 /**
  * Auto-decline bookings that have been in "authorized" status for more than 24 hours
@@ -12,9 +124,8 @@ import { formatDate, formatTime } from "@/lib/format";
  */
 export async function GET(request: Request) {
   try {
-    // Verify this is a cron request (Vercel adds this header)
-    const authHeader = request.headers.get("authorization");
-    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    // Verify cron authorization
+    if (!verifyCronAuth(request)) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -61,83 +172,13 @@ export async function GET(request: Request) {
 
     // Process each expired booking
     for (const booking of expiredBookings) {
-      try {
-        // Cancel the payment intent if it exists
-        if (booking.stripe_payment_intent_id) {
-          try {
-            await stripe.paymentIntents.cancel(booking.stripe_payment_intent_id);
-          } catch (_stripeError) {
-            // Continue even if Stripe cancellation fails
-          }
-        }
+      const result = await processExpiredBooking(supabase, booking);
 
-        // Update booking status to declined
-        const { error: updateError } = await supabase
-          .from("bookings")
-          .update({
-            status: "declined",
-            stripe_payment_status: "canceled",
-            updated_at: new Date().toISOString(),
-          })
-          .eq("id", booking.id);
-
-        if (updateError) {
-          results.failed++;
-          results.errors.push(`Booking ${booking.id}: ${updateError.message}`);
-          continue;
-        }
-
-        // Send email notification to customer
-        try {
-          const { data: professionalProfile } = await supabase
-            .from("professional_profiles")
-            .select("full_name")
-            .eq("profile_id", booking.professional_id)
-            .single();
-
-          const { data: customerUser } = await supabase.auth.admin.getUserById(booking.customer_id);
-
-          if (customerUser?.user?.email) {
-            const scheduledDate = booking.scheduled_start
-              ? formatDate(new Date(booking.scheduled_start))
-              : "TBD";
-            const scheduledTime = booking.scheduled_start
-              ? formatTime(new Date(booking.scheduled_start))
-              : "TBD";
-            const duration = booking.duration_minutes
-              ? `${booking.duration_minutes} minutes`
-              : "TBD";
-            const address = booking.address
-              ? typeof booking.address === "object" && "formatted" in booking.address
-                ? String(booking.address.formatted)
-                : JSON.stringify(booking.address)
-              : "Not specified";
-
-            await sendBookingDeclinedEmail(
-              customerUser.user.email,
-              {
-                customerName: customerUser.user.user_metadata?.full_name || "there",
-                professionalName: professionalProfile?.full_name || "The professional",
-                serviceName: booking.service_name || "Service",
-                scheduledDate,
-                scheduledTime,
-                duration,
-                address,
-                bookingId: booking.id,
-              },
-              "The professional did not respond within 24 hours"
-            );
-          }
-        } catch (_emailError) {
-          // Don't fail the whole operation if email fails
-        }
-
+      if (result.success) {
         results.declined++;
-      } catch (error) {
+      } else {
         results.failed++;
-        results.errors.push(
-          `Booking ${booking.id}: ${error instanceof Error ? error.message : "Unknown error"}`
-        );
+        results.errors.push(`Booking ${booking.id}: ${result.error}`);
       }
     }
 

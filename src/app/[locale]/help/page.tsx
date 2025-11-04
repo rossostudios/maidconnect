@@ -14,7 +14,7 @@ import { HelpSearchBar } from "@/components/help/search-bar";
 import { Container } from "@/components/ui/container";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
-interface Category {
+type Category = {
   id: string;
   slug: string;
   name_en: string;
@@ -23,16 +23,16 @@ interface Category {
   description_es: string | null;
   icon: string;
   article_count: number;
-}
+};
 
-interface PopularArticle {
+type PopularArticle = {
   id: string;
   category_slug: string;
   slug: string;
   title: string;
   excerpt: string | null;
   view_count: number;
-}
+};
 
 // Icon mapping
 const iconMap: Record<string, typeof BookOpen> = {
@@ -63,7 +63,9 @@ async function getCategories(_locale: string): Promise<Category[]> {
     .eq("is_active", true)
     .order("display_order");
 
-  if (!categories) return [];
+  if (!categories) {
+    return [];
+  }
 
   // Get article counts for each category
   const categoriesWithCounts = await Promise.all(
@@ -103,7 +105,9 @@ async function getPopularArticles(locale: string): Promise<PopularArticle[]> {
     .order("view_count", { ascending: false })
     .limit(6);
 
-  if (!rawArticles) return [];
+  if (!rawArticles) {
+    return [];
+  }
 
   // Type assertion for the dynamic query result
   const articles = rawArticles as unknown as Array<{

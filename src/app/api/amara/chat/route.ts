@@ -7,15 +7,15 @@
 
 import { streamText } from "ai";
 import { NextResponse } from "next/server";
-import { handleApiError } from "@/lib/error-handler";
 import { AMARA_MODEL_CONFIG, amaraModel, validateAmaraConfig } from "@/lib/amara/ai-client";
 import { getAmaraSystemPrompt } from "@/lib/amara/prompts";
 import { amaraTools } from "@/lib/amara/tools";
+import { handleApiError } from "@/lib/error-handler";
 import { logger } from "@/lib/logger";
 import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-import { validateRequestBody } from "@/lib/validations/api";
 import { amaraChatRequestSchema } from "@/lib/validations/amara";
+import { validateRequestBody } from "@/lib/validations/api";
 
 /**
  * Handle POST requests to the chat endpoint

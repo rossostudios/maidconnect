@@ -93,11 +93,15 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
           onClick={handleStart}
           type="button"
         >
-          {status === "loading"
-            ? "Preparing…"
-            : hasPaymentMethod
-              ? "Update payment method"
-              : "Add payment method"}
+          {(() => {
+            if (status === "loading") {
+              return "Preparing…";
+            }
+            if (hasPaymentMethod) {
+              return "Update payment method";
+            }
+            return "Add payment method";
+          })()}
         </button>
       </div>
     );

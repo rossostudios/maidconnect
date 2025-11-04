@@ -114,7 +114,7 @@ export function TableSkeleton({ rows = 5, columns = 4 }: { rows?: number; column
             key={`row-${rowIndex}`}
             style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
           >
-            {Array.from({ length: columns }).map((_, colIndex) => (
+            {Array.from({ length: columns }).map((__, colIndex) => (
               <Skeleton className="h-8 w-full" key={`cell-${rowIndex}-${colIndex}`} />
             ))}
           </div>

@@ -1,5 +1,5 @@
-import { supabase } from "@/lib/supabase";
 import type { ProfessionalSummary } from "@/features/professionals/types";
+import { supabase } from "@/lib/supabase";
 
 export type DashboardStats = {
   upcomingBookingsCount: number;

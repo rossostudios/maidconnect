@@ -1,11 +1,11 @@
 "use client";
 
-import { Bug, CheckCircle, Frown, Heart, HelpCircle, Lightbulb, TrendingUp, } from "lucide-react";
+import { Bug, CheckCircle, Frown, Heart, HelpCircle, Lightbulb, TrendingUp } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { BaseModal } from "@/components/shared/base-modal";
-import { useModalForm } from "@/hooks/use-modal-form";
 import { useApiMutation } from "@/hooks/use-api-mutation";
+import { useModalForm } from "@/hooks/use-modal-form";
 
 type FeedbackModalProps = {
   isOpen: boolean;
@@ -129,12 +129,12 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
   if (submitted) {
     return (
       <BaseModal
-        isOpen={isOpen}
-        onClose={onClose}
-        size="md"
-        showCloseButton={false}
         closeOnBackdropClick={false}
         closeOnEscape={false}
+        isOpen={isOpen}
+        onClose={onClose}
+        showCloseButton={false}
+        size="md"
       >
         <div className="text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
@@ -151,13 +151,13 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
   return (
     <BaseModal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={t("title")}
-      description={t("description")}
-      size="2xl"
       closeOnBackdropClick={!feedbackMutation.isLoading}
       closeOnEscape={!feedbackMutation.isLoading}
+      description={t("description")}
+      isOpen={isOpen}
+      onClose={onClose}
+      size="2xl"
+      title={t("title")}
     >
       <form
         onSubmit={(e) => {
@@ -167,9 +167,9 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
       >
         {/* Feedback Type */}
         <div className="mb-6">
-          <label className="mb-3 block font-semibold text-[#211f1a] text-base">
+          <div className="mb-3 block font-semibold text-[#211f1a] text-base">
             {t("form.typeLabel")}
-          </label>
+          </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {feedbackTypes.map((type) => {
               const TypeIcon = type.icon;
@@ -206,8 +206,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
         {/* Subject (Optional) */}
         <div className="mb-6">
           <label className="mb-2 block font-semibold text-[#211f1a] text-base" htmlFor="subject">
-            {t("form.subjectLabel")}{" "}
-            <span className="text-[#7a6d62]">({t("form.optional")})</span>
+            {t("form.subjectLabel")} <span className="text-[#7a6d62]">({t("form.optional")})</span>
           </label>
           <input
             className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533] disabled:opacity-60"
@@ -271,9 +270,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
               required
               type="checkbox"
             />
-            <span className="text-[#5d574b] text-sm leading-relaxed">
-              {t("form.consentText")}
-            </span>
+            <span className="text-[#5d574b] text-sm leading-relaxed">{t("form.consentText")}</span>
           </label>
         </div>
 
@@ -291,7 +288,9 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
         <button
           className="w-full rounded-full bg-[#8B7355] px-6 py-4 font-semibold text-base text-white transition hover:bg-[#8B7355] disabled:cursor-not-allowed disabled:opacity-60"
           disabled={
-            feedbackMutation.isLoading || !form.formData.consent || form.formData.message.length < 10
+            feedbackMutation.isLoading ||
+            !form.formData.consent ||
+            form.formData.message.length < 10
           }
           type="submit"
         >

@@ -6,7 +6,6 @@ import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
 import { Link } from "@/i18n/routing";
 import { formatCOP } from "@/lib/format";
 
-
 /**
  * Recently Viewed Professionals Component
  * Displays a horizontal scrollable list of recently viewed professionals

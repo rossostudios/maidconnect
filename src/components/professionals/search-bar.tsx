@@ -1,7 +1,8 @@
 "use client";
 
 import { Loader2, Search, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
 
 /**
@@ -83,8 +84,38 @@ export function SearchBar({
       }
     };
 
-    void fetchSuggestions();
+    fetchSuggestions().catch(() => {
+      // Handle error silently
+    });
   }, [debouncedQuery]);
+
+  // Handlers
+  const handleInputChange = (value: string) => {
+    setQuery(value);
+    onSearch(value);
+  };
+
+  const handleSearch = useCallback(() => {
+    onSearch(query);
+    setIsOpen(false);
+  }, [onSearch, query]);
+
+  const handleSuggestionClick = useCallback(
+    (suggestion: SearchSuggestion) => {
+      setQuery(suggestion.name);
+      setIsOpen(false);
+      onSuggestionSelect?.(suggestion);
+    },
+    [onSuggestionSelect]
+  );
+
+  const handleClear = () => {
+    setQuery("");
+    setSuggestions([]);
+    setIsOpen(false);
+    onSearch("");
+    inputRef.current?.focus();
+  };
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -121,7 +152,7 @@ export function SearchBar({
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, suggestions, selectedIndex]);
+  }, [isOpen, suggestions, selectedIndex, handleSearch, handleSuggestionClick]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -138,30 +169,6 @@ export function SearchBar({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  const handleInputChange = (value: string) => {
-    setQuery(value);
-    onSearch(value);
-  };
-
-  const handleSearch = () => {
-    onSearch(query);
-    setIsOpen(false);
-  };
-
-  const handleSuggestionClick = (suggestion: SearchSuggestion) => {
-    setQuery(suggestion.name);
-    setIsOpen(false);
-    onSuggestionSelect?.(suggestion);
-  };
-
-  const handleClear = () => {
-    setQuery("");
-    setSuggestions([]);
-    setIsOpen(false);
-    onSearch("");
-    inputRef.current?.focus();
-  };
 
   return (
     <div className={`relative ${className}`}>
@@ -225,10 +232,13 @@ export function SearchBar({
               >
                 {/* Professional Photo */}
                 <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#ebe5d8]">
-                  <img
+                  <Image
                     alt={suggestion.name}
                     className="h-full w-full object-cover"
+                    height={48}
+                    loading="lazy"
                     src={suggestion.photoUrl}
+                    width={48}
                   />
                 </div>
 

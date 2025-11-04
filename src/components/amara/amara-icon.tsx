@@ -3,10 +3,10 @@
  * Matches Intercom's clean, modern aesthetic
  */
 
-interface AmaraIconProps {
+type AmaraIconProps = {
   className?: string;
   size?: number;
-}
+};
 
 export function AmaraIcon({ className, size = 32 }: AmaraIconProps) {
   return (
@@ -18,6 +18,7 @@ export function AmaraIcon({ className, size = 32 }: AmaraIconProps) {
       width={size}
       xmlns="http://www.w3.org/2000/svg"
     >
+      <title>Amara AI Assistant</title>
       {/* Rounded square speech bubble - Intercom style */}
       <rect fill="currentColor" height="24" rx="8" width="24" x="4" y="4" />
 

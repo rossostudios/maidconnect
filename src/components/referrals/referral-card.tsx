@@ -12,7 +12,6 @@ type ReferralCardProps = {
   refereeReward: number; // Amount referee gets (in cents)
 };
 
-
 /**
  * ReferralCard - Share code, earn rewards
  *
@@ -114,10 +113,8 @@ export function ReferralCard({
               2
             </div>
             <p className="text-[#5d574b] text-sm">
-              <span className="font-semibold">
-                They get {formatCOP(refereeReward / 100)}
-              </span>{" "}
-              off their first booking
+              <span className="font-semibold">They get {formatCOP(refereeReward / 100)}</span> off
+              their first booking
             </p>
           </li>
           <li className="flex items-start gap-3">
@@ -125,10 +122,8 @@ export function ReferralCard({
               3
             </div>
             <p className="text-[#5d574b] text-sm">
-              <span className="font-semibold">
-                You earn {formatCOP(referrerReward / 100)}
-              </span>{" "}
-              in credits when they complete their first booking
+              <span className="font-semibold">You earn {formatCOP(referrerReward / 100)}</span> in
+              credits when they complete their first booking
             </p>
           </li>
         </ul>

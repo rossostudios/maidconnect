@@ -3,8 +3,8 @@
  * Subscribes to conversation updates using Supabase Realtime
  */
 
-import { useEffect, useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useCallback, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
 export function useRealtimeConversations(userId: string | null) {
@@ -16,7 +16,9 @@ export function useRealtimeConversations(userId: string | null) {
   }, [queryClient]);
 
   useEffect(() => {
-    if (!userId) return;
+    if (!userId) {
+      return;
+    }
 
     console.log("[realtime] Subscribing to conversations updates");
 

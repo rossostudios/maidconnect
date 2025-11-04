@@ -105,7 +105,10 @@ export async function POST(request: NextRequest) {
         url: url || null,
         tag: tag || null,
       });
-    } catch (_historyError) {}
+    } catch (historyError) {
+      // Intentionally suppress notification history errors - push notification was already sent
+      console.warn("Failed to save notification to history:", historyError);
+    }
 
     return NextResponse.json({
       success: true,

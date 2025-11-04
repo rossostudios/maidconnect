@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-interface SwipeGestureOptions {
+type SwipeGestureOptions = {
   /**
    * Callback when user swipes left
    */
@@ -19,7 +19,7 @@ interface SwipeGestureOptions {
    * @default 300
    */
   maxSwipeTime?: number;
-}
+};
 
 /**
  * Hook to detect swipe gestures on touch devices
@@ -44,7 +44,9 @@ export function useSwipeGesture<T extends HTMLElement = HTMLDivElement>({
 
     const handleTouchStart = (e: TouchEvent) => {
       const touch = e.touches[0];
-      if (!touch) return;
+      if (!touch) {
+        return;
+      }
 
       touchStartX.current = touch.clientX;
       touchStartY.current = touch.clientY;
@@ -53,7 +55,9 @@ export function useSwipeGesture<T extends HTMLElement = HTMLDivElement>({
 
     const handleTouchEnd = (e: TouchEvent) => {
       const touch = e.changedTouches[0];
-      if (!touch) return;
+      if (!touch) {
+        return;
+      }
 
       const touchEndX = touch.clientX;
       const touchEndY = touch.clientY;

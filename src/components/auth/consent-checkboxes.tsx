@@ -147,10 +147,10 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             </>
           ) : (
             <>
-              I expressly authorize Casaora to process my personal data, including its
-              collection, storage, use, circulation, processing, and transfer to third parties (such
-              as payment processors, cloud service providers, and others necessary for platform
-              operation), in accordance with Law 1581 of 2012 and the Privacy Policy.{" "}
+              I expressly authorize Casaora to process my personal data, including its collection,
+              storage, use, circulation, processing, and transfer to third parties (such as payment
+              processors, cloud service providers, and others necessary for platform operation), in
+              accordance with Law 1581 of 2012 and the Privacy Policy.{" "}
               <span className="text-red-600">*</span>
             </>
           )}
@@ -177,9 +177,8 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             </>
           ) : (
             <>
-              I agree to receive promotional emails, special offers, and news from Casaora. I
-              can withdraw my consent at any time.{" "}
-              <span className="text-[#7a6d62]">(Optional)</span>
+              I agree to receive promotional emails, special offers, and news from Casaora. I can
+              withdraw my consent at any time. <span className="text-[#7a6d62]">(Optional)</span>
             </>
           )}
         </span>

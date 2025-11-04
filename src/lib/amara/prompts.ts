@@ -5,12 +5,12 @@
  * English and Spanish languages.
  */
 
-export interface UserContext {
+export type UserContext = {
   locale: string;
   city?: string;
   name?: string;
   userId?: string;
-}
+};
 
 /**
  * Get the main system prompt for Amara based on user context

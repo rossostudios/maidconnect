@@ -11,6 +11,74 @@ const inputClass =
   "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[#211f1a] shadow-sm transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a1a]";
 const errorInputClass = "border-red-400 focus:border-red-500 focus:ring-red-200";
 
+function getInputClassName(error: string | undefined): string {
+  return cn(inputClass, error && errorInputClass);
+}
+
+function getRoleOptionClassName(error: string | undefined): string {
+  return cn(
+    "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition focus-within:border-[#8B7355] hover:border-[#8B7355]",
+    error && "border-red-400 focus-within:border-red-400 hover:border-red-400"
+  );
+}
+
+function RoleSelection({ t, error }: { t: (key: string) => string; error: string | undefined }) {
+  return (
+    <section className="space-y-5">
+      <div className="block font-semibold text-[#211f1a] text-sm">{t("accountTypeLabel")}</div>
+      <p className="text-[#5d574b] text-xs">{t("accountTypeHelper")}</p>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <label className={getRoleOptionClassName(error)}>
+          <span className="flex items-center gap-2 text-[#211f1a]">
+            <input
+              className="h-4 w-4 accent-[#211f1a]"
+              defaultChecked
+              name="role"
+              type="radio"
+              value="customer"
+            />{" "}
+            {t("customerLabel")}
+          </span>
+          <span className="text-[#5d574b] text-sm">{t("customerDescription")}</span>
+        </label>
+        <label className={getRoleOptionClassName(error)}>
+          <span className="flex items-center gap-2 text-[#211f1a]">
+            <input
+              className="h-4 w-4 accent-[#211f1a]"
+              name="role"
+              type="radio"
+              value="professional"
+            />{" "}
+            {t("professionalLabel")}
+          </span>
+          <span className="text-[#5d574b] text-sm">{t("professionalDescription")}</span>
+        </label>
+      </div>
+      {error ? <p className="text-red-600 text-xs">{error}</p> : null}
+    </section>
+  );
+}
+
+function FormStatusMessages({
+  state,
+  t,
+}: {
+  state: SignUpActionState;
+  t: (key: string) => string;
+}) {
+  if (state.status === "error" && state.error) {
+    return <p className="rounded-md bg-red-50 px-3 py-2 text-red-700 text-sm">{state.error}</p>;
+  }
+  if (state.status === "success") {
+    return (
+      <p className="rounded-md bg-green-50 px-3 py-2 text-green-700 text-sm">
+        {t("successMessage")}
+      </p>
+    );
+  }
+  return null;
+}
+
 export function SignUpForm() {
   const t = useTranslations("pages.signUp.form");
   const locale = useLocale();
@@ -30,56 +98,13 @@ export function SignUpForm() {
 
   return (
     <form action={formAction} className="space-y-10" noValidate>
-      <section className="space-y-5">
-        <div className="block font-semibold text-[#211f1a] text-sm">{t("accountTypeLabel")}</div>
-        <p className="text-[#5d574b] text-xs">{t("accountTypeHelper")}</p>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <label
-            className={cn(
-              "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition focus-within:border-[#8B7355] hover:border-[#8B7355]",
-              fieldError("role") &&
-                "border-red-400 focus-within:border-red-400 hover:border-red-400"
-            )}
-          >
-            <span className="flex items-center gap-2 text-[#211f1a]">
-              <input
-                className="h-4 w-4 accent-[#211f1a]"
-                defaultChecked
-                name="role"
-                type="radio"
-                value="customer"
-              />{" "}
-              {t("customerLabel")}
-            </span>
-            <span className="text-[#5d574b] text-sm">{t("customerDescription")}</span>
-          </label>
-          <label
-            className={cn(
-              "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition focus-within:border-[#8B7355] hover:border-[#8B7355]",
-              fieldError("role") &&
-                "border-red-400 focus-within:border-red-400 hover:border-red-400"
-            )}
-          >
-            <span className="flex items-center gap-2 text-[#211f1a]">
-              <input
-                className="h-4 w-4 accent-[#211f1a]"
-                name="role"
-                type="radio"
-                value="professional"
-              />{" "}
-              {t("professionalLabel")}
-            </span>
-            <span className="text-[#5d574b] text-sm">{t("professionalDescription")}</span>
-          </label>
-        </div>
-        {fieldError("role") ? <p className="text-red-600 text-xs">{fieldError("role")}</p> : null}
-      </section>
+      <RoleSelection error={fieldError("role")} t={t} />
 
       <section className="grid gap-6 sm:grid-cols-2">
         <Field error={fieldError("fullName")} label={t("fullNameLabel")}>
           <input
             aria-invalid={Boolean(fieldError("fullName"))}
-            className={cn(inputClass, fieldError("fullName") && errorInputClass)}
+            className={getInputClassName(fieldError("fullName"))}
             id="fullName"
             name="fullName"
             placeholder={t("fullNamePlaceholder")}
@@ -90,7 +115,7 @@ export function SignUpForm() {
         <Field error={fieldError("phone")} label={t("phoneLabel")}>
           <input
             aria-invalid={Boolean(fieldError("phone"))}
-            className={cn(inputClass, fieldError("phone") && errorInputClass)}
+            className={getInputClassName(fieldError("phone"))}
             id="phone"
             name="phone"
             placeholder={t("phonePlaceholder")}
@@ -101,7 +126,7 @@ export function SignUpForm() {
         <Field error={fieldError("city")} label={t("cityLabel")}>
           <input
             aria-invalid={Boolean(fieldError("city"))}
-            className={cn(inputClass, fieldError("city") && errorInputClass)}
+            className={getInputClassName(fieldError("city"))}
             id="city"
             name="city"
             placeholder={t("cityPlaceholder")}
@@ -111,7 +136,7 @@ export function SignUpForm() {
         </Field>
         <Field error={fieldError("locale")} label={t("preferredLanguageLabel")}>
           <select
-            className={cn(inputClass, fieldError("locale") && errorInputClass)}
+            className={getInputClassName(fieldError("locale"))}
             defaultValue="en-US"
             id="locale"
             name="locale"
@@ -127,7 +152,7 @@ export function SignUpForm() {
           <input
             aria-invalid={Boolean(fieldError("email"))}
             autoComplete="email"
-            className={cn(inputClass, fieldError("email") && errorInputClass)}
+            className={getInputClassName(fieldError("email"))}
             id="email"
             name="email"
             placeholder={t("emailPlaceholder")}
@@ -137,7 +162,7 @@ export function SignUpForm() {
         </Field>
         <Field error={fieldError("propertyType")} label={t("propertyTypeLabel")}>
           <select
-            className={cn(inputClass, fieldError("propertyType") && errorInputClass)}
+            className={getInputClassName(fieldError("propertyType"))}
             id="propertyType"
             name="propertyType"
           >
@@ -156,7 +181,7 @@ export function SignUpForm() {
           <input
             aria-invalid={Boolean(fieldError("password"))}
             autoComplete="new-password"
-            className={cn(inputClass, fieldError("password") && errorInputClass)}
+            className={getInputClassName(fieldError("password"))}
             id="password"
             minLength={8}
             name="password"
@@ -169,7 +194,7 @@ export function SignUpForm() {
           <input
             aria-invalid={Boolean(fieldError("confirmPassword"))}
             autoComplete="new-password"
-            className={cn(inputClass, fieldError("confirmPassword") && errorInputClass)}
+            className={getInputClassName(fieldError("confirmPassword"))}
             id="confirmPassword"
             minLength={8}
             name="confirmPassword"
@@ -191,14 +216,7 @@ export function SignUpForm() {
         />
       </section>
 
-      {state.status === "error" && state.error ? (
-        <p className="rounded-md bg-red-50 px-3 py-2 text-red-700 text-sm">{state.error}</p>
-      ) : null}
-      {state.status === "success" ? (
-        <p className="rounded-md bg-green-50 px-3 py-2 text-green-700 text-sm">
-          {t("successMessage")}
-        </p>
-      ) : null}
+      <FormStatusMessages state={state} t={t} />
 
       <button
         className={cn(

@@ -6,12 +6,12 @@
  * AFTER: 89 lines (42% reduction)
  */
 
-import { withProfessional, ok, requireProfessionalOwnership } from "@/lib/api";
+import { z } from "zod";
+import { ok, requireProfessionalOwnership, withProfessional } from "@/lib/api";
 import { sendBookingDeclinedEmail } from "@/lib/email/send";
+import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 import { notifyCustomerBookingDeclined } from "@/lib/notifications";
 import { stripe } from "@/lib/stripe";
-import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
-import { z } from "zod";
 
 const declineBookingSchema = z.object({
   bookingId: z.string().uuid("Invalid booking ID format"),
@@ -24,7 +24,11 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
   const { bookingId, reason } = declineBookingSchema.parse(body);
 
   // Fetch the booking with related data
-  const booking = await requireProfessionalOwnership(supabase, user.id, bookingId, `
+  const booking = await requireProfessionalOwnership(
+    supabase,
+    user.id,
+    bookingId,
+    `
     id,
     professional_id,
     customer_id,
@@ -34,7 +38,8 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
     duration_minutes,
     service_name,
     address
-  `);
+  `
+  );
 
   // Can only decline authorized or pending_payment bookings
   if (!["authorized", "pending_payment"].includes(booking.status)) {
@@ -86,11 +91,16 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
         })
       : "TBD";
     const duration = booking.duration_minutes ? `${booking.duration_minutes} minutes` : "TBD";
-    const address = booking.address
-      ? typeof booking.address === "object" && "formatted" in booking.address
-        ? String(booking.address.formatted)
-        : JSON.stringify(booking.address)
-      : "Not specified";
+    const getFormattedAddress = () => {
+      if (!booking.address) {
+        return "Not specified";
+      }
+      if (typeof booking.address === "object" && "formatted" in booking.address) {
+        return String(booking.address.formatted);
+      }
+      return JSON.stringify(booking.address);
+    };
+    const address = getFormattedAddress();
 
     // Send decline email to customer
     await sendBookingDeclinedEmail(

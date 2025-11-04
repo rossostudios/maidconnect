@@ -307,8 +307,8 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
               </h3>
               <p className="text-[#5d574b]">
                 Todos los pagos se procesan a través de <strong>Stripe</strong>, un procesador de
-                pagos certificado PCI DSS. Casaora no almacena información completa de tarjetas
-                de crédito o débito.
+                pagos certificado PCI DSS. Casaora no almacena información completa de tarjetas de
+                crédito o débito.
               </p>
             </div>
 
@@ -413,8 +413,8 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
           </h2>
           <div className="space-y-3">
             <p className="text-[#5d574b]">
-              Casaora ofrece un sistema de mediación para ayudar a resolver disputas entre
-              clientes y profesionales, pero NO es responsable de:
+              Casaora ofrece un sistema de mediación para ayudar a resolver disputas entre clientes
+              y profesionales, pero NO es responsable de:
             </p>
             <ul className="ml-6 list-disc space-y-1 text-[#5d574b]">
               <li>Daños a la propiedad durante la prestación del servicio</li>
@@ -426,8 +426,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             <ol className="ml-6 list-decimal space-y-1 text-[#5d574b]">
               <li>Intentar resolver directamente con la otra parte</li>
               <li>
-                Si no se resuelve, reportar a Casaora dentro de las 48 horas siguientes al
-                servicio
+                Si no se resuelve, reportar a Casaora dentro de las 48 horas siguientes al servicio
               </li>
               <li>Proporcionar evidencia relevante (fotos, mensajes, etc.)</li>
               <li>Casaora puede ofrecer mediación pero la decisión final es de las partes</li>
@@ -449,19 +448,19 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
                 independientes, ni de su calidad, puntualidad, o resultados
               </li>
               <li>
-                Casaora NO es responsable de daños, pérdidas, lesiones, o perjuicios resultantes
-                de la interacción entre usuarios
+                Casaora NO es responsable de daños, pérdidas, lesiones, o perjuicios resultantes de
+                la interacción entre usuarios
               </li>
               <li>
                 La Plataforma se proporciona &quot;TAL CUAL&quot; sin garantías de ningún tipo
               </li>
               <li>
-                Casaora NO garantiza que la Plataforma estará disponible 24/7 sin interrupciones
-                o errores
+                Casaora NO garantiza que la Plataforma estará disponible 24/7 sin interrupciones o
+                errores
               </li>
               <li>
-                La responsabilidad máxima de Casaora hacia cualquier usuario no excederá el
-                monto de las comisiones pagadas por ese usuario en los últimos 6 meses
+                La responsabilidad máxima de Casaora hacia cualquier usuario no excederá el monto de
+                las comisiones pagadas por ese usuario en los últimos 6 meses
               </li>
             </ul>
             <p className="mt-3 text-[#5d574b]">
@@ -526,8 +525,8 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
                 </li>
                 <li>Los pagos pendientes se procesarán según lo acordado</li>
                 <li>
-                  Casaora puede retener cierta información según requisitos legales y de
-                  Política de Privacidad
+                  Casaora puede retener cierta información según requisitos legales y de Política de
+                  Privacidad
                 </li>
               </ul>
             </div>
@@ -547,8 +546,8 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             <li>Contenido original creado por Casaora</li>
           </ul>
           <p className="mt-3 text-[#5d574b]">
-            Son propiedad exclusiva de Casaora o sus licenciantes. El Usuario recibe únicamente
-            una licencia limitada, no exclusiva, no transferible para usar la Plataforma según estos
+            Son propiedad exclusiva de Casaora o sus licenciantes. El Usuario recibe únicamente una
+            licencia limitada, no exclusiva, no transferible para usar la Plataforma según estos
             Términos.
           </p>
         </section>
@@ -741,9 +740,9 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
             processor. Casaora does not store complete credit or debit card information.
           </p>
           <p className="mt-3 text-[#5d574b]">
-            Professionals receive payment 24 hours after check-out, minus Casaora&apos;s
-            commission and Stripe processing fees. Professionals are responsible for declaring this
-            income to tax authorities.
+            Professionals receive payment 24 hours after check-out, minus Casaora&apos;s commission
+            and Stripe processing fees. Professionals are responsible for declaring this income to
+            tax authorities.
           </p>
         </section>
 
@@ -765,9 +764,9 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
         <section>
           <h2 className="mb-3 font-semibold text-2xl text-[#211f1a]">6. Limitation of Liability</h2>
           <p className="text-[#5d574b]">
-            <strong>TO THE MAXIMUM EXTENT PERMITTED BY LAW:</strong> Casaora is NOT responsible
-            for services provided by independent professionals, nor for their quality, timeliness,
-            or results. The Platform is provided &quot;AS IS&quot; without warranties of any kind.
+            <strong>TO THE MAXIMUM EXTENT PERMITTED BY LAW:</strong> Casaora is NOT responsible for
+            services provided by independent professionals, nor for their quality, timeliness, or
+            results. The Platform is provided &quot;AS IS&quot; without warranties of any kind.
           </p>
           <p className="mt-3 text-[#5d574b]">
             Users acknowledge that they contract services with independent third parties at their

@@ -62,18 +62,14 @@ export function useCalendarGrid({
     if (useUTC) {
       return buildUTCCalendarGrid(currentMonth, today, weeks);
     }
-      return buildLocalCalendarGrid(currentMonth, today, weeks);
+    return buildLocalCalendarGrid(currentMonth, today, weeks);
   }, [currentMonth, useUTC, weeks]);
 }
 
 /**
  * Build calendar grid using local timezone
  */
-function buildLocalCalendarGrid(
-  currentMonth: Date,
-  today: Date,
-  weeks: number
-): CalendarDay[] {
+function buildLocalCalendarGrid(currentMonth: Date, today: Date, weeks: number): CalendarDay[] {
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
 
@@ -133,11 +129,7 @@ function buildLocalCalendarGrid(
 /**
  * Build calendar grid using UTC timezone
  */
-function buildUTCCalendarGrid(
-  currentMonth: Date,
-  today: Date,
-  weeks: number
-): CalendarDay[] {
+function buildUTCCalendarGrid(currentMonth: Date, today: Date, weeks: number): CalendarDay[] {
   const year = currentMonth.getUTCFullYear();
   const month = currentMonth.getUTCMonth();
 
@@ -192,9 +184,7 @@ function getLocalToday(): Date {
 
 function getUTCToday(): Date {
   const now = new Date();
-  return new Date(
-    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
-  );
+  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
 }
 
 function isSameDay(date1: Date, date2: Date): boolean {

@@ -183,7 +183,10 @@ export function usePushNotifications() {
             });
           }
         }
-      } catch (_err) {}
+      } catch (err) {
+        // Intentionally suppress errors during subscription loading - permission state handles errors
+        console.warn("Failed to load push notification subscription:", err);
+      }
     };
 
     loadSubscription();
@@ -243,5 +246,8 @@ async function deleteSubscription() {
     if (!response.ok) {
       throw new Error("Failed to delete subscription");
     }
-  } catch (_err) {}
+  } catch (err) {
+    // Intentionally suppress deletion errors - subscription may already be deleted
+    console.warn("Failed to delete push subscription from server:", err);
+  }
 }

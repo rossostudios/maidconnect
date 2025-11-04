@@ -6,9 +6,9 @@
  * AFTER: 71 lines (2 handlers) (38% reduction)
  */
 
-import { withProfessional, ok, notFound, requireProfessionalProfile } from "@/lib/api";
-import { ValidationError } from "@/lib/errors";
 import { z } from "zod";
+import { notFound, ok, requireProfessionalProfile, withProfessional } from "@/lib/api";
+import { ValidationError } from "@/lib/errors";
 
 const dayScheduleSchema = z.object({
   day: z.string(),

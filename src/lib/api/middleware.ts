@@ -7,10 +7,16 @@
  * @module lib/api/middleware
  */
 
-import { NextResponse } from "next/server";
 import type { User } from "@supabase/supabase-js";
+import { NextResponse } from "next/server";
 import { handleApiError } from "@/lib/error-handler";
-import { requireAuth, requireAdmin, requireProfessional, requireCustomer, type AuthContext } from "./auth";
+import {
+  type AuthContext,
+  requireAdmin,
+  requireAuth,
+  requireCustomer,
+  requireProfessional,
+} from "./auth";
 
 /**
  * Handler that receives authenticated context
@@ -53,6 +59,7 @@ type RouteHandler<T extends unknown[]> = (...args: T) => Promise<NextResponse> |
 export function withAuth<T extends unknown[]>(
   handler: AuthenticatedHandler<T>,
   context?: Record<string, unknown>
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 ) {
   return async (...args: T): Promise<NextResponse> => {
     try {
@@ -200,7 +207,8 @@ export function withValidation<TSchema, T extends unknown[]>(
 export function compose<T extends unknown[]>(
   ...middlewares: Array<(handler: RouteHandler<T>) => RouteHandler<T>>
 ) {
-  return (handler: RouteHandler<T>): RouteHandler<T> => middlewares.reduceRight((acc, middleware) => middleware(acc), handler);
+  return (handler: RouteHandler<T>): RouteHandler<T> =>
+    middlewares.reduceRight((acc, middleware) => middleware(acc), handler);
 }
 
 /**
@@ -247,7 +255,7 @@ export function withAuthMethods<T extends Record<string, AuthenticatedHandler<[R
  * ```
  */
 export function withRateLimit<T extends unknown[]>(
-  options: { maxRequests: number; windowMs: number },
+  _options: { maxRequests: number; windowMs: number },
   handler: RouteHandler<T>
 ) {
   // TODO: Implement rate limiting logic

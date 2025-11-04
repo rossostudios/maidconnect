@@ -1,14 +1,15 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { ChevronDown } from "lucide-react";
+import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/routing";
 
 // Dynamic import for bottom sheet (lazy load on demand)
 const ProductBottomSheet = dynamic(
-  () => import("@/components/navigation/product-bottom-sheet").then((mod) => mod.ProductBottomSheet),
+  () =>
+    import("@/components/navigation/product-bottom-sheet").then((mod) => mod.ProductBottomSheet),
   { ssr: false }
 );
 
@@ -97,15 +98,18 @@ export function SiteNavigation() {
     >
       <div className="flex w-full items-center justify-between gap-6 overflow-x-auto sm:w-auto sm:overflow-visible">
         {/* Product Dropdown/Button */}
-        <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <div className="relative">
           <button
             aria-controls="site-product-menu"
             aria-expanded={isProductOpen}
             aria-haspopup="true"
             className="flex items-center gap-1 whitespace-nowrap text-[var(--foreground)] transition hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)] focus-visible:outline-offset-2"
-            onClick={handleProductClick}
-            type="button"
             id="site-product-toggle"
+            onClick={handleProductClick}
+            onFocus={handleMouseEnter}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            type="button"
           >
             {t("services")}
             <ChevronDown
@@ -119,6 +123,8 @@ export function SiteNavigation() {
               aria-labelledby="site-product-toggle"
               className="absolute top-full left-0 z-50 hidden pt-2 md:block"
               id="site-product-menu"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
               role="menu"
             >
               <div className="glass-card w-[640px] rounded-2xl border p-3 shadow-[0_24px_55px_rgba(15,15,15,0.12)]">
@@ -133,7 +139,9 @@ export function SiteNavigation() {
                       <span className="font-semibold text-[var(--foreground)] text-sm transition group-hover:text-[var(--accent)]">
                         {feature.name}
                       </span>
-                      <span className="text-[var(--muted-foreground)] text-xs">{feature.description}</span>
+                      <span className="text-[var(--muted-foreground)] text-xs">
+                        {feature.description}
+                      </span>
                     </Link>
                   ))}
                 </div>

@@ -11,14 +11,14 @@ import { useState } from "react";
 import { useRoadmapVote } from "@/hooks/use-roadmap-vote";
 import { useRouter } from "@/i18n/routing";
 
-interface RoadmapVoteButtonProps {
+type RoadmapVoteButtonProps = {
   roadmapItemId: string;
   voteCount: number;
   hasVoted: boolean;
   canVote: boolean; // Whether user is authenticated
   size?: "sm" | "md" | "lg";
   showLabel?: boolean;
-}
+};
 
 export function RoadmapVoteButton({
   roadmapItemId,
@@ -80,6 +80,7 @@ export function RoadmapVoteButton({
         disabled={isLoading}
         onClick={handleClick}
         title={hasVoted ? "Remove your vote" : "Upvote this item"}
+        type="button"
       >
         <ChevronUp
           className={`transition-transform ${hasVoted ? "scale-110" : ""}`}

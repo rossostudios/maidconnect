@@ -59,7 +59,7 @@ export type UseModalFormReturn<TFormData> = {
  */
 export function useModalForm<TFormData extends Record<string, any>>({
   initialData,
-  resetOnClose = true,
+  resetOnClose: _resetOnClose = true,
   onSuccess,
   onError,
 }: UseModalFormOptions<TFormData>): UseModalFormReturn<TFormData> {

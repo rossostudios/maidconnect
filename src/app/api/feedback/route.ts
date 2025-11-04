@@ -119,8 +119,15 @@ async function handlePOST(request: Request) {
         user_agent,
         viewport_size,
         status: "new",
-        priority:
-          feedback_type === "bug" ? "high" : feedback_type === "complaint" ? "medium" : "low",
+        priority: (() => {
+          if (feedback_type === "bug") {
+            return "high";
+          }
+          if (feedback_type === "complaint") {
+            return "medium";
+          }
+          return "low";
+        })(),
       })
       .select()
       .single();

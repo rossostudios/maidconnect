@@ -28,11 +28,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
     const loadSession = async () => {
       const {
-        data: { session },
+        data: { session: currentSession },
       } = await supabase.auth.getSession();
 
       if (isMounted) {
-        setSession(session);
+        setSession(currentSession);
         setIsLoading(false);
       }
     };

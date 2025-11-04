@@ -1,14 +1,13 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { MessageSquare } from "lucide-react";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 
 // Dynamic import for modal (lazy load on demand)
-const FeedbackModal = dynamic(
-  () => import("./feedback-modal").then((mod) => mod.FeedbackModal),
-  { ssr: false }
-);
+const FeedbackModal = dynamic(() => import("./feedback-modal").then((mod) => mod.FeedbackModal), {
+  ssr: false,
+});
 
 /**
  * Floating feedback button

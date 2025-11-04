@@ -133,11 +133,15 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
 
         <div className="grid gap-4 md:grid-cols-2">
           <div>
-            <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
+            <label
+              className="mb-2 block font-semibold text-[#211f1a] text-sm"
+              htmlFor="profile-fullname"
+            >
               {t("sections.basicInfo.fields.fullName.label")}
             </label>
             <input
               className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
+              id="profile-fullname"
               onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
               placeholder={t("sections.basicInfo.fields.fullName.placeholder")}
               type="text"
@@ -146,9 +150,9 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
+            <div className="mb-2 block font-semibold text-[#211f1a] text-sm">
               {t("sections.basicInfo.fields.email.label")}
-            </label>
+            </div>
             <div className="flex items-center gap-2 rounded-xl border border-[#ebe5d8] bg-[#fbfaf9] px-4 py-3">
               <Mail className="h-4 w-4 text-[#7d7566]" />
               <span className="text-[#7d7566] text-base">{profile.email}</span>
@@ -159,13 +163,17 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
+            <label
+              className="mb-2 block font-semibold text-[#211f1a] text-sm"
+              htmlFor="profile-phone"
+            >
               {t("sections.basicInfo.fields.phoneNumber.label")}
             </label>
             <div className="flex items-center gap-2 rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 shadow-sm">
               <Phone className="h-4 w-4 text-[#7d7566]" />
               <input
                 className="flex-1 text-base focus:outline-none"
+                id="profile-phone"
                 onChange={(e) => setProfile({ ...profile, phone_number: e.target.value })}
                 placeholder={t("sections.basicInfo.fields.phoneNumber.placeholder")}
                 type="tel"
@@ -175,11 +183,15 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
           </div>
 
           <div>
-            <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
+            <label
+              className="mb-2 block font-semibold text-[#211f1a] text-sm"
+              htmlFor="profile-avatar"
+            >
               {t("sections.basicInfo.fields.avatarUrl.label")}
             </label>
             <input
               className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
+              id="profile-avatar"
               onChange={(e) => setProfile({ ...profile, avatar_url: e.target.value })}
               placeholder={t("sections.basicInfo.fields.avatarUrl.placeholder")}
               type="url"
@@ -200,11 +212,12 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
         </div>
 
         <div>
-          <label className="mb-2 block font-semibold text-[#211f1a] text-sm">
+          <label className="mb-2 block font-semibold text-[#211f1a] text-sm" htmlFor="profile-bio">
             {t("sections.professionalSummary.fields.bio.label")}
           </label>
           <textarea
             className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
+            id="profile-bio"
             onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
             placeholder={t("sections.professionalSummary.fields.bio.placeholder")}
             rows={5}
@@ -280,6 +293,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
           {isPending ? (
             <span className="flex items-center gap-2">
               <svg className="h-5 w-5 animate-spin" viewBox="0 0 24 24">
+                <title>Loading spinner</title>
                 <circle
                   className="opacity-25"
                   cx="12"

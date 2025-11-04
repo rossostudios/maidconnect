@@ -67,9 +67,9 @@ export function MatchWizard() {
     ];
     const currentIndex = steps.indexOf(currentStep);
     if (currentIndex < steps.length - 1) {
-      const nextStep = steps[currentIndex + 1];
-      if (nextStep) {
-        setCurrentStep(nextStep);
+      const nextStepValue = steps[currentIndex + 1];
+      if (nextStepValue) {
+        setCurrentStep(nextStepValue);
       }
     }
   };

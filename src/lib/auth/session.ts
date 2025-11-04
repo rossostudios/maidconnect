@@ -1,15 +1,18 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { redirect } from "next/navigation";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { defaultLocale } from "@/i18n";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { getAuthRoute, getDashboardRouteForRole } from "./routes";
-import { defaultLocale } from "@/i18n";
 import type { AppRole, AppUser, SessionContext } from "./types";
 
 type RequireUserOptions = {
   allowedRoles?: AppRole[];
   fallback?: string;
 };
+
+// Regex pattern for extracting locale from pathname
+const LOCALE_PATTERN = /^\/?([a-z]{2})\//;
 
 /**
  * Extract locale from request pathname
@@ -20,7 +23,7 @@ async function getLocaleFromHeaders(): Promise<string> {
   const pathname = headersList.get("x-pathname") || headersList.get("referer") || "";
 
   // Extract locale from pathname (e.g., /en/dashboard -> en)
-  const match = pathname.match(/^\/?([a-z]{2})\//);
+  const match = pathname.match(LOCALE_PATTERN);
   return match?.[1] || defaultLocale;
 }
 

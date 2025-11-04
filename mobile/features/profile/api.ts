@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import type { UserProfile, ProfileRecord, UpdateProfileParams } from "./types";
+import type { ProfileRecord, UpdateProfileParams, UserProfile } from "./types";
 
 /**
  * Transform database record to UserProfile type
@@ -163,7 +163,7 @@ export async function deleteProfilePhoto(): Promise<void> {
   if (profile?.avatar_url) {
     // Extract file path from URL
     const urlParts = profile.avatar_url.split("/");
-    const filePath = `avatars/${urlParts[urlParts.length - 1]}`;
+    const filePath = `avatars/${urlParts.at(-1)}`;
 
     // Delete from storage (ignore errors if file doesn't exist)
     await supabase.storage.from("profile-photos").remove([filePath]);

@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 
 /**
  * Custom hook for managing calendar month navigation state
@@ -49,7 +49,8 @@ export function useCalendarMonth(initialDate?: Date) {
   }, []);
 
   const getMonthLabel = useCallback(
-    (locale = "en-US", options?: Intl.DateTimeFormatOptions) => currentMonth.toLocaleDateString(locale, {
+    (locale = "en-US", options?: Intl.DateTimeFormatOptions) =>
+      currentMonth.toLocaleDateString(locale, {
         month: "long",
         year: "numeric",
         ...options,
@@ -58,16 +59,8 @@ export function useCalendarMonth(initialDate?: Date) {
   );
 
   const getMonthBounds = useCallback(() => {
-    const startOfMonth = new Date(
-      currentMonth.getFullYear(),
-      currentMonth.getMonth(),
-      1
-    );
-    const endOfMonth = new Date(
-      currentMonth.getFullYear(),
-      currentMonth.getMonth() + 1,
-      0
-    );
+    const startOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+    const endOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
     return { startOfMonth, endOfMonth };
   }, [currentMonth]);
 

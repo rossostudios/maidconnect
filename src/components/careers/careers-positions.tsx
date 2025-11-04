@@ -18,12 +18,16 @@ export async function CareersPositions() {
             const categoryTitle = t(`categories.${categoryKey}.title`);
 
             // Get job keys for this category
-            const jobKeys =
-              categoryKey === "engineering"
-                ? ["fullstack", "frontend"]
-                : categoryKey === "product"
-                  ? ["designer"]
-                  : ["csManager"];
+            const getJobKeys = () => {
+              if (categoryKey === "engineering") {
+                return ["fullstack", "frontend"];
+              }
+              if (categoryKey === "product") {
+                return ["designer"];
+              }
+              return ["csManager"];
+            };
+            const jobKeys = getJobKeys();
 
             return (
               <div key={categoryKey}>
@@ -48,6 +52,7 @@ export async function CareersPositions() {
                           <div className="mt-2 flex flex-wrap items-center gap-4 text-[#7d7566] text-sm">
                             <span className="flex items-center gap-1.5">
                               <svg
+                                aria-hidden="true"
                                 className="h-4 w-4"
                                 fill="none"
                                 stroke="currentColor"
@@ -70,6 +75,7 @@ export async function CareersPositions() {
                             </span>
                             <span className="flex items-center gap-1.5">
                               <svg
+                                aria-hidden="true"
                                 className="h-4 w-4"
                                 fill="none"
                                 stroke="currentColor"

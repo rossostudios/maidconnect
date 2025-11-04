@@ -6,7 +6,7 @@ import { HelpSearchBar } from "@/components/help/search-bar";
 import { Container } from "@/components/ui/container";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
-interface Article {
+type Article = {
   id: string;
   slug: string;
   title: string;
@@ -14,7 +14,7 @@ interface Article {
   view_count: number;
   helpful_count: number;
   not_helpful_count: number;
-}
+};
 
 export async function generateMetadata({
   params,

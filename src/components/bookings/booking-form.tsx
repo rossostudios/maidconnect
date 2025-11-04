@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { DatePicker } from "@/components/ui/date-picker";
 import { TimePicker } from "@/components/ui/time-picker";
-import type { ProfessionalService } from "@/lib/professionals/transformers";
 import { formatCOP } from "@/lib/format";
+import type { ProfessionalService } from "@/lib/professionals/transformers";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
@@ -35,7 +35,6 @@ function normalizeServiceName(value: string | null | undefined) {
   }
   return value;
 }
-
 
 export function BookingForm({
   professionalId,
@@ -341,7 +340,7 @@ function PaymentConfirmation({ bookingId, paymentIntentId, onReset }: PaymentCon
     setSubmitting(true);
     setError(null);
     try {
-      const { error, paymentIntent } = await stripe.confirmPayment({
+      const { error: paymentError, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
           return_url: window.location.origin,
@@ -349,8 +348,8 @@ function PaymentConfirmation({ bookingId, paymentIntentId, onReset }: PaymentCon
         redirect: "if_required",
       });
 
-      if (error) {
-        throw new Error(error.message ?? "Payment requires additional verification.");
+      if (paymentError) {
+        throw new Error(paymentError.message ?? "Payment requires additional verification.");
       }
 
       if (paymentIntent?.status === "requires_capture") {
@@ -411,7 +410,7 @@ type FormFieldProps = {
 function FormField({ label, children, helper }: FormFieldProps) {
   return (
     <div className="space-y-2">
-      <label className="block font-medium text-[#211f1a] text-sm">{label}</label>
+      <div className="block font-medium text-[#211f1a] text-sm">{label}</div>
       {helper ? <p className="text-[#7a6d62] text-xs">{helper}</p> : null}
       {children}
     </div>

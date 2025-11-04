@@ -1,7 +1,7 @@
 "use client";
 
 import { formatDistanceToNow } from "date-fns";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "@/i18n/routing";
 
 type Notification = {
@@ -24,7 +24,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<"all" | "unread">("unread");
 
-  const fetchNotifications = async () => {
+  const fetchNotifications = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
@@ -44,11 +44,13 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
 
       const data = await response.json();
       setNotifications(data.notifications || []);
-    } catch (_err) {
+    } catch (err) {
+      // Intentionally suppress errors - empty state will be shown
+      console.warn("Failed to fetch notifications:", err);
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
 
   useEffect(() => {
     if (isOpen) {
@@ -76,7 +78,10 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
             : notif
         )
       );
-    } catch (_err) {}
+    } catch (err) {
+      // Intentionally suppress errors - UI will remain in current state
+      console.warn("Failed to mark notifications as read:", err);
+    }
   };
 
   const markAllAsRead = async () => {
@@ -93,7 +98,10 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
 
       // Refresh notifications
       await fetchNotifications();
-    } catch (_err) {}
+    } catch (err) {
+      // Intentionally suppress errors - UI will remain in current state
+      console.warn("Failed to mark all notifications as read:", err);
+    }
   };
 
   const unreadCount = notifications.filter((n) => !n.read_at).length;
@@ -105,7 +113,18 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
   return (
     <>
       {/* Backdrop */}
-      <div className="fixed inset-0 z-40 bg-black/20" onClick={onClose} />
+      <div
+        className="fixed inset-0 z-40 bg-black/20"
+        onClick={onClose}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onClose();
+          }
+        }}
+        role="button"
+        tabIndex={0}
+      />
 
       {/* Sheet */}
       <div className="fixed top-0 right-0 z-50 flex h-full w-full max-w-md flex-col bg-white shadow-2xl">
@@ -117,7 +136,13 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
             onClick={onClose}
             type="button"
           >
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              aria-hidden="true"
+              className="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 d="M6 18L18 6M6 6l12 12"
                 strokeLinecap="round"
@@ -163,54 +188,80 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto">
-          {loading ? (
-            <div className="flex items-center justify-center p-12">
-              <div className="h-8 w-8 animate-spin rounded-full border-[#8B7355] border-b-2" />
-            </div>
-          ) : notifications.length === 0 ? (
-            <div className="flex flex-col items-center justify-center p-12">
-              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#ebe5d8]">
-                <svg
-                  className="h-8 w-8 text-[#7d7566]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                  />
-                </svg>
-              </div>
-              <h3 className="font-semibold text-[#211f1a] text-base">
-                {filter === "unread" ? "All caught up!" : "No notifications"}
-              </h3>
-              <p className="mt-1 text-center text-[#7d7566] text-sm">
-                {filter === "unread"
-                  ? "You've read all your notifications"
-                  : "You'll see notifications here when there's activity"}
-              </p>
-            </div>
-          ) : (
-            <div className="divide-y divide-[#ebe5d8]">
-              {notifications.map((notification) => (
-                <div
-                  className={`p-4 transition hover:bg-[#fbfaf9] ${
-                    notification.read_at ? "" : "bg-[#8B7355]/5"
-                  }`}
-                  key={notification.id}
-                >
-                  {notification.url ? (
-                    <Link
-                      className="block"
-                      href={notification.url}
-                      onClick={() => {
-                        markAsRead([notification.id]);
-                        onClose();
-                      }}
+          {(() => {
+            if (loading) {
+              return (
+                <div className="flex items-center justify-center p-12">
+                  <div className="h-8 w-8 animate-spin rounded-full border-[#8B7355] border-b-2" />
+                </div>
+              );
+            }
+            if (notifications.length === 0) {
+              return (
+                <div className="flex flex-col items-center justify-center p-12">
+                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#ebe5d8]">
+                    <svg
+                      aria-hidden="true"
+                      className="h-8 w-8 text-[#7d7566]"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
+                      <path
+                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="font-semibold text-[#211f1a] text-base">
+                    {filter === "unread" ? "All caught up!" : "No notifications"}
+                  </h3>
+                  <p className="mt-1 text-center text-[#7d7566] text-sm">
+                    {filter === "unread"
+                      ? "You've read all your notifications"
+                      : "You'll see notifications here when there's activity"}
+                  </p>
+                </div>
+              );
+            }
+            return (
+              <div className="divide-y divide-[#ebe5d8]">
+                {notifications.map((notification) => (
+                  <div
+                    className={`p-4 transition hover:bg-[#fbfaf9] ${
+                      notification.read_at ? "" : "bg-[#8B7355]/5"
+                    }`}
+                    key={notification.id}
+                  >
+                    {notification.url ? (
+                      <Link
+                        className="block"
+                        href={notification.url}
+                        onClick={() => {
+                          markAsRead([notification.id]);
+                          onClose();
+                        }}
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0 flex-1">
+                            <p className="font-semibold text-[#211f1a] text-sm">
+                              {notification.title}
+                            </p>
+                            <p className="mt-1 text-[#5d574b] text-sm">{notification.body}</p>
+                            <p className="mt-1 text-[#7d7566] text-xs">
+                              {formatDistanceToNow(new Date(notification.created_at), {
+                                addSuffix: true,
+                              })}
+                            </p>
+                          </div>
+                          {!notification.read_at && (
+                            <div className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#8B7355]" />
+                          )}
+                        </div>
+                      </Link>
+                    ) : (
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">
                           <p className="font-semibold text-[#211f1a] text-sm">
@@ -224,34 +275,19 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                           </p>
                         </div>
                         {!notification.read_at && (
-                          <div className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#8B7355]" />
+                          <button
+                            className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#8B7355] transition hover:bg-[#e54d3c]"
+                            onClick={() => markAsRead([notification.id])}
+                            type="button"
+                          />
                         )}
                       </div>
-                    </Link>
-                  ) : (
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0 flex-1">
-                        <p className="font-semibold text-[#211f1a] text-sm">{notification.title}</p>
-                        <p className="mt-1 text-[#5d574b] text-sm">{notification.body}</p>
-                        <p className="mt-1 text-[#7d7566] text-xs">
-                          {formatDistanceToNow(new Date(notification.created_at), {
-                            addSuffix: true,
-                          })}
-                        </p>
-                      </div>
-                      {!notification.read_at && (
-                        <button
-                          className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#8B7355] transition hover:bg-[#e54d3c]"
-                          onClick={() => markAsRead([notification.id])}
-                          type="button"
-                        />
-                      )}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+                    )}
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
         </div>
       </div>
     </>

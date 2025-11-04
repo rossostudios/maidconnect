@@ -42,9 +42,7 @@ export default async function DashboardLayout({ children }: Props) {
         <header className="bg-[#fbfaf9] py-4">
           <Container className="flex items-center justify-between gap-4">
             <Link className="flex items-center" href="/">
-              <span className="font-semibold text-[#211f1a] text-xl tracking-tight">
-                Casaora
-              </span>
+              <span className="font-semibold text-[#211f1a] text-xl tracking-tight">Casaora</span>
             </Link>
             <DashboardNavigation navLinks={navLinks} userRole={userRole} />
           </Container>

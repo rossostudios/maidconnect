@@ -7,9 +7,9 @@ import { DatePicker } from "@/components/ui/date-picker";
 import { TimePicker } from "@/components/ui/time-picker";
 import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
 import { isFeatureEnabled } from "@/lib/feature-flags";
+import { formatCOP } from "@/lib/format";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
 import { type RecurringSchedule, RecurringScheduleSelector } from "./recurring-schedule-selector";
-import { formatCOP } from "@/lib/format";
 
 type BookingWizardProps = {
   professionalId: string;
@@ -68,16 +68,24 @@ export function BookingWizard({
   // Swipe gesture handlers for mobile navigation
   const handleSwipeLeft = () => {
     // Swipe left = next step
-    if (currentStep === 1 && canProceedToStep2) setCurrentStep(2);
-    else if (currentStep === 2 && canProceedToStep3) setCurrentStep(3);
-    else if (currentStep === 3 && canProceedToStep4) setCurrentStep(4);
+    if (currentStep === 1 && canProceedToStep2) {
+      setCurrentStep(2);
+    } else if (currentStep === 2 && canProceedToStep3) {
+      setCurrentStep(3);
+    } else if (currentStep === 3 && canProceedToStep4) {
+      setCurrentStep(4);
+    }
   };
 
   const handleSwipeRight = () => {
     // Swipe right = previous step
-    if (currentStep === 2) setCurrentStep(1);
-    else if (currentStep === 3) setCurrentStep(2);
-    else if (currentStep === 4) setCurrentStep(3);
+    if (currentStep === 2) {
+      setCurrentStep(1);
+    } else if (currentStep === 3) {
+      setCurrentStep(2);
+    } else if (currentStep === 4) {
+      setCurrentStep(3);
+    }
   };
 
   const swipeRef = useSwipeGesture<HTMLDivElement>({
@@ -104,17 +112,25 @@ export function BookingWizard({
 
               {/* Step Circle */}
               <button
-                className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-full border-2 font-semibold text-sm transition ${
-                  currentStep === step.number
-                    ? "border-[#8B7355] bg-[#8B7355] text-white"
-                    : step.completed
-                      ? "border-green-500 bg-green-500 text-white"
-                      : "border-gray-300 bg-white text-gray-400"
-                }`}
+                className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-full border-2 font-semibold text-sm transition ${(() => {
+                  if (currentStep === step.number) {
+                    return "border-[#8B7355] bg-[#8B7355] text-white";
+                  }
+                  if (step.completed) {
+                    return "border-green-500 bg-green-500 text-white";
+                  }
+                  return "border-gray-300 bg-white text-gray-400";
+                })()}`}
                 onClick={() => {
-                  if (step.number === 2 && !canProceedToStep2) return;
-                  if (step.number === 3 && !canProceedToStep3) return;
-                  if (step.number === 4 && !canProceedToStep4) return;
+                  if (step.number === 2 && !canProceedToStep2) {
+                    return;
+                  }
+                  if (step.number === 3 && !canProceedToStep3) {
+                    return;
+                  }
+                  if (step.number === 4 && !canProceedToStep4) {
+                    return;
+                  }
                   setCurrentStep(step.number as WizardStep);
                 }}
                 type="button"
@@ -260,9 +276,7 @@ function Step1ServiceSelection({
             >
               <h3 className="font-semibold text-[#211f1a] text-lg">{service.name}</h3>
               {rate && (
-                <p className="mt-2 font-semibold text-[#8B7355] text-xl">
-                  {formatCOP(rate)}/hour
-                </p>
+                <p className="mt-2 font-semibold text-[#8B7355] text-xl">{formatCOP(rate)}/hour</p>
               )}
               {service.description && (
                 <p className="mt-2 text-[#7d7566] text-sm">{service.description}</p>
@@ -319,7 +333,7 @@ function Step2DateTime({
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label className="mb-2 block font-medium text-[#211f1a] text-sm">Date</label>
+          <div className="mb-2 block font-medium text-[#211f1a] text-sm">Date</div>
           <DatePicker
             onChange={onSelectDate}
             placeholder="Select date"
@@ -329,7 +343,7 @@ function Step2DateTime({
         </div>
 
         <div>
-          <label className="mb-2 block font-medium text-[#211f1a] text-sm">Start Time</label>
+          <div className="mb-2 block font-medium text-[#211f1a] text-sm">Start Time</div>
           <TimePicker
             onChange={onSelectTime}
             placeholder="Select time"
@@ -403,11 +417,15 @@ function Step3Details({
 
       <div className="space-y-4">
         <div>
-          <label className="mb-2 block font-medium text-[#211f1a] text-sm">
+          <label
+            className="mb-2 block font-medium text-[#211f1a] text-sm"
+            htmlFor="special-instructions-wizard"
+          >
             Special Instructions
           </label>
           <textarea
             className="w-full rounded-xl border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
+            id="special-instructions-wizard"
             onChange={(e) => onUpdateInstructions(e.target.value)}
             placeholder="Building entry, pets, cleaning priorities, allergies..."
             rows={4}
@@ -416,9 +434,15 @@ function Step3Details({
         </div>
 
         <div>
-          <label className="mb-2 block font-medium text-[#211f1a] text-sm">Service Address</label>
+          <label
+            className="mb-2 block font-medium text-[#211f1a] text-sm"
+            htmlFor="service-address-wizard"
+          >
+            Service Address
+          </label>
           <textarea
             className="w-full rounded-xl border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
+            id="service-address-wizard"
             onChange={(e) => onUpdateAddress(e.target.value)}
             placeholder="Street address, apartment number, city..."
             rows={3}
@@ -557,7 +581,7 @@ function Step4Review({
 
         {/* Duration Adjuster */}
         <div className="border-[#ebe5d8] border-t pt-4">
-          <label className="mb-2 block text-[#7d7566] text-xs">Duration (hours)</label>
+          <div className="mb-2 block text-[#7d7566] text-xs">Duration (hours)</div>
           <div className="flex items-center gap-3">
             <button
               className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#211f1a] font-bold text-[#211f1a] transition hover:bg-[#f5f2ed]"
@@ -586,9 +610,7 @@ function Step4Review({
               <span className="text-[#7d7566]">
                 Service ({formatCOP(selectedRate)}/hr × {durationHours}h)
               </span>
-              <span className="font-semibold text-[#211f1a]">
-                {formatCOP(estimatedAmount)}
-              </span>
+              <span className="font-semibold text-[#211f1a]">{formatCOP(estimatedAmount)}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-[#7d7566]">Tax (19%)</span>
@@ -596,9 +618,7 @@ function Step4Review({
             </div>
             <div className="flex justify-between border-[#ebe5d8] border-t pt-2">
               <span className="font-bold text-[#211f1a]">Total</span>
-              <span className="font-bold text-2xl text-[#8B7355]">
-                {formatCOP(totalAmount)}
-              </span>
+              <span className="font-bold text-2xl text-[#8B7355]">{formatCOP(totalAmount)}</span>
             </div>
           </div>
         </div>

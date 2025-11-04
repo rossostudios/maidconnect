@@ -6,9 +6,9 @@
  * AFTER: 122 lines (3 handlers) (22% reduction)
  */
 
-import { withProfessional, ok, created, } from "@/lib/api";
-import { ValidationError } from "@/lib/errors";
 import { z } from "zod";
+import { created, ok, withProfessional } from "@/lib/api";
+import { ValidationError } from "@/lib/errors";
 
 const createAddonSchema = z.object({
   name: z.string().min(1),

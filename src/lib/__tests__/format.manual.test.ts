@@ -4,20 +4,20 @@
  */
 
 import {
-  formatCurrency,
   formatCOP,
-  formatUSD,
+  formatCurrency,
   formatDate,
-  formatDateShort,
   formatDateLong,
-  formatTime,
-  formatTime12,
-  formatTime24,
+  formatDateShort,
   formatDateTime,
   formatDuration,
   formatDurationHours,
   formatNumber,
   formatPercentage,
+  formatTime,
+  formatTime12,
+  formatTime24,
+  formatUSD,
 } from "../format";
 
 console.log("🧪 Testing Formatting Utilities\n");
@@ -38,7 +38,10 @@ console.log("  formatUSD(1000):", formatUSD(1000));
 console.log("  formatUSD(null):", formatUSD(null));
 
 console.log("\n  formatCurrency(50000):", formatCurrency(50_000));
-console.log("  formatCurrency(50000, { currency: 'USD' }):", formatCurrency(50_000, { currency: "USD" }));
+console.log(
+  "  formatCurrency(50000, { currency: 'USD' }):",
+  formatCurrency(50_000, { currency: "USD" })
+);
 console.log("  formatCurrency(NaN):", formatCurrency(Number.NaN));
 console.log("  formatCurrency(Infinity):", formatCurrency(Number.POSITIVE_INFINITY));
 
@@ -56,7 +59,10 @@ console.log("  formatDateLong(testDate):", formatDateLong(testDate));
 console.log("  formatDate(null):", formatDate(null));
 console.log("  formatDate('invalid'):", formatDate("invalid"));
 
-console.log("\n  formatDate with weekday:", formatDate(testDate, { weekday: "long", month: "long" }));
+console.log(
+  "\n  formatDate with weekday:",
+  formatDate(testDate, { weekday: "long", month: "long" })
+);
 console.log("  formatDate es-CO:", formatDate(testDate, { locale: "es-CO" }));
 
 // ============================================================================
@@ -76,7 +82,10 @@ console.log("  formatTime(null):", formatTime(null));
 
 console.log("\n📅🕐 DateTime Formatting:");
 console.log("  formatDateTime(testDate):", formatDateTime(testDate));
-console.log("  formatDateTime with weekday:", formatDateTime(testDate, { weekday: "short", hour12: false }));
+console.log(
+  "  formatDateTime with weekday:",
+  formatDateTime(testDate, { weekday: "short", hour12: false })
+);
 console.log("  formatDateTime(null):", formatDateTime(null));
 
 // ============================================================================

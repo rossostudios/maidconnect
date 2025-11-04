@@ -35,10 +35,10 @@ const steps: TourStep[] = [
   },
 ];
 
-interface WelcomeTourProps {
+type WelcomeTourProps = {
   autoStart?: boolean;
   onComplete?: () => void;
-}
+};
 
 export function WelcomeTour({ autoStart = false, onComplete }: WelcomeTourProps) {
   const tour = useOnboardingTour({
@@ -57,7 +57,7 @@ export function WelcomeTour({ autoStart = false, onComplete }: WelcomeTourProps)
         tour.start();
       }, 1000);
     }
-  }, [autoStart]);
+  }, [autoStart, tour.shouldShowTour, tour.start]);
 
   if (!(tour.state.isActive && tour.currentStep)) {
     return null;

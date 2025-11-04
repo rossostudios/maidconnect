@@ -7,11 +7,11 @@ import { RoadmapEditor } from "@/components/roadmap/roadmap-editor";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { RoadmapItem } from "@/types/roadmap";
 
-interface PageProps {
+type PageProps = {
   params: Promise<{
     id: string;
   }>;
-}
+};
 
 async function getRoadmapItem(id: string): Promise<RoadmapItem | null> {
   const supabase = await createSupabaseServerClient();

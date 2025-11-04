@@ -6,9 +6,9 @@
  * AFTER: 81 lines (41% reduction)
  */
 
-import { withCustomer, ok, withRateLimit, requireCustomerOwnership } from "@/lib/api";
-import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 import { z } from "zod";
+import { ok, requireCustomerOwnership, withCustomer, withRateLimit } from "@/lib/api";
+import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 
 const rebookSchema = z.object({
   originalBookingId: z.string().uuid(),
@@ -22,21 +22,23 @@ const handler = withCustomer(async ({ user, supabase }, request: Request) => {
   const { originalBookingId, scheduledStart, durationMinutes } = rebookSchema.parse(body);
 
   // Fetch original booking details
-  const originalBooking = await requireCustomerOwnership(supabase, user.id, originalBookingId, `
+  const originalBooking = await requireCustomerOwnership(
+    supabase,
+    user.id,
+    originalBookingId,
+    `
     *,
     professional:profiles!professional_id (
       id,
       full_name,
       avatar_url
     )
-  `);
+  `
+  );
 
   // Only allow rebooking of completed bookings
   if (originalBooking.status !== "completed") {
-    throw new InvalidBookingStatusError(
-      originalBooking.status,
-      "rebook"
-    );
+    throw new InvalidBookingStatusError(originalBooking.status, "rebook");
   }
 
   // Calculate new scheduling details

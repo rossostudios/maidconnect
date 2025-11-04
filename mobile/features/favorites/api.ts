@@ -1,5 +1,5 @@
-import { supabase } from "@/lib/supabase";
 import { env } from "@/lib/env";
+import { supabase } from "@/lib/supabase";
 
 /**
  * Check if a professional is favorited
@@ -116,8 +116,7 @@ export async function toggleFavorite(professionalId: string): Promise<boolean> {
   if (favorited) {
     await removeFavorite(professionalId);
     return false;
-  } else {
-    await addFavorite(professionalId);
-    return true;
   }
+  await addFavorite(professionalId);
+  return true;
 }

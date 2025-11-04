@@ -1,6 +1,7 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { router } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as ImagePicker from "expo-image-picker";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -14,13 +15,12 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
 
 import {
+  deleteProfilePhoto,
   fetchProfile,
   updateProfile,
   uploadProfilePhoto,
-  deleteProfilePhoto,
 } from "@/features/profile/api";
 import type { UpdateProfileParams } from "@/features/profile/types";
 
@@ -72,7 +72,7 @@ export default function EditProfileScreen() {
       }
 
       // Update profile data
-      const { photoUri, ...profileParams } = params;
+      const { photoUri: _photoUri, ...profileParams } = params;
       return updateProfile(profileParams);
     },
     onSuccess: () => {
@@ -202,11 +202,11 @@ export default function EditProfileScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
-        <Pressable onPress={handleCancel} disabled={updateMutation.isPending}>
+        <Pressable disabled={updateMutation.isPending} onPress={handleCancel}>
           <Text style={styles.cancelText}>Cancel</Text>
         </Pressable>
         <Text style={styles.headerTitle}>Edit Profile</Text>
-        <Pressable onPress={handleSubmit} disabled={updateMutation.isPending}>
+        <Pressable disabled={updateMutation.isPending} onPress={handleSubmit}>
           {updateMutation.isPending ? (
             <ActivityIndicator color="#2563EB" size="small" />
           ) : (
@@ -215,18 +215,18 @@ export default function EditProfileScreen() {
         </Pressable>
       </View>
 
-      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <ScrollView contentContainerStyle={styles.content} style={styles.container}>
         <View style={styles.photoSection}>
-          <Pressable style={styles.photoContainer} onPress={handlePhotoOptions}>
+          <Pressable onPress={handlePhotoOptions} style={styles.photoContainer}>
             {currentPhotoUri ? (
               <Image source={{ uri: currentPhotoUri }} style={styles.photo} />
             ) : (
               <View style={styles.photoPlaceholder}>
-                <Ionicons name="person" size={48} color="#94A3B8" />
+                <Ionicons color="#94A3B8" name="person" size={48} />
               </View>
             )}
             <View style={styles.photoEditBadge}>
-              <Ionicons name="camera" size={16} color="#FFFFFF" />
+              <Ionicons color="#FFFFFF" name="camera" size={16} />
             </View>
           </Pressable>
           <Text style={styles.photoHint}>Tap to change photo</Text>
@@ -236,9 +236,9 @@ export default function EditProfileScreen() {
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Email</Text>
             <TextInput
+              editable={false}
               style={[styles.input, styles.inputDisabled]}
               value={profile?.email || ""}
-              editable={false}
             />
             <Text style={styles.inputHint}>Email cannot be changed</Text>
           </View>
@@ -246,42 +246,42 @@ export default function EditProfileScreen() {
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Full Name *</Text>
             <TextInput
-              style={styles.input}
-              placeholder="Enter your full name"
-              value={formData.fullName}
-              onChangeText={(text) => setFormData((prev) => ({ ...prev, fullName: text }))}
               autoCapitalize="words"
+              onChangeText={(text) => setFormData((prev) => ({ ...prev, fullName: text }))}
+              placeholder="Enter your full name"
+              style={styles.input}
+              value={formData.fullName}
             />
           </View>
 
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Phone Number</Text>
             <TextInput
-              style={styles.input}
-              placeholder="+57 300 123 4567"
-              value={formData.phone}
-              onChangeText={(text) => setFormData((prev) => ({ ...prev, phone: text }))}
               keyboardType="phone-pad"
+              onChangeText={(text) => setFormData((prev) => ({ ...prev, phone: text }))}
+              placeholder="+57 300 123 4567"
+              style={styles.input}
+              value={formData.phone}
             />
           </View>
 
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>City</Text>
             <TextInput
-              style={styles.input}
-              placeholder="Medellín"
-              value={formData.city}
               onChangeText={(text) => setFormData((prev) => ({ ...prev, city: text }))}
+              placeholder="Medellín"
+              style={styles.input}
+              value={formData.city}
             />
           </View>
 
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>Country</Text>
             <TextInput
-              style={styles.input}
-              placeholder="Colombia"
-              value={formData.country}
               onChangeText={(text) => setFormData((prev) => ({ ...prev, country: text }))}
+              placeholder="Colombia"
+              style={styles.input}
+              value={formData.country}
             />
           </View>
         </View>

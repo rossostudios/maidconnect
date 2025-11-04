@@ -70,7 +70,12 @@ export function useRealtimeMessages({
           onConversationUpdate?.();
         }
       )
-      .subscribe((_status) => {});
+      .subscribe((status) => {
+        // Subscribe callback required for Supabase Realtime - status changes are handled internally
+        if (status === "CHANNEL_ERROR") {
+          console.warn("Conversations channel error");
+        }
+      });
 
     channelRef.current = channel;
 
@@ -100,7 +105,12 @@ export function useRealtimeMessages({
           onNewMessage?.(newMessage);
         }
       )
-      .subscribe((_status) => {});
+      .subscribe((status) => {
+        // Subscribe callback required for Supabase Realtime - status changes are handled internally
+        if (status === "CHANNEL_ERROR") {
+          console.warn("Messages channel error");
+        }
+      });
 
     return () => {
       supabase.removeChannel(messagesChannel);

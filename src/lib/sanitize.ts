@@ -1,4 +1,4 @@
-import DOMPurify from 'isomorphic-dompurify';
+import DOMPurify from "isomorphic-dompurify";
 
 /**
  * Sanitize HTML content to prevent XSS attacks
@@ -16,63 +16,60 @@ import DOMPurify from 'isomorphic-dompurify';
  * <div dangerouslySetInnerHTML={{ __html: safeHTML }} />
  * ```
  */
-export function sanitizeHTML(
-  dirty: string,
-  options?: DOMPurify.Config
-): string {
+export function sanitizeHTML(dirty: string, options?: DOMPurify.Config): string {
   // Default configuration that allows common formatting
   const defaultConfig = {
     // Allow common HTML tags
     ALLOWED_TAGS: [
-      'p',
-      'br',
-      'strong',
-      'em',
-      'u',
-      's',
-      'a',
-      'ul',
-      'ol',
-      'li',
-      'h1',
-      'h2',
-      'h3',
-      'h4',
-      'h5',
-      'h6',
-      'blockquote',
-      'code',
-      'pre',
-      'hr',
-      'table',
-      'thead',
-      'tbody',
-      'tr',
-      'th',
-      'td',
-      'img',
-      'div',
-      'span',
+      "p",
+      "br",
+      "strong",
+      "em",
+      "u",
+      "s",
+      "a",
+      "ul",
+      "ol",
+      "li",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+      "blockquote",
+      "code",
+      "pre",
+      "hr",
+      "table",
+      "thead",
+      "tbody",
+      "tr",
+      "th",
+      "td",
+      "img",
+      "div",
+      "span",
     ],
     // Allow common attributes
     ALLOWED_ATTR: [
-      'href',
-      'title',
-      'alt',
-      'src',
-      'class',
-      'id',
-      'rel',
-      'target',
-      'width',
-      'height',
+      "href",
+      "title",
+      "alt",
+      "src",
+      "class",
+      "id",
+      "rel",
+      "target",
+      "width",
+      "height",
     ],
     // Allow data attributes for Tailwind classes
     ALLOW_DATA_ATTR: true,
     // Force all links to open in new tab with noopener
-    ADD_ATTR: ['target'],
-    FORBID_ATTR: ['onerror', 'onload', 'onclick'],
-    FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form'],
+    ADD_ATTR: ["target"],
+    FORBID_ATTR: ["onerror", "onload", "onclick"],
+    FORBID_TAGS: ["script", "iframe", "object", "embed", "form"],
     ...options,
   } as DOMPurify.Config;
 
@@ -92,62 +89,62 @@ export function sanitizeRichContent(dirty: string): string {
   const config = {
     // More permissive for admin-created content
     ALLOWED_TAGS: [
-      'p',
-      'br',
-      'strong',
-      'em',
-      'u',
-      's',
-      'a',
-      'ul',
-      'ol',
-      'li',
-      'h1',
-      'h2',
-      'h3',
-      'h4',
-      'h5',
-      'h6',
-      'blockquote',
-      'code',
-      'pre',
-      'hr',
-      'table',
-      'thead',
-      'tbody',
-      'tr',
-      'th',
-      'td',
-      'img',
-      'div',
-      'span',
-      'figure',
-      'figcaption',
-      'video',
-      'audio',
-      'source',
+      "p",
+      "br",
+      "strong",
+      "em",
+      "u",
+      "s",
+      "a",
+      "ul",
+      "ol",
+      "li",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+      "blockquote",
+      "code",
+      "pre",
+      "hr",
+      "table",
+      "thead",
+      "tbody",
+      "tr",
+      "th",
+      "td",
+      "img",
+      "div",
+      "span",
+      "figure",
+      "figcaption",
+      "video",
+      "audio",
+      "source",
     ],
     ALLOWED_ATTR: [
-      'href',
-      'title',
-      'alt',
-      'src',
-      'class',
-      'id',
-      'rel',
-      'target',
-      'width',
-      'height',
-      'controls',
-      'autoplay',
-      'loop',
-      'muted',
-      'poster',
+      "href",
+      "title",
+      "alt",
+      "src",
+      "class",
+      "id",
+      "rel",
+      "target",
+      "width",
+      "height",
+      "controls",
+      "autoplay",
+      "loop",
+      "muted",
+      "poster",
     ],
     ALLOW_DATA_ATTR: true,
     // Still forbid dangerous attributes
-    FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover'],
-    FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form', 'input'],
+    FORBID_ATTR: ["onerror", "onload", "onclick", "onmouseover"],
+    FORBID_TAGS: ["script", "iframe", "object", "embed", "form", "input"],
   } as DOMPurify.Config;
 
   return String(DOMPurify.sanitize(dirty, config as any));
@@ -165,22 +162,12 @@ export function sanitizeRichContent(dirty: string): string {
 export function sanitizeUserContent(dirty: string): string {
   const config = {
     // Very restrictive for user content
-    ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 'a'],
-    ALLOWED_ATTR: ['href', 'rel', 'target'],
+    ALLOWED_TAGS: ["p", "br", "strong", "em", "u", "a"],
+    ALLOWED_ATTR: ["href", "rel", "target"],
     ALLOW_DATA_ATTR: false,
     // Force safe link handling
-    FORBID_ATTR: ['onerror', 'onload', 'onclick'],
-    FORBID_TAGS: [
-      'script',
-      'iframe',
-      'object',
-      'embed',
-      'form',
-      'input',
-      'img',
-      'video',
-      'audio',
-    ],
+    FORBID_ATTR: ["onerror", "onload", "onclick"],
+    FORBID_TAGS: ["script", "iframe", "object", "embed", "form", "input", "img", "video", "audio"],
   } as DOMPurify.Config;
 
   return String(DOMPurify.sanitize(dirty, config as any));
@@ -212,29 +199,31 @@ export function stripHTML(dirty: string): string {
  * @returns Sanitized URL or empty string if invalid
  */
 export function sanitizeURL(url: string): string {
-  if (!url) return '';
+  if (!url) {
+    return "";
+  }
 
   // Remove any whitespace
   url = url.trim();
 
   // Block dangerous protocols
-  const dangerousProtocols = ['javascript:', 'data:', 'vbscript:', 'file:'];
+  const dangerousProtocols = ["javascript:", "data:", "vbscript:", "file:"];
   const lowerUrl = url.toLowerCase();
 
   for (const protocol of dangerousProtocols) {
     if (lowerUrl.startsWith(protocol)) {
-      console.warn('[Sanitize] Blocked dangerous URL:', url);
-      return '';
+      console.warn("[Sanitize] Blocked dangerous URL:", url);
+      return "";
     }
   }
 
   // Allow http, https, mailto, tel
   if (
-    lowerUrl.startsWith('http://') ||
-    lowerUrl.startsWith('https://') ||
-    lowerUrl.startsWith('mailto:') ||
-    lowerUrl.startsWith('tel:') ||
-    lowerUrl.startsWith('/')
+    lowerUrl.startsWith("http://") ||
+    lowerUrl.startsWith("https://") ||
+    lowerUrl.startsWith("mailto:") ||
+    lowerUrl.startsWith("tel:") ||
+    lowerUrl.startsWith("/")
   ) {
     return url;
   }
@@ -265,9 +254,6 @@ export const SANITIZE_PRESETS = {
  * const safeContent = sanitize(userInput, 'USER_CONTENT');
  * ```
  */
-export function sanitize(
-  dirty: string,
-  preset: keyof typeof SANITIZE_PRESETS = 'DEFAULT'
-): string {
+export function sanitize(dirty: string, preset: keyof typeof SANITIZE_PRESETS = "DEFAULT"): string {
   return SANITIZE_PRESETS[preset](dirty);
 }

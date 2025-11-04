@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -12,7 +13,6 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
 import {
   fetchNotificationPreferences,
   type NotificationPreferences,
@@ -124,14 +124,14 @@ export default function AccountScreen() {
       return;
     }
 
-    const { data, error } = await supabase
+    const { data, error: profileError } = await supabase
       .from("profiles")
       .select("id, role, onboarding_status, locale, phone, city, country")
       .eq("id", session.user.id)
       .maybeSingle();
 
-    if (error) {
-      console.error("[mobile] Failed to load profile", error);
+    if (profileError) {
+      console.error("[mobile] Failed to load profile", profileError);
       setError("Unable to load your profile details right now.");
       return;
     }
@@ -153,8 +153,8 @@ export default function AccountScreen() {
     setIsSigningOut(true);
     try {
       await signOut();
-    } catch (error) {
-      console.error("[mobile] Unable to sign out", error);
+    } catch (signOutError) {
+      console.error("[mobile] Unable to sign out", signOutError);
       Alert.alert("Sign out failed", "Please try again.");
     } finally {
       setIsSigningOut(false);
@@ -281,17 +281,14 @@ export default function AccountScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Profile</Text>
           <View style={styles.card}>
-            <Pressable
-              style={styles.menuItem}
-              onPress={() => router.push("/(app)/edit-profile")}
-            >
+            <Pressable onPress={() => router.push("/(app)/edit-profile")} style={styles.menuItem}>
               <View style={styles.menuItemLeft}>
                 <View style={styles.menuIconContainer}>
-                  <Ionicons name="person-outline" size={20} color="#2563EB" />
+                  <Ionicons color="#2563EB" name="person-outline" size={20} />
                 </View>
                 <Text style={styles.menuItemLabel}>Edit Profile</Text>
               </View>
-              <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+              <Ionicons color="#94A3B8" name="chevron-forward" size={20} />
             </Pressable>
           </View>
         </View>
@@ -300,40 +297,40 @@ export default function AccountScreen() {
           <Text style={styles.sectionTitle}>Quick Links</Text>
           <View style={styles.card}>
             <Pressable
-              style={styles.menuItem}
               onPress={() => router.push("/(app)/payment-methods")}
+              style={styles.menuItem}
             >
               <View style={styles.menuItemLeft}>
                 <View style={styles.menuIconContainer}>
-                  <Ionicons name="card-outline" size={20} color="#2563EB" />
+                  <Ionicons color="#2563EB" name="card-outline" size={20} />
                 </View>
                 <Text style={styles.menuItemLabel}>Payment Methods</Text>
               </View>
-              <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+              <Ionicons color="#94A3B8" name="chevron-forward" size={20} />
             </Pressable>
 
             <View style={styles.menuDivider} />
 
-            <Pressable style={styles.menuItem} onPress={() => router.push("/(app)/addresses")}>
+            <Pressable onPress={() => router.push("/(app)/addresses")} style={styles.menuItem}>
               <View style={styles.menuItemLeft}>
                 <View style={styles.menuIconContainer}>
-                  <Ionicons name="location-outline" size={20} color="#2563EB" />
+                  <Ionicons color="#2563EB" name="location-outline" size={20} />
                 </View>
                 <Text style={styles.menuItemLabel}>Saved Addresses</Text>
               </View>
-              <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+              <Ionicons color="#94A3B8" name="chevron-forward" size={20} />
             </Pressable>
 
             <View style={styles.menuDivider} />
 
-            <Pressable style={styles.menuItem} onPress={() => router.push("/(app)/favorites")}>
+            <Pressable onPress={() => router.push("/(app)/favorites")} style={styles.menuItem}>
               <View style={styles.menuItemLeft}>
                 <View style={styles.menuIconContainer}>
-                  <Ionicons name="heart-outline" size={20} color="#2563EB" />
+                  <Ionicons color="#2563EB" name="heart-outline" size={20} />
                 </View>
                 <Text style={styles.menuItemLabel}>My Favorites</Text>
               </View>
-              <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+              <Ionicons color="#94A3B8" name="chevron-forward" size={20} />
             </Pressable>
           </View>
         </View>
@@ -379,11 +376,15 @@ export default function AccountScreen() {
               ]}
             >
               <Text style={styles.secondaryButtonLabel}>
-                {isRegisteringForPush
-                  ? "Checking…"
-                  : permissionsStatus === "granted"
-                    ? "Active"
-                    : "Enable push alerts"}
+                {(() => {
+                  if (isRegisteringForPush) {
+                    return "Checking…";
+                  }
+                  if (permissionsStatus === "granted") {
+                    return "Active";
+                  }
+                  return "Enable push alerts";
+                })()}
               </Text>
             </Pressable>
 
@@ -427,38 +428,51 @@ export default function AccountScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Support</Text>
           <View style={styles.card}>
-            <Pressable style={styles.menuItem} onPress={() => Alert.alert("Help & Support", "Contact us at support@maidconnect.com")}>
+            <Pressable
+              onPress={() => Alert.alert("Help & Support", "Contact us at support@maidconnect.com")}
+              style={styles.menuItem}
+            >
               <View style={styles.menuItemLeft}>
                 <View style={styles.menuIconContainer}>
-                  <Ionicons name="help-circle-outline" size={20} color="#2563EB" />
+                  <Ionicons color="#2563EB" name="help-circle-outline" size={20} />
                 </View>
                 <Text style={styles.menuItemLabel}>Help & Support</Text>
               </View>
-              <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+              <Ionicons color="#94A3B8" name="chevron-forward" size={20} />
             </Pressable>
 
             <View style={styles.menuDivider} />
 
-            <Pressable style={styles.menuItem} onPress={() => Alert.alert("Privacy Policy", "View our privacy policy at maidconnect.com/privacy")}>
+            <Pressable
+              onPress={() =>
+                Alert.alert("Privacy Policy", "View our privacy policy at maidconnect.com/privacy")
+              }
+              style={styles.menuItem}
+            >
               <View style={styles.menuItemLeft}>
                 <View style={styles.menuIconContainer}>
-                  <Ionicons name="shield-checkmark-outline" size={20} color="#2563EB" />
+                  <Ionicons color="#2563EB" name="shield-checkmark-outline" size={20} />
                 </View>
                 <Text style={styles.menuItemLabel}>Privacy Policy</Text>
               </View>
-              <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+              <Ionicons color="#94A3B8" name="chevron-forward" size={20} />
             </Pressable>
 
             <View style={styles.menuDivider} />
 
-            <Pressable style={styles.menuItem} onPress={() => Alert.alert("Terms of Service", "View our terms at maidconnect.com/terms")}>
+            <Pressable
+              onPress={() =>
+                Alert.alert("Terms of Service", "View our terms at maidconnect.com/terms")
+              }
+              style={styles.menuItem}
+            >
               <View style={styles.menuItemLeft}>
                 <View style={styles.menuIconContainer}>
-                  <Ionicons name="document-text-outline" size={20} color="#2563EB" />
+                  <Ionicons color="#2563EB" name="document-text-outline" size={20} />
                 </View>
                 <Text style={styles.menuItemLabel}>Terms of Service</Text>
               </View>
-              <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+              <Ionicons color="#94A3B8" name="chevron-forward" size={20} />
             </Pressable>
           </View>
         </View>

@@ -17,8 +17,8 @@ export async function GET(request: Request) {
     const supabase = await createSupabaseServerClient();
 
     // Parse query parameters
-    const page = Number.parseInt(searchParams.get("page") || "1");
-    const limit = Number.parseInt(searchParams.get("limit") || "12");
+    const page = Number.parseInt(searchParams.get("page") || "1", 10);
+    const limit = Number.parseInt(searchParams.get("limit") || "12", 10);
     const statusParam = searchParams.get("status");
     const categoryParam = searchParams.get("category");
     const targetAudience = searchParams.get(

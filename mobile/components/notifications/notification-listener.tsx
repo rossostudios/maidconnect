@@ -3,14 +3,13 @@
  * Handles incoming push notifications and navigates user to appropriate screens
  */
 
-import { useEffect, useRef } from "react";
-import { Platform } from "react-native";
 import * as Notifications from "expo-notifications";
 import { router } from "expo-router";
+import { useEffect, useRef } from "react";
 import { useNotifications } from "@/providers/NotificationsProvider";
 
 export function NotificationListener() {
-  const { expoPushToken } = useNotifications();
+  const { expoPushToken: _expoPushToken } = useNotifications();
   const notificationListener = useRef<Notifications.Subscription>();
   const responseListener = useRef<Notifications.Subscription>();
 

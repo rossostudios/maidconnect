@@ -4,21 +4,35 @@
 
 import { describe, expect, it } from "vitest";
 import {
-  formatCurrency,
   formatCOP,
-  formatUSD,
+  formatCurrency,
   formatDate,
-  formatDateShort,
   formatDateLong,
-  formatTime,
-  formatTime12,
-  formatTime24,
+  formatDateShort,
   formatDateTime,
   formatDuration,
   formatDurationHours,
   formatNumber,
   formatPercentage,
+  formatTime,
+  formatTime12,
+  formatTime24,
+  formatUSD,
 } from "../format";
+
+// ============================================================================
+// TEST REGEX PATTERNS (defined at top-level for performance)
+// ============================================================================
+const PATTERN_50000 = /50,000/;
+const PATTERN_50 = /50/;
+const PATTERN_DEC = /Dec/;
+const PATTERN_25 = /25/;
+const PATTERN_2024 = /2024/;
+const PATTERN_DECEMBER = /December/;
+const PATTERN_COLON = /:/;
+const PATTERN_30 = /30/;
+const PATTERN_AM_PM = /[ap]m/;
+const PATTERN_45 = /45/;
 
 // ============================================================================
 // CURRENCY FORMATTING TESTS
@@ -69,8 +83,8 @@ describe("formatCurrency", () => {
   });
 
   it("uses different locales", () => {
-    expect(formatCurrency(50_000, { locale: "en-US" })).toMatch(/50,000/);
-    expect(formatCurrency(50_000, { locale: "es-CO" })).toMatch(/50/);
+    expect(formatCurrency(50_000, { locale: "en-US" })).toMatch(PATTERN_50000);
+    expect(formatCurrency(50_000, { locale: "es-CO" })).toMatch(PATTERN_50);
   });
 
   it("handles large numbers", () => {
@@ -131,15 +145,15 @@ describe("formatDate", () => {
 
   it("formats date correctly", () => {
     const result = formatDate(testDate);
-    expect(result).toMatch(/Dec/);
-    expect(result).toMatch(/25/);
-    expect(result).toMatch(/2024/);
+    expect(result).toMatch(PATTERN_DEC);
+    expect(result).toMatch(PATTERN_25);
+    expect(result).toMatch(PATTERN_2024);
   });
 
   it("formats date with string input", () => {
     const result = formatDate("2024-12-25");
-    expect(result).toMatch(/Dec/);
-    expect(result).toMatch(/25/);
+    expect(result).toMatch(PATTERN_DEC);
+    expect(result).toMatch(PATTERN_25);
   });
 
   it("handles null and undefined", () => {
@@ -157,7 +171,7 @@ describe("formatDate", () => {
       weekday: "long",
       month: "long",
     });
-    expect(result).toMatch(/December/);
+    expect(result).toMatch(PATTERN_DECEMBER);
   });
 
   it("uses different locales", () => {
@@ -171,9 +185,9 @@ describe("formatDate", () => {
 describe("formatDateShort", () => {
   it("formats date in short format", () => {
     const result = formatDateShort(new Date("2024-12-25"));
-    expect(result).toMatch(/Dec/);
-    expect(result).toMatch(/25/);
-    expect(result).not.toMatch(/2024/);
+    expect(result).toMatch(PATTERN_DEC);
+    expect(result).toMatch(PATTERN_25);
+    expect(result).not.toMatch(PATTERN_2024);
   });
 
   it("handles edge cases", () => {
@@ -185,9 +199,9 @@ describe("formatDateShort", () => {
 describe("formatDateLong", () => {
   it("formats date in long format", () => {
     const result = formatDateLong(new Date("2024-12-25"));
-    expect(result).toMatch(/December/);
-    expect(result).toMatch(/25/);
-    expect(result).toMatch(/2024/);
+    expect(result).toMatch(PATTERN_DECEMBER);
+    expect(result).toMatch(PATTERN_25);
+    expect(result).toMatch(PATTERN_2024);
   });
 
   it("handles edge cases", () => {
@@ -205,13 +219,13 @@ describe("formatTime", () => {
 
   it("formats time correctly", () => {
     const result = formatTime(testDate);
-    expect(result).toMatch(/:/);
-    expect(result).toMatch(/30/);
+    expect(result).toMatch(PATTERN_COLON);
+    expect(result).toMatch(PATTERN_30);
   });
 
   it("formats time with string input", () => {
     const result = formatTime("2024-12-25T14:30:00Z");
-    expect(result).toMatch(/:/);
+    expect(result).toMatch(PATTERN_COLON);
   });
 
   it("handles null and undefined", () => {
@@ -226,25 +240,25 @@ describe("formatTime", () => {
   it("respects 12-hour format", () => {
     const result = formatTime(testDate, { hour12: true });
     // Should contain AM/PM indicator
-    expect(result.toLowerCase()).toMatch(/[ap]m/);
+    expect(result.toLowerCase()).toMatch(PATTERN_AM_PM);
   });
 
   it("respects 24-hour format", () => {
     const result = formatTime(testDate, { hour12: false });
     // Should NOT contain AM/PM indicator
-    expect(result.toLowerCase()).not.toMatch(/[ap]m/);
+    expect(result.toLowerCase()).not.toMatch(PATTERN_AM_PM);
   });
 
   it("includes seconds when specified", () => {
     const result = formatTime(testDate, { second: "2-digit" });
-    expect(result).toMatch(/45/);
+    expect(result).toMatch(PATTERN_45);
   });
 });
 
 describe("formatTime12", () => {
   it("formats time in 12-hour format", () => {
     const result = formatTime12(new Date("2024-12-25T14:30:00Z"));
-    expect(result.toLowerCase()).toMatch(/[ap]m/);
+    expect(result.toLowerCase()).toMatch(PATTERN_AM_PM);
   });
 
   it("handles edge cases", () => {
@@ -256,8 +270,8 @@ describe("formatTime12", () => {
 describe("formatTime24", () => {
   it("formats time in 24-hour format", () => {
     const result = formatTime24(new Date("2024-12-25T14:30:00Z"));
-    expect(result.toLowerCase()).not.toMatch(/[ap]m/);
-    expect(result).toMatch(/:/);
+    expect(result.toLowerCase()).not.toMatch(PATTERN_AM_PM);
+    expect(result).toMatch(PATTERN_COLON);
   });
 
   it("handles edge cases", () => {
@@ -275,9 +289,9 @@ describe("formatDateTime", () => {
 
   it("formats date and time together", () => {
     const result = formatDateTime(testDate);
-    expect(result).toMatch(/Dec/);
-    expect(result).toMatch(/25/);
-    expect(result).toMatch(/:/);
+    expect(result).toMatch(PATTERN_DEC);
+    expect(result).toMatch(PATTERN_25);
+    expect(result).toMatch(PATTERN_COLON);
   });
 
   it("handles null and undefined", () => {
@@ -295,7 +309,7 @@ describe("formatDateTime", () => {
       weekday: "short",
       hour12: false,
     });
-    expect(result).toMatch(/:/);
+    expect(result).toMatch(PATTERN_COLON);
   });
 });
 

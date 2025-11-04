@@ -9,20 +9,22 @@
 
 import { Calendar, MapPin, Search, Star } from "lucide-react";
 
-export interface QuickReply {
+export type QuickReply = {
   id: string;
   text: string;
   icon?: React.ReactNode;
-}
+};
 
-interface AmaraQuickRepliesProps {
+type AmaraQuickRepliesProps = {
   replies: QuickReply[];
   onSelect: (reply: QuickReply) => void;
   disabled?: boolean;
-}
+};
 
 export function AmaraQuickReplies({ replies, onSelect, disabled = false }: AmaraQuickRepliesProps) {
-  if (replies.length === 0) return null;
+  if (replies.length === 0) {
+    return null;
+  }
 
   return (
     <div className="flex flex-wrap gap-2">

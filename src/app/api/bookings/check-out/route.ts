@@ -6,8 +6,10 @@
  * AFTER: 252 lines (34% reduction)
  */
 
-import { withProfessional, ok, requireProfessionalOwnership } from "@/lib/api";
+import { z } from "zod";
+import { ok, requireProfessionalOwnership, withProfessional } from "@/lib/api";
 import { sendServiceCompletedEmail } from "@/lib/email/send";
+import { BusinessRuleError, InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 import { verifyBookingLocation } from "@/lib/gps-verification";
 import { logger } from "@/lib/logger";
 import {
@@ -18,8 +20,6 @@ import {
   notifyProfessionalPaymentReceived,
 } from "@/lib/notifications";
 import { stripe } from "@/lib/stripe";
-import { InvalidBookingStatusError, ValidationError, BusinessRuleError } from "@/lib/errors";
-import { z } from "zod";
 
 const checkOutSchema = z.object({
   bookingId: z.string().uuid("Invalid booking ID format"),
@@ -34,7 +34,11 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
   const { bookingId, latitude, longitude, completionNotes } = checkOutSchema.parse(body);
 
   // Fetch the booking with all necessary data
-  const booking = await requireProfessionalOwnership(supabase, user.id, bookingId, `
+  const booking = await requireProfessionalOwnership(
+    supabase,
+    user.id,
+    bookingId,
+    `
     id,
     professional_id,
     customer_id,
@@ -52,7 +56,8 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
     stripe_payment_intent_id,
     customer_profiles:profiles!bookings_customer_id_fkey(full_name),
     professional_profiles:profiles!bookings_professional_id_fkey(full_name)
-  `);
+  `
+  );
 
   // Can only check out of in_progress bookings
   if (booking.status !== "in_progress") {
@@ -61,10 +66,7 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
 
   // Must have checked in first
   if (!booking.checked_in_at) {
-    throw new BusinessRuleError(
-      "Cannot check out without checking in first",
-      "MISSING_CHECK_IN"
-    );
+    throw new BusinessRuleError("Cannot check out without checking in first", "MISSING_CHECK_IN");
   }
 
   // GPS Verification: Check if professional is within reasonable distance of booking address
@@ -226,9 +228,7 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
 
   // Fetch customer and professional details for emails
   const { data: customerUser } = await supabase.auth.admin.getUserById(booking.customer_id);
-  const { data: professionalUser } = await supabase.auth.admin.getUserById(
-    booking.professional_id
-  );
+  const { data: professionalUser } = await supabase.auth.admin.getUserById(booking.professional_id);
 
   const scheduledDate = booking.scheduled_start
     ? new Date(booking.scheduled_start).toLocaleDateString()
@@ -240,11 +240,16 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
       })
     : checkedInAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   const duration = `${actualDurationMinutes} minutes`;
-  const address = booking.address
-    ? typeof booking.address === "object" && "formatted" in booking.address
-      ? String(booking.address.formatted)
-      : JSON.stringify(booking.address)
-    : "Not specified";
+  const getFormattedAddress = () => {
+    if (!booking.address) {
+      return "Not specified";
+    }
+    if (typeof booking.address === "object" && "formatted" in booking.address) {
+      return String(booking.address.formatted);
+    }
+    return JSON.stringify(booking.address);
+  };
+  const address = getFormattedAddress();
   const amount = `${new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: booking.currency || "COP",
@@ -274,7 +279,10 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
   }
 
   // Send emails in parallel (don't await - let them send in background)
-  Promise.all(emailPromises).catch((_error) => {});
+  Promise.all(emailPromises).catch((emailError) => {
+    // Intentionally suppress email errors - notification emails are non-critical
+    console.warn("Failed to send service completed notification emails:", emailError);
+  });
 
   // Send push notifications
   if (customerUser.user) {

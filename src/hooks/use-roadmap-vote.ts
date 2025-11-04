@@ -9,13 +9,13 @@
 import { useState } from "react";
 import type { VoteToggleResponse } from "@/types/roadmap";
 
-interface UseRoadmapVoteOptions {
+type UseRoadmapVoteOptions = {
   roadmapItemId: string;
   initialVoteCount: number;
   initialHasVoted: boolean;
   onVoteSuccess?: (response: VoteToggleResponse) => void;
   onVoteError?: (error: string) => void;
-}
+};
 
 export function useRoadmapVote({
   roadmapItemId,

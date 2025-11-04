@@ -42,14 +42,10 @@ export default async function AguaoraPage() {
           </h1>
 
           {/* Tagline */}
-          <p className="mb-8 text-[#5d574b] text-xl leading-relaxed sm:text-2xl">
-            {t("tagline")}
-          </p>
+          <p className="mb-8 text-[#5d574b] text-xl leading-relaxed sm:text-2xl">{t("tagline")}</p>
 
           {/* Description */}
-          <p className="mb-12 text-[#7a7165] text-lg leading-relaxed">
-            {t("description")}
-          </p>
+          <p className="mb-12 text-[#7a7165] text-lg leading-relaxed">{t("description")}</p>
 
           {/* Coming Soon Badge */}
           <div className="inline-flex items-center gap-3 rounded-full border-2 border-[#8B7355] bg-white px-8 py-4 shadow-[var(--shadow-card)]">

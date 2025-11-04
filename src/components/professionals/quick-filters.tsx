@@ -3,16 +3,16 @@
 import { Award, Clock, DollarSign, Languages, MapPin, Shield, Star, Zap } from "lucide-react";
 import { useState } from "react";
 
-export interface QuickFilter {
+export type QuickFilter = {
   id: string;
   label: string;
   icon: React.ComponentType<{ className?: string }>;
   active: boolean;
-}
+};
 
-interface QuickFiltersProps {
+type QuickFiltersProps = {
   onFilterChange: (filters: QuickFilter[]) => void;
-}
+};
 
 const DEFAULT_FILTERS: QuickFilter[] = [
   {

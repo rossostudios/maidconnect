@@ -50,7 +50,7 @@ export async function generateStaticParams() {
   const cities = Object.keys(SUPPORTED_CITIES);
   const locales = ["en", "es"];
 
-  const params = [];
+  const params: Array<{ city: string; locale: string }> = [];
   for (const city of cities) {
     for (const locale of locales) {
       params.push({ city, locale });

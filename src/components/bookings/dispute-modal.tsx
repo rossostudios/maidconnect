@@ -62,11 +62,14 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
     }
 
     // Submit using the form hook's handleSubmit
-    await form.handleSubmit(async (data) => await submitDispute.mutate({
-        bookingId: booking.id,
-        reason: data.reason,
-        description: data.description.trim(),
-      }));
+    await form.handleSubmit(
+      async (data) =>
+        await submitDispute.mutate({
+          bookingId: booking.id,
+          reason: data.reason,
+          description: data.description.trim(),
+        })
+    );
   };
 
   return (
@@ -147,11 +150,12 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
 
           {/* Reason Selection */}
           <div className="mt-6 space-y-2">
-            <label className="block font-semibold text-[#211f1a] text-sm">
+            <label className="block font-semibold text-[#211f1a] text-sm" htmlFor="dispute-reason">
               What went wrong? <span className="text-[#8B7355]">*</span>
             </label>
             <select
               className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3 text-[#211f1a] text-base transition focus:border-[#211f1a] focus:outline-none"
+              id="dispute-reason"
               onChange={(e) => form.updateField("reason", e.target.value)}
               value={form.formData.reason}
             >
@@ -166,11 +170,15 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
 
           {/* Description */}
           <div className="mt-6 space-y-2">
-            <label className="block font-semibold text-[#211f1a] text-sm">
+            <label
+              className="block font-semibold text-[#211f1a] text-sm"
+              htmlFor="dispute-description"
+            >
               Please describe what happened <span className="text-[#8B7355]">*</span>
             </label>
             <textarea
               className="min-h-32 w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3 text-[#211f1a] text-base leading-relaxed transition focus:border-[#211f1a] focus:outline-none"
+              id="dispute-description"
               onChange={(e) => form.updateField("description", e.target.value)}
               placeholder="Include specific details about the issue, when it occurred, and any relevant context..."
               value={form.formData.description}

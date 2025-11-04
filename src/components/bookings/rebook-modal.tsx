@@ -1,10 +1,10 @@
 "use client";
 
 import { RefreshCw } from "lucide-react";
-import { useRouter } from "@/i18n/routing";
 import { FormModal } from "@/components/shared/form-modal";
-import { useModalForm } from "@/hooks/use-modal-form";
 import { useApiMutation } from "@/hooks/use-api-mutation";
+import { useModalForm } from "@/hooks/use-modal-form";
+import { useRouter } from "@/i18n/routing";
 import type { CustomerBooking } from "./customer-booking-list";
 
 type Props = {
@@ -62,9 +62,7 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
       onClose();
       router.push("/dashboard/customer/bookings");
     } catch (error) {
-      form.setError(
-        error instanceof Error ? error.message : "An unexpected error occurred"
-      );
+      form.setError(error instanceof Error ? error.message : "An unexpected error occurred");
     }
   };
 
@@ -77,17 +75,17 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
 
   return (
     <FormModal
-      isOpen={isOpen}
-      onClose={onClose}
-      title="Book Again"
-      description="Rebook your service with the same professional"
-      size="lg"
-      onSubmit={handleSubmit}
-      submitLabel={rebookMutation.isLoading ? "Booking..." : "Confirm Booking"}
       cancelLabel="Cancel"
-      isSubmitting={rebookMutation.isLoading}
       closeOnBackdropClick={!rebookMutation.isLoading}
       closeOnEscape={!rebookMutation.isLoading}
+      description="Rebook your service with the same professional"
+      isOpen={isOpen}
+      isSubmitting={rebookMutation.isLoading}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      size="lg"
+      submitLabel={rebookMutation.isLoading ? "Booking..." : "Confirm Booking"}
+      title="Book Again"
     >
       {/* Header Icon */}
       <div className="mb-6 flex items-center gap-3">
@@ -131,16 +129,17 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
 
       {/* Date/Time Selection */}
       <div>
-        <label className="mb-2 block font-medium text-[#211f1a] text-sm">
+        <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="rebook-schedule">
           When would you like to schedule?
         </label>
         <input
           className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
-          value={form.formData.scheduled_start}
+          id="rebook-schedule"
           min={new Date().toISOString().slice(0, 16)}
           onChange={(e) => handleStartTimeChange(e.target.value)}
           required
           type="datetime-local"
+          value={form.formData.scheduled_start}
         />
       </div>
 

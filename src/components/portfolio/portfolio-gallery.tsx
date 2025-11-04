@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import type { PortfolioImage } from "@/app/api/professional/portfolio/route";
 
@@ -46,10 +47,14 @@ export function PortfolioGallery({
             onClick={() => setSelectedImage(image)}
             type="button"
           >
-            <img
+            <Image
               alt={image.caption || "Portfolio image"}
               className="h-full w-full object-cover transition group-hover:scale-105"
+              height={300}
+              loading="lazy"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
               src={image.thumbnail_url || image.url}
+              width={300}
             />
             {image.caption && (
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-left">
@@ -124,9 +129,12 @@ function Lightbox({
 
   return (
     <div
+      aria-label="Close lightbox"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
       onClick={onClose}
       onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
     >
       {/* Close Button */}
       <button
@@ -166,11 +174,15 @@ function Lightbox({
       )}
 
       {/* Image */}
-      <div className="max-h-[90vh] max-w-5xl" onClick={(e) => e.stopPropagation()}>
-        <img
+      <div className="max-h-[90vh] max-w-5xl" role="presentation">
+        <Image
           alt={image.caption || "Portfolio image"}
           className="max-h-[80vh] w-auto rounded-lg"
+          height={800}
+          loading="lazy"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
           src={image.url}
+          width={1200}
         />
         {image.caption && <p className="mt-3 text-center text-sm text-white/90">{image.caption}</p>}
         <p className="mt-2 text-center text-white/60 text-xs">
@@ -200,10 +212,13 @@ export function PortfolioPreview({ images }: { images: PortfolioImage[] }) {
           className="relative aspect-square overflow-hidden rounded-md bg-[#f0ece5]"
           key={image.id}
         >
-          <img
+          <Image
             alt={image.caption || `Portfolio ${index + 1}`}
             className="h-full w-full object-cover"
+            height={100}
+            loading="lazy"
             src={image.thumbnail_url || image.url}
+            width={100}
           />
           {index === 3 && remaining > 0 && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/60 font-semibold text-sm text-white">

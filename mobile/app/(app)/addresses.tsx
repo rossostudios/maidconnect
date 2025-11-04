@@ -1,4 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Ionicons } from "@expo/vector-icons";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -14,15 +15,14 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
 
 import {
-  fetchAddresses,
   createAddress,
-  updateAddress,
   deleteAddress,
-  setDefaultAddress,
+  fetchAddresses,
   formatAddressCompact,
+  setDefaultAddress,
+  updateAddress,
 } from "@/features/addresses/api";
 import type { Address, CreateAddressParams } from "@/features/addresses/types";
 
@@ -69,8 +69,8 @@ export default function AddressesScreen() {
   const renderAddress = ({ item }: { item: Address }) => (
     <AddressCard
       address={item}
-      onEdit={() => handleEdit(item)}
       onDelete={() => handleDeleteConfirm(item)}
+      onEdit={() => handleEdit(item)}
       onSetDefault={() => handleSetDefault(item.id)}
     />
   );
@@ -81,8 +81,8 @@ export default function AddressesScreen() {
       queryClient.invalidateQueries({ queryKey: ["addresses"] });
       Alert.alert("Success", "Address deleted successfully");
     },
-    onError: (error: Error) => {
-      Alert.alert("Error", error.message || "Failed to delete address");
+    onError: (deleteError: Error) => {
+      Alert.alert("Error", deleteError.message || "Failed to delete address");
     },
   });
 
@@ -91,8 +91,8 @@ export default function AddressesScreen() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["addresses"] });
     },
-    onError: (error: Error) => {
-      Alert.alert("Error", error.message || "Failed to set default address");
+    onError: (setDefaultError: Error) => {
+      Alert.alert("Error", setDefaultError.message || "Failed to set default address");
     },
   });
 
@@ -130,46 +130,46 @@ export default function AddressesScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Saved Addresses</Text>
-        <Pressable style={styles.addButton} onPress={handleAddNew}>
-          <Ionicons name="add-circle" size={28} color="#2563EB" />
+        <Pressable onPress={handleAddNew} style={styles.addButton}>
+          <Ionicons color="#2563EB" name="add-circle" size={28} />
         </Pressable>
       </View>
 
       {error && (
         <View style={styles.errorBanner}>
-          <Ionicons name="alert-circle-outline" size={20} color="#DC2626" />
+          <Ionicons color="#DC2626" name="alert-circle-outline" size={20} />
           <Text style={styles.errorText}>Unable to load addresses. Pull to refresh.</Text>
         </View>
       )}
 
       <FlatList
-        data={addresses}
-        renderItem={renderAddress}
-        keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
-        refreshControl={<RefreshControl onRefresh={refetch} refreshing={isRefetching} />}
+        data={addresses}
+        keyExtractor={(item) => item.id}
         ListEmptyComponent={
           <View style={styles.emptyState}>
-            <Ionicons name="location-outline" size={64} color="#CBD5E1" />
+            <Ionicons color="#CBD5E1" name="location-outline" size={64} />
             <Text style={styles.emptyTitle}>No saved addresses</Text>
             <Text style={styles.emptyDescription}>
               Add your first address to make booking faster and easier.
             </Text>
-            <Pressable style={styles.emptyButton} onPress={handleAddNew}>
+            <Pressable onPress={handleAddNew} style={styles.emptyButton}>
               <Text style={styles.emptyButtonText}>Add Address</Text>
             </Pressable>
           </View>
         }
+        refreshControl={<RefreshControl onRefresh={refetch} refreshing={isRefetching} />}
+        renderItem={renderAddress}
       />
 
       <AddressFormModal
-        visible={modalVisible}
         address={editingAddress}
         onClose={handleCloseModal}
         onSuccess={() => {
           handleCloseModal();
           refetch();
         }}
+        visible={modalVisible}
       />
     </SafeAreaView>
   );
@@ -191,16 +191,18 @@ function AddressCard({
       <View style={styles.addressHeader}>
         <View style={styles.addressTitleRow}>
           {address.label && <Text style={styles.addressLabel}>{address.label}</Text>}
-          {address.isDefault && <View style={styles.defaultBadge}>
-            <Text style={styles.defaultBadgeText}>Default</Text>
-          </View>}
+          {address.isDefault && (
+            <View style={styles.defaultBadge}>
+              <Text style={styles.defaultBadgeText}>Default</Text>
+            </View>
+          )}
         </View>
         <View style={styles.addressActions}>
-          <Pressable style={styles.actionButton} onPress={onEdit}>
-            <Ionicons name="pencil" size={20} color="#2563EB" />
+          <Pressable onPress={onEdit} style={styles.actionButton}>
+            <Ionicons color="#2563EB" name="pencil" size={20} />
           </Pressable>
-          <Pressable style={styles.actionButton} onPress={onDelete}>
-            <Ionicons name="trash-outline" size={20} color="#DC2626" />
+          <Pressable onPress={onDelete} style={styles.actionButton}>
+            <Ionicons color="#DC2626" name="trash-outline" size={20} />
           </Pressable>
         </View>
       </View>
@@ -217,13 +219,13 @@ function AddressCard({
 
       {address.accessInstructions && (
         <View style={styles.instructionsBox}>
-          <Ionicons name="information-circle-outline" size={16} color="#64748B" />
+          <Ionicons color="#64748B" name="information-circle-outline" size={16} />
           <Text style={styles.instructionsText}>{address.accessInstructions}</Text>
         </View>
       )}
 
       {!address.isDefault && (
-        <Pressable style={styles.setDefaultButton} onPress={onSetDefault}>
+        <Pressable onPress={onSetDefault} style={styles.setDefaultButton}>
           <Text style={styles.setDefaultText}>Set as Default</Text>
         </Pressable>
       )}
@@ -255,7 +257,7 @@ function AddressFormModal({
     country: address?.country || "Colombia",
     apartmentUnit: address?.apartmentUnit || "",
     accessInstructions: address?.accessInstructions || "",
-    isDefault: address?.isDefault || false,
+    isDefault: address?.isDefault,
   });
 
   const createMutation = useMutation({
@@ -283,8 +285,11 @@ function AddressFormModal({
   });
 
   const handleSubmit = () => {
-    if (!formData.streetAddress.trim() || !formData.city.trim() || !formData.country.trim()) {
-      Alert.alert("Validation Error", "Please fill in required fields: Street Address, City, and Country");
+    if (!(formData.streetAddress.trim() && formData.city.trim() && formData.country.trim())) {
+      Alert.alert(
+        "Validation Error",
+        "Please fill in required fields: Street Address, City, and Country"
+      );
       return;
     }
 
@@ -311,14 +316,14 @@ function AddressFormModal({
   const isPending = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <Modal visible={visible} animationType="slide" presentationStyle="pageSheet">
+    <Modal animationType="slide" presentationStyle="pageSheet" visible={visible}>
       <SafeAreaView style={styles.modalContainer}>
         <View style={styles.modalHeader}>
           <Pressable onPress={onClose}>
             <Text style={styles.cancelText}>Cancel</Text>
           </Pressable>
           <Text style={styles.modalTitle}>{isEditing ? "Edit Address" : "Add Address"}</Text>
-          <Pressable onPress={handleSubmit} disabled={isPending}>
+          <Pressable disabled={isPending} onPress={handleSubmit}>
             {isPending ? (
               <ActivityIndicator color="#2563EB" size="small" />
             ) : (
@@ -327,88 +332,88 @@ function AddressFormModal({
           </Pressable>
         </View>
 
-        <ScrollView style={styles.form} contentContainerStyle={styles.formContent}>
+        <ScrollView contentContainerStyle={styles.formContent} style={styles.form}>
           <Text style={styles.inputLabel}>Label (Optional)</Text>
           <TextInput
-            style={styles.input}
-            placeholder="Home, Office, etc."
-            value={formData.label}
             onChangeText={(text) => setFormData((prev) => ({ ...prev, label: text }))}
+            placeholder="Home, Office, etc."
+            style={styles.input}
+            value={formData.label}
           />
 
           <Text style={styles.inputLabel}>Street Address *</Text>
           <TextInput
-            style={styles.input}
-            placeholder="123 Main Street"
-            value={formData.streetAddress}
             onChangeText={(text) => setFormData((prev) => ({ ...prev, streetAddress: text }))}
+            placeholder="123 Main Street"
+            style={styles.input}
+            value={formData.streetAddress}
           />
 
           <Text style={styles.inputLabel}>Apartment/Unit (Optional)</Text>
           <TextInput
-            style={styles.input}
-            placeholder="Apt 4B"
-            value={formData.apartmentUnit}
             onChangeText={(text) => setFormData((prev) => ({ ...prev, apartmentUnit: text }))}
+            placeholder="Apt 4B"
+            style={styles.input}
+            value={formData.apartmentUnit}
           />
 
           <Text style={styles.inputLabel}>Neighborhood (Optional)</Text>
           <TextInput
-            style={styles.input}
-            placeholder="Neighborhood"
-            value={formData.neighborhood}
             onChangeText={(text) => setFormData((prev) => ({ ...prev, neighborhood: text }))}
+            placeholder="Neighborhood"
+            style={styles.input}
+            value={formData.neighborhood}
           />
 
           <Text style={styles.inputLabel}>City *</Text>
           <TextInput
-            style={styles.input}
-            placeholder="Medellín"
-            value={formData.city}
             onChangeText={(text) => setFormData((prev) => ({ ...prev, city: text }))}
+            placeholder="Medellín"
+            style={styles.input}
+            value={formData.city}
           />
 
           <Text style={styles.inputLabel}>State/Province (Optional)</Text>
           <TextInput
-            style={styles.input}
-            placeholder="Antioquia"
-            value={formData.state}
             onChangeText={(text) => setFormData((prev) => ({ ...prev, state: text }))}
+            placeholder="Antioquia"
+            style={styles.input}
+            value={formData.state}
           />
 
           <Text style={styles.inputLabel}>Postal Code (Optional)</Text>
           <TextInput
-            style={styles.input}
-            placeholder="050001"
-            value={formData.postalCode}
-            onChangeText={(text) => setFormData((prev) => ({ ...prev, postalCode: text }))}
             keyboardType="number-pad"
+            onChangeText={(text) => setFormData((prev) => ({ ...prev, postalCode: text }))}
+            placeholder="050001"
+            style={styles.input}
+            value={formData.postalCode}
           />
 
           <Text style={styles.inputLabel}>Country *</Text>
           <TextInput
-            style={styles.input}
-            placeholder="Colombia"
-            value={formData.country}
             onChangeText={(text) => setFormData((prev) => ({ ...prev, country: text }))}
+            placeholder="Colombia"
+            style={styles.input}
+            value={formData.country}
           />
 
           <Text style={styles.inputLabel}>Access Instructions (Optional)</Text>
           <TextInput
-            style={[styles.input, styles.textArea]}
-            placeholder="Gate code, parking info, etc."
-            value={formData.accessInstructions}
-            onChangeText={(text) => setFormData((prev) => ({ ...prev, accessInstructions: text }))}
             multiline
             numberOfLines={3}
+            onChangeText={(text) => setFormData((prev) => ({ ...prev, accessInstructions: text }))}
+            placeholder="Gate code, parking info, etc."
+            style={[styles.input, styles.textArea]}
+            value={formData.accessInstructions}
           />
 
           <Pressable
-            style={styles.checkboxRow}
             onPress={() => setFormData((prev) => ({ ...prev, isDefault: !prev.isDefault }))}
+            style={styles.checkboxRow}
           >
             <View style={[styles.checkbox, formData.isDefault && styles.checkboxChecked]}>
-              {formData.isDefault && <Ionicons name="checkmark" size={16} color="#FFFFFF" />}
+              {formData.isDefault && <Ionicons color="#FFFFFF" name="checkmark" size={16} />}
             </View>
             <Text style={styles.checkboxLabel}>Set as default address</Text>
           </Pressable>

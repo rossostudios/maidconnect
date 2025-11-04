@@ -10,8 +10,8 @@ import {
   SavedAddressesManager,
 } from "@/components/addresses/saved-addresses-manager";
 import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
+import { formatCOP } from "@/lib/format";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
-import { formatCOP, } from "@/lib/format";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
@@ -149,8 +149,9 @@ export function BookingSheet({
           durationMinutes: bookingData.durationHours * 60,
           amount: totalAmount,
           specialInstructions: bookingData.specialInstructions || undefined,
-          address: bookingData.address
-            ? {
+          address: (() => {
+            if (bookingData.address) {
+              return {
                 street: bookingData.address.street,
                 city: bookingData.address.city,
                 neighborhood: bookingData.address.neighborhood,
@@ -158,10 +159,13 @@ export function BookingSheet({
                 building_access: bookingData.address.building_access,
                 parking_info: bookingData.address.parking_info,
                 special_notes: bookingData.address.special_notes,
-              }
-            : bookingData.customAddress
-              ? { raw: bookingData.customAddress }
-              : undefined,
+              };
+            }
+            if (bookingData.customAddress) {
+              return { raw: bookingData.customAddress };
+            }
+            return;
+          })(),
           selectedAddons:
             bookingData.selectedAddons.length > 0
               ? bookingData.selectedAddons.map((addon) => ({
@@ -198,6 +202,13 @@ export function BookingSheet({
       <div
         className="fade-in fixed inset-0 z-40 animate-in bg-black/40 backdrop-blur-sm duration-300"
         onClick={onClose}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            onClose();
+          }
+        }}
+        role="button"
+        tabIndex={0}
       />
 
       {/* Sheet - Full width on mobile, max-w-2xl on desktop */}
@@ -282,11 +293,15 @@ export function BookingSheet({
 
               {/* Service Selection */}
               <div>
-                <label className="mb-3 block font-semibold text-[#211f1a] text-base md:text-lg">
+                <label
+                  className="mb-3 block font-semibold text-[#211f1a] text-base md:text-lg"
+                  htmlFor="service-select"
+                >
                   Service *
                 </label>
                 <select
                   className="w-full rounded-xl border-2 border-[#e5dfd4] px-4 py-4 text-base focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20 md:px-5"
+                  id="service-select"
                   onChange={(e) => {
                     const service = serviceWithName.find((s) => s.name === e.target.value);
                     setBookingData({
@@ -302,9 +317,7 @@ export function BookingSheet({
                   {serviceWithName.map((service) => (
                     <option key={service.name} value={service.name ?? ""}>
                       {service.name}
-                      {service.hourlyRateCop
-                        ? ` · ${formatCOP(service.hourlyRateCop)}/hr`
-                        : ""}
+                      {service.hourlyRateCop ? ` · ${formatCOP(service.hourlyRateCop)}/hr` : ""}
                     </option>
                   ))}
                 </select>
@@ -312,9 +325,9 @@ export function BookingSheet({
 
               {/* Duration - Touch-friendly controls */}
               <div>
-                <label className="mb-3 block font-semibold text-[#211f1a] text-base md:text-lg">
+                <div className="mb-3 block font-semibold text-[#211f1a] text-base md:text-lg">
                   Duration *
-                </label>
+                </div>
                 <div className="flex items-center gap-3 md:gap-4">
                   <button
                     aria-label="Decrease duration"
@@ -350,7 +363,10 @@ export function BookingSheet({
 
               {/* Address */}
               <div>
-                <label className="mb-3 block font-semibold text-[#211f1a] text-lg">
+                <label
+                  className="mb-3 block font-semibold text-[#211f1a] text-lg"
+                  htmlFor="service-address"
+                >
                   Service address *
                 </label>
                 {addresses.length > 0 ? (
@@ -364,6 +380,7 @@ export function BookingSheet({
                 ) : (
                   <textarea
                     className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+                    id="service-address"
                     onChange={(e) =>
                       setBookingData({
                         ...bookingData,
@@ -380,9 +397,9 @@ export function BookingSheet({
               {/* Add-ons */}
               {addons.length > 0 && (
                 <div>
-                  <label className="mb-3 block font-semibold text-[#211f1a] text-lg">
+                  <div className="mb-3 block font-semibold text-[#211f1a] text-lg">
                     Add extras (optional)
-                  </label>
+                  </div>
                   <div className="space-y-3">
                     {addons.map((addon) => {
                       const isSelected = bookingData.selectedAddons.some((a) => a.id === addon.id);
@@ -419,11 +436,15 @@ export function BookingSheet({
 
               {/* Special Instructions */}
               <div>
-                <label className="mb-3 block font-semibold text-[#211f1a] text-lg">
+                <label
+                  className="mb-3 block font-semibold text-[#211f1a] text-lg"
+                  htmlFor="special-instructions"
+                >
                   Special instructions
                 </label>
                 <textarea
                   className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+                  id="special-instructions"
                   onChange={(e) =>
                     setBookingData({
                       ...bookingData,
@@ -442,24 +463,18 @@ export function BookingSheet({
                 <div className="space-y-3 text-base">
                   <div className="flex justify-between">
                     <span className="text-[#7d7566]">Service</span>
-                    <span className="font-semibold text-[#211f1a]">
-                      {formatCOP(baseAmount)}
-                    </span>
+                    <span className="font-semibold text-[#211f1a]">{formatCOP(baseAmount)}</span>
                   </div>
                   {addonsTotal > 0 && (
                     <div className="flex justify-between">
                       <span className="text-[#7d7566]">Add-ons</span>
-                      <span className="font-semibold text-[#211f1a]">
-                        {formatCOP(addonsTotal)}
-                      </span>
+                      <span className="font-semibold text-[#211f1a]">{formatCOP(addonsTotal)}</span>
                     </div>
                   )}
                   <div className="border-[#ebe5d8] border-t pt-3">
                     <div className="flex justify-between text-xl">
                       <span className="font-semibold text-[#211f1a]">Total</span>
-                      <span className="font-bold text-[#8B7355]">
-                        {formatCOP(totalAmount)}
-                      </span>
+                      <span className="font-bold text-[#8B7355]">{formatCOP(totalAmount)}</span>
                     </div>
                   </div>
                 </div>
@@ -542,7 +557,7 @@ function PaymentStep({
     setSubmitting(true);
     setError(null);
     try {
-      const { error, paymentIntent } = await stripe.confirmPayment({
+      const { error: paymentError, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
           return_url: window.location.origin,
@@ -550,8 +565,8 @@ function PaymentStep({
         redirect: "if_required",
       });
 
-      if (error) {
-        throw new Error(error.message ?? "Payment requires additional verification.");
+      if (paymentError) {
+        throw new Error(paymentError.message ?? "Payment requires additional verification.");
       }
 
       if (paymentIntent?.status === "requires_capture") {

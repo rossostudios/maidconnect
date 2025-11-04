@@ -1,5 +1,6 @@
+import { Ionicons } from "@expo/vector-icons";
+import { useQuery } from "@tanstack/react-query";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useQuery, useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -14,14 +15,12 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
-
-import { fetchProfessionalDetails } from "@/features/professionals/api";
-import type { ProfessionalProfile } from "@/features/professionals/types";
-import { fetchPaymentMethods } from "@/features/payments/api";
-import type { PaymentMethod } from "@/features/payments/types";
 import { createBooking } from "@/features/bookings/api";
 import type { CreateBookingParams } from "@/features/bookings/types";
+import { fetchPaymentMethods } from "@/features/payments/api";
+import type { PaymentMethod } from "@/features/payments/types";
+import { fetchProfessionalDetails } from "@/features/professionals/api";
+import type { ProfessionalProfile } from "@/features/professionals/types";
 
 type BookingStep = "service" | "datetime" | "duration" | "address" | "payment" | "review";
 
@@ -78,12 +77,18 @@ export default function BookingCreateScreen() {
     queryFn: fetchPaymentMethods,
   });
 
-  const selectedPaymentMethod = paymentMethods?.find(
-    (method) => method.id === formData.selectedPaymentMethodId
-  ) || null;
+  const selectedPaymentMethod =
+    paymentMethods?.find((method) => method.id === formData.selectedPaymentMethodId) || null;
 
   const handleBack = () => {
-    const steps: BookingStep[] = ["service", "datetime", "duration", "address", "payment", "review"];
+    const steps: BookingStep[] = [
+      "service",
+      "datetime",
+      "duration",
+      "address",
+      "payment",
+      "review",
+    ];
     const currentIndex = steps.indexOf(currentStep);
 
     if (currentIndex === 0) {
@@ -94,7 +99,14 @@ export default function BookingCreateScreen() {
   };
 
   const handleNext = () => {
-    const steps: BookingStep[] = ["service", "datetime", "duration", "address", "payment", "review"];
+    const steps: BookingStep[] = [
+      "service",
+      "datetime",
+      "duration",
+      "address",
+      "payment",
+      "review",
+    ];
     const currentIndex = steps.indexOf(currentStep);
 
     if (currentIndex < steps.length - 1) {
@@ -116,7 +128,9 @@ export default function BookingCreateScreen() {
   };
 
   const calculateTotal = () => {
-    if (!formData.serviceRate) return 0;
+    if (!formData.serviceRate) {
+      return 0;
+    }
     return formData.serviceRate * formData.durationHours;
   };
 
@@ -142,7 +156,9 @@ export default function BookingCreateScreen() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async () => {
-    if (!professionalId || !formData.selectedDate || !formData.selectedTime || !formData.serviceRate) {
+    if (
+      !(professionalId && formData.selectedDate && formData.selectedTime && formData.serviceRate)
+    ) {
       Alert.alert("Error", "Please complete all required fields");
       return;
     }
@@ -177,7 +193,7 @@ export default function BookingCreateScreen() {
       };
 
       // Create booking
-      const response = await createBooking(bookingParams);
+      const _response = await createBooking(bookingParams);
 
       Alert.alert(
         "Booking Created!",
@@ -213,15 +229,15 @@ export default function BookingCreateScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={["bottom"]}>
+    <SafeAreaView edges={["bottom"]} style={styles.safeArea}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
         {/* Header */}
         <View style={styles.header}>
-          <Pressable style={styles.backButton} onPress={handleBack}>
-            <Ionicons name="arrow-back" size={24} color="#0F172A" />
+          <Pressable onPress={handleBack} style={styles.backButton}>
+            <Ionicons color="#0F172A" name="arrow-back" size={24} />
           </Pressable>
           <View style={styles.headerTitleContainer}>
             <Text style={styles.headerTitle}>Book {professional.fullName}</Text>
@@ -236,21 +252,21 @@ export default function BookingCreateScreen() {
         </View>
 
         {/* Step Content */}
-        <ScrollView style={styles.content} contentContainerStyle={styles.contentContainer}>
+        <ScrollView contentContainerStyle={styles.contentContainer} style={styles.content}>
           {currentStep === "service" && (
             <ServiceStep
-              services={professional.services}
-              selectedService={formData.serviceName}
               onServiceSelect={handleServiceSelect}
+              selectedService={formData.serviceName}
+              services={professional.services}
             />
           )}
 
           {currentStep === "datetime" && (
             <DateTimeStep
-              selectedDate={formData.selectedDate}
-              selectedTime={formData.selectedTime}
               onDateSelect={(date) => setFormData((prev) => ({ ...prev, selectedDate: date }))}
               onTimeSelect={handleTimeSelect}
+              selectedDate={formData.selectedDate}
+              selectedTime={formData.selectedTime}
             />
           )}
 
@@ -265,20 +281,20 @@ export default function BookingCreateScreen() {
           {currentStep === "address" && (
             <AddressStep
               address={formData.address}
-              specialInstructions={formData.specialInstructions}
               onAddressChange={(address) => setFormData((prev) => ({ ...prev, address }))}
               onInstructionsChange={(instructions) =>
                 setFormData((prev) => ({ ...prev, specialInstructions: instructions }))
               }
+              specialInstructions={formData.specialInstructions}
             />
           )}
 
           {currentStep === "payment" && (
             <PaymentStep
-              selectedPaymentMethodId={formData.selectedPaymentMethodId}
               onPaymentMethodSelect={(methodId) =>
                 setFormData((prev) => ({ ...prev, selectedPaymentMethodId: methodId }))
               }
+              selectedPaymentMethodId={formData.selectedPaymentMethodId}
             />
           )}
 
@@ -286,8 +302,8 @@ export default function BookingCreateScreen() {
             <ReviewStep
               formData={formData}
               professional={professional}
-              total={calculateTotal()}
               selectedPaymentMethod={selectedPaymentMethod}
+              total={calculateTotal()}
             />
           )}
         </ScrollView>
@@ -296,9 +312,9 @@ export default function BookingCreateScreen() {
         <View style={styles.footer}>
           {currentStep === "review" ? (
             <Pressable
-              style={[styles.submitButton, isSubmitting && styles.submitButtonDisabled]}
-              onPress={handleSubmit}
               disabled={isSubmitting}
+              onPress={handleSubmit}
+              style={[styles.submitButton, isSubmitting && styles.submitButtonDisabled]}
             >
               {isSubmitting ? (
                 <>
@@ -316,12 +332,12 @@ export default function BookingCreateScreen() {
             </Pressable>
           ) : (
             <Pressable
-              style={[styles.nextButton, !canProceed() && styles.nextButtonDisabled]}
-              onPress={handleNext}
               disabled={!canProceed()}
+              onPress={handleNext}
+              style={[styles.nextButton, !canProceed() && styles.nextButtonDisabled]}
             >
               <Text style={styles.nextButtonText}>Continue</Text>
-              <Ionicons name="arrow-forward" size={20} color="#FFFFFF" />
+              <Ionicons color="#FFFFFF" name="arrow-forward" size={20} />
             </Pressable>
           )}
         </View>
@@ -349,11 +365,11 @@ function ServiceStep({
         {services.map((service, index) => (
           <Pressable
             key={index}
+            onPress={() => onServiceSelect(service.name || "", service.hourlyRateCop)}
             style={[
               styles.serviceCard,
               selectedService === service.name && styles.serviceCardSelected,
             ]}
-            onPress={() => onServiceSelect(service.name || "", service.hourlyRateCop)}
           >
             <View style={styles.serviceInfo}>
               <Text style={styles.serviceTitle}>{service.name || "Service"}</Text>
@@ -402,13 +418,12 @@ function DateTimeStep({
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.datesScroll}>
         <View style={styles.datesContainer}>
           {dates.map((date, index) => {
-            const isSelected =
-              selectedDate?.toDateString() === date.toDateString();
+            const isSelected = selectedDate?.toDateString() === date.toDateString();
             return (
               <Pressable
                 key={index}
-                style={[styles.dateCard, isSelected && styles.dateCardSelected]}
                 onPress={() => onDateSelect(date)}
+                style={[styles.dateCard, isSelected && styles.dateCardSelected]}
               >
                 <Text style={[styles.dateDay, isSelected && styles.dateDaySelected]}>
                   {date.toLocaleDateString("en-US", { weekday: "short" })}
@@ -432,8 +447,8 @@ function DateTimeStep({
           return (
             <Pressable
               key={time}
-              style={[styles.timeSlot, isSelected && styles.timeSlotSelected]}
               onPress={() => onTimeSelect(time)}
+              style={[styles.timeSlot, isSelected && styles.timeSlotSelected]}
             >
               <Text style={[styles.timeSlotText, isSelected && styles.timeSlotTextSelected]}>
                 {time}
@@ -469,8 +484,8 @@ function DurationStep({
           return (
             <Pressable
               key={hours}
-              style={[styles.durationCard, isSelected && styles.durationCardSelected]}
               onPress={() => onDurationSelect(hours)}
+              style={[styles.durationCard, isSelected && styles.durationCardSelected]}
             >
               <Text style={[styles.durationHours, isSelected && styles.durationHoursSelected]}>
                 {hours}h
@@ -505,24 +520,24 @@ function AddressStep({
 
       <Text style={styles.inputLabel}>Address *</Text>
       <TextInput
-        style={styles.textInput}
-        placeholder="Enter your full address"
-        placeholderTextColor="#94A3B8"
-        value={address}
-        onChangeText={onAddressChange}
         multiline
         numberOfLines={3}
+        onChangeText={onAddressChange}
+        placeholder="Enter your full address"
+        placeholderTextColor="#94A3B8"
+        style={styles.textInput}
+        value={address}
       />
 
       <Text style={styles.inputLabel}>Special Instructions (Optional)</Text>
       <TextInput
-        style={[styles.textInput, styles.textInputLarge]}
-        placeholder="Any specific instructions or requirements?"
-        placeholderTextColor="#94A3B8"
-        value={specialInstructions}
-        onChangeText={onInstructionsChange}
         multiline
         numberOfLines={4}
+        onChangeText={onInstructionsChange}
+        placeholder="Any specific instructions or requirements?"
+        placeholderTextColor="#94A3B8"
+        style={[styles.textInput, styles.textInputLarge]}
+        value={specialInstructions}
       />
     </View>
   );
@@ -562,16 +577,16 @@ function PaymentStep({
         <Text style={styles.stepDescription}>Add a payment method to continue</Text>
 
         <View style={styles.emptyPaymentState}>
-          <Ionicons name="card-outline" size={64} color="#CBD5E1" />
+          <Ionicons color="#CBD5E1" name="card-outline" size={64} />
           <Text style={styles.emptyPaymentTitle}>No Payment Methods</Text>
           <Text style={styles.emptyPaymentDescription}>
             Add a payment method to complete your booking
           </Text>
           <Pressable
-            style={styles.addPaymentButton}
             onPress={() => router.push("/add-payment-method")}
+            style={styles.addPaymentButton}
           >
-            <Ionicons name="add" size={20} color="#FFFFFF" />
+            <Ionicons color="#FFFFFF" name="add" size={20} />
             <Text style={styles.addPaymentButtonText}>Add Payment Method</Text>
           </Pressable>
         </View>
@@ -588,14 +603,14 @@ function PaymentStep({
         {paymentMethods.map((method) => (
           <Pressable
             key={method.id}
+            onPress={() => onPaymentMethodSelect(method.id)}
             style={[
               styles.paymentMethodCard,
               selectedPaymentMethodId === method.id && styles.paymentMethodCardSelected,
             ]}
-            onPress={() => onPaymentMethodSelect(method.id)}
           >
             <View style={styles.paymentMethodLeft}>
-              <Ionicons name="card" size={32} color="#2563EB" style={styles.paymentMethodIcon} />
+              <Ionicons color="#2563EB" name="card" size={32} style={styles.paymentMethodIcon} />
               <View style={styles.paymentMethodInfo}>
                 <View style={styles.paymentMethodTitleRow}>
                   <Text style={styles.paymentMethodBrand}>
@@ -617,17 +632,17 @@ function PaymentStep({
             </View>
 
             {selectedPaymentMethodId === method.id && (
-              <Ionicons name="checkmark-circle" size={24} color="#2563EB" />
+              <Ionicons color="#2563EB" name="checkmark-circle" size={24} />
             )}
           </Pressable>
         ))}
       </View>
 
       <Pressable
-        style={styles.addAnotherPaymentButton}
         onPress={() => router.push("/add-payment-method")}
+        style={styles.addAnotherPaymentButton}
       >
-        <Ionicons name="add-circle-outline" size={20} color="#2563EB" />
+        <Ionicons color="#2563EB" name="add-circle-outline" size={20} />
         <Text style={styles.addAnotherPaymentText}>Add Another Payment Method</Text>
       </Pressable>
     </View>
@@ -695,9 +710,10 @@ function ReviewStep({
         <View style={styles.reviewSection}>
           <Text style={styles.reviewSectionTitle}>Payment Method</Text>
           <View style={styles.reviewPaymentMethod}>
-            <Ionicons name="card" size={20} color="#2563EB" />
+            <Ionicons color="#2563EB" name="card" size={20} />
             <Text style={styles.reviewText}>
-              {selectedPaymentMethod.card.brand?.toUpperCase() || "Card"} •••• {selectedPaymentMethod.card.last4}
+              {selectedPaymentMethod.card.brand?.toUpperCase() || "Card"} ••••{" "}
+              {selectedPaymentMethod.card.last4}
             </Text>
           </View>
         </View>

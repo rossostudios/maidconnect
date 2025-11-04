@@ -3,7 +3,7 @@ import { ArticleViewer } from "@/components/help/article-viewer";
 import { Container } from "@/components/ui/container";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
-interface ArticleData {
+type ArticleData = {
   id: string;
   category_id: string;
   slug: string;
@@ -18,15 +18,15 @@ interface ArticleData {
     slug: string;
     name: string;
   };
-}
+};
 
-interface RelatedArticle {
+type RelatedArticle = {
   id: string;
   category_slug: string;
   slug: string;
   title: string;
   excerpt: string | null;
-}
+};
 
 export async function generateMetadata({
   params,
@@ -108,9 +108,13 @@ async function getArticleData(
   };
 
   // Increment view count (fire and forget)
-  void supabase.rpc("increment_article_view_count", {
-    article_id: article.id,
-  });
+  supabase
+    .rpc("increment_article_view_count", {
+      article_id: article.id,
+    })
+    .catch(() => {
+      // Silently ignore errors
+    });
 
   // Get related articles
   const { data: rawRelatedArticlesData } = await supabase

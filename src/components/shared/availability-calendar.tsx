@@ -2,13 +2,13 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo } from "react";
-import { useCalendarMonth } from "@/hooks/use-calendar-month";
-import { useCalendarGrid } from "@/hooks/use-calendar-grid";
 import {
-  useAvailabilityData,
-  type DayAvailability,
   type AvailabilityData,
+  type DayAvailability,
+  useAvailabilityData,
 } from "@/hooks/use-availability-data";
+import { useCalendarGrid } from "@/hooks/use-calendar-grid";
+import { useCalendarMonth } from "@/hooks/use-calendar-month";
 import { cn } from "@/lib/utils";
 
 /**
@@ -209,7 +209,7 @@ export function AvailabilityCalendar({
     if (dataSource.type === "api") {
       return apiData.getDateAvailability;
     }
-      return dataSource.getDateAvailability;
+    return dataSource.getDateAvailability;
   }, [dataSource, apiData]);
 
   // Loading and error states (for API-based calendars)
@@ -300,7 +300,7 @@ export function AvailabilityCalendar({
       )}
 
       {/* Calendar Grid */}
-      {!(isLoading || error ) && (
+      {!(isLoading || error) && (
         <>
           <div
             className={cn(
@@ -325,8 +325,7 @@ export function AvailabilityCalendar({
             {/* Calendar Days */}
             {calendarDays.map((calendarDay) => {
               const availability = getDateAvailability(calendarDay.date);
-              const isSelected =
-                selectedDate && calendarDay.key === formatDate(selectedDate);
+              const isSelected = selectedDate && calendarDay.key === formatDate(selectedDate);
 
               const canSelect =
                 !calendarDay.isPast &&
@@ -352,9 +351,7 @@ export function AvailabilityCalendar({
                     bgColor,
                     isSelected && themeConfig.selected,
                     calendarDay.isToday && themeConfig.today,
-                    canSelect
-                      ? themeConfig.selectable
-                      : "cursor-not-allowed opacity-60",
+                    canSelect ? themeConfig.selectable : "cursor-not-allowed opacity-60",
                     calendarDay.isPast && "text-gray-400",
                     !calendarDay.isPast && "text-[#211f1a]",
                     !calendarDay.inCurrentMonth && "opacity-40"
@@ -372,11 +369,7 @@ export function AvailabilityCalendar({
                   {renderDayContent ? (
                     renderDayContent(calendarDay.date, availability)
                   ) : (
-                    <DefaultDayContent
-                      day={calendarDay}
-                      availability={availability}
-                      size={size}
-                    />
+                    <DefaultDayContent availability={availability} day={calendarDay} size={size} />
                   )}
                 </button>
               );
@@ -416,7 +409,18 @@ export function AvailabilityCalendar({
               {selectedDateAvailability.availableSlots.map((time) => {
                 const isTimeSelected = selectedTime === time;
                 return renderTimeSlot ? (
-                  <div key={time} onClick={() => onTimeSelect?.(time)}>
+                  <div
+                    key={time}
+                    onClick={() => onTimeSelect?.(time)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onTimeSelect?.(time);
+                      }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                  >
                     {renderTimeSlot(time, isTimeSelected)}
                   </div>
                 ) : (
@@ -439,8 +443,8 @@ export function AvailabilityCalendar({
             </div>
             {selectedDateAvailability.bookingCount > 0 && (
               <p className={cn("mt-3 text-[#7a6d62]", sizeConfig.smallText)}>
-                {selectedDateAvailability.bookingCount} of{" "}
-                {selectedDateAvailability.maxBookings} slots booked today
+                {selectedDateAvailability.bookingCount} of {selectedDateAvailability.maxBookings}{" "}
+                slots booked today
               </p>
             )}
           </div>

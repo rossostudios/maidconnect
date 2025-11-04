@@ -19,10 +19,10 @@ const PROTECTED_ROUTES: RouteRule[] = [
 ];
 
 // Routes that should skip CSRF validation (e.g., webhooks with signature verification)
-const CSRF_EXEMPT_ROUTES = [
-  /^\/api\/webhooks\/stripe$/,
-  /^\/api\/webhooks\//,
-];
+const CSRF_EXEMPT_ROUTES = [/^\/api\/webhooks\/stripe$/, /^\/api\/webhooks\//];
+
+// Auth routes pattern (matches /auth, /en/auth, /es/auth)
+const AUTH_ROUTES_PATTERN = /^\/(?:en|es)?\/auth/;
 
 const REQUIRED_ENV = ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"] as const;
 
@@ -130,16 +130,10 @@ function addSecurityHeaders(response: NextResponse): NextResponse {
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
 
   // Content Security Policy (basic - adjust as needed)
-  response.headers.set(
-    "Content-Security-Policy",
-    "frame-ancestors 'none';"
-  );
+  response.headers.set("Content-Security-Policy", "frame-ancestors 'none';");
 
   // Permissions policy
-  response.headers.set(
-    "Permissions-Policy",
-    "camera=(), microphone=(), geolocation=()"
-  );
+  response.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
 
   return response;
 }
@@ -215,7 +209,7 @@ export async function proxy(request: NextRequest) {
   const matchedRule = PROTECTED_ROUTES.find((rule) => rule.pattern.test(pathname));
 
   if (!matchedRule) {
-    if (pathname.match(/^\/(?:en|es)?\/auth/)) {
+    if (pathname.match(AUTH_ROUTES_PATTERN)) {
       if (!user) {
         return response;
       }

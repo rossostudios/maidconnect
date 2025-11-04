@@ -3,7 +3,7 @@
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/components/providers/theme-provider";
 
-interface ThemeToggleProps {
+type ThemeToggleProps = {
   /**
    * Size variant
    * @default "default"
@@ -14,7 +14,7 @@ interface ThemeToggleProps {
    * @default false
    */
   showLabel?: boolean;
-}
+};
 
 /**
  * Theme toggle button for switching between light and dark mode

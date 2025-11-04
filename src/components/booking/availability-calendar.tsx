@@ -1,6 +1,5 @@
 "use client";
 
-
 /**
  * Props for the booking availability calendar
  * This is a migration example showing how to use the new unified calendar
@@ -46,16 +45,16 @@ export function AvailabilityCalendar({
         type: "api",
         professionalId,
       }}
+      locale="en-US"
+      onDateSelect={onDateSelect}
+      onTimeSelect={onTimeSelect}
+      selectedDate={selectedDate}
+      selectedTime={selectedTime}
+      showLegend={true}
+      showTimeSlots={true}
+      showTodayButton={true}
       size="medium"
       theme="default"
-      selectedDate={selectedDate}
-      onDateSelect={onDateSelect}
-      selectedTime={selectedTime}
-      onTimeSelect={onTimeSelect}
-      showTimeSlots={true}
-      showLegend={true}
-      showTodayButton={true}
-      locale="en-US"
     />
   );
 }

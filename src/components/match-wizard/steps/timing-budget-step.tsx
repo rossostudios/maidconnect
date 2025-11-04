@@ -63,10 +63,10 @@ export function TimingBudgetStep({
       <div className="space-y-6">
         {/* Frequency */}
         <div>
-          <label className="mb-3 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
+          <div className="mb-3 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
             <Repeat className="h-4 w-4" />
             {t("frequencyLabel", { defaultValue: "How often do you need this service?" })}
-          </label>
+          </div>
           <div className="grid grid-cols-2 gap-3">
             {FREQUENCIES.map((freq) => {
               const isSelected = data.frequency === freq.value;
@@ -98,12 +98,16 @@ export function TimingBudgetStep({
 
         {/* Date */}
         <div>
-          <label className="mb-2 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
+          <label
+            className="mb-2 flex items-center gap-2 font-medium text-[#211f1a] text-sm"
+            htmlFor="preferred-date"
+          >
             <Calendar className="h-4 w-4" />
             {t("dateLabel", { defaultValue: "Preferred date" })}
           </label>
           <input
             className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
+            id="preferred-date"
             min={new Date().toISOString().split("T")[0]}
             onChange={(e) => onUpdate({ preferredDate: e.target.value })}
             type="date"
@@ -113,12 +117,16 @@ export function TimingBudgetStep({
 
         {/* Time */}
         <div>
-          <label className="mb-2 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
+          <label
+            className="mb-2 flex items-center gap-2 font-medium text-[#211f1a] text-sm"
+            htmlFor="preferred-time"
+          >
             <Clock className="h-4 w-4" />
             {t("timeLabel", { defaultValue: "Preferred time" })}
           </label>
           <select
             className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
+            id="preferred-time"
             onChange={(e) => onUpdate({ preferredTime: e.target.value })}
             value={data.preferredTime || ""}
           >
@@ -132,10 +140,10 @@ export function TimingBudgetStep({
 
         {/* Budget */}
         <div>
-          <label className="mb-3 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
+          <div className="mb-3 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
             <DollarSign className="h-4 w-4" />
             {t("budgetLabel", { defaultValue: "Budget range" })}
-          </label>
+          </div>
           <div className="space-y-2">
             {BUDGET_RANGES.map((range) => {
               const isSelected = data.budgetMin === range.min && data.budgetMax === range.max;

@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { FormModal } from "@/components/shared/form-modal";
-import { useModalForm } from "@/hooks/use-modal-form";
 import { useApiMutation } from "@/hooks/use-api-mutation";
+import { useModalForm } from "@/hooks/use-modal-form";
 
 type RescheduleBookingModalProps = {
   isOpen: boolean;
@@ -24,7 +24,7 @@ type RescheduleFormData = {
 };
 
 export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleBookingModalProps) {
-  const router = useRouter();
+  const _router = useRouter();
   const t = useTranslations("dashboard.customer.rescheduleBookingModal");
 
   // Initialize form with current booking date/time
@@ -51,14 +51,14 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
       const timeStr = currentStart.toTimeString().slice(0, 5);
       form.setFormData({ newDate: dateStr, newTime: timeStr });
     }
-  }, [isOpen, booking.scheduled_start]);
+  }, [isOpen, booking.scheduled_start, form.setFormData]);
 
   // Reset on close
   useEffect(() => {
     if (!isOpen) {
       form.reset();
     }
-  }, [isOpen]);
+  }, [isOpen, form.reset]);
 
   const rescheduleMutation = useApiMutation({
     url: "/api/bookings/reschedule",
@@ -89,10 +89,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
         newDurationMinutes: booking.duration_minutes,
       });
 
-      form.setMessage(
-        result.message || t("success.rescheduled"),
-        "success"
-      );
+      form.setMessage(result.message || t("success.rescheduled"), "success");
 
       setTimeout(() => {
         onClose();
@@ -104,16 +101,16 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
 
   return (
     <FormModal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={t("title")}
-      size="md"
-      onSubmit={handleSubmit}
-      submitLabel={t("buttons.reschedule")}
       cancelLabel={t("buttons.cancel")}
-      isSubmitting={rescheduleMutation.isLoading}
       closeOnBackdropClick={!rescheduleMutation.isLoading}
       closeOnEscape={!rescheduleMutation.isLoading}
+      isOpen={isOpen}
+      isSubmitting={rescheduleMutation.isLoading}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      size="md"
+      submitLabel={t("buttons.reschedule")}
+      title={t("title")}
     >
       <p className="text-[#5d574b] text-base">{booking.service_name || "Service"}</p>
 

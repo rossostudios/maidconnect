@@ -11,14 +11,12 @@ const CancelBookingModal = dynamic(
   () => import("./cancel-booking-modal").then((mod) => mod.CancelBookingModal),
   { ssr: false }
 );
-const DisputeModal = dynamic(
-  () => import("./dispute-modal").then((mod) => mod.DisputeModal),
-  { ssr: false }
-);
-const RebookModal = dynamic(
-  () => import("./rebook-modal").then((mod) => mod.RebookModal),
-  { ssr: false }
-);
+const DisputeModal = dynamic(() => import("./dispute-modal").then((mod) => mod.DisputeModal), {
+  ssr: false,
+});
+const RebookModal = dynamic(() => import("./rebook-modal").then((mod) => mod.RebookModal), {
+  ssr: false,
+});
 const RescheduleBookingModal = dynamic(
   () => import("./reschedule-booking-modal").then((mod) => mod.RescheduleBookingModal),
   { ssr: false }

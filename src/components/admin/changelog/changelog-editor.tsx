@@ -333,9 +333,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
             {/* Target Audience */}
             <div>
-              <label className="mb-2 block font-medium text-[#211f1a] text-sm">
-                Target Audience
-              </label>
+              <div className="mb-2 block font-medium text-[#211f1a] text-sm">Target Audience</div>
               <div className="flex flex-wrap gap-2">
                 {audienceOptions.map((option) => {
                   const isSelected = formData.target_audience.includes(option.value);

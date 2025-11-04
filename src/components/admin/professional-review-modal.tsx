@@ -1,8 +1,8 @@
 "use client";
 
 import { BaseModal } from "@/components/shared/base-modal";
-import { useModalForm } from "@/hooks/use-modal-form";
 import { useApiMutation } from "@/hooks/use-api-mutation";
+import { useModalForm } from "@/hooks/use-modal-form";
 
 type ProfessionalInQueue = {
   profile_id: string;
@@ -87,7 +87,9 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
   };
 
   const formatMoney = (amount?: number) => {
-    if (!amount) return "—";
+    if (!amount) {
+      return "—";
+    }
     return new Intl.NumberFormat("es-CO", {
       style: "currency",
       currency: "COP",
@@ -97,13 +99,13 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
 
   return (
     <BaseModal
-      isOpen={true}
-      onClose={onClose}
-      title="Review Application"
-      description={professional.full_name || "Unnamed Professional"}
-      size="2xl"
       closeOnBackdropClick={!reviewMutation.isLoading}
       closeOnEscape={!reviewMutation.isLoading}
+      description={professional.full_name || "Unnamed Professional"}
+      isOpen={true}
+      onClose={onClose}
+      size="2xl"
+      title="Review Application"
     >
       <div className="space-y-6">
         {/* Professional Details */}
@@ -113,17 +115,17 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           </h3>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="font-medium text-[#7a6d62] text-xs">Name</label>
+              <div className="font-medium text-[#7a6d62] text-xs">Name</div>
               <p className="text-[#211f1a] text-sm">{professional.full_name || "—"}</p>
             </div>
             <div>
-              <label className="font-medium text-[#7a6d62] text-xs">Experience</label>
+              <div className="font-medium text-[#7a6d62] text-xs">Experience</div>
               <p className="text-[#211f1a] text-sm">
                 {professional.experience_years ? `${professional.experience_years} years` : "—"}
               </p>
             </div>
             <div>
-              <label className="font-medium text-[#7a6d62] text-xs">Location</label>
+              <div className="font-medium text-[#7a6d62] text-xs">Location</div>
               <p className="text-[#211f1a] text-sm">
                 {professional.profile?.city
                   ? `${professional.profile.city}, ${professional.profile.country}`
@@ -131,32 +133,30 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
               </p>
             </div>
             <div>
-              <label className="font-medium text-[#7a6d62] text-xs">Phone</label>
+              <div className="font-medium text-[#7a6d62] text-xs">Phone</div>
               <p className="text-[#211f1a] text-sm">{professional.profile?.phone || "—"}</p>
             </div>
             <div>
-              <label className="font-medium text-[#7a6d62] text-xs">Hourly Rate</label>
+              <div className="font-medium text-[#7a6d62] text-xs">Hourly Rate</div>
               <p className="text-[#211f1a] text-sm">
                 {formatMoney(professional.rate_expectations?.hourly_cop)}
               </p>
             </div>
             <div>
-              <label className="font-medium text-[#7a6d62] text-xs">Languages</label>
-              <p className="text-[#211f1a] text-sm">
-                {professional.languages?.join(", ") || "—"}
-              </p>
+              <div className="font-medium text-[#7a6d62] text-xs">Languages</div>
+              <p className="text-[#211f1a] text-sm">{professional.languages?.join(", ") || "—"}</p>
             </div>
           </div>
 
           {professional.bio && (
             <div className="mt-4">
-              <label className="font-medium text-[#7a6d62] text-xs">Bio</label>
+              <div className="font-medium text-[#7a6d62] text-xs">Bio</div>
               <p className="mt-1 text-[#211f1a] text-sm">{professional.bio}</p>
             </div>
           )}
 
           <div className="mt-4">
-            <label className="font-medium text-[#7a6d62] text-xs">Services</label>
+            <div className="font-medium text-[#7a6d62] text-xs">Services</div>
             <div className="mt-1 flex flex-wrap gap-2">
               {professional.primary_services?.map((service, idx) => (
                 <span
@@ -295,11 +295,15 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           {/* Notes */}
           <div className="space-y-3">
             <div>
-              <label className="mb-1 block font-medium text-[#211f1a] text-xs">
+              <label
+                className="mb-1 block font-medium text-[#211f1a] text-xs"
+                htmlFor="review-notes"
+              >
                 Notes (visible to professional)
               </label>
               <textarea
                 className="w-full rounded-lg border border-[#ebe5d8] p-2 text-sm"
+                id="review-notes"
                 onChange={(e) => form.updateField("notes", e.target.value)}
                 placeholder="Optional feedback for the professional..."
                 rows={2}
@@ -308,11 +312,15 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             </div>
 
             <div>
-              <label className="mb-1 block font-medium text-[#211f1a] text-xs">
+              <label
+                className="mb-1 block font-medium text-[#211f1a] text-xs"
+                htmlFor="review-internal-notes"
+              >
                 Internal Notes (admin only)
               </label>
               <textarea
                 className="w-full rounded-lg border border-[#ebe5d8] p-2 text-sm"
+                id="review-internal-notes"
                 onChange={(e) => form.updateField("internalNotes", e.target.value)}
                 placeholder="Internal notes not visible to professional..."
                 rows={2}
@@ -322,11 +330,15 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
 
             {form.formData.action === "reject" && (
               <div>
-                <label className="mb-1 block font-medium text-red-700 text-xs">
+                <label
+                  className="mb-1 block font-medium text-red-700 text-xs"
+                  htmlFor="rejection-reason"
+                >
                   Rejection Reason (required)
                 </label>
                 <textarea
                   className="w-full rounded-lg border border-red-300 p-2 text-sm"
+                  id="rejection-reason"
                   onChange={(e) => form.updateField("rejectionReason", e.target.value)}
                   placeholder="Explain why the application is being rejected..."
                   required
@@ -361,15 +373,20 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           onClick={handleSubmit}
           type="button"
         >
-          {reviewMutation.isLoading
-            ? "Submitting..."
-            : `Submit ${
-                form.formData.action === "approve"
-                  ? "Approval"
-                  : form.formData.action === "reject"
-                    ? "Rejection"
-                    : "Request"
-              }`}
+          {(() => {
+            if (reviewMutation.isLoading) {
+              return "Submitting...";
+            }
+
+            let actionText = "Request";
+            if (form.formData.action === "approve") {
+              actionText = "Approval";
+            } else if (form.formData.action === "reject") {
+              actionText = "Rejection";
+            }
+
+            return `Submit ${actionText}`;
+          })()}
         </button>
       </div>
     </BaseModal>

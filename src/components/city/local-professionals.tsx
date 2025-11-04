@@ -1,6 +1,7 @@
 "use client";
 
 import { MapPin, Star, Verified } from "lucide-react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 
@@ -117,10 +118,14 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
       {/* Profile Image */}
       <div className="mb-4 aspect-square overflow-hidden rounded-xl bg-gradient-to-br from-[#8B7355]/10 to-[#8B7355]/5">
         {professional.profile_image_url ? (
-          <img
+          <Image
             alt={professional.full_name || "Professional"}
             className="h-full w-full object-cover transition group-hover:scale-105"
+            height={300}
+            loading="lazy"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
             src={professional.profile_image_url}
+            width={300}
           />
         ) : (
           <div className="flex h-full items-center justify-center">

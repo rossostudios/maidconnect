@@ -72,10 +72,10 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
       <div className="space-y-6">
         {/* Language Preference */}
         <div>
-          <label className="mb-3 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
+          <div className="mb-3 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
             <Languages className="h-4 w-4" />
             {t("languageLabel", { defaultValue: "Language preference" })}
-          </label>
+          </div>
           <div className="space-y-2">
             {LANGUAGES.map((lang) => {
               const isSelected = data.languagePreference === lang.value;
@@ -116,10 +116,10 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
 
         {/* Verification Level */}
         <div>
-          <label className="mb-3 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
+          <div className="mb-3 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
             <ShieldCheck className="h-4 w-4" />
             {t("verificationLabel", { defaultValue: "Required verification level" })}
-          </label>
+          </div>
           <div className="space-y-2">
             {VERIFICATION_LEVELS.map((level) => {
               const isSelected = data.verificationRequired === level.value;
@@ -172,12 +172,16 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
 
         {/* Experience Years */}
         <div>
-          <label className="mb-2 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
+          <label
+            className="mb-2 flex items-center gap-2 font-medium text-[#211f1a] text-sm"
+            htmlFor="experience-years"
+          >
             <Award className="h-4 w-4" />
             {t("experienceLabel", { defaultValue: "Minimum years of experience" })}
           </label>
           <select
             className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
+            id="experience-years"
             onChange={(e) => onUpdate({ experienceYears: Number(e.target.value) })}
             value={data.experienceYears || ""}
           >
@@ -191,10 +195,10 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
 
         {/* Availability */}
         <div>
-          <label className="mb-3 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
+          <div className="mb-3 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
             <Clock className="h-4 w-4" />
             {t("availabilityLabel", { defaultValue: "Availability needed" })}
-          </label>
+          </div>
           <div className="grid grid-cols-3 gap-3">
             {AVAILABILITY_OPTIONS.map((option) => {
               const isSelected = data.availability === option.value;

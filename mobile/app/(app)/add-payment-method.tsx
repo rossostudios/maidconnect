@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
+import { CardField, useStripe } from "@stripe/stripe-react-native";
+import { useQueryClient } from "@tanstack/react-query";
+import { router } from "expo-router";
+import { useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Pressable,
   Alert,
-  ActivityIndicator,
-  SafeAreaView,
   KeyboardAvoidingView,
   Platform,
+  Pressable,
+  SafeAreaView,
   ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
-import { useQueryClient } from "@tanstack/react-query";
-import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
-import { CardField, useStripe } from "@stripe/stripe-react-native";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  borderRadius,
+  colors,
+  semanticColors,
+  spacing,
+  typography,
+} from "@/constants/design-tokens";
 import { savePaymentMethod } from "@/features/payments/api";
 
 export default function AddPaymentMethodScreen() {
@@ -65,19 +72,15 @@ export default function AddPaymentMethodScreen() {
         isDefault: setAsDefault,
       });
 
-      Alert.alert(
-        "Success",
-        "Payment method added successfully",
-        [
-          {
-            text: "OK",
-            onPress: () => {
-              queryClient.invalidateQueries({ queryKey: ["paymentMethods"] });
-              router.back();
-            },
+      Alert.alert("Success", "Payment method added successfully", [
+        {
+          text: "OK",
+          onPress: () => {
+            queryClient.invalidateQueries({ queryKey: ["paymentMethods"] });
+            router.back();
           },
-        ]
-      );
+        },
+      ]);
     } catch (error: any) {
       Alert.alert("Error", error.message || "Failed to add payment method");
     } finally {
@@ -92,79 +95,63 @@ export default function AddPaymentMethodScreen() {
         style={styles.keyboardView}
       >
         <View style={styles.header}>
-          <Pressable
-            style={styles.backButton}
-            onPress={() => router.back()}
-            disabled={loading}
-          >
-            <Ionicons name="chevron-back" size={24} color="#1E293B" />
+          <Pressable disabled={loading} onPress={() => router.back()} style={styles.backButton}>
+            <Ionicons color={semanticColors.text.primary} name="chevron-back" size={24} />
           </Pressable>
           <Text style={styles.headerTitle}>Add Payment Method</Text>
           <View style={styles.headerRight} />
         </View>
 
-        <ScrollView
-          style={styles.content}
-          contentContainerStyle={styles.scrollContent}
-        >
+        <ScrollView contentContainerStyle={styles.scrollContent} style={styles.content}>
           <View style={styles.infoCard}>
-            <Ionicons name="lock-closed" size={20} color="#2563EB" />
+            <Ionicons color={colors.primary[500]} name="lock-closed" size={20} />
             <Text style={styles.infoText}>
               Your card information is securely processed by Stripe
             </Text>
           </View>
 
           <View style={styles.form}>
-            <View style={styles.inputGroup}>
-              <Text style={styles.label}>Name on Card *</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="John Doe"
-                value={nameOnCard}
-                onChangeText={setNameOnCard}
-                autoCapitalize="words"
-                editable={!loading}
-              />
-            </View>
+            <Input
+              autoCapitalize="words"
+              editable={!loading}
+              label="Name on Card"
+              onChangeText={setNameOnCard}
+              placeholder="John Doe"
+              required
+              value={nameOnCard}
+            />
 
-            <View style={styles.inputGroup}>
+            <View style={styles.cardDetailsGroup}>
               <Text style={styles.label}>Card Details *</Text>
               <View style={styles.cardFieldContainer}>
                 <CardField
-                  postalCodeEnabled={false}
-                  placeholders={{
-                    number: "4242 4242 4242 4242",
-                  }}
                   cardStyle={{
-                    backgroundColor: "#FFFFFF",
-                    textColor: "#1E293B",
-                    placeholderColor: "#94A3B8",
+                    backgroundColor: semanticColors.background.primary,
+                    textColor: semanticColors.text.primary,
+                    placeholderColor: semanticColors.text.placeholder,
                   }}
-                  style={styles.cardField}
+                  disabled={loading}
                   onCardChange={(details) => {
                     setCardDetails(details);
                   }}
-                  disabled={loading}
+                  placeholders={{
+                    number: "4242 4242 4242 4242",
+                  }}
+                  postalCodeEnabled={false}
+                  style={styles.cardField}
                 />
               </View>
-              <Text style={styles.hint}>
-                Enter your card number, expiry date, and CVC
-              </Text>
+              <Text style={styles.hint}>Enter your card number, expiry date, and CVC</Text>
             </View>
 
             <Pressable
-              style={styles.checkboxRow}
-              onPress={() => setSetAsDefault(!setAsDefault)}
               disabled={loading}
+              onPress={() => setSetAsDefault(!setAsDefault)}
+              style={styles.checkboxRow}
             >
-              <View
-                style={[
-                  styles.checkbox,
-                  setAsDefault && styles.checkboxChecked,
-                ]}
-              >
+              <View style={[styles.checkbox, setAsDefault && styles.checkboxChecked]}>
                 {setAsDefault && (
-                  <Ionicons name="checkmark" size={16} color="#FFFFFF" />
+                  <Ionicons color={semanticColors.text.inverse} name="checkmark" size={16} />
                 )}
               </View>
               <Text style={styles.checkboxLabel}>Set as default payment method</Text>
@@ -173,42 +160,31 @@ export default function AddPaymentMethodScreen() {
 
           <View style={styles.testCardsInfo}>
             <Text style={styles.testCardsTitle}>Test Cards (Development)</Text>
-            <Text style={styles.testCard}>
-              • Visa: 4242 4242 4242 4242
-            </Text>
-            <Text style={styles.testCard}>
-              • Mastercard: 5555 5555 5555 4444
-            </Text>
-            <Text style={styles.testCard}>
-              • Use any future expiry date and any 3-digit CVC
-            </Text>
+            <Text style={styles.testCard}>• Visa: 4242 4242 4242 4242</Text>
+            <Text style={styles.testCard}>• Mastercard: 5555 5555 5555 4444</Text>
+            <Text style={styles.testCard}>• Use any future expiry date and any 3-digit CVC</Text>
           </View>
         </ScrollView>
 
         <View style={styles.footer}>
-          <Pressable
-            style={[styles.cancelButton, loading && styles.buttonDisabled]}
-            onPress={() => router.back()}
+          <Button
             disabled={loading}
+            onPress={() => router.back()}
+            style={styles.footerButton}
+            variant="secondary"
           >
-            <Text style={styles.cancelButtonText}>Cancel</Text>
-          </Pressable>
+            Cancel
+          </Button>
 
-          <Pressable
-            style={[
-              styles.saveButton,
-              (!cardDetails?.complete || !nameOnCard.trim() || loading) &&
-                styles.buttonDisabled,
-            ]}
+          <Button
+            disabled={!(cardDetails?.complete && nameOnCard.trim()) || loading}
+            loading={loading}
             onPress={handleSave}
-            disabled={!cardDetails?.complete || !nameOnCard.trim() || loading}
+            style={styles.footerButton}
+            variant="primary"
           >
-            {loading ? (
-              <ActivityIndicator color="#FFFFFF" />
-            ) : (
-              <Text style={styles.saveButtonText}>Add Card</Text>
-            )}
-          </Pressable>
+            Add Card
+          </Button>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -218,7 +194,7 @@ export default function AddPaymentMethodScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F8FAFC",
+    backgroundColor: semanticColors.background.secondary,
   },
   keyboardView: {
     flex: 1,
@@ -227,19 +203,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    backgroundColor: "#FFFFFF",
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
+    backgroundColor: semanticColors.background.primary,
     borderBottomWidth: 1,
-    borderBottomColor: "#E2E8F0",
+    borderBottomColor: semanticColors.border.default,
   },
   backButton: {
-    padding: 4,
+    padding: spacing.xs,
   },
   headerTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#1E293B",
+    fontSize: typography.fontSize.lg,
+    fontWeight: typography.fontWeight.semibold,
+    color: semanticColors.text.primary,
   },
   headerRight: {
     width: 32,
@@ -248,138 +224,103 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    padding: 16,
+    padding: spacing.lg,
   },
   infoCard: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#EFF6FF",
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 24,
-    gap: 8,
+    backgroundColor: colors.primary[50],
+    padding: spacing.md,
+    borderRadius: borderRadius.sm,
+    marginBottom: spacing.xxl,
+    gap: spacing.sm,
   },
   infoText: {
     flex: 1,
-    fontSize: 13,
-    color: "#1E40AF",
+    fontSize: typography.fontSize.sm,
+    color: colors.primary[700],
   },
   form: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
+    backgroundColor: semanticColors.background.primary,
+    borderRadius: borderRadius.md,
+    padding: spacing.lg,
+    marginBottom: spacing.lg,
+    gap: spacing.xl,
   },
-  inputGroup: {
-    marginBottom: 20,
+  cardDetailsGroup: {
+    gap: spacing.sm,
   },
   label: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: "#1E293B",
-    marginBottom: 8,
-  },
-  input: {
-    backgroundColor: "#F8FAFC",
-    borderWidth: 1,
-    borderColor: "#E2E8F0",
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    fontSize: 16,
-    color: "#1E293B",
+    fontSize: typography.fontSize.sm,
+    fontWeight: typography.fontWeight.semibold,
+    color: semanticColors.text.primary,
+    marginBottom: spacing.sm,
   },
   cardFieldContainer: {
-    backgroundColor: "#F8FAFC",
+    backgroundColor: semanticColors.background.secondary,
     borderWidth: 1,
-    borderColor: "#E2E8F0",
-    borderRadius: 8,
-    paddingHorizontal: 12,
+    borderColor: semanticColors.border.default,
+    borderRadius: borderRadius.sm,
+    paddingHorizontal: spacing.md,
   },
   cardField: {
     width: "100%",
     height: 50,
   },
   hint: {
-    fontSize: 12,
-    color: "#64748B",
-    marginTop: 6,
+    fontSize: typography.fontSize.xs,
+    color: semanticColors.text.tertiary,
+    marginTop: spacing.xs,
   },
   checkboxRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
+    gap: spacing.sm,
   },
   checkbox: {
     width: 20,
     height: 20,
     borderWidth: 2,
-    borderColor: "#CBD5E1",
-    borderRadius: 4,
+    borderColor: semanticColors.border.medium,
+    borderRadius: spacing.xs,
     justifyContent: "center",
     alignItems: "center",
   },
   checkboxChecked: {
-    backgroundColor: "#2563EB",
-    borderColor: "#2563EB",
+    backgroundColor: colors.primary[500],
+    borderColor: colors.primary[500],
   },
   checkboxLabel: {
-    fontSize: 14,
-    color: "#475569",
+    fontSize: typography.fontSize.sm,
+    color: semanticColors.text.secondary,
   },
   testCardsInfo: {
-    backgroundColor: "#FEF3C7",
-    padding: 12,
-    borderRadius: 8,
+    backgroundColor: colors.warning[50],
+    padding: spacing.md,
+    borderRadius: borderRadius.sm,
     borderWidth: 1,
-    borderColor: "#FDE68A",
+    borderColor: colors.warning[100],
   },
   testCardsTitle: {
-    fontSize: 13,
-    fontWeight: "600",
-    color: "#92400E",
-    marginBottom: 6,
+    fontSize: typography.fontSize.sm,
+    fontWeight: typography.fontWeight.semibold,
+    color: colors.warning[700],
+    marginBottom: spacing.xs,
   },
   testCard: {
-    fontSize: 12,
-    color: "#78350F",
+    fontSize: typography.fontSize.xs,
+    color: colors.warning[700],
     marginBottom: 2,
   },
   footer: {
     flexDirection: "row",
-    padding: 16,
-    backgroundColor: "#FFFFFF",
+    padding: spacing.lg,
+    backgroundColor: semanticColors.background.primary,
     borderTopWidth: 1,
-    borderTopColor: "#E2E8F0",
-    gap: 12,
+    borderTopColor: semanticColors.border.default,
+    gap: spacing.md,
   },
-  cancelButton: {
+  footerButton: {
     flex: 1,
-    backgroundColor: "#F1F5F9",
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  cancelButtonText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#475569",
-  },
-  saveButton: {
-    flex: 1,
-    backgroundColor: "#2563EB",
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  saveButtonText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#FFFFFF",
-  },
-  buttonDisabled: {
-    opacity: 0.5,
   },
 });

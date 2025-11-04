@@ -14,28 +14,28 @@
 export type Currency = "COP" | "USD";
 export type Locale = "es-CO" | "en-US";
 
-export interface CurrencyFormatOptions {
+export type CurrencyFormatOptions = {
   locale?: Locale;
   currency?: Currency;
   minimumFractionDigits?: number;
   maximumFractionDigits?: number;
-}
+};
 
-export interface DateFormatOptions {
+export type DateFormatOptions = {
   locale?: Locale;
   weekday?: "short" | "long" | "narrow";
   year?: "numeric" | "2-digit";
   month?: "short" | "long" | "narrow" | "numeric" | "2-digit";
   day?: "numeric" | "2-digit";
-}
+};
 
-export interface TimeFormatOptions {
+export type TimeFormatOptions = {
   locale?: Locale;
   hour?: "numeric" | "2-digit";
   minute?: "numeric" | "2-digit";
   second?: "numeric" | "2-digit";
   hour12?: boolean;
-}
+};
 
 export interface DateTimeFormatOptions extends DateFormatOptions, TimeFormatOptions {}
 
@@ -158,15 +158,11 @@ export function formatDate(
   date: Date | string | null | undefined,
   options: DateFormatOptions = {}
 ): string {
-  if (!date) return "";
+  if (!date) {
+    return "";
+  }
 
-  const {
-    locale = "en-US",
-    weekday,
-    year = "numeric",
-    month = "short",
-    day = "numeric",
-  } = options;
+  const { locale = "en-US", weekday, year = "numeric", month = "short", day = "numeric" } = options;
 
   try {
     const dateObj = typeof date === "string" ? new Date(date) : date;
@@ -243,15 +239,11 @@ export function formatTime(
   date: Date | string | null | undefined,
   options: TimeFormatOptions = {}
 ): string {
-  if (!date) return "";
+  if (!date) {
+    return "";
+  }
 
-  const {
-    locale = "en-US",
-    hour = "2-digit",
-    minute = "2-digit",
-    second,
-    hour12 = true,
-  } = options;
+  const { locale = "en-US", hour = "2-digit", minute = "2-digit", second, hour12 = true } = options;
 
   try {
     const dateObj = typeof date === "string" ? new Date(date) : date;
@@ -326,7 +318,9 @@ export function formatDateTime(
   date: Date | string | null | undefined,
   options: DateTimeFormatOptions = {}
 ): string {
-  if (!date) return "";
+  if (!date) {
+    return "";
+  }
 
   const {
     locale = "en-US",
@@ -449,11 +443,7 @@ export function formatNumber(
     maximumFractionDigits?: number;
   } = {}
 ): string {
-  const {
-    locale = "en-US",
-    minimumFractionDigits = 0,
-    maximumFractionDigits = 2,
-  } = options;
+  const { locale = "en-US", minimumFractionDigits = 0, maximumFractionDigits = 2 } = options;
 
   const safeValue = value ?? 0;
   if (!Number.isFinite(safeValue)) {
@@ -488,11 +478,7 @@ export function formatPercentage(
     maximumFractionDigits?: number;
   } = {}
 ): string {
-  const {
-    locale = "en-US",
-    minimumFractionDigits = 0,
-    maximumFractionDigits = 1,
-  } = options;
+  const { locale = "en-US", minimumFractionDigits = 0, maximumFractionDigits = 1 } = options;
 
   const safeValue = value ?? 0;
   if (!Number.isFinite(safeValue)) {

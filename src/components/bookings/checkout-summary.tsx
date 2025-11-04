@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { Check } from "lucide-react";
+import { useState } from "react";
 import { TipSelector } from "@/components/payments/tip-selector";
 import { isFeatureEnabled } from "@/lib/feature-flags";
-import { formatCurrency, type Currency } from "@/lib/format";
+import { type Currency, formatCurrency } from "@/lib/format";
 
 /**
  * Checkout Summary Component
@@ -98,7 +98,9 @@ export function CheckoutSummary({
           {/* Tax */}
           <div className="flex justify-between">
             <span className="text-[#7d7566] text-sm">Tax ({(taxRate * 100).toFixed(0)}%)</span>
-            <span className="text-[#211f1a] text-sm">{formatCurrency(taxAmount, { currency })}</span>
+            <span className="text-[#211f1a] text-sm">
+              {formatCurrency(taxAmount, { currency })}
+            </span>
           </div>
 
           {/* Tip Line (if enabled) */}
@@ -114,7 +116,9 @@ export function CheckoutSummary({
           {/* Total */}
           <div className="flex justify-between border-[#ebe5d8] border-t pt-3">
             <span className="font-bold text-[#211f1a]">Total</span>
-            <span className="font-bold text-2xl text-[#8B7355]">{formatCurrency(totalAmount, { currency })}</span>
+            <span className="font-bold text-2xl text-[#8B7355]">
+              {formatCurrency(totalAmount, { currency })}
+            </span>
           </div>
         </div>
       </div>

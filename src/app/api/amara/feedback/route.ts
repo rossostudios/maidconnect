@@ -9,11 +9,11 @@ import { NextResponse } from "next/server";
 import { withRateLimit } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-interface FeedbackRequest {
+type FeedbackRequest = {
   messageId: string;
   feedback: "positive" | "negative";
   comment?: string;
-}
+};
 
 async function feedbackHandler(request: Request) {
   try {

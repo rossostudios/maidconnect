@@ -3,8 +3,8 @@
  * Centralized functions for sending push notifications for various events
  */
 
-import { formatDate, } from "@/lib/format";
 import { sendExpoNotification } from "@/lib/expo-push";
+import { formatDate } from "@/lib/format";
 
 type NotificationPayload = {
   userId: string;
@@ -487,12 +487,14 @@ export async function notifyAdminPaymentCapturedButDBFailed(
  * Fetches all users with admin role and sends notification to each
  */
 export async function notifyAllAdmins(
-  notificationFn: (adminId: string, ...args: any[]) => Promise<any>,
+  notificationFn: (adminId: string, ...fnArgs: any[]) => Promise<any>,
   ...args: any[]
 ) {
   try {
     const response = await fetch("/api/admin/users");
-    if (!response.ok) return { success: false, error: "Failed to fetch admins" };
+    if (!response.ok) {
+      return { success: false, error: "Failed to fetch admins" };
+    }
 
     const { admins } = await response.json();
 

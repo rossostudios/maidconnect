@@ -1,5 +1,5 @@
-import { Container } from "@/components/ui/container";
 import { CheckCircle2, Search, Users } from "lucide-react";
+import { Container } from "@/components/ui/container";
 
 export function ValuePropositionSection() {
   return (
@@ -22,8 +22,8 @@ export function ValuePropositionSection() {
               </div>
               <h3 className="font-semibold text-2xl text-[#211f1a]">Pre-Vetted</h3>
               <p className="text-[#5d574b] text-base">
-                Every professional you see has already passed our rigorous screening. Background checks,
-                skill assessments, and personal interviews—completed before they reach you.
+                Every professional you see has already passed our rigorous screening. Background
+                checks, skill assessments, and personal interviews—completed before they reach you.
               </p>
             </div>
 
@@ -33,8 +33,8 @@ export function ValuePropositionSection() {
               </div>
               <h3 className="font-semibold text-2xl text-[#211f1a]">Browse with Confidence</h3>
               <p className="text-[#5d574b] text-base">
-                Search by language, availability, experience, or specialty. Filter by what matters to
-                you—knowing everyone meets our exceptional standards.
+                Search by language, availability, experience, or specialty. Filter by what matters
+                to you—knowing everyone meets our exceptional standards.
               </p>
             </div>
 
@@ -44,8 +44,8 @@ export function ValuePropositionSection() {
               </div>
               <h3 className="font-semibold text-2xl text-[#211f1a]">Choose Your Match</h3>
               <p className="text-[#5d574b] text-base">
-                Review profiles, watch video introductions, compare experience. You choose who's right
-                for your home and your family.
+                Review profiles, watch video introductions, compare experience. You choose who's
+                right for your home and your family.
               </p>
             </div>
           </div>

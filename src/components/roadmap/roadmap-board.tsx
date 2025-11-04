@@ -7,7 +7,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type {
   RoadmapCategory,
   RoadmapItemWithVoteStatus,
@@ -25,11 +25,7 @@ export function RoadmapBoard() {
   const [selectedCategories, setSelectedCategories] = useState<RoadmapCategory[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    fetchRoadmapItems();
-  }, [selectedStatuses, selectedCategories, searchQuery]);
-
-  const fetchRoadmapItems = async () => {
+  const fetchRoadmapItems = useCallback(async () => {
     setIsLoading(true);
 
     try {
@@ -66,7 +62,11 @@ export function RoadmapBoard() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [selectedStatuses, selectedCategories, searchQuery]);
+
+  useEffect(() => {
+    fetchRoadmapItems();
+  }, [fetchRoadmapItems]);
 
   // Group items by status
   const itemsByStatus = items.reduce(

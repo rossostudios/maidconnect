@@ -3,8 +3,8 @@
  * Handles sending push notifications to mobile devices using Expo Push Notification API
  */
 
-import { Expo, ExpoPushMessage, ExpoPushTicket } from "expo-server-sdk";
 import { createClient } from "@supabase/supabase-js";
+import { Expo, ExpoPushMessage, ExpoPushTicket } from "expo-server-sdk";
 
 // Create Expo client
 const expo = new Expo({
@@ -38,7 +38,9 @@ async function getMobilePushTokens(userId: string): Promise<string[]> {
   }
 
   // Filter out invalid tokens and return
-  const tokens = data.map((row) => row.expo_push_token).filter((token) => Expo.isExpoPushToken(token));
+  const tokens = data
+    .map((row) => row.expo_push_token)
+    .filter((token) => Expo.isExpoPushToken(token));
 
   return tokens;
 }

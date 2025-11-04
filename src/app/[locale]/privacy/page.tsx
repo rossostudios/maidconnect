@@ -271,8 +271,8 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             5.2 Revocación del Consentimiento
           </h3>
           <p className="mb-4 text-[#7d7566]">
-            Puede revocar su autorización en cualquier momento contactando a
-            privacy@casaora.com. La revocación no tendrá efectos retroactivos.
+            Puede revocar su autorización en cualquier momento contactando a privacy@casaora.com. La
+            revocación no tendrá efectos retroactivos.
           </p>
         </section>
 
@@ -559,8 +559,8 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </p>
           </div>
           <p className="text-[#7d7566]">
-            Casaora acts as the data controller for your personal data in accordance with
-            Colombian Law 1581 of 2012 and Decree 1377 of 2013.
+            Casaora acts as the data controller for your personal data in accordance with Colombian
+            Law 1581 of 2012 and Decree 1377 of 2013.
           </p>
         </section>
 

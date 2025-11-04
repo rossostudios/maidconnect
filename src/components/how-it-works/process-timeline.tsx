@@ -12,16 +12,16 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-interface TimelineStep {
+type TimelineStep = {
   iconName: string;
   titleKey: string;
   descriptionKey: string;
-}
+};
 
-interface ProcessTimelineProps {
+type ProcessTimelineProps = {
   steps: TimelineStep[];
   translationNamespace: string;
-}
+};
 
 const iconMap = {
   Search,

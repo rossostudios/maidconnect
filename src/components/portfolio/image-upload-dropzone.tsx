@@ -2,7 +2,9 @@
 
 import imageCompression from "browser-image-compression";
 import { Image as ImageIcon, Upload, X } from "lucide-react";
+import Image from "next/image";
 import { useCallback, useRef, useState } from "react";
+import { toast } from "@/lib/toast";
 
 type UploadedImage = {
   id: string;
@@ -35,7 +37,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
       const remainingSlots = maxImages - images.length;
 
       if (fileArray.length > remainingSlots) {
-        alert(`You can only upload ${remainingSlots} more image(s)`);
+        toast.warning(`You can only upload ${remainingSlots} more image(s)`);
         return;
       }
 
@@ -43,12 +45,12 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
       const validFiles: File[] = [];
       for (const file of fileArray) {
         if (!file.type.startsWith("image/")) {
-          alert(`${file.name} is not an image file`);
+          toast.error(`${file.name} is not an image file`);
           continue;
         }
 
         if (file.size > maxSizeMB * 1024 * 1024) {
-          alert(`${file.name} is larger than ${maxSizeMB}MB`);
+          toast.warning(`${file.name} is larger than ${maxSizeMB}MB`);
           continue;
         }
 
@@ -156,8 +158,9 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
         URL.revokeObjectURL(img.preview);
       }
       setImages([]);
-    } catch (_error) {
-      alert("Failed to upload images. Please try again.");
+    } catch (error) {
+      console.error("Failed to upload images:", error);
+      toast.error("Failed to upload images. Please try again.");
     } finally {
       setUploading(false);
     }
@@ -176,6 +179,14 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            fileInputRef.current?.click();
+          }
+        }}
+        role="button"
+        tabIndex={0}
       >
         <input
           accept="image/*"
@@ -231,7 +242,14 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
               >
                 {/* Image */}
                 <div className="aspect-square overflow-hidden">
-                  <img alt="Preview" className="h-full w-full object-cover" src={image.preview} />
+                  <Image
+                    alt="Preview"
+                    className="h-full w-full object-cover"
+                    height={200}
+                    loading="lazy"
+                    src={image.preview}
+                    width={200}
+                  />
                 </div>
 
                 {/* Caption Input */}
@@ -267,6 +285,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
             {uploading ? (
               <span className="flex items-center justify-center gap-2">
                 <svg className="h-5 w-5 animate-spin" viewBox="0 0 24 24">
+                  <title>Loading spinner</title>
                   <circle
                     className="opacity-25"
                     cx="12"

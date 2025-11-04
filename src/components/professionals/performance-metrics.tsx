@@ -103,11 +103,15 @@ export function PerformanceMetrics({ metrics, variant = "compact", showLabels = 
               </div>
             </div>
             <p className="mt-2 text-[#7a6d62] text-xs">
-              {onTimeRate >= 90
-                ? "Consistently arrives within 15 minutes of scheduled time"
-                : onTimeRate >= 75
-                  ? "Usually arrives on time"
-                  : "Arrival time varies"}
+              {(() => {
+                if (onTimeRate >= 90) {
+                  return "Consistently arrives within 15 minutes of scheduled time";
+                }
+                if (onTimeRate >= 75) {
+                  return "Usually arrives on time";
+                }
+                return "Arrival time varies";
+              })()}
             </p>
           </div>
         )}
@@ -125,11 +129,15 @@ export function PerformanceMetrics({ metrics, variant = "compact", showLabels = 
               </div>
             </div>
             <p className="mt-2 text-[#7a6d62] text-xs">
-              {acceptanceRate >= 90
-                ? "Highly responsive and reliable"
-                : acceptanceRate >= 75
-                  ? "Responds to most requests"
-                  : "May decline requests"}
+              {(() => {
+                if (acceptanceRate >= 90) {
+                  return "Highly responsive and reliable";
+                }
+                if (acceptanceRate >= 75) {
+                  return "Responds to most requests";
+                }
+                return "May decline requests";
+              })()}
             </p>
           </div>
         )}

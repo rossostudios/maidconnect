@@ -144,6 +144,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
           {loading ? (
             <span className="flex items-center gap-2">
               <svg className="h-5 w-5 animate-spin" viewBox="0 0 24 24">
+                <title>Loading</title>
                 <circle
                   className="opacity-25"
                   cx="12"

@@ -102,8 +102,12 @@ export function summarizeStatuses(bookings: Booking[]): BookingStatusSummary[] {
       return a[0].localeCompare(b[0]);
     }
 
-    if (aIndex === -1) return 1;
-    if (bIndex === -1) return -1;
+    if (aIndex === -1) {
+      return 1;
+    }
+    if (bIndex === -1) {
+      return -1;
+    }
 
     return aIndex - bIndex;
   });

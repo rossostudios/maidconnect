@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export type ApiMutationOptions<TData = any, TResult = any> = {
+export type ApiMutationOptions<_TData = any, TResult = any> = {
   url: string;
   method?: "POST" | "PUT" | "PATCH" | "DELETE";
   onSuccess?: (result: TResult) => void;
@@ -48,7 +48,7 @@ export function useApiMutation<TData = any, TResult = any>({
   onSuccess,
   onError,
   refreshOnSuccess = false,
-  successMessage,
+  successMessage: _successMessage,
 }: ApiMutationOptions<TData, TResult>): ApiMutationResult<TData, TResult> {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);

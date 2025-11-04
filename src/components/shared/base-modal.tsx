@@ -54,7 +54,9 @@ export function BaseModal({
 
   // Handle Escape key
   useEffect(() => {
-    if (!(isOpen && closeOnEscape)) return;
+    if (!(isOpen && closeOnEscape)) {
+      return;
+    }
 
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -68,7 +70,9 @@ export function BaseModal({
 
   // Prevent body scroll when modal is open
   useEffect(() => {
-    if (!preventBodyScroll) return;
+    if (!preventBodyScroll) {
+      return;
+    }
 
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -99,19 +103,25 @@ export function BaseModal({
 
   // Focus trap - keep focus within modal
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      return;
+    }
 
     const handleTab = (e: KeyboardEvent) => {
-      if (e.key !== "Tab") return;
+      if (e.key !== "Tab") {
+        return;
+      }
 
       const focusableElements = modalRef.current?.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       );
 
-      if (!focusableElements || focusableElements.length === 0) return;
+      if (!focusableElements || focusableElements.length === 0) {
+        return;
+      }
 
       const firstElement = focusableElements[0] as HTMLElement;
-      const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+      const lastElement = focusableElements.at(-1) as HTMLElement;
 
       if (e.shiftKey) {
         // Shift + Tab
@@ -147,12 +157,25 @@ export function BaseModal({
       aria-labelledby={title ? "modal-title" : undefined}
       aria-modal="true"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 transition-opacity duration-200"
-      onClick={handleBackdropClick}
+      {...(closeOnBackdropClick && {
+        onClick: handleBackdropClick,
+        onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleBackdropClick(e as unknown as React.MouseEvent<HTMLDivElement>);
+          }
+        },
+      })}
       role="dialog"
     >
       <div
         className={`relative max-h-[90vh] w-full overflow-y-auto rounded-[28px] bg-white shadow-xl transition-transform duration-200 ${sizeClasses[size]} ${className}`}
+        {...(closeOnBackdropClick && {
+          onClick: (e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation(),
+          onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => e.stopPropagation(),
+        })}
         ref={modalRef}
+        role="document"
         tabIndex={-1}
       >
         {/* Header */}
@@ -164,9 +187,7 @@ export function BaseModal({
                   {title}
                 </h2>
               )}
-              {description && (
-                <p className="mt-1 text-[#7a6d62] text-sm">{description}</p>
-              )}
+              {description && <p className="mt-1 text-[#7a6d62] text-sm">{description}</p>}
             </div>
             {showCloseButton && (
               <button

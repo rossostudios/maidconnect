@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { logger } from "@/lib/logger";
 import { assertStripeSignature, stripe } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase/admin-client";
-import { logger } from "@/lib/logger";
 
 export async function POST(request: Request) {
   const { signature, secret } = assertStripeSignature(

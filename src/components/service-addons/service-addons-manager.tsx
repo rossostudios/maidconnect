@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { confirm } from "@/lib/toast";
 
 export type ServiceAddon = {
   id: string;
@@ -53,8 +54,9 @@ export function ServiceAddonsManager({
     handleAddonsUpdate(newAddons);
   };
 
-  const handleDelete = (id: string) => {
-    if (confirm(t("deleteConfirm"))) {
+  const handleDelete = async (id: string) => {
+    const confirmed = await confirm(t("deleteConfirm"), "Delete Service Addon");
+    if (confirmed) {
       const newAddons = addons.filter((addon) => addon.id !== id);
       handleAddonsUpdate(newAddons);
     }
@@ -284,11 +286,12 @@ function AddonForm({
       </h4>
 
       <div>
-        <label className="mb-1 block font-medium text-[#211f1a] text-sm">
+        <label className="mb-1 block font-medium text-[#211f1a] text-sm" htmlFor="addon-name">
           {t("form.fields.name.label")}
         </label>
         <input
           className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+          id="addon-name"
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           placeholder={t("form.fields.name.placeholder")}
           required
@@ -298,11 +301,15 @@ function AddonForm({
       </div>
 
       <div>
-        <label className="mb-1 block font-medium text-[#211f1a] text-sm">
+        <label
+          className="mb-1 block font-medium text-[#211f1a] text-sm"
+          htmlFor="addon-description"
+        >
           {t("form.fields.description.label")}
         </label>
         <textarea
           className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+          id="addon-description"
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           placeholder={t("form.fields.description.placeholder")}
           rows={2}
@@ -312,11 +319,12 @@ function AddonForm({
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-1 block font-medium text-[#211f1a] text-sm">
+          <label className="mb-1 block font-medium text-[#211f1a] text-sm" htmlFor="addon-price">
             {t("form.fields.price.label")}
           </label>
           <input
             className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+            id="addon-price"
             min="0"
             onChange={(e) =>
               setFormData({ ...formData, price_cop: Number.parseInt(e.target.value, 10) })
@@ -330,11 +338,12 @@ function AddonForm({
         </div>
 
         <div>
-          <label className="mb-1 block font-medium text-[#211f1a] text-sm">
+          <label className="mb-1 block font-medium text-[#211f1a] text-sm" htmlFor="addon-duration">
             {t("form.fields.extraTime.label")}
           </label>
           <input
             className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+            id="addon-duration"
             min="0"
             onChange={(e) =>
               setFormData({

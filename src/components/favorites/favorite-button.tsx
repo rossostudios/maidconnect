@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "@/lib/toast";
 
 type Props = {
   professionalId: string;
@@ -40,8 +41,9 @@ export function FavoriteButton({
 
       const data = await response.json();
       setIsFavorite(data.isFavorite);
-    } catch (_error) {
-      alert("Failed to update favorites. Please try again.");
+    } catch (error) {
+      console.error("Failed to update favorites:", error);
+      toast.error("Failed to update favorites. Please try again.");
     } finally {
       setLoading(false);
     }

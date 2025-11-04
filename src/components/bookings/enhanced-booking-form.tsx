@@ -11,11 +11,11 @@ import {
 import { AvailabilityCalendar } from "@/components/booking/availability-calendar";
 import { PriceBreakdown } from "@/components/pricing/price-breakdown";
 import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
-import { useFeatureFlag } from "@/hooks/use-feature-flag";
-import { useBookingSubmission } from "@/hooks/use-booking-submission";
 import { useAddressesAndAddons } from "@/hooks/use-addresses-and-addons";
-import type { ProfessionalService } from "@/lib/professionals/transformers";
+import { useBookingSubmission } from "@/hooks/use-booking-submission";
+import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { formatCurrencyCOP, normalizeServiceName } from "@/lib/booking-utils";
+import type { ProfessionalService } from "@/lib/professionals/transformers";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
@@ -241,9 +241,15 @@ function ServiceDetailsStep({
 
       {/* Service Selection */}
       <div>
-        <label className="mb-2 block font-medium text-[#211f1a] text-sm">Service *</label>
+        <label
+          className="mb-2 block font-medium text-[#211f1a] text-sm"
+          htmlFor="enhanced-service-select"
+        >
+          Service *
+        </label>
         <select
           className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+          id="enhanced-service-select"
           onChange={(e) => {
             const service = services.find((s) => s.name === e.target.value);
             setBookingData({
@@ -267,9 +273,12 @@ function ServiceDetailsStep({
 
       {/* Duration */}
       <div>
-        <label className="mb-2 block font-medium text-[#211f1a] text-sm">Duration (hours) *</label>
+        <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="duration-hours">
+          Duration (hours) *
+        </label>
         <input
           className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+          id="duration-hours"
           max={12}
           min={1}
           onChange={(e) =>
@@ -286,9 +295,7 @@ function ServiceDetailsStep({
 
       {/* Availability Calendar */}
       <div>
-        <label className="mb-2 block font-medium text-[#211f1a] text-sm">
-          Select Date & Time *
-        </label>
+        <div className="mb-2 block font-medium text-[#211f1a] text-sm">Select Date & Time *</div>
         <AvailabilityCalendar
           durationHours={bookingData.durationHours}
           onDateSelect={(date) => setBookingData({ ...bookingData, selectedDate: date })}
@@ -319,9 +326,15 @@ function ServiceDetailsStep({
 
       {bookingData.isRecurring && (
         <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4">
-          <label className="mb-2 block font-medium text-[#211f1a] text-sm">Frequency</label>
+          <label
+            className="mb-2 block font-medium text-[#211f1a] text-sm"
+            htmlFor="recurrence-frequency"
+          >
+            Frequency
+          </label>
           <select
             className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+            id="recurrence-frequency"
             onChange={(e) =>
               setBookingData({
                 ...bookingData,
@@ -391,7 +404,12 @@ function AddressAddonsStep({
 
       {/* Address Selection */}
       <div>
-        <label className="mb-2 block font-medium text-[#211f1a] text-sm">Service Address *</label>
+        <label
+          className="mb-2 block font-medium text-[#211f1a] text-sm"
+          htmlFor="custom-address-enhanced"
+        >
+          Service Address *
+        </label>
 
         {!useCustomAddress && addresses.length > 0 && (
           <div className="space-y-2">
@@ -416,6 +434,7 @@ function AddressAddonsStep({
           <div className="space-y-2">
             <textarea
               className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+              id="custom-address-enhanced"
               onChange={(e) =>
                 setBookingData({
                   ...bookingData,
@@ -442,11 +461,15 @@ function AddressAddonsStep({
 
       {/* Special Instructions */}
       <div>
-        <label className="mb-2 block font-medium text-[#211f1a] text-sm">
+        <label
+          className="mb-2 block font-medium text-[#211f1a] text-sm"
+          htmlFor="special-instructions-enhanced"
+        >
           Special Instructions
         </label>
         <textarea
           className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+          id="special-instructions-enhanced"
           onChange={(e) =>
             setBookingData({
               ...bookingData,
@@ -462,9 +485,9 @@ function AddressAddonsStep({
       {/* Service Add-ons */}
       {addons.length > 0 && (
         <div>
-          <label className="mb-2 block font-medium text-[#211f1a] text-sm">
+          <div className="mb-2 block font-medium text-[#211f1a] text-sm">
             Add Extra Services (Optional)
-          </label>
+          </div>
           <div className="space-y-2">
             {addons.map((addon) => {
               const isSelected = bookingData.selectedAddons.some((a) => a.id === addon.id);
@@ -712,7 +735,7 @@ function PaymentConfirmation({
     setSubmitting(true);
     setError(null);
     try {
-      const { error, paymentIntent } = await stripe.confirmPayment({
+      const { error: paymentError, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
           return_url: window.location.origin,
@@ -720,8 +743,8 @@ function PaymentConfirmation({
         redirect: "if_required",
       });
 
-      if (error) {
-        throw new Error(error.message ?? "Payment requires additional verification.");
+      if (paymentError) {
+        throw new Error(paymentError.message ?? "Payment requires additional verification.");
       }
 
       if (paymentIntent?.status === "requires_capture") {

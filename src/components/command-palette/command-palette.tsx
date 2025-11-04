@@ -232,7 +232,17 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
   return (
     <>
       {/* Backdrop */}
-      <div className="fixed inset-0 z-60 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div
+        className="fixed inset-0 z-60 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            onClose();
+          }
+        }}
+        role="button"
+        tabIndex={0}
+      />
 
       {/* Command Palette */}
       <div className="-translate-x-1/2 fixed top-[20%] left-1/2 z-60 w-full max-w-2xl">
@@ -243,6 +253,7 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
           {/* Search Input */}
           <div className="flex items-center border-[#dcd6c7] border-b px-4">
             <svg
+              aria-hidden="true"
               className="mr-3 h-5 w-5 text-[#7a6d62]"
               fill="none"
               stroke="currentColor"

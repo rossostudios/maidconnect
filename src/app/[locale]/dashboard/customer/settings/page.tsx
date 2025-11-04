@@ -57,30 +57,30 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
         <div className="space-y-6">
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
-              <label className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+              <div className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
                 {t("profile.fullName")}
-              </label>
+              </div>
               <p className="text-[#211f1a]">{profile?.full_name || "—"}</p>
             </div>
             <div>
-              <label className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+              <div className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
                 {t("profile.email")}
-              </label>
+              </div>
               <p className="text-[#211f1a]">{user.email || "—"}</p>
             </div>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
-              <label className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+              <div className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
                 {t("profile.phone")}
-              </label>
+              </div>
               <p className="text-[#211f1a]">{profile?.phone || "—"}</p>
             </div>
             <div>
-              <label className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+              <div className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
                 {t("profile.city")}
-              </label>
+              </div>
               <p className="text-[#211f1a]">{profile?.city || "—"}</p>
             </div>
           </div>
@@ -99,9 +99,9 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
         <h2 className="mb-6 font-semibold text-[#211f1a] text-xl">{t("preferences.title")}</h2>
         <div className="space-y-4">
           <div>
-            <label className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+            <div className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
               {t("preferences.propertyType")}
-            </label>
+            </div>
             <p className="text-[#211f1a]">
               {propertyType ? propertyType.charAt(0).toUpperCase() + propertyType.slice(1) : "—"}
             </p>

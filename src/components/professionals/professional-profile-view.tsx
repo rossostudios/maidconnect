@@ -1,7 +1,7 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { CalendarDays, Clock, Globe2, MapPin, ShieldCheck, Star } from "lucide-react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -12,6 +12,7 @@ const BookingSheet = dynamic(
   () => import("@/components/bookings/booking-sheet").then((mod) => mod.BookingSheet),
   { ssr: false }
 );
+
 import { CompactPrice } from "@/components/pricing/price-breakdown";
 import type {
   ProfessionalBookingSummary,

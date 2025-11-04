@@ -1,5 +1,5 @@
-import { supabase } from "@/lib/supabase";
 import { env } from "@/lib/env";
+import { supabase } from "@/lib/supabase";
 import type {
   Conversation,
   ConversationRecord,
@@ -65,7 +65,7 @@ export async function fetchConversations(): Promise<Conversation[]> {
 
       // Get other participant info
       const otherParticipantId = conv.participant_ids.find((id) => id !== userId);
-      let otherParticipantName = null;
+      let otherParticipantName: string | null = null;
 
       if (otherParticipantId) {
         const { data: profile } = await supabase
@@ -200,16 +200,13 @@ export async function markConversationAsRead(conversationId: string): Promise<vo
     throw new Error("Not authenticated");
   }
 
-  const response = await fetch(
-    `${env.apiUrl}/api/messages/conversations/${conversationId}/read`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session.access_token}`,
-      },
-    }
-  );
+  const response = await fetch(`${env.apiUrl}/api/messages/conversations/${conversationId}/read`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${session.access_token}`,
+    },
+  });
 
   if (!response.ok) {
     const error = await response.json();

@@ -1,7 +1,7 @@
 "use client";
 
 import { formatDistanceToNow } from "date-fns";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "@/i18n/routing";
 
 type Notification = {
@@ -21,7 +21,7 @@ export function NotificationsHistory() {
   const [filter, setFilter] = useState<"all" | "unread">("all");
   const [totalCount, setTotalCount] = useState(0);
 
-  const fetchNotifications = async () => {
+  const fetchNotifications = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams({
@@ -48,7 +48,7 @@ export function NotificationsHistory() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
 
   useEffect(() => {
     fetchNotifications();
@@ -74,7 +74,10 @@ export function NotificationsHistory() {
             : notif
         )
       );
-    } catch (_err) {}
+    } catch (err) {
+      // Intentionally suppress errors - UI will remain in current state
+      console.warn("Failed to mark notifications as read:", err);
+    }
   };
 
   const markAllAsRead = async () => {
@@ -91,7 +94,10 @@ export function NotificationsHistory() {
 
       // Refresh notifications
       await fetchNotifications();
-    } catch (_err) {}
+    } catch (err) {
+      // Intentionally suppress errors - UI will remain in current state
+      console.warn("Failed to mark all notifications as read:", err);
+    }
   };
 
   const unreadCount = notifications.filter((n) => !n.read_at).length;
@@ -154,6 +160,7 @@ export function NotificationsHistory() {
             <div className="mb-4 flex justify-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#ebe5d8]">
                 <svg
+                  aria-hidden="true"
                   className="h-8 w-8 text-[#7d7566]"
                   fill="none"
                   stroke="currentColor"

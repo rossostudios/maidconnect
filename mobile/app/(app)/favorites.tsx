@@ -1,4 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Ionicons } from "@expo/vector-icons";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import {
   ActivityIndicator,
@@ -11,10 +12,9 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
-
-import { fetchProfessionals } from "@/features/professionals/api";
+import { EmptyState } from "@/components/ui/empty-state";
 import { fetchFavorites, removeFavorite } from "@/features/favorites/api";
+import { fetchProfessionals } from "@/features/professionals/api";
 import { ProfessionalCard } from "@/features/professionals/components/ProfessionalCard";
 import type { ProfessionalProfile } from "@/features/professionals/types";
 
@@ -29,10 +29,12 @@ export default function FavoritesScreen() {
   });
 
   // Fetch all professionals
-  const { data: allProfessionals, isLoading: loadingProfs, isRefetching, refetch } = useQuery<
-    ProfessionalProfile[],
-    Error
-  >({
+  const {
+    data: allProfessionals,
+    isLoading: loadingProfs,
+    isRefetching,
+    refetch,
+  } = useQuery<ProfessionalProfile[], Error>({
     queryKey: ["professionals"],
     queryFn: () => fetchProfessionals({ limit: 100 }),
   });
@@ -71,12 +73,12 @@ export default function FavoritesScreen() {
 
   const renderProfessional = ({ item }: { item: ProfessionalProfile }) => (
     <View>
-      <ProfessionalCard professional={item} onPress={handleProfessionalPress} />
+      <ProfessionalCard onPress={handleProfessionalPress} professional={item} />
       <Pressable
-        style={styles.removeButton}
         onPress={() => handleRemoveFavorite(item.profileId, item.fullName || "professional")}
+        style={styles.removeButton}
       >
-        <Ionicons name="heart-dislike-outline" size={20} color="#DC2626" />
+        <Ionicons color="#DC2626" name="heart-dislike-outline" size={20} />
         <Text style={styles.removeButtonText}>Remove from Favorites</Text>
       </Pressable>
     </View>
@@ -104,25 +106,24 @@ export default function FavoritesScreen() {
       </View>
 
       <FlatList
-        data={favoriteProfessionals}
-        renderItem={renderProfessional}
-        keyExtractor={(item) => item.profileId}
         contentContainerStyle={styles.listContent}
-        refreshControl={<RefreshControl onRefresh={refetch} refreshing={isRefetching} />}
+        data={favoriteProfessionals}
         ItemSeparatorComponent={() => <View style={{ height: 18 }} />}
+        keyExtractor={(item) => item.profileId}
         ListEmptyComponent={
-          <View style={styles.emptyState}>
-            <Ionicons name="heart-outline" size={64} color="#CBD5E1" />
-            <Text style={styles.emptyTitle}>No favorites yet</Text>
-            <Text style={styles.emptyDescription}>
-              Tap the heart icon on any professional's profile to add them to your favorites for
-              quick access.
-            </Text>
-            <Pressable style={styles.browseButton} onPress={() => router.push("/")}>
-              <Text style={styles.browseButtonText}>Browse Professionals</Text>
-            </Pressable>
-          </View>
+          <EmptyState
+            action={{
+              label: "Browse Professionals",
+              onPress: () => router.push("/"),
+              variant: "primary",
+            }}
+            description="Tap the heart icon on any professional's profile to add them to your favorites for quick access."
+            icon="heart-outline"
+            title="No favorites yet"
+          />
         }
+        refreshControl={<RefreshControl onRefresh={refetch} refreshing={isRefetching} />}
+        renderItem={renderProfessional}
       />
     </SafeAreaView>
   );

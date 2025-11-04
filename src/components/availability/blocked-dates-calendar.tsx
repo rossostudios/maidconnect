@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import { Calendar, ChevronLeft, ChevronRight, Trash2 } from "lucide-react";
-import { useCalendarMonth } from "@/hooks/use-calendar-month";
+import { useMemo, useState } from "react";
 import { useCalendarGrid } from "@/hooks/use-calendar-grid";
+import { useCalendarMonth } from "@/hooks/use-calendar-month";
+import { confirm } from "@/lib/toast";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -39,13 +40,8 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
   const [blockedDates, setBlockedDates] = useState<string[]>(initialBlockedDates);
 
   // Use shared calendar month navigation
-  const {
-    currentMonth,
-    goToNextMonth,
-    goToPreviousMonth,
-    getMonthLabel,
-    getMonthBounds,
-  } = useCalendarMonth();
+  const { currentMonth, goToNextMonth, goToPreviousMonth, getMonthLabel, getMonthBounds } =
+    useCalendarMonth();
 
   // Use shared calendar grid generation
   const calendarDays = useCalendarGrid({ currentMonth, useUTC: false });
@@ -66,8 +62,9 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
     }
   };
 
-  const handleClearAll = () => {
-    if (confirm("Clear all blocked dates?")) {
+  const handleClearAll = async () => {
+    const confirmed = await confirm("Clear all blocked dates?", "Clear Blocked Dates");
+    if (confirmed) {
       handleChange([]);
     }
   };
@@ -80,11 +77,15 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
     handleChange(newBlocked);
   };
 
-  const blockedInCurrentMonth = useMemo(() => blockedDates.filter((dateStr) => {
-      const date = parseDate(dateStr);
-      const { startOfMonth, endOfMonth } = getMonthBounds();
-      return date >= startOfMonth && date <= endOfMonth;
-    }).length, [blockedDates, getMonthBounds]);
+  const blockedInCurrentMonth = useMemo(
+    () =>
+      blockedDates.filter((dateStr) => {
+        const date = parseDate(dateStr);
+        const { startOfMonth, endOfMonth } = getMonthBounds();
+        return date >= startOfMonth && date <= endOfMonth;
+      }).length,
+    [blockedDates, getMonthBounds]
+  );
 
   return (
     <div className="space-y-6">
@@ -92,10 +93,10 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <button
+            aria-label="Previous month"
             className="rounded-lg p-2 text-[#7d7566] transition hover:bg-[#ebe5d8] hover:text-[#211f1a]"
             onClick={goToPreviousMonth}
             type="button"
-            aria-label="Previous month"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -103,10 +104,10 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
             {getMonthLabel()}
           </h3>
           <button
+            aria-label="Next month"
             className="rounded-lg p-2 text-[#7d7566] transition hover:bg-[#ebe5d8] hover:text-[#211f1a]"
             onClick={goToNextMonth}
             type="button"
-            aria-label="Next month"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
@@ -154,18 +155,22 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
             const dateStr = formatDate(day.date);
             const isBlocked = blockedDates.includes(dateStr);
 
+            const getButtonClassName = () => {
+              if (!day.inCurrentMonth) {
+                return "cursor-not-allowed bg-[#fbfaf9] text-[#d4cec0]";
+              }
+              if (isBlocked) {
+                return "bg-red-500 font-semibold text-white hover:bg-red-600";
+              }
+              if (day.isToday) {
+                return "bg-[#fff5f2] font-semibold text-[#8B7355] hover:bg-[#8B7355] hover:text-white";
+              }
+              return "bg-white font-medium text-[#211f1a] hover:bg-[#8B7355] hover:text-white";
+            };
+
             return (
               <button
-                className={cn(
-                  "aspect-square p-2 text-sm transition",
-                  day.inCurrentMonth
-                    ? isBlocked
-                      ? "bg-red-500 font-semibold text-white hover:bg-red-600"
-                      : day.isToday
-                        ? "bg-[#fff5f2] font-semibold text-[#8B7355] hover:bg-[#8B7355] hover:text-white"
-                        : "bg-white font-medium text-[#211f1a] hover:bg-[#8B7355] hover:text-white"
-                    : "cursor-not-allowed bg-[#fbfaf9] text-[#d4cec0]"
-                )}
+                className={cn("aspect-square p-2 text-sm transition", getButtonClassName())}
                 disabled={!day.inCurrentMonth}
                 key={day.key}
                 onClick={() => handleToggleDate(day.date)}

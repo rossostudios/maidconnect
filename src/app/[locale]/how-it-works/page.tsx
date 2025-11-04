@@ -90,7 +90,9 @@ function CustomerFlowSection() {
     <section className="bg-white px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-[#211f1a] tracking-wide sm:text-4xl">{t("title")}</h2>
+          <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-[#211f1a] tracking-wide sm:text-4xl">
+            {t("title")}
+          </h2>
           <p className="mx-auto max-w-2xl text-[#5d574b] text-lg">{t("subtitle")}</p>
         </div>
 
@@ -147,7 +149,9 @@ function ProfessionalFlowSection() {
     <section className="bg-[#faf8f3] px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-[#211f1a] tracking-wide sm:text-4xl">{t("title")}</h2>
+          <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-[#211f1a] tracking-wide sm:text-4xl">
+            {t("title")}
+          </h2>
           <p className="mx-auto max-w-2xl text-[#5d574b] text-lg">{t("subtitle")}</p>
         </div>
 
@@ -197,7 +201,9 @@ function SafetyTrustSection() {
     <section className="bg-white px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-[#211f1a] tracking-wide sm:text-4xl">{t("title")}</h2>
+          <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-[#211f1a] tracking-wide sm:text-4xl">
+            {t("title")}
+          </h2>
           <p className="mx-auto max-w-2xl text-[#5d574b] text-lg">{t("subtitle")}</p>
         </div>
 
@@ -250,13 +256,18 @@ function FAQSection() {
       <div className="mx-auto max-w-4xl">
         <div className="mb-12 text-center">
           <HelpCircle className="mx-auto mb-4 h-12 w-12 text-[#8B7355]" />
-          <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-[#211f1a] tracking-wide sm:text-4xl">{t("title")}</h2>
+          <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-[#211f1a] tracking-wide sm:text-4xl">
+            {t("title")}
+          </h2>
           <p className="text-[#5d574b] text-lg">{t("subtitle")}</p>
         </div>
 
         <div className="space-y-6">
           {faqs.map((faq, index) => (
-            <div className="rounded-xl border border-[#ebe5d8] bg-white p-6 shadow-[var(--shadow-subtle)]" key={index}>
+            <div
+              className="rounded-xl border border-[#ebe5d8] bg-white p-6 shadow-[var(--shadow-subtle)]"
+              key={index}
+            >
               <h3 className="mb-3 font-semibold text-[#211f1a] text-lg">{t(faq.questionKey)}</h3>
               <p className="text-[#5d574b] leading-relaxed">{t(faq.answerKey)}</p>
             </div>
@@ -284,7 +295,9 @@ function CTASection() {
   return (
     <section className="bg-[#211f1a] px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-4xl text-center">
-        <h2 className="mb-6 font-[family-name:var(--font-cinzel)] text-3xl text-white tracking-wide sm:text-4xl">{t("title")}</h2>
+        <h2 className="mb-6 font-[family-name:var(--font-cinzel)] text-3xl text-white tracking-wide sm:text-4xl">
+          {t("title")}
+        </h2>
         <p className="mb-8 text-white/90 text-xl">{t("subtitle")}</p>
         <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <Link

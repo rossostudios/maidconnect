@@ -80,163 +80,190 @@ export function useKeyboardShortcuts(
     [router, closeAll]
   );
 
-  // Handle keyboard events
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      // Ignore if typing in input/textarea/contenteditable
-      const target = event.target as HTMLElement;
-      const isTyping =
-        target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable;
+  // Check if user is typing in an input field
+  const isTypingInInput = useCallback(
+    (target: HTMLElement): boolean =>
+      target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable,
+    []
+  );
 
-      // Allow "/" in non-input contexts
-      if (event.key === "/" && !isTyping) {
-        event.preventDefault();
-        // TODO: Focus search if available
-        return;
-      }
-
-      // Allow shortcuts in input only for Cmd/Ctrl+K and Escape
-      const isModifierKey = event.metaKey || event.ctrlKey;
-      if (isTyping && !isModifierKey && event.key !== "Escape") {
-        return;
-      }
-
+  // Handle global shortcuts (command palette, help, escape)
+  const handleGlobalShortcuts = useCallback(
+    (event: KeyboardEvent, isTyping: boolean): boolean => {
       // ⌘K / Ctrl+K - Open command palette
       if ((event.metaKey || event.ctrlKey) && event.key === "k") {
         event.preventDefault();
         toggleCommandPalette();
-        return;
+        return true;
       }
 
       // ? - Show keyboard shortcuts
       if (event.key === "?" && !isTyping) {
         event.preventDefault();
         toggleShortcutsPanel();
-        return;
+        return true;
       }
 
       // Escape - Close everything
       if (event.key === "Escape") {
         event.preventDefault();
         closeAll();
-        return;
+        return true;
       }
 
-      // Don't handle other shortcuts if typing or if overlays are open
-      if (isTyping || commandPaletteOpen || shortcutsPanelOpen) {
-        return;
-      }
+      return false;
+    },
+    [toggleCommandPalette, toggleShortcutsPanel, closeAll]
+  );
 
-      const key = event.key.toLowerCase();
+  // Handle "G then X" navigation sequences
+  const handleGSequence = useCallback(
+    (key: string) => {
+      resetSequence();
 
+      const gSequenceHandlers: Record<string, () => void> = {
+        d: () => dashboardPath && navigate(dashboardPath),
+        b: () => {
+          if (role === "customer") {
+            navigate("/dashboard/customer/bookings");
+          }
+          if (role === "professional") {
+            navigate("/dashboard/pro/bookings");
+          }
+        },
+        m: () => {
+          if (role === "customer") {
+            navigate("/dashboard/customer/messages");
+          }
+          if (role === "professional") {
+            navigate("/dashboard/pro/messages");
+          }
+        },
+        p: () => role === "professional" && navigate("/dashboard/pro/profile"),
+        f: () => role === "customer" && navigate("/dashboard/customer/favorites"),
+        $: () => {
+          if (role === "customer") {
+            navigate("/dashboard/customer/payments");
+          }
+          if (role === "professional") {
+            navigate("/dashboard/pro/finances");
+          }
+        },
+        a: () => role === "professional" && navigate("/dashboard/pro/availability"),
+        o: () => role === "professional" && navigate("/dashboard/pro/portfolio"),
+        l: () => role === "customer" && navigate("/dashboard/customer/addresses"),
+      };
+
+      gSequenceHandlers[key]?.();
+    },
+    [role, dashboardPath, navigate, resetSequence]
+  );
+
+  // Handle single key shortcuts
+  const handleSingleKeyShortcuts = useCallback(
+    (key: string, event: KeyboardEvent) => {
+      const singleKeyHandlers: Record<string, () => void> = {
+        c: () => role === "customer" && navigate("/professionals"),
+        n: () => role === "professional" && navigate("/dashboard/pro/availability"),
+        f: () => {
+          if (!role) {
+            event.preventDefault();
+            navigate("/professionals");
+          }
+        },
+        b: () => {
+          if (!role) {
+            event.preventDefault();
+            navigate("/professionals");
+          }
+        },
+        l: () => {
+          if (!role) {
+            event.preventDefault();
+            navigate("/auth/sign-in");
+          }
+        },
+      };
+
+      singleKeyHandlers[key]?.();
+    },
+    [role, navigate]
+  );
+
+  // Should shortcuts be blocked for current context
+  const shouldBlockShortcuts = useCallback(
+    (isTyping: boolean): boolean => isTyping || commandPaletteOpen || shortcutsPanelOpen,
+    [commandPaletteOpen, shortcutsPanelOpen]
+  );
+
+  // Handle search shortcut
+  const handleSearchShortcut = useCallback((event: KeyboardEvent, isTyping: boolean): boolean => {
+    if (event.key === "/" && !isTyping) {
+      event.preventDefault();
+      // TODO: Focus search if available
+      return true;
+    }
+    return false;
+  }, []);
+
+  // Check if shortcut should be allowed while typing
+  const isAllowedWhileTyping = useCallback((event: KeyboardEvent): boolean => {
+    const isModifierKey = event.metaKey || event.ctrlKey;
+    return isModifierKey || event.key === "Escape";
+  }, []);
+
+  // Handle navigation sequences and single key shortcuts
+  const handleNavigationShortcuts = useCallback(
+    (key: string, event: KeyboardEvent) => {
       // Handle "G then X" sequences
       if (lastKeyRef.current === "g") {
-        resetSequence();
-
-        switch (key) {
-          case "d": // Go to Dashboard
-            if (dashboardPath) {
-              navigate(dashboardPath);
-            }
-            break;
-          case "b": // Go to Bookings
-            if (role === "customer") {
-              navigate("/dashboard/customer/bookings");
-            }
-            if (role === "professional") {
-              navigate("/dashboard/pro/bookings");
-            }
-            break;
-          case "m": // Go to Messages
-            if (role === "customer") {
-              navigate("/dashboard/customer/messages");
-            }
-            if (role === "professional") {
-              navigate("/dashboard/pro/messages");
-            }
-            break;
-          case "p": // Go to Profile (professional only)
-            if (role === "professional") {
-              navigate("/dashboard/pro/profile");
-            }
-            break;
-          case "f": // Go to Favorites (customer only)
-            if (role === "customer") {
-              navigate("/dashboard/customer/favorites");
-            }
-            break;
-          case "$": // Go to Payments/Finances
-            if (role === "customer") {
-              navigate("/dashboard/customer/payments");
-            }
-            if (role === "professional") {
-              navigate("/dashboard/pro/finances");
-            }
-            break;
-          case "a": // Go to Availability (professional only)
-            if (role === "professional") {
-              navigate("/dashboard/pro/availability");
-            }
-            break;
-          case "o": // Go to Portfolio (professional only)
-            if (role === "professional") {
-              navigate("/dashboard/pro/portfolio");
-            }
-            break;
-          case "l": // Go to Addresses (customer only)
-            if (role === "customer") {
-              navigate("/dashboard/customer/addresses");
-            }
-            break;
-          default:
-            // Unknown key in "G" sequence, do nothing
-            break;
-        }
+        handleGSequence(key);
         return;
       }
 
       // Start "G" sequence
       if (key === "g") {
         lastKeyRef.current = "g";
-        // Reset after 1 second if no second key
         sequenceTimeoutRef.current = setTimeout(resetSequence, 1000);
         return;
       }
 
-      // Single key shortcuts
-      switch (key) {
-        case "c": // New booking (customer)
-          if (role === "customer") {
-            navigate("/professionals");
-          }
-          break;
-        case "n": // New availability (professional)
-          if (role === "professional") {
-            navigate("/dashboard/pro/availability");
-          }
-          break;
-        case "f": // Find a professional (public)
-          if (!role) {
-            event.preventDefault();
-            navigate("/professionals");
-          }
-          break;
-        case "b": // Browse all professionals (public)
-          if (!role) {
-            event.preventDefault();
-            navigate("/professionals");
-          }
-          break;
-        case "l": // Login/Signup (public)
-          if (!role) {
-            event.preventDefault();
-            navigate("/auth/sign-in");
-          }
-          break;
-        default:
-          // Unknown key, do nothing
-          break;
+      // Handle single key shortcuts
+      handleSingleKeyShortcuts(key, event);
+    },
+    [handleGSequence, handleSingleKeyShortcuts, resetSequence]
+  );
+
+  // Handle keyboard events
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement;
+      const isTyping = isTypingInInput(target);
+
+      // Handle search shortcut
+      if (handleSearchShortcut(event, isTyping)) {
+        return;
       }
+
+      // Block shortcuts while typing (except allowed ones)
+      if (isTyping && !isAllowedWhileTyping(event)) {
+        return;
+      }
+
+      // Handle global shortcuts first
+      if (handleGlobalShortcuts(event, isTyping)) {
+        return;
+      }
+
+      // Block other shortcuts if typing or overlays open
+      if (shouldBlockShortcuts(isTyping)) {
+        return;
+      }
+
+      const key = event.key.toLowerCase();
+
+      // Handle navigation shortcuts
+      handleNavigationShortcuts(key, event);
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -246,15 +273,13 @@ export function useKeyboardShortcuts(
       resetSequence();
     };
   }, [
-    commandPaletteOpen,
-    shortcutsPanelOpen,
-    role,
-    dashboardPath,
-    toggleCommandPalette,
-    toggleShortcutsPanel,
-    closeAll,
-    navigate,
-    resetSequence,
+    isTypingInInput,
+    handleSearchShortcut,
+    isAllowedWhileTyping,
+    handleGlobalShortcuts,
+    shouldBlockShortcuts,
+    resetSequence, // Handle navigation shortcuts
+    handleNavigationShortcuts,
   ]);
 
   return {

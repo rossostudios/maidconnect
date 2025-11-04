@@ -16,9 +16,9 @@ import {
 } from "@/types/roadmap";
 import { RoadmapVoteButton } from "./roadmap-vote-button";
 
-interface RoadmapItemCardProps {
+type RoadmapItemCardProps = {
   item: RoadmapItemWithVoteStatus;
-}
+};
 
 export function RoadmapItemCard({ item }: RoadmapItemCardProps) {
   const statusConfig = ROADMAP_STATUS_CONFIG[item.status];
@@ -102,7 +102,7 @@ export function RoadmapItemCard({ item }: RoadmapItemCardProps) {
             </div>
 
             {/* Vote button - positioned at bottom right */}
-            <div onClick={(e) => e.preventDefault()}>
+            <div>
               <RoadmapVoteButton
                 canVote={item.canVote ?? false}
                 hasVoted={item.hasVoted ?? false}

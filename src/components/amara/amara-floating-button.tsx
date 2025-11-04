@@ -16,10 +16,10 @@ import { AmaraIcon } from "./amara-icon";
 import { AmaraOnboardingTooltip } from "./amara-onboarding-tooltip";
 import "./amara-animations.css";
 
-interface AmaraFloatingButtonProps {
+type AmaraFloatingButtonProps = {
   className?: string;
   locale?: string;
-}
+};
 
 export function AmaraFloatingButton({ className, locale }: AmaraFloatingButtonProps) {
   const t = useTranslations("amara");
