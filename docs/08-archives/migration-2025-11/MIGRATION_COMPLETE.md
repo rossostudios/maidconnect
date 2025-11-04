@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-This document summarizes the completion of three major refactoring initiatives that significantly improved the MaidConnect codebase:
+This document summarizes the completion of three major refactoring initiatives that significantly improved the Casaora codebase:
 
 1. **Calendar Component Consolidation** - Unified 6 duplicate calendars into 1 configurable component
 2. **Modal System Refactor** - Standardized 9+ modals with reusable patterns
@@ -274,7 +274,7 @@ Each migration has a safe rollback path:
 
 ```bash
 # Restore original calendar (if backup exists)
-cd /Users/christopher/Desktop/casaora/maidconnect
+cd /Users/christopher/Desktop/casaora/casaora
 mv src/components/booking/availability-calendar.tsx.backup \
    src/components/booking/availability-calendar.tsx
 
@@ -287,7 +287,7 @@ mv src/components/booking/availability-calendar.tsx.backup \
 
 ```bash
 # Move refactored versions back
-cd /Users/christopher/Desktop/casaora/maidconnect
+cd /Users/christopher/Desktop/casaora/casaora
 mv src/components/bookings/refactored/* src/components/bookings/
 
 # Restore backup if it exists
@@ -503,7 +503,7 @@ find src/app/api -name "*.refactored.ts" -delete
 ### After Successful Migration (1 Month Later)
 
 ```bash
-cd /Users/christopher/Desktop/casaora/maidconnect
+cd /Users/christopher/Desktop/casaora/casaora
 
 # Remove backup files
 find . -name "*.backup" -delete
@@ -755,7 +755,7 @@ Want to improve the migration?
 
 ## Conclusion
 
-This migration represents a significant improvement to the MaidConnect codebase:
+This migration represents a significant improvement to the Casaora codebase:
 
 ✅ **~5,000 lines of duplicate code eliminated**
 ✅ **100% accessibility compliance** across modals

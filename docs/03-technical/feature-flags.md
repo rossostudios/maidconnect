@@ -2,7 +2,7 @@
 
 ## Overview
 
-MaidConnect uses a feature flag system to enable:
+Casaora uses a feature flag system to enable:
 - **A/B Testing**: Test different pricing strategies and UI variations
 - **Gradual Rollouts**: Release features to a percentage of users
 - **Environment Control**: Enable features in staging before production

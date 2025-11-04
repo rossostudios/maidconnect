@@ -1,6 +1,6 @@
 # Mobile Release Playbook
 
-Use this guide to plan, build, and ship MaidConnect mobile releases with Expo Application Services (EAS).
+Use this guide to plan, build, and ship Casaora mobile releases with Expo Application Services (EAS).
 
 ## 1. Pre-flight Checklist
 

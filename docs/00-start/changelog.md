@@ -1,6 +1,6 @@
 # Changelog
 
-Major changes and improvements to MaidConnect.
+Major changes and improvements to Casaora.
 
 ---
 

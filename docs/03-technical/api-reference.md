@@ -1,6 +1,6 @@
 # API Reference
 
-Comprehensive API documentation for MaidConnect covering all 42 endpoints.
+Comprehensive API documentation for Casaora covering all 42 endpoints.
 
 ## Table of Contents
 

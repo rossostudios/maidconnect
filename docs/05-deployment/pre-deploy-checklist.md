@@ -20,7 +20,7 @@ Before deploying to Vercel, complete these steps:
 
 - [ ] **App Config**
   - [ ] Generate `CRON_SECRET`: Run `openssl rand -base64 32` in terminal
-  - [ ] `NEXT_PUBLIC_BASE_URL` - Will be your Vercel URL (e.g., `https://maidconnect.vercel.app`)
+  - [ ] `NEXT_PUBLIC_BASE_URL` - Will be your Vercel URL (e.g., `https://casaora.vercel.app`)
 
 ## 📝 Code & Database
 
@@ -55,7 +55,7 @@ Before deploying to Vercel, complete these steps:
 
 ## 🔗 Post-Deployment
 
-- [ ] Copy your Vercel deployment URL (e.g., `https://maidconnect.vercel.app`)
+- [ ] Copy your Vercel deployment URL (e.g., `https://casaora.vercel.app`)
 - [ ] Update `NEXT_PUBLIC_BASE_URL` in Vercel → Settings → Environment Variables
 - [ ] Set up Stripe webhook (see DEPLOYMENT.md Step 3)
 - [ ] Redeploy to apply new env vars

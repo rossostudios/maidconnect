@@ -1,4 +1,4 @@
-# MaidConnect - Implementation Progress
+# Casaora - Implementation Progress
 
 **Last Updated:** November 3, 2025
 **Overall Progress:** 45% Complete

@@ -1,6 +1,6 @@
 # Security Best Practices
 
-Comprehensive security guide for MaidConnect covering rate limiting, content security policy, and operational security.
+Comprehensive security guide for Casaora covering rate limiting, content security policy, and operational security.
 
 ## Table of Contents
 1. [Rate Limiting](#rate-limiting)
@@ -27,7 +27,7 @@ Rate limiting prevents abuse by limiting the number of requests a user can make 
 
 ### How It Works
 
-MaidConnect's rate limiting adapts to your environment:
+Casaora's rate limiting adapts to your environment:
 - **Development**: In-memory rate limiting (no setup required)
 - **Production**: Upstash Redis (distributed, scales across servers)
 

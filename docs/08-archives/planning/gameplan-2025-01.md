@@ -154,7 +154,7 @@ Below is a focused, practical audit of Maidconnect with a prioritized roadmap. I
 
 * Guard: `if (event.request.method !== 'GET') return;`
 * Restrict caching to `/_next/static/`, `/images/`, fonts; use `stale-while-revalidate` for static; **bypass** for authenticated pages and API.
-* Version caches (`maidconnect-static-v1`); clear old on activate; precache a minimal offline page only for marketing. 
+* Version caches (`casaora-static-v1`); clear old on activate; precache a minimal offline page only for marketing. 
 
 **CSP & headers**
 

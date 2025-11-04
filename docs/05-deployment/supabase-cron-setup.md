@@ -16,7 +16,7 @@ First, apply the migration that sets up the cron job:
 
 ```bash
 # Make sure you're in your project directory
-cd /Users/christopher/Desktop/maidconnect
+cd /Users/christopher/Desktop/casaora
 
 # Push the migration to Supabase
 supabase db push
@@ -63,7 +63,7 @@ WHERE id = 1;
 ```sql
 UPDATE public.cron_config
 SET
-  api_url = 'https://maidconnect.vercel.app',
+  api_url = 'https://casaora.vercel.app',
   cron_secret = 'g1/5bCvoPA3ZUHMIUT9cxANFBn2ZRHfmVKyB7cVPClE=',
   updated_at = now()
 WHERE id = 1;

@@ -1,6 +1,6 @@
 # Mobile Development Setup
 
-Follow this checklist to get the MaidConnect mobile app running locally.
+Follow this checklist to get the Casaora mobile app running locally.
 
 ## Prerequisites
 
@@ -58,7 +58,7 @@ To build native binaries:
 ```bash
 eas login
 eas whoami
-eas init --id <maidconnect-project-id>
+eas init --id <casaora-project-id>
 ```
 
 The `eas.json` file defines profiles for development, preview, and production releases. See `docs/mobile/release-playbook.md` for details.

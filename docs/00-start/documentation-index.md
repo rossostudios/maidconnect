@@ -1,6 +1,6 @@
-# MaidConnect Documentation Index
+# Casaora Documentation Index
 
-**Single source of truth for all MaidConnect documentation**
+**Single source of truth for all Casaora documentation**
 
 Last Updated: 2025-11-03 | Version: 2.0
 
@@ -242,5 +242,5 @@ Historical documentation moved to `/docs/08-archives`:
 
 ---
 
-**Maintained by:** MaidConnect Development Team
+**Maintained by:** Casaora Development Team
 **Next Review:** Quarterly (Q1 2025)

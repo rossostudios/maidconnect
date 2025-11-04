@@ -1,6 +1,6 @@
-# MaidConnect Mobile
+# Casaora Mobile
 
-This Expo app extends the MaidConnect platform to iOS and Android. It reuses the Supabase backend powering the web dashboard so staff can review professionals, track bookings, and manage their account from a phone.
+This Expo app extends the Casaora platform to iOS and Android. It reuses the Supabase backend powering the web dashboard so staff can review professionals, track bookings, and manage their account from a phone.
 
 ## Quick Start
 
@@ -77,7 +77,7 @@ The file-based router in `app/` mirrors the product areas on the web dashboard:
    ```bash
    eas login
    eas whoami
-   eas init --id <maidconnect-project-id>
+   eas init --id <casaora-project-id>
    ```
 
    The `eas.json` file defines three profiles:
@@ -93,7 +93,7 @@ The file-based router in `app/` mirrors the product areas on the web dashboard:
    eas credentials --platform android
    ```
 
-   Provide the Apple Team ID and Android keystore values generated for the MaidConnect org. (If they don’t exist yet, EAS can create managed credentials—store the secrets in your password vault.)
+   Provide the Apple Team ID and Android keystore values generated for the Casaora org. (If they don’t exist yet, EAS can create managed credentials—store the secrets in your password vault.)
 
 4. Kick off a build:
 

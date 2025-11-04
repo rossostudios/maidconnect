@@ -1,6 +1,6 @@
 # Development Guide
 
-Practical guide for common development tasks in MaidConnect.
+Practical guide for common development tasks in Casaora.
 
 **Focus:** How-to examples, not theory. Keep each section under 50 lines.
 

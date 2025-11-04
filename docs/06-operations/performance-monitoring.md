@@ -2,7 +2,7 @@
 
 ## Overview
 
-MaidConnect monitors Core Web Vitals to ensure optimal user experience and track performance regressions. All metrics are automatically sent to Better Stack for analysis and alerting.
+Casaora monitors Core Web Vitals to ensure optimal user experience and track performance regressions. All metrics are automatically sent to Better Stack for analysis and alerting.
 
 ## Core Web Vitals
 

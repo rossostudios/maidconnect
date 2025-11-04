@@ -1,10 +1,10 @@
-# MaidConnect Mobile Design System
+# Casaora Mobile Design System
 
-Complete guide to using the MaidConnect design system for consistent, accessible UI development.
+Complete guide to using the Casaora design system for consistent, accessible UI development.
 
 ## Overview
 
-The MaidConnect design system provides:
+The Casaora design system provides:
 - **Design Tokens**: Centralized colors, typography, spacing, and more
 - **UI Components**: 7 reusable, accessible components
 - **Consistent UX**: Standardized patterns across the app

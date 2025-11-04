@@ -1,6 +1,6 @@
 # Modal Component Patterns
 
-Quick reference for modal patterns in MaidConnect.
+Quick reference for modal patterns in Casaora.
 
 ## Components
 

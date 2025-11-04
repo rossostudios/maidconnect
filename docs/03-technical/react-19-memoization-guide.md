@@ -2,7 +2,7 @@
 
 ## Overview
 
-React 19 includes a new **React Compiler** that automatically memoizes components and values, eliminating the need for most manual `useMemo`, `useCallback`, and `React.memo` usage. This guide explains when to keep vs. remove memoization in the MaidConnect codebase.
+React 19 includes a new **React Compiler** that automatically memoizes components and values, eliminating the need for most manual `useMemo`, `useCallback`, and `React.memo` usage. This guide explains when to keep vs. remove memoization in the Casaora codebase.
 
 ## Key Changes in React 19
 

@@ -1,11 +1,11 @@
-# Getting Started with MaidConnect Documentation
+# Getting Started with Casaora Documentation
 
-Welcome to the MaidConnect documentation! This directory contains the essential starting documents for the project.
+Welcome to the Casaora documentation! This directory contains the essential starting documents for the project.
 
 ## Start Here
 
 ### 1. Documentation Index
-[documentation-index.md](./documentation-index.md) - Complete documentation navigation and single source of truth for all MaidConnect docs.
+[documentation-index.md](./documentation-index.md) - Complete documentation navigation and single source of truth for all Casaora docs.
 
 ### 2. Project Overview
 [readme.md](./readme.md) - Detailed project overview, tech stack, development setup, and recent improvements.
@@ -17,7 +17,7 @@ Welcome to the MaidConnect documentation! This directory contains the essential 
 
 ### For New Developers
 Start with these in order:
-1. [readme.md](./readme.md) - Understand what MaidConnect is
+1. [readme.md](./readme.md) - Understand what Casaora is
 2. [documentation-index.md](./documentation-index.md) - Navigate to technical docs
 3. [../03-technical/architecture.md](../03-technical/architecture.md) - Learn the architecture
 4. [../07-guides/development-guide.md](../07-guides/development-guide.md) - Start building
@@ -80,4 +80,4 @@ This ensures consistency across all documentation files.
 ---
 
 **Last Updated:** November 2025
-**Maintained by:** MaidConnect Development Team
+**Maintained by:** Casaora Development Team

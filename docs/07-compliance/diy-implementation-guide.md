@@ -35,14 +35,14 @@ This guide provides **actionable implementation steps** for compliance requireme
 **Use this template structure:**
 
 ```markdown
-# Política de Privacidad - MaidConnect
+# Política de Privacidad - Casaora
 
 **Última actualización:** [Date]
 
 ## 1. Responsable del Tratamiento
 - **Razón Social:** [Your company name]
 - **Domicilio:** [Address in Colombia]
-- **Email:** privacy@maidconnect.com
+- **Email:** privacy@casaora.com
 - **Teléfono:** [Phone]
 
 ## 2. Datos Personales que Recopilamos
@@ -86,7 +86,7 @@ Usted tiene derecho a:
 - **Acceder gratuitamente** a sus datos personales
 
 ### Cómo Ejercer Sus Derechos
-- **Email:** privacy@maidconnect.com
+- **Email:** privacy@casaora.com
 - **Tiempo de respuesta:** Máximo 15 días hábiles
 - **Costo:** Gratuito
 
@@ -125,7 +125,7 @@ Puede desactivar cookies en su navegador.
 
 ## 9. Menores de Edad
 
-MaidConnect requiere ser mayor de 18 años. No recopilamos intencionalmente datos de menores.
+Casaora requiere ser mayor de 18 años. No recopilamos intencionalmente datos de menores.
 
 ## 10. Cambios a Esta Política
 
@@ -134,13 +134,13 @@ Notificaremos cambios materiales por email con 30 días de anticipación.
 ## 11. Contacto
 
 Para preguntas sobre esta política:
-- **Email:** privacy@maidconnect.com
+- **Email:** privacy@casaora.com
 - **Dirección:** [Your address]
 
 ---
 
 **Consentimiento:**
-Al usar MaidConnect, usted consiente esta política de privacidad y el tratamiento de sus datos personales conforme a la Ley 1581 de 2012.
+Al usar Casaora, usted consiente esta política de privacidad y el tratamiento de sus datos personales conforme a la Ley 1581 de 2012.
 ```
 
 **Where to add:** `src/app/[locale]/privacy/page.tsx`
@@ -154,21 +154,21 @@ Al usar MaidConnect, usted consiente esta política de privacidad y el tratamien
 **Use this template:**
 
 ```markdown
-# Términos de Servicio - MaidConnect
+# Términos de Servicio - Casaora
 
 **Última actualización:** [Date]
 
 ## 1. Aceptación de Términos
 
-Al usar MaidConnect, usted acepta estos términos. Si no está de acuerdo, no use el servicio.
+Al usar Casaora, usted acepta estos términos. Si no está de acuerdo, no use el servicio.
 
 ## 2. Descripción del Servicio
 
-MaidConnect es una plataforma que **conecta** clientes con profesionales del hogar independientes.
+Casaora es una plataforma que **conecta** clientes con profesionales del hogar independientes.
 
 **Importante:**
-- MaidConnect NO es empleador de los profesionales
-- MaidConnect NO presta servicios de limpieza directamente
+- Casaora NO es empleador de los profesionales
+- Casaora NO presta servicios de limpieza directamente
 - Los profesionales son **contratistas independientes**
 
 ## 3. Registro y Cuenta
@@ -202,7 +202,7 @@ MaidConnect es una plataforma que **conecta** clientes con profesionales del hog
 ## 5. Para Profesionales
 
 ### 5.1 Relación Contractual
-Los profesionales son **contratistas independientes**, NO empleados de MaidConnect.
+Los profesionales son **contratistas independientes**, NO empleados de Casaora.
 
 Esto significa:
 - ✅ Establece sus propias tarifas (dentro de rangos)
@@ -217,7 +217,7 @@ Esto significa:
 - Puede ser desactivado por violaciones
 
 ### 5.3 Comisión de Plataforma
-- MaidConnect retiene [X]% del valor del servicio
+- Casaora retiene [X]% del valor del servicio
 - Los pagos se procesan semanalmente
 - Responsable de declarar ingresos ante DIAN
 
@@ -255,7 +255,7 @@ Esto significa:
 
 - Ambas partes pueden calificar después del servicio
 - Las reseñas deben ser honestas y respetuosas
-- MaidConnect puede remover reseñas ofensivas
+- Casaora puede remover reseñas ofensivas
 
 ## 9. Prohibiciones
 
@@ -268,11 +268,11 @@ NO está permitido:
 
 ## 10. Propiedad Intelectual
 
-MaidConnect, su logo, y contenido son propiedad de [Your Company].
+Casaora, su logo, y contenido son propiedad de [Your Company].
 
 ## 11. Limitación de Responsabilidad
 
-MaidConnect actúa como **intermediario** únicamente.
+Casaora actúa como **intermediario** únicamente.
 
 **NO somos responsables por:**
 - Calidad del servicio prestado
@@ -286,7 +286,7 @@ MaidConnect actúa como **intermediario** únicamente.
 
 ## 12. Indemnización
 
-Usted acepta indemnizar a MaidConnect de reclamaciones relacionadas con su uso del servicio.
+Usted acepta indemnizar a Casaora de reclamaciones relacionadas con su uso del servicio.
 
 ## 13. Modificaciones
 
@@ -302,18 +302,18 @@ Estos términos se rigen por las leyes de Colombia.
 
 ## 16. Resolución de Disputas
 
-- Primero: Intentar resolución directa (support@maidconnect.com)
+- Primero: Intentar resolución directa (support@casaora.com)
 - Si no se resuelve: Arbitraje o jurisdicción de [City], Colombia
 
 ## 17. Contacto
 
-**Email:** support@maidconnect.com
+**Email:** support@casaora.com
 **Teléfono:** [Your phone]
 **Dirección:** [Your address]
 
 ---
 
-**Al usar MaidConnect, acepta estos términos.**
+**Al usar Casaora, acepta estos términos.**
 ```
 
 **Where to add:** `src/app/[locale]/terms/page.tsx`
@@ -368,7 +368,7 @@ export function ConsentCheckboxes({ onConsentChange }: ConsentCheckboxesProps) {
         />
         <div className="flex-1">
           <span className="text-[#211f1a] text-sm">
-            Autorizo a MaidConnect para recopilar y procesar mis datos personales (nombre, email,
+            Autorizo a Casaora para recopilar y procesar mis datos personales (nombre, email,
             teléfono, dirección) para la prestación del servicio de conexión con profesionales del hogar.
             <span className="text-red-600"> *</span>
           </span>
@@ -392,7 +392,7 @@ export function ConsentCheckboxes({ onConsentChange }: ConsentCheckboxesProps) {
         <div className="flex-1">
           <span className="text-[#211f1a] text-sm">
             Acepto recibir comunicaciones promocionales, ofertas especiales, y noticias sobre
-            MaidConnect por email y SMS. (Opcional)
+            Casaora por email y SMS. (Opcional)
           </span>
           <p className="mt-1 text-[#7d7566] text-xs">
             Puedes darte de baja en cualquier momento
@@ -410,14 +410,14 @@ export function ConsentCheckboxes({ onConsentChange }: ConsentCheckboxesProps) {
         />
         <div className="flex-1">
           <span className="text-[#211f1a] text-sm">
-            Acepto que MaidConnect use datos de uso anónimos para mejorar el servicio. (Opcional)
+            Acepto que Casaora use datos de uso anónimos para mejorar el servicio. (Opcional)
           </span>
         </div>
       </label>
 
       <p className="text-[#7d7566] text-xs">
         Conforme a la Ley 1581 de 2012 de Protección de Datos Personales.
-        Puedes revocar estas autorizaciones en cualquier momento contactando a privacy@maidconnect.com
+        Puedes revocar estas autorizaciones en cualquier momento contactando a privacy@casaora.com
       </p>
     </div>
   );
@@ -556,10 +556,10 @@ export default async function DataRightsPage() {
           Para ejercer otros derechos (rectificación, revocación, etc.):
         </p>
         <a
-          href="mailto:privacy@maidconnect.com"
+          href="mailto:privacy@casaora.com"
           className="text-[#ff5d46] hover:underline"
         >
-          privacy@maidconnect.com
+          privacy@casaora.com
         </a>
       </div>
     </div>
@@ -612,7 +612,7 @@ export async function GET() {
 
   return NextResponse.json(exportData, {
     headers: {
-      "Content-Disposition": `attachment; filename="maidconnect-data-${user.id}.json"`,
+      "Content-Disposition": `attachment; filename="casaora-data-${user.id}.json"`,
     },
   });
 }
@@ -858,7 +858,7 @@ import { LogSnag } from "logsnag";
 
 const logsnag = new LogSnag({
   token: process.env.LOGSNAG_API_KEY!,
-  project: "maidconnect",
+  project: "casaora",
 });
 
 export async function trackEvent(
@@ -960,7 +960,7 @@ export default function RootLayout({ children }) {
     <>
       <HighlightInit
         projectId={process.env.NEXT_PUBLIC_HIGHLIGHT_PROJECT_ID!}
-        serviceName="maidconnect"
+        serviceName="casaora"
         tracingOrigins
         networkRecording={{
           enabled: true,
@@ -1180,7 +1180,7 @@ Before going public:
 ## 💰 Total Budget Summary
 
 **Required Costs:**
-- Domain email (privacy@maidconnect.com): $0 (use Google Workspace free trial or Zoho Mail free)
+- Domain email (privacy@casaora.com): $0 (use Google Workspace free trial or Zoho Mail free)
 - Monitoring: $0-10/month (Better Stack free tier → paid later)
 
 **Optional Costs:**

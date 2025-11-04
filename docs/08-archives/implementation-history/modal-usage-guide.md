@@ -1,6 +1,6 @@
 # Modal Patterns Guide
 
-Quick reference for using the new modal patterns in MaidConnect.
+Quick reference for using the new modal patterns in Casaora.
 
 ## Table of Contents
 1. [Quick Start](#quick-start)

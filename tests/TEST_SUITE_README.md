@@ -2,7 +2,7 @@
 
 ## Overview
 
-This test suite provides comprehensive coverage for MaidConnect's critical user flows, business logic, and API endpoints. The suite is organized into three categories: E2E tests (Playwright), unit tests (Jest), and integration tests (Jest).
+This test suite provides comprehensive coverage for Casaora's critical user flows, business logic, and API endpoints. The suite is organized into three categories: E2E tests (Playwright), unit tests (Jest), and integration tests (Jest).
 
 ## Test Organization
 
@@ -285,4 +285,4 @@ This test suite was informed by:
 ---
 
 **Last Updated**: Phase 5.1 Implementation
-**Maintained By**: MaidConnect Engineering Team
+**Maintained By**: Casaora Engineering Team

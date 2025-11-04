@@ -26,6 +26,7 @@ import type {
   ProfessionalPortfolioImage,
   ProfessionalReviewSummary,
 } from "@/components/professionals/types";
+import { TrustCard } from "@/components/professionals/trust-card";
 import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
@@ -114,7 +115,7 @@ export function ProfessionalProfileView({
 
         {/* Professional Hero Card */}
         <div className="mt-8 overflow-hidden rounded-[36px] border border-[#ebe5d8] bg-white shadow-[var(--shadow-elevated)] sm:p-10 md:p-12">
-          <div className="grid gap-10 p-8 md:grid-cols-[280px_1fr] lg:grid-cols-[340px_1fr]">
+          <div className="grid gap-10 p-8 md:grid-cols-[280px_1fr] xl:grid-cols-[280px_1fr_320px]">
             {/* Photo */}
             <div className="relative h-80 w-full overflow-hidden rounded-3xl shadow-[var(--shadow-card)] md:h-full">
               <Image
@@ -179,7 +180,27 @@ export function ProfessionalProfileView({
                 </div>
               )}
             </div>
+
+            {/* Trust Card - Visible on XL screens */}
+            <div className="hidden xl:block">
+              <TrustCard
+                onTimeRate={95} // TODO: Get from professional data when available
+                rating={averageRating}
+                reviewCount={professional.reviews.length}
+                verificationLevel="background-check" // TODO: Get from professional.verification_level
+              />
+            </div>
           </div>
+        </div>
+
+        {/* Trust Card - Visible on smaller screens */}
+        <div className="mt-8 xl:hidden">
+          <TrustCard
+            onTimeRate={95} // TODO: Get from professional data when available
+            rating={averageRating}
+            reviewCount={professional.reviews.length}
+            verificationLevel="background-check" // TODO: Get from professional.verification_level
+          />
         </div>
 
         {/* Main Layout: Calendar + Info Sidebar */}

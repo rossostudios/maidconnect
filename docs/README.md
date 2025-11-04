@@ -1,6 +1,6 @@
-# MaidConnect Documentation
+# Casaora Documentation
 
-Welcome to MaidConnect documentation. This guide provides comprehensive information about the platform's features, architecture, development, and operations.
+Welcome to Casaora documentation. This guide provides comprehensive information about the platform's features, architecture, development, and operations.
 
 ## Quick Navigation
 
@@ -228,4 +228,4 @@ Mobile app documentation.
 
 **Documentation Version**: 2.0.0
 **Last Updated**: November 2025
-**Maintained by**: MaidConnect Development Team
+**Maintained by**: Casaora Development Team

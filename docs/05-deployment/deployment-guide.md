@@ -1,4 +1,4 @@
-# MaidConnect Deployment Guide
+# Casaora Deployment Guide
 
 ## Prerequisites
 
@@ -36,7 +36,7 @@ You'll need the following environment variables. Keep them handy:
 **Where to find:** Resend Dashboard → API Keys
 
 ### App Configuration
-- `NEXT_PUBLIC_BASE_URL` - Your production URL (e.g., `https://maidconnect.vercel.app`)
+- `NEXT_PUBLIC_BASE_URL` - Your production URL (e.g., `https://casaora.vercel.app`)
 - `CRON_SECRET` - A random secret string for securing cron endpoints
 
 **Generate random secret:**
@@ -99,12 +99,12 @@ By default, Resend sends emails from a shared domain. For production, you should
 
 1. Go to [Resend Dashboard → Domains](https://resend.com/domains)
 2. Click **"Add Domain"**
-3. Enter your domain (e.g., `maidconnect.co`)
+3. Enter your domain (e.g., `casaora.co`)
 4. Add the DNS records Resend provides to your domain registrar
 5. Wait for verification (usually < 24 hours)
 6. Update email templates in `src/lib/email/templates.ts` to use your domain:
    ```typescript
-   const FROM_EMAIL = 'MaidConnect <notifications@yourdomain.com>';
+   const FROM_EMAIL = 'Casaora <notifications@yourdomain.com>';
    ```
 
 **For now:** The default `onboarding@resend.dev` will work for testing.

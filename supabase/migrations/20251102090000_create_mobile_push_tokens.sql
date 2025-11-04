@@ -1,4 +1,4 @@
--- Track Expo push tokens for MaidConnect mobile apps
+-- Track Expo push tokens for Casaora mobile apps
 
 begin;
 
@@ -42,7 +42,7 @@ create trigger tr_mobile_push_tokens_updated_at
   for each row
   execute procedure public.set_mobile_push_tokens_updated_at();
 
-comment on table public.mobile_push_tokens is 'Expo push tokens registered by MaidConnect mobile apps.';
+comment on table public.mobile_push_tokens is 'Expo push tokens registered by Casaora mobile apps.';
 comment on column public.mobile_push_tokens.platform is 'Platform reported by the device (ios, android, web, unknown).';
 
 commit;

@@ -30,7 +30,7 @@ const queryClient = new QueryClient({
 
 const asyncStoragePersister = createAsyncStoragePersister({
   storage: AsyncStorage,
-  key: "maidconnect-query-cache",
+  key: "casaora-query-cache",
   throttleTime: 1000,
 });
 

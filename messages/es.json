@@ -2655,5 +2655,28 @@
       "comingSoon": "Próximamente",
       "sisterCompany": "Una empresa hermana de"
     }
+  },
+  "components": {
+    "trustCard": {
+      "title": "Confianza y Seguridad",
+      "explainerLink": "¿Qué significa la verificación?",
+      "backgroundCheck": "Antecedentes verificados",
+      "identityVerified": "Identidad verificada",
+      "responseTime": "Tiempo de respuesta promedio",
+      "responseTimeValue": "< 2 horas"
+    },
+    "paymentSelector": {
+      "title": "Selecciona tu método de pago",
+      "subtitle": "Elige cómo quieres pagar. Todos los métodos son seguros y encriptados.",
+      "pseHelp": {
+        "title": "PSE - Rápido y Seguro",
+        "description": "Transfiere directamente desde tu cuenta bancaria. Confirmación instantánea, sin comisiones adicionales."
+      },
+      "nequiHelp": {
+        "title": "Nequi - Paga desde tu celular",
+        "description": "Pago rápido usando tu app Nequi. Instantáneo y conveniente."
+      },
+      "securityNote": "Pago seguro con Stripe • Todas las transacciones encriptadas"
+    }
   }
 }

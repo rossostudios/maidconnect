@@ -1,8 +1,8 @@
-# MaidConnect Mobile App - Complete Overview
+# Casaora Mobile App - Complete Overview
 
 ## 📱 **Executive Summary**
 
-The MaidConnect mobile app is a full-featured React Native application built with Expo that enables customers to discover, book, and manage cleaning services in Colombia. The app provides a seamless experience for browsing professionals, creating bookings, managing payments, messaging, and tracking service history.
+The Casaora mobile app is a full-featured React Native application built with Expo that enables customers to discover, book, and manage cleaning services in Colombia. The app provides a seamless experience for browsing professionals, creating bookings, managing payments, messaging, and tracking service history.
 
 **Platform:** iOS & Android (via Expo)
 **Technology:** React Native, Expo SDK 54, TypeScript
@@ -1144,7 +1144,7 @@ npm run lint --fix
 
 ## 🎉 **Summary**
 
-The MaidConnect mobile app is a **production-ready**, **feature-complete** application that provides customers with a seamless experience for discovering, booking, and managing cleaning services.
+The Casaora mobile app is a **production-ready**, **feature-complete** application that provides customers with a seamless experience for discovering, booking, and managing cleaning services.
 
 ### What's Built:
 - ✅ **4 Complete Development Phases**

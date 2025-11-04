@@ -1,6 +1,6 @@
 # Next.js 16 Features Implementation Guide
 
-This document outlines Next.js 16 features that can enhance the MaidConnect platform.
+This document outlines Next.js 16 features that can enhance the Casaora platform.
 
 ## ✅ Already Implemented
 
@@ -14,7 +14,7 @@ This document outlines Next.js 16 features that can enhance the MaidConnect plat
 - **Status:** ✅ Implemented
 - **Location:** `proxy.ts` line 64-67
 - **Benefit:** Ensures all users start at a localized route
-- **What it does:** Redirects https://maidconnect.vercel.app → https://maidconnect.vercel.app/en
+- **What it does:** Redirects https://casaora.vercel.app → https://casaora.vercel.app/en
 
 ### 3. **Turbopack (Default Bundler)**
 - **Status:** ✅ Automatic

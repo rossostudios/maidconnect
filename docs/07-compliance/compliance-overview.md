@@ -1,8 +1,8 @@
-# MaidConnect - Compliance & Security Frameworks
+# Casaora - Compliance & Security Frameworks
 
 ## 📋 Overview
 
-MaidConnect is a marketplace platform connecting customers with household service professionals in Colombia. Given the nature of the platform (payments, personal data, geolocation, messaging), several compliance frameworks and security standards are applicable.
+Casaora is a marketplace platform connecting customers with household service professionals in Colombia. Given the nature of the platform (payments, personal data, geolocation, messaging), several compliance frameworks and security standards are applicable.
 
 **Last Updated:** 2025-01-30
 **Status:** Pre-Launch - Implementation Roadmap
@@ -16,18 +16,18 @@ MaidConnect is a marketplace platform connecting customers with household servic
 **Status:** ✅ **Compliant via Stripe**
 
 **Why It Matters:**
-- MaidConnect processes credit card payments for bookings
+- Casaora processes credit card payments for bookings
 - Non-compliance can result in fines, liability for breaches, and inability to process cards
 
 **Current Implementation:**
 - **Stripe Integration:** Using Stripe's hosted payment elements
-- **PCI SAQ-A Eligible:** MaidConnect never touches raw card data
+- **PCI SAQ-A Eligible:** Casaora never touches raw card data
 - **Compliance Level:** PCI DSS SAQ-A (simplest level)
 
 **Evidence in Code:**
 - `src/components/bookings/enhanced-booking-form.tsx` - Uses Stripe Elements
 - Payment capture happens server-side via Stripe API
-- No card data stored in MaidConnect database
+- No card data stored in Casaora database
 
 **Actions Required:**
 - [ ] Complete PCI DSS SAQ-A questionnaire annually
@@ -46,7 +46,7 @@ MaidConnect is a marketplace platform connecting customers with household servic
 **Status:** ⚠️ **Requires Implementation**
 
 **Why It Matters:**
-- MaidConnect is based in Colombia and processes Colombian residents' data
+- Casaora is based in Colombia and processes Colombian residents' data
 - Equivalent to GDPR but with Colombian-specific requirements
 - Enforced by Superintendencia de Industria y Comercio (SIC)
 
@@ -133,7 +133,7 @@ type ConsentTypes = {
 **Status:** 🌍 **Required if serving EU customers**
 
 **Why It Matters:**
-- If MaidConnect expands to serve EU residents (even remotely)
+- If Casaora expands to serve EU residents (even remotely)
 - Stricter than Colombian law in many areas
 - Fines up to €20M or 4% of global revenue
 
@@ -389,7 +389,7 @@ npm audit fix
 - Professionals are independent contractors
 - They set their own rates
 - They accept/decline jobs freely
-- MaidConnect takes commission
+- Casaora takes commission
 
 **Risks:**
 - Could be reclassified as employees

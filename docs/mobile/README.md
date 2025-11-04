@@ -1,4 +1,4 @@
-# MaidConnect Mobile Overview
+# Casaora Mobile Overview
 
 The mobile app gives operations and field teams a portable view of bookings, professionals, and account data. It is built with Expo/React Native and shares Supabase as the backend with the Next.js dashboard.
 

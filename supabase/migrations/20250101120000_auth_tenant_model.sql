@@ -1,4 +1,4 @@
--- Auth & tenant schema for MaidConnect SaaS
+-- Auth & tenant schema for Casaora SaaS
 -- Run via Supabase CLI or dashboard SQL editor.
 
 begin;

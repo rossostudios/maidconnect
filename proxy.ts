@@ -9,7 +9,7 @@ type RouteRule = {
 };
 
 const LOCALES = ["en", "es"];
-const DEFAULT_LOCALE = "en";
+const DEFAULT_LOCALE = "es"; // Spanish-first for Colombian market
 
 // Patterns that match both localized and non-localized routes
 const PROTECTED_ROUTES: RouteRule[] = [
@@ -50,6 +50,42 @@ function addLocaleToPath(pathname: string, locale: string = DEFAULT_LOCALE): str
   }
   // Add locale prefix
   return `/${locale}${pathname}`;
+}
+
+/**
+ * Detect user's preferred locale from Accept-Language header
+ * Prioritizes Spanish for Colombian/Latin American users
+ */
+function detectLocaleFromHeaders(request: NextRequest): string {
+  const acceptLanguage = request.headers.get("accept-language");
+
+  if (!acceptLanguage) {
+    return DEFAULT_LOCALE;
+  }
+
+  // Parse Accept-Language header (e.g., "es-CO,es;q=0.9,en;q=0.8")
+  const languages = acceptLanguage
+    .split(",")
+    .map((lang) => {
+      const [code, qPart] = lang.trim().split(";");
+      if (!code) return null;
+      const qualityStr = qPart?.split("=")[1];
+      const quality = qualityStr ? parseFloat(qualityStr) : 1.0;
+      const langCode = code.split("-")[0]?.toLowerCase();
+      if (!langCode) return null;
+      return { code: langCode, quality };
+    })
+    .filter((item): item is { code: string; quality: number } => item !== null)
+    .sort((a, b) => b.quality - a.quality);
+
+  // Find first supported locale
+  for (const { code } of languages) {
+    if (LOCALES.includes(code)) {
+      return code;
+    }
+  }
+
+  return DEFAULT_LOCALE;
 }
 
 /**
@@ -185,11 +221,24 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const pathname = request.nextUrl.pathname;
-  const locale = getLocaleFromPathname(pathname) || DEFAULT_LOCALE;
 
-  // Redirect root path to default locale
+  // Detect locale: Cookie > Accept-Language > Default (Spanish)
+  const localeCookie = request.cookies.get("NEXT_LOCALE")?.value;
+  const detectedLocale = localeCookie || detectLocaleFromHeaders(request);
+  const locale = getLocaleFromPathname(pathname) || detectedLocale;
+
+  // Set/update locale cookie (1-year expiration)
+  if (!localeCookie || localeCookie !== locale) {
+    response.cookies.set("NEXT_LOCALE", locale, {
+      maxAge: 60 * 60 * 24 * 365, // 1 year
+      path: "/",
+      sameSite: "lax",
+    });
+  }
+
+  // Redirect root path to detected locale (Spanish-first)
   if (pathname === "/") {
-    return NextResponse.redirect(new URL("/en", request.url));
+    return NextResponse.redirect(new URL(`/${locale}`, request.url));
   }
 
   // If path doesn't have a locale prefix, redirect to add it
@@ -199,7 +248,7 @@ export async function proxy(request: NextRequest) {
       pathname.startsWith("/admin") ||
       pathname.startsWith("/auth"))
   ) {
-    const localizedPath = addLocaleToPath(pathname, DEFAULT_LOCALE);
+    const localizedPath = addLocaleToPath(pathname, locale);
     const url = new URL(localizedPath, request.url);
     // Preserve query params
     url.search = request.nextUrl.search;

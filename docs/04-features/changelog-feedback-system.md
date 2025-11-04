@@ -2,7 +2,7 @@
 
 ## Overview
 
-MaidConnect's Changelog & Feedback system provides two key features for user engagement:
+Casaora's Changelog & Feedback system provides two key features for user engagement:
 1. **Changelog System** - Communicate sprint updates and new features to users
 2. **Feedback System** - Collect user feedback, bug reports, and feature requests
 
@@ -305,7 +305,7 @@ Submit new feedback.
   "subject": "Search not working",
   "message": "When I search for cleaners, nothing shows up",
   "user_email": "user@example.com",
-  "page_url": "https://maidconnect.co/professionals",
+  "page_url": "https://casaora.co/professionals",
   "page_path": "/professionals",
   "user_agent": "Mozilla/5.0...",
   "viewport_size": {
@@ -665,4 +665,4 @@ For questions or issues:
 
 ## License
 
-Copyright © 2025 MaidConnect. All rights reserved.
+Copyright © 2025 Casaora. All rights reserved.

@@ -1,6 +1,6 @@
 # Database Schema Documentation
 
-Complete database schema for MaidConnect, documenting all tables, relationships, functions, and compliance requirements.
+Complete database schema for Casaora, documenting all tables, relationships, functions, and compliance requirements.
 
 ## Overview
 

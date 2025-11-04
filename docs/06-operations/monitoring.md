@@ -1,6 +1,6 @@
 # Monitoring & Logging Guide
 
-Comprehensive monitoring and logging setup for MaidConnect using free/low-cost solutions.
+Comprehensive monitoring and logging setup for Casaora using free/low-cost solutions.
 
 ## Overview
 

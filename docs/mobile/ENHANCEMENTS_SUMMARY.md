@@ -1,7 +1,7 @@
 # Mobile App Enhancements Summary
 
 ## Overview
-This document summarizes the essential customer-facing features added to the MaidConnect mobile app, including profile editing, enhanced account management, and improved navigation.
+This document summarizes the essential customer-facing features added to the Casaora mobile app, including profile editing, enhanced account management, and improved navigation.
 
 ## Features Implemented
 
@@ -346,7 +346,7 @@ Potential improvements for future iterations:
 ## Support
 
 For issues or questions:
-- Technical Support: support@maidconnect.com
+- Technical Support: support@casaora.com
 - Documentation: /docs/mobile/
 - API Reference: /docs/API_QUICK_REFERENCE.md
 
@@ -354,4 +354,4 @@ For issues or questions:
 
 **Last Updated**: November 3, 2025
 **Version**: 1.0.0
-**Author**: MaidConnect Development Team
+**Author**: Casaora Development Team

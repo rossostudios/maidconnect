@@ -1,6 +1,6 @@
 # Quick Reference
 
-**One-page cheat sheet for MaidConnect development**
+**One-page cheat sheet for Casaora development**
 
 ---
 

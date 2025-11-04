@@ -1,6 +1,6 @@
 # Mobile Notifications Architecture
 
-This document explains how MaidConnect mobile handles push notifications end to end.
+This document explains how Casaora mobile handles push notifications end to end.
 
 ## High-Level Flow
 

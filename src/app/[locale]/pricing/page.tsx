@@ -7,6 +7,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
+import { StickyLanguageSwitcher } from "@/components/navigation/sticky-language-switcher";
 import { PricingFaqSection } from "@/components/pricing/pricing-faq-section";
 import { PricingPlans } from "@/components/pricing/pricing-plans";
 import { SiteFooter } from "@/components/sections/site-footer";
@@ -81,7 +82,7 @@ export default async function PricingPage() {
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
                 className="rounded-[14px] bg-[var(--red)] px-8 py-4 font-semibold text-lg text-white transition-all hover:bg-[var(--red)]"
-                href="/auth/sign-up"
+                href="/professionals"
               >
                 {t("cta.primary")}
               </a>
@@ -96,6 +97,7 @@ export default async function PricingPage() {
         </div>
       </div>
       <SiteFooter />
+      <StickyLanguageSwitcher />
     </>
   );
 }

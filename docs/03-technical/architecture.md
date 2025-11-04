@@ -1,6 +1,6 @@
 # System Architecture
 
-Comprehensive architecture documentation for MaidConnect, covering system design, components, data flow, and integrations.
+Comprehensive architecture documentation for Casaora, covering system design, components, data flow, and integrations.
 
 ## Table of Contents
 
@@ -18,7 +18,7 @@ Comprehensive architecture documentation for MaidConnect, covering system design
 
 ## Overview
 
-MaidConnect is a two-sided marketplace platform connecting customers with cleaning professionals in Colombia. The platform is built as a modern web application using Next.js 16 with React 19, deployed on Vercel Edge Network for global performance.
+Casaora is a two-sided marketplace platform connecting customers with cleaning professionals in Colombia. The platform is built as a modern web application using Next.js 16 with React 19, deployed on Vercel Edge Network for global performance.
 
 ### Key Characteristics
 
