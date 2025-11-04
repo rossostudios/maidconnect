@@ -13,7 +13,7 @@ ADD COLUMN IF NOT EXISTS onboarding_checklist JSONB DEFAULT jsonb_build_object(
     jsonb_build_object('id', 'portfolio', 'label', 'Add portfolio photos', 'required', false, 'completed', false),
     jsonb_build_object('id', 'certifications', 'label', 'Upload certifications', 'required', false, 'completed', false)
   ),
-  'lastUpdated', NOW()
+  'lastUpdated', to_jsonb(NOW())
 ),
 ADD COLUMN IF NOT EXISTS onboarding_completion_percentage INTEGER DEFAULT 0,
 ADD COLUMN IF NOT EXISTS can_accept_bookings BOOLEAN DEFAULT false;
