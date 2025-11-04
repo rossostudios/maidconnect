@@ -2,6 +2,7 @@
 
 import { Heart } from "lucide-react";
 import { useState } from "react";
+import { formatCurrency, type Currency } from "@/lib/format";
 
 /**
  * Tip Selector Component
@@ -16,7 +17,7 @@ import { useState } from "react";
 
 type TipSelectorProps = {
   baseAmount: number; // Amount before tip
-  currency?: string;
+  currency?: Currency;
   onTipChange: (tipAmount: number) => void;
   initialTip?: number;
 };
@@ -36,13 +37,6 @@ export function TipSelector({
     initialTip > 0 ? 20 : null
   );
   const [customAmount, setCustomAmount] = useState<string>("");
-
-  const formatCurrency = (amount: number) =>
-    new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency,
-      minimumFractionDigits: 0,
-    }).format(amount);
 
   const handlePresetClick = (percentage: number) => {
     const tipAmount = Math.round((baseAmount * percentage) / 100);
@@ -117,7 +111,7 @@ export function TipSelector({
               >
                 {percentage}%
               </span>
-              <span className="text-[#7d7566] text-xs">{formatCurrency(tipAmount)}</span>
+              <span className="text-[#7d7566] text-xs">{formatCurrency(tipAmount, { currency })}</span>
             </button>
           );
         })}

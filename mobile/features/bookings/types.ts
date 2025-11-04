@@ -31,3 +31,22 @@ export type BookingStatusSummary = {
   status: string;
   count: number;
 };
+
+export type CreateBookingParams = {
+  professionalId: string;
+  scheduledStart: string;
+  scheduledEnd?: string;
+  durationMinutes: number;
+  amount?: number;
+  currency: string;
+  specialInstructions?: string;
+  address: Record<string, unknown>;
+  serviceName: string;
+  serviceHourlyRate: number;
+};
+
+export type CreateBookingResponse = {
+  bookingId: string;
+  clientSecret: string;
+  paymentIntentId: string;
+};

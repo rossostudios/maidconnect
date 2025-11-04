@@ -256,14 +256,17 @@ export const createBookingDraftTool = tool({
       const endDate = new Date(startDate.getTime() + durationMinutes * 60 * 1000);
 
       // Format for display
-      const formattedDate = startDate.toLocaleDateString("en-US", {
+      const { formatDate, formatTime } = await import("@/lib/format");
+      const formattedDate = formatDate(startDate, {
+        locale: "en-US",
         weekday: "long",
         year: "numeric",
         month: "long",
         day: "numeric",
       });
 
-      const formattedTime = startDate.toLocaleTimeString("en-US", {
+      const formattedTime = formatTime(startDate, {
+        locale: "en-US",
         hour: "2-digit",
         minute: "2-digit",
       });

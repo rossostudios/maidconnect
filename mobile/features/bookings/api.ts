@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabase";
+import { env } from "@/lib/env";
 
-import type { Booking, BookingRecord, BookingStatusSummary } from "./types";
+import type { Booking, BookingRecord, BookingStatusSummary, CreateBookingParams, CreateBookingResponse } from "./types";
 
 const STATUS_DISPLAY_ORDER = [
   "pending_payment",
@@ -48,6 +49,35 @@ export async function fetchBookings(limit = 25): Promise<Booking[]> {
   const records = Array.isArray(data) ? (data as unknown as BookingRecord[]) : [];
 
   return records.map(mapBookingRecord);
+}
+
+/**
+ * Create a new booking
+ */
+export async function createBooking(params: CreateBookingParams): Promise<CreateBookingResponse> {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    throw new Error("Not authenticated");
+  }
+
+  const response = await fetch(`${env.apiUrl}/api/bookings`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${session.access_token}`,
+    },
+    body: JSON.stringify(params),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Failed to create booking");
+  }
+
+  return response.json();
 }
 
 export function summarizeStatuses(bookings: Booking[]): BookingStatusSummary[] {

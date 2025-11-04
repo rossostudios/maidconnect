@@ -3,6 +3,9 @@
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { FormModal } from "@/components/shared/form-modal";
+import { useApiMutation } from "@/hooks/use-api-mutation";
+import { useModalForm } from "@/hooks/use-modal-form";
 import {
   calculateCancellationPolicy,
   getCancellationPolicyDescription,
@@ -24,10 +27,32 @@ type CancelBookingModalProps = {
 export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingModalProps) {
   const router = useRouter();
   const t = useTranslations("dashboard.customer.cancelBookingModal");
-  const [reason, setReason] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [policy, setPolicy] = useState<ReturnType<typeof calculateCancellationPolicy> | null>(null);
+
+  // Form state management
+  const form = useModalForm({
+    initialData: { reason: "" },
+    resetOnClose: true,
+  });
+
+  // API mutation for cancellation
+  const cancelMutation = useApiMutation({
+    url: "/api/bookings/cancel",
+    method: "POST",
+    refreshOnSuccess: true,
+    onSuccess: (result) => {
+      form.setMessage(
+        t("messages.success", { refund: result.refund.formatted_refund }),
+        "success"
+      );
+      setTimeout(() => {
+        onClose();
+      }, 2000);
+    },
+    onError: (error) => {
+      form.setError(error.message || t("errors.failedToCancel"));
+    },
+  });
 
   // Calculate policy when modal opens
   useEffect(() => {
@@ -37,67 +62,30 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
     }
   }, [isOpen, booking.scheduled_start, booking.status]);
 
-  // Reset form when modal closes
+  // Reset policy when modal closes
   useEffect(() => {
     if (!isOpen) {
-      setReason("");
-      setMessage(null);
       setPolicy(null);
+      form.reset();
     }
   }, [isOpen]);
 
   const handleCancel = async () => {
     if (!policy?.canCancel) {
-      setMessage({ type: "error", text: t("errors.cannotCancel") });
+      form.setError(t("errors.cannotCancel"));
       return;
     }
 
-    setLoading(true);
-    setMessage(null);
-
-    try {
-      const response = await fetch("/api/bookings/cancel", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          bookingId: booking.id,
-          reason: reason || undefined,
-        }),
+    await form.handleSubmit(async (data) => {
+      return await cancelMutation.mutate({
+        bookingId: booking.id,
+        reason: data.reason || undefined,
       });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.error || "Failed to cancel booking");
-      }
-
-      setMessage({
-        type: "success",
-        text: t("messages.success", { refund: result.refund.formatted_refund }),
-      });
-
-      setTimeout(() => {
-        router.refresh();
-        onClose();
-      }, 2000);
-    } catch (error) {
-      setMessage({
-        type: "error",
-        text: error instanceof Error ? error.message : t("errors.failedToCancel"),
-      });
-    } finally {
-      setLoading(false);
-    }
+    });
   };
 
-  if (!isOpen) {
-    return null;
-  }
-
   const formatAmount = (amount: number | null, currency: string | null) => {
-    if (!amount) {
-      return "—";
-    }
+    if (!amount) return "—";
     return new Intl.NumberFormat("es-CO", {
       style: "currency",
       currency: currency || "COP",
@@ -110,90 +98,13 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       : 0;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-[28px] bg-white p-8 shadow-xl">
-        <h2 className="font-semibold text-2xl text-[#211f1a]">{t("title")}</h2>
-        <p className="mt-3 text-[#5d574b] text-base">
-          {booking.service_name || "Service"} •{" "}
-          {booking.scheduled_start
-            ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
-                dateStyle: "medium",
-                timeStyle: "short",
-              })
-            : "—"}
-        </p>
-
-        {/* Cancellation Policy Info */}
-        {policy && (
-          <div
-            className={`mt-6 rounded-2xl border p-6 ${
-              policy.canCancel ? "border-yellow-200 bg-yellow-50" : "border-red-200 bg-red-50"
-            }`}
-          >
-            <p
-              className={`font-semibold text-base ${
-                policy.canCancel ? "text-yellow-900" : "text-red-900"
-              }`}
-            >
-              {policy.reason}
-            </p>
-            {policy.canCancel && (
-              <div className="mt-3 space-y-1 text-base text-yellow-800">
-                <p>
-                  <strong>Refund:</strong> {policy.refundPercentage}% (
-                  {formatAmount(refundAmount, booking.currency)})
-                </p>
-                <p>
-                  <strong>Time until service:</strong> {Math.floor(policy.hoursUntilService)} hours
-                </p>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Policy Details */}
-        <details className="mt-6">
-          <summary className="cursor-pointer font-semibold text-[#211f1a] text-base">
-            {t("policy.viewPolicy")}
-          </summary>
-          <pre className="mt-3 whitespace-pre-wrap text-[#5d574b] text-sm leading-relaxed">
-            {getCancellationPolicyDescription()}
-          </pre>
-        </details>
-
-        {/* Reason Input */}
-        {policy?.canCancel && (
-          <div className="mt-6">
-            <label className="mb-2 block font-semibold text-[#211f1a] text-base" htmlFor="reason">
-              {t("form.reasonLabel")}
-            </label>
-            <textarea
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
-              id="reason"
-              onChange={(e) => setReason(e.target.value)}
-              placeholder={t("form.reasonPlaceholder")}
-              rows={4}
-              value={reason}
-            />
-          </div>
-        )}
-
-        {/* Message */}
-        {message && (
-          <div
-            className={`mt-6 rounded-2xl p-4 text-base ${
-              message.type === "success" ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"
-            }`}
-          >
-            {message.text}
-          </div>
-        )}
-
-        {/* Actions */}
-        <div className="mt-8 flex gap-3">
+    <FormModal
+      cancelLabel={t("buttons.keepBooking")}
+      customActions={
+        <div className="flex gap-3">
           <button
-            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
-            disabled={loading}
+            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-base text-[#211f1a] transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
+            disabled={form.isSubmitting}
             onClick={onClose}
             type="button"
           >
@@ -202,15 +113,96 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
           {policy?.canCancel && (
             <button
               className="flex-1 rounded-full bg-red-600 px-6 py-3 font-semibold text-base text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70"
-              disabled={loading}
+              disabled={form.isSubmitting}
               onClick={handleCancel}
               type="button"
             >
-              {loading ? t("buttons.canceling") : t("buttons.cancelBooking")}
+              {form.isSubmitting ? t("buttons.canceling") : t("buttons.cancelBooking")}
             </button>
           )}
         </div>
-      </div>
-    </div>
+      }
+      isOpen={isOpen}
+      onClose={onClose}
+      showActions={false}
+      size="lg"
+      title={t("title")}
+    >
+      <p className="text-base text-[#5d574b]">
+        {booking.service_name || "Service"} •{" "}
+        {booking.scheduled_start
+          ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
+              dateStyle: "medium",
+              timeStyle: "short",
+            })
+          : "—"}
+      </p>
+
+      {/* Cancellation Policy Info */}
+      {policy && (
+        <div
+          className={`mt-6 rounded-2xl border p-6 ${
+            policy.canCancel ? "border-yellow-200 bg-yellow-50" : "border-red-200 bg-red-50"
+          }`}
+        >
+          <p
+            className={`font-semibold text-base ${
+              policy.canCancel ? "text-yellow-900" : "text-red-900"
+            }`}
+          >
+            {policy.reason}
+          </p>
+          {policy.canCancel && (
+            <div className="mt-3 space-y-1 text-base text-yellow-800">
+              <p>
+                <strong>Refund:</strong> {policy.refundPercentage}% (
+                {formatAmount(refundAmount, booking.currency)})
+              </p>
+              <p>
+                <strong>Time until service:</strong> {Math.floor(policy.hoursUntilService)} hours
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Policy Details */}
+      <details className="mt-6">
+        <summary className="cursor-pointer font-semibold text-base text-[#211f1a]">
+          {t("policy.viewPolicy")}
+        </summary>
+        <pre className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-[#5d574b]">
+          {getCancellationPolicyDescription()}
+        </pre>
+      </details>
+
+      {/* Reason Input */}
+      {policy?.canCancel && (
+        <div className="mt-6">
+          <label className="mb-2 block font-semibold text-base text-[#211f1a]" htmlFor="reason">
+            {t("form.reasonLabel")}
+          </label>
+          <textarea
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
+            id="reason"
+            onChange={(e) => form.updateField("reason", e.target.value)}
+            placeholder={t("form.reasonPlaceholder")}
+            rows={4}
+            value={form.formData.reason}
+          />
+        </div>
+      )}
+
+      {/* Message */}
+      {form.message && (
+        <div
+          className={`mt-6 rounded-2xl p-4 text-base ${
+            form.success ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"
+          }`}
+        >
+          {form.message}
+        </div>
+      )}
+    </FormModal>
   );
 }

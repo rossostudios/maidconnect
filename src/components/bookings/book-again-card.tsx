@@ -4,6 +4,7 @@ import { Calendar, Check, Clock, Repeat, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { memo, useState } from "react";
 import { isFeatureEnabled } from "@/lib/feature-flags";
+import { formatCOP, formatDate } from "@/lib/format";
 
 type PreviousBooking = {
   id: string;
@@ -21,15 +22,6 @@ type BookAgainCardProps = {
   booking: PreviousBooking;
   onBookAgain?: (bookingId: string) => void;
 };
-
-// Moved outside component - no dependencies on component state (React 19 best practice)
-function formatCurrencyCOP(value: number) {
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
 
 /**
  * BookAgainCard - One-tap rebook for previous customers
@@ -129,14 +121,14 @@ const BookAgainCardComponent = memo(
       <div className="mt-4 flex flex-wrap items-center gap-4 text-[#7d7566] text-sm">
         <div className="flex items-center gap-1.5">
           <Calendar className="h-4 w-4" />
-          <span>{new Date(booking.scheduledDate).toLocaleDateString()}</span>
+          <span>{formatDate(booking.scheduledDate)}</span>
         </div>
         <div className="flex items-center gap-1.5">
           <Clock className="h-4 w-4" />
           <span>{booking.durationHours}h session</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="font-semibold text-[#211f1a]">{formatCurrencyCOP(booking.amount)}</span>
+          <span className="font-semibold text-[#211f1a]">{formatCOP(booking.amount)}</span>
         </div>
       </div>
 

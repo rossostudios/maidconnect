@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { Check } from "lucide-react";
 import { TipSelector } from "@/components/payments/tip-selector";
 import { isFeatureEnabled } from "@/lib/feature-flags";
+import { formatCurrency, type Currency } from "@/lib/format";
 
 /**
  * Checkout Summary Component
@@ -15,7 +17,7 @@ type CheckoutSummaryProps = {
   serviceName: string;
   baseAmount: number;
   taxRate?: number; // Defaults to 0.19 (19% VAT for Colombia)
-  currency?: string;
+  currency?: Currency;
   durationHours?: number;
   hourlyRate?: number;
   onTipChange?: (tipAmount: number) => void;
@@ -38,7 +40,7 @@ export function CheckoutSummary({
   const taxAmount = Math.round(baseAmount * taxRate);
 
   // State for tip amount (managed internally if no callback provided)
-  const [tipAmount, setTipAmount] = React.useState(0);
+  const [tipAmount, setTipAmount] = useState(0);
 
   const handleTipChange = (amount: number) => {
     setTipAmount(amount);
@@ -47,13 +49,6 @@ export function CheckoutSummary({
 
   const subtotal = baseAmount;
   const totalAmount = subtotal + taxAmount + tipAmount;
-
-  const formatCurrency = (amount: number) =>
-    new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency,
-      minimumFractionDigits: 0,
-    }).format(amount);
 
   return (
     <div className="space-y-6">
@@ -73,7 +68,7 @@ export function CheckoutSummary({
             <div className="flex justify-between">
               <span className="text-[#7d7566] text-sm">Duration</span>
               <span className="text-[#211f1a] text-sm">
-                {formatCurrency(hourlyRate)} × {durationHours}h
+                {formatCurrency(hourlyRate, { currency })} × {durationHours}h
               </span>
             </div>
           )}
@@ -82,7 +77,7 @@ export function CheckoutSummary({
             <div className="flex justify-between">
               <span className="text-[#7d7566] text-sm">Subtotal</span>
               <span className="font-semibold text-[#211f1a] text-sm">
-                {formatCurrency(subtotal)}
+                {formatCurrency(subtotal, { currency })}
               </span>
             </div>
           </div>
@@ -95,7 +90,7 @@ export function CheckoutSummary({
                 <span className="font-medium text-green-700 text-sm">Recurring discount</span>
               </div>
               <span className="font-semibold text-green-600 text-sm">
-                -{formatCurrency(recurringDiscount)}
+                -{formatCurrency(recurringDiscount, { currency })}
               </span>
             </div>
           )}
@@ -103,7 +98,7 @@ export function CheckoutSummary({
           {/* Tax */}
           <div className="flex justify-between">
             <span className="text-[#7d7566] text-sm">Tax ({(taxRate * 100).toFixed(0)}%)</span>
-            <span className="text-[#211f1a] text-sm">{formatCurrency(taxAmount)}</span>
+            <span className="text-[#211f1a] text-sm">{formatCurrency(taxAmount, { currency })}</span>
           </div>
 
           {/* Tip Line (if enabled) */}
@@ -111,7 +106,7 @@ export function CheckoutSummary({
             <div className="flex justify-between">
               <span className="text-[#7d7566] text-sm">Tip</span>
               <span className="font-medium text-[#8B7355] text-sm">
-                {formatCurrency(tipAmount)}
+                {formatCurrency(tipAmount, { currency })}
               </span>
             </div>
           )}
@@ -119,7 +114,7 @@ export function CheckoutSummary({
           {/* Total */}
           <div className="flex justify-between border-[#ebe5d8] border-t pt-3">
             <span className="font-bold text-[#211f1a]">Total</span>
-            <span className="font-bold text-2xl text-[#8B7355]">{formatCurrency(totalAmount)}</span>
+            <span className="font-bold text-2xl text-[#8B7355]">{formatCurrency(totalAmount, { currency })}</span>
           </div>
         </div>
       </div>
@@ -136,6 +131,3 @@ export function CheckoutSummary({
     </div>
   );
 }
-
-// Need to import React for useState
-import React from "react";

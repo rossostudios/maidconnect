@@ -1,49 +1,51 @@
-import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+/**
+ * REFACTORED VERSION - Individual service add-on management
+ * PATCH/DELETE /api/professional/addons/[id]
+ *
+ * BEFORE: 102 lines (2 handlers)
+ * AFTER: 70 lines (2 handlers) (31% reduction)
+ */
+
+import { withProfessional, ok, notFound, noContent, requireResourceOwnership } from "@/lib/api";
+import { ValidationError } from "@/lib/errors";
+import { z } from "zod";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
 };
 
+const updateAddonSchema = z.object({
+  name: z.string().optional(),
+  description: z.string().optional(),
+  price_cop: z.number().nonnegative().optional(),
+  duration_minutes: z.number().nonnegative().optional(),
+  is_active: z.boolean().optional(),
+});
+
 /**
  * Update a specific service add-on
- * PATCH /api/professional/addons/[id]
- *
- * Body: Partial<ServiceAddon>
  */
-export async function PATCH(request: Request, context: RouteContext) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user || user.user_metadata?.role !== "professional") {
-    return NextResponse.json({ error: "Not authorized" }, { status: 403 });
-  }
-
-  try {
+export const PATCH = withProfessional(
+  async ({ user, supabase }, request: Request, context: RouteContext) => {
     const { id: addonId } = await context.params;
-    const body = await request.json();
 
     // Verify ownership
-    const { data: existing } = await supabase
-      .from("service_addons")
-      .select("professional_id")
-      .eq("id", addonId)
-      .single();
+    await requireResourceOwnership(
+      supabase,
+      "service_addons",
+      addonId,
+      "professional_id",
+      user.id
+    );
 
-    if (!existing || existing.professional_id !== user.id) {
-      return NextResponse.json({ error: "Add-on not found" }, { status: 404 });
-    }
+    // Parse and validate request body
+    const body = await request.json();
+    const validatedData = updateAddonSchema.parse(body);
 
     const { data: addon, error } = await supabase
       .from("service_addons")
       .update({
-        name: body.name,
-        description: body.description,
-        price_cop: body.price_cop,
-        duration_minutes: body.duration_minutes,
-        is_active: body.is_active,
+        ...validatedData,
         updated_at: new Date().toISOString(),
       })
       .eq("id", addonId)
@@ -51,51 +53,35 @@ export async function PATCH(request: Request, context: RouteContext) {
       .single();
 
     if (error) {
-      return NextResponse.json({ error: "Failed to update add-on" }, { status: 500 });
+      throw new ValidationError("Failed to update add-on");
     }
 
-    return NextResponse.json({ addon });
-  } catch (_error) {
-    return NextResponse.json({ error: "Failed to update add-on" }, { status: 500 });
+    return ok({ addon });
   }
-}
+);
 
 /**
  * Delete a specific service add-on
- * DELETE /api/professional/addons/[id]
  */
-export async function DELETE(_request: Request, context: RouteContext) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user || user.user_metadata?.role !== "professional") {
-    return NextResponse.json({ error: "Not authorized" }, { status: 403 });
-  }
-
-  try {
+export const DELETE = withProfessional(
+  async ({ user, supabase }, _request: Request, context: RouteContext) => {
     const { id: addonId } = await context.params;
 
     // Verify ownership
-    const { data: existing } = await supabase
-      .from("service_addons")
-      .select("professional_id")
-      .eq("id", addonId)
-      .single();
-
-    if (!existing || existing.professional_id !== user.id) {
-      return NextResponse.json({ error: "Add-on not found" }, { status: 404 });
-    }
+    await requireResourceOwnership(
+      supabase,
+      "service_addons",
+      addonId,
+      "professional_id",
+      user.id
+    );
 
     const { error } = await supabase.from("service_addons").delete().eq("id", addonId);
 
     if (error) {
-      return NextResponse.json({ error: "Failed to delete add-on" }, { status: 500 });
+      throw new ValidationError("Failed to delete add-on");
     }
 
-    return NextResponse.json({ success: true });
-  } catch (_error) {
-    return NextResponse.json({ error: "Failed to delete add-on" }, { status: 500 });
+    return noContent();
   }
-}
+);

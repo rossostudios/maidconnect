@@ -4,21 +4,12 @@ import { DirectoryProfessional } from "@/components/professionals/professionals-
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
+import { formatCOP } from "@/lib/format";
 
 type CustomerSearchSectionProps = {
   professionals: DirectoryProfessional[];
 };
 
-function formatCurrencyCOP(value: number | null | undefined) {
-  if (!value || Number.isNaN(value)) {
-    return null;
-  }
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
 
 export function CustomerSearchSection({ professionals }: CustomerSearchSectionProps) {
   const featuredProfessionals = professionals.slice(0, 3);
@@ -84,7 +75,7 @@ export function CustomerSearchSection({ professionals }: CustomerSearchSectionPr
                   </p>
                   <div className="mt-auto flex items-center justify-between text-[#5d574b] text-sm">
                     <span>
-                      {formatCurrencyCOP(professional.hourlyRateCop) ?? "Rate on request"}
+                      {formatCOP(professional.hourlyRateCop) ?? "Rate on request"}
                     </span>
                     <Link
                       className="font-semibold text-[#211f1a] text-sm underline-offset-4 transition hover:underline"

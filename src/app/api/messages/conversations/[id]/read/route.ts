@@ -1,5 +1,13 @@
-import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+/**
+ * REFACTORED VERSION - Mark messages as read
+ * POST /api/messages/conversations/[id]/read
+ *
+ * BEFORE: 66 lines (1 handler)
+ * AFTER: 52 lines (1 handler) (21% reduction)
+ */
+
+import { withAuth, ok, notFound, forbidden } from "@/lib/api";
+import { ValidationError } from "@/lib/errors";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -7,19 +15,9 @@ type RouteContext = {
 
 /**
  * Mark all messages in a conversation as read for current user
- * POST /api/messages/conversations/[id]/read
  */
-export async function POST(_request: Request, context: RouteContext) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
-  }
-
-  try {
+export const POST = withAuth(
+  async ({ user, supabase }, _request: Request, context: RouteContext) => {
     const { id: conversationId } = await context.params;
 
     // Verify user has access to this conversation
@@ -30,11 +28,11 @@ export async function POST(_request: Request, context: RouteContext) {
       .single();
 
     if (convError || !conversation) {
-      return NextResponse.json({ error: "Conversation not found" }, { status: 404 });
+      throw notFound("Conversation not found");
     }
 
     if (user.id !== conversation.customer_id && user.id !== conversation.professional_id) {
-      return NextResponse.json({ error: "Not authorized" }, { status: 403 });
+      throw forbidden("Not authorized to access this conversation");
     }
 
     // Mark all unread messages from other user as read
@@ -46,20 +44,15 @@ export async function POST(_request: Request, context: RouteContext) {
       .is("read_at", null);
 
     if (updateError) {
-      return NextResponse.json({ error: "Failed to mark messages as read" }, { status: 500 });
+      throw new ValidationError("Failed to mark messages as read");
     }
 
     // Reset unread count for current user
     const isCustomer = user.id === conversation.customer_id;
     const unreadField = isCustomer ? "customer_unread_count" : "professional_unread_count";
 
-    await supabase
-      .from("conversations")
-      .update({ [unreadField]: 0 })
-      .eq("id", conversationId);
+    await supabase.from("conversations").update({ [unreadField]: 0 }).eq("id", conversationId);
 
-    return NextResponse.json({ success: true });
-  } catch (_error) {
-    return NextResponse.json({ error: "Failed to mark messages as read" }, { status: 500 });
+    return ok({ success: true });
   }
-}
+);

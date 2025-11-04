@@ -1,153 +1,122 @@
-import { NextResponse } from "next/server";
+/**
+ * REFACTORED VERSION - Professional declines a booking request
+ * POST /api/bookings/decline
+ *
+ * BEFORE: 154 lines
+ * AFTER: 89 lines (42% reduction)
+ */
+
+import { withProfessional, ok, requireProfessionalOwnership } from "@/lib/api";
 import { sendBookingDeclinedEmail } from "@/lib/email/send";
 import { notifyCustomerBookingDeclined } from "@/lib/notifications";
 import { stripe } from "@/lib/stripe";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
+import { z } from "zod";
 
-type DeclineBookingRequest = {
-  bookingId: string;
-  reason?: string;
-};
+const declineBookingSchema = z.object({
+  bookingId: z.string().uuid("Invalid booking ID format"),
+  reason: z.string().optional(),
+});
 
-/**
- * Professional declines a booking request
- * POST /api/bookings/decline
- */
-export async function POST(request: Request) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+export const POST = withProfessional(async ({ user, supabase }, request: Request) => {
+  // Parse and validate request body
+  const body = await request.json();
+  const { bookingId, reason } = declineBookingSchema.parse(body);
 
-  if (!user) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  // Fetch the booking with related data
+  const booking = await requireProfessionalOwnership(supabase, user.id, bookingId, `
+    id,
+    professional_id,
+    customer_id,
+    status,
+    stripe_payment_intent_id,
+    scheduled_start,
+    duration_minutes,
+    service_name,
+    address
+  `);
+
+  // Can only decline authorized or pending_payment bookings
+  if (!["authorized", "pending_payment"].includes(booking.status)) {
+    throw new InvalidBookingStatusError(booking.status, "decline");
   }
 
-  try {
-    const body = (await request.json()) as DeclineBookingRequest;
-    const { bookingId, reason } = body;
-
-    if (!bookingId) {
-      return NextResponse.json({ error: "bookingId is required" }, { status: 400 });
+  // Cancel the payment intent if it exists
+  if (booking.stripe_payment_intent_id) {
+    try {
+      await stripe.paymentIntents.cancel(booking.stripe_payment_intent_id);
+    } catch (_stripeError) {
+      // Continue even if Stripe cancellation fails - we still want to decline the booking
     }
+  }
 
-    // Fetch the booking with related data
-    const { data: booking, error: bookingError } = await supabase
-      .from("bookings")
-      .select(`
-        id,
-        professional_id,
-        customer_id,
-        status,
-        stripe_payment_intent_id,
-        scheduled_start,
-        duration_minutes,
-        service_name,
-        address
-      `)
-      .eq("id", bookingId)
-      .maybeSingle();
+  // Update booking status to declined
+  const { error: updateError } = await supabase
+    .from("bookings")
+    .update({
+      status: "declined",
+      stripe_payment_status: "canceled",
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", bookingId);
 
-    if (bookingError || !booking) {
-      return NextResponse.json({ error: "Booking not found" }, { status: 404 });
-    }
+  if (updateError) {
+    throw new ValidationError("Failed to decline booking");
+  }
 
-    // Verify this professional owns this booking
-    if (booking.professional_id !== user.id) {
-      return NextResponse.json(
-        { error: "You are not authorized to decline this booking" },
-        { status: 403 }
-      );
-    }
+  // Fetch customer and professional details for email
+  const { data: professionalProfile } = await supabase
+    .from("professional_profiles")
+    .select("full_name")
+    .eq("profile_id", booking.professional_id)
+    .single();
 
-    // Can only decline authorized or pending_payment bookings
-    if (!["authorized", "pending_payment"].includes(booking.status)) {
-      return NextResponse.json(
-        { error: `Cannot decline booking with status: ${booking.status}` },
-        { status: 400 }
-      );
-    }
+  // Get customer email
+  const { data: customerUser } = await supabase.auth.admin.getUserById(booking.customer_id);
 
-    // Cancel the payment intent if it exists
-    if (booking.stripe_payment_intent_id) {
-      try {
-        await stripe.paymentIntents.cancel(booking.stripe_payment_intent_id);
-      } catch (_stripeError) {
-        // Continue even if Stripe cancellation fails - we still want to decline the booking
-      }
-    }
+  if (customerUser.user?.email) {
+    // Format booking data for email
+    const scheduledDate = booking.scheduled_start
+      ? new Date(booking.scheduled_start).toLocaleDateString()
+      : "TBD";
+    const scheduledTime = booking.scheduled_start
+      ? new Date(booking.scheduled_start).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      : "TBD";
+    const duration = booking.duration_minutes ? `${booking.duration_minutes} minutes` : "TBD";
+    const address = booking.address
+      ? typeof booking.address === "object" && "formatted" in booking.address
+        ? String(booking.address.formatted)
+        : JSON.stringify(booking.address)
+      : "Not specified";
 
-    // Update booking status to declined
-    const { error: updateError } = await supabase
-      .from("bookings")
-      .update({
-        status: "declined",
-        stripe_payment_status: "canceled",
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", bookingId);
-
-    if (updateError) {
-      return NextResponse.json({ error: "Failed to decline booking" }, { status: 500 });
-    }
-
-    // Fetch customer and professional details for email
-    const { data: professionalProfile } = await supabase
-      .from("professional_profiles")
-      .select("full_name")
-      .eq("profile_id", booking.professional_id)
-      .single();
-
-    // Get customer email
-    const { data: customerUser } = await supabase.auth.admin.getUserById(booking.customer_id);
-
-    if (customerUser.user?.email) {
-      // Format booking data for email
-      const scheduledDate = booking.scheduled_start
-        ? new Date(booking.scheduled_start).toLocaleDateString()
-        : "TBD";
-      const scheduledTime = booking.scheduled_start
-        ? new Date(booking.scheduled_start).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })
-        : "TBD";
-      const duration = booking.duration_minutes ? `${booking.duration_minutes} minutes` : "TBD";
-      const address = booking.address
-        ? typeof booking.address === "object" && "formatted" in booking.address
-          ? String(booking.address.formatted)
-          : JSON.stringify(booking.address)
-        : "Not specified";
-
-      // Send decline email to customer
-      await sendBookingDeclinedEmail(
-        customerUser.user.email,
-        {
-          customerName: customerUser.user.user_metadata?.full_name || "there",
-          professionalName: professionalProfile?.full_name || "The professional",
-          serviceName: booking.service_name || "Service",
-          scheduledDate,
-          scheduledTime,
-          duration,
-          address,
-          bookingId: booking.id,
-        },
-        reason
-      );
-
-      // Send push notification to customer
-      await notifyCustomerBookingDeclined(booking.customer_id, {
-        id: booking.id,
-        serviceName: booking.service_name || "Service",
+    // Send decline email to customer
+    await sendBookingDeclinedEmail(
+      customerUser.user.email,
+      {
+        customerName: customerUser.user.user_metadata?.full_name || "there",
         professionalName: professionalProfile?.full_name || "The professional",
-      });
-    }
+        serviceName: booking.service_name || "Service",
+        scheduledDate,
+        scheduledTime,
+        duration,
+        address,
+        bookingId: booking.id,
+      },
+      reason
+    );
 
-    return NextResponse.json({
-      success: true,
-      booking: { id: booking.id, status: "declined" },
+    // Send push notification to customer
+    await notifyCustomerBookingDeclined(booking.customer_id, {
+      id: booking.id,
+      serviceName: booking.service_name || "Service",
+      professionalName: professionalProfile?.full_name || "The professional",
     });
-  } catch (_error) {
-    return NextResponse.json({ error: "Unable to decline booking" }, { status: 500 });
   }
-}
+
+  return ok({
+    booking: { id: booking.id, status: "declined" },
+  });
+});

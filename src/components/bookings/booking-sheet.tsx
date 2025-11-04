@@ -11,6 +11,7 @@ import {
 } from "@/components/addresses/saved-addresses-manager";
 import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
+import { formatCOP, formatTime as formatTimeUtil } from "@/lib/format";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
@@ -26,14 +27,7 @@ type BookingSheetProps = {
   defaultHourlyRate: number | null;
 };
 
-function formatCurrencyCOP(value: number) {
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
-
+// Local time formatter for slot times (keep this as it's a specific format different from formatTime utility)
 function formatTime(time: string): string {
   const [hours = 0, minutes = 0] = time.split(":").map(Number);
   const period = hours >= 12 ? "PM" : "AM";
@@ -309,7 +303,7 @@ export function BookingSheet({
                     <option key={service.name} value={service.name ?? ""}>
                       {service.name}
                       {service.hourlyRateCop
-                        ? ` · ${formatCurrencyCOP(service.hourlyRateCop)}/hr`
+                        ? ` · ${formatCOP(service.hourlyRateCop)}/hr`
                         : ""}
                     </option>
                   ))}
@@ -413,7 +407,7 @@ export function BookingSheet({
                               )}
                             </div>
                             <div className="ml-4 font-semibold text-[#8B7355] text-base">
-                              {formatCurrencyCOP(addon.price_cop)}
+                              {formatCOP(addon.price_cop)}
                             </div>
                           </div>
                         </button>
@@ -449,14 +443,14 @@ export function BookingSheet({
                   <div className="flex justify-between">
                     <span className="text-[#7d7566]">Service</span>
                     <span className="font-semibold text-[#211f1a]">
-                      {formatCurrencyCOP(baseAmount)}
+                      {formatCOP(baseAmount)}
                     </span>
                   </div>
                   {addonsTotal > 0 && (
                     <div className="flex justify-between">
                       <span className="text-[#7d7566]">Add-ons</span>
                       <span className="font-semibold text-[#211f1a]">
-                        {formatCurrencyCOP(addonsTotal)}
+                        {formatCOP(addonsTotal)}
                       </span>
                     </div>
                   )}
@@ -464,7 +458,7 @@ export function BookingSheet({
                     <div className="flex justify-between text-xl">
                       <span className="font-semibold text-[#211f1a]">Total</span>
                       <span className="font-bold text-[#8B7355]">
-                        {formatCurrencyCOP(totalAmount)}
+                        {formatCOP(totalAmount)}
                       </span>
                     </div>
                   </div>

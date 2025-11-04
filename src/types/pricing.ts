@@ -4,6 +4,8 @@
  * Type definitions for pricing plans and FAQs
  */
 
+import { formatCurrency, type Currency } from "@/lib/format";
+
 // =============================================
 // Pricing Plan Types
 // =============================================
@@ -33,7 +35,7 @@ export interface PricingPlan {
   description: string;
   price_monthly: number | null;
   price_annual: number | null;
-  currency: string;
+  currency: Currency;
   billing_period: BillingPeriod;
   features: PricingFeatureCategory[];
   highlight_as_popular: boolean;
@@ -54,7 +56,7 @@ export interface PricingPlanInput {
   description: string;
   price_monthly?: number | null;
   price_annual?: number | null;
-  currency?: string;
+  currency?: Currency;
   billing_period?: BillingPeriod;
   features: PricingFeatureCategory[];
   highlight_as_popular?: boolean;
@@ -181,19 +183,17 @@ export function getDisplayPrice(
 /**
  * Format price for display
  */
-export function formatPrice(price: number | null, currency = "USD", showDecimals = true): string {
+export function formatPrice(price: number | null, currency: Currency = "USD", showDecimals = true): string {
   if (price === null) {
     return "Custom";
   }
 
-  const formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
+  return formatCurrency(price, {
+    locale: "en-US",
     currency,
     minimumFractionDigits: showDecimals ? 2 : 0,
     maximumFractionDigits: showDecimals ? 2 : 0,
   });
-
-  return formatter.format(price);
 }
 
 /**

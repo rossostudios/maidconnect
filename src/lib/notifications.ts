@@ -3,6 +3,8 @@
  * Centralized functions for sending push notifications for various events
  */
 
+import { formatCOP, formatDate, formatTime } from "@/lib/format";
+
 type NotificationPayload = {
   userId: string;
   title: string;
@@ -48,7 +50,7 @@ export async function notifyCustomerBookingConfirmed(
     professionalName: string;
   }
 ) {
-  const date = new Date(booking.scheduledStart).toLocaleDateString("en-US", {
+  const date = formatDate(booking.scheduledStart, {
     weekday: "short",
     month: "short",
     day: "numeric",

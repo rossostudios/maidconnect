@@ -15,8 +15,16 @@ import { ConversationSkeleton } from "@/components/ui/skeleton";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { useNotifications } from "@/hooks/use-notifications";
 import { useRealtimeMessages } from "@/hooks/use-realtime-messages";
+import { useConversations } from "@/hooks/use-conversations";
+import { useMessages } from "@/hooks/use-messages";
+import { useMessageTranslation } from "@/hooks/use-message-translation";
 import type { SupportedLanguage } from "@/lib/translation";
-import { detectLanguage, translateText } from "@/lib/translation";
+import {
+  normalizeUser,
+  getTotalUnreadCount,
+  getConversationUnreadCount,
+  updateConversationUnreadCount,
+} from "@/lib/messaging-utils";
 
 export type Conversation = {
   id: string;
@@ -74,32 +82,25 @@ type Props = {
   userRole: "customer" | "professional";
 };
 
-// Helper to normalize user data from conversation
-function normalizeUser(
-  conversation: Conversation,
-  userRole: "customer" | "professional"
-): NormalizedUser {
-  if (userRole === "customer") {
-    // Customer wants to see professional
-    return {
-      id: conversation.professional.profile_id,
-      full_name: conversation.professional.profile.full_name,
-      avatar_url: conversation.professional.profile.avatar_url,
-    };
-  }
-  // Professional wants to see customer
-  return conversation.customer;
-}
-
 export function MessagingInterface({ userId, userRole }: Props) {
-  const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [messagesLoading, setMessagesLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [previousUnreadCount, setPreviousUnreadCount] = useState(0);
   const [isPending, startTransition] = useTransition();
+
+  // Custom hooks for cleaner state management
+  const {
+    conversations,
+    setConversations,
+    loading,
+    error,
+    refetch: refetchConversations,
+  } = useConversations();
+
+  const {
+    messages,
+    setMessages,
+    loading: messagesLoading,
+  } = useMessages(selectedConversation?.id || null);
 
   // Week 5-6: Auto-translate feature
   const autoTranslateEnabled = useFeatureFlag("auto_translate_chat");
@@ -114,57 +115,23 @@ export function MessagingInterface({ userId, userRole }: Props) {
 
   const { permission, supported, requestPermission, showNotification } = useNotifications();
 
-  const fetchConversations = async () => {
-    try {
-      const response = await fetch("/api/messages/conversations");
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.details || "Failed to fetch conversations");
+  // Mark conversation as read and update state
+  const markAsRead = useCallback(
+    async (conversationId: string) => {
+      try {
+        await fetch(`/api/messages/conversations/${conversationId}/read`, {
+          method: "POST",
+        });
+        // Update unread count locally
+        setConversations((prev) =>
+          updateConversationUnreadCount(prev, conversationId, userRole, 0)
+        );
+      } catch (_err) {
+        // Silent fail - non-critical
       }
-      const data = await response.json();
-      setConversations(data.conversations || []);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load conversations");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchMessages = async (conversationId: string) => {
-    setMessagesLoading(true);
-    try {
-      const response = await fetch(`/api/messages/conversations/${conversationId}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch messages");
-      }
-      const data = await response.json();
-      setMessages(data.messages || []);
-    } catch (_err) {
-    } finally {
-      setMessagesLoading(false);
-    }
-  };
-
-  const markAsRead = async (conversationId: string) => {
-    try {
-      await fetch(`/api/messages/conversations/${conversationId}/read`, {
-        method: "POST",
-      });
-      // Update unread count locally
-      setConversations((prev) =>
-        prev.map((conv) =>
-          conv.id === conversationId
-            ? {
-                ...conv,
-                customer_unread_count: userRole === "customer" ? 0 : conv.customer_unread_count,
-                professional_unread_count:
-                  userRole === "professional" ? 0 : conv.professional_unread_count,
-              }
-            : conv
-        )
-      );
-    } catch (_err) {}
-  };
+    },
+    [setConversations, userRole]
+  );
 
   // Request notification permission on mount
   useEffect(() => {
@@ -178,22 +145,14 @@ export function MessagingInterface({ userId, userRole }: Props) {
     return;
   }, [supported, permission, requestPermission]);
 
-  // Callbacks for real-time updates
-  const handleNewMessage = useCallback(
-    async (message: any) => {
-      if (selectedConversation && message.conversation_id === selectedConversation.id) {
-        // Fetch updated messages to get full message with sender info
-        await fetchMessages(selectedConversation.id);
-      }
-      // Always refresh conversations to update unread counts
-      await fetchConversations();
-    },
-    [selectedConversation?.id, fetchMessages, selectedConversation, fetchConversations]
-  );
+  // Callbacks for real-time updates - simplified with custom hooks
+  const handleNewMessage = useCallback(async () => {
+    await refetchConversations();
+  }, [refetchConversations]);
 
   const handleConversationUpdate = useCallback(async () => {
-    await fetchConversations();
-  }, [fetchConversations]);
+    await refetchConversations();
+  }, [refetchConversations]);
 
   // Subscribe to real-time updates
   useRealtimeMessages({
@@ -204,42 +163,14 @@ export function MessagingInterface({ userId, userRole }: Props) {
     onConversationUpdate: handleConversationUpdate,
   });
 
-  // Fetch conversations on mount (no polling)
+  // Monitor for new messages and show notifications - simplified with utility
   useEffect(() => {
-    fetchConversations();
-  }, [fetchConversations]);
-
-  // Fetch messages when conversation is selected (no polling)
-  useEffect(() => {
-    if (selectedConversation) {
-      fetchMessages(selectedConversation.id);
-    }
-  }, [selectedConversation?.id, fetchMessages, selectedConversation]);
-
-  // Mark messages as read when conversation is opened
-  useEffect(() => {
-    if (selectedConversation) {
-      markAsRead(selectedConversation.id);
-    }
-  }, [selectedConversation?.id, selectedConversation, markAsRead]);
-
-  // Monitor for new messages and show notifications
-  useEffect(() => {
-    const currentUnreadCount = conversations.reduce(
-      (sum, conv) =>
-        sum +
-        (userRole === "customer" ? conv.customer_unread_count : conv.professional_unread_count),
-      0
-    );
+    const currentUnreadCount = getTotalUnreadCount(conversations, userRole);
 
     // If unread count increased and we're not looking at messages
     if (currentUnreadCount > previousUnreadCount && !document.hasFocus()) {
       const newMessages = currentUnreadCount - previousUnreadCount;
-      const latestConversation = conversations.find((conv) => {
-        const count =
-          userRole === "customer" ? conv.customer_unread_count : conv.professional_unread_count;
-        return count > 0;
-      });
+      const latestConversation = conversations.find((conv) => getConversationUnreadCount(conv, userRole) > 0);
 
       if (latestConversation) {
         const sender = normalizeUser(latestConversation, userRole);
@@ -372,10 +303,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
           <div className="divide-y divide-[#ebe5d8]">
             {conversations.map((conv) => {
               const otherUser = normalizeUser(conv, userRole);
-              const unreadCount =
-                userRole === "customer"
-                  ? conv.customer_unread_count
-                  : conv.professional_unread_count;
+              const unreadCount = getConversationUnreadCount(conv, userRole);
 
               return (
                 <button
@@ -566,58 +494,17 @@ function MessageThread({
   targetLanguage: SupportedLanguage;
 }) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [translations, setTranslations] = useState<Record<string, string>>({});
-  const [translatingIds, setTranslatingIds] = useState<Set<string>>(new Set());
+
+  // Use custom hook for translation logic
+  const { translations, translatingIds } = useMessageTranslation(
+    messages,
+    translationEnabled,
+    targetLanguage
+  );
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, []);
-
-  // Translate messages when translation is enabled
-  useEffect(() => {
-    if (!translationEnabled) {
-      setTranslations({});
-      return;
-    }
-
-    const translateMessages = async () => {
-      for (const msg of messages) {
-        // Skip if already translated or currently translating
-        if (translations[msg.id] || translatingIds.has(msg.id)) {
-          continue;
-        }
-
-        // Detect source language
-        const sourceLang = detectLanguage(msg.message);
-
-        // Skip if already in target language
-        if (sourceLang === targetLanguage) {
-          continue;
-        }
-
-        // Mark as translating
-        setTranslatingIds((prev) => new Set([...prev, msg.id]));
-
-        try {
-          const result = await translateText(msg.message, sourceLang, targetLanguage);
-          setTranslations((prev) => ({
-            ...prev,
-            [msg.id]: result.translatedText,
-          }));
-        } catch {
-          // Silently fail - show original message
-        } finally {
-          setTranslatingIds((prev) => {
-            const next = new Set(prev);
-            next.delete(msg.id);
-            return next;
-          });
-        }
-      }
-    };
-
-    translateMessages();
-  }, [translationEnabled, messages, targetLanguage, translations, translatingIds]);
 
   if (loading && messages.length === 0) {
     return (

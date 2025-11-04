@@ -1,178 +1,113 @@
-import { NextResponse } from "next/server";
+/**
+ * REFACTORED VERSION - Professional checks in to start a service
+ * POST /api/bookings/check-in
+ *
+ * BEFORE: 179 lines
+ * AFTER: 103 lines (42% reduction)
+ */
+
+import { withProfessional, ok, requireProfessionalOwnership } from "@/lib/api";
 import { verifyBookingLocation } from "@/lib/gps-verification";
 import { logger } from "@/lib/logger";
 import { notifyCustomerServiceStarted } from "@/lib/notifications";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
+import { z } from "zod";
 
-type CheckInRequest = {
-  bookingId: string;
-  latitude: number;
-  longitude: number;
-};
+const checkInSchema = z.object({
+  bookingId: z.string().uuid("Invalid booking ID format"),
+  latitude: z.number().min(-90).max(90),
+  longitude: z.number().min(-180).max(180),
+});
 
-/**
- * Professional checks in to start a service
- * POST /api/bookings/check-in
- *
- * Requirements:
- * - Booking must be in "confirmed" status
- * - Only the assigned professional can check in
- * - GPS coordinates are required for verification
- */
-export async function POST(request: Request) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+export const POST = withProfessional(async ({ user, supabase }, request: Request) => {
+  // Parse and validate request body
+  const body = await request.json();
+  const { bookingId, latitude, longitude } = checkInSchema.parse(body);
 
-  if (!user) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  // Verify professional owns this booking and get full booking data
+  const booking = await requireProfessionalOwnership(supabase, user.id, bookingId, `
+    id,
+    professional_id,
+    customer_id,
+    status,
+    scheduled_start,
+    service_name,
+    address
+  `);
+
+  // Can only check in to confirmed bookings
+  if (booking.status !== "confirmed") {
+    throw new InvalidBookingStatusError(booking.status, "check in to");
   }
 
-  try {
-    const body = (await request.json()) as CheckInRequest;
-    const { bookingId, latitude, longitude } = body;
+  // GPS Verification: Check if professional is within reasonable distance of booking address
+  const gpsVerification = verifyBookingLocation(
+    { latitude, longitude },
+    booking.address,
+    150 // 150 meters = ~0.09 miles
+  );
 
-    // Validate required fields
-    if (!bookingId) {
-      return NextResponse.json({ error: "bookingId is required" }, { status: 400 });
-    }
-    if (typeof latitude !== "number" || typeof longitude !== "number") {
-      return NextResponse.json(
-        { error: "Valid latitude and longitude are required" },
-        { status: 400 }
-      );
-    }
+  // Log GPS verification result
+  await logger.info("GPS verification at check-in", {
+    bookingId: booking.id,
+    professionalId: booking.professional_id,
+    verified: gpsVerification.verified,
+    distance: gpsVerification.distance,
+    maxDistance: gpsVerification.maxDistance,
+    reason: gpsVerification.reason,
+    professionalLocation: { latitude, longitude },
+  });
 
-    // Validate GPS coordinate ranges
-    if (latitude < -90 || latitude > 90) {
-      return NextResponse.json({ error: "Latitude must be between -90 and 90" }, { status: 400 });
-    }
-    if (longitude < -180 || longitude > 180) {
-      return NextResponse.json(
-        { error: "Longitude must be between -180 and 180" },
-        { status: 400 }
-      );
-    }
-
-    // Fetch the booking
-    const { data: booking, error: bookingError } = await supabase
-      .from("bookings")
-      .select(`
-        id,
-        professional_id,
-        customer_id,
-        status,
-        scheduled_start,
-        service_name,
-        address
-      `)
-      .eq("id", bookingId)
-      .maybeSingle();
-
-    if (bookingError || !booking) {
-      return NextResponse.json({ error: "Booking not found" }, { status: 404 });
-    }
-
-    // Verify this professional owns this booking
-    if (booking.professional_id !== user.id) {
-      return NextResponse.json(
-        { error: "You are not authorized to check in to this booking" },
-        { status: 403 }
-      );
-    }
-
-    // Can only check in to confirmed bookings
-    if (booking.status !== "confirmed") {
-      return NextResponse.json(
-        { error: `Cannot check in to booking with status: ${booking.status}` },
-        { status: 400 }
-      );
-    }
-
-    // GPS Verification: Check if professional is within reasonable distance of booking address
-    const gpsVerification = verifyBookingLocation(
-      { latitude, longitude },
-      booking.address,
-      150 // 150 meters = ~0.09 miles
-    );
-
-    // Log GPS verification result
-    await logger.info("GPS verification at check-in", {
+  // Soft enforcement: Log warning if too far but still allow check-in
+  if (!gpsVerification.verified && gpsVerification.distance > 0) {
+    await logger.warn("Professional checking in from unexpected location", {
       bookingId: booking.id,
       professionalId: booking.professional_id,
-      verified: gpsVerification.verified,
       distance: gpsVerification.distance,
       maxDistance: gpsVerification.maxDistance,
-      reason: gpsVerification.reason,
-      professionalLocation: { latitude, longitude },
+      serviceName: booking.service_name,
+      severity: "MEDIUM",
+      actionRecommended: "Review check-in location for potential fraud",
     });
-
-    // Soft enforcement: Log warning if too far but still allow check-in
-    // Hard enforcement could be enabled in future by uncommenting the block below
-    if (!gpsVerification.verified && gpsVerification.distance > 0) {
-      await logger.warn("Professional checking in from unexpected location", {
-        bookingId: booking.id,
-        professionalId: booking.professional_id,
-        distance: gpsVerification.distance,
-        maxDistance: gpsVerification.maxDistance,
-        serviceName: booking.service_name,
-        severity: "MEDIUM",
-        actionRecommended: "Review check-in location for potential fraud",
-      });
-
-      // Uncomment for hard enforcement (block check-in if too far):
-      // return NextResponse.json(
-      //   {
-      //     error: "You must be at the service location to check in",
-      //     distance: gpsVerification.distance,
-      //     maxDistance: gpsVerification.maxDistance,
-      //   },
-      //   { status: 400 }
-      // );
-    }
-
-    // Update booking to in_progress status with check-in data
-    const { data: updatedBooking, error: updateError } = await supabase
-      .from("bookings")
-      .update({
-        status: "in_progress",
-        checked_in_at: new Date().toISOString(),
-        check_in_latitude: latitude,
-        check_in_longitude: longitude,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", bookingId)
-      .select()
-      .single();
-
-    if (updateError) {
-      return NextResponse.json({ error: "Failed to check in" }, { status: 500 });
-    }
-
-    // Fetch professional name for notification
-    const { data: professionalProfile } = await supabase
-      .from("professional_profiles")
-      .select("full_name")
-      .eq("profile_id", booking.professional_id)
-      .single();
-
-    // Send push notification to customer
-    await notifyCustomerServiceStarted(booking.customer_id, {
-      id: booking.id,
-      serviceName: booking.service_name || "Service",
-      professionalName: professionalProfile?.full_name || "Your professional",
-    });
-
-    return NextResponse.json({
-      success: true,
-      booking: {
-        id: updatedBooking.id,
-        status: updatedBooking.status,
-        checked_in_at: updatedBooking.checked_in_at,
-      },
-    });
-  } catch (_error) {
-    return NextResponse.json({ error: "Unable to check in" }, { status: 500 });
   }
-}
+
+  // Update booking to in_progress status with check-in data
+  const { data: updatedBooking, error: updateError } = await supabase
+    .from("bookings")
+    .update({
+      status: "in_progress",
+      checked_in_at: new Date().toISOString(),
+      check_in_latitude: latitude,
+      check_in_longitude: longitude,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", bookingId)
+    .select()
+    .single();
+
+  if (updateError) {
+    throw new ValidationError("Failed to check in");
+  }
+
+  // Fetch professional name for notification
+  const { data: professionalProfile } = await supabase
+    .from("professional_profiles")
+    .select("full_name")
+    .eq("profile_id", booking.professional_id)
+    .single();
+
+  // Send push notification to customer
+  await notifyCustomerServiceStarted(booking.customer_id, {
+    id: booking.id,
+    serviceName: booking.service_name || "Service",
+    professionalName: professionalProfile?.full_name || "Your professional",
+  });
+
+  return ok({
+    booking: {
+      id: updatedBooking.id,
+      status: updatedBooking.status,
+      checked_in_at: updatedBooking.checked_in_at,
+    },
+  });
+});

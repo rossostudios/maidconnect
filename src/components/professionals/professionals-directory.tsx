@@ -22,6 +22,7 @@ import { SearchBar, type SearchSuggestion } from "./search-bar";
 import { VerificationBadge, type VerificationLevel } from "./verification-badge";
 import { type ViewMode, ViewToggle } from "./view-toggle";
 import type { FilterState } from "./professionals-filter-sheet";
+import { formatCOP } from "@/lib/format";
 
 // Dynamic imports for heavy components (lazy load on demand)
 const MapView = dynamic(() => import("./map-view").then((mod) => mod.MapView), { ssr: false });
@@ -55,16 +56,6 @@ export type DirectoryProfessional = {
 };
 
 // Moved outside component - no dependencies on component state (React 19 best practice)
-function formatCurrencyCOP(value: number | null | undefined) {
-  if (!value || Number.isNaN(value)) {
-    return null;
-  }
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
 
 // Moved outside component - no dependencies on component state (React 19 best practice)
 // Generate real-time activity indicators based on professional stats
@@ -472,7 +463,7 @@ const ProfessionalsDirectoryComponent = memo(
                   {professional.totalEarnings !== undefined && professional.totalEarnings > 0 && (
                     <div className="flex items-center gap-1.5">
                       <span className="font-semibold text-[#211f1a]">
-                        {formatCurrencyCOP(professional.totalEarnings)}
+                        {formatCOP(professional.totalEarnings)}
                       </span>
                       <span className="text-[#7d7566]">{t("card.earned")}</span>
                     </div>

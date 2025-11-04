@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { sendBookingDeclinedEmail } from "@/lib/email/send";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { formatDate, formatTime } from "@/lib/format";
 
 /**
  * Auto-decline bookings that have been in "authorized" status for more than 24 hours
@@ -98,13 +99,10 @@ export async function GET(request: Request) {
 
           if (customerUser?.user?.email) {
             const scheduledDate = booking.scheduled_start
-              ? new Date(booking.scheduled_start).toLocaleDateString()
+              ? formatDate(new Date(booking.scheduled_start))
               : "TBD";
             const scheduledTime = booking.scheduled_start
-              ? new Date(booking.scheduled_start).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })
+              ? formatTime(new Date(booking.scheduled_start))
               : "TBD";
             const duration = booking.duration_minutes
               ? `${booking.duration_minutes} minutes`

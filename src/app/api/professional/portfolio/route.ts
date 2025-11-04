@@ -1,5 +1,14 @@
-import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+/**
+ * REFACTORED VERSION - Professional portfolio management
+ * GET/PUT/POST /api/professional/portfolio
+ *
+ * BEFORE: 172 lines (3 handlers)
+ * AFTER: 125 lines (3 handlers) (27% reduction)
+ */
+
+import { withProfessional, ok, created, badRequest } from "@/lib/api";
+import { ValidationError } from "@/lib/errors";
+import { z } from "zod";
 
 export type PortfolioImage = {
   id: string;
@@ -10,162 +19,115 @@ export type PortfolioImage = {
   created_at: string;
 };
 
+const portfolioImageSchema = z.object({
+  id: z.string(),
+  url: z.string().url(),
+  thumbnail_url: z.string().url().optional(),
+  caption: z.string().optional(),
+  order: z.number(),
+});
+
+const updatePortfolioSchema = z.object({
+  images: z.array(portfolioImageSchema),
+  featuredWork: z.string().optional(),
+});
+
+const addImageSchema = z.object({
+  url: z.string().url(),
+  thumbnailUrl: z.string().url().optional(),
+  caption: z.string().optional(),
+});
+
 /**
  * Get professional's portfolio images
- * GET /api/professional/portfolio
  */
-export async function GET() {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+export const GET = withProfessional(async ({ user, supabase }) => {
+  const { data: profile, error } = await supabase
+    .from("professional_profiles")
+    .select("portfolio_images, featured_work")
+    .eq("profile_id", user.id)
+    .single();
 
-  if (!user || user.user_metadata?.role !== "professional") {
-    return NextResponse.json({ error: "Not authorized" }, { status: 403 });
+  if (error) {
+    throw new ValidationError("Failed to fetch portfolio");
   }
 
-  try {
-    const { data: profile, error } = await supabase
-      .from("professional_profiles")
-      .select("portfolio_images, featured_work")
-      .eq("profile_id", user.id)
-      .single();
-
-    if (error) {
-      return NextResponse.json({ error: "Failed to fetch portfolio" }, { status: 500 });
-    }
-
-    return NextResponse.json({
-      images: (profile?.portfolio_images as PortfolioImage[]) || [],
-      featuredWork: profile?.featured_work || "",
-    });
-  } catch (_error) {
-    return NextResponse.json({ error: "Failed to fetch portfolio" }, { status: 500 });
-  }
-}
+  return ok({
+    images: (profile?.portfolio_images as PortfolioImage[]) || [],
+    featuredWork: profile?.featured_work || "",
+  });
+});
 
 /**
  * Update professional's portfolio
- * PUT /api/professional/portfolio
- *
- * Body: {
- *   images: PortfolioImage[],
- *   featuredWork?: string
- * }
  */
-export async function PUT(request: Request) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+export const PUT = withProfessional(async ({ user, supabase }, request: Request) => {
+  // Parse and validate request body
+  const body = await request.json();
+  const validatedData = updatePortfolioSchema.parse(body);
 
-  if (!user || user.user_metadata?.role !== "professional") {
-    return NextResponse.json({ error: "Not authorized" }, { status: 403 });
+  const updateData: { portfolio_images: PortfolioImage[]; featured_work?: string } = {
+    portfolio_images: validatedData.images,
+  };
+
+  if (validatedData.featuredWork !== undefined) {
+    updateData.featured_work = validatedData.featuredWork;
   }
 
-  try {
-    const body = await request.json();
-    const { images, featuredWork } = body;
+  const { error } = await supabase
+    .from("professional_profiles")
+    .update(updateData)
+    .eq("profile_id", user.id);
 
-    if (!Array.isArray(images)) {
-      return NextResponse.json({ error: "images must be an array" }, { status: 400 });
-    }
-
-    // Validate image structure
-    for (const img of images) {
-      if (!(img.id && img.url) || typeof img.order !== "number") {
-        return NextResponse.json({ error: "Invalid image structure" }, { status: 400 });
-      }
-    }
-
-    const updateData: { portfolio_images: PortfolioImage[]; featured_work?: string } = {
-      portfolio_images: images,
-    };
-
-    if (featuredWork !== undefined) {
-      updateData.featured_work = featuredWork;
-    }
-
-    const { error } = await supabase
-      .from("professional_profiles")
-      .update(updateData)
-      .eq("profile_id", user.id);
-
-    if (error) {
-      return NextResponse.json({ error: "Failed to update portfolio" }, { status: 500 });
-    }
-
-    return NextResponse.json({
-      success: true,
-      images,
-      featuredWork: featuredWork || "",
-    });
-  } catch (_error) {
-    return NextResponse.json({ error: "Failed to update portfolio" }, { status: 500 });
+  if (error) {
+    throw new ValidationError("Failed to update portfolio");
   }
-}
+
+  return ok({
+    success: true,
+    images: validatedData.images,
+    featuredWork: validatedData.featuredWork || "",
+  });
+});
 
 /**
  * Add a new portfolio image
- * POST /api/professional/portfolio
- *
- * Body: {
- *   url: string,
- *   thumbnailUrl?: string,
- *   caption?: string
- * }
  */
-export async function POST(request: Request) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+export const POST = withProfessional(async ({ user, supabase }, request: Request) => {
+  // Parse and validate request body
+  const body = await request.json();
+  const validatedData = addImageSchema.parse(body);
 
-  if (!user || user.user_metadata?.role !== "professional") {
-    return NextResponse.json({ error: "Not authorized" }, { status: 403 });
+  // Get current portfolio
+  const { data: profile } = await supabase
+    .from("professional_profiles")
+    .select("portfolio_images")
+    .eq("profile_id", user.id)
+    .single();
+
+  const currentImages = (profile?.portfolio_images as PortfolioImage[]) || [];
+
+  // Create new image
+  const newImage: PortfolioImage = {
+    id: crypto.randomUUID(),
+    url: validatedData.url,
+    thumbnail_url: validatedData.thumbnailUrl,
+    caption: validatedData.caption,
+    order: currentImages.length,
+    created_at: new Date().toISOString(),
+  };
+
+  const updatedImages = [...currentImages, newImage];
+
+  // Save updated portfolio
+  const { error } = await supabase
+    .from("professional_profiles")
+    .update({ portfolio_images: updatedImages })
+    .eq("profile_id", user.id);
+
+  if (error) {
+    throw new ValidationError("Failed to add image");
   }
 
-  try {
-    const body = await request.json();
-    const { url, thumbnailUrl, caption } = body;
-
-    if (!url) {
-      return NextResponse.json({ error: "url is required" }, { status: 400 });
-    }
-
-    // Get current portfolio
-    const { data: profile } = await supabase
-      .from("professional_profiles")
-      .select("portfolio_images")
-      .eq("profile_id", user.id)
-      .single();
-
-    const currentImages = (profile?.portfolio_images as PortfolioImage[]) || [];
-
-    // Create new image
-    const newImage: PortfolioImage = {
-      id: crypto.randomUUID(),
-      url,
-      thumbnail_url: thumbnailUrl,
-      caption,
-      order: currentImages.length,
-      created_at: new Date().toISOString(),
-    };
-
-    const updatedImages = [...currentImages, newImage];
-
-    // Save updated portfolio
-    const { error } = await supabase
-      .from("professional_profiles")
-      .update({ portfolio_images: updatedImages })
-      .eq("profile_id", user.id);
-
-    if (error) {
-      return NextResponse.json({ error: "Failed to add image" }, { status: 500 });
-    }
-
-    return NextResponse.json({ image: newImage }, { status: 201 });
-  } catch (_error) {
-    return NextResponse.json({ error: "Failed to add image" }, { status: 500 });
-  }
-}
+  return created({ image: newImage });
+});

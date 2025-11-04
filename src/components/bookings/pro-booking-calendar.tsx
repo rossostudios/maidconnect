@@ -1,11 +1,17 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, Clock } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Clock } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useMemo, useState } from "react";
-
+import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
+import { useCalendarMonth } from "@/hooks/use-calendar-month";
+import { useCalendarGrid } from "@/hooks/use-calendar-grid";
+import type { DayAvailability } from "@/hooks/use-availability-data";
 import { cn } from "@/lib/utils";
 
+/**
+ * Booking data structure for the professional dashboard
+ */
 export type CalendarBooking = {
   id: string;
   status: string;
@@ -16,72 +22,97 @@ export type CalendarBooking = {
   currency: string | null;
 };
 
-type CalendarDay = {
-  date: Date;
-  label: number;
-  key: string;
-  inCurrentMonth: boolean;
-};
-
+/**
+ * Props for the professional booking calendar
+ */
 type Props = {
   bookings: CalendarBooking[];
 };
 
-function formatDateKey(date: Date) {
-  return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}-${String(date.getUTCDate()).padStart(2, "0")}`;
-}
-
-function toStartOfDay(date: Date) {
-  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
-}
-
-function buildCalendarMatrix(reference: Date): CalendarDay[] {
-  const year = reference.getUTCFullYear();
-  const month = reference.getUTCMonth();
-  const firstOfMonth = new Date(Date.UTC(year, month, 1));
-  const startWeekDay = firstOfMonth.getUTCDay(); // 0 (Sun) - 6 (Sat)
-
-  const days: CalendarDay[] = [];
-  // Calendar grid of 6 weeks (42 days)
-  for (let index = 0; index < 42; index += 1) {
-    const dayOffset = index - startWeekDay;
-    const current = new Date(Date.UTC(year, month, 1));
-    current.setUTCDate(current.getUTCDate() + dayOffset);
-    days.push({
-      date: current,
-      label: current.getUTCDate(),
-      key: formatDateKey(current),
-      inCurrentMonth: current.getUTCMonth() === month,
-    });
-  }
-
-  return days;
-}
-
-function formatCOP(value: number | null | undefined) {
-  if (!value || Number.isNaN(value)) {
-    return null;
-  }
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
-
-function formatTime(date: Date) {
-  return date.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
+/**
+ * Professional Booking Calendar (V2 - Unified)
+ *
+ * This component replaces the original pro-booking-calendar.tsx with a cleaner
+ * implementation that uses the unified calendar component for rendering and
+ * provides a custom sidebar for booking details.
+ *
+ * Key features:
+ * - Uses unified calendar component for grid rendering
+ * - Props-based data source (bookings provided as props)
+ * - Custom sidebar showing booking details for selected date
+ * - Maintains original styling and user experience
+ * - Supports internationalization
+ *
+ * Migration: Replace imports of `ProBookingCalendar` from
+ * `@/components/bookings/pro-booking-calendar` with this component.
+ *
+ * @example
+ * ```tsx
+ * // Before:
+ * import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar";
+ *
+ * // After:
+ * import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar-v2";
+ * ```
+ */
 export function ProBookingCalendar({ bookings }: Props) {
   const t = useTranslations("dashboard.pro.bookingCalendar");
-  const initialDate = toStartOfDay(new Date());
-  const [currentMonth, setCurrentMonth] = useState(initialDate);
-  const [selectedDayKey, setSelectedDayKey] = useState(formatDateKey(initialDate));
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
+  // Calculate bookings by date using useMemo
+  const bookingsByDate = useMemo(() => {
+    const map = new Map<string, CalendarBooking[]>();
+    for (const booking of bookings) {
+      if (!booking.scheduled_start) {
+        continue;
+      }
+      const date = new Date(booking.scheduled_start);
+      const key = formatDateKey(date);
+      if (!map.has(key)) {
+        map.set(key, []);
+      }
+      map.get(key)?.push(booking);
+    }
+    return map;
+  }, [bookings]);
+
+  // Convert bookings to availability data for the calendar
+  const availability = useMemo(() => {
+    const availabilityArray: DayAvailability[] = [];
+    bookingsByDate.forEach((dayBookings, dateKey) => {
+      availabilityArray.push({
+        date: dateKey,
+        status: "booked",
+        availableSlots: [], // No time slots for booking calendar
+        bookingCount: dayBookings.length,
+        maxBookings: dayBookings.length,
+      });
+    });
+    return availabilityArray;
+  }, [bookingsByDate]);
+
+  // Get availability for a specific date
+  const getDateAvailability = (date: Date): DayAvailability | null => {
+    const key = formatDateKey(date);
+    const dayBookings = bookingsByDate.get(key);
+    if (!dayBookings || dayBookings.length === 0) {
+      return null;
+    }
+    return {
+      date: key,
+      status: "booked",
+      availableSlots: [],
+      bookingCount: dayBookings.length,
+      maxBookings: dayBookings.length,
+    };
+  };
+
+  // Get bookings for selected date
+  const selectedBookings = selectedDate
+    ? bookingsByDate.get(formatDateKey(selectedDate)) ?? []
+    : [];
+
+  // Status label translation
   const getStatusLabel = (status: string): string => {
     switch (status) {
       case "pending_payment":
@@ -97,117 +128,49 @@ export function ProBookingCalendar({ bookings }: Props) {
     }
   };
 
-  const bookingsByDay = useMemo(() => {
-    const map = new Map<string, CalendarBooking[]>();
-    for (const booking of bookings) {
-      if (!booking.scheduled_start) {
-        continue;
-      }
-      const date = new Date(booking.scheduled_start);
-      const key = formatDateKey(toStartOfDay(date));
-      if (!map.has(key)) {
-        map.set(key, []);
-      }
-      map.get(key)?.push(booking);
-    }
-    return map;
-  }, [bookings]);
-
-  const calendarDays = useMemo(() => buildCalendarMatrix(currentMonth), [currentMonth]);
-  const selectedBookings = bookingsByDay.get(selectedDayKey) ?? [];
-
-  const monthLabel = currentMonth.toLocaleDateString("en-US", {
-    month: "long",
-    year: "numeric",
-  });
-
-  const changeMonth = (offset: number) => {
-    setCurrentMonth((prev) => {
-      const updated = new Date(Date.UTC(prev.getUTCFullYear(), prev.getUTCMonth() + offset, 1));
-      return updated;
-    });
-  };
-
   return (
     <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <button
-            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-[#5d574b] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
-            onClick={() => changeMonth(-1)}
-            type="button"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <p className="font-semibold text-[#211f1a] text-base capitalize">{monthLabel}</p>
-          <button
-            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-[#5d574b] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
-            onClick={() => changeMonth(1)}
-            type="button"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
-
-      <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(0,_1fr)]">
-        <div className="grid grid-cols-7 gap-2">
-          {[
-            { key: "sun", label: t("days.sun") },
-            { key: "mon", label: t("days.mon") },
-            { key: "tue", label: t("days.tue") },
-            { key: "wed", label: t("days.wed") },
-            { key: "thu", label: t("days.thu") },
-            { key: "fri", label: t("days.fri") },
-            { key: "sat", label: t("days.sat") },
-          ].map((day) => (
-            <div
-              className="text-center font-semibold text-[#a49c90] text-xs uppercase tracking-wide"
-              key={day.key}
-            >
-              {day.label}
-            </div>
-          ))}
-          {calendarDays.map((day) => {
-            const hasBookings = bookingsByDay.has(day.key);
-            const bookingsCount = bookingsByDay.get(day.key)?.length ?? 0;
-            const isSelected = selectedDayKey === day.key;
-
-            return (
-              <button
-                className={cn(
-                  "flex h-20 flex-col items-center justify-center rounded-lg border text-sm transition",
-                  day.inCurrentMonth
-                    ? "border-[#efe7dc] bg-white"
-                    : "border-transparent bg-[#fbfafa] text-[#c4bbaf]",
-                  hasBookings ? "shadow-[0_6px_14px_rgba(18,17,15,0.08)]" : "",
-                  isSelected ? "border-[#8B7355] ring-2 ring-[#8B735533]" : ""
-                )}
-                key={day.key}
-                onClick={() => setSelectedDayKey(day.key)}
-                type="button"
-              >
-                <span className="font-semibold text-sm">{day.label}</span>
-                {hasBookings ? (
-                  <span className="mt-1 rounded-full bg-[#8B7355]/15 px-2 py-0.5 font-semibold text-[#8a3934] text-xs">
-                    {bookingsCount} {bookingsCount === 1 ? t("booking") : t("bookings")}
-                  </span>
-                ) : null}
-              </button>
-            );
-          })}
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(0,_1fr)]">
+        {/* Calendar Grid */}
+        <div>
+          <AvailabilityCalendar
+            dataSource={{
+              type: "props",
+              availability,
+              getDateAvailability,
+            }}
+            size="compact"
+            theme="professional"
+            selectedDate={selectedDate}
+            onDateSelect={setSelectedDate}
+            showTimeSlots={false}
+            showLegend={false}
+            showTodayButton={true}
+            locale="en-US"
+            renderDayContent={(date, availability) => (
+              <CustomDayContent
+                date={date}
+                availability={availability}
+                bookingsCount={bookingsByDate.get(formatDateKey(date))?.length ?? 0}
+                t={t}
+              />
+            )}
+          />
         </div>
 
+        {/* Booking Details Sidebar */}
         <div className="rounded-lg border border-[#efe7dc] bg-[#fbfafa] p-4">
           <h4 className="font-semibold text-[#211f1a] text-sm">{t("details")}</h4>
-          <p className="mt-1 text-[#7a6d62] text-xs">
-            {new Date(selectedDayKey).toLocaleDateString("en-US", {
-              weekday: "long",
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })}
-          </p>
+          {selectedDate && (
+            <p className="mt-1 text-[#7a6d62] text-xs">
+              {selectedDate.toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
+            </p>
+          )}
           {selectedBookings.length === 0 ? (
             <p className="mt-4 text-[#7a6d62] text-sm">{t("noBookings")}</p>
           ) : (
@@ -250,4 +213,58 @@ export function ProBookingCalendar({ bookings }: Props) {
       </div>
     </div>
   );
+}
+
+/**
+ * Custom day cell content showing booking count
+ */
+function CustomDayContent({
+  date,
+  availability,
+  bookingsCount,
+  t,
+}: {
+  date: Date;
+  availability: DayAvailability | null;
+  bookingsCount: number;
+  t: (key: string) => string;
+}) {
+  return (
+    <div className="flex h-full min-h-[50px] flex-col items-center justify-center">
+      <span className="font-semibold text-sm">{date.getDate()}</span>
+      {bookingsCount > 0 && (
+        <span className="mt-1 rounded-full bg-[#8B7355]/15 px-2 py-0.5 font-semibold text-[#8a3934] text-xs">
+          {bookingsCount} {bookingsCount === 1 ? t("booking") : t("bookings")}
+        </span>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Helper functions
+ */
+function formatDateKey(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function formatCOP(value: number | null | undefined): string | null {
+  if (!value || Number.isNaN(value)) {
+    return null;
+  }
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+function formatTime(date: Date): string {
+  return date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }

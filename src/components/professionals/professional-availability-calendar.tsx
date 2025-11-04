@@ -1,23 +1,24 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, Clock } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useState, useMemo } from "react";
+import { Clock } from "lucide-react";
+import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
 import type { ProfessionalBookingSummary } from "@/components/professionals/types";
 import type { AvailabilitySlot } from "@/lib/professionals/transformers";
+import type { DayAvailability } from "@/hooks/use-availability-data";
 import { cn } from "@/lib/utils";
 
+/**
+ * Props for the professional availability calendar
+ */
 type Props = {
   availability: AvailabilitySlot[];
   bookings: ProfessionalBookingSummary[];
 };
 
-type CalendarDay = {
-  date: Date;
-  label: number;
-  key: string;
-  inCurrentMonth: boolean;
-};
-
+/**
+ * Status labels for bookings
+ */
 const STATUS_LABELS: Record<string, string> = {
   pending_payment: "Awaiting payment",
   authorized: "Authorized hold",
@@ -27,72 +28,36 @@ const STATUS_LABELS: Record<string, string> = {
   canceled: "Canceled",
 };
 
-function formatDateKey(date: Date) {
-  return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}-${String(date.getUTCDate()).padStart(2, "0")}`;
-}
-
-function toStartOfDayUTC(date: Date) {
-  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
-}
-
-function buildCalendarMatrix(reference: Date): CalendarDay[] {
-  const year = reference.getUTCFullYear();
-  const month = reference.getUTCMonth();
-  const firstOfMonth = new Date(Date.UTC(year, month, 1));
-  const startWeekDay = firstOfMonth.getUTCDay();
-
-  const days: CalendarDay[] = [];
-  for (let index = 0; index < 42; index += 1) {
-    const dayOffset = index - startWeekDay;
-    const current = new Date(Date.UTC(year, month, 1));
-    current.setUTCDate(current.getUTCDate() + dayOffset);
-    days.push({
-      date: current,
-      label: current.getUTCDate(),
-      key: formatDateKey(current),
-      inCurrentMonth: current.getUTCMonth() === month,
-    });
-  }
-
-  return days;
-}
-
-function formatCOP(value: number | null | undefined) {
-  if (!value || Number.isNaN(value)) {
-    return null;
-  }
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
-
-function formatTime(date: Date) {
-  return date.toLocaleTimeString("es-CO", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
-function normalizeWeekdayLabel(date: Date) {
-  return date
-    .toLocaleDateString("en-US", {
-      weekday: "long",
-    })
-    .toLowerCase();
-}
-
-function normalizeSlotWeekday(slot: AvailabilitySlot) {
-  return slot.day ? slot.day.toLowerCase() : null;
-}
-
+/**
+ * Professional Availability Calendar (V2 - Unified)
+ *
+ * This component replaces the original professional-availability-calendar.tsx
+ * with a cleaner implementation that uses the unified calendar component.
+ *
+ * Key features:
+ * - Uses unified calendar component for grid rendering
+ * - Props-based data source (availability and bookings provided as props)
+ * - Custom sidebar showing availability windows and bookings
+ * - Maintains original styling and user experience
+ * - Shows recurring availability patterns by weekday
+ *
+ * Migration: Replace imports of `ProfessionalAvailabilityCalendar` from
+ * `@/components/professionals/professional-availability-calendar` with this component.
+ *
+ * @example
+ * ```tsx
+ * // Before:
+ * import { ProfessionalAvailabilityCalendar } from "@/components/professionals/professional-availability-calendar";
+ *
+ * // After:
+ * import { ProfessionalAvailabilityCalendar } from "@/components/professionals/professional-availability-calendar-v2";
+ * ```
+ */
 export function ProfessionalAvailabilityCalendar({ availability, bookings }: Props) {
-  const initialDate = toStartOfDayUTC(new Date());
-  const [currentMonth, setCurrentMonth] = useState(initialDate);
-  const [selectedDayKey, setSelectedDayKey] = useState(formatDateKey(initialDate));
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
-  const availabilityByDay = useMemo(() => {
+  // Map availability by weekday
+  const availabilityByWeekday = useMemo(() => {
     const map = new Map<string, AvailabilitySlot[]>();
     availability.forEach((slot) => {
       const dayKey = normalizeSlotWeekday(slot);
@@ -107,14 +72,15 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
     return map;
   }, [availability]);
 
-  const bookingsByDay = useMemo(() => {
+  // Map bookings by date
+  const bookingsByDate = useMemo(() => {
     const map = new Map<string, ProfessionalBookingSummary[]>();
     bookings.forEach((booking) => {
       if (!booking.scheduledStart) {
         return;
       }
       const date = new Date(booking.scheduledStart);
-      const key = formatDateKey(toStartOfDayUTC(date));
+      const key = formatDateKey(date);
       if (!map.has(key)) {
         map.set(key, []);
       }
@@ -123,104 +89,99 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
     return map;
   }, [bookings]);
 
-  const calendarDays = useMemo(() => buildCalendarMatrix(currentMonth), [currentMonth]);
-  const selectedBookings = bookingsByDay.get(selectedDayKey) ?? [];
-  const selectedDate = new Date(selectedDayKey);
-  const selectedAvailability = availabilityByDay.get(normalizeWeekdayLabel(selectedDate)) ?? [];
+  // Get availability for a specific date
+  const getDateAvailability = (date: Date): DayAvailability | null => {
+    const weekdayKey = normalizeWeekdayLabel(date);
+    const weekdayAvailability = availabilityByWeekday.get(weekdayKey);
+    const hasAvailability = Boolean(weekdayAvailability && weekdayAvailability.length > 0);
 
-  const monthLabel = currentMonth.toLocaleDateString("es-CO", {
-    month: "long",
-    year: "numeric",
-  });
+    const dateKey = formatDateKey(date);
+    const dateBookings = bookingsByDate.get(dateKey);
+    const hasBookings = Boolean(dateBookings && dateBookings.length > 0);
 
-  const changeMonth = (offset: number) => {
-    setCurrentMonth((prev) => {
-      const updated = new Date(Date.UTC(prev.getUTCFullYear(), prev.getUTCMonth() + offset, 1));
-      return updated;
-    });
+    // Determine status
+    let status: DayAvailability["status"];
+    if (!hasAvailability) {
+      status = "blocked";
+    } else if (hasBookings) {
+      status = "limited"; // Has bookings but may still have availability
+    } else {
+      status = "available";
+    }
+
+    // Only return availability data if the date has availability or bookings
+    if (!hasAvailability && !hasBookings) {
+      return null;
+    }
+
+    return {
+      date: dateKey,
+      status,
+      availableSlots: [], // No specific time slots for this view
+      bookingCount: dateBookings?.length ?? 0,
+      maxBookings: 10, // Arbitrary max for display
+    };
   };
+
+  // Get availability and bookings for selected date
+  const selectedDateKey = selectedDate ? formatDateKey(selectedDate) : null;
+  const selectedWeekday = selectedDate ? normalizeWeekdayLabel(selectedDate) : null;
+  const selectedAvailability = selectedWeekday
+    ? availabilityByWeekday.get(selectedWeekday) ?? []
+    : [];
+  const selectedBookings = selectedDateKey ? bookingsByDate.get(selectedDateKey) ?? [] : [];
 
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
         <p className="text-[#7a6d62] text-sm">Browse upcoming availability and see booked dates</p>
-        <div className="flex items-center gap-3">
-          <button
-            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-[#5d574b] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
-            onClick={() => changeMonth(-1)}
-            type="button"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <p className="font-semibold text-[#211f1a] text-sm capitalize">{monthLabel}</p>
-          <button
-            className="inline-flex items-center justify-center rounded-full border border-[#ebe5d8] p-2 text-[#5d574b] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
-            onClick={() => changeMonth(1)}
-            type="button"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(0,_1fr)]">
-        <div className="grid grid-cols-7 gap-2">
-          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((label) => (
-            <div
-              className="text-center font-semibold text-[#a49c90] text-xs uppercase tracking-wide"
-              key={label}
-            >
-              {label}
-            </div>
-          ))}
-          {calendarDays.map((day) => {
-            const hasBookings = bookingsByDay.has(day.key);
-            const bookingsCount = bookingsByDay.get(day.key)?.length ?? 0;
-            const isSelected = selectedDayKey === day.key;
-            const weekdayAvailability = availabilityByDay.get(normalizeWeekdayLabel(day.date));
-            const hasAvailability = Boolean(weekdayAvailability && weekdayAvailability.length > 0);
-
-            return (
-              <button
-                className={cn(
-                  "flex h-20 flex-col items-center justify-center rounded-lg border text-sm transition",
-                  day.inCurrentMonth
-                    ? "border-[#efe7dc] bg-white"
-                    : "border-transparent bg-[#fbfafa] text-[#c4bbaf]",
-                  hasAvailability ? "ring-1 ring-[#8B7355]/30 ring-inset" : "",
-                  hasBookings ? "shadow-[0_6px_14px_rgba(18,17,15,0.08)]" : "",
-                  isSelected ? "border-[#8B7355] ring-2 ring-[#8B735533]" : ""
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(0,_1fr)]">
+        {/* Calendar Grid */}
+        <div>
+          <AvailabilityCalendar
+            dataSource={{
+              type: "props",
+              availability: [], // Not used for this calendar
+              getDateAvailability,
+            }}
+            size="compact"
+            theme="professional"
+            selectedDate={selectedDate}
+            onDateSelect={setSelectedDate}
+            showTimeSlots={false}
+            showLegend={false}
+            showTodayButton={true}
+            locale="es-CO"
+            renderDayContent={(date, availability) => (
+              <CustomDayContent
+                date={date}
+                availability={availability}
+                hasAvailability={Boolean(
+                  availabilityByWeekday.get(normalizeWeekdayLabel(date))?.length
                 )}
-                key={day.key}
-                onClick={() => setSelectedDayKey(day.key)}
-                type="button"
-              >
-                <span className="font-semibold text-sm">{day.label}</span>
-                {hasAvailability ? (
-                  <span className="mt-1 rounded-full bg-[#8B7355]/12 px-2 py-0.5 font-semibold text-[#8a3934] text-xs">
-                    Open
-                  </span>
-                ) : null}
-                {hasBookings ? (
-                  <span className="mt-1 font-medium text-[#7a6d62] text-[11px]">
-                    {bookingsCount} {bookingsCount === 1 ? "booking" : "bookings"}
-                  </span>
-                ) : null}
-              </button>
-            );
-          })}
+                bookingsCount={bookingsByDate.get(formatDateKey(date))?.length ?? 0}
+              />
+            )}
+          />
         </div>
 
+        {/* Details Sidebar */}
         <div className="rounded-lg border border-[#efe7dc] bg-[#fbfafa] p-4 text-[#5d574b] text-sm">
           <h4 className="font-semibold text-[#211f1a] text-sm">Day details</h4>
-          <p className="mt-1 text-[#7a6d62] text-xs">
-            {selectedDate.toLocaleDateString("es-CO", {
-              weekday: "long",
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })}
-          </p>
+          {selectedDate && (
+            <p className="mt-1 text-[#7a6d62] text-xs">
+              {selectedDate.toLocaleDateString("es-CO", {
+                weekday: "long",
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
+            </p>
+          )}
+
+          {/* Available Windows */}
           {selectedAvailability.length > 0 ? (
             <div className="mt-3 space-y-2">
               <p className="font-semibold text-[#a49c90] text-xs uppercase tracking-[0.18em]">
@@ -250,6 +211,7 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
             </p>
           )}
 
+          {/* Bookings */}
           <div className="mt-4">
             <p className="font-semibold text-[#a49c90] text-xs uppercase tracking-[0.18em]">
               Bookings
@@ -307,4 +269,75 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
       </div>
     </div>
   );
+}
+
+/**
+ * Custom day cell content showing availability and booking indicators
+ */
+function CustomDayContent({
+  date,
+  availability,
+  hasAvailability,
+  bookingsCount,
+}: {
+  date: Date;
+  availability: DayAvailability | null;
+  hasAvailability: boolean;
+  bookingsCount: number;
+}) {
+  return (
+    <div className="flex h-full min-h-[50px] flex-col items-center justify-center">
+      <span className="font-semibold text-sm">{date.getDate()}</span>
+      {hasAvailability && (
+        <span className="mt-1 rounded-full bg-[#8B7355]/12 px-2 py-0.5 font-semibold text-[#8a3934] text-xs">
+          Open
+        </span>
+      )}
+      {bookingsCount > 0 && (
+        <span className="mt-1 font-medium text-[#7a6d62] text-[11px]">
+          {bookingsCount} {bookingsCount === 1 ? "booking" : "bookings"}
+        </span>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Helper functions
+ */
+function formatDateKey(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function normalizeWeekdayLabel(date: Date): string {
+  return date
+    .toLocaleDateString("en-US", {
+      weekday: "long",
+    })
+    .toLowerCase();
+}
+
+function normalizeSlotWeekday(slot: AvailabilitySlot): string | null {
+  return slot.day ? slot.day.toLowerCase() : null;
+}
+
+function formatCOP(value: number | null | undefined): string | null {
+  if (!value || Number.isNaN(value)) {
+    return null;
+  }
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+function formatTime(date: Date): string {
+  return date.toLocaleTimeString("es-CO", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }

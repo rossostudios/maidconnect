@@ -7,6 +7,7 @@ import { useActionState, useEffect, useState } from "react";
 import { DatePicker } from "@/components/ui/date-picker";
 import { TimePicker } from "@/components/ui/time-picker";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
+import { formatCOP } from "@/lib/format";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
@@ -35,16 +36,6 @@ function normalizeServiceName(value: string | null | undefined) {
   return value;
 }
 
-function formatCurrencyCOP(value: number | null | undefined) {
-  if (!value || Number.isNaN(value)) {
-    return null;
-  }
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
 
 export function BookingForm({
   professionalId,
@@ -135,7 +126,7 @@ export function BookingForm({
               {serviceWithName.map((service) => (
                 <option key={service.name ?? "service"} value={service.name ?? ""}>
                   {service.name ?? "Service"}
-                  {service.hourlyRateCop ? ` · ${formatCurrencyCOP(service.hourlyRateCop)}` : ""}
+                  {service.hourlyRateCop ? ` · ${formatCOP(service.hourlyRateCop)}` : ""}
                 </option>
               ))}
             </select>
@@ -176,11 +167,11 @@ export function BookingForm({
           <FormField label="Estimated total (COP)">
             <div className="flex items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-semibold text-[#211f1a] text-sm shadow-black/5 shadow-inner">
               <span>
-                {estimatedAmount > 0 ? formatCurrencyCOP(estimatedAmount) : "Add service details"}
+                {estimatedAmount > 0 ? formatCOP(estimatedAmount) : "Add service details"}
               </span>
               {selectedRate ? (
                 <span className="font-medium text-[#7a6d62] text-xs">
-                  Rate {formatCurrencyCOP(selectedRate)} · {durationHours}h
+                  Rate {formatCOP(selectedRate)} · {durationHours}h
                 </span>
               ) : null}
             </div>

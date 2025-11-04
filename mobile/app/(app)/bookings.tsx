@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useRouter } from "expo-router";
 
 import { fetchBookings, summarizeStatuses } from "@/features/bookings/api";
 import { BookingCard } from "@/features/bookings/components/BookingCard";
@@ -10,6 +11,7 @@ import type { Booking, BookingStatusSummary } from "@/features/bookings/types";
 const EMPTY_BOOKINGS: Booking[] = [];
 
 export default function BookingsScreen() {
+  const router = useRouter();
   const { data, error, isLoading, isRefetching, refetch } = useQuery<Booking[], Error>({
     queryKey: ["bookings", { limit: 30 }],
     queryFn: () => fetchBookings(30),
@@ -20,7 +22,13 @@ export default function BookingsScreen() {
   const summaries = useMemo<BookingStatusSummary[]>(() => summarizeStatuses(bookings), [bookings]);
   const errorMessage = error ? "Unable to load bookings. Pull to refresh to retry." : null;
 
-  const renderItem = ({ item }: { item: Booking }) => <BookingCard booking={item} />;
+  const handleBookingPress = (bookingId: string) => {
+    router.push(`/booking/${bookingId}`);
+  };
+
+  const renderItem = ({ item }: { item: Booking }) => (
+    <BookingCard booking={item} onPress={handleBookingPress} />
+  );
   const keyExtractor = (item: Booking) => item.id;
 
   const renderHeader = () => (

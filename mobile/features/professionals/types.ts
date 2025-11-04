@@ -32,6 +32,18 @@ export type ProfessionalProfile = {
   distanceKm: number | null;
 };
 
+export type ProfessionalSummary = {
+  profileId: string;
+  fullName: string | null;
+  profilePictureUrl: string | null;
+  bio: string | null;
+  services: ProfessionalService[];
+  rating: number | null;
+  reviewCount: number;
+  totalCompletedBookings: number;
+  onTimeRate: number | null;
+};
+
 export type ProfessionalRecord = {
   profile_id: string;
   full_name: string | null;

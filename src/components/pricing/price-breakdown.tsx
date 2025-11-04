@@ -1,4 +1,5 @@
 import { HelpCircle } from "lucide-react";
+import { formatCOP } from "@/lib/format";
 
 type PriceBreakdownProps = {
   baseAmount: number;
@@ -22,13 +23,6 @@ export function PriceBreakdown({
   showPlatformFee = false,
   className = "",
 }: PriceBreakdownProps) {
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: "COP",
-      maximumFractionDigits: 0,
-    }).format(value);
-
   // Platform fee configuration (15% - can be made configurable)
   const PLATFORM_FEE_RATE = 0.15;
   const platformFee = Math.round(baseAmount * PLATFORM_FEE_RATE);
@@ -47,17 +41,17 @@ export function PriceBreakdown({
           <div className="flex flex-col">
             <span className="text-[#5a5549]">Service</span>
             <span className="text-[#9a8f82] text-xs">
-              {formatCurrency(hourlyRate)}/hr × {hours} {hours === 1 ? "hour" : "hours"}
+              {formatCOP(hourlyRate)}/hr × {hours} {hours === 1 ? "hour" : "hours"}
             </span>
           </div>
-          <span className="font-medium text-[#211f1a]">{formatCurrency(baseAmount)}</span>
+          <span className="font-medium text-[#211f1a]">{formatCOP(baseAmount)}</span>
         </div>
 
         {/* Add-ons */}
         {addonsTotal > 0 && (
           <div className="flex justify-between text-sm">
             <span className="text-[#5a5549]">Add-ons</span>
-            <span className="font-medium text-[#211f1a]">{formatCurrency(addonsTotal)}</span>
+            <span className="font-medium text-[#211f1a]">{formatCOP(addonsTotal)}</span>
           </div>
         )}
 
@@ -65,7 +59,7 @@ export function PriceBreakdown({
         {showPlatformFee && (
           <div className="flex justify-between border-[#e8e4db] border-t pt-2 text-sm">
             <span className="text-[#5a5549]">Subtotal</span>
-            <span className="font-medium text-[#211f1a]">{formatCurrency(subtotal)}</span>
+            <span className="font-medium text-[#211f1a]">{formatCOP(subtotal)}</span>
           </div>
         )}
 
@@ -85,14 +79,14 @@ export function PriceBreakdown({
                 </div>
               </div>
             </div>
-            <span className="font-medium text-[#211f1a]">{formatCurrency(platformFee)}</span>
+            <span className="font-medium text-[#211f1a]">{formatCOP(platformFee)}</span>
           </div>
         )}
 
         {/* Total */}
         <div className="flex justify-between border-[#e8e4db] border-t pt-3 font-semibold text-base">
           <span className="text-[#211f1a]">Total</span>
-          <span className="text-[#8B7355]">{formatCurrency(totalWithFees)}</span>
+          <span className="text-[#8B7355]">{formatCOP(totalWithFees)}</span>
         </div>
       </div>
 
@@ -124,29 +118,22 @@ export function CompactPrice({
   showBreakdown = false,
   className = "",
 }: CompactPriceProps) {
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: "COP",
-      maximumFractionDigits: 0,
-    }).format(value);
-
   const PLATFORM_FEE_RATE = 0.15;
   const totalWithFee = hourlyRate * (1 + PLATFORM_FEE_RATE);
 
   if (!showBreakdown) {
     return (
       <div className={`font-semibold text-[#211f1a] ${className}`}>
-        {formatCurrency(hourlyRate)}/hr
+        {formatCOP(hourlyRate)}/hr
       </div>
     );
   }
 
   return (
     <div className={`${className}`}>
-      <div className="font-semibold text-[#211f1a]">{formatCurrency(hourlyRate)}/hr</div>
+      <div className="font-semibold text-[#211f1a]">{formatCOP(hourlyRate)}/hr</div>
       <div className="text-[#7a6d62] text-xs">
-        {formatCurrency(totalWithFee)}/hr total with fees
+        {formatCOP(totalWithFee)}/hr total with fees
       </div>
     </div>
   );

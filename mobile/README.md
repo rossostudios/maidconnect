@@ -29,12 +29,28 @@ This Expo app extends the MaidConnect platform to iOS and Android. It reuses the
 
 ## Features Implemented
 
+### ✅ Phase 1 Complete
 - **Authentication** — Email/password login backed by Supabase auth with secure session storage on device.
-- **Professionals** — Mobile-optimized list powered by the `list_active_professionals` RPC with verification, availability, and performance metrics.
-- **Bookings** — Agenda view with status summaries, scheduling metadata, and payment indicators for upcoming jobs.
+- **Professional Discovery** —
+  - Mobile-optimized list powered by the `list_active_professionals` RPC
+  - **Full professional detail view** with services, rates, availability, and stats
+  - Tap-to-view functionality from list
+- **Booking Management** —
+  - **Complete 5-step booking wizard** (service, date/time, duration, address, review)
+  - **Booking detail screen** with full information display
+  - **Booking actions**: Cancel, reschedule, extend time
+  - **Professional actions**: Accept, decline, check-in, check-out
+  - Real-time mutations with optimistic updates
 - **Account** — View profile details and sign out; surfaces onboarding status to ensure operators stay compliant.
 - **Push-ready** — Expo Notifications scaffolding handles permission prompts, token registration, and simulator fallbacks.
 - **Offline-first data** — React Query caches Supabase responses to AsyncStorage with automatic refetch when connectivity returns.
+
+### 🚧 Coming in Phase 2
+- Messaging system with real-time chat
+- Payment integration with Stripe
+- Address management (CRUD)
+- Favorites system
+- Reviews and ratings
 
 The file-based router in `app/` mirrors the product areas on the web dashboard:
 
@@ -98,6 +114,41 @@ The file-based router in `app/` mirrors the product areas on the web dashboard:
 
 ## Next Steps
 
-- Mirror more desktop flows (booking creation, dispute management, payout review).
-- Sync Expo push tokens to Supabase and wire message triggers.
-- Add end-to-end tests around offline-first flows and background refresh.
+### Phase 2 Priorities
+1. **Messaging System** — Real-time chat with professionals, auto-translation
+2. **Payment Integration** — Stripe SDK, payment methods, authorization flow
+3. **Address Management** — Save, edit, delete addresses
+4. **Favorites** — Save and manage favorite professionals
+5. **Reviews & Ratings** — Leave reviews after service completion
+
+### Phase 3 (Advanced)
+- Professional onboarding flow
+- Portfolio management
+- Availability calendar management
+- Earnings dashboard
+- Push notifications
+- Referral program
+- AI assistant integration
+
+## Testing
+
+To test Phase 1 features:
+
+1. **Start the dev server:**
+   ```bash
+   npm start
+   ```
+
+2. **Test Professional Flow:**
+   - Navigate to Professionals tab
+   - Tap any professional card → View detailed profile
+   - Tap "Book Now" → Complete 5-step booking wizard
+   - Review booking summary and submit
+
+3. **Test Booking Management:**
+   - Navigate to Bookings tab
+   - Tap any booking → View detailed information
+   - Tap the 3-dot menu to access actions
+   - Try cancelling, rescheduling, or extending (based on status)
+
+See [PHASE1_IMPLEMENTATION_SUMMARY.md](./PHASE1_IMPLEMENTATION_SUMMARY.md) for complete documentation.

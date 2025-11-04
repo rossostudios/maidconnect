@@ -9,6 +9,7 @@ import { useSwipeGesture } from "@/hooks/use-swipe-gesture";
 import { isFeatureEnabled } from "@/lib/feature-flags";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
 import { type RecurringSchedule, RecurringScheduleSelector } from "./recurring-schedule-selector";
+import { formatCOP } from "@/lib/format";
 
 type BookingWizardProps = {
   professionalId: string;
@@ -19,17 +20,6 @@ type BookingWizardProps = {
 };
 
 type WizardStep = 1 | 2 | 3 | 4;
-
-function formatCurrencyCOP(value: number | null | undefined) {
-  if (!value || Number.isNaN(value)) {
-    return null;
-  }
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
 
 export function BookingWizard({
   professionalId: _professionalId,
@@ -219,9 +209,9 @@ export function BookingWizard({
               </div>
               <div className="text-right">
                 <p className="text-[#7d7566] text-xs">
-                  {formatCurrencyCOP(selectedRate)} × {durationHours}h
+                  {formatCOP(selectedRate)} × {durationHours}h
                 </p>
-                <p className="text-[#7d7566] text-xs">+ Tax {formatCurrencyCOP(taxAmount)}</p>
+                <p className="text-[#7d7566] text-xs">+ Tax {formatCOP(taxAmount)}</p>
               </div>
             </div>
           </div>
@@ -271,7 +261,7 @@ function Step1ServiceSelection({
               <h3 className="font-semibold text-[#211f1a] text-lg">{service.name}</h3>
               {rate && (
                 <p className="mt-2 font-semibold text-[#8B7355] text-xl">
-                  {formatCurrencyCOP(rate)}/hour
+                  {formatCOP(rate)}/hour
                 </p>
               )}
               {service.description && (
@@ -594,20 +584,20 @@ function Step4Review({
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-[#7d7566]">
-                Service ({formatCurrencyCOP(selectedRate)}/hr × {durationHours}h)
+                Service ({formatCOP(selectedRate)}/hr × {durationHours}h)
               </span>
               <span className="font-semibold text-[#211f1a]">
-                {formatCurrencyCOP(estimatedAmount)}
+                {formatCOP(estimatedAmount)}
               </span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-[#7d7566]">Tax (19%)</span>
-              <span className="font-semibold text-[#211f1a]">{formatCurrencyCOP(taxAmount)}</span>
+              <span className="font-semibold text-[#211f1a]">{formatCOP(taxAmount)}</span>
             </div>
             <div className="flex justify-between border-[#ebe5d8] border-t pt-2">
               <span className="font-bold text-[#211f1a]">Total</span>
               <span className="font-bold text-2xl text-[#8B7355]">
-                {formatCurrencyCOP(totalAmount)}
+                {formatCOP(totalAmount)}
               </span>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import { memo, useMemo } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { IconSymbol } from "@/components/ui/icon-symbol";
 
@@ -7,6 +7,7 @@ import type { Booking } from "../types";
 
 type BookingCardProps = {
   booking: Booking;
+  onPress?: (bookingId: string) => void;
 };
 
 const STATUS_COPY: Record<string, string> = {
@@ -73,8 +74,12 @@ function formatDateRange(startsAt: Date | null, endsAt: Date | null): string {
   return `${start} - ${endFormatter.format(endsAt)}`;
 }
 
-const BookingCardComponent = ({ booking }: BookingCardProps) => {
+const BookingCardComponent = ({ booking, onPress }: BookingCardProps) => {
   const totalAmountLabel = formatCurrency(booking.totalAmount, booking.currency);
+
+  const handlePress = () => {
+    onPress?.(booking.id);
+  };
 
   const statusStyles = useMemo(() => {
     const color = STATUS_COLOR[booking.status] ?? "#3B82F6";
@@ -86,7 +91,7 @@ const BookingCardComponent = ({ booking }: BookingCardProps) => {
   }, [booking.status]);
 
   return (
-    <View style={styles.container}>
+    <Pressable onPress={handlePress} style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>#{booking.id.slice(0, 8).toUpperCase()}</Text>
         <View
@@ -145,7 +150,7 @@ const BookingCardComponent = ({ booking }: BookingCardProps) => {
           </View>
         ) : null}
       </View>
-    </View>
+    </Pressable>
   );
 };
 

@@ -9,6 +9,7 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Link } from "@/i18n/routing";
 import { type DirectoryProfessional } from "./professionals-directory";
 import { VerificationBadge } from "./verification-badge";
+import { formatCOP } from "@/lib/format";
 
 /**
  * Map View Component for Professionals Directory
@@ -62,17 +63,6 @@ function createCustomIcon(price: number | null, verified: boolean) {
 }
 
 // Moved outside component - no dependencies on component state (React 19 best practice)
-function formatCurrencyCOP(value: number | null | undefined) {
-  if (!value || Number.isNaN(value)) {
-    return null;
-  }
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(value / 100);
-}
 
 // React.memo optimization for heavy map component with Leaflet library
 const MapViewComponent = memo(
@@ -214,7 +204,7 @@ const MapViewComponent = memo(
                         {/* Price */}
                         {professional.hourlyRateCop ? (
                           <p className="font-semibold text-[#8B7355] text-sm">
-                            {formatCurrencyCOP(professional.hourlyRateCop)}/hr
+                            {formatCOP(professional.hourlyRateCop)}/hr
                           </p>
                         ) : null}
 

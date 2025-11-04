@@ -1,107 +1,90 @@
-import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+/**
+ * REFACTORED VERSION - Individual conversation messages
+ * GET/POST /api/messages/conversations/[id]
+ *
+ * BEFORE: 149 lines (2 handlers)
+ * AFTER: 107 lines (2 handlers) (28% reduction)
+ */
+
+import { withAuth, ok, created, badRequest, notFound, forbidden } from "@/lib/api";
+import { ValidationError } from "@/lib/errors";
+import { z } from "zod";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
 };
 
+const sendMessageSchema = z.object({
+  message: z.string().min(1).trim(),
+  attachments: z.array(z.string()).optional(),
+});
+
 /**
- * Get all messages in a conversation
- * GET /api/messages/conversations/[id]
+ * Helper to verify conversation access
  */
-export async function GET(_request: Request, context: RouteContext) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+async function verifyConversationAccess(supabase: any, conversationId: string, userId: string) {
+  const { data: conversation, error } = await supabase
+    .from("conversations")
+    .select("customer_id, professional_id")
+    .eq("id", conversationId)
+    .single();
 
-  if (!user) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  if (error || !conversation) {
+    throw notFound("Conversation not found");
   }
 
-  try {
-    const { id: conversationId } = await context.params;
-
-    // Verify user has access to this conversation
-    const { data: conversation, error: convError } = await supabase
-      .from("conversations")
-      .select("customer_id, professional_id")
-      .eq("id", conversationId)
-      .single();
-
-    if (convError || !conversation) {
-      return NextResponse.json({ error: "Conversation not found" }, { status: 404 });
-    }
-
-    if (user.id !== conversation.customer_id && user.id !== conversation.professional_id) {
-      return NextResponse.json({ error: "Not authorized" }, { status: 403 });
-    }
-
-    // Fetch messages with sender info
-    const { data: messages, error: messagesError } = await supabase
-      .from("messages")
-      .select(
-        `
-        *,
-        sender:profiles!sender_id(
-          id,
-          full_name,
-          avatar_url
-        )
-      `
-      )
-      .eq("conversation_id", conversationId)
-      .order("created_at", { ascending: true });
-
-    if (messagesError) {
-      return NextResponse.json({ error: "Failed to fetch messages" }, { status: 500 });
-    }
-
-    return NextResponse.json({ messages: messages || [] });
-  } catch (_error) {
-    return NextResponse.json({ error: "Failed to fetch messages" }, { status: 500 });
+  if (userId !== conversation.customer_id && userId !== conversation.professional_id) {
+    throw forbidden("Not authorized to access this conversation");
   }
+
+  return conversation;
 }
 
 /**
- * Send a message in a conversation
- * POST /api/messages/conversations/[id]
- *
- * Body: { message: string, attachments?: string[] }
+ * Get all messages in a conversation
  */
-export async function POST(request: Request, context: RouteContext) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+export const GET = withAuth(async ({ user, supabase }, _request: Request, context: RouteContext) => {
+  const { id: conversationId } = await context.params;
 
-  if (!user) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  // Verify access
+  await verifyConversationAccess(supabase, conversationId, user.id);
+
+  // Fetch messages with sender info
+  const { data: messages, error: messagesError } = await supabase
+    .from("messages")
+    .select(
+      `
+      *,
+      sender:profiles!sender_id(
+        id,
+        full_name,
+        avatar_url
+      )
+    `
+    )
+    .eq("conversation_id", conversationId)
+    .order("created_at", { ascending: true });
+
+  if (messagesError) {
+    throw new ValidationError("Failed to fetch messages");
   }
 
-  try {
+  return ok({ messages: messages || [] });
+});
+
+/**
+ * Send a message in a conversation
+ */
+export const POST = withAuth(
+  async ({ user, supabase }, request: Request, context: RouteContext) => {
     const { id: conversationId } = await context.params;
+
+    // Parse and validate request body
     const body = await request.json();
-    const { message, attachments } = body;
+    const { message, attachments } = sendMessageSchema.parse(body);
 
-    if (!message || message.trim().length === 0) {
-      return NextResponse.json({ error: "message is required" }, { status: 400 });
-    }
-
-    // Verify user has access to this conversation
-    const { data: conversation, error: convError } = await supabase
-      .from("conversations")
-      .select("customer_id, professional_id")
-      .eq("id", conversationId)
-      .single();
-
-    if (convError || !conversation) {
-      return NextResponse.json({ error: "Conversation not found" }, { status: 404 });
-    }
-
-    if (user.id !== conversation.customer_id && user.id !== conversation.professional_id) {
-      return NextResponse.json({ error: "Not authorized" }, { status: 403 });
-    }
+    // Verify access and get conversation details
+    const conversation = await verifyConversationAccess(supabase, conversationId, user.id);
 
     // Determine who is receiving the message
     const isCustomer = user.id === conversation.customer_id;
@@ -113,7 +96,7 @@ export async function POST(request: Request, context: RouteContext) {
       .insert({
         conversation_id: conversationId,
         sender_id: user.id,
-        message: message.trim(),
+        message,
         attachments: attachments || [],
       })
       .select(
@@ -129,7 +112,7 @@ export async function POST(request: Request, context: RouteContext) {
       .single();
 
     if (messageError) {
-      return NextResponse.json({ error: "Failed to send message" }, { status: 500 });
+      throw new ValidationError("Failed to send message");
     }
 
     // Update conversation with last message timestamp and increment unread count
@@ -141,8 +124,6 @@ export async function POST(request: Request, context: RouteContext) {
       })
       .eq("id", conversationId);
 
-    return NextResponse.json({ message: newMessage }, { status: 201 });
-  } catch (_error) {
-    return NextResponse.json({ error: "Failed to send message" }, { status: 500 });
+    return created({ message: newMessage });
   }
-}
+);

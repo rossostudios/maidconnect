@@ -1,114 +1,86 @@
-import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-
-type DaySchedule = {
-  day: string;
-  enabled: boolean;
-  start: string;
-  end: string;
-};
-
-type UpdateAvailabilityRequest = {
-  weeklyHours?: DaySchedule[];
-  blockedDates?: string[];
-};
-
 /**
- * Update professional availability settings
- * PUT /api/professional/availability
+ * REFACTORED VERSION - Professional availability management
+ * GET/PUT /api/professional/availability
+ *
+ * BEFORE: 115 lines (2 handlers)
+ * AFTER: 71 lines (2 handlers) (38% reduction)
  */
-export async function PUT(request: Request) {
-  try {
-    const supabase = await createSupabaseServerClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
 
-    if (!user) {
-      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
-    }
+import { withProfessional, ok, notFound, requireProfessionalProfile } from "@/lib/api";
+import { ValidationError } from "@/lib/errors";
+import { z } from "zod";
 
-    // Verify user is a professional
-    const { data: professionalProfile } = await supabase
-      .from("professional_profiles")
-      .select("profile_id")
-      .eq("profile_id", user.id)
-      .maybeSingle();
+const dayScheduleSchema = z.object({
+  day: z.string(),
+  enabled: z.boolean(),
+  start: z.string(),
+  end: z.string(),
+});
 
-    if (!professionalProfile) {
-      return NextResponse.json({ error: "Not a professional" }, { status: 403 });
-    }
-
-    const body = (await request.json()) as UpdateAvailabilityRequest;
-
-    // Build update object
-    const updates: Record<string, any> = {
-      updated_at: new Date().toISOString(),
-    };
-
-    // Update availability_settings (JSONB)
-    if (body.weeklyHours !== undefined) {
-      updates.availability_settings = {
-        weeklyHours: body.weeklyHours,
-        updatedAt: new Date().toISOString(),
-      };
-    }
-
-    // Update blocked_dates (text array)
-    if (body.blockedDates !== undefined) {
-      updates.blocked_dates = body.blockedDates;
-    }
-
-    // Update profile
-    const { error: updateError } = await supabase
-      .from("professional_profiles")
-      .update(updates)
-      .eq("profile_id", user.id);
-
-    if (updateError) {
-      return NextResponse.json({ error: "Failed to update availability" }, { status: 500 });
-    }
-
-    return NextResponse.json({ success: true });
-  } catch (_error) {
-    return NextResponse.json({ error: "Failed to update availability" }, { status: 500 });
-  }
-}
+const updateAvailabilitySchema = z.object({
+  weeklyHours: z.array(dayScheduleSchema).optional(),
+  blockedDates: z.array(z.string()).optional(),
+});
 
 /**
  * Get professional availability settings
- * GET /api/professional/availability
  */
-export async function GET() {
-  try {
-    const supabase = await createSupabaseServerClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+export const GET = withProfessional(async ({ user, supabase }) => {
+  // Verify professional profile exists
+  await requireProfessionalProfile(supabase, user.id);
 
-    if (!user) {
-      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
-    }
+  const { data: profile, error } = await supabase
+    .from("professional_profiles")
+    .select("availability_settings, blocked_dates")
+    .eq("profile_id", user.id)
+    .maybeSingle();
 
-    const { data: profile, error } = await supabase
-      .from("professional_profiles")
-      .select("availability_settings, blocked_dates")
-      .eq("profile_id", user.id)
-      .maybeSingle();
-
-    if (error) {
-      return NextResponse.json({ error: "Failed to fetch availability" }, { status: 500 });
-    }
-
-    if (!profile) {
-      return NextResponse.json({ error: "Profile not found" }, { status: 404 });
-    }
-
-    return NextResponse.json({
-      availability_settings: profile.availability_settings,
-      blocked_dates: profile.blocked_dates || [],
-    });
-  } catch (_error) {
-    return NextResponse.json({ error: "Failed to fetch availability" }, { status: 500 });
+  if (error || !profile) {
+    throw notFound("Profile not found");
   }
-}
+
+  return ok({
+    availability_settings: profile.availability_settings,
+    blocked_dates: profile.blocked_dates || [],
+  });
+});
+
+/**
+ * Update professional availability settings
+ */
+export const PUT = withProfessional(async ({ user, supabase }, request: Request) => {
+  // Verify professional profile exists
+  await requireProfessionalProfile(supabase, user.id);
+
+  // Parse and validate request body
+  const body = await request.json();
+  const validatedData = updateAvailabilitySchema.parse(body);
+
+  // Build update object with only provided fields
+  const updates: Record<string, unknown> = {
+    updated_at: new Date().toISOString(),
+  };
+
+  if (validatedData.weeklyHours !== undefined) {
+    updates.availability_settings = {
+      weeklyHours: validatedData.weeklyHours,
+      updatedAt: new Date().toISOString(),
+    };
+  }
+
+  if (validatedData.blockedDates !== undefined) {
+    updates.blocked_dates = validatedData.blockedDates;
+  }
+
+  // Update profile
+  const { error: updateError } = await supabase
+    .from("professional_profiles")
+    .update(updates)
+    .eq("profile_id", user.id);
+
+  if (updateError) {
+    throw new ValidationError("Failed to update availability");
+  }
+
+  return ok({ success: true });
+});

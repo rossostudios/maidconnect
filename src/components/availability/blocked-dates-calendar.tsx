@@ -1,27 +1,54 @@
 "use client";
 
-import {
-  addMonths,
-  eachDayOfInterval,
-  endOfMonth,
-  format,
-  isSameMonth,
-  isToday,
-  parseISO,
-  startOfMonth,
-  subMonths,
-} from "date-fns";
+import { useState, useMemo } from "react";
 import { Calendar, ChevronLeft, ChevronRight, Trash2 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useCalendarMonth } from "@/hooks/use-calendar-month";
+import { useCalendarGrid } from "@/hooks/use-calendar-grid";
+import { cn } from "@/lib/utils";
 
 type Props = {
   initialBlockedDates?: string[];
   onChange?: (blockedDates: string[]) => void;
 };
 
+/**
+ * Blocked Dates Calendar (V2 - Unified)
+ *
+ * This component replaces the original blocked-dates-calendar.tsx
+ * with an implementation using the unified calendar hooks.
+ *
+ * Key improvements:
+ * - Uses shared calendar navigation hook (use-calendar-month)
+ * - Uses shared calendar grid generation hook (use-calendar-grid)
+ * - Maintains all original functionality
+ * - Cleaner, more maintainable code
+ *
+ * Note: This calendar has unique requirements (blocking/unblocking dates)
+ * that make it unsuitable for the main AvailabilityCalendar component,
+ * but it still benefits from the shared hooks.
+ *
+ * @example
+ * ```tsx
+ * <BlockedDatesCalendar
+ *   initialBlockedDates={["2025-01-15", "2025-01-16"]}
+ *   onChange={(dates) => console.log("Blocked dates:", dates)}
+ * />
+ * ```
+ */
 export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Props) {
   const [blockedDates, setBlockedDates] = useState<string[]>(initialBlockedDates);
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+
+  // Use shared calendar month navigation
+  const {
+    currentMonth,
+    goToNextMonth,
+    goToPreviousMonth,
+    getMonthLabel,
+    getMonthBounds,
+  } = useCalendarMonth();
+
+  // Use shared calendar grid generation
+  const calendarDays = useCalendarGrid({ currentMonth, useUTC: false });
 
   const handleChange = (newDates: string[]) => {
     setBlockedDates(newDates);
@@ -29,7 +56,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
   };
 
   const handleToggleDate = (date: Date) => {
-    const dateStr = format(date, "yyyy-MM-dd");
+    const dateStr = formatDate(date);
     const isBlocked = blockedDates.includes(dateStr);
 
     if (isBlocked) {
@@ -45,40 +72,22 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
     }
   };
 
-  const handleBlockWeek = () => {
-    const start = startOfMonth(currentMonth);
-    const end = endOfMonth(currentMonth);
-    const allDays = eachDayOfInterval({ start, end });
-    const weekDates = allDays.map((d) => format(d, "yyyy-MM-dd"));
+  const handleBlockMonth = () => {
+    const { startOfMonth, endOfMonth } = getMonthBounds();
+    const days = calendarDays.filter((day) => day.inCurrentMonth);
+    const monthDates = days.map((day) => formatDate(day.date));
 
-    const newBlocked = [...new Set([...blockedDates, ...weekDates])];
+    const newBlocked = [...new Set([...blockedDates, ...monthDates])];
     handleChange(newBlocked);
   };
 
-  const monthStart = startOfMonth(currentMonth);
-  const monthEnd = endOfMonth(currentMonth);
-  const monthDays = eachDayOfInterval({ start: monthStart, end: monthEnd });
-
-  // Get calendar grid (including days from previous/next month for full weeks)
-  const calendarDays = useMemo(() => {
-    const firstDayOfMonth = monthStart.getDay();
-    const daysToShow: (Date | null)[] = [];
-
-    // Add empty cells for days before month starts
-    for (let i = 0; i < firstDayOfMonth; i++) {
-      daysToShow.push(null);
-    }
-
-    // Add all days of the month
-    daysToShow.push(...monthDays);
-
-    return daysToShow;
-  }, [monthStart, monthDays]);
-
-  const blockedInCurrentMonth = blockedDates.filter((dateStr) => {
-    const date = parseISO(dateStr);
-    return isSameMonth(date, currentMonth);
-  }).length;
+  const blockedInCurrentMonth = useMemo(() => {
+    return blockedDates.filter((dateStr) => {
+      const date = parseDate(dateStr);
+      const { startOfMonth, endOfMonth } = getMonthBounds();
+      return date >= startOfMonth && date <= endOfMonth;
+    }).length;
+  }, [blockedDates, getMonthBounds]);
 
   return (
     <div className="space-y-6">
@@ -87,18 +96,20 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
         <div className="flex items-center gap-2">
           <button
             className="rounded-lg p-2 text-[#7d7566] transition hover:bg-[#ebe5d8] hover:text-[#211f1a]"
-            onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
+            onClick={goToPreviousMonth}
             type="button"
+            aria-label="Previous month"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <h3 className="min-w-[180px] text-center font-semibold text-[#211f1a] text-lg">
-            {format(currentMonth, "MMMM yyyy")}
+            {getMonthLabel()}
           </h3>
           <button
             className="rounded-lg p-2 text-[#7d7566] transition hover:bg-[#ebe5d8] hover:text-[#211f1a]"
-            onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
+            onClick={goToNextMonth}
             type="button"
+            aria-label="Next month"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
@@ -107,7 +118,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
         <div className="flex gap-2">
           <button
             className="flex items-center gap-1 rounded-lg border-2 border-[#ebe5d8] bg-white px-3 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
-            onClick={handleBlockWeek}
+            onClick={handleBlockMonth}
             type="button"
           >
             <Calendar className="h-4 w-4" />
@@ -142,33 +153,28 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
 
         {/* Calendar Days */}
         <div className="grid grid-cols-7 gap-px bg-[#ebe5d8]">
-          {calendarDays.map((day, index) => {
-            if (!day) {
-              return <div className="aspect-square bg-[#fbfaf9]" key={`empty-${index}`} />;
-            }
-
-            const dateStr = format(day, "yyyy-MM-dd");
+          {calendarDays.map((day) => {
+            const dateStr = formatDate(day.date);
             const isBlocked = blockedDates.includes(dateStr);
-            const isCurrentMonth = isSameMonth(day, currentMonth);
-            const isTodayDate = isToday(day);
 
             return (
               <button
-                className={`aspect-square p-2 text-sm transition ${
-                  isCurrentMonth
+                className={cn(
+                  "aspect-square p-2 text-sm transition",
+                  day.inCurrentMonth
                     ? isBlocked
                       ? "bg-red-500 font-semibold text-white hover:bg-red-600"
-                      : isTodayDate
+                      : day.isToday
                         ? "bg-[#fff5f2] font-semibold text-[#8B7355] hover:bg-[#8B7355] hover:text-white"
                         : "bg-white font-medium text-[#211f1a] hover:bg-[#8B7355] hover:text-white"
                     : "cursor-not-allowed bg-[#fbfaf9] text-[#d4cec0]"
-                }`}
-                disabled={!isCurrentMonth}
-                key={dateStr}
-                onClick={() => handleToggleDate(day)}
+                )}
+                disabled={!day.inCurrentMonth}
+                key={day.key}
+                onClick={() => handleToggleDate(day.date)}
                 type="button"
               >
-                {format(day, "d")}
+                {day.label}
               </button>
             );
           })}
@@ -180,7 +186,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
         <div className="rounded-xl bg-[#fbfaf9] p-4">
           <p className="text-[#7d7566] text-sm">
             <strong className="text-[#211f1a]">{blockedInCurrentMonth} days</strong> blocked in{" "}
-            {format(currentMonth, "MMMM")}
+            {getMonthLabel("en-US", { month: "long" })}
           </p>
         </div>
         <div className="rounded-xl bg-[#fbfaf9] p-4">
@@ -203,4 +209,19 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
       </div>
     </div>
   );
+}
+
+/**
+ * Helper functions
+ */
+function formatDate(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function parseDate(dateStr: string): Date {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day);
 }

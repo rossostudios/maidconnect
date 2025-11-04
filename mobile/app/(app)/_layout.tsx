@@ -34,8 +34,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Professionals",
-          tabBarIcon: ({ color }) => <IconSymbol color={color} name="person.2.fill" size={26} />,
+          title: "Home",
+          tabBarIcon: ({ color }) => <IconSymbol color={color} name="house.fill" size={26} />,
         }}
       />
       <Tabs.Screen
@@ -46,12 +46,55 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="messages"
+        options={{
+          title: "Messages",
+          tabBarIcon: ({ color }) => <IconSymbol color={color} name="message.fill" size={26} />,
+        }}
+      />
+      <Tabs.Screen
         name="account"
         options={{
           title: "Account",
           tabBarIcon: ({ color }) => (
             <IconSymbol color={color} name="person.crop.circle" size={26} />
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="professionals"
+        options={{
+          href: null, // Hide from tabs
+        }}
+      />
+      <Tabs.Screen
+        name="addresses"
+        options={{
+          href: null, // Hide from tabs
+        }}
+      />
+      <Tabs.Screen
+        name="favorites"
+        options={{
+          href: null, // Hide from tabs
+        }}
+      />
+      <Tabs.Screen
+        name="payment-methods"
+        options={{
+          href: null, // Hide from tabs
+        }}
+      />
+      <Tabs.Screen
+        name="add-payment-method"
+        options={{
+          href: null, // Hide from tabs
+        }}
+      />
+      <Tabs.Screen
+        name="edit-profile"
+        options={{
+          href: null, // Hide from tabs
         }}
       />
     </Tabs>

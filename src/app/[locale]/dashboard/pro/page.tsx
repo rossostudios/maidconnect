@@ -77,7 +77,7 @@ function hasReachedStatus(currentStatus: string | null, targetStatus: string) {
   return currentIndex >= targetIndex;
 }
 
-function formatCurrencyCOP(value?: number | null) {
+function formatCOPWithFallback(value?: number | null) {
   if (!value || Number.isNaN(value)) {
     return "—";
   }
@@ -327,7 +327,7 @@ export default async function ProfessionalDashboardPage({
               />
               <MetricCard
                 label={t("metrics.earningsThisWeek")}
-                value={formatCurrencyCOP(weeklyEarnings)}
+                value={formatCOPWithFallback(weeklyEarnings)}
               />
             </dl>
           </Suspense>

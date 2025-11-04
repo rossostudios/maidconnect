@@ -31,3 +31,29 @@ export async function fetchProfessionals({
 
   return typeof limit === "number" ? mapped.slice(0, limit) : mapped;
 }
+
+export async function fetchProfessionalDetails(profileId: string): Promise<ProfessionalProfile> {
+  const { data, error } = await supabase.rpc("list_active_professionals", {
+    p_customer_lat: null,
+    p_customer_lon: null,
+  });
+
+  if (error) {
+    throw error;
+  }
+
+  const records = Array.isArray(data) ? (data as ProfessionalRecord[]) : [];
+  const professional = records.find((record) => record.profile_id === profileId);
+
+  if (!professional) {
+    throw new Error("Professional not found");
+  }
+
+  const mapped = mapProfessionalRecord(professional);
+
+  if (!mapped) {
+    throw new Error("Failed to map professional data");
+  }
+
+  return mapped;
+}

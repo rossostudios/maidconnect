@@ -5,13 +5,15 @@
  * Payouts are processed twice weekly (per operations manual)
  */
 
+import { formatCurrency, type Currency } from "@/lib/format";
+
 // Platform commission rate
 export const COMMISSION_RATE = 0.18; // 18%
 
 export type BookingForPayout = {
   id: string;
   amount_captured: number;
-  currency: string;
+  currency: Currency;
   completed_at?: string | null;
   checked_out_at?: string | null;
 };
@@ -20,7 +22,7 @@ export type PayoutCalculation = {
   grossAmount: number; // Total from bookings before commission
   commissionAmount: number; // 18% platform fee
   netAmount: number; // Amount paid to professional
-  currency: string;
+  currency: Currency;
   bookingIds: string[];
   bookingCount: number;
 };
@@ -73,13 +75,14 @@ export function calculatePayoutFromBookings(bookings: BookingForPayout[]): Payou
 
 /**
  * Format amount in currency (COP by default)
+ * @deprecated Use formatCurrency from @/lib/format instead
  */
-export function formatPayoutAmount(amountInCents: number, currency = "COP"): string {
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
+export function formatPayoutAmount(amountInCents: number, currency: Currency = "COP"): string {
+  return formatCurrency(amountInCents / 100, {
+    locale: "es-CO",
     currency,
-    maximumFractionDigits: 0,
-  }).format(amountInCents / 100);
+    maximumFractionDigits: 0
+  });
 }
 
 /**

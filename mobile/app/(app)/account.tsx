@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { router } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   ActivityIndicator,
@@ -11,6 +12,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
 import {
   fetchNotificationPreferences,
   type NotificationPreferences,
@@ -277,10 +279,70 @@ export default function AccountScreen() {
         </View>
 
         <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Profile</Text>
+          <View style={styles.card}>
+            <Pressable
+              style={styles.menuItem}
+              onPress={() => router.push("/(app)/edit-profile")}
+            >
+              <View style={styles.menuItemLeft}>
+                <View style={styles.menuIconContainer}>
+                  <Ionicons name="person-outline" size={20} color="#2563EB" />
+                </View>
+                <Text style={styles.menuItemLabel}>Edit Profile</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+            </Pressable>
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Quick Links</Text>
+          <View style={styles.card}>
+            <Pressable
+              style={styles.menuItem}
+              onPress={() => router.push("/(app)/payment-methods")}
+            >
+              <View style={styles.menuItemLeft}>
+                <View style={styles.menuIconContainer}>
+                  <Ionicons name="card-outline" size={20} color="#2563EB" />
+                </View>
+                <Text style={styles.menuItemLabel}>Payment Methods</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+            </Pressable>
+
+            <View style={styles.menuDivider} />
+
+            <Pressable style={styles.menuItem} onPress={() => router.push("/(app)/addresses")}>
+              <View style={styles.menuItemLeft}>
+                <View style={styles.menuIconContainer}>
+                  <Ionicons name="location-outline" size={20} color="#2563EB" />
+                </View>
+                <Text style={styles.menuItemLabel}>Saved Addresses</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+            </Pressable>
+
+            <View style={styles.menuDivider} />
+
+            <Pressable style={styles.menuItem} onPress={() => router.push("/(app)/favorites")}>
+              <View style={styles.menuItemLeft}>
+                <View style={styles.menuIconContainer}>
+                  <Ionicons name="heart-outline" size={20} color="#2563EB" />
+                </View>
+                <Text style={styles.menuItemLabel}>My Favorites</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+            </Pressable>
+          </View>
+        </View>
+
+        <View style={styles.section}>
           <Text style={styles.sectionTitle}>Contact</Text>
           <View style={styles.card}>
             <Text style={styles.label}>Phone</Text>
-            <Text style={styles.value}>{profile?.phone ?? "Add from dashboard"}</Text>
+            <Text style={styles.value}>{profile?.phone ?? "Not set"}</Text>
 
             <Text style={styles.label}>Location</Text>
             <Text style={styles.value}>
@@ -362,6 +424,45 @@ export default function AccountScreen() {
           </View>
         </View>
 
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Support</Text>
+          <View style={styles.card}>
+            <Pressable style={styles.menuItem} onPress={() => Alert.alert("Help & Support", "Contact us at support@maidconnect.com")}>
+              <View style={styles.menuItemLeft}>
+                <View style={styles.menuIconContainer}>
+                  <Ionicons name="help-circle-outline" size={20} color="#2563EB" />
+                </View>
+                <Text style={styles.menuItemLabel}>Help & Support</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+            </Pressable>
+
+            <View style={styles.menuDivider} />
+
+            <Pressable style={styles.menuItem} onPress={() => Alert.alert("Privacy Policy", "View our privacy policy at maidconnect.com/privacy")}>
+              <View style={styles.menuItemLeft}>
+                <View style={styles.menuIconContainer}>
+                  <Ionicons name="shield-checkmark-outline" size={20} color="#2563EB" />
+                </View>
+                <Text style={styles.menuItemLabel}>Privacy Policy</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+            </Pressable>
+
+            <View style={styles.menuDivider} />
+
+            <Pressable style={styles.menuItem} onPress={() => Alert.alert("Terms of Service", "View our terms at maidconnect.com/terms")}>
+              <View style={styles.menuItemLeft}>
+                <View style={styles.menuIconContainer}>
+                  <Ionicons name="document-text-outline" size={20} color="#2563EB" />
+                </View>
+                <Text style={styles.menuItemLabel}>Terms of Service</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+            </Pressable>
+          </View>
+        </View>
+
         <Pressable
           disabled={isSigningOut}
           onPress={handleSignOut}
@@ -369,6 +470,8 @@ export default function AccountScreen() {
         >
           <Text style={styles.signOutLabel}>{isSigningOut ? "Signing out…" : "Sign out"}</Text>
         </Pressable>
+
+        <Text style={styles.versionText}>Version 1.0.0</Text>
       </ScrollView>
     </SafeAreaView>
   );
@@ -527,5 +630,40 @@ const styles = StyleSheet.create({
   preferenceLoadingLabel: {
     fontSize: 13,
     color: "#475569",
+  },
+  menuItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 12,
+  },
+  menuItemLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  menuIconContainer: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    backgroundColor: "#EFF6FF",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  menuItemLabel: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#0F172A",
+  },
+  menuDivider: {
+    height: 1,
+    backgroundColor: "#F1F5F9",
+    marginVertical: 4,
+  },
+  versionText: {
+    textAlign: "center",
+    fontSize: 13,
+    color: "#94A3B8",
+    paddingVertical: 20,
   },
 });

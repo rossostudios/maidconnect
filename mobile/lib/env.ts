@@ -1,6 +1,7 @@
 type EnvConfig = {
   supabaseUrl: string;
   supabaseAnonKey: string;
+  apiUrl: string;
 };
 
 const missingValueMessage = (key: string) =>
@@ -9,6 +10,7 @@ const missingValueMessage = (key: string) =>
 export const env: EnvConfig = {
   supabaseUrl: process.env.EXPO_PUBLIC_SUPABASE_URL ?? "",
   supabaseAnonKey: process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY ?? "",
+  apiUrl: process.env.EXPO_PUBLIC_API_URL ?? "",
 };
 
 if (__DEV__) {

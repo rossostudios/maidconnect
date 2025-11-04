@@ -1,7 +1,10 @@
 "use client";
 
-import { Clock, DollarSign, X } from "lucide-react";
+import { Clock, DollarSign } from "lucide-react";
 import { useState } from "react";
+import { FormModal } from "@/components/shared/form-modal";
+import { useApiMutation } from "@/hooks/use-api-mutation";
+import { useModalForm } from "@/hooks/use-modal-form";
 
 type TimeExtensionOption = {
   minutes: number;
@@ -24,6 +27,10 @@ type Props = {
   onSuccess: (minutes: number, formattedAmount: string) => void;
 };
 
+/**
+ * TimeExtensionModal - REFACTORED
+ * Uses new modal primitives and hooks for cleaner code
+ */
 export function TimeExtensionModal({
   isOpen,
   onClose,
@@ -34,10 +41,29 @@ export function TimeExtensionModal({
 }: Props) {
   const [selectedMinutes, setSelectedMinutes] = useState<number | null>(null);
   const [customMinutes, setCustomMinutes] = useState<string>("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  if (!isOpen) return null;
+  // Form state management
+  const form = useModalForm({
+    initialData: {},
+    resetOnClose: true,
+  });
+
+  // API mutation for time extension
+  const extendTime = useApiMutation({
+    url: "/api/bookings/extend-time",
+    method: "POST",
+    onSuccess: (result) => {
+      const minutes = currentMinutes || 0;
+      onSuccess(minutes, result.extension.formatted_amount);
+      onClose();
+      // Reset state
+      setSelectedMinutes(null);
+      setCustomMinutes("");
+    },
+    onError: (error) => {
+      form.setError(error.message || "Failed to extend time");
+    },
+  });
 
   // Calculate cost for selected time
   const calculateCost = (minutes: number): number => Math.round((hourlyRate / 60) * minutes);
@@ -54,45 +80,21 @@ export function TimeExtensionModal({
 
   const handleExtend = async () => {
     if (!currentMinutes || currentMinutes <= 0) {
-      setError("Please select a duration");
+      form.setError("Please select a duration");
       return;
     }
 
     if (currentMinutes > 240) {
-      setError("Cannot extend more than 4 hours at a time");
+      form.setError("Cannot extend more than 4 hours at a time");
       return;
     }
 
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch("/api/bookings/extend-time", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          bookingId,
-          additionalMinutes: currentMinutes,
-        }),
+    await form.handleSubmit(async () => {
+      return await extendTime.mutate({
+        bookingId,
+        additionalMinutes: currentMinutes,
       });
-
-      if (!response.ok) {
-        const body = await response.json().catch(() => ({}));
-        throw new Error(body.error ?? "Failed to extend time");
-      }
-
-      const result = await response.json();
-      onSuccess(currentMinutes, result.extension.formatted_amount);
-      onClose();
-
-      // Reset form
-      setSelectedMinutes(null);
-      setCustomMinutes("");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to extend time");
-    } finally {
-      setLoading(false);
-    }
+    });
   };
 
   const handlePresetClick = (minutes: number) => {
@@ -106,98 +108,12 @@ export function TimeExtensionModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
-        {/* Header */}
-        <div className="mb-6 flex items-start justify-between">
-          <div>
-            <h2 className="font-bold text-[#211f1a] text-xl">Extend Service Time</h2>
-            <p className="mt-1 text-[#7a6d62] text-sm">
-              Need more time? Select additional duration below.
-            </p>
-          </div>
-          <button
-            className="rounded-lg p-2 text-[#7a6d62] transition hover:bg-gray-100"
-            onClick={onClose}
-            type="button"
-          >
-            <X size={20} />
-          </button>
-        </div>
-
-        {/* Preset Options */}
-        <div className="mb-6">
-          <label className="mb-3 block font-medium text-[#211f1a] text-sm">Quick Options</label>
-          <div className="grid grid-cols-2 gap-3">
-            {PRESET_OPTIONS.map((option) => {
-              const isSelected = selectedMinutes === option.minutes;
-              const cost = calculateCost(option.minutes);
-
-              return (
-                <button
-                  className={`rounded-xl border-2 p-4 text-left transition ${
-                    isSelected
-                      ? "border-[#8B7355] bg-[#8B7355]/5"
-                      : "border-[#ebe5d8] hover:border-[#8B7355]/50"
-                  }`}
-                  key={option.minutes}
-                  onClick={() => handlePresetClick(option.minutes)}
-                  type="button"
-                >
-                  <div className="mb-1 flex items-center gap-2">
-                    <Clock className={isSelected ? "text-[#8B7355]" : "text-[#7a6d62]"} size={16} />
-                    <span className="font-semibold text-[#211f1a] text-sm">{option.label}</span>
-                  </div>
-                  <p className="text-[#7a6d62] text-xs">{formatCurrency(cost)}</p>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Custom Duration */}
-        <div className="mb-6">
-          <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="custom">
-            Custom Duration (minutes)
-          </label>
-          <input
-            className="w-full rounded-lg border-2 border-[#ebe5d8] px-4 py-3 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
-            id="custom"
-            max="240"
-            min="1"
-            onChange={(e) => handleCustomChange(e.target.value)}
-            placeholder="Enter custom minutes (max 240)"
-            type="number"
-            value={customMinutes}
-          />
-        </div>
-
-        {/* Cost Preview */}
-        {estimatedCost > 0 && (
-          <div className="mb-6 rounded-xl bg-blue-50 p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <DollarSign className="text-blue-600" size={20} />
-                <span className="font-medium text-blue-900 text-sm">Additional Cost</span>
-              </div>
-              <span className="font-bold text-blue-900 text-lg">
-                {formatCurrency(estimatedCost)}
-              </span>
-            </div>
-            <p className="mt-2 text-blue-700 text-xs">
-              This will be added to your final payment at checkout.
-            </p>
-          </div>
-        )}
-
-        {/* Error Message */}
-        {error && <div className="mb-4 rounded-lg bg-red-50 p-3 text-red-800 text-sm">{error}</div>}
-
-        {/* Actions */}
+    <FormModal
+      customActions={
         <div className="flex gap-3">
           <button
             className="flex-1 rounded-lg border-2 border-[#ebe5d8] px-4 py-3 font-semibold text-[#211f1a] transition hover:border-[#211f1a]"
-            disabled={loading}
+            disabled={form.isSubmitting}
             onClick={onClose}
             type="button"
           >
@@ -205,19 +121,93 @@ export function TimeExtensionModal({
           </button>
           <button
             className="flex-1 rounded-lg bg-[#8B7355] px-4 py-3 font-semibold text-white transition hover:bg-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
-            disabled={loading || !currentMinutes || currentMinutes <= 0}
+            disabled={form.isSubmitting || !currentMinutes || currentMinutes <= 0}
             onClick={handleExtend}
             type="button"
           >
-            {loading ? "Extending..." : "Confirm Extension"}
+            {form.isSubmitting ? "Extending..." : "Confirm Extension"}
           </button>
         </div>
+      }
+      description="Need more time? Select additional duration below."
+      isOpen={isOpen}
+      onClose={onClose}
+      showActions={false}
+      size="md"
+      title="Extend Service Time"
+    >
+      {/* Preset Options */}
+      <div className="mb-6">
+        <label className="mb-3 block font-medium text-sm text-[#211f1a]">Quick Options</label>
+        <div className="grid grid-cols-2 gap-3">
+          {PRESET_OPTIONS.map((option) => {
+            const isSelected = selectedMinutes === option.minutes;
+            const cost = calculateCost(option.minutes);
 
-        {/* Info Note */}
-        <p className="mt-4 text-center text-[#7a6d62] text-xs">
-          The customer will be notified of the time extension and charged accordingly.
-        </p>
+            return (
+              <button
+                className={`rounded-xl border-2 p-4 text-left transition ${
+                  isSelected
+                    ? "border-[#8B7355] bg-[#8B7355]/5"
+                    : "border-[#ebe5d8] hover:border-[#8B7355]/50"
+                }`}
+                key={option.minutes}
+                onClick={() => handlePresetClick(option.minutes)}
+                type="button"
+              >
+                <div className="mb-1 flex items-center gap-2">
+                  <Clock className={isSelected ? "text-[#8B7355]" : "text-[#7a6d62]"} size={16} />
+                  <span className="font-semibold text-sm text-[#211f1a]">{option.label}</span>
+                </div>
+                <p className="text-xs text-[#7a6d62]">{formatCurrency(cost)}</p>
+              </button>
+            );
+          })}
+        </div>
       </div>
-    </div>
+
+      {/* Custom Duration */}
+      <div className="mb-6">
+        <label className="mb-2 block font-medium text-sm text-[#211f1a]" htmlFor="custom">
+          Custom Duration (minutes)
+        </label>
+        <input
+          className="w-full rounded-lg border-2 border-[#ebe5d8] px-4 py-3 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+          id="custom"
+          max="240"
+          min="1"
+          onChange={(e) => handleCustomChange(e.target.value)}
+          placeholder="Enter custom minutes (max 240)"
+          type="number"
+          value={customMinutes}
+        />
+      </div>
+
+      {/* Cost Preview */}
+      {estimatedCost > 0 && (
+        <div className="mb-6 rounded-xl bg-blue-50 p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <DollarSign className="text-blue-600" size={20} />
+              <span className="font-medium text-sm text-blue-900">Additional Cost</span>
+            </div>
+            <span className="font-bold text-lg text-blue-900">{formatCurrency(estimatedCost)}</span>
+          </div>
+          <p className="mt-2 text-xs text-blue-700">
+            This will be added to your final payment at checkout.
+          </p>
+        </div>
+      )}
+
+      {/* Error Message */}
+      {form.error && (
+        <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-800">{form.error}</div>
+      )}
+
+      {/* Info Note */}
+      <p className="text-center text-xs text-[#7a6d62]">
+        The customer will be notified of the time extension and charged accordingly.
+      </p>
+    </FormModal>
   );
 }

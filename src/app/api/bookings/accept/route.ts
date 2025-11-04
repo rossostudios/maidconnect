@@ -1,148 +1,108 @@
-import { NextResponse } from "next/server";
+/**
+ * REFACTORED VERSION - Professional accepts a booking request
+ * POST /api/bookings/accept
+ *
+ * BEFORE: 148 lines
+ * AFTER: 62 lines (58% reduction)
+ */
+
+import { withProfessional, ok, requireProfessionalOwnership } from "@/lib/api";
 import { sendBookingConfirmedEmail } from "@/lib/email/send";
 import { notifyCustomerBookingAccepted } from "@/lib/notifications";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
+import { z } from "zod";
 
-type AcceptBookingRequest = {
-  bookingId: string;
-};
+const acceptBookingSchema = z.object({
+  bookingId: z.string().uuid("Invalid booking ID format"),
+});
 
-/**
- * Professional accepts a booking request
- * POST /api/bookings/accept
- */
-export async function POST(request: Request) {
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+export const POST = withProfessional(async ({ user, supabase }, request: Request) => {
+  // Parse and validate request body
+  const body = await request.json();
+  const { bookingId } = acceptBookingSchema.parse(body);
 
-  if (!user) {
-    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  // Verify professional owns this booking and get full booking data
+  const booking = await requireProfessionalOwnership(supabase, user.id, bookingId);
+
+  // Validate booking status
+  if (booking.status !== "authorized") {
+    throw new InvalidBookingStatusError(booking.status, "accept");
   }
 
-  try {
-    const body = (await request.json()) as AcceptBookingRequest;
-    const { bookingId } = body;
+  // Update booking status to confirmed
+  const { error: updateError } = await supabase
+    .from("bookings")
+    .update({
+      status: "confirmed",
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", bookingId);
 
-    if (!bookingId) {
-      return NextResponse.json({ error: "bookingId is required" }, { status: 400 });
-    }
+  if (updateError) {
+    throw new ValidationError("Failed to accept booking");
+  }
 
-    // Fetch the booking with related data
-    const { data: booking, error: bookingError } = await supabase
-      .from("bookings")
-      .select(`
-        id,
-        professional_id,
-        customer_id,
-        status,
-        scheduled_start,
-        duration_minutes,
-        service_name,
-        amount_authorized,
-        currency,
-        address,
-        special_instructions
-      `)
-      .eq("id", bookingId)
-      .maybeSingle();
-
-    if (bookingError || !booking) {
-      return NextResponse.json({ error: "Booking not found" }, { status: 404 });
-    }
-
-    // Verify this professional owns this booking
-    if (booking.professional_id !== user.id) {
-      return NextResponse.json(
-        { error: "You are not authorized to accept this booking" },
-        { status: 403 }
-      );
-    }
-
-    // Can only accept authorized bookings (payment has been authorized)
-    if (booking.status !== "authorized") {
-      return NextResponse.json(
-        { error: `Cannot accept booking with status: ${booking.status}` },
-        { status: 400 }
-      );
-    }
-
-    // Update booking status to confirmed
-    const { error: updateError } = await supabase
-      .from("bookings")
-      .update({
-        status: "confirmed",
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", bookingId);
-
-    if (updateError) {
-      return NextResponse.json({ error: "Failed to accept booking" }, { status: 500 });
-    }
-
-    // Fetch customer and professional details for email
-    const { data: customerProfile } = await supabase
-      .from("profiles")
-      .select("id")
-      .eq("id", booking.customer_id)
-      .single();
-
-    const { data: professionalProfile } = await supabase
+  // Fetch customer and professional details for notifications
+  const [{ data: professionalProfile }, { data: customerUser }] = await Promise.all([
+    supabase
       .from("professional_profiles")
       .select("full_name")
       .eq("profile_id", booking.professional_id)
-      .single();
+      .single(),
+    supabase.auth.admin.getUserById(booking.customer_id),
+  ]);
 
-    if (customerProfile) {
-      // Get customer email
-      const { data: customerUser } = await supabase.auth.admin.getUserById(booking.customer_id);
+  // Send notifications if customer email exists
+  if (customerUser.user?.email) {
+    const scheduledDate = booking.scheduled_start
+      ? new Date(booking.scheduled_start).toLocaleDateString()
+      : "TBD";
+    const scheduledTime = booking.scheduled_start
+      ? new Date(booking.scheduled_start).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      : "TBD";
+    const duration = booking.duration_minutes ? `${booking.duration_minutes} minutes` : "TBD";
+    const address =
+      booking.address && typeof booking.address === "object" && "formatted" in booking.address
+        ? String(booking.address.formatted)
+        : "Not specified";
+    const amount = booking.amount_authorized
+      ? new Intl.NumberFormat("es-CO", {
+          style: "currency",
+          currency: booking.currency || "COP",
+        }).format(booking.amount_authorized / 100)
+      : undefined;
 
-      if (customerUser.user?.email) {
-        // Format booking data for email
-        const scheduledDate = booking.scheduled_start
-          ? new Date(booking.scheduled_start).toLocaleDateString()
-          : "TBD";
-        const scheduledTime = booking.scheduled_start
-          ? new Date(booking.scheduled_start).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })
-          : "TBD";
-        const duration = booking.duration_minutes ? `${booking.duration_minutes} minutes` : "TBD";
-        const address = booking.address
-          ? typeof booking.address === "object" && "formatted" in booking.address
-            ? String(booking.address.formatted)
-            : JSON.stringify(booking.address)
-          : "Not specified";
-        const amount = booking.amount_authorized
-          ? `${new Intl.NumberFormat("es-CO", { style: "currency", currency: booking.currency || "COP" }).format(booking.amount_authorized / 100)}`
-          : undefined;
-
-        // Send confirmation email to customer
-        await sendBookingConfirmedEmail(customerUser.user.email, {
-          customerName: customerUser.user.user_metadata?.full_name || "there",
-          professionalName: professionalProfile?.full_name || "Your professional",
-          serviceName: booking.service_name || "Service",
-          scheduledDate,
-          scheduledTime,
-          duration,
-          address,
-          bookingId: booking.id,
-          amount,
-        });
-
-        // Send push notification to customer
-        await notifyCustomerBookingAccepted(booking.customer_id, {
-          id: booking.id,
-          serviceName: booking.service_name || "Service",
-          professionalName: professionalProfile?.full_name || "Your professional",
-        });
-      }
-    }
-
-    return NextResponse.json({ success: true, booking: { id: booking.id, status: "confirmed" } });
-  } catch (_error) {
-    return NextResponse.json({ error: "Unable to accept booking" }, { status: 500 });
+    // Send confirmation email and push notification
+    await Promise.all([
+      sendBookingConfirmedEmail(customerUser.user.email, {
+        customerName: customerUser.user.user_metadata?.full_name || "there",
+        professionalName: professionalProfile?.full_name || "Your professional",
+        serviceName: booking.service_name || "Service",
+        scheduledDate,
+        scheduledTime,
+        duration,
+        address,
+        bookingId: booking.id,
+        amount,
+      }),
+      notifyCustomerBookingAccepted(booking.customer_id, {
+        id: booking.id,
+        serviceName: booking.service_name || "Service",
+        professionalName: professionalProfile?.full_name || "Your professional",
+      }),
+    ]);
   }
-}
+
+  return ok(
+    {
+      booking: {
+        id: booking.id,
+        status: "confirmed",
+      },
+    },
+    "Booking accepted successfully"
+  );
+});

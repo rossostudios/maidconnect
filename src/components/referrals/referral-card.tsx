@@ -2,6 +2,7 @@
 
 import { Check, Copy, Gift, Share2, Sparkles, Users } from "lucide-react";
 import { useState } from "react";
+import { formatCOP } from "@/lib/format";
 
 type ReferralCardProps = {
   code: string;
@@ -11,13 +12,6 @@ type ReferralCardProps = {
   refereeReward: number; // Amount referee gets (in cents)
 };
 
-function formatCurrencyCOP(value: number) {
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
 
 /**
  * ReferralCard - Share code, earn rewards
@@ -50,7 +44,7 @@ export function ReferralCard({
 
   const handleShare = (platform: "whatsapp" | "twitter" | "facebook") => {
     const shareUrl = `${window.location.origin}/auth/sign-up?ref=${code}`;
-    const message = `Join Casaora and get ${formatCurrencyCOP(refereeReward / 100)} off your first booking! Use my code: ${code}`;
+    const message = `Join Casaora and get ${formatCOP(refereeReward / 100)} off your first booking! Use my code: ${code}`;
 
     const urls = {
       whatsapp: `https://wa.me/?text=${encodeURIComponent(`${message} ${shareUrl}`)}`,
@@ -121,7 +115,7 @@ export function ReferralCard({
             </div>
             <p className="text-[#5d574b] text-sm">
               <span className="font-semibold">
-                They get {formatCurrencyCOP(refereeReward / 100)}
+                They get {formatCOP(refereeReward / 100)}
               </span>{" "}
               off their first booking
             </p>
@@ -132,7 +126,7 @@ export function ReferralCard({
             </div>
             <p className="text-[#5d574b] text-sm">
               <span className="font-semibold">
-                You earn {formatCurrencyCOP(referrerReward / 100)}
+                You earn {formatCOP(referrerReward / 100)}
               </span>{" "}
               in credits when they complete their first booking
             </p>
@@ -155,7 +149,7 @@ export function ReferralCard({
             Credits Earned
           </div>
           <div className="font-bold text-2xl text-[#211f1a]">
-            {formatCurrencyCOP(totalCreditsEarned / 100)}
+            {formatCOP(totalCreditsEarned / 100)}
           </div>
         </div>
       </div>

@@ -23,6 +23,7 @@ import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
 import type { AppUser } from "@/lib/auth/types";
 import { type AvailabilitySlot, type ProfessionalService } from "@/lib/professionals/transformers";
+import { formatCOP } from "@/lib/format";
 
 export type ProfessionalProfileDetail = {
   id: string;
@@ -53,7 +54,7 @@ type ProfessionalProfileViewProps = {
 const DEFAULT_PRO_PHOTO =
   "https://images.unsplash.com/photo-1523800503107-5bc3ba2a6f81?auto=format&fit=crop&w=600&q=80";
 
-function formatCurrencyCOP(value: number | null | undefined) {
+function formatCOPWithFallback(value: number | null | undefined) {
   if (!value || Number.isNaN(value)) {
     return null;
   }
@@ -81,7 +82,7 @@ export function ProfessionalProfileView({
   const showLivePriceBreakdown = useFeatureFlag("live_price_breakdown");
 
   const locationLabel = professional.location || "Colombia";
-  const formattedRate = formatCurrencyCOP(professional.hourlyRateCop);
+  const formattedRate = formatCOPWithFallback(professional.hourlyRateCop);
   const hasServices = professional.services.length > 0;
   const averageRating =
     professional.reviews.length > 0
@@ -277,7 +278,7 @@ export function ProfessionalProfileView({
                                   />
                                 ) : (
                                   <div className="font-semibold text-[#8B7355] text-lg">
-                                    {formatCurrencyCOP(service.hourlyRateCop)}
+                                    {formatCOPWithFallback(service.hourlyRateCop)}
                                   </div>
                                 )
                               ) : (

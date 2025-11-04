@@ -4,19 +4,13 @@ import { Sparkles, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/routing";
 import type { MatchedProfessional } from "@/lib/matching/smart-match";
+import { formatCOP } from "@/lib/format";
 
 interface SimilarProfessionalsProps {
   currentProfessionalId: string;
   currentProfessionalName: string;
 }
 
-function formatCurrencyCOP(value: number) {
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
 
 /**
  * Similar Professionals Component
@@ -160,7 +154,7 @@ export function SimilarProfessionals({
               <div>
                 <p className="font-semibold text-[#211f1a]">{pro.services[0]}</p>
                 <p className="mt-1 font-semibold text-[#8B7355] text-lg">
-                  {formatCurrencyCOP(pro.hourlyRate)}
+                  {formatCOP(pro.hourlyRate)}
                   <span className="font-normal text-[#7d7566] text-sm">/hr</span>
                 </p>
               </div>
