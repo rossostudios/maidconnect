@@ -3,6 +3,7 @@ import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 import { HapticTab } from "@/components/haptic-tab";
 import { IconSymbol } from "@/components/ui/icon-symbol";
+import { NotificationListener } from "@/components/notifications/notification-listener";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { useAuth } from "@/providers/AuthProvider";
@@ -24,7 +25,9 @@ export default function TabLayout() {
   }
 
   return (
-    <Tabs
+    <>
+      <NotificationListener />
+      <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
@@ -97,7 +100,8 @@ export default function TabLayout() {
           href: null, // Hide from tabs
         }}
       />
-    </Tabs>
+      </Tabs>
+    </>
   );
 }
 

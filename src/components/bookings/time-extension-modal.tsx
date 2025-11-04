@@ -89,12 +89,10 @@ export function TimeExtensionModal({
       return;
     }
 
-    await form.handleSubmit(async () => {
-      return await extendTime.mutate({
+    await form.handleSubmit(async () => await extendTime.mutate({
         bookingId,
         additionalMinutes: currentMinutes,
-      });
-    });
+      }));
   };
 
   const handlePresetClick = (minutes: number) => {
@@ -138,7 +136,7 @@ export function TimeExtensionModal({
     >
       {/* Preset Options */}
       <div className="mb-6">
-        <label className="mb-3 block font-medium text-sm text-[#211f1a]">Quick Options</label>
+        <label className="mb-3 block font-medium text-[#211f1a] text-sm">Quick Options</label>
         <div className="grid grid-cols-2 gap-3">
           {PRESET_OPTIONS.map((option) => {
             const isSelected = selectedMinutes === option.minutes;
@@ -157,9 +155,9 @@ export function TimeExtensionModal({
               >
                 <div className="mb-1 flex items-center gap-2">
                   <Clock className={isSelected ? "text-[#8B7355]" : "text-[#7a6d62]"} size={16} />
-                  <span className="font-semibold text-sm text-[#211f1a]">{option.label}</span>
+                  <span className="font-semibold text-[#211f1a] text-sm">{option.label}</span>
                 </div>
-                <p className="text-xs text-[#7a6d62]">{formatCurrency(cost)}</p>
+                <p className="text-[#7a6d62] text-xs">{formatCurrency(cost)}</p>
               </button>
             );
           })}
@@ -168,7 +166,7 @@ export function TimeExtensionModal({
 
       {/* Custom Duration */}
       <div className="mb-6">
-        <label className="mb-2 block font-medium text-sm text-[#211f1a]" htmlFor="custom">
+        <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="custom">
           Custom Duration (minutes)
         </label>
         <input
@@ -189,11 +187,11 @@ export function TimeExtensionModal({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <DollarSign className="text-blue-600" size={20} />
-              <span className="font-medium text-sm text-blue-900">Additional Cost</span>
+              <span className="font-medium text-blue-900 text-sm">Additional Cost</span>
             </div>
-            <span className="font-bold text-lg text-blue-900">{formatCurrency(estimatedCost)}</span>
+            <span className="font-bold text-blue-900 text-lg">{formatCurrency(estimatedCost)}</span>
           </div>
-          <p className="mt-2 text-xs text-blue-700">
+          <p className="mt-2 text-blue-700 text-xs">
             This will be added to your final payment at checkout.
           </p>
         </div>
@@ -201,11 +199,11 @@ export function TimeExtensionModal({
 
       {/* Error Message */}
       {form.error && (
-        <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-800">{form.error}</div>
+        <div className="mb-4 rounded-lg bg-red-50 p-3 text-red-800 text-sm">{form.error}</div>
       )}
 
       {/* Info Note */}
-      <p className="text-center text-xs text-[#7a6d62]">
+      <p className="text-center text-[#7a6d62] text-xs">
         The customer will be notified of the time extension and charged accordingly.
       </p>
     </FormModal>

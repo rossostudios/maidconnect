@@ -570,12 +570,10 @@ const ProfessionalsDirectoryComponent = memo(
   );
   },
   // Custom comparison: only re-render if professionals array reference changes
-  (prevProps, nextProps) => {
-    return (
+  (prevProps, nextProps) => (
       prevProps.professionals === nextProps.professionals &&
       prevProps.professionals.length === nextProps.professionals.length
-    );
-  }
+    )
 );
 
 // Export the memoized component

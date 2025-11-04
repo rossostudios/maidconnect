@@ -3,7 +3,8 @@
  * Centralized functions for sending push notifications for various events
  */
 
-import { formatCOP, formatDate, formatTime } from "@/lib/format";
+import { formatDate, } from "@/lib/format";
+import { sendExpoNotification } from "@/lib/expo-push";
 
 type NotificationPayload = {
   userId: string;
@@ -16,23 +17,45 @@ type NotificationPayload = {
 
 /**
  * Send a push notification to a user
+ * Sends to both web push subscriptions and mobile (Expo) push tokens
  */
 export async function sendPushNotification(payload: NotificationPayload) {
   try {
-    const response = await fetch("/api/notifications/send", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+    // Send to mobile devices via Expo Push Notification service
+    const mobileResult = await sendExpoNotification(payload.userId, {
+      title: payload.title,
+      body: payload.body,
+      data: {
+        url: payload.url,
+        tag: payload.tag,
+      },
+      priority: payload.requireInteraction ? "high" : "default",
     });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || "Failed to send notification");
+    // Send to web browser subscriptions (existing web-push logic)
+    let webResult = { success: true, sent: 0 };
+    try {
+      const response = await fetch("/api/notifications/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        webResult = await response.json();
+      }
+    } catch (_webError) {
+      // Web push is optional, don't fail if it doesn't work
     }
 
-    return await response.json();
+    return {
+      success: true,
+      mobile: mobileResult,
+      web: webResult,
+    };
   } catch (error) {
     // Don't throw - notifications are nice-to-have, not critical
+    console.error("[notifications] Failed to send push notification:", error);
     return { success: false, error };
   }
 }

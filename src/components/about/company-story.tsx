@@ -18,7 +18,7 @@ export function CompanyStory() {
       <div className="mx-auto max-w-7xl">
         {/* Hero Content */}
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="font-[family-name:var(--font-cinzel)] mb-6 text-4xl text-[#211f1a] tracking-wide sm:text-5xl lg:text-6xl">
+          <h1 className="mb-6 font-[family-name:var(--font-cinzel)] text-4xl text-[#211f1a] tracking-wide sm:text-5xl lg:text-6xl">
             {t("title")}
           </h1>
           <p className="mb-8 text-[#5d574b] text-lg leading-relaxed sm:text-xl">{t("subtitle")}</p>

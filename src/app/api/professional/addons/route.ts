@@ -6,7 +6,7 @@
  * AFTER: 122 lines (3 handlers) (22% reduction)
  */
 
-import { withProfessional, ok, created, badRequest } from "@/lib/api";
+import { withProfessional, ok, created, } from "@/lib/api";
 import { ValidationError } from "@/lib/errors";
 import { z } from "zod";
 

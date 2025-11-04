@@ -10,7 +10,7 @@ import { withAuth, ok, withRateLimit } from "@/lib/api";
 import { stripe } from "@/lib/stripe";
 import { ValidationError } from "@/lib/errors";
 import { createBookingSchema } from "@/lib/validations/booking";
-import { z } from "zod";
+import { notifyProfessionalNewBooking } from "@/lib/notifications";
 
 const handler = withAuth(async ({ user, supabase }, request: Request) => {
   // Validate request body with Zod schema
@@ -111,6 +111,20 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
         amount_authorized: amount,
       })
       .eq("id", insertedBooking.id);
+
+    // Notify professional about new booking request
+    const { data: customerData } = await supabase.auth.admin.getUserById(user.id);
+    if (scheduledStart) {
+      await notifyProfessionalNewBooking(professionalId, {
+        id: insertedBooking.id,
+        serviceName: serviceName || "Service",
+        customerName: customerData?.user?.user_metadata?.full_name || "A customer",
+        scheduledStart,
+      }).catch((error) => {
+        // Don't fail booking creation if notification fails
+        console.error("[bookings] Failed to send new booking notification:", error);
+      });
+    }
 
     return ok({
       bookingId: insertedBooking.id,

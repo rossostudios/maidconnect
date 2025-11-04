@@ -134,7 +134,7 @@ export function badRequest(message: string, details?: unknown): NextResponse {
  * return unauthorized("Session expired");
  * ```
  */
-export function unauthorized(message: string = "Not authenticated"): NextResponse {
+export function unauthorized(message = "Not authenticated"): NextResponse {
   return NextResponse.json(
     {
       success: false,
@@ -157,7 +157,7 @@ export function unauthorized(message: string = "Not authenticated"): NextRespons
  * return forbidden("Admin access required");
  * ```
  */
-export function forbidden(message: string = "Not authorized"): NextResponse {
+export function forbidden(message = "Not authorized"): NextResponse {
   return NextResponse.json(
     {
       success: false,
@@ -180,7 +180,7 @@ export function forbidden(message: string = "Not authorized"): NextResponse {
  * return notFound("Booking not found");
  * ```
  */
-export function notFound(message: string = "Resource not found"): NextResponse {
+export function notFound(message = "Resource not found"): NextResponse {
   return NextResponse.json(
     {
       success: false,
@@ -228,7 +228,7 @@ export function conflict(message: string, details?: unknown): NextResponse {
  * return internalError("Database connection failed");
  * ```
  */
-export function internalError(message: string = "Internal server error"): NextResponse {
+export function internalError(message = "Internal server error"): NextResponse {
   return NextResponse.json(
     {
       success: false,

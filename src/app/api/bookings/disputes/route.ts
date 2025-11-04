@@ -39,7 +39,7 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
   `);
 
   if (booking.status !== "completed") {
-    throw new InvalidBookingStatusError(booking.status, "dispute", "Can only dispute completed bookings");
+    throw new InvalidBookingStatusError(booking.status, "dispute");
   }
 
   if (!booking.completed_at) {

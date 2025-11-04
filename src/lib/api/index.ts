@@ -50,6 +50,8 @@ export {
   withValidation,
   compose,
   withAuthMethods,
-  withRateLimit,
   withCors,
 } from "./middleware";
+
+// Rate Limiting
+export { withRateLimit } from "../rate-limit";

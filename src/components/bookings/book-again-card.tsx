@@ -166,9 +166,7 @@ const BookAgainCardComponent = memo(
   );
   },
   // Custom comparison: only re-render if booking ID changes
-  (prevProps, nextProps) => {
-    return prevProps.booking.id === nextProps.booking.id && prevProps.onBookAgain === nextProps.onBookAgain;
-  }
+  (prevProps, nextProps) => prevProps.booking.id === nextProps.booking.id && prevProps.onBookAgain === nextProps.onBookAgain
 );
 
 // Export the memoized component

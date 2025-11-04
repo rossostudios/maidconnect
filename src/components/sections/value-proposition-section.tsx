@@ -3,7 +3,7 @@ import { CheckCircle2, Search, Users } from "lucide-react";
 
 export function ValuePropositionSection() {
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-[#faf8f3]">
+    <section className="bg-[#faf8f3] py-16 sm:py-20 lg:py-24">
       <Container>
         <div className="mx-auto max-w-6xl space-y-12 text-center">
           <div className="space-y-4">
@@ -16,7 +16,7 @@ export function ValuePropositionSection() {
           </div>
 
           <div className="mt-12 grid gap-8 sm:grid-cols-3">
-            <div className="flex flex-col items-center text-center space-y-4">
+            <div className="flex flex-col items-center space-y-4 text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-[var(--shadow-card)]">
                 <CheckCircle2 className="h-8 w-8 text-[#8B7355]" />
               </div>
@@ -27,7 +27,7 @@ export function ValuePropositionSection() {
               </p>
             </div>
 
-            <div className="flex flex-col items-center text-center space-y-4">
+            <div className="flex flex-col items-center space-y-4 text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-[var(--shadow-card)]">
                 <Search className="h-8 w-8 text-[#8B7355]" />
               </div>
@@ -38,7 +38,7 @@ export function ValuePropositionSection() {
               </p>
             </div>
 
-            <div className="flex flex-col items-center text-center space-y-4">
+            <div className="flex flex-col items-center space-y-4 text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-[var(--shadow-card)]">
                 <Users className="h-8 w-8 text-[#8B7355]" />
               </div>

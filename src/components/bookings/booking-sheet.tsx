@@ -11,7 +11,7 @@ import {
 } from "@/components/addresses/saved-addresses-manager";
 import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
-import { formatCOP, formatTime as formatTimeUtil } from "@/lib/format";
+import { formatCOP, } from "@/lib/format";
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;

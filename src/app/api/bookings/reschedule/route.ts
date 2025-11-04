@@ -53,8 +53,7 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
   if (!validStatuses.includes(booking.status)) {
     throw new InvalidBookingStatusError(
       booking.status,
-      "reschedule",
-      "Only authorized or confirmed bookings can be rescheduled"
+      "reschedule"
     );
   }
 

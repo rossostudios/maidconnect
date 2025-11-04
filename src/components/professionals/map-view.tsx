@@ -83,7 +83,7 @@ const MapViewComponent = memo(
   const professionalsWithCoords = useMemo(
     () =>
       professionals.filter((pro) => {
-        if (!pro.location || !pro.location.includes(",")) {
+        if (!(pro.location && pro.location.includes(","))) {
           return false;
         }
         const parts = pro.location.split(",");
@@ -239,15 +239,13 @@ const MapViewComponent = memo(
   );
   },
   // Custom comparison: only re-render if professionals array or other props change
-  (prevProps, nextProps) => {
-    return (
+  (prevProps, nextProps) => (
       prevProps.professionals === nextProps.professionals &&
       prevProps.professionals.length === nextProps.professionals.length &&
       prevProps.center === nextProps.center &&
       prevProps.zoom === nextProps.zoom &&
       prevProps.className === nextProps.className
-    );
-  }
+    )
 );
 
 // Export the memoized component

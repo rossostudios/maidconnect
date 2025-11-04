@@ -54,7 +54,7 @@ export function BaseModal({
 
   // Handle Escape key
   useEffect(() => {
-    if (!isOpen || !closeOnEscape) return;
+    if (!(isOpen && closeOnEscape)) return;
 
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -157,15 +157,15 @@ export function BaseModal({
       >
         {/* Header */}
         {(title || showCloseButton) && (
-          <div className="sticky top-0 z-10 flex items-start justify-between border-b border-[#ebe5d8] bg-white px-6 py-5">
+          <div className="sticky top-0 z-10 flex items-start justify-between border-[#ebe5d8] border-b bg-white px-6 py-5">
             <div className="flex-1 pr-8">
               {title && (
-                <h2 className="font-semibold text-xl text-[#211f1a]" id="modal-title">
+                <h2 className="font-semibold text-[#211f1a] text-xl" id="modal-title">
                   {title}
                 </h2>
               )}
               {description && (
-                <p className="mt-1 text-sm text-[#7a6d62]">{description}</p>
+                <p className="mt-1 text-[#7a6d62] text-sm">{description}</p>
               )}
             </div>
             {showCloseButton && (

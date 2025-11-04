@@ -14,15 +14,20 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { fetchConversations } from "@/features/messaging/api";
 import type { Conversation } from "@/features/messaging/types";
+import { useRealtimeConversations } from "@/features/messaging/use-realtime-conversations";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function MessagesScreen() {
   const router = useRouter();
+  const { session } = useAuth();
 
   const { data, error, isLoading, isRefetching, refetch } = useQuery<Conversation[], Error>({
     queryKey: ["conversations"],
     queryFn: fetchConversations,
-    refetchInterval: 5000, // Poll every 5 seconds for new messages
   });
+
+  // Subscribe to realtime conversation updates
+  useRealtimeConversations(session?.user?.id || null);
 
   const conversations = data ?? [];
   const totalUnread = conversations.reduce((sum, conv) => sum + conv.unreadCount, 0);

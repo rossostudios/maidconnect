@@ -58,7 +58,7 @@ export async function SiteFooter() {
         <div className="grid gap-12 lg:grid-cols-[1fr_auto]">
           {/* Left: Brand & Description */}
           <div className="max-w-md space-y-6">
-            <span className="font-[family-name:var(--font-cinzel)] text-3xl font-semibold tracking-[0.15em] text-[#f3ece1]">
+            <span className="font-[family-name:var(--font-cinzel)] font-semibold text-3xl text-[#f3ece1] tracking-[0.15em]">
               CASAORA
             </span>
             <p className="text-[#cfc8be] text-base leading-relaxed">{t("description")}</p>

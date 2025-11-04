@@ -5,7 +5,7 @@ import { useRouter } from "@/i18n/routing";
 import { FormModal } from "@/components/shared/form-modal";
 import { useModalForm } from "@/hooks/use-modal-form";
 import { useApiMutation } from "@/hooks/use-api-mutation";
-import type { CustomerBooking } from "../customer-booking-list";
+import type { CustomerBooking } from "./customer-booking-list";
 
 type Props = {
   booking: CustomerBooking;

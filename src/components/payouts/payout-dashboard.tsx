@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { formatPayoutAmount, getPayoutScheduleDescription } from "@/lib/payout-calculator";
+import type { Currency } from "@/lib/format";
 
 type PendingPayoutData = {
   currentPeriod: {
@@ -11,7 +12,7 @@ type PendingPayoutData = {
     grossAmount: number;
     commissionAmount: number;
     netAmount: number;
-    currency: string;
+    currency: Currency;
     bookingCount: number;
     bookings: Array<{
       id: string;
@@ -25,7 +26,7 @@ type PendingPayoutData = {
     grossAmount: number;
     commissionAmount: number;
     netAmount: number;
-    currency: string;
+    currency: Currency;
     bookingCount: number;
   };
   recentPayouts: Array<{
@@ -33,7 +34,7 @@ type PendingPayoutData = {
     gross_amount: number;
     commission_amount: number;
     net_amount: number;
-    currency: string;
+    currency: Currency;
     status: string;
     payout_date: string;
     arrival_date: string | null;

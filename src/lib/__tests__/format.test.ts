@@ -26,13 +26,13 @@ import {
 
 describe("formatCurrency", () => {
   it("formats COP currency correctly", () => {
-    expect(formatCurrency(50000)).toBe("$50,000");
+    expect(formatCurrency(50_000)).toBe("$50,000");
     expect(formatCurrency(1500)).toBe("$1,500");
     expect(formatCurrency(100)).toBe("$100");
   });
 
   it("formats USD currency correctly", () => {
-    expect(formatCurrency(50000, { currency: "USD" })).toBe("$50,000.00");
+    expect(formatCurrency(50_000, { currency: "USD" })).toBe("$50,000.00");
     expect(formatCurrency(1500.5, { currency: "USD" })).toBe("$1,500.50");
     expect(formatCurrency(100, { currency: "USD" })).toBe("$100.00");
   });
@@ -48,13 +48,13 @@ describe("formatCurrency", () => {
   });
 
   it("handles negative numbers", () => {
-    expect(formatCurrency(-50000)).toBe("-$50,000");
+    expect(formatCurrency(-50_000)).toBe("-$50,000");
     expect(formatCurrency(-1500.5, { currency: "USD" })).toBe("-$1,500.50");
   });
 
   it("handles NaN", () => {
-    expect(formatCurrency(NaN)).toBe("$0");
-    expect(formatCurrency(NaN, { currency: "USD" })).toBe("$0.00");
+    expect(formatCurrency(Number.NaN)).toBe("$0");
+    expect(formatCurrency(Number.NaN, { currency: "USD" })).toBe("$0.00");
   });
 
   it("handles Infinity", () => {
@@ -63,19 +63,19 @@ describe("formatCurrency", () => {
   });
 
   it("respects custom fraction digits", () => {
-    expect(formatCurrency(50000, { minimumFractionDigits: 2 })).toBe("$50,000.00");
-    expect(formatCurrency(50000.5, { maximumFractionDigits: 0 })).toBe("$50,001");
-    expect(formatCurrency(50000.123, { maximumFractionDigits: 2 })).toBe("$50,000.12");
+    expect(formatCurrency(50_000, { minimumFractionDigits: 2 })).toBe("$50,000.00");
+    expect(formatCurrency(50_000.5, { maximumFractionDigits: 0 })).toBe("$50,001");
+    expect(formatCurrency(50_000.123, { maximumFractionDigits: 2 })).toBe("$50,000.12");
   });
 
   it("uses different locales", () => {
-    expect(formatCurrency(50000, { locale: "en-US" })).toMatch(/50,000/);
-    expect(formatCurrency(50000, { locale: "es-CO" })).toMatch(/50/);
+    expect(formatCurrency(50_000, { locale: "en-US" })).toMatch(/50,000/);
+    expect(formatCurrency(50_000, { locale: "es-CO" })).toMatch(/50/);
   });
 
   it("handles large numbers", () => {
-    expect(formatCurrency(1000000)).toBe("$1,000,000");
-    expect(formatCurrency(999999999)).toBe("$999,999,999");
+    expect(formatCurrency(1_000_000)).toBe("$1,000,000");
+    expect(formatCurrency(999_999_999)).toBe("$999,999,999");
   });
 
   it("handles small decimals", () => {
@@ -86,7 +86,7 @@ describe("formatCurrency", () => {
 
 describe("formatCOP", () => {
   it("formats Colombian pesos correctly", () => {
-    expect(formatCOP(50000)).toBe("$50,000");
+    expect(formatCOP(50_000)).toBe("$50,000");
     expect(formatCOP(1500)).toBe("$1,500");
   });
 
@@ -318,7 +318,7 @@ describe("formatDuration", () => {
   });
 
   it("handles edge cases", () => {
-    expect(formatDuration(NaN)).toBe("0m");
+    expect(formatDuration(Number.NaN)).toBe("0m");
     expect(formatDuration(Number.POSITIVE_INFINITY)).toBe("0m");
     expect(formatDuration(-10)).toBe("0m");
   });
@@ -355,7 +355,7 @@ describe("formatDurationHours", () => {
 
   it("handles edge cases", () => {
     expect(formatDurationHours(0)).toBe("0m");
-    expect(formatDurationHours(NaN)).toBe("0m");
+    expect(formatDurationHours(Number.NaN)).toBe("0m");
   });
 });
 
@@ -366,7 +366,7 @@ describe("formatDurationHours", () => {
 describe("formatNumber", () => {
   it("formats numbers with thousand separators", () => {
     expect(formatNumber(1000)).toBe("1,000");
-    expect(formatNumber(1234567)).toBe("1,234,567");
+    expect(formatNumber(1_234_567)).toBe("1,234,567");
   });
 
   it("handles decimals", () => {
@@ -380,7 +380,7 @@ describe("formatNumber", () => {
   });
 
   it("handles NaN and Infinity", () => {
-    expect(formatNumber(NaN)).toBe("0");
+    expect(formatNumber(Number.NaN)).toBe("0");
     expect(formatNumber(Number.POSITIVE_INFINITY)).toBe("0");
   });
 
@@ -418,7 +418,7 @@ describe("formatPercentage", () => {
   });
 
   it("handles NaN and Infinity", () => {
-    expect(formatPercentage(NaN)).toBe("0%");
+    expect(formatPercentage(Number.NaN)).toBe("0%");
     expect(formatPercentage(Number.POSITIVE_INFINITY)).toBe("0%");
   });
 
@@ -429,7 +429,7 @@ describe("formatPercentage", () => {
 
   it("respects fraction digits options", () => {
     expect(formatPercentage(0.123, { minimumFractionDigits: 2 })).toBe("12.30%");
-    expect(formatPercentage(0.12345, { maximumFractionDigits: 2 })).toBe("12.35%");
+    expect(formatPercentage(0.123_45, { maximumFractionDigits: 2 })).toBe("12.35%");
   });
 
   it("handles values over 100%", () => {

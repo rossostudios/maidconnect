@@ -63,7 +63,7 @@ export function updateConversationUnreadCount(
   conversations: Conversation[],
   conversationId: string,
   userRole: "customer" | "professional",
-  newCount: number = 0
+  newCount = 0
 ): Conversation[] {
   return conversations.map((conv) =>
     conv.id === conversationId

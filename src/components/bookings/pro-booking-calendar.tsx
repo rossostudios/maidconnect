@@ -4,10 +4,7 @@ import { useState, useMemo } from "react";
 import { Clock } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
-import { useCalendarMonth } from "@/hooks/use-calendar-month";
-import { useCalendarGrid } from "@/hooks/use-calendar-grid";
 import type { DayAvailability } from "@/hooks/use-availability-data";
-import { cn } from "@/lib/utils";
 
 /**
  * Booking data structure for the professional dashboard

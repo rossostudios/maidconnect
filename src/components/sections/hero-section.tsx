@@ -34,28 +34,28 @@ export function HeroSection() {
 
       <Container className="relative z-10 flex flex-col items-center text-center lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-2xl space-y-6 text-left text-white">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 font-semibold text-white/80 text-xs uppercase tracking-[0.24em]">
             {t("badge")}
           </span>
 
-          <h1 className="font-[family-name:var(--font-cinzel)] text-5xl leading-tight tracking-[0.18em] text-white sm:text-6xl lg:text-7xl">
+          <h1 className="font-[family-name:var(--font-cinzel)] text-5xl text-white leading-tight tracking-[0.18em] sm:text-6xl lg:text-7xl">
             {t("title")}
           </h1>
 
-          <p className="text-lg leading-relaxed text-white/85 sm:text-xl">{t("subtitle")}</p>
+          <p className="text-lg text-white/85 leading-relaxed sm:text-xl">{t("subtitle")}</p>
 
-          <p className="text-base leading-relaxed text-white/70">{t("description")}</p>
+          <p className="text-base text-white/70 leading-relaxed">{t("description")}</p>
 
           <div className="flex w-full flex-col gap-3 pt-10 sm:flex-row sm:items-center" data-tour="search">
             <Button
-              className="w-full sm:w-auto shadow-[var(--shadow-elevated)]"
+              className="w-full shadow-[var(--shadow-elevated)] sm:w-auto"
               href="/contact"
               label={t("bookConsultation")}
               size="lg"
               variant="primary"
             />
             <Button
-              className="w-full sm:w-auto sm:ml-1"
+              className="w-full sm:ml-1 sm:w-auto"
               href="/professionals"
               label={t("browseAll")}
               size="lg"
@@ -74,7 +74,7 @@ export function HeroSection() {
                 >
                   <Icon className="h-5 w-5 text-[var(--accent)]" />
                 </span>
-                <p className="text-sm font-medium leading-snug text-current">{label}</p>
+                <p className="font-medium text-current text-sm leading-snug">{label}</p>
               </li>
             ))}
           </ul>

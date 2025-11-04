@@ -23,7 +23,6 @@ import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
 import type { AppUser } from "@/lib/auth/types";
 import { type AvailabilitySlot, type ProfessionalService } from "@/lib/professionals/transformers";
-import { formatCOP } from "@/lib/format";
 
 export type ProfessionalProfileDetail = {
   id: string;

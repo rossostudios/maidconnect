@@ -49,13 +49,11 @@ export function useCalendarMonth(initialDate?: Date) {
   }, []);
 
   const getMonthLabel = useCallback(
-    (locale = "en-US", options?: Intl.DateTimeFormatOptions) => {
-      return currentMonth.toLocaleDateString(locale, {
+    (locale = "en-US", options?: Intl.DateTimeFormatOptions) => currentMonth.toLocaleDateString(locale, {
         month: "long",
         year: "numeric",
         ...options,
-      });
-    },
+      }),
     [currentMonth]
   );
 

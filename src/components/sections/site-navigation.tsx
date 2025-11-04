@@ -130,10 +130,10 @@ export function SiteNavigation() {
                       key={feature.name}
                       role="menuitem"
                     >
-                      <span className="font-semibold text-sm text-[var(--foreground)] transition group-hover:text-[var(--accent)]">
+                      <span className="font-semibold text-[var(--foreground)] text-sm transition group-hover:text-[var(--accent)]">
                         {feature.name}
                       </span>
-                      <span className="text-xs text-[var(--muted-foreground)]">{feature.description}</span>
+                      <span className="text-[var(--muted-foreground)] text-xs">{feature.description}</span>
                     </Link>
                   ))}
                 </div>

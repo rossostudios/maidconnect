@@ -208,9 +208,8 @@ export function AvailabilityCalendar({
   const getDateAvailability = useMemo(() => {
     if (dataSource.type === "api") {
       return apiData.getDateAvailability;
-    } else {
-      return dataSource.getDateAvailability;
     }
+      return dataSource.getDateAvailability;
   }, [dataSource, apiData]);
 
   // Loading and error states (for API-based calendars)
@@ -301,7 +300,7 @@ export function AvailabilityCalendar({
       )}
 
       {/* Calendar Grid */}
-      {!isLoading && !error && (
+      {!(isLoading || error ) && (
         <>
           <div
             className={cn(

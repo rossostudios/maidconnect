@@ -115,7 +115,7 @@ function CTASection() {
   return (
     <section className="bg-[#211f1a] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-4xl text-center">
-        <h2 className="font-[family-name:var(--font-cinzel)] mb-4 text-3xl text-white tracking-wide sm:text-4xl">{t("title")}</h2>
+        <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-white tracking-wide sm:text-4xl">{t("title")}</h2>
         <p className="mb-8 text-lg text-white/90">{t("subtitle")}</p>
 
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">

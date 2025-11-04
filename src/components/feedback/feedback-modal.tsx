@@ -1,6 +1,6 @@
 "use client";
 
-import { Bug, CheckCircle, Frown, Heart, HelpCircle, Lightbulb, TrendingUp, X } from "lucide-react";
+import { Bug, CheckCircle, Frown, Heart, HelpCircle, Lightbulb, TrendingUp, } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { BaseModal } from "@/components/shared/base-modal";

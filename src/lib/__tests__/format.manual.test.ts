@@ -27,7 +27,7 @@ console.log("🧪 Testing Formatting Utilities\n");
 // ============================================================================
 
 console.log("💰 Currency Formatting:");
-console.log("  formatCOP(50000):", formatCOP(50000));
+console.log("  formatCOP(50000):", formatCOP(50_000));
 console.log("  formatCOP(1500):", formatCOP(1500));
 console.log("  formatCOP(null):", formatCOP(null));
 console.log("  formatCOP(0):", formatCOP(0));
@@ -37,9 +37,9 @@ console.log("\n  formatUSD(50.5):", formatUSD(50.5));
 console.log("  formatUSD(1000):", formatUSD(1000));
 console.log("  formatUSD(null):", formatUSD(null));
 
-console.log("\n  formatCurrency(50000):", formatCurrency(50000));
-console.log("  formatCurrency(50000, { currency: 'USD' }):", formatCurrency(50000, { currency: "USD" }));
-console.log("  formatCurrency(NaN):", formatCurrency(NaN));
+console.log("\n  formatCurrency(50000):", formatCurrency(50_000));
+console.log("  formatCurrency(50000, { currency: 'USD' }):", formatCurrency(50_000, { currency: "USD" }));
+console.log("  formatCurrency(NaN):", formatCurrency(Number.NaN));
 console.log("  formatCurrency(Infinity):", formatCurrency(Number.POSITIVE_INFINITY));
 
 // ============================================================================
@@ -102,7 +102,7 @@ console.log("  formatDurationHours(0.25):", formatDurationHours(0.25));
 
 console.log("\n🔢 Number Formatting:");
 console.log("  formatNumber(1000):", formatNumber(1000));
-console.log("  formatNumber(1234567):", formatNumber(1234567));
+console.log("  formatNumber(1234567):", formatNumber(1_234_567));
 console.log("  formatNumber(1234.56):", formatNumber(1234.56));
 console.log("  formatNumber(null):", formatNumber(null));
 console.log("  formatNumber(-1000):", formatNumber(-1000));

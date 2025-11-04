@@ -65,7 +65,7 @@ export function useAvailabilityData({
   const [error, setError] = useState<Error | null>(null);
 
   const fetchAvailability = useCallback(async () => {
-    if (!enabled || !professionalId) {
+    if (!(enabled && professionalId)) {
       setLoading(false);
       return;
     }

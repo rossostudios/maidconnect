@@ -200,9 +200,7 @@ export function withValidation<TSchema, T extends unknown[]>(
 export function compose<T extends unknown[]>(
   ...middlewares: Array<(handler: RouteHandler<T>) => RouteHandler<T>>
 ) {
-  return (handler: RouteHandler<T>): RouteHandler<T> => {
-    return middlewares.reduceRight((acc, middleware) => middleware(acc), handler);
-  };
+  return (handler: RouteHandler<T>): RouteHandler<T> => middlewares.reduceRight((acc, middleware) => middleware(acc), handler);
 }
 
 /**

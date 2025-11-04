@@ -73,7 +73,6 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
   };
 
   const handleBlockMonth = () => {
-    const { startOfMonth, endOfMonth } = getMonthBounds();
     const days = calendarDays.filter((day) => day.inCurrentMonth);
     const monthDates = days.map((day) => formatDate(day.date));
 
@@ -81,13 +80,11 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
     handleChange(newBlocked);
   };
 
-  const blockedInCurrentMonth = useMemo(() => {
-    return blockedDates.filter((dateStr) => {
+  const blockedInCurrentMonth = useMemo(() => blockedDates.filter((dateStr) => {
       const date = parseDate(dateStr);
       const { startOfMonth, endOfMonth } = getMonthBounds();
       return date >= startOfMonth && date <= endOfMonth;
-    }).length;
-  }, [blockedDates, getMonthBounds]);
+    }).length, [blockedDates, getMonthBounds]);
 
   return (
     <div className="space-y-6">
@@ -223,5 +220,5 @@ function formatDate(date: Date): string {
 
 function parseDate(dateStr: string): Date {
   const [year, month, day] = dateStr.split("-").map(Number);
-  return new Date(year, month - 1, day);
+  return new Date(year ?? 0, (month ?? 1) - 1, day ?? 1);
 }

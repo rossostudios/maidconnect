@@ -86,15 +86,15 @@ export function ConfirmationModal({
         </div>
 
         {/* Title */}
-        <h3 className="mb-2 font-semibold text-lg text-[#211f1a]">{title}</h3>
+        <h3 className="mb-2 font-semibold text-[#211f1a] text-lg">{title}</h3>
 
         {/* Message */}
-        <p className="mb-6 text-sm text-[#7a6d62] leading-relaxed">{message}</p>
+        <p className="mb-6 text-[#7a6d62] text-sm leading-relaxed">{message}</p>
 
         {/* Actions */}
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-base text-[#211f1a] transition hover:border-[#211f1a] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#211f1a] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={isLoading}
             onClick={onClose}
             type="button"

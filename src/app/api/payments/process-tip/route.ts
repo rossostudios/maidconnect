@@ -33,7 +33,7 @@ const handler = withCustomer(async ({ user, supabase }, request: Request) => {
 
   // Only allow tipping on completed bookings
   if (booking.status !== "completed") {
-    throw new InvalidBookingStatusError(booking.status, "tip", "Can only tip completed bookings");
+    throw new InvalidBookingStatusError(booking.status, "tip");
   }
 
   // Check if tip was already added
@@ -67,7 +67,9 @@ const handler = withCustomer(async ({ user, supabase }, request: Request) => {
     throw new ValidationError(updateError?.message || "Failed to process tip");
   }
 
-  // Create tip transaction record for financial tracking
+  // TODO: Create tip transaction record for financial tracking
+  // Disabled temporarily - transactions table not in current schema
+  /*
   const { error: transactionError } = await supabase.from("transactions").insert({
     booking_id: bookingId,
     from_user_id: user.id,
@@ -83,6 +85,7 @@ const handler = withCustomer(async ({ user, supabase }, request: Request) => {
     // Log error but don't fail the request - tip was already recorded on booking
     console.error("[Process Tip API] Transaction record error:", transactionError);
   }
+  */
 
   // Calculate new total
   const newTotal = serviceAmount + tipAmount;

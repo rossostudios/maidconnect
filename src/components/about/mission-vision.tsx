@@ -54,7 +54,7 @@ export function MissionVision() {
             <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[#8B7355]/10">
               <Target className="h-7 w-7 text-[#8B7355]" />
             </div>
-            <h3 className="font-[family-name:var(--font-cinzel)] mb-3 text-2xl text-[#211f1a] tracking-wide">{t("mission.title")}</h3>
+            <h3 className="mb-3 font-[family-name:var(--font-cinzel)] text-2xl text-[#211f1a] tracking-wide">{t("mission.title")}</h3>
             <p className="text-[#5d574b] leading-relaxed">{t("mission.description")}</p>
           </div>
 
@@ -63,7 +63,7 @@ export function MissionVision() {
             <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[#8B7355]/10">
               <Compass className="h-7 w-7 text-[#8B7355]" />
             </div>
-            <h3 className="font-[family-name:var(--font-cinzel)] mb-3 text-2xl text-[#211f1a] tracking-wide">{t("vision.title")}</h3>
+            <h3 className="mb-3 font-[family-name:var(--font-cinzel)] text-2xl text-[#211f1a] tracking-wide">{t("vision.title")}</h3>
             <p className="text-[#5d574b] leading-relaxed">{t("vision.description")}</p>
           </div>
         </div>

@@ -161,11 +161,12 @@ export async function requireCustomer(user: User): Promise<void> {
 export async function requireProfessionalOwnership(
   supabase: SupabaseClient<Database>,
   userId: string,
-  bookingId: string
-): Promise<Database["public"]["Tables"]["bookings"]["Row"]> {
+  bookingId: string,
+  select?: string
+): Promise<any> {
   const { data: booking, error } = await supabase
     .from("bookings")
-    .select("*")
+    .select(select || "*")
     .eq("id", bookingId)
     .maybeSingle();
 
@@ -173,7 +174,8 @@ export async function requireProfessionalOwnership(
     throw new NotFoundError("Booking", bookingId);
   }
 
-  if (booking.professional_id !== userId) {
+  // Type assertion needed when using custom select
+  if ((booking as any).professional_id !== userId) {
     throw new UnauthorizedError("You are not authorized to access this booking");
   }
 
@@ -200,11 +202,12 @@ export async function requireProfessionalOwnership(
 export async function requireCustomerOwnership(
   supabase: SupabaseClient<Database>,
   userId: string,
-  bookingId: string
-): Promise<Database["public"]["Tables"]["bookings"]["Row"]> {
+  bookingId: string,
+  select?: string
+): Promise<any> {
   const { data: booking, error } = await supabase
     .from("bookings")
-    .select("*")
+    .select(select || "*")
     .eq("id", bookingId)
     .maybeSingle();
 
@@ -212,7 +215,8 @@ export async function requireCustomerOwnership(
     throw new NotFoundError("Booking", bookingId);
   }
 
-  if (booking.customer_id !== userId) {
+  // Type assertion needed when using custom select
+  if ((booking as any).customer_id !== userId) {
     throw new UnauthorizedError("You are not authorized to access this booking");
   }
 
@@ -298,7 +302,7 @@ export async function requireResourceOwnership<T>(
   table: keyof Database["public"]["Tables"],
   resourceId: string,
   userId: string,
-  ownerField: string = "profile_id"
+  ownerField = "profile_id"
 ): Promise<T> {
   const { data: resource, error } = await supabase
     .from(table as any)

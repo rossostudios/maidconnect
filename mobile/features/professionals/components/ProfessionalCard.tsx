@@ -4,26 +4,28 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 
 import { computeAvailableToday, formatLocation } from "../transformers";
-import type { ProfessionalProfile } from "../types";
+import type { ProfessionalProfile, ProfessionalSummary } from "../types";
 
 type ProfessionalCardProps = {
-  professional: ProfessionalProfile;
+  professional: ProfessionalProfile | ProfessionalSummary;
   onPress?: (profileId: string) => void;
 };
 
 const ProfessionalCardComponent = ({ professional, onPress }: ProfessionalCardProps) => {
+  const availability = 'availability' in professional ? professional.availability : [];
   const availabilityLabel = useMemo(() => {
-    if (computeAvailableToday(professional.availability)) {
+    if (computeAvailableToday(availability)) {
       return "Available today";
     }
-    if (professional.availability.length > 0) {
-      return `Next availability: ${professional.availability[0]?.day ?? "Scheduled"}`;
+    if (availability.length > 0) {
+      return `Next availability: ${availability[0]?.day ?? "Scheduled"}`;
     }
     return "Availability on request";
-  }, [professional.availability]);
+  }, [availability]);
 
+  const primaryServices = 'primaryServices' in professional ? professional.primaryServices : [];
   const serviceLabel =
-    professional.primaryServices[0] ??
+    primaryServices[0] ??
     professional.services[0]?.name ??
     "Professional home services";
 
@@ -31,11 +33,17 @@ const ProfessionalCardComponent = ({ professional, onPress }: ProfessionalCardPr
     onPress?.(professional.profileId);
   };
 
+  const verificationLevel = 'verificationLevel' in professional ? professional.verificationLevel : null;
+  const city = 'city' in professional ? professional.city : null;
+  const country = 'country' in professional ? professional.country : null;
+  const acceptanceRate = 'acceptanceRate' in professional ? professional.acceptanceRate : null;
+  const distanceKm = 'distanceKm' in professional ? professional.distanceKm : null;
+
   return (
     <Pressable onPress={handlePress} style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.name}>{professional.fullName ?? "Anonymous Professional"}</Text>
-        {professional.verificationLevel === "verified" ? (
+        {verificationLevel === "verified" ? (
           <View style={styles.badge}>
             <IconSymbol color="#1D4ED8" name="checkmark.seal.fill" size={16} />
             <Text style={styles.badgeLabel}>Verified</Text>
@@ -44,12 +52,14 @@ const ProfessionalCardComponent = ({ professional, onPress }: ProfessionalCardPr
       </View>
 
       <Text style={styles.service}>{serviceLabel}</Text>
-      <View style={styles.metaRow}>
-        <IconSymbol color="#475569" name="mappin.and.ellipse" size={18} />
-        <Text style={styles.metaText}>
-          {formatLocation(professional.city, professional.country)}
-        </Text>
-      </View>
+      {(city || country) && (
+        <View style={styles.metaRow}>
+          <IconSymbol color="#475569" name="mappin.and.ellipse" size={18} />
+          <Text style={styles.metaText}>
+            {formatLocation(city, country)}
+          </Text>
+        </View>
+      )}
       <View style={styles.metaRow}>
         <IconSymbol color="#475569" name="clock" size={18} />
         <Text style={styles.metaText}>{availabilityLabel}</Text>
@@ -65,9 +75,9 @@ const ProfessionalCardComponent = ({ professional, onPress }: ProfessionalCardPr
 
       <View style={styles.statsRow}>
         <Stat label="On-time" value={`${professional.onTimeRate ?? 0}%`} />
-        <Stat label="Acceptance" value={`${professional.acceptanceRate ?? 0}%`} />
-        {professional.distanceKm != null ? (
-          <Stat label="Away" value={`${professional.distanceKm.toFixed(1)} km`} />
+        <Stat label="Acceptance" value={`${acceptanceRate ?? 0}%`} />
+        {distanceKm != null ? (
+          <Stat label="Away" value={`${distanceKm.toFixed(1)} km`} />
         ) : (
           <Stat label="Distance" value="—" />
         )}

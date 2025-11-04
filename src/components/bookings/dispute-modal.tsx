@@ -4,7 +4,7 @@ import { AlertTriangle } from "lucide-react";
 import { FormModal } from "@/components/shared/form-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useModalForm } from "@/hooks/use-modal-form";
-import type { CustomerBooking } from "../customer-booking-list";
+import type { CustomerBooking } from "./customer-booking-list";
 
 type DisputeModalProps = {
   booking: CustomerBooking;
@@ -62,13 +62,11 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
     }
 
     // Submit using the form hook's handleSubmit
-    await form.handleSubmit(async (data) => {
-      return await submitDispute.mutate({
+    await form.handleSubmit(async (data) => await submitDispute.mutate({
         bookingId: booking.id,
         reason: data.reason,
         description: data.description.trim(),
-      });
-    });
+      }));
   };
 
   return (
@@ -76,7 +74,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
       customActions={
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-full border-2 border-[#ebe5d8] px-6 py-3 font-semibold text-base text-[#211f1a] transition hover:border-[#211f1a]"
+            className="flex-1 rounded-full border-2 border-[#ebe5d8] px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#211f1a]"
             onClick={onClose}
             type="button"
           >
@@ -103,7 +101,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
       {form.success ? (
         <div className="rounded-xl border border-green-200 bg-green-50 p-6 text-center">
           <p className="font-semibold text-green-800">Dispute submitted successfully!</p>
-          <p className="mt-2 text-sm text-green-700">
+          <p className="mt-2 text-green-700 text-sm">
             Our support team will review your report and contact you within 24 hours.
           </p>
         </div>
@@ -112,12 +110,12 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
           {/* Header with Icon */}
           <div className="mb-6 flex items-center gap-3">
             <AlertTriangle className="h-6 w-6 text-[#8B7355]" />
-            <h2 className="font-semibold text-xl text-[#211f1a]">Report an Issue</h2>
+            <h2 className="font-semibold text-[#211f1a] text-xl">Report an Issue</h2>
           </div>
 
           {/* Info Banner */}
           <div className="rounded-xl border border-[#e8e4db] bg-[#fbfafa] p-4">
-            <p className="text-sm leading-relaxed text-[#5a5549]">
+            <p className="text-[#5a5549] text-sm leading-relaxed">
               <span className="font-semibold text-[#211f1a]">48-Hour Protection Period</span> – You
               have up to 48 hours after service completion to report any issues. Our team will
               investigate and work with you to resolve the matter fairly.
@@ -126,8 +124,8 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
 
           {/* Booking Details */}
           <div className="mt-6 rounded-xl border border-[#e8e4db] bg-[#f7f4f0] p-4">
-            <p className="font-semibold text-sm text-[#211f1a]">Booking Details</p>
-            <div className="mt-2 space-y-1 text-sm text-[#5a5549]">
+            <p className="font-semibold text-[#211f1a] text-sm">Booking Details</p>
+            <div className="mt-2 space-y-1 text-[#5a5549] text-sm">
               <p>
                 <span className="font-medium">Service:</span> {booking.service_name}
               </p>
@@ -149,11 +147,11 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
 
           {/* Reason Selection */}
           <div className="mt-6 space-y-2">
-            <label className="block font-semibold text-sm text-[#211f1a]">
+            <label className="block font-semibold text-[#211f1a] text-sm">
               What went wrong? <span className="text-[#8B7355]">*</span>
             </label>
             <select
-              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3 text-base text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none"
+              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3 text-[#211f1a] text-base transition focus:border-[#211f1a] focus:outline-none"
               onChange={(e) => form.updateField("reason", e.target.value)}
               value={form.formData.reason}
             >
@@ -168,16 +166,16 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
 
           {/* Description */}
           <div className="mt-6 space-y-2">
-            <label className="block font-semibold text-sm text-[#211f1a]">
+            <label className="block font-semibold text-[#211f1a] text-sm">
               Please describe what happened <span className="text-[#8B7355]">*</span>
             </label>
             <textarea
-              className="min-h-32 w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3 text-base leading-relaxed text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none"
+              className="min-h-32 w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3 text-[#211f1a] text-base leading-relaxed transition focus:border-[#211f1a] focus:outline-none"
               onChange={(e) => form.updateField("description", e.target.value)}
               placeholder="Include specific details about the issue, when it occurred, and any relevant context..."
               value={form.formData.description}
             />
-            <p className="text-xs text-[#7a6d62]">
+            <p className="text-[#7a6d62] text-xs">
               Tip: Be as specific as possible. Include photos if you have them (contact support to
               send photos).
             </p>
@@ -186,7 +184,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
           {/* Error Display */}
           {form.error && (
             <div className="mt-6 rounded-xl border border-red-200 bg-red-50 p-4">
-              <p className="text-sm text-red-800">{form.error}</p>
+              <p className="text-red-800 text-sm">{form.error}</p>
             </div>
           )}
         </>

@@ -6,7 +6,7 @@
  * AFTER: 107 lines (2 handlers) (28% reduction)
  */
 
-import { withAuth, ok, created, badRequest, notFound, forbidden } from "@/lib/api";
+import { withAuth, ok, created, notFound, forbidden } from "@/lib/api";
 import { ValidationError } from "@/lib/errors";
 import { z } from "zod";
 
@@ -116,11 +116,20 @@ export const POST = withAuth(
     }
 
     // Update conversation with last message timestamp and increment unread count
+    // First get current unread count
+    const { data: currentConvo } = await supabase
+      .from("conversations")
+      .select(recipientField)
+      .eq("id", conversationId)
+      .single();
+
+    const currentCount = (currentConvo as any)?.[recipientField] || 0;
+
     await supabase
       .from("conversations")
       .update({
         last_message_at: new Date().toISOString(),
-        [recipientField]: supabase.rpc("increment", { row_id: conversationId }),
+        [recipientField]: currentCount + 1,
       })
       .eq("id", conversationId);
 

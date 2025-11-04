@@ -6,7 +6,7 @@
  * AFTER: 70 lines (2 handlers) (31% reduction)
  */
 
-import { withProfessional, ok, notFound, noContent, requireResourceOwnership } from "@/lib/api";
+import { withProfessional, ok, noContent, requireResourceOwnership } from "@/lib/api";
 import { ValidationError } from "@/lib/errors";
 import { z } from "zod";
 

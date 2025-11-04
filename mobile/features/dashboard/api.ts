@@ -122,7 +122,7 @@ export async function fetchUpcomingBookings(): Promise<UpcomingBooking[]> {
 /**
  * Fetch favorite professionals with their details (limit 4 for dashboard)
  */
-export async function fetchFavoriteProfessionals(): Promise<ProfessionalProfile[]> {
+export async function fetchFavoriteProfessionals(): Promise<ProfessionalSummary[]> {
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -173,7 +173,7 @@ export async function fetchFavoriteProfessionals(): Promise<ProfessionalProfile[
     services: prof.services || [],
     rating: prof.rating || 0,
     reviewCount: prof.review_count || 0,
-    completedBookings: prof.completed_bookings || 0,
-    onTimePercentage: prof.on_time_percentage || 0,
+    totalCompletedBookings: prof.completed_bookings || 0,
+    onTimeRate: prof.on_time_percentage || 0,
   }));
 }

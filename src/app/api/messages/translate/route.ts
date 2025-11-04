@@ -12,7 +12,7 @@
  * - Support bidirectional ES↔EN for Colombian marketplace
  */
 
-import { withAuth, ok, badRequest } from "@/lib/api";
+import { withAuth, ok, } from "@/lib/api";
 import { ValidationError } from "@/lib/errors";
 import { z } from "zod";
 
@@ -73,7 +73,7 @@ function cleanCache() {
 /**
  * Translate message text between English and Spanish
  */
-export const POST = withAuth(async ({ user, supabase }, request: Request) => {
+export const POST = withAuth(async ({ user: _user, supabase: _supabase }, request: Request) => {
   // Parse and validate request body
   const body = await request.json();
   const { text, targetLanguage, sourceLanguage } = translateSchema.parse(body);

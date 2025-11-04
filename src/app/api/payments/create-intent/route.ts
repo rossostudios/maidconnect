@@ -8,7 +8,6 @@
 
 import { withAuth, ok } from "@/lib/api";
 import { stripe } from "@/lib/stripe";
-import { ValidationError, BusinessRuleError } from "@/lib/errors";
 import { z } from "zod";
 
 const SUPPORTED_CURRENCIES = ["cop", "usd", "eur"];

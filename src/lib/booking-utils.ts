@@ -28,7 +28,7 @@ export function normalizeServiceName(value: string | null | undefined): string {
 export function calculateBookingAmount(
   hourlyRate: number,
   durationHours: number,
-  addonsTotal: number = 0
+  addonsTotal = 0
 ): { baseAmount: number; totalAmount: number } {
   const baseAmount =
     hourlyRate && durationHours > 0 ? Math.round(hourlyRate * durationHours) : 0;
@@ -61,7 +61,7 @@ export function validateBookingData(data: {
     errors.push("Please select a time");
   }
 
-  if (!data.address && !data.customAddress) {
+  if (!(data.address || data.customAddress)) {
     errors.push("Please provide a service address");
   }
 

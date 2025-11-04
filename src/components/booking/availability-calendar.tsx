@@ -1,6 +1,5 @@
 "use client";
 
-import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
 
 /**
  * Props for the booking availability calendar

@@ -6,7 +6,6 @@ import { AvailabilityCalendar } from "@/components/shared/availability-calendar"
 import type { ProfessionalBookingSummary } from "@/components/professionals/types";
 import type { AvailabilitySlot } from "@/lib/professionals/transformers";
 import type { DayAvailability } from "@/hooks/use-availability-data";
-import { cn } from "@/lib/utils";
 
 /**
  * Props for the professional availability calendar
@@ -110,7 +109,7 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
     }
 
     // Only return availability data if the date has availability or bookings
-    if (!hasAvailability && !hasBookings) {
+    if (!(hasAvailability || hasBookings)) {
       return null;
     }
 

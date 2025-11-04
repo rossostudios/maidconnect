@@ -61,9 +61,8 @@ export function useCalendarGrid({
 
     if (useUTC) {
       return buildUTCCalendarGrid(currentMonth, today, weeks);
-    } else {
-      return buildLocalCalendarGrid(currentMonth, today, weeks);
     }
+      return buildLocalCalendarGrid(currentMonth, today, weeks);
   }, [currentMonth, useUTC, weeks]);
 }
 

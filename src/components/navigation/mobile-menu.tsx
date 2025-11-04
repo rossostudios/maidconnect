@@ -54,7 +54,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
       >
         {/* Header */}
         <div className="flex items-center justify-between border-[var(--border)] border-b p-5">
-          <span className="font-semibold text-lg text-[var(--foreground)]">Menu</span>
+          <span className="font-semibold text-[var(--foreground)] text-lg">Menu</span>
           <button
             aria-label="Close menu"
             className="flex h-10 w-10 items-center justify-center rounded-lg text-[var(--foreground)] transition hover:bg-[color-mix(in_srgb,var(--accent)_18%,transparent)] hover:text-[var(--surface-contrast)] active:scale-95"
@@ -69,7 +69,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
         <nav className="flex flex-col p-5">
           {links.map((link) => (
             <Link
-              className="rounded-lg px-4 py-3 text-base font-medium text-[var(--foreground)] transition hover:bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] hover:text-[var(--surface-contrast)]"
+              className="rounded-lg px-4 py-3 font-medium text-[var(--foreground)] text-base transition hover:bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] hover:text-[var(--surface-contrast)]"
               href={link.href}
               key={link.href}
               onClick={() => {
@@ -89,7 +89,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
             <>
               {dashboardHref && (
                 <Link
-                  className="rounded-lg bg-[var(--accent)] px-4 py-3 text-center text-base font-semibold text-[var(--surface-contrast)] transition hover:bg-[color-mix(in_srgb,var(--accent)_85%,var(--accent-gold)_15%)]"
+                  className="rounded-lg bg-[var(--accent)] px-4 py-3 text-center font-semibold text-[var(--surface-contrast)] text-base transition hover:bg-[color-mix(in_srgb,var(--accent)_85%,var(--accent-gold)_15%)]"
                   href={dashboardHref}
                   onClick={closeMenu}
                 >
@@ -97,7 +97,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
                 </Link>
               )}
               <button
-                className="mt-3 rounded-lg border-2 border-[var(--border)] px-4 py-3 text-center text-base font-semibold text-[var(--foreground)] transition hover:border-[var(--surface-contrast)] hover:text-[var(--surface-contrast)] active:scale-95"
+                className="mt-3 rounded-lg border-2 border-[var(--border)] px-4 py-3 text-center font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--surface-contrast)] hover:text-[var(--surface-contrast)] active:scale-95"
                 onClick={() => {
                   onSignOut?.();
                   closeMenu();
@@ -110,14 +110,14 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
           ) : (
             <div className="flex flex-col gap-3">
               <Link
-                className="rounded-lg border-2 border-[var(--border)] px-4 py-3 text-center text-base font-semibold text-[var(--foreground)] transition hover:border-[var(--surface-contrast)] hover:text-[var(--surface-contrast)]"
+                className="rounded-lg border-2 border-[var(--border)] px-4 py-3 text-center font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--surface-contrast)] hover:text-[var(--surface-contrast)]"
                 href="/auth/sign-in"
                 onClick={closeMenu}
               >
                 {t("login")}
               </Link>
               <Link
-                className="rounded-lg bg-[var(--accent)] px-4 py-3 text-center text-base font-semibold text-[var(--surface-contrast)] transition hover:bg-[color-mix(in_srgb,var(--accent)_85%,var(--accent-gold)_15%)]"
+                className="rounded-lg bg-[var(--accent)] px-4 py-3 text-center font-semibold text-[var(--surface-contrast)] text-base transition hover:bg-[color-mix(in_srgb,var(--accent)_85%,var(--accent-gold)_15%)]"
                 href="/auth/sign-up"
                 onClick={closeMenu}
               >

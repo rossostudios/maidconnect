@@ -35,8 +35,7 @@ const handler = withCustomer(async ({ user, supabase }, request: Request) => {
   if (originalBooking.status !== "completed") {
     throw new InvalidBookingStatusError(
       originalBooking.status,
-      "rebook",
-      "Can only rebook completed bookings"
+      "rebook"
     );
   }
 

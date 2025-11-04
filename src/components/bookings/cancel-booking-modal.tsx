@@ -76,12 +76,10 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       return;
     }
 
-    await form.handleSubmit(async (data) => {
-      return await cancelMutation.mutate({
+    await form.handleSubmit(async (data) => await cancelMutation.mutate({
         bookingId: booking.id,
         reason: data.reason || undefined,
-      });
-    });
+      }));
   };
 
   const formatAmount = (amount: number | null, currency: string | null) => {
@@ -103,7 +101,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       customActions={
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-base text-[#211f1a] transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={form.isSubmitting}
             onClick={onClose}
             type="button"
@@ -128,7 +126,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       size="lg"
       title={t("title")}
     >
-      <p className="text-base text-[#5d574b]">
+      <p className="text-[#5d574b] text-base">
         {booking.service_name || "Service"} •{" "}
         {booking.scheduled_start
           ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
@@ -168,10 +166,10 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
 
       {/* Policy Details */}
       <details className="mt-6">
-        <summary className="cursor-pointer font-semibold text-base text-[#211f1a]">
+        <summary className="cursor-pointer font-semibold text-[#211f1a] text-base">
           {t("policy.viewPolicy")}
         </summary>
-        <pre className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-[#5d574b]">
+        <pre className="mt-3 whitespace-pre-wrap text-[#5d574b] text-sm leading-relaxed">
           {getCancellationPolicyDescription()}
         </pre>
       </details>
@@ -179,7 +177,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       {/* Reason Input */}
       {policy?.canCancel && (
         <div className="mt-6">
-          <label className="mb-2 block font-semibold text-base text-[#211f1a]" htmlFor="reason">
+          <label className="mb-2 block font-semibold text-[#211f1a] text-base" htmlFor="reason">
             {t("form.reasonLabel")}
           </label>
           <textarea

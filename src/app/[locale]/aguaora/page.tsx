@@ -37,7 +37,7 @@ export default async function AguaoraPage() {
           </div>
 
           {/* Brand Name */}
-          <h1 className="font-[family-name:var(--font-cinzel)] mb-6 text-5xl text-[#211f1a] tracking-[0.15em] sm:text-6xl lg:text-7xl">
+          <h1 className="mb-6 font-[family-name:var(--font-cinzel)] text-5xl text-[#211f1a] tracking-[0.15em] sm:text-6xl lg:text-7xl">
             AGUAORA
           </h1>
 

@@ -22,6 +22,7 @@ import {
   markConversationAsRead,
 } from "@/features/messaging/api";
 import type { Message } from "@/features/messaging/types";
+import { useRealtimeMessages } from "@/features/messaging/use-realtime-messages";
 
 export default function ChatScreen() {
   const { id: conversationId } = useLocalSearchParams<{ id: string }>();
@@ -44,7 +45,6 @@ export default function ChatScreen() {
     queryKey: ["messages", conversationId],
     queryFn: () => fetchMessages(conversationId!),
     enabled: !!conversationId,
-    refetchInterval: 3000, // Poll every 3 seconds
   });
 
   const messages = data ?? [];
@@ -58,31 +58,8 @@ export default function ChatScreen() {
     }
   }, [conversationId]);
 
-  // Subscribe to realtime updates
-  useEffect(() => {
-    if (!conversationId) return;
-
-    const channel = supabase
-      .channel(`conversation:${conversationId}`)
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "messages",
-          filter: `conversation_id=eq.${conversationId}`,
-        },
-        () => {
-          // Refetch messages when new message arrives
-          queryClient.invalidateQueries({ queryKey: ["messages", conversationId] });
-        }
-      )
-      .subscribe();
-
-    return () => {
-      channel.unsubscribe();
-    };
-  }, [conversationId, queryClient]);
+  // Subscribe to realtime message updates
+  useRealtimeMessages(conversationId || null, currentUserId || "");
 
   // Send message mutation
   const sendMutation = useMutation({

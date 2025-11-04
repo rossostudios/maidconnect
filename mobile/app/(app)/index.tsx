@@ -21,7 +21,7 @@ import {
   type DashboardStats,
   type UpcomingBooking,
 } from "@/features/dashboard/api";
-import type { ProfessionalProfile } from "@/features/professionals/types";
+import type { ProfessionalSummary } from "@/features/professionals/types";
 import { ProfessionalCard } from "@/features/professionals/components/ProfessionalCard";
 
 export default function DashboardScreen() {
@@ -50,7 +50,7 @@ export default function DashboardScreen() {
     data: favoriteProfessionals,
     isLoading: favoritesLoading,
     refetch: refetchFavorites,
-  } = useQuery<ProfessionalProfile[], Error>({
+  } = useQuery<ProfessionalSummary[], Error>({
     queryKey: ["favoriteProfessionals"],
     queryFn: fetchFavoriteProfessionals,
   });

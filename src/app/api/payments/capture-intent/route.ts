@@ -8,7 +8,7 @@
 
 import { withAuth, ok } from "@/lib/api";
 import { stripe } from "@/lib/stripe";
-import { ValidationError, UnauthorizedError, BusinessRuleError, NotFoundError } from "@/lib/errors";
+import { UnauthorizedError, BusinessRuleError, NotFoundError } from "@/lib/errors";
 import { z } from "zod";
 
 const captureIntentSchema = z.object({

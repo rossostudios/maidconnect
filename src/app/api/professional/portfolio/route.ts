@@ -6,7 +6,7 @@
  * AFTER: 125 lines (3 handlers) (27% reduction)
  */
 
-import { withProfessional, ok, created, badRequest } from "@/lib/api";
+import { withProfessional, ok, created, } from "@/lib/api";
 import { ValidationError } from "@/lib/errors";
 import { z } from "zod";
 
@@ -16,7 +16,7 @@ export type PortfolioImage = {
   thumbnail_url?: string;
   caption?: string;
   order: number;
-  created_at: string;
+  created_at?: string;
 };
 
 const portfolioImageSchema = z.object({
