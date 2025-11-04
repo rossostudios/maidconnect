@@ -19,7 +19,9 @@ export function Breadcrumbs() {
   let currentPath = "";
   for (let index = 0; index < segments.length; index++) {
     const segment = segments[index];
-    if (!segment) continue;
+    if (!segment) {
+      continue;
+    }
 
     currentPath += `/${segment}`;
 
@@ -53,7 +55,7 @@ export function Breadcrumbs() {
       <ol className="flex items-center gap-2 rounded-[28px] bg-white px-4 py-3 text-sm shadow-sm">
         <li>
           <Link
-            className="flex items-center gap-1.5 text-[#7d7566] transition hover:text-[#8B7355]"
+            className="flex items-center gap-1.5 text-[#7d7566] transition hover:text-[var(--red)]"
             href="/"
           >
             <svg
@@ -85,11 +87,11 @@ export function Breadcrumbs() {
               <path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
             </svg>
             {item.href ? (
-              <Link className="text-[#7d7566] transition hover:text-[#8B7355]" href={item.href}>
+              <Link className="text-[#7d7566] transition hover:text-[var(--red)]" href={item.href}>
                 {item.label}
               </Link>
             ) : (
-              <span className="font-medium text-[#211f1a]">{item.label}</span>
+              <span className="font-medium text-[var(--foreground)]">{item.label}</span>
             )}
           </li>
         ))}

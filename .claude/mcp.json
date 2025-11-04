@@ -1,6 +1,7 @@
 {
   "mcpServers": {
     "supabase": {
+      "type": "stdio",
       "command": "npx",
       "args": [
         "-y",
@@ -9,7 +10,13 @@
         "sbp_b014aed7bbce4e005f1a0d62e7acb5cfd3f40491",
         "--project-ref",
         "hvnetxfsrtplextvtwfx"
-      ]
+      ],
+      "env": {}
+    },
+    "exa": {
+      "type": "http",
+      "url": "https://mcp.exa.ai/mcp?exaApiKey=de433a06-0b81-47d6-ae39-377ce001b62e",
+      "headers": {}
     }
   }
 }

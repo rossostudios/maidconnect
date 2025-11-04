@@ -7,14 +7,27 @@
  * Positioned in the bottom-right corner with onboarding tooltip for first-time users.
  */
 
+import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { isFeatureEnabled } from "@/lib/feature-flags";
 import { cn } from "@/lib/utils";
-import { AmaraChatInterface } from "./amara-chat-interface";
 import { AmaraIcon } from "./amara-icon";
 import { AmaraOnboardingTooltip } from "./amara-onboarding-tooltip";
 import "./amara-animations.css";
+
+// Dynamically import the heavy chat interface component
+const AmaraChatInterface = dynamic(
+  () => import("./amara-chat-interface").then((mod) => mod.AmaraChatInterface),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-white border-t-transparent" />
+      </div>
+    ),
+  }
+);
 
 type AmaraFloatingButtonProps = {
   className?: string;
@@ -56,14 +69,14 @@ export function AmaraFloatingButton({ className, locale }: AmaraFloatingButtonPr
         <div className="fixed right-4 bottom-4 z-50 sm:right-6 sm:bottom-6">
           {/* Pulse Ring Animation (only when onboarding is visible) */}
           {showOnboarding && (
-            <div className="amara-pulse-ring absolute inset-0 rounded-full bg-[#8B7355]" />
+            <div className="amara-pulse-ring absolute inset-0 rounded-full bg-[var(--red)]" />
           )}
 
           {/* Button */}
           <button
             aria-label={t("openChat")}
             className={cn(
-              "relative flex h-14 w-14 items-center justify-center rounded-full bg-[#8B7355] text-white shadow-lg transition-all hover:shadow-xl active:scale-95 sm:h-16 sm:w-16",
+              "relative flex h-14 w-14 items-center justify-center rounded-full bg-[var(--red)] text-white shadow-lg transition-all hover:shadow-xl active:scale-95 sm:h-16 sm:w-16",
               className
             )}
             onClick={() => {

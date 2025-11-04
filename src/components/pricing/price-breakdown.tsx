@@ -1,4 +1,4 @@
-import { HelpCircle } from "lucide-react";
+import { HelpCircleIcon } from "hugeicons-react";
 import { formatCOP } from "@/lib/format";
 
 type PriceBreakdownProps = {
@@ -33,7 +33,7 @@ export function PriceBreakdown({
 
   return (
     <div className={`space-y-3 rounded-xl border border-[#f0ece5] bg-[#fbfafa] p-5 ${className}`}>
-      <h3 className="font-semibold text-[#211f1a] text-base">Price Breakdown</h3>
+      <h3 className="font-semibold text-[var(--foreground)] text-base">Price Breakdown</h3>
 
       <div className="space-y-2">
         {/* Base service cost */}
@@ -44,14 +44,14 @@ export function PriceBreakdown({
               {formatCOP(hourlyRate)}/hr × {hours} {hours === 1 ? "hour" : "hours"}
             </span>
           </div>
-          <span className="font-medium text-[#211f1a]">{formatCOP(baseAmount)}</span>
+          <span className="font-medium text-[var(--foreground)]">{formatCOP(baseAmount)}</span>
         </div>
 
         {/* Add-ons */}
         {addonsTotal > 0 && (
           <div className="flex justify-between text-sm">
             <span className="text-[#5a5549]">Add-ons</span>
-            <span className="font-medium text-[#211f1a]">{formatCOP(addonsTotal)}</span>
+            <span className="font-medium text-[var(--foreground)]">{formatCOP(addonsTotal)}</span>
           </div>
         )}
 
@@ -59,7 +59,7 @@ export function PriceBreakdown({
         {showPlatformFee && (
           <div className="flex justify-between border-[#e8e4db] border-t pt-2 text-sm">
             <span className="text-[#5a5549]">Subtotal</span>
-            <span className="font-medium text-[#211f1a]">{formatCOP(subtotal)}</span>
+            <span className="font-medium text-[var(--foreground)]">{formatCOP(subtotal)}</span>
           </div>
         )}
 
@@ -69,7 +69,7 @@ export function PriceBreakdown({
             <div className="flex items-center gap-1.5">
               <span className="text-[#5a5549]">Platform Fee</span>
               <div className="group relative">
-                <HelpCircle className="h-3.5 w-3.5 text-[#9a8f82] transition hover:text-[#211f1a]" />
+                <HelpCircleIcon className="h-3.5 w-3.5 text-[#9a8f82] transition hover:text-[var(--foreground)]" />
                 <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-64 rounded-lg border border-[#e8e4db] bg-white p-3 opacity-0 shadow-lg transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
                   <p className="text-[#5a5549] text-xs leading-relaxed">
                     This fee supports platform operations including payment processing, customer
@@ -79,14 +79,14 @@ export function PriceBreakdown({
                 </div>
               </div>
             </div>
-            <span className="font-medium text-[#211f1a]">{formatCOP(platformFee)}</span>
+            <span className="font-medium text-[var(--foreground)]">{formatCOP(platformFee)}</span>
           </div>
         )}
 
         {/* Total */}
         <div className="flex justify-between border-[#e8e4db] border-t pt-3 font-semibold text-base">
-          <span className="text-[#211f1a]">Total</span>
-          <span className="text-[#8B7355]">{formatCOP(totalWithFees)}</span>
+          <span className="text-[var(--foreground)]">Total</span>
+          <span className="text-[var(--red)]">{formatCOP(totalWithFees)}</span>
         </div>
       </div>
 
@@ -123,13 +123,15 @@ export function CompactPrice({
 
   if (!showBreakdown) {
     return (
-      <div className={`font-semibold text-[#211f1a] ${className}`}>{formatCOP(hourlyRate)}/hr</div>
+      <div className={`font-semibold text-[var(--foreground)] ${className}`}>
+        {formatCOP(hourlyRate)}/hr
+      </div>
     );
   }
 
   return (
     <div className={`${className}`}>
-      <div className="font-semibold text-[#211f1a]">{formatCOP(hourlyRate)}/hr</div>
+      <div className="font-semibold text-[var(--foreground)]">{formatCOP(hourlyRate)}/hr</div>
       <div className="text-[#7a6d62] text-xs">{formatCOP(totalWithFee)}/hr total with fees</div>
     </div>
   );

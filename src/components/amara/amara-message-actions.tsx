@@ -9,7 +9,7 @@
  * - Retry message (for errors)
  */
 
-import { Check, Copy, RotateCw, ThumbsDown, ThumbsUp } from "lucide-react";
+import { Copy01Icon, RefreshIcon, ThumbsDownIcon, ThumbsUpIcon, Tick02Icon } from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -79,7 +79,7 @@ export function AmaraMessageActions({
           title={t("thumbsUp")}
           type="button"
         >
-          <ThumbsUp
+          <ThumbsUpIcon
             className={cn(
               "h-3.5 w-3.5 transition-colors",
               feedback === "positive"
@@ -99,7 +99,7 @@ export function AmaraMessageActions({
           title={t("thumbsDown")}
           type="button"
         >
-          <ThumbsDown
+          <ThumbsDownIcon
             className={cn(
               "h-3.5 w-3.5 transition-colors",
               feedback === "negative"
@@ -122,9 +122,9 @@ export function AmaraMessageActions({
         type="button"
       >
         {copied ? (
-          <Check className="h-3.5 w-3.5 text-green-600" />
+          <Tick02Icon className="h-3.5 w-3.5 text-green-600" />
         ) : (
-          <Copy className="h-3.5 w-3.5 text-gray-400 transition-colors group-hover:text-gray-600" />
+          <Copy01Icon className="h-3.5 w-3.5 text-gray-400 transition-colors group-hover:text-gray-600" />
         )}
       </button>
 
@@ -139,7 +139,7 @@ export function AmaraMessageActions({
             title={t("retry")}
             type="button"
           >
-            <RotateCw className="h-3.5 w-3.5 text-gray-400 transition-colors group-hover:text-gray-600" />
+            <RefreshIcon className="h-3.5 w-3.5 text-gray-400 transition-colors group-hover:text-gray-600" />
           </button>
         </>
       )}

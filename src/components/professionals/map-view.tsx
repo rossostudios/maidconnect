@@ -1,8 +1,8 @@
 "use client";
 
 import "leaflet/dist/leaflet.css";
+import { Location01Icon, StarIcon } from "hugeicons-react";
 import { Icon, type LatLngExpression } from "leaflet";
-import { MapPin, Star } from "lucide-react";
 import Image from "next/image";
 import { memo, useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
@@ -43,7 +43,7 @@ const DEFAULT_ZOOM = 6;
 // Custom marker icon with price overlay
 function createCustomIcon(price: number | null, verified: boolean) {
   const priceText = price ? `$${Math.round(price / 100)}k` : "N/A";
-  const bgColor = verified ? "#10b981" : "#8B7355";
+  const bgColor = verified ? "#10b981" : "var(--red)";
 
   return new Icon({
     iconUrl: `data:image/svg+xml,${encodeURIComponent(`
@@ -118,7 +118,7 @@ const MapViewComponent = memo(
       return (
         <div className={`flex h-full items-center justify-center bg-gray-100 ${className}`}>
           <div className="flex flex-col items-center gap-2 text-gray-600">
-            <MapPin className="h-8 w-8 animate-pulse" />
+            <Location01Icon className="h-8 w-8 animate-pulse" />
             <p className="text-sm">Loading map...</p>
           </div>
         </div>
@@ -195,7 +195,7 @@ const MapViewComponent = memo(
                         {/* Rating */}
                         {professional.rating && professional.reviewCount ? (
                           <div className="mb-1 flex items-center gap-1 text-xs">
-                            <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                            <StarIcon className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                             <span className="font-semibold text-gray-900">
                               {professional.rating.toFixed(1)}
                             </span>
@@ -205,7 +205,7 @@ const MapViewComponent = memo(
 
                         {/* Price */}
                         {professional.hourlyRateCop ? (
-                          <p className="font-semibold text-[#8B7355] text-sm">
+                          <p className="font-semibold text-[var(--red)] text-sm">
                             {formatCOP(professional.hourlyRateCop)}/hr
                           </p>
                         ) : null}
@@ -217,7 +217,7 @@ const MapViewComponent = memo(
                       </div>
                     </div>
 
-                    <div className="mt-2 border-gray-200 border-t pt-2 text-center text-[#8B7355] text-xs">
+                    <div className="mt-2 border-gray-200 border-t pt-2 text-center text-[var(--red)] text-xs">
                       View Profile →
                     </div>
                   </Link>
@@ -231,7 +231,7 @@ const MapViewComponent = memo(
         {professionalsWithCoords.length === 0 && (
           <div className="absolute inset-0 flex items-center justify-center bg-white/80">
             <div className="text-center">
-              <MapPin className="mx-auto mb-2 h-12 w-12 text-gray-400" />
+              <Location01Icon className="mx-auto mb-2 h-12 w-12 text-gray-400" />
               <p className="font-medium text-gray-900">No professionals found on map</p>
               <p className="text-gray-600 text-sm">Try adjusting your filters or search criteria</p>
             </div>

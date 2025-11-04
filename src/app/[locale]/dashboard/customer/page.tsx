@@ -185,15 +185,17 @@ export default async function CustomerDashboardPage(props: {
 
       <header className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
         <div>
-          <p className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+          <p className="font-semibold text-[var(--label-muted)] text-xs uppercase tracking-[0.2em]">
             {t("header.dashboardLabel")}
           </p>
-          <h1 className="mt-4 font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
+          <h1 className="type-serif-lg mt-4 text-[var(--foreground)]">
             {profile?.full_name
               ? t("header.welcomeBackWithName", { name: profile.full_name })
               : t("header.welcomeBack")}
           </h1>
-          <p className="mt-4 text-[#5d574b] text-lg leading-relaxed">{t("header.description")}</p>
+          <p className="mt-4 text-[var(--muted-foreground)] text-lg leading-relaxed">
+            {t("header.description")}
+          </p>
         </div>
 
         <dl className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -216,13 +218,13 @@ export default async function CustomerDashboardPage(props: {
       <section className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="font-semibold text-3xl text-[#211f1a]">{t("tasks.title")}</h2>
-            <p className="mt-3 text-[#5d574b] text-base leading-relaxed">
+            <h2 className="font-semibold text-3xl text-[var(--foreground)]">{t("tasks.title")}</h2>
+            <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
               {t("tasks.description")}
             </p>
           </div>
           <Link
-            className="inline-flex items-center justify-center rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]"
+            className="inline-flex items-center justify-center rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
             href="/dashboard/customer/settings"
           >
             {t("tasks.updateProfile")}
@@ -234,29 +236,29 @@ export default async function CustomerDashboardPage(props: {
             const isComplete = completedTasks[taskId];
             return (
               <li
-                className="rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-md"
+                className="rounded-2xl border border-[var(--border-light)] bg-white p-6 shadow-sm transition hover:shadow-md"
                 key={taskId}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#8B7355] font-semibold text-sm text-white">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--red)] font-semibold text-sm text-white">
                       {index + 1}
                     </div>
-                    <span className="font-semibold text-[#211f1a] text-base">
+                    <span className="font-semibold text-[var(--foreground)] text-base">
                       {t(`tasks.${taskId}.title`)}
                     </span>
                   </div>
                   {isComplete ? (
-                    <span className="rounded-full bg-green-50 px-3 py-1 font-semibold text-green-700 text-xs">
+                    <span className="rounded-full bg-[var(--status-success-bg)] px-3 py-1 font-semibold text-[var(--status-success-text)] text-xs">
                       {t("tasks.status.completed")}
                     </span>
                   ) : (
-                    <span className="rounded-full bg-orange-50 px-3 py-1 font-semibold text-orange-700 text-xs">
+                    <span className="rounded-full bg-[var(--status-warning-bg)] px-3 py-1 font-semibold text-[var(--status-warning-text)] text-xs">
                       {t("tasks.status.actionNeeded")}
                     </span>
                   )}
                 </div>
-                <p className="mt-4 text-[#5d574b] text-base leading-relaxed">
+                <p className="mt-4 text-[var(--muted-foreground)] text-base leading-relaxed">
                   {t(`tasks.${taskId}.description`)}
                 </p>
                 {(() => {
@@ -268,7 +270,7 @@ export default async function CustomerDashboardPage(props: {
                   }
                   return (
                     <Link
-                      className="mt-4 inline-flex items-center font-semibold text-[#8B7355] text-base hover:text-[#9B8B7E]"
+                      className="mt-4 inline-flex items-center font-semibold text-[var(--red)] text-base hover:text-[var(--red-hover)]"
                       href={CUSTOMER_TASK_HREFS[taskId] || "#"}
                     >
                       {t(`tasks.${taskId}.cta`)} →
@@ -276,7 +278,7 @@ export default async function CustomerDashboardPage(props: {
                   );
                 })()}
                 {taskId === "verification" && !isComplete ? (
-                  <p className="mt-4 text-orange-700 text-sm">
+                  <p className="mt-4 text-[var(--status-warning-text)] text-sm">
                     {t("tasks.verification.upgradeNote")}
                   </p>
                 ) : null}
@@ -290,8 +292,10 @@ export default async function CustomerDashboardPage(props: {
         className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm"
         id="addresses"
       >
-        <h2 className="font-semibold text-3xl text-[#211f1a]">{t("sections.addresses.title")}</h2>
-        <p className="mt-3 text-[#5d574b] text-base leading-relaxed">
+        <h2 className="font-semibold text-3xl text-[var(--foreground)]">
+          {t("sections.addresses.title")}
+        </h2>
+        <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
           {t("sections.addresses.description")}
         </p>
         <div className="mt-8">
@@ -303,18 +307,18 @@ export default async function CustomerDashboardPage(props: {
 
       <section className="grid gap-6 lg:grid-cols-2">
         <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h3 className="font-semibold text-2xl text-[#211f1a]">
+          <h3 className="font-semibold text-2xl text-[var(--foreground)]">
             {t("sections.propertyPreferences.title")}
           </h3>
-          <p className="mt-3 text-[#5d574b] text-base leading-relaxed">
+          <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
             {t("sections.propertyPreferences.description")}
           </p>
           <dl className="mt-6 space-y-4 text-base">
             <div>
-              <dt className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+              <dt className="font-semibold text-[var(--label-muted)] text-xs uppercase tracking-[0.2em]">
                 {t("summary.propertyType")}
               </dt>
-              <dd className="mt-2 text-[#211f1a]">
+              <dd className="mt-2 text-[var(--foreground)]">
                 {formatPropertyType(
                   propertyType,
                   {
@@ -328,20 +332,22 @@ export default async function CustomerDashboardPage(props: {
               </dd>
             </div>
             <div>
-              <dt className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+              <dt className="font-semibold text-[var(--label-muted)] text-xs uppercase tracking-[0.2em]">
                 {t("summary.city")}
               </dt>
-              <dd className="mt-2 text-[#211f1a]">{profile?.city ?? t("summary.addYourCity")}</dd>
+              <dd className="mt-2 text-[var(--foreground)]">
+                {profile?.city ?? t("summary.addYourCity")}
+              </dd>
             </div>
             <div>
-              <dt className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+              <dt className="font-semibold text-[var(--label-muted)] text-xs uppercase tracking-[0.2em]">
                 {t("summary.country")}
               </dt>
-              <dd className="mt-2 text-[#211f1a]">{profile?.country ?? "Colombia"}</dd>
+              <dd className="mt-2 text-[var(--foreground)]">{profile?.country ?? "Colombia"}</dd>
             </div>
           </dl>
           <Link
-            className="mt-6 inline-flex items-center font-semibold text-[#8B7355] text-base hover:text-[#9B8B7E]"
+            className="mt-6 inline-flex items-center font-semibold text-[var(--red)] text-base hover:text-[var(--red-hover)]"
             href="/dashboard/customer/settings"
           >
             {t("sections.propertyPreferences.updatePreferences")}
@@ -349,11 +355,13 @@ export default async function CustomerDashboardPage(props: {
         </div>
 
         <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h3 className="font-semibold text-2xl text-[#211f1a]">{t("sections.needHelp.title")}</h3>
-          <p className="mt-3 text-[#5d574b] text-base leading-relaxed">
+          <h3 className="font-semibold text-2xl text-[var(--foreground)]">
+            {t("sections.needHelp.title")}
+          </h3>
+          <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
             {t("sections.needHelp.description")}
           </p>
-          <ul className="mt-6 space-y-3 text-[#211f1a] text-base">
+          <ul className="mt-6 space-y-3 text-[var(--foreground)] text-base">
             <li>
               <span className="font-semibold">{t("sections.needHelp.liveChat")}</span>{" "}
               {t("sections.needHelp.liveChatHours")}
@@ -368,7 +376,7 @@ export default async function CustomerDashboardPage(props: {
             </li>
           </ul>
           <Link
-            className="mt-6 inline-flex items-center font-semibold text-[#8B7355] text-base hover:text-[#9B8B7E]"
+            className="mt-6 inline-flex items-center font-semibold text-[var(--red)] text-base hover:text-[var(--red-hover)]"
             href="/support/account-suspended"
           >
             {t("sections.needHelp.browseHelpCenter")}
@@ -380,8 +388,10 @@ export default async function CustomerDashboardPage(props: {
         className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm"
         id="bookings"
       >
-        <h2 className="font-semibold text-3xl text-[#211f1a]">{t("sections.bookings.title")}</h2>
-        <p className="mt-3 text-[#5d574b] text-base leading-relaxed">
+        <h2 className="font-semibold text-3xl text-[var(--foreground)]">
+          {t("sections.bookings.title")}
+        </h2>
+        <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
           {t("sections.bookings.description")}
         </p>
         <div className="mt-8">
@@ -395,8 +405,10 @@ export default async function CustomerDashboardPage(props: {
         className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm"
         id="favorites"
       >
-        <h2 className="font-semibold text-3xl text-[#211f1a]">{t("sections.favorites.title")}</h2>
-        <p className="mt-3 text-[#5d574b] text-base leading-relaxed">
+        <h2 className="font-semibold text-3xl text-[var(--foreground)]">
+          {t("sections.favorites.title")}
+        </h2>
+        <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
           {t("sections.favorites.description")}
         </p>
         <div className="mt-8">
@@ -410,13 +422,15 @@ export default async function CustomerDashboardPage(props: {
         className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm"
         id="messages"
       >
-        <h2 className="font-semibold text-3xl text-[#211f1a]">{t("sections.messages.title")}</h2>
-        <p className="mt-3 text-[#5d574b] text-base leading-relaxed">
+        <h2 className="font-semibold text-3xl text-[var(--foreground)]">
+          {t("sections.messages.title")}
+        </h2>
+        <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
           {t("sections.messages.description")}
         </p>
         <div className="mt-8">
           <Link
-            className="inline-flex items-center gap-2 rounded-full bg-[#8B7355] px-6 py-3 font-medium text-base text-white transition hover:bg-[#e54d3c]"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--red)] px-6 py-3 font-medium text-base text-white transition hover:bg-[var(--red-hover)]"
             href="/dashboard/customer/messages"
           >
             {t("sections.messages.viewAllMessages")}
@@ -437,17 +451,17 @@ export default async function CustomerDashboardPage(props: {
       <section className="grid gap-6 lg:grid-cols-3">
         {QUICK_LINK_IDS.map((linkId) => (
           <Link
-            className="group hover:-translate-y-1 rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-sm transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)]"
+            className="group hover:-translate-y-1 rounded-[28px] border border-[var(--border-light)] bg-white p-8 shadow-sm transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)]"
             href={QUICK_LINKS_HREFS[linkId] || "#"}
             key={linkId}
           >
-            <h3 className="font-semibold text-[#211f1a] text-lg">
+            <h3 className="font-semibold text-[var(--foreground)] text-lg">
               {t(`quickLinks.${linkId}.title`)}
             </h3>
-            <p className="mt-3 text-[#5d574b] text-base leading-relaxed">
+            <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
               {t(`quickLinks.${linkId}.description`)}
             </p>
-            <span className="mt-4 inline-flex items-center font-semibold text-[#8B7355] text-base group-hover:text-[#9B8B7E]">
+            <span className="mt-4 inline-flex items-center font-semibold text-[var(--red)] text-base group-hover:text-[var(--red-hover)]">
               {t("quickLinks.goNow")}
             </span>
           </Link>
@@ -460,8 +474,10 @@ export default async function CustomerDashboardPage(props: {
 function SummaryCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-2xl bg-white p-6 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-      <dt className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">{label}</dt>
-      <dd className="mt-2 font-medium text-[#211f1a] text-base">{value}</dd>
+      <dt className="font-semibold text-[var(--label-muted)] text-xs uppercase tracking-[0.2em]">
+        {label}
+      </dt>
+      <dd className="mt-2 font-medium text-[var(--foreground)] text-base">{value}</dd>
     </div>
   );
 }

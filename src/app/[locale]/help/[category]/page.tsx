@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight01Icon, BookOpen01Icon } from "hugeicons-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -115,7 +115,7 @@ export default async function HelpCategoryPage({
           <div className="mx-auto max-w-4xl">
             {/* Breadcrumb */}
             <nav className="mb-6 flex items-center gap-2 text-gray-600 text-sm">
-              <Link className="hover:text-[#8B7355]" href={`/${locale}/help`}>
+              <Link className="hover:text-[var(--red)]" href={`/${locale}/help`}>
                 {t("breadcrumb.home")}
               </Link>
               <span>/</span>
@@ -156,13 +156,13 @@ export default async function HelpCategoryPage({
 
                 return (
                   <Link
-                    className="group block rounded-lg border border-gray-200 bg-white p-6 transition hover:border-[#8B7355] hover:shadow-md"
+                    className="group block rounded-lg border border-gray-200 bg-white p-6 transition hover:border-[var(--red)] hover:shadow-md"
                     href={`/${locale}/help/${categorySlug}/${article.slug}`}
                     key={article.id}
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
-                        <h3 className="mb-2 font-semibold text-gray-900 text-lg group-hover:text-[#8B7355]">
+                        <h3 className="mb-2 font-semibold text-gray-900 text-lg group-hover:text-[var(--red)]">
                           {article.title}
                         </h3>
                         {article.excerpt && (
@@ -190,8 +190,8 @@ export default async function HelpCategoryPage({
                       </div>
 
                       <div className="flex-shrink-0">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 text-gray-400 transition group-hover:bg-[#8B7355]/10 group-hover:text-[#8B7355]">
-                          <ArrowRight className="h-5 w-5" />
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 text-gray-400 transition group-hover:bg-[var(--red)]/10 group-hover:text-[var(--red)]">
+                          <ArrowRight01Icon className="h-5 w-5" />
                         </div>
                       </div>
                     </div>
@@ -202,17 +202,17 @@ export default async function HelpCategoryPage({
           </div>
         ) : (
           <div className="mx-auto max-w-4xl rounded-lg border border-gray-200 bg-white p-12 text-center">
-            <BookOpen className="mx-auto mb-4 h-12 w-12 text-gray-400" />
+            <BookOpen01Icon className="mx-auto mb-4 h-12 w-12 text-gray-400" />
             <h3 className="mb-2 font-semibold text-gray-900 text-lg">
               {t("category.noArticles.title")}
             </h3>
             <p className="mb-6 text-gray-600">{t("category.noArticles.description")}</p>
             <Link
-              className="inline-flex items-center gap-2 rounded-lg bg-[#8B7355] px-6 py-3 font-semibold text-white transition hover:bg-[#8B7355]"
+              className="inline-flex items-center gap-2 rounded-lg bg-[var(--red)] px-6 py-3 font-semibold text-white transition hover:bg-[var(--red)]"
               href={`/${locale}/help`}
             >
               {t("category.noArticles.button")}
-              <ArrowRight className="h-5 w-5" />
+              <ArrowRight01Icon className="h-5 w-5" />
             </Link>
           </div>
         )}
@@ -220,10 +220,10 @@ export default async function HelpCategoryPage({
         {/* Back to Categories */}
         <div className="mx-auto mt-12 max-w-4xl text-center">
           <Link
-            className="inline-flex items-center gap-2 text-[#8B7355] hover:underline"
+            className="inline-flex items-center gap-2 text-[var(--red)] hover:underline"
             href={`/${locale}/help`}
           >
-            <ArrowRight className="h-4 w-4 rotate-180" />
+            <ArrowRight01Icon className="h-4 w-4 rotate-180" />
             {t("category.backToHelp")}
           </Link>
         </div>

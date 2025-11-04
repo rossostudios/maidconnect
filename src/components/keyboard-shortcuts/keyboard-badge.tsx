@@ -20,7 +20,7 @@ export function KeyboardBadge({ keys, className, size = "md" }: KeyboardBadgePro
         <span className="flex items-center gap-1" key={`${key}-${index}`}>
           <kbd
             className={cn(
-              "inline-flex items-center justify-center rounded-lg border border-[#dcd6c7] bg-[#fefcf9] font-medium font-mono text-[#5d574b] shadow-sm",
+              "inline-flex items-center justify-center rounded-lg border border-[#dcd6c7] bg-[#fefcf9] font-medium font-mono text-[var(--muted-foreground)] shadow-sm",
               size === "sm" && "min-w-[28px] px-2.5 py-1.5 text-xs",
               size === "md" && "min-w-[32px] px-3 py-1.5 text-sm"
             )}

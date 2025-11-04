@@ -1,6 +1,15 @@
 "use client";
 
-import { Bug, Eye, Loader2, Palette, Save, Shield, Sparkles, Zap } from "lucide-react";
+import {
+  Bug01Icon,
+  FlashIcon,
+  FloppyDiskIcon,
+  Loading01Icon,
+  MagicWand01Icon,
+  PaintBoardIcon,
+  Shield01Icon,
+  ViewIcon,
+} from "hugeicons-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
@@ -25,11 +34,11 @@ type ChangelogEditorProps = {
 };
 
 const categoryOptions = [
-  { value: "features", label: "Features", icon: Sparkles, color: "text-purple-600" },
-  { value: "improvements", label: "Improvements", icon: Zap, color: "text-blue-600" },
-  { value: "fixes", label: "Fixes", icon: Bug, color: "text-green-600" },
-  { value: "security", label: "Security", icon: Shield, color: "text-red-600" },
-  { value: "design", label: "Design", icon: Palette, color: "text-pink-600" },
+  { value: "features", label: "Features", icon: MagicWand01Icon, color: "text-purple-600" },
+  { value: "improvements", label: "Improvements", icon: FlashIcon, color: "text-blue-600" },
+  { value: "fixes", label: "Fixes", icon: Bug01Icon, color: "text-green-600" },
+  { value: "security", label: "Security", icon: Shield01Icon, color: "text-red-600" },
+  { value: "design", label: "Design", icon: PaintBoardIcon, color: "text-pink-600" },
 ];
 
 const audienceOptions = [
@@ -153,19 +162,19 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
       <form className="space-y-6">
         {/* Basic Info */}
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-          <h3 className="mb-4 font-bold text-[#211f1a] text-lg">Basic Information</h3>
+          <h3 className="mb-4 font-bold text-[var(--foreground)] text-lg">Basic Information</h3>
 
           <div className="space-y-4">
             {/* Sprint Number */}
             <div>
               <label
-                className="mb-2 block font-medium text-[#211f1a] text-sm"
+                className="mb-2 block font-medium text-[var(--foreground)] text-sm"
                 htmlFor="sprint_number"
               >
                 Sprint Number *
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[var(--foreground)] focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)20]"
                 id="sprint_number"
                 min="1"
                 onChange={(e) =>
@@ -182,11 +191,14 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
             {/* Title */}
             <div>
-              <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="title">
+              <label
+                className="mb-2 block font-medium text-[var(--foreground)] text-sm"
+                htmlFor="title"
+              >
                 Title *
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[var(--foreground)] focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)20]"
                 id="title"
                 onChange={(e) => handleTitleChange(e.target.value)}
                 placeholder="e.g., Enhanced Search and New Dashboard Features"
@@ -198,11 +210,14 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
             {/* Slug */}
             <div>
-              <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="slug">
+              <label
+                className="mb-2 block font-medium text-[var(--foreground)] text-sm"
+                htmlFor="slug"
+              >
                 Slug *
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfaf9] px-4 py-3 font-mono text-[#5d574b] text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
+                className="w-full rounded-xl border border-[#ebe5d8] bg-[var(--background)] px-4 py-3 font-mono text-[var(--muted-foreground)] text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)20]"
                 id="slug"
                 onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                 placeholder="auto-generated-from-title"
@@ -217,11 +232,14 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
             {/* Summary */}
             <div>
-              <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="summary">
+              <label
+                className="mb-2 block font-medium text-[var(--foreground)] text-sm"
+                htmlFor="summary"
+              >
                 Summary
               </label>
               <textarea
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[var(--foreground)] focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)20]"
                 id="summary"
                 onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
                 placeholder="Brief overview of this update (shown in list view)"
@@ -233,13 +251,13 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             {/* Published Date */}
             <div>
               <label
-                className="mb-2 block font-medium text-[#211f1a] text-sm"
+                className="mb-2 block font-medium text-[var(--foreground)] text-sm"
                 htmlFor="published_at"
               >
                 Published Date *
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[var(--foreground)] focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)20]"
                 id="published_at"
                 onChange={(e) => setFormData({ ...formData, published_at: e.target.value })}
                 required
@@ -253,25 +271,25 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         {/* Content */}
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
           <div className="mb-4 flex items-center justify-between">
-            <h3 className="font-bold text-[#211f1a] text-lg">Content *</h3>
+            <h3 className="font-bold text-[var(--foreground)] text-lg">Content *</h3>
             <button
-              className="flex items-center gap-2 rounded-lg border border-[#ebe5d8] px-3 py-1.5 text-[#5d574b] text-sm transition hover:border-[#8B7355]"
+              className="flex items-center gap-2 rounded-lg border border-[#ebe5d8] px-3 py-1.5 text-[var(--muted-foreground)] text-sm transition hover:border-[var(--red)]"
               onClick={() => setShowPreview(!showPreview)}
               type="button"
             >
-              <Eye className="h-4 w-4" />
+              <ViewIcon className="h-4 w-4" />
               {showPreview ? "Edit" : "Preview"}
             </button>
           </div>
 
           {showPreview ? (
             <div
-              className="prose prose-lg max-w-none rounded-xl border border-[#ebe5d8] bg-[#fbfaf9] p-6"
+              className="prose prose-lg max-w-none rounded-xl border border-[#ebe5d8] bg-[var(--background)] p-6"
               dangerouslySetInnerHTML={{ __html: formData.content }}
             />
           ) : (
             <textarea
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 font-mono text-[#211f1a] text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 font-mono text-[var(--foreground)] text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)20]"
               id="content"
               onChange={(e) => setFormData({ ...formData, content: e.target.value })}
               placeholder="Write your changelog content here (supports HTML)..."
@@ -286,7 +304,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
         {/* Categories */}
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-          <h3 className="mb-4 font-bold text-[#211f1a] text-lg">Categories</h3>
+          <h3 className="mb-4 font-bold text-[var(--foreground)] text-lg">Categories</h3>
           <div className="flex flex-wrap gap-3">
             {categoryOptions.map((option) => {
               const Icon = option.icon;
@@ -296,8 +314,8 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 <button
                   className={`flex items-center gap-2 rounded-full border-2 px-4 py-2 font-medium text-sm transition ${
                     isSelected
-                      ? "border-[#8B7355] bg-[#8B7355] text-white"
-                      : "border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
+                      ? "border-[var(--red)] bg-[var(--red)] text-white"
+                      : "border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
                   }`}
                   key={option.value}
                   onClick={() => handleCategoryToggle(option.value)}
@@ -313,16 +331,19 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
         {/* Tags & Audience */}
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-          <h3 className="mb-4 font-bold text-[#211f1a] text-lg">Metadata</h3>
+          <h3 className="mb-4 font-bold text-[var(--foreground)] text-lg">Metadata</h3>
 
           <div className="space-y-4">
             {/* Tags */}
             <div>
-              <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="tags">
+              <label
+                className="mb-2 block font-medium text-[var(--foreground)] text-sm"
+                htmlFor="tags"
+              >
                 Tags
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[var(--foreground)] focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)20]"
                 id="tags"
                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
                 placeholder="performance, ui, mobile (comma-separated)"
@@ -333,7 +354,9 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
             {/* Target Audience */}
             <div>
-              <div className="mb-2 block font-medium text-[#211f1a] text-sm">Target Audience</div>
+              <div className="mb-2 block font-medium text-[var(--foreground)] text-sm">
+                Target Audience
+              </div>
               <div className="flex flex-wrap gap-2">
                 {audienceOptions.map((option) => {
                   const isSelected = formData.target_audience.includes(option.value);
@@ -342,8 +365,8 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                     <button
                       className={`rounded-lg border-2 px-3 py-1.5 font-medium text-sm transition ${
                         isSelected
-                          ? "border-[#8B7355] bg-[#8B735520] text-[#8B7355]"
-                          : "border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
+                          ? "border-[var(--red)] bg-[var(--red)20] text-[var(--red)]"
+                          : "border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
                       }`}
                       key={option.value}
                       onClick={() => handleAudienceToggle(option.value)}
@@ -359,13 +382,13 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             {/* Featured Image URL */}
             <div>
               <label
-                className="mb-2 block font-medium text-[#211f1a] text-sm"
+                className="mb-2 block font-medium text-[var(--foreground)] text-sm"
                 htmlFor="featured_image_url"
               >
                 Featured Image URL
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
+                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[var(--foreground)] focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)20]"
                 id="featured_image_url"
                 onChange={(e) => setFormData({ ...formData, featured_image_url: e.target.value })}
                 placeholder="https://example.com/image.jpg"
@@ -379,7 +402,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         {/* Actions */}
         <div className="flex items-center justify-between gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
           <button
-            className="rounded-full border border-[#ebe5d8] px-6 py-2.5 font-semibold text-[#5d574b] transition hover:border-[#8B7355]"
+            className="rounded-full border border-[#ebe5d8] px-6 py-2.5 font-semibold text-[var(--muted-foreground)] transition hover:border-[var(--red)]"
             disabled={saving}
             onClick={() => router.back()}
             type="button"
@@ -389,38 +412,38 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
           <div className="flex gap-3">
             <button
-              className="flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-2.5 font-semibold text-[#211f1a] transition hover:border-[#8B7355] disabled:opacity-50"
+              className="flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-2.5 font-semibold text-[var(--foreground)] transition hover:border-[var(--red)] disabled:opacity-50"
               disabled={saving}
               onClick={(e) => handleSubmit(e, "draft")}
               type="button"
             >
               {saving ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loading01Icon className="h-4 w-4 animate-spin" />
                   Saving...
                 </>
               ) : (
                 <>
-                  <Save className="h-4 w-4" />
+                  <FloppyDiskIcon className="h-4 w-4" />
                   Save Draft
                 </>
               )}
             </button>
 
             <button
-              className="flex items-center gap-2 rounded-full bg-[#8B7355] px-6 py-2.5 font-semibold text-white transition hover:bg-[#8B7355] disabled:opacity-50"
+              className="flex items-center gap-2 rounded-full bg-[var(--red)] px-6 py-2.5 font-semibold text-white transition hover:bg-[var(--red)] disabled:opacity-50"
               disabled={saving}
               onClick={(e) => handleSubmit(e, "published")}
               type="button"
             >
               {saving ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loading01Icon className="h-4 w-4 animate-spin" />
                   Publishing...
                 </>
               ) : (
                 <>
-                  <Sparkles className="h-4 w-4" />
+                  <MagicWand01Icon className="h-4 w-4" />
                   Publish
                 </>
               )}

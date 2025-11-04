@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock } from "lucide-react";
+import { Clock01Icon } from "hugeicons-react";
 import { useMemo, useState } from "react";
 import type { ProfessionalBookingSummary } from "@/components/professionals/types";
 import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
@@ -167,8 +167,8 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
         </div>
 
         {/* Details Sidebar */}
-        <div className="rounded-lg border border-[#efe7dc] bg-[#fbfafa] p-4 text-[#5d574b] text-sm">
-          <h4 className="font-semibold text-[#211f1a] text-sm">Day details</h4>
+        <div className="rounded-lg border border-[#efe7dc] bg-[#fbfafa] p-4 text-[var(--muted-foreground)] text-sm">
+          <h4 className="font-semibold text-[var(--foreground)] text-sm">Day details</h4>
           {selectedDate && (
             <p className="mt-1 text-[#7a6d62] text-xs">
               {selectedDate.toLocaleDateString("es-CO", {
@@ -183,16 +183,16 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
           {/* Available Windows */}
           {selectedAvailability.length > 0 ? (
             <div className="mt-3 space-y-2">
-              <p className="font-semibold text-[#a49c90] text-xs uppercase tracking-[0.18em]">
+              <p className="font-semibold text-[var(--muted-foreground)] text-xs uppercase tracking-[0.18em]">
                 Available windows
               </p>
-              <ul className="space-y-1 text-[#211f1a] text-sm">
+              <ul className="space-y-1 text-[var(--foreground)] text-sm">
                 {selectedAvailability.map((slot, index) => (
                   <li
                     className="flex items-center gap-2"
                     key={`${slot.day}-${slot.start}-${slot.end}-${index}`}
                   >
-                    <Clock aria-hidden="true" className="h-3.5 w-3.5 text-[#8B7355]" />
+                    <Clock01Icon aria-hidden="true" className="h-3.5 w-3.5 text-[var(--red)]" />
                     <span>
                       {slot.start ?? "--"} – {slot.end ?? "--"}
                     </span>
@@ -212,7 +212,7 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
 
           {/* Bookings */}
           <div className="mt-4">
-            <p className="font-semibold text-[#a49c90] text-xs uppercase tracking-[0.18em]">
+            <p className="font-semibold text-[var(--muted-foreground)] text-xs uppercase tracking-[0.18em]">
               Bookings
             </p>
             {selectedBookings.length === 0 ? (
@@ -236,10 +236,10 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
                         : (booking.status ?? "Booking");
                     return (
                       <li
-                        className="rounded-2xl border border-[#efe7dc] bg-white px-3 py-2 text-[#5d574b] text-sm"
+                        className="rounded-2xl border border-[#efe7dc] bg-white px-3 py-2 text-[var(--muted-foreground)] text-sm"
                         key={booking.id}
                       >
-                        <p className="font-semibold text-[#211f1a]">
+                        <p className="font-semibold text-[var(--foreground)]">
                           {startDate ? formatTime(startDate) : "Scheduled"} ·{" "}
                           {booking.serviceName ?? "Service"}
                         </p>
@@ -288,7 +288,7 @@ function CustomDayContent({
     <div className="flex h-full min-h-[50px] flex-col items-center justify-center">
       <span className="font-semibold text-sm">{date.getDate()}</span>
       {hasAvailability && (
-        <span className="mt-1 rounded-full bg-[#8B7355]/12 px-2 py-0.5 font-semibold text-[#8a3934] text-xs">
+        <span className="mt-1 rounded-full bg-[var(--red)]/12 px-2 py-0.5 font-semibold text-[#8a3934] text-xs">
           Open
         </span>
       )}

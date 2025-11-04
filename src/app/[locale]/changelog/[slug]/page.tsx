@@ -1,4 +1,11 @@
-import { ArrowLeft, Bug, Palette, Shield, Sparkles, Zap } from "lucide-react";
+import {
+  ArrowLeft01Icon,
+  Bug01Icon,
+  FlashIcon,
+  MagicWand01Icon,
+  PaintBoardIcon,
+  Shield01Icon,
+} from "hugeicons-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -9,18 +16,26 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 const categoryConfig = {
   features: {
-    icon: Sparkles,
+    icon: MagicWand01Icon,
     label: "Features",
     color: "text-purple-600 bg-purple-50 border-purple-200",
   },
   improvements: {
-    icon: Zap,
+    icon: FlashIcon,
     label: "Improvements",
     color: "text-blue-600 bg-blue-50 border-blue-200",
   },
-  fixes: { icon: Bug, label: "Fixes", color: "text-green-600 bg-green-50 border-green-200" },
-  security: { icon: Shield, label: "Security", color: "text-red-600 bg-red-50 border-red-200" },
-  design: { icon: Palette, label: "Design", color: "text-pink-600 bg-pink-50 border-pink-200" },
+  fixes: { icon: Bug01Icon, label: "Fixes", color: "text-green-600 bg-green-50 border-green-200" },
+  security: {
+    icon: Shield01Icon,
+    label: "Security",
+    color: "text-red-600 bg-red-50 border-red-200",
+  },
+  design: {
+    icon: PaintBoardIcon,
+    label: "Design",
+    color: "text-pink-600 bg-pink-50 border-pink-200",
+  },
 };
 
 export default async function ChangelogDetailPage({
@@ -57,32 +72,30 @@ export default async function ChangelogDetailPage({
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
 
-      <main className="flex-1 bg-[#fbfaf9] px-4 py-12 sm:px-6 lg:px-8">
+      <main className="flex-1 bg-[var(--background)] px-4 py-12 sm:px-6 lg:px-8">
         <article className="mx-auto max-w-4xl">
           {/* Back Link */}
           <Link
-            className="mb-8 inline-flex items-center gap-2 font-medium text-[#7a6d62] text-base transition hover:text-[#8B7355]"
+            className="mb-8 inline-flex items-center gap-2 font-medium text-[#7a6d62] text-base transition hover:text-[var(--red)]"
             href="/changelog"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft01Icon className="h-4 w-4" />
             Back to all updates
           </Link>
 
           {/* Header */}
           <div className="mb-8 rounded-[28px] border border-[#ebe5d8] bg-white p-8">
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-[#8B735520] px-3 py-1 font-semibold text-[#8B7355] text-sm">
+              <span className="rounded-full bg-[var(--red)20] px-3 py-1 font-semibold text-[var(--red)] text-sm">
                 Sprint {changelog.sprint_number}
               </span>
               <span className="text-[#7a6d62] text-sm">{formattedDate}</span>
             </div>
 
-            <h1 className="mb-4 font-bold text-3xl text-[#211f1a] sm:text-4xl lg:text-5xl">
-              {changelog.title}
-            </h1>
+            <h1 className="type-serif-lg mb-4 text-[var(--foreground)]">{changelog.title}</h1>
 
             {changelog.summary && (
-              <p className="mb-6 text-[#5d574b] text-lg leading-relaxed sm:text-xl">
+              <p className="mb-6 text-[var(--muted-foreground)] text-lg leading-relaxed sm:text-xl">
                 {changelog.summary}
               </p>
             )}
@@ -140,11 +153,11 @@ export default async function ChangelogDetailPage({
           {/* Tags */}
           {changelog.tags && changelog.tags.length > 0 && (
             <div className="mt-8 rounded-[28px] border border-[#ebe5d8] bg-white p-6">
-              <h3 className="mb-3 font-semibold text-[#211f1a] text-base">Tags</h3>
+              <h3 className="mb-3 font-semibold text-[var(--foreground)] text-base">Tags</h3>
               <div className="flex flex-wrap gap-2">
                 {changelog.tags.map((tag: string) => (
                   <span
-                    className="rounded-full border border-[#ebe5d8] bg-[#fbfaf9] px-3 py-1 text-[#5d574b] text-sm"
+                    className="rounded-full border border-[#ebe5d8] bg-[var(--background)] px-3 py-1 text-[var(--muted-foreground)] text-sm"
                     key={tag}
                   >
                     #{tag}
@@ -157,10 +170,10 @@ export default async function ChangelogDetailPage({
           {/* Back to Top */}
           <div className="mt-12 text-center">
             <Link
-              className="inline-flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] hover:text-[#8B7355]"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)]"
               href="/changelog"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft01Icon className="h-4 w-4" />
               View all updates
             </Link>
           </div>

@@ -8,8 +8,8 @@ export default async function NewChangelogPage() {
     <>
       {/* Header */}
       <header className="mb-8">
-        <h1 className="font-bold text-3xl text-[#211f1a]">Create New Changelog</h1>
-        <p className="mt-2 text-[#5d574b] text-sm">
+        <h1 className="font-bold text-3xl text-[var(--foreground)]">Create New Changelog</h1>
+        <p className="mt-2 text-[var(--muted-foreground)] text-sm">
           Create a new sprint update to keep users informed about the latest changes
         </p>
       </header>

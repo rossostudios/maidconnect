@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, CheckCircle, Clock } from "lucide-react";
+import { Calendar01Icon, CheckmarkCircle01Icon, Clock01Icon } from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { BlockedDatesCalendar } from "./blocked-dates-calendar";
@@ -63,7 +63,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
       {/* Success/Error Messages */}
       {success && (
         <div className="flex items-center gap-3 rounded-xl bg-green-50 p-4 text-green-800">
-          <CheckCircle className="h-5 w-5" />
+          <CheckmarkCircle01Icon className="h-5 w-5" />
           <p className="font-semibold text-sm">{t("success")}</p>
         </div>
       )}
@@ -80,25 +80,25 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
           <button
             className={`flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition ${
               activeTab === "hours"
-                ? "border-[#8B7355] text-[#8B7355]"
-                : "border-transparent text-[#7d7566] hover:text-[#211f1a]"
+                ? "border-[var(--red)] text-[var(--red)]"
+                : "border-transparent text-[#7d7566] hover:text-[var(--foreground)]"
             }`}
             onClick={() => setActiveTab("hours")}
             type="button"
           >
-            <Clock className="h-4 w-4" />
+            <Clock01Icon className="h-4 w-4" />
             {t("tabs.workingHours")}
           </button>
           <button
             className={`flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition ${
               activeTab === "blocked"
-                ? "border-[#8B7355] text-[#8B7355]"
-                : "border-transparent text-[#7d7566] hover:text-[#211f1a]"
+                ? "border-[var(--red)] text-[var(--red)]"
+                : "border-transparent text-[#7d7566] hover:text-[var(--foreground)]"
             }`}
             onClick={() => setActiveTab("blocked")}
             type="button"
           >
-            <Calendar className="h-4 w-4" />
+            <Calendar01Icon className="h-4 w-4" />
             {t("tabs.blockedDates")}
             {blockedDates.length > 0 && (
               <span className="rounded-full bg-red-500 px-2 py-0.5 font-bold text-white text-xs">
@@ -114,7 +114,9 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
         {activeTab === "hours" && (
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold text-[#211f1a] text-lg">{t("workingHours.title")}</h3>
+              <h3 className="font-semibold text-[var(--foreground)] text-lg">
+                {t("workingHours.title")}
+              </h3>
               <p className="mt-1 text-[#7d7566] text-sm">{t("workingHours.description")}</p>
             </div>
             <WeeklyHoursEditor initialSchedule={weeklyHours} onChange={setWeeklyHours} />
@@ -124,7 +126,9 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
         {activeTab === "blocked" && (
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold text-[#211f1a] text-lg">{t("blockedDates.title")}</h3>
+              <h3 className="font-semibold text-[var(--foreground)] text-lg">
+                {t("blockedDates.title")}
+              </h3>
               <p className="mt-1 text-[#7d7566] text-sm">{t("blockedDates.description")}</p>
             </div>
             <BlockedDatesCalendar initialBlockedDates={blockedDates} onChange={setBlockedDates} />
@@ -136,7 +140,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
       <div className="flex items-center justify-end gap-3 border-[#ebe5d8] border-t pt-6">
         <div className="flex-1 text-[#7d7566] text-sm">{t("infoText")}</div>
         <button
-          className="rounded-full bg-[#8B7355] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[var(--red)] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={handleSave}
           type="button"

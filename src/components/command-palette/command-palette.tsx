@@ -1,7 +1,7 @@
 "use client";
 
 import { Command } from "cmdk";
-import { X } from "lucide-react";
+import { Cancel01Icon } from "hugeicons-react";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "@/i18n/routing";
 import type { AppRole } from "@/lib/auth";
@@ -278,7 +278,7 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
               onClick={onClose}
               type="button"
             >
-              <X className="h-5 w-5" />
+              <Cancel01Icon className="h-5 w-5" />
             </button>
           </div>
 
@@ -302,7 +302,7 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
                         "group relative flex cursor-pointer items-center gap-3 rounded-lg px-3 py-3 text-sm transition-colors",
                         "text-[#2e2419]",
                         "hover:bg-[#f5f0e8]",
-                        "aria-selected:bg-[#8B7355] aria-selected:text-white"
+                        "aria-selected:bg-[var(--red)] aria-selected:text-white"
                       )}
                       key={cmd.id}
                       onSelect={() => {
@@ -311,7 +311,7 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
                       value={`${cmd.label} ${cmd.description || ""}`}
                     >
                       {cmd.icon && (
-                        <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#f5f0e8] text-[#5d574b] group-aria-selected:bg-white/20 group-aria-selected:text-white">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#f5f0e8] text-[var(--muted-foreground)] group-aria-selected:bg-white/20 group-aria-selected:text-white">
                           {cmd.icon}
                         </div>
                       )}

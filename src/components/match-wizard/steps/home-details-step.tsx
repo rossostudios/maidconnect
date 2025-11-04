@@ -1,6 +1,6 @@
 "use client";
 
-import { Bath, Building, Dog, Home as HomeIcon } from "lucide-react";
+import { Bathtub01Icon, Building01Icon, Home01Icon, Home01Icon as HomeIcon } from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import type { WizardData } from "../match-wizard";
 
@@ -19,14 +19,14 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
     <div className="space-y-6">
       {/* Icon */}
       <div className="flex justify-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#211f1a]/5">
-          <HomeIcon className="h-8 w-8 text-[#211f1a]" />
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--foreground)]/5">
+          <HomeIcon className="h-8 w-8 text-[var(--foreground)]" />
         </div>
       </div>
 
       {/* Title */}
       <div className="text-center">
-        <h2 className="font-semibold text-2xl text-[#211f1a]">
+        <h2 className="font-semibold text-2xl text-[var(--foreground)]">
           {t("title", { defaultValue: "Tell us about your home" })}
         </h2>
         <p className="mt-2 text-[#7a6d62]">
@@ -41,14 +41,14 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
         {/* Bedrooms */}
         <div>
           <label
-            className="mb-2 flex items-center gap-2 font-medium text-[#211f1a] text-sm"
+            className="mb-2 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm"
             htmlFor="bedrooms"
           >
-            <Building className="h-4 w-4" />
+            <Building01Icon className="h-4 w-4" />
             {t("bedroomsLabel", { defaultValue: "Bedrooms" })}
           </label>
           <select
-            className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
+            className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[var(--foreground)] transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]/20"
             id="bedrooms"
             onChange={(e) => onUpdate({ bedrooms: Number(e.target.value) })}
             value={data.bedrooms || ""}
@@ -67,14 +67,14 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
         {/* Bathrooms */}
         <div>
           <label
-            className="mb-2 flex items-center gap-2 font-medium text-[#211f1a] text-sm"
+            className="mb-2 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm"
             htmlFor="bathrooms"
           >
-            <Bath className="h-4 w-4" />
+            <Bathtub01Icon className="h-4 w-4" />
             {t("bathroomsLabel", { defaultValue: "Bathrooms" })}
           </label>
           <select
-            className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
+            className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[var(--foreground)] transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]/20"
             id="bathrooms"
             onChange={(e) => onUpdate({ bathrooms: Number(e.target.value) })}
             value={data.bathrooms || ""}
@@ -91,11 +91,14 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
 
         {/* Square Meters */}
         <div>
-          <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="square-meters">
+          <label
+            className="mb-2 block font-medium text-[var(--foreground)] text-sm"
+            htmlFor="square-meters"
+          >
             {t("squareMetersLabel", { defaultValue: "Approximate size (m²)" })}
           </label>
           <input
-            className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
+            className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[var(--foreground)] transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]/20"
             id="square-meters"
             min="20"
             onChange={(e) => onUpdate({ squareMeters: Number(e.target.value) })}
@@ -110,13 +113,13 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
           <label className="flex items-center gap-3">
             <input
               checked={data.hasPets}
-              className="h-5 w-5 rounded border-[#ebe5d8] text-[#211f1a] focus:ring-[#211f1a]"
+              className="h-5 w-5 rounded border-[#ebe5d8] text-[var(--foreground)] focus:ring-[var(--foreground)]"
               onChange={(e) => onUpdate({ hasPets: e.target.checked })}
               type="checkbox"
             />
             <div className="flex flex-1 items-center gap-2">
-              <Dog className="h-5 w-5 text-[#211f1a]" />
-              <span className="font-medium text-[#211f1a]">
+              <Home01Icon className="h-5 w-5 text-[var(--foreground)]" />
+              <span className="font-medium text-[var(--foreground)]">
                 {t("hasPetsLabel", { defaultValue: "I have pets" })}
               </span>
             </div>
@@ -126,11 +129,14 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
         {/* Pet Details */}
         {data.hasPets && (
           <div>
-            <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="pet-details">
+            <label
+              className="mb-2 block font-medium text-[var(--foreground)] text-sm"
+              htmlFor="pet-details"
+            >
               {t("petDetailsLabel", { defaultValue: "Pet details (optional)" })}
             </label>
             <input
-              className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
+              className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[var(--foreground)] transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]/20"
               id="pet-details"
               onChange={(e) => onUpdate({ petDetails: e.target.value })}
               placeholder={t("petDetailsPlaceholder", {
@@ -147,12 +153,12 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
           <label className="flex items-center gap-3">
             <input
               checked={data.suppliesNeeded}
-              className="h-5 w-5 rounded border-[#ebe5d8] text-[#211f1a] focus:ring-[#211f1a]"
+              className="h-5 w-5 rounded border-[#ebe5d8] text-[var(--foreground)] focus:ring-[var(--foreground)]"
               onChange={(e) => onUpdate({ suppliesNeeded: e.target.checked })}
               type="checkbox"
             />
             <div className="flex-1">
-              <span className="font-medium text-[#211f1a]">
+              <span className="font-medium text-[var(--foreground)]">
                 {t("suppliesNeededLabel", {
                   defaultValue: "I need the professional to bring supplies",
                 })}
@@ -170,21 +176,21 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
       {/* Actions */}
       <div className="flex gap-3 pt-4">
         <button
-          className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[#211f1a] hover:text-[#211f1a]"
+          className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[var(--foreground)] hover:text-[var(--foreground)]"
           onClick={onBack}
           type="button"
         >
           {t("back", { defaultValue: "Back" })}
         </button>
         <button
-          className="rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[#211f1a] hover:text-[#211f1a]"
+          className="rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[var(--foreground)] hover:text-[var(--foreground)]"
           onClick={onSkip}
           type="button"
         >
           {t("skip", { defaultValue: "Skip" })}
         </button>
         <button
-          className="flex-1 rounded-xl bg-[#211f1a] px-6 py-3 font-semibold text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] transition hover:bg-[#2d2822]"
+          className="flex-1 rounded-xl bg-[var(--foreground)] px-6 py-3 font-semibold text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] transition hover:bg-[#2d2822]"
           onClick={onNext}
           type="button"
         >

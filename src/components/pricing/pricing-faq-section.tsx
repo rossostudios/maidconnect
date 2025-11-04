@@ -6,7 +6,7 @@
 
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { ArrowDown01Icon } from "hugeicons-react";
 import { useState } from "react";
 
 // Placeholder data - will be replaced with API call
@@ -66,7 +66,7 @@ export function PricingFaqSection() {
     <div className="space-y-4">
       {SAMPLE_FAQS.map((faq) => (
         <div
-          className="overflow-hidden rounded-[20px] border-2 border-[#ebe5d8] bg-white transition-all hover:border-[#8B7355]"
+          className="overflow-hidden rounded-[20px] border-2 border-[#ebe5d8] bg-white transition-all hover:border-[var(--red)]"
           key={faq.id}
         >
           <button
@@ -74,8 +74,8 @@ export function PricingFaqSection() {
             onClick={() => toggleFaq(faq.id)}
             type="button"
           >
-            <span className="font-semibold text-[#211f1a] text-lg">{faq.question}</span>
-            <ChevronDown
+            <span className="font-semibold text-[var(--foreground)] text-lg">{faq.question}</span>
+            <ArrowDown01Icon
               className={`flex-shrink-0 text-[#6B7280] transition-transform ${
                 openFaqId === faq.id ? "rotate-180" : ""
               }`}
@@ -95,7 +95,7 @@ export function PricingFaqSection() {
       <div className="pt-8 text-center">
         <p className="mb-4 text-[#6B7280]">Still have questions?</p>
         <a
-          className="inline-block rounded-[14px] border-2 border-[#ebe5d8] px-6 py-3 font-medium text-[#211f1a] transition-all hover:border-[#211f1a]"
+          className="inline-block rounded-[14px] border-2 border-[#ebe5d8] px-6 py-3 font-medium text-[var(--foreground)] transition-all hover:border-[var(--foreground)]"
           href="/contact"
         >
           Contact Support

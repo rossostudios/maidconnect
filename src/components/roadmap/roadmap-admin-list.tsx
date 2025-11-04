@@ -6,7 +6,7 @@
 
 "use client";
 
-import { ChevronUp, Edit, Eye, Trash2 } from "lucide-react";
+import { ArrowUp01Icon, Delete01Icon, Edit01Icon, ViewIcon } from "hugeicons-react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { confirm, toast } from "@/lib/toast";
@@ -106,8 +106,8 @@ export function RoadmapAdminList() {
           <button
             className={`border-b-2 px-4 py-3 font-medium text-sm transition-colors ${
               activeFilter === filter
-                ? "border-[#8B7355] text-[#8B7355]"
-                : "border-transparent text-[#6B7280] hover:text-[#211f1a]"
+                ? "border-[var(--red)] text-[var(--red)]"
+                : "border-transparent text-[#6B7280] hover:text-[var(--foreground)]"
             }`}
             key={filter}
             onClick={() => setActiveFilter(filter)}
@@ -124,17 +124,17 @@ export function RoadmapAdminList() {
       {/* Items list */}
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#8B7355] border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-[var(--red)] border-t-transparent" />
         </div>
       ) : items.length === 0 ? (
         <div className="py-12 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#f3f4f6]">
             <span className="text-3xl">📋</span>
           </div>
-          <h3 className="mb-2 font-semibold text-[#211f1a] text-lg">No roadmap items</h3>
+          <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">No roadmap items</h3>
           <p className="mb-4 text-[#6B7280]">Get started by creating your first roadmap item</p>
           <Link
-            className="inline-flex items-center gap-2 rounded-[12px] bg-[#8B7355] px-6 py-3 font-medium text-white transition-all hover:bg-[#8B7355]"
+            className="inline-flex items-center gap-2 rounded-[12px] bg-[var(--red)] px-6 py-3 font-medium text-white transition-all hover:bg-[var(--red)]"
             href="/admin/roadmap/new"
           >
             Create Roadmap Item
@@ -148,13 +148,15 @@ export function RoadmapAdminList() {
 
             return (
               <div
-                className="rounded-[20px] border-2 border-[#ebe5d8] bg-white p-6 transition-all hover:border-[#8B7355]"
+                className="rounded-[20px] border-2 border-[#ebe5d8] bg-white p-6 transition-all hover:border-[var(--red)]"
                 key={item.id}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0 flex-1">
                     <div className="mb-2 flex items-center gap-3">
-                      <h3 className="font-semibold text-[#211f1a] text-lg">{item.title}</h3>
+                      <h3 className="font-semibold text-[var(--foreground)] text-lg">
+                        {item.title}
+                      </h3>
                       {getStatusBadge(item.visibility)}
                     </div>
 
@@ -182,7 +184,7 @@ export function RoadmapAdminList() {
 
                     <div className="flex items-center gap-4 text-[#6B7280] text-sm">
                       <div className="flex items-center gap-1.5">
-                        <ChevronUp size={16} />
+                        <ArrowUp01Icon size={16} />
                         <span>{item.vote_count} votes</span>
                       </div>
 
@@ -201,7 +203,7 @@ export function RoadmapAdminList() {
                         target="_blank"
                         title="Preview"
                       >
-                        <Eye className="text-[#6B7280]" size={18} />
+                        <ViewIcon className="text-[#6B7280]" size={18} />
                       </Link>
                     )}
 
@@ -210,7 +212,7 @@ export function RoadmapAdminList() {
                       href={`/admin/roadmap/${item.id}/edit`}
                       title="Edit"
                     >
-                      <Edit className="text-[#6B7280]" size={18} />
+                      <Edit01Icon className="text-[#6B7280]" size={18} />
                     </Link>
 
                     <button
@@ -219,7 +221,7 @@ export function RoadmapAdminList() {
                       title="Archive"
                       type="button"
                     >
-                      <Trash2 className="text-red-600" size={18} />
+                      <Delete01Icon className="text-red-600" size={18} />
                     </button>
                   </div>
                 </div>

@@ -288,7 +288,7 @@ CREATE POLICY "Anyone can view article relations"
 
 -- Insert seed data for help categories
 INSERT INTO public.help_categories (slug, name_en, name_es, description_en, description_es, icon, display_order) VALUES
-  ('getting-started', 'Getting Started', 'Primeros Pasos', 'Learn the basics of using MaidConnect', 'Aprende los conceptos básicos de MaidConnect', 'rocket', 1),
+  ('getting-started', 'Getting Started', 'Primeros Pasos', 'Learn the basics of using Casaora', 'Aprende los conceptos básicos de Casaora', 'rocket', 1),
   ('booking', 'Booking & Scheduling', 'Reservas y Programación', 'Everything about creating and managing bookings', 'Todo sobre crear y gestionar reservas', 'calendar', 2),
   ('payments', 'Payments & Billing', 'Pagos y Facturación', 'Payment methods, billing, and refunds', 'Métodos de pago, facturación y reembolsos', 'credit-card', 3),
   ('safety', 'Safety & Trust', 'Seguridad y Confianza', 'Background checks, insurance, and safety guidelines', 'Verificaciones, seguros y pautas de seguridad', 'shield-check', 4),

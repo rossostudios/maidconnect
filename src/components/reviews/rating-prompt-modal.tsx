@@ -137,7 +137,9 @@ export function RatingPromptModal({
     >
       {/* Overall Rating */}
       <div>
-        <div className="mb-2 block font-medium text-[#211f1a] text-sm">Overall Rating *</div>
+        <div className="mb-2 block font-medium text-[var(--foreground)] text-sm">
+          Overall Rating *
+        </div>
         <StarRating
           disabled={form.isSubmitting}
           onChange={(val) => form.updateField("rating", val)}
@@ -172,11 +174,11 @@ export function RatingPromptModal({
 
       {/* Title */}
       <div>
-        <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="title">
+        <label className="mb-2 block font-medium text-[var(--foreground)] text-sm" htmlFor="title">
           Title (optional)
         </label>
         <input
-          className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+          className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
           disabled={form.isSubmitting}
           id="title"
           onChange={(e) => form.updateField("title", e.target.value)}
@@ -188,11 +190,14 @@ export function RatingPromptModal({
 
       {/* Comment */}
       <div>
-        <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="comment">
+        <label
+          className="mb-2 block font-medium text-[var(--foreground)] text-sm"
+          htmlFor="comment"
+        >
           Comment (optional)
         </label>
         <textarea
-          className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+          className="w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
           disabled={form.isSubmitting}
           id="comment"
           onChange={(e) => form.updateField("comment", e.target.value)}

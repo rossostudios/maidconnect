@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles, X } from "lucide-react";
+import { Cancel01Icon, MagicWand01Icon } from "hugeicons-react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useLatestChangelog } from "@/hooks/use-latest-changelog";
@@ -47,10 +47,10 @@ export function ChangelogBanner() {
             type="button"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100">
-              <Sparkles className="h-4 w-4 text-purple-600" />
+              <MagicWand01Icon className="h-4 w-4 text-purple-600" />
             </div>
             <div className="flex-1">
-              <p className="font-semibold text-[#211f1a] text-sm sm:text-base">
+              <p className="font-semibold text-[var(--foreground)] text-sm sm:text-base">
                 <span className="hidden sm:inline">New update: </span>
                 {changelog.title}
               </p>
@@ -62,7 +62,7 @@ export function ChangelogBanner() {
                 })}
               </p>
             </div>
-            <span className="hidden rounded-full border border-[#8B7355] px-3 py-1 font-medium text-[#8B7355] text-sm transition group-hover:bg-[#8B7355] group-hover:text-white sm:inline-block">
+            <span className="hidden rounded-full border border-[var(--red)] px-3 py-1 font-medium text-[var(--red)] text-sm transition group-hover:bg-[var(--red)] group-hover:text-white sm:inline-block">
               View Details
             </span>
           </button>
@@ -70,11 +70,11 @@ export function ChangelogBanner() {
           {/* Dismiss Button */}
           <button
             aria-label="Dismiss"
-            className="rounded-full p-1.5 text-[#7a6d62] transition hover:bg-white/50 hover:text-[#211f1a]"
+            className="rounded-full p-1.5 text-[#7a6d62] transition hover:bg-white/50 hover:text-[var(--foreground)]"
             onClick={handleDismiss}
             type="button"
           >
-            <X className="h-5 w-5" />
+            <Cancel01Icon className="h-5 w-5" />
           </button>
         </div>
       </div>

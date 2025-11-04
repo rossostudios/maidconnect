@@ -27,9 +27,9 @@ export default async function SignInPage({ params, searchParams }: Props) {
     typeof searchParamsResolved.redirectTo === "string" ? searchParamsResolved.redirectTo : null;
 
   return (
-    <div className="grid min-h-screen grid-cols-1 bg-[#fbfaf9] md:h-screen md:grid-cols-[45%_55%] md:overflow-hidden">
-      <div className="flex h-full flex-col border-[#e5dfd4] border-r bg-[#fbfaf9] px-8 py-10 md:h-screen md:overflow-y-auto md:px-16 md:py-16">
-        <header className="flex items-center justify-between border-[#ece6da] border-b pb-6 text-[#211f1a] text-sm md:pb-10">
+    <div className="grid min-h-screen grid-cols-1 bg-[var(--background)] md:h-screen md:grid-cols-[45%_55%] md:overflow-hidden">
+      <div className="flex h-full flex-col border-[#e5dfd4] border-r bg-[var(--background)] px-8 py-10 md:h-screen md:overflow-y-auto md:px-16 md:py-16">
+        <header className="flex items-center justify-between border-[#ece6da] border-b pb-6 text-[var(--foreground)] text-sm md:pb-10">
           <Link className="font-semibold" href="/">
             Casaora
           </Link>
@@ -40,15 +40,19 @@ export default async function SignInPage({ params, searchParams }: Props) {
         <main className="flex flex-1 justify-center pt-12 pb-16 md:pt-14">
           <div className="w-full max-w-3xl space-y-12">
             <div className="space-y-5">
-              <h1 className="font-semibold text-[#211f1a] text-[2.1rem]">{t("hero.title")}</h1>
-              <p className="text-[#5d574b] text-base leading-relaxed">{t("hero.description")}</p>
+              <h1 className="font-semibold text-[2.1rem] text-[var(--foreground)]">
+                {t("hero.title")}
+              </h1>
+              <p className="text-[var(--muted-foreground)] text-base leading-relaxed">
+                {t("hero.description")}
+              </p>
             </div>
             <div className="rounded-[36px] border border-[#e5dfd4] bg-white p-12 shadow-[0_24px_60px_rgba(18,17,15,0.06)]">
               <SignInForm redirectTo={redirectTo} />
-              <p className="mt-8 text-[#5d574b] text-sm">
+              <p className="mt-8 text-[var(--muted-foreground)] text-sm">
                 {t("form.needAccount")}{" "}
                 <Link
-                  className="font-semibold text-[#211f1a] underline-offset-4 hover:underline"
+                  className="font-semibold text-[var(--foreground)] underline-offset-4 hover:underline"
                   href={AUTH_ROUTES.signUp}
                 >
                   {t("form.createOneNow")}

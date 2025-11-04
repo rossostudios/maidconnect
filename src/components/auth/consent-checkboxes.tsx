@@ -20,7 +20,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
       {/* Privacy Policy Consent - REQUIRED */}
       <label
         className={cn(
-          "flex items-start gap-3 text-[#211f1a] text-sm",
+          "flex items-start gap-3 text-[var(--foreground)] text-sm",
           errors?.privacyConsent && "text-red-700"
         )}
       >
@@ -28,7 +28,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
           aria-invalid={Boolean(errors?.privacyConsent)}
           aria-required="true"
           className={cn(
-            "mt-[2px] h-4 w-4 shrink-0 accent-[#211f1a]",
+            "mt-[2px] h-4 w-4 shrink-0 accent-[var(--foreground)]",
             errors?.privacyConsent && "accent-red-600"
           )}
           name="privacyConsent"
@@ -40,7 +40,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             <>
               He leído y acepto la{" "}
               <Link
-                className="font-semibold text-[#211f1a] underline decoration-[#211f1a]/40 underline-offset-4 hover:decoration-[#8B7355]"
+                className="font-semibold text-[var(--foreground)] underline decoration-[var(--foreground)]/40 underline-offset-4 hover:decoration-[var(--red)]"
                 href="/privacy"
                 target="_blank"
               >
@@ -52,7 +52,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             <>
               I have read and accept the{" "}
               <Link
-                className="font-semibold text-[#211f1a] underline decoration-[#211f1a]/40 underline-offset-4 hover:decoration-[#8B7355]"
+                className="font-semibold text-[var(--foreground)] underline decoration-[var(--foreground)]/40 underline-offset-4 hover:decoration-[var(--red)]"
                 href="/privacy"
                 target="_blank"
               >
@@ -70,7 +70,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
       {/* Terms of Service Consent - REQUIRED */}
       <label
         className={cn(
-          "flex items-start gap-3 text-[#211f1a] text-sm",
+          "flex items-start gap-3 text-[var(--foreground)] text-sm",
           errors?.termsConsent && "text-red-700"
         )}
       >
@@ -78,7 +78,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
           aria-invalid={Boolean(errors?.termsConsent)}
           aria-required="true"
           className={cn(
-            "mt-[2px] h-4 w-4 shrink-0 accent-[#211f1a]",
+            "mt-[2px] h-4 w-4 shrink-0 accent-[var(--foreground)]",
             errors?.termsConsent && "accent-red-600"
           )}
           name="termsConsent"
@@ -90,7 +90,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             <>
               He leído y acepto los{" "}
               <Link
-                className="font-semibold text-[#211f1a] underline decoration-[#211f1a]/40 underline-offset-4 hover:decoration-[#8B7355]"
+                className="font-semibold text-[var(--foreground)] underline decoration-[var(--foreground)]/40 underline-offset-4 hover:decoration-[var(--red)]"
                 href="/terms"
                 target="_blank"
               >
@@ -102,7 +102,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             <>
               I have read and accept the{" "}
               <Link
-                className="font-semibold text-[#211f1a] underline decoration-[#211f1a]/40 underline-offset-4 hover:decoration-[#8B7355]"
+                className="font-semibold text-[var(--foreground)] underline decoration-[var(--foreground)]/40 underline-offset-4 hover:decoration-[var(--red)]"
                 href="/terms"
                 target="_blank"
               >
@@ -120,7 +120,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
       {/* Data Processing Consent - REQUIRED (Ley 1581 de 2012) */}
       <label
         className={cn(
-          "flex items-start gap-3 text-[#211f1a] text-sm",
+          "flex items-start gap-3 text-[var(--foreground)] text-sm",
           errors?.dataProcessingConsent && "text-red-700"
         )}
       >
@@ -128,7 +128,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
           aria-invalid={Boolean(errors?.dataProcessingConsent)}
           aria-required="true"
           className={cn(
-            "mt-[2px] h-4 w-4 shrink-0 accent-[#211f1a]",
+            "mt-[2px] h-4 w-4 shrink-0 accent-[var(--foreground)]",
             errors?.dataProcessingConsent && "accent-red-600"
           )}
           name="dataProcessingConsent"
@@ -161,9 +161,9 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
       ) : null}
 
       {/* Marketing Communications - OPTIONAL */}
-      <label className="flex items-start gap-3 text-[#211f1a] text-sm">
+      <label className="flex items-start gap-3 text-[var(--foreground)] text-sm">
         <input
-          className="mt-[2px] h-4 w-4 shrink-0 accent-[#211f1a]"
+          className="mt-[2px] h-4 w-4 shrink-0 accent-[var(--foreground)]"
           defaultChecked={false}
           name="marketingConsent"
           type="checkbox"

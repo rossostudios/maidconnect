@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight01Icon, CheckmarkCircle01Icon } from "hugeicons-react";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -85,18 +85,22 @@ function TrustIndicators() {
     <section className="bg-white px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto mb-12 max-w-3xl text-center">
-          <h2 className="mb-4 font-bold text-3xl text-[#211f1a] sm:text-4xl">{t("title")}</h2>
-          <p className="text-[#5d574b] text-lg">{t("subtitle")}</p>
+          <h2 className="mb-4 font-bold text-3xl text-[var(--foreground)] sm:text-4xl">
+            {t("title")}
+          </h2>
+          <p className="text-[var(--muted-foreground)] text-lg">{t("subtitle")}</p>
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {indicators.map((indicator, index) => (
             <div className="text-center" key={index}>
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#6B7F5C]/10">
-                <CheckCircle className="h-6 w-6 text-[#6B7F5C]" />
+                <CheckmarkCircle01Icon className="h-6 w-6 text-[#6B7F5C]" />
               </div>
-              <h3 className="mb-2 font-semibold text-[#211f1a]">{t(indicator.titleKey)}</h3>
-              <p className="text-[#5d574b] text-sm">{t(indicator.descKey)}</p>
+              <h3 className="mb-2 font-semibold text-[var(--foreground)]">
+                {t(indicator.titleKey)}
+              </h3>
+              <p className="text-[var(--muted-foreground)] text-sm">{t(indicator.descKey)}</p>
             </div>
           ))}
         </div>
@@ -113,7 +117,7 @@ function CTASection() {
   const t = useTranslations("about.cta");
 
   return (
-    <section className="bg-[#211f1a] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <section className="bg-[var(--foreground)] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-4xl text-center">
         <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-white tracking-wide sm:text-4xl">
           {t("title")}
@@ -122,11 +126,11 @@ function CTASection() {
 
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
           <Link
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-[#211f1a] shadow-[var(--shadow-card)] transition hover:bg-[#f3ece1] active:scale-95"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-[var(--foreground)] shadow-[var(--shadow-card)] transition hover:bg-[#f3ece1] active:scale-95"
             href="/professionals"
           >
             {t("browseProfessionals")}
-            <ArrowRight className="h-5 w-5" />
+            <ArrowRight01Icon className="h-5 w-5" />
           </Link>
 
           <Link

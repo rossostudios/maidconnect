@@ -9,7 +9,15 @@
 
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { HelpCircle, Home, Loader2, MessageSquare, Newspaper, Send, X } from "lucide-react";
+import {
+  Cancel01Icon,
+  HelpCircleIcon,
+  Home01Icon,
+  Loading01Icon,
+  Message01Icon,
+  NewsIcon,
+  SentIcon,
+} from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/routing";
@@ -111,7 +119,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
       <div className="flex items-center justify-between border-gray-100 border-b bg-white px-4 py-3 sm:rounded-t-2xl sm:px-6 sm:py-4">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center">
-            <AmaraIcon className="text-[#8B7355]" size={40} />
+            <AmaraIcon className="text-[var(--red)]" size={40} />
           </div>
           <div>
             <h3 className="font-semibold text-base text-gray-900">{t("title")}</h3>
@@ -124,7 +132,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
           onClick={onClose}
           type="button"
         >
-          <X className="h-5 w-5 sm:h-5 sm:w-5" />
+          <Cancel01Icon className="h-5 w-5 sm:h-5 sm:w-5" />
         </button>
       </div>
 
@@ -135,7 +143,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
           <div className="space-y-4 pb-6">
             <div className="amara-message flex justify-start gap-3">
               <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
-                <AmaraIcon className="text-[#8B7355]" size={32} />
+                <AmaraIcon className="text-[var(--red)]" size={32} />
               </div>
               <div className="max-w-[85%] rounded-2xl border border-gray-100 bg-white px-4 py-3 text-gray-900 shadow-sm sm:max-w-[75%]">
                 <p className="text-[15px] leading-relaxed">{t("greeting")}</p>
@@ -155,7 +163,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
             {/* Assistant avatar */}
             {message.role === "assistant" && (
               <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
-                <AmaraIcon className="text-[#8B7355]" size={32} />
+                <AmaraIcon className="text-[var(--red)]" size={32} />
               </div>
             )}
 
@@ -164,7 +172,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
                 className={cn(
                   "max-w-[85%] rounded-2xl px-4 py-3 shadow-sm transition-shadow hover:shadow-md sm:max-w-[75%]",
                   message.role === "user"
-                    ? "bg-[#8B7355] text-white"
+                    ? "bg-[var(--red)] text-white"
                     : "border border-gray-100 bg-white text-gray-900"
                 )}
               >
@@ -222,7 +230,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         {isLoading && (
           <div className="amara-typing-indicator flex justify-start gap-3">
             <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
-              <AmaraIcon className="text-[#8B7355]" size={32} />
+              <AmaraIcon className="text-[var(--red)]" size={32} />
             </div>
             <div className="rounded-2xl border border-gray-100 bg-white px-4 py-3 shadow-sm">
               <div className="flex space-x-1.5">
@@ -265,28 +273,28 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
               className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 sm:px-3"
               href="/"
             >
-              <Home className="h-5 w-5 text-gray-600" />
+              <Home01Icon className="h-5 w-5 text-gray-600" />
               <span className="font-medium text-gray-700 text-xs">Home</span>
             </Link>
             <button
               className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 sm:px-3"
               type="button"
             >
-              <MessageSquare className="h-5 w-5 text-gray-600" />
+              <Message01Icon className="h-5 w-5 text-gray-600" />
               <span className="font-medium text-gray-700 text-xs">Messages</span>
             </button>
             <Link
               className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 sm:px-3"
               href="/support/account-suspended"
             >
-              <HelpCircle className="h-5 w-5 text-gray-600" />
+              <HelpCircleIcon className="h-5 w-5 text-gray-600" />
               <span className="font-medium text-gray-700 text-xs">Help</span>
             </Link>
             <Link
               className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 sm:px-3"
               href="/changelog"
             >
-              <Newspaper className="h-5 w-5 text-gray-600" />
+              <NewsIcon className="h-5 w-5 text-gray-600" />
               <span className="font-medium text-gray-700 text-xs">News</span>
             </Link>
           </div>
@@ -314,7 +322,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         <div className="mb-3 flex items-end gap-2 sm:gap-3">
           <div className="relative flex-1">
             <input
-              className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900 transition placeholder:text-gray-400 focus:border-[#8B7355] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#8B7355]/10"
+              className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900 transition placeholder:text-gray-400 focus:border-[var(--red)] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[var(--red)]/10"
               disabled={isLoading}
               maxLength={500}
               name="message"
@@ -326,14 +334,14 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
           </div>
           <button
             aria-label={t("send")}
-            className="flex h-11 min-h-[44px] w-11 min-w-[44px] flex-shrink-0 items-center justify-center rounded-xl bg-[#8B7355] text-white shadow-sm transition hover:bg-[#9B8B7E] active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-[#8B7355]"
+            className="flex h-11 min-h-[44px] w-11 min-w-[44px] flex-shrink-0 items-center justify-center rounded-xl bg-[var(--red)] text-white shadow-sm transition hover:bg-[var(--red-hover)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-[var(--red)]"
             disabled={isLoading || !input.trim()}
             type="submit"
           >
             {isLoading ? (
-              <Loader2 className="h-5 w-5 animate-spin" />
+              <Loading01Icon className="h-5 w-5 animate-spin" />
             ) : (
-              <Send className="h-5 w-5" />
+              <SentIcon className="h-5 w-5" />
             )}
           </button>
         </div>
@@ -341,7 +349,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         {/* Privacy Policy Text */}
         <p className="text-center text-gray-500 text-xs">
           By chatting with Amara, you agree to our{" "}
-          <Link className="text-[#8B7355] hover:underline" href="/privacy">
+          <Link className="text-[var(--red)] hover:underline" href="/privacy">
             Privacy Policy
           </Link>
         </p>

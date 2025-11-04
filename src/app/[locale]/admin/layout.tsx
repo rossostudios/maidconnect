@@ -22,18 +22,20 @@ export default async function AdminLayout({ children }: Props) {
   await requireUser({ allowedRoles: ["admin"] });
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#fbfaf9] text-[var(--foreground)]">
+    <div className="flex min-h-screen flex-col bg-[var(--background)] text-[var(--foreground)]">
       <div className="flex flex-1 flex-col">
-        <header className="bg-[#fbfaf9] py-4">
+        <header className="bg-[var(--background)] py-4">
           <Container className="flex items-center justify-between gap-4">
             <Link className="flex items-center" href="/">
-              <span className="font-semibold text-[#211f1a] text-xl tracking-tight">Casaora</span>
+              <span className="type-serif-sm text-[var(--foreground)] uppercase tracking-[0.08em] lg:text-[26px]">
+                CASAORA
+              </span>
             </Link>
             <DashboardNavigation navLinks={adminNavLinks} userRole="professional" />
           </Container>
         </header>
 
-        <main className="flex-1 bg-[#fbfaf9] pt-10 pb-16">
+        <main className="flex-1 bg-[var(--background)] pt-10 pb-16">
           <Container className="max-w-5xl">
             <Breadcrumbs />
             <div className="space-y-8">{children}</div>

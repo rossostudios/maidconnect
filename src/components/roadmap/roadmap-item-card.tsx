@@ -6,7 +6,7 @@
 
 "use client";
 
-import { MessageSquare } from "lucide-react";
+import { Message01Icon } from "hugeicons-react";
 import Link from "next/link";
 import type { RoadmapItemWithVoteStatus } from "@/types/roadmap";
 import {
@@ -27,11 +27,11 @@ export function RoadmapItemCard({ item }: RoadmapItemCardProps) {
   return (
     <div className="group relative">
       <Link href={`/roadmap/${item.slug}`}>
-        <div className="relative rounded-[20px] border-2 border-[#ebe5d8] bg-white p-4 transition-all duration-200 hover:border-[#8B7355]">
+        <div className="relative rounded-[20px] border-2 border-[#ebe5d8] bg-white p-4 transition-all duration-200 hover:border-[var(--red)]">
           {/* Header with status and category */}
           <div className="mb-3 flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
-              <h3 className="mb-2 line-clamp-2 font-semibold text-[#211f1a] text-base transition-colors group-hover:text-[#8B7355]">
+              <h3 className="mb-2 line-clamp-2 font-semibold text-[var(--foreground)] text-base transition-colors group-hover:text-[var(--red)]">
                 {item.title}
               </h3>
 
@@ -51,7 +51,7 @@ export function RoadmapItemCard({ item }: RoadmapItemCardProps) {
                 </span>
 
                 {/* Category badge */}
-                <span className="inline-flex items-center gap-1 rounded-lg border border-[#ebe5d8] bg-[#fbfaf9] px-2 py-1 font-medium text-[#6B7280] text-xs">
+                <span className="inline-flex items-center gap-1 rounded-lg border border-[#ebe5d8] bg-[var(--background)] px-2 py-1 font-medium text-[#6B7280] text-xs">
                   <span>{categoryConfig.icon}</span>
                   <span>{categoryConfig.label}</span>
                 </span>
@@ -78,7 +78,7 @@ export function RoadmapItemCard({ item }: RoadmapItemCardProps) {
               {/* Comment count */}
               {item.comment_count > 0 && (
                 <div className="flex items-center gap-1.5 text-[#6B7280] text-sm">
-                  <MessageSquare size={16} />
+                  <Message01Icon size={16} />
                   <span>{item.comment_count}</span>
                 </div>
               )}

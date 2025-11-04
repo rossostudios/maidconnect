@@ -1,6 +1,6 @@
 "use client";
 
-import { Cookie, X } from "lucide-react";
+import { Cancel01Icon, CookieIcon } from "hugeicons-react";
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/routing";
 
@@ -40,16 +40,18 @@ export function CookieConsent() {
             {/* Icon and Text */}
             <div className="flex flex-1 items-start gap-4">
               <div className="flex-shrink-0">
-                <div className="rounded-full bg-[#fbfaf9] p-3">
-                  <Cookie className="h-6 w-6 text-[#8B7355]" />
+                <div className="rounded-full bg-[var(--background)] p-3">
+                  <CookieIcon className="h-6 w-6 text-[var(--red)]" />
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="mb-1 font-semibold text-[#211f1a] text-lg">We use cookies</h3>
+                <h3 className="mb-1 font-semibold text-[var(--foreground)] text-lg">
+                  We use cookies
+                </h3>
                 <p className="text-[#7d7566] text-sm">
                   We use cookies to improve your experience, analyze site traffic, and provide
                   personalized content. By clicking "Accept", you consent to our use of cookies.{" "}
-                  <Link className="font-semibold text-[#8B7355] hover:underline" href="/privacy">
+                  <Link className="font-semibold text-[var(--red)] hover:underline" href="/privacy">
                     Learn more
                   </Link>
                 </p>
@@ -59,14 +61,14 @@ export function CookieConsent() {
             {/* Actions */}
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <button
-                className="rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
+                className="rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-2.5 font-semibold text-[var(--foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)]"
                 onClick={declineCookies}
                 type="button"
               >
                 Decline
               </button>
               <button
-                className="rounded-full bg-[#8B7355] px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-[#ff4529]"
+                className="rounded-full bg-[var(--red)] px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-[#ff4529]"
                 onClick={acceptCookies}
                 type="button"
               >
@@ -77,11 +79,11 @@ export function CookieConsent() {
             {/* Close button */}
             <button
               aria-label="Close cookie banner"
-              className="absolute top-4 right-4 rounded-full p-2 text-[#7d7566] transition hover:bg-[#fbfaf9] hover:text-[#211f1a] md:relative md:top-0 md:right-0"
+              className="absolute top-4 right-4 rounded-full p-2 text-[#7d7566] transition hover:bg-[var(--background)] hover:text-[var(--foreground)] md:relative md:top-0 md:right-0"
               onClick={declineCookies}
               type="button"
             >
-              <X className="h-5 w-5" />
+              <Cancel01Icon className="h-5 w-5" />
             </button>
           </div>
         </div>

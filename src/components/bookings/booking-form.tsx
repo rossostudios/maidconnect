@@ -92,7 +92,7 @@ export function BookingForm({
 
   return (
     <div className="space-y-4">
-      <p className="text-[#5d574b] text-sm">
+      <p className="text-[var(--muted-foreground)] text-sm">
         Confirm your booking with {professionalName}. We’ll place a temporary hold and only capture
         after the service is completed.
       </p>
@@ -113,7 +113,7 @@ export function BookingForm({
         <div className="grid gap-4 sm:grid-cols-2">
           <FormField label="Service">
             <select
-              className="w-full rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[#211f1a] text-sm shadow-black/5 shadow-inner transition hover:border-[#8B7355] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#8B7355] focus-visible:outline-offset-2"
+              className="w-full rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[var(--foreground)] text-sm shadow-black/5 shadow-inner transition hover:border-[var(--red)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--red)] focus-visible:outline-offset-2"
               name="serviceName"
               onChange={(event) => setSelectedServiceName(event.target.value)}
               required
@@ -150,7 +150,7 @@ export function BookingForm({
           </FormField>
           <FormField label="Estimated duration (hours)">
             <input
-              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
+              className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
               max={12}
               min={1}
               name="duration"
@@ -164,7 +164,7 @@ export function BookingForm({
             />
           </FormField>
           <FormField label="Estimated total (COP)">
-            <div className="flex items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-semibold text-[#211f1a] text-sm shadow-black/5 shadow-inner">
+            <div className="flex items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-semibold text-[var(--foreground)] text-sm shadow-black/5 shadow-inner">
               <span>
                 {estimatedAmount > 0 ? formatCOP(estimatedAmount) : "Add service details"}
               </span>
@@ -178,7 +178,7 @@ export function BookingForm({
         </div>
         <FormField label="Special instructions">
           <textarea
-            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
+            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
             name="specialInstructions"
             placeholder="Building entry instructions, pets, cleaning priorities..."
             rows={3}
@@ -186,7 +186,7 @@ export function BookingForm({
         </FormField>
         <FormField label="Service address">
           <textarea
-            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
+            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
             name="address"
             placeholder="Street, city, any access info"
             rows={2}
@@ -194,7 +194,7 @@ export function BookingForm({
         </FormField>
         <div className="flex justify-end">
           <button
-            className="inline-flex items-center justify-center rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2 font-semibold text-sm text-white shadow-sm transition hover:border-[#8B7355] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex items-center justify-center rounded-full border border-[var(--foreground)] bg-[var(--foreground)] px-5 py-2 font-semibold text-sm text-white shadow-sm transition hover:border-[var(--red)] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
             disabled={
               pending ||
               state.status === "loading" ||
@@ -230,8 +230,8 @@ export function BookingForm({
 const stripeAppearance = {
   theme: "flat" as const,
   variables: {
-    colorPrimary: "#8B7355",
-    colorText: "#211f1a",
+    colorPrimary: "var(--red)",
+    colorText: "var(--foreground)",
     borderRadius: "8px",
   },
 };
@@ -372,12 +372,12 @@ function PaymentConfirmation({ bookingId, paymentIntentId, onReset }: PaymentCon
 
   return (
     <div className="space-y-3 rounded-md border border-[#ece4d9] bg-[#fdfaf6] p-4">
-      <h3 className="font-semibold text-[#211f1a] text-sm">Confirm payment method</h3>
+      <h3 className="font-semibold text-[var(--foreground)] text-sm">Confirm payment method</h3>
       <PaymentElement options={{ layout: "tabs" }} />
       {error ? <p className="text-red-600 text-xs">{error}</p> : null}
       <div className="flex items-center gap-3">
         <button
-          className="inline-flex items-center justify-center rounded-md bg-[#8B7355] px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center justify-center rounded-md bg-[var(--red)] px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={submitting}
           onClick={handleConfirm}
           type="button"
@@ -385,7 +385,7 @@ function PaymentConfirmation({ bookingId, paymentIntentId, onReset }: PaymentCon
           {submitting ? "Confirming…" : "Confirm hold"}
         </button>
         <button
-          className="inline-flex items-center justify-center rounded-md border border-[#e5dfd4] px-3 py-1.5 font-semibold text-[#7a6d62] text-xs transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center justify-center rounded-md border border-[#e5dfd4] px-3 py-1.5 font-semibold text-[#7a6d62] text-xs transition hover:border-[var(--red)] hover:text-[var(--red)] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={submitting}
           onClick={onReset}
           type="button"
@@ -410,7 +410,7 @@ type FormFieldProps = {
 function FormField({ label, children, helper }: FormFieldProps) {
   return (
     <div className="space-y-2">
-      <div className="block font-medium text-[#211f1a] text-sm">{label}</div>
+      <div className="block font-medium text-[var(--foreground)] text-sm">{label}</div>
       {helper ? <p className="text-[#7a6d62] text-xs">{helper}</p> : null}
       {children}
     </div>

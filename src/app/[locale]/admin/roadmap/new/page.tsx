@@ -8,7 +8,7 @@ export default function NewRoadmapPage() {
   return (
     <>
       <div className="mb-8">
-        <h1 className="mb-2 font-bold text-3xl text-[#211f1a]">Create Roadmap Item</h1>
+        <h1 className="mb-2 font-bold text-3xl text-[var(--foreground)]">Create Roadmap Item</h1>
         <p className="text-[#6B7280]">Add a new item to your product roadmap</p>
       </div>
 

@@ -206,7 +206,7 @@ export default function DataRightsPage() {
 function PageHeader() {
   return (
     <div>
-      <h1 className="mb-2 font-bold text-3xl text-[#211f1a]">Your Data Rights</h1>
+      <h1 className="mb-2 font-bold text-3xl text-[var(--foreground)]">Your Data Rights</h1>
       <p className="text-[#7a6d62]">
         Under Colombian Law (Ley 1581 de 2012), you have the right to access, export, and delete
         your personal data.
@@ -247,10 +247,10 @@ function ExportDataSection({
   return (
     <section className="rounded-[28px] border border-[#dcd6c7] bg-white p-8 shadow-sm">
       <div className="mb-4 flex items-start gap-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#8B7355]/10">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--red)]/10">
           <svg
             aria-label="Export data icon"
-            className="h-6 w-6 text-[#8B7355]"
+            className="h-6 w-6 text-[var(--red)]"
             fill="none"
             role="img"
             stroke="currentColor"
@@ -265,12 +265,12 @@ function ExportDataSection({
           </svg>
         </div>
         <div className="flex-1">
-          <h2 className="mb-2 font-semibold text-[#211f1a] text-xl">Export Your Data</h2>
-          <p className="mb-4 text-[#5d574b] text-sm">
+          <h2 className="mb-2 font-semibold text-[var(--foreground)] text-xl">Export Your Data</h2>
+          <p className="mb-4 text-[var(--muted-foreground)] text-sm">
             Download a complete copy of your personal data stored on Casaora. This includes your
             profile, bookings, messages, reviews, and consent records.
           </p>
-          <ul className="mb-6 ml-4 list-disc space-y-1 text-[#5d574b] text-sm">
+          <ul className="mb-6 ml-4 list-disc space-y-1 text-[var(--muted-foreground)] text-sm">
             <li>Profile information (name, contact details, preferences)</li>
             <li>Booking history (as customer or professional)</li>
             <li>Messages and conversations</li>
@@ -280,7 +280,7 @@ function ExportDataSection({
           </ul>
           <button
             className={cn(
-              "rounded-full border border-[#211f1a] bg-[#211f1a] px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-[#2b2624]",
+              "rounded-full border border-[var(--foreground)] bg-[var(--foreground)] px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-[#2b2624]",
               isExporting && "cursor-not-allowed opacity-60"
             )}
             disabled={isExporting}
@@ -429,7 +429,7 @@ function DeletionConfirmation({
             {isDeletingAccount ? "Deleting..." : "Confirm Deletion"}
           </button>
           <button
-            className="rounded-full border border-[#dcd6c7] bg-white px-6 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:bg-[#fbfaf9]"
+            className="rounded-full border border-[#dcd6c7] bg-white px-6 py-2.5 font-semibold text-[var(--foreground)] text-sm transition hover:bg-[var(--background)]"
             onClick={onCancel}
             type="button"
           >
@@ -457,7 +457,7 @@ function DeletionConfirmation({
           </ul>
         )}
       <button
-        className="rounded-full border border-[#dcd6c7] bg-white px-6 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:bg-[#fbfaf9]"
+        className="rounded-full border border-[#dcd6c7] bg-white px-6 py-2.5 font-semibold text-[var(--foreground)] text-sm transition hover:bg-[var(--background)]"
         onClick={onCancel}
         type="button"
       >
@@ -469,8 +469,10 @@ function DeletionConfirmation({
 
 function LegalNoticeSection() {
   return (
-    <section className="rounded-xl bg-[#fbfaf9] p-6">
-      <h3 className="mb-2 font-semibold text-[#211f1a] text-sm">Your Rights Under Colombian Law</h3>
+    <section className="rounded-xl bg-[var(--background)] p-6">
+      <h3 className="mb-2 font-semibold text-[var(--foreground)] text-sm">
+        Your Rights Under Colombian Law
+      </h3>
       <p className="mb-3 text-[#7a6d62] text-sm">
         According to Ley 1581 de 2012 (Colombian Data Protection Law), you have the following
         rights:
@@ -494,7 +496,7 @@ function LegalNoticeSection() {
       </ul>
       <p className="mt-4 text-[#7a6d62] text-sm">
         For questions about your data rights, contact us at{" "}
-        <a className="font-semibold text-[#8B7355] underline" href="mailto:privacy@casaora.com">
+        <a className="font-semibold text-[var(--red)] underline" href="mailto:privacy@casaora.com">
           privacy@casaora.com
         </a>
       </p>

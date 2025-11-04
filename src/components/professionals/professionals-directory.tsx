@@ -1,15 +1,15 @@
 "use client";
 
 import {
-  Calendar,
-  Eye,
-  Filter,
-  Heart,
-  MapPin,
-  SlidersHorizontal,
-  Star,
-  TrendingUp,
-} from "lucide-react";
+  AnalyticsUpIcon,
+  Calendar01Icon,
+  FavouriteIcon,
+  FilterIcon,
+  Location01Icon,
+  Settings02Icon,
+  StarIcon,
+  ViewIcon,
+} from "hugeicons-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -241,10 +241,8 @@ const ProfessionalsDirectoryComponent = memo(
       <section className="py-16 sm:py-20 lg:py-24">
         <Container className="space-y-16">
           <header className="space-y-6 text-center">
-            <h1 className="font-[family-name:var(--font-cinzel)] text-5xl text-[#211f1a] tracking-tight sm:text-6xl lg:text-7xl">
-              {t("header.title")}
-            </h1>
-            <p className="mx-auto max-w-3xl text-[#5d574b] text-xl sm:text-2xl">
+            <h1 className="type-serif-lg text-[var(--foreground)]">{t("header.title")}</h1>
+            <p className="mx-auto max-w-3xl text-[var(--muted-foreground)] text-xl sm:text-2xl">
               {t("header.subtitle")}
             </p>
           </header>
@@ -269,14 +267,14 @@ const ProfessionalsDirectoryComponent = memo(
               {/* Mobile Filter Button */}
               <div className="md:hidden">
                 <button
-                  className="flex w-full items-center justify-center gap-2 rounded-full border-2 border-[#211f1a] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:bg-[#211f1a] hover:text-white"
+                  className="flex w-full items-center justify-center gap-2 rounded-full border-2 border-[var(--foreground)] bg-white px-6 py-3 font-semibold text-[var(--foreground)] text-base transition hover:bg-[var(--foreground)] hover:text-white"
                   onClick={() => setIsFilterSheetOpen(true)}
                   type="button"
                 >
-                  <SlidersHorizontal className="h-5 w-5" />
+                  <Settings02Icon className="h-5 w-5" />
                   Filters
                   {activeFilterCount > 0 && (
-                    <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#8B7355] px-2 font-semibold text-white text-xs">
+                    <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[var(--red)] px-2 font-semibold text-white text-xs">
                       {activeFilterCount}
                     </span>
                   )}
@@ -286,10 +284,10 @@ const ProfessionalsDirectoryComponent = memo(
               {/* Desktop Filter Controls - Hidden on mobile */}
               <div className="hidden flex-wrap items-center gap-4 font-semibold text-[#5a5549] text-sm md:flex">
                 <label className="flex items-center gap-2.5">
-                  <Filter className="h-5 w-5 text-[#211f1a]" />
+                  <FilterIcon className="h-5 w-5 text-[var(--foreground)]" />
                   <span>{t("filters.service")}</span>
                   <select
-                    className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[#211f1a] focus:outline-none"
+                    className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[var(--foreground)] focus:outline-none"
                     onChange={(event) => setServiceFilter(event.target.value)}
                     value={serviceFilter}
                   >
@@ -302,10 +300,10 @@ const ProfessionalsDirectoryComponent = memo(
                 </label>
 
                 <label className="flex items-center gap-2.5">
-                  <MapPin className="h-5 w-5 text-[#211f1a]" />
+                  <Location01Icon className="h-5 w-5 text-[var(--foreground)]" />
                   <span>{t("filters.city")}</span>
                   <select
-                    className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[#211f1a] focus:outline-none"
+                    className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[var(--foreground)] focus:outline-none"
                     onChange={(event) => setCityFilter(event.target.value)}
                     value={cityFilter}
                   >
@@ -318,10 +316,10 @@ const ProfessionalsDirectoryComponent = memo(
                 </label>
 
                 <label className="flex items-center gap-2.5">
-                  <SlidersHorizontal className="h-5 w-5 text-[#211f1a]" />
+                  <Settings02Icon className="h-5 w-5 text-[var(--foreground)]" />
                   <span>{t("filters.rating")}</span>
                   <select
-                    className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[#211f1a] focus:outline-none"
+                    className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[var(--foreground)] focus:outline-none"
                     onChange={(event) => setRatingFilter(event.target.value)}
                     value={ratingFilter}
                   >
@@ -336,7 +334,7 @@ const ProfessionalsDirectoryComponent = memo(
                 <label className="flex items-center gap-2.5">
                   <input
                     checked={availableToday}
-                    className="h-5 w-5 rounded border-[#e2ddd2] text-[#211f1a] focus:ring-[#211f1a]"
+                    className="h-5 w-5 rounded border-[#e2ddd2] text-[var(--foreground)] focus:ring-[var(--foreground)]"
                     onChange={(event) => setAvailableToday(event.target.checked)}
                     type="checkbox"
                   />
@@ -344,7 +342,7 @@ const ProfessionalsDirectoryComponent = memo(
                 </label>
 
                 <button
-                  className="ml-auto rounded-full border-2 border-[#211f1a] bg-white px-5 py-2 font-semibold text-[#211f1a] text-sm transition hover:bg-[#211f1a] hover:text-white"
+                  className="ml-auto rounded-full border-2 border-[var(--foreground)] bg-white px-5 py-2 font-semibold text-[var(--foreground)] text-sm transition hover:bg-[var(--foreground)] hover:text-white"
                   onClick={resetFilters}
                   type="button"
                 >
@@ -356,7 +354,7 @@ const ProfessionalsDirectoryComponent = memo(
 
           {filteredProfessionals.length === 0 ? (
             <div className="rounded-[32px] border border-[#f0ece4] bg-[#fbfafa] p-12 text-center">
-              <p className="text-[#5d574b] text-lg">{t("results.noResults")}</p>
+              <p className="text-[var(--muted-foreground)] text-lg">{t("results.noResults")}</p>
             </div>
           ) : viewMode === "map" ? (
             <div className="h-[600px] overflow-hidden rounded-[32px] border border-[#ebe5d8] shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
@@ -366,7 +364,7 @@ const ProfessionalsDirectoryComponent = memo(
             <div className="space-y-12">
               {filteredProfessionals.map((professional) => (
                 <article
-                  className="hover:-translate-y-0.5 overflow-hidden rounded-[32px] border border-[#ebe5d8] bg-white p-8 shadow-[var(--shadow-card)] transition hover:border-[#8B7355] hover:shadow-[var(--shadow-elevated)] sm:p-10"
+                  className="hover:-translate-y-0.5 overflow-hidden rounded-[32px] border border-[#ebe5d8] bg-white p-8 shadow-[var(--shadow-card)] transition hover:border-[var(--red)] hover:shadow-[var(--shadow-elevated)] sm:p-10"
                   key={professional.id}
                 >
                   {/* Header Row: Profile + Stats + Actions */}
@@ -382,14 +380,14 @@ const ProfessionalsDirectoryComponent = memo(
                         />
                       </div>
                       <div className="flex-1 space-y-2">
-                        <h2 className="font-[family-name:var(--font-cinzel)] text-2xl text-[#211f1a] tracking-wide sm:text-3xl">
+                        <h2 className="font-[family-name:var(--font-cinzel)] text-2xl text-[var(--foreground)] tracking-wide sm:text-3xl">
                           {professional.name}
                         </h2>
                         <p className="text-[#7d7566] text-sm">
                           {professional.service ?? t("card.flexibleServices")}
                         </p>
                         <div className="flex items-center gap-1.5 text-[#7d7566] text-sm">
-                          <MapPin className="h-4 w-4" />
+                          <Location01Icon className="h-4 w-4" />
                           <span>{professional.location}</span>
                         </div>
                       </div>
@@ -399,13 +397,13 @@ const ProfessionalsDirectoryComponent = memo(
                     <div className="flex items-center gap-3">
                       <button
                         aria-label={t("card.favorite")}
-                        className="rounded-full border-2 border-[#211f1a] bg-white p-2.5 transition hover:bg-[#f5f2ed]"
+                        className="rounded-full border-2 border-[var(--foreground)] bg-white p-2.5 transition hover:bg-[#f5f2ed]"
                         type="button"
                       >
-                        <Heart className="h-5 w-5 text-[#211f1a]" />
+                        <FavouriteIcon className="h-5 w-5 text-[var(--foreground)]" />
                       </button>
                       <Link
-                        className="flex-1 rounded-full border-2 border-[#211f1a] bg-white px-6 py-2.5 text-center font-semibold text-[#211f1a] text-sm transition hover:bg-[#f5f2ed] sm:flex-none"
+                        className="flex-1 rounded-full border-2 border-[var(--foreground)] bg-white px-6 py-2.5 text-center font-semibold text-[var(--foreground)] text-sm transition hover:bg-[#f5f2ed] sm:flex-none"
                         href={`/professionals/${professional.id}`}
                       >
                         {t("card.viewProfile")}
@@ -419,13 +417,13 @@ const ProfessionalsDirectoryComponent = memo(
                     const getIcon = (iconName: string) => {
                       switch (iconName) {
                         case "eye":
-                          return <Eye className="h-3.5 w-3.5" />;
+                          return <ViewIcon className="h-3.5 w-3.5" />;
                         case "calendar":
-                          return <Calendar className="h-3.5 w-3.5" />;
+                          return <Calendar01Icon className="h-3.5 w-3.5" />;
                         case "trending":
-                          return <TrendingUp className="h-3.5 w-3.5" />;
+                          return <AnalyticsUpIcon className="h-3.5 w-3.5" />;
                         case "star":
-                          return <Star className="h-3.5 w-3.5 fill-current" />;
+                          return <StarIcon className="h-3.5 w-3.5 fill-current" />;
                         default:
                           return null;
                       }
@@ -434,15 +432,15 @@ const ProfessionalsDirectoryComponent = memo(
                     const getStyles = (type: string) => {
                       switch (type) {
                         case "viewing":
-                          return "bg-[#f5f2ed] text-[#8B7355] border-[#e2ddd2]";
+                          return "bg-[#f5f2ed] text-[var(--red)] border-[#e2ddd2]";
                         case "booked":
                           return "bg-[#6B7F5C]/10 text-[#6B7F5C] border-[#6B7F5C]/20";
                         case "demand":
-                          return "bg-[#8B7355]/10 text-[#8B7355] border-[#8B7355]/20";
+                          return "bg-[var(--red)]/10 text-[var(--red)] border-[var(--red)]/20";
                         case "rare":
-                          return "bg-[#9B8B7E]/10 text-[#9B8B7E] border-[#9B8B7E]/20";
+                          return "bg-[var(--red-hover)]/10 text-[var(--red-hover)] border-[var(--red-hover)]/20";
                         default:
-                          return "bg-[#f5f2ed] text-[#5d574b] border-[#e2ddd2]";
+                          return "bg-[#f5f2ed] text-[var(--muted-foreground)] border-[#e2ddd2]";
                       }
                     };
 
@@ -466,7 +464,7 @@ const ProfessionalsDirectoryComponent = memo(
                     {/* Total Earnings */}
                     {professional.totalEarnings !== undefined && professional.totalEarnings > 0 && (
                       <div className="flex items-center gap-1.5">
-                        <span className="font-semibold text-[#211f1a]">
+                        <span className="font-semibold text-[var(--foreground)]">
                           {formatCOP(professional.totalEarnings)}
                         </span>
                         <span className="text-[#7d7566]">{t("card.earned")}</span>
@@ -477,7 +475,7 @@ const ProfessionalsDirectoryComponent = memo(
                     {professional.totalCompletedBookings !== undefined &&
                       professional.totalCompletedBookings > 0 && (
                         <div className="flex items-center gap-1.5">
-                          <span className="font-semibold text-[#211f1a]">
+                          <span className="font-semibold text-[var(--foreground)]">
                             {professional.totalCompletedBookings}
                           </span>
                           <span className="text-[#7d7566]">{t("card.hired")}</span>
@@ -487,8 +485,8 @@ const ProfessionalsDirectoryComponent = memo(
                     {/* Rating */}
                     {professional.rating !== undefined && professional.rating > 0 && (
                       <div className="flex items-center gap-1.5">
-                        <Star className="h-4 w-4 fill-[#211f1a] text-[#211f1a]" />
-                        <span className="font-semibold text-[#211f1a]">
+                        <StarIcon className="h-4 w-4 fill-[var(--foreground)] text-[var(--foreground)]" />
+                        <span className="font-semibold text-[var(--foreground)]">
                           {professional.rating.toFixed(1)}
                         </span>
                         {professional.reviewCount !== undefined && professional.reviewCount > 0 && (
@@ -501,7 +499,7 @@ const ProfessionalsDirectoryComponent = memo(
                     {professional.favoritesCount !== undefined &&
                       professional.favoritesCount > 0 && (
                         <div className="flex items-center gap-1.5">
-                          <span className="font-semibold text-[#211f1a]">
+                          <span className="font-semibold text-[var(--foreground)]">
                             {professional.favoritesCount}
                           </span>
                           <span className="text-[#7d7566]">{t("card.favorites")}</span>
@@ -522,7 +520,7 @@ const ProfessionalsDirectoryComponent = memo(
 
                     {!showEnhancedTrustBadges && (
                       <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1.5 font-semibold text-[#5a5549]">
-                        <Star className="h-3.5 w-3.5 text-[#211f1a]" />
+                        <StarIcon className="h-3.5 w-3.5 text-[var(--foreground)]" />
                         {t("card.newBadge")}
                       </span>
                     )}
@@ -534,7 +532,7 @@ const ProfessionalsDirectoryComponent = memo(
                     )}
 
                     {professional.availableToday && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#211f1a] px-3 py-1.5 font-semibold text-white">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[var(--foreground)] px-3 py-1.5 font-semibold text-white">
                         {t("filters.availableToday")}
                       </span>
                     )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, X } from "lucide-react";
+import { ArrowLeft01Icon, ArrowRight01Icon } from "hugeicons-react";
 import { useEffect, useRef, useState } from "react";
 import { TourStep } from "@/hooks/use-onboarding-tour";
 
@@ -111,7 +111,7 @@ export function TourTooltip({
     const originalPosition = (targetElement as HTMLElement).style.position;
 
     // Highlight target
-    (targetElement as HTMLElement).style.outline = "2px solid #8B7355";
+    (targetElement as HTMLElement).style.outline = "2px solid var(--red)";
     (targetElement as HTMLElement).style.outlineOffset = "4px";
     (targetElement as HTMLElement).style.zIndex = "9998";
 
@@ -162,13 +162,13 @@ export function TourTooltip({
           onClick={onClose}
           type="button"
         >
-          <X className="h-4 w-4" />
+          <Cancel01Icon className="h-4 w-4" />
         </button>
 
         {/* Progress bar */}
         <div className="mb-4 h-1 overflow-hidden rounded-full bg-gray-100">
           <div
-            className="h-full bg-[#8B7355] transition-all duration-300"
+            className="h-full bg-[var(--red)] transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -192,7 +192,7 @@ export function TourTooltip({
                 onClick={onPrevious}
                 type="button"
               >
-                <ArrowLeft className="h-4 w-4" />
+                <ArrowLeft01Icon className="h-4 w-4" />
                 Back
               </button>
             )}
@@ -208,12 +208,12 @@ export function TourTooltip({
             )}
 
             <button
-              className="flex items-center gap-1 rounded-lg bg-[#8B7355] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#8B7355]"
+              className="flex items-center gap-1 rounded-lg bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[var(--red)]"
               onClick={onNext}
               type="button"
             >
               {isLastStep ? "Finish" : "Next"}
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight01Icon className="h-4 w-4" />
             </button>
           </div>
         </div>

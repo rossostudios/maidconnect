@@ -1,7 +1,7 @@
 "use client";
 
 import imageCompression from "browser-image-compression";
-import { Image as ImageIcon, Upload, X } from "lucide-react";
+import { Cancel01Icon, Image01Icon as ImageIcon, Upload01Icon } from "hugeicons-react";
 import Image from "next/image";
 import { useCallback, useRef, useState } from "react";
 import { toast } from "@/lib/toast";
@@ -172,8 +172,8 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
       <div
         className={`cursor-pointer rounded-xl border-2 border-dashed p-8 text-center transition ${
           dragging
-            ? "border-[#8B7355] bg-[#8B7355]/5"
-            : "border-[#ebe5d8] hover:border-[#8B7355] hover:bg-[#fbfaf9]"
+            ? "border-[var(--red)] bg-[var(--red)]/5"
+            : "border-[#ebe5d8] hover:border-[var(--red)] hover:bg-[var(--background)]"
         }`}
         onClick={() => fileInputRef.current?.click()}
         onDragLeave={handleDragLeave}
@@ -198,12 +198,12 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
         />
 
         <div className="flex flex-col items-center gap-3">
-          <div className="rounded-full bg-[#8B7355]/10 p-4">
-            <Upload className="h-8 w-8 text-[#8B7355]" />
+          <div className="rounded-full bg-[var(--red)]/10 p-4">
+            <Upload01Icon className="h-8 w-8 text-[var(--red)]" />
           </div>
 
           <div>
-            <p className="font-semibold text-[#211f1a] text-base">
+            <p className="font-semibold text-[var(--foreground)] text-base">
               Drop images here or click to browse
             </p>
             <p className="mt-1 text-[#7d7566] text-sm">
@@ -217,11 +217,11 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
       {images.length > 0 && (
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <p className="font-semibold text-[#211f1a] text-sm">
+            <p className="font-semibold text-[var(--foreground)] text-sm">
               {images.length} image{images.length !== 1 ? "s" : ""} ready to upload
             </p>
             <button
-              className="text-[#7d7566] text-sm hover:text-[#8B7355]"
+              className="text-[#7d7566] text-sm hover:text-[var(--red)]"
               onClick={() => {
                 for (const img of images) {
                   URL.revokeObjectURL(img.preview);
@@ -255,7 +255,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
                 {/* Caption Input */}
                 <div className="p-2">
                   <input
-                    className="w-full rounded-lg border border-[#ebe5d8] px-2 py-1 text-xs focus:border-[#8B7355] focus:outline-none focus:ring-1 focus:ring-[#8B7355]"
+                    className="w-full rounded-lg border border-[#ebe5d8] px-2 py-1 text-xs focus:border-[var(--red)] focus:outline-none focus:ring-1 focus:ring-[var(--red)]"
                     onChange={(e) => updateCaption(image.id, e.target.value)}
                     placeholder="Add caption (optional)"
                     type="text"
@@ -269,7 +269,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
                   onClick={() => removeImage(image.id)}
                   type="button"
                 >
-                  <X className="h-4 w-4" />
+                  <Cancel01Icon className="h-4 w-4" />
                 </button>
               </div>
             ))}
@@ -277,7 +277,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
 
           {/* Upload Button */}
           <button
-            className="w-full rounded-xl bg-[#8B7355] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full rounded-xl bg-[var(--red)] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={uploading || images.length === 0}
             onClick={handleUpload}
             type="button"
@@ -312,8 +312,8 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
 
       {/* Tips */}
       {images.length === 0 && (
-        <div className="rounded-xl bg-[#fbfaf9] p-4">
-          <h4 className="flex items-center gap-2 font-semibold text-[#211f1a] text-sm">
+        <div className="rounded-xl bg-[var(--background)] p-4">
+          <h4 className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-sm">
             <ImageIcon className="h-4 w-4" />
             Image Tips
           </h4>

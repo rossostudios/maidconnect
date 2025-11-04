@@ -2,7 +2,7 @@
 
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { Clock, Minus, Plus, X } from "lucide-react";
+import { Add01Icon, Cancel01Icon, Clock01Icon, MinusSignIcon } from "hugeicons-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
@@ -215,7 +215,7 @@ export function BookingSheet({
       <div className="slide-in-from-right fixed inset-y-0 right-0 z-50 w-full animate-in overflow-y-auto bg-white shadow-2xl duration-500 ease-out md:max-w-2xl">
         <div className="sticky top-0 z-10 flex items-center justify-between border-[#ebe5d8] border-b bg-white px-6 py-5 md:px-8 md:py-6">
           <div>
-            <h2 className="font-semibold text-[#211f1a] text-xl md:text-2xl">
+            <h2 className="font-semibold text-[var(--foreground)] text-xl md:text-2xl">
               {currentStep === "time" && "Choose time"}
               {currentStep === "details" && "Booking details"}
               {currentStep === "payment" && "Payment"}
@@ -237,7 +237,7 @@ export function BookingSheet({
             onClick={onClose}
             type="button"
           >
-            <X className="h-6 w-6" />
+            <Cancel01Icon className="h-6 w-6" />
           </button>
         </div>
 
@@ -252,14 +252,16 @@ export function BookingSheet({
           {currentStep === "time" && (
             <div className="fade-in-50 animate-in space-y-6 duration-500">
               <div>
-                <h3 className="mb-4 font-semibold text-[#211f1a] text-xl">Available times</h3>
+                <h3 className="mb-4 font-semibold text-[var(--foreground)] text-xl">
+                  Available times
+                </h3>
                 <p className="mb-6 text-[#7d7566] text-base">
                   Select a time slot to continue with your booking
                 </p>
                 <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
                   {availableSlots.map((time, index) => (
                     <button
-                      className="group fade-in-0 slide-in-from-bottom-4 animate-in rounded-xl border-2 border-[#e5dfd4] bg-white px-5 py-4 font-semibold text-[#211f1a] text-base shadow-sm transition-all duration-300 hover:scale-105 hover:border-[#8B7355] hover:bg-[#8B7355]/5 hover:shadow-lg active:scale-95 md:px-5 md:py-4"
+                      className="group fade-in-0 slide-in-from-bottom-4 animate-in rounded-xl border-2 border-[#e5dfd4] bg-white px-5 py-4 font-semibold text-[var(--foreground)] text-base shadow-sm transition-all duration-300 hover:scale-105 hover:border-[var(--red)] hover:bg-[var(--red)]/5 hover:shadow-lg active:scale-95 md:px-5 md:py-4"
                       key={time}
                       onClick={() => handleTimeSelect(time)}
                       style={{ animationDelay: `${index * 30}ms` }}
@@ -277,9 +279,9 @@ export function BookingSheet({
           {currentStep === "details" && (
             <div className="fade-in-50 animate-in space-y-8 duration-500">
               {/* Selected Time Display */}
-              <div className="rounded-2xl bg-[#8B7355]/5 p-6">
+              <div className="rounded-2xl bg-[var(--red)]/5 p-6">
                 <div className="flex items-center gap-3 text-[#8a3934] text-base">
-                  <Clock className="h-5 w-5" />
+                  <Clock01Icon className="h-5 w-5" />
                   <span className="font-semibold">{selectedTime && formatTime(selectedTime)}</span>
                   <button
                     className="ml-auto text-sm underline"
@@ -294,13 +296,13 @@ export function BookingSheet({
               {/* Service Selection */}
               <div>
                 <label
-                  className="mb-3 block font-semibold text-[#211f1a] text-base md:text-lg"
+                  className="mb-3 block font-semibold text-[var(--foreground)] text-base md:text-lg"
                   htmlFor="service-select"
                 >
                   Service *
                 </label>
                 <select
-                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-4 py-4 text-base focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20 md:px-5"
+                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-4 py-4 text-base focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20 md:px-5"
                   id="service-select"
                   onChange={(e) => {
                     const service = serviceWithName.find((s) => s.name === e.target.value);
@@ -325,13 +327,13 @@ export function BookingSheet({
 
               {/* Duration - Touch-friendly controls */}
               <div>
-                <div className="mb-3 block font-semibold text-[#211f1a] text-base md:text-lg">
+                <div className="mb-3 block font-semibold text-[var(--foreground)] text-base md:text-lg">
                   Duration *
                 </div>
                 <div className="flex items-center gap-3 md:gap-4">
                   <button
                     aria-label="Decrease duration"
-                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#e5dfd4] transition hover:border-[#8B7355] hover:bg-[#8B7355]/5 md:p-3"
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#e5dfd4] transition hover:border-[var(--red)] hover:bg-[var(--red)]/5 md:p-3"
                     onClick={() =>
                       setBookingData({
                         ...bookingData,
@@ -340,14 +342,14 @@ export function BookingSheet({
                     }
                     type="button"
                   >
-                    <Minus className="h-5 w-5" />
+                    <MinusSignIcon className="h-5 w-5" />
                   </button>
-                  <div className="flex-1 rounded-xl border-2 border-[#e5dfd4] bg-[#fbfafa] px-4 py-4 text-center font-semibold text-[#211f1a] text-lg md:px-5 md:text-xl">
+                  <div className="flex-1 rounded-xl border-2 border-[#e5dfd4] bg-[#fbfafa] px-4 py-4 text-center font-semibold text-[var(--foreground)] text-lg md:px-5 md:text-xl">
                     {bookingData.durationHours} {bookingData.durationHours === 1 ? "hour" : "hours"}
                   </div>
                   <button
                     aria-label="Increase duration"
-                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#e5dfd4] transition hover:border-[#8B7355] hover:bg-[#8B7355]/5 md:p-3"
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#e5dfd4] transition hover:border-[var(--red)] hover:bg-[var(--red)]/5 md:p-3"
                     onClick={() =>
                       setBookingData({
                         ...bookingData,
@@ -356,7 +358,7 @@ export function BookingSheet({
                     }
                     type="button"
                   >
-                    <Plus className="h-5 w-5" />
+                    <Add01Icon className="h-5 w-5" />
                   </button>
                 </div>
               </div>
@@ -364,7 +366,7 @@ export function BookingSheet({
               {/* Address */}
               <div>
                 <label
-                  className="mb-3 block font-semibold text-[#211f1a] text-lg"
+                  className="mb-3 block font-semibold text-[var(--foreground)] text-lg"
                   htmlFor="service-address"
                 >
                   Service address *
@@ -379,7 +381,7 @@ export function BookingSheet({
                   />
                 ) : (
                   <textarea
-                    className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+                    className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
                     id="service-address"
                     onChange={(e) =>
                       setBookingData({
@@ -397,7 +399,7 @@ export function BookingSheet({
               {/* Add-ons */}
               {addons.length > 0 && (
                 <div>
-                  <div className="mb-3 block font-semibold text-[#211f1a] text-lg">
+                  <div className="mb-3 block font-semibold text-[var(--foreground)] text-lg">
                     Add extras (optional)
                   </div>
                   <div className="space-y-3">
@@ -407,8 +409,8 @@ export function BookingSheet({
                         <button
                           className={`w-full rounded-xl border-2 p-5 text-left transition ${
                             isSelected
-                              ? "border-[#8B7355] bg-[#8B7355]/5"
-                              : "border-[#e5dfd4] bg-white hover:border-[#8B7355]/50"
+                              ? "border-[var(--red)] bg-[var(--red)]/5"
+                              : "border-[#e5dfd4] bg-white hover:border-[var(--red)]/50"
                           }`}
                           key={addon.id}
                           onClick={() => toggleAddon(addon)}
@@ -416,14 +418,14 @@ export function BookingSheet({
                         >
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
-                              <h4 className="font-semibold text-[#211f1a] text-base">
+                              <h4 className="font-semibold text-[var(--foreground)] text-base">
                                 {addon.name}
                               </h4>
                               {addon.description && (
                                 <p className="mt-1 text-[#7a6d62] text-sm">{addon.description}</p>
                               )}
                             </div>
-                            <div className="ml-4 font-semibold text-[#8B7355] text-base">
+                            <div className="ml-4 font-semibold text-[var(--red)] text-base">
                               {formatCOP(addon.price_cop)}
                             </div>
                           </div>
@@ -437,13 +439,13 @@ export function BookingSheet({
               {/* Special Instructions */}
               <div>
                 <label
-                  className="mb-3 block font-semibold text-[#211f1a] text-lg"
+                  className="mb-3 block font-semibold text-[var(--foreground)] text-lg"
                   htmlFor="special-instructions"
                 >
                   Special instructions
                 </label>
                 <textarea
-                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+                  className="w-full rounded-xl border-2 border-[#e5dfd4] px-5 py-4 text-base focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
                   id="special-instructions"
                   onChange={(e) =>
                     setBookingData({
@@ -459,22 +461,28 @@ export function BookingSheet({
 
               {/* Price Summary */}
               <div className="rounded-2xl border-2 border-[#ebe5d8] bg-[#fbfafa] p-6">
-                <h3 className="mb-4 font-semibold text-[#211f1a] text-lg">Price summary</h3>
+                <h3 className="mb-4 font-semibold text-[var(--foreground)] text-lg">
+                  Price summary
+                </h3>
                 <div className="space-y-3 text-base">
                   <div className="flex justify-between">
                     <span className="text-[#7d7566]">Service</span>
-                    <span className="font-semibold text-[#211f1a]">{formatCOP(baseAmount)}</span>
+                    <span className="font-semibold text-[var(--foreground)]">
+                      {formatCOP(baseAmount)}
+                    </span>
                   </div>
                   {addonsTotal > 0 && (
                     <div className="flex justify-between">
                       <span className="text-[#7d7566]">Add-ons</span>
-                      <span className="font-semibold text-[#211f1a]">{formatCOP(addonsTotal)}</span>
+                      <span className="font-semibold text-[var(--foreground)]">
+                        {formatCOP(addonsTotal)}
+                      </span>
                     </div>
                   )}
                   <div className="border-[#ebe5d8] border-t pt-3">
                     <div className="flex justify-between text-xl">
-                      <span className="font-semibold text-[#211f1a]">Total</span>
-                      <span className="font-bold text-[#8B7355]">{formatCOP(totalAmount)}</span>
+                      <span className="font-semibold text-[var(--foreground)]">Total</span>
+                      <span className="font-bold text-[var(--red)]">{formatCOP(totalAmount)}</span>
                     </div>
                   </div>
                 </div>
@@ -483,14 +491,14 @@ export function BookingSheet({
               {/* Actions - Touch-friendly */}
               <div className="flex flex-col gap-3 md:flex-row md:gap-4">
                 <button
-                  className="order-2 rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#8B7355] hover:text-[#8B7355] md:order-1"
+                  className="order-2 rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[var(--red)] hover:text-[var(--red)] md:order-1"
                   onClick={() => setCurrentStep("time")}
                   type="button"
                 >
                   Back
                 </button>
                 <button
-                  className="order-1 flex-1 rounded-xl bg-[#8B7355] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
+                  className="order-1 flex-1 rounded-xl bg-[var(--red)] px-8 py-4 font-semibold text-base text-white transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
                   disabled={
                     loading ||
                     !bookingData.serviceName ||
@@ -513,8 +521,8 @@ export function BookingSheet({
                 appearance: {
                   theme: "flat" as const,
                   variables: {
-                    colorPrimary: "#8B7355",
-                    colorText: "#211f1a",
+                    colorPrimary: "var(--red)",
+                    colorText: "var(--foreground)",
                     borderRadius: "12px",
                   },
                 },
@@ -594,7 +602,7 @@ function PaymentStep({
       {error && <p className="text-base text-red-600">{error}</p>}
       <div className="flex flex-col gap-3 md:flex-row md:gap-4">
         <button
-          className="order-2 rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:cursor-not-allowed disabled:opacity-50 md:order-1"
+          className="order-2 rounded-xl border-2 border-[#e5dfd4] px-8 py-4 font-semibold text-[#7d7566] text-base transition hover:border-[var(--red)] hover:text-[var(--red)] disabled:cursor-not-allowed disabled:opacity-50 md:order-1"
           disabled={submitting}
           onClick={onBack}
           type="button"
@@ -602,7 +610,7 @@ function PaymentStep({
           Back
         </button>
         <button
-          className="order-1 flex-1 rounded-xl bg-[#8B7355] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
+          className="order-1 flex-1 rounded-xl bg-[var(--red)] px-8 py-4 font-semibold text-base text-white transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
           disabled={submitting}
           onClick={handleConfirm}
           type="button"

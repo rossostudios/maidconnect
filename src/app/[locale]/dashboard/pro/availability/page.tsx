@@ -41,8 +41,10 @@ export default async function ProAvailabilityPage({
     <section className="space-y-6">
       {/* Header */}
       <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h1 className="font-semibold text-3xl text-[#211f1a]">{t("title")}</h1>
-        <p className="mt-2 text-[#5d574b] text-base leading-relaxed">{t("description")}</p>
+        <h1 className="font-semibold text-3xl text-[var(--foreground)]">{t("title")}</h1>
+        <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+          {t("description")}
+        </p>
       </div>
 
       {/* Availability Editor */}
@@ -52,33 +54,33 @@ export default async function ProAvailabilityPage({
 
       {/* Help Section */}
       <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-sm">
-        <h3 className="font-semibold text-[#211f1a] text-lg">{t("tips.title")}</h3>
-        <ul className="mt-4 space-y-3 text-[#5d574b] text-base">
+        <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("tips.title")}</h3>
+        <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
           <li className="flex gap-3">
-            <span className="flex-shrink-0 text-[#8B7355]">•</span>
+            <span className="flex-shrink-0 text-[var(--red)]">•</span>
             <span>
-              <strong className="text-[#211f1a]">{t("tips.workingHours.label")}</strong>{" "}
+              <strong className="text-[var(--foreground)]">{t("tips.workingHours.label")}</strong>{" "}
               {t("tips.workingHours.text")}
             </span>
           </li>
           <li className="flex gap-3">
-            <span className="flex-shrink-0 text-[#8B7355]">•</span>
+            <span className="flex-shrink-0 text-[var(--red)]">•</span>
             <span>
-              <strong className="text-[#211f1a]">{t("tips.blockedDates.label")}</strong>{" "}
+              <strong className="text-[var(--foreground)]">{t("tips.blockedDates.label")}</strong>{" "}
               {t("tips.blockedDates.text")}
             </span>
           </li>
           <li className="flex gap-3">
-            <span className="flex-shrink-0 text-[#8B7355]">•</span>
+            <span className="flex-shrink-0 text-[var(--red)]">•</span>
             <span>
-              <strong className="text-[#211f1a]">{t("tips.bufferTime.label")}</strong>{" "}
+              <strong className="text-[var(--foreground)]">{t("tips.bufferTime.label")}</strong>{" "}
               {t("tips.bufferTime.text")}
             </span>
           </li>
           <li className="flex gap-3">
-            <span className="flex-shrink-0 text-[#8B7355]">•</span>
+            <span className="flex-shrink-0 text-[var(--red)]">•</span>
             <span>
-              <strong className="text-[#211f1a]">{t("tips.flexibility.label")}</strong>{" "}
+              <strong className="text-[var(--foreground)]">{t("tips.flexibility.label")}</strong>{" "}
               {t("tips.flexibility.text")}
             </span>
           </li>

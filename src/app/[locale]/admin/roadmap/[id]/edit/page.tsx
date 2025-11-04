@@ -36,7 +36,7 @@ export default async function EditRoadmapPage({ params }: PageProps) {
   return (
     <>
       <div className="mb-8">
-        <h1 className="mb-2 font-bold text-3xl text-[#211f1a]">Edit Roadmap Item</h1>
+        <h1 className="mb-2 font-bold text-3xl text-[var(--foreground)]">Edit Roadmap Item</h1>
         <p className="text-[#6B7280]">Update "{roadmapItem.title}"</p>
       </div>
 

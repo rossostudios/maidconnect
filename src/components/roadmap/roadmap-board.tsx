@@ -100,14 +100,16 @@ export function RoadmapBoard() {
       <div className="lg:col-span-3">
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#8B7355] border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[var(--red)] border-t-transparent" />
           </div>
         ) : items.length === 0 ? (
           <div className="py-12 text-center">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#f3f4f6]">
               <span className="text-3xl">🔍</span>
             </div>
-            <h3 className="mb-2 font-semibold text-[#211f1a] text-lg">{t("empty.title")}</h3>
+            <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
+              {t("empty.title")}
+            </h3>
             <p className="text-[#6B7280]">{t("empty.description")}</p>
           </div>
         ) : (
@@ -118,7 +120,7 @@ export function RoadmapBoard() {
                 {/* In Progress */}
                 {itemsByStatus.in_progress && itemsByStatus.in_progress.length > 0 && (
                   <div>
-                    <h2 className="mb-4 flex items-center gap-2 font-bold text-[#211f1a] text-xl">
+                    <h2 className="mb-4 flex items-center gap-2 font-bold text-[var(--foreground)] text-xl">
                       <span>🚀</span>
                       {t("status.in_progress")}
                     </h2>
@@ -133,7 +135,7 @@ export function RoadmapBoard() {
                 {/* Planned */}
                 {itemsByStatus.planned && itemsByStatus.planned.length > 0 && (
                   <div>
-                    <h2 className="mb-4 flex items-center gap-2 font-bold text-[#211f1a] text-xl">
+                    <h2 className="mb-4 flex items-center gap-2 font-bold text-[var(--foreground)] text-xl">
                       <span>📅</span>
                       {t("status.planned")}
                     </h2>
@@ -149,7 +151,7 @@ export function RoadmapBoard() {
                 {itemsByStatus.under_consideration &&
                   itemsByStatus.under_consideration.length > 0 && (
                     <div>
-                      <h2 className="mb-4 flex items-center gap-2 font-bold text-[#211f1a] text-xl">
+                      <h2 className="mb-4 flex items-center gap-2 font-bold text-[var(--foreground)] text-xl">
                         <span>💡</span>
                         {t("status.under_consideration")}
                       </h2>
@@ -164,7 +166,7 @@ export function RoadmapBoard() {
                 {/* Shipped */}
                 {itemsByStatus.shipped && itemsByStatus.shipped.length > 0 && (
                   <div>
-                    <h2 className="mb-4 flex items-center gap-2 font-bold text-[#211f1a] text-xl">
+                    <h2 className="mb-4 flex items-center gap-2 font-bold text-[var(--foreground)] text-xl">
                       <span>✅</span>
                       {t("status.shipped")}
                     </h2>

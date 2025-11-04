@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, Home, RefreshCw } from "lucide-react";
+import { Alert01Icon, Home01Icon, RefreshIcon } from "hugeicons-react";
 import { useEffect } from "react";
 import { Link } from "@/i18n/routing";
 
@@ -17,18 +17,20 @@ export default function ErrorPage({
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#fbfaf9] p-4">
+    <div className="flex min-h-screen items-center justify-center bg-[var(--background)] p-4">
       <div className="w-full max-w-md">
         <div className="rounded-[28px] bg-white p-8 text-center shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
           {/* Icon */}
           <div className="mb-6 flex justify-center">
             <div className="rounded-full bg-red-50 p-6">
-              <AlertTriangle className="h-12 w-12 text-red-500" />
+              <Alert01Icon className="h-12 w-12 text-red-500" />
             </div>
           </div>
 
           {/* Title */}
-          <h1 className="mb-3 font-bold text-3xl text-[#211f1a]">Something went wrong</h1>
+          <h1 className="mb-3 font-semibold text-2xl text-[var(--foreground)] leading-snug md:text-[28px]">
+            Something went wrong
+          </h1>
 
           {/* Description */}
           <p className="mb-8 text-[#7d7566] text-lg">
@@ -50,18 +52,18 @@ export default function ErrorPage({
           {/* Actions */}
           <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
             <button
-              className="flex items-center justify-center gap-2 rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-white transition hover:bg-[#ff4529]"
+              className="flex items-center justify-center gap-2 rounded-full bg-[var(--red)] px-6 py-3 font-semibold text-white transition hover:bg-[#ff4529]"
               onClick={reset}
               type="button"
             >
-              <RefreshCw className="h-4 w-4" />
+              <RefreshIcon className="h-4 w-4" />
               Try Again
             </button>
             <Link
-              className="flex items-center justify-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] transition hover:border-[#8B7355] hover:text-[#8B7355]"
+              className="flex items-center justify-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[var(--foreground)] transition hover:border-[var(--red)] hover:text-[var(--red)]"
               href="/"
             >
-              <Home className="h-4 w-4" />
+              <Home01Icon className="h-4 w-4" />
               Go Home
             </Link>
           </div>
@@ -69,7 +71,7 @@ export default function ErrorPage({
           {/* Support Link */}
           <p className="mt-6 text-[#7d7566] text-sm">
             Need help?{" "}
-            <Link className="text-[#8B7355] hover:underline" href="/contact">
+            <Link className="text-[var(--red)] hover:underline" href="/contact">
               Contact Support
             </Link>
           </p>

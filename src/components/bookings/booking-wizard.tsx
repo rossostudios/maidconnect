@@ -1,6 +1,6 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { Tick02Icon } from "hugeicons-react";
 import { useState } from "react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { DatePicker } from "@/components/ui/date-picker";
@@ -114,7 +114,7 @@ export function BookingWizard({
               <button
                 className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-full border-2 font-semibold text-sm transition ${(() => {
                   if (currentStep === step.number) {
-                    return "border-[#8B7355] bg-[#8B7355] text-white";
+                    return "border-[var(--red)] bg-[var(--red)] text-white";
                   }
                   if (step.completed) {
                     return "border-green-500 bg-green-500 text-white";
@@ -135,13 +135,15 @@ export function BookingWizard({
                 }}
                 type="button"
               >
-                {step.completed ? <Check className="h-5 w-5" /> : step.number}
+                {step.completed ? <Tick02Icon className="h-5 w-5" /> : step.number}
               </button>
 
               {/* Step Label */}
               <span
                 className={`mt-2 text-xs ${
-                  currentStep === step.number ? "font-semibold text-[#211f1a]" : "text-gray-500"
+                  currentStep === step.number
+                    ? "font-semibold text-[var(--foreground)]"
+                    : "text-gray-500"
                 }`}
               >
                 {step.title}
@@ -215,11 +217,11 @@ export function BookingWizard({
       {/* Floating Price Calculator (visible after step 1) */}
       {currentStep > 1 && estimatedAmount > 0 && (
         <div className="sticky right-0 bottom-6 left-0 mx-auto max-w-md">
-          <div className="rounded-full border-2 border-[#8B7355] bg-white px-6 py-4 shadow-lg">
+          <div className="rounded-full border-2 border-[var(--red)] bg-white px-6 py-4 shadow-lg">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[#7d7566] text-sm">Estimated Total</p>
-                <p className="font-bold text-2xl text-[#211f1a]">
+                <p className="font-bold text-2xl text-[var(--foreground)]">
                   <AnimatedCounter decimals={0} target={totalAmount} />
                 </p>
               </div>
@@ -254,7 +256,7 @@ function Step1ServiceSelection({
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-semibold text-2xl text-[#211f1a]">Select a Service</h2>
+        <h2 className="font-semibold text-2xl text-[var(--foreground)]">Select a Service</h2>
         <p className="mt-2 text-[#7d7566] text-sm">Choose the type of service you need</p>
       </div>
 
@@ -267,23 +269,25 @@ function Step1ServiceSelection({
             <button
               className={`rounded-2xl border-2 p-6 text-left transition ${
                 isSelected
-                  ? "border-[#8B7355] bg-[#fff8f6]"
-                  : "border-[#ebe5d8] bg-white hover:border-[#211f1a]"
+                  ? "border-[var(--red)] bg-[#fff8f6]"
+                  : "border-[#ebe5d8] bg-white hover:border-[var(--foreground)]"
               }`}
               key={service.name}
               onClick={() => onSelectService(service.name ?? "")}
               type="button"
             >
-              <h3 className="font-semibold text-[#211f1a] text-lg">{service.name}</h3>
+              <h3 className="font-semibold text-[var(--foreground)] text-lg">{service.name}</h3>
               {rate && (
-                <p className="mt-2 font-semibold text-[#8B7355] text-xl">{formatCOP(rate)}/hour</p>
+                <p className="mt-2 font-semibold text-[var(--red)] text-xl">
+                  {formatCOP(rate)}/hour
+                </p>
               )}
               {service.description && (
                 <p className="mt-2 text-[#7d7566] text-sm">{service.description}</p>
               )}
               {isSelected && (
-                <div className="mt-4 flex items-center gap-2 text-[#8B7355] text-sm">
-                  <Check className="h-4 w-4" />
+                <div className="mt-4 flex items-center gap-2 text-[var(--red)] text-sm">
+                  <Tick02Icon className="h-4 w-4" />
                   <span>Selected</span>
                 </div>
               )}
@@ -294,7 +298,7 @@ function Step1ServiceSelection({
 
       <div className="flex justify-end pt-4">
         <button
-          className="rounded-full bg-[#8B7355] px-8 py-3 font-semibold text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[var(--red)] px-8 py-3 font-semibold text-white transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!selectedServiceName}
           onClick={onNext}
           type="button"
@@ -327,13 +331,13 @@ function Step2DateTime({
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-semibold text-2xl text-[#211f1a]">Choose Date & Time</h2>
+        <h2 className="font-semibold text-2xl text-[var(--foreground)]">Choose Date & Time</h2>
         <p className="mt-2 text-[#7d7566] text-sm">Select when you need the service</p>
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <div className="mb-2 block font-medium text-[#211f1a] text-sm">Date</div>
+          <div className="mb-2 block font-medium text-[var(--foreground)] text-sm">Date</div>
           <DatePicker
             onChange={onSelectDate}
             placeholder="Select date"
@@ -343,7 +347,7 @@ function Step2DateTime({
         </div>
 
         <div>
-          <div className="mb-2 block font-medium text-[#211f1a] text-sm">Start Time</div>
+          <div className="mb-2 block font-medium text-[var(--foreground)] text-sm">Start Time</div>
           <TimePicker
             onChange={onSelectTime}
             placeholder="Select time"
@@ -357,7 +361,7 @@ function Step2DateTime({
       {selectedDate && (
         <div className="rounded-xl bg-green-50 p-4">
           <p className="flex items-center gap-2 text-green-700 text-sm">
-            <Check className="h-4 w-4" />
+            <Tick02Icon className="h-4 w-4" />
             <span className="font-medium">Available on this date</span>
           </p>
         </div>
@@ -365,14 +369,14 @@ function Step2DateTime({
 
       <div className="flex justify-between pt-4">
         <button
-          className="rounded-full border-2 border-[#211f1a] px-8 py-3 font-semibold text-[#211f1a] transition hover:bg-[#f5f2ed]"
+          className="rounded-full border-2 border-[var(--foreground)] px-8 py-3 font-semibold text-[var(--foreground)] transition hover:bg-[#f5f2ed]"
           onClick={onBack}
           type="button"
         >
           ← Back
         </button>
         <button
-          className="rounded-full bg-[#8B7355] px-8 py-3 font-semibold text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[var(--red)] px-8 py-3 font-semibold text-white transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!(selectedDate && selectedTime)}
           onClick={onNext}
           type="button"
@@ -411,20 +415,20 @@ function Step3Details({
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-semibold text-2xl text-[#211f1a]">Additional Details</h2>
+        <h2 className="font-semibold text-2xl text-[var(--foreground)]">Additional Details</h2>
         <p className="mt-2 text-[#7d7566] text-sm">Help us serve you better (optional)</p>
       </div>
 
       <div className="space-y-4">
         <div>
           <label
-            className="mb-2 block font-medium text-[#211f1a] text-sm"
+            className="mb-2 block font-medium text-[var(--foreground)] text-sm"
             htmlFor="special-instructions-wizard"
           >
             Special Instructions
           </label>
           <textarea
-            className="w-full rounded-xl border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
+            className="w-full rounded-xl border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
             id="special-instructions-wizard"
             onChange={(e) => onUpdateInstructions(e.target.value)}
             placeholder="Building entry, pets, cleaning priorities, allergies..."
@@ -435,13 +439,13 @@ function Step3Details({
 
         <div>
           <label
-            className="mb-2 block font-medium text-[#211f1a] text-sm"
+            className="mb-2 block font-medium text-[var(--foreground)] text-sm"
             htmlFor="service-address-wizard"
           >
             Service Address
           </label>
           <textarea
-            className="w-full rounded-xl border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]"
+            className="w-full rounded-xl border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
             id="service-address-wizard"
             onChange={(e) => onUpdateAddress(e.target.value)}
             placeholder="Street address, apartment number, city..."
@@ -465,14 +469,14 @@ function Step3Details({
 
       <div className="flex justify-between pt-4">
         <button
-          className="rounded-full border-2 border-[#211f1a] px-8 py-3 font-semibold text-[#211f1a] transition hover:bg-[#f5f2ed]"
+          className="rounded-full border-2 border-[var(--foreground)] px-8 py-3 font-semibold text-[var(--foreground)] transition hover:bg-[#f5f2ed]"
           onClick={onBack}
           type="button"
         >
           ← Back
         </button>
         <button
-          className="rounded-full bg-[#8B7355] px-8 py-3 font-semibold text-white transition hover:bg-[#9B8B7E]"
+          className="rounded-full bg-[var(--red)] px-8 py-3 font-semibold text-white transition hover:bg-[var(--red-hover)]"
           onClick={onNext}
           type="button"
         >
@@ -523,7 +527,7 @@ function Step4Review({
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-semibold text-2xl text-[#211f1a]">Review Your Booking</h2>
+        <h2 className="font-semibold text-2xl text-[var(--foreground)]">Review Your Booking</h2>
         <p className="mt-2 text-[#7d7566] text-sm">Confirm details before proceeding to payment</p>
       </div>
 
@@ -532,18 +536,18 @@ function Step4Review({
         <div className="flex items-start justify-between">
           <div>
             <p className="text-[#7d7566] text-xs">Professional</p>
-            <p className="font-semibold text-[#211f1a]">{professionalName}</p>
+            <p className="font-semibold text-[var(--foreground)]">{professionalName}</p>
           </div>
         </div>
 
         <div className="border-[#ebe5d8] border-t pt-4">
           <p className="text-[#7d7566] text-xs">Service</p>
-          <p className="font-semibold text-[#211f1a]">{selectedServiceName}</p>
+          <p className="font-semibold text-[var(--foreground)]">{selectedServiceName}</p>
         </div>
 
         <div className="border-[#ebe5d8] border-t pt-4">
           <p className="text-[#7d7566] text-xs">Date & Time</p>
-          <p className="font-semibold text-[#211f1a]">
+          <p className="font-semibold text-[var(--foreground)]">
             {selectedDate?.toLocaleDateString("en-US", {
               weekday: "long",
               year: "numeric",
@@ -559,7 +563,7 @@ function Step4Review({
           <div className="border-[#ebe5d8] border-t pt-4">
             <p className="text-[#7d7566] text-xs">Recurring Schedule</p>
             <div className="space-y-1">
-              <p className="font-semibold text-[#211f1a]">
+              <p className="font-semibold text-[var(--foreground)]">
                 {FREQUENCY_LABELS[recurringSchedule.frequency]}
               </p>
               <p className="text-[#7d7566] text-sm">
@@ -570,7 +574,7 @@ function Step4Review({
                 {recurringSchedule.endType === "never" && "Ongoing (cancel anytime)"}
               </p>
               <div className="mt-2 flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2">
-                <Check className="h-4 w-4 text-green-600" />
+                <Tick02Icon className="h-4 w-4 text-green-600" />
                 <span className="font-medium text-green-700 text-xs">
                   Recurring discount applied
                 </span>
@@ -584,17 +588,17 @@ function Step4Review({
           <div className="mb-2 block text-[#7d7566] text-xs">Duration (hours)</div>
           <div className="flex items-center gap-3">
             <button
-              className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#211f1a] font-bold text-[#211f1a] transition hover:bg-[#f5f2ed]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[var(--foreground)] font-bold text-[var(--foreground)] transition hover:bg-[#f5f2ed]"
               onClick={() => onUpdateDuration(Math.max(1, durationHours - 1))}
               type="button"
             >
               -
             </button>
-            <span className="w-12 text-center font-bold text-2xl text-[#211f1a]">
+            <span className="w-12 text-center font-bold text-2xl text-[var(--foreground)]">
               {durationHours}
             </span>
             <button
-              className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#211f1a] font-bold text-[#211f1a] transition hover:bg-[#f5f2ed]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[var(--foreground)] font-bold text-[var(--foreground)] transition hover:bg-[#f5f2ed]"
               onClick={() => onUpdateDuration(Math.min(12, durationHours + 1))}
               type="button"
             >
@@ -610,15 +614,17 @@ function Step4Review({
               <span className="text-[#7d7566]">
                 Service ({formatCOP(selectedRate)}/hr × {durationHours}h)
               </span>
-              <span className="font-semibold text-[#211f1a]">{formatCOP(estimatedAmount)}</span>
+              <span className="font-semibold text-[var(--foreground)]">
+                {formatCOP(estimatedAmount)}
+              </span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-[#7d7566]">Tax (19%)</span>
-              <span className="font-semibold text-[#211f1a]">{formatCOP(taxAmount)}</span>
+              <span className="font-semibold text-[var(--foreground)]">{formatCOP(taxAmount)}</span>
             </div>
             <div className="flex justify-between border-[#ebe5d8] border-t pt-2">
-              <span className="font-bold text-[#211f1a]">Total</span>
-              <span className="font-bold text-2xl text-[#8B7355]">{formatCOP(totalAmount)}</span>
+              <span className="font-bold text-[var(--foreground)]">Total</span>
+              <span className="font-bold text-2xl text-[var(--red)]">{formatCOP(totalAmount)}</span>
             </div>
           </div>
         </div>
@@ -626,14 +632,14 @@ function Step4Review({
 
       <div className="flex justify-between pt-4">
         <button
-          className="rounded-full border-2 border-[#211f1a] px-8 py-3 font-semibold text-[#211f1a] transition hover:bg-[#f5f2ed]"
+          className="rounded-full border-2 border-[var(--foreground)] px-8 py-3 font-semibold text-[var(--foreground)] transition hover:bg-[#f5f2ed]"
           onClick={onBack}
           type="button"
         >
           ← Back
         </button>
         <button
-          className="rounded-full bg-[#8B7355] px-8 py-3 font-semibold text-white transition hover:bg-[#9B8B7E]"
+          className="rounded-full bg-[var(--red)] px-8 py-3 font-semibold text-white transition hover:bg-[var(--red-hover)]"
           type="button"
         >
           Proceed to Payment →

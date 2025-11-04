@@ -1,6 +1,13 @@
 "use client";
 
-import { ArrowRight, Calendar, Eye, MessageCircle, ThumbsDown, ThumbsUp } from "lucide-react";
+import {
+  ArrowRight01Icon,
+  BubbleChatIcon,
+  Calendar01Icon,
+  ThumbsDownIcon,
+  ThumbsUpIcon,
+  ViewIcon,
+} from "hugeicons-react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
@@ -152,11 +159,11 @@ export function ArticleViewer({
     <div className="mx-auto max-w-4xl">
       {/* Breadcrumb */}
       <nav className="mb-6 flex items-center gap-2 text-gray-600 text-sm">
-        <Link className="hover:text-[#8B7355]" href={`/${locale}/help`}>
+        <Link className="hover:text-[var(--red)]" href={`/${locale}/help`}>
           {t("breadcrumb.home")}
         </Link>
         <span>/</span>
-        <Link className="hover:text-[#8B7355]" href={`/${locale}/help/${categorySlug}`}>
+        <Link className="hover:text-[var(--red)]" href={`/${locale}/help/${categorySlug}`}>
           {categoryName}
         </Link>
       </nav>
@@ -167,11 +174,11 @@ export function ArticleViewer({
 
         <div className="flex flex-wrap items-center gap-4 text-gray-600 text-sm">
           <div className="flex items-center gap-1.5">
-            <Calendar className="h-4 w-4" />
+            <Calendar01Icon className="h-4 w-4" />
             <span>{t("meta.updated", { date: formatDate(article.updated_at) })}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <Eye className="h-4 w-4" />
+            <ViewIcon className="h-4 w-4" />
             <span>{t("meta.views", { count: article.view_count })}</span>
           </div>
         </div>
@@ -179,7 +186,7 @@ export function ArticleViewer({
 
       {/* Article Content */}
       <div
-        className="prose prose-lg mb-12 max-w-none prose-code:rounded prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-headings:font-semibold prose-a:text-[#8B7355] prose-code:text-gray-900 prose-headings:text-gray-900 prose-strong:text-gray-900 prose-a:no-underline prose-code:before:content-none prose-code:after:content-none hover:prose-a:underline"
+        className="prose prose-lg mb-12 max-w-none prose-code:rounded prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-headings:font-semibold prose-a:text-[var(--red)] prose-code:text-gray-900 prose-headings:text-gray-900 prose-strong:text-gray-900 prose-a:no-underline prose-code:before:content-none prose-code:after:content-none hover:prose-a:underline"
         dangerouslySetInnerHTML={{ __html: sanitizedContent }}
       />
 
@@ -203,7 +210,7 @@ export function ArticleViewer({
                 onClick={() => handleFeedback(true)}
                 type="button"
               >
-                <ThumbsUp className="h-5 w-5" />
+                <ThumbsUpIcon className="h-5 w-5" />
                 {t("feedback.helpful")}
               </button>
               <button
@@ -212,7 +219,7 @@ export function ArticleViewer({
                 onClick={() => handleFeedback(false)}
                 type="button"
               >
-                <ThumbsDown className="h-5 w-5" />
+                <ThumbsDownIcon className="h-5 w-5" />
                 {t("feedback.notHelpful")}
               </button>
             </div>
@@ -224,7 +231,7 @@ export function ArticleViewer({
           <div className="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-6">
             <h4 className="mb-3 font-semibold text-gray-900">{t("feedback.tellUsMore")}</h4>
             <textarea
-              className="mb-4 w-full rounded-lg border border-gray-300 p-3 focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+              className="mb-4 w-full rounded-lg border border-gray-300 p-3 focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
               onChange={(e) => setFeedbackText(e.target.value)}
               placeholder={t("feedback.placeholder")}
               rows={4}
@@ -232,7 +239,7 @@ export function ArticleViewer({
             />
             <div className="flex gap-3">
               <button
-                className="rounded-lg bg-[#8B7355] px-6 py-2 font-medium text-white transition hover:bg-[#8B7355] disabled:opacity-50"
+                className="rounded-lg bg-[var(--red)] px-6 py-2 font-medium text-white transition hover:bg-[var(--red)] disabled:opacity-50"
                 disabled={submitting}
                 onClick={() => {
                   handleFeedbackTextSubmit();
@@ -260,17 +267,17 @@ export function ArticleViewer({
           <div className="grid gap-4 md:grid-cols-2">
             {relatedArticles.map((related) => (
               <Link
-                className="group rounded-lg border border-gray-200 p-4 transition hover:border-[#8B7355] hover:shadow-md"
+                className="group rounded-lg border border-gray-200 p-4 transition hover:border-[var(--red)] hover:shadow-md"
                 href={`/${locale}/help/${related.category_slug}/${related.slug}`}
                 key={related.id}
               >
-                <h4 className="mb-2 font-semibold text-gray-900 group-hover:text-[#8B7355]">
+                <h4 className="mb-2 font-semibold text-gray-900 group-hover:text-[var(--red)]">
                   {related.title}
                 </h4>
                 {related.excerpt && <p className="text-gray-600 text-sm">{related.excerpt}</p>}
-                <div className="mt-3 flex items-center text-[#8B7355] text-sm">
+                <div className="mt-3 flex items-center text-[var(--red)] text-sm">
                   <span>{t("related.readMore")}</span>
-                  <ArrowRight className="ml-1 h-4 w-4" />
+                  <ArrowRight01Icon className="ml-1 h-4 w-4" />
                 </div>
               </Link>
             ))}
@@ -280,15 +287,15 @@ export function ArticleViewer({
 
       {/* Contact Support CTA */}
       <div className="rounded-lg border border-gray-200 bg-gradient-to-br from-gray-50 to-white p-8 text-center">
-        <MessageCircle className="mx-auto mb-4 h-12 w-12 text-[#8B7355]" />
+        <BubbleChatIcon className="mx-auto mb-4 h-12 w-12 text-[var(--red)]" />
         <h3 className="mb-2 font-semibold text-gray-900 text-xl">{t("contact.title")}</h3>
         <p className="mb-6 text-gray-600">{t("contact.description")}</p>
         <Link
-          className="inline-flex items-center gap-2 rounded-lg bg-[#8B7355] px-6 py-3 font-semibold text-white transition hover:bg-[#8B7355]"
+          className="inline-flex items-center gap-2 rounded-lg bg-[var(--red)] px-6 py-3 font-semibold text-white transition hover:bg-[var(--red)]"
           href={`/${locale}/contact`}
         >
           {t("contact.button")}
-          <ArrowRight className="h-5 w-5" />
+          <ArrowRight01Icon className="h-5 w-5" />
         </Link>
       </div>
     </div>

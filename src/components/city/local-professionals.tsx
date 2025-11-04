@@ -1,6 +1,6 @@
 "use client";
 
-import { MapPin, Star, Verified } from "lucide-react";
+import { IdVerifiedIcon, Location01Icon, StarIcon } from "hugeicons-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
@@ -47,7 +47,9 @@ export function LocalProfessionals({
       <section className={`bg-[#fbfafa] py-16 ${className}`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="rounded-3xl border border-[#ebe5d8] bg-white p-12 text-center">
-            <p className="text-[#5d574b] text-lg">{t("professionals.empty", { city: cityName })}</p>
+            <p className="text-[var(--muted-foreground)] text-lg">
+              {t("professionals.empty", { city: cityName })}
+            </p>
             <p className="mt-4 text-[#8a8175] text-base">{t("professionals.emptyDescription")}</p>
           </div>
         </div>
@@ -60,10 +62,10 @@ export function LocalProfessionals({
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section Header */}
         <div className="mb-12">
-          <h2 className="mb-4 font-bold text-3xl text-[#211f1a] sm:text-4xl">
+          <h2 className="mb-4 font-bold text-3xl text-[var(--foreground)] sm:text-4xl">
             {t("professionals.title", { city: cityName })}
           </h2>
-          <p className="text-[#5d574b] text-lg">
+          <p className="text-[var(--muted-foreground)] text-lg">
             {t("professionals.description", { count: professionals.length })}
           </p>
         </div>
@@ -78,7 +80,7 @@ export function LocalProfessionals({
         {/* View All CTA */}
         <div className="mt-12 text-center">
           <Link
-            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#8B7355] px-8 py-4 font-semibold text-[#8B7355] text-base transition hover:bg-[#8B7355] hover:text-white"
+            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[var(--red)] px-8 py-4 font-semibold text-[var(--red)] text-base transition hover:bg-[var(--red)] hover:text-white"
             href={`/professionals?city=${cityName.toLowerCase().replace(/\s+/g, "-")}`}
           >
             {t("professionals.viewAll")}
@@ -108,7 +110,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
       {/* Verification Badge */}
       {professional.is_verified && (
         <div className="absolute top-4 right-4 flex items-center gap-1 rounded-full bg-green-100 px-3 py-1">
-          <Verified className="h-3 w-3 fill-green-600 text-green-600" />
+          <IdVerifiedIcon className="h-3 w-3 fill-green-600 text-green-600" />
           <span className="font-semibold text-green-700 text-xs">
             {t("professionals.card.verified")}
           </span>
@@ -116,7 +118,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
       )}
 
       {/* Profile Image */}
-      <div className="mb-4 aspect-square overflow-hidden rounded-xl bg-gradient-to-br from-[#8B7355]/10 to-[#8B7355]/5">
+      <div className="mb-4 aspect-square overflow-hidden rounded-xl bg-gradient-to-br from-[var(--red)]/10 to-[var(--red)]/5">
         {professional.profile_image_url ? (
           <Image
             alt={professional.full_name || "Professional"}
@@ -129,7 +131,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
           />
         ) : (
           <div className="flex h-full items-center justify-center">
-            <span className="font-bold text-5xl text-[#8B7355]">
+            <span className="type-serif-lg text-[var(--red)]">
               {professional.full_name?.charAt(0).toUpperCase() || "?"}
             </span>
           </div>
@@ -138,14 +140,14 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
 
       {/* Professional Info */}
       <div>
-        <h3 className="mb-2 font-semibold text-[#211f1a] text-lg group-hover:text-[#8B7355]">
+        <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg group-hover:text-[var(--red)]">
           {professional.full_name || t("professionals.card.unnamed")}
         </h3>
 
         {/* Location */}
         {professional.city && (
-          <div className="mb-3 flex items-center gap-2 text-[#5d574b] text-sm">
-            <MapPin className="h-4 w-4" />
+          <div className="mb-3 flex items-center gap-2 text-[var(--muted-foreground)] text-sm">
+            <Location01Icon className="h-4 w-4" />
             <span>{professional.city}</span>
           </div>
         )}
@@ -153,8 +155,8 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
         {/* Rating */}
         {professional.average_rating && professional.total_reviews > 0 && (
           <div className="mb-3 flex items-center gap-2">
-            <Star className="h-4 w-4 fill-[#8B7355] text-[#8B7355]" />
-            <span className="font-medium text-[#211f1a] text-sm">
+            <StarIcon className="h-4 w-4 fill-[var(--red)] text-[var(--red)]" />
+            <span className="font-medium text-[var(--foreground)] text-sm">
               {professional.average_rating.toFixed(1)}
             </span>
             <span className="text-[#8a8175] text-sm">
@@ -168,14 +170,14 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
           <div className="mb-4 flex flex-wrap gap-2">
             {professional.services.slice(0, 2).map((service, index) => (
               <span
-                className="rounded-full bg-[#8B7355]/10 px-3 py-1 text-[#8B7355] text-xs"
+                className="rounded-full bg-[var(--red)]/10 px-3 py-1 text-[var(--red)] text-xs"
                 key={index}
               >
                 {service.name}
               </span>
             ))}
             {professional.services.length > 2 && (
-              <span className="rounded-full bg-[#ebe5d8] px-3 py-1 text-[#5d574b] text-xs">
+              <span className="rounded-full bg-[#ebe5d8] px-3 py-1 text-[var(--muted-foreground)] text-xs">
                 +{professional.services.length - 2}
               </span>
             )}
@@ -186,7 +188,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
         {hourlyRate && (
           <div className="flex items-baseline justify-between border-[#ebe5d8] border-t pt-4">
             <span className="text-[#8a8175] text-sm">{t("professionals.card.startingAt")}</span>
-            <span className="font-bold text-[#211f1a] text-xl">{hourlyRate}/hr</span>
+            <span className="font-bold text-[var(--foreground)] text-xl">{hourlyRate}/hr</span>
           </div>
         )}
       </div>

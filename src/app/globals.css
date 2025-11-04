@@ -4,52 +4,72 @@
   color-scheme: light;
 
   /* ============================================
-     CASAORA TYPOGRAPHY SYSTEM
-     Based on typography.md specifications
+     CASAORA DESIGN SYSTEM - STAAYS INSPIRED
+     Clean luxury aesthetic with cream + red
      ============================================ */
 
-  /* Typography Color Palette */
-  --graphite: #2C2C2C;           /* Primary text */
-  --ivory: #FAF8F3;              /* Background (Sandstone) */
-  --gold: #D7B787;               /* Accent lines, highlights */
-  --clay: #CDAA84;               /* Hover, secondary highlights */
+  /* Primary Color Palette */
+  --charcoal: #1A1A1A;           /* Primary text - cooler, cleaner */
+  --cream: #FFFCF8;              /* Background - bright, clean */
+  --red: #E63946;                /* Primary accent - vibrant, energetic */
+  --red-hover: #D62839;          /* Hover state for red */
+  --red-light: #FFE8EA;          /* Light red for backgrounds */
 
-  /* Existing Brand Colors (keeping for compatibility) */
-  --background: #fbfaf9;
-  --background-alt: #faf8f3;
-  --foreground: #2C2C2C;         /* Updated to Graphite */
-  --surface: #ffffff;
-  --surface-soft: #f4efe7;
-  --surface-elevated: #ffffff;
-  --surface-contrast: #11100e;
-  --muted: #e7e4dd;
-  --muted-foreground: #6f6658;
-  --border: #ebe5d8;
-  --border-subtle: #f2ede4;
-  --input-background: #ffffff;
-  --input-border: #ebe5d8;
-  --focus-ring: rgba(139, 115, 85, 0.35);
+  /* Core Brand Colors */
+  --background: #FFFCF8;         /* Clean cream */
+  --background-alt: #FBF9F6;     /* Slightly darker cream */
+  --foreground: #1A1A1A;         /* Charcoal text */
+  --surface: #FFFFFF;            /* Pure white */
+  --surface-soft: #F8F6F3;       /* Soft cream surface */
+  --surface-elevated: #FFFFFF;   /* Elevated white */
+  --surface-contrast: #1A1A1A;   /* Dark contrast */
+  --muted: #F0EDE8;              /* Muted cream */
+  --muted-foreground: #6A6A6A;   /* Cool gray for secondary text */
+  --border: #F0EDE8;             /* Subtle light border */
+  --border-subtle: #F8F6F3;      /* Ultra subtle border */
+  --input-background: #FFFFFF;   /* White inputs */
+  --input-border: #E8E5E0;       /* Subtle input border */
+  --focus-ring: rgba(230, 57, 70, 0.25); /* Red focus ring */
 
-  /* Luxury Accent Colors */
-  --accent: #8B7355;
-  --accent-bronze: #8B7355;
-  --accent-taupe: #9B8B7E;
-  --accent-gold: #D7B787;        /* Updated to Gold */
+  /* Accent Colors */
+  --accent: #E63946;             /* Primary red accent */
+  --accent-red: #E63946;         /* Red accent */
+  --accent-red-hover: #D62839;   /* Red hover */
+  --accent-dark: #C41E2A;        /* Darker red for emphasis */
 
-  /* Warm Neutrals */
-  --warm-gray: #5d574b;
-  --warm-cream: #fbfaf9;
+  /* Cool Neutrals (replacing warm neutrals) */
+  --neutral-gray: #4A4A4A;       /* Mid gray */
+  --neutral-light: #F5F5F5;      /* Light gray */
 
   /* Refined Status Colors */
-  --status-success: #6B7F5C;
-  --status-warning: #B8976A;
-  --status-error: #8B5A5A;
+  --status-success: #2E7D32;     /* Clean green */
+  --status-warning: #F57C00;     /* Clean orange */
+  --status-error: #E63946;       /* Use brand red */
+  --status-info: #1976D2;        /* Clean blue */
 
-  /* Luxury Shadows */
-  --shadow-subtle: 0 2px 12px rgba(33, 31, 26, 0.04);
-  --shadow-card: 0 10px 40px rgba(33, 31, 26, 0.06);
-  --shadow-elevated: 0 20px 60px rgba(33, 31, 26, 0.10);
-  --shadow-dramatic: 0 30px 80px rgba(33, 31, 26, 0.15);
+  /* Status Badge Colors (for backgrounds and text) */
+  --status-success-bg: #E8F5E9;  /* Light green background */
+  --status-success-text: #2E7D32; /* Dark green text */
+  --status-warning-bg: #FFF3E0;  /* Light orange background */
+  --status-warning-text: #E65100; /* Dark orange text */
+  --status-error-bg: #FFE8EA;    /* Light red background (brand) */
+  --status-error-text: #C41E2A;  /* Dark red text */
+  --status-info-bg: #E3F2FD;     /* Light blue background */
+  --status-info-text: #1565C0;   /* Dark blue text */
+
+  /* Additional Text Colors */
+  --label-muted: #6A6A6A;        /* Muted labels (replaces #7d7566, #7a6d62) */
+  --text-tertiary: #8A8A8A;      /* Tertiary text color */
+
+  /* Additional Border Colors */
+  --border-light: #F0EDE8;       /* Light borders (replaces #ebe5d8) */
+  --border-lighter: #F8F6F3;     /* Lighter borders (replaces #dcd6c7, #f0ece5) */
+
+  /* Minimal Shadows (lighter, more subtle) */
+  --shadow-subtle: 0 1px 8px rgba(0, 0, 0, 0.03);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.04);
+  --shadow-elevated: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-dramatic: 0 16px 48px rgba(0, 0, 0, 0.08);
 
   /* Vertical Rhythm Spacing System (8px base unit) */
   --space-1: 8px;
@@ -60,65 +80,31 @@
   --space-6: 64px;
   --space-7: 96px;
 
-  /* Typography Scale (Fluid with clamp) */
-  --font-display: clamp(38px, 5vw, 64px);
-  --font-h1: clamp(30px, 3.8vw, 48px);
-  --font-h2: clamp(26px, 3vw, 36px);
-  --font-h3: clamp(22px, 2.4vw, 28px);
-  --font-tagline: clamp(12px, 1.1vw, 14px);
-  --font-body: clamp(16px, 1.2vw, 18px);
-  --font-small: clamp(14px, 1vw, 16px);
-  --font-nav: clamp(13px, 1vw, 14px);
+  /* Typography Scale (refined) */
+  --font-display: clamp(40px, 5vw, 64px);
+  --font-h1: clamp(30px, 3.5vw, 44px);
+  --font-h2: clamp(24px, 2.8vw, 32px);
+  --font-h3: clamp(20px, 2.2vw, 26px);
+  --font-tagline: clamp(11px, 0.9vw, 13px);
+  --font-body: clamp(16px, 1.1vw, 18px);
+  --font-small: clamp(13px, 0.9vw, 15px);
+  --font-nav: clamp(13px, 0.9vw, 15px);
 
-  /* Line Heights */
+  /* Line Heights (balanced) */
   --leading-display: 1.18;
   --leading-h1: 1.2;
-  --leading-h2: 1.22;
-  --leading-h3: 1.25;
-  --leading-tagline: 1.3;
-  --leading-body: 1.6;
+  --leading-h2: 1.25;
+  --leading-h3: 1.3;
+  --leading-tagline: 1.45;
+  --leading-body: 1.65;
   --leading-small: 1.55;
-  --leading-nav: 1.2;
+  --leading-nav: 1.3;
 
   /* Letter Spacing */
-  --tracking-wide: 0.08em;       /* Cinzel headings */
-  --tracking-medium: 0.06em;     /* H3 */
-  --tracking-ultra: 0.18em;      /* Work Sans taglines */
-  --tracking-nav: 0.1em;         /* Navigation */
-}
-
-.dark {
-  color-scheme: dark;
-
-  --background: #11100e;
-  --background-alt: #191613;
-  --foreground: #f6f2ea;
-  --surface: #1d1a17;
-  --surface-soft: #181612;
-  --surface-elevated: #23201b;
-  --surface-contrast: #f8f5ef;
-  --muted: #3c362f;
-  --muted-foreground: #c8bfb3;
-  --border: #3b352e;
-  --border-subtle: #292520;
-  --input-background: #171512;
-  --input-border: #3c352e;
-  --focus-ring: rgba(226, 201, 153, 0.4);
-
-  --accent: #c2a881;
-  --accent-bronze: #b19068;
-  --accent-taupe: #a49584;
-  --accent-gold: #e4c899;
-  --gold: #e4c899;               /* Elevated warmth for dark mode */
-  --clay: #b99670;
-
-  --graphite: #f6f2ea;           /* Inverted for dark mode */
-  --ivory: #1a1816;              /* Inverted for dark mode */
-
-  --shadow-subtle: 0 2px 18px rgba(7, 6, 5, 0.55);
-  --shadow-card: 0 14px 44px rgba(6, 5, 4, 0.45);
-  --shadow-elevated: 0 24px 60px rgba(0, 0, 0, 0.55);
-  --shadow-dramatic: 0 40px 80px rgba(0, 0, 0, 0.65);
+  --tracking-wide: 0.01em;
+  --tracking-medium: 0.005em;
+  --tracking-ultra: 0.08em;
+  --tracking-nav: 0.04em;
 }
 
 @theme inline {
@@ -141,7 +127,8 @@ html {
 body {
   min-height: 100%;
   background-color: var(--background);
-  background: linear-gradient(160deg, color-mix(in srgb, var(--background) 94%, transparent) 0%, color-mix(in srgb, var(--background-alt) 85%, transparent) 100%);
+  /* Simpler, cleaner background - no gradient for Staays minimal aesthetic */
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-spectral), "Spectral", Georgia, serif;
   font-size: var(--font-body);
@@ -177,11 +164,6 @@ textarea::placeholder {
   opacity: 1;
 }
 
-.dark input::placeholder,
-.dark textarea::placeholder {
-  color: color-mix(in srgb, var(--muted-foreground) 50%, transparent);
-}
-
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
@@ -206,6 +188,69 @@ h1, h2, h3, h4, h5, h6,
   font-size: var(--font-display);
   line-height: var(--leading-display);
   letter-spacing: var(--tracking-wide);
+}
+
+.type-serif-display,
+.serif-display-lg {
+  font-family: var(--font-cinzel), "Cinzel", serif;
+  font-weight: 600;
+  font-size: var(--font-display);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-medium);
+}
+
+.type-serif-lg,
+.serif-headline-lg {
+  font-family: var(--font-cinzel), "Cinzel", serif;
+  font-weight: 600;
+  font-size: var(--font-h1);
+  line-height: var(--leading-h1);
+  letter-spacing: var(--tracking-medium);
+}
+
+.type-serif-md,
+.serif-headline-md {
+  font-family: var(--font-cinzel), "Cinzel", serif;
+  font-weight: 600;
+  font-size: var(--font-h2);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--tracking-medium);
+}
+
+.type-serif-sm,
+.serif-headline-sm {
+  font-family: var(--font-cinzel), "Cinzel", serif;
+  font-weight: 600;
+  font-size: var(--font-h3);
+  line-height: var(--leading-h3);
+  letter-spacing: var(--tracking-medium);
+}
+
+.type-ui-lg,
+.ui-heading-lg {
+  font-family: var(--font-ui), "Work Sans", "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.type-ui-md,
+.ui-heading-md {
+  font-family: var(--font-ui), "Work Sans", "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.type-ui-sm,
+.ui-heading-sm {
+  font-family: var(--font-ui), "Work Sans", "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: 0;
 }
 
 h1 {
@@ -263,23 +308,32 @@ small,
 
 .tagline {
   font-family: var(--font-work-sans), "Work Sans", sans-serif;
-  font-weight: 100; /* Thin */
+  font-weight: 400; /* Regular instead of Thin for better readability */
   text-transform: uppercase;
   font-size: var(--font-tagline);
   letter-spacing: var(--tracking-ultra);
   line-height: var(--leading-tagline);
-  color: var(--graphite);
+  color: var(--muted-foreground);
 }
 
 /* ============================================
    DECORATIVE ELEMENTS
    ============================================ */
 
-.hr-gold {
-  width: min(80px, 20%);
+.hr-red {
+  width: min(60px, 15%);
   height: 2px;
-  background: var(--gold);
-  opacity: 0.6;
+  background: var(--red);
+  opacity: 1;
+  border: none;
+}
+
+/* Legacy class for compatibility */
+.hr-gold {
+  width: min(60px, 15%);
+  height: 2px;
+  background: var(--red);
+  opacity: 1;
   border: none;
 }
 
@@ -329,17 +383,19 @@ small,
 }
 
 .btn {
-  padding: 12px 20px;
-  border: 1px solid color-mix(in srgb, var(--gold) 80%, transparent);
+  padding: 14px 28px;
+  border: 1px solid var(--red);
   background: transparent;
-  color: var(--graphite);
+  color: var(--charcoal);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
+  font-weight: 400;
 }
 
 .btn:hover {
-  border-color: var(--clay);
-  background: color-mix(in srgb, var(--clay) 10%, transparent);
+  border-color: var(--red-hover);
+  background: var(--red);
+  color: white;
 }
 
 /* ============================================
@@ -348,15 +404,15 @@ small,
 
 @media (min-width: 900px) {
   .display, h1 {
-    letter-spacing: 0.07em; /* Slightly reduced tracking at larger sizes */
+    letter-spacing: 0.015em; /* Minimal tracking - Staays style */
   }
 
   h2 {
-    letter-spacing: 0.07em;
+    letter-spacing: 0.01em;
   }
 
   h3 {
-    letter-spacing: 0.06em;
+    letter-spacing: 0.005em;
   }
 }
 
@@ -365,91 +421,8 @@ small,
    ============================================ */
 
 ::selection {
-  background-color: color-mix(in srgb, var(--accent-gold) 35%, transparent);
-  color: var(--surface-contrast);
-}
-
-.dark ::selection {
-  background-color: color-mix(in srgb, var(--accent) 45%, transparent);
-  color: var(--foreground);
-}
-
-/* ============================================
-   DARK MODE OVERRIDES FOR LEGACY UTILITIES
-   ============================================ */
-
-.dark .bg-white,
-.dark .bg-\[\#ffffff\],
-.dark .bg-white\/90,
-.dark .bg-white\/80,
-.dark .bg-white\/50,
-.dark .bg-white\/20,
-.dark .bg-white\/10,
-.dark .bg-\[\#fbfaf9\],
-.dark .bg-\[\#fbfafa\],
-.dark .bg-\[\#faf8f3\],
-.dark .bg-\[\#f5f0e8\],
-.dark .bg-\[\#f5efe6\],
-.dark .bg-\[\#fdfaf5\] {
-  background-color: var(--surface-elevated) !important;
-  color: inherit;
-}
-
-.dark .bg-\[\#ebe5d8\],
-.dark .hover\:bg-\[\#ebe5d8\]:hover,
-.dark .hover\:bg-white\/50:hover,
-.dark .hover\:bg-white\/10:hover,
-.dark .hover\:bg-white\/20:hover {
-  background-color: color-mix(in srgb, var(--surface-elevated) 82%, var(--accent) 18%) !important;
-  color: var(--foreground) !important;
-}
-
-.dark .border-\[\#ebe5d8\],
-.dark .border-\[\#f0ece5\],
-.dark .border-\[\#efe7dc\],
-.dark .border-\[\#e7e4dd\],
-.dark .border-\[\#f0ece3\],
-.dark .border-\[\#dcd6c7\],
-.dark .border-gray-200,
-.dark .border-gray-100 {
-  border-color: var(--border) !important;
-}
-
-.dark .border-white\/40 {
-  border-color: color-mix(in srgb, var(--surface-contrast) 35%, transparent) !important;
-}
-
-.dark .border-white {
-  border-color: color-mix(in srgb, var(--surface-contrast) 60%, transparent) !important;
-}
-
-.dark .text-\[\#211f1a\],
-.dark .text-\[\#2c2c2c\],
-.dark .text-\[\#2C2C2C\],
-.dark .text-\[\#5d574b\],
-.dark .text-\[\#7d7566\],
-.dark .text-\[\#2e2419\] {
-  color: var(--foreground) !important;
-}
-
-.dark .text-\[\#8B7355\],
-.dark .text-\[\#7a6d62\] {
-  color: var(--accent) !important;
-}
-
-.dark .shadow-sm {
-  box-shadow: var(--shadow-subtle) !important;
-}
-
-.dark .shadow,
-.dark .shadow-md {
-  box-shadow: var(--shadow-card) !important;
-}
-
-.dark .shadow-lg,
-.dark .shadow-xl,
-.dark .shadow-2xl {
-  box-shadow: var(--shadow-elevated) !important;
+  background-color: var(--red-light);
+  color: var(--charcoal);
 }
 
 /* ============================================
@@ -463,13 +436,7 @@ small,
   backdrop-filter: blur(14px);
 }
 
-.dark .glass-card {
-  border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
-  background: color-mix(in srgb, var(--surface-soft) 58%, transparent);
-  box-shadow: var(--shadow-card);
-}
-
-/* Smooth transitions for theme changes */
+/* Smooth transitions for interactive elements */
 * {
   transition-property: background-color, border-color, color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);

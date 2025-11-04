@@ -43,7 +43,7 @@ const CUSTOMER_FIELDS: PreferenceField[] = [
   {
     key: "bookingConfirmed",
     label: "Booking confirmed",
-    description: "Receive a push alert when the MaidConnect team confirms your request.",
+    description: "Receive a push alert when the Casaora team confirms your request.",
   },
   {
     key: "bookingAccepted",
@@ -252,7 +252,7 @@ export default function AccountScreen() {
         <View style={styles.header}>
           <Text style={styles.title}>Account</Text>
           <Text style={styles.subtitle}>
-            Manage your MaidConnect account and quickly review your onboarding status.
+            Manage your Casaora account and quickly review your onboarding status.
           </Text>
         </View>
 
@@ -429,7 +429,7 @@ export default function AccountScreen() {
           <Text style={styles.sectionTitle}>Support</Text>
           <View style={styles.card}>
             <Pressable
-              onPress={() => Alert.alert("Help & Support", "Contact us at support@maidconnect.com")}
+              onPress={() => Alert.alert("Help & Support", "Contact us at support@casaora.co")}
               style={styles.menuItem}
             >
               <View style={styles.menuItemLeft}>
@@ -445,7 +445,7 @@ export default function AccountScreen() {
 
             <Pressable
               onPress={() =>
-                Alert.alert("Privacy Policy", "View our privacy policy at maidconnect.com/privacy")
+                Alert.alert("Privacy Policy", "View our privacy policy at casaora.co/privacy")
               }
               style={styles.menuItem}
             >
@@ -462,7 +462,7 @@ export default function AccountScreen() {
 
             <Pressable
               onPress={() =>
-                Alert.alert("Terms of Service", "View our terms at maidconnect.com/terms")
+                Alert.alert("Terms of Service", "View our terms at casaora.co/terms")
               }
               style={styles.menuItem}
             >

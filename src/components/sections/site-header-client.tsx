@@ -1,7 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { LanguageSwitcher } from "@/components/navigation/language-switcher";
 import { MobileMenu } from "@/components/navigation/mobile-menu";
+import { Link } from "@/i18n/routing";
 
 type Props = {
   isAuthenticated: boolean;
@@ -27,12 +29,64 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut }: 
     { href: "/product/admin-dashboard", label: tp("adminDashboard.title") },
   ];
 
+  const mainLinks = [
+    { href: "/professionals", label: t("professionals") },
+    { href: "/how-it-works", label: "How It Works" },
+    { href: "/pricing", label: t("pricing") },
+    { href: "/contact", label: "Contact" },
+  ];
+
   return (
-    <MobileMenu
-      dashboardHref={dashboardHref}
-      isAuthenticated={isAuthenticated}
-      links={menuLinks}
-      onSignOut={onSignOut}
-    />
+    <>
+      {/* Desktop Navigation */}
+      <nav className="hidden items-center gap-8 lg:flex">
+        {mainLinks.map((link) => (
+          <Link
+            className="font-medium text-[var(--foreground)] text-sm transition-colors hover:text-[var(--red)]"
+            href={link.href}
+            key={link.href}
+          >
+            {link.label}
+          </Link>
+        ))}
+
+        {/* Language Switcher */}
+        <LanguageSwitcher />
+
+        {isAuthenticated ? (
+          <Link
+            className="rounded-full bg-[var(--red)] px-6 py-2.5 font-semibold text-sm text-white transition-all hover:bg-[var(--red-hover)] active:scale-95"
+            href={dashboardHref || "/dashboard"}
+          >
+            {t("dashboard")}
+          </Link>
+        ) : (
+          <div className="flex items-center gap-3">
+            <Link
+              className="font-medium text-[var(--foreground)] text-sm transition-colors hover:text-[var(--red)]"
+              href="/auth/sign-in"
+            >
+              {t("login")}
+            </Link>
+            <Link
+              className="rounded-full bg-[var(--red)] px-6 py-2.5 font-semibold text-sm text-white transition-all hover:bg-[var(--red-hover)] active:scale-95"
+              href="/auth/sign-up"
+            >
+              {t("signUp")}
+            </Link>
+          </div>
+        )}
+      </nav>
+
+      {/* Mobile Menu (shows on mobile/tablet) */}
+      <div className="lg:hidden">
+        <MobileMenu
+          dashboardHref={dashboardHref}
+          isAuthenticated={isAuthenticated}
+          links={menuLinks}
+          onSignOut={onSignOut}
+        />
+      </div>
+    </>
   );
 }

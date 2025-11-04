@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft01Icon, ArrowRight01Icon } from "hugeicons-react";
 import { useMemo } from "react";
 import {
   type AvailabilityData,
@@ -227,14 +227,14 @@ export function AvailabilityCalendar({
     <div className={cn("space-y-4", className)}>
       {/* Calendar Header */}
       <div className="flex items-center justify-between">
-        <h3 className={cn("font-semibold text-[#211f1a]", sizeConfig.headerText)}>
+        <h3 className={cn("font-semibold text-[var(--foreground)]", sizeConfig.headerText)}>
           {getMonthLabel(locale)}
         </h3>
         <div className={cn("flex gap-2", sizeConfig.buttonGap)}>
           {showTodayButton && (
             <button
               className={cn(
-                "rounded-md border border-[#e5dfd4] font-medium text-[#7a6d62] transition hover:border-[#8B7355] hover:text-[#8B7355]",
+                "rounded-md border border-[#e5dfd4] font-medium text-[#7a6d62] transition hover:border-[var(--red)] hover:text-[var(--red)]",
                 sizeConfig.button
               )}
               onClick={goToToday}
@@ -246,24 +246,24 @@ export function AvailabilityCalendar({
           <button
             aria-label="Previous month"
             className={cn(
-              "rounded-md border border-[#e5dfd4] text-[#7a6d62] transition hover:border-[#8B7355] hover:text-[#8B7355]",
+              "rounded-md border border-[#e5dfd4] text-[#7a6d62] transition hover:border-[var(--red)] hover:text-[var(--red)]",
               sizeConfig.navButton
             )}
             onClick={goToPreviousMonth}
             type="button"
           >
-            <ChevronLeft className={sizeConfig.icon} />
+            <ArrowLeft01Icon className={sizeConfig.icon} />
           </button>
           <button
             aria-label="Next month"
             className={cn(
-              "rounded-md border border-[#e5dfd4] text-[#7a6d62] transition hover:border-[#8B7355] hover:text-[#8B7355]",
+              "rounded-md border border-[#e5dfd4] text-[#7a6d62] transition hover:border-[var(--red)] hover:text-[var(--red)]",
               sizeConfig.navButton
             )}
             onClick={goToNextMonth}
             type="button"
           >
-            <ChevronRight className={sizeConfig.icon} />
+            <ArrowRight01Icon className={sizeConfig.icon} />
           </button>
         </div>
       </div>
@@ -353,7 +353,7 @@ export function AvailabilityCalendar({
                     calendarDay.isToday && themeConfig.today,
                     canSelect ? themeConfig.selectable : "cursor-not-allowed opacity-60",
                     calendarDay.isPast && "text-gray-400",
-                    !calendarDay.isPast && "text-[#211f1a]",
+                    !calendarDay.isPast && "text-[var(--foreground)]",
                     !calendarDay.inCurrentMonth && "opacity-40"
                   )}
                   disabled={!canSelect}
@@ -394,7 +394,7 @@ export function AvailabilityCalendar({
         selectedDateAvailability &&
         selectedDateAvailability.availableSlots.length > 0 && (
           <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4">
-            <h4 className={cn("mb-3 font-semibold text-[#211f1a]", sizeConfig.text)}>
+            <h4 className={cn("mb-3 font-semibold text-[var(--foreground)]", sizeConfig.text)}>
               Available times on{" "}
               {selectedDate.toLocaleDateString(locale, { month: "long", day: "numeric" })}
             </h4>
@@ -429,8 +429,8 @@ export function AvailabilityCalendar({
                       "rounded-md border font-medium transition",
                       sizeConfig.timeSlotButton,
                       isTimeSelected
-                        ? "border-[#8B7355] bg-[#8B7355] text-white"
-                        : "border-[#e5dfd4] bg-white text-[#211f1a] hover:border-[#8B7355] hover:text-[#8B7355]"
+                        ? "border-[var(--red)] bg-[var(--red)] text-white"
+                        : "border-[#e5dfd4] bg-white text-[var(--foreground)] hover:border-[var(--red)] hover:text-[var(--red)]"
                     )}
                     key={time}
                     onClick={() => onTimeSelect?.(time)}
@@ -514,20 +514,20 @@ function getThemeConfig(theme: CalendarTheme) {
   const configs = {
     default: {
       gridBorder: "border-[#ebe5d8]",
-      selected: "ring-2 ring-[#8B7355] ring-inset",
+      selected: "ring-2 ring-[var(--red)] ring-inset",
       today: "font-bold",
-      selectable: "cursor-pointer hover:ring-2 hover:ring-[#8B735533]",
+      selectable: "cursor-pointer hover:ring-2 hover:ring-[var(--red)33]",
     },
     professional: {
       gridBorder: "border-[#efe7dc]",
-      selected: "border-[#8B7355] ring-2 ring-[#8B735533]",
-      today: "font-bold text-[#8B7355]",
-      selectable: "cursor-pointer hover:border-[#8B7355]",
+      selected: "border-[var(--red)] ring-2 ring-[var(--red)33]",
+      today: "font-bold text-[var(--red)]",
+      selectable: "cursor-pointer hover:border-[var(--red)]",
     },
     customer: {
       gridBorder: "border-[#ebe5d8]",
-      selected: "scale-105 ring-4 ring-[#8B7355] ring-offset-2",
-      today: "border-[#8B7355]",
+      selected: "scale-105 ring-4 ring-[var(--red)] ring-offset-2",
+      today: "border-[var(--red)]",
       selectable: "hover:-translate-y-1 cursor-pointer hover:scale-105 hover:shadow-lg",
     },
   };
@@ -610,7 +610,7 @@ function getStatusColors(status: DayAvailability["status"] | undefined) {
     },
   };
 
-  return status ? colors[status] : { bg: "bg-white", text: "text-[#211f1a]" };
+  return status ? colors[status] : { bg: "bg-white", text: "text-[var(--foreground)]" };
 }
 
 /**

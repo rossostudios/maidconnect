@@ -1,4 +1,4 @@
-import { CheckCircle2, FileImage, MessageCircle, Shield } from "lucide-react";
+import { BubbleChatIcon, CheckmarkCircle02Icon, Image01Icon, Shield01Icon } from "hugeicons-react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
@@ -98,30 +98,30 @@ export default async function SecureMessagingPage({ params }: Props) {
           id="features"
         >
           <div className="mx-auto max-w-6xl">
-            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl lg:text-6xl">
+            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
               {t("features.title")}
             </h2>
 
-            <p className="mx-auto mt-6 max-w-3xl text-center text-[#5d574b] text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-3xl text-center text-[var(--muted-foreground)] text-lg leading-relaxed">
               {t("features.subtitle")}
             </p>
 
             <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <ProductFeatureCard
                 description={t("features.bookingBased.description")}
-                icon={Shield}
+                icon={Shield01Icon}
                 title={t("features.bookingBased.title")}
               />
 
               <ProductFeatureCard
                 description={t("features.realTime.description")}
-                icon={MessageCircle}
+                icon={BubbleChatIcon}
                 title={t("features.realTime.title")}
               />
 
               <ProductFeatureCard
                 description={t("features.photoSharing.description")}
-                icon={FileImage}
+                icon={Image01Icon}
                 title={t("features.photoSharing.title")}
               />
             </div>
@@ -159,62 +159,62 @@ export default async function SecureMessagingPage({ params }: Props) {
         {/* Benefits Section */}
         <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
+            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
               {t("benefits.title")}
             </h2>
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
-                  <CheckCircle2 className="h-5 w-5 text-white" />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("benefits.privacy.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("benefits.privacy.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
-                  <CheckCircle2 className="h-5 w-5 text-white" />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("benefits.noSpam.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("benefits.noSpam.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
-                  <CheckCircle2 className="h-5 w-5 text-white" />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("benefits.history.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("benefits.history.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
-                  <CheckCircle2 className="h-5 w-5 text-white" />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("benefits.notifications.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("benefits.notifications.description")}
                   </p>
                 </div>
@@ -226,54 +226,54 @@ export default async function SecureMessagingPage({ params }: Props) {
         {/* Use Cases Section */}
         <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
+            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
               {t("useCases.title")}
             </h2>
 
             <div className="mt-16 grid gap-8 md:grid-cols-2">
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
-                <h3 className="font-semibold text-2xl text-[#211f1a]">
+                <h3 className="font-semibold text-2xl text-[var(--foreground)]">
                   {t("useCases.beforeService.title")}
                 </h3>
-                <ul className="mt-4 space-y-3 text-[#5d574b] text-base">
+                <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
                   <li className="flex items-start gap-2">
-                    <span className="text-[#8B7355]">•</span>
+                    <span className="text-[var(--red)]">•</span>
                     <span>{t("useCases.beforeService.items.access")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#8B7355]">•</span>
+                    <span className="text-[var(--red)]">•</span>
                     <span>{t("useCases.beforeService.items.photos")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#8B7355]">•</span>
+                    <span className="text-[var(--red)]">•</span>
                     <span>{t("useCases.beforeService.items.timing")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#8B7355]">•</span>
+                    <span className="text-[var(--red)]">•</span>
                     <span>{t("useCases.beforeService.items.products")}</span>
                   </li>
                 </ul>
               </div>
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
-                <h3 className="font-semibold text-2xl text-[#211f1a]">
+                <h3 className="font-semibold text-2xl text-[var(--foreground)]">
                   {t("useCases.duringService.title")}
                 </h3>
-                <ul className="mt-4 space-y-3 text-[#5d574b] text-base">
+                <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
                   <li className="flex items-start gap-2">
-                    <span className="text-[#8B7355]">•</span>
+                    <span className="text-[var(--red)]">•</span>
                     <span>{t("useCases.duringService.items.updates")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#8B7355]">•</span>
+                    <span className="text-[var(--red)]">•</span>
                     <span>{t("useCases.duringService.items.questions")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#8B7355]">•</span>
+                    <span className="text-[var(--red)]">•</span>
                     <span>{t("useCases.duringService.items.beforeAfter")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[#8B7355]">•</span>
+                    <span className="text-[var(--red)]">•</span>
                     <span>{t("useCases.duringService.items.realTime")}</span>
                   </li>
                 </ul>
@@ -285,24 +285,22 @@ export default async function SecureMessagingPage({ params }: Props) {
         {/* CTA Section */}
         <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
-              {t("cta.title")}
-            </h2>
+            <h2 className="type-serif-lg text-[var(--foreground)]">{t("cta.title")}</h2>
 
-            <p className="mx-auto mt-6 max-w-2xl text-[#5d574b] text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-2xl text-[var(--muted-foreground)] text-lg leading-relaxed">
               {t("cta.description")}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                className="inline-flex items-center justify-center rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]"
+                className="inline-flex items-center justify-center rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
                 href="/professionals"
               >
                 {t("cta.browseProfessionals")}
               </Link>
 
               <Link
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] hover:text-[#8B7355]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)]"
                 href="/auth/sign-up"
               >
                 {t("cta.signUpFree")}

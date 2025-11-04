@@ -72,7 +72,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
         header: "Date",
         cell: (info) => (
           <div>
-            <p className="font-medium text-[#211f1a]">
+            <p className="font-medium text-[var(--foreground)]">
               {format(new Date(info.getValue()), "MMM dd, yyyy")}
             </p>
             <p className="text-[#7d7566] text-sm">{format(new Date(info.getValue()), "h:mm a")}</p>
@@ -83,7 +83,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
         header: "Service",
         cell: (info) => (
           <div>
-            <p className="font-medium text-[#211f1a]">{info.getValue() || "—"}</p>
+            <p className="font-medium text-[var(--foreground)]">{info.getValue() || "—"}</p>
             <p className="text-[#7d7566] text-sm">
               {info.row.original.professional?.full_name || "Unknown professional"}
             </p>
@@ -94,7 +94,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
         header: "Amount",
         cell: (info) => (
           <div>
-            <p className="font-medium text-[#211f1a]">
+            <p className="font-medium text-[var(--foreground)]">
               {formatCurrency(info.row.original.amount_captured || info.getValue())}
             </p>
             {info.row.original.amount_captured &&
@@ -162,8 +162,8 @@ export function PaymentHistoryTable({ bookings }: Props) {
               </svg>
             </div>
           </div>
-          <h3 className="font-semibold text-[#211f1a] text-base">No payment history</h3>
-          <p className="mt-1 text-[#5d574b] text-sm">
+          <h3 className="font-semibold text-[var(--foreground)] text-base">No payment history</h3>
+          <p className="mt-1 text-[var(--muted-foreground)] text-sm">
             Your payment history will appear here after you make your first booking.
           </p>
         </div>
@@ -177,7 +177,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
       <div className="overflow-hidden rounded-lg border border-[#ebe5d8]">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px]">
-            <thead className="bg-[#fbfaf9]">
+            <thead className="bg-[var(--background)]">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
@@ -187,7 +187,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
                     >
                       {header.isPlaceholder ? null : header.column.getCanSort() ? (
                         <button
-                          className="flex w-full cursor-pointer select-none items-center gap-2 text-left hover:text-[#8B7355]"
+                          className="flex w-full cursor-pointer select-none items-center gap-2 text-left hover:text-[var(--red)]"
                           onClick={header.column.getToggleSortingHandler()}
                           type="button"
                         >
@@ -209,7 +209,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
             </thead>
             <tbody className="divide-y divide-[#ebe5d8] bg-white">
               {table.getRowModel().rows.map((row) => (
-                <tr className="transition hover:bg-[#fbfaf9]" key={row.id}>
+                <tr className="transition hover:bg-[var(--background)]" key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <td className="px-6 py-4" key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -230,7 +230,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
           </div>
           <div className="flex items-center gap-2">
             <button
-              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:opacity-50"
+              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[var(--foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)] disabled:opacity-50"
               disabled={!table.getCanPreviousPage()}
               onClick={() => table.previousPage()}
               type="button"
@@ -238,7 +238,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
               Previous
             </button>
             <button
-              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355] disabled:opacity-50"
+              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[var(--foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)] disabled:opacity-50"
               disabled={!table.getCanNextPage()}
               onClick={() => table.nextPage()}
               type="button"

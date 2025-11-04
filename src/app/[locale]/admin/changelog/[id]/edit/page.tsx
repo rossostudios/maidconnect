@@ -23,8 +23,8 @@ export default async function EditChangelogPage({ params }: { params: Promise<{ 
     <>
       {/* Header */}
       <header className="mb-8">
-        <h1 className="font-bold text-3xl text-[#211f1a]">Edit Changelog</h1>
-        <p className="mt-2 text-[#5d574b] text-sm">
+        <h1 className="font-bold text-3xl text-[var(--foreground)]">Edit Changelog</h1>
+        <p className="mt-2 text-[var(--muted-foreground)] text-sm">
           Sprint {changelog.sprint_number}: {changelog.title}
         </p>
       </header>

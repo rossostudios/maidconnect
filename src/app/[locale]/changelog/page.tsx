@@ -1,4 +1,11 @@
-import { Bug, ChevronRight, Palette, Shield, Sparkles, Zap } from "lucide-react";
+import {
+  ArrowRight01Icon,
+  Bug01Icon,
+  FlashIcon,
+  MagicWand01Icon,
+  PaintBoardIcon,
+  Shield01Icon,
+} from "hugeicons-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -22,18 +29,26 @@ type Changelog = {
 
 const categoryConfig = {
   features: {
-    icon: Sparkles,
+    icon: MagicWand01Icon,
     label: "Features",
     color: "text-purple-600 bg-purple-50 border-purple-200",
   },
   improvements: {
-    icon: Zap,
+    icon: FlashIcon,
     label: "Improvements",
     color: "text-blue-600 bg-blue-50 border-blue-200",
   },
-  fixes: { icon: Bug, label: "Fixes", color: "text-green-600 bg-green-50 border-green-200" },
-  security: { icon: Shield, label: "Security", color: "text-red-600 bg-red-50 border-red-200" },
-  design: { icon: Palette, label: "Design", color: "text-pink-600 bg-pink-50 border-pink-200" },
+  fixes: { icon: Bug01Icon, label: "Fixes", color: "text-green-600 bg-green-50 border-green-200" },
+  security: {
+    icon: Shield01Icon,
+    label: "Security",
+    color: "text-red-600 bg-red-50 border-red-200",
+  },
+  design: {
+    icon: PaintBoardIcon,
+    label: "Design",
+    color: "text-pink-600 bg-pink-50 border-pink-200",
+  },
 };
 
 // Skeleton component
@@ -81,8 +96,8 @@ async function ChangelogList() {
   if (changelogs.length === 0) {
     return (
       <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-12 text-center">
-        <Sparkles className="mx-auto mb-4 h-12 w-12 text-[#7a6d62]" />
-        <h3 className="mb-2 font-bold text-[#211f1a] text-xl">No Updates Yet</h3>
+        <MagicWand01Icon className="mx-auto mb-4 h-12 w-12 text-[#7a6d62]" />
+        <h3 className="mb-2 font-bold text-[var(--foreground)] text-xl">No Updates Yet</h3>
         <p className="text-[#7a6d62]">We'll post our first changelog soon. Stay tuned!</p>
       </div>
     );
@@ -99,25 +114,25 @@ async function ChangelogList() {
 
         return (
           <article
-            className="group rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[#8B7355] hover:shadow-md sm:p-8"
+            className="group rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[var(--red)] hover:shadow-md sm:p-8"
             key={changelog.id}
           >
             {/* Header */}
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-[#8B735520] px-3 py-1 font-semibold text-[#8B7355] text-sm">
+              <span className="rounded-full bg-[var(--red)20] px-3 py-1 font-semibold text-[var(--red)] text-sm">
                 Sprint {changelog.sprint_number}
               </span>
               <span className="text-[#7a6d62] text-sm">{formattedDate}</span>
             </div>
 
             {/* Title */}
-            <h2 className="mb-3 font-bold text-2xl text-[#211f1a] group-hover:text-[#8B7355] sm:text-3xl">
+            <h2 className="mb-3 font-bold text-2xl text-[var(--foreground)] group-hover:text-[var(--red)] sm:text-3xl">
               {changelog.title}
             </h2>
 
             {/* Summary */}
             {changelog.summary && (
-              <p className="mb-4 text-[#5d574b] text-base leading-relaxed sm:text-lg">
+              <p className="mb-4 text-[var(--muted-foreground)] text-base leading-relaxed sm:text-lg">
                 {changelog.summary}
               </p>
             )}
@@ -175,11 +190,11 @@ async function ChangelogList() {
 
             {/* Read More Link */}
             <Link
-              className="inline-flex items-center gap-2 font-semibold text-[#8B7355] text-base transition hover:gap-3"
+              className="inline-flex items-center gap-2 font-semibold text-[var(--red)] text-base transition hover:gap-3"
               href={`/changelog/${changelog.slug}`}
             >
               Read full update
-              <ChevronRight className="h-5 w-5" />
+              <ArrowRight01Icon className="h-5 w-5" />
             </Link>
           </article>
         );
@@ -193,15 +208,15 @@ export default function ChangelogPage() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
 
-      <main className="flex-1 bg-[#fbfaf9] px-4 py-12 sm:px-6 lg:px-8">
+      <main className="flex-1 bg-[var(--background)] px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl">
           {/* Header */}
           <div className="mb-12 text-center">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-100 to-blue-100">
-              <Sparkles className="h-8 w-8 text-purple-600" />
+              <MagicWand01Icon className="h-8 w-8 text-purple-600" />
             </div>
-            <h1 className="mb-4 font-bold text-4xl text-[#211f1a] sm:text-5xl">What's New</h1>
-            <p className="text-[#5d574b] text-lg sm:text-xl">
+            <h1 className="type-serif-lg mb-4 text-[var(--foreground)]">What's New</h1>
+            <p className="text-[var(--muted-foreground)] text-lg sm:text-xl">
               Stay up to date with the latest features, improvements, and updates to Casaora
             </p>
           </div>

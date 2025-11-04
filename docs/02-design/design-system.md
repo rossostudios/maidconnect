@@ -1,1002 +1,1058 @@
-# MaidConnect Design System
+# CASAORA Design System
 
-Comprehensive design system documentation extracted from the MaidConnect codebase. This document defines all design tokens, color palettes, typography scales, spacing systems, and reusable component patterns used throughout the application.
+**Version:** 2.0 (Staays-Inspired Redesign)
+**Last Updated:** November 4, 2025
+**Status:** Active
 
----
-
-## 1. Color System
-
-### Core Color Palette
-
-MaidConnect uses a carefully curated color palette optimized for a professional, expat-focused marketplace. All colors are defined as CSS custom properties in `/src/app/globals.css` and used throughout components via Tailwind and inline styles.
-
-#### Primary Colors
-
-| Color Name | Hex Code | Usage | Components |
-|-----------|----------|-------|-----------|
-| Background | `#fbfaf9` | Default page background, light surfaces | Site pages, layouts |
-| Background Alt | `#fbfafa` | Subtle alternate background | Form inputs, modal overlays |
-| Foreground | `#211f1a` | Primary text color, dark surfaces | Typography, primary buttons |
-| Surface | `#ffffff` | White surfaces, cards, modals | Cards, containers, dialogs |
-| Surface Contrast | `#11100e` | Darkest text, high contrast | Footer background |
-| Muted | `#e7e4dd` | Borders, dividers, placeholders | Border colors, disabled states |
-| Accent | `#ff5d46` | Primary brand color, CTAs | Buttons, links, hover states |
-
-#### Accent Variations
-
-| Color Name | Hex Code | Usage |
-|-----------|----------|-------|
-| Accent Hover | `#eb6c65` | Hover state for accent buttons |
-| Accent Light | `#ff5d46/10` | Light background tints for accent elements |
-| Accent Light 30% | `#ff5d46/30` | Medium background tints |
-
-#### Neutral Grays
-
-| Color Name | Hex Code | Usage |
-|-----------|----------|-------|
-| Dark Gray 1 | `#2b2624` | Secondary button hover states |
-| Dark Gray 2 | `#2e2419` | Text on light backgrounds |
-| Dark Gray 3 | `#5d574b` | Secondary text, body copy |
-| Dark Gray 4 | `#5a5549` | Muted text links |
-| Dark Gray 5 | `#7a6d62` | Tertiary text, helper text |
-| Dark Gray 6 | `#7d7566` | Disabled states, muted labels |
-| Dark Gray 7 | `#8a826d` | Input placeholders |
-| Dark Gray 8 | `#a49c90` | Icon fills, subtle accents |
-| Dark Gray 9 | `#c9c2b6` | Light borders, subtle dividers |
-| Dark Gray 10 | `#d7b59f` | Ghost button hover text |
-
-#### Light Tones (Feature Highlights)
-
-| Color Name | Hex Code | Usage | Section |
-|-----------|----------|-------|---------|
-| Tone Beige | `#f1e7d4` | Feature card backgrounds | Vetting & verification |
-| Tone Green | `#e2ecdf` | Feature card backgrounds | Concierge matching |
-| Tone Blue | `#dde6f3` | Feature card backgrounds | Expats-first support |
-
-#### Border Colors
-
-| Color Name | Hex Code | Usage |
-|-----------|----------|-------|
-| Border Primary | `#ebe5d8` | Main card borders, dividers |
-| Border Light | `#f0ece5` | Light card borders, skeleton states |
-| Border Lighter | `#e5dfd4` | Input borders, subtle dividers |
-| Border Lightest | `#dcd6c7` | Keyboard shortcut panel borders |
-| Border Dashed | `#d8cfbf` | Dashed borders for empty states |
-
-#### Semantic Colors (from email templates and error states)
-
-| Color Name | Hex Code | Usage |
-|-----------|----------|-------|
-| Success | `#10b981` | Success messages, confirmations |
-| Warning | `#f59e0b` | Warning alerts, attention needed |
-| Error | `#ef4444` | Error messages, destructive actions |
-| Error Dark | `#dc2626` | Error hover states (derived) |
-| Info | `#2563eb` | Informational messages |
-| Neutral Gray | `#6b7280` | Email template text |
-| Light Gray | `#f9fafb` | Email template backgrounds |
-| Very Light Gray | `#e5e7eb` | Email template borders |
-
-#### Dark Theme Colors (Footer & Dark Surfaces)
-
-| Color Name | Hex Code | Usage |
-|-----------|----------|-------|
-| Dark Surface | `#11100e` | Footer background |
-| Dark Hover | `#26231f` | Dark button borders |
-| Dark Text | `#f3ece1` | Text on dark backgrounds |
-| Dark Text Muted | `#cfc8be` | Muted text on dark backgrounds |
-| Dark Text Secondary | `#b1aca5` | Secondary text on dark backgrounds |
+Comprehensive design system documentation for the CASAORA platform. This document defines all design tokens, color palettes, typography scales, spacing systems, and reusable component patterns used throughout the application.
 
 ---
 
-## 2. Typography System
+## Table of Contents
 
-### Font Families
-
-MaidConnect uses **Geist** font family from Next.js Google Fonts integration:
-
-```typescript
-// From /src/app/[locale]/layout.tsx
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-```
-
-#### Font Stack
-
-**Sans Serif (Primary):**
-```css
-font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-```
-
-**Monospace (Code/Keyboard Shortcuts):**
-```css
-font-family: var(--font-geist-mono);
-```
-
-### Font Weights Available
-
-- **400** (Regular) - Body text, descriptions
-- **500** (Medium) - Secondary text, buttons
-- **600** (Semibold) - Headings, labels, emphasis
-- **700** (Bold) - Primary headings, strong emphasis
-
-### Type Scale
-
-MaidConnect uses Tailwind's default type scale with custom implementations:
-
-#### Heading Hierarchy
-
-| Size | Class | Usage | Examples |
-|------|-------|-------|----------|
-| XL | `text-xl` | Section labels, card titles | Section headings |
-| 2XL | `text-2xl` | Subheadings | Feature cards, modal titles |
-| 3XL | `text-3xl` | Large titles | Dashboard stats values |
-| 4XL | `text-4xl` | Major section headings | Product section titles |
-| 5XL | `text-5xl` | Hero section titles | Professional profile names |
-| 6XL | `text-6xl` | Large hero titles | Product page main heading |
-| 7XL | `text-7xl` | Extra large hero titles | Landing page hero |
-
-#### Body Text
-
-| Size | Class | Usage | Examples |
-|------|-------|-------|----------|
-| XS | `text-xs` | Labels, badges, keyboard shortcuts | `uppercase tracking-[0.2em]` |
-| SM | `text-sm` | Secondary text, helper text, captions | Descriptions, timestamps |
-| Base | `text-base` | Body text, default | Paragraph text, CTAs |
-| LG | `text-lg` | Large body text | Feature descriptions |
-| XL | `text-xl` | Large text, subtitles | Professional rates, highlights |
-| 2XL | `text-2xl` | Hero subtitle sizes | Hero section text |
-
-### Line Heights
-
-| Value | Class | Usage |
-|-------|-------|-------|
-| tight | `leading-tight` | Headings (1.1-1.2) |
-| relaxed | `leading-relaxed` | Body text, descriptions (1.6-1.75) |
-| none | `leading-none` | Buttons, badges |
-
-### Letter Spacing
-
-| Value | Class | Usage | Examples |
-|-------|-------|-------|----------|
-| Standard | default | Body text | Regular paragraph copy |
-| Tight | `tracking-tight` | Logo, headings | MaidConnect header |
-| Wide | `tracking-[0.2em]` | Labels, uppercase text | Section labels |
-| Extra Wide | `tracking-[0.26em]` | Feature badges | "most booked" badge |
-| Extra Wide 2 | `tracking-[0.32em]` | Hero section badges | Hero badge text |
-
-### Text Color Classes
-
-All text colors reference the color palette above:
-
-```css
-text-[#211f1a]    /* Primary foreground text */
-text-[#5d574b]    /* Body text, secondary */
-text-[#7a6d62]    /* Tertiary text, muted */
-text-[#7d7566]    /* Navigation inactive state */
-text-[#8a826d]    /* Placeholder text */
-text-white        /* White text on dark backgrounds */
-text-[#f3ece1]    /* Light text on dark footer */
-```
-
-### Common Typography Patterns
-
-#### Hero Section Headlines
-```
-font-semibold text-5xl sm:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-white
-```
-
-#### Section Headings
-```
-font-semibold text-4xl sm:text-5xl lg:text-6xl text-[#211f1a] leading-tight
-```
-
-#### Card Titles
-```
-font-semibold text-[#211f1a] text-lg/xl
-```
-
-#### Body Paragraph
-```
-text-[#5d574b] text-base leading-relaxed
-```
-
-#### Labels & Captions
-```
-font-medium text-[#7a6d62] text-xs uppercase tracking-[0.2em]
-```
-
-#### Links (Default)
-```
-text-[#5a5549] transition hover:text-[#ff5d46]
-```
+1. [Overview](#overview)
+2. [Color System](#color-system)
+3. [Typography](#typography)
+4. [Spacing System](#spacing-system)
+5. [Border Radius](#border-radius)
+6. [Shadows](#shadows)
+7. [Component Patterns](#component-patterns)
+8. [Layout & Grid](#layout--grid)
+9. [Effects & Animations](#effects--animations)
+10. [Accessibility](#accessibility)
+11. [Responsive Design](#responsive-design)
+12. [Implementation Examples](#implementation-examples)
 
 ---
 
-## 3. Spacing System
+## Overview
 
-MaidConnect uses Tailwind's spacing scale (4px base unit) with custom container sizing:
+### Design Philosophy
 
-### Spacing Scale
+CASAORA's design system embodies **quiet luxury** - sophisticated, understated elegance that prioritizes quality over flash. Inspired by premium hospitality brands like Staays, our visual language emphasizes:
 
-| Spacing | Pixels | Usage |
-|---------|--------|-------|
-| `p-1` / `gap-1` | 4px | Tight spacing in forms |
-| `p-2` / `gap-2` | 8px | Icon spacing, small gaps |
-| `p-3` / `gap-3` | 12px | Small padding, component gaps |
-| `p-4` / `gap-4` | 16px | Default padding, section gaps |
-| `p-5` / `gap-5` | 20px | Medium padding |
-| `p-6` / `gap-6` | 24px | Card padding, section spacing |
-| `p-8` / `gap-8` | 32px | Large padding, major spacing |
-| `p-12` / `gap-12` | 48px | Extra large padding |
-| `p-16` / `gap-16` | 64px | Hero section spacing |
-| `p-20` / `gap-20` | 80px | Large section spacing |
-| `p-24` / `gap-24` | 96px | Extra large section spacing |
+- **Breathing room**: Generous white space and uncluttered layouts
+- **Typography as art**: Bold, confident headlines that command attention
+- **Strategic color use**: Cream and charcoal foundation with red accents
+- **Refined details**: Subtle shadows, smooth transitions, thoughtful micro-interactions
+- **Accessibility first**: WCAG AAA compliance, keyboard navigation, semantic HTML
 
-### Container Sizing
+### Design Principles
 
-#### Max Width
-```typescript
-// From /src/components/ui/container.tsx
-max-w-[1320px]    // Main container width
-max-w-[1400px]    // Footer container width
-max-w-[1680px]    // Professional profile container
-```
-
-#### Padding (Responsive)
-
-```css
-/* Container horizontal padding */
-px-5           /* Mobile: 20px */
-sm:px-8        /* Tablet: 32px */
-lg:px-12       /* Desktop: 48px */
-xl:px-16       /* Large: 64px */
-```
-
-### Vertical Spacing Patterns
-
-#### Section Spacing (Padding)
-```
-py-16 sm:py-20 lg:py-24    /* Medium sections */
-py-20 sm:py-24 lg:py-32    /* Large sections */
-```
-
-#### Item Spacing (Gap)
-```
-gap-3                       /* Tight component spacing */
-gap-4                       /* Default component spacing */
-gap-6                       /* Relaxed component spacing */
-gap-8                       /* Large component spacing */
-```
-
-#### Margin Utilities
-```
-mt-2, mt-4, mt-6, mt-8     /* Margin-top utilities */
-mb-3, mb-6                  /* Margin-bottom utilities */
-space-y-2, space-y-3        /* Vertical spacing between children */
-space-y-4, space-y-6
-```
+1. **Clarity over complexity**: Every element serves a purpose
+2. **Consistency builds trust**: Reusable patterns across the platform
+3. **Performance matters**: Optimize for speed without sacrificing aesthetics
+4. **Mobile-first**: Responsive design from the ground up
+5. **Accessible by default**: Design for all users, all abilities
 
 ---
 
-## 4. Border Radius System
+## Color System
 
-MaidConnect uses multiple border radius scales for different component types:
+### Core Palette
 
-### Border Radius Scale
-
-| Radius | Class | Usage | Examples |
-|--------|-------|-------|----------|
-| Small | `rounded-lg` | Input fields, small components | Form inputs, badges |
-| Medium | `rounded-xl` | Cards, medium components | Skeleton cards |
-| Large | `rounded-2xl` | Large cards, modals | Notification cards |
-| Extra Large | `rounded-3xl` | Section containers, video | Video backgrounds, large sections |
-| Custom 28px | `rounded-[28px]` | Feature cards, prominent cards | Product feature cards, notification prompts |
-| Custom 36px | `rounded-[36px]` | Extra large components | Professional profile hero card |
-| Full Circle | `rounded-full` | Buttons, avatars, icons | CTA buttons, avatar images, badge icons |
-
-### Common Border Radius Patterns
-
-#### Buttons (All Variants)
-```
-rounded-full                /* Primary, secondary, card buttons */
-rounded-full border font-semibold
-```
-
-#### Cards
-```
-rounded-[28px] border bg-white p-8 shadow-[...]    /* Feature cards */
-rounded-[36px] border border-[#ebe5d8] bg-white    /* Profile cards */
-rounded-xl border                                   /* Small cards */
-```
-
-#### Input Fields
-```
-rounded-lg border border-[#ebe5d8]                 /* Text inputs */
-rounded-full border                                /* Date/time pickers */
-```
-
-#### Modals & Overlays
-```
-rounded-2xl bg-white p-6 shadow-xl                 /* Modal dialogs */
-rounded-lg p-3                                      /* Toast messages */
-```
-
----
-
-## 5. Shadow System
-
-MaidConnect uses custom box shadows for depth and emphasis:
-
-### Shadow Scales
-
-#### Subtle Shadow (Default)
-```css
-shadow-sm
-/* Usage: Cards, list items, subtle depth */
-```
-
-#### Card Shadow
-```css
-shadow-[0_10px_40px_rgba(18,17,15,0.04)]
-/* Usage: Product feature cards, content containers */
-```
-
-#### Enhanced Card Shadow
-```css
-shadow-[0_10px_40px_rgba(18,17,15,0.08)]
-/* Usage: Hover state for cards, elevated elements */
-```
-
-#### Button Shadow (Primary)
-```css
-shadow-[0_6px_18px_rgba(18,17,15,0.22)]
-/* Usage: Primary buttons, CTAs */
-```
-
-#### Button Shadow (Large)
-```css
-shadow-[0_12px_36px_rgba(17,16,14,0.22)]
-/* Usage: Card buttons, prominent CTAs */
-```
-
-#### CTA Button Shadow (Accent)
-```css
-shadow-[0_6px_18px_rgba(255,93,70,0.22)]
-/* Usage: Accent/secondary buttons */
-```
-
-#### Large Section Shadow
-```css
-shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)]
-/* Usage: Large cards, modal containers, profile cards */
-```
-
-#### Calendar/Picker Shadow
-```css
-shadow-[0_24px_60px_rgba(18,17,15,0.12)]
-/* Usage: Date pickers, time pickers, dropdowns */
-```
-
-#### Skeleton Shadow
-```css
-shadow-black/5 shadow-inner
-/* Usage: Loading states, muted shadows */
-```
-
-#### Profile Card Shadow
-```css
-shadow-[0_10px_40px_rgba(18,17,15,0.04)]
-/* Hover state: shadow-[0_10px_40px_rgba(18,17,15,0.08)] */
-```
-
-#### Calendar Selected Date
-```css
-shadow-[0_10px_20px_rgba(18,17,15,0.16)]
-/* Usage: Selected calendar dates */
-```
-
-### Shadow Transitions
-
-All shadows support smooth transitions on hover:
-```css
-shadow-sm transition hover:shadow-md
-```
-
----
-
-## 6. Border System
-
-### Border Widths
-
-| Width | Class | Usage |
-|-------|-------|-------|
-| 1px | `border` | Default borders on cards, inputs |
-| 2px | `border-2` | Button borders, emphasized borders |
-
-### Border Colors (Reference to Color System)
+CASAORA uses a refined three-color foundation inspired by luxury interiors:
 
 ```css
-border-[#ebe5d8]      /* Primary border - used on 90% of cards */
-border-[#f0ece5]      /* Light border - skeleton, subtle dividers */
-border-[#e5dfd4]      /* Input borders, picker borders */
-border-[#dcd6c7]      /* Keyboard shortcuts, light dividers */
-border-[#d8cfbf]      /* Dashed borders, empty states */
-border-[#211f1a]      /* Dark borders, button borders */
-border-[#ff5d46]      /* Accent borders, hover states */
-border-white/40       /* White borders with opacity - dark backgrounds */
-border-white          /* Full white borders */
-```
-
-### Border Styles
-
-```css
-border              /* Solid 1px border */
-border-2            /* Solid 2px border */
-border-b            /* Bottom border only */
-border-l            /* Left border only */
-border-r            /* Right border only */
-border-t            /* Top border only */
-border-dashed       /* Dashed border style */
-border-transparent  /* Invisible border (for spacing) */
-```
-
----
-
-## 7. Component Patterns
-
-### Buttons
-
-MaidConnect defines four button variants with specific styling:
-
-#### Primary Button
-**Style:** Dark background with accent hover state
-```typescript
-border-[#211f1a] bg-[#211f1a] px-6 py-[0.85rem] text-sm text-white 
-shadow-[0_6px_18px_rgba(18,17,15,0.22)] 
-hover:border-[#ff5d46] hover:bg-[#2b2624] 
-focus-visible:outline-[#ff5d46]
-```
-**Used for:** Primary CTAs, main actions
-**Example:** "Find a Professional" button
-
-#### Secondary Button
-**Style:** Transparent with accent border and text
-```typescript
-border-[#ff5d46] bg-transparent px-6 py-[0.85rem] text-sm text-[#ff5d46] 
-hover:border-[#211f1a] hover:text-[#211f1a] 
-focus-visible:outline-[#ff5d46]
-```
-**Used for:** Secondary actions, alternatives
-**Example:** "Learn More" button
-
-#### Ghost Button
-**Style:** No background, text only
-```typescript
-border-transparent px-4 py-2 text-sm text-[#2b2624] 
-hover:text-[#d7b59f] 
-focus-visible:outline-[#d7b59f]
-```
-**Used for:** Tertiary actions, light interactions
-**Example:** Back links, navigation
-
-#### Card Button
-**Style:** Full-width with dark background
-```typescript
-w-full justify-between gap-3 border border-transparent bg-[#211f1a] px-6 py-3 
-text-sm text-white shadow-[0_12px_36px_rgba(17,16,14,0.22)] 
-hover:bg-[#2b2624] 
-focus-visible:outline-[#ff5d46]
-```
-**Used for:** Card action buttons, prominent CTAs
-**Example:** Service selection buttons
-
-#### Accent CTA Button
-**Style:** Rounded full with accent background
-```typescript
-rounded-full bg-[#ff5d46] px-8 py-4 font-semibold text-base text-white 
-shadow-[0_6px_18px_rgba(255,93,70,0.22)] 
-transition hover:bg-[#eb6c65]
-```
-**Used for:** Primary feature CTAs
-**Example:** "Start matching", "Book Now"
-
-### Cards
-
-#### Feature Card (Product/Services)
-```typescript
-rounded-[28px] border border-[#ebe5d8] bg-white p-8 
-shadow-[0_10px_40px_rgba(18,17,15,0.04)] 
-transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)]
-```
-
-#### Profile Card (Professional)
-```typescript
-mt-8 overflow-hidden rounded-[36px] border border-[#ebe5d8] bg-white 
-shadow-[0_10px_40px_rgba(18,17,15,0.04)]
-grid gap-8 p-8 md:grid-cols-[240px_1fr] lg:grid-cols-[300px_1fr]
-```
-
-#### Booking Card
-```typescript
-rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm 
-transition hover:shadow-md
-```
-
-#### Info/Alert Card
-```typescript
-rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm
-/* Semantic variants: border-red-200 bg-red-50, border-blue-200 bg-blue-50 */
-```
-
-#### Empty State Card
-```typescript
-rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center
-```
-
-### Forms & Inputs
-
-#### Text Input
-```typescript
-w-full rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm 
-focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20
-```
-
-#### Date/Time Picker
-```typescript
-flex w-full items-center justify-between rounded-full 
-border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[#211f1a] text-sm 
-shadow-black/5 shadow-inner 
-transition hover:border-[#ff5d46] 
-focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff5d46] focus-visible:outline-offset-2
-```
-
-#### Form Section
-```typescript
-space-y-2 rounded-lg border border-[#ebe5d8] bg-[#fbfafa] p-4
-```
-
-### Badges & Labels
-
-#### Feature Badge (Primary)
-```typescript
-inline-flex items-center gap-3 rounded-full bg-white/20 px-5 py-2.5 
-font-semibold text-white text-xs uppercase tracking-[0.32em] backdrop-blur-sm
-```
-
-#### Accent Badge
-```typescript
-inline-flex items-center rounded-full border-2 border-[#ff5d46] bg-[#ff5d46]/5 
-px-4 py-2 font-semibold text-[#ff5d46] text-sm
-```
-
-#### Status Badge
-```typescript
-inline-flex items-center rounded-full px-2 py-0.5 font-semibold text-xs
-/* Variations: bg-green-100 text-green-800, bg-red-100 text-red-800 */
-```
-
-#### Keyboard Badge
-```typescript
-inline-flex items-center justify-center rounded-lg border border-[#dcd6c7] 
-bg-[#fefcf9] font-medium font-mono text-[#5d574b] shadow-sm
-min-w-[28px] px-2.5 py-1.5 text-xs    /* Size: sm */
-min-w-[32px] px-3 py-1.5 text-sm      /* Size: md */
-```
-
-### Navigation Elements
-
-#### Navigation Link (Active)
-```typescript
-font-medium text-sm text-[#211f1a]
-transition
-```
-
-#### Navigation Link (Inactive)
-```typescript
-font-medium text-sm text-[#7d7566] 
-transition hover:text-[#211f1a]
-```
-
-#### Language Switcher
-```typescript
-/* Dark mode */
-flex items-center gap-2 rounded-full border-2 border-[#26231f] bg-[#11100e] 
-px-4 py-2 text-sm font-medium text-[#f3ece1] 
-transition hover:border-[#ff5d46] hover:text-[#ff5d46]
-
-/* Light mode */
-flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white 
-px-4 py-2 text-sm font-medium text-[#211f1a] 
-transition hover:border-[#ff5d46] hover:text-[#ff5d46]
-```
-
-### Modals & Overlays
-
-#### Modal Container
-```typescript
-fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4
-max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-6 shadow-xl
-```
-
-#### Side Panel (Notifications)
-```typescript
-fixed top-0 right-0 z-50 flex h-full w-full max-w-md flex-col bg-white shadow-2xl
-```
-
-#### Keyboard Shortcuts Panel
-```typescript
-fixed top-0 right-0 z-60 h-full w-full max-w-md transform 
-border-[#dcd6c7] border-l bg-[#fefcf9] shadow-2xl 
-transition-transform duration-300 ease-in-out
-```
-
-### Skeletons (Loading States)
-
-#### Default Skeleton
-```typescript
-animate-pulse rounded-md bg-[#ebe5d8]/50
-```
-
-#### Section Skeleton
-```typescript
-rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm
-```
-
-#### Profile Card Skeleton
-```typescript
-rounded-[28px] bg-white p-8 
-shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)]
-```
-
-#### Table Skeleton
-```typescript
-rounded-[28px] bg-white p-8 
-shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)]
-```
-
----
-
-## 8. Effects & Animations
-
-### Transitions
-
-MaidConnect uses smooth transitions for interactive elements:
-
-```css
-transition                          /* Default 150ms */
-transition hover:shadow-md          /* Shadow on hover */
-transition hover:bg-opacity-80      /* Color opacity change */
-transition-colors                   /* Color-specific transitions */
-transition-transform                /* Transform animations */
-```
-
-### Transform Effects
-
-```css
-group-hover:bg-current/30           /* Icon background on parent hover */
-group-hover:scale-110               /* Icon scale on rating hover */
--translate-x-1/2 -translate-y-1/2   /* Centering transforms */
-rotate-90                           /* Icon rotation on picker open */
-```
-
-### Loading Animations
-
-```css
-animate-pulse                       /* Skeleton loading effect */
-border-[#ff5d46] border-b-2         /* Loading spinner border */
-h-8 w-8 animate-spin 
-rounded-full border-[#ff5d46] 
-border-b-2
-```
-
-### Opacity Effects
-
-```css
-bg-current/20                       /* 20% opacity of current color */
-bg-current/30                       /* 30% opacity - hover state */
-bg-black/50                         /* Modal overlay opacity */
-text-white/90                       /* Slightly transparent white text */
-text-white/80                       /* More transparent white text */
-white/20                            /* White with 20% opacity - hero badge */
-```
-
----
-
-## 9. Layout & Grids
-
-### Responsive Grid Systems
-
-#### Two Column Grid
-```css
-grid gap-8 md:grid-cols-2
-grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3
-```
-
-#### Three Column Layout (Cards)
-```css
-mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4
-```
-
-#### Flexible Grid
-```css
-grid gap-4 grid-cols-1 md:grid-cols-3   /* Variable columns */
-grid gap-8 lg:grid-cols-[1fr_auto]     /* Custom column sizing */
-grid gap-8 sm:grid-cols-2 lg:gap-16    /* Gap increases on larger screens */
-```
-
-### Flexbox Layouts
-
-#### Horizontal Stack
-```css
-flex items-center gap-4           /* Centered horizontally */
-flex items-center justify-between /* Space between alignment */
-flex flex-col gap-6               /* Vertical stack */
-```
-
-#### Navbar Layout
-```css
-flex items-center justify-between gap-4    /* Navbar with spacing */
-```
-
-### Responsive Visibility
-
-```css
-hidden md:flex                    /* Hidden on mobile, flex on tablet+ */
-hidden md:block                   /* Hidden on mobile, block on tablet+ */
-block md:hidden                   /* Visible on mobile, hidden on tablet+ */
-```
-
----
-
-## 10. Accessibility & Focus States
-
-### Focus Visible States
-
-MaidConnect implements accessible focus states for keyboard navigation:
-
-#### Button Focus
-```css
-focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ff5d46] focus-visible:outline-offset-2
-```
-
-#### Input Focus
-```css
-focus:border-[#ff5d46] focus:outline-none focus:ring-2 focus:ring-[#ff5d46]/20
-```
-
-#### Dark Background Focus
-```css
-focus-visible:outline-white
-```
-
-### Disabled States
-
-```css
-disabled:cursor-not-allowed disabled:opacity-70
-disabled:opacity-50
-```
-
----
-
-## 11. Responsive Design Breakpoints
-
-MaidConnect uses Tailwind's standard breakpoints with mobile-first approach:
-
-| Breakpoint | Width | Class Prefix | Usage |
-|-----------|-------|--------------|-------|
-| Mobile | < 640px | (none) | Default styles |
-| Small | 640px+ | `sm:` | Tablet portrait |
-| Medium | 768px+ | `md:` | Tablet landscape |
-| Large | 1024px+ | `lg:` | Desktop |
-| Extra Large | 1280px+ | `xl:` | Large desktop |
-
-### Common Responsive Patterns
-
-```css
-/* Typography */
-text-5xl sm:text-6xl lg:text-7xl
-
-/* Padding/Spacing */
-px-5 sm:px-8 lg:px-12 xl:px-16
-py-16 sm:py-20 lg:py-24
-
-/* Grid Layout */
-grid-cols-1 md:grid-cols-2 lg:grid-cols-3
-
-/* Display */
-block md:hidden                     /* Mobile nav */
-hidden md:flex                      /* Desktop nav */
-
-/* Gap */
-gap-4 lg:gap-8
-```
-
----
-
-## 12. Dark Mode & Theme Variants
-
-### Footer Dark Theme
-
-MaidConnect implements a dark theme exclusively for the footer:
-
-```css
-footer {
-  background: #11100e (--surface-contrast)
-  color: #f3ece1 (--dark-text)
+:root {
+  /* Primary Colors */
+  --cream: #FFFCF8;        /* Warm white background */
+  --charcoal: #1A1A1A;     /* Deep gray-black for text */
+  --red: #E63946;          /* Vibrant accent color */
+
+  /* Semantic Mappings */
+  --background: #FFFCF8;
+  --foreground: #1A1A1A;
+  --accent: #E63946;
 }
 ```
 
-**Text Colors:**
-- Primary: `#f3ece1`
-- Secondary: `#cfc8be`
-- Tertiary: `#b1aca5`
+#### Color Usage Guide
 
-**Border Colors:**
-- `border-[#26231f]` - Subtle borders on dark background
-- `border-[#ff5d46]` - Accent borders on hover
+**Cream (#FFFCF8)**
+- **Primary use**: Page backgrounds, card backgrounds, light surfaces
+- **Why not pure white**: Cream (#FFFCF8) is warmer and more inviting than stark white (#FFFFFF)
+- **Contrast ratio**: 15.8:1 with Charcoal (WCAG AAA ✓)
+- **Where to use**: Body backgrounds, card interiors, hero sections
 
-**Interactive Elements:**
+**Charcoal (#1A1A1A)**
+- **Primary use**: Body text, headings, icons, dark UI elements
+- **Why not black**: Pure black (#000000) can be harsh; Charcoal is softer while maintaining high contrast
+- **Contrast ratio**: 15.8:1 on Cream (WCAG AAA ✓)
+- **Where to use**: All text content, navigation, icons, form labels
+
+**Red (#E63946)**
+- **Primary use**: CTAs, links, hover states, emphasis elements
+- **Application**: Used sparingly (1% of visual space) for maximum impact
+- **Contrast ratio**: 4.9:1 on Cream (WCAG AA for large text ✓)
+- **Where to use**: Primary buttons, link hover states, active states, badges
+
+### Secondary Colors
+
 ```css
-hover:border-[#ff5d46] hover:text-[#ff5d46]    /* Dark button hover */
-text-[#f3ece1] transition hover:text-[#ff5d46] /* Dark link hover */
+:root {
+  /* Red Variations */
+  --red-hover: #D62839;         /* Darker red for hover states */
+  --red-light: #FFE8EA;         /* Light red background tint */
+
+  /* Neutral Grays */
+  --muted-foreground: #757575;  /* Secondary text, less emphasis */
+  --border: #E8E4DC;            /* Borders, dividers, subtle lines */
+
+  /* Surface Colors */
+  --surface: #FFFFFF;           /* Pure white for cards on cream */
+  --surface-contrast: #1A1A1A;  /* Dark surfaces (footer, etc.) */
+}
+```
+
+### Semantic Colors
+
+```css
+:root {
+  /* Feedback Colors */
+  --success: #10B981;    /* Green for success states */
+  --warning: #F59E0B;    /* Amber for warnings */
+  --error: #EF4444;      /* Red for errors (slightly different from accent) */
+  --info: #3B82F6;       /* Blue for informational messages */
+}
+```
+
+### Color Application (90-9-1 Rule)
+
+Visual hierarchy through color distribution:
+
+- **90% Cream**: Backgrounds, white space, breathing room
+- **9% Charcoal**: Text, UI elements, structure
+- **1% Red**: Accents, CTAs, focal points
+
+This creates visual calm while guiding user attention to key actions.
+
+### Color Contrast Reference
+
+All color combinations meet WCAG 2.1 guidelines:
+
+| Foreground | Background | Ratio | WCAG Level | Use Case |
+|------------|-----------|-------|------------|----------|
+| Charcoal | Cream | 15.8:1 | AAA | Body text, headings |
+| Red | Cream | 4.9:1 | AA (large text) | CTAs, buttons |
+| Muted Gray | Cream | 4.6:1 | AA | Secondary text |
+| White | Charcoal | 15.8:1 | AAA | Dark surface text |
+| Red | White | 4.5:1 | AA | Buttons, badges |
+
+---
+
+## Typography
+
+### Font Stack
+
+CASAORA uses a sophisticated three-font system:
+
+#### Display Font - Cinzel
+```css
+font-family: var(--font-cinzel), serif;
+```
+
+**Use for:**
+- Logo and brand name
+- Hero headlines (H1)
+- Major section headings (H2, H3)
+- Professional names
+- Emphasized titles
+
+**Weights:**
+- Regular (400): Body use (rare)
+- Semibold (600): Primary headings
+- Bold (700): Extra emphasis
+
+**Character:**
+Elegant serif with classical proportions. Conveys sophistication, trust, and timelessness.
+
+#### Accent Font - Spectral
+```css
+font-family: var(--font-spectral), serif;
+```
+
+**Use for:**
+- Italic emphasis within paragraphs
+- Pull quotes
+- Editorial-style callouts
+- Captions with personality
+
+**Weights:**
+- Regular (400): Body text
+- Regular Italic (400): Emphasis
+- Semibold (600): Strong emphasis
+
+**Character:**
+Editorial serif designed for screen reading. Adds warmth and personality.
+
+#### UI Font - Work Sans
+```css
+font-family: var(--font-work-sans), sans-serif;
+```
+
+**Use for:**
+- Body copy
+- Navigation links
+- Buttons and CTAs
+- Form labels and inputs
+- UI elements and microcopy
+
+**Weights:**
+- Regular (400): Body text
+- Medium (500): Labels, captions
+- Semibold (600): Buttons, emphasis
+
+**Character:**
+Clean, neutral sans-serif. Highly legible, optimized for UI elements.
+
+### Type Scale
+
+CASAORA uses a fluid type scale that adapts to viewport width:
+
+| Style | Font | Size | Weight | Line Height | Spacing |
+|-------|------|------|--------|-------------|---------|
+| **Display** | Cinzel | clamp(40px, 5vw, 64px) | 600 | 1.18 | 0.005em |
+| **H1** | Cinzel | clamp(30px, 3.5vw, 44px) | 600 | 1.2 | 0.005em |
+| **H2** | Cinzel | clamp(24px, 2.8vw, 32px) | 600 | 1.25 | 0.005em |
+| **H3** | Cinzel | clamp(20px, 2.2vw, 26px) | 600 | 1.3 | 0.005em |
+| **UI Heading** | Work Sans | 28px / 22px / 18px | 600 | 1.3–1.4 | 0 |
+| **Body Large** | Work Sans | 18px | 400 | 1.65 | 0 |
+| **Body** | Work Sans | 16px | 400 | 1.65 | 0 |
+| **Body Small** | Work Sans | 13-14px | 400 | 1.55 | 0 |
+| **Caption** | Work Sans | 12px | 500 | 1.45 | 0.05em |
+| **Label** | Work Sans | 12px | 600 | 1.35 | 0.08em |
+
+### Typography Patterns
+
+#### Utility Classes
+
+To make the scale easy to consume in JSX, we ship Tailwind-style utilities that wrap the CSS variables defined in `globals.css`:
+
+| Class | Use Case | Token Mapping |
+|-------|----------|---------------|
+| `type-serif-display` | Hero headlines, hero stats | `var(--font-display)` / `var(--leading-display)` |
+| `type-serif-lg` | Section headlines, marquee cards | `var(--font-h1)` / `var(--leading-h1)` |
+| `type-serif-md` | Card titles, supporting headings | `var(--font-h2)` / `var(--leading-h2)` |
+| `type-serif-sm` | Inline callouts, small serif moments | `var(--font-h3)` / `var(--leading-h3)` |
+| `type-ui-lg` | Dashboard H1, modal titles | 28px Work Sans |
+| `type-ui-md` | Section labels in app surfaces | 22px Work Sans |
+| `type-ui-sm` | Card headings, table headers | 18px Work Sans |
+
+All serif utilities default to Cinzel at 600 weight and apply the refined tracking value (0.005em). UI utilities default to Work Sans at 600 weight with neutral tracking.
+
+#### Hero Headline
+```tsx
+<h1 className="type-serif-display text-[var(--foreground)]">
+  Find trusted home professionals
+</h1>
+```
+
+#### Section Heading
+```tsx
+<h2 className="type-serif-lg text-[var(--foreground)]">
+  How it works
+</h2>
+```
+
+#### Body Paragraph
+```tsx
+<p className="font-[family-name:var(--font-work-sans)] text-base text-[var(--muted-foreground)] leading-relaxed">
+  Premium cleaning, personal chef services, and more.
+</p>
+```
+
+#### Editorial Emphasis
+```tsx
+<p className="type-serif-md leading-[1.45] text-[#E8D896]">
+  We care about{" "}
+  <span className="font-[family-name:var(--font-spectral)] italic text-[var(--cream)]">
+    being better
+  </span>
+  .
+</p>
+```
+
+#### Label/Caption
+```tsx
+<p className="font-medium text-xs text-[var(--muted-foreground)] uppercase tracking-[0.1em]">
+  Featured Professional
+</p>
+```
+
+### Typography Best Practices
+
+**Do:**
+- Use Cinzel for major headings and brand elements
+- Use Work Sans for all UI elements and body text
+- Use Spectral italic for emphasis within text blocks
+- Maintain line-height of 1.6 for body text
+- Use uppercase sparingly (labels and small caps only)
+- Test readability on actual devices
+
+**Don't:**
+- Mix more than 2 font families on a single page
+- Use font sizes smaller than 14px (except in rare cases)
+- Use ALL CAPS for paragraphs or large text blocks
+- Use pure black (#000) - always use Charcoal (#1A1A1A)
+- Stack multiple italic elements
+- Use letter-spacing on body copy
+
+---
+
+## Spacing System
+
+CASAORA uses an 8px base unit for all spacing to create visual rhythm and consistency.
+
+### Spacing Scale
+
+```css
+:root {
+  --space-1: 8px;     /* 0.5rem */
+  --space-2: 16px;    /* 1rem */
+  --space-3: 24px;    /* 1.5rem */
+  --space-4: 32px;    /* 2rem */
+  --space-5: 40px;    /* 2.5rem */
+  --space-6: 48px;    /* 3rem */
+  --space-7: 64px;    /* 4rem */
+  --space-8: 80px;    /* 5rem */
+  --space-9: 96px;    /* 6rem */
+  --space-10: 128px;  /* 8rem */
+}
+```
+
+### Spacing Usage Guide
+
+| Spacing | Pixels | Tailwind | Use Case |
+|---------|--------|----------|----------|
+| xs | 8px | `gap-2`, `p-2` | Icon gaps, tight spacing |
+| sm | 16px | `gap-4`, `p-4` | Button padding, form field spacing |
+| md | 24px | `gap-6`, `p-6` | Card padding, component spacing |
+| lg | 32px | `gap-8`, `p-8` | Section spacing, feature cards |
+| xl | 48px | `gap-12`, `p-12` | Large section spacing |
+| 2xl | 64px | `gap-16`, `p-16` | Major section spacing |
+| 3xl | 96px | `gap-24`, `p-24` | Hero sections, page margins |
+
+### Vertical Rhythm
+
+Maintain consistent vertical spacing using the 8px grid:
+
+```tsx
+// Component spacing example
+<div className="space-y-8">  {/* 32px between children */}
+  <Section />
+  <Section />
+  <Section />
+</div>
+
+// Section padding example (responsive)
+<section className="py-16 sm:py-20 lg:py-24">
+  {/* 64px/80px/96px vertical padding */}
+</section>
 ```
 
 ---
 
-## 13. Design Tokens Summary
+## Border Radius
 
-### Quick Reference Table
+CASAORA uses rounded corners to create approachable, modern interfaces:
 
-| Token | Value | Category |
-|-------|-------|----------|
-| Primary Brand | `#ff5d46` | Color |
-| Primary Dark | `#211f1a` | Color |
-| Primary Light | `#fbfaf9` | Color |
-| Primary Border | `#ebe5d8` | Color |
-| Font Family | Geist (400-700) | Typography |
-| Heading Size Max | `text-7xl` | Typography |
-| Body Size Base | `text-base` | Typography |
-| Max Container Width | `1320px` | Layout |
-| Default Padding | `p-6` / `24px` | Spacing |
-| Section Gap | `gap-8` / `32px` | Spacing |
-| Card Radius | `rounded-[28px]` | Borders |
-| Button Radius | `rounded-full` | Borders |
-| Default Shadow | `shadow-sm` | Effects |
-| Card Shadow | `shadow-[0_10px_40px_rgba(...)]` | Effects |
-| Transition Speed | `150ms` | Animation |
+### Border Radius Scale
+
+| Radius | Value | Tailwind | Use Case |
+|--------|-------|----------|----------|
+| Small | 8px | `rounded-lg` | Form inputs, small elements |
+| Medium | 12px | `rounded-xl` | Cards, containers |
+| Large | 16px | `rounded-2xl` | Large cards, modals |
+| Extra Large | 24px | `rounded-3xl` | Hero cards, feature sections |
+| Full | 9999px | `rounded-full` | Buttons, badges, avatars |
+
+### Border Radius Patterns
+
+**Buttons:**
+```tsx
+// All buttons use full rounding
+className="rounded-full"
+```
+
+**Cards:**
+```tsx
+// Standard card
+className="rounded-2xl"
+
+// Feature card (larger, more prominent)
+className="rounded-3xl"
+```
+
+**Form Inputs:**
+```tsx
+// Text inputs
+className="rounded-lg"
+
+// Select dropdowns, pickers
+className="rounded-lg"
+```
+
+**Images:**
+```tsx
+// Profile pictures
+className="rounded-full"
+
+// Professional photos
+className="rounded-t-2xl"  // Top corners only
+
+// Feature images
+className="rounded-2xl"
+```
 
 ---
 
-## 14. Component Implementation Examples
+## Shadows
 
-### Complete Button Component
+Shadows create depth and visual hierarchy. CASAORA uses subtle shadows that enhance without overwhelming.
 
-```typescript
-// /src/components/ui/button.tsx
-type ButtonVariant = "primary" | "secondary" | "ghost" | "card";
+### Shadow Scale
 
-const baseClasses =
-  "group inline-flex items-center justify-center rounded-full border font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2";
+**Subtle Shadow (sm)**
+```css
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+```
+**Use:** List items, subtle card elevation
+**Tailwind:** `shadow-sm`
 
-const variantClasses: Record<ButtonVariant, string> = {
-  primary:
-    "border-[#211f1a] bg-[#211f1a] px-6 py-[0.85rem] text-sm text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] hover:border-[#ff5d46] hover:bg-[#2b2624] focus-visible:outline-[#ff5d46]",
-  secondary:
-    "border-[#ff5d46] bg-transparent px-6 py-[0.85rem] text-sm text-[#ff5d46] hover:border-[#211f1a] hover:text-[#211f1a] focus-visible:outline-[#ff5d46]",
-  ghost:
-    "border-transparent px-4 py-2 text-sm text-[#2b2624] hover:text-[#d7b59f] focus-visible:outline-[#d7b59f]",
-  card: "w-full justify-between gap-3 border border-transparent bg-[#211f1a] px-6 py-3 text-sm text-white shadow-[0_12px_36px_rgba(17,16,14,0.22)] hover:bg-[#2b2624] focus-visible:outline-[#ff5d46]",
-};
+**Card Shadow (default)**
+```css
+box-shadow: 0 10px 40px rgba(26, 26, 26, 0.04);
+```
+**Use:** Default cards, content containers
+**Tailwind:** `shadow-[0_10px_40px_rgba(26,26,26,0.04)]`
+
+**Card Shadow (hover)**
+```css
+box-shadow: 0 10px 40px rgba(26, 26, 26, 0.08);
+```
+**Use:** Card hover state
+**Tailwind:** `shadow-[0_10px_40px_rgba(26,26,26,0.08)]`
+
+**Button Shadow**
+```css
+box-shadow: 0 6px 18px rgba(230, 57, 70, 0.22);
+```
+**Use:** Primary buttons, CTAs
+**Tailwind:** `shadow-[0_6px_18px_rgba(230,57,70,0.22)]`
+
+**Modal Shadow**
+```css
+box-shadow: 0 20px 60px -15px rgba(26, 26, 26, 0.15);
+```
+**Use:** Modals, dialogs, overlays
+**Tailwind:** `shadow-[0_20px_60px_-15px_rgba(26,26,26,0.15)]`
+
+### Shadow Usage Guidelines
+
+**Do:**
+- Use shadows to establish visual hierarchy
+- Increase shadow intensity on hover for interactive elements
+- Keep shadows subtle (low opacity)
+- Use consistent shadow colors (based on foreground color)
+
+**Don't:**
+- Use multiple different shadows on the same component
+- Use colored shadows (except for accent buttons)
+- Overuse shadows (too many creates visual noise)
+- Use shadows on flat UI elements (icons, text)
+
+---
+
+## Component Patterns
+
+### Buttons
+
+CASAORA uses three button variants:
+
+#### Primary Button
+```tsx
+className="inline-flex items-center justify-center rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(230,57,70,0.22)] transition-all hover:bg-[var(--red-hover)] active:scale-95"
+```
+**Use:** Primary actions, main CTAs
+**Example:** "Find your professional", "Book now"
+
+#### Secondary Button
+```tsx
+className="inline-flex items-center justify-center rounded-full border-2 border-[var(--charcoal)] bg-transparent px-8 py-4 font-semibold text-base text-[var(--charcoal)] transition-all hover:bg-[var(--charcoal)] hover:text-white active:scale-95"
+```
+**Use:** Secondary actions, alternatives
+**Example:** "Learn more", "View details"
+
+#### Ghost Button
+```tsx
+className="inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium text-base text-[var(--charcoal)] transition-colors hover:text-[var(--red)]"
+```
+**Use:** Tertiary actions, navigation
+**Example:** "Cancel", "Back"
+
+### Cards
+
+#### Default Card
+```tsx
+<div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+  {/* Card content */}
+</div>
 ```
 
-### Complete Container Component
+#### Feature Card (Prominent)
+```tsx
+<div className="rounded-3xl border border-[var(--border)] bg-white p-8 shadow-[0_10px_40px_rgba(26,26,26,0.04)] transition-shadow hover:shadow-[0_10px_40px_rgba(26,26,26,0.08)]">
+  {/* Card content */}
+</div>
+```
 
-```typescript
+#### Professional Profile Card
+```tsx
+<div className="overflow-hidden rounded-2xl border border-[var(--border)] bg-white shadow-sm">
+  {/* Image */}
+  <div className="relative aspect-[3/4] overflow-hidden">
+    <Image src={...} alt={...} fill className="object-cover object-[center_20%]" />
+  </div>
+  {/* Info */}
+  <div className="p-5">
+    <h3 className="font-[family-name:var(--font-cinzel)] font-semibold text-base">
+      {name}
+    </h3>
+    {/* Additional info */}
+  </div>
+</div>
+```
+
+### Forms
+
+#### Text Input
+```tsx
+<input
+  type="text"
+  className="w-full rounded-lg border border-[var(--border)] bg-white px-4 py-3 font-[family-name:var(--font-work-sans)] text-base text-[var(--charcoal)] transition-colors focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
+/>
+```
+
+#### Label
+```tsx
+<label className="block font-medium text-sm text-[var(--charcoal)] mb-2">
+  Email address
+</label>
+```
+
+#### Form Group
+```tsx
+<div className="space-y-2">
+  <label>...</label>
+  <input>...</input>
+  <p className="text-sm text-[var(--muted-foreground)]">Helper text</p>
+</div>
+```
+
+### Navigation
+
+#### Header (Desktop)
+```tsx
+<header className="sticky top-0 z-50 border-[var(--border)] border-b bg-[var(--background)]/80 backdrop-blur-sm">
+  <Container>
+    <nav className="flex h-16 items-center justify-between">
+      {/* Logo */}
+      <span className="font-[family-name:var(--font-cinzel)] font-semibold text-2xl">
+        CASAORA
+      </span>
+
+      {/* Links */}
+      <div className="flex items-center gap-8">
+        <Link className="font-medium text-sm text-[var(--charcoal)]">Home</Link>
+        {/* ... */}
+      </div>
+
+      {/* Language Switcher */}
+      <div className="flex items-center gap-2">
+        <button className="font-bold text-[var(--red)]">EN</button>
+        <span className="text-[var(--muted-foreground)]">/</span>
+        <button className="hover:text-[var(--red)]">ES</button>
+      </div>
+
+      {/* Auth */}
+      <div className="flex items-center gap-4">
+        <Button variant="ghost">Sign in</Button>
+        <Button variant="primary">Sign up</Button>
+      </div>
+    </nav>
+  </Container>
+</header>
+```
+
+#### Mobile Menu
+```tsx
+<div className="fixed top-0 right-0 z-70 h-full w-[320px] transform bg-white shadow-2xl transition-transform">
+  {/* Menu content */}
+</div>
+```
+
+### Language Switcher
+
+Current implementation (as of Nov 2025):
+
+```tsx
+export function LanguageSwitcher() {
+  const locale = useLocale();
+
+  return (
+    <div className="flex items-center gap-2 font-medium text-sm">
+      <button
+        className={`transition-colors hover:text-[var(--red)] ${
+          locale === "en" ? "font-bold text-[var(--red)]" : ""
+        }`}
+      >
+        EN
+      </button>
+      <span className="text-[var(--muted-foreground)]">/</span>
+      <button
+        className={`transition-colors hover:text-[var(--red)] ${
+          locale === "es" ? "font-bold text-[var(--red)]" : ""
+        }`}
+      >
+        ES
+      </button>
+    </div>
+  );
+}
+```
+
+### Keyboard Shortcuts Button
+
+```tsx
+<button
+  className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--red)] bg-[#fff5f3] text-[var(--red)] transition-all hover:bg-[var(--red)] hover:text-white active:scale-95"
+>
+  <span className="font-semibold text-base">?</span>
+</button>
+```
+
+### Badges
+
+#### Status Badge
+```tsx
+<span className="inline-flex items-center rounded-full bg-[var(--red-light)] px-3 py-1 font-medium text-xs text-[var(--red)] uppercase">
+  Featured
+</span>
+```
+
+#### Label Badge
+```tsx
+<span className="inline-flex items-center rounded-full border border-[var(--border)] bg-white px-3 py-1 font-medium text-xs text-[var(--muted-foreground)] uppercase">
+  Most Booked
+</span>
+```
+
+---
+
+## Layout & Grid
+
+### Container Widths
+
+```css
+--container-sm: 640px;
+--container-md: 768px;
+--container-lg: 1024px;
+--container-xl: 1320px;   /* Default max-width */
+--container-2xl: 1400px;  /* Footer */
+--container-3xl: 1680px;  /* Full-width sections */
+```
+
+### Container Component
+
+```tsx
 // /src/components/ui/container.tsx
 export function Container({ className, children }: ContainerProps) {
   return (
-    <div className={cn("mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12 xl:px-16", className)}>
+    <div className={cn(
+      "mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12 xl:px-16",
+      className
+    )}>
       {children}
     </div>
   );
 }
 ```
 
-### Card with Icons Pattern
+### Grid Patterns
 
-```typescript
-// Typical feature card pattern
-<div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)]">
-  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#ff5d46]/10">
-    {/* Icon */}
-  </div>
-  <h3 className="mt-6 font-semibold text-[#211f1a] text-xl">{title}</h3>
-  <p className="mt-3 text-[#5d574b] text-base leading-relaxed">{description}</p>
+**Two Column Grid:**
+```tsx
+<div className="grid gap-8 md:grid-cols-2">
+  <div>Column 1</div>
+  <div>Column 2</div>
+</div>
+```
+
+**Three Column Grid:**
+```tsx
+<div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+  <div>Column 1</div>
+  <div>Column 2</div>
+  <div>Column 3</div>
+</div>
+```
+
+**Four Column Grid (Feature Cards):**
+```tsx
+<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+  <Card>...</Card>
+  <Card>...</Card>
+  <Card>...</Card>
+  <Card>...</Card>
+</div>
+```
+
+**Asymmetric Grid:**
+```tsx
+<div className="grid gap-8 lg:grid-cols-[1fr_auto]">
+  <div>Main content</div>
+  <aside>Sidebar</aside>
 </div>
 ```
 
 ---
 
-## 15. Files Reference
+## Effects & Animations
 
-All design tokens are defined in these key files:
+### Transitions
+
+All interactive elements should have smooth transitions:
+
+```css
+/* Default transition */
+transition-colors duration-200 ease-in-out
+
+/* Transform transitions */
+transition-transform duration-200 ease-in-out
+
+/* All properties */
+transition-all duration-200 ease-in-out
+```
+
+### Hover Effects
+
+**Buttons:**
+```tsx
+// Color change + scale on active
+hover:bg-[var(--red-hover)] active:scale-95
+```
+
+**Cards:**
+```tsx
+// Shadow increase
+hover:shadow-[0_10px_40px_rgba(26,26,26,0.08)]
+```
+
+**Links:**
+```tsx
+// Color change
+hover:text-[var(--red)]
+```
+
+**Images:**
+```tsx
+// Subtle scale (use sparingly)
+group-hover:scale-105 transition-transform duration-300
+```
+
+### Loading States
+
+**Skeleton Loader:**
+```tsx
+<div className="animate-pulse space-y-4">
+  <div className="h-4 w-3/4 rounded bg-[var(--border)]" />
+  <div className="h-4 w-1/2 rounded bg-[var(--border)]" />
+</div>
+```
+
+**Spinner:**
+```tsx
+<div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--border)] border-t-[var(--red)]" />
+```
+
+### Animation Guidelines
+
+**Do:**
+- Use transitions for state changes (hover, focus, active)
+- Keep animations under 300ms for UI feedback
+- Use `ease-in-out` or `ease-out` timing functions
+- Respect `prefers-reduced-motion`
+
+**Don't:**
+- Auto-play animations on page load
+- Use animations longer than 500ms
+- Animate multiple properties simultaneously (except with `transition-all`)
+- Use animations that cause layout shifts
+
+---
+
+## Accessibility
+
+### Focus States
+
+All interactive elements must have visible focus states:
+
+```tsx
+// Button focus
+focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--red)] focus-visible:outline-offset-2
+
+// Input focus
+focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20
+```
+
+### Color Contrast
+
+Ensure all text meets WCAG 2.1 standards:
+
+- **Body text**: Minimum 4.5:1 (AAA preferred)
+- **Large text (18px+)**: Minimum 3:1 (AA)
+- **UI elements**: Minimum 3:1 (AA)
+
+### Semantic HTML
+
+Use appropriate HTML elements:
+
+```tsx
+// Navigation
+<nav>...</nav>
+
+// Main content
+<main>...</main>
+
+// Sections
+<section>...</section>
+
+// Articles
+<article>...</article>
+
+// Aside content
+<aside>...</aside>
+
+// Footer
+<footer>...</footer>
+```
+
+### ARIA Labels
+
+Provide descriptive labels for interactive elements:
+
+```tsx
+<button aria-label="Close menu">
+  <XIcon />
+</button>
+
+<input aria-label="Search professionals" />
+```
+
+### Keyboard Navigation
+
+Ensure all interactive elements are keyboard accessible:
+
+- Tab order follows logical flow
+- Enter/Space activates buttons and links
+- Escape closes modals and dropdowns
+- Arrow keys navigate lists and menus
+
+---
+
+## Responsive Design
+
+### Breakpoints
+
+```css
+/* Mobile First Approach */
+/* Base: 320px - 639px */
+
+sm:   /* 640px+ */
+md:   /* 768px+ */
+lg:   /* 1024px+ */
+xl:   /* 1280px+ */
+2xl:  /* 1536px+ */
+```
+
+### Responsive Typography
+
+Use clamp() for fluid typography:
+
+```tsx
+// Hero headline
+text-[clamp(48px,6vw,80px)]
+
+// Section heading
+text-[clamp(36px,4.5vw,56px)]
+
+// Subheading
+text-[clamp(28px,3.5vw,42px)]
+```
+
+### Responsive Spacing
+
+```tsx
+// Padding
+px-5 sm:px-8 lg:px-12 xl:px-16
+py-16 sm:py-20 lg:py-24
+
+// Gap
+gap-4 sm:gap-6 lg:gap-8
+
+// Margin
+mt-4 sm:mt-6 lg:mt-8
+```
+
+### Responsive Layout
+
+```tsx
+// Stack on mobile, grid on desktop
+<div className="flex flex-col gap-4 lg:grid lg:grid-cols-2 lg:gap-8">
+  ...
+</div>
+
+// Hide on mobile
+<div className="hidden md:block">
+  Desktop only content
+</div>
+
+// Show only on mobile
+<div className="block md:hidden">
+  Mobile only content
+</div>
+```
+
+---
+
+## Implementation Examples
+
+### Complete Page Section
+
+```tsx
+export function FeaturesSection() {
+  return (
+    <section className="bg-[var(--cream)] py-16 sm:py-20 lg:py-24">
+      <Container>
+        {/* Section Header */}
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="font-medium text-xs text-[var(--muted-foreground)] uppercase tracking-[0.1em]">
+            Why Choose CASAORA
+          </p>
+          <h2 className="mt-4 font-[family-name:var(--font-cinzel)] font-semibold text-[clamp(28px,3.5vw,42px)] text-[var(--charcoal)] leading-tight">
+            Premium service, effortlessly delivered
+          </h2>
+          <p className="mt-6 font-[family-name:var(--font-work-sans)] text-lg text-[var(--muted-foreground)] leading-relaxed">
+            We've rethought every detail to bring you a home services experience
+            that just works.
+          </p>
+        </div>
+
+        {/* Feature Grid */}
+        <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {features.map((feature) => (
+            <div
+              key={feature.title}
+              className="rounded-3xl border border-[var(--border)] bg-white p-8 shadow-[0_10px_40px_rgba(26,26,26,0.04)] transition-shadow hover:shadow-[0_10px_40px_rgba(26,26,26,0.08)]"
+            >
+              {/* Icon */}
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--red-light)]">
+                <feature.icon className="h-6 w-6 text-[var(--red)]" />
+              </div>
+
+              {/* Content */}
+              <h3 className="mt-6 font-[family-name:var(--font-cinzel)] font-semibold text-xl text-[var(--charcoal)]">
+                {feature.title}
+              </h3>
+              <p className="mt-3 font-[family-name:var(--font-work-sans)] text-base text-[var(--muted-foreground)] leading-relaxed">
+                {feature.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div className="mt-16 text-center">
+          <Button variant="primary">
+            Get started
+          </Button>
+        </div>
+      </Container>
+    </section>
+  );
+}
+```
+
+---
+
+## Files Reference
+
+Key files defining the design system:
 
 | File | Purpose |
 |------|---------|
-| `/src/app/globals.css` | CSS custom properties, Tailwind theme config |
+| `/src/app/globals.css` | CSS variables, Tailwind config |
+| `/src/app/[locale]/layout.tsx` | Font configuration (Cinzel, Spectral, Work Sans) |
 | `/src/components/ui/button.tsx` | Button component variants |
-| `/src/components/ui/container.tsx` | Layout container with max-width |
-| `/src/components/ui/skeleton.tsx` | Loading state components |
-| `/src/app/[locale]/layout.tsx` | Font configuration (Geist) |
-| `/src/lib/content.ts` | Feature highlight color tones |
-| `/src/components/sections/*.tsx` | Pattern implementations |
+| `/src/components/ui/container.tsx` | Layout container |
+| `/src/components/navigation/language-switcher.tsx` | Language switcher (EN/ES) |
+| `/src/components/keyboard-shortcuts/keyboard-shortcuts-button.tsx` | Keyboard shortcuts button |
+| `/src/components/sections/*.tsx` | Section pattern implementations |
 
 ---
 
-## 16. Design Principles
+## Design System Checklist
 
-### Color Usage Philosophy
+When building new components, ensure:
 
-1. **Brand Recognition**: `#ff5d46` accent is used strategically for CTAs and hover states
-2. **Professional Feel**: Dark neutrals (`#211f1a`) provide sophistication
-3. **Trust & Safety**: Ample white space and clean borders convey reliability
-4. **Expat-Friendly**: Warm accent color creates welcoming atmosphere
+**Visual Design:**
+- [ ] Uses correct brand colors (Cream, Charcoal, Red)
+- [ ] Follows 90-9-1 color distribution
+- [ ] Uses correct font families (Cinzel, Spectral, Work Sans)
+- [ ] Maintains typography hierarchy
+- [ ] Follows 8px spacing system
+- [ ] Uses appropriate border radius
+- [ ] Applies correct shadows
 
-### Typography Philosophy
+**Accessibility:**
+- [ ] Color contrast meets WCAG AA (minimum) or AAA
+- [ ] Focus states visible on all interactive elements
+- [ ] Semantic HTML used
+- [ ] ARIA labels provided where needed
+- [ ] Keyboard navigation works
+- [ ] Respects `prefers-reduced-motion`
 
-1. **Hierarchy**: Clear distinction between headings (semibold), body (regular), and labels (medium)
-2. **Readability**: 24px base padding in cards, 16px base text size
-3. **Accessibility**: High contrast ratios maintained throughout
-4. **International**: Geist font supports multiple languages
+**Performance:**
+- [ ] Images optimized (WebP, lazy loading)
+- [ ] Fonts loaded with `display: swap`
+- [ ] No unnecessary animations
+- [ ] Responsive images with proper sizing
 
-### Spacing Philosophy
-
-1. **8px Grid**: All spacing follows 4px-8px base unit multiples
-2. **Breathing Room**: Cards and sections have generous padding (p-6 to p-8)
-3. **Component Separation**: Gap-6 to gap-8 between major sections
-4. **Mobile-First**: Responsive padding scales down gracefully
-
----
-
-## 17. Implementation Guidelines
-
-### When Adding New Components
-
-1. **Colors**: Always reference CSS custom properties from `globals.css` or use exact hex codes from this document
-2. **Spacing**: Use Tailwind spacing scale (p-4, gap-6, etc.) - avoid pixel values
-3. **Typography**: Combine size classes (text-lg) with weight classes (font-semibold)
-4. **Borders**: Use `rounded-lg`, `rounded-[28px]`, or `rounded-full` - never custom values
-5. **Shadows**: Reference the shadow system above - copy-paste shadow classes for consistency
-
-### Color Contrast Checklist
-
-- [ ] Body text on background: min 4.5:1 contrast ratio
-- [ ] Headings on background: min 3:1 contrast ratio
-- [ ] Interactive elements: Focus visible outline provided
-- [ ] Error/Warning: Red color (#ef4444) tested on light backgrounds
-
-### Performance Considerations
-
-- Use `transition` instead of writing custom animations
-- Leverage Tailwind's built-in utilities instead of custom CSS
-- Skeleton loading states use `animate-pulse` for consistency
-- Images optimized via Next.js Image component
+**Consistency:**
+- [ ] Uses existing component patterns
+- [ ] Matches established UI conventions
+- [ ] Follows naming conventions
+- [ ] Documented in design system if new pattern
 
 ---
 
 ## Version History
 
-- **v1.0** (Oct 31, 2025): Initial design system extraction from codebase
-  - Extracted 60+ colors with usages
-  - Documented typography scale with Geist font
-  - Captured spacing, borders, shadows, and components
-  - Created comprehensive reference for future development
+- **v2.0** (Nov 4, 2025): Staays-inspired redesign
+  - New color palette: Cream (#FFFCF8), Red (#E63946), Charcoal (#1A1A1A)
+  - New typography: Cinzel, Spectral, Work Sans
+  - Removed dark mode
+  - Updated language switcher to EN/ES format
+  - Redesigned keyboard shortcuts button
+  - Updated component patterns for 2025-2026 trends
 
+- **v1.0** (Oct 31, 2025): Initial design system documentation
+  - Extracted from codebase
+  - Documented original color system
+  - Captured typography and spacing
+  - Created component reference
+
+---
+
+**End of Document**

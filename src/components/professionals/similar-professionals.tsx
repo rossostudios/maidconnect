@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles, Star } from "lucide-react";
+import { MagicWand01Icon, StarIcon } from "hugeicons-react";
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/routing";
 import { formatCOP } from "@/lib/format";
@@ -122,15 +122,15 @@ export function SimilarProfessionals({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 text-[#211f1a]">
-        <Sparkles className="h-5 w-5 text-[#8B7355]" />
+      <div className="flex items-center gap-2 text-[var(--foreground)]">
+        <MagicWand01Icon className="h-5 w-5 text-[var(--red)]" />
         <h2 className="font-semibold text-lg">Similar to {currentProfessionalName}</h2>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {similar.map((pro) => (
           <Link
-            className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[#8B7355] hover:shadow-[0_20px_50px_rgba(18,17,15,0.08)]"
+            className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[var(--red)] hover:shadow-[0_20px_50px_rgba(18,17,15,0.08)]"
             href={`/professionals/${pro.id}`}
             key={pro.id}
           >
@@ -141,8 +141,8 @@ export function SimilarProfessionals({
                   {pro.matchScore}% Match
                 </span>
                 <div className="flex items-center gap-1">
-                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  <span className="font-semibold text-[#211f1a] text-sm">
+                  <StarIcon className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                  <span className="font-semibold text-[var(--foreground)] text-sm">
                     {pro.rating.toFixed(1)}
                   </span>
                   <span className="text-[#7d7566] text-xs">({pro.reviewCount})</span>
@@ -151,8 +151,8 @@ export function SimilarProfessionals({
 
               {/* Service Info */}
               <div>
-                <p className="font-semibold text-[#211f1a]">{pro.services[0]}</p>
-                <p className="mt-1 font-semibold text-[#8B7355] text-lg">
+                <p className="font-semibold text-[var(--foreground)]">{pro.services[0]}</p>
+                <p className="mt-1 font-semibold text-[var(--red)] text-lg">
                   {formatCOP(pro.hourlyRate)}
                   <span className="font-normal text-[#7d7566] text-sm">/hr</span>
                 </p>
@@ -169,7 +169,7 @@ export function SimilarProfessionals({
 
               {/* CTA */}
               <button
-                className="w-full rounded-full bg-[#ebe5d8] py-2 font-semibold text-[#211f1a] text-sm transition group-hover:bg-[#8B7355] group-hover:text-white"
+                className="w-full rounded-full bg-[#ebe5d8] py-2 font-semibold text-[var(--foreground)] text-sm transition group-hover:bg-[var(--red)] group-hover:text-white"
                 type="button"
               >
                 View Profile

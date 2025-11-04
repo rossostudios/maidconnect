@@ -8,7 +8,7 @@ import { signUpAction } from "./actions";
 import { defaultSignUpState, type SignUpActionState } from "./types";
 
 const inputClass =
-  "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[#211f1a] shadow-sm transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a1a]";
+  "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[var(--foreground)] shadow-sm transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)1a]";
 const errorInputClass = "border-red-400 focus:border-red-500 focus:ring-red-200";
 
 function getInputClassName(error: string | undefined): string {
@@ -17,7 +17,7 @@ function getInputClassName(error: string | undefined): string {
 
 function getRoleOptionClassName(error: string | undefined): string {
   return cn(
-    "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition focus-within:border-[#8B7355] hover:border-[#8B7355]",
+    "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition focus-within:border-[var(--red)] hover:border-[var(--red)]",
     error && "border-red-400 focus-within:border-red-400 hover:border-red-400"
   );
 }
@@ -25,13 +25,15 @@ function getRoleOptionClassName(error: string | undefined): string {
 function RoleSelection({ t, error }: { t: (key: string) => string; error: string | undefined }) {
   return (
     <section className="space-y-5">
-      <div className="block font-semibold text-[#211f1a] text-sm">{t("accountTypeLabel")}</div>
-      <p className="text-[#5d574b] text-xs">{t("accountTypeHelper")}</p>
+      <div className="block font-semibold text-[var(--foreground)] text-sm">
+        {t("accountTypeLabel")}
+      </div>
+      <p className="text-[var(--muted-foreground)] text-xs">{t("accountTypeHelper")}</p>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <label className={getRoleOptionClassName(error)}>
-          <span className="flex items-center gap-2 text-[#211f1a]">
+          <span className="flex items-center gap-2 text-[var(--foreground)]">
             <input
-              className="h-4 w-4 accent-[#211f1a]"
+              className="h-4 w-4 accent-[var(--foreground)]"
               defaultChecked
               name="role"
               type="radio"
@@ -39,19 +41,21 @@ function RoleSelection({ t, error }: { t: (key: string) => string; error: string
             />{" "}
             {t("customerLabel")}
           </span>
-          <span className="text-[#5d574b] text-sm">{t("customerDescription")}</span>
+          <span className="text-[var(--muted-foreground)] text-sm">{t("customerDescription")}</span>
         </label>
         <label className={getRoleOptionClassName(error)}>
-          <span className="flex items-center gap-2 text-[#211f1a]">
+          <span className="flex items-center gap-2 text-[var(--foreground)]">
             <input
-              className="h-4 w-4 accent-[#211f1a]"
+              className="h-4 w-4 accent-[var(--foreground)]"
               name="role"
               type="radio"
               value="professional"
             />{" "}
             {t("professionalLabel")}
           </span>
-          <span className="text-[#5d574b] text-sm">{t("professionalDescription")}</span>
+          <span className="text-[var(--muted-foreground)] text-sm">
+            {t("professionalDescription")}
+          </span>
         </label>
       </div>
       {error ? <p className="text-red-600 text-xs">{error}</p> : null}
@@ -220,7 +224,7 @@ export function SignUpForm() {
 
       <button
         className={cn(
-          "w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:border-[#8B7355] hover:bg-[#2b2624]",
+          "w-full rounded-full border border-[var(--foreground)] bg-[var(--foreground)] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:border-[var(--red)] hover:bg-[#2b2624]",
           isPending && "cursor-not-allowed opacity-60"
         )}
         disabled={isPending}
@@ -244,10 +248,10 @@ function Field({ label, children, helper, error }: FieldProps) {
 
   return (
     <div className="space-y-3">
-      <label className="block font-semibold text-[#211f1a] text-sm" htmlFor={childId}>
+      <label className="block font-semibold text-[var(--foreground)] text-sm" htmlFor={childId}>
         {label}
       </label>
-      {helper ? <p className="text-[#5d574b] text-xs">{helper}</p> : null}
+      {helper ? <p className="text-[var(--muted-foreground)] text-xs">{helper}</p> : null}
       {children}
       {error ? <p className="text-red-600 text-xs">{error}</p> : null}
     </div>

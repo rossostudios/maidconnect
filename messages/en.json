@@ -36,7 +36,7 @@
     }
   },
   "features": {
-    "title": "Why choose Maidconnect",
+    "title": "Why choose Casaora",
     "verifiedProfessionals": {
       "title": "Verified professionals",
       "description": "Every professional undergoes background checks and identity verification"
@@ -747,7 +747,7 @@
             "liveChat": "Live chat:",
             "liveChatHours": "Weekdays 8:00–20:00 COT",
             "email": "Email:",
-            "emailAddress": "help@maidconnect.com",
+            "emailAddress": "help@casaora.co",
             "emergencyLine": "Emergency line:",
             "emergencyPhone": "+57 123 456 7890",
             "browseHelpCenter": "Browse help center →"
@@ -982,7 +982,7 @@
           "phone": "Phone",
           "city": "City",
           "note": "Note",
-          "noteDescription": "To update your profile information, please contact support at support@maidconnect.com"
+          "noteDescription": "To update your profile information, please contact support at support@casaora.co"
         },
         "preferences": {
           "title": "Property Preferences",
@@ -1166,7 +1166,7 @@
   "pages": {
     "bookingPlatform": {
       "meta": {
-        "title": "Booking Platform - Instant Service Scheduling | Maidconnect",
+        "title": "Booking Platform - Instant Service Scheduling | Casaora",
         "description": "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless. 500+ bookings monthly."
       },
       "hero": {
@@ -1240,7 +1240,7 @@
     },
     "professionalProfiles": {
       "meta": {
-        "title": "Verified Professional Profiles - Background Checked | Maidconnect",
+        "title": "Verified Professional Profiles - Background Checked | Casaora",
         "description": "Meet verified professionals with background checks, credentials, customer reviews, and portfolio galleries. 100% verified professionals you can trust in Colombia."
       },
       "hero": {
@@ -1334,7 +1334,7 @@
     },
     "paymentProcessing": {
       "meta": {
-        "title": "Secure Payment Processing - Stripe Powered | Maidconnect",
+        "title": "Secure Payment Processing - Stripe Powered | Casaora",
         "description": "Safe, transparent payments with Stripe. Track expenses, manage receipts, and handle tips all in one place. Secure escrow and automatic payouts."
       },
       "hero": {
@@ -1442,7 +1442,7 @@
     },
     "secureMessaging": {
       "meta": {
-        "title": "Secure Messaging Platform - Direct Communication | Maidconnect",
+        "title": "Secure Messaging Platform - Direct Communication | Casaora",
         "description": "Direct messaging unlocked after booking. Coordinate details, send photos, and stay connected throughout your service relationship. Booking-based security."
       },
       "hero": {
@@ -1537,7 +1537,7 @@
     },
     "reviewsRatings": {
       "meta": {
-        "title": "Reviews & Ratings System - Two-Way Accountability | Maidconnect",
+        "title": "Reviews & Ratings System - Two-Way Accountability | Casaora",
         "description": "Community-driven trust and quality. Two-way reviews ensure accountability. Verified reviews only from real bookings. Build your reputation."
       },
       "hero": {
@@ -1628,7 +1628,7 @@
     },
     "adminDashboard": {
       "meta": {
-        "title": "Admin Dashboard - Platform Management Tools | Maidconnect",
+        "title": "Admin Dashboard - Platform Management Tools | Casaora",
         "description": "Enterprise-grade admin tools for moderating professionals, reviewing bookings, processing payouts, and maintaining platform quality. Complete oversight."
       },
       "hero": {
@@ -1731,7 +1731,7 @@
       "cards": {
         "support": {
           "title": "Support",
-          "description": "Fill out our form or email us at support@maidconnect.co with your question.",
+          "description": "Fill out our form or email us at support@casaora.co with your question.",
           "buttonText": "Submit an inquiry"
         },
         "customers": {
@@ -2050,8 +2050,8 @@
   },
   "professionalsDirectory": {
     "header": {
-      "title": "Maidconnect professionals",
-      "subtitle": "Every specialist listed below has cleared Maidconnect's four-stage vetting process and is authorised to serve customers via our platform. These steps include submission and approval of their cédula (Colombian government ID), proof of work eligibility, references, and an in-person interview."
+      "title": "Casaora professionals",
+      "subtitle": "Every specialist listed below has cleared Casaora's four-stage vetting process and is authorised to serve customers via our platform. These steps include submission and approval of their cédula (Colombian government ID), proof of work eligibility, references, and an in-person interview."
     },
     "filters": {
       "search": "Search by name, service, or neighbourhood",

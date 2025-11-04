@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { ArrowDown01Icon } from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Container } from "@/components/ui/container";
@@ -16,11 +16,9 @@ export function ContactFAQ() {
   };
 
   return (
-    <section className="bg-[#fbfaf9] py-20 sm:py-24 lg:py-32">
+    <section className="bg-[var(--background)] py-20 sm:py-24 lg:py-32">
       <Container className="max-w-4xl">
-        <h2 className="mb-12 text-center font-semibold text-4xl text-[#211f1a] sm:text-5xl">
-          {t("title")}
-        </h2>
+        <h2 className="type-serif-lg mb-12 text-center text-[var(--foreground)]">{t("title")}</h2>
         <div className="space-y-4">
           {faqKeys.map((key, index) => (
             <div
@@ -32,10 +30,10 @@ export function ContactFAQ() {
                 onClick={() => toggleFAQ(index)}
                 type="button"
               >
-                <span className="pr-8 font-semibold text-[#211f1a] text-xl">
+                <span className="pr-8 font-semibold text-[var(--foreground)] text-xl">
                   {t(`questions.${key}.question`)}
                 </span>
-                <ChevronDown
+                <ArrowDown01Icon
                   className={`h-6 w-6 flex-shrink-0 text-[#7d7566] transition-transform duration-300 ${
                     openIndex === index ? "rotate-180" : ""
                   }`}
@@ -48,7 +46,7 @@ export function ContactFAQ() {
               >
                 <div className="overflow-hidden">
                   <div className="border-[#ebe5d8] border-t p-8 pt-6">
-                    <p className="text-[#5d574b] text-base leading-relaxed">
+                    <p className="text-[var(--muted-foreground)] text-base leading-relaxed">
                       {t(`questions.${key}.answer`)}
                     </p>
                   </div>

@@ -94,18 +94,18 @@ export function ProfessionalVettingDashboard() {
 
   if (loading) {
     return (
-      <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-8 text-center">
-        <p className="text-[#7a6d62] text-sm">Loading vetting queue...</p>
+      <div className="rounded-xl border border-[var(--border-lighter)] bg-white/90 p-8 text-center">
+        <p className="text-[var(--label-muted)] text-sm">Loading vetting queue...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="rounded-xl border border-red-200 bg-red-50 p-8 text-center">
-        <p className="text-red-800 text-sm">{error}</p>
+      <div className="rounded-xl border border-[var(--status-error-bg)] bg-[var(--status-error-bg)] p-8 text-center">
+        <p className="text-[var(--status-error-text)] text-sm">{error}</p>
         <button
-          className="mt-4 rounded-lg bg-red-600 px-4 py-2 font-semibold text-sm text-white hover:bg-red-700"
+          className="mt-4 rounded-lg bg-[var(--red)] px-4 py-2 font-semibold text-sm text-white hover:bg-[var(--red-hover)]"
           onClick={fetchQueue}
           type="button"
         >
@@ -124,13 +124,13 @@ export function ProfessionalVettingDashboard() {
       key: "application_in_review" as const,
       label: "Needs Review",
       count: data.counts.application_in_review,
-      color: "text-orange-600",
+      color: "text-[var(--status-warning-text)]",
     },
     {
       key: "approved" as const,
       label: "Approved",
       count: data.counts.approved,
-      color: "text-green-600",
+      color: "text-[var(--status-success-text)]",
     },
     {
       key: "application_pending" as const,
@@ -145,13 +145,13 @@ export function ProfessionalVettingDashboard() {
   return (
     <div className="space-y-4">
       {/* Tabs */}
-      <div className="flex gap-2 border-[#f0ece5] border-b">
+      <div className="flex gap-2 border-[var(--border-lighter)] border-b">
         {tabs.map((tab) => (
           <button
             className={`relative px-4 py-2 font-semibold text-sm transition ${
               activeTab === tab.key
-                ? "border-[#8B7355] border-b-2 text-[#8B7355]"
-                : "text-[#7a6d62] hover:text-[#211f1a]"
+                ? "border-[var(--red)] border-b-2 text-[var(--red)]"
+                : "text-[var(--label-muted)] hover:text-[var(--foreground)]"
             }`}
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
@@ -171,28 +171,28 @@ export function ProfessionalVettingDashboard() {
 
       {/* Professional List */}
       {activeProfessionals.length === 0 ? (
-        <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-8 text-center">
-          <p className="text-[#7a6d62] text-sm">No professionals in this status.</p>
+        <div className="rounded-xl border border-[var(--border-lighter)] bg-white/90 p-8 text-center">
+          <p className="text-[var(--label-muted)] text-sm">No professionals in this status.</p>
         </div>
       ) : (
         <div className="space-y-3">
           {activeProfessionals.map((professional) => (
             <div
-              className="rounded-xl border border-[#f0ece5] bg-white/90 p-4 shadow-sm transition hover:shadow-md"
+              className="rounded-xl border border-[var(--border-lighter)] bg-white/90 p-4 shadow-sm transition hover:shadow-md"
               key={professional.profile_id}
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3">
-                    <h4 className="font-semibold text-[#211f1a]">
+                    <h4 className="font-semibold text-[var(--foreground)]">
                       {professional.full_name || "Unnamed Professional"}
                     </h4>
-                    <span className="rounded-full bg-blue-100 px-2 py-0.5 font-semibold text-blue-800 text-xs">
+                    <span className="rounded-full bg-[var(--status-info-bg)] px-2 py-0.5 font-semibold text-[var(--status-info-text)] text-xs">
                       Waiting {professional.waitingDays}d
                     </span>
                   </div>
 
-                  <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-[#7a6d62] text-sm md:grid-cols-4">
+                  <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-[var(--label-muted)] text-sm md:grid-cols-4">
                     <div>
                       <span className="font-medium">Services:</span>{" "}
                       {professional.primary_services?.length || 0}
@@ -212,7 +212,7 @@ export function ProfessionalVettingDashboard() {
 
                   <div className="mt-2 flex flex-wrap gap-2">
                     {professional.consent_background_check && (
-                      <span className="rounded-md bg-green-50 px-2 py-0.5 text-green-700 text-xs">
+                      <span className="rounded-md bg-[var(--status-success-bg)] px-2 py-0.5 text-[var(--status-success-text)] text-xs">
                         ✓ Consent to background check
                       </span>
                     )}
@@ -230,14 +230,14 @@ export function ProfessionalVettingDashboard() {
                   </div>
 
                   {professional.latestReview && (
-                    <div className="mt-2 rounded-md border border-[#ebe5d8] bg-[#fbfafa] p-2">
-                      <p className="text-[#7a6d62] text-xs">
+                    <div className="mt-2 rounded-md border border-[var(--border-light)] bg-[var(--border-lighter)] p-2">
+                      <p className="text-[var(--label-muted)] text-xs">
                         <span className="font-medium">Latest Review:</span>{" "}
                         {professional.latestReview.status} •{" "}
                         {new Date(professional.latestReview.created_at).toLocaleDateString()}
                       </p>
                       {professional.latestReview.notes && (
-                        <p className="mt-1 text-[#211f1a] text-xs">
+                        <p className="mt-1 text-[var(--foreground)] text-xs">
                           {professional.latestReview.notes}
                         </p>
                       )}
@@ -246,7 +246,7 @@ export function ProfessionalVettingDashboard() {
                 </div>
 
                 <button
-                  className="ml-4 rounded-lg bg-[#8B7355] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#9B8B7E]"
+                  className="ml-4 rounded-lg bg-[var(--red)] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[var(--red-hover)]"
                   onClick={() => setSelectedProfessional(professional)}
                   type="button"
                 >

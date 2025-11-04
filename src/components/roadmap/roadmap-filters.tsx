@@ -6,7 +6,7 @@
 
 "use client";
 
-import { Search, X } from "lucide-react";
+import { Cancel01Icon, Search01Icon } from "hugeicons-react";
 import { useState } from "react";
 import type { RoadmapCategory, RoadmapStatus } from "@/types/roadmap";
 import { ROADMAP_CATEGORY_CONFIG, ROADMAP_STATUS_CONFIG } from "@/types/roadmap";
@@ -60,12 +60,12 @@ export function RoadmapFilters({
       {/* Search bar */}
       <div className="relative">
         <div
-          className={`relative flex items-center gap-2 rounded-[16px] border-2 bg-white px-4 py-3 transition-all ${isSearchFocused ? "border-[#8B7355]" : "border-[#ebe5d8]"}
+          className={`relative flex items-center gap-2 rounded-[16px] border-2 bg-white px-4 py-3 transition-all ${isSearchFocused ? "border-[var(--red)]" : "border-[#ebe5d8]"}
         `}
         >
-          <Search className="flex-shrink-0 text-[#6B7280]" size={20} />
+          <Search01Icon className="flex-shrink-0 text-[#6B7280]" size={20} />
           <input
-            className="flex-1 bg-transparent text-[#211f1a] outline-none placeholder:text-[#9CA3AF]"
+            className="flex-1 bg-transparent text-[var(--foreground)] outline-none placeholder:text-[#9CA3AF]"
             onBlur={() => setIsSearchFocused(false)}
             onChange={(e) => onSearchChange(e.target.value)}
             onFocus={() => setIsSearchFocused(true)}
@@ -80,7 +80,7 @@ export function RoadmapFilters({
               onClick={() => onSearchChange("")}
               type="button"
             >
-              <X className="text-[#6B7280]" size={16} />
+              <Cancel01Icon className="text-[#6B7280]" size={16} />
             </button>
           )}
         </div>
@@ -88,7 +88,7 @@ export function RoadmapFilters({
 
       {/* Status filters */}
       <div>
-        <h3 className="mb-3 font-semibold text-[#211f1a] text-sm">Filter by Status</h3>
+        <h3 className="mb-3 font-semibold text-[var(--foreground)] text-sm">Filter by Status</h3>
         <div className="flex flex-wrap gap-2">
           {(Object.keys(ROADMAP_STATUS_CONFIG) as RoadmapStatus[]).map((status) => {
             const config = ROADMAP_STATUS_CONFIG[status];
@@ -98,8 +98,8 @@ export function RoadmapFilters({
               <button
                 className={`inline-flex items-center gap-1.5 rounded-[12px] border-2 px-3 py-2 font-medium text-sm transition-all duration-200 ${
                   isSelected
-                    ? "border-[#8B7355] bg-[#fff5f3] text-[#8B7355]"
-                    : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#8B7355]"
+                    ? "border-[var(--red)] bg-[#fff5f3] text-[var(--red)]"
+                    : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[var(--red)]"
                 }
                 `}
                 key={status}
@@ -116,7 +116,7 @@ export function RoadmapFilters({
 
       {/* Category filters */}
       <div>
-        <h3 className="mb-3 font-semibold text-[#211f1a] text-sm">Filter by Category</h3>
+        <h3 className="mb-3 font-semibold text-[var(--foreground)] text-sm">Filter by Category</h3>
         <div className="flex flex-wrap gap-2">
           {(Object.keys(ROADMAP_CATEGORY_CONFIG) as RoadmapCategory[]).map((category) => {
             const config = ROADMAP_CATEGORY_CONFIG[category];
@@ -126,8 +126,8 @@ export function RoadmapFilters({
               <button
                 className={`inline-flex items-center gap-1.5 rounded-[12px] border-2 px-3 py-2 font-medium text-sm transition-all duration-200 ${
                   isSelected
-                    ? "border-[#8B7355] bg-[#fff5f3] text-[#8B7355]"
-                    : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#8B7355]"
+                    ? "border-[var(--red)] bg-[#fff5f3] text-[var(--red)]"
+                    : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[var(--red)]"
                 }
                 `}
                 key={category}
@@ -145,7 +145,7 @@ export function RoadmapFilters({
       {/* Clear filters */}
       {hasActiveFilters && (
         <button
-          className="font-medium text-[#8B7355] text-sm transition-colors hover:text-[#8B7355]"
+          className="font-medium text-[var(--red)] text-sm transition-colors hover:text-[var(--red)]"
           onClick={clearAllFilters}
           type="button"
         >

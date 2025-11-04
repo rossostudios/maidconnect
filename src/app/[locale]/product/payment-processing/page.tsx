@@ -1,4 +1,9 @@
-import { CheckCircle2, CreditCard, Receipt, Shield } from "lucide-react";
+import {
+  CheckmarkCircle02Icon,
+  CreditCardIcon,
+  Invoice01Icon,
+  Shield01Icon,
+} from "hugeicons-react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
@@ -98,30 +103,30 @@ export default async function PaymentProcessingPage({ params }: Props) {
           id="features"
         >
           <div className="mx-auto max-w-6xl">
-            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl lg:text-6xl">
+            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
               {t("features.title")}
             </h2>
 
-            <p className="mx-auto mt-6 max-w-3xl text-center text-[#5d574b] text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-3xl text-center text-[var(--muted-foreground)] text-lg leading-relaxed">
               {t("features.subtitle")}
             </p>
 
             <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <ProductFeatureCard
                 description={t("features.stripeIntegration.description")}
-                icon={Shield}
+                icon={Shield01Icon}
                 title={t("features.stripeIntegration.title")}
               />
 
               <ProductFeatureCard
                 description={t("features.transparentPricing.description")}
-                icon={CreditCard}
+                icon={CreditCardIcon}
                 title={t("features.transparentPricing.title")}
               />
 
               <ProductFeatureCard
                 description={t("features.automaticReceipts.description")}
-                icon={Receipt}
+                icon={Invoice01Icon}
                 title={t("features.automaticReceipts.title")}
               />
             </div>
@@ -159,62 +164,62 @@ export default async function PaymentProcessingPage({ params }: Props) {
         {/* Payment Timeline Section */}
         <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
+            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
               {t("paymentTimeline.title")}
             </h2>
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
                   <span className="font-semibold text-sm text-white">1</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("paymentTimeline.booking.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("paymentTimeline.booking.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
                   <span className="font-semibold text-sm text-white">2</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("paymentTimeline.serviceDay.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("paymentTimeline.serviceDay.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
                   <span className="font-semibold text-sm text-white">3</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("paymentTimeline.serviceComplete.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("paymentTimeline.serviceComplete.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
                   <span className="font-semibold text-sm text-white">4</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("paymentTimeline.postService.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("paymentTimeline.postService.description")}
                   </p>
                 </div>
@@ -226,62 +231,62 @@ export default async function PaymentProcessingPage({ params }: Props) {
         {/* Protection Features Section */}
         <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
+            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
               {t("protection.title")}
             </h2>
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
-                  <CheckCircle2 className="h-5 w-5 text-white" />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("protection.chargedAfter.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("protection.chargedAfter.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
-                  <CheckCircle2 className="h-5 w-5 text-white" />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("protection.cancellation.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("protection.cancellation.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
-                  <CheckCircle2 className="h-5 w-5 text-white" />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("protection.dispute.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("protection.dispute.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
-                  <CheckCircle2 className="h-5 w-5 text-white" />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("protection.encrypted.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("protection.encrypted.description")}
                   </p>
                 </div>
@@ -293,43 +298,43 @@ export default async function PaymentProcessingPage({ params }: Props) {
         {/* Accepted Payments Section */}
         <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
+            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
               {t("acceptedMethods.title")}
             </h2>
 
             <div className="mt-16 grid gap-8 md:grid-cols-3">
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#8B7355]/10">
-                  <CreditCard className="h-8 w-8 text-[#8B7355]" />
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)]/10">
+                  <CreditCardIcon className="h-8 w-8 text-[var(--red)]" />
                 </div>
-                <h3 className="mt-6 font-semibold text-[#211f1a] text-xl">
+                <h3 className="mt-6 font-semibold text-[var(--foreground)] text-xl">
                   {t("acceptedMethods.creditCards.title")}
                 </h3>
-                <p className="mt-3 text-[#5d574b] text-base">
+                <p className="mt-3 text-[var(--muted-foreground)] text-base">
                   {t("acceptedMethods.creditCards.description")}
                 </p>
               </div>
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#8B7355]/10">
-                  <CreditCard className="h-8 w-8 text-[#8B7355]" />
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)]/10">
+                  <CreditCardIcon className="h-8 w-8 text-[var(--red)]" />
                 </div>
-                <h3 className="mt-6 font-semibold text-[#211f1a] text-xl">
+                <h3 className="mt-6 font-semibold text-[var(--foreground)] text-xl">
                   {t("acceptedMethods.debitCards.title")}
                 </h3>
-                <p className="mt-3 text-[#5d574b] text-base">
+                <p className="mt-3 text-[var(--muted-foreground)] text-base">
                   {t("acceptedMethods.debitCards.description")}
                 </p>
               </div>
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#8B7355]/10">
-                  <Receipt className="h-8 w-8 text-[#8B7355]" />
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)]/10">
+                  <Invoice01Icon className="h-8 w-8 text-[var(--red)]" />
                 </div>
-                <h3 className="mt-6 font-semibold text-[#211f1a] text-xl">
+                <h3 className="mt-6 font-semibold text-[var(--foreground)] text-xl">
                   {t("acceptedMethods.digitalReceipts.title")}
                 </h3>
-                <p className="mt-3 text-[#5d574b] text-base">
+                <p className="mt-3 text-[var(--muted-foreground)] text-base">
                   {t("acceptedMethods.digitalReceipts.description")}
                 </p>
               </div>
@@ -340,24 +345,22 @@ export default async function PaymentProcessingPage({ params }: Props) {
         {/* CTA Section */}
         <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
-              {t("cta.title")}
-            </h2>
+            <h2 className="type-serif-lg text-[var(--foreground)]">{t("cta.title")}</h2>
 
-            <p className="mx-auto mt-6 max-w-2xl text-[#5d574b] text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-2xl text-[var(--muted-foreground)] text-lg leading-relaxed">
               {t("cta.description")}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                className="inline-flex items-center justify-center rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]"
+                className="inline-flex items-center justify-center rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
                 href="/professionals"
               >
                 {t("cta.bookService")}
               </Link>
 
               <Link
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] hover:text-[#8B7355]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)]"
                 href="/auth/sign-up"
               >
                 {t("cta.signUpFree")}

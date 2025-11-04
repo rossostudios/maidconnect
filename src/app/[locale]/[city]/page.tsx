@@ -230,17 +230,17 @@ export default async function CityLandingPage({ params }: { params: Params }) {
       <section className="bg-white py-16">
         <div className="mx-auto max-w-4xl px-6 lg:px-8">
           <div className="prose prose-lg mx-auto">
-            <h2 className="font-bold text-[#211f1a]">
+            <h2 className="font-bold text-[var(--foreground)]">
               {locale === "es"
                 ? `Por qué elegir Casaora en ${cityName}`
                 : `Why Choose Casaora in ${cityName}`}
             </h2>
-            <p className="text-[#5d574b]">
+            <p className="text-[var(--muted-foreground)]">
               {locale === "es"
                 ? `Casaora conecta a los residentes de ${cityName} con profesionales de limpieza verificados y confiables. Todos nuestros profesionales pasan por verificación de antecedentes y están calificados por clientes reales.`
                 : `Casaora connects ${cityName} residents with verified, trusted cleaning professionals. All our professionals undergo background checks and are rated by real customers.`}
             </p>
-            <h3 className="font-semibold text-[#211f1a]">
+            <h3 className="font-semibold text-[var(--foreground)]">
               {locale === "es" ? "Servicios Disponibles" : "Available Services"}
             </h3>
             <ul>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock } from "lucide-react";
+import { Clock01Icon } from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
@@ -157,7 +157,7 @@ export function ProBookingCalendar({ bookings }: Props) {
 
         {/* Booking Details Sidebar */}
         <div className="rounded-lg border border-[#efe7dc] bg-[#fbfafa] p-4">
-          <h4 className="font-semibold text-[#211f1a] text-sm">{t("details")}</h4>
+          <h4 className="font-semibold text-[var(--foreground)] text-sm">{t("details")}</h4>
           {selectedDate && (
             <p className="mt-1 text-[#7a6d62] text-xs">
               {selectedDate.toLocaleDateString("en-US", {
@@ -189,16 +189,16 @@ export function ProBookingCalendar({ bookings }: Props) {
                       className="rounded-md border border-[#efe7dc] bg-white p-3"
                       key={booking.id}
                     >
-                      <div className="flex items-center justify-between text-[#211f1a] text-sm">
+                      <div className="flex items-center justify-between text-[var(--foreground)] text-sm">
                         <span className="font-semibold">{timeLabel}</span>
                         {amount ? (
-                          <span className="font-semibold text-[#5d574b] text-xs">
+                          <span className="font-semibold text-[var(--muted-foreground)] text-xs">
                             {formatCOP(amount)}
                           </span>
                         ) : null}
                       </div>
                       <div className="mt-1 flex items-center gap-2 text-[#7a6d62] text-xs">
-                        <Clock className="h-3.5 w-3.5 text-[#8B7355]" />
+                        <Clock01Icon className="h-3.5 w-3.5 text-[var(--red)]" />
                         <span>{statusLabel}</span>
                       </div>
                     </li>
@@ -230,7 +230,7 @@ function CustomDayContent({
     <div className="flex h-full min-h-[50px] flex-col items-center justify-center">
       <span className="font-semibold text-sm">{date.getDate()}</span>
       {bookingsCount > 0 && (
-        <span className="mt-1 rounded-full bg-[#8B7355]/15 px-2 py-0.5 font-semibold text-[#8a3934] text-xs">
+        <span className="mt-1 rounded-full bg-[var(--red)]/15 px-2 py-0.5 font-semibold text-[#8a3934] text-xs">
           {bookingsCount} {bookingsCount === 1 ? t("booking") : t("bookings")}
         </span>
       )}

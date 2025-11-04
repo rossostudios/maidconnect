@@ -85,7 +85,7 @@ function ErrorDisplay({ error }: { error: Error }) {
   }, [error, logger]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[#fbfaf9] px-4">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-[var(--background)] px-4">
       <div className="w-full max-w-md rounded-lg border border-[#dcd6c7] bg-white p-8 shadow-lg">
         {/* Error Icon */}
         <div className="mb-6 flex justify-center">
@@ -133,7 +133,7 @@ function ErrorDisplay({ error }: { error: Error }) {
         {/* Actions */}
         <div className="flex flex-col gap-3">
           <button
-            className="w-full rounded-lg bg-[#8B7355] px-4 py-3 font-medium text-sm text-white transition hover:bg-[#ff4d36]"
+            className="w-full rounded-lg bg-[var(--red)] px-4 py-3 font-medium text-sm text-white transition hover:bg-[#ff4d36]"
             onClick={() => window.location.reload()}
             type="button"
           >
@@ -151,7 +151,7 @@ function ErrorDisplay({ error }: { error: Error }) {
         {/* Support Link */}
         <p className="mt-6 text-center text-[#7a6d62] text-xs">
           Need help?{" "}
-          <a className="text-[#8B7355] underline hover:text-[#ff4d36]" href="/contact">
+          <a className="text-[var(--red)] underline hover:text-[#ff4d36]" href="/contact">
             Contact Support
           </a>
         </p>

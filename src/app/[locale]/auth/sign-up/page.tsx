@@ -23,9 +23,9 @@ export default async function SignUpPage({ params }: Props) {
   const t = await getTranslations({ locale, namespace: "pages.signUp" });
 
   return (
-    <div className="grid min-h-screen grid-cols-1 bg-[#fbfaf9] md:h-screen md:grid-cols-[45%_55%] md:overflow-hidden">
-      <div className="flex h-full flex-col border-[#e5dfd4] border-r bg-[#fbfaf9] px-8 py-10 md:h-screen md:overflow-y-auto md:px-16 md:py-16">
-        <header className="flex items-center justify-between border-[#ece6da] border-b pb-6 text-[#211f1a] text-sm md:pb-10">
+    <div className="grid min-h-screen grid-cols-1 bg-[var(--background)] md:h-screen md:grid-cols-[45%_55%] md:overflow-hidden">
+      <div className="flex h-full flex-col border-[#e5dfd4] border-r bg-[var(--background)] px-8 py-10 md:h-screen md:overflow-y-auto md:px-16 md:py-16">
+        <header className="flex items-center justify-between border-[#ece6da] border-b pb-6 text-[var(--foreground)] text-sm md:pb-10">
           <Link className="font-semibold" href="/">
             Casaora
           </Link>
@@ -36,17 +36,19 @@ export default async function SignUpPage({ params }: Props) {
         <main className="flex flex-1 justify-center pt-12 pb-16 md:pt-14">
           <div className="w-full max-w-3xl space-y-14">
             <div className="space-y-6">
-              <h1 className="font-semibold text-[#211f1a] text-[2.35rem] leading-tight">
+              <h1 className="font-semibold text-[2.35rem] text-[var(--foreground)] leading-tight">
                 {t("hero.title")}
               </h1>
-              <p className="text-[#5d574b] text-lg leading-relaxed">{t("hero.description")}</p>
+              <p className="text-[var(--muted-foreground)] text-lg leading-relaxed">
+                {t("hero.description")}
+              </p>
             </div>
             <div className="rounded-[40px] border border-[#e5dfd4] bg-white p-12 shadow-[0_28px_70px_rgba(18,17,15,0.08)]">
               <SignUpForm />
-              <p className="mt-8 text-[#5d574b] text-sm">
+              <p className="mt-8 text-[var(--muted-foreground)] text-sm">
                 {t("form.haveAccount")}{" "}
                 <Link
-                  className="font-semibold text-[#211f1a] underline-offset-4 hover:underline"
+                  className="font-semibold text-[var(--foreground)] underline-offset-4 hover:underline"
                   href={AUTH_ROUTES.signIn}
                 >
                   {t("form.signInInstead")}

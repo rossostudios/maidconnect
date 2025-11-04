@@ -79,34 +79,34 @@ function OnboardingTaskItem({
   t: (key: string, values?: any) => string;
 }) {
   return (
-    <li className="hover:-translate-y-1 rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)]">
+    <li className="hover:-translate-y-1 rounded-[28px] border border-[var(--border-light)] bg-white p-6 shadow-sm transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)]">
       <div className="flex items-center justify-between">
-        <span className="font-semibold text-[#8B7355] text-xs uppercase tracking-[0.2em]">
+        <span className="font-semibold text-[var(--red)] text-xs uppercase tracking-[0.2em]">
           {t(`onboarding.tasks.${task.id}.title`)}
         </span>
         {isComplete ? (
-          <span className="rounded-full bg-green-50 px-3 py-1 font-semibold text-green-700 text-xs">
+          <span className="rounded-full bg-[var(--status-success-bg)] px-3 py-1 font-semibold text-[var(--status-success-text)] text-xs">
             {t("onboarding.status.completed")}
           </span>
         ) : (
-          <span className="rounded-full bg-orange-50 px-3 py-1 font-semibold text-orange-700 text-xs">
+          <span className="rounded-full bg-[var(--status-warning-bg)] px-3 py-1 font-semibold text-[var(--status-warning-text)] text-xs">
             {t("onboarding.status.actionNeeded")}
           </span>
         )}
       </div>
-      <p className="mt-4 text-[#211f1a] text-base leading-relaxed">
+      <p className="mt-4 text-[var(--foreground)] text-base leading-relaxed">
         {t(`onboarding.tasks.${task.id}.description`)}
       </p>
       {isComplete ? null : (
         <Link
-          className="mt-3 inline-flex items-center font-semibold text-[#8B7355] text-sm hover:text-[#9B8B7E]"
+          className="mt-3 inline-flex items-center font-semibold text-[var(--red)] text-sm hover:text-[var(--red-hover)]"
           href={task.cta.href}
         >
           {t(`onboarding.tasks.${task.id}.cta`)} →
         </Link>
       )}
       {task.id === "documents" && missingDocuments.length > 0 ? (
-        <p className="mt-3 text-[#c4534d] text-xs">
+        <p className="mt-3 text-[var(--status-error-text)] text-xs">
           {t("onboarding.warnings.missing")}{" "}
           {missingDocuments.map((doc) => DOCUMENT_LABELS[doc] ?? doc).join(", ")}
         </p>
@@ -114,10 +114,12 @@ function OnboardingTaskItem({
       {task.id === "profile" &&
       professionalProfile?.primary_services &&
       professionalProfile.primary_services.length === 0 ? (
-        <p className="mt-3 text-[#c4534d] text-xs">{t("onboarding.warnings.addService")}</p>
+        <p className="mt-3 text-[var(--status-error-text)] text-xs">
+          {t("onboarding.warnings.addService")}
+        </p>
       ) : null}
       {task.id === "profile" && professionalProfile?.onboarding_completed_at ? (
-        <p className="mt-3 text-[#2f7a47] text-xs">
+        <p className="mt-3 text-[var(--status-success-text)] text-xs">
           {t("onboarding.warnings.profileActivated")}{" "}
           {formatDate(professionalProfile.onboarding_completed_at)}.
         </p>
@@ -125,7 +127,9 @@ function OnboardingTaskItem({
       {task.id === "application" &&
       professionalProfile?.references_data &&
       professionalProfile.references_data.length < 2 ? (
-        <p className="mt-3 text-[#c4534d] text-xs">{t("onboarding.warnings.addReferences")}</p>
+        <p className="mt-3 text-[var(--status-error-text)] text-xs">
+          {t("onboarding.warnings.addReferences")}
+        </p>
       ) : null}
     </li>
   );
@@ -465,11 +469,11 @@ export default async function ProfessionalDashboardPage({
 
       <header className="rounded-[32px] bg-white p-10 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
         <div>
-          <h1 className="font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
+          <h1 className="type-serif-lg text-[var(--foreground)]">
             {t("welcomeBack")}
             {professionalProfile?.full_name ? `, ${professionalProfile.full_name}` : ""}
           </h1>
-          <p className="mt-4 max-w-2xl text-[#5d574b] text-lg leading-relaxed">
+          <p className="mt-4 max-w-2xl text-[var(--muted-foreground)] text-lg leading-relaxed">
             {onboardingStatus === "active" ? t("dashboardDescription") : t("onboardingDescription")}
           </p>
         </div>
@@ -492,16 +496,18 @@ export default async function ProfessionalDashboardPage({
       </header>
 
       {onboardingStatus === "active" ? null : (
-        <section className="rounded-[32px] border border-[#ebe5d8] bg-gradient-to-br from-[#fff5f2] to-white p-10 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+        <section className="rounded-[32px] border border-[var(--border-light)] bg-gradient-to-br from-[var(--red-light)] to-white p-10 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="font-semibold text-3xl text-[#211f1a]">{t("onboarding.title")}</h2>
-              <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+              <h2 className="font-semibold text-3xl text-[var(--foreground)]">
+                {t("onboarding.title")}
+              </h2>
+              <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                 {t("onboarding.description")}
               </p>
             </div>
             <Link
-              className="inline-flex items-center justify-center rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]"
+              className="inline-flex items-center justify-center rounded-full bg-[var(--red)] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
               href="/dashboard/pro/onboarding"
             >
               {t("onboarding.manageButton")}
@@ -535,15 +541,15 @@ export default async function ProfessionalDashboardPage({
         <section className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 className="font-semibold text-3xl text-[#211f1a]">
+              <h2 className="font-semibold text-3xl text-[var(--foreground)]">
                 {t("sections.bookingCalendar.title")}
               </h2>
-              <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+              <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                 {t("sections.bookingCalendar.description")}
               </p>
             </div>
             <Link
-              className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
+              className="inline-flex items-center justify-center rounded-full border-2 border-[var(--border-light)] px-5 py-2.5 font-semibold text-[var(--foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)]"
               href="/dashboard/pro/onboarding"
             >
               {t("sections.bookingCalendar.updateAvailability")}
@@ -565,7 +571,7 @@ export default async function ProfessionalDashboardPage({
             </Suspense>
           </div>
           <div className="mt-8">
-            <h3 className="mb-4 font-semibold text-[#211f1a] text-xl">
+            <h3 className="mb-4 font-semibold text-[var(--foreground)] text-xl">
               {t("sections.recentBookings")}
             </h3>
             <Suspense fallback={<BookingsListSkeleton />}>
@@ -580,15 +586,15 @@ export default async function ProfessionalDashboardPage({
         <section className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="font-semibold text-3xl text-[#211f1a]">
+              <h2 className="font-semibold text-3xl text-[var(--foreground)]">
                 {t("sections.services.title")}
               </h2>
-              <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+              <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                 {t("sections.services.description")}
               </p>
             </div>
             <Link
-              className="inline-flex items-center justify-center rounded-full bg-[#8B7355] px-5 py-2.5 font-semibold text-sm text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]"
+              className="inline-flex items-center justify-center rounded-full bg-[var(--red)] px-5 py-2.5 font-semibold text-sm text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
               href="/dashboard/pro/onboarding"
             >
               {t("sections.services.editButton")}
@@ -597,31 +603,33 @@ export default async function ProfessionalDashboardPage({
 
           {/* Current Services */}
           <div className="mt-8">
-            <h3 className="font-semibold text-[#211f1a] text-xl">
+            <h3 className="font-semibold text-[var(--foreground)] text-xl">
               {t("sections.services.yourServices")}
             </h3>
             <div className="mt-4 flex flex-wrap gap-3">
               {professionalProfile?.primary_services?.length ? (
                 professionalProfile.primary_services.map((service) => (
                   <span
-                    className="rounded-full border-2 border-[#ebe5d8] bg-white px-5 py-2.5 font-semibold text-[#211f1a] text-sm"
+                    className="rounded-full border-2 border-[var(--border-light)] bg-white px-5 py-2.5 font-semibold text-[var(--foreground)] text-sm"
                     key={service}
                   >
                     {service}
                   </span>
                 ))
               ) : (
-                <p className="text-[#5d574b] text-base">{t("sections.services.noServices")}</p>
+                <p className="text-[var(--muted-foreground)] text-base">
+                  {t("sections.services.noServices")}
+                </p>
               )}
             </div>
           </div>
 
           {/* Service Add-ons */}
           <div className="mt-8">
-            <h3 className="font-semibold text-[#211f1a] text-xl">
+            <h3 className="font-semibold text-[var(--foreground)] text-xl">
               {t("sections.services.customAddons")}
             </h3>
-            <p className="mt-2 text-[#5d574b] text-base">
+            <p className="mt-2 text-[var(--muted-foreground)] text-base">
               {t("sections.services.addonsDescription")}
             </p>
             <div className="mt-4">
@@ -635,15 +643,19 @@ export default async function ProfessionalDashboardPage({
 
       {/* Document center */}
       <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h3 className="font-semibold text-2xl text-[#211f1a]">{t("sections.documents.title")}</h3>
-        <p className="mt-3 text-[#5d574b] text-base leading-relaxed">
+        <h3 className="font-semibold text-2xl text-[var(--foreground)]">
+          {t("sections.documents.title")}
+        </h3>
+        <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
           {t("sections.documents.description")}
         </p>
         {documents.length === 0 ? (
-          <p className="mt-4 text-[#c4534d] text-base">{t("sections.documents.noDocuments")}</p>
+          <p className="mt-4 text-[var(--status-error-text)] text-base">
+            {t("sections.documents.noDocuments")}
+          </p>
         ) : (
           <Suspense fallback={<DocumentsSkeleton />}>
-            <ul className="mt-6 divide-y divide-[#efe7dc] text-[#211f1a] text-sm">
+            <ul className="mt-6 divide-y divide-[var(--border-lighter)] text-[var(--foreground)] text-sm">
               {documents.map((doc) => (
                 <li className="flex flex-col gap-2 py-4" key={doc.id}>
                   <div className="flex items-center justify-between gap-3">
@@ -651,7 +663,7 @@ export default async function ProfessionalDashboardPage({
                       <span className="font-medium">
                         {DOCUMENT_LABELS[doc.document_type] ?? doc.document_type}
                       </span>
-                      <div className="mt-1 flex flex-wrap items-center gap-3 text-[#7a6d62] text-xs">
+                      <div className="mt-1 flex flex-wrap items-center gap-3 text-[var(--label-muted)] text-xs">
                         <span>
                           {doc.metadata?.originalName ?? t("sections.documents.unnamedFile")}
                         </span>
@@ -665,13 +677,13 @@ export default async function ProfessionalDashboardPage({
                         ) : null}
                       </div>
                     </div>
-                    <span className="text-[#7a6d62] text-xs uppercase tracking-wide">
+                    <span className="text-[var(--label-muted)] text-xs uppercase tracking-wide">
                       {t("sections.documents.uploaded")} {formatDate(doc.uploaded_at)}
                     </span>
                   </div>
                   {doc.signedUrl ? (
                     <Link
-                      className="inline-flex w-fit items-center gap-1 rounded-md border border-[#efe7dc] px-3 py-1 font-semibold text-[#8B7355] text-xs transition hover:border-[#8B7355] hover:text-[#9B8B7E]"
+                      className="inline-flex w-fit items-center gap-1 rounded-md border border-[var(--border-lighter)] px-3 py-1 font-semibold text-[var(--red)] text-xs transition hover:border-[var(--red)] hover:text-[var(--red-hover)]"
                       href={doc.signedUrl}
                       rel="noopener noreferrer"
                       target="_blank"
@@ -679,7 +691,7 @@ export default async function ProfessionalDashboardPage({
                       {t("sections.documents.download")}
                     </Link>
                   ) : (
-                    <p className="text-[#c4534d] text-xs">
+                    <p className="text-[var(--status-error-text)] text-xs">
                       {t("sections.documents.downloadError")}
                     </p>
                   )}
@@ -689,7 +701,7 @@ export default async function ProfessionalDashboardPage({
           </Suspense>
         )}
         <Link
-          className="mt-4 inline-flex items-center font-semibold text-[#8B7355] text-sm hover:text-[#9B8B7E]"
+          className="mt-4 inline-flex items-center font-semibold text-[var(--red)] text-sm hover:text-[var(--red-hover)]"
           href="/dashboard/pro/onboarding"
         >
           {t("sections.documents.manageLink")} →
@@ -701,9 +713,11 @@ export default async function ProfessionalDashboardPage({
 
 function MetricCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-md">
-      <dt className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">{label}</dt>
-      <dd className="mt-3 font-semibold text-3xl text-[#211f1a]">{value}</dd>
+    <div className="rounded-2xl border border-[var(--border-light)] bg-white p-6 shadow-sm transition hover:shadow-md">
+      <dt className="font-semibold text-[var(--label-muted)] text-xs uppercase tracking-[0.2em]">
+        {label}
+      </dt>
+      <dd className="mt-3 font-semibold text-3xl text-[var(--foreground)]">{value}</dd>
     </div>
   );
 }

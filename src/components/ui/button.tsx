@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight01Icon } from "hugeicons-react";
 import { Kbd } from "@/components/ui/kbd";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
@@ -17,24 +17,24 @@ type ButtonProps = {
 };
 
 const baseClasses =
-  "group inline-flex items-center justify-center rounded-full border font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]";
+  "group inline-flex items-center justify-center rounded-full border font-medium transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]";
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: "px-5 py-[0.7rem] text-sm",
-  md: "px-6 py-[0.85rem] text-sm",
-  lg: "px-8 py-[1.1rem] text-base",
+  sm: "px-6 py-[0.75rem] text-sm",
+  md: "px-8 py-[0.9rem] text-sm",
+  lg: "px-10 py-[1.15rem] text-base",
 };
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "border-transparent bg-[var(--surface-contrast)] text-[var(--background)] shadow-[var(--shadow-card)] hover:bg-[color-mix(in_srgb,var(--surface-contrast)_88%,var(--accent)_12%)] hover:shadow-[var(--shadow-elevated)] active:translate-y-px",
+    "border-transparent bg-[var(--red)] text-white shadow-[var(--shadow-card)] hover:bg-[var(--red-hover)] hover:shadow-[var(--shadow-elevated)] active:scale-[0.98]",
   secondary:
-    "border-[color:var(--accent)] bg-transparent text-[var(--accent)] hover:bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] hover:text-[var(--surface-contrast)] active:translate-y-px",
+    "border-[var(--red)] bg-transparent text-[var(--red)] hover:bg-[var(--red)] hover:text-white active:scale-[0.98]",
   ghost:
-    "border-transparent text-[var(--foreground)] hover:text-[var(--accent)] hover:bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] active:translate-y-px",
-  card: "w-full justify-between gap-3 border border-transparent bg-[var(--surface-contrast)] text-[var(--background)] shadow-[var(--shadow-elevated)] hover:bg-[color-mix(in_srgb,var(--surface-contrast)_88%,var(--accent)_12%)] hover:shadow-[var(--shadow-dramatic)] active:translate-y-px",
+    "border-transparent text-[var(--foreground)] hover:text-[var(--red)] hover:bg-[var(--red-light)] active:scale-[0.98]",
+  card: "w-full justify-between gap-3 border border-transparent bg-[var(--red)] text-white shadow-[var(--shadow-elevated)] hover:bg-[var(--red-hover)] hover:shadow-[var(--shadow-dramatic)] active:scale-[0.98]",
   luxury:
-    "border-[color:var(--surface-contrast)] bg-[var(--background)] text-[var(--surface-contrast)] hover:bg-[var(--surface-contrast)] hover:text-[var(--background)] active:translate-y-px",
+    "border-[var(--red)] bg-white text-[var(--red)] hover:bg-[var(--red)] hover:text-white active:scale-[0.98]",
 };
 
 export function Button({
@@ -64,7 +64,7 @@ export function Button({
         if (kbd) {
           return (
             <Kbd
-              className="border-[color:var(--border)] bg-[color-mix(in_srgb,var(--surface-contrast)_12%,transparent)] font-medium text-[var(--surface-contrast)] opacity-80 transition-opacity group-hover:opacity-100"
+              className="border-[var(--border)] bg-white/10 font-medium text-current opacity-80 transition-opacity group-hover:opacity-100"
               size="lg"
               variant="outline"
             >
@@ -74,8 +74,8 @@ export function Button({
         }
         if (icon) {
           return (
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-current/20 text-current transition group-hover:bg-current/30">
-              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-current/15 text-current transition-all group-hover:scale-110 group-hover:bg-current/25">
+              <ArrowRight01Icon aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
             </span>
           );
         }

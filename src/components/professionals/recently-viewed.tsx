@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, Star } from "lucide-react";
+import { Clock01Icon, StarIcon } from "hugeicons-react";
 import Image from "next/image";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
 import { Link } from "@/i18n/routing";
@@ -19,15 +19,15 @@ export function RecentlyViewed() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 text-[#211f1a]">
-        <Clock className="h-5 w-5" />
+      <div className="flex items-center gap-2 text-[var(--foreground)]">
+        <Clock01Icon className="h-5 w-5" />
         <h2 className="font-semibold text-lg">Recently Viewed</h2>
       </div>
 
       <div className="scrollbar-hide flex gap-4 overflow-x-auto pb-4">
         {recentlyViewed.map((item) => (
           <Link
-            className="group min-w-[240px] flex-shrink-0 rounded-2xl border border-[#ebe5d8] bg-white p-4 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[#8B7355] hover:shadow-[0_20px_50px_rgba(18,17,15,0.08)]"
+            className="group min-w-[240px] flex-shrink-0 rounded-2xl border border-[#ebe5d8] bg-white p-4 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[var(--red)] hover:shadow-[0_20px_50px_rgba(18,17,15,0.08)]"
             href={`/professionals/${item.id}`}
             key={item.id}
           >
@@ -45,13 +45,13 @@ export function RecentlyViewed() {
 
               {/* Info */}
               <div className="flex-1 space-y-1">
-                <h3 className="font-semibold text-[#211f1a] text-base leading-tight group-hover:text-[#8B7355]">
+                <h3 className="font-semibold text-[var(--foreground)] text-base leading-tight group-hover:text-[var(--red)]">
                   {item.name}
                 </h3>
                 <p className="text-[#7d7566] text-sm">{item.service}</p>
                 <div className="flex items-center gap-3 text-xs">
                   <div className="flex items-center gap-1 text-[#7d7566]">
-                    <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                    <StarIcon className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                     <span className="font-semibold">{item.rating.toFixed(1)}</span>
                   </div>
                   <span className="text-[#7d7566]">{formatCOP(item.hourlyRate)}/hr</span>

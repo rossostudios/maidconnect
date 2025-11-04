@@ -1,6 +1,14 @@
 "use client";
 
-import { Bug, CheckCircle, Frown, Heart, HelpCircle, Lightbulb, TrendingUp } from "lucide-react";
+import {
+  AnalyticsUpIcon,
+  Bug01Icon,
+  CheckmarkCircle01Icon,
+  FavouriteIcon,
+  HelpCircleIcon,
+  Idea01Icon,
+  Sad01Icon,
+} from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { BaseModal } from "@/components/shared/base-modal";
@@ -26,37 +34,37 @@ const feedbackTypes: { value: FeedbackType; label: string; icon: any; descriptio
   {
     value: "bug",
     label: "Bug Report",
-    icon: Bug,
+    icon: Bug01Icon,
     description: "Something isn't working correctly",
   },
   {
     value: "feature_request",
     label: "Feature Request",
-    icon: Lightbulb,
+    icon: Idea01Icon,
     description: "Suggest a new feature",
   },
   {
     value: "improvement",
     label: "Improvement",
-    icon: TrendingUp,
+    icon: AnalyticsUpIcon,
     description: "Suggest an enhancement",
   },
   {
     value: "complaint",
     label: "Complaint",
-    icon: Frown,
+    icon: Sad01Icon,
     description: "Report an issue or concern",
   },
   {
     value: "praise",
     label: "Praise",
-    icon: Heart,
+    icon: FavouriteIcon,
     description: "Share positive feedback",
   },
   {
     value: "other",
     label: "Other",
-    icon: HelpCircle,
+    icon: HelpCircleIcon,
     description: "General feedback",
   },
 ];
@@ -138,10 +146,10 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
       >
         <div className="text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-            <CheckCircle className="h-8 w-8 text-green-600" />
+            <CheckmarkCircle01Icon className="h-8 w-8 text-green-600" />
           </div>
-          <h3 className="font-bold text-2xl text-[#211f1a]">{t("success.title")}</h3>
-          <p className="mt-2 text-[#5d574b] text-base">{t("success.message")}</p>
+          <h3 className="font-bold text-2xl text-[var(--foreground)]">{t("success.title")}</h3>
+          <p className="mt-2 text-[var(--muted-foreground)] text-base">{t("success.message")}</p>
         </div>
       </BaseModal>
     );
@@ -167,7 +175,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
       >
         {/* Feedback Type */}
         <div className="mb-6">
-          <div className="mb-3 block font-semibold text-[#211f1a] text-base">
+          <div className="mb-3 block font-semibold text-[var(--foreground)] text-base">
             {t("form.typeLabel")}
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -179,18 +187,18 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                 <button
                   className={`flex flex-col items-center gap-2 rounded-xl border-2 p-4 text-center transition ${
                     isSelected
-                      ? "border-[#8B7355] bg-[#8B735510]"
-                      : "border-[#ebe5d8] bg-white hover:border-[#8B7355]/50"
+                      ? "border-[var(--red)] bg-[var(--red)10]"
+                      : "border-[#ebe5d8] bg-white hover:border-[var(--red)]/50"
                   }`}
                   key={type.value}
                   onClick={() => form.updateField("feedbackType", type.value)}
                   type="button"
                 >
                   <TypeIcon
-                    className={`h-6 w-6 ${isSelected ? "text-[#8B7355]" : "text-[#7a6d62]"}`}
+                    className={`h-6 w-6 ${isSelected ? "text-[var(--red)]" : "text-[#7a6d62]"}`}
                   />
                   <span
-                    className={`font-medium text-sm ${isSelected ? "text-[#8B7355]" : "text-[#211f1a]"}`}
+                    className={`font-medium text-sm ${isSelected ? "text-[var(--red)]" : "text-[var(--foreground)]"}`}
                   >
                     {type.label}
                   </span>
@@ -205,11 +213,14 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
         {/* Subject (Optional) */}
         <div className="mb-6">
-          <label className="mb-2 block font-semibold text-[#211f1a] text-base" htmlFor="subject">
+          <label
+            className="mb-2 block font-semibold text-[var(--foreground)] text-base"
+            htmlFor="subject"
+          >
             {t("form.subjectLabel")} <span className="text-[#7a6d62]">({t("form.optional")})</span>
           </label>
           <input
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533] disabled:opacity-60"
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33] disabled:opacity-60"
             disabled={feedbackMutation.isLoading}
             id="subject"
             maxLength={200}
@@ -222,11 +233,14 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
         {/* Message */}
         <div className="mb-6">
-          <label className="mb-2 block font-semibold text-[#211f1a] text-base" htmlFor="message">
+          <label
+            className="mb-2 block font-semibold text-[var(--foreground)] text-base"
+            htmlFor="message"
+          >
             {t("form.messageLabel")} <span className="text-red-500">*</span>
           </label>
           <textarea
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533] disabled:opacity-60"
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33] disabled:opacity-60"
             disabled={feedbackMutation.isLoading}
             id="message"
             maxLength={5000}
@@ -244,11 +258,14 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
         {/* Email (for anonymous users) */}
         <div className="mb-6">
-          <label className="mb-2 block font-semibold text-[#211f1a] text-base" htmlFor="email">
+          <label
+            className="mb-2 block font-semibold text-[var(--foreground)] text-base"
+            htmlFor="email"
+          >
             {t("form.emailLabel")} <span className="text-[#7a6d62]">({t("form.optional")})</span>
           </label>
           <input
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533] disabled:opacity-60"
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33] disabled:opacity-60"
             disabled={feedbackMutation.isLoading}
             id="email"
             onChange={(e) => form.updateField("email", e.target.value)}
@@ -264,13 +281,15 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
           <label className="flex items-start gap-3">
             <input
               checked={form.formData.consent}
-              className="mt-1 h-4 w-4 rounded border-[#ebe5d8] text-[#8B7355] transition focus:ring-2 focus:ring-[#8B735533] disabled:opacity-60"
+              className="mt-1 h-4 w-4 rounded border-[#ebe5d8] text-[var(--red)] transition focus:ring-2 focus:ring-[var(--red)33] disabled:opacity-60"
               disabled={feedbackMutation.isLoading}
               onChange={(e) => form.updateField("consent", e.target.checked)}
               required
               type="checkbox"
             />
-            <span className="text-[#5d574b] text-sm leading-relaxed">{t("form.consentText")}</span>
+            <span className="text-[var(--muted-foreground)] text-sm leading-relaxed">
+              {t("form.consentText")}
+            </span>
           </label>
         </div>
 
@@ -286,7 +305,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
         {/* Submit Button */}
         <button
-          className="w-full rounded-full bg-[#8B7355] px-6 py-4 font-semibold text-base text-white transition hover:bg-[#8B7355] disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-full bg-[var(--red)] px-6 py-4 font-semibold text-base text-white transition hover:bg-[var(--red)] disabled:cursor-not-allowed disabled:opacity-60"
           disabled={
             feedbackMutation.isLoading ||
             !form.formData.consent ||

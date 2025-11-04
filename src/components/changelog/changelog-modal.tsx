@@ -1,6 +1,12 @@
 "use client";
 
-import { Bug, Palette, Shield, Sparkles, Zap } from "lucide-react";
+import {
+  Bug01Icon,
+  FlashIcon,
+  MagicWand01Icon,
+  PaintBoardIcon,
+  Shield01Icon,
+} from "hugeicons-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -28,11 +34,11 @@ type ChangelogModalProps = {
 };
 
 const categoryConfig = {
-  features: { icon: Sparkles, label: "Features", color: "text-purple-600 bg-purple-50" },
-  improvements: { icon: Zap, label: "Improvements", color: "text-blue-600 bg-blue-50" },
-  fixes: { icon: Bug, label: "Fixes", color: "text-green-600 bg-green-50" },
-  security: { icon: Shield, label: "Security", color: "text-red-600 bg-red-50" },
-  design: { icon: Palette, label: "Design", color: "text-pink-600 bg-pink-50" },
+  features: { icon: MagicWand01Icon, label: "Features", color: "text-purple-600 bg-purple-50" },
+  improvements: { icon: FlashIcon, label: "Improvements", color: "text-blue-600 bg-blue-50" },
+  fixes: { icon: Bug01Icon, label: "Fixes", color: "text-green-600 bg-green-50" },
+  security: { icon: Shield01Icon, label: "Security", color: "text-red-600 bg-red-50" },
+  design: { icon: PaintBoardIcon, label: "Design", color: "text-pink-600 bg-pink-50" },
 };
 
 export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalProps) {
@@ -82,14 +88,16 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
       {/* Header */}
       <div className="mb-6">
         <div className="mb-2 flex items-center gap-2">
-          <span className="rounded-full bg-[#8B735520] px-3 py-1 font-semibold text-[#8B7355] text-sm">
+          <span className="rounded-full bg-[var(--red)20] px-3 py-1 font-semibold text-[var(--red)] text-sm">
             Sprint {changelog.sprint_number}
           </span>
           <span className="text-[#7a6d62] text-sm">{formattedDate}</span>
         </div>
-        <h2 className="font-bold text-3xl text-[#211f1a]">{changelog.title}</h2>
+        <h2 className="font-bold text-3xl text-[var(--foreground)]">{changelog.title}</h2>
         {changelog.summary && (
-          <p className="mt-3 text-[#5d574b] text-lg leading-relaxed">{changelog.summary}</p>
+          <p className="mt-3 text-[var(--muted-foreground)] text-lg leading-relaxed">
+            {changelog.summary}
+          </p>
         )}
       </div>
 
@@ -143,14 +151,14 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
       {/* Actions */}
       <div className="mt-8 flex flex-col gap-3 border-[#ebe5d8] border-t pt-6 sm:flex-row">
         <button
-          className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] hover:text-[#8B7355]"
+          className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)]"
           onClick={() => router.push("/changelog")}
           type="button"
         >
           {t("viewAllUpdates")}
         </button>
         <button
-          className="flex-1 rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-base text-white transition hover:bg-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
+          className="flex-1 rounded-full bg-[var(--red)] px-6 py-3 font-semibold text-base text-white transition hover:bg-[var(--red)] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={markAsReadMutation.isLoading}
           onClick={handleMarkAsRead}
           type="button"

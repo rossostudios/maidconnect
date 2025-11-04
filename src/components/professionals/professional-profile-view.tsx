@@ -1,6 +1,13 @@
 "use client";
 
-import { CalendarDays, Clock, Globe2, MapPin, ShieldCheck, Star } from "lucide-react";
+import {
+  CalendarSetting01Icon,
+  Clock01Icon,
+  Globe02Icon,
+  Location01Icon,
+  SecurityCheckIcon,
+  StarIcon,
+} from "hugeicons-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -99,7 +106,7 @@ export function ProfessionalProfileView({
     <div className="pb-24">
       <Container className="max-w-[1680px] pt-12">
         <Link
-          className="font-semibold text-[#5a5549] text-base transition hover:text-[#8B7355]"
+          className="font-semibold text-[#5a5549] text-base transition hover:text-[var(--red)]"
           href="/professionals"
         >
           {t("backToDirectory")}
@@ -121,7 +128,7 @@ export function ProfessionalProfileView({
             {/* Info */}
             <div className="flex flex-col justify-center space-y-8">
               <div>
-                <h1 className="font-[family-name:var(--font-cinzel)] text-5xl text-[#211f1a] leading-tight tracking-wide lg:text-6xl">
+                <h1 className="type-serif-lg text-[var(--foreground)] tracking-wide">
                   {professional.name}
                 </h1>
                 <p className="mt-2 text-[#7d7566] text-xl">
@@ -129,14 +136,14 @@ export function ProfessionalProfileView({
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-6 text-[#5d574b] text-base">
+              <div className="flex flex-wrap gap-6 text-[var(--muted-foreground)] text-base">
                 <div className="flex items-center gap-2">
-                  <MapPin className="h-5 w-5 text-[#8B7355]" />
+                  <Location01Icon className="h-5 w-5 text-[var(--red)]" />
                   <span>{locationLabel}</span>
                 </div>
                 {formattedRate && (
                   <div className="flex items-center gap-2">
-                    <Clock className="h-5 w-5 text-[#8B7355]" />
+                    <Clock01Icon className="h-5 w-5 text-[var(--red)]" />
                     <span>
                       {formattedRate} {t("perHour")}
                     </span>
@@ -144,19 +151,19 @@ export function ProfessionalProfileView({
                 )}
                 {professional.languages.length > 0 && (
                   <div className="flex items-center gap-2">
-                    <Globe2 className="h-5 w-5 text-[#8B7355]" />
+                    <Globe02Icon className="h-5 w-5 text-[var(--red)]" />
                     <span>{professional.languages.join(" / ")}</span>
                   </div>
                 )}
                 {professional.experienceYears !== null && (
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="h-5 w-5 text-[#8B7355]" />
+                    <SecurityCheckIcon className="h-5 w-5 text-[var(--red)]" />
                     <span>{t("yearsExperience", { years: professional.experienceYears })}</span>
                   </div>
                 )}
                 {averageRating > 0 && (
                   <div className="flex items-center gap-2">
-                    <Star className="h-5 w-5 fill-[#8B7355] text-[#8B7355]" />
+                    <StarIcon className="h-5 w-5 fill-[var(--red)] text-[var(--red)]" />
                     <span className="font-semibold">{averageRating.toFixed(1)}</span>
                     <span className="text-[#7d7566]">
                       ({t("reviewsCount", { count: professional.reviews.length })})
@@ -166,8 +173,8 @@ export function ProfessionalProfileView({
               </div>
 
               {professional.availableToday && (
-                <div className="inline-flex w-fit items-center gap-2 rounded-full bg-[#8B7355]/10 px-5 py-2.5 font-semibold text-[#8B7355] text-base">
-                  <CalendarDays className="h-5 w-5" />
+                <div className="inline-flex w-fit items-center gap-2 rounded-full bg-[var(--red)]/10 px-5 py-2.5 font-semibold text-[var(--red)] text-base">
+                  <CalendarSetting01Icon className="h-5 w-5" />
                   {t("availableToday")}
                 </div>
               )}
@@ -180,7 +187,9 @@ export function ProfessionalProfileView({
           {/* Left: Large Calendar */}
           <div>
             <div className="mb-8">
-              <h2 className="font-semibold text-3xl text-[#211f1a]">{t("bookingSection.title")}</h2>
+              <h2 className="font-semibold text-3xl text-[var(--foreground)]">
+                {t("bookingSection.title")}
+              </h2>
               <p className="mt-2 text-[#7d7566] text-lg">{t("bookingSection.description")}</p>
             </div>
             <LargeAvailabilityCalendar
@@ -198,8 +207,8 @@ export function ProfessionalProfileView({
                   <button
                     className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
                       activeTab === "about"
-                        ? "border-[#8B7355] border-b-2 text-[#8B7355]"
-                        : "text-[#7d7566] hover:text-[#8B7355]"
+                        ? "border-[var(--red)] border-b-2 text-[var(--red)]"
+                        : "text-[#7d7566] hover:text-[var(--red)]"
                     }`}
                     onClick={() => setActiveTab("about")}
                     type="button"
@@ -209,8 +218,8 @@ export function ProfessionalProfileView({
                   <button
                     className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
                       activeTab === "services"
-                        ? "border-[#8B7355] border-b-2 text-[#8B7355]"
-                        : "text-[#7d7566] hover:text-[#8B7355]"
+                        ? "border-[var(--red)] border-b-2 text-[var(--red)]"
+                        : "text-[#7d7566] hover:text-[var(--red)]"
                     }`}
                     onClick={() => setActiveTab("services")}
                     type="button"
@@ -220,8 +229,8 @@ export function ProfessionalProfileView({
                   <button
                     className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
                       activeTab === "portfolio"
-                        ? "border-[#8B7355] border-b-2 text-[#8B7355]"
-                        : "text-[#7d7566] hover:text-[#8B7355]"
+                        ? "border-[var(--red)] border-b-2 text-[var(--red)]"
+                        : "text-[#7d7566] hover:text-[var(--red)]"
                     }`}
                     onClick={() => setActiveTab("portfolio")}
                     type="button"
@@ -231,8 +240,8 @@ export function ProfessionalProfileView({
                   <button
                     className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
                       activeTab === "reviews"
-                        ? "border-[#8B7355] border-b-2 text-[#8B7355]"
-                        : "text-[#7d7566] hover:text-[#8B7355]"
+                        ? "border-[var(--red)] border-b-2 text-[var(--red)]"
+                        : "text-[#7d7566] hover:text-[var(--red)]"
                     }`}
                     onClick={() => setActiveTab("reviews")}
                     type="button"
@@ -246,8 +255,10 @@ export function ProfessionalProfileView({
               <div className="p-8">
                 {activeTab === "about" && (
                   <div className="space-y-6">
-                    <h3 className="font-semibold text-2xl text-[#211f1a]">{t("tabs.about")}</h3>
-                    <p className="text-[#5d574b] text-base leading-relaxed">
+                    <h3 className="font-semibold text-2xl text-[var(--foreground)]">
+                      {t("tabs.about")}
+                    </h3>
+                    <p className="text-[var(--muted-foreground)] text-base leading-relaxed">
                       {professional.bio ?? t("aboutSection.noBio")}
                     </p>
                   </div>
@@ -255,7 +266,7 @@ export function ProfessionalProfileView({
 
                 {activeTab === "services" && (
                   <div className="space-y-6">
-                    <h3 className="font-semibold text-2xl text-[#211f1a]">
+                    <h3 className="font-semibold text-2xl text-[var(--foreground)]">
                       {t("servicesSection.title")}
                     </h3>
                     <div className="space-y-4">
@@ -266,7 +277,7 @@ export function ProfessionalProfileView({
                             key={`${service.name ?? "service"}-${service.description ?? "detail"}`}
                           >
                             <div className="flex flex-col gap-2">
-                              <div className="font-semibold text-[#211f1a] text-base">
+                              <div className="font-semibold text-[var(--foreground)] text-base">
                                 {service.name ?? t("servicesSection.serviceFallback")}
                               </div>
                               {service.hourlyRateCop ? (
@@ -277,12 +288,12 @@ export function ProfessionalProfileView({
                                     showBreakdown={true}
                                   />
                                 ) : (
-                                  <div className="font-semibold text-[#8B7355] text-lg">
+                                  <div className="font-semibold text-[var(--red)] text-lg">
                                     {formatCOPWithFallback(service.hourlyRateCop)}
                                   </div>
                                 )
                               ) : (
-                                <div className="font-semibold text-[#8B7355] text-lg">
+                                <div className="font-semibold text-[var(--red)] text-lg">
                                   {t("servicesSection.rateOnRequest")}
                                 </div>
                               )}
@@ -303,7 +314,9 @@ export function ProfessionalProfileView({
 
                 {activeTab === "portfolio" && (
                   <div className="space-y-6">
-                    <h3 className="font-semibold text-2xl text-[#211f1a]">{t("tabs.portfolio")}</h3>
+                    <h3 className="font-semibold text-2xl text-[var(--foreground)]">
+                      {t("tabs.portfolio")}
+                    </h3>
                     {professional.portfolioImages.length > 0 ? (
                       <div className="grid grid-cols-2 gap-4">
                         {professional.portfolioImages.slice(0, 6).map((image, index) => (
@@ -328,7 +341,9 @@ export function ProfessionalProfileView({
 
                 {activeTab === "reviews" && (
                   <div className="space-y-6">
-                    <h3 className="font-semibold text-2xl text-[#211f1a]">{t("tabs.reviews")}</h3>
+                    <h3 className="font-semibold text-2xl text-[var(--foreground)]">
+                      {t("tabs.reviews")}
+                    </h3>
                     {professional.reviews.length > 0 ? (
                       <div className="space-y-6">
                         {professional.reviews.slice(0, 3).map((review) => (
@@ -338,17 +353,19 @@ export function ProfessionalProfileView({
                           >
                             <div className="flex items-center gap-2">
                               {[...new Array(5)].map((_, i) => (
-                                <Star
+                                <StarIcon
                                   className={`h-4 w-4 ${
                                     i < review.rating
-                                      ? "fill-[#8B7355] text-[#8B7355]"
+                                      ? "fill-[var(--red)] text-[var(--red)]"
                                       : "text-[#e5dfd4]"
                                   }`}
                                   key={i}
                                 />
                               ))}
                             </div>
-                            <p className="text-[#5d574b] text-base">{review.comment}</p>
+                            <p className="text-[var(--muted-foreground)] text-base">
+                              {review.comment}
+                            </p>
                             <p className="text-[#7d7566] text-sm">
                               {review.reviewerName} ·{" "}
                               {new Date(review.createdAt).toLocaleDateString(

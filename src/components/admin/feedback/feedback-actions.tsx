@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, Save } from "lucide-react";
+import { FloppyDiskIcon, Loading01Icon } from "hugeicons-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -77,16 +77,21 @@ export function FeedbackActions({
 
       {/* Status & Priority */}
       <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-        <h3 className="mb-4 font-bold text-[#211f1a] text-lg">Update Status & Priority</h3>
+        <h3 className="mb-4 font-bold text-[var(--foreground)] text-lg">
+          Update Status & Priority
+        </h3>
 
         <div className="grid gap-4 md:grid-cols-2">
           {/* Status */}
           <div>
-            <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="status">
+            <label
+              className="mb-2 block font-medium text-[var(--foreground)] text-sm"
+              htmlFor="status"
+            >
               Status
             </label>
             <select
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[var(--foreground)] focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)20]"
               id="status"
               onChange={(e) => setStatus(e.target.value)}
               value={status}
@@ -101,11 +106,14 @@ export function FeedbackActions({
 
           {/* Priority */}
           <div>
-            <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="priority">
+            <label
+              className="mb-2 block font-medium text-[var(--foreground)] text-sm"
+              htmlFor="priority"
+            >
               Priority
             </label>
             <select
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
+              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[var(--foreground)] focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)20]"
               id="priority"
               onChange={(e) => setPriority(e.target.value)}
               value={priority}
@@ -122,10 +130,10 @@ export function FeedbackActions({
 
       {/* Admin Notes */}
       <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-        <h3 className="mb-4 font-bold text-[#211f1a] text-lg">Add Admin Notes</h3>
+        <h3 className="mb-4 font-bold text-[var(--foreground)] text-lg">Add Admin Notes</h3>
 
         <textarea
-          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735520]"
+          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[var(--foreground)] focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)20]"
           id="admin_notes"
           onChange={(e) => setAdminNotes(e.target.value)}
           placeholder="Add internal notes about this feedback (optional)..."
@@ -137,19 +145,19 @@ export function FeedbackActions({
       {/* Save Button */}
       <div className="flex justify-end">
         <button
-          className="flex items-center gap-2 rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-white transition hover:bg-[#8B7355] disabled:opacity-50"
+          className="flex items-center gap-2 rounded-full bg-[var(--red)] px-6 py-3 font-semibold text-white transition hover:bg-[var(--red)] disabled:opacity-50"
           disabled={saving}
           onClick={handleSave}
           type="button"
         >
           {saving ? (
             <>
-              <Loader2 className="h-5 w-5 animate-spin" />
+              <Loading01Icon className="h-5 w-5 animate-spin" />
               Saving...
             </>
           ) : (
             <>
-              <Save className="h-5 w-5" />
+              <FloppyDiskIcon className="h-5 w-5" />
               Save Changes
             </>
           )}

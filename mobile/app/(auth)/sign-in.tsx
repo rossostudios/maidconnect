@@ -73,7 +73,7 @@ export default function SignInScreen() {
             autoCorrect={false}
             keyboardType="email-address"
             onChangeText={setEmail}
-            placeholder="you@maidconnect.com"
+            placeholder="you@casaora.co"
             returnKeyType="next"
             style={styles.input}
             textContentType="emailAddress"
@@ -110,7 +110,7 @@ export default function SignInScreen() {
 
         <View style={styles.footer}>
           <Text style={styles.footerText}>
-            Need an account? Activate your profile from the MaidConnect dashboard.
+            Need an account? Activate your profile from the Casaora dashboard.
           </Text>
         </View>
       </KeyboardAvoidingView>

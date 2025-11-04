@@ -8,7 +8,7 @@ import { DocumentUploadForm } from "./document-upload-form";
 import { ProfileBuildForm } from "./profile-build-form";
 
 const inputClass =
-  "w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-4 text-base shadow-sm transition focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B735533]";
+  "w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-4 text-base shadow-sm transition focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]";
 
 const APPLICATION_SERVICE_OPTIONS = [
   "House cleaning",
@@ -125,15 +125,15 @@ export default async function ProfessionalOnboardingPage({
           <p className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
             {t(isActive ? "labels.profileSettings" : "labels.onboarding")}
           </p>
-          <h1 className="mt-4 font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
+          <h1 className="type-serif-lg mt-4 text-[var(--foreground)]">
             {t(isActive ? "headings.editProfile" : "headings.launchProfile")}
           </h1>
-          <p className="mt-4 max-w-2xl text-[#5d574b] text-lg leading-relaxed">
+          <p className="mt-4 max-w-2xl text-[var(--muted-foreground)] text-lg leading-relaxed">
             {t(isActive ? "descriptions.active" : "descriptions.notActive")}
           </p>
         </div>
         <Link
-          className="inline-flex items-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
+          className="inline-flex items-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[var(--foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)]"
           href="/dashboard/pro"
         >
           {t("backToDashboard")}
@@ -162,7 +162,7 @@ export default async function ProfessionalOnboardingPage({
                 key={stepId}
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#8B7355] font-semibold text-lg text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--red)] font-semibold text-lg text-white">
                     {index + 1}
                   </div>
                   {(() => {
@@ -187,10 +187,10 @@ export default async function ProfessionalOnboardingPage({
                     );
                   })()}
                 </div>
-                <h2 className="mt-6 font-semibold text-[#211f1a] text-xl">
+                <h2 className="mt-6 font-semibold text-[var(--foreground)] text-xl">
                   {t(`steps.${stepId}.title`)}
                 </h2>
-                <p className="mt-3 text-[#5d574b] text-base leading-relaxed">
+                <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
                   {t(`steps.${stepId}.description`)}
                 </p>
               </li>
@@ -269,24 +269,24 @@ export default async function ProfessionalOnboardingPage({
             >
               <div className="grid gap-8 lg:grid-cols-2">
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("sections.uploadDocuments.required")}
                   </h3>
-                  <ul className="mt-4 space-y-3 text-[#5d574b] text-base">
+                  <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#8B7355]" />
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[var(--red)]" />
                       <span>{t("sections.uploadDocuments.requiredDocs.governmentId")}</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#8B7355]" />
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[var(--red)]" />
                       <span>{t("sections.uploadDocuments.requiredDocs.proofOfAddress")}</span>
                     </li>
                   </ul>
 
-                  <h3 className="mt-8 font-semibold text-[#211f1a] text-xl">
+                  <h3 className="mt-8 font-semibold text-[var(--foreground)] text-xl">
                     {t("sections.uploadDocuments.optional")}
                   </h3>
-                  <ul className="mt-4 space-y-3 text-[#5d574b] text-base">
+                  <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
                     <li className="flex items-start gap-3">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-gray-400" />
                       <span>{t("sections.uploadDocuments.optionalDocs.certifications")}</span>
@@ -298,8 +298,8 @@ export default async function ProfessionalOnboardingPage({
                   </ul>
 
                   <div className="mt-8 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                    <p className="text-[#5d574b] text-sm leading-relaxed">
-                      <strong className="text-[#211f1a]">
+                    <p className="text-[var(--muted-foreground)] text-sm leading-relaxed">
+                      <strong className="text-[var(--foreground)]">
                         {t("sections.uploadDocuments.acceptedFormats")}
                       </strong>{" "}
                       {t("sections.uploadDocuments.formatInfo")}
@@ -376,8 +376,8 @@ function SectionWrapper({
   return (
     <section className="rounded-[28px] border border-[#ebe5d8] bg-white p-10 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
       <header className="mb-8">
-        <h2 className="font-semibold text-3xl text-[#211f1a]">{title}</h2>
-        <p className="mt-3 text-[#5d574b] text-base leading-relaxed">{subtitle}</p>
+        <h2 className="font-semibold text-3xl text-[var(--foreground)]">{title}</h2>
+        <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">{subtitle}</p>
       </header>
       {children}
     </section>

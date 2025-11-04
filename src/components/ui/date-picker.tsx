@@ -1,4 +1,4 @@
-import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft01Icon, ArrowRight01Icon, CalendarSetting01Icon } from "hugeicons-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -105,18 +105,21 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
       ) : null}
       <button
         className={cn(
-          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[#211f1a] text-sm shadow-black/5 shadow-inner transition hover:border-[#8B7355] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#8B7355] focus-visible:outline-offset-2",
+          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[var(--foreground)] text-sm shadow-black/5 shadow-inner transition hover:border-[var(--red)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--red)] focus-visible:outline-offset-2",
           !value && "text-[#8a826d]"
         )}
         onClick={() => setOpen((prev) => !prev)}
         type="button"
       >
         <span className="flex items-center gap-2">
-          <CalendarDays aria-hidden="true" className="h-4 w-4 text-[#8B7355]" />
+          <CalendarSetting01Icon aria-hidden="true" className="h-4 w-4 text-[var(--red)]" />
           {formatButtonLabel(value, placeholder)}
         </span>
-        <ChevronRight
-          className={cn("h-4 w-4 text-[#a49c90] transition-transform", open && "rotate-90")}
+        <ArrowRight01Icon
+          className={cn(
+            "h-4 w-4 text-[var(--muted-foreground)] transition-transform",
+            open && "rotate-90"
+          )}
         />
       </button>
 
@@ -124,33 +127,33 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
         <div className="absolute z-50 mt-3 w-full min-w-[280px] rounded-3xl border border-[#ebe5d8] bg-white p-4 shadow-[0_24px_60px_rgba(18,17,15,0.12)]">
           <div className="flex items-center justify-between">
             <button
-              className="rounded-full border border-[#ebe5d8] p-1 text-[#5d574b] transition hover:border-[#8B7355] hover:text-[#8B7355]"
+              className="rounded-full border border-[#ebe5d8] p-1 text-[var(--muted-foreground)] transition hover:border-[var(--red)] hover:text-[var(--red)]"
               onClick={() =>
                 setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))
               }
               type="button"
             >
-              <ChevronLeft aria-hidden="true" className="h-4 w-4" />
+              <ArrowLeft01Icon aria-hidden="true" className="h-4 w-4" />
               <span className="sr-only">Previous month</span>
             </button>
-            <div className="font-semibold text-[#211f1a] text-sm">
+            <div className="font-semibold text-[var(--foreground)] text-sm">
               {new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(
                 viewDate
               )}
             </div>
             <button
-              className="rounded-full border border-[#ebe5d8] p-1 text-[#5d574b] transition hover:border-[#8B7355] hover:text-[#8B7355]"
+              className="rounded-full border border-[#ebe5d8] p-1 text-[var(--muted-foreground)] transition hover:border-[var(--red)] hover:text-[var(--red)]"
               onClick={() =>
                 setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))
               }
               type="button"
             >
-              <ChevronRight aria-hidden="true" className="h-4 w-4" />
+              <ArrowRight01Icon aria-hidden="true" className="h-4 w-4" />
               <span className="sr-only">Next month</span>
             </button>
           </div>
 
-          <div className="mt-4 grid grid-cols-7 gap-1 text-center font-semibold text-[#a49c90] text-xs uppercase tracking-[0.18em]">
+          <div className="mt-4 grid grid-cols-7 gap-1 text-center font-semibold text-[var(--muted-foreground)] text-xs uppercase tracking-[0.18em]">
             {WEEKDAYS.map((day) => (
               <span key={day}>{day}</span>
             ))}
@@ -176,10 +179,10 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
                 <button
                   className={cn(
                     "rounded-full py-2 text-sm transition",
-                    inCurrentMonth ? "text-[#211f1a]" : "text-[#c9c2b6]",
+                    inCurrentMonth ? "text-[var(--foreground)]" : "text-[#c9c2b6]",
                     isSelected &&
-                      "bg-[#211f1a] text-white shadow-[0_10px_20px_rgba(18,17,15,0.16)]",
-                    !isSelected && isToday && "border border-[#8B7355] text-[#8B7355]",
+                      "bg-[var(--foreground)] text-white shadow-[0_10px_20px_rgba(18,17,15,0.16)]",
+                    !isSelected && isToday && "border border-[var(--red)] text-[var(--red)]",
                     !(isSelected || isToday) && "hover:bg-[#f6f1ea]"
                   )}
                   key={date.toISOString()}
@@ -194,14 +197,14 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
 
           <div className="mt-4 flex items-center justify-between text-[#8a826d] text-xs">
             <button
-              className="rounded-full border border-transparent px-3 py-1 font-semibold text-[#8B7355] transition hover:border-[#8B7355]/40"
+              className="rounded-full border border-transparent px-3 py-1 font-semibold text-[var(--red)] transition hover:border-[var(--red)]/40"
               onClick={() => onChange(null)}
               type="button"
             >
               Clear
             </button>
             <button
-              className="rounded-full border border-[#211f1a] px-3 py-1 font-semibold text-[#211f1a] transition hover:border-[#8B7355] hover:text-[#8B7355]"
+              className="rounded-full border border-[var(--foreground)] px-3 py-1 font-semibold text-[var(--foreground)] transition hover:border-[var(--red)] hover:text-[var(--red)]"
               onClick={handleToday}
               type="button"
             >

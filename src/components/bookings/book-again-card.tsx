@@ -1,6 +1,12 @@
 "use client";
 
-import { Calendar, Check, Clock, Repeat, Sparkles } from "lucide-react";
+import {
+  Calendar01Icon,
+  Clock01Icon,
+  MagicWand01Icon,
+  RepeatIcon,
+  Tick02Icon,
+} from "hugeicons-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { memo, useState } from "react";
@@ -83,7 +89,7 @@ const BookAgainCardComponent = memo(
     };
 
     return (
-      <div className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[#8B7355] hover:shadow-[0_20px_60px_rgba(18,17,15,0.08)]">
+      <div className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[var(--red)] hover:shadow-[0_20px_60px_rgba(18,17,15,0.08)]">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-4">
@@ -98,7 +104,7 @@ const BookAgainCardComponent = memo(
                   width={56}
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center bg-[#8B7355] font-semibold text-lg text-white">
+                <div className="flex h-full w-full items-center justify-center bg-[var(--red)] font-semibold text-lg text-white">
                   {booking.professionalName
                     .split(" ")
                     .map((n) => n[0])
@@ -109,14 +115,16 @@ const BookAgainCardComponent = memo(
             </div>
 
             <div>
-              <h3 className="font-semibold text-[#211f1a] text-lg">{booking.professionalName}</h3>
+              <h3 className="font-semibold text-[var(--foreground)] text-lg">
+                {booking.professionalName}
+              </h3>
               <p className="text-[#7d7566] text-sm">{booking.serviceName}</p>
             </div>
           </div>
 
           {/* Badge */}
           <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1.5 font-medium text-green-700 text-xs">
-            <Check className="h-3.5 w-3.5" />
+            <Tick02Icon className="h-3.5 w-3.5" />
             Completed
           </span>
         </div>
@@ -124,15 +132,17 @@ const BookAgainCardComponent = memo(
         {/* Booking Details */}
         <div className="mt-4 flex flex-wrap items-center gap-4 text-[#7d7566] text-sm">
           <div className="flex items-center gap-1.5">
-            <Calendar className="h-4 w-4" />
+            <Calendar01Icon className="h-4 w-4" />
             <span>{formatDate(booking.scheduledDate)}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <Clock className="h-4 w-4" />
+            <Clock01Icon className="h-4 w-4" />
             <span>{booking.durationHours}h session</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="font-semibold text-[#211f1a]">{formatCOP(booking.amount)}</span>
+            <span className="font-semibold text-[var(--foreground)]">
+              {formatCOP(booking.amount)}
+            </span>
           </div>
         </div>
 
@@ -143,19 +153,19 @@ const BookAgainCardComponent = memo(
 
         {/* Quick Rebook Button */}
         <button
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[var(--red)] px-6 py-3 font-semibold text-white transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-60"
           disabled={isRebooking}
           onClick={handleBookAgain}
           type="button"
         >
           {oneTapEnabled ? (
             <>
-              <Sparkles className="h-4 w-4" />
+              <MagicWand01Icon className="h-4 w-4" />
               {isRebooking ? "Creating booking..." : "Book Again (1-Tap)"}
             </>
           ) : (
             <>
-              <Repeat className="h-4 w-4" />
+              <RepeatIcon className="h-4 w-4" />
               {isRebooking ? "Preparing..." : "Book Again"}
             </>
           )}
@@ -193,7 +203,7 @@ export function BookAgainSection({ previousBookings, onBookAgain }: BookAgainSec
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-semibold text-2xl text-[#211f1a]">Book Again</h2>
+        <h2 className="font-semibold text-2xl text-[var(--foreground)]">Book Again</h2>
         <p className="text-[#7d7566] text-sm">Your recent professionals</p>
       </div>
 

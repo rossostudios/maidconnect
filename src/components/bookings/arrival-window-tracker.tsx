@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, MapPin, Navigation } from "lucide-react";
+import { Clock01Icon, Location01Icon, Navigation01Icon } from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { isFeatureEnabled } from "@/lib/feature-flags";
@@ -108,7 +108,7 @@ export function ArrivalWindowTracker({
 
   const statusConfig = {
     en_route: {
-      icon: Navigation,
+      icon: Navigation01Icon,
       color: "text-blue-600",
       bgColor: "bg-blue-50",
       borderColor: "border-blue-200",
@@ -116,7 +116,7 @@ export function ArrivalWindowTracker({
       description: t("status.enRoute.description"),
     },
     arriving_soon: {
-      icon: MapPin,
+      icon: Location01Icon,
       color: "text-orange-600",
       bgColor: "bg-orange-50",
       borderColor: "border-orange-200",
@@ -124,7 +124,7 @@ export function ArrivalWindowTracker({
       description: t("status.arrivingSoon.description"),
     },
     arrived: {
-      icon: MapPin,
+      icon: Location01Icon,
       color: "text-green-600",
       bgColor: "bg-green-50",
       borderColor: "border-green-200",
@@ -132,7 +132,7 @@ export function ArrivalWindowTracker({
       description: t("status.arrived.description"),
     },
     scheduled: {
-      icon: Clock,
+      icon: Clock01Icon,
       color: "text-gray-600",
       bgColor: "bg-gray-50",
       borderColor: "border-gray-200",
@@ -140,7 +140,7 @@ export function ArrivalWindowTracker({
       description: "",
     },
     in_progress: {
-      icon: Clock,
+      icon: Clock01Icon,
       color: "text-gray-600",
       bgColor: "bg-gray-50",
       borderColor: "border-gray-200",
@@ -198,11 +198,11 @@ export function ArrivalWindowTracker({
 
         <div className="flex-1">
           <h3 className={`font-semibold ${config.color} text-lg`}>{config.title}</h3>
-          <p className="mt-1 text-[#5d574b] text-base">{config.description}</p>
+          <p className="mt-1 text-[var(--muted-foreground)] text-base">{config.description}</p>
 
           {timeDisplay && (
-            <div className="mt-3 flex items-center gap-2 text-[#211f1a] text-base">
-              <Clock className="h-4 w-4" />
+            <div className="mt-3 flex items-center gap-2 text-[var(--foreground)] text-base">
+              <Clock01Icon className="h-4 w-4" />
               <span className="font-medium">{timeDisplay}</span>
             </div>
           )}

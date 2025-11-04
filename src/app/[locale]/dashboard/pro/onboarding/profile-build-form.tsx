@@ -158,13 +158,13 @@ export function ProfileBuildForm({
           {languages.map((language) => (
             <label
               className={cn(
-                "flex cursor-pointer items-center gap-3 rounded-full border-2 border-[#ebe5d8] bg-white px-5 py-3 font-medium text-[#211f1a] text-base transition hover:border-[#8B7355] hover:bg-[#fff5f2]",
+                "flex cursor-pointer items-center gap-3 rounded-full border-2 border-[#ebe5d8] bg-white px-5 py-3 font-medium text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:bg-[#fff5f2]",
                 hasError("languages") && "border-red-300"
               )}
               key={language}
             >
               <input
-                className="h-5 w-5 rounded border-[#ebe5d8] text-[#8B7355] focus:ring-[#8B7355]"
+                className="h-5 w-5 rounded border-[#ebe5d8] text-[var(--red)] focus:ring-[var(--red)]"
                 defaultChecked={initialLanguages.includes(language)}
                 name="languages"
                 type="checkbox"
@@ -189,7 +189,7 @@ export function ProfileBuildForm({
             >
               <input name="service_name" type="hidden" value={service.name} />
               <div className="space-y-4">
-                <h4 className="font-semibold text-[#211f1a] text-lg">{service.name}</h4>
+                <h4 className="font-semibold text-[var(--foreground)] text-lg">{service.name}</h4>
                 {(() => {
                   const defaults = serviceDefaults.get(service.name);
                   const rateValue =
@@ -202,7 +202,7 @@ export function ProfileBuildForm({
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
                         <label
-                          className="mb-2 block font-medium text-[#5d574b] text-sm"
+                          className="mb-2 block font-medium text-[var(--muted-foreground)] text-sm"
                           htmlFor={`service_rate_${service.name}`}
                         >
                           {t("services.hourlyRate")}
@@ -219,7 +219,7 @@ export function ProfileBuildForm({
                       </div>
                       <div className="sm:col-span-2">
                         <label
-                          className="mb-2 block font-medium text-[#5d574b] text-sm"
+                          className="mb-2 block font-medium text-[var(--muted-foreground)] text-sm"
                           htmlFor={`service_description_${service.name}`}
                         >
                           {t("services.serviceDescription")}
@@ -251,7 +251,9 @@ export function ProfileBuildForm({
             >
               <div className="grid gap-4 sm:grid-cols-[120px_1fr_1fr_1fr]">
                 <div className="flex items-center">
-                  <span className="font-semibold text-[#211f1a] text-base">{day.label}</span>
+                  <span className="font-semibold text-[var(--foreground)] text-base">
+                    {day.label}
+                  </span>
                 </div>
                 <div>
                   <label
@@ -306,10 +308,10 @@ export function ProfileBuildForm({
       </FormField>
 
       <div className="flex flex-col gap-4 border-[#ebe5d8] border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[#5d574b] text-sm">{defaultFootnote}</p>
+        <p className="text-[var(--muted-foreground)] text-sm">{defaultFootnote}</p>
         <button
           className={cn(
-            "inline-flex items-center justify-center rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]",
+            "inline-flex items-center justify-center rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}
@@ -393,7 +395,7 @@ function FormField({ label, children, helper, error, characterCount }: FormField
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <label className="block font-semibold text-[#211f1a] text-base" htmlFor={childId}>
+        <label className="block font-semibold text-[var(--foreground)] text-base" htmlFor={childId}>
           {label}
         </label>
         {characterCount !== undefined ? (
@@ -402,7 +404,7 @@ function FormField({ label, children, helper, error, characterCount }: FormField
           </span>
         ) : null}
       </div>
-      {helper ? <p className="text-[#5d574b] text-sm">{helper}</p> : null}
+      {helper ? <p className="text-[var(--muted-foreground)] text-sm">{helper}</p> : null}
       {children}
       {error ? (
         <p className="flex items-center gap-2 text-red-600 text-sm">

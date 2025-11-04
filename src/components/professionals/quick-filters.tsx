@@ -1,6 +1,5 @@
 "use client";
 
-import { Award, Clock, DollarSign, Languages, MapPin, Shield, Star, Zap } from "lucide-react";
 import { useState } from "react";
 
 export type QuickFilter = {
@@ -91,10 +90,10 @@ export function QuickFilters({ onFilterChange }: QuickFiltersProps) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-[#211f1a] text-sm">Quick Filters</h3>
+        <h3 className="font-semibold text-[var(--foreground)] text-sm">Quick Filters</h3>
         {activeCount > 0 && (
           <button
-            className="text-[#8B7355] text-xs transition hover:underline"
+            className="text-[var(--red)] text-xs transition hover:underline"
             onClick={clearAllFilters}
             type="button"
           >
@@ -110,8 +109,8 @@ export function QuickFilters({ onFilterChange }: QuickFiltersProps) {
             <button
               className={`flex items-center gap-2 rounded-full border-2 px-4 py-2 text-sm transition ${
                 filter.active
-                  ? "border-[#8B7355] bg-[#8B7355] text-white"
-                  : "border-[#ebe5d8] bg-white text-[#7d7566] hover:border-[#8B7355] hover:text-[#8B7355]"
+                  ? "border-[var(--red)] bg-[var(--red)] text-white"
+                  : "border-[#ebe5d8] bg-white text-[#7d7566] hover:border-[var(--red)] hover:text-[var(--red)]"
               }`}
               key={filter.id}
               onClick={() => toggleFilter(filter.id)}

@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutGrid, Map } from "lucide-react";
+import { GridIcon, MapsIcon } from "hugeicons-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
@@ -61,13 +61,13 @@ export function ViewToggle({
         aria-pressed={view === "list"}
         className={`flex items-center gap-2 rounded-md px-3 py-2 font-medium text-sm transition-colors ${
           view === "list"
-            ? "bg-[#8B7355] text-white shadow-sm"
+            ? "bg-[var(--red)] text-white shadow-sm"
             : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
         }`}
         onClick={() => handleViewChange("list")}
         type="button"
       >
-        <LayoutGrid className="h-4 w-4" />
+        <GridIcon className="h-4 w-4" />
         <span className="hidden sm:inline">{t("viewToggle.list")}</span>
       </button>
 
@@ -76,13 +76,13 @@ export function ViewToggle({
         aria-pressed={view === "map"}
         className={`flex items-center gap-2 rounded-md px-3 py-2 font-medium text-sm transition-colors ${
           view === "map"
-            ? "bg-[#8B7355] text-white shadow-sm"
+            ? "bg-[var(--red)] text-white shadow-sm"
             : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
         }`}
         onClick={() => handleViewChange("map")}
         type="button"
       >
-        <Map className="h-4 w-4" />
+        <MapsIcon className="h-4 w-4" />
         <span className="hidden sm:inline">{t("viewToggle.map")}</span>
       </button>
     </div>

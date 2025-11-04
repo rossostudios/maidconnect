@@ -80,7 +80,7 @@ export function DocumentUploadForm({ inputClass }: Props) {
       <div className="flex justify-end border-[#ebe5d8] border-t pt-8">
         <button
           className={cn(
-            "inline-flex items-center justify-center rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]",
+            "inline-flex items-center justify-center rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}
@@ -145,7 +145,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
       )}
     >
       <div className="flex items-center justify-between">
-        <label className="font-semibold text-[#211f1a] text-lg" htmlFor={inputId}>
+        <label className="font-semibold text-[var(--foreground)] text-lg" htmlFor={inputId}>
           {config.label}
         </label>
         <span
@@ -157,7 +157,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
           {config.required ? t("badges.required") : t("badges.optional")}
         </span>
       </div>
-      <p className="mt-3 text-[#5d574b] text-sm">
+      <p className="mt-3 text-[var(--muted-foreground)] text-sm">
         {t(config.required ? "uploadInstruction.required" : "uploadInstruction.optional", {
           formats: ACCEPTED_TYPE_LABEL,
           maxSize: MAX_FILE_SIZE_LABEL,
@@ -168,7 +168,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         aria-invalid={Boolean(serverError || clientError)}
         className={cn(
           inputClass,
-          "mt-4 cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-[#8B7355] file:px-4 file:py-2 file:font-semibold file:text-sm file:text-white hover:file:bg-[#9B8B7E]",
+          "mt-4 cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-[var(--red)] file:px-4 file:py-2 file:font-semibold file:text-sm file:text-white hover:file:bg-[var(--red-hover)]",
           (serverError || clientError) && errorClass
         )}
         id={inputId}

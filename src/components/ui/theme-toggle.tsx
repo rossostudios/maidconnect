@@ -1,6 +1,6 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { Moon02Icon, Sun01Icon } from "hugeicons-react";
 import { useTheme } from "@/components/providers/theme-provider";
 
 type ThemeToggleProps = {
@@ -42,18 +42,18 @@ export function ThemeToggle({ size = "default", showLabel = false }: ThemeToggle
   return (
     <button
       aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
-      className={`${sizeClasses[size]} ${showLabel ? "w-auto gap-2 px-4" : ""} flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white text-[#211f1a] transition-all hover:scale-105 hover:border-[#211f1a] active:scale-95 dark:border-[#3a3530] dark:bg-[#211f1a] dark:text-[#fbfaf9] dark:hover:border-[#fbfaf9]`}
+      className={`${sizeClasses[size]} ${showLabel ? "w-auto gap-2 px-4" : ""} flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white text-[var(--foreground)] transition-all hover:scale-105 hover:border-[var(--foreground)] active:scale-95 dark:border-[#3a3530] dark:bg-[var(--foreground)] dark:text-[var(--background)] dark:hover:border-[var(--background)]`}
       onClick={toggleTheme}
       type="button"
     >
       {resolvedTheme === "dark" ? (
         <>
-          <Sun className={`${iconSizes[size]} rotate-0 transition-transform duration-300`} />
+          <Sun01Icon className={`${iconSizes[size]} rotate-0 transition-transform duration-300`} />
           {showLabel && <span className="font-medium text-sm">Light</span>}
         </>
       ) : (
         <>
-          <Moon className={`${iconSizes[size]} rotate-0 transition-transform duration-300`} />
+          <Moon02Icon className={`${iconSizes[size]} rotate-0 transition-transform duration-300`} />
           {showLabel && <span className="font-medium text-sm">Dark</span>}
         </>
       )}

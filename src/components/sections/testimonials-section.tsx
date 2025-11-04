@@ -1,57 +1,146 @@
+"use client";
+
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft01Icon, ArrowRight01Icon } from "hugeicons-react";
+import Image from "next/image";
+import { useMemo, useState } from "react";
 import { Container } from "@/components/ui/container";
 import { testimonials } from "@/lib/content";
 
+const TRANSITION = {
+  type: "spring" as const,
+  stiffness: 120,
+  damping: 22,
+};
+
 export function TestimonialsSection() {
+  const slides = useMemo(() => testimonials, []);
+  const [current, setCurrent] = useState(0);
+
+  const goTo = (index: number) => {
+    const safeIndex = (index + slides.length) % slides.length;
+    setCurrent(safeIndex);
+  };
+
+  const active = slides[current];
+
   return (
-    <section className="py-16 sm:py-20 lg:py-24" id="testimonials">
-      <Container>
-        <div className="mx-auto max-w-6xl space-y-12 text-center">
-          <div className="space-y-4">
-            <p className="font-semibold text-[#a49c90] text-sm uppercase tracking-[0.32em]">
-              Testimonials
-            </p>
-            <h2 className="mx-auto max-w-3xl font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl lg:text-6xl">
-              Trusted by Colombia's Finest Families
+    <section className="py-20 sm:py-24 lg:py-28" id="testimonials">
+      <Container className="max-w-6xl px-4 sm:px-6">
+        <div className="mb-10 flex items-center justify-between gap-6">
+          <div className="space-y-2">
+            <p className="tagline">Testimonials</p>
+            <h2 className="type-serif-lg text-[var(--foreground)]">
+              Trusted by Colombia&apos;s Finest Families
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-8 sm:grid-cols-2">
-            {testimonials.map((testimonial) => (
-              <article
-                className="flex flex-col gap-6 rounded-[28px] border border-[#e6e0d4] bg-[#fbfafa] p-10 text-left shadow-[0_10px_40px_rgba(18,17,15,0.04)]"
-                key={testimonial.handle}
+          {slides.length > 1 && (
+            <div className="hidden items-center gap-3 sm:flex">
+              <button
+                aria-label="Previous testimonial"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border)] bg-white text-[var(--foreground)] transition hover:border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-white"
+                onClick={() => goTo(current - 1)}
+                type="button"
               >
-                <div className="flex flex-col gap-4">
-                  <p className="text-2xl text-[#211f1a] leading-relaxed">"{testimonial.quote}"</p>
-                  {testimonial.outcome && (
-                    <span className="inline-flex w-fit items-center gap-2 rounded-full bg-green-50 px-3 py-1.5 font-medium text-green-700 text-sm">
-                      <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                        <title>Success checkmark</title>
-                        <path
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          fillRule="evenodd"
-                        />
-                      </svg>
-                      {testimonial.outcome}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#8B7355] font-semibold text-base text-white">
-                    {testimonial.name
-                      .split(" ")
-                      .map((part) => part[0])
-                      .join("")
-                      .slice(0, 2)}
+                <ArrowLeft01Icon className="h-5 w-5" />
+              </button>
+              <button
+                aria-label="Next testimonial"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border)] bg-white text-[var(--foreground)] transition hover:border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-white"
+                onClick={() => goTo(current + 1)}
+                type="button"
+              >
+                <ArrowRight01Icon className="h-5 w-5" />
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div className="relative overflow-hidden rounded-[32px] border border-[var(--border)] bg-white p-8 shadow-[0_24px_70px_rgba(15,15,15,0.05)] sm:p-12 lg:p-16">
+          <AnimatePresence initial={false} mode="wait">
+            <motion.div
+              animate={{ opacity: 1, x: 0 }}
+              className="grid gap-12 lg:grid-cols-[minmax(0,220px)_1fr] lg:items-start lg:gap-16"
+              exit={{ opacity: 0, x: -32 }}
+              initial={{ opacity: 0, x: 32 }}
+              key={active.handle}
+              transition={TRANSITION}
+            >
+              <div className="flex flex-col gap-6 lg:pt-2">
+                <div className="flex items-start gap-4">
+                  <div className="relative h-16 w-16 overflow-hidden rounded-full bg-[var(--border)] sm:h-20 sm:w-20">
+                    <Image
+                      alt={active.name}
+                      className="object-cover"
+                      fill
+                      sizes="80px"
+                      src={active.avatar || "/placeholder-professional.jpg"}
+                    />
                   </div>
-                  <div>
-                    <p className="font-semibold text-[#211f1a] text-base">{testimonial.name}</p>
-                    <p className="text-[#938c7f] text-sm">{testimonial.location}</p>
+                  <div className="space-y-1 text-left">
+                    <p className="font-semibold text-[var(--foreground)] text-sm uppercase tracking-[0.18em]">
+                      {active.name}
+                    </p>
+                    <p className="text-[var(--muted-foreground)] text-xs uppercase tracking-[0.12em]">
+                      {active.role || active.location}
+                    </p>
+                    <p className="mt-1 text-[var(--muted-foreground)] text-xs">{active.location}</p>
                   </div>
                 </div>
-              </article>
-            ))}
-          </div>
+
+                <div className="hidden gap-3 text-left text-[var(--muted-foreground)] text-xs uppercase tracking-[0.18em] opacity-60 lg:flex">
+                  <span>{active.handle}</span>
+                  <span>Casaora Client</span>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-8 lg:gap-12">
+                <blockquote className="type-serif-sm max-w-3xl text-left text-[clamp(18px,2.4vw,24px)] text-[var(--foreground)] leading-relaxed">
+                  “{active.quote}”
+                </blockquote>
+
+                {(active.metrics?.length ?? 0) > 0 && (
+                  <div className="grid gap-6 border-[var(--border)] border-t pt-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {active.metrics?.map((metric) => (
+                      <div className="flex flex-col gap-1 text-left" key={metric.label}>
+                        <p className="font-semibold text-[var(--foreground)] text-base">
+                          {metric.value}
+                        </p>
+                        <p className="text-[var(--muted-foreground)]/80 text-xs uppercase tracking-[0.08em]">
+                          {metric.label}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {slides.length > 1 && (
+            <div className="mt-10 flex items-center justify-between gap-4 border-[var(--border)] border-t pt-6 sm:hidden">
+              <button
+                aria-label="Previous testimonial"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border)] bg-white text-[var(--foreground)] transition hover:border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-white"
+                onClick={() => goTo(current - 1)}
+                type="button"
+              >
+                <ArrowLeft01Icon className="h-5 w-5" />
+              </button>
+              <div className="flex items-center gap-2 text-[var(--muted-foreground)] text-sm">
+                {current + 1} / {slides.length}
+              </div>
+              <button
+                aria-label="Next testimonial"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border)] bg-white text-[var(--foreground)] transition hover:border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-white"
+                onClick={() => goTo(current + 1)}
+                type="button"
+              >
+                <ArrowRight01Icon className="h-5 w-5" />
+              </button>
+            </div>
+          )}
         </div>
       </Container>
     </section>

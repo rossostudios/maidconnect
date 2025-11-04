@@ -35,7 +35,7 @@ export function PendingRatingsList({ completedBookings }: Props) {
 
   return (
     <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
-      <h3 className="font-semibold text-[#211f1a] text-lg">{t("title")}</h3>
+      <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
       <p className="mt-1 text-[#7a6d62] text-sm">{t("description")}</p>
 
       <div className="mt-4 space-y-3">
@@ -52,7 +52,7 @@ export function PendingRatingsList({ completedBookings }: Props) {
               key={booking.id}
             >
               <div>
-                <p className="font-medium text-[#211f1a]">
+                <p className="font-medium text-[var(--foreground)]">
                   {booking.service_name || t("defaultService")}
                 </p>
                 <p className="text-[#7a6d62] text-sm">
@@ -60,7 +60,7 @@ export function PendingRatingsList({ completedBookings }: Props) {
                 </p>
               </div>
               <button
-                className="rounded-lg bg-[#8B7355] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#9B8B7E]"
+                className="rounded-lg bg-[var(--red)] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[var(--red-hover)]"
                 onClick={() => setSelectedBooking(booking)}
                 type="button"
               >

@@ -1,38 +1,46 @@
 import {
-  AlertCircle,
-  Bug,
-  Clock,
-  Frown,
-  Lightbulb,
-  Monitor,
-  ThumbsUp,
-  TrendingUp,
-  User,
-} from "lucide-react";
+  AlertCircleIcon,
+  AnalyticsUpIcon,
+  Bug01Icon,
+  Clock01Icon,
+  ComputerIcon,
+  Idea01Icon,
+  Sad01Icon,
+  ThumbsUpIcon,
+  UserIcon,
+} from "hugeicons-react";
 import { notFound } from "next/navigation";
 import { FeedbackActions } from "@/components/admin/feedback/feedback-actions";
 import { requireUser } from "@/lib/auth/session";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 const typeConfig = {
-  bug: { icon: Bug, label: "Bug Report", color: "text-red-600 bg-red-50 border-red-200" },
+  bug: { icon: Bug01Icon, label: "Bug Report", color: "text-red-600 bg-red-50 border-red-200" },
   feature_request: {
-    icon: Lightbulb,
+    icon: Idea01Icon,
     label: "Feature Request",
     color: "text-purple-600 bg-purple-50 border-purple-200",
   },
   improvement: {
-    icon: TrendingUp,
+    icon: AnalyticsUpIcon,
     label: "Improvement",
     color: "text-blue-600 bg-blue-50 border-blue-200",
   },
   complaint: {
-    icon: Frown,
+    icon: Sad01Icon,
     label: "Complaint",
     color: "text-orange-600 bg-orange-50 border-orange-200",
   },
-  praise: { icon: ThumbsUp, label: "Praise", color: "text-green-600 bg-green-50 border-green-200" },
-  other: { icon: AlertCircle, label: "Other", color: "text-gray-600 bg-gray-50 border-gray-200" },
+  praise: {
+    icon: ThumbsUpIcon,
+    label: "Praise",
+    color: "text-green-600 bg-green-50 border-green-200",
+  },
+  other: {
+    icon: AlertCircleIcon,
+    label: "Other",
+    color: "text-gray-600 bg-gray-50 border-gray-200",
+  },
 };
 
 const statusBadge = {
@@ -67,7 +75,7 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
   }
 
   const typeConf = typeConfig[feedback.feedback_type as keyof typeof typeConfig];
-  const TypeIcon = typeConf?.icon || AlertCircle;
+  const TypeIcon = typeConf?.icon || AlertCircleIcon;
 
   return (
     <>
@@ -104,17 +112,19 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
       <div className="mb-6 grid gap-4 md:grid-cols-2">
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-4">
           <div className="mb-2 flex items-center gap-2 text-[#7a6d62] text-sm">
-            <User className="h-4 w-4" />
+            <UserIcon className="h-4 w-4" />
             <span className="font-semibold">User Information</span>
           </div>
           <dl className="space-y-1">
             <div className="flex justify-between text-sm">
               <dt className="text-[#7a6d62]">Email:</dt>
-              <dd className="font-medium text-[#211f1a]">{feedback.user_email || "Anonymous"}</dd>
+              <dd className="font-medium text-[var(--foreground)]">
+                {feedback.user_email || "Anonymous"}
+              </dd>
             </div>
             <div className="flex justify-between text-sm">
               <dt className="text-[#7a6d62]">Role:</dt>
-              <dd className="font-medium text-[#211f1a] capitalize">
+              <dd className="font-medium text-[var(--foreground)] capitalize">
                 {feedback.user_role || "Unknown"}
               </dd>
             </div>
@@ -123,10 +133,10 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
 
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-4">
           <div className="mb-2 flex items-center gap-2 text-[#7a6d62] text-sm">
-            <Clock className="h-4 w-4" />
+            <Clock01Icon className="h-4 w-4" />
             <span className="font-semibold">Submission Time</span>
           </div>
-          <p className="font-medium text-[#211f1a] text-sm">
+          <p className="font-medium text-[var(--foreground)] text-sm">
             {new Date(feedback.created_at).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
@@ -140,23 +150,25 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
 
       {/* Message */}
       <div className="mb-6 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-        <h2 className="mb-4 font-bold text-[#211f1a] text-xl">Message</h2>
-        <p className="whitespace-pre-wrap text-[#5d574b] leading-relaxed">{feedback.message}</p>
+        <h2 className="mb-4 font-bold text-[var(--foreground)] text-xl">Message</h2>
+        <p className="whitespace-pre-wrap text-[var(--muted-foreground)] leading-relaxed">
+          {feedback.message}
+        </p>
       </div>
 
       {/* Technical Context */}
       <div className="mb-6 rounded-2xl border border-[#ebe5d8] bg-white p-6">
         <div className="mb-4 flex items-center gap-2">
-          <Monitor className="h-5 w-5 text-[#7a6d62]" />
-          <h2 className="font-bold text-[#211f1a] text-xl">Technical Context</h2>
+          <ComputerIcon className="h-5 w-5 text-[#7a6d62]" />
+          <h2 className="font-bold text-[var(--foreground)] text-xl">Technical Context</h2>
         </div>
 
         <dl className="space-y-3">
           <div>
             <dt className="mb-1 font-semibold text-[#7a6d62] text-sm">Page URL</dt>
-            <dd className="break-all font-mono text-[#211f1a] text-sm">
+            <dd className="break-all font-mono text-[var(--foreground)] text-sm">
               <a
-                className="text-[#8B7355] hover:underline"
+                className="text-[var(--red)] hover:underline"
                 href={feedback.page_url}
                 rel="noopener noreferrer"
                 target="_blank"
@@ -168,20 +180,22 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
 
           <div>
             <dt className="mb-1 font-semibold text-[#7a6d62] text-sm">Page Path</dt>
-            <dd className="font-mono text-[#211f1a] text-sm">{feedback.page_path}</dd>
+            <dd className="font-mono text-[var(--foreground)] text-sm">{feedback.page_path}</dd>
           </div>
 
           {feedback.user_agent && (
             <div>
               <dt className="mb-1 font-semibold text-[#7a6d62] text-sm">User Agent</dt>
-              <dd className="break-all font-mono text-[#211f1a] text-xs">{feedback.user_agent}</dd>
+              <dd className="break-all font-mono text-[var(--foreground)] text-xs">
+                {feedback.user_agent}
+              </dd>
             </div>
           )}
 
           {feedback.viewport_size && (
             <div>
               <dt className="mb-1 font-semibold text-[#7a6d62] text-sm">Viewport Size</dt>
-              <dd className="font-mono text-[#211f1a] text-sm">
+              <dd className="font-mono text-[var(--foreground)] text-sm">
                 {(feedback.viewport_size as any).width} × {(feedback.viewport_size as any).height} (
                 {(feedback.viewport_size as any).pixelRatio}x)
               </dd>
@@ -192,9 +206,11 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
 
       {/* Admin Notes */}
       {feedback.admin_notes && (
-        <div className="mb-6 rounded-2xl border border-[#ebe5d8] bg-[#fbfaf9] p-6">
-          <h2 className="mb-4 font-bold text-[#211f1a] text-xl">Admin Notes</h2>
-          <p className="whitespace-pre-wrap text-[#5d574b]">{feedback.admin_notes}</p>
+        <div className="mb-6 rounded-2xl border border-[#ebe5d8] bg-[var(--background)] p-6">
+          <h2 className="mb-4 font-bold text-[var(--foreground)] text-xl">Admin Notes</h2>
+          <p className="whitespace-pre-wrap text-[var(--muted-foreground)]">
+            {feedback.admin_notes}
+          </p>
         </div>
       )}
 

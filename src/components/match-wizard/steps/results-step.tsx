@@ -1,6 +1,13 @@
 "use client";
 
-import { Clock, MapPin, MessageCircle, ShieldCheck, Sparkles, Star } from "lucide-react";
+import {
+  BubbleChatIcon,
+  Clock01Icon,
+  Location01Icon,
+  MagicWand01Icon,
+  SecurityCheckIcon,
+  StarIcon,
+} from "hugeicons-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
@@ -135,11 +142,11 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
       <div className="space-y-6 py-12 text-center">
         <div className="flex justify-center">
           <div className="flex h-20 w-20 items-center justify-center">
-            <div className="h-16 w-16 animate-spin rounded-full border-4 border-[#ebe5d8] border-t-[#211f1a]" />
+            <div className="h-16 w-16 animate-spin rounded-full border-4 border-[#ebe5d8] border-t-[var(--foreground)]" />
           </div>
         </div>
         <div>
-          <h2 className="font-semibold text-2xl text-[#211f1a]">
+          <h2 className="font-semibold text-2xl text-[var(--foreground)]">
             {t("searching", { defaultValue: "Finding your perfect matches..." })}
           </h2>
           <p className="mt-2 text-[#7a6d62]">
@@ -159,10 +166,10 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
       <div className="text-center">
         <div className="mb-4 flex justify-center">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-            <Sparkles className="h-8 w-8 text-green-600" />
+            <MagicWand01Icon className="h-8 w-8 text-green-600" />
           </div>
         </div>
-        <h2 className="font-semibold text-2xl text-[#211f1a]">
+        <h2 className="font-semibold text-2xl text-[var(--foreground)]">
           {t("title", {
             defaultValue: "We found {count} perfect matches!",
             count: matches.length,
@@ -187,7 +194,7 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
             >
               {/* Match Score Badge */}
               {index === 0 && (
-                <div className="bg-gradient-to-r from-[#8B7355] to-[#9B8B7E] px-4 py-2 text-center font-semibold text-sm text-white">
+                <div className="bg-gradient-to-r from-[var(--red)] to-[var(--red-hover)] px-4 py-2 text-center font-semibold text-sm text-white">
                   ⭐ {t("topMatch", { defaultValue: "Top Match" })} - {match.matchScore}%{" "}
                   {t("compatibility", { defaultValue: "Compatibility" })}
                 </div>
@@ -212,11 +219,13 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
                   <div className="flex-1">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <h3 className="font-semibold text-[#211f1a] text-lg">{match.name}</h3>
+                        <h3 className="font-semibold text-[var(--foreground)] text-lg">
+                          {match.name}
+                        </h3>
                         <p className="text-[#7a6d62] text-sm">{match.service}</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold text-[#211f1a] text-lg">
+                        <p className="font-semibold text-[var(--foreground)] text-lg">
                           {formatCurrency(match.hourlyRate)}/hr
                         </p>
                         <p className="text-[#7a6d62] text-xs">{match.experienceYears} years exp.</p>
@@ -229,25 +238,25 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
                       <span
                         className={`inline-flex items-center gap-1 rounded-full px-2 py-1 font-medium text-xs ${verificationBadge.color}`}
                       >
-                        <ShieldCheck className="h-3 w-3" />
+                        <SecurityCheckIcon className="h-3 w-3" />
                         {verificationBadge.label}
                       </span>
 
                       {/* Rating */}
                       <span className="inline-flex items-center gap-1 rounded-full bg-yellow-50 px-2 py-1 font-medium text-xs text-yellow-800">
-                        <Star className="h-3 w-3 fill-current" />
+                        <StarIcon className="h-3 w-3 fill-current" />
                         {match.rating} ({match.reviewCount})
                       </span>
 
                       {/* On-Time Rate */}
                       <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 font-medium text-blue-800 text-xs">
-                        <Clock className="h-3 w-3" />
+                        <Clock01Icon className="h-3 w-3" />
                         {match.onTimeRate}% on-time
                       </span>
 
                       {/* Response Time */}
                       <span className="inline-flex items-center gap-1 rounded-full bg-purple-50 px-2 py-1 font-medium text-purple-800 text-xs">
-                        <MessageCircle className="h-3 w-3" />
+                        <BubbleChatIcon className="h-3 w-3" />
                         {match.responseTime}
                       </span>
                     </div>
@@ -255,7 +264,7 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
                     {/* Location & Languages */}
                     <div className="mt-3 flex flex-wrap gap-3 text-[#7a6d62] text-sm">
                       <span className="inline-flex items-center gap-1">
-                        <MapPin className="h-4 w-4" />
+                        <Location01Icon className="h-4 w-4" />
                         {match.distance}
                       </span>
                       <span>•</span>
@@ -271,7 +280,7 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
                     {/* Action */}
                     <div className="mt-4">
                       <Link
-                        className="inline-flex w-full items-center justify-center rounded-xl bg-[#211f1a] px-4 py-2.5 font-semibold text-sm text-white transition hover:bg-[#2d2822]"
+                        className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--foreground)] px-4 py-2.5 font-semibold text-sm text-white transition hover:bg-[#2d2822]"
                         href={`/professionals/${match.id}`}
                       >
                         {t("viewProfile", { defaultValue: "View Profile & Book" })}
@@ -288,21 +297,21 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
       {/* Actions */}
       <div className="space-y-3 pt-4">
         <Link
-          className="block w-full rounded-xl bg-white px-6 py-3 text-center font-semibold text-[#211f1a] transition hover:bg-[#fbfafa]"
+          className="block w-full rounded-xl bg-white px-6 py-3 text-center font-semibold text-[var(--foreground)] transition hover:bg-[#fbfafa]"
           href="/professionals"
         >
           {t("browseAll", { defaultValue: "Browse All Professionals" })}
         </Link>
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[#211f1a] hover:text-[#211f1a]"
+            className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[var(--foreground)] hover:text-[var(--foreground)]"
             onClick={onBack}
             type="button"
           >
             {t("refineSearch", { defaultValue: "Refine Search" })}
           </button>
           <button
-            className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[#211f1a] hover:text-[#211f1a]"
+            className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[var(--foreground)] hover:text-[var(--foreground)]"
             onClick={onRestart}
             type="button"
           >

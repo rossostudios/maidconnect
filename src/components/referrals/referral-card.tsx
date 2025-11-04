@@ -1,6 +1,13 @@
 "use client";
 
-import { Check, Copy, Gift, Share2, Sparkles, Users } from "lucide-react";
+import {
+  Copy01Icon,
+  GiftIcon,
+  MagicWand01Icon,
+  Share01Icon,
+  Tick02Icon,
+  UserGroupIcon,
+} from "hugeicons-react";
 import { useState } from "react";
 import { formatCOP } from "@/lib/format";
 
@@ -55,40 +62,42 @@ export function ReferralCard({
   };
 
   return (
-    <div className="rounded-2xl border border-[#ebe5d8] bg-gradient-to-br from-white to-[#fbfaf9] p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+    <div className="rounded-2xl border border-[#ebe5d8] bg-gradient-to-br from-white to-[var(--background)] p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
       {/* Header */}
       <div className="mb-6 flex items-start justify-between">
         <div>
           <div className="mb-2 flex items-center gap-2">
-            <Gift className="h-6 w-6 text-[#8B7355]" />
-            <h2 className="font-bold text-2xl text-[#211f1a]">Your Referral Code</h2>
+            <GiftIcon className="h-6 w-6 text-[var(--red)]" />
+            <h2 className="font-bold text-2xl text-[var(--foreground)]">Your Referral Code</h2>
           </div>
-          <p className="text-[#5d574b] text-sm">Share with friends and you both earn rewards</p>
+          <p className="text-[var(--muted-foreground)] text-sm">
+            Share with friends and you both earn rewards
+          </p>
         </div>
-        <Sparkles className="h-8 w-8 text-[#8B7355]" />
+        <MagicWand01Icon className="h-8 w-8 text-[var(--red)]" />
       </div>
 
       {/* Referral Code Display */}
-      <div className="mb-6 rounded-xl border-2 border-[#8B7355] border-dashed bg-white p-6">
-        <div className="mb-2 text-center text-[#5d574b] text-xs uppercase tracking-wider">
+      <div className="mb-6 rounded-xl border-2 border-[var(--red)] border-dashed bg-white p-6">
+        <div className="mb-2 text-center text-[var(--muted-foreground)] text-xs uppercase tracking-wider">
           Your Code
         </div>
-        <div className="mb-4 text-center font-bold text-4xl text-[#211f1a] tracking-wider">
+        <div className="mb-4 text-center font-bold text-4xl text-[var(--foreground)] tracking-wider">
           {code}
         </div>
         <button
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#8B7355] px-4 py-3 font-semibold text-sm text-white transition hover:bg-[#e54d3a] active:scale-95 disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--red)] px-4 py-3 font-semibold text-sm text-white transition hover:bg-[#e54d3a] active:scale-95 disabled:opacity-50"
           onClick={handleCopy}
           type="button"
         >
           {copied ? (
             <>
-              <Check className="h-4 w-4" />
+              <Tick02Icon className="h-4 w-4" />
               Copied!
             </>
           ) : (
             <>
-              <Copy className="h-4 w-4" />
+              <Copy01Icon className="h-4 w-4" />
               Copy Link
             </>
           )}
@@ -96,32 +105,32 @@ export function ReferralCard({
       </div>
 
       {/* Rewards Explanation */}
-      <div className="mb-6 rounded-xl bg-[#8B7355]/5 p-5">
-        <h3 className="mb-3 font-semibold text-[#211f1a] text-sm">How it works:</h3>
+      <div className="mb-6 rounded-xl bg-[var(--red)]/5 p-5">
+        <h3 className="mb-3 font-semibold text-[var(--foreground)] text-sm">How it works:</h3>
         <ul className="space-y-2">
           <li className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355] text-white text-xs">
+            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)] text-white text-xs">
               1
             </div>
-            <p className="text-[#5d574b] text-sm">
+            <p className="text-[var(--muted-foreground)] text-sm">
               <span className="font-semibold">Share your code</span> with friends via WhatsApp,
               social media, or email
             </p>
           </li>
           <li className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355] text-white text-xs">
+            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)] text-white text-xs">
               2
             </div>
-            <p className="text-[#5d574b] text-sm">
+            <p className="text-[var(--muted-foreground)] text-sm">
               <span className="font-semibold">They get {formatCOP(refereeReward / 100)}</span> off
               their first booking
             </p>
           </li>
           <li className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355] text-white text-xs">
+            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)] text-white text-xs">
               3
             </div>
-            <p className="text-[#5d574b] text-sm">
+            <p className="text-[var(--muted-foreground)] text-sm">
               <span className="font-semibold">You earn {formatCOP(referrerReward / 100)}</span> in
               credits when they complete their first booking
             </p>
@@ -132,18 +141,18 @@ export function ReferralCard({
       {/* Stats */}
       <div className="mb-6 grid gap-4 sm:grid-cols-2">
         <div className="rounded-xl bg-white p-4">
-          <div className="mb-1 flex items-center gap-2 text-[#5d574b] text-xs">
-            <Users className="h-4 w-4" />
+          <div className="mb-1 flex items-center gap-2 text-[var(--muted-foreground)] text-xs">
+            <UserGroupIcon className="h-4 w-4" />
             People Referred
           </div>
-          <div className="font-bold text-2xl text-[#211f1a]">{usesCount}</div>
+          <div className="font-bold text-2xl text-[var(--foreground)]">{usesCount}</div>
         </div>
         <div className="rounded-xl bg-white p-4">
-          <div className="mb-1 flex items-center gap-2 text-[#5d574b] text-xs">
-            <Gift className="h-4 w-4" />
+          <div className="mb-1 flex items-center gap-2 text-[var(--muted-foreground)] text-xs">
+            <GiftIcon className="h-4 w-4" />
             Credits Earned
           </div>
-          <div className="font-bold text-2xl text-[#211f1a]">
+          <div className="font-bold text-2xl text-[var(--foreground)]">
             {formatCOP(totalCreditsEarned / 100)}
           </div>
         </div>
@@ -151,7 +160,7 @@ export function ReferralCard({
 
       {/* Share Buttons */}
       <div>
-        <div className="mb-3 text-center text-[#5d574b] text-xs uppercase tracking-wider">
+        <div className="mb-3 text-center text-[var(--muted-foreground)] text-xs uppercase tracking-wider">
           Share via
         </div>
         <div className="grid grid-cols-3 gap-3">
@@ -161,9 +170,9 @@ export function ReferralCard({
             type="button"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#25D366]">
-              <Share2 className="h-5 w-5 text-white" />
+              <Share01Icon className="h-5 w-5 text-white" />
             </div>
-            <span className="font-medium text-[#211f1a] text-xs">WhatsApp</span>
+            <span className="font-medium text-[var(--foreground)] text-xs">WhatsApp</span>
           </button>
           <button
             className="flex flex-col items-center justify-center gap-2 rounded-xl border border-[#ebe5d8] bg-white p-4 transition hover:border-[#1DA1F2] hover:bg-[#1DA1F2]/5 active:scale-95"
@@ -171,9 +180,9 @@ export function ReferralCard({
             type="button"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1DA1F2]">
-              <Share2 className="h-5 w-5 text-white" />
+              <Share01Icon className="h-5 w-5 text-white" />
             </div>
-            <span className="font-medium text-[#211f1a] text-xs">Twitter</span>
+            <span className="font-medium text-[var(--foreground)] text-xs">Twitter</span>
           </button>
           <button
             className="flex flex-col items-center justify-center gap-2 rounded-xl border border-[#ebe5d8] bg-white p-4 transition hover:border-[#4267B2] hover:bg-[#4267B2]/5 active:scale-95"
@@ -181,16 +190,16 @@ export function ReferralCard({
             type="button"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#4267B2]">
-              <Share2 className="h-5 w-5 text-white" />
+              <Share01Icon className="h-5 w-5 text-white" />
             </div>
-            <span className="font-medium text-[#211f1a] text-xs">Facebook</span>
+            <span className="font-medium text-[var(--foreground)] text-xs">Facebook</span>
           </button>
         </div>
       </div>
 
       {/* Fine Print */}
-      <div className="mt-6 rounded-lg bg-[#fbfaf9] p-4">
-        <p className="text-center text-[#5d574b] text-xs leading-relaxed">
+      <div className="mt-6 rounded-lg bg-[var(--background)] p-4">
+        <p className="text-center text-[var(--muted-foreground)] text-xs leading-relaxed">
           Credits expire after 1 year. Your friend must complete their first booking for you to earn
           rewards. Unlimited referrals allowed.
         </p>

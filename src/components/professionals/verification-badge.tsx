@@ -1,5 +1,3 @@
-import { Check, CheckCheck, ShieldCheck } from "lucide-react";
-
 export type VerificationLevel = "none" | "basic" | "enhanced" | "background-check";
 
 type VerificationBadgeProps = {

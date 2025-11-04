@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, ChevronLeft, ChevronRight, Trash2 } from "lucide-react";
+import { ArrowLeft01Icon, ArrowRight01Icon, Calendar01Icon, Delete01Icon } from "hugeicons-react";
 import { useMemo, useState } from "react";
 import { useCalendarGrid } from "@/hooks/use-calendar-grid";
 import { useCalendarMonth } from "@/hooks/use-calendar-month";
@@ -94,32 +94,32 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
         <div className="flex items-center gap-2">
           <button
             aria-label="Previous month"
-            className="rounded-lg p-2 text-[#7d7566] transition hover:bg-[#ebe5d8] hover:text-[#211f1a]"
+            className="rounded-lg p-2 text-[#7d7566] transition hover:bg-[#ebe5d8] hover:text-[var(--foreground)]"
             onClick={goToPreviousMonth}
             type="button"
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ArrowLeft01Icon className="h-5 w-5" />
           </button>
-          <h3 className="min-w-[180px] text-center font-semibold text-[#211f1a] text-lg">
+          <h3 className="min-w-[180px] text-center font-semibold text-[var(--foreground)] text-lg">
             {getMonthLabel()}
           </h3>
           <button
             aria-label="Next month"
-            className="rounded-lg p-2 text-[#7d7566] transition hover:bg-[#ebe5d8] hover:text-[#211f1a]"
+            className="rounded-lg p-2 text-[#7d7566] transition hover:bg-[#ebe5d8] hover:text-[var(--foreground)]"
             onClick={goToNextMonth}
             type="button"
           >
-            <ChevronRight className="h-5 w-5" />
+            <ArrowRight01Icon className="h-5 w-5" />
           </button>
         </div>
 
         <div className="flex gap-2">
           <button
-            className="flex items-center gap-1 rounded-lg border-2 border-[#ebe5d8] bg-white px-3 py-2 font-semibold text-[#211f1a] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
+            className="flex items-center gap-1 rounded-lg border-2 border-[#ebe5d8] bg-white px-3 py-2 font-semibold text-[var(--foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)]"
             onClick={handleBlockMonth}
             type="button"
           >
-            <Calendar className="h-4 w-4" />
+            <Calendar01Icon className="h-4 w-4" />
             Block entire month
           </button>
           {blockedDates.length > 0 && (
@@ -128,7 +128,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
               onClick={handleClearAll}
               type="button"
             >
-              <Trash2 className="h-4 w-4" />
+              <Delete01Icon className="h-4 w-4" />
               Clear all
             </button>
           )}
@@ -138,7 +138,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
       {/* Calendar Grid */}
       <div className="overflow-hidden rounded-xl border border-[#ebe5d8] bg-white">
         {/* Day Headers */}
-        <div className="grid grid-cols-7 gap-px border-[#ebe5d8] border-b bg-[#fbfaf9]">
+        <div className="grid grid-cols-7 gap-px border-[#ebe5d8] border-b bg-[var(--background)]">
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
             <div
               className="py-3 text-center font-semibold text-[#7d7566] text-xs uppercase tracking-wide"
@@ -157,15 +157,15 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
 
             const getButtonClassName = () => {
               if (!day.inCurrentMonth) {
-                return "cursor-not-allowed bg-[#fbfaf9] text-[#d4cec0]";
+                return "cursor-not-allowed bg-[var(--background)] text-[#d4cec0]";
               }
               if (isBlocked) {
                 return "bg-red-500 font-semibold text-white hover:bg-red-600";
               }
               if (day.isToday) {
-                return "bg-[#fff5f2] font-semibold text-[#8B7355] hover:bg-[#8B7355] hover:text-white";
+                return "bg-[#fff5f2] font-semibold text-[var(--red)] hover:bg-[var(--red)] hover:text-white";
               }
-              return "bg-white font-medium text-[#211f1a] hover:bg-[#8B7355] hover:text-white";
+              return "bg-white font-medium text-[var(--foreground)] hover:bg-[var(--red)] hover:text-white";
             };
 
             return (
@@ -185,23 +185,23 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
 
       {/* Summary */}
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-xl bg-[#fbfaf9] p-4">
+        <div className="rounded-xl bg-[var(--background)] p-4">
           <p className="text-[#7d7566] text-sm">
-            <strong className="text-[#211f1a]">{blockedInCurrentMonth} days</strong> blocked in{" "}
-            {getMonthLabel("en-US", { month: "long" })}
+            <strong className="text-[var(--foreground)]">{blockedInCurrentMonth} days</strong>{" "}
+            blocked in {getMonthLabel("en-US", { month: "long" })}
           </p>
         </div>
-        <div className="rounded-xl bg-[#fbfaf9] p-4">
+        <div className="rounded-xl bg-[var(--background)] p-4">
           <p className="text-[#7d7566] text-sm">
-            <strong className="text-[#211f1a]">{blockedDates.length} total days</strong> blocked
-            across all months
+            <strong className="text-[var(--foreground)]">{blockedDates.length} total days</strong>{" "}
+            blocked across all months
           </p>
         </div>
       </div>
 
       {/* Instructions */}
       <div className="rounded-xl border border-[#ebe5d8] bg-white p-4">
-        <h4 className="font-semibold text-[#211f1a] text-sm">How to use:</h4>
+        <h4 className="font-semibold text-[var(--foreground)] text-sm">How to use:</h4>
         <ul className="mt-2 space-y-1 text-[#7d7566] text-sm">
           <li>• Click any date to block it (turns red)</li>
           <li>• Click a blocked date to unblock it</li>

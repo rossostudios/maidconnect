@@ -9,7 +9,7 @@ type Props = {
 };
 
 const inputClasses =
-  "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[#211f1a] shadow-sm transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a1a]";
+  "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[var(--foreground)] shadow-sm transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)1a]";
 
 export function SignInForm({ redirectTo }: Props) {
   const t = useTranslations("pages.signIn.form");
@@ -21,7 +21,7 @@ export function SignInForm({ redirectTo }: Props) {
   return (
     <form action={formAction} className="space-y-6">
       <div className="space-y-2">
-        <label className="block font-medium text-[#211f1a] text-sm" htmlFor="email">
+        <label className="block font-medium text-[var(--foreground)] text-sm" htmlFor="email">
           {t("emailLabel")}
         </label>
         <input
@@ -36,7 +36,7 @@ export function SignInForm({ redirectTo }: Props) {
       </div>
 
       <div className="space-y-2">
-        <label className="block font-medium text-[#211f1a] text-sm" htmlFor="password">
+        <label className="block font-medium text-[var(--foreground)] text-sm" htmlFor="password">
           {t("passwordLabel")}
         </label>
         <input
@@ -55,7 +55,7 @@ export function SignInForm({ redirectTo }: Props) {
       {state.error ? <p className="text-red-600 text-sm">{state.error}</p> : null}
 
       <button
-        className="w-full rounded-full border border-[#211f1a] bg-[#211f1a] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:border-[#8B7355] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-full border border-[var(--foreground)] bg-[var(--foreground)] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:border-[var(--red)] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
         disabled={isPending}
         type="submit"
       >

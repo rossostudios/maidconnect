@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, DollarSign } from "lucide-react";
+import { Clock01Icon, DollarCircleIcon } from "hugeicons-react";
 import { useState } from "react";
 import { FormModal } from "@/components/shared/form-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
@@ -113,7 +113,7 @@ export function TimeExtensionModal({
       customActions={
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-lg border-2 border-[#ebe5d8] px-4 py-3 font-semibold text-[#211f1a] transition hover:border-[#211f1a]"
+            className="flex-1 rounded-lg border-2 border-[#ebe5d8] px-4 py-3 font-semibold text-[var(--foreground)] transition hover:border-[var(--foreground)]"
             disabled={form.isSubmitting}
             onClick={onClose}
             type="button"
@@ -121,7 +121,7 @@ export function TimeExtensionModal({
             Cancel
           </button>
           <button
-            className="flex-1 rounded-lg bg-[#8B7355] px-4 py-3 font-semibold text-white transition hover:bg-[#8B7355] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-lg bg-[var(--red)] px-4 py-3 font-semibold text-white transition hover:bg-[var(--red)] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={form.isSubmitting || !currentMinutes || currentMinutes <= 0}
             onClick={handleExtend}
             type="button"
@@ -139,7 +139,7 @@ export function TimeExtensionModal({
     >
       {/* Preset Options */}
       <div className="mb-6">
-        <div className="mb-3 block font-medium text-[#211f1a] text-sm">Quick Options</div>
+        <div className="mb-3 block font-medium text-[var(--foreground)] text-sm">Quick Options</div>
         <div className="grid grid-cols-2 gap-3">
           {PRESET_OPTIONS.map((option) => {
             const isSelected = selectedMinutes === option.minutes;
@@ -149,16 +149,21 @@ export function TimeExtensionModal({
               <button
                 className={`rounded-xl border-2 p-4 text-left transition ${
                   isSelected
-                    ? "border-[#8B7355] bg-[#8B7355]/5"
-                    : "border-[#ebe5d8] hover:border-[#8B7355]/50"
+                    ? "border-[var(--red)] bg-[var(--red)]/5"
+                    : "border-[#ebe5d8] hover:border-[var(--red)]/50"
                 }`}
                 key={option.minutes}
                 onClick={() => handlePresetClick(option.minutes)}
                 type="button"
               >
                 <div className="mb-1 flex items-center gap-2">
-                  <Clock className={isSelected ? "text-[#8B7355]" : "text-[#7a6d62]"} size={16} />
-                  <span className="font-semibold text-[#211f1a] text-sm">{option.label}</span>
+                  <Clock01Icon
+                    className={isSelected ? "text-[var(--red)]" : "text-[#7a6d62]"}
+                    size={16}
+                  />
+                  <span className="font-semibold text-[var(--foreground)] text-sm">
+                    {option.label}
+                  </span>
                 </div>
                 <p className="text-[#7a6d62] text-xs">{formatCurrency(cost)}</p>
               </button>
@@ -169,11 +174,11 @@ export function TimeExtensionModal({
 
       {/* Custom Duration */}
       <div className="mb-6">
-        <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="custom">
+        <label className="mb-2 block font-medium text-[var(--foreground)] text-sm" htmlFor="custom">
           Custom Duration (minutes)
         </label>
         <input
-          className="w-full rounded-lg border-2 border-[#ebe5d8] px-4 py-3 text-sm focus:border-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#8B7355]/20"
+          className="w-full rounded-lg border-2 border-[#ebe5d8] px-4 py-3 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
           id="custom"
           max="240"
           min="1"
@@ -189,7 +194,7 @@ export function TimeExtensionModal({
         <div className="mb-6 rounded-xl bg-blue-50 p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <DollarSign className="text-blue-600" size={20} />
+              <DollarCircleIcon className="text-blue-600" size={20} />
               <span className="font-medium text-blue-900 text-sm">Additional Cost</span>
             </div>
             <span className="font-bold text-blue-900 text-lg">{formatCurrency(estimatedCost)}</span>

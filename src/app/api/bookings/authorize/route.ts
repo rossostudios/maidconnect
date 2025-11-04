@@ -35,7 +35,9 @@ async function validatePaymentIntent(paymentIntentId: string, bookingId: string)
 
 // Helper: Format booking address
 function formatBookingAddress(address: any): string {
-  if (!address) return "Not specified";
+  if (!address) {
+    return "Not specified";
+  }
   if (typeof address === "object" && "formatted" in address) {
     return String(address.formatted);
   }
@@ -73,7 +75,9 @@ async function notifyProfessional(
   professionalProfile: any,
   customerUser: any
 ) {
-  if (!professionalUser?.user?.email) return;
+  if (!professionalUser?.user?.email) {
+    return;
+  }
 
   const details = formatBookingDetails(fullBooking);
 
@@ -94,12 +98,10 @@ async function notifyProfessional(
 }
 
 // Helper: Send notifications to customer
-async function notifyCustomer(
-  fullBooking: any,
-  customerUser: any,
-  professionalProfile: any
-) {
-  if (!customerUser?.user) return;
+async function notifyCustomer(fullBooking: any, customerUser: any, professionalProfile: any) {
+  if (!customerUser?.user) {
+    return;
+  }
 
   await notifyCustomerBookingConfirmed(fullBooking.customer_id, {
     id: fullBooking.id,
@@ -110,12 +112,22 @@ async function notifyCustomer(
 }
 
 // Helper: Fetch users for notifications
-async function fetchUsersForNotifications(supabase: any, professionalId: string, customerId: string) {
-  const [professionalUserResult, professionalProfileResult, customerUserResult] = await Promise.all([
-    supabase.auth.admin.getUserById(professionalId),
-    supabase.from("professional_profiles").select("full_name").eq("profile_id", professionalId).single(),
-    supabase.auth.admin.getUserById(customerId),
-  ]);
+async function fetchUsersForNotifications(
+  supabase: any,
+  professionalId: string,
+  customerId: string
+) {
+  const [professionalUserResult, professionalProfileResult, customerUserResult] = await Promise.all(
+    [
+      supabase.auth.admin.getUserById(professionalId),
+      supabase
+        .from("professional_profiles")
+        .select("full_name")
+        .eq("profile_id", professionalId)
+        .single(),
+      supabase.auth.admin.getUserById(customerId),
+    ]
+  );
 
   return {
     professionalUser: professionalUserResult.data,
@@ -129,20 +141,31 @@ async function sendAuthorizationNotifications(supabase: any, bookingId: string) 
   try {
     const { data: fullBooking } = await supabase
       .from("bookings")
-      .select("id, professional_id, customer_id, service_name, scheduled_start, duration_minutes, amount_authorized, currency, address")
+      .select(
+        "id, professional_id, customer_id, service_name, scheduled_start, duration_minutes, amount_authorized, currency, address"
+      )
       .eq("id", bookingId)
       .single();
 
-    if (!fullBooking) return;
+    if (!fullBooking) {
+      return;
+    }
 
-    const { professionalUser, professionalProfile, customerUser } = await fetchUsersForNotifications(
-      supabase,
-      fullBooking.professional_id,
-      fullBooking.customer_id
-    );
+    const { professionalUser, professionalProfile, customerUser } =
+      await fetchUsersForNotifications(
+        supabase,
+        fullBooking.professional_id,
+        fullBooking.customer_id
+      );
 
     await Promise.all([
-      notifyProfessional(supabase, fullBooking, professionalUser, professionalProfile, customerUser),
+      notifyProfessional(
+        supabase,
+        fullBooking,
+        professionalUser,
+        professionalProfile,
+        customerUser
+      ),
       notifyCustomer(fullBooking, customerUser, professionalProfile),
     ]);
   } catch (_emailError) {

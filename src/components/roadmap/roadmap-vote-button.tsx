@@ -6,7 +6,7 @@
 
 "use client";
 
-import { ChevronUp } from "lucide-react";
+import { ArrowUp01Icon } from "hugeicons-react";
 import { useState } from "react";
 import { useRoadmapVote } from "@/hooks/use-roadmap-vote";
 import { useRouter } from "@/i18n/routing";
@@ -71,18 +71,18 @@ export function RoadmapVoteButton({
         className={`flex flex-col items-center justify-center rounded-[12px] border-2 font-medium transition-all duration-200 ${sizeClasses[size]}
           ${
             hasVoted
-              ? "border-[#8B7355] bg-[#fff5f3] text-[#8B7355]"
-              : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#8B7355] hover:text-[#8B7355]"
+              ? "border-[var(--red)] bg-[#fff5f3] text-[var(--red)]"
+              : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[var(--red)] hover:text-[var(--red)]"
           }
           ${isLoading ? "cursor-not-allowed opacity-50" : "cursor-pointer"}
-          ${canVote ? "" : "hover:border-[#8B7355]"}
+          ${canVote ? "" : "hover:border-[var(--red)]"}
         `}
         disabled={isLoading}
         onClick={handleClick}
         title={hasVoted ? "Remove your vote" : "Upvote this item"}
         type="button"
       >
-        <ChevronUp
+        <ArrowUp01Icon
           className={`transition-transform ${hasVoted ? "scale-110" : ""}`}
           size={iconSizes[size]}
         />
@@ -92,10 +92,10 @@ export function RoadmapVoteButton({
 
       {/* Sign in prompt */}
       {showSignInPrompt && !canVote && (
-        <div className="-translate-x-1/2 absolute bottom-full left-1/2 z-10 mb-2 whitespace-nowrap rounded-lg bg-[#211f1a] px-3 py-2 text-sm text-white">
+        <div className="-translate-x-1/2 absolute bottom-full left-1/2 z-10 mb-2 whitespace-nowrap rounded-lg bg-[var(--foreground)] px-3 py-2 text-sm text-white">
           Sign in to vote
           <div className="-translate-x-1/2 -mt-1 absolute top-full left-1/2">
-            <div className="h-2 w-2 rotate-45 bg-[#211f1a]" />
+            <div className="h-2 w-2 rotate-45 bg-[var(--foreground)]" />
           </div>
         </div>
       )}

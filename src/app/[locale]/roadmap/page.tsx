@@ -27,12 +27,12 @@ export default function RoadmapPage() {
   return (
     <>
       <SiteHeader />
-      <div className="min-h-screen bg-[#fbfaf9]">
+      <div className="min-h-screen bg-[var(--background)]">
         {/* Header */}
         <div className="border-[#ebe5d8] border-b bg-white">
           <div className="container mx-auto max-w-6xl px-4 py-12">
             <div className="mx-auto max-w-3xl text-center">
-              <h1 className="mb-4 font-bold text-4xl text-[#211f1a] md:text-5xl">{t("title")}</h1>
+              <h1 className="type-serif-lg mb-4 text-[var(--foreground)]">{t("title")}</h1>
               <p className="text-[#6B7280] text-lg">{t("subtitle")}</p>
             </div>
           </div>
@@ -43,7 +43,7 @@ export default function RoadmapPage() {
           <Suspense
             fallback={
               <div className="flex items-center justify-center py-12">
-                <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#8B7355] border-t-transparent" />
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-[var(--red)] border-t-transparent" />
               </div>
             }
           >

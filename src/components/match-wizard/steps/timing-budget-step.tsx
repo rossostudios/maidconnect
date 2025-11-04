@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, Clock, DollarSign, Repeat } from "lucide-react";
+import { Calendar01Icon, Clock01Icon, DollarCircleIcon, RepeatIcon } from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import type { WizardData } from "../match-wizard";
 
@@ -44,14 +44,14 @@ export function TimingBudgetStep({
     <div className="space-y-6">
       {/* Icon */}
       <div className="flex justify-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#211f1a]/5">
-          <Calendar className="h-8 w-8 text-[#211f1a]" />
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--foreground)]/5">
+          <Calendar01Icon className="h-8 w-8 text-[var(--foreground)]" />
         </div>
       </div>
 
       {/* Title */}
       <div className="text-center">
-        <h2 className="font-semibold text-2xl text-[#211f1a]">
+        <h2 className="font-semibold text-2xl text-[var(--foreground)]">
           {t("title", { defaultValue: "When do you need this service?" })}
         </h2>
         <p className="mt-2 text-[#7a6d62]">
@@ -63,8 +63,8 @@ export function TimingBudgetStep({
       <div className="space-y-6">
         {/* Frequency */}
         <div>
-          <div className="mb-3 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
-            <Repeat className="h-4 w-4" />
+          <div className="mb-3 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm">
+            <RepeatIcon className="h-4 w-4" />
             {t("frequencyLabel", { defaultValue: "How often do you need this service?" })}
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -75,8 +75,8 @@ export function TimingBudgetStep({
                 <button
                   className={`flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition ${
                     isSelected
-                      ? "border-[#211f1a] bg-[#211f1a]/5"
-                      : "border-[#ebe5d8] bg-white hover:border-[#211f1a]/30"
+                      ? "border-[var(--foreground)] bg-[var(--foreground)]/5"
+                      : "border-[#ebe5d8] bg-white hover:border-[var(--foreground)]/30"
                   }`}
                   key={freq.value}
                   onClick={() => onUpdate({ frequency: freq.value as WizardData["frequency"] })}
@@ -85,7 +85,7 @@ export function TimingBudgetStep({
                   <span className="text-2xl">{freq.icon}</span>
                   <span
                     className={`font-medium text-sm ${
-                      isSelected ? "text-[#211f1a]" : "text-[#5d574b]"
+                      isSelected ? "text-[var(--foreground)]" : "text-[var(--muted-foreground)]"
                     }`}
                   >
                     {freq.label}
@@ -99,14 +99,14 @@ export function TimingBudgetStep({
         {/* Date */}
         <div>
           <label
-            className="mb-2 flex items-center gap-2 font-medium text-[#211f1a] text-sm"
+            className="mb-2 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm"
             htmlFor="preferred-date"
           >
-            <Calendar className="h-4 w-4" />
+            <Calendar01Icon className="h-4 w-4" />
             {t("dateLabel", { defaultValue: "Preferred date" })}
           </label>
           <input
-            className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
+            className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[var(--foreground)] transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]/20"
             id="preferred-date"
             min={new Date().toISOString().split("T")[0]}
             onChange={(e) => onUpdate({ preferredDate: e.target.value })}
@@ -118,14 +118,14 @@ export function TimingBudgetStep({
         {/* Time */}
         <div>
           <label
-            className="mb-2 flex items-center gap-2 font-medium text-[#211f1a] text-sm"
+            className="mb-2 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm"
             htmlFor="preferred-time"
           >
-            <Clock className="h-4 w-4" />
+            <Clock01Icon className="h-4 w-4" />
             {t("timeLabel", { defaultValue: "Preferred time" })}
           </label>
           <select
-            className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
+            className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[var(--foreground)] transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]/20"
             id="preferred-time"
             onChange={(e) => onUpdate({ preferredTime: e.target.value })}
             value={data.preferredTime || ""}
@@ -140,8 +140,8 @@ export function TimingBudgetStep({
 
         {/* Budget */}
         <div>
-          <div className="mb-3 flex items-center gap-2 font-medium text-[#211f1a] text-sm">
-            <DollarSign className="h-4 w-4" />
+          <div className="mb-3 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm">
+            <DollarCircleIcon className="h-4 w-4" />
             {t("budgetLabel", { defaultValue: "Budget range" })}
           </div>
           <div className="space-y-2">
@@ -152,8 +152,8 @@ export function TimingBudgetStep({
                 <button
                   className={`w-full rounded-xl border-2 px-4 py-3 text-left transition ${
                     isSelected
-                      ? "border-[#211f1a] bg-[#211f1a]/5 font-semibold text-[#211f1a]"
-                      : "border-[#ebe5d8] bg-white text-[#5d574b] hover:border-[#211f1a]/30"
+                      ? "border-[var(--foreground)] bg-[var(--foreground)]/5 font-semibold text-[var(--foreground)]"
+                      : "border-[#ebe5d8] bg-white text-[var(--muted-foreground)] hover:border-[var(--foreground)]/30"
                   }`}
                   key={`${range.min}-${range.max}`}
                   onClick={() => handleBudgetChange(range.min, range.max)}
@@ -170,21 +170,21 @@ export function TimingBudgetStep({
       {/* Actions */}
       <div className="flex gap-3 pt-4">
         <button
-          className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[#211f1a] hover:text-[#211f1a]"
+          className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[var(--foreground)] hover:text-[var(--foreground)]"
           onClick={onBack}
           type="button"
         >
           {t("back", { defaultValue: "Back" })}
         </button>
         <button
-          className="rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[#211f1a] hover:text-[#211f1a]"
+          className="rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[var(--foreground)] hover:text-[var(--foreground)]"
           onClick={onSkip}
           type="button"
         >
           {t("skip", { defaultValue: "Skip" })}
         </button>
         <button
-          className="flex-1 rounded-xl bg-[#211f1a] px-6 py-3 font-semibold text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] transition hover:bg-[#2d2822]"
+          className="flex-1 rounded-xl bg-[var(--foreground)] px-6 py-3 font-semibold text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] transition hover:bg-[#2d2822]"
           onClick={onNext}
           type="button"
         >

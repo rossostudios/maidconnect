@@ -1,9 +1,10 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { Cancel01Icon, Menu01Icon } from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Link } from "@/i18n/routing";
+import { LanguageSwitcher } from "./language-switcher";
 
 type NavLink = {
   href: string;
@@ -34,21 +35,21 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
         onClick={toggleMenu}
         type="button"
       >
-        {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        {isOpen ? <Cancel01Icon className="h-6 w-6" /> : <Menu01Icon className="h-6 w-6" />}
       </button>
 
       {/* Backdrop */}
       {isOpen && (
         <div
           aria-hidden="true"
-          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+          className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm"
           onClick={closeMenu}
         />
       )}
 
       {/* Slide-in Menu - Shows on all screen sizes */}
       <div
-        className={`fixed top-0 right-0 z-50 h-full w-[320px] transform bg-[var(--surface)] text-[var(--foreground)] shadow-[var(--shadow-elevated)] transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 z-[70] h-full w-[320px] transform bg-[var(--surface)] text-[var(--foreground)] shadow-[var(--shadow-elevated)] transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -61,12 +62,18 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
             onClick={closeMenu}
             type="button"
           >
-            <X className="h-5 w-5" />
+            <Cancel01Icon className="h-5 w-5" />
           </button>
         </div>
 
         {/* Navigation Links */}
         <nav className="flex flex-col p-5">
+          {/* Language Switcher */}
+          <div className="mb-4 flex justify-center">
+            <LanguageSwitcher />
+          </div>
+
+          <div className="mb-4 border-[var(--border)] border-t" />
           {links.map((link) => (
             <Link
               className="rounded-lg px-4 py-3 font-medium text-[var(--foreground)] text-base transition hover:bg-[color-mix(in_srgb,var(--accent)_14%,transparent)] hover:text-[var(--surface-contrast)]"

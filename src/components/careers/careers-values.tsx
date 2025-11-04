@@ -1,14 +1,21 @@
-import { Eye, Handshake, Lightbulb, Target, TrendingUp, Users } from "lucide-react";
+import {
+  Agreement01Icon,
+  AnalyticsUpIcon,
+  Idea01Icon,
+  Target01Icon,
+  UserGroupIcon,
+  ViewIcon,
+} from "hugeicons-react";
 import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 
 const valueIcons = {
-  clarity: Eye,
-  impact: Target,
-  curiosity: Lightbulb,
-  trust: Handshake,
-  momentum: TrendingUp,
-  collaboration: Users,
+  clarity: ViewIcon,
+  impact: Target01Icon,
+  curiosity: Idea01Icon,
+  trust: Agreement01Icon,
+  momentum: AnalyticsUpIcon,
+  collaboration: UserGroupIcon,
 };
 
 export async function CareersValues() {
@@ -16,14 +23,12 @@ export async function CareersValues() {
   const values = ["clarity", "impact", "curiosity", "trust", "momentum", "collaboration"] as const;
 
   return (
-    <section className="bg-[#fbfaf9] py-20 sm:py-24 lg:py-32">
+    <section className="bg-[var(--background)] py-20 sm:py-24 lg:py-32">
       <Container className="max-w-6xl">
         {/* Section Header */}
         <div className="max-w-3xl">
-          <h2 className="font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
-            {t("title")}
-          </h2>
-          <p className="mt-6 text-[#5d574b] text-lg leading-relaxed sm:text-xl">
+          <h2 className="type-serif-lg text-[var(--foreground)]">{t("title")}</h2>
+          <p className="mt-6 text-[var(--muted-foreground)] text-lg leading-relaxed sm:text-xl">
             {t("description")}
           </p>
         </div>
@@ -35,17 +40,17 @@ export async function CareersValues() {
             return (
               <div className="flex flex-col" key={valueKey}>
                 {/* Icon */}
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#8B7355]/10">
-                  <Icon className="h-6 w-6 text-[#8B7355]" strokeWidth={2} />
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--red)]/10">
+                  <Icon className="h-6 w-6 text-[var(--red)]" />
                 </div>
 
                 {/* Title */}
-                <h3 className="mb-3 font-semibold text-[#211f1a] text-xl">
+                <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">
                   {t(`items.${valueKey}.title`)}
                 </h3>
 
                 {/* Description */}
-                <p className="text-[#5d574b] text-base leading-relaxed">
+                <p className="text-[var(--muted-foreground)] text-base leading-relaxed">
                   {t(`items.${valueKey}.description`)}
                 </p>
               </div>

@@ -1,4 +1,10 @@
-import { ArrowRight, HelpCircle, Lock, MessageSquare, Shield } from "lucide-react";
+import {
+  ArrowRight01Icon,
+  HelpCircleIcon,
+  LockIcon,
+  Message01Icon,
+  Shield01Icon,
+} from "hugeicons-react";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -47,12 +53,10 @@ function HeroSection() {
   const t = useTranslations("howItWorks.hero");
 
   return (
-    <section className="bg-[#fbfaf9] px-4 py-16 sm:py-24">
+    <section className="bg-[var(--background)] px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-4xl text-center">
-        <h1 className="mb-6 font-[family-name:var(--font-cinzel)] text-4xl text-[#211f1a] tracking-wide sm:text-5xl lg:text-6xl">
-          {t("title")}
-        </h1>
-        <p className="mx-auto mb-8 max-w-2xl text-[#5d574b] text-xl leading-relaxed">
+        <h1 className="type-serif-lg mb-6 text-[var(--foreground)]">{t("title")}</h1>
+        <p className="mx-auto mb-8 max-w-2xl text-[var(--muted-foreground)] text-xl leading-relaxed">
           {t("subtitle")}
         </p>
       </div>
@@ -90,10 +94,10 @@ function CustomerFlowSection() {
     <section className="bg-white px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-[#211f1a] tracking-wide sm:text-4xl">
-            {t("title")}
-          </h2>
-          <p className="mx-auto max-w-2xl text-[#5d574b] text-lg">{t("subtitle")}</p>
+          <h2 className="type-serif-md mb-4 text-[var(--foreground)]">{t("title")}</h2>
+          <p className="mx-auto max-w-2xl text-[var(--muted-foreground)] text-lg">
+            {t("subtitle")}
+          </p>
         </div>
 
         <div className="mx-auto max-w-3xl">
@@ -102,11 +106,11 @@ function CustomerFlowSection() {
 
         <div className="mt-12 text-center">
           <Link
-            className="inline-flex items-center gap-2 rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-white shadow-[var(--shadow-card)] transition hover:bg-[#9B8B7E]"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-white shadow-[var(--shadow-card)] transition hover:bg-[var(--red-hover)]"
             href="/professionals"
           >
             {t("cta")}
-            <ArrowRight className="h-5 w-5" />
+            <ArrowRight01Icon className="h-5 w-5" />
           </Link>
         </div>
       </div>
@@ -146,13 +150,13 @@ function ProfessionalFlowSection() {
   ];
 
   return (
-    <section className="bg-[#faf8f3] px-4 py-16 sm:py-24">
+    <section className="bg-[var(--background-alt)] px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-[#211f1a] tracking-wide sm:text-4xl">
-            {t("title")}
-          </h2>
-          <p className="mx-auto max-w-2xl text-[#5d574b] text-lg">{t("subtitle")}</p>
+          <h2 className="type-serif-md mb-4 text-[var(--foreground)]">{t("title")}</h2>
+          <p className="mx-auto max-w-2xl text-[var(--muted-foreground)] text-lg">
+            {t("subtitle")}
+          </p>
         </div>
 
         <div className="mx-auto max-w-3xl">
@@ -164,11 +168,11 @@ function ProfessionalFlowSection() {
 
         <div className="mt-12 text-center">
           <Link
-            className="inline-flex items-center gap-2 rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-white shadow-[var(--shadow-card)] transition hover:bg-[#9B8B7E]"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-white shadow-[var(--shadow-card)] transition hover:bg-[var(--red-hover)]"
             href="/auth/sign-up?role=professional"
           >
             {t("cta")}
-            <ArrowRight className="h-5 w-5" />
+            <ArrowRight01Icon className="h-5 w-5" />
           </Link>
         </div>
       </div>
@@ -181,17 +185,17 @@ function SafetyTrustSection() {
 
   const safetyFeatures = [
     {
-      icon: Shield,
+      icon: Shield01Icon,
       titleKey: "verification.title",
       descriptionKey: "verification.description",
     },
     {
-      icon: Lock,
+      icon: LockIcon,
       titleKey: "payments.title",
       descriptionKey: "payments.description",
     },
     {
-      icon: MessageSquare,
+      icon: Message01Icon,
       titleKey: "support.title",
       descriptionKey: "support.description",
     },
@@ -201,10 +205,10 @@ function SafetyTrustSection() {
     <section className="bg-white px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-[#211f1a] tracking-wide sm:text-4xl">
-            {t("title")}
-          </h2>
-          <p className="mx-auto max-w-2xl text-[#5d574b] text-lg">{t("subtitle")}</p>
+          <h2 className="type-serif-md mb-4 text-[var(--foreground)]">{t("title")}</h2>
+          <p className="mx-auto max-w-2xl text-[var(--muted-foreground)] text-lg">
+            {t("subtitle")}
+          </p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
@@ -215,11 +219,15 @@ function SafetyTrustSection() {
                 className="rounded-xl border border-[#ebe5d8] bg-white p-8 text-center shadow-[var(--shadow-subtle)] transition hover:shadow-[var(--shadow-card)]"
                 key={index}
               >
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#8B7355]/10">
-                  <Icon className="h-8 w-8 text-[#8B7355]" />
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)]/10">
+                  <Icon className="h-8 w-8 text-[var(--red)]" />
                 </div>
-                <h3 className="mb-3 font-semibold text-[#211f1a] text-xl">{t(feature.titleKey)}</h3>
-                <p className="text-[#5d574b] leading-relaxed">{t(feature.descriptionKey)}</p>
+                <h3 className="type-serif-sm mb-3 text-[var(--foreground)]">
+                  {t(feature.titleKey)}
+                </h3>
+                <p className="text-[var(--muted-foreground)] leading-relaxed">
+                  {t(feature.descriptionKey)}
+                </p>
               </div>
             );
           })}
@@ -252,14 +260,12 @@ function FAQSection() {
   ];
 
   return (
-    <section className="bg-[#faf8f3] px-4 py-16 sm:py-24">
+    <section className="bg-[var(--background-alt)] px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-4xl">
         <div className="mb-12 text-center">
-          <HelpCircle className="mx-auto mb-4 h-12 w-12 text-[#8B7355]" />
-          <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-[#211f1a] tracking-wide sm:text-4xl">
-            {t("title")}
-          </h2>
-          <p className="text-[#5d574b] text-lg">{t("subtitle")}</p>
+          <HelpCircleIcon className="mx-auto mb-4 h-12 w-12 text-[var(--red)]" />
+          <h2 className="type-serif-md mb-4 text-[var(--foreground)]">{t("title")}</h2>
+          <p className="text-[var(--muted-foreground)] text-lg">{t("subtitle")}</p>
         </div>
 
         <div className="space-y-6">
@@ -268,20 +274,20 @@ function FAQSection() {
               className="rounded-xl border border-[#ebe5d8] bg-white p-6 shadow-[var(--shadow-subtle)]"
               key={index}
             >
-              <h3 className="mb-3 font-semibold text-[#211f1a] text-lg">{t(faq.questionKey)}</h3>
-              <p className="text-[#5d574b] leading-relaxed">{t(faq.answerKey)}</p>
+              <h3 className="type-ui-sm mb-2 text-[var(--foreground)]">{t(faq.questionKey)}</h3>
+              <p className="text-[var(--muted-foreground)] leading-relaxed">{t(faq.answerKey)}</p>
             </div>
           ))}
         </div>
 
         <div className="mt-8 text-center">
-          <p className="mb-4 text-[#5d574b]">{t("stillHaveQuestions")}</p>
+          <p className="mb-4 text-[var(--muted-foreground)]">{t("stillHaveQuestions")}</p>
           <Link
-            className="inline-flex items-center gap-2 font-semibold text-[#8B7355] transition hover:text-[#9B8B7E]"
+            className="inline-flex items-center gap-2 font-semibold text-[var(--red)] transition hover:text-[var(--red-hover)]"
             href="/contact"
           >
             {t("contactUs")}
-            <ArrowRight className="h-5 w-5" />
+            <ArrowRight01Icon className="h-5 w-5" />
           </Link>
         </div>
       </div>
@@ -293,15 +299,13 @@ function CTASection() {
   const t = useTranslations("howItWorks.cta");
 
   return (
-    <section className="bg-[#211f1a] px-4 py-16 sm:py-24">
+    <section className="bg-[var(--foreground)] px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-4xl text-center">
-        <h2 className="mb-6 font-[family-name:var(--font-cinzel)] text-3xl text-white tracking-wide sm:text-4xl">
-          {t("title")}
-        </h2>
+        <h2 className="type-serif-md mb-6 text-white">{t("title")}</h2>
         <p className="mb-8 text-white/90 text-xl">{t("subtitle")}</p>
         <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <Link
-            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white bg-white px-8 py-4 font-semibold text-[#211f1a] shadow-[var(--shadow-card)] transition hover:bg-[#f3ece1]"
+            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white bg-white px-8 py-4 font-semibold text-[var(--foreground)] shadow-[var(--shadow-card)] transition hover:bg-[#f3ece1]"
             href="/professionals"
           >
             {t("browseButton")}

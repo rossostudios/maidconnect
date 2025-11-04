@@ -21,11 +21,11 @@ export function KeyboardShortcutsButton({
       <button
         aria-label="View keyboard shortcuts"
         className={cn(
-          "flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200",
+          "flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200 active:scale-95",
           variant === "light" &&
-            "border-[#dcd6c7] bg-white text-[#5d574b] hover:border-[#8B7355] hover:bg-[#fff5f3] hover:text-[#8B7355]",
+            "border-[var(--red)] bg-[#fff5f3] text-[var(--red)] hover:bg-[var(--red)] hover:text-white",
           variant === "dark" &&
-            "border-[#26231f] bg-transparent text-[#f3ece1] hover:border-[#8B7355] hover:bg-[#8B7355]/10 hover:text-[#8B7355]",
+            "border-[var(--red)] bg-[var(--red)]/10 text-[var(--red)] hover:bg-[var(--red)] hover:text-white",
           className
         )}
         onClick={openShortcutsPanel}

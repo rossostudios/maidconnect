@@ -1,4 +1,9 @@
-import { CheckCircle2, DollarSign, Settings, UserCheck } from "lucide-react";
+import {
+  CheckmarkCircle02Icon,
+  DollarCircleIcon,
+  Settings01Icon,
+  UserCheck01Icon,
+} from "hugeicons-react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
@@ -98,30 +103,30 @@ export default async function AdminDashboardPage({ params }: Props) {
           id="features"
         >
           <div className="mx-auto max-w-6xl">
-            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl lg:text-6xl">
+            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
               {t("features.title")}
             </h2>
 
-            <p className="mx-auto mt-6 max-w-3xl text-center text-[#5d574b] text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-3xl text-center text-[var(--muted-foreground)] text-lg leading-relaxed">
               {t("features.subtitle")}
             </p>
 
             <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <ProductFeatureCard
                 description={t("features.professionalModeration.description")}
-                icon={UserCheck}
+                icon={UserCheck01Icon}
                 title={t("features.professionalModeration.title")}
               />
 
               <ProductFeatureCard
                 description={t("features.bookingOversight.description")}
-                icon={DollarSign}
+                icon={DollarCircleIcon}
                 title={t("features.bookingOversight.title")}
               />
 
               <ProductFeatureCard
                 description={t("features.payoutProcessing.description")}
-                icon={Settings}
+                icon={Settings01Icon}
                 title={t("features.payoutProcessing.title")}
               />
             </div>
@@ -159,36 +164,46 @@ export default async function AdminDashboardPage({ params }: Props) {
         {/* Admin Capabilities Section */}
         <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
+            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
               {t("capabilities.title")}
             </h2>
 
             <div className="mt-16 space-y-4">
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#8B7355]" />
-                <p className="text-[#5d574b] text-base">
+                <CheckmarkCircle02Icon className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]" />
+                <p className="text-[var(--muted-foreground)] text-base">
                   {t("capabilities.professionalManagement")}
                 </p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#8B7355]" />
-                <p className="text-[#5d574b] text-base">{t("capabilities.bookingReview")}</p>
+                <CheckmarkCircle02Icon className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]" />
+                <p className="text-[var(--muted-foreground)] text-base">
+                  {t("capabilities.bookingReview")}
+                </p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#8B7355]" />
-                <p className="text-[#5d574b] text-base">{t("capabilities.payoutControl")}</p>
+                <CheckmarkCircle02Icon className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]" />
+                <p className="text-[var(--muted-foreground)] text-base">
+                  {t("capabilities.payoutControl")}
+                </p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#8B7355]" />
-                <p className="text-[#5d574b] text-base">{t("capabilities.disputeResolution")}</p>
+                <CheckmarkCircle02Icon className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]" />
+                <p className="text-[var(--muted-foreground)] text-base">
+                  {t("capabilities.disputeResolution")}
+                </p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#8B7355]" />
-                <p className="text-[#5d574b] text-base">{t("capabilities.userModeration")}</p>
+                <CheckmarkCircle02Icon className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]" />
+                <p className="text-[var(--muted-foreground)] text-base">
+                  {t("capabilities.userModeration")}
+                </p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <CheckCircle2 className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#8B7355]" />
-                <p className="text-[#5d574b] text-base">{t("capabilities.analytics")}</p>
+                <CheckmarkCircle02Icon className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]" />
+                <p className="text-[var(--muted-foreground)] text-base">
+                  {t("capabilities.analytics")}
+                </p>
               </div>
             </div>
           </div>
@@ -197,62 +212,62 @@ export default async function AdminDashboardPage({ params }: Props) {
         {/* Security Section */}
         <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
+            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
               {t("security.title")}
             </h2>
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
-                  <CheckCircle2 className="h-5 w-5 text-white" />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("security.roleBasedAccess.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("security.roleBasedAccess.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
-                  <CheckCircle2 className="h-5 w-5 text-white" />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("security.auditLogs.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("security.auditLogs.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
-                  <CheckCircle2 className="h-5 w-5 text-white" />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("security.dataProtection.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("security.dataProtection.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#8B7355]">
-                  <CheckCircle2 className="h-5 w-5 text-white" />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#211f1a] text-xl">
+                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
                     {t("security.twoFactorAuth.title")}
                   </h3>
-                  <p className="mt-2 text-[#5d574b] text-base leading-relaxed">
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
                     {t("security.twoFactorAuth.description")}
                   </p>
                 </div>
@@ -264,61 +279,63 @@ export default async function AdminDashboardPage({ params }: Props) {
         {/* Admin Tools Grid */}
         <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
+            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
               {t("tools.title")}
             </h2>
 
             <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">
+                <h4 className="font-semibold text-[var(--foreground)]">
                   {t("tools.professionalApproval").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-[#5d574b] text-sm">
+                <p className="mt-2 text-[var(--muted-foreground)] text-sm">
                   {t("tools.professionalApproval").split(":")[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">
+                <h4 className="font-semibold text-[var(--foreground)]">
                   {t("tools.documentVerification").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-[#5d574b] text-sm">
+                <p className="mt-2 text-[var(--muted-foreground)] text-sm">
                   {t("tools.documentVerification").split(":")[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">
+                <h4 className="font-semibold text-[var(--foreground)]">
                   {t("tools.payoutQueue").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-[#5d574b] text-sm">
+                <p className="mt-2 text-[var(--muted-foreground)] text-sm">
                   {t("tools.payoutQueue").split(":")[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">
+                <h4 className="font-semibold text-[var(--foreground)]">
                   {t("tools.userManagement").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-[#5d574b] text-sm">
+                <p className="mt-2 text-[var(--muted-foreground)] text-sm">
                   {t("tools.userManagement").split(":")[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">
+                <h4 className="font-semibold text-[var(--foreground)]">
                   {t("tools.disputeResolution").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-[#5d574b] text-sm">
+                <p className="mt-2 text-[var(--muted-foreground)] text-sm">
                   {t("tools.disputeResolution").split(":")[1]}
                 </p>
               </div>
 
               <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-[#211f1a]">
+                <h4 className="font-semibold text-[var(--foreground)]">
                   {t("tools.analytics").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-[#5d574b] text-sm">{t("tools.analytics").split(":")[1]}</p>
+                <p className="mt-2 text-[var(--muted-foreground)] text-sm">
+                  {t("tools.analytics").split(":")[1]}
+                </p>
               </div>
             </div>
           </div>
@@ -327,24 +344,22 @@ export default async function AdminDashboardPage({ params }: Props) {
         {/* CTA Section */}
         <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl">
-              {t("cta.title")}
-            </h2>
+            <h2 className="type-serif-lg text-[var(--foreground)]">{t("cta.title")}</h2>
 
-            <p className="mx-auto mt-6 max-w-2xl text-[#5d574b] text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-2xl text-[var(--muted-foreground)] text-lg leading-relaxed">
               {t("cta.description")}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                className="inline-flex items-center justify-center rounded-full bg-[#8B7355] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E]"
+                className="inline-flex items-center justify-center rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
                 href="/contact"
               >
                 {t("cta.requestDemo")}
               </Link>
 
               <Link
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] hover:text-[#8B7355]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)]"
                 href="/"
               >
                 {t("cta.learnMore")}

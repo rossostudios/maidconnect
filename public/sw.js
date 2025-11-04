@@ -1,8 +1,8 @@
-// MaidConnect Service Worker for Push Notifications and Offline Support
+// Casaora Service Worker for Push Notifications and Offline Support
 
 const CACHE_VERSION = "v1";
-const STATIC_CACHE = `maidconnect-static-${CACHE_VERSION}`;
-const OFFLINE_CACHE = `maidconnect-offline-${CACHE_VERSION}`;
+const STATIC_CACHE = `casaora-static-${CACHE_VERSION}`;
+const OFFLINE_CACHE = `casaora-offline-${CACHE_VERSION}`;
 const OFFLINE_PAGE = "/offline.html";
 const ASSET_EXTENSIONS_REGEX = /\.(js|css|woff|woff2|ttf|eot|svg|png|jpg|jpeg|webp|ico)$/;
 
@@ -43,7 +43,7 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("push", (event) => {
   console.log("[Service Worker] Push received:", event);
 
-  let data = { title: "MaidConnect", body: "New notification", icon: "/icon-192x192.png" };
+  let data = { title: "Casaora", body: "New notification", icon: "/icon-192x192.png" };
 
   if (event.data) {
     try {
@@ -68,7 +68,7 @@ self.addEventListener("push", (event) => {
     requireInteraction: data.requireInteraction,
   };
 
-  event.waitUntil(self.registration.showNotification(data.title || "MaidConnect", options));
+  event.waitUntil(self.registration.showNotification(data.title || "Casaora", options));
 });
 
 // Notification click event - handle user clicking notification

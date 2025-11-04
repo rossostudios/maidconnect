@@ -27,13 +27,16 @@ export function DashboardLayout({
   fullWidth = false,
 }: Props) {
   return (
-    <div className="flex min-h-screen flex-col bg-[#fbfaf9]">
+    <div className="flex min-h-screen flex-col bg-[var(--background)]">
       {/* Header with logo and navigation */}
       <header className="border-[#ebe5d8] border-b bg-white">
         <Container>
           <div className="flex items-center justify-between py-4">
-            <Link className="font-semibold text-[#211f1a] text-xl tracking-tight" href="/">
-              Casaora
+            <Link
+              className="type-serif-sm text-[var(--foreground)] uppercase tracking-[0.08em] lg:text-[26px]"
+              href="/"
+            >
+              CASAORA
             </Link>
 
             {/* Navigation tabs */}
@@ -43,7 +46,9 @@ export function DashboardLayout({
                 return (
                   <Link
                     className={`font-medium text-sm transition ${
-                      isActive ? "text-[#211f1a]" : "text-[#7d7566] hover:text-[#211f1a]"
+                      isActive
+                        ? "text-[var(--foreground)]"
+                        : "text-[#7d7566] hover:text-[var(--foreground)]"
                     }`}
                     href={link.href}
                     key={link.href}
@@ -53,7 +58,7 @@ export function DashboardLayout({
                 );
               })}
               <Link
-                className="font-medium text-[#7d7566] text-sm transition hover:text-[#211f1a]"
+                className="font-medium text-[#7d7566] text-sm transition hover:text-[var(--foreground)]"
                 href={dashboardHref}
               >
                 ← Dashboard
@@ -71,8 +76,10 @@ export function DashboardLayout({
           <Container className="py-12">
             {title && (
               <div className="mb-8">
-                <h1 className="font-semibold text-4xl text-[#211f1a]">{title}</h1>
-                {description && <p className="mt-2 text-[#5d574b] text-base">{description}</p>}
+                <h1 className="font-semibold text-4xl text-[var(--foreground)]">{title}</h1>
+                {description && (
+                  <p className="mt-2 text-[var(--muted-foreground)] text-base">{description}</p>
+                )}
               </div>
             )}
             {children}

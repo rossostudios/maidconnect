@@ -1,4 +1,12 @@
-import { AlertCircle, Bug, Eye, Frown, Lightbulb, ThumbsUp, TrendingUp } from "lucide-react";
+import {
+  AlertCircleIcon,
+  AnalyticsUpIcon,
+  Bug01Icon,
+  Idea01Icon,
+  Sad01Icon,
+  ThumbsUpIcon,
+  ViewIcon,
+} from "hugeicons-react";
 import Link from "next/link";
 import { requireUser } from "@/lib/auth/session";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -19,16 +27,16 @@ type FeedbackSubmission = {
 };
 
 const typeConfig = {
-  bug: { icon: Bug, label: "Bug", color: "text-red-600 bg-red-50" },
+  bug: { icon: Bug01Icon, label: "Bug", color: "text-red-600 bg-red-50" },
   feature_request: {
-    icon: Lightbulb,
+    icon: Idea01Icon,
     label: "Feature Request",
     color: "text-purple-600 bg-purple-50",
   },
-  improvement: { icon: TrendingUp, label: "Improvement", color: "text-blue-600 bg-blue-50" },
-  complaint: { icon: Frown, label: "Complaint", color: "text-orange-600 bg-orange-50" },
-  praise: { icon: ThumbsUp, label: "Praise", color: "text-green-600 bg-green-50" },
-  other: { icon: AlertCircle, label: "Other", color: "text-gray-600 bg-gray-50" },
+  improvement: { icon: AnalyticsUpIcon, label: "Improvement", color: "text-blue-600 bg-blue-50" },
+  complaint: { icon: Sad01Icon, label: "Complaint", color: "text-orange-600 bg-orange-50" },
+  praise: { icon: ThumbsUpIcon, label: "Praise", color: "text-green-600 bg-green-50" },
+  other: { icon: AlertCircleIcon, label: "Other", color: "text-gray-600 bg-gray-50" },
 };
 
 const statusBadge = {
@@ -93,8 +101,10 @@ export default async function AdminFeedbackPage({
     <>
       {/* Header */}
       <header className="mb-8">
-        <h1 className="font-bold text-3xl text-[#211f1a]">Feedback Management</h1>
-        <p className="mt-2 text-[#5d574b] text-sm">Review and manage user feedback submissions</p>
+        <h1 className="font-bold text-3xl text-[var(--foreground)]">Feedback Management</h1>
+        <p className="mt-2 text-[var(--muted-foreground)] text-sm">
+          Review and manage user feedback submissions
+        </p>
       </header>
 
       {/* Status Filter Tabs */}
@@ -102,8 +112,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status
-              ? "border border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
-              : "bg-[#8B7355] text-white"
+              ? "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
+              : "bg-[var(--red)] text-white"
           }`}
           href="/admin/feedback"
         >
@@ -112,8 +122,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "new"
-              ? "bg-[#8B7355] text-white"
-              : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
+              ? "bg-[var(--red)] text-white"
+              : "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
           }`}
           href="/admin/feedback?status=new"
         >
@@ -122,8 +132,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "in_review"
-              ? "bg-[#8B7355] text-white"
-              : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
+              ? "bg-[var(--red)] text-white"
+              : "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
           }`}
           href="/admin/feedback?status=in_review"
         >
@@ -132,8 +142,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "resolved"
-              ? "bg-[#8B7355] text-white"
-              : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
+              ? "bg-[var(--red)] text-white"
+              : "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
           }`}
           href="/admin/feedback?status=resolved"
         >
@@ -144,9 +154,9 @@ export default async function AdminFeedbackPage({
       {/* Feedback List */}
       {feedbackList.length === 0 ? (
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
-          <AlertCircle className="mx-auto mb-4 h-12 w-12 text-[#7a6d62]" />
-          <h3 className="mb-2 font-bold text-[#211f1a] text-xl">No Feedback Yet</h3>
-          <p className="text-[#5d574b]">Feedback submissions will appear here</p>
+          <AlertCircleIcon className="mx-auto mb-4 h-12 w-12 text-[#7a6d62]" />
+          <h3 className="mb-2 font-bold text-[var(--foreground)] text-xl">No Feedback Yet</h3>
+          <p className="text-[var(--muted-foreground)]">Feedback submissions will appear here</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -160,7 +170,7 @@ export default async function AdminFeedbackPage({
 
             return (
               <article
-                className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[#8B7355]"
+                className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[var(--red)]"
                 key={item.id}
               >
                 <div className="flex items-start justify-between gap-4">
@@ -195,10 +205,14 @@ export default async function AdminFeedbackPage({
                     </div>
 
                     {item.subject && (
-                      <h3 className="mb-2 font-bold text-[#211f1a] text-lg">{item.subject}</h3>
+                      <h3 className="mb-2 font-bold text-[var(--foreground)] text-lg">
+                        {item.subject}
+                      </h3>
                     )}
 
-                    <p className="mb-3 line-clamp-2 text-[#5d574b] text-sm">{item.message}</p>
+                    <p className="mb-3 line-clamp-2 text-[var(--muted-foreground)] text-sm">
+                      {item.message}
+                    </p>
 
                     <div className="flex flex-wrap gap-4 text-xs">
                       <span className="text-[#7a6d62]">
@@ -213,10 +227,10 @@ export default async function AdminFeedbackPage({
 
                   {/* Actions */}
                   <Link
-                    className="flex items-center gap-2 rounded-lg bg-[#8B7355] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#8B7355]"
+                    className="flex items-center gap-2 rounded-lg bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[var(--red)]"
                     href={`/admin/feedback/${item.id}`}
                   >
-                    <Eye className="h-4 w-4" />
+                    <ViewIcon className="h-4 w-4" />
                     View
                   </Link>
                 </div>

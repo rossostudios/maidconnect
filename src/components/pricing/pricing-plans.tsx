@@ -7,7 +7,7 @@
 
 "use client";
 
-import { Check } from "lucide-react";
+import { Tick02Icon } from "hugeicons-react";
 import { useEffect, useState } from "react";
 import type { PricingPlan } from "@/types/pricing";
 
@@ -72,7 +72,7 @@ export function PricingPlans() {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
-          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-[#8B7355]" />
+          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-[var(--red)]" />
           <p className="text-[#6B7280]">Loading pricing plans...</p>
         </div>
       </div>
@@ -83,10 +83,10 @@ export function PricingPlans() {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
-          <p className="mb-4 text-[#8B7355]">Error loading pricing plans</p>
+          <p className="mb-4 text-[var(--red)]">Error loading pricing plans</p>
           <p className="text-[#6B7280] text-sm">{error}</p>
           <button
-            className="mt-4 rounded-[14px] border-2 border-[#ebe5d8] px-6 py-2 font-semibold text-[#211f1a] hover:border-[#211f1a]"
+            className="mt-4 rounded-[14px] border-2 border-[#ebe5d8] px-6 py-2 font-semibold text-[var(--foreground)] hover:border-[var(--foreground)]"
             onClick={() => window.location.reload()}
             type="button"
           >
@@ -105,8 +105,8 @@ export function PricingPlans() {
           <button
             className={`rounded-[12px] px-6 py-2 font-medium transition-all ${
               billingPeriod === "monthly"
-                ? "bg-[#8B7355] text-white"
-                : "text-[#6B7280] hover:text-[#211f1a]"
+                ? "bg-[var(--red)] text-white"
+                : "text-[#6B7280] hover:text-[var(--foreground)]"
             }`}
             onClick={() => setBillingPeriod("monthly")}
             type="button"
@@ -116,8 +116,8 @@ export function PricingPlans() {
           <button
             className={`relative rounded-[12px] px-6 py-2 font-medium transition-all ${
               billingPeriod === "annual"
-                ? "bg-[#8B7355] text-white"
-                : "text-[#6B7280] hover:text-[#211f1a]"
+                ? "bg-[var(--red)] text-white"
+                : "text-[#6B7280] hover:text-[var(--foreground)]"
             }`}
             onClick={() => setBillingPeriod("annual")}
             type="button"
@@ -139,21 +139,21 @@ export function PricingPlans() {
             <div
               className={`relative rounded-[28px] bg-white p-8 transition-all ${
                 plan.highlight_as_popular
-                  ? "scale-105 border-4 border-[#8B7355] shadow-xl"
-                  : "border-2 border-[#ebe5d8] hover:border-[#8B7355]"
+                  ? "scale-105 border-4 border-[var(--red)] shadow-xl"
+                  : "border-2 border-[#ebe5d8] hover:border-[var(--red)]"
               }`}
               key={plan.id}
             >
               {/* Most popular badge */}
               {plan.highlight_as_popular && (
-                <div className="-top-4 -translate-x-1/2 absolute left-1/2 rounded-full bg-[#8B7355] px-4 py-1 font-semibold text-sm text-white">
+                <div className="-top-4 -translate-x-1/2 absolute left-1/2 rounded-full bg-[var(--red)] px-4 py-1 font-semibold text-sm text-white">
                   Most Popular
                 </div>
               )}
 
               {/* Plan name and description */}
               <div className="mb-6 text-center">
-                <h3 className="mb-2 font-bold text-2xl text-[#211f1a]">{plan.name}</h3>
+                <h3 className="mb-2 font-bold text-2xl text-[var(--foreground)]">{plan.name}</h3>
                 <p className="text-[#6B7280]">{plan.description}</p>
                 {plan.recommended_for && (
                   <p className="mt-2 text-[#6B7280] text-sm italic">
@@ -164,7 +164,7 @@ export function PricingPlans() {
 
               {/* Price */}
               <div className="mb-8 text-center">
-                <div className="mb-2 font-bold text-5xl text-[#211f1a]">
+                <div className="type-serif-lg mb-2 text-[var(--foreground)]">
                   {getPrice(plan)}
                   {plan.price_monthly !== null && plan.price_monthly > 0 && (
                     <span className="font-normal text-[#6B7280] text-xl">{getPeriod()}</span>
@@ -181,8 +181,8 @@ export function PricingPlans() {
               <a
                 className={`mb-8 block w-full rounded-[14px] py-4 text-center font-semibold transition-all ${
                   plan.highlight_as_popular
-                    ? "bg-[#8B7355] text-white hover:bg-[#8B7355]"
-                    : "border-2 border-[#ebe5d8] text-[#211f1a] hover:border-[#211f1a]"
+                    ? "bg-[var(--red)] text-white hover:bg-[var(--red)]"
+                    : "border-2 border-[#ebe5d8] text-[var(--foreground)] hover:border-[var(--foreground)]"
                 }`}
                 href={plan.cta_url || "/auth/sign-up"}
               >
@@ -195,8 +195,8 @@ export function PricingPlans() {
                   .filter((feature) => feature.included)
                   .map((feature, idx) => (
                     <div className="flex items-start gap-3" key={idx}>
-                      <Check className="mt-0.5 flex-shrink-0 text-[#10B981]" size={20} />
-                      <span className="text-[#211f1a]">
+                      <Tick02Icon className="mt-0.5 flex-shrink-0 text-[#10B981]" size={20} />
+                      <span className="text-[var(--foreground)]">
                         {feature.name}
                         {feature.limit && (
                           <span className="ml-1 text-[#6B7280] text-sm">({feature.limit})</span>

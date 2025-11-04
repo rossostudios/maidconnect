@@ -1,4 +1,11 @@
-import { ClipboardCheck, FileCheck, Globe2, ShieldCheck, Sparkles, Stars } from "lucide-react";
+import {
+  ClipboardIcon,
+  FileValidationIcon,
+  Globe02Icon,
+  MagicWand01Icon,
+  SecurityCheckIcon,
+  StarIcon,
+} from "hugeicons-react";
 
 export const stats = [
   {
@@ -23,21 +30,21 @@ export const featureHighlights = [
     title: "Thoroughly vetted talent",
     description:
       "Identity verification, background checks, references, and ongoing quality reviews for every professional.",
-    icon: ShieldCheck,
+    icon: SecurityCheckIcon,
     tone: "bg-[#f1e7d4]",
   },
   {
     title: "Concierge-style matching",
     description:
       "Share your preferences and routines. Our bilingual concierges shortlist the right fit and manage introductions.",
-    icon: Sparkles,
+    icon: MagicWand01Icon,
     tone: "bg-[#e2ecdf]",
   },
   {
     title: "Expats-first support",
     description:
       "We bridge cultural expectations, contracts, and payments so you feel at home from day one.",
-    icon: Globe2,
+    icon: Globe02Icon,
     tone: "bg-[#dde6f3]",
   },
 ];
@@ -47,42 +54,42 @@ export const services = [
     title: "Housekeeping & Deep Cleaning",
     description: "Recurring or one-time solutions tailored to meticulous homes.",
     badge: "Most booked",
-    icon: Stars,
+    icon: StarIcon,
     filter: "housekeeping",
   },
   {
     title: "Family & Childcare Support",
     description: "Trusted nannies and caregivers experienced with international households.",
     badge: "Bilingual talent",
-    icon: Stars,
+    icon: StarIcon,
     filter: "childcare",
   },
   {
     title: "Move-in & Relocation Prep",
     description: "Arrival day setup, unpacking, and home organization services.",
     badge: "Welcome package",
-    icon: Stars,
+    icon: StarIcon,
     filter: "relocation",
   },
   {
     title: "Elder & Wellness Care",
     description: "Companionship, medication reminders, and wellness-focused care.",
     badge: "Compassionate",
-    icon: Stars,
+    icon: StarIcon,
     filter: "elder-care",
   },
   {
     title: "Pet & Home Management",
     description: "Reliable sitters, walkers, and property check-ins while you travel.",
     badge: "On-call",
-    icon: Stars,
+    icon: StarIcon,
     filter: "pet-care",
   },
   {
     title: "Personal Lifestyle Support",
     description: "Private chefs, errand specialists, and personal assistants on demand.",
     badge: "Premium",
-    icon: Stars,
+    icon: StarIcon,
     filter: "lifestyle",
   },
 ];
@@ -122,6 +129,13 @@ export const testimonials = [
     quote:
       "The quality difference is extraordinary. Instead of sorting through dozens of profiles, I browsed only exceptional candidates—and found our perfect housekeeper within days.",
     outcome: "Curated excellence",
+    role: "Entrepreneur & parent",
+    avatar:
+      "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=160&h=160&q=80",
+    metrics: [
+      { label: "Favorite professionals", value: "4" },
+      { label: "Time to hire", value: "72h" },
+    ],
   },
   {
     name: "International Family",
@@ -130,6 +144,13 @@ export const testimonials = [
     quote:
       "I appreciated being able to filter by English fluency and childcare certifications. Every profile I viewed was impressive—it made choosing actually enjoyable.",
     outcome: "Verified quality",
+    role: "Relocated from NYC",
+    avatar:
+      "https://images.unsplash.com/photo-1544723795-432537846b81?auto=format&fit=crop&w=160&h=160&q=80",
+    metrics: [
+      { label: "Matches reviewed", value: "6" },
+      { label: "Languages covered", value: "3" },
+    ],
   },
   {
     name: "Estate Owner",
@@ -138,6 +159,13 @@ export const testimonials = [
     quote:
       "Casaora's vetting gave me confidence to browse independently. I could focus on personality fit and schedule, knowing the skills were already verified.",
     outcome: "Peace of mind",
+    role: "Luxury villa host",
+    avatar:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=160&h=160&q=80",
+    metrics: [
+      { label: "Portfolio visits", value: "24" },
+      { label: "Incidents avoided", value: "0" },
+    ],
   },
   {
     name: "Villa Manager",
@@ -146,6 +174,13 @@ export const testimonials = [
     quote:
       "Like having a luxury boutique instead of a department store. Smaller selection, but everything is exceptional quality.",
     outcome: "Top 5% only",
+    role: "Hospitality director",
+    avatar:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=160&h=160&q=80",
+    metrics: [
+      { label: "Professionals retained", value: "8" },
+      { label: "Customer rating", value: "4.9★" },
+    ],
   },
 ];
 
@@ -154,25 +189,25 @@ export const productPillars = [
     title: "Verified professional profiles",
     description:
       "Every specialist features a vetted biography, certifications, availability, and transparent pricing so households can book with confidence.",
-    icon: ShieldCheck,
+    icon: SecurityCheckIcon,
   },
   {
     title: "Responsive booking workspace",
     description:
       "Smart filters, real-time availability, and concierge coordination streamline scheduling across cities, property types, and service needs.",
-    icon: ClipboardCheck,
+    icon: ClipboardIcon,
   },
   {
     title: "Mutual ratings & performance loops",
     description:
       "Structured post-service reviews from both sides drive accountability, highlight top performers, and surface coaching opportunities early.",
-    icon: Sparkles,
+    icon: MagicWand01Icon,
   },
   {
     title: "Trust & safety layer",
     description:
       "Background checks, secure payments, emergency support, and clear escalation paths keep every booking covered from intake to payout.",
-    icon: FileCheck,
+    icon: FileValidationIcon,
   },
 ];
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { X } from "lucide-react";
+import { Cancel01Icon } from "hugeicons-react";
 import { useEffect, useRef } from "react";
 
 export type BaseModalProps = {
@@ -121,7 +121,7 @@ export function BaseModal({
       }
 
       const firstElement = focusableElements[0] as HTMLElement;
-      const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+      const lastElement = focusableElements.at(-1) as HTMLElement;
 
       if (e.shiftKey) {
         // Shift + Tab
@@ -183,7 +183,7 @@ export function BaseModal({
           <div className="sticky top-0 z-10 flex items-start justify-between border-[#ebe5d8] border-b bg-white px-6 py-5">
             <div className="flex-1 pr-8">
               {title && (
-                <h2 className="font-semibold text-[#211f1a] text-xl" id="modal-title">
+                <h2 className="font-semibold text-[var(--foreground)] text-xl" id="modal-title">
                   {title}
                 </h2>
               )}
@@ -192,11 +192,11 @@ export function BaseModal({
             {showCloseButton && (
               <button
                 aria-label="Close modal"
-                className="rounded-full p-2 text-[#5d574b] transition hover:bg-[#ebe5d8]"
+                className="rounded-full p-2 text-[var(--muted-foreground)] transition hover:bg-[#ebe5d8]"
                 onClick={onClose}
                 type="button"
               >
-                <X className="h-5 w-5" />
+                <Cancel01Icon className="h-5 w-5" />
               </button>
             )}
           </div>

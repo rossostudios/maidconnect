@@ -1,6 +1,6 @@
 "use client";
 
-import { Filter, MapPin, SlidersHorizontal, X } from "lucide-react";
+import { Cancel01Icon, FilterIcon, Location01Icon, Settings02Icon } from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
@@ -126,10 +126,10 @@ export function ProfessionalsFilterSheet({
         {/* Header */}
         <div className="sticky top-0 z-10 flex items-center justify-between border-[#ebe5d8] border-b bg-white px-6 py-4">
           <div className="flex items-center gap-3">
-            <Filter className="h-5 w-5 text-[#211f1a]" />
-            <h2 className="font-semibold text-[#211f1a] text-lg">Filters</h2>
+            <FilterIcon className="h-5 w-5 text-[var(--foreground)]" />
+            <h2 className="font-semibold text-[var(--foreground)] text-lg">Filters</h2>
             {activeFilterCount > 0 && (
-              <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#8B7355] px-2 font-semibold text-white text-xs">
+              <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[var(--red)] px-2 font-semibold text-white text-xs">
                 {activeFilterCount}
               </span>
             )}
@@ -140,7 +140,7 @@ export function ProfessionalsFilterSheet({
             onClick={onClose}
             type="button"
           >
-            <X className="h-6 w-6" />
+            <Cancel01Icon className="h-6 w-6" />
           </button>
         </div>
 
@@ -148,12 +148,12 @@ export function ProfessionalsFilterSheet({
         <div className="space-y-6 p-6">
           {/* Service Filter */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2 font-semibold text-[#211f1a] text-sm">
-              <Filter className="h-5 w-5" />
+            <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-sm">
+              <FilterIcon className="h-5 w-5" />
               {t("filters.service")}
             </div>
             <select
-              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-[#211f1a] text-base transition focus:border-[#211f1a] focus:outline-none"
+              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-[var(--foreground)] text-base transition focus:border-[var(--foreground)] focus:outline-none"
               onChange={(e) => setServiceFilter(e.target.value)}
               value={serviceFilter}
             >
@@ -167,12 +167,12 @@ export function ProfessionalsFilterSheet({
 
           {/* City Filter */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2 font-semibold text-[#211f1a] text-sm">
-              <MapPin className="h-5 w-5" />
+            <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-sm">
+              <Location01Icon className="h-5 w-5" />
               {t("filters.city")}
             </div>
             <select
-              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-[#211f1a] text-base transition focus:border-[#211f1a] focus:outline-none"
+              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-[var(--foreground)] text-base transition focus:border-[var(--foreground)] focus:outline-none"
               onChange={(e) => setCityFilter(e.target.value)}
               value={cityFilter}
             >
@@ -186,12 +186,12 @@ export function ProfessionalsFilterSheet({
 
           {/* Rating Filter */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2 font-semibold text-[#211f1a] text-sm">
-              <SlidersHorizontal className="h-5 w-5" />
+            <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-sm">
+              <Settings02Icon className="h-5 w-5" />
               {t("filters.rating")}
             </div>
             <select
-              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-[#211f1a] text-base transition focus:border-[#211f1a] focus:outline-none"
+              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-[var(--foreground)] text-base transition focus:border-[var(--foreground)] focus:outline-none"
               onChange={(e) => setRatingFilter(e.target.value)}
               value={ratingFilter}
             >
@@ -208,11 +208,11 @@ export function ProfessionalsFilterSheet({
             <label className="flex cursor-pointer items-center gap-3">
               <input
                 checked={availableToday}
-                className="h-6 w-6 cursor-pointer rounded border-[#e2ddd2] text-[#8B7355] focus:ring-[#8B7355]"
+                className="h-6 w-6 cursor-pointer rounded border-[#e2ddd2] text-[var(--red)] focus:ring-[var(--red)]"
                 onChange={(e) => setAvailableToday(e.target.checked)}
                 type="checkbox"
               />
-              <span className="font-semibold text-[#211f1a] text-base">
+              <span className="font-semibold text-[var(--foreground)] text-base">
                 {t("filters.availableToday")}
               </span>
             </label>
@@ -223,14 +223,14 @@ export function ProfessionalsFilterSheet({
         <div className="sticky bottom-0 border-[#ebe5d8] border-t bg-white p-6">
           <div className="flex gap-3">
             <button
-              className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3.5 font-semibold text-[#211f1a] text-base transition hover:border-[#8B7355] active:scale-95"
+              className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3.5 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] active:scale-95"
               onClick={handleReset}
               type="button"
             >
               {t("filters.reset")}
             </button>
             <button
-              className="flex-1 rounded-full bg-[#8B7355] px-6 py-3.5 font-semibold text-base text-white shadow-[var(--shadow-card)] transition hover:bg-[#9B8B7E] active:scale-95"
+              className="flex-1 rounded-full bg-[var(--red)] px-6 py-3.5 font-semibold text-base text-white shadow-[var(--shadow-card)] transition hover:bg-[var(--red-hover)] active:scale-95"
               onClick={handleApply}
               type="button"
             >

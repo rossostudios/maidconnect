@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle } from "lucide-react";
+import { Alert01Icon } from "hugeicons-react";
 import { FormModal } from "@/components/shared/form-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useModalForm } from "@/hooks/use-modal-form";
@@ -77,14 +77,14 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
       customActions={
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-full border-2 border-[#ebe5d8] px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#211f1a]"
+            className="flex-1 rounded-full border-2 border-[#ebe5d8] px-6 py-3 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--foreground)]"
             onClick={onClose}
             type="button"
           >
             Cancel
           </button>
           <button
-            className="flex-1 rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-base text-white shadow-[0_4px_12px_rgba(255,93,70,0.22)] transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-1 rounded-full bg-[var(--red)] px-6 py-3 font-semibold text-base text-white shadow-[0_4px_12px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={
               form.isSubmitting || !form.formData.reason || !form.formData.description.trim()
             }
@@ -112,22 +112,24 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
         <>
           {/* Header with Icon */}
           <div className="mb-6 flex items-center gap-3">
-            <AlertTriangle className="h-6 w-6 text-[#8B7355]" />
-            <h2 className="font-semibold text-[#211f1a] text-xl">Report an Issue</h2>
+            <Alert01Icon className="h-6 w-6 text-[var(--red)]" />
+            <h2 className="font-semibold text-[var(--foreground)] text-xl">Report an Issue</h2>
           </div>
 
           {/* Info Banner */}
           <div className="rounded-xl border border-[#e8e4db] bg-[#fbfafa] p-4">
             <p className="text-[#5a5549] text-sm leading-relaxed">
-              <span className="font-semibold text-[#211f1a]">48-Hour Protection Period</span> – You
-              have up to 48 hours after service completion to report any issues. Our team will
+              <span className="font-semibold text-[var(--foreground)]">
+                48-Hour Protection Period
+              </span>{" "}
+              – You have up to 48 hours after service completion to report any issues. Our team will
               investigate and work with you to resolve the matter fairly.
             </p>
           </div>
 
           {/* Booking Details */}
           <div className="mt-6 rounded-xl border border-[#e8e4db] bg-[#f7f4f0] p-4">
-            <p className="font-semibold text-[#211f1a] text-sm">Booking Details</p>
+            <p className="font-semibold text-[var(--foreground)] text-sm">Booking Details</p>
             <div className="mt-2 space-y-1 text-[#5a5549] text-sm">
               <p>
                 <span className="font-medium">Service:</span> {booking.service_name}
@@ -150,11 +152,14 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
 
           {/* Reason Selection */}
           <div className="mt-6 space-y-2">
-            <label className="block font-semibold text-[#211f1a] text-sm" htmlFor="dispute-reason">
-              What went wrong? <span className="text-[#8B7355]">*</span>
+            <label
+              className="block font-semibold text-[var(--foreground)] text-sm"
+              htmlFor="dispute-reason"
+            >
+              What went wrong? <span className="text-[var(--red)]">*</span>
             </label>
             <select
-              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3 text-[#211f1a] text-base transition focus:border-[#211f1a] focus:outline-none"
+              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3 text-[var(--foreground)] text-base transition focus:border-[var(--foreground)] focus:outline-none"
               id="dispute-reason"
               onChange={(e) => form.updateField("reason", e.target.value)}
               value={form.formData.reason}
@@ -171,13 +176,13 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
           {/* Description */}
           <div className="mt-6 space-y-2">
             <label
-              className="block font-semibold text-[#211f1a] text-sm"
+              className="block font-semibold text-[var(--foreground)] text-sm"
               htmlFor="dispute-description"
             >
-              Please describe what happened <span className="text-[#8B7355]">*</span>
+              Please describe what happened <span className="text-[var(--red)]">*</span>
             </label>
             <textarea
-              className="min-h-32 w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3 text-[#211f1a] text-base leading-relaxed transition focus:border-[#211f1a] focus:outline-none"
+              className="min-h-32 w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3 text-[var(--foreground)] text-base leading-relaxed transition focus:border-[var(--foreground)] focus:outline-none"
               id="dispute-description"
               onChange={(e) => form.updateField("description", e.target.value)}
               placeholder="Include specific details about the issue, when it occurred, and any relevant context..."

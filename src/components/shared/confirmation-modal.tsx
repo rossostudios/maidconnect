@@ -1,6 +1,5 @@
 "use client";
 
-import { AlertTriangle, CheckCircle, Info, XCircle } from "lucide-react";
 import { BaseModal } from "./base-modal";
 
 export type ConfirmationModalProps = {
@@ -18,8 +17,8 @@ export type ConfirmationModalProps = {
 const variantConfig = {
   default: {
     icon: Info,
-    iconColor: "text-[#8B7355]",
-    confirmButton: "bg-[#8B7355] hover:bg-[#9B8B7E]",
+    iconColor: "text-[var(--red)]",
+    confirmButton: "bg-[var(--red)] hover:bg-[var(--red-hover)]",
   },
   danger: {
     icon: XCircle,
@@ -86,7 +85,7 @@ export function ConfirmationModal({
         </div>
 
         {/* Title */}
-        <h3 className="mb-2 font-semibold text-[#211f1a] text-lg">{title}</h3>
+        <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">{title}</h3>
 
         {/* Message */}
         <p className="mb-6 text-[#7a6d62] text-sm leading-relaxed">{message}</p>
@@ -94,7 +93,7 @@ export function ConfirmationModal({
         {/* Actions */}
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#211f1a] text-base transition hover:border-[#211f1a] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--foreground)] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={isLoading}
             onClick={onClose}
             type="button"

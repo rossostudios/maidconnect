@@ -1,4 +1,13 @@
-import { Bug, Edit, Eye, Palette, Plus, Shield, Sparkles, Zap } from "lucide-react";
+import {
+  Add01Icon,
+  Bug01Icon,
+  Edit01Icon,
+  FlashIcon,
+  MagicWand01Icon,
+  PaintBoardIcon,
+  Shield01Icon,
+  ViewIcon,
+} from "hugeicons-react";
 import Link from "next/link";
 import { requireUser } from "@/lib/auth/session";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -19,11 +28,11 @@ type Changelog = {
 };
 
 const categoryConfig = {
-  features: { icon: Sparkles, label: "Features", color: "text-purple-600 bg-purple-50" },
-  improvements: { icon: Zap, label: "Improvements", color: "text-blue-600 bg-blue-50" },
-  fixes: { icon: Bug, label: "Fixes", color: "text-green-600 bg-green-50" },
-  security: { icon: Shield, label: "Security", color: "text-red-600 bg-red-50" },
-  design: { icon: Palette, label: "Design", color: "text-pink-600 bg-pink-50" },
+  features: { icon: MagicWand01Icon, label: "Features", color: "text-purple-600 bg-purple-50" },
+  improvements: { icon: FlashIcon, label: "Improvements", color: "text-blue-600 bg-blue-50" },
+  fixes: { icon: Bug01Icon, label: "Fixes", color: "text-green-600 bg-green-50" },
+  security: { icon: Shield01Icon, label: "Security", color: "text-red-600 bg-red-50" },
+  design: { icon: PaintBoardIcon, label: "Design", color: "text-pink-600 bg-pink-50" },
 };
 
 const visibilityBadge = {
@@ -70,15 +79,15 @@ export default async function AdminChangelogPage({
       <header className="mb-8 flex items-start justify-between">
         <div>
           <h1 className="font-bold text-3xl">Changelog Management</h1>
-          <p className="mt-2 text-[#5d574b] text-sm">
+          <p className="mt-2 text-[var(--muted-foreground)] text-sm">
             Create, edit, and publish sprint updates for your users
           </p>
         </div>
         <Link
-          className="flex items-center gap-2 rounded-full bg-[#8B7355] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#8B7355]"
+          className="flex items-center gap-2 rounded-full bg-[var(--red)] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[var(--red)]"
           href="/admin/changelog/new"
         >
-          <Plus className="h-4 w-4" />
+          <Add01Icon className="h-4 w-4" />
           New Changelog
         </Link>
       </header>
@@ -88,8 +97,8 @@ export default async function AdminChangelogPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status
-              ? "border border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
-              : "bg-[#8B7355] text-white"
+              ? "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
+              : "bg-[var(--red)] text-white"
           }`}
           href="/admin/changelog"
         >
@@ -98,8 +107,8 @@ export default async function AdminChangelogPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "draft"
-              ? "bg-[#8B7355] text-white"
-              : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
+              ? "bg-[var(--red)] text-white"
+              : "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
           }`}
           href="/admin/changelog?status=draft"
         >
@@ -108,8 +117,8 @@ export default async function AdminChangelogPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "published"
-              ? "bg-[#8B7355] text-white"
-              : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
+              ? "bg-[var(--red)] text-white"
+              : "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
           }`}
           href="/admin/changelog?status=published"
         >
@@ -118,8 +127,8 @@ export default async function AdminChangelogPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "archived"
-              ? "bg-[#8B7355] text-white"
-              : "border border-[#ebe5d8] text-[#5d574b] hover:border-[#8B7355]"
+              ? "bg-[var(--red)] text-white"
+              : "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
           }`}
           href="/admin/changelog?status=archived"
         >
@@ -130,14 +139,16 @@ export default async function AdminChangelogPage({
       {/* Changelogs List */}
       {changelogList.length === 0 ? (
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
-          <Sparkles className="mx-auto mb-4 h-12 w-12 text-[#7a6d62]" />
-          <h3 className="mb-2 font-bold text-[#211f1a] text-xl">No Changelogs Yet</h3>
-          <p className="mb-6 text-[#5d574b]">Create your first changelog to get started</p>
+          <MagicWand01Icon className="mx-auto mb-4 h-12 w-12 text-[#7a6d62]" />
+          <h3 className="mb-2 font-bold text-[var(--foreground)] text-xl">No Changelogs Yet</h3>
+          <p className="mb-6 text-[var(--muted-foreground)]">
+            Create your first changelog to get started
+          </p>
           <Link
-            className="inline-flex items-center gap-2 rounded-full bg-[#8B7355] px-6 py-3 font-semibold text-white transition hover:bg-[#8B7355]"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--red)] px-6 py-3 font-semibold text-white transition hover:bg-[var(--red)]"
             href="/admin/changelog/new"
           >
-            <Plus className="h-4 w-4" />
+            <Add01Icon className="h-4 w-4" />
             Create Changelog
           </Link>
         </div>
@@ -145,14 +156,14 @@ export default async function AdminChangelogPage({
         <div className="space-y-4">
           {changelogList.map((changelog: Changelog) => (
             <article
-              className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[#8B7355]"
+              className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[var(--red)]"
               key={changelog.id}
             >
               <div className="flex items-start justify-between gap-4">
                 {/* Content */}
                 <div className="flex-1">
                   <div className="mb-3 flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-[#8B735520] px-3 py-1 font-semibold text-[#8B7355] text-xs">
+                    <span className="rounded-full bg-[var(--red)20] px-3 py-1 font-semibold text-[var(--red)] text-xs">
                       Sprint {changelog.sprint_number}
                     </span>
                     <span
@@ -169,10 +180,14 @@ export default async function AdminChangelogPage({
                     </span>
                   </div>
 
-                  <h2 className="mb-2 font-bold text-[#211f1a] text-xl">{changelog.title}</h2>
+                  <h2 className="mb-2 font-bold text-[var(--foreground)] text-xl">
+                    {changelog.title}
+                  </h2>
 
                   {changelog.summary && (
-                    <p className="mb-3 line-clamp-2 text-[#5d574b] text-sm">{changelog.summary}</p>
+                    <p className="mb-3 line-clamp-2 text-[var(--muted-foreground)] text-sm">
+                      {changelog.summary}
+                    </p>
                   )}
 
                   {/* Categories */}
@@ -203,19 +218,19 @@ export default async function AdminChangelogPage({
                 {/* Actions */}
                 <div className="flex flex-col gap-2">
                   <Link
-                    className="flex items-center gap-2 rounded-lg border border-[#ebe5d8] px-3 py-2 font-medium text-[#5d574b] text-sm transition hover:border-[#8B7355] hover:text-[#8B7355]"
+                    className="flex items-center gap-2 rounded-lg border border-[#ebe5d8] px-3 py-2 font-medium text-[var(--muted-foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)]"
                     href={`/changelog/${changelog.slug}`}
                     target="_blank"
                     title="Preview"
                   >
-                    <Eye className="h-4 w-4" />
+                    <ViewIcon className="h-4 w-4" />
                     Preview
                   </Link>
                   <Link
-                    className="flex items-center gap-2 rounded-lg bg-[#8B7355] px-3 py-2 font-medium text-sm text-white transition hover:bg-[#8B7355]"
+                    className="flex items-center gap-2 rounded-lg bg-[var(--red)] px-3 py-2 font-medium text-sm text-white transition hover:bg-[var(--red)]"
                     href={`/admin/changelog/${changelog.id}/edit`}
                   >
-                    <Edit className="h-4 w-4" />
+                    <Edit01Icon className="h-4 w-4" />
                     Edit
                   </Link>
                 </div>

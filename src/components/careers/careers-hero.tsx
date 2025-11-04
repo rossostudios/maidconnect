@@ -6,7 +6,7 @@ export async function CareersHero() {
   const t = await getTranslations("pages.careers.hero");
 
   return (
-    <section className="bg-[#fbfaf9] py-20 sm:py-24 lg:py-32">
+    <section className="bg-[var(--background)] py-20 sm:py-24 lg:py-32">
       <Container className="max-w-7xl">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left Column - Text Content */}
@@ -14,10 +14,8 @@ export async function CareersHero() {
             <p className="font-semibold text-[#7d7566] text-sm uppercase tracking-[0.2em]">
               {t("badge")}
             </p>
-            <h1 className="mt-6 font-semibold text-5xl text-[#211f1a] leading-tight sm:text-6xl lg:text-7xl">
-              {t("title")}
-            </h1>
-            <p className="mt-6 text-[#5d574b] text-xl leading-relaxed sm:text-2xl">
+            <h1 className="type-serif-display mt-6 text-[var(--foreground)]">{t("title")}</h1>
+            <p className="mt-6 text-[var(--muted-foreground)] text-xl leading-relaxed sm:text-2xl">
               {t("description")}
             </p>
             <div className="mt-12">
@@ -27,13 +25,13 @@ export async function CareersHero() {
 
           {/* Right Column - Team Image */}
           <div className="relative">
-            <div className="aspect-[4/3] overflow-hidden rounded-[28px] bg-gradient-to-br from-[#8B7355]/10 to-[#8B7355]/5 shadow-[0_20px_60px_rgba(18,17,15,0.08)]">
+            <div className="aspect-[4/3] overflow-hidden rounded-[28px] bg-gradient-to-br from-[var(--red)]/10 to-[var(--red)]/5 shadow-[0_20px_60px_rgba(18,17,15,0.08)]">
               {/* Placeholder for team image */}
               <div className="flex h-full w-full items-center justify-center">
                 <div className="text-center text-[#7d7566]">
                   <svg
                     aria-hidden="true"
-                    className="mx-auto h-24 w-24 text-[#8B7355]/20"
+                    className="mx-auto h-24 w-24 text-[var(--red)]/20"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

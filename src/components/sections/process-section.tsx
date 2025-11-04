@@ -7,28 +7,28 @@ export async function ProcessSection() {
   const stepKeys = ["step1", "step2", "step3", "step4"] as const;
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24" id="how-it-works">
+    <section className="py-20 sm:py-24 lg:py-28" id="how-it-works">
       <Container>
-        <div className="mx-auto max-w-6xl space-y-12 text-center">
-          <div className="space-y-4">
-            <p className="font-semibold text-[#a49c90] text-sm uppercase tracking-[0.32em]">
-              {t("badge")}
-            </p>
-            <h2 className="mx-auto max-w-3xl font-semibold text-4xl text-[#211f1a] leading-tight sm:text-5xl lg:text-6xl">
+        <div className="mx-auto max-w-6xl space-y-16 text-center">
+          <div className="space-y-5">
+            <p className="tagline">{t("badge")}</p>
+            <h2 className="type-serif-lg mx-auto max-w-3xl text-[var(--foreground)]">
               {t("title")}
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {stepKeys.map((key) => (
               <div className="flex flex-col items-center text-center" key={key}>
-                <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#8B7355] font-semibold text-white text-xl">
+                <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[var(--red)] font-semibold text-white text-xl">
                   {t(`steps.${key}.number`)}
                 </span>
-                <h3 className="mt-6 font-semibold text-[#211f1a] text-xl">
+                <h3 className="type-serif-sm mt-6 text-[var(--foreground)]">
                   {t(`steps.${key}.title`)}
                 </h3>
-                <p className="mt-3 text-[#5d574b] text-base">{t(`steps.${key}.description`)}</p>
+                <p className="mt-3 text-[var(--muted-foreground)] text-base">
+                  {t(`steps.${key}.description`)}
+                </p>
               </div>
             ))}
           </div>

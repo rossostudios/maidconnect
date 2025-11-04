@@ -1,4 +1,4 @@
-import { ChevronRight, Clock } from "lucide-react";
+import { ArrowRight01Icon, Clock01Icon } from "hugeicons-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -67,18 +67,21 @@ export function TimePicker({
       ) : null}
       <button
         className={cn(
-          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[#211f1a] text-sm shadow-black/5 shadow-inner transition hover:border-[#8B7355] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#8B7355] focus-visible:outline-offset-2",
+          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[var(--foreground)] text-sm shadow-black/5 shadow-inner transition hover:border-[var(--red)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--red)] focus-visible:outline-offset-2",
           !value && "text-[#8a826d]"
         )}
         onClick={() => setOpen((prev) => !prev)}
         type="button"
       >
         <span className="flex items-center gap-2">
-          <Clock aria-hidden="true" className="h-4 w-4 text-[#8B7355]" />
+          <Clock01Icon aria-hidden="true" className="h-4 w-4 text-[var(--red)]" />
           {formatDisplay(value, placeholder)}
         </span>
-        <ChevronRight
-          className={cn("h-4 w-4 text-[#a49c90] transition-transform", open && "rotate-90")}
+        <ArrowRight01Icon
+          className={cn(
+            "h-4 w-4 text-[var(--muted-foreground)] transition-transform",
+            open && "rotate-90"
+          )}
         />
       </button>
 
@@ -92,8 +95,8 @@ export function TimePicker({
                   className={cn(
                     "flex items-center justify-between rounded-2xl px-4 py-2 text-sm transition",
                     isSelected
-                      ? "bg-[#211f1a] text-white shadow-[0_12px_32px_rgba(18,17,15,0.16)]"
-                      : "text-[#211f1a] hover:bg-[#f6f1ea]"
+                      ? "bg-[var(--foreground)] text-white shadow-[0_12px_32px_rgba(18,17,15,0.16)]"
+                      : "text-[var(--foreground)] hover:bg-[#f6f1ea]"
                   )}
                   key={time}
                   onClick={() => {

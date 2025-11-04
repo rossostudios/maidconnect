@@ -1,6 +1,6 @@
 "use client";
 
-import { RefreshCw } from "lucide-react";
+import { RefreshIcon } from "hugeicons-react";
 import { FormModal } from "@/components/shared/form-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useModalForm } from "@/hooks/use-modal-form";
@@ -90,32 +90,32 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
       {/* Header Icon */}
       <div className="mb-6 flex items-center gap-3">
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-          <RefreshCw className="h-6 w-6 text-green-600" />
+          <RefreshIcon className="h-6 w-6 text-green-600" />
         </div>
       </div>
 
       {/* Pre-filled Details */}
       <div className="rounded-xl border border-[#ebe5d8] bg-[#fbfafa] p-4">
-        <h3 className="mb-3 font-semibold text-[#211f1a] text-sm">Service Details</h3>
+        <h3 className="mb-3 font-semibold text-[var(--foreground)] text-sm">Service Details</h3>
         <div className="space-y-2 text-sm">
           <p>
             <span className="font-medium text-[#7a6d62]">Service:</span>{" "}
-            <span className="text-[#211f1a]">{booking.service_name}</span>
+            <span className="text-[var(--foreground)]">{booking.service_name}</span>
           </p>
           <p>
             <span className="font-medium text-[#7a6d62]">Professional:</span>{" "}
-            <span className="text-[#211f1a]">{booking.professional?.full_name}</span>
+            <span className="text-[var(--foreground)]">{booking.professional?.full_name}</span>
           </p>
           {booking.duration_minutes && (
             <p>
               <span className="font-medium text-[#7a6d62]">Duration:</span>{" "}
-              <span className="text-[#211f1a]">{booking.duration_minutes} minutes</span>
+              <span className="text-[var(--foreground)]">{booking.duration_minutes} minutes</span>
             </p>
           )}
           {booking.amount_captured && (
             <p>
               <span className="font-medium text-[#7a6d62]">Amount:</span>{" "}
-              <span className="text-[#211f1a]">
+              <span className="text-[var(--foreground)]">
                 {new Intl.NumberFormat("es-CO", {
                   style: "currency",
                   currency: booking.currency || "COP",
@@ -129,11 +129,14 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
 
       {/* Date/Time Selection */}
       <div>
-        <label className="mb-2 block font-medium text-[#211f1a] text-sm" htmlFor="rebook-schedule">
+        <label
+          className="mb-2 block font-medium text-[var(--foreground)] text-sm"
+          htmlFor="rebook-schedule"
+        >
           When would you like to schedule?
         </label>
         <input
-          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[#211f1a] transition focus:border-[#211f1a] focus:outline-none focus:ring-2 focus:ring-[#211f1a]/20"
+          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[var(--foreground)] transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]/20"
           id="rebook-schedule"
           min={new Date().toISOString().slice(0, 16)}
           onChange={(e) => handleStartTimeChange(e.target.value)}

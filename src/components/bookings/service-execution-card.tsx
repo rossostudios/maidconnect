@@ -236,7 +236,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       {/* Header */}
       <div className="mb-4 flex items-start justify-between">
         <div>
-          <h3 className="font-semibold text-[#211f1a] text-lg">
+          <h3 className="font-semibold text-[var(--foreground)] text-lg">
             {optimisticBooking.service_name || "Service"}
           </h3>
           <p className="text-[#7a6d62] text-sm">{scheduledDate}</p>
@@ -263,7 +263,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       {/* Address */}
       {optimisticBooking.address && (
         <div className="mb-4">
-          <p className="text-[#5d574b] text-sm">
+          <p className="text-[var(--muted-foreground)] text-sm">
             📍{" "}
             {typeof optimisticBooking.address === "object" &&
             "formatted" in optimisticBooking.address
@@ -334,7 +334,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
           <>
             {/* Extend Time Button */}
             <button
-              className="w-full rounded-lg border-2 border-[#8B7355] bg-white px-4 py-3 font-semibold text-[#8B7355] transition hover:bg-[#8B7355] hover:text-white"
+              className="w-full rounded-lg border-2 border-[var(--red)] bg-white px-4 py-3 font-semibold text-[var(--red)] transition hover:bg-[var(--red)] hover:text-white"
               onClick={() => setShowTimeExtensionModal(true)}
               type="button"
             >
@@ -343,7 +343,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
             {/* Check-out button */}
             <button
-              className="w-full rounded-lg bg-[#8B7355] px-4 py-3 font-semibold text-white transition hover:bg-[#9B8B7E] disabled:cursor-not-allowed disabled:opacity-70"
+              className="w-full rounded-lg bg-[var(--red)] px-4 py-3 font-semibold text-white transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-70"
               disabled={loading}
               onClick={() => handleCheckOut()}
               type="button"
