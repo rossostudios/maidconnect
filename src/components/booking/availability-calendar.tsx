@@ -1,5 +1,7 @@
 "use client";
 
+import { AvailabilityCalendar as UnifiedCalendar } from "@/components/shared/availability-calendar";
+
 /**
  * Props for the booking availability calendar
  * This is a migration example showing how to use the new unified calendar
@@ -40,7 +42,7 @@ export function AvailabilityCalendar({
   durationHours: _durationHours = 2,
 }: Props) {
   return (
-    <AvailabilityCalendar
+    <UnifiedCalendar
       dataSource={{
         type: "api",
         professionalId,

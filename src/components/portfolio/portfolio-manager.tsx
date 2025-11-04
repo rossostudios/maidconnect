@@ -94,7 +94,10 @@ export function PortfolioManager({
     if (current && previous) {
       [newImages[index], newImages[index - 1]] = [previous, current];
       for (let i = 0; i < newImages.length; i++) {
-        newImages[i].order = i;
+        const img = newImages[i];
+        if (img) {
+          img.order = i;
+        }
       }
       setImages(newImages);
     }
@@ -113,7 +116,10 @@ export function PortfolioManager({
     if (current && next) {
       [newImages[index], newImages[index + 1]] = [next, current];
       for (let i = 0; i < newImages.length; i++) {
-        newImages[i].order = i;
+        const img = newImages[i];
+        if (img) {
+          img.order = i;
+        }
       }
       setImages(newImages);
     }

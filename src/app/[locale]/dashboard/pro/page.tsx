@@ -76,7 +76,7 @@ function OnboardingTaskItem({
   isComplete: boolean;
   missingDocuments: string[];
   professionalProfile: ProfessionalProfile | null;
-  t: (key: string, values?: Record<string, unknown>) => string;
+  t: (key: string, values?: any) => string;
 }) {
   return (
     <li className="hover:-translate-y-1 rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)]">

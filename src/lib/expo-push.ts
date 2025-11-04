@@ -124,6 +124,7 @@ export async function sendExpoNotification(
     for (let i = 0; i < tickets.length; i++) {
       const ticket = tickets[i];
       const token = pushTokens[i];
+      if (!ticket || !token) continue;
 
       if (ticket.status === "ok") {
         successCount++;

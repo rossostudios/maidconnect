@@ -19,6 +19,8 @@ export function Breadcrumbs() {
   let currentPath = "";
   for (let index = 0; index < segments.length; index++) {
     const segment = segments[index];
+    if (!segment) continue;
+
     currentPath += `/${segment}`;
 
     // Format label

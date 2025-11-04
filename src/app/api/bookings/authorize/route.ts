@@ -67,7 +67,7 @@ function formatBookingDetails(fullBooking: any) {
 
 // Helper: Send notifications to professional
 async function notifyProfessional(
-  supabase: any,
+  _supabase: any,
   fullBooking: any,
   professionalUser: any,
   professionalProfile: any,

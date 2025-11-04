@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { FormModal } from "@/components/shared/form-modal";
@@ -24,7 +23,6 @@ type RescheduleFormData = {
 };
 
 export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleBookingModalProps) {
-  const _router = useRouter();
   const t = useTranslations("dashboard.customer.rescheduleBookingModal");
 
   // Initialize form with current booking date/time

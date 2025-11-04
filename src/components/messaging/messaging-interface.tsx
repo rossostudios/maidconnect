@@ -23,7 +23,6 @@ import {
   getConversationUnreadCount,
   getTotalUnreadCount,
   normalizeUser,
-  updateConversationUnreadCount,
 } from "@/lib/messaging-utils";
 import { toast } from "@/lib/toast";
 import type { SupportedLanguage } from "@/lib/translation";
@@ -92,7 +91,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
   // Custom hooks for cleaner state management
   const {
     conversations,
-    setConversations,
+    setConversations: _setConversations,
     loading,
     error,
     refetch: refetchConversations,
@@ -116,24 +115,6 @@ export function MessagingInterface({ userId, userRole }: Props) {
   );
 
   const { permission, supported, requestPermission, showNotification } = useNotifications();
-
-  // Mark conversation as read and update state
-  const _markAsRead = useCallback(
-    async (conversationId: string) => {
-      try {
-        await fetch(`/api/messages/conversations/${conversationId}/read`, {
-          method: "POST",
-        });
-        // Update unread count locally
-        setConversations((prev) =>
-          updateConversationUnreadCount(prev, conversationId, userRole, 0)
-        );
-      } catch (_err) {
-        // Silent fail - non-critical
-      }
-    },
-    [setConversations, userRole]
-  );
 
   // Request notification permission on mount
   useEffect(() => {

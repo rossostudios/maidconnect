@@ -153,7 +153,7 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
                 bookingsCount={bookingsByDate.get(formatDateKey(calendarDate))?.length ?? 0}
                 date={calendarDate}
                 hasAvailability={Boolean(
-                  availabilityByWeekday.get(normalizeWeekdayLabel(date))?.length
+                  availabilityByWeekday.get(normalizeWeekdayLabel(calendarDate))?.length
                 )}
               />
             )}

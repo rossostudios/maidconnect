@@ -107,14 +107,11 @@ async function getArticleData(
     category: { slug: string; name: string };
   };
 
-  // Increment view count (fire and forget)
-  supabase
-    .rpc("increment_article_view_count", {
-      article_id: article.id,
-    })
-    .catch(() => {
-      // Silently ignore errors
-    });
+  // Increment view count (fire and forget, ignore errors)
+  // biome-ignore lint/suspicious/noVoid: Fire-and-forget pattern for analytics
+  void supabase.rpc("increment_article_view_count", {
+    article_id: article.id,
+  });
 
   // Get related articles
   const { data: rawRelatedArticlesData } = await supabase

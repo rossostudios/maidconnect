@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { FormModal } from "@/components/shared/form-modal";
@@ -25,7 +24,6 @@ type CancelBookingModalProps = {
 };
 
 export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingModalProps) {
-  const _router = useRouter();
   const t = useTranslations("dashboard.customer.cancelBookingModal");
   const [policy, setPolicy] = useState<ReturnType<typeof calculateCancellationPolicy> | null>(null);
 

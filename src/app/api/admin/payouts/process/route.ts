@@ -59,7 +59,7 @@ async function fetchPendingBookings(
   }
 
   // Filter by current period
-  const periodBookings = (pendingBookings || []).filter((booking) => {
+  const periodBookings = (pendingBookings || []).filter((booking: any) => {
     const completedAt = booking.checked_out_at || booking.created_at;
     if (!completedAt) {
       return false;

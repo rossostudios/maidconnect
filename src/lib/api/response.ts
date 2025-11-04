@@ -117,7 +117,7 @@ export function badRequest(message: string, details?: unknown): NextResponse {
       error: {
         code: "BAD_REQUEST",
         message,
-        ...(details && { details }),
+        ...(details ? { details } : {}),
       },
     },
     { status: 400 }
@@ -210,7 +210,7 @@ export function conflict(message: string, details?: unknown): NextResponse {
       error: {
         code: "CONFLICT",
         message,
-        ...(details && { details }),
+        ...(details ? { details } : {}),
       },
     },
     { status: 409 }

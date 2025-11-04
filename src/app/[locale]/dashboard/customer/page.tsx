@@ -166,7 +166,7 @@ export default async function CustomerDashboardPage(props: {
   const savedAddresses = (customerProfile?.saved_addresses as any[]) || [];
 
   const hasProfileDetails = Boolean(profile?.phone && profile.city);
-  const hasPaymentMethod = await checkHasPaymentMethod(profile?.stripe_customer_id);
+  const hasPaymentMethod = await checkHasPaymentMethod(profile?.stripe_customer_id ?? null);
   const bookings = (bookingsData as BookingData[] | null) ?? [];
 
   const hasCompletedBooking = bookings.some((b) => b.status === "completed");

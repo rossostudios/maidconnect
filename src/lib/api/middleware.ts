@@ -7,7 +7,6 @@
  * @module lib/api/middleware
  */
 
-import type { User } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { handleApiError } from "@/lib/error-handler";
 import {
@@ -23,14 +22,6 @@ import {
  */
 type AuthenticatedHandler<T extends unknown[]> = (
   context: AuthContext,
-  ...args: T
-) => Promise<NextResponse> | NextResponse;
-
-/**
- * Handler that receives user
- */
-type UserHandler<T extends unknown[]> = (
-  user: User,
   ...args: T
 ) => Promise<NextResponse> | NextResponse;
 
