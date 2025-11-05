@@ -20,10 +20,10 @@ export default async function AdminHomePage() {
   const user = await requireUser({ allowedRoles: ["admin"] });
   const supabase = await createSupabaseServerClient();
 
-  // Fetch user profile to get avatar
+  // Fetch user profile to get avatar and name
   const { data: profileData } = await supabase
     .from("profiles")
-    .select("avatar_url")
+    .select("avatar_url, full_name")
     .eq("id", user.id)
     .maybeSingle();
 
@@ -38,7 +38,7 @@ export default async function AdminHomePage() {
     greeting = "Good afternoon";
   }
 
-  const userName = user.user_metadata?.full_name?.split(" ")[0] || "Admin";
+  const userName = profileData?.full_name?.split(" ")[0] || "Admin";
 
   return (
     <>
