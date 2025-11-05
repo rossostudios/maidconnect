@@ -20,7 +20,7 @@ export default async function AdminLayout({ children }: Props) {
       {/* Main Content */}
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Enhanced Header */}
-        <AdminHeader userEmail={user.email ?? undefined} userName={user.user_metadata?.full_name} />
+        <AdminHeader userEmail={user.email ?? undefined} />
 
         {/* Main Content Area - More spacious */}
         <main className="flex-1 overflow-y-auto bg-[#FAFAF9]">
