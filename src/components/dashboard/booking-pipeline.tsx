@@ -215,16 +215,42 @@ export function BookingPipeline() {
   if (isLoading) {
     return (
       <div className="space-y-8">
+        {/* Tabs & Filter skeleton */}
         <div className="flex items-center justify-between">
-          <div className="h-12 w-96 animate-pulse rounded-lg bg-[#F5F5F5]" />
-          <div className="h-10 w-32 animate-pulse rounded-lg bg-[#F5F5F5]" />
+          <div className="h-10 w-96 animate-pulse rounded-lg bg-[#F5F5F5] will-change-[opacity]" />
+          <div className="flex items-center gap-3">
+            <div className="h-4 w-4 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+            <div className="h-10 w-40 animate-pulse rounded-lg bg-[#F5F5F5] will-change-[opacity]" />
+          </div>
         </div>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-5">
+
+        {/* Stage Cards skeleton - matching actual p-8 content height */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
           {[1, 2, 3, 4, 5].map((i) => (
             <div
-              className="h-48 animate-pulse rounded-xl border border-[#E5E5E5] bg-white"
+              className="animate-pulse rounded-xl border border-[#E5E5E5] bg-white p-8 will-change-[opacity]"
               key={i}
-            />
+            >
+              <div className="mb-6 flex items-center gap-3">
+                <div className="h-12 w-12 animate-pulse rounded-xl bg-[#F5F5F5] will-change-[opacity]" />
+                <div className="h-3 w-16 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+              </div>
+              <div className="mb-2 h-10 w-16 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+              <div className="h-4 w-24 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+            </div>
+          ))}
+        </div>
+
+        {/* Charts skeleton */}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          {[1, 2].map((i) => (
+            <div
+              className="h-[380px] animate-pulse rounded-xl border border-[#E5E5E5] bg-white p-6 will-change-[opacity]"
+              key={i}
+            >
+              <div className="mb-6 h-16 w-full animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+              <div className="h-64 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+            </div>
           ))}
         </div>
       </div>

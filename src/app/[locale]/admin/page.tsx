@@ -43,7 +43,7 @@ export default async function AdminHomePage() {
   return (
     <>
       {/* Greeting & Quick Stats */}
-      <section className="mb-8">
+      <section className="mb-8 min-h-[600px]">
         <div className="mb-8 flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* Profile Photo Circle */}
@@ -77,7 +77,7 @@ export default async function AdminHomePage() {
       </section>
 
       {/* Booking Pipeline */}
-      <section className="mb-10">
+      <section className="mb-10 min-h-[800px]">
         <div className="mb-6">
           <h2 className="mb-2 font-bold text-2xl text-[#171717]">Booking Pipeline</h2>
           <p className="text-[#737373] text-sm">Real-time view of bookings by lifecycle stage</p>
@@ -86,7 +86,7 @@ export default async function AdminHomePage() {
       </section>
 
       {/* Professional Vetting Queue */}
-      <section className="mb-10">
+      <section className="mb-10 min-h-[400px]">
         <div className="mb-6">
           <h2 className="mb-2 font-bold text-2xl text-[#171717]">Professional Vetting Queue</h2>
           <p className="text-[#737373] text-sm">Review and approve professional applications</p>
@@ -95,7 +95,7 @@ export default async function AdminHomePage() {
       </section>
 
       {/* Management Tools */}
-      <section>
+      <section className="min-h-[300px]">
         <div className="mb-6">
           <h2 className="mb-2 font-bold text-2xl text-[#171717]">Management Tools</h2>
           <p className="text-[#737373] text-sm">Quick access to platform management features</p>

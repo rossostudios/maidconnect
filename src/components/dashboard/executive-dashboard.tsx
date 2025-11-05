@@ -303,17 +303,49 @@ export function ExecutiveDashboard() {
   if (isLoading || !metrics) {
     return (
       <div className="space-y-8">
-        <div className="flex items-center justify-between">
-          <div className="h-12 w-96 animate-pulse rounded-lg bg-[#F5F5F5]" />
-          <div className="h-10 w-32 animate-pulse rounded-lg bg-[#F5F5F5]" />
+        {/* Reserve space for alert banner - prevent layout shift */}
+        <div className="min-h-[60px]">
+          <div className="flex items-center gap-4 rounded-xl border border-[#E5E5E5] bg-white px-5 py-4">
+            <div className="h-5 w-5 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+            <div className="h-5 w-48 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+          </div>
         </div>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {[1, 2, 3].map((i) => (
-            <div
-              className="h-96 animate-pulse rounded-xl border border-[#E5E5E5] bg-white"
-              key={i}
-            />
-          ))}
+
+        {/* Tabs & Filter skeleton */}
+        <div className="flex items-center justify-between">
+          <div className="h-10 w-96 animate-pulse rounded-lg bg-[#F5F5F5] will-change-[opacity]" />
+          <div className="h-10 w-40 animate-pulse rounded-lg bg-[#F5F5F5] will-change-[opacity]" />
+        </div>
+
+        {/* Card grid with proper heights matching actual content */}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          {/* Large revenue card (2 columns) */}
+          <div className="lg:col-span-2">
+            <div className="h-[440px] animate-pulse rounded-xl border border-[#E5E5E5] bg-white p-6 will-change-[opacity]">
+              <div className="mb-6 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="h-12 w-12 animate-pulse rounded-xl bg-[#F5F5F5] will-change-[opacity]" />
+                  <div className="space-y-2">
+                    <div className="h-4 w-32 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+                    <div className="h-8 w-24 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+                  </div>
+                </div>
+              </div>
+              <div className="h-64 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+            </div>
+          </div>
+
+          {/* Side metrics card */}
+          <div className="h-[440px] animate-pulse rounded-xl border border-[#E5E5E5] bg-white p-6 will-change-[opacity]">
+            <div className="space-y-6">
+              {[1, 2, 3, 4].map((i) => (
+                <div className="space-y-2" key={i}>
+                  <div className="h-4 w-32 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+                  <div className="h-8 w-20 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );

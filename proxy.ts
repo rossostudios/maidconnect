@@ -9,7 +9,31 @@ type RouteRule = {
 };
 
 const LOCALES = ["en", "es"];
-const DEFAULT_LOCALE = "es"; // Spanish-first for Colombian market
+const DEFAULT_LOCALE = "en"; // English as global default
+
+// Spanish-speaking countries (ISO 3166-1 alpha-2 codes)
+const SPANISH_SPEAKING_COUNTRIES = [
+  "AR", // Argentina
+  "BO", // Bolivia
+  "CL", // Chile
+  "CO", // Colombia
+  "CR", // Costa Rica
+  "CU", // Cuba
+  "DO", // Dominican Republic
+  "EC", // Ecuador
+  "SV", // El Salvador
+  "GT", // Guatemala
+  "HN", // Honduras
+  "MX", // Mexico
+  "NI", // Nicaragua
+  "PA", // Panama
+  "PY", // Paraguay
+  "PE", // Peru
+  "PR", // Puerto Rico
+  "ES", // Spain
+  "UY", // Uruguay
+  "VE", // Venezuela
+];
 
 // Patterns that match both localized and non-localized routes
 const PROTECTED_ROUTES: RouteRule[] = [
@@ -53,10 +77,26 @@ function addLocaleToPath(pathname: string, locale: string = DEFAULT_LOCALE): str
 }
 
 /**
- * Detect user's preferred locale from Accept-Language header
- * Prioritizes Spanish for Colombian/Latin American users
+ * Detect user's preferred locale based on geolocation and Accept-Language header
+ * Priority: Geolocation > Accept-Language > Default (English)
  */
 function detectLocaleFromHeaders(request: NextRequest): string {
+  // 1. Check geolocation first (most accurate for regional content)
+  // Vercel provides x-vercel-ip-country header in production
+  // Cloudflare provides cf-ipcountry header
+  const country =
+    request.headers.get("x-vercel-ip-country") || request.headers.get("cf-ipcountry");
+
+  if (country) {
+    // If user is in a Spanish-speaking country, show Spanish
+    if (SPANISH_SPEAKING_COUNTRIES.includes(country.toUpperCase())) {
+      return "es";
+    }
+    // Otherwise, show English
+    return "en";
+  }
+
+  // 2. Fallback to Accept-Language header
   const acceptLanguage = request.headers.get("accept-language");
 
   if (!acceptLanguage) {
