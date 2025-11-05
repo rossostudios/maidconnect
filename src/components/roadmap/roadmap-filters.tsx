@@ -6,7 +6,8 @@
 
 "use client";
 
-import { Cancel01Icon, Search01Icon } from "hugeicons-react";
+import { Cancel01Icon, Search01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import type { RoadmapCategory, RoadmapStatus } from "@/types/roadmap";
 import { ROADMAP_CATEGORY_CONFIG, ROADMAP_STATUS_CONFIG } from "@/types/roadmap";
@@ -63,7 +64,7 @@ export function RoadmapFilters({
           className={`relative flex items-center gap-2 rounded-[16px] border-2 bg-white px-4 py-3 transition-all ${isSearchFocused ? "border-[var(--red)]" : "border-[#ebe5d8]"}
         `}
         >
-          <Search01Icon className="flex-shrink-0 text-[#6B7280]" size={20} />
+          <HugeiconsIcon className="flex-shrink-0 text-[#6B7280]" icon={Search01Icon} size={20} />
           <input
             className="flex-1 bg-transparent text-[var(--foreground)] outline-none placeholder:text-[#9CA3AF]"
             onBlur={() => setIsSearchFocused(false)}
@@ -80,7 +81,7 @@ export function RoadmapFilters({
               onClick={() => onSearchChange("")}
               type="button"
             >
-              <Cancel01Icon className="text-[#6B7280]" size={16} />
+              <HugeiconsIcon className="text-[#6B7280]" icon={Cancel01Icon} size={16} />
             </button>
           )}
         </div>

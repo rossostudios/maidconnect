@@ -1,9 +1,10 @@
 "use client";
 
-import { AlertCircleIcon, DollarCircleIcon, RefreshIcon } from "hugeicons-react";
+import { AlertCircleIcon, DollarCircleIcon, RefreshIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
-import type { ComponentType, SVGProps } from "react";
 import { useMemo, useState, useTransition } from "react";
+import type { HugeIcon } from "@/types/icons";
 
 type FinancialBooking = {
   status: string;
@@ -126,7 +127,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
     <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <DollarCircleIcon className="h-5 w-5 text-[var(--red)]" />
+          <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={DollarCircleIcon} />
           <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
         </div>
         {needsConnect ? (
@@ -201,7 +202,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
             </div>
             <div className="flex items-center justify-between rounded-lg border border-[#efe7dc] bg-white/80 px-3 py-2">
               <span className="flex items-center gap-2">
-                <AlertCircleIcon className="h-4 w-4 text-[#c4534d]" />
+                <HugeiconsIcon className="h-4 w-4 text-[#c4534d]" icon={AlertCircleIcon} />
                 {t("metrics.holdsReleased")}
               </span>
               <span>{formatCOP(totals.canceled)}</span>
@@ -214,7 +215,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
 }
 
 type SummaryCardProps = {
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  icon: HugeIcon;
   title: string;
   amount: number;
   description: string;
@@ -222,11 +223,11 @@ type SummaryCardProps = {
   accent: string;
 };
 
-function SummaryCard({ icon: Icon, title, amount, description, tone, accent }: SummaryCardProps) {
+function SummaryCard({ icon, title, amount, description, tone, accent }: SummaryCardProps) {
   return (
     <div className={`rounded-lg border border-[#efe7dc] ${tone} p-4`}>
       <div className="flex items-center gap-2">
-        <Icon className={`h-4 w-4 ${accent}`} />
+        <HugeiconsIcon className={`h-4 w-4 ${accent}`} icon={icon} />
         <dt className="font-semibold text-[#7a6d62] text-xs uppercase tracking-wide">{title}</dt>
       </div>
       <dd className="mt-2 font-semibold text-[var(--foreground)] text-xl">{formatCOP(amount)}</dd>

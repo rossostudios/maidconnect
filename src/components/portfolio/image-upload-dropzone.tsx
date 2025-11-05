@@ -1,7 +1,8 @@
 "use client";
 
+import { Cancel01Icon, Image01Icon as ImageIcon, Upload01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import imageCompression from "browser-image-compression";
-import { Cancel01Icon, Image01Icon as ImageIcon, Upload01Icon } from "hugeicons-react";
 import Image from "next/image";
 import { useCallback, useRef, useState } from "react";
 import { toast } from "@/lib/toast";
@@ -199,7 +200,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
 
         <div className="flex flex-col items-center gap-3">
           <div className="rounded-full bg-[var(--red)]/10 p-4">
-            <Upload01Icon className="h-8 w-8 text-[var(--red)]" />
+            <HugeiconsIcon className="h-8 w-8 text-[var(--red)]" icon={Upload01Icon} />
           </div>
 
           <div>
@@ -269,7 +270,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
                   onClick={() => removeImage(image.id)}
                   type="button"
                 >
-                  <Cancel01Icon className="h-4 w-4" />
+                  <HugeiconsIcon className="h-4 w-4" icon={Cancel01Icon} />
                 </button>
               </div>
             ))}
@@ -314,7 +315,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
       {images.length === 0 && (
         <div className="rounded-xl bg-[var(--background)] p-4">
           <h4 className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-sm">
-            <ImageIcon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={ImageIcon} />
             Image Tips
           </h4>
           <ul className="mt-2 space-y-1 text-[#7d7566] text-sm">

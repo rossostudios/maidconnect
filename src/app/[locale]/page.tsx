@@ -1,4 +1,3 @@
-import { StickyLanguageSwitcher } from "@/components/navigation/sticky-language-switcher";
 import { WelcomeTour } from "@/components/onboarding";
 import { ConciergeSection } from "@/components/sections/concierge-section";
 import { HeroSection } from "@/components/sections/hero-section";
@@ -102,7 +101,6 @@ export default async function Home() {
         <ConciergeSection />
       </main>
       <SiteFooter />
-      <StickyLanguageSwitcher />
       <WelcomeTour autoStart />
     </div>
   );

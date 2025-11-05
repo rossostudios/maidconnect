@@ -7,7 +7,8 @@ import {
   GlobeIcon,
   Mail01Icon,
   UserIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useActionState, useEffect, useState } from "react";
 
@@ -120,7 +121,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       {/* Success/Error Messages */}
       {submissionState.status === "success" && (
         <div className="flex items-center gap-3 rounded-xl bg-green-50 p-4 text-green-800">
-          <CheckmarkCircle01Icon className="h-5 w-5" />
+          <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle01Icon} />
           <p className="font-semibold text-sm">{t("success")}</p>
         </div>
       )}
@@ -134,7 +135,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       {/* Basic Information */}
       <div className="space-y-4">
         <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-lg">
-          <UserIcon className="h-5 w-5" />
+          <HugeiconsIcon className="h-5 w-5" icon={UserIcon} />
           <h3>{t("sections.basicInfo.title")}</h3>
         </div>
 
@@ -161,7 +162,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
               {t("sections.basicInfo.fields.email.label")}
             </div>
             <div className="flex items-center gap-2 rounded-xl border border-[#ebe5d8] bg-[var(--background)] px-4 py-3">
-              <Mail01Icon className="h-4 w-4 text-[#7d7566]" />
+              <HugeiconsIcon className="h-4 w-4 text-[#7d7566]" icon={Mail01Icon} />
               <span className="text-[#7d7566] text-base">{profile.email}</span>
             </div>
             <p className="mt-1 text-[#7d7566] text-xs">
@@ -177,7 +178,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
               {t("sections.basicInfo.fields.phoneNumber.label")}
             </label>
             <div className="flex items-center gap-2 rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 shadow-sm">
-              <CallIcon className="h-4 w-4 text-[#7d7566]" />
+              <HugeiconsIcon className="h-4 w-4 text-[#7d7566]" icon={CallIcon} />
               <input
                 className="flex-1 text-base focus:outline-none"
                 id="profile-phone"
@@ -214,7 +215,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       {/* Bio */}
       <div className="space-y-4">
         <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-lg">
-          <Award01Icon className="h-5 w-5" />
+          <HugeiconsIcon className="h-5 w-5" icon={Award01Icon} />
           <h3>{t("sections.professionalSummary.title")}</h3>
         </div>
 
@@ -243,7 +244,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       {/* Languages */}
       <div className="space-y-4">
         <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-lg">
-          <GlobeIcon className="h-5 w-5" />
+          <HugeiconsIcon className="h-5 w-5" icon={GlobeIcon} />
           <h3>{t("sections.languages.title")}</h3>
         </div>
 
@@ -269,7 +270,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       {/* Primary Services */}
       <div className="space-y-4">
         <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-lg">
-          <Award01Icon className="h-5 w-5" />
+          <HugeiconsIcon className="h-5 w-5" icon={Award01Icon} />
           <h3>{t("sections.services.title")}</h3>
         </div>
 

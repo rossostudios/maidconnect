@@ -1,4 +1,9 @@
-import { ArrowLeft01Icon, ArrowRight01Icon, CalendarSetting01Icon } from "hugeicons-react";
+import {
+  ArrowLeft01Icon,
+  ArrowRight01Icon,
+  CalendarSetting01Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -112,14 +117,19 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
         type="button"
       >
         <span className="flex items-center gap-2">
-          <CalendarSetting01Icon aria-hidden="true" className="h-4 w-4 text-[var(--red)]" />
+          <HugeiconsIcon
+            aria-hidden="true"
+            className="h-4 w-4 text-[var(--red)]"
+            icon={CalendarSetting01Icon}
+          />
           {formatButtonLabel(value, placeholder)}
         </span>
-        <ArrowRight01Icon
+        <HugeiconsIcon
           className={cn(
             "h-4 w-4 text-[var(--muted-foreground)] transition-transform",
             open && "rotate-90"
           )}
+          icon={ArrowRight01Icon}
         />
       </button>
 
@@ -133,7 +143,7 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
               }
               type="button"
             >
-              <ArrowLeft01Icon aria-hidden="true" className="h-4 w-4" />
+              <HugeiconsIcon aria-hidden="true" className="h-4 w-4" icon={ArrowLeft01Icon} />
               <span className="sr-only">Previous month</span>
             </button>
             <div className="font-semibold text-[var(--foreground)] text-sm">
@@ -148,7 +158,7 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
               }
               type="button"
             >
-              <ArrowRight01Icon aria-hidden="true" className="h-4 w-4" />
+              <HugeiconsIcon aria-hidden="true" className="h-4 w-4" icon={ArrowRight01Icon} />
               <span className="sr-only">Next month</span>
             </button>
           </div>

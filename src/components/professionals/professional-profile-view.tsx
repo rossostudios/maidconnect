@@ -7,7 +7,8 @@ import {
   Location01Icon,
   SecurityCheckIcon,
   StarIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -21,12 +22,12 @@ const BookingSheet = dynamic(
 );
 
 import { CompactPrice } from "@/components/pricing/price-breakdown";
+import { TrustCard } from "@/components/professionals/trust-card";
 import type {
   ProfessionalBookingSummary,
   ProfessionalPortfolioImage,
   ProfessionalReviewSummary,
 } from "@/components/professionals/types";
-import { TrustCard } from "@/components/professionals/trust-card";
 import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
@@ -139,12 +140,12 @@ export function ProfessionalProfileView({
 
               <div className="flex flex-wrap gap-6 text-[var(--muted-foreground)] text-base">
                 <div className="flex items-center gap-2">
-                  <Location01Icon className="h-5 w-5 text-[var(--red)]" />
+                  <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={Location01Icon} />
                   <span>{locationLabel}</span>
                 </div>
                 {formattedRate && (
                   <div className="flex items-center gap-2">
-                    <Clock01Icon className="h-5 w-5 text-[var(--red)]" />
+                    <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={Clock01Icon} />
                     <span>
                       {formattedRate} {t("perHour")}
                     </span>
@@ -152,19 +153,22 @@ export function ProfessionalProfileView({
                 )}
                 {professional.languages.length > 0 && (
                   <div className="flex items-center gap-2">
-                    <Globe02Icon className="h-5 w-5 text-[var(--red)]" />
+                    <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={Globe02Icon} />
                     <span>{professional.languages.join(" / ")}</span>
                   </div>
                 )}
                 {professional.experienceYears !== null && (
                   <div className="flex items-center gap-2">
-                    <SecurityCheckIcon className="h-5 w-5 text-[var(--red)]" />
+                    <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={SecurityCheckIcon} />
                     <span>{t("yearsExperience", { years: professional.experienceYears })}</span>
                   </div>
                 )}
                 {averageRating > 0 && (
                   <div className="flex items-center gap-2">
-                    <StarIcon className="h-5 w-5 fill-[var(--red)] text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="h-5 w-5 fill-[var(--red)] text-[var(--red)]"
+                      icon={StarIcon}
+                    />
                     <span className="font-semibold">{averageRating.toFixed(1)}</span>
                     <span className="text-[#7d7566]">
                       ({t("reviewsCount", { count: professional.reviews.length })})
@@ -175,7 +179,7 @@ export function ProfessionalProfileView({
 
               {professional.availableToday && (
                 <div className="inline-flex w-fit items-center gap-2 rounded-full bg-[var(--red)]/10 px-5 py-2.5 font-semibold text-[var(--red)] text-base">
-                  <CalendarSetting01Icon className="h-5 w-5" />
+                  <HugeiconsIcon className="h-5 w-5" icon={CalendarSetting01Icon} />
                   {t("availableToday")}
                 </div>
               )}
@@ -374,12 +378,13 @@ export function ProfessionalProfileView({
                           >
                             <div className="flex items-center gap-2">
                               {[...new Array(5)].map((_, i) => (
-                                <StarIcon
+                                <HugeiconsIcon
                                   className={`h-4 w-4 ${
                                     i < review.rating
                                       ? "fill-[var(--red)] text-[var(--red)]"
                                       : "text-[#e5dfd4]"
                                   }`}
+                                  icon={StarIcon}
                                   key={i}
                                 />
                               ))}

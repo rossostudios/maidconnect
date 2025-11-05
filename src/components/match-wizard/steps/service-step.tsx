@@ -7,7 +7,8 @@ import {
   Home01Icon,
   MagicWand01Icon,
   PackageIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import type { WizardData } from "../match-wizard";
 
@@ -129,7 +130,7 @@ export function ServiceStep({ data, onUpdate, onNext, onBack }: ServiceStepProps
                     : "bg-[#fbfafa] text-[var(--foreground)]"
                 }`}
               >
-                <Icon className="h-6 w-6" />
+                <HugeiconsIcon className="h-6 w-6" icon={Icon} />
               </div>
               <span
                 className={`text-center font-medium text-sm ${

@@ -6,7 +6,8 @@ import {
   Rocket01Icon,
   SecurityCheckIcon,
   Wrench01Icon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
@@ -177,7 +178,7 @@ export default async function HelpCenterPage({
                 >
                   <div className="mb-4 flex items-center justify-between">
                     <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--red)]/10 text-[var(--red)] transition group-hover:bg-[var(--red)] group-hover:text-white">
-                      <Icon className="h-6 w-6" />
+                      <HugeiconsIcon className="h-6 w-6" icon={Icon} />
                     </div>
                     <span className="rounded-full bg-gray-100 px-3 py-1 text-gray-600 text-sm group-hover:bg-[var(--red)]/10 group-hover:text-[var(--red)]">
                       {category.article_count}{" "}
@@ -195,7 +196,10 @@ export default async function HelpCenterPage({
 
                   <div className="mt-4 flex items-center text-[var(--red)] text-sm">
                     <span>{t("categories.browse")}</span>
-                    <ArrowRight01Icon className="ml-1 h-4 w-4 transition group-hover:translate-x-1" />
+                    <HugeiconsIcon
+                      className="ml-1 h-4 w-4 transition group-hover:translate-x-1"
+                      icon={ArrowRight01Icon}
+                    />
                   </div>
                 </Link>
               );
@@ -230,7 +234,10 @@ export default async function HelpCenterPage({
                       {article.view_count}{" "}
                       {article.view_count === 1 ? t("popular.view") : t("popular.views")}
                     </span>
-                    <ArrowRight01Icon className="h-4 w-4 text-[var(--red)] opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100" />
+                    <HugeiconsIcon
+                      className="h-4 w-4 text-[var(--red)] opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100"
+                      icon={ArrowRight01Icon}
+                    />
                   </div>
                 </Link>
               ))}
@@ -247,7 +254,7 @@ export default async function HelpCenterPage({
             href={`/${locale}/contact`}
           >
             {t("contact.button")}
-            <ArrowRight01Icon className="h-5 w-5" />
+            <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
           </Link>
         </section>
       </Container>

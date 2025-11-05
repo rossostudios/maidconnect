@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cinzel, Spectral, Work_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -17,29 +17,11 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { WebVitalsReporter } from "@/components/web-vitals";
 import { locales } from "@/i18n";
 
-// Cinzel for brand/logo/headers (SemiBold weight)
-const cinzel = Cinzel({
-  variable: "--font-cinzel",
+// Inter - versatile, highly readable for everything
+// Perfect for modern web interfaces with excellent legibility
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["600"], // SemiBold
-  display: "swap",
-  preload: true,
-});
-
-// Spectral for body text (Regular weight)
-const spectral = Spectral({
-  variable: "--font-spectral",
-  subsets: ["latin"],
-  weight: ["400"], // Regular
-  display: "swap",
-  preload: true,
-});
-
-// Work Sans for taglines/UI microcopy (Thin & Regular weights)
-const workSans = Work_Sans({
-  variable: "--font-work-sans",
-  subsets: ["latin"],
-  weight: ["100", "400"], // Thin for taglines, Regular for UI
   display: "swap",
   preload: true,
 });
@@ -102,7 +84,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${cinzel.variable} ${spectral.variable} ${workSans.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased`}>
         <WebVitalsReporter />
         <ErrorBoundary>
           <ThemeProvider>

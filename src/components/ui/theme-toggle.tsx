@@ -1,6 +1,7 @@
 "use client";
 
-import { Moon02Icon, Sun01Icon } from "hugeicons-react";
+import { Moon02Icon, Sun01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTheme } from "@/components/providers/theme-provider";
 
 type ThemeToggleProps = {
@@ -48,12 +49,18 @@ export function ThemeToggle({ size = "default", showLabel = false }: ThemeToggle
     >
       {resolvedTheme === "dark" ? (
         <>
-          <Sun01Icon className={`${iconSizes[size]} rotate-0 transition-transform duration-300`} />
+          <HugeiconsIcon
+            className={`${iconSizes[size]} rotate-0 transition-transform duration-300`}
+            icon={Sun01Icon}
+          />
           {showLabel && <span className="font-medium text-sm">Light</span>}
         </>
       ) : (
         <>
-          <Moon02Icon className={`${iconSizes[size]} rotate-0 transition-transform duration-300`} />
+          <HugeiconsIcon
+            className={`${iconSizes[size]} rotate-0 transition-transform duration-300`}
+            icon={Moon02Icon}
+          />
           {showLabel && <span className="font-medium text-sm">Dark</span>}
         </>
       )}

@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowLeft01Icon, ArrowRight01Icon } from "hugeicons-react";
+import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useMemo } from "react";
 import {
   type AvailabilityData,
@@ -252,7 +253,7 @@ export function AvailabilityCalendar({
             onClick={goToPreviousMonth}
             type="button"
           >
-            <ArrowLeft01Icon className={sizeConfig.icon} />
+            <HugeiconsIcon className={sizeConfig.icon} icon={ArrowLeft01Icon} />
           </button>
           <button
             aria-label="Next month"
@@ -263,7 +264,7 @@ export function AvailabilityCalendar({
             onClick={goToNextMonth}
             type="button"
           >
-            <ArrowRight01Icon className={sizeConfig.icon} />
+            <HugeiconsIcon className={sizeConfig.icon} icon={ArrowRight01Icon} />
           </button>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
-import { IdVerifiedIcon, Location01Icon, StarIcon } from "hugeicons-react";
+import { IdVerifiedIcon, Location01Icon, StarIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
@@ -110,7 +111,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
       {/* Verification Badge */}
       {professional.is_verified && (
         <div className="absolute top-4 right-4 flex items-center gap-1 rounded-full bg-green-100 px-3 py-1">
-          <IdVerifiedIcon className="h-3 w-3 fill-green-600 text-green-600" />
+          <HugeiconsIcon className="h-3 w-3 fill-green-600 text-green-600" icon={IdVerifiedIcon} />
           <span className="font-semibold text-green-700 text-xs">
             {t("professionals.card.verified")}
           </span>
@@ -147,7 +148,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
         {/* Location */}
         {professional.city && (
           <div className="mb-3 flex items-center gap-2 text-[var(--muted-foreground)] text-sm">
-            <Location01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
             <span>{professional.city}</span>
           </div>
         )}
@@ -155,7 +156,10 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
         {/* Rating */}
         {professional.average_rating && professional.total_reviews > 0 && (
           <div className="mb-3 flex items-center gap-2">
-            <StarIcon className="h-4 w-4 fill-[var(--red)] text-[var(--red)]" />
+            <HugeiconsIcon
+              className="h-4 w-4 fill-[var(--red)] text-[var(--red)]"
+              icon={StarIcon}
+            />
             <span className="font-medium text-[var(--foreground)] text-sm">
               {professional.average_rating.toFixed(1)}
             </span>

@@ -1,4 +1,5 @@
-import { HelpCircleIcon } from "hugeicons-react";
+import { HelpCircleIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { formatCOP } from "@/lib/format";
 
 type PriceBreakdownProps = {
@@ -69,7 +70,10 @@ export function PriceBreakdown({
             <div className="flex items-center gap-1.5">
               <span className="text-[#5a5549]">Platform Fee</span>
               <div className="group relative">
-                <HelpCircleIcon className="h-3.5 w-3.5 text-[#9a8f82] transition hover:text-[var(--foreground)]" />
+                <HugeiconsIcon
+                  className="h-3.5 w-3.5 text-[#9a8f82] transition hover:text-[var(--foreground)]"
+                  icon={HelpCircleIcon}
+                />
                 <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-64 rounded-lg border border-[#e8e4db] bg-white p-3 opacity-0 shadow-lg transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
                   <p className="text-[#5a5549] text-xs leading-relaxed">
                     This fee supports platform operations including payment processing, customer

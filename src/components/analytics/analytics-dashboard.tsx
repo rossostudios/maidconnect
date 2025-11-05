@@ -1,0 +1,190 @@
+"use client";
+
+import { ChartIcon, RefreshIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { getPerformanceMetrics, getRevenueTrend } from "@/app/actions/analytics";
+import type { PerformanceMetrics, RevenueTrendDataPoint } from "@/types";
+import { PerformanceMetricsCard } from "./performance-metrics-card";
+import { RatingDistribution } from "./rating-distribution";
+import { RevenueTrendChart } from "./revenue-trend-chart";
+
+type AnalyticsDashboardProps = {
+  profileId: string;
+};
+
+/**
+ * Analytics Dashboard Component
+ *
+ * Main dashboard for displaying professional performance metrics.
+ * Fetches and displays:
+ * - Performance metrics (completion rate, revenue, ratings)
+ * - Revenue trend chart
+ * - Rating distribution
+ */
+export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
+  const t = useTranslations("components.analyticsDashboard");
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const [metrics, setMetrics] = useState<PerformanceMetrics | null>(null);
+  const [revenueTrend, setRevenueTrend] = useState<RevenueTrendDataPoint[]>([]);
+
+  const loadData = async (isRefresh = false) => {
+    if (isRefresh) {
+      setRefreshing(true);
+    } else {
+      setLoading(true);
+    }
+    setError(null);
+
+    try {
+      // Fetch metrics
+      const metricsResponse = await getPerformanceMetrics(profileId);
+      if (!metricsResponse.success) {
+        setError(metricsResponse.error);
+        return;
+      }
+      setMetrics(metricsResponse.metrics);
+
+      // Fetch revenue trend
+      const trendResponse = await getRevenueTrend(profileId, 30);
+      if (!trendResponse.success) {
+        setError(trendResponse.error);
+        return;
+      }
+      setRevenueTrend(trendResponse.trend);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unknown error");
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  const handleRefresh = () => {
+    loadData(true);
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="text-center">
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-[var(--red)] border-t-2 border-b-2" />
+          <p className="text-[#6b7280]">{t("loading")}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="rounded-[24px] border-2 border-red-200 bg-red-50 p-6">
+        <p className="font-semibold text-red-900">{t("error")}</p>
+        <p className="mt-2 text-red-700 text-sm">{error}</p>
+        <button
+          className="mt-4 rounded-xl bg-red-600 px-4 py-2 font-medium text-sm text-white transition hover:bg-red-700"
+          onClick={() => loadData()}
+          type="button"
+        >
+          {t("retry")}
+        </button>
+      </div>
+    );
+  }
+
+  if (!metrics) {
+    return (
+      <div className="rounded-[24px] border-2 border-[#e5e7eb] bg-white p-6">
+        <p className="text-center text-[#6b7280]">{t("noData")}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={ChartIcon} />
+          <h2 className="font-bold text-2xl text-[var(--foreground)]">{t("title")}</h2>
+        </div>
+        <button
+          className="flex items-center gap-2 rounded-xl border-2 border-[#e5e7eb] bg-white px-4 py-2 font-medium text-[var(--foreground)] text-sm transition hover:bg-[#f9fafb] disabled:opacity-50"
+          disabled={refreshing}
+          onClick={handleRefresh}
+          type="button"
+        >
+          <HugeiconsIcon
+            className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
+            icon={RefreshIcon}
+          />
+          {refreshing ? t("refreshing") : t("refresh")}
+        </button>
+      </div>
+
+      {/* Dashboard Grid */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* Performance Metrics */}
+        <div className="lg:col-span-2">
+          <PerformanceMetricsCard metrics={metrics} />
+        </div>
+
+        {/* Revenue Trend */}
+        <div className="lg:col-span-2">
+          <RevenueTrendChart periodDays={30} trend={revenueTrend} />
+        </div>
+
+        {/* Rating Distribution */}
+        <div>
+          <RatingDistribution metrics={metrics} />
+        </div>
+
+        {/* Recent Activity Summary */}
+        <div className="rounded-[24px] border-2 border-[#e5e7eb] bg-white p-6 shadow-sm">
+          <h3 className="mb-4 font-semibold text-[var(--foreground)] text-lg">
+            {t("recentActivity")}
+          </h3>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between rounded-xl bg-[#f9fafb] p-4">
+              <span className="text-[#6b7280] text-sm">{t("bookingsLast7Days")}</span>
+              <span className="font-bold text-[var(--foreground)] text-xl">
+                {metrics.bookingsLast7Days}
+              </span>
+            </div>
+            <div className="flex items-center justify-between rounded-xl bg-[#f9fafb] p-4">
+              <span className="text-[#6b7280] text-sm">{t("bookingsLast30Days")}</span>
+              <span className="font-bold text-[var(--foreground)] text-xl">
+                {metrics.bookingsLast30Days}
+              </span>
+            </div>
+            <div className="flex items-center justify-between rounded-xl bg-[#f9fafb] p-4">
+              <span className="text-[#6b7280] text-sm">{t("revenueLast7Days")}</span>
+              <span className="font-bold text-[var(--red)] text-xl">
+                ${(metrics.revenueLast7DaysCop / 1000).toFixed(0)}k
+              </span>
+            </div>
+            <div className="flex items-center justify-between rounded-xl bg-[#f9fafb] p-4">
+              <span className="text-[#6b7280] text-sm">{t("revenueLast30Days")}</span>
+              <span className="font-bold text-[var(--red)] text-xl">
+                ${(metrics.revenueLast30DaysCop / 1000).toFixed(0)}k
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer Note */}
+      <div className="rounded-xl bg-blue-50 p-4 text-blue-900 text-sm">
+        <p className="font-semibold">{t("noteTitle")}</p>
+        <p className="mt-1 text-blue-800">{t("noteDescription")}</p>
+      </div>
+    </div>
+  );
+}

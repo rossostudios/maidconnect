@@ -1,6 +1,12 @@
 "use client";
 
-import { Award01Icon, Clock01Icon, SecurityCheckIcon, TranslateIcon } from "hugeicons-react";
+import {
+  Award01Icon,
+  Clock01Icon,
+  SecurityCheckIcon,
+  TranslateIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import type { WizardData } from "../match-wizard";
 
@@ -54,7 +60,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
       {/* Icon */}
       <div className="flex justify-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--foreground)]/5">
-          <SecurityCheckIcon className="h-8 w-8 text-[var(--foreground)]" />
+          <HugeiconsIcon className="h-8 w-8 text-[var(--foreground)]" icon={SecurityCheckIcon} />
         </div>
       </div>
 
@@ -73,7 +79,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
         {/* Language Preference */}
         <div>
           <div className="mb-3 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm">
-            <TranslateIcon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={TranslateIcon} />
             {t("languageLabel", { defaultValue: "Language preference" })}
           </div>
           <div className="space-y-2">
@@ -117,7 +123,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
         {/* Verification Level */}
         <div>
           <div className="mb-3 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm">
-            <SecurityCheckIcon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={SecurityCheckIcon} />
             {t("verificationLabel", { defaultValue: "Required verification level" })}
           </div>
           <div className="space-y-2">
@@ -176,7 +182,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
             className="mb-2 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm"
             htmlFor="experience-years"
           >
-            <Award01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Award01Icon} />
             {t("experienceLabel", { defaultValue: "Minimum years of experience" })}
           </label>
           <select
@@ -196,7 +202,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
         {/* Availability */}
         <div>
           <div className="mb-3 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm">
-            <Clock01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
             {t("availabilityLabel", { defaultValue: "Availability needed" })}
           </div>
           <div className="grid grid-cols-3 gap-3">

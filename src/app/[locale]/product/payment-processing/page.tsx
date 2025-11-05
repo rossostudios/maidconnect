@@ -3,7 +3,8 @@ import {
   CreditCardIcon,
   Invoice01Icon,
   Shield01Icon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
@@ -238,7 +239,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">
@@ -252,7 +253,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">
@@ -266,7 +267,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">
@@ -280,7 +281,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">
@@ -305,7 +306,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
             <div className="mt-16 grid gap-8 md:grid-cols-3">
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 text-center">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <CreditCardIcon className="h-8 w-8 text-[var(--red)]" />
+                  <HugeiconsIcon className="h-8 w-8 text-[var(--red)]" icon={CreditCardIcon} />
                 </div>
                 <h3 className="mt-6 font-semibold text-[var(--foreground)] text-xl">
                   {t("acceptedMethods.creditCards.title")}
@@ -317,7 +318,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 text-center">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <CreditCardIcon className="h-8 w-8 text-[var(--red)]" />
+                  <HugeiconsIcon className="h-8 w-8 text-[var(--red)]" icon={CreditCardIcon} />
                 </div>
                 <h3 className="mt-6 font-semibold text-[var(--foreground)] text-xl">
                   {t("acceptedMethods.debitCards.title")}
@@ -329,7 +330,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 text-center">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <Invoice01Icon className="h-8 w-8 text-[var(--red)]" />
+                  <HugeiconsIcon className="h-8 w-8 text-[var(--red)]" icon={Invoice01Icon} />
                 </div>
                 <h3 className="mt-6 font-semibold text-[var(--foreground)] text-xl">
                   {t("acceptedMethods.digitalReceipts.title")}

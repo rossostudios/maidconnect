@@ -1,6 +1,6 @@
-import { MagicWand01Icon } from "hugeicons-react";
+import { MagicWand01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 
@@ -10,21 +10,31 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "aguaora.meta" });
+
+  const isSpanish = locale === "es";
 
   return {
-    title: t("title"),
-    description: t("description"),
+    title: isSpanish ? "Aguaora - Próximamente" : "Aguaora - Coming Soon",
+    description: isSpanish
+      ? "Servicios de agua potable a domicilio. Próximamente disponible."
+      : "Water delivery services. Coming soon.",
     openGraph: {
-      title: t("title"),
-      description: t("description"),
+      title: isSpanish ? "Aguaora - Próximamente" : "Aguaora - Coming Soon",
+      description: isSpanish
+        ? "Servicios de agua potable a domicilio. Próximamente disponible."
+        : "Water delivery services. Coming soon.",
       type: "website",
     },
   };
 }
 
-export default async function AguaoraPage() {
-  const t = await getTranslations("aguaora");
+export default async function AguaoraPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const isSpanish = locale === "es";
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -33,7 +43,7 @@ export default async function AguaoraPage() {
         <div className="mx-auto max-w-2xl text-center">
           {/* Logo/Brand */}
           <div className="mb-8 inline-flex items-center justify-center rounded-full bg-[var(--red)]/10 p-6">
-            <MagicWand01Icon className="h-12 w-12 text-[var(--red)]" />
+            <HugeiconsIcon className="h-12 w-12 text-[var(--red)]" icon={MagicWand01Icon} />
           </div>
 
           {/* Brand Name */}
@@ -43,11 +53,15 @@ export default async function AguaoraPage() {
 
           {/* Tagline */}
           <p className="mb-8 text-[var(--muted-foreground)] text-xl leading-relaxed sm:text-2xl">
-            {t("tagline")}
+            {isSpanish ? "Agua potable a tu puerta" : "Fresh water at your doorstep"}
           </p>
 
           {/* Description */}
-          <p className="mb-12 text-[#7a7165] text-lg leading-relaxed">{t("description")}</p>
+          <p className="mb-12 text-[#7a7165] text-lg leading-relaxed">
+            {isSpanish
+              ? "Pronto podrás solicitar servicios de entrega de agua potable directamente a tu hogar u oficina. Agua limpia, fresca y confiable cuando la necesites."
+              : "Soon you'll be able to request water delivery services directly to your home or office. Clean, fresh, and reliable water when you need it."}
+          </p>
 
           {/* Coming Soon Badge */}
           <div className="inline-flex items-center gap-3 rounded-full border-2 border-[var(--red)] bg-white px-8 py-4 shadow-[var(--shadow-card)]">
@@ -56,13 +70,13 @@ export default async function AguaoraPage() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--red)]" />
             </div>
             <span className="font-semibold text-[var(--foreground)] text-lg uppercase tracking-wider">
-              {t("comingSoon")}
+              {isSpanish ? "Próximamente" : "Coming Soon"}
             </span>
           </div>
 
           {/* Sister Company Link */}
           <p className="mt-12 text-[#7a7165] text-sm">
-            {t("sisterCompany")}{" "}
+            {isSpanish ? "Una empresa hermana de" : "A sister company of"}{" "}
             <a
               className="font-semibold text-[var(--red)] underline underline-offset-2 transition hover:text-[var(--red-hover)]"
               href="/"

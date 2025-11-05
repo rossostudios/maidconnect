@@ -1,4 +1,5 @@
-import { ArrowRight01Icon } from "hugeicons-react";
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { Kbd } from "@/components/ui/kbd";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
@@ -75,7 +76,12 @@ export function Button({
         if (icon) {
           return (
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-current/15 text-current transition-all group-hover:scale-110 group-hover:bg-current/25">
-              <ArrowRight01Icon aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+              <HugeiconsIcon
+                aria-hidden="true"
+                className="h-4 w-4"
+                icon={ArrowRight01Icon}
+                strokeWidth={2}
+              />
             </span>
           );
         }

@@ -1,6 +1,7 @@
 "use client";
 
-import { Calendar01Icon, CheckmarkCircle01Icon, Clock01Icon } from "hugeicons-react";
+import { Calendar01Icon, CheckmarkCircle01Icon, Clock01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { BlockedDatesCalendar } from "./blocked-dates-calendar";
@@ -63,7 +64,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
       {/* Success/Error Messages */}
       {success && (
         <div className="flex items-center gap-3 rounded-xl bg-green-50 p-4 text-green-800">
-          <CheckmarkCircle01Icon className="h-5 w-5" />
+          <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle01Icon} />
           <p className="font-semibold text-sm">{t("success")}</p>
         </div>
       )}
@@ -86,7 +87,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
             onClick={() => setActiveTab("hours")}
             type="button"
           >
-            <Clock01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
             {t("tabs.workingHours")}
           </button>
           <button
@@ -98,7 +99,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
             onClick={() => setActiveTab("blocked")}
             type="button"
           >
-            <Calendar01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />
             {t("tabs.blockedDates")}
             {blockedDates.length > 0 && (
               <span className="rounded-full bg-red-500 px-2 py-0.5 font-bold text-white text-xs">

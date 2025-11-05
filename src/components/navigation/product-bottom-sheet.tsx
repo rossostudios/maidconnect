@@ -1,6 +1,7 @@
 "use client";
 
-import { Cancel01Icon } from "hugeicons-react";
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect } from "react";
 import { Link } from "@/i18n/routing";
 
@@ -75,7 +76,7 @@ export function ProductBottomSheet({ isOpen, onClose, features }: Props) {
             onClick={onClose}
             type="button"
           >
-            <Cancel01Icon className="h-6 w-6" />
+            <HugeiconsIcon className="h-6 w-6" icon={Cancel01Icon} />
           </button>
         </div>
 

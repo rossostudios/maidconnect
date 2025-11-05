@@ -1,8 +1,9 @@
 "use client";
 
+import { Add01Icon, Cancel01Icon, Clock01Icon, MinusSignIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { Add01Icon, Cancel01Icon, Clock01Icon, MinusSignIcon } from "hugeicons-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
@@ -237,7 +238,7 @@ export function BookingSheet({
             onClick={onClose}
             type="button"
           >
-            <Cancel01Icon className="h-6 w-6" />
+            <HugeiconsIcon className="h-6 w-6" icon={Cancel01Icon} />
           </button>
         </div>
 
@@ -281,7 +282,7 @@ export function BookingSheet({
               {/* Selected Time Display */}
               <div className="rounded-2xl bg-[var(--red)]/5 p-6">
                 <div className="flex items-center gap-3 text-[#8a3934] text-base">
-                  <Clock01Icon className="h-5 w-5" />
+                  <HugeiconsIcon className="h-5 w-5" icon={Clock01Icon} />
                   <span className="font-semibold">{selectedTime && formatTime(selectedTime)}</span>
                   <button
                     className="ml-auto text-sm underline"
@@ -342,7 +343,7 @@ export function BookingSheet({
                     }
                     type="button"
                   >
-                    <MinusSignIcon className="h-5 w-5" />
+                    <HugeiconsIcon className="h-5 w-5" icon={MinusSignIcon} />
                   </button>
                   <div className="flex-1 rounded-xl border-2 border-[#e5dfd4] bg-[#fbfafa] px-4 py-4 text-center font-semibold text-[var(--foreground)] text-lg md:px-5 md:text-xl">
                     {bookingData.durationHours} {bookingData.durationHours === 1 ? "hour" : "hours"}
@@ -358,7 +359,7 @@ export function BookingSheet({
                     }
                     type="button"
                   >
-                    <Add01Icon className="h-5 w-5" />
+                    <HugeiconsIcon className="h-5 w-5" icon={Add01Icon} />
                   </button>
                 </div>
               </div>

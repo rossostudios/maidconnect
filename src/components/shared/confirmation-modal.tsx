@@ -5,7 +5,8 @@ import {
   AlertCircleIcon,
   CheckmarkCircle01Icon,
   InformationCircleIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { BaseModal } from "./base-modal";
 
 export type ConfirmationModalProps = {
@@ -69,7 +70,6 @@ export function ConfirmationModal({
   isLoading = false,
 }: ConfirmationModalProps) {
   const config = variantConfig[variant];
-  const Icon = config.icon;
 
   const handleConfirm = async () => {
     await onConfirm();
@@ -87,7 +87,7 @@ export function ConfirmationModal({
       <div className="text-center">
         {/* Icon */}
         <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100">
-          <Icon className={`h-6 w-6 ${config.iconColor}`} />
+          <HugeiconsIcon className={`h-6 w-6 ${config.iconColor}`} icon={config.icon} />
         </div>
 
         {/* Title */}

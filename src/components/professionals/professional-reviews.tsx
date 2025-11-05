@@ -1,6 +1,7 @@
 "use client";
 
-import { StarIcon } from "hugeicons-react";
+import { StarIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useActionState } from "react";
 import { submitProfessionalReviewAction } from "@/app/actions/submit-professional-review";
 import type { ProfessionalReviewSummary } from "@/components/professionals/types";
@@ -32,7 +33,11 @@ function ReviewCard({ review }: { review: ProfessionalReviewSummary }) {
     <li className="space-y-2 rounded-2xl border border-[#efe7dc] bg-[#fbfafa] p-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-sm">
-          <StarIcon aria-hidden="true" className="h-4 w-4 fill-[var(--red)] text-[var(--red)]" />
+          <HugeiconsIcon
+            aria-hidden="true"
+            className="h-4 w-4 fill-[var(--red)] text-[var(--red)]"
+            icon={StarIcon}
+          />
           <span>{review.rating.toFixed(1)}</span>
         </div>
         <p className="text-[#7a6d62] text-xs">{formatDate(review.createdAt)}</p>
@@ -74,7 +79,11 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
         </div>
         {averageRating ? (
           <div className="flex items-center gap-2 rounded-full border border-[#efe7dc] bg-[#fbfafa] px-4 py-2 font-semibold text-[var(--foreground)] text-sm">
-            <StarIcon aria-hidden="true" className="h-4 w-4 fill-[var(--red)] text-[var(--red)]" />
+            <HugeiconsIcon
+              aria-hidden="true"
+              className="h-4 w-4 fill-[var(--red)] text-[var(--red)]"
+              icon={StarIcon}
+            />
             {averageRating.toFixed(1)}{" "}
             <span className="text-[#7a6d62] text-xs">({reviews.length})</span>
           </div>

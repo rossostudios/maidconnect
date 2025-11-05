@@ -1,6 +1,7 @@
 "use client";
 
-import { Cancel01Icon } from "hugeicons-react";
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useRef } from "react";
 
 export type BaseModalProps = {
@@ -196,7 +197,7 @@ export function BaseModal({
                 onClick={onClose}
                 type="button"
               >
-                <Cancel01Icon className="h-5 w-5" />
+                <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
               </button>
             )}
           </div>

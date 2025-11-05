@@ -1,6 +1,7 @@
 "use client";
 
-import { Alert01Icon } from "hugeicons-react";
+import { Alert01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { FormModal } from "@/components/shared/form-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useModalForm } from "@/hooks/use-modal-form";
@@ -112,7 +113,7 @@ export function DisputeModal({ booking, isOpen, onClose }: DisputeModalProps) {
         <>
           {/* Header with Icon */}
           <div className="mb-6 flex items-center gap-3">
-            <Alert01Icon className="h-6 w-6 text-[var(--red)]" />
+            <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={Alert01Icon} />
             <h2 className="font-semibold text-[var(--foreground)] text-xl">Report an Issue</h2>
           </div>
 

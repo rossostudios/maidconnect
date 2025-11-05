@@ -5,7 +5,8 @@ import {
   MagicWand01Icon,
   PaintBoardIcon,
   Shield01Icon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -96,7 +97,7 @@ async function ChangelogList() {
   if (changelogs.length === 0) {
     return (
       <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-12 text-center">
-        <MagicWand01Icon className="mx-auto mb-4 h-12 w-12 text-[#7a6d62]" />
+        <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-[#7a6d62]" icon={MagicWand01Icon} />
         <h3 className="mb-2 font-bold text-[var(--foreground)] text-xl">No Updates Yet</h3>
         <p className="text-[#7a6d62]">We'll post our first changelog soon. Stay tuned!</p>
       </div>
@@ -153,7 +154,7 @@ async function ChangelogList() {
                       className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-medium text-sm ${config.color}`}
                       key={category}
                     >
-                      <Icon className="h-4 w-4" />
+                      <HugeiconsIcon className="h-4 w-4" icon={Icon} />
                       {config.label}
                     </span>
                   );
@@ -194,7 +195,7 @@ async function ChangelogList() {
               href={`/changelog/${changelog.slug}`}
             >
               Read full update
-              <ArrowRight01Icon className="h-5 w-5" />
+              <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
             </Link>
           </article>
         );
@@ -213,7 +214,7 @@ export default function ChangelogPage() {
           {/* Header */}
           <div className="mb-12 text-center">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-100 to-blue-100">
-              <MagicWand01Icon className="h-8 w-8 text-purple-600" />
+              <HugeiconsIcon className="h-8 w-8 text-purple-600" icon={MagicWand01Icon} />
             </div>
             <h1 className="type-serif-lg mb-4 text-[var(--foreground)]">What's New</h1>
             <p className="text-[var(--muted-foreground)] text-lg sm:text-xl">

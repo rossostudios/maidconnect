@@ -1,6 +1,7 @@
 "use client";
 
-import { FloppyDiskIcon, Loading01Icon } from "hugeicons-react";
+import { FloppyDiskIcon, Loading01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -152,12 +153,12 @@ export function FeedbackActions({
         >
           {saving ? (
             <>
-              <Loading01Icon className="h-5 w-5 animate-spin" />
+              <HugeiconsIcon className="h-5 w-5 animate-spin" icon={Loading01Icon} />
               Saving...
             </>
           ) : (
             <>
-              <FloppyDiskIcon className="h-5 w-5" />
+              <HugeiconsIcon className="h-5 w-5" icon={FloppyDiskIcon} />
               Save Changes
             </>
           )}

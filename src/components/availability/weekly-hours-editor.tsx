@@ -1,6 +1,7 @@
 "use client";
 
-import { Clock01Icon, Copy01Icon } from "hugeicons-react";
+import { Clock01Icon, Copy01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 
 type DaySchedule = {
@@ -159,7 +160,7 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
               {day.enabled && (
                 <>
                   <div className="flex items-center gap-2">
-                    <Clock01Icon className="h-4 w-4 text-[#7d7566]" />
+                    <HugeiconsIcon className="h-4 w-4 text-[#7d7566]" icon={Clock01Icon} />
                     <input
                       className="rounded-lg border border-[#ebe5d8] px-3 py-2 text-sm accent-[var(--red)] [color-scheme:light] focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
                       onChange={(e) => handleTimeChange(index, "start", e.target.value)}
@@ -182,7 +183,7 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
                     title="Copy these hours to all days"
                     type="button"
                   >
-                    <Copy01Icon className="h-3 w-3" />
+                    <HugeiconsIcon className="h-3 w-3" icon={Copy01Icon} />
                     Copy to all
                   </button>
                 </>

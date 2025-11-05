@@ -1,6 +1,7 @@
 "use client";
 
-import { Message01Icon } from "hugeicons-react";
+import { Message01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
@@ -26,7 +27,7 @@ export function FeedbackButton() {
         onClick={() => setIsOpen(true)}
         type="button"
       >
-        <Message01Icon className="h-5 w-5 sm:h-6 sm:w-6" />
+        <HugeiconsIcon className="h-5 w-5 sm:h-6 sm:w-6" icon={Message01Icon} />
         <span className="hidden sm:inline">Feedback</span>
       </button>
 

@@ -1,6 +1,7 @@
 "use client";
 
-import { Tick02Icon } from "hugeicons-react";
+import { Tick02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { DatePicker } from "@/components/ui/date-picker";
@@ -135,7 +136,11 @@ export function BookingWizard({
                 }}
                 type="button"
               >
-                {step.completed ? <Tick02Icon className="h-5 w-5" /> : step.number}
+                {step.completed ? (
+                  <HugeiconsIcon className="h-5 w-5" icon={Tick02Icon} />
+                ) : (
+                  step.number
+                )}
               </button>
 
               {/* Step Label */}
@@ -287,7 +292,7 @@ function Step1ServiceSelection({
               )}
               {isSelected && (
                 <div className="mt-4 flex items-center gap-2 text-[var(--red)] text-sm">
-                  <Tick02Icon className="h-4 w-4" />
+                  <HugeiconsIcon className="h-4 w-4" icon={Tick02Icon} />
                   <span>Selected</span>
                 </div>
               )}
@@ -361,7 +366,7 @@ function Step2DateTime({
       {selectedDate && (
         <div className="rounded-xl bg-green-50 p-4">
           <p className="flex items-center gap-2 text-green-700 text-sm">
-            <Tick02Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Tick02Icon} />
             <span className="font-medium">Available on this date</span>
           </p>
         </div>
@@ -574,7 +579,7 @@ function Step4Review({
                 {recurringSchedule.endType === "never" && "Ongoing (cancel anytime)"}
               </p>
               <div className="mt-2 flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2">
-                <Tick02Icon className="h-4 w-4 text-green-600" />
+                <HugeiconsIcon className="h-4 w-4 text-green-600" icon={Tick02Icon} />
                 <span className="font-medium text-green-700 text-xs">
                   Recurring discount applied
                 </span>

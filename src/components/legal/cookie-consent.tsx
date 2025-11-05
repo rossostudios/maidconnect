@@ -1,6 +1,7 @@
 "use client";
 
-import { Cancel01Icon, CookieIcon } from "hugeicons-react";
+import { Cancel01Icon, CookieIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/routing";
 
@@ -41,7 +42,7 @@ export function CookieConsent() {
             <div className="flex flex-1 items-start gap-4">
               <div className="flex-shrink-0">
                 <div className="rounded-full bg-[var(--background)] p-3">
-                  <CookieIcon className="h-6 w-6 text-[var(--red)]" />
+                  <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={CookieIcon} />
                 </div>
               </div>
               <div className="flex-1">
@@ -83,7 +84,7 @@ export function CookieConsent() {
               onClick={declineCookies}
               type="button"
             >
-              <Cancel01Icon className="h-5 w-5" />
+              <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
             </button>
           </div>
         </div>

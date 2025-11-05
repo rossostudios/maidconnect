@@ -6,10 +6,16 @@ import {
   Sad01Icon,
   ThumbsUpIcon,
   ViewIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
-import { requireUser } from "@/lib/auth/session";
+import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+
+export const metadata = {
+  title: "Feedback Management | Admin",
+  description: "Review and manage user feedback submissions",
+};
 
 type FeedbackSubmission = {
   id: string;
@@ -98,22 +104,20 @@ export default async function AdminFeedbackPage({
   };
 
   return (
-    <>
+    <section className="space-y-8">
       {/* Header */}
-      <header className="mb-8">
-        <h1 className="font-bold text-3xl text-[var(--foreground)]">Feedback Management</h1>
-        <p className="mt-2 text-[var(--muted-foreground)] text-sm">
-          Review and manage user feedback submissions
-        </p>
-      </header>
+      <div>
+        <h1 className="font-bold text-3xl text-[#171717]">Feedback Management</h1>
+        <p className="mt-2 text-[#737373] text-sm">Review and manage user feedback submissions</p>
+      </div>
 
       {/* Status Filter Tabs */}
-      <div className="mb-6 flex gap-2 border-[#ebe5d8] border-b pb-4">
+      <div className="flex gap-2 border-[#E5E5E5] border-b pb-4">
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status
-              ? "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
-              : "bg-[var(--red)] text-white"
+              ? "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
+              : "bg-[#E63946] text-white"
           }`}
           href="/admin/feedback"
         >
@@ -122,8 +126,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "new"
-              ? "bg-[var(--red)] text-white"
-              : "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
+              ? "bg-[#E63946] text-white"
+              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
           }`}
           href="/admin/feedback?status=new"
         >
@@ -132,8 +136,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "in_review"
-              ? "bg-[var(--red)] text-white"
-              : "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
+              ? "bg-[#E63946] text-white"
+              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
           }`}
           href="/admin/feedback?status=in_review"
         >
@@ -142,8 +146,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "resolved"
-              ? "bg-[var(--red)] text-white"
-              : "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
+              ? "bg-[#E63946] text-white"
+              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
           }`}
           href="/admin/feedback?status=resolved"
         >
@@ -153,10 +157,10 @@ export default async function AdminFeedbackPage({
 
       {/* Feedback List */}
       {feedbackList.length === 0 ? (
-        <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
-          <AlertCircleIcon className="mx-auto mb-4 h-12 w-12 text-[#7a6d62]" />
-          <h3 className="mb-2 font-bold text-[var(--foreground)] text-xl">No Feedback Yet</h3>
-          <p className="text-[var(--muted-foreground)]">Feedback submissions will appear here</p>
+        <div className="rounded-lg border border-[#E5E5E5] bg-white p-12 text-center">
+          <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-[#A3A3A3]" icon={AlertCircleIcon} />
+          <h3 className="mb-2 font-bold text-[#171717] text-xl">No Feedback Yet</h3>
+          <p className="text-[#737373]">Feedback submissions will appear here</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -170,7 +174,7 @@ export default async function AdminFeedbackPage({
 
             return (
               <article
-                className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[var(--red)]"
+                className="group rounded-lg border border-[#E5E5E5] bg-white p-6 shadow-sm transition hover:border-[#E63946]"
                 key={item.id}
               >
                 <div className="flex items-start justify-between gap-4">
@@ -180,7 +184,7 @@ export default async function AdminFeedbackPage({
                       <span
                         className={`flex items-center gap-1 rounded-full px-3 py-1 font-medium text-xs ${typeConf.color}`}
                       >
-                        <TypeIcon className="h-3 w-3" />
+                        <HugeiconsIcon className="h-3 w-3" icon={TypeIcon} />
                         {typeConf.label}
                       </span>
                       <span
@@ -193,7 +197,7 @@ export default async function AdminFeedbackPage({
                       >
                         {item.priority}
                       </span>
-                      <span className="text-[#7a6d62] text-xs">
+                      <span className="text-[#737373] text-xs">
                         {new Date(item.created_at).toLocaleDateString("en-US", {
                           year: "numeric",
                           month: "short",
@@ -205,21 +209,17 @@ export default async function AdminFeedbackPage({
                     </div>
 
                     {item.subject && (
-                      <h3 className="mb-2 font-bold text-[var(--foreground)] text-lg">
-                        {item.subject}
-                      </h3>
+                      <h3 className="mb-2 font-bold text-[#171717] text-lg">{item.subject}</h3>
                     )}
 
-                    <p className="mb-3 line-clamp-2 text-[var(--muted-foreground)] text-sm">
-                      {item.message}
-                    </p>
+                    <p className="mb-3 line-clamp-2 text-[#737373] text-sm">{item.message}</p>
 
                     <div className="flex flex-wrap gap-4 text-xs">
-                      <span className="text-[#7a6d62]">
+                      <span className="text-[#737373]">
                         <strong>From:</strong> {item.user_email || "Anonymous"}{" "}
                         {item.user_role && `(${item.user_role})`}
                       </span>
-                      <span className="text-[#7a6d62]">
+                      <span className="text-[#737373]">
                         <strong>Page:</strong> {item.page_path}
                       </span>
                     </div>
@@ -227,10 +227,10 @@ export default async function AdminFeedbackPage({
 
                   {/* Actions */}
                   <Link
-                    className="flex items-center gap-2 rounded-lg bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[var(--red)]"
+                    className="flex items-center gap-2 rounded-lg bg-[#E63946] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#D32F40]"
                     href={`/admin/feedback/${item.id}`}
                   >
-                    <ViewIcon className="h-4 w-4" />
+                    <HugeiconsIcon className="h-4 w-4" icon={ViewIcon} />
                     View
                   </Link>
                 </div>
@@ -239,6 +239,6 @@ export default async function AdminFeedbackPage({
           })}
         </div>
       )}
-    </>
+    </section>
   );
 }

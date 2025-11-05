@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Award01Icon,
   Clock01Icon,
@@ -10,12 +9,15 @@ import {
   Shield01Icon,
   StarIcon,
   TranslateIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { useState } from "react";
+import type { HugeIcon } from "@/types/icons";
 
 export type QuickFilter = {
   id: string;
   label: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: HugeIcon;
   active: boolean;
 };
 
@@ -113,24 +115,21 @@ export function QuickFilters({ onFilterChange }: QuickFiltersProps) {
       </div>
 
       <div className="flex flex-wrap gap-2">
-        {filters.map((filter) => {
-          const Icon = filter.icon;
-          return (
-            <button
-              className={`flex items-center gap-2 rounded-full border-2 px-4 py-2 text-sm transition ${
-                filter.active
-                  ? "border-[var(--red)] bg-[var(--red)] text-white"
-                  : "border-[#ebe5d8] bg-white text-[#7d7566] hover:border-[var(--red)] hover:text-[var(--red)]"
-              }`}
-              key={filter.id}
-              onClick={() => toggleFilter(filter.id)}
-              type="button"
-            >
-              <Icon className="h-4 w-4" />
-              <span className="font-medium">{filter.label}</span>
-            </button>
-          );
-        })}
+        {filters.map((filter) => (
+          <button
+            className={`flex items-center gap-2 rounded-full border-2 px-4 py-2 text-sm transition ${
+              filter.active
+                ? "border-[var(--red)] bg-[var(--red)] text-white"
+                : "border-[#ebe5d8] bg-white text-[#7d7566] hover:border-[var(--red)] hover:text-[var(--red)]"
+            }`}
+            key={filter.id}
+            onClick={() => toggleFilter(filter.id)}
+            type="button"
+          >
+            <HugeiconsIcon className="h-4 w-4" icon={filter.icon} />
+            <span className="font-medium">{filter.label}</span>
+          </button>
+        ))}
       </div>
     </div>
   );

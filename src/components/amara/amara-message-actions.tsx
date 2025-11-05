@@ -9,7 +9,14 @@
  * - Retry message (for errors)
  */
 
-import { Copy01Icon, RefreshIcon, ThumbsDownIcon, ThumbsUpIcon, Tick02Icon } from "hugeicons-react";
+import {
+  Copy01Icon,
+  RefreshIcon,
+  ThumbsDownIcon,
+  ThumbsUpIcon,
+  Tick02Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -79,13 +86,14 @@ export function AmaraMessageActions({
           title={t("thumbsUp")}
           type="button"
         >
-          <ThumbsUpIcon
+          <HugeiconsIcon
             className={cn(
               "h-3.5 w-3.5 transition-colors",
               feedback === "positive"
                 ? "fill-green-600 text-green-600"
                 : "text-gray-400 group-hover:text-gray-600"
             )}
+            icon={ThumbsUpIcon}
           />
         </button>
 
@@ -99,13 +107,14 @@ export function AmaraMessageActions({
           title={t("thumbsDown")}
           type="button"
         >
-          <ThumbsDownIcon
+          <HugeiconsIcon
             className={cn(
               "h-3.5 w-3.5 transition-colors",
               feedback === "negative"
                 ? "fill-red-600 text-red-600"
                 : "text-gray-400 group-hover:text-gray-600"
             )}
+            icon={ThumbsDownIcon}
           />
         </button>
       </div>
@@ -122,9 +131,12 @@ export function AmaraMessageActions({
         type="button"
       >
         {copied ? (
-          <Tick02Icon className="h-3.5 w-3.5 text-green-600" />
+          <HugeiconsIcon className="h-3.5 w-3.5 text-green-600" icon={Tick02Icon} />
         ) : (
-          <Copy01Icon className="h-3.5 w-3.5 text-gray-400 transition-colors group-hover:text-gray-600" />
+          <HugeiconsIcon
+            className="h-3.5 w-3.5 text-gray-400 transition-colors group-hover:text-gray-600"
+            icon={Copy01Icon}
+          />
         )}
       </button>
 
@@ -139,7 +151,10 @@ export function AmaraMessageActions({
             title={t("retry")}
             type="button"
           >
-            <RefreshIcon className="h-3.5 w-3.5 text-gray-400 transition-colors group-hover:text-gray-600" />
+            <HugeiconsIcon
+              className="h-3.5 w-3.5 text-gray-400 transition-colors group-hover:text-gray-600"
+              icon={RefreshIcon}
+            />
           </button>
         </>
       )}

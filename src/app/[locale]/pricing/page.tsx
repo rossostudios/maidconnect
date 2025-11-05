@@ -7,7 +7,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
-import { StickyLanguageSwitcher } from "@/components/navigation/sticky-language-switcher";
 import { PricingFaqSection } from "@/components/pricing/pricing-faq-section";
 import { PricingPlans } from "@/components/pricing/pricing-plans";
 import { SiteFooter } from "@/components/sections/site-footer";
@@ -97,7 +96,6 @@ export default async function PricingPage() {
         </div>
       </div>
       <SiteFooter />
-      <StickyLanguageSwitcher />
     </>
   );
 }

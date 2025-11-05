@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowDown01Icon } from "hugeicons-react";
+import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
@@ -112,8 +113,9 @@ export function SiteNavigation() {
             type="button"
           >
             {t("services")}
-            <ArrowDown01Icon
+            <HugeiconsIcon
               className={`h-4 w-4 transition-transform ${isProductOpen ? "rotate-180" : ""}`}
+              icon={ArrowDown01Icon}
             />
           </button>
 

@@ -5,7 +5,8 @@ import {
   Target01Icon,
   UserGroupIcon,
   ViewIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 
@@ -36,12 +37,14 @@ export async function CareersValues() {
         {/* Values Grid */}
         <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
           {values.map((valueKey) => {
-            const Icon = valueIcons[valueKey];
             return (
               <div className="flex flex-col" key={valueKey}>
                 {/* Icon */}
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <Icon className="h-6 w-6 text-[var(--red)]" />
+                  <HugeiconsIcon
+                    className="h-6 w-6 text-[var(--red)]"
+                    icon={valueIcons[valueKey]}
+                  />
                 </div>
 
                 {/* Title */}

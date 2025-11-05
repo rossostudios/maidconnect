@@ -1,48 +1,31 @@
 import type { ReactNode } from "react";
-import { Breadcrumbs } from "@/components/navigation/breadcrumbs";
-import { DashboardFooter } from "@/components/navigation/dashboard-footer";
-import { DashboardNavigation } from "@/components/navigation/dashboard-navigation";
-import { Container } from "@/components/ui/container";
-import { Link } from "@/i18n/routing";
+import { AdminHeader } from "@/components/admin/admin-header";
+import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { requireUser } from "@/lib/auth";
 
 type Props = {
   children: ReactNode;
 };
 
-const adminNavLinks = [
-  { href: "/admin", label: "Vetting Queue" },
-  { href: "/admin/changelog", label: "Changelog" },
-  { href: "/admin/feedback", label: "Feedback" },
-  { href: "/admin/roadmap", label: "Roadmap" },
-];
-
 export default async function AdminLayout({ children }: Props) {
-  // Require admin role
-  await requireUser({ allowedRoles: ["admin"] });
+  const user = await requireUser({ allowedRoles: ["admin"] });
 
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--background)] text-[var(--foreground)]">
-      <div className="flex flex-1 flex-col">
-        <header className="bg-[var(--background)] py-4">
-          <Container className="flex items-center justify-between gap-4">
-            <Link className="flex items-center" href="/">
-              <span className="type-serif-sm text-[var(--foreground)] uppercase tracking-[0.08em] lg:text-[26px]">
-                CASAORA
-              </span>
-            </Link>
-            <DashboardNavigation navLinks={adminNavLinks} userRole="professional" />
-          </Container>
-        </header>
+    <div className="flex h-screen overflow-hidden bg-[#FAFAF9]">
+      {/* Desktop Sidebar - More spacious */}
+      <div className="hidden lg:block">
+        <AdminSidebar />
+      </div>
 
-        <main className="flex-1 bg-[var(--background)] pt-10 pb-16">
-          <Container className="max-w-5xl">
-            <Breadcrumbs />
-            <div className="space-y-8">{children}</div>
-          </Container>
+      {/* Main Content */}
+      <div className="flex flex-1 flex-col overflow-hidden">
+        {/* Enhanced Header */}
+        <AdminHeader userEmail={user.email ?? undefined} />
+
+        {/* Main Content Area - More spacious */}
+        <main className="flex-1 overflow-y-auto bg-[#FAFAF9]">
+          <div className="mx-auto max-w-[1600px] px-8 py-8">{children}</div>
         </main>
-
-        <DashboardFooter />
       </div>
     </div>
   );

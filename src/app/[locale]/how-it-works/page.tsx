@@ -4,7 +4,8 @@ import {
   LockIcon,
   Message01Icon,
   Shield01Icon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -110,7 +111,7 @@ function CustomerFlowSection() {
             href="/professionals"
           >
             {t("cta")}
-            <ArrowRight01Icon className="h-5 w-5" />
+            <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
           </Link>
         </div>
       </div>
@@ -172,7 +173,7 @@ function ProfessionalFlowSection() {
             href="/auth/sign-up?role=professional"
           >
             {t("cta")}
-            <ArrowRight01Icon className="h-5 w-5" />
+            <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
           </Link>
         </div>
       </div>
@@ -220,7 +221,7 @@ function SafetyTrustSection() {
                 key={index}
               >
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <Icon className="h-8 w-8 text-[var(--red)]" />
+                  <HugeiconsIcon className="h-8 w-8 text-[var(--red)]" icon={Icon} />
                 </div>
                 <h3 className="type-serif-sm mb-3 text-[var(--foreground)]">
                   {t(feature.titleKey)}
@@ -263,7 +264,10 @@ function FAQSection() {
     <section className="bg-[var(--background-alt)] px-4 py-16 sm:py-24">
       <div className="mx-auto max-w-4xl">
         <div className="mb-12 text-center">
-          <HelpCircleIcon className="mx-auto mb-4 h-12 w-12 text-[var(--red)]" />
+          <HugeiconsIcon
+            className="mx-auto mb-4 h-12 w-12 text-[var(--red)]"
+            icon={HelpCircleIcon}
+          />
           <h2 className="type-serif-md mb-4 text-[var(--foreground)]">{t("title")}</h2>
           <p className="text-[var(--muted-foreground)] text-lg">{t("subtitle")}</p>
         </div>
@@ -287,7 +291,7 @@ function FAQSection() {
             href="/contact"
           >
             {t("contactUs")}
-            <ArrowRight01Icon className="h-5 w-5" />
+            <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
           </Link>
         </div>
       </div>

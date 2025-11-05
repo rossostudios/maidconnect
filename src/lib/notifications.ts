@@ -506,3 +506,25 @@ export async function notifyAllAdmins(
     return { success: false, error };
   }
 }
+
+/**
+ * REBOOK NUDGE NOTIFICATIONS (Sprint 2)
+ */
+
+export async function notifyCustomerRebookNudge(
+  customerId: string,
+  booking: {
+    id: string;
+    serviceName: string;
+    professionalName: string;
+    professionalId: string;
+  }
+) {
+  return sendPushNotification({
+    userId: customerId,
+    title: "Ready for Your Next Service? ✨",
+    body: `Book another ${booking.serviceName} with ${booking.professionalName}`,
+    url: `/professionals/${booking.professionalId}?prev_booking=${booking.id}`,
+    tag: `rebook-nudge-${booking.id}`,
+  });
+}

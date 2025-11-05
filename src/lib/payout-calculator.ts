@@ -1,14 +1,16 @@
 /**
  * Payout and Commission Calculation Utilities
  *
- * Platform takes 18% commission from completed bookings
+ * Platform commission is configurable via pricing_controls table
+ * Default: 18% commission from completed bookings
  * Payouts are processed twice weekly (per operations manual)
  */
 
 import { type Currency, formatCurrency } from "@/lib/format";
+import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
-// Platform commission rate
-export const COMMISSION_RATE = 0.18; // 18%
+// Default platform commission rate (fallback if no pricing rule found)
+export const DEFAULT_COMMISSION_RATE = 0.18; // 18%
 
 export type BookingForPayout = {
   id: string;
@@ -16,25 +18,63 @@ export type BookingForPayout = {
   currency: Currency;
   completed_at?: string | null;
   checked_out_at?: string | null;
+  service_category?: string | null;
+  city?: string | null;
 };
 
 export type PayoutCalculation = {
   grossAmount: number; // Total from bookings before commission
-  commissionAmount: number; // 18% platform fee
+  commissionAmount: number; // Platform commission (configurable)
   netAmount: number; // Amount paid to professional
   currency: Currency;
   bookingIds: string[];
   bookingCount: number;
+  appliedCommissionRate?: number; // The actual commission rate used
 };
 
 /**
- * Calculate commission and net payout from gross amount
+ * Fetch applicable pricing rule for a booking
+ * Returns the commission rate based on service category and city
  */
-export function calculateCommission(grossAmount: number): {
+export async function getPricingRule(
+  serviceCategory?: string | null,
+  city?: string | null,
+  effectiveDate?: Date
+): Promise<{ commission_rate: number } | null> {
+  try {
+    const supabase = createSupabaseBrowserClient();
+
+    const { data, error } = await supabase.rpc("get_pricing_rule", {
+      p_service_category: serviceCategory || null,
+      p_city: city || null,
+      p_effective_date: effectiveDate ? effectiveDate.toISOString().split("T")[0] : undefined,
+    });
+
+    if (error || !data || data.length === 0) {
+      console.warn("No pricing rule found, using default commission rate");
+      return null;
+    }
+
+    return data[0];
+  } catch (error) {
+    console.error("Failed to fetch pricing rule:", error);
+    return null;
+  }
+}
+
+/**
+ * Calculate commission and net payout from gross amount
+ * @param grossAmount - Total booking amount before commission
+ * @param commissionRate - Optional commission rate (defaults to DEFAULT_COMMISSION_RATE if not provided)
+ */
+export function calculateCommission(
+  grossAmount: number,
+  commissionRate: number = DEFAULT_COMMISSION_RATE
+): {
   commissionAmount: number;
   netAmount: number;
 } {
-  const commissionAmount = Math.round(grossAmount * COMMISSION_RATE);
+  const commissionAmount = Math.round(grossAmount * commissionRate);
   const netAmount = grossAmount - commissionAmount;
 
   return {
@@ -45,6 +85,8 @@ export function calculateCommission(grossAmount: number): {
 
 /**
  * Calculate payout totals from a list of completed bookings
+ * Uses default commission rate for all bookings (for backward compatibility)
+ * For dynamic rates per booking, use calculatePayoutFromBookingsWithDynamicRates
  */
 export function calculatePayoutFromBookings(bookings: BookingForPayout[]): PayoutCalculation {
   if (bookings.length === 0) {
@@ -55,6 +97,7 @@ export function calculatePayoutFromBookings(bookings: BookingForPayout[]): Payou
       currency: "COP",
       bookingIds: [],
       bookingCount: 0,
+      appliedCommissionRate: DEFAULT_COMMISSION_RATE,
     };
   }
 
@@ -66,6 +109,56 @@ export function calculatePayoutFromBookings(bookings: BookingForPayout[]): Payou
   return {
     grossAmount,
     commissionAmount,
+    netAmount,
+    currency: bookings[0]?.currency || "COP",
+    bookingIds: bookings.map((b) => b.id),
+    bookingCount: bookings.length,
+    appliedCommissionRate: DEFAULT_COMMISSION_RATE,
+  };
+}
+
+/**
+ * Calculate payout totals with dynamic commission rates per booking
+ * This function fetches pricing rules for each unique category/city combination
+ * and applies the appropriate commission rate to each booking
+ */
+export async function calculatePayoutFromBookingsWithDynamicRates(
+  bookings: BookingForPayout[]
+): Promise<PayoutCalculation> {
+  if (bookings.length === 0) {
+    return {
+      grossAmount: 0,
+      commissionAmount: 0,
+      netAmount: 0,
+      currency: "COP",
+      bookingIds: [],
+      bookingCount: 0,
+    };
+  }
+
+  // Calculate gross amount
+  const grossAmount = bookings.reduce((sum, booking) => sum + (booking.amount_captured || 0), 0);
+
+  // Calculate commission per booking with dynamic rates
+  let totalCommission = 0;
+
+  for (const booking of bookings) {
+    const pricingRule = await getPricingRule(
+      booking.service_category,
+      booking.city,
+      booking.completed_at ? new Date(booking.completed_at) : new Date()
+    );
+
+    const rate = pricingRule?.commission_rate || DEFAULT_COMMISSION_RATE;
+    const { commissionAmount } = calculateCommission(booking.amount_captured || 0, rate);
+    totalCommission += commissionAmount;
+  }
+
+  const netAmount = grossAmount - totalCommission;
+
+  return {
+    grossAmount,
+    commissionAmount: totalCommission,
     netAmount,
     currency: bookings[0]?.currency || "COP",
     bookingIds: bookings.map((b) => b.id),
@@ -182,11 +275,15 @@ function getNextFriday(date: Date): Date {
 /**
  * Get description of payout schedule
  */
-export function getPayoutScheduleDescription(): string {
+export function getPayoutScheduleDescription(commissionRate?: number): string {
+  const rateDisplay = commissionRate
+    ? `${(commissionRate * 100).toFixed(1)}%`
+    : "15-20% (varies by service and location)";
+
   return `Payouts are processed twice weekly:
 • Tuesday at 10 AM - covers bookings completed Friday through Monday
 • Friday at 10 AM - covers bookings completed Tuesday through Thursday
 
-The platform takes an 18% commission from each completed booking.
+The platform commission is ${rateDisplay}.
 Funds typically arrive in your bank account within 2-3 business days.`;
 }

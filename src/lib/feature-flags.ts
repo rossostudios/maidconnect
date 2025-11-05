@@ -19,6 +19,7 @@ export type FeatureFlag =
   | "auto_translate_chat" // Auto-translate messages ES/EN
   | "one_tap_rebook" // Quick rebook from notification
   | "recurring_plans" // Weekly/biweekly subscription plans
+  | "rebook_nudge_system" // Send rebook nudges 24h/72h after completion (A/B test)
 
   // Week 7-8 Features
   | "gps_check_in_out" // GPS verification (already implemented)
@@ -59,6 +60,7 @@ const defaultFlags: Record<FeatureFlag, boolean> = {
   auto_translate_chat: true, // Real-time ES/EN translation in messaging
   one_tap_rebook: true,
   recurring_plans: true,
+  rebook_nudge_system: true, // Sprint 2 - A/B test for rebook nudges
 
   // Week 7-8 (GPS already implemented)
   gps_check_in_out: true, // Already live
@@ -186,4 +188,15 @@ export function isInRollout(percentage: number, userId: string): boolean {
 
   const bucket = Math.abs(hash) % 100;
   return bucket < percentage;
+}
+
+/**
+ * Get rebook nudge variant for A/B test
+ * 50/50 split: 24h vs 72h delay after booking completion
+ *
+ * @param userId - User ID for deterministic bucketing
+ * @returns '24h' or '72h'
+ */
+export function getRebookNudgeVariant(userId: string): "24h" | "72h" {
+  return isInRollout(50, userId) ? "24h" : "72h";
 }

@@ -1,6 +1,12 @@
 "use client";
 
-import { ArrowLeft01Icon, ArrowRight01Icon, Calendar01Icon, Delete01Icon } from "hugeicons-react";
+import {
+  ArrowLeft01Icon,
+  ArrowRight01Icon,
+  Calendar01Icon,
+  Delete01Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useMemo, useState } from "react";
 import { useCalendarGrid } from "@/hooks/use-calendar-grid";
 import { useCalendarMonth } from "@/hooks/use-calendar-month";
@@ -98,7 +104,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
             onClick={goToPreviousMonth}
             type="button"
           >
-            <ArrowLeft01Icon className="h-5 w-5" />
+            <HugeiconsIcon className="h-5 w-5" icon={ArrowLeft01Icon} />
           </button>
           <h3 className="min-w-[180px] text-center font-semibold text-[var(--foreground)] text-lg">
             {getMonthLabel()}
@@ -109,7 +115,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
             onClick={goToNextMonth}
             type="button"
           >
-            <ArrowRight01Icon className="h-5 w-5" />
+            <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
           </button>
         </div>
 
@@ -119,7 +125,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
             onClick={handleBlockMonth}
             type="button"
           >
-            <Calendar01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />
             Block entire month
           </button>
           {blockedDates.length > 0 && (
@@ -128,7 +134,7 @@ export function BlockedDatesCalendar({ initialBlockedDates = [], onChange }: Pro
               onClick={handleClearAll}
               type="button"
             >
-              <Delete01Icon className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={Delete01Icon} />
               Clear all
             </button>
           )}

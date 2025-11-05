@@ -8,7 +8,8 @@
  * Stores dismissal state in localStorage.
  */
 
-import { Cancel01Icon } from "hugeicons-react";
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { AmaraIcon } from "./amara-icon";
@@ -74,7 +75,7 @@ export function AmaraOnboardingTooltip({ onDismiss }: AmaraOnboardingTooltipProp
             onClick={handleDismiss}
             type="button"
           >
-            <Cancel01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Cancel01Icon} />
           </button>
         </div>
 

@@ -1,6 +1,12 @@
 "use client";
 
-import { Calendar01Icon, Clock01Icon, DollarCircleIcon, RepeatIcon } from "hugeicons-react";
+import {
+  Calendar01Icon,
+  Clock01Icon,
+  DollarCircleIcon,
+  RepeatIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import type { WizardData } from "../match-wizard";
 
@@ -45,7 +51,7 @@ export function TimingBudgetStep({
       {/* Icon */}
       <div className="flex justify-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--foreground)]/5">
-          <Calendar01Icon className="h-8 w-8 text-[var(--foreground)]" />
+          <HugeiconsIcon className="h-8 w-8 text-[var(--foreground)]" icon={Calendar01Icon} />
         </div>
       </div>
 
@@ -64,7 +70,7 @@ export function TimingBudgetStep({
         {/* Frequency */}
         <div>
           <div className="mb-3 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm">
-            <RepeatIcon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={RepeatIcon} />
             {t("frequencyLabel", { defaultValue: "How often do you need this service?" })}
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -102,7 +108,7 @@ export function TimingBudgetStep({
             className="mb-2 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm"
             htmlFor="preferred-date"
           >
-            <Calendar01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />
             {t("dateLabel", { defaultValue: "Preferred date" })}
           </label>
           <input
@@ -121,7 +127,7 @@ export function TimingBudgetStep({
             className="mb-2 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm"
             htmlFor="preferred-time"
           >
-            <Clock01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
             {t("timeLabel", { defaultValue: "Preferred time" })}
           </label>
           <select
@@ -141,7 +147,7 @@ export function TimingBudgetStep({
         {/* Budget */}
         <div>
           <div className="mb-3 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm">
-            <DollarCircleIcon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={DollarCircleIcon} />
             {t("budgetLabel", { defaultValue: "Budget range" })}
           </div>
           <div className="space-y-2">

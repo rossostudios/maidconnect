@@ -1,16 +1,17 @@
-import type { ComponentType, SVGProps } from "react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import type { HugeIcon } from "@/types/icons";
 
 type ProductFeatureCardProps = {
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  icon: HugeIcon;
   title: string;
   description: string;
 };
 
-export function ProductFeatureCard({ icon: Icon, title, description }: ProductFeatureCardProps) {
+export function ProductFeatureCard({ icon, title, description }: ProductFeatureCardProps) {
   return (
     <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)]">
       <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--red)]/10">
-        <Icon className="h-8 w-8 text-[var(--red)]" />
+        <HugeiconsIcon className="h-8 w-8 text-[var(--red)]" icon={icon} />
       </div>
 
       <h3 className="mt-6 font-semibold text-2xl text-[var(--foreground)]">{title}</h3>

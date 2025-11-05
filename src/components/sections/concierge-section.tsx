@@ -1,4 +1,5 @@
-import { Location01Icon, TranslateIcon } from "hugeicons-react";
+import { Location01Icon, TranslateIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -24,11 +25,11 @@ export async function ConciergeSection() {
 
           <div className="flex flex-wrap items-center justify-center gap-6 pt-10 text-[var(--muted-foreground)] text-sm">
             <span className="inline-flex items-center gap-2">
-              <Location01Icon className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
               {t("cities")}
             </span>
             <span className="inline-flex items-center gap-2">
-              <TranslateIcon className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={TranslateIcon} />
               {t("languages")}
             </span>
           </div>

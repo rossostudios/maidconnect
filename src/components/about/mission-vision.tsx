@@ -14,7 +14,8 @@ import {
   GlobeIcon,
   StarIcon,
   Target01Icon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 
 export function MissionVision() {
@@ -59,7 +60,7 @@ export function MissionVision() {
           {/* Mission Card */}
           <div className="rounded-2xl border border-[#ebe5d8] bg-white p-10 shadow-[var(--shadow-card)]">
             <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[var(--red)]/10">
-              <Target01Icon className="h-7 w-7 text-[var(--red)]" />
+              <HugeiconsIcon className="h-7 w-7 text-[var(--red)]" icon={Target01Icon} />
             </div>
             <h3 className="mb-3 font-[family-name:var(--font-cinzel)] text-2xl text-[var(--foreground)] tracking-wide">
               {t("mission.title")}
@@ -72,7 +73,7 @@ export function MissionVision() {
           {/* Vision Card */}
           <div className="rounded-2xl border border-[#ebe5d8] bg-white p-10 shadow-[var(--shadow-card)]">
             <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[var(--red)]/10">
-              <CompassIcon className="h-7 w-7 text-[var(--red)]" />
+              <HugeiconsIcon className="h-7 w-7 text-[var(--red)]" icon={CompassIcon} />
             </div>
             <h3 className="mb-3 font-[family-name:var(--font-cinzel)] text-2xl text-[var(--foreground)] tracking-wide">
               {t("vision.title")}
@@ -93,20 +94,15 @@ export function MissionVision() {
           </div>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {values.map((value, index) => {
-              const Icon = value.icon;
-              return (
-                <div className="text-center" key={index}>
-                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--red)]/10">
-                    <Icon className="h-6 w-6 text-[var(--red)]" />
-                  </div>
-                  <h4 className="mb-2 font-semibold text-[var(--foreground)]">
-                    {t(value.titleKey)}
-                  </h4>
-                  <p className="text-[var(--muted-foreground)] text-sm">{t(value.descKey)}</p>
+            {values.map((value, index) => (
+              <div className="text-center" key={index}>
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--red)]/10">
+                  <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={value.icon} />
                 </div>
-              );
-            })}
+                <h4 className="mb-2 font-semibold text-[var(--foreground)]">{t(value.titleKey)}</h4>
+                <p className="text-[var(--muted-foreground)] text-sm">{t(value.descKey)}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

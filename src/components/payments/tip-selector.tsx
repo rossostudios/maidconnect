@@ -1,6 +1,7 @@
 "use client";
 
-import { FavouriteIcon } from "hugeicons-react";
+import { FavouriteIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import { type Currency, formatCurrency } from "@/lib/format";
 
@@ -81,7 +82,7 @@ export function TipSelector({
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#fff5f3]">
-          <FavouriteIcon className="h-5 w-5 text-[var(--red)]" />
+          <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={FavouriteIcon} />
         </div>
         <div>
           <h3 className="font-semibold text-[var(--foreground)] text-base">Add a Tip</h3>

@@ -1,3 +1,4 @@
+import { HugeiconsIcon } from "@hugeicons/react";
 import { Container } from "@/components/ui/container";
 import { productPillars } from "@/lib/content";
 
@@ -25,7 +26,7 @@ export function CapabilitiesSection() {
                   className="flex flex-col gap-3 rounded-[28px] border border-[#26231f] bg-[#181612] p-6 text-left transition hover:border-[var(--red)]/60"
                   key={pillar.title}
                 >
-                  <pillar.icon className="h-6 w-6 text-[var(--red)]" />
+                  <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={pillar.icon} />
                   <h3 className="font-semibold text-lg text-white">{pillar.title}</h3>
                   <p className="text-[#cfc8be] text-sm">{pillar.description}</p>
                 </div>

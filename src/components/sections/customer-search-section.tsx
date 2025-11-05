@@ -1,4 +1,5 @@
-import { StarIcon } from "hugeicons-react";
+import { StarIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { DirectoryProfessional } from "@/components/professionals/professionals-directory";
 import { Button } from "@/components/ui/button";
@@ -57,7 +58,7 @@ export function CustomerSearchSection({ professionals }: CustomerSearchSectionPr
                   </div>
                   <div className="flex flex-wrap items-center gap-2 font-semibold text-[var(--muted-foreground)] text-xs">
                     <span className="inline-flex items-center gap-1 rounded-full bg-[var(--foreground)] px-3 py-1 text-white">
-                      <StarIcon className="h-3.5 w-3.5 text-white" />
+                      <HugeiconsIcon className="h-3.5 w-3.5 text-white" icon={StarIcon} />
                       New to Casaora
                     </span>
                     {professional.languages.length > 0 ? (

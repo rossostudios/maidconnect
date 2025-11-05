@@ -98,17 +98,16 @@ export function newBookingRequestEmail(data: BookingEmailData, dashboardUrl: str
             <p><span class="label">Date:</span> ${data.scheduledDate}</p>
             <p><span class="label">Time:</span> ${data.scheduledTime}</p>
             <p><span class="label">Duration:</span> ${data.duration}</p>
-            <p><span class="label">Location:</span> ${data.address}</p>
             ${data.amount ? `<p><span class="label">Amount:</span> ${data.amount}</p>` : ""}
           </div>
 
           <p><strong>⏰ Please respond within 24 hours</strong> or this booking will be automatically declined.</p>
 
           <div style="text-align: center; margin: 30px 0;">
-            <a href="${dashboardUrl}" class="button">View Booking Request</a>
+            <a href="${dashboardUrl}" class="button">View Full Booking Details</a>
           </div>
 
-          <p>You can accept or decline this booking from your dashboard.</p>
+          <p>View the complete booking information including location and customer details in your dashboard.</p>
         </div>
         <div class="footer">
           <p>Casaora - Connecting you with trusted service</p>
@@ -146,15 +145,16 @@ export function bookingConfirmedEmailForCustomer(
             <p><span class="label">Date:</span> ${data.scheduledDate}</p>
             <p><span class="label">Time:</span> ${data.scheduledTime}</p>
             <p><span class="label">Duration:</span> ${data.duration}</p>
-            <p><span class="label">Location:</span> ${data.address}</p>
             ${data.amount ? `<p><span class="label">Amount:</span> ${data.amount}</p>` : ""}
           </div>
 
           <p>Your payment has been authorized and will be charged after the service is completed.</p>
 
           <div style="text-align: center; margin: 30px 0;">
-            <a href="${dashboardUrl}" class="button">View Booking Details</a>
+            <a href="${dashboardUrl}" class="button">View Full Booking Details</a>
           </div>
+
+          <p>View the complete service address and contact your professional through the app.</p>
 
           <p><strong>What's next?</strong></p>
           <ul>
@@ -241,13 +241,16 @@ export function bookingReminderEmail(data: BookingEmailData, isForProfessional: 
             <p><span class="label">Date:</span> ${data.scheduledDate}</p>
             <p><span class="label">Time:</span> ${data.scheduledTime}</p>
             <p><span class="label">Duration:</span> ${data.duration}</p>
-            <p><span class="label">Location:</span> ${data.address}</p>
+          </div>
+
+          <div style="text-align: center; margin: 20px 0;">
+            <a href="/dashboard/${isForProfessional ? "pro" : "customer"}?booking=${data.bookingId}" class="button">View Location & Details</a>
           </div>
 
           ${
             isForProfessional
-              ? "<p><strong>Don't forget to:</strong></p><ul><li>Confirm you have the address and any special instructions</li><li>Bring all necessary supplies</li><li>Check in when you arrive using the app</li></ul>"
-              : "<p><strong>Please ensure:</strong></p><ul><li>Someone is home at the scheduled time</li><li>The property is accessible</li><li>Any special instructions have been communicated</li></ul>"
+              ? "<p><strong>Don't forget to:</strong></p><ul><li>Review the address and any special instructions in your dashboard</li><li>Bring all necessary supplies</li><li>Check in when you arrive using the app</li></ul>"
+              : "<p><strong>Please ensure:</strong></p><ul><li>Someone is home at the scheduled time</li><li>The property is accessible</li><li>Any special instructions have been shared through the app</li></ul>"
           }
         </div>
         <div class="footer">
@@ -464,13 +467,12 @@ export function bookingRescheduleEmail(
             <p><span class="label">Original Date:</span> ${data.scheduledDate} at ${data.scheduledTime}</p>
             <p><span class="label">New Date:</span> ${newDate} at ${newTime}</p>
             <p><span class="label">Duration:</span> ${data.duration}</p>
-            <p><span class="label">Location:</span> ${data.address}</p>
           </div>
 
-          <p>Please review the new schedule and confirm your availability.</p>
+          <p>Please review the new schedule and confirm your availability. View the full booking details including location in your dashboard.</p>
 
           <div style="text-align: center; margin: 30px 0;">
-            <a href="/dashboard/${isForProfessional ? "pro" : "customer"}?booking=${data.bookingId}" class="button">View Booking</a>
+            <a href="/dashboard/${isForProfessional ? "pro" : "customer"}?booking=${data.bookingId}" class="button">View Full Details & Confirm</a>
           </div>
         </div>
         <div class="footer">
@@ -608,6 +610,58 @@ export function professionalInfoRequestedEmail(professionalName: string, notes?:
         <div class="footer">
           <p>Casaora - Connecting you with trusted service</p>
           <p>Contact support: support@casaora.co</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+export function rebookNudgeEmail(
+  data: BookingEmailData & { professionalId: string },
+  variant: "24h" | "72h",
+  dashboardUrl: string
+): string {
+  const timing = variant === "24h" ? "yesterday" : "a few days ago";
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>${baseStyles}</style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header" style="background-color: #8b5cf6;">
+          <h1>Ready for Your Next Service?</h1>
+        </div>
+        <div class="content">
+          <p>Hi ${data.customerName},</p>
+          <p>We hope you loved your ${data.serviceName} with <strong>${data.professionalName}</strong> ${timing}!</p>
+
+          <p>Based on your positive experience, would you like to book the same service again?</p>
+
+          <div class="booking-details">
+            <p><span class="label">Previous Service:</span> ${data.serviceName}</p>
+            <p><span class="label">Professional:</span> ${data.professionalName}</p>
+            <p><span class="label">Date:</span> ${data.scheduledDate}</p>
+          </div>
+
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${dashboardUrl}/professionals/${data.professionalId}?prev_booking=${data.bookingId}" class="button">Book Again</a>
+          </div>
+
+          <p>Your trusted professional is ready to help you again with the same great service!</p>
+
+          <p style="color: #6b7280; font-size: 14px; margin-top: 20px;">
+            💡 <strong>Pro tip:</strong> Regular bookings help maintain a cleaner, healthier home with less effort each time.
+          </p>
+        </div>
+        <div class="footer">
+          <p>Casaora - Connecting you with trusted service</p>
+          <p>Not interested? <a href="${dashboardUrl}/settings/notifications" style="color: #6b7280;">Update your notification preferences</a></p>
         </div>
       </div>
     </body>

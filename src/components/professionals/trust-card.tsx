@@ -1,6 +1,7 @@
 "use client";
 
-import { InformationCircleIcon } from "hugeicons-react";
+import { InformationCircleIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import {
   OnTimeRateBadge,
@@ -21,12 +22,7 @@ type TrustCardProps = {
  * Displays prominent trust signals for professional profiles
  * Part of UX improvements for Colombian market (Week 3-4)
  */
-export function TrustCard({
-  verificationLevel,
-  onTimeRate,
-  rating,
-  reviewCount,
-}: TrustCardProps) {
+export function TrustCard({ verificationLevel, onTimeRate, rating, reviewCount }: TrustCardProps) {
   const t = useTranslations("components.trustCard");
 
   return (
@@ -57,7 +53,7 @@ export function TrustCard({
         className="mt-4 flex items-center gap-2 text-[var(--red)] text-sm transition hover:underline"
         href="/trust-safety"
       >
-        <InformationCircleIcon className="h-4 w-4" />
+        <HugeiconsIcon className="h-4 w-4" icon={InformationCircleIcon} />
         {t("explainerLink")}
       </a>
 
@@ -77,9 +73,7 @@ export function TrustCard({
         </div>
         <div className="flex items-center justify-between text-sm">
           <span className="text-[#6b7280]">{t("responseTime")}</span>
-          <span className="font-semibold text-[var(--foreground)]">
-            {t("responseTimeValue")}
-          </span>
+          <span className="font-semibold text-[var(--foreground)]">{t("responseTimeValue")}</span>
         </div>
       </div>
     </div>

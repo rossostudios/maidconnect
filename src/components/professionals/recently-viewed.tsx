@@ -1,6 +1,7 @@
 "use client";
 
-import { Clock01Icon, StarIcon } from "hugeicons-react";
+import { Clock01Icon, StarIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { useRecentlyViewed } from "@/hooks/use-recently-viewed";
 import { Link } from "@/i18n/routing";
@@ -20,7 +21,7 @@ export function RecentlyViewed() {
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2 text-[var(--foreground)]">
-        <Clock01Icon className="h-5 w-5" />
+        <HugeiconsIcon className="h-5 w-5" icon={Clock01Icon} />
         <h2 className="font-semibold text-lg">Recently Viewed</h2>
       </div>
 
@@ -51,7 +52,10 @@ export function RecentlyViewed() {
                 <p className="text-[#7d7566] text-sm">{item.service}</p>
                 <div className="flex items-center gap-3 text-xs">
                   <div className="flex items-center gap-1 text-[#7d7566]">
-                    <StarIcon className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                    <HugeiconsIcon
+                      className="h-3 w-3 fill-yellow-400 text-yellow-400"
+                      icon={StarIcon}
+                    />
                     <span className="font-semibold">{item.rating.toFixed(1)}</span>
                   </div>
                   <span className="text-[#7d7566]">{formatCOP(item.hourlyRate)}/hr</span>

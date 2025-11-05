@@ -7,7 +7,8 @@
  * Explains why we exist and the problem we're solving for expats in Colombia.
  */
 
-import { GlobeIcon, MagicWand01Icon, Shield01Icon } from "hugeicons-react";
+import { GlobeIcon, MagicWand01Icon, Shield01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 
 export function CompanyStory() {
@@ -53,7 +54,7 @@ export function CompanyStory() {
               <div className="grid gap-6 sm:grid-cols-3">
                 <div className="flex flex-col items-start">
                   <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--red)]/10">
-                    <Shield01Icon className="h-6 w-6 text-[var(--red)]" />
+                    <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={Shield01Icon} />
                   </div>
                   <h3 className="mb-2 font-semibold text-[var(--foreground)]">
                     {t("solution.feature1.title")}
@@ -65,7 +66,7 @@ export function CompanyStory() {
 
                 <div className="flex flex-col items-start">
                   <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--red)]/10">
-                    <GlobeIcon className="h-6 w-6 text-[var(--red)]" />
+                    <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={GlobeIcon} />
                   </div>
                   <h3 className="mb-2 font-semibold text-[var(--foreground)]">
                     {t("solution.feature2.title")}
@@ -77,7 +78,7 @@ export function CompanyStory() {
 
                 <div className="flex flex-col items-start">
                   <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--red)]/10">
-                    <MagicWand01Icon className="h-6 w-6 text-[var(--red)]" />
+                    <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={MagicWand01Icon} />
                   </div>
                   <h3 className="mb-2 font-semibold text-[var(--foreground)]">
                     {t("solution.feature3.title")}

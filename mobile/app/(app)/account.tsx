@@ -461,9 +461,7 @@ export default function AccountScreen() {
             <View style={styles.menuDivider} />
 
             <Pressable
-              onPress={() =>
-                Alert.alert("Terms of Service", "View our terms at casaora.co/terms")
-              }
+              onPress={() => Alert.alert("Terms of Service", "View our terms at casaora.co/terms")}
               style={styles.menuItem}
             >
               <View style={styles.menuItemLeft}>

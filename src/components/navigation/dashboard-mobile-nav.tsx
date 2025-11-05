@@ -6,7 +6,8 @@ import {
   Home01Icon,
   Notification02Icon,
   UserIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useNotificationUnreadCount } from "@/hooks/use-notification-unread-count";
 import { useUnreadCount } from "@/hooks/use-unread-count";
 import { Link, usePathname } from "@/i18n/routing";
@@ -103,8 +104,9 @@ export function DashboardMobileNav({
                 type="button"
               >
                 <div className="relative">
-                  <IconComponent
+                  <HugeiconsIcon
                     className={`h-6 w-6 ${isItemActive ? "text-[var(--red)]" : "text-[#7a6d62]"}`}
+                    icon={IconComponent}
                   />
                   {item.badge !== undefined && item.badge > 0 && (
                     <span className="-top-1 -right-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[var(--red)] px-1.5 font-bold text-[10px] text-white">
@@ -129,8 +131,9 @@ export function DashboardMobileNav({
               key={item.label}
             >
               <div className="relative">
-                <IconComponent
+                <HugeiconsIcon
                   className={`h-6 w-6 ${isItemActive ? "text-[var(--red)]" : "text-[#7a6d62]"}`}
+                  icon={IconComponent}
                 />
                 {item.badge !== undefined && item.badge > 0 && (
                   <span className="-top-1 -right-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[var(--red)] px-1.5 font-bold text-[10px] text-white">

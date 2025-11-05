@@ -1,7 +1,10 @@
 /**
- * Amara Icon - Intercom-style rounded square speech bubble with smile
- * Matches Intercom's clean, modern aesthetic
+ * Amara Icon - Siri New Icon from Hugeicons
+ * Represents the AI assistant with a modern voice assistant design
  */
+
+import { SiriNewIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 type AmaraIconProps = {
   className?: string;
@@ -9,27 +12,5 @@ type AmaraIconProps = {
 };
 
 export function AmaraIcon({ className, size = 32 }: AmaraIconProps) {
-  return (
-    <svg
-      className={className}
-      fill="none"
-      height={size}
-      viewBox="0 0 32 32"
-      width={size}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <title>Amara AI Assistant</title>
-      {/* Rounded square speech bubble - Intercom style */}
-      <rect fill="currentColor" height="24" rx="8" width="24" x="4" y="4" />
-
-      {/* Smile - just the curved mouth */}
-      <path
-        d="M11 17C11 17 13.5 20 16 20C18.5 20 21 17 21 17"
-        fill="none"
-        stroke="white"
-        strokeLinecap="round"
-        strokeWidth="2"
-      />
-    </svg>
-  );
+  return <HugeiconsIcon className={className} icon={SiriNewIcon} size={size} strokeWidth={1.5} />;
 }

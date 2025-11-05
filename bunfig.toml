@@ -1,0 +1,42 @@
+# Bun configuration file
+# https://bun.sh/docs/runtime/configuration
+
+[install]
+# Use exact versions from package.json
+exact = true
+
+# Enable production mode for faster installs
+production = false
+
+# Configure registry
+registry = "https://registry.npmjs.org"
+
+# Auto-install peer dependencies
+auto = true
+
+# Configure cache behavior
+cache = true
+
+[install.lockfile]
+# Save the lockfile
+save = true
+
+# Print a message if the lockfile is updated
+print = "yarn"
+
+[test]
+# Use the default test runner
+runner = "bun"
+
+# Code coverage
+coverage = false
+
+[run]
+# Use Bun's faster JavaScript runtime when available
+bun = true
+
+# Shell to use for scripts (only 'bun' and 'system' are supported)
+shell = "system"
+
+# Automatically install dependencies when running scripts
+autoInstall = false

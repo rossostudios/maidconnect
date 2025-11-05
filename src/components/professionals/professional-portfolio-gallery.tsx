@@ -1,6 +1,7 @@
 "use client";
 
-import { Camera01Icon } from "hugeicons-react";
+import { Camera01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import type { ProfessionalPortfolioImage } from "@/components/professionals/types";
 
@@ -23,7 +24,7 @@ export function ProfessionalPortfolioGallery({ images }: Props) {
         </div>
         {hasImages ? null : (
           <div className="flex items-center gap-2 rounded-full border border-[#d8cfbf] border-dashed px-3 py-1.5 font-semibold text-[var(--muted-foreground)] text-xs uppercase tracking-[0.26em]">
-            <Camera01Icon className="h-3.5 w-3.5" />
+            <HugeiconsIcon className="h-3.5 w-3.5" icon={Camera01Icon} />
             Coming soon
           </div>
         )}

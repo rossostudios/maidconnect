@@ -8,7 +8,6 @@
  */
 
 import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
 import {
   Cancel01Icon,
   HelpCircleIcon,
@@ -17,7 +16,9 @@ import {
   Message01Icon,
   NewsIcon,
   SentIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { DefaultChatTransport } from "ai";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/routing";
@@ -132,7 +133,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
           onClick={onClose}
           type="button"
         >
-          <Cancel01Icon className="h-5 w-5 sm:h-5 sm:w-5" />
+          <HugeiconsIcon className="h-5 w-5 sm:h-5 sm:w-5" icon={Cancel01Icon} />
         </button>
       </div>
 
@@ -273,28 +274,28 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
               className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 sm:px-3"
               href="/"
             >
-              <Home01Icon className="h-5 w-5 text-gray-600" />
+              <HugeiconsIcon className="h-5 w-5 text-gray-600" icon={Home01Icon} />
               <span className="font-medium text-gray-700 text-xs">Home</span>
             </Link>
             <button
               className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 sm:px-3"
               type="button"
             >
-              <Message01Icon className="h-5 w-5 text-gray-600" />
+              <HugeiconsIcon className="h-5 w-5 text-gray-600" icon={Message01Icon} />
               <span className="font-medium text-gray-700 text-xs">Messages</span>
             </button>
             <Link
               className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 sm:px-3"
               href="/support/account-suspended"
             >
-              <HelpCircleIcon className="h-5 w-5 text-gray-600" />
+              <HugeiconsIcon className="h-5 w-5 text-gray-600" icon={HelpCircleIcon} />
               <span className="font-medium text-gray-700 text-xs">Help</span>
             </Link>
             <Link
               className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-white px-2 py-3 text-center transition hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 sm:px-3"
               href="/changelog"
             >
-              <NewsIcon className="h-5 w-5 text-gray-600" />
+              <HugeiconsIcon className="h-5 w-5 text-gray-600" icon={NewsIcon} />
               <span className="font-medium text-gray-700 text-xs">News</span>
             </Link>
           </div>
@@ -339,9 +340,9 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
             type="submit"
           >
             {isLoading ? (
-              <Loading01Icon className="h-5 w-5 animate-spin" />
+              <HugeiconsIcon className="h-5 w-5 animate-spin" icon={Loading01Icon} />
             ) : (
-              <SentIcon className="h-5 w-5" />
+              <HugeiconsIcon className="h-5 w-5" icon={SentIcon} />
             )}
           </button>
         </div>

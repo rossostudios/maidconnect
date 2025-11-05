@@ -7,7 +7,8 @@ import {
   ThumbsDownIcon,
   ThumbsUpIcon,
   ViewIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
@@ -174,11 +175,11 @@ export function ArticleViewer({
 
         <div className="flex flex-wrap items-center gap-4 text-gray-600 text-sm">
           <div className="flex items-center gap-1.5">
-            <Calendar01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />
             <span>{t("meta.updated", { date: formatDate(article.updated_at) })}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <ViewIcon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={ViewIcon} />
             <span>{t("meta.views", { count: article.view_count })}</span>
           </div>
         </div>
@@ -210,7 +211,7 @@ export function ArticleViewer({
                 onClick={() => handleFeedback(true)}
                 type="button"
               >
-                <ThumbsUpIcon className="h-5 w-5" />
+                <HugeiconsIcon className="h-5 w-5" icon={ThumbsUpIcon} />
                 {t("feedback.helpful")}
               </button>
               <button
@@ -219,7 +220,7 @@ export function ArticleViewer({
                 onClick={() => handleFeedback(false)}
                 type="button"
               >
-                <ThumbsDownIcon className="h-5 w-5" />
+                <HugeiconsIcon className="h-5 w-5" icon={ThumbsDownIcon} />
                 {t("feedback.notHelpful")}
               </button>
             </div>
@@ -277,7 +278,7 @@ export function ArticleViewer({
                 {related.excerpt && <p className="text-gray-600 text-sm">{related.excerpt}</p>}
                 <div className="mt-3 flex items-center text-[var(--red)] text-sm">
                   <span>{t("related.readMore")}</span>
-                  <ArrowRight01Icon className="ml-1 h-4 w-4" />
+                  <HugeiconsIcon className="ml-1 h-4 w-4" icon={ArrowRight01Icon} />
                 </div>
               </Link>
             ))}
@@ -287,7 +288,7 @@ export function ArticleViewer({
 
       {/* Contact Support CTA */}
       <div className="rounded-lg border border-gray-200 bg-gradient-to-br from-gray-50 to-white p-8 text-center">
-        <BubbleChatIcon className="mx-auto mb-4 h-12 w-12 text-[var(--red)]" />
+        <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-[var(--red)]" icon={BubbleChatIcon} />
         <h3 className="mb-2 font-semibold text-gray-900 text-xl">{t("contact.title")}</h3>
         <p className="mb-6 text-gray-600">{t("contact.description")}</p>
         <Link
@@ -295,7 +296,7 @@ export function ArticleViewer({
           href={`/${locale}/contact`}
         >
           {t("contact.button")}
-          <ArrowRight01Icon className="h-5 w-5" />
+          <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
         </Link>
       </div>
     </div>

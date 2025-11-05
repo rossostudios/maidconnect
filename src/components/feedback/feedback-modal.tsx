@@ -8,12 +8,14 @@ import {
   HelpCircleIcon,
   Idea01Icon,
   Sad01Icon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { BaseModal } from "@/components/shared/base-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useModalForm } from "@/hooks/use-modal-form";
+import type { HugeIcon } from "@/types/icons";
 
 type FeedbackModalProps = {
   isOpen: boolean;
@@ -30,7 +32,7 @@ type FeedbackFormData = {
   consent: boolean;
 };
 
-const feedbackTypes: { value: FeedbackType; label: string; icon: any; description: string }[] = [
+const feedbackTypes: { value: FeedbackType; label: string; icon: HugeIcon; description: string }[] = [
   {
     value: "bug",
     label: "Bug Report",
@@ -146,7 +148,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
       >
         <div className="text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-            <CheckmarkCircle01Icon className="h-8 w-8 text-green-600" />
+            <HugeiconsIcon className="h-8 w-8 text-green-600" icon={CheckmarkCircle01Icon} />
           </div>
           <h3 className="font-bold text-2xl text-[var(--foreground)]">{t("success.title")}</h3>
           <p className="mt-2 text-[var(--muted-foreground)] text-base">{t("success.message")}</p>
@@ -180,7 +182,6 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {feedbackTypes.map((type) => {
-              const TypeIcon = type.icon;
               const isSelected = form.formData.feedbackType === type.value;
 
               return (
@@ -194,8 +195,9 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                   onClick={() => form.updateField("feedbackType", type.value)}
                   type="button"
                 >
-                  <TypeIcon
+                  <HugeiconsIcon
                     className={`h-6 w-6 ${isSelected ? "text-[var(--red)]" : "text-[#7a6d62]"}`}
+                    icon={type.icon}
                   />
                   <span
                     className={`font-medium text-sm ${isSelected ? "text-[var(--red)]" : "text-[var(--foreground)]"}`}

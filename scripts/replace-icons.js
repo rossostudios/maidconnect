@@ -1,20 +1,18 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-const { glob } = require('glob');
+const fs = require("fs");
+const path = require("path");
+const { glob } = require("glob");
 
 // Load icon mapping
-const iconMapping = JSON.parse(
-  fs.readFileSync(path.join(__dirname, 'icon-mapping.json'), 'utf-8')
-);
+const iconMapping = JSON.parse(fs.readFileSync(path.join(__dirname, "icon-mapping.json"), "utf-8"));
 
 async function replaceIconsInFile(filePath) {
-  let content = fs.readFileSync(filePath, 'utf-8');
+  let content = fs.readFileSync(filePath, "utf-8");
   let modified = false;
 
   // Check if file uses lucide-react
-  if (!content.includes("from 'lucide-react'") && !content.includes('from "lucide-react"')) {
+  if (!(content.includes("from 'lucide-react'") || content.includes('from "lucide-react"'))) {
     return false;
   }
 
@@ -34,7 +32,7 @@ async function replaceIconsInFile(filePath) {
 
     // Parse imported icons
     const icons = importList
-      .split(',')
+      .split(",")
       .map((icon) => icon.trim())
       .filter((icon) => icon.length > 0)
       .map((icon) => {
@@ -47,30 +45,34 @@ async function replaceIconsInFile(filePath) {
       });
 
     // Map to HUGEICONS
-    const mappedIcons = icons.map((icon) => {
-      const hugeIcon = iconMapping[icon.original];
-      if (!hugeIcon) {
-        console.warn(`  ⚠️  No mapping for: ${icon.original}`);
-        return null;
-      }
-      return {
-        lucide: icon.original,
-        huge: hugeIcon,
-        alias: icon.alias,
-      };
-    }).filter(Boolean);
+    const mappedIcons = icons
+      .map((icon) => {
+        const hugeIcon = iconMapping[icon.original];
+        if (!hugeIcon) {
+          console.warn(`  ⚠️  No mapping for: ${icon.original}`);
+          return null;
+        }
+        return {
+          lucide: icon.original,
+          huge: hugeIcon,
+          alias: icon.alias,
+        };
+      })
+      .filter(Boolean);
 
     if (mappedIcons.length === 0) {
       continue;
     }
 
     // Build new import statement
-    const newImports = mappedIcons.map((icon) => {
-      if (icon.alias) {
-        return `${icon.huge} as ${icon.alias}`;
-      }
-      return icon.huge;
-    }).join(', ');
+    const newImports = mappedIcons
+      .map((icon) => {
+        if (icon.alias) {
+          return `${icon.huge} as ${icon.alias}`;
+        }
+        return icon.huge;
+      })
+      .join(", ");
 
     const newImport = `import { ${newImports} } from "hugeicons-react"`;
 
@@ -81,7 +83,7 @@ async function replaceIconsInFile(filePath) {
     for (const icon of mappedIcons) {
       if (!icon.alias) {
         // Replace <IconName with <NewIconName
-        const usageRegex = new RegExp(`<${icon.lucide}([\\s/>])`, 'g');
+        const usageRegex = new RegExp(`<${icon.lucide}([\\s/>])`, "g");
         content = content.replace(usageRegex, `<${icon.huge}$1`);
       }
     }
@@ -90,8 +92,8 @@ async function replaceIconsInFile(filePath) {
   }
 
   if (modified) {
-    fs.writeFileSync(filePath, content, 'utf-8');
-    console.log(`  ✓ Updated successfully`);
+    fs.writeFileSync(filePath, content, "utf-8");
+    console.log("  ✓ Updated successfully");
     return true;
   }
 
@@ -99,11 +101,11 @@ async function replaceIconsInFile(filePath) {
 }
 
 async function main() {
-  console.log('🔍 Finding files with lucide-react imports...\n');
+  console.log("🔍 Finding files with lucide-react imports...\n");
 
   // Find all TypeScript/TSX files
-  const files = await glob('src/**/*.{ts,tsx}', {
-    ignore: ['node_modules/**', '.next/**'],
+  const files = await glob("src/**/*.{ts,tsx}", {
+    ignore: ["node_modules/**", ".next/**"],
     absolute: true,
   });
 
@@ -124,12 +126,12 @@ async function main() {
     }
   }
 
-  console.log(`\n✨ Done!`);
+  console.log("\n✨ Done!");
   console.log(`   Processed: ${processedCount} files`);
   console.log(`   Modified:  ${modifiedCount} files`);
 }
 
 main().catch((error) => {
-  console.error('Fatal error:', error);
+  console.error("Fatal error:", error);
   process.exit(1);
 });

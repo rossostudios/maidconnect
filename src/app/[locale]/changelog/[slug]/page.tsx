@@ -5,7 +5,8 @@ import {
   MagicWand01Icon,
   PaintBoardIcon,
   Shield01Icon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -79,7 +80,7 @@ export default async function ChangelogDetailPage({
             className="mb-8 inline-flex items-center gap-2 font-medium text-[#7a6d62] text-base transition hover:text-[var(--red)]"
             href="/changelog"
           >
-            <ArrowLeft01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
             Back to all updates
           </Link>
 
@@ -116,7 +117,7 @@ export default async function ChangelogDetailPage({
                       className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-medium text-sm ${config.color}`}
                       key={category}
                     >
-                      <Icon className="h-4 w-4" />
+                      <HugeiconsIcon className="h-4 w-4" icon={Icon} />
                       {config.label}
                     </span>
                   );
@@ -173,7 +174,7 @@ export default async function ChangelogDetailPage({
               className="inline-flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)]"
               href="/changelog"
             >
-              <ArrowLeft01Icon className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
               View all updates
             </Link>
           </div>

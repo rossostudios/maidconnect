@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowDown01Icon } from "hugeicons-react";
+import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Container } from "@/components/ui/container";
@@ -33,10 +34,11 @@ export function ContactFAQ() {
                 <span className="pr-8 font-semibold text-[var(--foreground)] text-xl">
                   {t(`questions.${key}.question`)}
                 </span>
-                <ArrowDown01Icon
+                <HugeiconsIcon
                   className={`h-6 w-6 flex-shrink-0 text-[#7d7566] transition-transform duration-300 ${
                     openIndex === index ? "rotate-180" : ""
                   }`}
+                  icon={ArrowDown01Icon}
                 />
               </button>
               <div

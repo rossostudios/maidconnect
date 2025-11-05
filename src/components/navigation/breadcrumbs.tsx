@@ -51,7 +51,7 @@ export function Breadcrumbs() {
   }
 
   return (
-    <nav aria-label="Breadcrumb" className="mb-8">
+    <nav aria-label="Breadcrumb">
       <ol className="flex items-center gap-2 rounded-[28px] bg-white px-4 py-3 text-sm shadow-sm">
         <li>
           <Link

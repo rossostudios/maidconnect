@@ -9,7 +9,31 @@ type RouteRule = {
 };
 
 const LOCALES = ["en", "es"];
-const DEFAULT_LOCALE = "es"; // Spanish-first for Colombian market
+const DEFAULT_LOCALE = "en"; // English as global default
+
+// Spanish-speaking countries (ISO 3166-1 alpha-2 codes)
+const SPANISH_SPEAKING_COUNTRIES = [
+  "AR", // Argentina
+  "BO", // Bolivia
+  "CL", // Chile
+  "CO", // Colombia
+  "CR", // Costa Rica
+  "CU", // Cuba
+  "DO", // Dominican Republic
+  "EC", // Ecuador
+  "SV", // El Salvador
+  "GT", // Guatemala
+  "HN", // Honduras
+  "MX", // Mexico
+  "NI", // Nicaragua
+  "PA", // Panama
+  "PY", // Paraguay
+  "PE", // Peru
+  "PR", // Puerto Rico
+  "ES", // Spain
+  "UY", // Uruguay
+  "VE", // Venezuela
+];
 
 // Patterns that match both localized and non-localized routes
 const PROTECTED_ROUTES: RouteRule[] = [
@@ -53,10 +77,26 @@ function addLocaleToPath(pathname: string, locale: string = DEFAULT_LOCALE): str
 }
 
 /**
- * Detect user's preferred locale from Accept-Language header
- * Prioritizes Spanish for Colombian/Latin American users
+ * Detect user's preferred locale based on geolocation and Accept-Language header
+ * Priority: Geolocation > Accept-Language > Default (English)
  */
 function detectLocaleFromHeaders(request: NextRequest): string {
+  // 1. Check geolocation first (most accurate for regional content)
+  // Vercel provides x-vercel-ip-country header in production
+  // Cloudflare provides cf-ipcountry header
+  const country =
+    request.headers.get("x-vercel-ip-country") || request.headers.get("cf-ipcountry");
+
+  if (country) {
+    // If user is in a Spanish-speaking country, show Spanish
+    if (SPANISH_SPEAKING_COUNTRIES.includes(country.toUpperCase())) {
+      return "es";
+    }
+    // Otherwise, show English
+    return "en";
+  }
+
+  // 2. Fallback to Accept-Language header
   const acceptLanguage = request.headers.get("accept-language");
 
   if (!acceptLanguage) {
@@ -70,7 +110,7 @@ function detectLocaleFromHeaders(request: NextRequest): string {
       const [code, qPart] = lang.trim().split(";");
       if (!code) return null;
       const qualityStr = qPart?.split("=")[1];
-      const quality = qualityStr ? parseFloat(qualityStr) : 1.0;
+      const quality = qualityStr ? Number.parseFloat(qualityStr) : 1.0;
       const langCode = code.split("-")[0]?.toLowerCase();
       if (!langCode) return null;
       return { code: langCode, quality };
@@ -174,7 +214,7 @@ function addSecurityHeaders(response: NextResponse): NextResponse {
   return response;
 }
 
-export async function proxy(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
   ensureEnv();
 
   // CSRF Protection: Validate origin/referer for state-changing operations
@@ -241,13 +281,13 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL(`/${locale}`, request.url));
   }
 
-  // If path doesn't have a locale prefix, redirect to add it
-  if (
-    !getLocaleFromPathname(pathname) &&
-    (pathname.startsWith("/dashboard") ||
-      pathname.startsWith("/admin") ||
-      pathname.startsWith("/auth"))
-  ) {
+  // If path doesn't have a locale prefix and is not API/static, redirect to add it
+  const isApiOrStatic = pathname.startsWith("/api") ||
+                        pathname.startsWith("/_next") ||
+                        pathname.startsWith("/_vercel") ||
+                        pathname.match(/\.(ico|png|jpg|jpeg|svg|gif|webp|css|js)$/);
+
+  if (!getLocaleFromPathname(pathname) && !isApiOrStatic) {
     const localizedPath = addLocaleToPath(pathname, locale);
     const url = new URL(localizedPath, request.url);
     // Preserve query params
@@ -318,14 +358,11 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Match both localized and non-localized protected routes
-    "/:locale(en|es)?/dashboard/:path*",
-    "/:locale(en|es)?/admin/:path*",
-    "/:locale(en|es)?/auth/:path*",
-    "/dashboard/:path*",
-    "/admin/:path*",
-    "/auth/:path*",
-    // API routes for CSRF protection
-    "/api/:path*",
+    // Match root
+    "/",
+    // Match all localized routes
+    "/(en|es)/:path*",
+    // Match all non-localized routes (will redirect to add locale)
+    "/((?!_next|_vercel|api|.*\\..*).*)",
   ],
 };

@@ -1,6 +1,7 @@
 "use client";
 
-import { Cancel01Icon, Loading01Icon, Search01Icon } from "hugeicons-react";
+import { Cancel01Icon, Loading01Icon, Search01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
@@ -174,7 +175,10 @@ export function SearchBar({
     <div className={`relative ${className}`}>
       {/* Search Input */}
       <div className="relative">
-        <Search01Icon className="-translate-y-1/2 pointer-events-none absolute top-1/2 left-5 h-6 w-6 text-[var(--muted-foreground)]" />
+        <HugeiconsIcon
+          className="-translate-y-1/2 pointer-events-none absolute top-1/2 left-5 h-6 w-6 text-[var(--muted-foreground)]"
+          icon={Search01Icon}
+        />
         <input
           aria-autocomplete="list"
           aria-controls="search-suggestions"
@@ -197,7 +201,10 @@ export function SearchBar({
         {/* Loading / Clear Button */}
         <div className="-translate-y-1/2 absolute top-1/2 right-5 flex items-center gap-2">
           {isLoading && (
-            <Loading01Icon className="h-5 w-5 animate-spin text-[var(--muted-foreground)]" />
+            <HugeiconsIcon
+              className="h-5 w-5 animate-spin text-[var(--muted-foreground)]"
+              icon={Loading01Icon}
+            />
           )}
           {query.length > 0 && !isLoading && (
             <button
@@ -206,7 +213,10 @@ export function SearchBar({
               onClick={handleClear}
               type="button"
             >
-              <Cancel01Icon className="h-5 w-5 text-[var(--muted-foreground)]" />
+              <HugeiconsIcon
+                className="h-5 w-5 text-[var(--muted-foreground)]"
+                icon={Cancel01Icon}
+              />
             </button>
           )}
         </div>

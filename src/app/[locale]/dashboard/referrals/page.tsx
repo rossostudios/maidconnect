@@ -1,4 +1,5 @@
-import { AnalyticsUpIcon, GiftIcon, UserGroupIcon } from "hugeicons-react";
+import { AnalyticsUpIcon, GiftIcon, UserGroupIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { getTranslations } from "next-intl/server";
 import { ReferralCard } from "@/components/referrals/referral-card";
 import { requireUser } from "@/lib/auth";
@@ -89,7 +90,7 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <div className="rounded-2xl border border-[#ebe5d8] bg-gradient-to-br from-[var(--red)]/10 to-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
           <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--red)]">
-            <GiftIcon className="h-6 w-6 text-white" />
+            <HugeiconsIcon className="h-6 w-6 text-white" icon={GiftIcon} />
           </div>
           <div className="mb-1 text-[var(--muted-foreground)] text-sm">Total Earnings</div>
           <div className="font-bold text-3xl text-[var(--foreground)]">
@@ -103,7 +104,7 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
 
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
           <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#ebe5d8]">
-            <UserGroupIcon className="h-6 w-6 text-[var(--foreground)]" />
+            <HugeiconsIcon className="h-6 w-6 text-[var(--foreground)]" icon={UserGroupIcon} />
           </div>
           <div className="mb-1 text-[var(--muted-foreground)] text-sm">Successful Referrals</div>
           <div className="font-bold text-3xl text-[var(--foreground)]">{rewardedReferrals}</div>
@@ -111,7 +112,7 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
 
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
           <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#ebe5d8]">
-            <AnalyticsUpIcon className="h-6 w-6 text-[var(--foreground)]" />
+            <HugeiconsIcon className="h-6 w-6 text-[var(--foreground)]" icon={AnalyticsUpIcon} />
           </div>
           <div className="mb-1 text-[var(--muted-foreground)] text-sm">Pending</div>
           <div className="font-bold text-3xl text-[var(--foreground)]">{pendingReferrals}</div>
@@ -130,7 +131,7 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
           />
         ) : (
           <div className="rounded-2xl border border-[#ebe5d8] bg-white p-8 text-center shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
-            <GiftIcon className="mx-auto mb-4 h-12 w-12 text-[var(--red)]" />
+            <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-[var(--red)]" icon={GiftIcon} />
             <h3 className="mb-2 font-semibold text-[var(--foreground)] text-xl">
               Get Your Referral Code
             </h3>
@@ -161,7 +162,10 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
               >
                 <div className="flex items-center gap-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ebe5d8]">
-                    <UserGroupIcon className="h-5 w-5 text-[var(--foreground)]" />
+                    <HugeiconsIcon
+                      className="h-5 w-5 text-[var(--foreground)]"
+                      icon={UserGroupIcon}
+                    />
                   </div>
                   <div>
                     <div className="font-medium text-[var(--foreground)] text-sm">New Referral</div>

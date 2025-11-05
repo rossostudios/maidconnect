@@ -1,4 +1,10 @@
-import { ChartColumnIcon, CheckmarkCircle02Icon, StarIcon, UserGroupIcon } from "hugeicons-react";
+import {
+  ChartColumnIcon,
+  CheckmarkCircle02Icon,
+  StarIcon,
+  UserGroupIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
@@ -168,26 +174,38 @@ export default async function ReviewsRatingsPage({ params }: Props) {
             <div className="mt-16 grid gap-8 md:grid-cols-2">
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <StarIcon className="h-6 w-6 text-[var(--red)]" />
+                  <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={StarIcon} />
                 </div>
                 <h3 className="mt-6 font-semibold text-2xl text-[var(--foreground)]">
                   {t("categories.forProfessionals.title")}
                 </h3>
                 <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("categories.forProfessionals.serviceQuality")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("categories.forProfessionals.communication")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("categories.forProfessionals.punctuality")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("categories.forProfessionals.value")}</span>
                   </li>
                 </ul>
@@ -195,26 +213,38 @@ export default async function ReviewsRatingsPage({ params }: Props) {
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <UserGroupIcon className="h-6 w-6 text-[var(--red)]" />
+                  <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={UserGroupIcon} />
                 </div>
                 <h3 className="mt-6 font-semibold text-2xl text-[var(--foreground)]">
                   {t("categories.forCustomers.title")}
                 </h3>
                 <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("categories.forCustomers.clarity")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("categories.forCustomers.respect")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("categories.forCustomers.payment")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("categories.forCustomers.communication")}</span>
                   </li>
                 </ul>
@@ -233,7 +263,7 @@ export default async function ReviewsRatingsPage({ params }: Props) {
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">
@@ -247,7 +277,7 @@ export default async function ReviewsRatingsPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">
@@ -261,7 +291,7 @@ export default async function ReviewsRatingsPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">
@@ -275,7 +305,7 @@ export default async function ReviewsRatingsPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">
