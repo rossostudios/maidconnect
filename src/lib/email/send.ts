@@ -353,3 +353,26 @@ export async function sendProfessionalInfoRequestedEmail(
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
+
+/**
+ * Generic send email function
+ * Use this for custom emails or when specific templates don't exist
+ */
+export async function sendEmail(
+  to: string,
+  subject: string,
+  html: string
+): Promise<SendEmailResult> {
+  try {
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to,
+      subject,
+      html,
+    });
+
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
+}

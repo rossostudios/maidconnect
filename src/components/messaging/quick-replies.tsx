@@ -7,7 +7,7 @@
 
 "use client";
 
-import { ChevronDownIcon, ChevronUpIcon } from "@hugeicons/core-free-icons";
+import { ArrowDown01Icon, ArrowUp01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 
@@ -134,7 +134,7 @@ export function QuickReplies({ onSelectReply }: QuickRepliesProps) {
         type="button"
       >
         <span>Quick Replies</span>
-        <HugeiconsIcon className="h-4 w-4" icon={ChevronDownIcon} />
+        <HugeiconsIcon className="h-4 w-4" icon={ArrowDown01Icon} />
       </button>
     );
   }
@@ -149,7 +149,7 @@ export function QuickReplies({ onSelectReply }: QuickRepliesProps) {
           onClick={() => setIsExpanded(false)}
           type="button"
         >
-          <HugeiconsIcon className="h-5 w-5" icon={ChevronUpIcon} />
+          <HugeiconsIcon className="h-5 w-5" icon={ArrowUp01Icon} />
         </button>
       </div>
 
