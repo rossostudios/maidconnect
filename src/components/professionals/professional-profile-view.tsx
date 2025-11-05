@@ -21,12 +21,12 @@ const BookingSheet = dynamic(
 );
 
 import { CompactPrice } from "@/components/pricing/price-breakdown";
+import { TrustCard } from "@/components/professionals/trust-card";
 import type {
   ProfessionalBookingSummary,
   ProfessionalPortfolioImage,
   ProfessionalReviewSummary,
 } from "@/components/professionals/types";
-import { TrustCard } from "@/components/professionals/trust-card";
 import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";

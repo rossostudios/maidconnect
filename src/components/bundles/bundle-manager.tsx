@@ -43,9 +43,7 @@ export function BundleManager({
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <PackageIcon className="h-6 w-6 text-[var(--red)]" />
-          <h3 className="font-semibold text-[var(--foreground)] text-lg">
-            {t("title")}
-          </h3>
+          <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
         </div>
 
         <button
@@ -114,9 +112,7 @@ export function BundleManager({
       ) : (
         <div className="rounded-xl bg-[#f9fafb] py-12 text-center">
           <PackageIcon className="mx-auto mb-3 h-12 w-12 text-[#d1d5db]" />
-          <p className="mb-2 font-semibold text-[var(--foreground)] text-lg">
-            {t("noBundles")}
-          </p>
+          <p className="mb-2 font-semibold text-[var(--foreground)] text-lg">{t("noBundles")}</p>
           <p className="mb-4 text-[#6b7280] text-sm">{t("noBundlesDescription")}</p>
           <button
             className="rounded-xl bg-[var(--red)] px-6 py-3 font-medium text-sm text-white transition hover:bg-[#cc3333]"

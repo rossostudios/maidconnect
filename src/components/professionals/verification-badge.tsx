@@ -1,8 +1,4 @@
-import {
-  CheckmarkCircle01Icon,
-  SecurityCheckIcon,
-  Tick02Icon,
-} from "hugeicons-react";
+import { CheckmarkCircle01Icon, SecurityCheckIcon, Tick02Icon } from "hugeicons-react";
 
 export type VerificationLevel = "none" | "basic" | "enhanced" | "background-check";
 

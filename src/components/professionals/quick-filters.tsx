@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Award01Icon,
   Clock01Icon,
@@ -11,6 +10,7 @@ import {
   StarIcon,
   TranslateIcon,
 } from "hugeicons-react";
+import { useState } from "react";
 
 export type QuickFilter = {
   id: string;

@@ -16,10 +16,7 @@ type ServiceRadiusEditorProps = {
  * Allows professionals to set their service area radius and center location.
  * Includes travel time buffers for calendar conflict detection.
  */
-export function ServiceRadiusEditor({
-  travelBuffer,
-  onUpdate,
-}: ServiceRadiusEditorProps) {
+export function ServiceRadiusEditor({ travelBuffer, onUpdate }: ServiceRadiusEditorProps) {
   const t = useTranslations("components.serviceRadiusEditor");
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -61,23 +58,13 @@ export function ServiceRadiusEditor({
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <MapsIcon className="h-6 w-6 text-[var(--red)]" />
-          <h3 className="font-semibold text-[var(--foreground)] text-lg">
-            {t("title")}
-          </h3>
+          <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
         </div>
 
-        {!editing ? (
-          <button
-            className="rounded-xl bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
-            onClick={() => setEditing(true)}
-            type="button"
-          >
-            {t("edit")}
-          </button>
-        ) : (
+        {editing ? (
           <div className="flex gap-2">
             <button
-              className="rounded-xl border-2 border-[#e5e7eb] bg-white px-4 py-2 font-medium text-sm text-[var(--foreground)] transition hover:bg-[#f9fafb]"
+              className="rounded-xl border-2 border-[#e5e7eb] bg-white px-4 py-2 font-medium text-[var(--foreground)] text-sm transition hover:bg-[#f9fafb]"
               onClick={handleCancel}
               type="button"
             >
@@ -92,6 +79,14 @@ export function ServiceRadiusEditor({
               {saving ? t("saving") : t("save")}
             </button>
           </div>
+        ) : (
+          <button
+            className="rounded-xl bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
+            onClick={() => setEditing(true)}
+            type="button"
+          >
+            {t("edit")}
+          </button>
         )}
       </div>
 

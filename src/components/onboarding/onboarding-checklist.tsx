@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckmarkCircle02Icon, Cancel01Icon, InformationCircleIcon } from "hugeicons-react";
+import { Cancel01Icon, CheckmarkCircle02Icon, InformationCircleIcon } from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { OnboardingChecklist as OnboardingChecklistType, OnboardingItem } from "@/types";
@@ -40,12 +40,8 @@ export function OnboardingChecklist({
       {/* Header */}
       <div className="mb-6">
         <div className="mb-2 flex items-center justify-between">
-          <h3 className="font-semibold text-[var(--foreground)] text-lg">
-            {t("title")}
-          </h3>
-          <span className="font-bold text-2xl text-[var(--red)]">
-            {completionPercentage}%
-          </span>
+          <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
+          <span className="font-bold text-2xl text-[var(--red)]">{completionPercentage}%</span>
         </div>
 
         {/* Progress Bar */}
@@ -82,11 +78,7 @@ export function OnboardingChecklist({
         </h4>
         <div className="space-y-2">
           {requiredItems.map((item) => (
-            <ChecklistItem
-              item={item}
-              key={item.id}
-              onClick={() => onItemClick?.(item.id)}
-            />
+            <ChecklistItem item={item} key={item.id} onClick={() => onItemClick?.(item.id)} />
           ))}
         </div>
       </div>
@@ -118,11 +110,7 @@ export function OnboardingChecklist({
           {expandedOptional && (
             <div className="space-y-2">
               {optionalItems.map((item) => (
-                <ChecklistItem
-                  item={item}
-                  key={item.id}
-                  onClick={() => onItemClick?.(item.id)}
-                />
+                <ChecklistItem item={item} key={item.id} onClick={() => onItemClick?.(item.id)} />
               ))}
             </div>
           )}
@@ -143,13 +131,7 @@ export function OnboardingChecklist({
 /**
  * Individual Checklist Item
  */
-function ChecklistItem({
-  item,
-  onClick,
-}: {
-  item: OnboardingItem;
-  onClick: () => void;
-}) {
+function ChecklistItem({ item, onClick }: { item: OnboardingItem; onClick: () => void }) {
   const t = useTranslations("components.onboardingChecklist.items");
 
   return (
@@ -203,12 +185,7 @@ function ChecklistItem({
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path
-            d="M9 5l7 7-7 7"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-          />
+          <path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
         </svg>
       )}
     </button>

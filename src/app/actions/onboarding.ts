@@ -2,10 +2,10 @@
 
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type {
-  OnboardingProgress,
-  MarkItemCompletedResponse,
   GetOnboardingProgressResponse,
+  MarkItemCompletedResponse,
   OnboardingItemId,
+  OnboardingProgress,
 } from "@/types";
 
 /**

@@ -2767,6 +2767,38 @@
       "createFirstBundle": "Create Your First Bundle",
       "helpTitle": "Why use service bundles?",
       "helpDescription": "Bundles help customers book multiple services at once, increase your average booking value, and save you time on custom quotes."
+    },
+    "bookingStatusBadge": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "disputed": "Disputed"
+    },
+    "bookingCard": {
+      "professional": "Professional",
+      "customer": "Customer",
+      "addons": "Add-ons",
+      "customerNotes": "Customer notes",
+      "viewDetails": "View Details",
+      "rateBooking": "Rate",
+      "cancel": "Cancel"
+    },
+    "bookingList": {
+      "title": "My Bookings",
+      "description": "View and manage all your bookings",
+      "all": "All",
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "loading": "Loading bookings...",
+      "error": "Error loading bookings",
+      "retry": "Retry",
+      "noBookings": "No bookings found",
+      "noBookingsDescription": "When you book services or receive bookings, they will appear here"
     }
   }
 }

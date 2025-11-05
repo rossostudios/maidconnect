@@ -2,14 +2,14 @@
 
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type {
-  ServiceBundle,
   BundleInput,
   CreateBundleResponse,
-  UpdateBundleResponse,
   DeleteBundleResponse,
-  GetBundlesResponse,
   GenerateQuickQuoteResponse,
+  GetBundlesResponse,
   QuickQuote,
+  ServiceBundle,
+  UpdateBundleResponse,
 } from "@/types";
 
 /**
@@ -27,10 +27,7 @@ export async function createBundle(
       (sum, service) => sum + service.durationMinutes,
       0
     );
-    const basePriceCop = input.services.reduce(
-      (sum, service) => sum + service.basePriceCop,
-      0
-    );
+    const basePriceCop = input.services.reduce((sum, service) => sum + service.basePriceCop, 0);
     const discountPercentage = input.discountPercentage || 0;
     const finalPriceCop = basePriceCop - (basePriceCop * discountPercentage) / 100;
 
@@ -189,7 +186,7 @@ export async function deleteBundle(bundleId: string): Promise<DeleteBundleRespon
  */
 export async function getBundles(
   profileId: string,
-  activeOnly: boolean = false
+  activeOnly = false
 ): Promise<GetBundlesResponse> {
   try {
     const supabase = await createSupabaseServerClient();
@@ -269,9 +266,7 @@ export async function generateQuickQuote(
     let estimatedEndTime: string | undefined;
     if (estimatedStartTime) {
       const startDate = new Date(estimatedStartTime);
-      const endDate = new Date(
-        startDate.getTime() + data.total_duration_minutes * 60 * 1000
-      );
+      const endDate = new Date(startDate.getTime() + data.total_duration_minutes * 60 * 1000);
       estimatedEndTime = endDate.toISOString();
     }
 

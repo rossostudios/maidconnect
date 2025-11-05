@@ -2,14 +2,14 @@
 
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type {
-  WorkingHours,
-  TravelBuffer,
   CalendarHealth,
-  UpdateWorkingHoursResponse,
-  UpdateTravelBufferResponse,
-  GetCalendarHealthResponse,
   CheckAvailabilityResponse,
   DayOfWeek,
+  GetCalendarHealthResponse,
+  TravelBuffer,
+  UpdateTravelBufferResponse,
+  UpdateWorkingHoursResponse,
+  WorkingHours,
 } from "@/types";
 
 /**
@@ -127,7 +127,7 @@ export async function updateTravelBuffer(
   serviceLng: number,
   travelBufferBeforeMinutes: number,
   travelBufferAfterMinutes: number,
-  avgTravelSpeedKmh: number = 30
+  avgTravelSpeedKmh = 30
 ): Promise<UpdateTravelBufferResponse> {
   try {
     const supabase = await createSupabaseServerClient();
@@ -189,9 +189,7 @@ export async function updateTravelBuffer(
 /**
  * Get calendar health metrics for a professional
  */
-export async function getCalendarHealth(
-  profileId: string
-): Promise<GetCalendarHealthResponse> {
+export async function getCalendarHealth(profileId: string): Promise<GetCalendarHealthResponse> {
   try {
     const supabase = await createSupabaseServerClient();
 

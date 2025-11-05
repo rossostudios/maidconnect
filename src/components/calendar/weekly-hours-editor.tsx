@@ -26,10 +26,7 @@ const DAYS: { value: DayOfWeek; label: string }[] = [
  * Allows professionals to set their availability for each day of the week.
  * Supports multiple time slots per day and availability toggling.
  */
-export function WeeklyHoursEditor({
-  workingHours,
-  onUpdate,
-}: WeeklyHoursEditorProps) {
+export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorProps) {
   const t = useTranslations("components.weeklyHoursEditor");
   const [editing, setEditing] = useState(false);
   const [localHours, setLocalHours] = useState<WorkingHours[]>(workingHours);
@@ -42,9 +39,7 @@ export function WeeklyHoursEditor({
       // Toggle existing day
       setLocalHours(
         localHours.map((h) =>
-          h.dayOfWeek === dayOfWeek
-            ? { ...h, isAvailable: !h.isAvailable }
-            : h
+          h.dayOfWeek === dayOfWeek ? { ...h, isAvailable: !h.isAvailable } : h
         )
       );
     } else {
@@ -69,9 +64,7 @@ export function WeeklyHoursEditor({
     value: string
   ) => {
     setLocalHours(
-      localHours.map((h) =>
-        h.dayOfWeek === dayOfWeek ? { ...h, [field]: value } : h
-      )
+      localHours.map((h) => (h.dayOfWeek === dayOfWeek ? { ...h, [field]: value } : h))
     );
   };
 
@@ -98,23 +91,13 @@ export function WeeklyHoursEditor({
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Clock01Icon className="h-6 w-6 text-[var(--red)]" />
-          <h3 className="font-semibold text-[var(--foreground)] text-lg">
-            {t("title")}
-          </h3>
+          <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
         </div>
 
-        {!editing ? (
-          <button
-            className="rounded-xl bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
-            onClick={() => setEditing(true)}
-            type="button"
-          >
-            {t("edit")}
-          </button>
-        ) : (
+        {editing ? (
           <div className="flex gap-2">
             <button
-              className="rounded-xl border-2 border-[#e5e7eb] bg-white px-4 py-2 font-medium text-sm text-[var(--foreground)] transition hover:bg-[#f9fafb]"
+              className="rounded-xl border-2 border-[#e5e7eb] bg-white px-4 py-2 font-medium text-[var(--foreground)] text-sm transition hover:bg-[#f9fafb]"
               onClick={handleCancel}
               type="button"
             >
@@ -129,6 +112,14 @@ export function WeeklyHoursEditor({
               {saving ? t("saving") : t("save")}
             </button>
           </div>
+        ) : (
+          <button
+            className="rounded-xl bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
+            onClick={() => setEditing(true)}
+            type="button"
+          >
+            {t("edit")}
+          </button>
         )}
       </div>
 
@@ -150,7 +141,7 @@ export function WeeklyHoursEditor({
                 {/* Day Name + Toggle */}
                 <div className="flex items-center gap-3">
                   <input
-                    checked={dayHours?.isAvailable || false}
+                    checked={dayHours?.isAvailable}
                     className="h-5 w-5 cursor-pointer rounded border-[#d1d5db] text-[var(--red)] focus:ring-[var(--red)]"
                     disabled={!editing}
                     onChange={() => handleDayToggle(day.value)}
@@ -167,9 +158,7 @@ export function WeeklyHoursEditor({
                     <input
                       className="w-24 rounded-lg border-2 border-[#d1d5db] px-3 py-1 text-sm disabled:bg-[#f3f4f6]"
                       disabled={!editing}
-                      onChange={(e) =>
-                        handleTimeChange(day.value, "startTime", e.target.value)
-                      }
+                      onChange={(e) => handleTimeChange(day.value, "startTime", e.target.value)}
                       type="time"
                       value={dayHours.startTime}
                     />
@@ -177,9 +166,7 @@ export function WeeklyHoursEditor({
                     <input
                       className="w-24 rounded-lg border-2 border-[#d1d5db] px-3 py-1 text-sm disabled:bg-[#f3f4f6]"
                       disabled={!editing}
-                      onChange={(e) =>
-                        handleTimeChange(day.value, "endTime", e.target.value)
-                      }
+                      onChange={(e) => handleTimeChange(day.value, "endTime", e.target.value)}
                       type="time"
                       value={dayHours.endTime}
                     />

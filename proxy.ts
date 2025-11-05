@@ -70,7 +70,7 @@ function detectLocaleFromHeaders(request: NextRequest): string {
       const [code, qPart] = lang.trim().split(";");
       if (!code) return null;
       const qualityStr = qPart?.split("=")[1];
-      const quality = qualityStr ? parseFloat(qualityStr) : 1.0;
+      const quality = qualityStr ? Number.parseFloat(qualityStr) : 1.0;
       const langCode = code.split("-")[0]?.toLowerCase();
       if (!langCode) return null;
       return { code: langCode, quality };

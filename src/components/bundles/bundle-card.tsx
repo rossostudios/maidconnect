@@ -1,11 +1,11 @@
 "use client";
 
 import {
+  Clock01Icon,
   Delete02Icon,
+  DollarCircleIcon,
   Edit02Icon,
   FlashIcon,
-  Clock01Icon,
-  DollarCircleIcon,
 } from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import type { ServiceBundle } from "@/types";
@@ -23,12 +23,7 @@ type BundleCardProps = {
  * Displays a service bundle with pricing, services, and quick actions.
  * Shows discount percentage and usage stats.
  */
-export function BundleCard({
-  bundle,
-  onEdit,
-  onDelete,
-  onQuickQuote,
-}: BundleCardProps) {
+export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCardProps) {
   const t = useTranslations("components.bundleCard");
 
   const savingsAmount = bundle.basePriceCop - bundle.finalPriceCop;
@@ -38,12 +33,8 @@ export function BundleCard({
       {/* Header */}
       <div className="mb-4 flex items-start justify-between">
         <div className="flex-1">
-          <h4 className="mb-1 font-semibold text-[var(--foreground)] text-lg">
-            {bundle.name}
-          </h4>
-          {bundle.description && (
-            <p className="text-[#6b7280] text-sm">{bundle.description}</p>
-          )}
+          <h4 className="mb-1 font-semibold text-[var(--foreground)] text-lg">{bundle.name}</h4>
+          {bundle.description && <p className="text-[#6b7280] text-sm">{bundle.description}</p>}
         </div>
 
         {/* Discount Badge */}
@@ -57,17 +48,10 @@ export function BundleCard({
       {/* Services List */}
       <div className="mb-4 space-y-2">
         {bundle.services.map((service, index) => (
-          <div
-            className="flex items-center gap-2 rounded-lg bg-[#f9fafb] px-3 py-2"
-            key={index}
-          >
+          <div className="flex items-center gap-2 rounded-lg bg-[#f9fafb] px-3 py-2" key={index}>
             <div className="h-2 w-2 rounded-full bg-[var(--red)]" />
-            <span className="flex-1 text-[var(--foreground)] text-sm">
-              {service.name}
-            </span>
-            <span className="text-[#6b7280] text-xs">
-              {service.durationMinutes} min
-            </span>
+            <span className="flex-1 text-[var(--foreground)] text-sm">{service.name}</span>
+            <span className="text-[#6b7280] text-xs">{service.durationMinutes} min</span>
           </div>
         ))}
       </div>

@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  CheckmarkCircle02Icon,
-  AlertCircleIcon,
-  Calendar03Icon,
-} from "hugeicons-react";
+import { AlertCircleIcon, Calendar03Icon, CheckmarkCircle02Icon } from "hugeicons-react";
 import { useTranslations } from "next-intl";
 import type { CalendarHealth } from "@/types";
 
@@ -18,9 +14,7 @@ type CalendarHealthDashboardProps = {
  * Displays professional calendar health metrics with actionable recommendations.
  * Shows health score (0-100) and specific areas for improvement.
  */
-export function CalendarHealthDashboard({
-  health,
-}: CalendarHealthDashboardProps) {
+export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps) {
   const t = useTranslations("components.calendarHealth");
 
   const getHealthColor = (score: number) => {
@@ -46,9 +40,7 @@ export function CalendarHealthDashboard({
       {/* Header */}
       <div className="mb-6 flex items-center gap-3">
         <Calendar03Icon className="h-6 w-6 text-[var(--red)]" />
-        <h3 className="font-semibold text-[var(--foreground)] text-lg">
-          {t("title")}
-        </h3>
+        <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
       </div>
 
       {/* Health Score */}
@@ -73,18 +65,9 @@ export function CalendarHealthDashboard({
 
       {/* Health Checklist */}
       <div className="mb-6 space-y-3">
-        <HealthItem
-          completed={health.hasWorkingHours}
-          label={t("hasWorkingHours")}
-        />
-        <HealthItem
-          completed={health.hasServiceRadius}
-          label={t("hasServiceRadius")}
-        />
-        <HealthItem
-          completed={health.hasTravelBuffers}
-          label={t("hasTravelBuffers")}
-        />
+        <HealthItem completed={health.hasWorkingHours} label={t("hasWorkingHours")} />
+        <HealthItem completed={health.hasServiceRadius} label={t("hasServiceRadius")} />
+        <HealthItem completed={health.hasTravelBuffers} label={t("hasTravelBuffers")} />
       </div>
 
       {/* Recommendations */}
@@ -122,18 +105,14 @@ export function CalendarHealthDashboard({
 /**
  * Individual Health Item
  */
-function HealthItem({
-  completed,
-  label,
-}: {
-  completed: boolean;
-  label: string;
-}) {
+function HealthItem({ completed, label }: { completed: boolean; label: string }) {
   return (
     <div className="flex items-center gap-3">
       <div
         className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${
-          completed ? "bg-green-500 text-white" : "border-2 border-[#d1d5db] bg-white text-[#6b7280]"
+          completed
+            ? "bg-green-500 text-white"
+            : "border-2 border-[#d1d5db] bg-white text-[#6b7280]"
         }`}
       >
         {completed ? (

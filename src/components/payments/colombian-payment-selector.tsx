@@ -75,9 +75,7 @@ export function ColombianPaymentSelector({
   return (
     <div className="space-y-4">
       <div className="mb-4">
-        <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
-          {t("title")}
-        </h3>
+        <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
         <p className="text-[#6b7280] text-sm">{t("subtitle")}</p>
       </div>
 

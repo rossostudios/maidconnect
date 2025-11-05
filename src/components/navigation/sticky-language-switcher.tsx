@@ -53,12 +53,7 @@ export function StickyLanguageSwitcher() {
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path
-              d="M19 9l-7 7-7-7"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-            />
+            <path d="M19 9l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
           </svg>
         </button>
 
