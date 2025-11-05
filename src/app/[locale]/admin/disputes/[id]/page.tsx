@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function DisputeDetailPage({ params }: { params: { id: string } }) {
   const [dispute, setDispute] = useState<any>(null);
@@ -10,11 +10,7 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
   const [resolutionAction, setResolutionAction] = useState("");
   const router = useRouter();
 
-  useEffect(() => {
-    loadDispute();
-  }, [loadDispute]);
-
-  const loadDispute = async () => {
+  const loadDispute = useCallback(async () => {
     try {
       const response = await fetch(`/api/admin/disputes/${params.id}`);
       const data = await response.json();
@@ -24,7 +20,11 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [params.id]);
+
+  useEffect(() => {
+    loadDispute();
+  }, [loadDispute]);
 
   const handleResolve = async () => {
     try {
