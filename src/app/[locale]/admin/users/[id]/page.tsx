@@ -5,7 +5,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { UserModerationModal } from "@/components/admin/user-moderation-modal";
 import { formatSuspensionDuration } from "@/lib/admin-utils";
 
@@ -49,11 +49,7 @@ export default function UserDetailPage({ params }: { params: { id: string } }) {
   const [showModerationModal, setShowModerationModal] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    loadUserData();
-  }, [loadUserData]);
-
-  const loadUserData = async () => {
+  const loadUserData = useCallback(async () => {
     setIsLoading(true);
     try {
       const response = await fetch(`/api/admin/users/${params.id}`);
@@ -67,7 +63,11 @@ export default function UserDetailPage({ params }: { params: { id: string } }) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [params.id]);
+
+  useEffect(() => {
+    loadUserData();
+  }, [loadUserData]);
 
   if (isLoading) {
     return (
