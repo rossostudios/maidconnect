@@ -137,10 +137,7 @@ export type CreateBookingInput = {
   serviceAddressCountry?: string;
   locationLat?: number;
   locationLng?: number;
-  basePriceCop: number;
-  tierPriceCop?: number;
-  addonsPriceCop?: number;
-  totalPriceCop: number;
+  // Note: Price fields removed - server calculates all prices from database for security
   customerNotes?: string;
   specialRequirements?: string[];
   addonIds?: string[];

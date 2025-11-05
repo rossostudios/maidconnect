@@ -33,8 +33,37 @@ export async function createBooking(
   try {
     const supabase = await createSupabaseServerClient();
 
-    // Calculate addon prices
-    let calculatedAddonPrice = 0;
+    // SECURITY: Fetch actual service price from database (never trust client input)
+    const { data: service, error: serviceError } = await supabase
+      .from("professional_services")
+      .select("base_price_cop")
+      .eq("id", input.serviceId)
+      .single();
+
+    if (serviceError || !service) {
+      return { success: false, error: "Service not found" };
+    }
+
+    const serverBasePrice = service.base_price_cop;
+
+    // SECURITY: Fetch actual tier price from database if tier is selected
+    let serverTierPrice = 0;
+    if (input.pricingTierId) {
+      const { data: tier, error: tierError } = await supabase
+        .from("service_pricing_tiers")
+        .select("price_cop")
+        .eq("id", input.pricingTierId)
+        .single();
+
+      if (tierError || !tier) {
+        return { success: false, error: "Pricing tier not found" };
+      }
+
+      serverTierPrice = tier.price_cop;
+    }
+
+    // SECURITY: Calculate addon prices from database (never trust client input)
+    let serverAddonPrice = 0;
     if (input.addonIds && input.addonIds.length > 0) {
       const { data: addons } = await supabase
         .from("service_addons")
@@ -42,11 +71,14 @@ export async function createBooking(
         .in("id", input.addonIds);
 
       if (addons) {
-        calculatedAddonPrice = addons.reduce((sum, addon) => sum + addon.price_cop, 0);
+        serverAddonPrice = addons.reduce((sum, addon) => sum + addon.price_cop, 0);
       }
     }
 
-    // Create booking
+    // SECURITY: Calculate total from server-side data (ignore client input)
+    const serverTotalPrice = serverBasePrice + serverTierPrice + serverAddonPrice;
+
+    // Create booking with server-calculated prices
     const { data, error } = await supabase
       .from("bookings")
       .insert({
@@ -65,10 +97,10 @@ export async function createBooking(
         service_address_country: input.serviceAddressCountry || "CO",
         location_lat: input.locationLat || null,
         location_lng: input.locationLng || null,
-        base_price_cop: input.basePriceCop,
-        tier_price_cop: input.tierPriceCop || 0,
-        addons_price_cop: calculatedAddonPrice,
-        total_price_cop: input.totalPriceCop,
+        base_price_cop: serverBasePrice,
+        tier_price_cop: serverTierPrice,
+        addons_price_cop: serverAddonPrice,
+        total_price_cop: serverTotalPrice,
         customer_notes: input.customerNotes || null,
         special_requirements: input.specialRequirements || [],
       })
