@@ -1,6 +1,7 @@
 "use client";
 
-import { Location01Icon } from "hugeicons-react";
+import { Location01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import type { WizardData } from "../match-wizard";
 
@@ -72,7 +73,7 @@ export function LocationStep({ data, onUpdate, onNext, onBack }: LocationStepPro
       {/* Icon */}
       <div className="flex justify-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--foreground)]/5">
-          <Location01Icon className="h-8 w-8 text-[var(--foreground)]" />
+          <HugeiconsIcon className="h-8 w-8 text-[var(--foreground)]" icon={Location01Icon} />
         </div>
       </div>
 

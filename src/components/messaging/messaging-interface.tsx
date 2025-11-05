@@ -1,7 +1,8 @@
 "use client";
 
+import { TranslateIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { formatDistanceToNow } from "date-fns";
-import { TranslateIcon } from "hugeicons-react";
 import Image from "next/image";
 import {
   useActionState,
@@ -12,6 +13,7 @@ import {
   useState,
   useTransition,
 } from "react";
+import { QuickReplies } from "@/components/messaging/quick-replies";
 import { ConversationSkeleton } from "@/components/ui/skeleton";
 import { useConversations } from "@/hooks/use-conversations";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
@@ -406,7 +408,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                       onClick={() => setTranslationEnabled(!translationEnabled)}
                       type="button"
                     >
-                      <TranslateIcon className="h-4 w-4" />
+                      <HugeiconsIcon className="h-4 w-4" icon={TranslateIcon} />
                       {translationEnabled ? "Translation On" : "Translate"}
                     </button>
                     {translationEnabled && (
@@ -440,7 +442,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
             />
 
             {/* Message Input */}
-            <MessageInput isPending={isPending} onSend={sendMessage} />
+            <MessageInput isPending={isPending} onSend={sendMessage} userRole={userRole} />
           </>
         ) : (
           <div className="flex flex-1 items-center justify-center p-12">
@@ -575,14 +577,35 @@ function MessageThread({
   );
 }
 
+// Contact sharing detection patterns
+const CONTACT_PATTERNS = [
+  { pattern: /\d{10,}/, name: "phone number" }, // 10+ digit phone numbers
+  { pattern: /@[a-zA-Z0-9.-]+\.(com|co|net|org|edu)/i, name: "email" }, // Email addresses
+  { pattern: /whatsapp/i, name: "WhatsApp" }, // WhatsApp mentions
+  { pattern: /telegram/i, name: "Telegram" }, // Telegram mentions
+  { pattern: /\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b/, name: "phone number" }, // Formatted phone (xxx-xxx-xxxx)
+];
+
+function detectContactSharing(text: string): string | null {
+  for (const { pattern, name } of CONTACT_PATTERNS) {
+    if (pattern.test(text)) {
+      return name;
+    }
+  }
+  return null;
+}
+
 function MessageInput({
   onSend,
   isPending,
+  userRole,
 }: {
   onSend: (message: string) => void;
   isPending: boolean;
+  userRole: "customer" | "professional";
 }) {
   const [message, setMessage] = useState("");
+  const [hasShownWarning, setHasShownWarning] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // React 19: useActionState for form submission
@@ -592,6 +615,7 @@ function MessageInput({
       if (messageText?.trim()) {
         await onSend(messageText);
         setMessage("");
+        setHasShownWarning(false); // Reset warning state after sending
         // Focus input after sending
         inputRef.current?.focus();
       }
@@ -602,14 +626,44 @@ function MessageInput({
 
   const isSending = isFormPending || isPending;
 
+  // Handle message input changes with contact detection
+  const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newMessage = e.target.value;
+    setMessage(newMessage);
+
+    // Only show warning once per message composition
+    if (!hasShownWarning && newMessage.trim()) {
+      const detectedContact = detectContactSharing(newMessage);
+      if (detectedContact) {
+        toast.warning(
+          `Reminder: Keep communication in-app until booking is confirmed. Sharing ${detectedContact} may violate our terms.`,
+          {
+            duration: 5000,
+          }
+        );
+        setHasShownWarning(true);
+      }
+    }
+  };
+
+  // Handle quick reply selection
+  const handleQuickReply = (replyMessage: string) => {
+    setMessage(replyMessage);
+    inputRef.current?.focus();
+  };
+
   return (
-    <form action={formAction} className="border-[#ebe5d8] border-t bg-white p-6">
+    <form action={formAction} className="space-y-4 border-[#ebe5d8] border-t bg-white p-6">
+      {/* Quick Replies for Professionals */}
+      {userRole === "professional" && <QuickReplies onSelectReply={handleQuickReply} />}
+
+      {/* Message Input */}
       <div className="flex gap-3">
         <input
           className="flex-1 rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33] disabled:opacity-50"
           disabled={isSending}
           name="message"
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={handleMessageChange}
           placeholder="Type a message..."
           ref={inputRef}
           type="text"

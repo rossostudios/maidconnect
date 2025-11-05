@@ -1,6 +1,7 @@
 "use client";
 
-import { ChartIcon, RefreshIcon } from "hugeicons-react";
+import { ChartIcon, RefreshIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { getPerformanceMetrics, getRevenueTrend } from "@/app/actions/analytics";
@@ -65,7 +66,7 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
 
   useEffect(() => {
     loadData();
-  }, [profileId]);
+  }, [loadData]);
 
   const handleRefresh = () => {
     loadData(true);
@@ -111,7 +112,7 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <ChartIcon className="h-6 w-6 text-[var(--red)]" />
+          <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={ChartIcon} />
           <h2 className="font-bold text-2xl text-[var(--foreground)]">{t("title")}</h2>
         </div>
         <button
@@ -120,7 +121,10 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
           onClick={handleRefresh}
           type="button"
         >
-          <RefreshIcon className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`} />
+          <HugeiconsIcon
+            className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
+            icon={RefreshIcon}
+          />
           {refreshing ? t("refreshing") : t("refresh")}
         </button>
       </div>

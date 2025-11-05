@@ -4,7 +4,8 @@ import {
   Image01Icon,
   SecurityCheckIcon,
   StarIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
@@ -174,26 +175,38 @@ export default async function ProfessionalProfilesPage({ params }: Props) {
             <div className="mt-16 grid gap-8 md:grid-cols-2">
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <Award01Icon className="h-6 w-6 text-[var(--red)]" />
+                  <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={Award01Icon} />
                 </div>
                 <h3 className="mt-6 font-semibold text-2xl text-[var(--foreground)]">
                   {t("profileFeatures.professionalInfo.title")}
                 </h3>
                 <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.professionalInfo.items.experience")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.professionalInfo.items.certifications")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.professionalInfo.items.services")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.professionalInfo.items.areas")}</span>
                   </li>
                 </ul>
@@ -201,26 +214,38 @@ export default async function ProfessionalProfilesPage({ params }: Props) {
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <StarIcon className="h-6 w-6 text-[var(--red)]" />
+                  <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={StarIcon} />
                 </div>
                 <h3 className="mt-6 font-semibold text-2xl text-[var(--foreground)]">
                   {t("profileFeatures.socialProof.title")}
                 </h3>
                 <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.socialProof.items.rating")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.socialProof.items.reviews")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.socialProof.items.portfolio")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.socialProof.items.bookings")}</span>
                   </li>
                 </ul>
@@ -228,26 +253,38 @@ export default async function ProfessionalProfilesPage({ params }: Props) {
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <SecurityCheckIcon className="h-6 w-6 text-[var(--red)]" />
+                  <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={SecurityCheckIcon} />
                 </div>
                 <h3 className="mt-6 font-semibold text-2xl text-[var(--foreground)]">
                   {t("profileFeatures.safetyTrust.title")}
                 </h3>
                 <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.safetyTrust.items.backgroundCheck")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.safetyTrust.items.identity")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.safetyTrust.items.insurance")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.safetyTrust.items.verified")}</span>
                   </li>
                 </ul>
@@ -255,26 +292,38 @@ export default async function ProfessionalProfilesPage({ params }: Props) {
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <Image01Icon className="h-6 w-6 text-[var(--red)]" />
+                  <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={Image01Icon} />
                 </div>
                 <h3 className="mt-6 font-semibold text-2xl text-[var(--foreground)]">
                   {t("profileFeatures.workExamples.title")}
                 </h3>
                 <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.workExamples.items.galleryPhotos")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.workExamples.items.beforeAfter")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.workExamples.items.serviceExamples")}</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckmarkCircle02Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      icon={CheckmarkCircle02Icon}
+                    />
                     <span>{t("profileFeatures.workExamples.items.bio")}</span>
                   </li>
                 </ul>

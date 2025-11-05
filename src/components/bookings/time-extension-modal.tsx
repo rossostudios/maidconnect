@@ -1,6 +1,7 @@
 "use client";
 
-import { Clock01Icon, DollarCircleIcon } from "hugeicons-react";
+import { Clock01Icon, DollarCircleIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import { FormModal } from "@/components/shared/form-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
@@ -157,8 +158,9 @@ export function TimeExtensionModal({
                 type="button"
               >
                 <div className="mb-1 flex items-center gap-2">
-                  <Clock01Icon
+                  <HugeiconsIcon
                     className={isSelected ? "text-[var(--red)]" : "text-[#7a6d62]"}
+                    icon={Clock01Icon}
                     size={16}
                   />
                   <span className="font-semibold text-[var(--foreground)] text-sm">
@@ -194,7 +196,7 @@ export function TimeExtensionModal({
         <div className="mb-6 rounded-xl bg-blue-50 p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <DollarCircleIcon className="text-blue-600" size={20} />
+              <HugeiconsIcon className="text-blue-600" icon={DollarCircleIcon} size={20} />
               <span className="font-medium text-blue-900 text-sm">Additional Cost</span>
             </div>
             <span className="font-bold text-blue-900 text-lg">{formatCurrency(estimatedCost)}</span>

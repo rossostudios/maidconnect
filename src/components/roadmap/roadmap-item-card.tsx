@@ -6,7 +6,8 @@
 
 "use client";
 
-import { Message01Icon } from "hugeicons-react";
+import { Message01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import type { RoadmapItemWithVoteStatus } from "@/types/roadmap";
 import {
@@ -78,7 +79,7 @@ export function RoadmapItemCard({ item }: RoadmapItemCardProps) {
               {/* Comment count */}
               {item.comment_count > 0 && (
                 <div className="flex items-center gap-1.5 text-[#6B7280] text-sm">
-                  <Message01Icon size={16} />
+                  <HugeiconsIcon icon={Message01Icon} size={16} />
                   <span>{item.comment_count}</span>
                 </div>
               )}

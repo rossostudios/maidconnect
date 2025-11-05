@@ -1,6 +1,7 @@
 "use client";
 
-import { Location01Icon, MapsIcon } from "hugeicons-react";
+import { Location01Icon, MapsIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { TravelBuffer } from "@/types";
@@ -57,7 +58,7 @@ export function ServiceRadiusEditor({ travelBuffer, onUpdate }: ServiceRadiusEdi
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <MapsIcon className="h-6 w-6 text-[var(--red)]" />
+          <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={MapsIcon} />
           <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
         </div>
 
@@ -132,7 +133,7 @@ export function ServiceRadiusEditor({ travelBuffer, onUpdate }: ServiceRadiusEdi
             onChange={(e) =>
               setLocalBuffer({
                 ...localBuffer,
-                travelBufferBeforeMinutes: Number.parseInt(e.target.value),
+                travelBufferBeforeMinutes: Number.parseInt(e.target.value, 10),
               })
             }
             value={localBuffer.travelBufferBeforeMinutes}
@@ -154,7 +155,7 @@ export function ServiceRadiusEditor({ travelBuffer, onUpdate }: ServiceRadiusEdi
             onChange={(e) =>
               setLocalBuffer({
                 ...localBuffer,
-                travelBufferAfterMinutes: Number.parseInt(e.target.value),
+                travelBufferAfterMinutes: Number.parseInt(e.target.value, 10),
               })
             }
             value={localBuffer.travelBufferAfterMinutes}
@@ -170,7 +171,7 @@ export function ServiceRadiusEditor({ travelBuffer, onUpdate }: ServiceRadiusEdi
       {/* Service Location (Placeholder - would integrate with map in real implementation) */}
       <div className="mb-6">
         <label className="mb-2 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm">
-          <Location01Icon className="h-4 w-4" />
+          <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
           {t("locationLabel")}
         </label>
         <div className="rounded-lg border-2 border-[#d1d5db] bg-[#f9fafb] p-4">

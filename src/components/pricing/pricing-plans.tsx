@@ -7,7 +7,8 @@
 
 "use client";
 
-import { Tick02Icon } from "hugeicons-react";
+import { Tick02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 import type { PricingPlan } from "@/types/pricing";
 
@@ -195,7 +196,11 @@ export function PricingPlans() {
                   .filter((feature) => feature.included)
                   .map((feature, idx) => (
                     <div className="flex items-start gap-3" key={idx}>
-                      <Tick02Icon className="mt-0.5 flex-shrink-0 text-[#10B981]" size={20} />
+                      <HugeiconsIcon
+                        className="mt-0.5 flex-shrink-0 text-[#10B981]"
+                        icon={Tick02Icon}
+                        size={20}
+                      />
                       <span className="text-[var(--foreground)]">
                         {feature.name}
                         {feature.limit && (

@@ -1,6 +1,7 @@
 "use client";
 
-import { GridIcon, MapsIcon } from "hugeicons-react";
+import { GridIcon, MapsIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
@@ -67,7 +68,7 @@ export function ViewToggle({
         onClick={() => handleViewChange("list")}
         type="button"
       >
-        <GridIcon className="h-4 w-4" />
+        <HugeiconsIcon className="h-4 w-4" icon={GridIcon} />
         <span className="hidden sm:inline">{t("viewToggle.list")}</span>
       </button>
 
@@ -82,7 +83,7 @@ export function ViewToggle({
         onClick={() => handleViewChange("map")}
         type="button"
       >
-        <MapsIcon className="h-4 w-4" />
+        <HugeiconsIcon className="h-4 w-4" icon={MapsIcon} />
         <span className="hidden sm:inline">{t("viewToggle.map")}</span>
       </button>
     </div>

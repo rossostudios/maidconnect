@@ -3,7 +3,7 @@
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   type SavedAddress,
   SavedAddressesManager,
@@ -14,6 +14,7 @@ import type { ServiceAddon } from "@/components/service-addons/service-addons-ma
 import { useAddressesAndAddons } from "@/hooks/use-addresses-and-addons";
 import { useBookingSubmission } from "@/hooks/use-booking-submission";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
+import { trackEvent } from "@/lib/analytics/track-event";
 import { formatCurrencyCOP, normalizeServiceName } from "@/lib/booking-utils";
 import type { ProfessionalService } from "@/lib/professionals/transformers";
 
@@ -112,6 +113,24 @@ export function EnhancedBookingForm({
       : 0;
   const addonsTotal = bookingData.selectedAddons.reduce((sum, addon) => sum + addon.price_cop, 0);
   const totalAmount = baseAmount + addonsTotal;
+
+  // Track checkout started event when reaching confirmation step
+  useEffect(() => {
+    if (currentStep === "confirmation") {
+      trackEvent("CheckoutStarted", {
+        pro_id: professionalId,
+        items: [bookingData.serviceName, ...bookingData.selectedAddons.map((a) => a.name)],
+        subtotal: totalAmount,
+        deposit_type: "preauth",
+      });
+    }
+  }, [
+    currentStep,
+    professionalId,
+    bookingData.serviceName,
+    bookingData.selectedAddons,
+    totalAmount,
+  ]);
 
   // Simplified submit handler - custom hook manages complexity
   const handleSubmit = () => {

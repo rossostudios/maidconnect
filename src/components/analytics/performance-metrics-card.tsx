@@ -1,6 +1,12 @@
 "use client";
 
-import { CancelCircleIcon, CheckmarkCircle02Icon, MoneyBag02Icon, StarIcon } from "hugeicons-react";
+import {
+  CancelCircleIcon,
+  CheckmarkCircle02Icon,
+  MoneyBag02Icon,
+  StarIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import type { PerformanceMetrics } from "@/types";
 
@@ -23,14 +29,22 @@ export function PerformanceMetricsCard({ metrics }: PerformanceMetricsCardProps)
   const formatCurrency = (amount: number) => `$${(amount / 1000).toFixed(0)}k COP`;
 
   const getCompletionRateColor = (rate: number) => {
-    if (rate >= 90) return "text-green-600";
-    if (rate >= 75) return "text-yellow-600";
+    if (rate >= 90) {
+      return "text-green-600";
+    }
+    if (rate >= 75) {
+      return "text-yellow-600";
+    }
     return "text-red-600";
   };
 
   const getRatingColor = (rating: number) => {
-    if (rating >= 4.5) return "text-green-600";
-    if (rating >= 4.0) return "text-yellow-600";
+    if (rating >= 4.5) {
+      return "text-green-600";
+    }
+    if (rating >= 4.0) {
+      return "text-yellow-600";
+    }
     return "text-red-600";
   };
 
@@ -51,7 +65,7 @@ export function PerformanceMetricsCard({ metrics }: PerformanceMetricsCardProps)
         {/* Completion Rate */}
         <div className="rounded-xl bg-[#f9fafb] p-4">
           <div className="mb-2 flex items-center gap-2">
-            <CheckmarkCircle02Icon className="h-5 w-5 text-green-600" />
+            <HugeiconsIcon className="h-5 w-5 text-green-600" icon={CheckmarkCircle02Icon} />
             <span className="font-medium text-[#6b7280] text-sm">{t("completionRate")}</span>
           </div>
           <p className={`font-bold text-3xl ${getCompletionRateColor(metrics.completionRate)}`}>
@@ -65,7 +79,7 @@ export function PerformanceMetricsCard({ metrics }: PerformanceMetricsCardProps)
         {/* Average Rating */}
         <div className="rounded-xl bg-[#f9fafb] p-4">
           <div className="mb-2 flex items-center gap-2">
-            <StarIcon className="h-5 w-5 text-yellow-500" />
+            <HugeiconsIcon className="h-5 w-5 text-yellow-500" icon={StarIcon} />
             <span className="font-medium text-[#6b7280] text-sm">{t("averageRating")}</span>
           </div>
           <div className="flex items-baseline gap-2">
@@ -82,7 +96,7 @@ export function PerformanceMetricsCard({ metrics }: PerformanceMetricsCardProps)
         {/* Total Revenue */}
         <div className="rounded-xl bg-[#f9fafb] p-4">
           <div className="mb-2 flex items-center gap-2">
-            <MoneyBag02Icon className="h-5 w-5 text-[var(--red)]" />
+            <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={MoneyBag02Icon} />
             <span className="font-medium text-[#6b7280] text-sm">{t("totalRevenue")}</span>
           </div>
           <p className="font-bold text-3xl text-[var(--red)]">
@@ -96,7 +110,7 @@ export function PerformanceMetricsCard({ metrics }: PerformanceMetricsCardProps)
         {/* Cancellation Rate */}
         <div className="rounded-xl bg-[#f9fafb] p-4">
           <div className="mb-2 flex items-center gap-2">
-            <CancelCircleIcon className="h-5 w-5 text-red-600" />
+            <HugeiconsIcon className="h-5 w-5 text-red-600" icon={CancelCircleIcon} />
             <span className="font-medium text-[#6b7280] text-sm">{t("cancellationRate")}</span>
           </div>
           <p className="font-bold text-3xl text-red-600">{metrics.cancellationRate.toFixed(1)}%</p>

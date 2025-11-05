@@ -1,6 +1,7 @@
 "use client";
 
-import { AlertCircleIcon, Calendar03Icon, CheckmarkCircle02Icon } from "hugeicons-react";
+import { AlertCircleIcon, Calendar03Icon, CheckmarkCircle02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import type { CalendarHealth } from "@/types";
 
@@ -18,20 +19,32 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
   const t = useTranslations("components.calendarHealth");
 
   const getHealthColor = (score: number) => {
-    if (score >= 80) return "text-green-600";
-    if (score >= 50) return "text-yellow-600";
+    if (score >= 80) {
+      return "text-green-600";
+    }
+    if (score >= 50) {
+      return "text-yellow-600";
+    }
     return "text-red-600";
   };
 
   const getHealthBgColor = (score: number) => {
-    if (score >= 80) return "bg-green-50";
-    if (score >= 50) return "bg-yellow-50";
+    if (score >= 80) {
+      return "bg-green-50";
+    }
+    if (score >= 50) {
+      return "bg-yellow-50";
+    }
     return "bg-red-50";
   };
 
   const getHealthBorderColor = (score: number) => {
-    if (score >= 80) return "border-green-200";
-    if (score >= 50) return "border-yellow-200";
+    if (score >= 80) {
+      return "border-green-200";
+    }
+    if (score >= 50) {
+      return "border-yellow-200";
+    }
     return "border-red-200";
   };
 
@@ -39,7 +52,7 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
     <div className="rounded-[24px] border-2 border-[#e5e7eb] bg-white p-6 shadow-sm">
       {/* Header */}
       <div className="mb-6 flex items-center gap-3">
-        <Calendar03Icon className="h-6 w-6 text-[var(--red)]" />
+        <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={Calendar03Icon} />
         <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
       </div>
 
@@ -74,7 +87,7 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
       {health.recommendations.length > 0 && (
         <div className="rounded-xl bg-blue-50 p-4">
           <p className="mb-3 flex items-center gap-2 font-semibold text-blue-900 text-sm">
-            <AlertCircleIcon className="h-5 w-5" />
+            <HugeiconsIcon className="h-5 w-5" icon={AlertCircleIcon} />
             {t("recommendations")}
           </p>
           <ul className="space-y-2">
@@ -92,7 +105,7 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
       {health.healthScore === 100 && (
         <div className="rounded-xl bg-green-50 p-4">
           <p className="flex items-center gap-2 font-semibold text-green-900 text-sm">
-            <CheckmarkCircle02Icon className="h-5 w-5" />
+            <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle02Icon} />
             {t("perfectHealth")}
           </p>
           <p className="mt-2 text-green-800 text-sm">{t("perfectHealthDescription")}</p>
@@ -116,9 +129,9 @@ function HealthItem({ completed, label }: { completed: boolean; label: string })
         }`}
       >
         {completed ? (
-          <CheckmarkCircle02Icon className="h-5 w-5" />
+          <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle02Icon} />
         ) : (
-          <AlertCircleIcon className="h-5 w-5" />
+          <HugeiconsIcon className="h-5 w-5" icon={AlertCircleIcon} />
         )}
       </div>
       <span

@@ -1,6 +1,7 @@
 "use client";
 
-import { Cancel01Icon, Loading01Icon, Search01Icon } from "hugeicons-react";
+import { Cancel01Icon, Loading01Icon, Search01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
@@ -94,7 +95,7 @@ export function HelpSearchBar({
       {/* Search Input */}
       <div className="relative">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-          <Search01Icon className="h-5 w-5 text-gray-400" />
+          <HugeiconsIcon className="h-5 w-5 text-gray-400" icon={Search01Icon} />
         </div>
 
         <input
@@ -118,9 +119,9 @@ export function HelpSearchBar({
             type="button"
           >
             {isLoading ? (
-              <Loading01Icon className="h-5 w-5 animate-spin" />
+              <HugeiconsIcon className="h-5 w-5 animate-spin" icon={Loading01Icon} />
             ) : (
-              <Cancel01Icon className="h-5 w-5" />
+              <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
             )}
           </button>
         )}
@@ -133,7 +134,10 @@ export function HelpSearchBar({
             if (isLoading && results.length === 0) {
               return (
                 <div className="flex items-center justify-center px-4 py-8">
-                  <Loading01Icon className="mr-2 h-5 w-5 animate-spin text-[var(--red)]" />
+                  <HugeiconsIcon
+                    className="mr-2 h-5 w-5 animate-spin text-[var(--red)]"
+                    icon={Loading01Icon}
+                  />
                   <span className="text-gray-600 text-sm">{t("search.searching")}</span>
                 </div>
               );

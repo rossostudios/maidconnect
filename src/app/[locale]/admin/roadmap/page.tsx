@@ -4,26 +4,35 @@
  * Lists all roadmap items with filters and management actions
  */
 
-import { Add01Icon } from "hugeicons-react";
+import { Add01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import { Suspense } from "react";
 import { RoadmapAdminList } from "@/components/roadmap/roadmap-admin-list";
+import { requireUser } from "@/lib/auth";
 
-export default function AdminRoadmapPage() {
+export const metadata = {
+  title: "Roadmap Management | Admin",
+  description: "Manage your product roadmap items",
+};
+
+export default async function AdminRoadmapPage() {
+  await requireUser({ allowedRoles: ["admin"] });
+
   return (
-    <>
+    <section className="space-y-8">
       {/* Header */}
-      <div className="mb-8 flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <div>
-          <h1 className="mb-2 font-bold text-3xl text-[var(--foreground)]">Roadmap Management</h1>
-          <p className="text-[#6B7280]">Manage your product roadmap items</p>
+          <h1 className="font-bold text-3xl text-[#171717]">Roadmap Management</h1>
+          <p className="mt-2 text-[#737373]">Manage your product roadmap items</p>
         </div>
 
         <Link
-          className="inline-flex items-center gap-2 rounded-[12px] bg-[var(--red)] px-6 py-3 font-medium text-white transition-all hover:bg-[var(--red)]"
+          className="inline-flex items-center gap-2 rounded-lg bg-[#E63946] px-6 py-3 font-medium text-white transition hover:bg-[#D32F40]"
           href="/admin/roadmap/new"
         >
-          <Add01Icon size={20} />
+          <HugeiconsIcon icon={Add01Icon} size={20} />
           New Roadmap Item
         </Link>
       </div>
@@ -32,12 +41,12 @@ export default function AdminRoadmapPage() {
       <Suspense
         fallback={
           <div className="flex items-center justify-center py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[var(--red)] border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#E63946] border-t-transparent" />
           </div>
         }
       >
         <RoadmapAdminList />
       </Suspense>
-    </>
+    </section>
   );
 }

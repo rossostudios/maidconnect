@@ -1,7 +1,8 @@
 "use client";
 
+import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft01Icon, ArrowRight01Icon } from "hugeicons-react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { Container } from "@/components/ui/container";
@@ -48,7 +49,7 @@ export function TestimonialsSection() {
                 onClick={() => goTo(current - 1)}
                 type="button"
               >
-                <ArrowLeft01Icon className="h-5 w-5" />
+                <HugeiconsIcon className="h-5 w-5" icon={ArrowLeft01Icon} />
               </button>
               <button
                 aria-label="Next testimonial"
@@ -56,7 +57,7 @@ export function TestimonialsSection() {
                 onClick={() => goTo(current + 1)}
                 type="button"
               >
-                <ArrowRight01Icon className="h-5 w-5" />
+                <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
               </button>
             </div>
           )}
@@ -131,7 +132,7 @@ export function TestimonialsSection() {
                 onClick={() => goTo(current - 1)}
                 type="button"
               >
-                <ArrowLeft01Icon className="h-5 w-5" />
+                <HugeiconsIcon className="h-5 w-5" icon={ArrowLeft01Icon} />
               </button>
               <div className="flex items-center gap-2 text-[var(--muted-foreground)] text-sm">
                 {current + 1} / {slides.length}
@@ -142,7 +143,7 @@ export function TestimonialsSection() {
                 onClick={() => goTo(current + 1)}
                 type="button"
               >
-                <ArrowRight01Icon className="h-5 w-5" />
+                <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
               </button>
             </div>
           )}

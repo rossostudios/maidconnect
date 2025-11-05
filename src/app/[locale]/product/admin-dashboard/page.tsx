@@ -3,7 +3,8 @@ import {
   DollarCircleIcon,
   Settings01Icon,
   UserCheck01Icon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
@@ -170,37 +171,55 @@ export default async function AdminDashboardPage({ params }: Props) {
 
             <div className="mt-16 space-y-4">
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <CheckmarkCircle02Icon className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]" />
+                <HugeiconsIcon
+                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]"
+                  icon={CheckmarkCircle02Icon}
+                />
                 <p className="text-[var(--muted-foreground)] text-base">
                   {t("capabilities.professionalManagement")}
                 </p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <CheckmarkCircle02Icon className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]" />
+                <HugeiconsIcon
+                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]"
+                  icon={CheckmarkCircle02Icon}
+                />
                 <p className="text-[var(--muted-foreground)] text-base">
                   {t("capabilities.bookingReview")}
                 </p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <CheckmarkCircle02Icon className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]" />
+                <HugeiconsIcon
+                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]"
+                  icon={CheckmarkCircle02Icon}
+                />
                 <p className="text-[var(--muted-foreground)] text-base">
                   {t("capabilities.payoutControl")}
                 </p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <CheckmarkCircle02Icon className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]" />
+                <HugeiconsIcon
+                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]"
+                  icon={CheckmarkCircle02Icon}
+                />
                 <p className="text-[var(--muted-foreground)] text-base">
                   {t("capabilities.disputeResolution")}
                 </p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <CheckmarkCircle02Icon className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]" />
+                <HugeiconsIcon
+                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]"
+                  icon={CheckmarkCircle02Icon}
+                />
                 <p className="text-[var(--muted-foreground)] text-base">
                   {t("capabilities.userModeration")}
                 </p>
               </div>
               <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <CheckmarkCircle02Icon className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]" />
+                <HugeiconsIcon
+                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[var(--red)]"
+                  icon={CheckmarkCircle02Icon}
+                />
                 <p className="text-[var(--muted-foreground)] text-base">
                   {t("capabilities.analytics")}
                 </p>
@@ -219,7 +238,7 @@ export default async function AdminDashboardPage({ params }: Props) {
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">
@@ -233,7 +252,7 @@ export default async function AdminDashboardPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">
@@ -247,7 +266,7 @@ export default async function AdminDashboardPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">
@@ -261,7 +280,7 @@ export default async function AdminDashboardPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">

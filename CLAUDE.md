@@ -1,0 +1,1128 @@
+# MaidConnect Project Rules
+
+**Critical: Always use Exa MCP server BEFORE starting development and AFTER implementation to validate approach.**
+
+## Table of Contents
+- [Pre-Development Research Protocol](#pre-development-research-protocol)
+- [Project Overview](#project-overview)
+- [Next.js 16 Critical Patterns](#nextjs-16-critical-patterns)
+- [Code Style & Architecture](#code-style--architecture)
+- [Database Migration Guidelines](#database-migration-guidelines)
+- [Component Patterns](#component-patterns)
+- [Security Considerations](#security-considerations)
+- [Testing Requirements](#testing-requirements)
+- [Commit Message Format](#commit-message-format)
+- [Deployment Procedures](#deployment-procedures)
+
+---
+
+## Pre-Development Research Protocol
+
+**MANDATORY: Before implementing ANY feature or fix:**
+
+```bash
+# 1. Research the approach using Exa MCP server
+mcp__exa__get_code_context_exa: "Next.js 16 [your feature] best practices patterns"
+mcp__exa__get_code_context_exa: "Supabase [your feature] RLS implementation patterns"
+mcp__exa__web_search_exa: "[your feature] security considerations 2025"
+
+# 2. After implementation, validate your approach
+mcp__exa__get_code_context_exa: "[your feature] common mistakes pitfalls"
+mcp__exa__web_search_exa: "[your feature] production checklist"
+```
+
+**Why:** Research shows that skipping this step leads to using outdated patterns like `middleware.ts` when Next.js now uses `proxy.ts`, or missing critical security considerations.
+
+---
+
+## Project Overview
+
+### Tech Stack
+- **Framework:** Next.js 16.0 with App Router
+- **Language:** TypeScript 5 (strict mode)
+- **Database:** Supabase (PostgreSQL + Auth + Storage + RLS)
+- **Package Manager:** Bun (NOT npm/yarn)
+- **Styling:** TailwindCSS 4
+- **Linting:** Biome (NOT ESLint/Prettier)
+- **Testing:** Playwright
+- **i18n:** next-intl (Spanish-first for Colombian market)
+- **State:** React Query (@tanstack/react-query)
+- **Validation:** Zod 4
+- **Payments:** Stripe
+
+### Project Structure
+```
+maidconnect/
+├── src/
+│   ├── app/              # Next.js App Router pages
+│   │   ├── [locale]/     # i18n routes (en, es)
+│   │   └── api/          # API routes (NOT middleware!)
+│   ├── components/       # React components
+│   │   ├── ui/          # Shadcn UI components
+│   │   └── [feature]/   # Feature-specific components
+│   ├── lib/             # Utilities and helpers
+│   ├── types/           # TypeScript types
+│   └── i18n.ts          # i18n configuration
+├── supabase/
+│   └── migrations/      # SQL migration files
+├── proxy.ts             # Request proxy (NOT middleware.ts!)
+└── next.config.ts       # Next.js configuration
+```
+
+---
+
+## Next.js 16 Critical Patterns
+
+### ⚠️ CRITICAL: NO middleware.ts - Use proxy.ts Instead
+
+**WRONG (Outdated Pattern):**
+```typescript
+// ❌ DO NOT CREATE middleware.ts
+// This is the OLD Next.js pattern
+export function middleware(request: NextRequest) {
+  // ...
+}
+```
+
+**CORRECT (Next.js 16 Pattern):**
+```typescript
+// ✅ ALWAYS use proxy.ts
+export default async function proxy(request: NextRequest) {
+  // Server-side logic
+  // Auth checks
+  // CSRF validation
+  // Session management
+}
+
+export const config = {
+  matcher: [/* routes */],
+};
+```
+
+**File Location:** `proxy.ts` in project root (same level as `next.config.ts`)
+
+**Reference:** See @proxy.ts for our complete implementation with:
+- Supabase session management
+- CSRF protection
+- Role-based routing
+- i18n detection
+- Security headers
+
+### Server Actions Best Practices
+
+**Always use Server Actions for mutations:**
+```typescript
+// ✅ In a separate actions file
+'use server';
+
+import { revalidatePath } from 'next/cache';
+import { createClient } from '@/lib/supabase/server-client';
+
+export async function createBooking(formData: FormData) {
+  const supabase = await createClient();
+
+  // 1. Validate with Zod
+  const validated = BookingSchema.parse({
+    // ...
+  });
+
+  // 2. Perform mutation
+  const { data, error } = await supabase
+    .from('bookings')
+    .insert(validated);
+
+  if (error) throw error;
+
+  // 3. Revalidate affected pages
+  revalidatePath('/dashboard/customer/bookings');
+
+  return data;
+}
+```
+
+### Dynamic Imports for Performance
+
+```typescript
+// ✅ Use dynamic imports for heavy components
+const HeavyChart = dynamic(() => import('@/components/charts/heavy-chart'), {
+  loading: () => <Skeleton className="h-96 w-full" />,
+  ssr: false, // Client-only if needed
+});
+```
+
+---
+
+## Code Style & Architecture
+
+### TypeScript Configuration
+
+**Strict Mode is MANDATORY** - See @tsconfig.json:
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  }
+}
+```
+
+### Component Guidelines
+
+**Always use functional components with TypeScript:**
+```typescript
+// ✅ CORRECT: Explicit prop types with interface
+interface BookingCardProps {
+  booking: Database['public']['Tables']['bookings']['Row'];
+  onCancel?: (id: string) => Promise<void>;
+  className?: string;
+}
+
+export function BookingCard({ booking, onCancel, className }: BookingCardProps) {
+  // 1. Hooks at the top
+  const [isLoading, setIsLoading] = useState(false);
+  const { mutate } = useMutation({ /* ... */ });
+
+  // 2. Derived state and handlers
+  const canCancel = booking.status === 'pending';
+
+  // 3. Event handlers
+  const handleCancel = async () => {
+    setIsLoading(true);
+    await onCancel?.(booking.id);
+    setIsLoading(false);
+  };
+
+  // 4. Return JSX
+  return (
+    <Card className={cn('relative', className)}>
+      {/* ... */}
+    </Card>
+  );
+}
+```
+
+### Custom Hooks Pattern
+
+```typescript
+// ✅ hooks/use-bookings.ts
+import { useQuery } from '@tanstack/react-query';
+import { createClient } from '@/lib/supabase/client';
+
+export function useBookings(userId: string) {
+  return useQuery({
+    queryKey: ['bookings', userId],
+    queryFn: async () => {
+      const supabase = createClient();
+      const { data, error } = await supabase
+        .from('bookings')
+        .select('*, professional:profiles!bookings_professional_id_fkey(*)')
+        .eq('customer_id', userId)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+```
+
+### File Naming Conventions
+
+```
+✅ CORRECT:
+- booking-card.tsx          (component)
+- use-bookings.ts           (hook)
+- booking-actions.ts        (server actions)
+- booking.types.ts          (types)
+- format-currency.ts        (utility)
+
+❌ WRONG:
+- BookingCard.tsx           (PascalCase files)
+- bookings_card.tsx         (snake_case)
+- bookingCard.tsx           (camelCase)
+```
+
+### Import Organization
+
+```typescript
+// 1. React/Next.js imports
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+// 2. Third-party imports
+import { useQuery } from '@tanstack/react-query';
+import { z } from 'zod';
+
+// 3. Internal components
+import { Button } from '@/components/ui/button';
+import { BookingCard } from '@/components/bookings/booking-card';
+
+// 4. Utilities and types
+import { createClient } from '@/lib/supabase/client';
+import { cn } from '@/lib/utils';
+import type { Database } from '@/types/supabase';
+
+// 5. Styles (if any)
+import './styles.css';
+```
+
+### API Route Pattern
+
+```typescript
+// ✅ app/api/bookings/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase/server-client';
+
+export async function GET(request: NextRequest) {
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    // Query logic...
+
+    return NextResponse.json({ data });
+  } catch (error) {
+    console.error('Bookings API error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+```
+
+---
+
+## Database Migration Guidelines
+
+### Migration File Naming
+
+**Format:** `YYYYMMDDHHMMSS_description.sql`
+
+```bash
+# ✅ CORRECT
+20251105120000_create_bookings_table.sql
+20251105120100_add_rls_policies_bookings.sql
+20251105120200_create_booking_status_enum.sql
+
+# ❌ WRONG
+create_bookings.sql
+migration_001.sql
+2025-11-05-bookings.sql
+```
+
+### Migration Best Practices (Based on Supabase Official Guidelines)
+
+```sql
+-- ✅ TEMPLATE: Use this structure for ALL migrations
+
+-- Migration: Create bookings table with RLS
+-- Description: Core booking system with row-level security
+-- Author: Your Name
+-- Date: 2025-11-05
+
+-- ============================================================================
+-- SCHEMA CHANGES
+-- ============================================================================
+
+-- Create enum types first
+CREATE TYPE booking_status AS ENUM (
+  'pending',
+  'confirmed',
+  'in_progress',
+  'completed',
+  'cancelled'
+);
+
+-- Create tables
+CREATE TABLE public.bookings (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  customer_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  professional_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE RESTRICT,
+  status booking_status NOT NULL DEFAULT 'pending',
+  scheduled_date timestamptz NOT NULL,
+  total_amount integer NOT NULL CHECK (total_amount > 0),
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+-- Create indexes for performance
+CREATE INDEX idx_bookings_customer_id ON public.bookings(customer_id);
+CREATE INDEX idx_bookings_professional_id ON public.bookings(professional_id);
+CREATE INDEX idx_bookings_status ON public.bookings(status);
+CREATE INDEX idx_bookings_scheduled_date ON public.bookings(scheduled_date);
+
+-- ============================================================================
+-- ROW LEVEL SECURITY (RLS)
+-- ============================================================================
+
+-- Enable RLS (MANDATORY for all tables with user data)
+ALTER TABLE public.bookings ENABLE ROW LEVEL SECURITY;
+
+-- SELECT policies (separate for each role)
+CREATE POLICY "Customers can view their own bookings"
+  ON public.bookings
+  FOR SELECT
+  TO authenticated
+  USING (customer_id = (SELECT auth.uid()));
+
+CREATE POLICY "Professionals can view their assigned bookings"
+  ON public.bookings
+  FOR SELECT
+  TO authenticated
+  USING (professional_id = (SELECT auth.uid()));
+
+-- INSERT policies
+CREATE POLICY "Customers can create bookings"
+  ON public.bookings
+  FOR INSERT
+  TO authenticated
+  WITH CHECK (customer_id = (SELECT auth.uid()));
+
+-- UPDATE policies
+CREATE POLICY "Customers can update their pending bookings"
+  ON public.bookings
+  FOR UPDATE
+  TO authenticated
+  USING (customer_id = (SELECT auth.uid()) AND status = 'pending')
+  WITH CHECK (customer_id = (SELECT auth.uid()));
+
+CREATE POLICY "Professionals can update their assigned bookings"
+  ON public.bookings
+  FOR UPDATE
+  TO authenticated
+  USING (professional_id = (SELECT auth.uid()))
+  WITH CHECK (professional_id = (SELECT auth.uid()));
+
+-- DELETE policies
+CREATE POLICY "Customers can delete their pending bookings"
+  ON public.bookings
+  FOR DELETE
+  TO authenticated
+  USING (customer_id = (SELECT auth.uid()) AND status = 'pending');
+
+-- ============================================================================
+-- FUNCTIONS & TRIGGERS
+-- ============================================================================
+
+-- Updated_at trigger
+CREATE OR REPLACE FUNCTION public.handle_updated_at()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER set_bookings_updated_at
+  BEFORE UPDATE ON public.bookings
+  FOR EACH ROW
+  EXECUTE FUNCTION public.handle_updated_at();
+
+-- ============================================================================
+-- COMMENTS
+-- ============================================================================
+
+COMMENT ON TABLE public.bookings IS 'Stores all booking records';
+COMMENT ON COLUMN public.bookings.total_amount IS 'Amount in cents (e.g., 5000 = $50.00)';
+```
+
+### Migration Testing Checklist
+
+Before committing a migration:
+```bash
+# 1. Test locally
+supabase db reset  # Resets and applies all migrations
+supabase db diff   # Check for unexpected changes
+
+# 2. Check RLS policies
+# Test as different users to ensure RLS works
+
+# 3. Check indexes
+# Ensure all foreign keys have indexes
+```
+
+### RLS Policy Patterns
+
+**✅ Use security definer functions for complex checks:**
+```sql
+-- Create in private schema to avoid exposure
+CREATE SCHEMA IF NOT EXISTS private;
+
+-- Helper function for role checks
+CREATE OR REPLACE FUNCTION private.has_role(check_role text)
+RETURNS boolean
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT EXISTS (
+    SELECT 1
+    FROM public.profiles
+    WHERE id = (SELECT auth.uid())
+    AND role = check_role
+  );
+$$;
+
+-- Use in policies
+CREATE POLICY "Admins can view all bookings"
+  ON public.bookings
+  FOR SELECT
+  TO authenticated
+  USING (private.has_role('admin'));
+```
+
+---
+
+## Component Patterns
+
+### Composition Over Inheritance
+
+```typescript
+// ✅ CORRECT: Composable components
+interface CardProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function Card({ children, className }: CardProps) {
+  return (
+    <div className={cn('rounded-lg border bg-card p-6', className)}>
+      {children}
+    </div>
+  );
+}
+
+// Sub-components as properties
+Card.Header = function CardHeader({ children, className }: CardProps) {
+  return (
+    <div className={cn('mb-4', className)}>
+      {children}
+    </div>
+  );
+};
+
+Card.Title = function CardTitle({ children, className }: CardProps) {
+  return (
+    <h3 className={cn('text-lg font-semibold', className)}>
+      {children}
+    </h3>
+  );
+};
+
+// Usage
+<Card>
+  <Card.Header>
+    <Card.Title>Booking Details</Card.Title>
+  </Card.Header>
+  <Card.Content>
+    {/* ... */}
+  </Card.Content>
+</Card>
+```
+
+### Client vs Server Components
+
+```typescript
+// ✅ Default to Server Components
+// NO 'use client' directive
+
+export async function BookingList() {
+  // Direct database access (server-side)
+  const supabase = await createClient();
+  const { data: bookings } = await supabase
+    .from('bookings')
+    .select('*');
+
+  return (
+    <div>
+      {bookings?.map(booking => (
+        // ClientBookingCard handles interactivity
+        <ClientBookingCard key={booking.id} booking={booking} />
+      ))}
+    </div>
+  );
+}
+
+// ✅ Client Component only when needed
+'use client';
+
+export function ClientBookingCard({ booking }: { booking: Booking }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  // Interactive logic here
+}
+```
+
+### Form Patterns with React Hook Form + Zod
+
+```typescript
+'use client';
+
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+// 1. Define schema
+const BookingSchema = z.object({
+  service_id: z.string().uuid(),
+  scheduled_date: z.string().datetime(),
+  notes: z.string().min(10).max(500).optional(),
+});
+
+type BookingFormData = z.infer<typeof BookingSchema>;
+
+// 2. Create form component
+export function BookingForm() {
+  const form = useForm<BookingFormData>({
+    resolver: zodResolver(BookingSchema),
+    defaultValues: {
+      notes: '',
+    },
+  });
+
+  const onSubmit = async (data: BookingFormData) => {
+    // Call server action
+    await createBooking(data);
+  };
+
+  return (
+    <form onSubmit={form.handleSubmit(onSubmit)}>
+      {/* Form fields */}
+    </form>
+  );
+}
+```
+
+---
+
+## Security Considerations
+
+### CRITICAL: Never Trust Client Input
+
+```typescript
+// ❌ WRONG: Direct client input to database
+'use server';
+export async function updateProfile(formData: FormData) {
+  const supabase = await createClient();
+
+  // DANGEROUS: No validation, no auth check
+  await supabase
+    .from('profiles')
+    .update({
+      role: formData.get('role'), // ⚠️ User could set themselves as admin!
+    });
+}
+
+// ✅ CORRECT: Validate, authenticate, authorize
+'use server';
+
+import { z } from 'zod';
+
+const ProfileUpdateSchema = z.object({
+  name: z.string().min(2).max(100),
+  bio: z.string().max(500).optional(),
+  // role is NOT included - only admins can change roles
+});
+
+export async function updateProfile(formData: FormData) {
+  const supabase = await createClient();
+
+  // 1. Authenticate
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Unauthorized');
+
+  // 2. Validate input
+  const validated = ProfileUpdateSchema.parse({
+    name: formData.get('name'),
+    bio: formData.get('bio'),
+  });
+
+  // 3. RLS handles authorization
+  const { error } = await supabase
+    .from('profiles')
+    .update(validated)
+    .eq('id', user.id);  // ✅ User can only update their own profile
+
+  if (error) throw error;
+}
+```
+
+### Environment Variables
+
+**See @.env.example for complete list**
+
+```bash
+# ✅ CORRECT: Prefix public vars
+NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJxxx...
+
+# ✅ CORRECT: Private server-only vars (no prefix)
+SUPABASE_SERVICE_ROLE_KEY=eyJxxx...
+STRIPE_SECRET_KEY=sk_xxx...
+STRIPE_WEBHOOK_SECRET=whsec_xxx...
+
+# ❌ WRONG: Exposing secrets
+NEXT_PUBLIC_STRIPE_SECRET_KEY=sk_xxx...  # Exposed to client!
+```
+
+### API Route Security Pattern
+
+```typescript
+import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase/server-client';
+
+export async function POST(request: NextRequest) {
+  try {
+    // 1. Verify authentication
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    // 2. Validate input
+    const body = await request.json();
+    const validated = YourSchema.parse(body);
+
+    // 3. Check authorization
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+
+    if (profile?.role !== 'professional') {
+      return NextResponse.json(
+        { error: 'Forbidden' },
+        { status: 403 }
+      );
+    }
+
+    // 4. Process request
+    // ...
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('API error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+```
+
+### XSS Prevention
+
+```typescript
+// ✅ CORRECT: Sanitize user-generated content
+import DOMPurify from 'isomorphic-dompurify';
+
+export function UserBio({ bio }: { bio: string }) {
+  const sanitized = DOMPurify.sanitize(bio, {
+    ALLOWED_TAGS: ['p', 'br', 'strong', 'em'],
+    ALLOWED_ATTR: [],
+  });
+
+  return (
+    <div
+      dangerouslySetInnerHTML={{ __html: sanitized }}
+      className="prose"
+    />
+  );
+}
+
+// ❌ WRONG: Direct HTML rendering
+<div dangerouslySetInnerHTML={{ __html: bio }} />
+```
+
+---
+
+## Testing Requirements
+
+### Playwright Configuration
+
+**See @package.json scripts:**
+```bash
+bun test              # Run all tests
+bun test:ui           # Interactive UI
+bun test:headed       # See browser
+bun test:debug        # Debug mode
+```
+
+### Test Structure
+
+```typescript
+// tests/booking-flow.spec.ts
+import { test, expect } from '@playwright/test';
+
+test.describe('Booking Flow', () => {
+  test.beforeEach(async ({ page }) => {
+    // Setup: Login as customer
+    await page.goto('/es/auth/sign-in');
+    // ... login steps
+  });
+
+  test('customer can create a booking', async ({ page }) => {
+    // Navigate to professionals
+    await page.goto('/es/professionals');
+
+    // Find and click on a professional
+    await page.getByRole('link', { name: /ver perfil/i }).first().click();
+
+    // Click book button
+    await page.getByRole('button', { name: /reservar/i }).click();
+
+    // Fill booking form
+    await page.getByLabel(/fecha/i).fill('2025-12-15');
+    await page.getByLabel(/hora/i).selectOption('10:00');
+
+    // Submit
+    await page.getByRole('button', { name: /confirmar/i }).click();
+
+    // Verify success
+    await expect(page.getByText(/reserva creada/i)).toBeVisible();
+    await expect(page).toHaveURL(/\/dashboard\/customer\/bookings/);
+  });
+
+  test('validates required fields', async ({ page }) => {
+    await page.goto('/es/professionals');
+    await page.getByRole('link', { name: /ver perfil/i }).first().click();
+    await page.getByRole('button', { name: /reservar/i }).click();
+
+    // Try to submit without filling
+    await page.getByRole('button', { name: /confirmar/i }).click();
+
+    // Check for validation errors
+    await expect(page.getByText(/fecha es requerida/i)).toBeVisible();
+  });
+});
+```
+
+### Testing Best Practices
+
+1. **Test user flows, not implementation details**
+2. **Use semantic selectors:** `getByRole`, `getByLabel`, `getByText`
+3. **Test in Spanish (primary language)**
+4. **Mock external services** (Stripe, email)
+5. **Test edge cases:** errors, loading states, empty states
+
+---
+
+## Commit Message Format
+
+**Use Conventional Commits specification:**
+
+### Structure
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer]
+
+🤖 Generated with Claude Code
+```
+
+### Types
+
+| Type | Description | Example |
+|------|-------------|---------|
+| `feat` | New feature | `feat(bookings): add cancellation flow` |
+| `fix` | Bug fix | `fix(auth): correct session refresh logic` |
+| `docs` | Documentation | `docs(readme): update setup instructions` |
+| `style` | Code formatting | `style(components): run biome format` |
+| `refactor` | Code refactoring | `refactor(api): extract auth middleware` |
+| `perf` | Performance improvement | `perf(images): implement lazy loading` |
+| `test` | Add/update tests | `test(booking): add e2e flow tests` |
+| `build` | Build system changes | `build(deps): upgrade next to 16.0` |
+| `ci` | CI/CD changes | `ci(github): add playwright workflow` |
+| `chore` | Maintenance | `chore(lint): fix biome warnings` |
+
+### Examples
+
+```bash
+# ✅ Feature
+feat(bookings): implement recurring booking system
+
+- Add weekly/monthly recurrence options
+- Update database schema with recurrence fields
+- Add RLS policies for recurring bookings
+
+Closes #123
+
+🤖 Generated with Claude Code
+
+# ✅ Bug fix
+fix(proxy): prevent CSRF on webhook routes
+
+Added CSRF exemption for Stripe webhooks as they use
+signature verification instead.
+
+🤖 Generated with Claude Code
+
+# ✅ Breaking change
+feat(auth)!: migrate to new Supabase auth helpers
+
+BREAKING CHANGE: Updated to @supabase/ssr package.
+Requires updating all auth imports.
+
+Migration guide: docs/AUTH_MIGRATION.md
+
+🤖 Generated with Claude Code
+```
+
+### Commit Guidelines
+
+1. **Use imperative mood:** "add" not "added"
+2. **Keep first line under 72 characters**
+3. **Reference issues:** `Closes #123`, `Fixes #456`
+4. **Explain WHY, not WHAT** in the body
+5. **Use Spanish for user-facing changes**
+
+---
+
+## Deployment Procedures
+
+### Pre-Deployment Checklist
+
+```bash
+# ✅ RUN BEFORE EVERY DEPLOYMENT
+
+# 1. Validate TypeScript
+bun run build
+
+# 2. Run linting
+bun run check
+
+# 3. Run tests
+bun test
+
+# 4. Check for type errors
+bun run tsc --noEmit
+
+# 5. Validate environment variables
+# Ensure all required vars are in Vercel dashboard
+```
+
+### Environment Setup (Vercel)
+
+**Production Environment Variables:**
+```bash
+# Database
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+
+# Auth
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=https://maidconnect.com
+
+# Payments
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+
+# Email
+RESEND_API_KEY=
+
+# Monitoring
+LOGTAIL_SOURCE_TOKEN=
+
+# Rate Limiting
+UPSTASH_REDIS_REST_URL=
+UPSTASH_REDIS_REST_TOKEN=
+```
+
+### Deployment Steps
+
+```bash
+# 1. Create feature branch
+git checkout -b feat/your-feature
+
+# 2. Commit with conventional commits
+git add .
+git commit -m "feat(scope): description"
+
+# 3. Push to GitHub
+git push origin feat/your-feature
+
+# 4. Create PR
+# Vercel will automatically create preview deployment
+
+# 5. After review, merge to main
+# Vercel will automatically deploy to production
+```
+
+### Database Migrations in Production
+
+```bash
+# ⚠️ CRITICAL: Test migrations on staging first
+
+# 1. Create migration
+supabase migration new your_migration_name
+
+# 2. Write migration SQL (see guidelines above)
+
+# 3. Test locally
+supabase db reset
+bun run dev  # Verify application works
+
+# 4. Commit migration
+git add supabase/migrations/
+git commit -m "feat(db): add migration description"
+
+# 5. Deploy
+# Migrations run automatically via Supabase dashboard
+```
+
+### Rollback Procedure
+
+**If deployment fails:**
+
+1. **Instant Rollback in Vercel:**
+   - Go to Vercel Dashboard > Deployments
+   - Find previous working deployment
+   - Click "Promote to Production"
+
+2. **Database Rollback:**
+   ```sql
+   -- Create rollback migration
+   -- supabase/migrations/TIMESTAMP_rollback_migration_name.sql
+
+   -- Reverse your changes
+   DROP TABLE IF EXISTS new_table;
+   ALTER TABLE existing_table DROP COLUMN new_column;
+   ```
+
+3. **Notify Team:**
+   - Post in team Slack/Discord
+   - Document what went wrong
+   - Create issue for proper fix
+
+### Performance Optimization
+
+**Before production:**
+
+```bash
+# 1. Analyze bundle size
+bun run analyze
+
+# 2. Check for large dependencies
+# Review the bundle analyzer output
+# Look for:
+# - Duplicate dependencies
+# - Large libraries that could be lazy-loaded
+# - Unused exports
+
+# 3. Optimize images
+# Ensure all images use Next.js Image component
+# Check image formats (prefer AVIF/WebP)
+
+# 4. Check Lighthouse scores
+# Aim for 90+ on all metrics
+```
+
+---
+
+## Additional Guidelines
+
+### i18n (Internationalization)
+
+```typescript
+// ✅ CORRECT: Use next-intl
+import { useTranslations } from 'next-intl';
+
+export function BookingCard() {
+  const t = useTranslations('bookings');
+
+  return (
+    <Card>
+      <h3>{t('title')}</h3>
+      <p>{t('description', { count: 5 })}</p>
+    </Card>
+  );
+}
+
+// ❌ WRONG: Hardcoded strings
+<h3>Booking Details</h3>
+```
+
+### Error Handling
+
+```typescript
+// ✅ CORRECT: Comprehensive error handling
+try {
+  const result = await someOperation();
+  return { success: true, data: result };
+} catch (error) {
+  // 1. Log to monitoring service
+  console.error('Operation failed:', error);
+
+  // 2. Return user-friendly error
+  if (error instanceof ZodError) {
+    return {
+      success: false,
+      error: 'Invalid input data'
+    };
+  }
+
+  if (error instanceof PostgrestError) {
+    return {
+      success: false,
+      error: 'Database operation failed'
+    };
+  }
+
+  return {
+    success: false,
+    error: 'An unexpected error occurred'
+  };
+}
+```
+
+### Code Review Checklist
+
+Before requesting review:
+- [ ] TypeScript strict mode passing
+- [ ] All tests passing
+- [ ] Biome checks passing
+- [ ] No console.logs (except error logging)
+- [ ] Security considerations addressed
+- [ ] RLS policies tested
+- [ ] i18n strings added
+- [ ] Conventional commit message
+- [ ] Migration tested locally (if applicable)
+
+---
+
+## Questions or Issues?
+
+1. **Check existing code:** Search codebase for similar patterns
+2. **Use Exa MCP:** Research best practices for your specific case
+3. **Consult documentation:** See links in each section
+4. **Ask team:** Create GitHub issue or discussion
+
+---
+
+**Last Updated:** 2025-11-05
+**Version:** 1.0.0

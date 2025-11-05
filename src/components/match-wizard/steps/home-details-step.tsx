@@ -1,6 +1,12 @@
 "use client";
 
-import { Bathtub01Icon, Building01Icon, Home01Icon, Home01Icon as HomeIcon } from "hugeicons-react";
+import {
+  Bathtub01Icon,
+  Building01Icon,
+  Home01Icon,
+  Home01Icon as HomeIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import type { WizardData } from "../match-wizard";
 
@@ -20,7 +26,7 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
       {/* Icon */}
       <div className="flex justify-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--foreground)]/5">
-          <HomeIcon className="h-8 w-8 text-[var(--foreground)]" />
+          <HugeiconsIcon className="h-8 w-8 text-[var(--foreground)]" icon={HomeIcon} />
         </div>
       </div>
 
@@ -44,7 +50,7 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
             className="mb-2 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm"
             htmlFor="bedrooms"
           >
-            <Building01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Building01Icon} />
             {t("bedroomsLabel", { defaultValue: "Bedrooms" })}
           </label>
           <select
@@ -70,7 +76,7 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
             className="mb-2 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm"
             htmlFor="bathrooms"
           >
-            <Bathtub01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Bathtub01Icon} />
             {t("bathroomsLabel", { defaultValue: "Bathrooms" })}
           </label>
           <select
@@ -118,7 +124,7 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
               type="checkbox"
             />
             <div className="flex flex-1 items-center gap-2">
-              <Home01Icon className="h-5 w-5 text-[var(--foreground)]" />
+              <HugeiconsIcon className="h-5 w-5 text-[var(--foreground)]" icon={Home01Icon} />
               <span className="font-medium text-[var(--foreground)]">
                 {t("hasPetsLabel", { defaultValue: "I have pets" })}
               </span>

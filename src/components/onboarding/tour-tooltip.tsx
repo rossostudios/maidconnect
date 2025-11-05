@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowLeft01Icon, ArrowRight01Icon, Cancel01Icon } from "hugeicons-react";
+import { ArrowLeft01Icon, ArrowRight01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useRef, useState } from "react";
 import { TourStep } from "@/hooks/use-onboarding-tour";
 
@@ -162,7 +163,7 @@ export function TourTooltip({
           onClick={onClose}
           type="button"
         >
-          <Cancel01Icon className="h-4 w-4" />
+          <HugeiconsIcon className="h-4 w-4" icon={Cancel01Icon} />
         </button>
 
         {/* Progress bar */}
@@ -192,7 +193,7 @@ export function TourTooltip({
                 onClick={onPrevious}
                 type="button"
               >
-                <ArrowLeft01Icon className="h-4 w-4" />
+                <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
                 Back
               </button>
             )}
@@ -213,7 +214,7 @@ export function TourTooltip({
               type="button"
             >
               {isLastStep ? "Finish" : "Next"}
-              <ArrowRight01Icon className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={ArrowRight01Icon} />
             </button>
           </div>
         </div>

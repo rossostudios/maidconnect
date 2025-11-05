@@ -9,7 +9,8 @@ import {
   Settings02Icon,
   StarIcon,
   ViewIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -271,7 +272,7 @@ const ProfessionalsDirectoryComponent = memo(
                   onClick={() => setIsFilterSheetOpen(true)}
                   type="button"
                 >
-                  <Settings02Icon className="h-5 w-5" />
+                  <HugeiconsIcon className="h-5 w-5" icon={Settings02Icon} />
                   Filters
                   {activeFilterCount > 0 && (
                     <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[var(--red)] px-2 font-semibold text-white text-xs">
@@ -284,7 +285,7 @@ const ProfessionalsDirectoryComponent = memo(
               {/* Desktop Filter Controls - Hidden on mobile */}
               <div className="hidden flex-wrap items-center gap-4 font-semibold text-[#5a5549] text-sm md:flex">
                 <label className="flex items-center gap-2.5">
-                  <FilterIcon className="h-5 w-5 text-[var(--foreground)]" />
+                  <HugeiconsIcon className="h-5 w-5 text-[var(--foreground)]" icon={FilterIcon} />
                   <span>{t("filters.service")}</span>
                   <select
                     className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[var(--foreground)] focus:outline-none"
@@ -300,7 +301,10 @@ const ProfessionalsDirectoryComponent = memo(
                 </label>
 
                 <label className="flex items-center gap-2.5">
-                  <Location01Icon className="h-5 w-5 text-[var(--foreground)]" />
+                  <HugeiconsIcon
+                    className="h-5 w-5 text-[var(--foreground)]"
+                    icon={Location01Icon}
+                  />
                   <span>{t("filters.city")}</span>
                   <select
                     className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[var(--foreground)] focus:outline-none"
@@ -316,7 +320,10 @@ const ProfessionalsDirectoryComponent = memo(
                 </label>
 
                 <label className="flex items-center gap-2.5">
-                  <Settings02Icon className="h-5 w-5 text-[var(--foreground)]" />
+                  <HugeiconsIcon
+                    className="h-5 w-5 text-[var(--foreground)]"
+                    icon={Settings02Icon}
+                  />
                   <span>{t("filters.rating")}</span>
                   <select
                     className="rounded-full border border-[#e2ddd2] bg-[#fbfafa] px-4 py-2 text-sm transition focus:border-[var(--foreground)] focus:outline-none"
@@ -387,7 +394,7 @@ const ProfessionalsDirectoryComponent = memo(
                           {professional.service ?? t("card.flexibleServices")}
                         </p>
                         <div className="flex items-center gap-1.5 text-[#7d7566] text-sm">
-                          <Location01Icon className="h-4 w-4" />
+                          <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
                           <span>{professional.location}</span>
                         </div>
                       </div>
@@ -400,7 +407,10 @@ const ProfessionalsDirectoryComponent = memo(
                         className="rounded-full border-2 border-[var(--foreground)] bg-white p-2.5 transition hover:bg-[#f5f2ed]"
                         type="button"
                       >
-                        <FavouriteIcon className="h-5 w-5 text-[var(--foreground)]" />
+                        <HugeiconsIcon
+                          className="h-5 w-5 text-[var(--foreground)]"
+                          icon={FavouriteIcon}
+                        />
                       </button>
                       <Link
                         className="flex-1 rounded-full border-2 border-[var(--foreground)] bg-white px-6 py-2.5 text-center font-semibold text-[var(--foreground)] text-sm transition hover:bg-[#f5f2ed] sm:flex-none"
@@ -417,13 +427,15 @@ const ProfessionalsDirectoryComponent = memo(
                     const getIcon = (iconName: string) => {
                       switch (iconName) {
                         case "eye":
-                          return <ViewIcon className="h-3.5 w-3.5" />;
+                          return <HugeiconsIcon className="h-3.5 w-3.5" icon={ViewIcon} />;
                         case "calendar":
-                          return <Calendar01Icon className="h-3.5 w-3.5" />;
+                          return <HugeiconsIcon className="h-3.5 w-3.5" icon={Calendar01Icon} />;
                         case "trending":
-                          return <AnalyticsUpIcon className="h-3.5 w-3.5" />;
+                          return <HugeiconsIcon className="h-3.5 w-3.5" icon={AnalyticsUpIcon} />;
                         case "star":
-                          return <StarIcon className="h-3.5 w-3.5 fill-current" />;
+                          return (
+                            <HugeiconsIcon className="h-3.5 w-3.5 fill-current" icon={StarIcon} />
+                          );
                         default:
                           return null;
                       }
@@ -485,7 +497,10 @@ const ProfessionalsDirectoryComponent = memo(
                     {/* Rating */}
                     {professional.rating !== undefined && professional.rating > 0 && (
                       <div className="flex items-center gap-1.5">
-                        <StarIcon className="h-4 w-4 fill-[var(--foreground)] text-[var(--foreground)]" />
+                        <HugeiconsIcon
+                          className="h-4 w-4 fill-[var(--foreground)] text-[var(--foreground)]"
+                          icon={StarIcon}
+                        />
                         <span className="font-semibold text-[var(--foreground)]">
                           {professional.rating.toFixed(1)}
                         </span>
@@ -520,7 +535,10 @@ const ProfessionalsDirectoryComponent = memo(
 
                     {!showEnhancedTrustBadges && (
                       <span className="inline-flex items-center gap-1 rounded-full bg-[#fbfafa] px-3 py-1.5 font-semibold text-[#5a5549]">
-                        <StarIcon className="h-3.5 w-3.5 text-[var(--foreground)]" />
+                        <HugeiconsIcon
+                          className="h-3.5 w-3.5 text-[var(--foreground)]"
+                          icon={StarIcon}
+                        />
                         {t("card.newBadge")}
                       </span>
                     )}

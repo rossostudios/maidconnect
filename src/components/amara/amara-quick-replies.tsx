@@ -1,4 +1,7 @@
-"use client";
+import { Calendar01Icon, Location01Icon, Search01Icon, StarIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+
+("use client");
 
 /**
  * Amara Quick Replies Component
@@ -6,8 +9,6 @@
  * Displays contextual quick reply buttons to guide user interactions.
  * Provides common actions like searching for professionals, checking availability, etc.
  */
-
-import { Calendar01Icon, Location01Icon, Search01Icon, StarIcon } from "hugeicons-react";
 
 export type QuickReply = {
   id: string;
@@ -62,22 +63,22 @@ export function getContextualQuickReplies(
       {
         id: "search",
         text: t?.("quickReply.searchProfessionals") || "Find a cleaner",
-        icon: <Search01Icon className="h-4 w-4" />,
+        icon: <HugeiconsIcon className="h-4 w-4" icon={Search01Icon} />,
       },
       {
         id: "availability",
         text: t?.("quickReply.checkAvailability") || "Check availability",
-        icon: <Calendar01Icon className="h-4 w-4" />,
+        icon: <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />,
       },
       {
         id: "topRated",
         text: t?.("quickReply.topRated") || "Top rated cleaners",
-        icon: <StarIcon className="h-4 w-4" />,
+        icon: <HugeiconsIcon className="h-4 w-4" icon={StarIcon} />,
       },
       {
         id: "nearMe",
         text: t?.("quickReply.nearMe") || "Cleaners near me",
-        icon: <Location01Icon className="h-4 w-4" />,
+        icon: <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />,
       },
     ];
   }
@@ -91,17 +92,17 @@ export function getContextualQuickReplies(
       {
         id: "check-availability",
         text: t?.("quickReply.checkTheirAvailability") || "Check their availability",
-        icon: <Calendar01Icon className="h-4 w-4" />,
+        icon: <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />,
       },
       {
         id: "search-different",
         text: t?.("quickReply.searchDifferent") || "Search different area",
-        icon: <Location01Icon className="h-4 w-4" />,
+        icon: <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />,
       },
       {
         id: "see-reviews",
         text: t?.("quickReply.seeReviews") || "See their reviews",
-        icon: <StarIcon className="h-4 w-4" />,
+        icon: <HugeiconsIcon className="h-4 w-4" icon={StarIcon} />,
       },
     ];
   }
@@ -116,7 +117,7 @@ export function getContextualQuickReplies(
       {
         id: "check-other-times",
         text: t?.("quickReply.checkOtherTimes") || "Check other times",
-        icon: <Calendar01Icon className="h-4 w-4" />,
+        icon: <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />,
       },
     ];
   }

@@ -1,7 +1,8 @@
 "use client";
 
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { Command } from "cmdk";
-import { Cancel01Icon } from "hugeicons-react";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "@/i18n/routing";
 import type { AppRole } from "@/lib/auth";
@@ -278,7 +279,7 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
               onClick={onClose}
               type="button"
             >
-              <Cancel01Icon className="h-5 w-5" />
+              <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
             </button>
           </div>
 

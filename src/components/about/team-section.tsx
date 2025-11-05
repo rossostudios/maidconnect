@@ -14,7 +14,8 @@ import {
   Location01Icon,
   Message01Icon,
   UserGroupIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 
 export function TeamSection() {
@@ -58,7 +59,7 @@ export function TeamSection() {
         <div className="mx-auto mb-12 max-w-4xl rounded-2xl border border-[#ebe5d8] bg-white p-8 shadow-[var(--shadow-card)] sm:p-12">
           <div className="mb-8 flex items-start gap-4">
             <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-[var(--red)]/10">
-              <Location01Icon className="h-6 w-6 text-[var(--red)]" />
+              <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={Location01Icon} />
             </div>
             <div>
               <h3 className="mb-2 font-semibold text-[var(--foreground)] text-xl">
@@ -95,28 +96,26 @@ export function TeamSection() {
 
         {/* Team Benefits Grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {teamBenefits.map((benefit, index) => {
-            const Icon = benefit.icon;
-            return (
-              <div
-                className="rounded-xl border border-[#ebe5d8] bg-white p-6 shadow-[var(--shadow-subtle)] transition hover:shadow-[var(--shadow-card)]"
-                key={index}
-              >
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--red)]/10">
-                  <Icon className="h-6 w-6 text-[var(--red)]" />
-                </div>
-                <h4 className="mb-2 font-semibold text-[var(--foreground)]">
-                  {t(benefit.titleKey)}
-                </h4>
-                <p className="text-[var(--muted-foreground)] text-sm">{t(benefit.descKey)}</p>
+          {teamBenefits.map((benefit, index) => (
+            <div
+              className="rounded-xl border border-[#ebe5d8] bg-white p-6 shadow-[var(--shadow-subtle)] transition hover:shadow-[var(--shadow-card)]"
+              key={index}
+            >
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--red)]/10">
+                <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={benefit.icon} />
               </div>
-            );
-          })}
+              <h4 className="mb-2 font-semibold text-[var(--foreground)]">{t(benefit.titleKey)}</h4>
+              <p className="text-[var(--muted-foreground)] text-sm">{t(benefit.descKey)}</p>
+            </div>
+          ))}
         </div>
 
         {/* Join Team CTA */}
         <div className="mx-auto mt-12 max-w-2xl rounded-2xl border border-[var(--red)]/20 bg-[var(--red)]/5 p-8 text-center">
-          <UserGroupIcon className="mx-auto mb-4 h-12 w-12 text-[var(--red)]" />
+          <HugeiconsIcon
+            className="mx-auto mb-4 h-12 w-12 text-[var(--red)]"
+            icon={UserGroupIcon}
+          />
           <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">
             {t("joinTeam.title")}
           </h3>

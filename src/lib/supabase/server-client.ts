@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
+import { unstable_noStore as noStore } from "next/cache";
 import { cookies } from "next/headers";
 
 type CookieOptions = {
@@ -13,6 +14,8 @@ type CookieOptions = {
 };
 
 export async function createSupabaseServerClient() {
+  // Opt out of static generation when accessing cookies
+  noStore();
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -26,14 +29,17 @@ export async function createSupabaseServerClient() {
 
   return createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
-      get(name: string) {
-        return cookieStore.get(name)?.value;
+      getAll() {
+        return cookieStore.getAll();
       },
-      set(name: string, value: string, options?: CookieOptions) {
-        cookieStore.set(name, value, options);
-      },
-      remove(name: string) {
-        cookieStore.delete(name);
+      setAll(cookiesToSet) {
+        try {
+          cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
+        } catch {
+          // The `setAll` method was called from a Server Component.
+          // This can be ignored if you have middleware refreshing
+          // user sessions.
+        }
       },
     },
   });

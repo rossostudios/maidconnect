@@ -1,7 +1,8 @@
 "use client";
 
+import { Calendar01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Calendar01Icon } from "hugeicons-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -90,7 +91,7 @@ export function BrandedDatePicker({
         >
           {selectedDate ? formatDisplayDate(selectedDate) : placeholder}
         </span>
-        <Calendar01Icon className="h-5 w-5 text-[var(--muted-foreground)]" />
+        <HugeiconsIcon className="h-5 w-5 text-[var(--muted-foreground)]" icon={Calendar01Icon} />
       </button>
 
       {/* Calendar Dropdown */}

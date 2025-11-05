@@ -1,6 +1,7 @@
 "use client";
 
-import { Globe02Icon } from "hugeicons-react";
+import { Globe02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useLocale } from "next-intl";
 import { useState } from "react";
 import { type Locale } from "@/i18n";
@@ -43,7 +44,7 @@ export function StickyLanguageSwitcher() {
           onClick={() => setIsOpen(!isOpen)}
           type="button"
         >
-          <Globe02Icon className="h-4 w-4" />
+          <HugeiconsIcon className="h-4 w-4" icon={Globe02Icon} />
           <span className="hidden sm:inline">{currentLanguage.flag}</span>
           <span className="hidden sm:inline">{currentLanguage.name}</span>
           <span className="sm:hidden">{currentLanguage.code.toUpperCase()}</span>
@@ -65,7 +66,9 @@ export function StickyLanguageSwitcher() {
               className="fixed inset-0 z-40"
               onClick={() => setIsOpen(false)}
               onKeyDown={(e) => {
-                if (e.key === "Escape") setIsOpen(false);
+                if (e.key === "Escape") {
+                  setIsOpen(false);
+                }
               }}
               role="button"
               tabIndex={-1}

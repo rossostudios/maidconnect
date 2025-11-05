@@ -6,7 +6,8 @@
 
 "use client";
 
-import { Cancel01Icon, FloppyDiskIcon, ViewIcon } from "hugeicons-react";
+import { Cancel01Icon, FloppyDiskIcon, ViewIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "@/i18n/routing";
 import type {
@@ -352,7 +353,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
           onClick={() => router.back()}
           type="button"
         >
-          <Cancel01Icon className="mr-2 inline" size={20} />
+          <HugeiconsIcon className="mr-2 inline" icon={Cancel01Icon} size={20} />
           Cancel
         </button>
 
@@ -363,7 +364,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
             onClick={(e) => handleSubmit(e, true)}
             type="button"
           >
-            <FloppyDiskIcon className="mr-2 inline" size={20} />
+            <HugeiconsIcon className="mr-2 inline" icon={FloppyDiskIcon} size={20} />
             Save Draft
           </button>
 
@@ -373,7 +374,7 @@ export function RoadmapEditor({ mode, initialData }: RoadmapEditorProps) {
             onClick={(e) => handleSubmit(e, false)}
             type="submit"
           >
-            <ViewIcon className="mr-2 inline" size={20} />
+            <HugeiconsIcon className="mr-2 inline" icon={ViewIcon} size={20} />
             {visibility === "published" ? "Update & Publish" : "Publish"}
           </button>
         </div>

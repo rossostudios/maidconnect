@@ -6,7 +6,8 @@
 
 "use client";
 
-import { ArrowUp01Icon } from "hugeicons-react";
+import { ArrowUp01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import { useRoadmapVote } from "@/hooks/use-roadmap-vote";
 import { useRouter } from "@/i18n/routing";
@@ -82,8 +83,9 @@ export function RoadmapVoteButton({
         title={hasVoted ? "Remove your vote" : "Upvote this item"}
         type="button"
       >
-        <ArrowUp01Icon
+        <HugeiconsIcon
           className={`transition-transform ${hasVoted ? "scale-110" : ""}`}
+          icon={ArrowUp01Icon}
           size={iconSizes[size]}
         />
         <span className="font-bold">{voteCount}</span>

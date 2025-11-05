@@ -1,4 +1,10 @@
-import { BubbleChatIcon, CheckmarkCircle02Icon, Image01Icon, Shield01Icon } from "hugeicons-react";
+import {
+  BubbleChatIcon,
+  CheckmarkCircle02Icon,
+  Image01Icon,
+  Shield01Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
@@ -166,7 +172,7 @@ export default async function SecureMessagingPage({ params }: Props) {
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">
@@ -180,7 +186,7 @@ export default async function SecureMessagingPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">
@@ -194,7 +200,7 @@ export default async function SecureMessagingPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">
@@ -208,7 +214,7 @@ export default async function SecureMessagingPage({ params }: Props) {
 
               <div className="flex items-start gap-4">
                 <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-                  <CheckmarkCircle02Icon className="h-5 w-5 text-white" />
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[var(--foreground)] text-xl">

@@ -9,7 +9,8 @@ import {
   StarIcon,
   UserCheck01Icon,
   UserGroupIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 
 type TimelineStep = {
@@ -45,7 +46,7 @@ export function ProcessTimeline({ steps, translationNamespace }: ProcessTimeline
       {/* Steps */}
       <div className="space-y-8">
         {steps.map((step, index) => {
-          const Icon = iconMap[step.iconName as keyof typeof iconMap];
+          const icon = iconMap[step.iconName as keyof typeof iconMap];
 
           return (
             <div className="relative flex gap-6 md:gap-8" key={index}>
@@ -61,7 +62,7 @@ export function ProcessTimeline({ steps, translationNamespace }: ProcessTimeline
               <div className="flex-1 pb-8">
                 <div className="rounded-xl border border-[#ebe5d8] bg-white p-6 shadow-[var(--shadow-subtle)] transition hover:shadow-[var(--shadow-card)]">
                   <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--red)]/10">
-                    <Icon className="h-7 w-7 text-[var(--red)]" />
+                    <HugeiconsIcon className="h-7 w-7 text-[var(--red)]" icon={icon} />
                   </div>
                   <h3 className="mb-2 font-semibold text-[var(--foreground)] text-xl">
                     {t(step.titleKey)}

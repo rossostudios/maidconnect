@@ -1,6 +1,7 @@
 "use client";
 
-import { InformationCircleIcon } from "hugeicons-react";
+import { InformationCircleIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import {
   OnTimeRateBadge,
@@ -52,7 +53,7 @@ export function TrustCard({ verificationLevel, onTimeRate, rating, reviewCount }
         className="mt-4 flex items-center gap-2 text-[var(--red)] text-sm transition hover:underline"
         href="/trust-safety"
       >
-        <InformationCircleIcon className="h-4 w-4" />
+        <HugeiconsIcon className="h-4 w-4" icon={InformationCircleIcon} />
         {t("explainerLink")}
       </a>
 

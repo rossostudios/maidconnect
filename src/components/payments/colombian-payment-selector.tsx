@@ -1,6 +1,7 @@
 "use client";
 
-import { CreditCardIcon } from "hugeicons-react";
+import { CreditCardIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
@@ -160,7 +161,7 @@ export function ColombianPaymentSelector({
 
       {/* Security Badge */}
       <div className="flex items-center justify-center gap-2 border-[#ebe5d8] border-t pt-4 text-[#6b7280] text-sm">
-        <CreditCardIcon className="h-5 w-5" />
+        <HugeiconsIcon className="h-5 w-5" icon={CreditCardIcon} />
         <span>{t("securityNote")}</span>
       </div>
     </div>

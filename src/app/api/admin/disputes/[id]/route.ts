@@ -1,0 +1,92 @@
+/**
+ * Admin Dispute Detail API
+ * GET /api/admin/disputes/[id] - Get dispute details
+ * PATCH /api/admin/disputes/[id] - Update dispute (assign, change status)
+ */
+
+import { NextResponse } from "next/server";
+import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+
+export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const { id } = await params;
+    await requireAdmin();
+    const supabase = await createSupabaseServerClient();
+
+    const { data: dispute, error } = await supabase
+      .from("disputes")
+      .select(`
+        *,
+        booking:bookings(*),
+        opener:profiles!disputes_opened_by_fkey(id, full_name, email, avatar_url),
+        assignee:profiles!disputes_assigned_to_fkey(id, full_name),
+        resolver:profiles!disputes_resolved_by_fkey(id, full_name)
+      `)
+      .eq("id", id)
+      .single();
+
+    if (error || !dispute) {
+      return NextResponse.json({ error: "Dispute not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ dispute });
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: error.message || "Failed to fetch dispute" },
+      { status: error.message === "Not authenticated" ? 401 : 500 }
+    );
+  }
+}
+
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const { id } = await params;
+    const admin = await requireAdmin();
+    const supabase = await createSupabaseServerClient();
+    const body = await request.json();
+
+    const updates: any = {};
+    if (body.status) {
+      updates.status = body.status;
+    }
+    if (body.priority) {
+      updates.priority = body.priority;
+    }
+    if (body.assigned_to !== undefined) {
+      updates.assigned_to = body.assigned_to;
+    }
+    if (body.resolution_notes) {
+      updates.resolution_notes = body.resolution_notes;
+    }
+
+    updates.updated_at = new Date().toISOString();
+
+    const { data, error } = await supabase
+      .from("disputes")
+      .update(updates)
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) {
+      return NextResponse.json({ error: "Failed to update dispute" }, { status: 500 });
+    }
+
+    await createAuditLog({
+      adminId: admin.id,
+      actionType: "resolve_dispute",
+      targetResourceType: "dispute",
+      targetResourceId: id,
+      details: updates,
+      notes: "Updated dispute",
+    });
+
+    return NextResponse.json({ success: true, dispute: data });
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: error.message || "Failed to update dispute" },
+      { status: error.message === "Not authenticated" ? 401 : 500 }
+    );
+  }
+}

@@ -154,25 +154,42 @@ export async function updateBooking(
     const supabase = await createSupabaseServerClient();
 
     const updateData: any = {};
-    if (input.scheduledDate) updateData.scheduled_date = input.scheduledDate;
-    if (input.scheduledStartTime) updateData.scheduled_start_time = input.scheduledStartTime;
-    if (input.scheduledEndTime) updateData.scheduled_end_time = input.scheduledEndTime;
-    if (input.serviceAddressId !== undefined)
+    if (input.scheduledDate) {
+      updateData.scheduled_date = input.scheduledDate;
+    }
+    if (input.scheduledStartTime) {
+      updateData.scheduled_start_time = input.scheduledStartTime;
+    }
+    if (input.scheduledEndTime) {
+      updateData.scheduled_end_time = input.scheduledEndTime;
+    }
+    if (input.serviceAddressId !== undefined) {
       updateData.service_address_id = input.serviceAddressId;
-    if (input.serviceAddressLine1 !== undefined)
+    }
+    if (input.serviceAddressLine1 !== undefined) {
       updateData.service_address_line1 = input.serviceAddressLine1;
-    if (input.serviceAddressLine2 !== undefined)
+    }
+    if (input.serviceAddressLine2 !== undefined) {
       updateData.service_address_line2 = input.serviceAddressLine2;
-    if (input.serviceAddressCity !== undefined)
+    }
+    if (input.serviceAddressCity !== undefined) {
       updateData.service_address_city = input.serviceAddressCity;
-    if (input.servicePostalCode !== undefined)
+    }
+    if (input.servicePostalCode !== undefined) {
       updateData.service_address_postal_code = input.servicePostalCode;
-    if (input.customerNotes !== undefined) updateData.customer_notes = input.customerNotes;
-    if (input.professionalNotes !== undefined)
+    }
+    if (input.customerNotes !== undefined) {
+      updateData.customer_notes = input.customerNotes;
+    }
+    if (input.professionalNotes !== undefined) {
       updateData.professional_notes = input.professionalNotes;
-    if (input.specialRequirements !== undefined)
+    }
+    if (input.specialRequirements !== undefined) {
       updateData.special_requirements = input.specialRequirements;
-    if (input.status) updateData.status = input.status;
+    }
+    if (input.status) {
+      updateData.status = input.status;
+    }
 
     const { data, error } = await supabase
       .from("bookings")

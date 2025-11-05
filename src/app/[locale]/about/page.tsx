@@ -1,4 +1,5 @@
-import { ArrowRight01Icon, CheckmarkCircle01Icon } from "hugeicons-react";
+import { ArrowRight01Icon, CheckmarkCircle01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -95,7 +96,7 @@ function TrustIndicators() {
           {indicators.map((indicator, index) => (
             <div className="text-center" key={index}>
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#6B7F5C]/10">
-                <CheckmarkCircle01Icon className="h-6 w-6 text-[#6B7F5C]" />
+                <HugeiconsIcon className="h-6 w-6 text-[#6B7F5C]" icon={CheckmarkCircle01Icon} />
               </div>
               <h3 className="mb-2 font-semibold text-[var(--foreground)]">
                 {t(indicator.titleKey)}
@@ -130,7 +131,7 @@ function CTASection() {
             href="/professionals"
           >
             {t("browseProfessionals")}
-            <ArrowRight01Icon className="h-5 w-5" />
+            <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
           </Link>
 
           <Link

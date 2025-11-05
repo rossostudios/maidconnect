@@ -1,6 +1,7 @@
 "use client";
 
-import { StarIcon } from "hugeicons-react";
+import { StarIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import type { PerformanceMetrics } from "@/types";
 
@@ -41,7 +42,7 @@ export function RatingDistribution({ metrics }: RatingDistributionProps) {
         </div>
         <div className="text-right">
           <div className="flex items-center gap-1">
-            <StarIcon className="h-5 w-5 fill-yellow-500 text-yellow-500" />
+            <HugeiconsIcon className="h-5 w-5 fill-yellow-500 text-yellow-500" icon={StarIcon} />
             <span className="font-bold text-2xl text-[var(--foreground)]">
               {metrics.averageRating.toFixed(2)}
             </span>
@@ -60,7 +61,10 @@ export function RatingDistribution({ metrics }: RatingDistributionProps) {
               {/* Star Label */}
               <div className="flex w-12 items-center gap-1">
                 <span className="font-medium text-[var(--foreground)] text-sm">{item.stars}</span>
-                <StarIcon className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+                <HugeiconsIcon
+                  className="h-4 w-4 fill-yellow-500 text-yellow-500"
+                  icon={StarIcon}
+                />
               </div>
 
               {/* Progress Bar */}

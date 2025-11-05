@@ -8,7 +8,8 @@ import {
   Sad01Icon,
   ThumbsUpIcon,
   UserIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { notFound } from "next/navigation";
 import { FeedbackActions } from "@/components/admin/feedback/feedback-actions";
 import { requireUser } from "@/lib/auth/session";
@@ -88,7 +89,7 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
                 <span
                   className={`flex items-center gap-2 rounded-full border px-4 py-1.5 font-semibold text-sm ${typeConf.color}`}
                 >
-                  <TypeIcon className="h-4 w-4" />
+                  <HugeiconsIcon className="h-4 w-4" icon={TypeIcon} />
                   {typeConf.label}
                 </span>
               )}
@@ -112,7 +113,7 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
       <div className="mb-6 grid gap-4 md:grid-cols-2">
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-4">
           <div className="mb-2 flex items-center gap-2 text-[#7a6d62] text-sm">
-            <UserIcon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={UserIcon} />
             <span className="font-semibold">User Information</span>
           </div>
           <dl className="space-y-1">
@@ -133,7 +134,7 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
 
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-4">
           <div className="mb-2 flex items-center gap-2 text-[#7a6d62] text-sm">
-            <Clock01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
             <span className="font-semibold">Submission Time</span>
           </div>
           <p className="font-medium text-[var(--foreground)] text-sm">
@@ -159,7 +160,7 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
       {/* Technical Context */}
       <div className="mb-6 rounded-2xl border border-[#ebe5d8] bg-white p-6">
         <div className="mb-4 flex items-center gap-2">
-          <ComputerIcon className="h-5 w-5 text-[#7a6d62]" />
+          <HugeiconsIcon className="h-5 w-5 text-[#7a6d62]" icon={ComputerIcon} />
           <h2 className="font-bold text-[var(--foreground)] text-xl">Technical Context</h2>
         </div>
 

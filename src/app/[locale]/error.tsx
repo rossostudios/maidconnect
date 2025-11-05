@@ -1,6 +1,7 @@
 "use client";
 
-import { Alert01Icon, Home01Icon, RefreshIcon } from "hugeicons-react";
+import { Alert01Icon, Home01Icon, RefreshIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect } from "react";
 import { Link } from "@/i18n/routing";
 
@@ -23,7 +24,7 @@ export default function ErrorPage({
           {/* Icon */}
           <div className="mb-6 flex justify-center">
             <div className="rounded-full bg-red-50 p-6">
-              <Alert01Icon className="h-12 w-12 text-red-500" />
+              <HugeiconsIcon className="h-12 w-12 text-red-500" icon={Alert01Icon} />
             </div>
           </div>
 
@@ -56,14 +57,14 @@ export default function ErrorPage({
               onClick={reset}
               type="button"
             >
-              <RefreshIcon className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={RefreshIcon} />
               Try Again
             </button>
             <Link
               className="flex items-center justify-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[var(--foreground)] transition hover:border-[var(--red)] hover:text-[var(--red)]"
               href="/"
             >
-              <Home01Icon className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={Home01Icon} />
               Go Home
             </Link>
           </div>

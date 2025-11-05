@@ -6,7 +6,8 @@ import {
   DollarCircleIcon,
   Edit02Icon,
   FlashIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import type { ServiceBundle } from "@/types";
 
@@ -59,7 +60,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
       {/* Stats */}
       <div className="mb-4 grid grid-cols-2 gap-4 border-[#e5e7eb] border-t pt-4">
         <div className="flex items-center gap-2">
-          <Clock01Icon className="h-5 w-5 text-[#6b7280]" />
+          <HugeiconsIcon className="h-5 w-5 text-[#6b7280]" icon={Clock01Icon} />
           <div>
             <p className="text-[#6b7280] text-xs">{t("totalDuration")}</p>
             <p className="font-semibold text-[var(--foreground)] text-sm">
@@ -69,7 +70,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
         </div>
 
         <div className="flex items-center gap-2">
-          <FlashIcon className="h-5 w-5 text-[#6b7280]" />
+          <HugeiconsIcon className="h-5 w-5 text-[#6b7280]" icon={FlashIcon} />
           <div>
             <p className="text-[#6b7280] text-xs">{t("usageCount")}</p>
             <p className="font-semibold text-[var(--foreground)] text-sm">
@@ -111,7 +112,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
           onClick={() => onQuickQuote(bundle.id)}
           type="button"
         >
-          <DollarCircleIcon className="h-5 w-5" />
+          <HugeiconsIcon className="h-5 w-5" icon={DollarCircleIcon} />
           {t("quickQuote")}
         </button>
 
@@ -121,7 +122,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
           onClick={() => onEdit(bundle.id)}
           type="button"
         >
-          <Edit02Icon className="h-5 w-5" />
+          <HugeiconsIcon className="h-5 w-5" icon={Edit02Icon} />
         </button>
 
         <button
@@ -130,7 +131,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
           onClick={() => onDelete(bundle.id)}
           type="button"
         >
-          <Delete02Icon className="h-5 w-5" />
+          <HugeiconsIcon className="h-5 w-5" icon={Delete02Icon} />
         </button>
       </div>
 

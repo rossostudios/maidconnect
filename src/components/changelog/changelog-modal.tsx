@@ -6,7 +6,8 @@ import {
   MagicWand01Icon,
   PaintBoardIcon,
   Shield01Icon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -117,7 +118,7 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
                 className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 font-medium text-sm ${config.color}`}
                 key={category}
               >
-                <Icon className="h-4 w-4" />
+                <HugeiconsIcon className="h-4 w-4" icon={Icon} />
                 {config.label}
               </span>
             );

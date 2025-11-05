@@ -1,6 +1,7 @@
 "use client";
 
-import { Clock01Icon } from "hugeicons-react";
+import { Clock01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useMemo, useState } from "react";
 import type { ProfessionalBookingSummary } from "@/components/professionals/types";
 import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
@@ -192,7 +193,11 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
                     className="flex items-center gap-2"
                     key={`${slot.day}-${slot.start}-${slot.end}-${index}`}
                   >
-                    <Clock01Icon aria-hidden="true" className="h-3.5 w-3.5 text-[var(--red)]" />
+                    <HugeiconsIcon
+                      aria-hidden="true"
+                      className="h-3.5 w-3.5 text-[var(--red)]"
+                      icon={Clock01Icon}
+                    />
                     <span>
                       {slot.start ?? "--"} – {slot.end ?? "--"}
                     </span>

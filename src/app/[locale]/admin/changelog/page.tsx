@@ -7,10 +7,16 @@ import {
   PaintBoardIcon,
   Shield01Icon,
   ViewIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
-import { requireUser } from "@/lib/auth/session";
+import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+
+export const metadata = {
+  title: "Changelog Management | Admin",
+  description: "Create, edit, and publish sprint updates",
+};
 
 type Changelog = {
   id: string;
@@ -74,31 +80,31 @@ export default async function AdminChangelogPage({
   };
 
   return (
-    <>
+    <section className="space-y-8">
       {/* Header */}
-      <header className="mb-8 flex items-start justify-between">
+      <div className="flex items-start justify-between">
         <div>
-          <h1 className="font-bold text-3xl">Changelog Management</h1>
-          <p className="mt-2 text-[var(--muted-foreground)] text-sm">
+          <h1 className="font-bold text-3xl text-[#171717]">Changelog Management</h1>
+          <p className="mt-2 text-[#737373] text-sm">
             Create, edit, and publish sprint updates for your users
           </p>
         </div>
         <Link
-          className="flex items-center gap-2 rounded-full bg-[var(--red)] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[var(--red)]"
+          className="flex items-center gap-2 rounded-lg bg-[#E63946] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#D32F40]"
           href="/admin/changelog/new"
         >
-          <Add01Icon className="h-4 w-4" />
+          <HugeiconsIcon className="h-4 w-4" icon={Add01Icon} />
           New Changelog
         </Link>
-      </header>
+      </div>
 
       {/* Status Filter Tabs */}
-      <div className="mb-6 flex gap-2 border-[#ebe5d8] border-b pb-4">
+      <div className="flex gap-2 border-[#E5E5E5] border-b pb-4">
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status
-              ? "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
-              : "bg-[var(--red)] text-white"
+              ? "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
+              : "bg-[#E63946] text-white"
           }`}
           href="/admin/changelog"
         >
@@ -107,8 +113,8 @@ export default async function AdminChangelogPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "draft"
-              ? "bg-[var(--red)] text-white"
-              : "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
+              ? "bg-[#E63946] text-white"
+              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
           }`}
           href="/admin/changelog?status=draft"
         >
@@ -117,8 +123,8 @@ export default async function AdminChangelogPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "published"
-              ? "bg-[var(--red)] text-white"
-              : "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
+              ? "bg-[#E63946] text-white"
+              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
           }`}
           href="/admin/changelog?status=published"
         >
@@ -127,8 +133,8 @@ export default async function AdminChangelogPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "archived"
-              ? "bg-[var(--red)] text-white"
-              : "border border-[#ebe5d8] text-[var(--muted-foreground)] hover:border-[var(--red)]"
+              ? "bg-[#E63946] text-white"
+              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
           }`}
           href="/admin/changelog?status=archived"
         >
@@ -138,17 +144,15 @@ export default async function AdminChangelogPage({
 
       {/* Changelogs List */}
       {changelogList.length === 0 ? (
-        <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
-          <MagicWand01Icon className="mx-auto mb-4 h-12 w-12 text-[#7a6d62]" />
-          <h3 className="mb-2 font-bold text-[var(--foreground)] text-xl">No Changelogs Yet</h3>
-          <p className="mb-6 text-[var(--muted-foreground)]">
-            Create your first changelog to get started
-          </p>
+        <div className="rounded-lg border border-[#E5E5E5] bg-white p-12 text-center">
+          <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-[#A3A3A3]" icon={MagicWand01Icon} />
+          <h3 className="mb-2 font-bold text-[#171717] text-xl">No Changelogs Yet</h3>
+          <p className="mb-6 text-[#737373]">Create your first changelog to get started</p>
           <Link
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--red)] px-6 py-3 font-semibold text-white transition hover:bg-[var(--red)]"
+            className="inline-flex items-center gap-2 rounded-lg bg-[#E63946] px-6 py-3 font-semibold text-white transition hover:bg-[#D32F40]"
             href="/admin/changelog/new"
           >
-            <Add01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Add01Icon} />
             Create Changelog
           </Link>
         </div>
@@ -156,14 +160,14 @@ export default async function AdminChangelogPage({
         <div className="space-y-4">
           {changelogList.map((changelog: Changelog) => (
             <article
-              className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[var(--red)]"
+              className="group rounded-lg border border-[#E5E5E5] bg-white p-6 shadow-sm transition hover:border-[#E63946]"
               key={changelog.id}
             >
               <div className="flex items-start justify-between gap-4">
                 {/* Content */}
                 <div className="flex-1">
                   <div className="mb-3 flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-[var(--red)20] px-3 py-1 font-semibold text-[var(--red)] text-xs">
+                    <span className="rounded-full bg-[#FEE2E2] px-3 py-1 font-semibold text-[#E63946] text-xs">
                       Sprint {changelog.sprint_number}
                     </span>
                     <span
@@ -171,7 +175,7 @@ export default async function AdminChangelogPage({
                     >
                       {changelog.visibility}
                     </span>
-                    <span className="text-[#7a6d62] text-xs">
+                    <span className="text-[#737373] text-xs">
                       {new Date(changelog.published_at).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "short",
@@ -180,14 +184,10 @@ export default async function AdminChangelogPage({
                     </span>
                   </div>
 
-                  <h2 className="mb-2 font-bold text-[var(--foreground)] text-xl">
-                    {changelog.title}
-                  </h2>
+                  <h2 className="mb-2 font-bold text-[#171717] text-xl">{changelog.title}</h2>
 
                   {changelog.summary && (
-                    <p className="mb-3 line-clamp-2 text-[var(--muted-foreground)] text-sm">
-                      {changelog.summary}
-                    </p>
+                    <p className="mb-3 line-clamp-2 text-[#737373] text-sm">{changelog.summary}</p>
                   )}
 
                   {/* Categories */}
@@ -206,7 +206,7 @@ export default async function AdminChangelogPage({
                             className={`flex items-center gap-1 rounded-full px-2 py-1 font-medium text-xs ${config.color}`}
                             key={category}
                           >
-                            <Icon className="h-3 w-3" />
+                            <HugeiconsIcon className="h-3 w-3" icon={Icon} />
                             {config.label}
                           </span>
                         );
@@ -218,19 +218,19 @@ export default async function AdminChangelogPage({
                 {/* Actions */}
                 <div className="flex flex-col gap-2">
                   <Link
-                    className="flex items-center gap-2 rounded-lg border border-[#ebe5d8] px-3 py-2 font-medium text-[var(--muted-foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)]"
+                    className="flex items-center gap-2 rounded-lg border border-[#E5E5E5] px-3 py-2 font-medium text-[#737373] text-sm transition hover:border-[#E63946] hover:text-[#E63946]"
                     href={`/changelog/${changelog.slug}`}
                     target="_blank"
                     title="Preview"
                   >
-                    <ViewIcon className="h-4 w-4" />
+                    <HugeiconsIcon className="h-4 w-4" icon={ViewIcon} />
                     Preview
                   </Link>
                   <Link
-                    className="flex items-center gap-2 rounded-lg bg-[var(--red)] px-3 py-2 font-medium text-sm text-white transition hover:bg-[var(--red)]"
+                    className="flex items-center gap-2 rounded-lg bg-[#E63946] px-3 py-2 font-medium text-sm text-white transition hover:bg-[#D32F40]"
                     href={`/admin/changelog/${changelog.id}/edit`}
                   >
-                    <Edit01Icon className="h-4 w-4" />
+                    <HugeiconsIcon className="h-4 w-4" icon={Edit01Icon} />
                     Edit
                   </Link>
                 </div>
@@ -239,6 +239,6 @@ export default async function AdminChangelogPage({
           ))}
         </div>
       )}
-    </>
+    </section>
   );
 }

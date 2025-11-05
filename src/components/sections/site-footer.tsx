@@ -1,4 +1,10 @@
-import { Facebook02Icon, InstagramIcon, Mail01Icon, NewTwitterIcon } from "hugeicons-react";
+import {
+  Facebook02Icon,
+  InstagramIcon,
+  Mail01Icon,
+  NewTwitterIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { FeedbackLink } from "@/components/feedback/feedback-link";
@@ -71,12 +77,12 @@ export async function SiteFooter() {
                 className="flex items-center gap-3 text-[var(--foreground)] text-base transition hover:text-[var(--red)]"
                 href="mailto:hello@casaora.com"
               >
-                <Mail01Icon className="h-5 w-5" strokeWidth={2} />
+                <HugeiconsIcon className="h-5 w-5" icon={Mail01Icon} strokeWidth={2} />
                 <span>hello@casaora.com</span>
               </a>
             </div>
             <div className="flex items-center gap-3 pt-4">
-              {socialLinks.map(({ label, href, icon: Icon }) => (
+              {socialLinks.map(({ label, href, icon }) => (
                 <a
                   aria-label={label}
                   className="rounded-full border border-[var(--border)] p-3 text-[var(--foreground)] transition-all hover:border-[var(--red)] hover:bg-[var(--red-light)] hover:text-[var(--red)]"
@@ -85,7 +91,7 @@ export async function SiteFooter() {
                   rel="noreferrer"
                   target="_blank"
                 >
-                  <Icon className="h-5 w-5" strokeWidth={2} />
+                  <HugeiconsIcon className="h-5 w-5" icon={icon} strokeWidth={2} />
                 </a>
               ))}
             </div>

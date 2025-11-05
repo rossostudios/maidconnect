@@ -1,7 +1,8 @@
 "use client";
 
+import { Location01Icon, StarIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import "leaflet/dist/leaflet.css";
-import { Location01Icon, StarIcon } from "hugeicons-react";
 import { Icon, type LatLngExpression } from "leaflet";
 import Image from "next/image";
 import { memo, useEffect, useMemo, useState } from "react";
@@ -118,7 +119,7 @@ const MapViewComponent = memo(
       return (
         <div className={`flex h-full items-center justify-center bg-gray-100 ${className}`}>
           <div className="flex flex-col items-center gap-2 text-gray-600">
-            <Location01Icon className="h-8 w-8 animate-pulse" />
+            <HugeiconsIcon className="h-8 w-8 animate-pulse" icon={Location01Icon} />
             <p className="text-sm">Loading map...</p>
           </div>
         </div>
@@ -195,7 +196,10 @@ const MapViewComponent = memo(
                         {/* Rating */}
                         {professional.rating && professional.reviewCount ? (
                           <div className="mb-1 flex items-center gap-1 text-xs">
-                            <StarIcon className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                            <HugeiconsIcon
+                              className="h-3 w-3 fill-yellow-400 text-yellow-400"
+                              icon={StarIcon}
+                            />
                             <span className="font-semibold text-gray-900">
                               {professional.rating.toFixed(1)}
                             </span>
@@ -231,7 +235,10 @@ const MapViewComponent = memo(
         {professionalsWithCoords.length === 0 && (
           <div className="absolute inset-0 flex items-center justify-center bg-white/80">
             <div className="text-center">
-              <Location01Icon className="mx-auto mb-2 h-12 w-12 text-gray-400" />
+              <HugeiconsIcon
+                className="mx-auto mb-2 h-12 w-12 text-gray-400"
+                icon={Location01Icon}
+              />
               <p className="font-medium text-gray-900">No professionals found on map</p>
               <p className="text-gray-600 text-sm">Try adjusting your filters or search criteria</p>
             </div>

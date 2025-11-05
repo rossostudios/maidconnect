@@ -1,4 +1,5 @@
-import { CheckmarkCircle01Icon, SecurityCheckIcon, Tick02Icon } from "hugeicons-react";
+import { CheckmarkCircle01Icon, SecurityCheckIcon, Tick02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 export type VerificationLevel = "none" | "basic" | "enhanced" | "background-check";
 
@@ -41,7 +42,7 @@ export function VerificationBadge({ level, size = "sm" }: VerificationBadgeProps
     },
   };
 
-  const { icon: Icon, label, bgColor, textColor, iconColor } = config[level];
+  const { icon, label, bgColor, textColor, iconColor } = config[level];
 
   const sizeConfig = {
     sm: {
@@ -61,13 +62,13 @@ export function VerificationBadge({ level, size = "sm" }: VerificationBadgeProps
     },
   };
 
-  const { padding, text, icon } = sizeConfig[size];
+  const { padding, text, icon: iconSize } = sizeConfig[size];
 
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full font-semibold ${bgColor} ${textColor} ${padding} ${text}`}
     >
-      <Icon className={`${icon} ${iconColor}`} />
+      <HugeiconsIcon className={`${iconSize} ${iconColor}`} icon={icon} />
       {label}
     </span>
   );

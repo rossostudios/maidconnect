@@ -227,9 +227,15 @@ export async function getCalendarHealth(profileId: string): Promise<GetCalendarH
 
     // Calculate health score
     let healthScore = 0;
-    if (hasWorkingHours) healthScore += 40;
-    if (hasServiceRadius) healthScore += 30;
-    if (hasTravelBuffers) healthScore += 30;
+    if (hasWorkingHours) {
+      healthScore += 40;
+    }
+    if (hasServiceRadius) {
+      healthScore += 30;
+    }
+    if (hasTravelBuffers) {
+      healthScore += 30;
+    }
 
     // Generate recommendations
     const recommendations: string[] = [];

@@ -1,6 +1,7 @@
 "use client";
 
-import { MagicWand01Icon, StarIcon } from "hugeicons-react";
+import { MagicWand01Icon, StarIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/routing";
 import { formatCOP } from "@/lib/format";
@@ -123,7 +124,7 @@ export function SimilarProfessionals({
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2 text-[var(--foreground)]">
-        <MagicWand01Icon className="h-5 w-5 text-[var(--red)]" />
+        <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={MagicWand01Icon} />
         <h2 className="font-semibold text-lg">Similar to {currentProfessionalName}</h2>
       </div>
 
@@ -141,7 +142,10 @@ export function SimilarProfessionals({
                   {pro.matchScore}% Match
                 </span>
                 <div className="flex items-center gap-1">
-                  <StarIcon className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                  <HugeiconsIcon
+                    className="h-4 w-4 fill-yellow-400 text-yellow-400"
+                    icon={StarIcon}
+                  />
                   <span className="font-semibold text-[var(--foreground)] text-sm">
                     {pro.rating.toFixed(1)}
                   </span>

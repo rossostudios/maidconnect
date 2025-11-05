@@ -1,6 +1,7 @@
 "use client";
 
-import { FilterIcon } from "hugeicons-react";
+import { FilterIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { getBookings } from "@/app/actions/bookings";
@@ -58,10 +59,12 @@ export function BookingList({
 
   useEffect(() => {
     loadBookings();
-  }, [userId, role, filter]);
+  }, [loadBookings]);
 
   const getStatusCount = (status: FilterStatus) => {
-    if (status === "all") return bookings.length;
+    if (status === "all") {
+      return bookings.length;
+    }
     return bookings.filter((b) => b.status === status).length;
   };
 
@@ -111,7 +114,7 @@ export function BookingList({
 
       {/* Filter Tabs */}
       <div className="flex items-center gap-2 overflow-x-auto">
-        <FilterIcon className="h-5 w-5 flex-shrink-0 text-[#6b7280]" />
+        <HugeiconsIcon className="h-5 w-5 flex-shrink-0 text-[#6b7280]" icon={FilterIcon} />
         {filterButtons.map(({ key, label }) => (
           <button
             className={`flex-shrink-0 rounded-lg px-4 py-2 font-medium text-sm transition ${

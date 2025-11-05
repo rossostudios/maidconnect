@@ -1,6 +1,7 @@
 "use client";
 
-import { Clock01Icon, Location01Icon, UserIcon } from "hugeicons-react";
+import { Clock01Icon, Location01Icon, UserIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import type { BookingWithDetails } from "@/types";
 import { BookingStatusBadge } from "./booking-status-badge";
@@ -73,7 +74,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
       <div className="mb-4 space-y-3">
         {/* Date & Time */}
         <div className="flex items-center gap-2 text-[#6b7280] text-sm">
-          <Clock01Icon className="h-4 w-4" />
+          <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
           <span>
             {formatDate(booking.scheduledDate)} • {formatTime(booking.scheduledStartTime)} -{" "}
             {formatTime(booking.scheduledEndTime)}
@@ -83,7 +84,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
         {/* Other Party */}
         {otherParty && (
           <div className="flex items-center gap-2 text-[#6b7280] text-sm">
-            <UserIcon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={UserIcon} />
             <span>
               {role === "customer" ? t("professional") : t("customer")}: {otherParty.fullName}
             </span>
@@ -93,7 +94,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
         {/* Location */}
         {booking.serviceAddressCity && (
           <div className="flex items-center gap-2 text-[#6b7280] text-sm">
-            <Location01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
             <span className="line-clamp-1">
               {booking.serviceAddressLine1}, {booking.serviceAddressCity}
             </span>

@@ -1,6 +1,7 @@
 "use client";
 
-import { Cancel01Icon } from "hugeicons-react";
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useRef } from "react";
 
 export type BaseModalProps = {
@@ -121,7 +122,7 @@ export function BaseModal({
       }
 
       const firstElement = focusableElements[0] as HTMLElement;
-      const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+      const lastElement = focusableElements.at(-1) as HTMLElement;
 
       if (e.shiftKey) {
         // Shift + Tab
@@ -196,7 +197,7 @@ export function BaseModal({
                 onClick={onClose}
                 type="button"
               >
-                <Cancel01Icon className="h-5 w-5" />
+                <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
               </button>
             )}
           </div>

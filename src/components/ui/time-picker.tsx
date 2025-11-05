@@ -1,4 +1,5 @@
-import { ArrowRight01Icon, Clock01Icon } from "hugeicons-react";
+import { ArrowRight01Icon, Clock01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -74,14 +75,19 @@ export function TimePicker({
         type="button"
       >
         <span className="flex items-center gap-2">
-          <Clock01Icon aria-hidden="true" className="h-4 w-4 text-[var(--red)]" />
+          <HugeiconsIcon
+            aria-hidden="true"
+            className="h-4 w-4 text-[var(--red)]"
+            icon={Clock01Icon}
+          />
           {formatDisplay(value, placeholder)}
         </span>
-        <ArrowRight01Icon
+        <HugeiconsIcon
           className={cn(
             "h-4 w-4 text-[var(--muted-foreground)] transition-transform",
             open && "rotate-90"
           )}
+          icon={ArrowRight01Icon}
         />
       </button>
 

@@ -1,6 +1,7 @@
 "use client";
 
-import { Add01Icon, PackageIcon } from "hugeicons-react";
+import { Add01Icon, PackageIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { ServiceBundle } from "@/types";
@@ -32,8 +33,12 @@ export function BundleManager({
   const [filter, setFilter] = useState<"all" | "active" | "inactive">("all");
 
   const filteredBundles = bundles.filter((bundle) => {
-    if (filter === "active") return bundle.isActive;
-    if (filter === "inactive") return !bundle.isActive;
+    if (filter === "active") {
+      return bundle.isActive;
+    }
+    if (filter === "inactive") {
+      return !bundle.isActive;
+    }
     return true;
   });
 
@@ -42,7 +47,7 @@ export function BundleManager({
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <PackageIcon className="h-6 w-6 text-[var(--red)]" />
+          <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={PackageIcon} />
           <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
         </div>
 
@@ -51,7 +56,7 @@ export function BundleManager({
           onClick={onCreateBundle}
           type="button"
         >
-          <Add01Icon className="h-5 w-5" />
+          <HugeiconsIcon className="h-5 w-5" icon={Add01Icon} />
           {t("createBundle")}
         </button>
       </div>
@@ -111,7 +116,7 @@ export function BundleManager({
         </div>
       ) : (
         <div className="rounded-xl bg-[#f9fafb] py-12 text-center">
-          <PackageIcon className="mx-auto mb-3 h-12 w-12 text-[#d1d5db]" />
+          <HugeiconsIcon className="mx-auto mb-3 h-12 w-12 text-[#d1d5db]" icon={PackageIcon} />
           <p className="mb-2 font-semibold text-[var(--foreground)] text-lg">{t("noBundles")}</p>
           <p className="mb-4 text-[#6b7280] text-sm">{t("noBundlesDescription")}</p>
           <button

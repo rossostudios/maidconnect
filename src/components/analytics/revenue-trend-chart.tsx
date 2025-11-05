@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowDown01Icon, ArrowUp01Icon } from "hugeicons-react";
+import { ArrowDown01Icon, ArrowUp01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import type { RevenueTrendDataPoint } from "@/types";
 
@@ -26,7 +27,9 @@ export function RevenueTrendChart({ trend, periodDays = 30 }: RevenueTrendChartP
   };
 
   const calculateGrowth = () => {
-    if (trend.length < 2) return 0;
+    if (trend.length < 2) {
+      return 0;
+    }
 
     // Compare first half vs second half
     const midpoint = Math.floor(trend.length / 2);
@@ -35,7 +38,9 @@ export function RevenueTrendChart({ trend, periodDays = 30 }: RevenueTrendChartP
       .reduce((sum, point) => sum + point.revenueCop, 0);
     const secondHalfTotal = trend.slice(midpoint).reduce((sum, point) => sum + point.revenueCop, 0);
 
-    if (firstHalfTotal === 0) return secondHalfTotal > 0 ? 100 : 0;
+    if (firstHalfTotal === 0) {
+      return secondHalfTotal > 0 ? 100 : 0;
+    }
 
     return ((secondHalfTotal - firstHalfTotal) / firstHalfTotal) * 100;
   };
@@ -59,9 +64,9 @@ export function RevenueTrendChart({ trend, periodDays = 30 }: RevenueTrendChartP
         </div>
         <div className="flex items-center gap-2">
           {isPositiveGrowth ? (
-            <ArrowUp01Icon className="h-5 w-5 text-green-600" />
+            <HugeiconsIcon className="h-5 w-5 text-green-600" icon={ArrowUp01Icon} />
           ) : (
-            <ArrowDown01Icon className="h-5 w-5 text-red-600" />
+            <HugeiconsIcon className="h-5 w-5 text-red-600" icon={ArrowDown01Icon} />
           )}
           <span
             className={`font-semibold text-sm ${

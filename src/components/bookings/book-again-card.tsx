@@ -6,7 +6,8 @@ import {
   MagicWand01Icon,
   RepeatIcon,
   Tick02Icon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { memo, useState } from "react";
@@ -124,7 +125,7 @@ const BookAgainCardComponent = memo(
 
           {/* Badge */}
           <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1.5 font-medium text-green-700 text-xs">
-            <Tick02Icon className="h-3.5 w-3.5" />
+            <HugeiconsIcon className="h-3.5 w-3.5" icon={Tick02Icon} />
             Completed
           </span>
         </div>
@@ -132,11 +133,11 @@ const BookAgainCardComponent = memo(
         {/* Booking Details */}
         <div className="mt-4 flex flex-wrap items-center gap-4 text-[#7d7566] text-sm">
           <div className="flex items-center gap-1.5">
-            <Calendar01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />
             <span>{formatDate(booking.scheduledDate)}</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <Clock01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
             <span>{booking.durationHours}h session</span>
           </div>
           <div className="flex items-center gap-1.5">
@@ -160,12 +161,12 @@ const BookAgainCardComponent = memo(
         >
           {oneTapEnabled ? (
             <>
-              <MagicWand01Icon className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={MagicWand01Icon} />
               {isRebooking ? "Creating booking..." : "Book Again (1-Tap)"}
             </>
           ) : (
             <>
-              <RepeatIcon className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={RepeatIcon} />
               {isRebooking ? "Preparing..." : "Book Again"}
             </>
           )}

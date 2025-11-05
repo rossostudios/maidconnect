@@ -84,25 +84,48 @@ export async function updateService(
     const supabase = await createSupabaseServerClient();
 
     const updateData: any = {};
-    if (input.name) updateData.name = input.name;
-    if (input.description !== undefined) updateData.description = input.description;
-    if (input.categoryId !== undefined) updateData.category_id = input.categoryId;
-    if (input.serviceType) updateData.service_type = input.serviceType;
-    if (input.basePriceCop !== undefined) updateData.base_price_cop = input.basePriceCop;
-    if (input.pricingUnit) updateData.pricing_unit = input.pricingUnit;
-    if (input.estimatedDurationMinutes !== undefined)
+    if (input.name) {
+      updateData.name = input.name;
+    }
+    if (input.description !== undefined) {
+      updateData.description = input.description;
+    }
+    if (input.categoryId !== undefined) {
+      updateData.category_id = input.categoryId;
+    }
+    if (input.serviceType) {
+      updateData.service_type = input.serviceType;
+    }
+    if (input.basePriceCop !== undefined) {
+      updateData.base_price_cop = input.basePriceCop;
+    }
+    if (input.pricingUnit) {
+      updateData.pricing_unit = input.pricingUnit;
+    }
+    if (input.estimatedDurationMinutes !== undefined) {
       updateData.estimated_duration_minutes = input.estimatedDurationMinutes;
-    if (input.minDurationMinutes !== undefined)
+    }
+    if (input.minDurationMinutes !== undefined) {
       updateData.min_duration_minutes = input.minDurationMinutes;
-    if (input.maxDurationMinutes !== undefined)
+    }
+    if (input.maxDurationMinutes !== undefined) {
       updateData.max_duration_minutes = input.maxDurationMinutes;
-    if (input.requiresApproval !== undefined) updateData.requires_approval = input.requiresApproval;
-    if (input.advanceBookingHours !== undefined)
+    }
+    if (input.requiresApproval !== undefined) {
+      updateData.requires_approval = input.requiresApproval;
+    }
+    if (input.advanceBookingHours !== undefined) {
       updateData.advance_booking_hours = input.advanceBookingHours;
-    if (input.maxBookingDaysAhead !== undefined)
+    }
+    if (input.maxBookingDaysAhead !== undefined) {
       updateData.max_booking_days_ahead = input.maxBookingDaysAhead;
-    if (input.requirements !== undefined) updateData.requirements = input.requirements;
-    if (input.includedItems !== undefined) updateData.included_items = input.includedItems;
+    }
+    if (input.requirements !== undefined) {
+      updateData.requirements = input.requirements;
+    }
+    if (input.includedItems !== undefined) {
+      updateData.included_items = input.includedItems;
+    }
 
     const { data, error } = await supabase
       .from("professional_services")

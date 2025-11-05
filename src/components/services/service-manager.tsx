@@ -1,6 +1,7 @@
 "use client";
 
-import { Add01Icon, FilterIcon } from "hugeicons-react";
+import { Add01Icon, FilterIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { deleteService, getServices } from "@/app/actions/services";
@@ -44,10 +45,12 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
 
   useEffect(() => {
     loadServices();
-  }, [profileId]);
+  }, [loadServices]);
 
   const handleDelete = async (serviceId: string) => {
-    if (!confirm(t("confirmDelete"))) return;
+    if (!confirm(t("confirmDelete"))) {
+      return;
+    }
 
     const response = await deleteService(serviceId);
     if (response.success) {
@@ -63,8 +66,12 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
   };
 
   const filteredServices = services.filter((service) => {
-    if (filter === "active") return service.isActive;
-    if (filter === "inactive") return !service.isActive;
+    if (filter === "active") {
+      return service.isActive;
+    }
+    if (filter === "inactive") {
+      return !service.isActive;
+    }
     return true;
   });
 
@@ -107,14 +114,14 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
           className="flex items-center gap-2 rounded-xl bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
           type="button"
         >
-          <Add01Icon className="h-4 w-4" />
+          <HugeiconsIcon className="h-4 w-4" icon={Add01Icon} />
           {t("createService")}
         </button>
       </div>
 
       {/* Filter Tabs */}
       <div className="flex items-center gap-2">
-        <FilterIcon className="h-5 w-5 text-[#6b7280]" />
+        <HugeiconsIcon className="h-5 w-5 text-[#6b7280]" icon={FilterIcon} />
         <button
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             filter === "all"

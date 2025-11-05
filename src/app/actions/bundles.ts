@@ -96,8 +96,12 @@ export async function updateBundle(
       updated_at: new Date().toISOString(),
     };
 
-    if (input.name) updateData.name = input.name;
-    if (input.description !== undefined) updateData.description = input.description;
+    if (input.name) {
+      updateData.name = input.name;
+    }
+    if (input.description !== undefined) {
+      updateData.description = input.description;
+    }
     if (input.services) {
       updateData.services = input.services;
       updateData.total_duration_minutes = input.services.reduce(

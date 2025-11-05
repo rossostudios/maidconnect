@@ -243,15 +243,12 @@ export function ChartSkeleton() {
       </div>
       {/* Chart bars */}
       <div className="flex h-64 items-end gap-4">
-        {Array.from({ length: 7 }).map((_, i) => {
-          const height = Math.random() * 60 + 30;
-          return (
-            <div className="flex flex-1 flex-col items-center gap-2" key={i}>
-              <Skeleton className="w-full rounded-t-lg" style={{ height: `${height}%` }} />
-              <Skeleton className="h-4 w-8" />
-            </div>
-          );
-        })}
+        {[85, 70, 92, 65, 88, 75, 80].map((height, i) => (
+          <div className="flex flex-1 flex-col items-center gap-2" key={i}>
+            <Skeleton className="w-full rounded-t-lg" style={{ height: `${height}%` }} />
+            <Skeleton className="h-4 w-8" />
+          </div>
+        ))}
       </div>
     </div>
   );

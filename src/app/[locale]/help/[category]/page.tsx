@@ -1,4 +1,5 @@
-import { ArrowRight01Icon, BookOpen01Icon } from "hugeicons-react";
+import { ArrowRight01Icon, BookOpen01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -191,7 +192,7 @@ export default async function HelpCategoryPage({
 
                       <div className="flex-shrink-0">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 text-gray-400 transition group-hover:bg-[var(--red)]/10 group-hover:text-[var(--red)]">
-                          <ArrowRight01Icon className="h-5 w-5" />
+                          <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
                         </div>
                       </div>
                     </div>
@@ -202,7 +203,7 @@ export default async function HelpCategoryPage({
           </div>
         ) : (
           <div className="mx-auto max-w-4xl rounded-lg border border-gray-200 bg-white p-12 text-center">
-            <BookOpen01Icon className="mx-auto mb-4 h-12 w-12 text-gray-400" />
+            <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-gray-400" icon={BookOpen01Icon} />
             <h3 className="mb-2 font-semibold text-gray-900 text-lg">
               {t("category.noArticles.title")}
             </h3>
@@ -212,7 +213,7 @@ export default async function HelpCategoryPage({
               href={`/${locale}/help`}
             >
               {t("category.noArticles.button")}
-              <ArrowRight01Icon className="h-5 w-5" />
+              <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
             </Link>
           </div>
         )}
@@ -223,7 +224,7 @@ export default async function HelpCategoryPage({
             className="inline-flex items-center gap-2 text-[var(--red)] hover:underline"
             href={`/${locale}/help`}
           >
-            <ArrowRight01Icon className="h-4 w-4 rotate-180" />
+            <HugeiconsIcon className="h-4 w-4 rotate-180" icon={ArrowRight01Icon} />
             {t("category.backToHelp")}
           </Link>
         </div>

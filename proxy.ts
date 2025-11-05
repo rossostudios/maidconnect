@@ -174,7 +174,7 @@ function addSecurityHeaders(response: NextResponse): NextResponse {
   return response;
 }
 
-export async function proxy(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
   ensureEnv();
 
   // CSRF Protection: Validate origin/referer for state-changing operations
@@ -241,13 +241,13 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL(`/${locale}`, request.url));
   }
 
-  // If path doesn't have a locale prefix, redirect to add it
-  if (
-    !getLocaleFromPathname(pathname) &&
-    (pathname.startsWith("/dashboard") ||
-      pathname.startsWith("/admin") ||
-      pathname.startsWith("/auth"))
-  ) {
+  // If path doesn't have a locale prefix and is not API/static, redirect to add it
+  const isApiOrStatic = pathname.startsWith("/api") ||
+                        pathname.startsWith("/_next") ||
+                        pathname.startsWith("/_vercel") ||
+                        pathname.match(/\.(ico|png|jpg|jpeg|svg|gif|webp|css|js)$/);
+
+  if (!getLocaleFromPathname(pathname) && !isApiOrStatic) {
     const localizedPath = addLocaleToPath(pathname, locale);
     const url = new URL(localizedPath, request.url);
     // Preserve query params
@@ -318,14 +318,11 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Match both localized and non-localized protected routes
-    "/:locale(en|es)?/dashboard/:path*",
-    "/:locale(en|es)?/admin/:path*",
-    "/:locale(en|es)?/auth/:path*",
-    "/dashboard/:path*",
-    "/admin/:path*",
-    "/auth/:path*",
-    // API routes for CSRF protection
-    "/api/:path*",
+    // Match root
+    "/",
+    // Match all localized routes
+    "/(en|es)/:path*",
+    // Match all non-localized routes (will redirect to add locale)
+    "/((?!_next|_vercel|api|.*\\..*).*)",
   ],
 };

@@ -1,6 +1,12 @@
 "use client";
 
-import { ArrowRight01Icon, Location01Icon, StarIcon, UserGroupIcon } from "hugeicons-react";
+import {
+  ArrowRight01Icon,
+  Location01Icon,
+  StarIcon,
+  UserGroupIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 
@@ -58,7 +64,7 @@ export function CityHeroSection({
           <div className="flex flex-col justify-center">
             {/* Location Badge */}
             <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-[#ebe5d8] bg-white px-4 py-2 shadow-sm">
-              <Location01Icon className="h-4 w-4 text-[var(--red)]" />
+              <HugeiconsIcon className="h-4 w-4 text-[var(--red)]" icon={Location01Icon} />
               <span className="font-medium text-[var(--foreground)] text-sm">{cityName}</span>
             </div>
 
@@ -75,14 +81,17 @@ export function CityHeroSection({
             {/* Trust Signals - Research shows local trust indicators improve conversion */}
             <div className="mb-8 flex flex-wrap gap-6">
               <div className="flex items-center gap-2">
-                <UserGroupIcon className="h-5 w-5 text-[var(--red)]" />
+                <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={UserGroupIcon} />
                 <span className="font-semibold text-[var(--foreground)] text-base">
                   {stats.professionalCount}+ {t("hero.stats.professionals")}
                 </span>
               </div>
 
               <div className="flex items-center gap-2">
-                <StarIcon className="h-5 w-5 fill-[var(--red)] text-[var(--red)]" />
+                <HugeiconsIcon
+                  className="h-5 w-5 fill-[var(--red)] text-[var(--red)]"
+                  icon={StarIcon}
+                />
                 <span className="font-semibold text-[var(--foreground)] text-base">
                   {stats.averageRating.toFixed(1)} ({stats.totalReviews.toLocaleString()}{" "}
                   {t("hero.stats.reviews")})
@@ -97,7 +106,10 @@ export function CityHeroSection({
                 href={`/professionals?city=${citySlug}`}
               >
                 {t("hero.cta.primary")}
-                <ArrowRight01Icon className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <HugeiconsIcon
+                  className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                  icon={ArrowRight01Icon}
+                />
               </Link>
 
               <Link
@@ -116,7 +128,7 @@ export function CityHeroSection({
               {/* Placeholder for city-specific imagery */}
               <div className="relative aspect-square">
                 <div className="flex h-full flex-col items-center justify-center gap-6">
-                  <Location01Icon className="h-24 w-24 text-[var(--red)]" />
+                  <HugeiconsIcon className="h-24 w-24 text-[var(--red)]" icon={Location01Icon} />
                   <div className="text-center">
                     <p className="font-bold text-2xl text-[var(--foreground)]">{cityName}</p>
                     <p className="mt-2 text-[var(--muted-foreground)] text-base">

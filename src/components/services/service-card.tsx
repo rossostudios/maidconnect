@@ -1,6 +1,7 @@
 "use client";
 
-import { Clock01Icon, Delete02Icon, Edit02Icon, StarIcon } from "hugeicons-react";
+import { Clock01Icon, Delete02Icon, Edit02Icon, StarIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import type { ProfessionalService } from "@/types";
 
@@ -22,11 +23,17 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
   const formatPrice = (price: number) => `$${(price / 1000).toFixed(0)}k`;
 
   const formatDuration = (minutes: number | null) => {
-    if (!minutes) return null;
+    if (!minutes) {
+      return null;
+    }
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
-    if (hours > 0 && mins > 0) return `${hours}h ${mins}m`;
-    if (hours > 0) return `${hours}h`;
+    if (hours > 0 && mins > 0) {
+      return `${hours}h ${mins}m`;
+    }
+    if (hours > 0) {
+      return `${hours}h`;
+    }
     return `${mins}m`;
   };
 
@@ -63,7 +70,7 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
                 onClick={() => onEdit(service)}
                 type="button"
               >
-                <Edit02Icon className="h-4 w-4 text-[var(--foreground)]" />
+                <HugeiconsIcon className="h-4 w-4 text-[var(--foreground)]" icon={Edit02Icon} />
               </button>
             )}
             {onDelete && (
@@ -72,7 +79,7 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
                 onClick={() => onDelete(service.id)}
                 type="button"
               >
-                <Delete02Icon className="h-4 w-4 text-red-600" />
+                <HugeiconsIcon className="h-4 w-4 text-red-600" icon={Delete02Icon} />
               </button>
             )}
           </div>
@@ -97,7 +104,7 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
 
         {service.estimatedDurationMinutes && (
           <div className="flex items-center gap-1 text-[#6b7280] text-sm">
-            <Clock01Icon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
             <span>{formatDuration(service.estimatedDurationMinutes)}</span>
           </div>
         )}
@@ -106,7 +113,7 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
       {/* Metrics */}
       <div className="flex items-center gap-4 border-[#e5e7eb] border-t pt-4">
         <div className="flex items-center gap-1">
-          <StarIcon className="h-4 w-4 text-yellow-500" />
+          <HugeiconsIcon className="h-4 w-4 text-yellow-500" icon={StarIcon} />
           <span className="font-medium text-[var(--foreground)] text-sm">
             {service.averageRating > 0 ? service.averageRating.toFixed(1) : "N/A"}
           </span>

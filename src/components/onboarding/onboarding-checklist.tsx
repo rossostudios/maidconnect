@@ -1,6 +1,11 @@
 "use client";
 
-import { Cancel01Icon, CheckmarkCircle02Icon, InformationCircleIcon } from "hugeicons-react";
+import {
+  Cancel01Icon,
+  CheckmarkCircle02Icon,
+  InformationCircleIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { OnboardingChecklist as OnboardingChecklistType, OnboardingItem } from "@/types";
@@ -56,12 +61,12 @@ export function OnboardingChecklist({
         <p className="mt-3 text-[#6b7280] text-sm">
           {canAcceptBookings ? (
             <span className="flex items-center gap-2 font-semibold text-green-600">
-              <CheckmarkCircle02Icon className="h-5 w-5" />
+              <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle02Icon} />
               {t("ready")}
             </span>
           ) : (
             <span className="flex items-center gap-2">
-              <InformationCircleIcon className="h-5 w-5" />
+              <HugeiconsIcon className="h-5 w-5" icon={InformationCircleIcon} />
               {t("incomplete", {
                 completed: completedRequired,
                 total: totalRequired,
@@ -153,9 +158,9 @@ function ChecklistItem({ item, onClick }: { item: OnboardingItem; onClick: () =>
         }`}
       >
         {item.completed ? (
-          <CheckmarkCircle02Icon className="h-6 w-6" />
+          <HugeiconsIcon className="h-6 w-6" icon={CheckmarkCircle02Icon} />
         ) : (
-          <Cancel01Icon className="h-6 w-6" />
+          <HugeiconsIcon className="h-6 w-6" icon={Cancel01Icon} />
         )}
       </div>
 

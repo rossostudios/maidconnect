@@ -6,7 +6,8 @@
 
 "use client";
 
-import { ArrowUp01Icon, Delete01Icon, Edit01Icon, ViewIcon } from "hugeicons-react";
+import { ArrowUp01Icon, Delete01Icon, Edit01Icon, ViewIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { confirm, toast } from "@/lib/toast";
@@ -184,7 +185,7 @@ export function RoadmapAdminList() {
 
                     <div className="flex items-center gap-4 text-[#6B7280] text-sm">
                       <div className="flex items-center gap-1.5">
-                        <ArrowUp01Icon size={16} />
+                        <HugeiconsIcon icon={ArrowUp01Icon} size={16} />
                         <span>{item.vote_count} votes</span>
                       </div>
 
@@ -203,7 +204,7 @@ export function RoadmapAdminList() {
                         target="_blank"
                         title="Preview"
                       >
-                        <ViewIcon className="text-[#6B7280]" size={18} />
+                        <HugeiconsIcon className="text-[#6B7280]" icon={ViewIcon} size={18} />
                       </Link>
                     )}
 
@@ -212,7 +213,7 @@ export function RoadmapAdminList() {
                       href={`/admin/roadmap/${item.id}/edit`}
                       title="Edit"
                     >
-                      <Edit01Icon className="text-[#6B7280]" size={18} />
+                      <HugeiconsIcon className="text-[#6B7280]" icon={Edit01Icon} size={18} />
                     </Link>
 
                     <button
@@ -221,7 +222,7 @@ export function RoadmapAdminList() {
                       title="Archive"
                       type="button"
                     >
-                      <Delete01Icon className="text-red-600" size={18} />
+                      <HugeiconsIcon className="text-red-600" icon={Delete01Icon} size={18} />
                     </button>
                   </div>
                 </div>

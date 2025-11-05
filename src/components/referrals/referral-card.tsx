@@ -7,7 +7,8 @@ import {
   Share01Icon,
   Tick02Icon,
   UserGroupIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import { formatCOP } from "@/lib/format";
 
@@ -67,14 +68,14 @@ export function ReferralCard({
       <div className="mb-6 flex items-start justify-between">
         <div>
           <div className="mb-2 flex items-center gap-2">
-            <GiftIcon className="h-6 w-6 text-[var(--red)]" />
+            <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={GiftIcon} />
             <h2 className="font-bold text-2xl text-[var(--foreground)]">Your Referral Code</h2>
           </div>
           <p className="text-[var(--muted-foreground)] text-sm">
             Share with friends and you both earn rewards
           </p>
         </div>
-        <MagicWand01Icon className="h-8 w-8 text-[var(--red)]" />
+        <HugeiconsIcon className="h-8 w-8 text-[var(--red)]" icon={MagicWand01Icon} />
       </div>
 
       {/* Referral Code Display */}
@@ -92,12 +93,12 @@ export function ReferralCard({
         >
           {copied ? (
             <>
-              <Tick02Icon className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={Tick02Icon} />
               Copied!
             </>
           ) : (
             <>
-              <Copy01Icon className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={Copy01Icon} />
               Copy Link
             </>
           )}
@@ -142,14 +143,14 @@ export function ReferralCard({
       <div className="mb-6 grid gap-4 sm:grid-cols-2">
         <div className="rounded-xl bg-white p-4">
           <div className="mb-1 flex items-center gap-2 text-[var(--muted-foreground)] text-xs">
-            <UserGroupIcon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={UserGroupIcon} />
             People Referred
           </div>
           <div className="font-bold text-2xl text-[var(--foreground)]">{usesCount}</div>
         </div>
         <div className="rounded-xl bg-white p-4">
           <div className="mb-1 flex items-center gap-2 text-[var(--muted-foreground)] text-xs">
-            <GiftIcon className="h-4 w-4" />
+            <HugeiconsIcon className="h-4 w-4" icon={GiftIcon} />
             Credits Earned
           </div>
           <div className="font-bold text-2xl text-[var(--foreground)]">
@@ -170,7 +171,7 @@ export function ReferralCard({
             type="button"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#25D366]">
-              <Share01Icon className="h-5 w-5 text-white" />
+              <HugeiconsIcon className="h-5 w-5 text-white" icon={Share01Icon} />
             </div>
             <span className="font-medium text-[var(--foreground)] text-xs">WhatsApp</span>
           </button>
@@ -180,7 +181,7 @@ export function ReferralCard({
             type="button"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1DA1F2]">
-              <Share01Icon className="h-5 w-5 text-white" />
+              <HugeiconsIcon className="h-5 w-5 text-white" icon={Share01Icon} />
             </div>
             <span className="font-medium text-[var(--foreground)] text-xs">Twitter</span>
           </button>
@@ -190,7 +191,7 @@ export function ReferralCard({
             type="button"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#4267B2]">
-              <Share01Icon className="h-5 w-5 text-white" />
+              <HugeiconsIcon className="h-5 w-5 text-white" icon={Share01Icon} />
             </div>
             <span className="font-medium text-[var(--foreground)] text-xs">Facebook</span>
           </button>

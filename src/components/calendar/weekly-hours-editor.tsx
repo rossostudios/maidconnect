@@ -1,6 +1,7 @@
 "use client";
 
-import { Clock01Icon } from "hugeicons-react";
+import { Clock01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { DayOfWeek, WorkingHours } from "@/types";
@@ -90,7 +91,7 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Clock01Icon className="h-6 w-6 text-[var(--red)]" />
+          <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={Clock01Icon} />
           <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
         </div>
 

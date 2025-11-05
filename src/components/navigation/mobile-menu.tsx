@@ -1,6 +1,7 @@
 "use client";
 
-import { Cancel01Icon, Menu01Icon } from "hugeicons-react";
+import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Link } from "@/i18n/routing";
@@ -35,7 +36,11 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
         onClick={toggleMenu}
         type="button"
       >
-        {isOpen ? <Cancel01Icon className="h-6 w-6" /> : <Menu01Icon className="h-6 w-6" />}
+        {isOpen ? (
+          <HugeiconsIcon className="h-6 w-6" icon={Cancel01Icon} />
+        ) : (
+          <HugeiconsIcon className="h-6 w-6" icon={Menu01Icon} />
+        )}
       </button>
 
       {/* Backdrop */}
@@ -62,7 +67,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
             onClick={closeMenu}
             type="button"
           >
-            <Cancel01Icon className="h-5 w-5" />
+            <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
           </button>
         </div>
 

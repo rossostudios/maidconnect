@@ -1,7 +1,8 @@
 "use client";
 
+import { ArrowLeft01Icon, ArrowRight01Icon, FavouriteIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "framer-motion";
-import { ArrowLeft01Icon, ArrowRight01Icon, FavouriteIcon } from "hugeicons-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/routing";
@@ -105,7 +106,7 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
                 onClick={() => scroll("left")}
                 type="button"
               >
-                <ArrowLeft01Icon className="h-5 w-5" strokeWidth={2} />
+                <HugeiconsIcon className="h-5 w-5" icon={ArrowLeft01Icon} strokeWidth={2} />
               </button>
               <button
                 aria-label="Scroll right"
@@ -114,7 +115,7 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
                 onClick={() => scroll("right")}
                 type="button"
               >
-                <ArrowRight01Icon className="h-5 w-5" strokeWidth={2} />
+                <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} strokeWidth={2} />
               </button>
             </div>
           </motion.div>
@@ -178,7 +179,7 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
                         className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-[var(--border)] bg-white text-[var(--foreground)] transition-all hover:border-[var(--red)] hover:text-[var(--red)] active:scale-95"
                         type="button"
                       >
-                        <FavouriteIcon className="h-5 w-5" strokeWidth={2} />
+                        <HugeiconsIcon className="h-5 w-5" icon={FavouriteIcon} strokeWidth={2} />
                       </button>
                     </div>
                   </div>

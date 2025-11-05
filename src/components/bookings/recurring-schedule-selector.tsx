@@ -1,6 +1,7 @@
 "use client";
 
-import { Calendar01Icon, InformationCircleIcon } from "hugeicons-react";
+import { Calendar01Icon, InformationCircleIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 
 /**
@@ -202,7 +203,10 @@ export function RecurringScheduleSelector({
               Start Date
             </label>
             <div className="relative">
-              <Calendar01Icon className="absolute top-3 left-3 h-5 w-5 text-[#7d7566]" />
+              <HugeiconsIcon
+                className="absolute top-3 left-3 h-5 w-5 text-[#7d7566]"
+                icon={Calendar01Icon}
+              />
               <input
                 className="w-full rounded-xl border border-[#e5dfd4] py-3 pr-4 pl-11 text-[var(--foreground)] transition focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
                 id="start-date"
@@ -292,7 +296,10 @@ export function RecurringScheduleSelector({
 
             {endType === "date" && (
               <div className="relative mt-3">
-                <Calendar01Icon className="absolute top-3 left-3 h-5 w-5 text-[#7d7566]" />
+                <HugeiconsIcon
+                  className="absolute top-3 left-3 h-5 w-5 text-[#7d7566]"
+                  icon={Calendar01Icon}
+                />
                 <input
                   className="w-full rounded-xl border border-[#e5dfd4] py-3 pr-4 pl-11 text-[var(--foreground)] transition focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
                   min={startDate}
@@ -308,7 +315,7 @@ export function RecurringScheduleSelector({
           <div className="space-y-4 rounded-xl bg-gradient-to-br from-[#fff5f3] to-[#fef8f6] p-5">
             <div className="flex items-start gap-3">
               <div className="rounded-full bg-[var(--red)]/10 p-2">
-                <InformationCircleIcon className="h-5 w-5 text-[var(--red)]" />
+                <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={InformationCircleIcon} />
               </div>
               <div className="flex-1 space-y-2">
                 <h4 className="font-semibold text-[var(--foreground)]">Your Savings</h4>

@@ -9,7 +9,8 @@ import {
   PaintBoardIcon,
   Shield01Icon,
   ViewIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
@@ -277,7 +278,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
               onClick={() => setShowPreview(!showPreview)}
               type="button"
             >
-              <ViewIcon className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={ViewIcon} />
               {showPreview ? "Edit" : "Preview"}
             </button>
           </div>
@@ -307,7 +308,6 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
           <h3 className="mb-4 font-bold text-[var(--foreground)] text-lg">Categories</h3>
           <div className="flex flex-wrap gap-3">
             {categoryOptions.map((option) => {
-              const Icon = option.icon;
               const isSelected = formData.categories.includes(option.value);
 
               return (
@@ -321,7 +321,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                   onClick={() => handleCategoryToggle(option.value)}
                   type="button"
                 >
-                  <Icon className="h-4 w-4" />
+                  <HugeiconsIcon className="h-4 w-4" icon={option.icon} />
                   {option.label}
                 </button>
               );
@@ -419,12 +419,12 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             >
               {saving ? (
                 <>
-                  <Loading01Icon className="h-4 w-4 animate-spin" />
+                  <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading01Icon} />
                   Saving...
                 </>
               ) : (
                 <>
-                  <FloppyDiskIcon className="h-4 w-4" />
+                  <HugeiconsIcon className="h-4 w-4" icon={FloppyDiskIcon} />
                   Save Draft
                 </>
               )}
@@ -438,12 +438,12 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             >
               {saving ? (
                 <>
-                  <Loading01Icon className="h-4 w-4 animate-spin" />
+                  <HugeiconsIcon className="h-4 w-4 animate-spin" icon={Loading01Icon} />
                   Publishing...
                 </>
               ) : (
                 <>
-                  <MagicWand01Icon className="h-4 w-4" />
+                  <HugeiconsIcon className="h-4 w-4" icon={MagicWand01Icon} />
                   Publish
                 </>
               )}

@@ -1,0 +1,147 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+export default function DisputeDetailPage({ params }: { params: { id: string } }) {
+  const [dispute, setDispute] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [resolutionNotes, setResolutionNotes] = useState("");
+  const [resolutionAction, setResolutionAction] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    loadDispute();
+  }, [loadDispute]);
+
+  const loadDispute = async () => {
+    try {
+      const response = await fetch(`/api/admin/disputes/${params.id}`);
+      const data = await response.json();
+      setDispute(data.dispute);
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResolve = async () => {
+    try {
+      await fetch(`/api/admin/disputes/${params.id}/resolve`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          resolution_notes: resolutionNotes,
+          resolution_action: resolutionAction,
+        }),
+      });
+      router.push("/admin/disputes");
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  if (isLoading) {
+    return <div className="container mx-auto px-4 py-8">Loading...</div>;
+  }
+  if (!dispute) {
+    return <div className="container mx-auto px-4 py-8">Dispute not found</div>;
+  }
+
+  return (
+    <div className="container mx-auto max-w-4xl px-4 py-8">
+      <button className="type-ui-sm mb-4 text-[#FF5D46]" onClick={() => router.back()}>
+        ← Back
+      </button>
+
+      <h1 className="type-ui-lg mb-6 font-semibold">Dispute Details</h1>
+
+      <div className="space-y-6">
+        <div className="rounded-2xl border border-[#EBE5D8] bg-white p-6">
+          <h2 className="type-ui-md mb-4 font-semibold">Information</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="type-ui-sm font-medium text-[#121110]">Type</p>
+              <p className="type-body-sm text-[#8A8985] capitalize">
+                {dispute.dispute_type?.replace(/_/g, " ")}
+              </p>
+            </div>
+            <div>
+              <p className="type-ui-sm font-medium text-[#121110]">Status</p>
+              <p className="type-body-sm text-[#8A8985] capitalize">{dispute.status}</p>
+            </div>
+            <div>
+              <p className="type-ui-sm font-medium text-[#121110]">Priority</p>
+              <p className="type-body-sm text-[#8A8985] capitalize">{dispute.priority}</p>
+            </div>
+            <div>
+              <p className="type-ui-sm font-medium text-[#121110]">Opened By</p>
+              <p className="type-body-sm text-[#8A8985]">
+                {dispute.opener?.full_name || dispute.opener?.email}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-[#EBE5D8] bg-white p-6">
+          <h2 className="type-ui-md mb-4 font-semibold">Description</h2>
+          <p className="type-body-sm text-[#121110]">{dispute.description}</p>
+        </div>
+
+        {dispute.customer_statement && (
+          <div className="rounded-2xl border border-[#EBE5D8] bg-white p-6">
+            <h2 className="type-ui-md mb-4 font-semibold">Customer Statement</h2>
+            <p className="type-body-sm text-[#121110]">{dispute.customer_statement}</p>
+          </div>
+        )}
+
+        {dispute.professional_statement && (
+          <div className="rounded-2xl border border-[#EBE5D8] bg-white p-6">
+            <h2 className="type-ui-md mb-4 font-semibold">Professional Statement</h2>
+            <p className="type-body-sm text-[#121110]">{dispute.professional_statement}</p>
+          </div>
+        )}
+
+        {dispute.status !== "resolved" && (
+          <div className="rounded-2xl border border-[#EBE5D8] bg-white p-6">
+            <h2 className="type-ui-md mb-4 font-semibold">Resolve Dispute</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="type-ui-sm mb-2 block font-medium">Resolution Action</label>
+                <select
+                  className="w-full rounded-lg border border-[#EBE5D8] px-4 py-2"
+                  onChange={(e) => setResolutionAction(e.target.value)}
+                  value={resolutionAction}
+                >
+                  <option value="">Select action...</option>
+                  <option value="refund">Full Refund</option>
+                  <option value="partial_refund">Partial Refund</option>
+                  <option value="dismiss">Dismiss</option>
+                  <option value="warning">Issue Warning</option>
+                </select>
+              </div>
+              <div>
+                <label className="type-ui-sm mb-2 block font-medium">Resolution Notes</label>
+                <textarea
+                  className="w-full rounded-lg border border-[#EBE5D8] px-4 py-3"
+                  onChange={(e) => setResolutionNotes(e.target.value)}
+                  placeholder="Explain the resolution decision..."
+                  rows={4}
+                  value={resolutionNotes}
+                />
+              </div>
+              <button
+                className="type-ui-sm rounded-lg bg-[#FF5D46] px-6 py-3 font-medium text-white hover:bg-[#E54A35] disabled:opacity-50"
+                disabled={!(resolutionAction && resolutionNotes)}
+                onClick={handleResolve}
+              >
+                Resolve Dispute
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

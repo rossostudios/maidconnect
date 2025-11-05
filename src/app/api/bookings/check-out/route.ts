@@ -10,6 +10,7 @@ import { z } from "zod";
 import { ok, requireProfessionalOwnership, withProfessional } from "@/lib/api";
 import { sendServiceCompletedEmail } from "@/lib/email/send";
 import { BusinessRuleError, InvalidBookingStatusError, ValidationError } from "@/lib/errors";
+import { getRebookNudgeVariant, isFeatureEnabled } from "@/lib/feature-flags";
 import { verifyBookingLocation } from "@/lib/gps-verification";
 import { logger } from "@/lib/logger";
 import {
@@ -224,6 +225,35 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
     });
 
     throw new ValidationError("Payment captured but booking update failed. Contact support.");
+  }
+
+  // Assign rebook nudge variant and create experiment (Sprint 2)
+  if (isFeatureEnabled("rebook_nudge_system")) {
+    try {
+      const variant = getRebookNudgeVariant(booking.customer_id);
+
+      // Update booking with variant
+      await supabase.from("bookings").update({ rebook_nudge_variant: variant }).eq("id", bookingId);
+
+      // Create experiment record
+      await supabase.from("rebook_nudge_experiments").insert({
+        booking_id: bookingId,
+        customer_id: booking.customer_id,
+        variant,
+      });
+
+      logger.info("Rebook nudge experiment initialized", {
+        bookingId,
+        customerId: booking.customer_id,
+        variant,
+      });
+    } catch (rebookError) {
+      // Don't fail check-out if rebook nudge setup fails
+      logger.error("Failed to initialize rebook nudge experiment", rebookError as Error, {
+        bookingId,
+        customerId: booking.customer_id,
+      });
+    }
   }
 
   // Fetch customer and professional details for emails

@@ -7,7 +7,8 @@ import {
   MagicWand01Icon,
   SecurityCheckIcon,
   StarIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
@@ -166,7 +167,7 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
       <div className="text-center">
         <div className="mb-4 flex justify-center">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-            <MagicWand01Icon className="h-8 w-8 text-green-600" />
+            <HugeiconsIcon className="h-8 w-8 text-green-600" icon={MagicWand01Icon} />
           </div>
         </div>
         <h2 className="font-semibold text-2xl text-[var(--foreground)]">
@@ -238,25 +239,25 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
                       <span
                         className={`inline-flex items-center gap-1 rounded-full px-2 py-1 font-medium text-xs ${verificationBadge.color}`}
                       >
-                        <SecurityCheckIcon className="h-3 w-3" />
+                        <HugeiconsIcon className="h-3 w-3" icon={SecurityCheckIcon} />
                         {verificationBadge.label}
                       </span>
 
                       {/* Rating */}
                       <span className="inline-flex items-center gap-1 rounded-full bg-yellow-50 px-2 py-1 font-medium text-xs text-yellow-800">
-                        <StarIcon className="h-3 w-3 fill-current" />
+                        <HugeiconsIcon className="h-3 w-3 fill-current" icon={StarIcon} />
                         {match.rating} ({match.reviewCount})
                       </span>
 
                       {/* On-Time Rate */}
                       <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 font-medium text-blue-800 text-xs">
-                        <Clock01Icon className="h-3 w-3" />
+                        <HugeiconsIcon className="h-3 w-3" icon={Clock01Icon} />
                         {match.onTimeRate}% on-time
                       </span>
 
                       {/* Response Time */}
                       <span className="inline-flex items-center gap-1 rounded-full bg-purple-50 px-2 py-1 font-medium text-purple-800 text-xs">
-                        <BubbleChatIcon className="h-3 w-3" />
+                        <HugeiconsIcon className="h-3 w-3" icon={BubbleChatIcon} />
                         {match.responseTime}
                       </span>
                     </div>
@@ -264,7 +265,7 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
                     {/* Location & Languages */}
                     <div className="mt-3 flex flex-wrap gap-3 text-[#7a6d62] text-sm">
                       <span className="inline-flex items-center gap-1">
-                        <Location01Icon className="h-4 w-4" />
+                        <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
                         {match.distance}
                       </span>
                       <span>•</span>

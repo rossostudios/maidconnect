@@ -1,6 +1,11 @@
 "use client";
 
-import { Cancel01Icon, Notification02Icon, NotificationOff02Icon } from "hugeicons-react";
+import {
+  Cancel01Icon,
+  Notification02Icon,
+  NotificationOff02Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import { usePushNotifications } from "@/hooks/use-push-notifications";
 
@@ -45,7 +50,7 @@ export function NotificationPermissionPrompt({
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
-              <Notification02Icon className="h-5 w-5 text-white" />
+              <HugeiconsIcon className="h-5 w-5 text-white" icon={Notification02Icon} />
             </div>
             <div className="min-w-0 flex-1">
               <p className="font-semibold text-[var(--foreground)]">
@@ -73,7 +78,7 @@ export function NotificationPermissionPrompt({
               onClick={handleDismiss}
               type="button"
             >
-              <Cancel01Icon className="h-5 w-5" />
+              <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
             </button>
           </div>
         </div>
@@ -93,7 +98,7 @@ export function NotificationPermissionPrompt({
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-4">
           <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]/10">
-            <Notification02Icon className="h-6 w-6 text-[var(--red)]" />
+            <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={Notification02Icon} />
           </div>
           <div>
             <h3 className="font-semibold text-[var(--foreground)] text-xl">
@@ -150,7 +155,7 @@ export function NotificationPermissionPrompt({
           onClick={handleDismiss}
           type="button"
         >
-          <Cancel01Icon className="h-5 w-5" />
+          <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
         </button>
       </div>
     </div>
@@ -163,7 +168,7 @@ export function NotificationsDeniedMessage() {
     <div className="rounded-2xl border border-yellow-200 bg-yellow-50 p-6">
       <div className="flex items-start gap-4">
         <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-yellow-100">
-          <NotificationOff02Icon className="h-5 w-5 text-yellow-700" />
+          <HugeiconsIcon className="h-5 w-5 text-yellow-700" icon={NotificationOff02Icon} />
         </div>
         <div>
           <h4 className="font-semibold text-yellow-900">Notifications are blocked</h4>

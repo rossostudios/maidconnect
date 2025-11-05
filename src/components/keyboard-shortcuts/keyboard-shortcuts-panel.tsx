@@ -1,6 +1,7 @@
 "use client";
 
-import { Cancel01Icon } from "hugeicons-react";
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 import type { AppRole } from "@/lib/auth";
 import { getShortcutsByRole, isMac, type ShortcutCategory } from "@/lib/keyboard-shortcuts";
@@ -94,7 +95,7 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
             onClick={onClose}
             type="button"
           >
-            <Cancel01Icon className="h-5 w-5" />
+            <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
           </button>
         </div>
 

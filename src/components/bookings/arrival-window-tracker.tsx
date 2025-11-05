@@ -1,6 +1,7 @@
 "use client";
 
-import { Clock01Icon, Location01Icon, Navigation01Icon } from "hugeicons-react";
+import { Clock01Icon, Location01Icon, Navigation01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { isFeatureEnabled } from "@/lib/feature-flags";
@@ -193,7 +194,7 @@ export function ArrivalWindowTracker({
     >
       <div className="flex items-start gap-4">
         <div className={`rounded-full ${config.bgColor} p-3 ${config.color}`}>
-          <Icon className="h-6 w-6" />
+          <HugeiconsIcon className="h-6 w-6" icon={Icon} />
         </div>
 
         <div className="flex-1">
@@ -202,7 +203,7 @@ export function ArrivalWindowTracker({
 
           {timeDisplay && (
             <div className="mt-3 flex items-center gap-2 text-[var(--foreground)] text-base">
-              <Clock01Icon className="h-4 w-4" />
+              <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
               <span className="font-medium">{timeDisplay}</span>
             </div>
           )}

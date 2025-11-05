@@ -5,7 +5,7 @@ import {
   MagicWand01Icon,
   SecurityCheckIcon,
   StarIcon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
 
 export const stats = [
   {

@@ -1,4 +1,5 @@
-import { MagicWand01Icon } from "hugeicons-react";
+import { MagicWand01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { SiteFooter } from "@/components/sections/site-footer";
@@ -33,7 +34,7 @@ export default async function AguaoraPage() {
         <div className="mx-auto max-w-2xl text-center">
           {/* Logo/Brand */}
           <div className="mb-8 inline-flex items-center justify-center rounded-full bg-[var(--red)]/10 p-6">
-            <MagicWand01Icon className="h-12 w-12 text-[var(--red)]" />
+            <HugeiconsIcon className="h-12 w-12 text-[var(--red)]" icon={MagicWand01Icon} />
           </div>
 
           {/* Brand Name */}

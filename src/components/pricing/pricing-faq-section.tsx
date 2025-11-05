@@ -6,7 +6,8 @@
 
 "use client";
 
-import { ArrowDown01Icon } from "hugeicons-react";
+import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 
 // Placeholder data - will be replaced with API call
@@ -75,10 +76,11 @@ export function PricingFaqSection() {
             type="button"
           >
             <span className="font-semibold text-[var(--foreground)] text-lg">{faq.question}</span>
-            <ArrowDown01Icon
+            <HugeiconsIcon
               className={`flex-shrink-0 text-[#6B7280] transition-transform ${
                 openFaqId === faq.id ? "rotate-180" : ""
               }`}
+              icon={ArrowDown01Icon}
               size={24}
             />
           </button>

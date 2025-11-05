@@ -1,11 +1,11 @@
 "use client";
 
-import type { LucideIcon } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 
 type StepDiagramProps = {
   stepNumber: number;
-  icon: LucideIcon;
+  icon: any; // Hugeicons icon object
   titleKey: string;
   descriptionKey: string;
   isLast?: boolean;
@@ -13,7 +13,7 @@ type StepDiagramProps = {
 
 export function StepDiagram({
   stepNumber,
-  icon: Icon,
+  icon,
   titleKey,
   descriptionKey,
   isLast = false,
@@ -29,7 +29,7 @@ export function StepDiagram({
 
       {/* Icon */}
       <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gray-50">
-        <Icon className="h-10 w-10 text-[var(--red)]" />
+        <HugeiconsIcon className="h-10 w-10 text-[var(--red)]" icon={icon} />
       </div>
 
       {/* Content */}

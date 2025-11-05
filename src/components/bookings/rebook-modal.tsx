@@ -1,6 +1,7 @@
 "use client";
 
-import { RefreshIcon } from "hugeicons-react";
+import { RefreshIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { FormModal } from "@/components/shared/form-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useModalForm } from "@/hooks/use-modal-form";
@@ -90,7 +91,7 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
       {/* Header Icon */}
       <div className="mb-6 flex items-center gap-3">
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-          <RefreshIcon className="h-6 w-6 text-green-600" />
+          <HugeiconsIcon className="h-6 w-6 text-green-600" icon={RefreshIcon} />
         </div>
       </div>
 

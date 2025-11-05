@@ -8,7 +8,8 @@ import {
   HelpCircleIcon,
   Idea01Icon,
   Sad01Icon,
-} from "hugeicons-react";
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { BaseModal } from "@/components/shared/base-modal";
@@ -146,7 +147,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
       >
         <div className="text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-            <CheckmarkCircle01Icon className="h-8 w-8 text-green-600" />
+            <HugeiconsIcon className="h-8 w-8 text-green-600" icon={CheckmarkCircle01Icon} />
           </div>
           <h3 className="font-bold text-2xl text-[var(--foreground)]">{t("success.title")}</h3>
           <p className="mt-2 text-[var(--muted-foreground)] text-base">{t("success.message")}</p>

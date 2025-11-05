@@ -1,6 +1,7 @@
 "use client";
 
-import { Clock01Icon } from "hugeicons-react";
+import { Clock01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
@@ -198,7 +199,10 @@ export function ProBookingCalendar({ bookings }: Props) {
                         ) : null}
                       </div>
                       <div className="mt-1 flex items-center gap-2 text-[#7a6d62] text-xs">
-                        <Clock01Icon className="h-3.5 w-3.5 text-[var(--red)]" />
+                        <HugeiconsIcon
+                          className="h-3.5 w-3.5 text-[var(--red)]"
+                          icon={Clock01Icon}
+                        />
                         <span>{statusLabel}</span>
                       </div>
                     </li>

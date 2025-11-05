@@ -1,6 +1,7 @@
 "use client";
 
-import { Logout01Icon } from "hugeicons-react";
+import { Logout01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { KeyboardBadge } from "@/components/keyboard-shortcuts/keyboard-badge";
@@ -175,7 +176,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
           className="flex items-center gap-2 rounded-lg border border-[#dcd6c7] bg-white px-3 py-1.5 text-[#7a6d62] transition hover:border-[var(--red)] hover:bg-[#fff5f2] hover:text-[var(--red)]"
           href="/auth/sign-out"
         >
-          <Logout01Icon className="h-4 w-4" />
+          <HugeiconsIcon className="h-4 w-4" icon={Logout01Icon} />
           <span className="text-xs">Sign out</span>
         </Link>
       </nav>

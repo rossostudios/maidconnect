@@ -1,6 +1,7 @@
 "use client";
 
-import { Cancel01Icon, MagicWand01Icon } from "hugeicons-react";
+import { Cancel01Icon, MagicWand01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useLatestChangelog } from "@/hooks/use-latest-changelog";
@@ -47,7 +48,7 @@ export function ChangelogBanner() {
             type="button"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-100">
-              <MagicWand01Icon className="h-4 w-4 text-purple-600" />
+              <HugeiconsIcon className="h-4 w-4 text-purple-600" icon={MagicWand01Icon} />
             </div>
             <div className="flex-1">
               <p className="font-semibold text-[var(--foreground)] text-sm sm:text-base">
@@ -74,7 +75,7 @@ export function ChangelogBanner() {
             onClick={handleDismiss}
             type="button"
           >
-            <Cancel01Icon className="h-5 w-5" />
+            <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
           </button>
         </div>
       </div>

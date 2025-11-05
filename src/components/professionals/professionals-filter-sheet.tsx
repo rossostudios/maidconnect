@@ -1,6 +1,12 @@
 "use client";
 
-import { Cancel01Icon, FilterIcon, Location01Icon, Settings02Icon } from "hugeicons-react";
+import {
+  Cancel01Icon,
+  FilterIcon,
+  Location01Icon,
+  Settings02Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
@@ -126,7 +132,7 @@ export function ProfessionalsFilterSheet({
         {/* Header */}
         <div className="sticky top-0 z-10 flex items-center justify-between border-[#ebe5d8] border-b bg-white px-6 py-4">
           <div className="flex items-center gap-3">
-            <FilterIcon className="h-5 w-5 text-[var(--foreground)]" />
+            <HugeiconsIcon className="h-5 w-5 text-[var(--foreground)]" icon={FilterIcon} />
             <h2 className="font-semibold text-[var(--foreground)] text-lg">Filters</h2>
             {activeFilterCount > 0 && (
               <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[var(--red)] px-2 font-semibold text-white text-xs">
@@ -140,7 +146,7 @@ export function ProfessionalsFilterSheet({
             onClick={onClose}
             type="button"
           >
-            <Cancel01Icon className="h-6 w-6" />
+            <HugeiconsIcon className="h-6 w-6" icon={Cancel01Icon} />
           </button>
         </div>
 
@@ -149,7 +155,7 @@ export function ProfessionalsFilterSheet({
           {/* Service Filter */}
           <div className="space-y-3">
             <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-sm">
-              <FilterIcon className="h-5 w-5" />
+              <HugeiconsIcon className="h-5 w-5" icon={FilterIcon} />
               {t("filters.service")}
             </div>
             <select
@@ -168,7 +174,7 @@ export function ProfessionalsFilterSheet({
           {/* City Filter */}
           <div className="space-y-3">
             <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-sm">
-              <Location01Icon className="h-5 w-5" />
+              <HugeiconsIcon className="h-5 w-5" icon={Location01Icon} />
               {t("filters.city")}
             </div>
             <select
@@ -187,7 +193,7 @@ export function ProfessionalsFilterSheet({
           {/* Rating Filter */}
           <div className="space-y-3">
             <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-sm">
-              <Settings02Icon className="h-5 w-5" />
+              <HugeiconsIcon className="h-5 w-5" icon={Settings02Icon} />
               {t("filters.rating")}
             </div>
             <select
