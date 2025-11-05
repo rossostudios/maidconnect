@@ -1,4 +1,5 @@
 import DOMPurify from "isomorphic-dompurify";
+import type { Config as DOMPurifyConfig } from "dompurify";
 
 /**
  * Sanitize HTML content to prevent XSS attacks
@@ -16,7 +17,7 @@ import DOMPurify from "isomorphic-dompurify";
  * <div dangerouslySetInnerHTML={{ __html: safeHTML }} />
  * ```
  */
-export function sanitizeHTML(dirty: string, options?: DOMPurify.Config): string {
+export function sanitizeHTML(dirty: string, options?: DOMPurifyConfig): string {
   // Default configuration that allows common formatting
   const defaultConfig = {
     // Allow common HTML tags
@@ -71,9 +72,9 @@ export function sanitizeHTML(dirty: string, options?: DOMPurify.Config): string 
     FORBID_ATTR: ["onerror", "onload", "onclick"],
     FORBID_TAGS: ["script", "iframe", "object", "embed", "form"],
     ...options,
-  } as DOMPurify.Config;
+  } satisfies DOMPurifyConfig;
 
-  return String(DOMPurify.sanitize(dirty, defaultConfig as any));
+  return String(DOMPurify.sanitize(dirty, defaultConfig));
 }
 
 /**
@@ -145,9 +146,9 @@ export function sanitizeRichContent(dirty: string): string {
     // Still forbid dangerous attributes
     FORBID_ATTR: ["onerror", "onload", "onclick", "onmouseover"],
     FORBID_TAGS: ["script", "iframe", "object", "embed", "form", "input"],
-  } as DOMPurify.Config;
+  } satisfies DOMPurifyConfig;
 
-  return String(DOMPurify.sanitize(dirty, config as any));
+  return String(DOMPurify.sanitize(dirty, config));
 }
 
 /**
@@ -168,9 +169,9 @@ export function sanitizeUserContent(dirty: string): string {
     // Force safe link handling
     FORBID_ATTR: ["onerror", "onload", "onclick"],
     FORBID_TAGS: ["script", "iframe", "object", "embed", "form", "input", "img", "video", "audio"],
-  } as DOMPurify.Config;
+  } satisfies DOMPurifyConfig;
 
-  return String(DOMPurify.sanitize(dirty, config as any));
+  return String(DOMPurify.sanitize(dirty, config));
 }
 
 /**
@@ -187,9 +188,9 @@ export function stripHTML(dirty: string): string {
     ALLOWED_TAGS: [],
     ALLOWED_ATTR: [],
     KEEP_CONTENT: true,
-  } as DOMPurify.Config;
+  } satisfies DOMPurifyConfig;
 
-  return String(DOMPurify.sanitize(dirty, config as any));
+  return String(DOMPurify.sanitize(dirty, config));
 }
 
 /**

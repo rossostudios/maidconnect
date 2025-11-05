@@ -2,7 +2,7 @@
 
 import { FilterIcon, Search01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AuditLogsTable } from "./audit-logs-table";
 
 type AuditLog = {
@@ -38,11 +38,7 @@ export function AuditLogsDashboard() {
   const [search, setSearch] = useState("");
   const [showFilters, setShowFilters] = useState(false);
 
-  useEffect(() => {
-    loadLogs();
-  }, [loadLogs]);
-
-  const loadLogs = async () => {
+  const loadLogs = useCallback(async () => {
     setIsLoading(true);
     try {
       const params = new URLSearchParams({
@@ -70,7 +66,11 @@ export function AuditLogsDashboard() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [pagination.page, pagination.limit, actionFilter, search]);
+
+  useEffect(() => {
+    loadLogs();
+  }, [loadLogs]);
 
   const handleSearchChange = (value: string) => {
     setSearch(value);

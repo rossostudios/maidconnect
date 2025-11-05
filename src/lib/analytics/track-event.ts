@@ -137,7 +137,7 @@ export async function trackEvent<T extends PlatformEventType>(
     let finalSessionId = sessionId;
     if (!finalSessionId && typeof window !== "undefined") {
       // Client-side: use session storage for anonymous tracking
-      finalSessionId = sessionStorage.getItem("analytics_session_id");
+      finalSessionId = sessionStorage.getItem("analytics_session_id") ?? undefined;
       if (!finalSessionId) {
         finalSessionId = crypto.randomUUID();
         sessionStorage.setItem("analytics_session_id", finalSessionId);

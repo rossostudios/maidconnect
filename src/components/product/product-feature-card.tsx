@@ -1,8 +1,8 @@
-import type { IconSvgObject } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import type { HugeIcon } from "@/types/icons";
 
 type ProductFeatureCardProps = {
-  icon: IconSvgObject;
+  icon: HugeIcon;
   title: string;
   description: string;
 };

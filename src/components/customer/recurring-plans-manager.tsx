@@ -60,7 +60,7 @@ const FREQUENCY_LABELS: Record<string, string> = {
 
 const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-export function RecurringPlansManager({ initialPlans, userId }: RecurringPlansManagerProps) {
+export function RecurringPlansManager({ initialPlans, userId: _userId }: RecurringPlansManagerProps) {
   const [plans, setPlans] = useState<RecurringPlan[]>(initialPlans);
   const [filter, setFilter] = useState<"all" | "active" | "paused">("all");
 
@@ -239,7 +239,6 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
   };
 
   const savingsPerBooking = plan.base_amount - plan.final_amount;
-  const _totalSavingsEstimate = savingsPerBooking * Math.max(plan.total_bookings_completed, 4);
 
   return (
     <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-md">

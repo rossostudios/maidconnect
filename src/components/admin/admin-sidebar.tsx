@@ -17,11 +17,12 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import { Link, usePathname } from "@/i18n/routing";
+import type { HugeIcon } from "@/types/icons";
 
 type NavItem = {
   href: string;
   label: string;
-  icon: any;
+  icon: HugeIcon;
 };
 
 type NavSection = {

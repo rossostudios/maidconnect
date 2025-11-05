@@ -3,8 +3,8 @@
 import { AlertCircleIcon, DollarCircleIcon, RefreshIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
-import type { ComponentType, SVGProps } from "react";
 import { useMemo, useState, useTransition } from "react";
+import type { HugeIcon } from "@/types/icons";
 
 type FinancialBooking = {
   status: string;
@@ -215,7 +215,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
 }
 
 type SummaryCardProps = {
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  icon: HugeIcon;
   title: string;
   amount: number;
   description: string;

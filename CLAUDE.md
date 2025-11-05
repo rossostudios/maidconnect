@@ -170,6 +170,284 @@ const HeavyChart = dynamic(() => import('@/components/charts/heavy-chart'), {
 }
 ```
 
+### TypeScript Best Practices & Anti-Patterns
+
+**⚠️ CRITICAL: NEVER use `as any` - This defeats the entire purpose of TypeScript!**
+
+```typescript
+// ❌ WRONG: Using 'as any' to bypass type checking
+const data = response.data as any;
+data.someProperty; // No type safety!
+
+// ❌ WRONG: Using 'any' type
+function processData(data: any) {
+  return data.value;
+}
+
+// ✅ CORRECT: Define proper types
+interface ResponseData {
+  id: string;
+  value: number;
+  metadata?: Record<string, unknown>;
+}
+
+const data = response.data as ResponseData;
+data.value; // Type-safe!
+
+// ✅ CORRECT: Use generics for flexible typing
+function processData<T extends { value: number }>(data: T) {
+  return data.value;
+}
+
+// ✅ CORRECT: Use 'unknown' if type is truly unknown, then narrow it
+function handleUnknownData(data: unknown) {
+  // Type guard to narrow the type
+  if (typeof data === 'object' && data !== null && 'value' in data) {
+    const validated = ResponseDataSchema.parse(data); // Use Zod for runtime validation
+    return validated;
+  }
+  throw new Error('Invalid data structure');
+}
+```
+
+**Type Narrowing Techniques - Use These Instead of `as any`:**
+
+```typescript
+// ✅ Type guards
+function isBooking(value: unknown): value is Booking {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'id' in value &&
+    'status' in value
+  );
+}
+
+if (isBooking(data)) {
+  // TypeScript knows data is Booking here
+  console.log(data.status);
+}
+
+// ✅ Discriminated unions
+type Response =
+  | { success: true; data: BookingData }
+  | { success: false; error: string };
+
+function handleResponse(response: Response) {
+  if (response.success) {
+    // TypeScript knows response.data exists here
+    return response.data;
+  } else {
+    // TypeScript knows response.error exists here
+    throw new Error(response.error);
+  }
+}
+
+// ✅ Use Zod for runtime validation + type inference
+const BookingSchema = z.object({
+  id: z.string().uuid(),
+  status: z.enum(['pending', 'confirmed', 'completed']),
+  total: z.number().positive(),
+});
+
+type Booking = z.infer<typeof BookingSchema>;
+
+// Validates at runtime AND provides type safety
+const booking = BookingSchema.parse(unknownData);
+```
+
+**Avoid Non-Null Assertions (!) Unless Absolutely Necessary:**
+
+```typescript
+// ❌ WRONG: Using ! to bypass null checks
+const user = users.find(u => u.id === id)!;
+user.name; // Runtime error if user is undefined!
+
+// ✅ CORRECT: Handle the null case
+const user = users.find(u => u.id === id);
+if (!user) {
+  throw new Error(`User ${id} not found`);
+}
+user.name; // Type-safe!
+
+// ✅ CORRECT: Use optional chaining
+const userName = users.find(u => u.id === id)?.name ?? 'Unknown';
+
+// ⚠️ ACCEPTABLE: Only use ! when you have a guarantee
+// (e.g., after validation, in test setup, etc.)
+const form = document.getElementById('booking-form')!; // We know it exists in this context
+```
+
+**NEVER Use @ts-ignore or @ts-expect-error to Hide Problems:**
+
+```typescript
+// ❌ WRONG: Hiding type errors
+// @ts-ignore
+const result = someFunction(wrongType);
+
+// ❌ WRONG: Suppressing valid errors
+// @ts-expect-error
+data.nonExistentProperty = value;
+
+// ✅ CORRECT: Fix the actual type issue
+interface DataWithProperty {
+  existingProperty: string;
+  newProperty?: string;
+}
+
+const data: DataWithProperty = { existingProperty: 'value' };
+data.newProperty = 'new value'; // Type-safe!
+```
+
+**Proper Error Handling with Types:**
+
+```typescript
+// ❌ WRONG: Catching and ignoring type information
+try {
+  await someOperation();
+} catch (error) {
+  console.error(error.message); // error is 'any'
+}
+
+// ✅ CORRECT: Properly type errors
+try {
+  await someOperation();
+} catch (error) {
+  if (error instanceof Error) {
+    console.error('Operation failed:', error.message);
+  } else if (typeof error === 'string') {
+    console.error('Operation failed:', error);
+  } else {
+    console.error('Unknown error:', error);
+  }
+}
+
+// ✅ BETTER: Use error handling utilities
+import { PostgrestError } from '@supabase/supabase-js';
+import { ZodError } from 'zod';
+
+try {
+  await someOperation();
+} catch (error) {
+  if (error instanceof PostgrestError) {
+    console.error('Database error:', error.message);
+    return { error: 'Database operation failed' };
+  }
+
+  if (error instanceof ZodError) {
+    console.error('Validation error:', error.errors);
+    return { error: 'Invalid data format' };
+  }
+
+  if (error instanceof Error) {
+    console.error('Error:', error.message);
+    return { error: 'An unexpected error occurred' };
+  }
+
+  console.error('Unknown error:', error);
+  return { error: 'An unknown error occurred' };
+}
+```
+
+**Array and Object Access:**
+
+```typescript
+// ❌ WRONG: Unsafe array access
+const firstItem = items[0];
+firstItem.name; // Could be undefined!
+
+// ✅ CORRECT: With noUncheckedIndexedAccess enabled
+const firstItem = items[0]; // Type is Item | undefined
+if (firstItem) {
+  firstItem.name; // Type-safe!
+}
+
+// ✅ CORRECT: Use optional chaining
+const firstName = items[0]?.name ?? 'No items';
+
+// ❌ WRONG: Unsafe object access
+const config: Record<string, string> = loadConfig();
+const value = config['key'].toUpperCase(); // Could be undefined!
+
+// ✅ CORRECT: Handle undefined
+const value = config['key'];
+if (value !== undefined) {
+  console.log(value.toUpperCase());
+}
+```
+
+**Function Return Types - Always Explicit:**
+
+```typescript
+// ❌ WRONG: Implicit return type
+function calculateTotal(items) {
+  return items.reduce((sum, item) => sum + item.price, 0);
+}
+
+// ✅ CORRECT: Explicit types everywhere
+function calculateTotal(items: BookingItem[]): number {
+  return items.reduce((sum, item) => sum + item.price, 0);
+}
+
+// ✅ CORRECT: Async functions return Promise
+async function fetchBooking(id: string): Promise<Booking | null> {
+  const { data, error } = await supabase
+    .from('bookings')
+    .select('*')
+    .eq('id', id)
+    .maybeSingle();
+
+  if (error) throw error;
+  return data;
+}
+```
+
+**Component Props - No Inline Types:**
+
+```typescript
+// ❌ WRONG: Inline prop types
+export function BookingCard({ booking }: { booking: any }) {
+  // ...
+}
+
+// ❌ WRONG: Partial typing
+export function BookingCard({ booking, onCancel }: any) {
+  // ...
+}
+
+// ✅ CORRECT: Defined interface with proper types
+interface BookingCardProps {
+  booking: Database['public']['Tables']['bookings']['Row'];
+  onCancel?: (id: string) => Promise<void>;
+  className?: string;
+}
+
+export function BookingCard({ booking, onCancel, className }: BookingCardProps) {
+  // Full type safety!
+}
+```
+
+**Code Quality Checklist Before Committing:**
+
+- [ ] **NO `as any` anywhere in the code**
+- [ ] **NO `any` types (use `unknown` if truly unknown, then validate)**
+- [ ] **NO `@ts-ignore` or `@ts-expect-error` (fix the actual issue)**
+- [ ] **Minimal use of `!` non-null assertions (handle null cases properly)**
+- [ ] **All functions have explicit return types**
+- [ ] **All component props use interfaces, not inline types**
+- [ ] **Error handling properly types caught errors**
+- [ ] **Array/object access handles undefined (noUncheckedIndexedAccess)**
+- [ ] **Use Zod schemas for runtime validation + type inference**
+- [ ] **No implicit 'any' parameters or return types**
+
+**When You Think You Need `as any`, Do This Instead:**
+
+1. **Define the correct type** - Create interfaces/types that match your data
+2. **Use Zod validation** - Validate unknown data at runtime and infer types
+3. **Use type guards** - Narrow types safely with proper checks
+4. **Use generics** - Make functions flexible while maintaining type safety
+5. **Ask for help** - If you can't figure out the types, ask the team!
+
 ### Component Guidelines
 
 **Always use functional components with TypeScript:**
@@ -1103,14 +1381,32 @@ try {
 ### Code Review Checklist
 
 Before requesting review:
-- [ ] TypeScript strict mode passing
+
+**Type Safety & Code Quality:**
+- [ ] TypeScript strict mode passing (no errors)
+- [ ] **NO `as any` anywhere in the code**
+- [ ] **NO `any` types (use `unknown` with validation)**
+- [ ] **NO `@ts-ignore` or `@ts-expect-error`**
+- [ ] Minimal use of `!` non-null assertions (justified with comments)
+- [ ] All functions have explicit return types
+- [ ] All component props use interfaces, not inline types
+- [ ] Error handling properly types caught errors
+- [ ] Array/object access handles undefined cases
+
+**Testing & Quality:**
 - [ ] All tests passing
 - [ ] Biome checks passing
 - [ ] No console.logs (except error logging)
+
+**Security & Data:**
 - [ ] Security considerations addressed
-- [ ] RLS policies tested
-- [ ] i18n strings added
-- [ ] Conventional commit message
+- [ ] RLS policies tested (if applicable)
+- [ ] Input validation with Zod schemas
+- [ ] No direct client input to database
+
+**i18n & Standards:**
+- [ ] i18n strings added (no hardcoded text)
+- [ ] Conventional commit message format
 - [ ] Migration tested locally (if applicable)
 
 ---
@@ -1125,4 +1421,4 @@ Before requesting review:
 ---
 
 **Last Updated:** 2025-11-05
-**Version:** 1.0.0
+**Version:** 1.1.0

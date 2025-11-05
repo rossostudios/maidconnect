@@ -8,13 +8,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
+import type { ComponentPropsWithoutRef, Ref } from "react";
 import { cardHover } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 export type CardVariant = "default" | "elevated" | "outlined" | "glass";
 
-interface CardProps extends ComponentPropsWithoutRef<"div"> {
+interface BaseCardProps {
   /**
    * Visual variant
    * @default "default"
@@ -40,6 +40,8 @@ interface CardProps extends ComponentPropsWithoutRef<"div"> {
    */
   disableMotion?: boolean;
 }
+
+interface CardProps extends BaseCardProps, Omit<ComponentPropsWithoutRef<"div">, keyof BaseCardProps> {}
 
 const variantStyles: Record<CardVariant, string> = {
   default: "bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-card)]",
@@ -82,7 +84,7 @@ export const Card = ({
   children,
   ref,
   ...props
-}: CardProps & { ref?: RefObject<ElementRef<"div"> | null> }) => {
+}: CardProps & { ref?: Ref<HTMLDivElement> }) => {
   const baseStyles =
     "rounded-xl overflow-hidden transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]";
 
@@ -93,11 +95,11 @@ export const Card = ({
     className
   );
 
-  const motionProps =
+  const motionVariants =
     hoverable && !disableMotion
       ? {
-          initial: "rest",
-          whileHover: "hover",
+          initial: "rest" as const,
+          whileHover: "hover" as const,
           variants: cardHover,
         }
       : {};
@@ -108,9 +110,8 @@ export const Card = ({
       <motion.a
         className={classes}
         href={href}
-        ref={ref as any}
-        {...motionProps}
-        {...(props as any)}
+        ref={ref as Ref<HTMLAnchorElement>}
+        {...motionVariants}
       >
         {children}
       </motion.a>
@@ -120,19 +121,29 @@ export const Card = ({
   // Render as button
   if (asButton) {
     return (
-      <motion.button className={classes} ref={ref as any} type="button" {...motionProps} {...props}>
+      <motion.button
+        className={classes}
+        ref={ref as Ref<HTMLButtonElement>}
+        type="button"
+        {...motionVariants}
+      >
         {children}
       </motion.button>
     );
   }
 
-  // Render as div
-  return disableMotion ? (
-    <div className={classes} ref={ref} {...props}>
-      {children}
-    </div>
-  ) : (
-    <motion.div className={classes} ref={ref} {...motionProps} {...props}>
+  // Render as div (non-animated)
+  if (disableMotion) {
+    return (
+      <div className={classes} ref={ref} {...props}>
+        {children}
+      </div>
+    );
+  }
+
+  // Render as animated div (motion props only, no spreading to avoid conflicts)
+  return (
+    <motion.div className={classes} ref={ref} {...motionVariants}>
       {children}
     </motion.div>
   );
@@ -147,7 +158,7 @@ export const CardHeader = ({
   className,
   ref,
   ...props
-}: ComponentPropsWithoutRef<"div"> & { ref?: RefObject<ElementRef<"div"> | null> }) => (
+}: ComponentPropsWithoutRef<"div"> & { ref?: Ref<HTMLDivElement> }) => (
   <div className={cn("p-6 pb-4", className)} ref={ref} {...props} />
 );
 
@@ -160,7 +171,7 @@ export const CardContent = ({
   className,
   ref,
   ...props
-}: ComponentPropsWithoutRef<"div"> & { ref?: RefObject<ElementRef<"div"> | null> }) => (
+}: ComponentPropsWithoutRef<"div"> & { ref?: Ref<HTMLDivElement> }) => (
   <div className={cn("p-6 pt-0", className)} ref={ref} {...props} />
 );
 
@@ -173,7 +184,7 @@ export const CardFooter = ({
   className,
   ref,
   ...props
-}: ComponentPropsWithoutRef<"div"> & { ref?: RefObject<ElementRef<"div"> | null> }) => (
+}: ComponentPropsWithoutRef<"div"> & { ref?: Ref<HTMLDivElement> }) => (
   <div
     className={cn("border-[var(--border-subtle)] border-t p-6 pt-4", className)}
     ref={ref}
@@ -192,7 +203,7 @@ export const CardImage = ({
   ref,
   ...props
 }: ComponentPropsWithoutRef<"div"> & { aspectRatio?: string } & {
-  ref?: RefObject<ElementRef<"div"> | null>;
+  ref?: Ref<HTMLDivElement>;
 }) => (
   <div
     className={cn("relative overflow-hidden", className)}

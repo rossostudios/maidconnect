@@ -13,7 +13,7 @@ import {
   TimeScheduleIcon,
   UserMultiple02Icon,
 } from "@hugeicons/core-free-icons";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -73,11 +73,7 @@ export function EnhancedAnalyticsDashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedTimeRange, setSelectedTimeRange] = useState<"7d" | "30d" | "90d">("30d");
 
-  useEffect(() => {
-    loadAnalytics();
-  }, [loadAnalytics]);
-
-  const loadAnalytics = async () => {
+  const loadAnalytics = useCallback(async () => {
     setIsLoading(true);
     try {
       const supabase = createSupabaseBrowserClient();
@@ -281,7 +277,11 @@ export function EnhancedAnalyticsDashboard() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [selectedTimeRange]);
+
+  useEffect(() => {
+    loadAnalytics();
+  }, [loadAnalytics]);
 
   if (isLoading || !metrics) {
     return (

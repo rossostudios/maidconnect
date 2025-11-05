@@ -1,12 +1,12 @@
 /**
-import { HugeiconsIcon } from "@hugeicons/react";
-import { AnalyticsUpIcon, CheckmarkCircle01Icon, Clock01Icon } from "@hugeicons/core-free-icons";
-
  * Performance Metrics Component
  * Week 7-8: Safety Package - Display on-time and acceptance rates
  *
  * Shows professional reliability metrics to build trust
  */
+
+import { HugeiconsIcon } from "@hugeicons/react";
+import { AnalyticsUpIcon, CheckmarkCircle01Icon, Clock01Icon } from "@hugeicons/core-free-icons";
 
 export type PerformanceMetrics = {
   onTimeRate?: number; // Percentage (0-100)

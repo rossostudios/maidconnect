@@ -3,16 +3,6 @@ import { createClient } from "@supabase/supabase-js";
 import { unstable_noStore as noStore } from "next/cache";
 import { cookies } from "next/headers";
 
-type CookieOptions = {
-  path?: string;
-  domain?: string;
-  maxAge?: number;
-  secure?: boolean;
-  sameSite?: true | false | "lax" | "strict" | "none";
-  httpOnly?: boolean;
-  expires?: Date;
-};
-
 export async function createSupabaseServerClient() {
   // Opt out of static generation when accessing cookies
   noStore();

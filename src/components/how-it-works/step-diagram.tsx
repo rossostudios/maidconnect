@@ -2,10 +2,11 @@
 
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
+import type { HugeIcon } from "@/types/icons";
 
 type StepDiagramProps = {
   stepNumber: number;
-  icon: any; // Hugeicons icon object
+  icon: HugeIcon;
   titleKey: string;
   descriptionKey: string;
   isLast?: boolean;

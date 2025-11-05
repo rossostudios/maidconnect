@@ -30,11 +30,24 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { cn } from "@/lib/utils";
+import type { HugeIcon } from "@/types/icons";
+
+type BookingWithProfile = {
+  id: string;
+  status: string | null;
+  created_at: string;
+  amount_estimated: number | null;
+  customer_id: string;
+  professional_id: string;
+  profiles: {
+    full_name: string | null;
+  } | null;
+};
 
 type PipelineStage = {
   id: string;
   label: string;
-  icon: any;
+  icon: HugeIcon;
   count: number;
   color: string;
   bgColor: string;
@@ -93,7 +106,7 @@ export function BookingPipeline() {
         query = query.gte("created_at", dateFilter.toISOString());
       }
 
-      const { data: bookings } = await query;
+      const { data: bookings } = (await query) as { data: BookingWithProfile[] | null };
 
       // Group bookings by stage
       const pendingBookings = bookings?.filter((b) => b.status === "pending") || [];

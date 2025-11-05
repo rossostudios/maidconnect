@@ -637,9 +637,7 @@ function MessageInput({
       if (detectedContact) {
         toast.warning(
           `Reminder: Keep communication in-app until booking is confirmed. Sharing ${detectedContact} may violate our terms.`,
-          {
-            duration: 5000,
-          }
+          5000
         );
         setHasShownWarning(true);
       }

@@ -15,6 +15,7 @@ import { useState } from "react";
 import { BaseModal } from "@/components/shared/base-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useModalForm } from "@/hooks/use-modal-form";
+import type { HugeIcon } from "@/types/icons";
 
 type FeedbackModalProps = {
   isOpen: boolean;
@@ -31,7 +32,7 @@ type FeedbackFormData = {
   consent: boolean;
 };
 
-const feedbackTypes: { value: FeedbackType; label: string; icon: any; description: string }[] = [
+const feedbackTypes: { value: FeedbackType; label: string; icon: HugeIcon; description: string }[] = [
   {
     value: "bug",
     label: "Bug Report",
@@ -181,7 +182,6 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {feedbackTypes.map((type) => {
-              const TypeIcon = type.icon;
               const isSelected = form.formData.feedbackType === type.value;
 
               return (
@@ -195,8 +195,9 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                   onClick={() => form.updateField("feedbackType", type.value)}
                   type="button"
                 >
-                  <TypeIcon
+                  <HugeiconsIcon
                     className={`h-6 w-6 ${isSelected ? "text-[var(--red)]" : "text-[#7a6d62]"}`}
+                    icon={type.icon}
                   />
                   <span
                     className={`font-medium text-sm ${isSelected ? "text-[var(--red)]" : "text-[var(--foreground)]"}`}

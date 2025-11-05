@@ -2,7 +2,7 @@
 
 import { FilterIcon, Search01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { type Dispute, DisputesTable } from "./disputes-table";
 
 type DisputeListResponse = {
@@ -29,11 +29,7 @@ export function DisputeResolutionDashboard() {
   const [search, setSearch] = useState("");
   const [showFilters, setShowFilters] = useState(false);
 
-  useEffect(() => {
-    loadDisputes();
-  }, [loadDisputes]);
-
-  const loadDisputes = async () => {
+  const loadDisputes = useCallback(async () => {
     setIsLoading(true);
     try {
       const params = new URLSearchParams({
@@ -64,7 +60,11 @@ export function DisputeResolutionDashboard() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [pagination.page, pagination.limit, statusFilter, priorityFilter, search]);
+
+  useEffect(() => {
+    loadDisputes();
+  }, [loadDisputes]);
 
   const handleSearchChange = (value: string) => {
     setSearch(value);

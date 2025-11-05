@@ -40,7 +40,7 @@ type LeadQueueProps = {
   professionalId: string;
 };
 
-export function LeadQueue({ initialBookings, professionalId }: LeadQueueProps) {
+export function LeadQueue({ initialBookings, professionalId: _professionalId }: LeadQueueProps) {
   const [bookings, setBookings] = useState<BookingLead[]>(initialBookings);
   const [filter, setFilter] = useState<"all" | "pending" | "confirmed">("all");
 

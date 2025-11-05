@@ -12,11 +12,12 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
+import type { HugeIcon } from "@/types/icons";
 
 export type QuickFilter = {
   id: string;
   label: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: HugeIcon;
   active: boolean;
 };
 

@@ -2,7 +2,7 @@
 
 import { FilterIcon, Search01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { UserManagementTable } from "./user-management-table";
 
 type UserRole = "customer" | "professional" | "admin";
@@ -49,11 +49,7 @@ export function UserManagementDashboard() {
   const [search, setSearch] = useState("");
   const [showFilters, setShowFilters] = useState(false);
 
-  useEffect(() => {
-    loadUsers();
-  }, [loadUsers]);
-
-  const loadUsers = async () => {
+  const loadUsers = useCallback(async () => {
     setIsLoading(true);
     try {
       const params = new URLSearchParams({
@@ -85,7 +81,11 @@ export function UserManagementDashboard() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [pagination.page, pagination.limit, roleFilter, suspensionFilter, search]);
+
+  useEffect(() => {
+    loadUsers();
+  }, [loadUsers]);
 
   const handleSearchChange = (value: string) => {
     setSearch(value);
