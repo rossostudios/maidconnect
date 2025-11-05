@@ -185,6 +185,24 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
       roles: ["customer"],
       action: () => navigate("/dashboard/customer/addresses"),
     },
+    // Navigation - Favorites (customer only)
+    {
+      id: "goto-favorites-customer",
+      label: "Go to Favorites",
+      description: "View your favorite professionals",
+      category: "Navigation",
+      roles: ["customer"],
+      action: () => navigate("/dashboard/customer/favorites"),
+    },
+    // Navigation - Recurring Plans (customer only)
+    {
+      id: "goto-recurring-plans",
+      label: "Go to Recurring Plans",
+      description: "Manage your recurring service plans",
+      category: "Navigation",
+      roles: ["customer"],
+      action: () => navigate("/dashboard/customer/recurring-plans"),
+    },
     // Actions - New Booking (customer only)
     {
       id: "create-booking",
