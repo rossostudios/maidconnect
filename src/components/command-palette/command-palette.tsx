@@ -149,6 +149,33 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
       roles: ["professional"],
       action: () => navigate("/dashboard/pro/portfolio"),
     },
+    // Navigation - Lead Queue (professional only)
+    {
+      id: "goto-leads",
+      label: "Go to Lead Queue",
+      description: "View pending booking requests",
+      category: "Navigation",
+      roles: ["professional"],
+      action: () => navigate("/dashboard/pro/leads"),
+    },
+    // Navigation - Documents (professional only)
+    {
+      id: "goto-documents",
+      label: "Go to Documents",
+      description: "Manage your verification documents",
+      category: "Navigation",
+      roles: ["professional"],
+      action: () => navigate("/dashboard/pro/documents"),
+    },
+    // Navigation - Onboarding (professional only)
+    {
+      id: "goto-onboarding",
+      label: "Go to Onboarding",
+      description: "Complete your professional setup",
+      category: "Navigation",
+      roles: ["professional"],
+      action: () => navigate("/dashboard/pro/onboarding"),
+    },
     // Navigation - Addresses (customer only)
     {
       id: "goto-addresses",
