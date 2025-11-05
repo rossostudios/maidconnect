@@ -6,7 +6,6 @@ import {
   FavouriteIcon,
   Home09Icon,
   Location01Icon,
-  Logout01Icon,
   Menu01Icon,
   Cancel01Icon,
   Message01Icon,
@@ -18,6 +17,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import { Link, usePathname } from "@/i18n/routing";
 import type { HugeIcon } from "@/types/icons";
+import { SignOutButton } from "@/components/auth/sign-out-button";
 
 type NavItem = {
   href: string;
@@ -161,16 +161,7 @@ export function CustomerSidebar({
 
       {/* Footer - Sign Out */}
       <div className="border-[#E5E5E5] border-t p-3">
-        <Link
-          className={`flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-[#525252] text-sm transition-all hover:bg-[#F5F5F5] hover:text-[#E63946] ${
-            isCollapsed ? "justify-center" : ""
-          }`}
-          href="/auth/sign-out"
-          title={isCollapsed ? "Sign out" : undefined}
-        >
-          <HugeiconsIcon className="h-5 w-5 flex-shrink-0" icon={Logout01Icon} />
-          {!isCollapsed && <span>Sign out</span>}
-        </Link>
+        <SignOutButton isCollapsed={isCollapsed} showLabel={!isCollapsed} />
       </div>
     </aside>
   );

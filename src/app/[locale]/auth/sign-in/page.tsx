@@ -25,6 +25,7 @@ export default async function SignInPage({ params, searchParams }: Props) {
   const searchParamsResolved = await searchParams;
   const redirectTo =
     typeof searchParamsResolved.redirectTo === "string" ? searchParamsResolved.redirectTo : null;
+  const signedOut = searchParamsResolved.signedOut === "true";
 
   return (
     <div className="grid min-h-screen grid-cols-1 bg-[var(--background)] md:h-screen md:grid-cols-[45%_55%] md:overflow-hidden">
@@ -47,6 +48,35 @@ export default async function SignInPage({ params, searchParams }: Props) {
                 {t("hero.description")}
               </p>
             </div>
+            {signedOut && (
+              <div className="rounded-2xl border border-[#d4edda] bg-[#f0f9f4] px-6 py-4 shadow-sm">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#28a745]">
+                    <svg
+                      className="h-5 w-5 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M5 13l4 4L19 7"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium text-[#155724] text-sm">
+                      Successfully signed out
+                    </p>
+                    <p className="mt-0.5 text-[#155724] text-xs opacity-80">
+                      Sign in again to access your account
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
             <div className="rounded-[36px] border border-[#e5dfd4] bg-white p-12 shadow-[0_24px_60px_rgba(18,17,15,0.06)]">
               <SignInForm redirectTo={redirectTo} />
               <p className="mt-8 text-[var(--muted-foreground)] text-sm">
