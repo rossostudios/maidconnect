@@ -60,7 +60,7 @@ const handler = withAuthOrGuest(
         .eq("id", user.id)
         .maybeSingle();
 
-      stripeCustomerId = customerProfile?.stripe_customer_id as string | undefined;
+      stripeCustomerId = (customerProfile as { stripe_customer_id: string | null } | null)?.stripe_customer_id ?? undefined;
 
       if (!stripeCustomerId) {
         const customer = await stripe.customers.create({
@@ -72,6 +72,7 @@ const handler = withAuthOrGuest(
         stripeCustomerId = customer.id;
         await supabase
           .from("profiles")
+          // @ts-ignore - Sprint 4 feature: stripe_customer_id column may not be in types
           .update({ stripe_customer_id: stripeCustomerId })
           .eq("id", user.id);
       }

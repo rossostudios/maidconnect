@@ -26,7 +26,7 @@ type Props = {
   currentProfile: ProfileData;
 };
 
-export function AdminProfileEditor({ userId, currentProfile }: Props) {
+export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);

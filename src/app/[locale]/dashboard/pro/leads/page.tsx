@@ -37,7 +37,7 @@ export default async function ProLeadsPage() {
   }
 
   // Fetch pending booking requests for this professional
-  const { data: pendingBookings } = await supabase
+  const { data: pendingBookingsRaw } = await supabase
     .from("bookings")
     .select(`
       id,
@@ -62,6 +62,14 @@ export default async function ProLeadsPage() {
     .in("status", ["pending", "pending_payment", "confirmed"])
     .order("created_at", { ascending: false });
 
+  // Transform data: PostgREST returns customer as array, but we need single object
+  const pendingBookings = pendingBookingsRaw?.map((booking: any) => ({
+    ...booking,
+    customer: Array.isArray(booking.customer)
+      ? booking.customer[0] || null
+      : booking.customer,
+  })) || [];
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
@@ -69,7 +77,7 @@ export default async function ProLeadsPage() {
         <p className="mt-2 text-[#7d7566]">Pending booking requests waiting for your response</p>
       </div>
 
-      <LeadQueue initialBookings={pendingBookings || []} professionalId={user.id} />
+      <LeadQueue initialBookings={pendingBookings} professionalId={user.id} />
     </div>
   );
 }

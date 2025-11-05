@@ -233,9 +233,11 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
       const variant = getRebookNudgeVariant(booking.customer_id);
 
       // Update booking with variant
+      // @ts-expect-error - rebook_nudge_variant column will be added in Sprint 4 migration
       await supabase.from("bookings").update({ rebook_nudge_variant: variant }).eq("id", bookingId);
 
       // Create experiment record
+      // @ts-expect-error - rebook_nudge_experiments table will be created in Sprint 4 migration
       await supabase.from("rebook_nudge_experiments").insert({
         booking_id: bookingId,
         customer_id: booking.customer_id,

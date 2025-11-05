@@ -37,7 +37,7 @@ export default async function RecurringPlansPage() {
   }
 
   // Fetch recurring plans for this customer
-  const { data: recurringPlans } = await supabase
+  const { data: recurringPlansRaw } = await supabase
     .from("recurring_plans")
     .select(`
       id,
@@ -67,6 +67,14 @@ export default async function RecurringPlansPage() {
     .eq("customer_id", user.id)
     .order("created_at", { ascending: false });
 
+  // Transform data: PostgREST returns professional as array, but we need single object
+  const recurringPlans = recurringPlansRaw?.map((plan: any) => ({
+    ...plan,
+    professional: Array.isArray(plan.professional)
+      ? plan.professional[0] || null
+      : plan.professional,
+  })) || [];
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
@@ -76,7 +84,7 @@ export default async function RecurringPlansPage() {
         </p>
       </div>
 
-      <RecurringPlansManager initialPlans={recurringPlans || []} userId={user.id} />
+      <RecurringPlansManager initialPlans={recurringPlans} userId={user.id} />
     </div>
   );
 }
