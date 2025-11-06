@@ -23,9 +23,7 @@ export default async function AdminLayout({ children }: Props) {
         <AdminHeader userEmail={user.email ?? undefined} />
 
         {/* Main Content Area - More spacious */}
-        <main className="flex-1 overflow-y-auto bg-[#FAFAF9]">
-          <div className="mx-auto max-w-[1600px] px-8 py-8">{children}</div>
-        </main>
+        <main className="flex-1 overflow-y-auto bg-[#FAFAF9] px-8 py-8">{children}</main>
       </div>
     </div>
   );

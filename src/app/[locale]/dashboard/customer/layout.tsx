@@ -43,9 +43,7 @@ export default async function CustomerLayout({ children }: Props) {
         />
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto bg-[#FAFAF9]">
-          <div className="mx-auto max-w-[1600px] px-8 py-8">{children}</div>
-        </main>
+        <main className="flex-1 overflow-y-auto bg-[#FAFAF9] px-8 py-8">{children}</main>
       </div>
     </div>
   );
