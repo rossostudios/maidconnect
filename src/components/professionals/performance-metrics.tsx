@@ -5,8 +5,8 @@
  * Shows professional reliability metrics to build trust
  */
 
-import { HugeiconsIcon } from "@hugeicons/react";
 import { AnalyticsUpIcon, CheckmarkCircle01Icon, Clock01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 export type PerformanceMetrics = {
   onTimeRate?: number; // Percentage (0-100)

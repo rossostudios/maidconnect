@@ -41,7 +41,7 @@ export function SignOutButton({ className, showLabel = true, isCollapsed = false
       className={cn(
         "flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-[#525252] text-sm transition-all hover:bg-[#F5F5F5] hover:text-[#E63946]",
         isCollapsed && "justify-center",
-        isLoading && "opacity-50 cursor-wait",
+        isLoading && "cursor-wait opacity-50",
         className
       )}
       disabled={isLoading}

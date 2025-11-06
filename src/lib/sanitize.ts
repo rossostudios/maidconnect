@@ -1,5 +1,5 @@
-import DOMPurify from "isomorphic-dompurify";
 import type { Config as DOMPurifyConfig } from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 
 /**
  * Sanitize HTML content to prevent XSS attacks

@@ -67,9 +67,7 @@ export default async function SignInPage({ params, searchParams }: Props) {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <p className="font-medium text-[#155724] text-sm">
-                      Successfully signed out
-                    </p>
+                    <p className="font-medium text-[#155724] text-sm">Successfully signed out</p>
                     <p className="mt-0.5 text-[#155724] text-xs opacity-80">
                       Sign in again to access your account
                     </p>

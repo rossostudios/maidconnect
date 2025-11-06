@@ -32,44 +32,45 @@ type FeedbackFormData = {
   consent: boolean;
 };
 
-const feedbackTypes: { value: FeedbackType; label: string; icon: HugeIcon; description: string }[] = [
-  {
-    value: "bug",
-    label: "Bug Report",
-    icon: Bug01Icon,
-    description: "Something isn't working correctly",
-  },
-  {
-    value: "feature_request",
-    label: "Feature Request",
-    icon: Idea01Icon,
-    description: "Suggest a new feature",
-  },
-  {
-    value: "improvement",
-    label: "Improvement",
-    icon: AnalyticsUpIcon,
-    description: "Suggest an enhancement",
-  },
-  {
-    value: "complaint",
-    label: "Complaint",
-    icon: Sad01Icon,
-    description: "Report an issue or concern",
-  },
-  {
-    value: "praise",
-    label: "Praise",
-    icon: FavouriteIcon,
-    description: "Share positive feedback",
-  },
-  {
-    value: "other",
-    label: "Other",
-    icon: HelpCircleIcon,
-    description: "General feedback",
-  },
-];
+const feedbackTypes: { value: FeedbackType; label: string; icon: HugeIcon; description: string }[] =
+  [
+    {
+      value: "bug",
+      label: "Bug Report",
+      icon: Bug01Icon,
+      description: "Something isn't working correctly",
+    },
+    {
+      value: "feature_request",
+      label: "Feature Request",
+      icon: Idea01Icon,
+      description: "Suggest a new feature",
+    },
+    {
+      value: "improvement",
+      label: "Improvement",
+      icon: AnalyticsUpIcon,
+      description: "Suggest an enhancement",
+    },
+    {
+      value: "complaint",
+      label: "Complaint",
+      icon: Sad01Icon,
+      description: "Report an issue or concern",
+    },
+    {
+      value: "praise",
+      label: "Praise",
+      icon: FavouriteIcon,
+      description: "Share positive feedback",
+    },
+    {
+      value: "other",
+      label: "Other",
+      icon: HelpCircleIcon,
+      description: "General feedback",
+    },
+  ];
 
 export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
   const t = useTranslations("feedback");

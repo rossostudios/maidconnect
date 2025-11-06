@@ -68,12 +68,13 @@ export default async function RecurringPlansPage() {
     .order("created_at", { ascending: false });
 
   // Transform data: PostgREST returns professional as array, but we need single object
-  const recurringPlans = recurringPlansRaw?.map((plan: any) => ({
-    ...plan,
-    professional: Array.isArray(plan.professional)
-      ? plan.professional[0] || null
-      : plan.professional,
-  })) || [];
+  const recurringPlans =
+    recurringPlansRaw?.map((plan: any) => ({
+      ...plan,
+      professional: Array.isArray(plan.professional)
+        ? plan.professional[0] || null
+        : plan.professional,
+    })) || [];
 
   return (
     <div className="container mx-auto px-4 py-8">

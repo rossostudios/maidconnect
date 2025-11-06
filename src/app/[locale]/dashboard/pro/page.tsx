@@ -195,28 +195,28 @@ export default async function ProfessionalDashboardPage() {
         {/* Metrics Grid */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <MetricCard
+            color="warning"
             icon={UserMultiple02Icon}
             label="Pending Requests"
             value={pendingBookings.toString()}
-            color="warning"
           />
           <MetricCard
+            color="info"
             icon={Calendar03Icon}
             label="Active Bookings"
             value={activeBookings.toString()}
-            color="info"
           />
           <MetricCard
+            color="success"
             icon={Clock01Icon}
             label="Completed This Week"
             value={completedThisWeek.toString()}
-            color="success"
           />
           <MetricCard
+            color="primary"
             icon={DollarCircleIcon}
             label="Weekly Earnings"
             value={formatCOPWithFallback(weeklyEarnings)}
-            color="primary"
           />
         </div>
       </section>
@@ -316,9 +316,7 @@ export default async function ProfessionalDashboardPage() {
               <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={DollarCircleIcon} />
               <h3 className="font-semibold text-[#171717] text-base">Finances</h3>
             </div>
-            <p className="text-[#A3A3A3] text-sm">
-              Track your earnings and manage payout settings
-            </p>
+            <p className="text-[#A3A3A3] text-sm">Track your earnings and manage payout settings</p>
           </Link>
 
           {/* Documents */}
@@ -330,9 +328,7 @@ export default async function ProfessionalDashboardPage() {
               <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={FileAttachmentIcon} />
               <h3 className="font-semibold text-[#171717] text-base">Documents</h3>
             </div>
-            <p className="text-[#A3A3A3] text-sm">
-              Upload and manage your verification documents
-            </p>
+            <p className="text-[#A3A3A3] text-sm">Upload and manage your verification documents</p>
           </Link>
 
           {/* Settings */}
@@ -376,7 +372,9 @@ function MetricCard({
   return (
     <div className="rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:shadow-md">
       <div className="mb-3 flex items-center justify-between">
-        <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${colorClasses[color]}`}>
+        <div
+          className={`flex h-10 w-10 items-center justify-center rounded-lg ${colorClasses[color]}`}
+        >
           <HugeiconsIcon className="h-5 w-5" icon={icon} />
         </div>
       </div>

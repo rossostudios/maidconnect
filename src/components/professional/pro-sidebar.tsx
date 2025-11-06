@@ -104,7 +104,7 @@ export function ProSidebar({
     >
       {/* Header */}
       <div
-        className={`flex h-16 items-center border-[#E5E5E5] border-b px-6 ${
+        className={`flex h-20 items-center border-[#E5E5E5] border-b px-6 ${
           isCollapsed ? "justify-center" : "justify-between"
         }`}
       >

@@ -72,7 +72,7 @@ export function ProOnboardingBadge({ status, completionPercentage = 0 }: Props) 
 
   return (
     <Link
-      className="group mx-3 mb-4 mt-4 block rounded-xl border border-[#E5E5E5] p-3 transition-all hover:shadow-md"
+      className="group mx-3 mt-4 mb-4 block rounded-xl border border-[#E5E5E5] p-3 transition-all hover:shadow-md"
       href="/dashboard/pro/onboarding"
       style={{ backgroundColor: config.bgColor }}
     >
@@ -84,7 +84,7 @@ export function ProOnboardingBadge({ status, completionPercentage = 0 }: Props) 
           <HugeiconsIcon className="h-4 w-4" icon={Alert01Icon} style={{ color: config.color }} />
         </div>
 
-        <div className="flex-1 min-w-0">
+        <div className="min-w-0 flex-1">
           <p className="font-semibold text-sm" style={{ color: config.color }}>
             {config.label}
           </p>

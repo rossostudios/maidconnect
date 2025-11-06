@@ -63,12 +63,11 @@ export default async function ProLeadsPage() {
     .order("created_at", { ascending: false });
 
   // Transform data: PostgREST returns customer as array, but we need single object
-  const pendingBookings = pendingBookingsRaw?.map((booking: any) => ({
-    ...booking,
-    customer: Array.isArray(booking.customer)
-      ? booking.customer[0] || null
-      : booking.customer,
-  })) || [];
+  const pendingBookings =
+    pendingBookingsRaw?.map((booking: any) => ({
+      ...booking,
+      customer: Array.isArray(booking.customer) ? booking.customer[0] || null : booking.customer,
+    })) || [];
 
   return (
     <div className="container mx-auto px-4 py-8">

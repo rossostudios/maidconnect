@@ -60,7 +60,7 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
 
   // Create recurring plan
   const { data: plan, error: createError } = await supabase
-    // @ts-ignore - Sprint 2 feature: recurring_plans table will be created in migration
+    // @ts-expect-error - Sprint 2 feature: recurring_plans table will be created in migration
     .from("recurring_plans")
     .insert({
       customer_id: user.id,
@@ -88,7 +88,9 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
   }
 
   // Log the creation for analytics
-  console.log(`Recurring plan created: ${(plan as any).id} for user ${user.id} (${data.frequency})`);
+  console.log(
+    `Recurring plan created: ${(plan as any).id} for user ${user.id} (${data.frequency})`
+  );
 
   return ok({
     id: (plan as any).id,

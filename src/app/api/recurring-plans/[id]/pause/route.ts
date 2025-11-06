@@ -4,8 +4,8 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { z } from "zod";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 const pauseSchema = z.object({
   startDate: z.string(),
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     }
 
     const { data: plan, error } = await supabase
-      // @ts-ignore - Sprint 2 feature: recurring_plans table will be created in migration
+      // @ts-expect-error - Sprint 2 feature: recurring_plans table will be created in migration
       .from("recurring_plans")
       .update({
         status: "paused",

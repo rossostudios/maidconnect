@@ -40,8 +40,7 @@ function isBookingThisMonth(booking: BookingData): boolean {
   const bookingDate = new Date(booking.scheduled_start);
   const now = new Date();
   return (
-    bookingDate.getMonth() === now.getMonth() &&
-    bookingDate.getFullYear() === now.getFullYear()
+    bookingDate.getMonth() === now.getMonth() && bookingDate.getFullYear() === now.getFullYear()
   );
 }
 
@@ -173,28 +172,28 @@ export default async function CustomerDashboardPage() {
         {/* Metrics Grid */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <MetricCard
+            color="info"
             icon={Calendar03Icon}
             label="Active Bookings"
             value={activeBookings.toString()}
-            color="info"
           />
           <MetricCard
+            color="warning"
             icon={Home09Icon}
             label="Upcoming Bookings"
             value={upcomingBookings.toString()}
-            color="warning"
           />
           <MetricCard
+            color="success"
             icon={Calendar03Icon}
             label="Completed This Month"
             value={completedThisMonth.toString()}
-            color="success"
           />
           <MetricCard
+            color="primary"
             icon={CreditCardIcon}
             label="Total Spent"
             value={formatCOPWithFallback(totalSaved)}
-            color="primary"
           />
         </div>
       </section>
@@ -270,9 +269,7 @@ export default async function CustomerDashboardPage() {
               <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={Location01Icon} />
               <h3 className="font-semibold text-[#171717] text-base">Manage Addresses</h3>
             </div>
-            <p className="text-[#A3A3A3] text-sm">
-              Add and update your saved service locations
-            </p>
+            <p className="text-[#A3A3A3] text-sm">Add and update your saved service locations</p>
           </Link>
 
           {/* Manage Payments */}
@@ -298,9 +295,7 @@ export default async function CustomerDashboardPage() {
               <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={FavouriteIcon} />
               <h3 className="font-semibold text-[#171717] text-base">Favorites</h3>
             </div>
-            <p className="text-[#A3A3A3] text-sm">
-              Manage your list of favorite professionals
-            </p>
+            <p className="text-[#A3A3A3] text-sm">Manage your list of favorite professionals</p>
           </Link>
 
           {/* Settings */}
@@ -312,9 +307,7 @@ export default async function CustomerDashboardPage() {
               <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={Settings02Icon} />
               <h3 className="font-semibold text-[#171717] text-base">Settings</h3>
             </div>
-            <p className="text-[#A3A3A3] text-sm">
-              Update your profile and account preferences
-            </p>
+            <p className="text-[#A3A3A3] text-sm">Update your profile and account preferences</p>
           </Link>
         </div>
       </section>
@@ -344,7 +337,9 @@ function MetricCard({
   return (
     <div className="rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:shadow-md">
       <div className="mb-3 flex items-center justify-between">
-        <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${colorClasses[color]}`}>
+        <div
+          className={`flex h-10 w-10 items-center justify-center rounded-lg ${colorClasses[color]}`}
+        >
           <HugeiconsIcon className="h-5 w-5" icon={icon} />
         </div>
       </div>

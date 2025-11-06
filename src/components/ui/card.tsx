@@ -41,7 +41,9 @@ interface BaseCardProps {
   disableMotion?: boolean;
 }
 
-interface CardProps extends BaseCardProps, Omit<ComponentPropsWithoutRef<"div">, keyof BaseCardProps> {}
+interface CardProps
+  extends BaseCardProps,
+    Omit<ComponentPropsWithoutRef<"div">, keyof BaseCardProps> {}
 
 const variantStyles: Record<CardVariant, string> = {
   default: "bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-card)]",

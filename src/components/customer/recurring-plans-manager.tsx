@@ -60,7 +60,10 @@ const FREQUENCY_LABELS: Record<string, string> = {
 
 const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-export function RecurringPlansManager({ initialPlans, userId: _userId }: RecurringPlansManagerProps) {
+export function RecurringPlansManager({
+  initialPlans,
+  userId: _userId,
+}: RecurringPlansManagerProps) {
   const [plans, setPlans] = useState<RecurringPlan[]>(initialPlans);
   const [filter, setFilter] = useState<"all" | "active" | "paused">("all");
 
