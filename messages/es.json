@@ -1052,6 +1052,13 @@
   "services": {
     "badge": "Servicios",
     "title": "Profesionales seleccionados para cada rutina",
+    "cta": "Encontrar Profesionales",
+    "learnMore": "Saber más",
+    "from": "Desde",
+    "perHour": "/hora",
+    "professionals": "profesionales verificados",
+    "reviews": "opiniones",
+    "responsesIn": "Responde en",
     "items": {
       "housekeeping": {
         "title": "Servicio Doméstico y Limpieza Profunda",

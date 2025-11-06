@@ -1,3 +1,4 @@
+import { setRequestLocale } from "next-intl/server";
 import { WelcomeTour } from "@/components/onboarding";
 import { ConciergeSection } from "@/components/sections/concierge-section";
 import { HeroSection } from "@/components/sections/hero-section";
@@ -9,7 +10,12 @@ import { SiteHeader } from "@/components/sections/site-header";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { getLatestProfessionals } from "@/lib/professionals/queries";
 
-export default async function Home() {
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  // Get the locale from params
+  const { locale } = await params;
+
+  // Set the locale for this request so server components can access it
+  setRequestLocale(locale);
   // Fetch latest professionals for the carousel
   let latestProfessionals = await getLatestProfessionals(7);
 

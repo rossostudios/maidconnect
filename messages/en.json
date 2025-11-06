@@ -1052,6 +1052,13 @@
   "services": {
     "badge": "Services",
     "title": "Exceptional Professionals in Every Category",
+    "cta": "Find Professionals",
+    "learnMore": "Learn more",
+    "from": "From",
+    "perHour": "/hr",
+    "professionals": "verified professionals",
+    "reviews": "reviews",
+    "responsesIn": "Responds in",
     "items": {
       "housekeeping": {
         "title": "Housekeeping & Estate Care",

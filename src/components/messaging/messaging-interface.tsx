@@ -388,7 +388,9 @@ export function MessagingInterface({ userId, userRole }: Props) {
                       </h3>
                       <p className="text-[#737373] text-sm">
                         Booking #{selectedConversation.booking.id.slice(0, 8)} •{" "}
-                        {new Date(selectedConversation.booking.scheduled_date).toLocaleDateString()}
+                        {new Date(
+                          selectedConversation.booking.scheduled_start
+                        ).toLocaleDateString()}
                       </p>
                     </div>
                   </div>
