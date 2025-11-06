@@ -1,6 +1,6 @@
 "use client";
 
-import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons";
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -29,17 +29,20 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
 
   return (
     <>
-      {/* Hamburger Button - Shows on all screen sizes */}
+      {/* Dual-Line Hamburger Button */}
       <button
         aria-label={isOpen ? "Close menu" : "Open menu"}
-        className="flex h-11 w-11 items-center justify-center rounded-lg text-[var(--foreground)] transition hover:bg-[color-mix(in_srgb,var(--accent)_18%,transparent)] hover:text-[var(--surface-contrast)] active:scale-95"
+        className="flex h-11 w-11 items-center justify-center rounded-lg text-[var(--foreground)] transition hover:bg-[#F5F5F5] active:scale-95"
         onClick={toggleMenu}
         type="button"
       >
         {isOpen ? (
           <HugeiconsIcon className="h-6 w-6" icon={Cancel01Icon} />
         ) : (
-          <HugeiconsIcon className="h-6 w-6" icon={Menu01Icon} />
+          <div className="flex flex-col gap-[6px]">
+            <span className="h-[2px] w-6 bg-[var(--foreground)] transition-all" />
+            <span className="h-[2px] w-6 bg-[var(--foreground)] transition-all" />
+          </div>
         )}
       </button>
 
@@ -54,7 +57,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
 
       {/* Slide-in Menu - Shows on all screen sizes */}
       <div
-        className={`fixed top-0 right-0 z-[70] h-full w-[320px] transform bg-[var(--surface)] text-[var(--foreground)] shadow-[var(--shadow-elevated)] transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 z-[70] h-full w-[320px] transform bg-white text-[var(--foreground)] shadow-[var(--shadow-elevated)] transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

@@ -8,7 +8,7 @@ export async function SiteHeader() {
   const dashboardHref = user ? getDashboardRouteForRole(user.role) : undefined;
 
   return (
-    <header className="sticky top-0 z-50 border-[var(--border)] border-b bg-[var(--background)]/95 py-4 text-[var(--foreground)] backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-[var(--border)] border-b bg-white py-4 text-[var(--foreground)] shadow-sm">
       <Container className="flex items-center justify-between gap-8">
         {/* Logo */}
         <Link className="flex items-center gap-2 transition-opacity hover:opacity-80" href="/">

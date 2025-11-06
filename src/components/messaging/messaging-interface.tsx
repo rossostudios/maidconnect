@@ -340,7 +340,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                         )}
                       </div>
                       <p className="truncate text-[var(--muted-foreground)] text-sm">
-                        {conv.booking.service_name}
+                        Booking #{conv.booking.id.slice(0, 8)}
                       </p>
                       {conv.last_message_at && (
                         <p className="mt-2 text-[#737373] text-sm">
@@ -387,10 +387,8 @@ export function MessagingInterface({ userId, userRole }: Props) {
                         {otherUser.full_name}
                       </h3>
                       <p className="text-[#737373] text-sm">
-                        {selectedConversation.booking.service_name} •{" "}
-                        {new Date(
-                          selectedConversation.booking.scheduled_start
-                        ).toLocaleDateString()}
+                        Booking #{selectedConversation.booking.id.slice(0, 8)} •{" "}
+                        {new Date(selectedConversation.booking.scheduled_date).toLocaleDateString()}
                       </p>
                     </div>
                   </div>

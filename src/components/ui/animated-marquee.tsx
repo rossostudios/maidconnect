@@ -8,19 +8,19 @@ type AnimatedMarqueeProps = {
   speed?: number; // Duration in seconds for one complete scroll
 };
 
-export function AnimatedMarquee({ text, className, speed = 20 }: AnimatedMarqueeProps) {
+export function AnimatedMarquee({ text, className, speed = 12 }: AnimatedMarqueeProps) {
   // Repeat the text multiple times to ensure seamless scrolling
-  const repeatedText = new Array(10).fill(text).join("   •   ");
+  const repeatedText = new Array(12).fill(text).join("   •   ");
 
   return (
-    <div className={cn("relative z-10 overflow-hidden bg-[var(--red)] py-3", className)}>
+    <div className={cn("relative z-10 overflow-hidden bg-[var(--red)] py-2.5 sm:py-3", className)}>
       <div
-        className="flex whitespace-nowrap"
+        className="flex whitespace-nowrap will-change-transform"
         style={{
           animation: `marquee ${speed}s linear infinite`,
         }}
       >
-        <span className="font-[family-name:var(--font-cinzel)] font-semibold text-2xl text-white tracking-[0.08em] sm:text-3xl">
+        <span className="font-[family-name:var(--font-cinzel)] font-semibold text-white text-xl tracking-[0.06em] sm:text-2xl lg:text-3xl">
           {repeatedText}
         </span>
       </div>

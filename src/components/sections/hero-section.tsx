@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { AnimatedMarquee } from "@/components/ui/animated-marquee";
 import { Container } from "@/components/ui/container";
@@ -11,16 +12,30 @@ export function HeroSection() {
 
   return (
     <>
-      {/* Animated Marquee - Staays Style */}
-      <AnimatedMarquee speed={25} text="FIND THE WORLD'S BEST HOME PROFESSIONALS" />
-
       {/* Modern 2026 Hero */}
-      <section className="relative bg-[var(--background)] py-20 sm:py-28 lg:py-36">
-        <Container>
+      <section className="relative overflow-hidden py-20 sm:py-28 lg:py-36">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            alt="Beautiful home interior"
+            className="object-cover"
+            fill
+            priority
+            quality={90}
+            src="/hero.jpg"
+          />
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-black/50" />
+          {/* Bottom Gradient Fade */}
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-white" />
+        </div>
+
+        {/* Content */}
+        <Container className="relative z-10">
           <div className="mx-auto max-w-5xl text-center">
             {/* Badge */}
             <motion.div
-              className="mb-8 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-[var(--muted-foreground)] text-xs uppercase tracking-[0.12em] will-change-transform motion-reduce:transform-none motion-reduce:opacity-100"
+              className="mb-8 inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white/90 px-4 py-2 text-[var(--muted-foreground)] text-xs uppercase tracking-[0.12em] shadow-sm backdrop-blur-sm will-change-transform motion-reduce:transform-none motion-reduce:opacity-100"
               initial={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
               viewport={{ once: true }}
@@ -31,7 +46,7 @@ export function HeroSection() {
 
             {/* Main Headline - Massive, Bold, Clean */}
             <motion.h1
-              className="type-serif-display mb-8 text-[var(--foreground)] will-change-transform motion-reduce:transform-none motion-reduce:opacity-100"
+              className="type-serif-display mb-8 text-white will-change-transform motion-reduce:transform-none motion-reduce:opacity-100"
               initial={{ opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
               viewport={{ once: true }}
@@ -42,7 +57,7 @@ export function HeroSection() {
 
             {/* Subtitle */}
             <motion.p
-              className="mx-auto mb-12 max-w-2xl text-[var(--muted-foreground)] text-lg leading-relaxed will-change-transform motion-reduce:transform-none motion-reduce:opacity-100 sm:text-xl"
+              className="mx-auto mb-12 max-w-2xl text-lg text-white/90 leading-relaxed will-change-transform motion-reduce:transform-none motion-reduce:opacity-100 sm:text-xl"
               initial={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
               viewport={{ once: true }}
@@ -65,7 +80,7 @@ export function HeroSection() {
 
             {/* Stats Bar - Clean & Minimal */}
             <motion.div
-              className="mt-20 grid gap-8 border-[var(--border)] border-t pt-12 will-change-transform motion-reduce:transform-none motion-reduce:opacity-100 sm:grid-cols-3"
+              className="mt-20 grid gap-8 border-white/30 border-t pt-12 will-change-transform motion-reduce:transform-none motion-reduce:opacity-100 sm:grid-cols-3"
               initial={{ opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.4, ease: [0.21, 0.47, 0.32, 0.98] }}
               viewport={{ once: true }}
@@ -78,8 +93,8 @@ export function HeroSection() {
                 viewport={{ once: true }}
                 whileInView={{ opacity: 1, scale: 1 }}
               >
-                <p className="type-serif-md text-[var(--red)]">500+</p>
-                <p className="text-[var(--muted-foreground)] text-sm">
+                <p className="type-serif-md text-white">500+</p>
+                <p className="text-sm text-white/80">
                   {t("trustSignals.verified") || "Verified Professionals"}
                 </p>
               </motion.div>
@@ -90,8 +105,8 @@ export function HeroSection() {
                 viewport={{ once: true }}
                 whileInView={{ opacity: 1, scale: 1 }}
               >
-                <p className="type-serif-md text-[var(--red)]">15+</p>
-                <p className="text-[var(--muted-foreground)] text-sm">
+                <p className="type-serif-md text-white">15+</p>
+                <p className="text-sm text-white/80">
                   {t("trustSignals.cities") || "Cities Worldwide"}
                 </p>
               </motion.div>
@@ -102,8 +117,8 @@ export function HeroSection() {
                 viewport={{ once: true }}
                 whileInView={{ opacity: 1, scale: 1 }}
               >
-                <p className="type-serif-md text-[var(--red)]">4.9★</p>
-                <p className="text-[var(--muted-foreground)] text-sm">
+                <p className="type-serif-md text-white">4.9★</p>
+                <p className="text-sm text-white/80">
                   {t("trustSignals.rating") || "Average Rating"}
                 </p>
               </motion.div>
@@ -111,6 +126,9 @@ export function HeroSection() {
           </div>
         </Container>
       </section>
+
+      {/* Animated Marquee - Staays Style */}
+      <AnimatedMarquee speed={25} text="FIND THE WORLD'S BEST HOME PROFESSIONALS" />
     </>
   );
 }

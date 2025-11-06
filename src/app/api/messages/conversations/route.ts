@@ -23,11 +23,11 @@ export const GET = withAuth(async ({ user, supabase }) => {
     .select(
       `
       *,
-      booking:bookings!inner(
+      booking:bookings!conversations_booking_id_fkey(
         id,
-        service_name,
-        scheduled_start,
-        scheduled_end,
+        scheduled_date,
+        scheduled_start_time,
+        scheduled_end_time,
         status
       ),
       customer:profiles!conversations_customer_id_fkey(
