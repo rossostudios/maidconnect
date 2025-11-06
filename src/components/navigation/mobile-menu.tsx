@@ -57,9 +57,10 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
 
       {/* Slide-in Menu - Shows on all screen sizes */}
       <div
-        className={`fixed top-0 right-0 z-[70] h-full w-[320px] transform border-l-4 border-gray-600 bg-white text-gray-900 shadow-[0_25px_60px_rgba(0,0,0,0.4)] transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 z-[70] h-full w-[320px] transform border-l-4 border-gray-600 bg-white/100 text-gray-900 shadow-[0_25px_60px_rgba(0,0,0,0.4)] backdrop-filter-none transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
+        style={{ backgroundColor: "#ffffff" }}
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b-2 border-gray-300 bg-gray-50 p-5">
