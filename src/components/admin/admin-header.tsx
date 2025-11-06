@@ -42,9 +42,9 @@ export function AdminHeader({ userEmail, userName }: Props) {
 
   return (
     <>
-      <header className="flex h-16 items-center justify-between border-[#E5E5E5] border-b bg-white px-8">
+      <header className="flex h-16 items-center justify-between border-[#E5E5E5] border-b bg-white pr-8">
         {/* Left: Mobile Menu + Breadcrumbs */}
-        <div className="flex min-w-0 flex-1 items-center gap-6">
+        <div className="flex min-w-0 flex-1 items-center gap-6 pl-8">
           {/* Mobile Menu */}
           <div className="flex-shrink-0 lg:hidden">
             <AdminMobileSidebar />

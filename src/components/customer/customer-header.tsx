@@ -10,8 +10,8 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
-import { CustomerMobileSidebar } from "@/components/customer/customer-mobile-sidebar";
 import { CommandPalette } from "@/components/command-palette/command-palette";
+import { CustomerMobileSidebar } from "@/components/customer/customer-mobile-sidebar";
 import { Breadcrumbs } from "@/components/navigation/breadcrumbs";
 import { NotificationsSheet } from "@/components/notifications/notifications-sheet";
 import { useNotificationUnreadCount } from "@/hooks/use-notification-unread-count";
@@ -23,11 +23,7 @@ type Props = {
   unreadMessagesCount?: number;
 };
 
-export function CustomerHeader({
-  userEmail,
-  userName,
-  unreadMessagesCount = 0,
-}: Props) {
+export function CustomerHeader({ userEmail, userName, unreadMessagesCount = 0 }: Props) {
   const [showCommandPalette, setShowCommandPalette] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -48,9 +44,9 @@ export function CustomerHeader({
 
   return (
     <>
-      <header className="flex h-16 items-center justify-between border-[#E5E5E5] border-b bg-white px-8">
+      <header className="flex h-16 items-center justify-between border-[#E5E5E5] border-b bg-white pr-8">
         {/* Left: Mobile Menu + Breadcrumbs */}
-        <div className="flex min-w-0 flex-1 items-center gap-6">
+        <div className="flex min-w-0 flex-1 items-center gap-6 pl-8">
           {/* Mobile Menu */}
           <div className="flex-shrink-0 lg:hidden">
             <CustomerMobileSidebar unreadMessagesCount={unreadMessagesCount} />
@@ -94,7 +90,7 @@ export function CustomerHeader({
               icon={Message01Icon}
             />
             {unreadMessagesCount > 0 && (
-              <span className="absolute top-1 right-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#E63946] px-1 font-semibold text-white text-[10px]">
+              <span className="absolute top-1 right-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#E63946] px-1 font-semibold text-[10px] text-white">
                 {unreadMessagesCount > 99 ? "99+" : unreadMessagesCount}
               </span>
             )}
