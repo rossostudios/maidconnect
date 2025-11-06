@@ -1,9 +1,12 @@
 import { getTranslations } from "next-intl/server";
+import { unstable_noStore } from "next/cache";
 import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export default async function CustomerBookingsPage(props: { params: Promise<{ locale: string }> }) {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   const params = await props.params;
   const t = await getTranslations({
     locale: params.locale,

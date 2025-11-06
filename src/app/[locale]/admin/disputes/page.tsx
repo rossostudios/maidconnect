@@ -1,7 +1,10 @@
+import { unstable_noStore } from "next/cache";
 import { DisputeResolutionDashboard } from "@/components/admin/dispute-resolution-dashboard";
 import { requireUser } from "@/lib/auth";
 
 export default async function AdminDisputesPage() {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   await requireUser({ allowedRoles: ["admin"] });
 
   return (

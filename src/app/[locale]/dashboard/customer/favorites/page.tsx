@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { unstable_noStore } from "next/cache";
 import { FavoritesList } from "@/components/favorites/favorites-list";
 import { requireUser } from "@/lib/auth";
 
@@ -7,6 +8,8 @@ export default async function CustomerFavoritesPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   await requireUser({ allowedRoles: ["customer"] });
 
   const { locale } = await params;

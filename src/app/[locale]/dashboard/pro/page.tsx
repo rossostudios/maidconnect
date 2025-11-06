@@ -9,6 +9,7 @@ import {
   UserMultiple02Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import { Suspense } from "react";
 import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar";
@@ -108,6 +109,8 @@ function prepareCompletedBookings(
 }
 
 export default async function ProfessionalDashboardPage() {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   const user = await requireUser({ allowedRoles: ["professional"] });
   const supabase = await createSupabaseServerClient();
 

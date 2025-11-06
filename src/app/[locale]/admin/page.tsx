@@ -8,6 +8,7 @@ import {
   UserGroupIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import { ProfessionalVettingDashboard } from "@/components/admin/professional-vetting-dashboard";
 import { BookingPipeline } from "@/components/dashboard/booking-pipeline";
@@ -17,6 +18,8 @@ import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export default async function AdminHomePage() {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   const user = await requireUser({ allowedRoles: ["admin"] });
   const supabase = await createSupabaseServerClient();
 

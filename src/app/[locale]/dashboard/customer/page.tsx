@@ -9,6 +9,7 @@ import {
   UserCircleIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import { Suspense } from "react";
 import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
@@ -85,6 +86,8 @@ function formatCOPWithFallback(value?: number | null) {
 }
 
 export default async function CustomerDashboardPage() {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   const user = await requireUser({ allowedRoles: ["customer"] });
   const supabase = await createSupabaseServerClient();
 

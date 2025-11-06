@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { unstable_noStore } from "next/cache";
 import { FinancesOverview } from "@/components/finances/finances-overview";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -15,6 +16,8 @@ type BookingRow = {
 };
 
 export default async function ProFinancesPage({ params }: { params: Promise<{ locale: string }> }) {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "dashboard.pro.finances" });
 

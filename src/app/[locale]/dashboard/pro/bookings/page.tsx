@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { unstable_noStore } from "next/cache";
 import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar";
 import { ProBookingList } from "@/components/bookings/pro-booking-list";
 import { Link } from "@/i18n/routing";
@@ -28,6 +29,8 @@ type ProfessionalBookingRow = {
 };
 
 export default async function ProBookingsPage({ params }: { params: Promise<{ locale: string }> }) {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "dashboard.pro.bookings" });
 

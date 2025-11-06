@@ -1,7 +1,10 @@
 import { ChangelogEditor } from "@/components/admin/changelog/changelog-editor";
+import { unstable_noStore } from "next/cache";
 import { requireUser } from "@/lib/auth/session";
 
 export default async function NewChangelogPage() {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   await requireUser({ allowedRoles: ["admin"] });
 
   return (

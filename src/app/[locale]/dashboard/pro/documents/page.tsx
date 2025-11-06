@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import {
   OPTIONAL_DOCUMENTS,
@@ -44,6 +45,8 @@ export default async function ProDocumentsPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "dashboard.pro.documents" });
 

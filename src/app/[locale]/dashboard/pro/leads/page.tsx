@@ -6,6 +6,7 @@
  */
 
 import { redirect } from "next/navigation";
+import { unstable_noStore } from "next/cache";
 import { LeadQueue } from "@/components/professional/lead-queue";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -15,6 +16,8 @@ export const metadata = {
 };
 
 export default async function ProLeadsPage() {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   const supabase = await createSupabaseServerClient();
 
   // Check authentication and role

@@ -1,4 +1,5 @@
 import { MagicWand01Icon } from "@hugeicons/core-free-icons";
+import { unstable_noStore } from "next/cache";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { Metadata } from "next";
 import { SiteFooter } from "@/components/sections/site-footer";
@@ -29,6 +30,8 @@ export async function generateMetadata({
 }
 
 export default async function AguaoraPage({ params }: { params: Promise<{ locale: string }> }) {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   const { locale } = await params;
   const isSpanish = locale === "es";
 

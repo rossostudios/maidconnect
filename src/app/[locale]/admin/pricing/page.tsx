@@ -1,4 +1,5 @@
 import { PricingControlsManager } from "@/components/admin/pricing-controls-manager";
+import { unstable_noStore } from "next/cache";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -8,6 +9,8 @@ export const metadata = {
 };
 
 export default async function AdminPricingPage() {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   await requireUser({ allowedRoles: ["admin"] });
 
   const supabase = await createSupabaseServerClient();

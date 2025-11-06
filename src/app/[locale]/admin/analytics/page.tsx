@@ -1,4 +1,5 @@
 import { EnhancedAnalyticsDashboard } from "@/components/admin/enhanced-analytics-dashboard";
+import { unstable_noStore } from "next/cache";
 import { requireUser } from "@/lib/auth";
 
 export const metadata = {
@@ -7,6 +8,8 @@ export const metadata = {
 };
 
 export default async function AdminAnalyticsPage() {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   await requireUser({ allowedRoles: ["admin"] });
 
   return (

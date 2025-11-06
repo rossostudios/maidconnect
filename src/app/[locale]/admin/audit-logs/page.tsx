@@ -1,7 +1,10 @@
 import { AuditLogsDashboard } from "@/components/admin/audit-logs-dashboard";
+import { unstable_noStore } from "next/cache";
 import { requireUser } from "@/lib/auth";
 
 export default async function AuditLogsPage() {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   await requireUser({ allowedRoles: ["admin"] });
 
   return (

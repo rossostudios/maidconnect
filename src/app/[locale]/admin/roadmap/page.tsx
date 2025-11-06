@@ -5,6 +5,7 @@
  */
 
 import { Add01Icon } from "@hugeicons/core-free-icons";
+import { unstable_noStore } from "next/cache";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -17,6 +18,8 @@ export const metadata = {
 };
 
 export default async function AdminRoadmapPage() {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   await requireUser({ allowedRoles: ["admin"] });
 
   return (

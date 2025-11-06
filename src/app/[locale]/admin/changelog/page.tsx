@@ -9,6 +9,7 @@ import {
   ViewIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -52,6 +53,8 @@ export default async function AdminChangelogPage({
 }: {
   searchParams: Promise<{ status?: string }>;
 }) {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   await requireUser({ allowedRoles: ["admin"] });
   const supabase = await createSupabaseServerClient();
   const { status } = await searchParams;

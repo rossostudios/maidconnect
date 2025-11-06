@@ -1,8 +1,11 @@
 import { AdminProfileEditor } from "@/components/admin/admin-profile-editor";
+import { unstable_noStore } from "next/cache";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export default async function AdminSettingsPage() {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   const user = await requireUser({ allowedRoles: ["admin"] });
   const supabase = await createSupabaseServerClient();
 

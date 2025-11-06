@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { unstable_cache } from "next/cache";
+import { unstable_cache, unstable_noStore } from "next/cache";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { CityHeroSection } from "@/components/city/hero-section";
@@ -156,6 +156,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 }
 
 export default async function CityLandingPage({ params }: { params: Params }) {
+  // Opt out of caching for this page since it uses dynamic features
+  unstable_noStore();
+
   // Check if feature is enabled
   if (!isFeatureEnabled("city_landing_pages")) {
     notFound();

@@ -3,6 +3,7 @@
  */
 
 import { notFound } from "next/navigation";
+import { unstable_noStore } from "next/cache";
 import { RoadmapEditor } from "@/components/roadmap/roadmap-editor";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { RoadmapItem } from "@/types/roadmap";
@@ -26,6 +27,8 @@ async function getRoadmapItem(id: string): Promise<RoadmapItem | null> {
 }
 
 export default async function EditRoadmapPage({ params }: PageProps) {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   const { id } = await params;
   const roadmapItem = await getRoadmapItem(id);
 

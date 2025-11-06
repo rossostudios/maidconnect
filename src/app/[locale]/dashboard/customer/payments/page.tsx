@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
@@ -31,6 +32,8 @@ type BookingRow = {
 };
 
 export default async function CustomerPaymentsPage(props: { params: Promise<{ locale: string }> }) {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   const params = await props.params;
   const t = await getTranslations({
     locale: params.locale,

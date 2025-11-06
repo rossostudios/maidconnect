@@ -1,9 +1,12 @@
 import { notFound } from "next/navigation";
+import { unstable_noStore } from "next/cache";
 import { ChangelogEditor } from "@/components/admin/changelog/changelog-editor";
 import { requireUser } from "@/lib/auth/session";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export default async function EditChangelogPage({ params }: { params: Promise<{ id: string }> }) {
+  unstable_noStore(); // Opt out of caching for dynamic page
+
   await requireUser({ allowedRoles: ["admin"] });
   const { id } = await params;
   const supabase = await createSupabaseServerClient();
