@@ -12,6 +12,8 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { HelpSearchBar } from "@/components/help/search-bar";
+import { SiteFooter } from "@/components/sections/site-footer";
+import { SiteHeader } from "@/components/sections/site-header";
 import { Container } from "@/components/ui/container";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
@@ -142,9 +144,11 @@ export default async function HelpCenterPage({
   const popularArticles = await getPopularArticles(locale);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Hero Section */}
-      <section className="border-gray-200 border-b bg-white py-16">
+    <>
+      <SiteHeader />
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+        {/* Hero Section */}
+        <section className="border-gray-200 border-b bg-white py-16">
         <Container>
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="type-serif-lg mb-4 text-[var(--foreground)]">{t("hero.title")}</h1>
@@ -259,5 +263,7 @@ export default async function HelpCenterPage({
         </section>
       </Container>
     </div>
+    <SiteFooter />
+    </>
   );
 }

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { HelpSearchBar } from "@/components/help/search-bar";
+import { SiteFooter } from "@/components/sections/site-footer";
+import { SiteHeader } from "@/components/sections/site-header";
 import { Container } from "@/components/ui/container";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
@@ -109,9 +111,11 @@ export default async function HelpCategoryPage({
   const categoryDescription = locale === "es" ? category.description_es : category.description_en;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Header */}
-      <section className="border-gray-200 border-b bg-white py-12">
+    <>
+      <SiteHeader />
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+        {/* Header */}
+        <section className="border-gray-200 border-b bg-white py-12">
         <Container>
           <div className="mx-auto max-w-4xl">
             {/* Breadcrumb */}
@@ -230,5 +234,7 @@ export default async function HelpCategoryPage({
         </div>
       </Container>
     </div>
+    <SiteFooter />
+    </>
   );
 }

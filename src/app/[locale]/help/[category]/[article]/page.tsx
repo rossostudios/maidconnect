@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { ArticleViewer } from "@/components/help/article-viewer";
+import { SiteFooter } from "@/components/sections/site-footer";
+import { SiteHeader } from "@/components/sections/site-header";
 import { Container } from "@/components/ui/container";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
@@ -214,15 +216,19 @@ export default async function HelpArticlePage({
   const { article, relatedArticles } = data;
 
   return (
-    <div className="min-h-screen bg-white py-12">
-      <Container>
-        <ArticleViewer
-          article={article}
-          categoryName={article.category.name}
-          categorySlug={article.category.slug}
-          relatedArticles={relatedArticles}
-        />
-      </Container>
-    </div>
+    <>
+      <SiteHeader />
+      <div className="min-h-screen bg-white py-12">
+        <Container>
+          <ArticleViewer
+            article={article}
+            categoryName={article.category.name}
+            categorySlug={article.category.slug}
+            relatedArticles={relatedArticles}
+          />
+        </Container>
+      </div>
+      <SiteFooter />
+    </>
   );
 }
