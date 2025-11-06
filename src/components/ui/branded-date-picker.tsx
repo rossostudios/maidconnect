@@ -2,7 +2,7 @@
 
 import { Calendar01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -83,15 +83,10 @@ export function BrandedDatePicker({
         onClick={() => setIsOpen(!isOpen)}
         type="button"
       >
-        <span
-          className={cn(
-            "font-medium text-base",
-            value ? "text-[var(--foreground)]" : "text-[var(--muted-foreground)]"
-          )}
-        >
+        <span className={cn("font-medium text-base", value ? "text-stone-900" : "text-stone-600")}>
           {selectedDate ? formatDisplayDate(selectedDate) : placeholder}
         </span>
-        <HugeiconsIcon className="h-5 w-5 text-[var(--muted-foreground)]" icon={Calendar01Icon} />
+        <HugeiconsIcon className="h-5 w-5 text-stone-600" icon={Calendar01Icon} />
       </button>
 
       {/* Calendar Dropdown */}
@@ -99,15 +94,19 @@ export function BrandedDatePicker({
         {isOpen && (
           <motion.div
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            className="absolute top-full left-0 z-50 mt-2 w-80 rounded-2xl border border-[var(--border)] bg-white p-6 shadow-[var(--shadow-elevated)] will-change-transform motion-reduce:transform-none motion-reduce:opacity-100"
+            className="absolute top-full left-0 z-50 mt-3 w-80 rounded-3xl bg-white p-6 shadow-lg ring-1 ring-black/5 will-change-transform motion-reduce:transform-none motion-reduce:opacity-100"
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 30,
+            }}
           >
             {/* Month Navigation */}
             <div className="mb-6 flex items-center justify-between">
               <button
-                className="flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-[var(--background-alt)]"
+                className="flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-slate-100"
                 onClick={handlePrevMonth}
                 type="button"
               >
@@ -122,12 +121,12 @@ export function BrandedDatePicker({
                 </svg>
               </button>
 
-              <h3 className="font-[family-name:var(--font-cinzel)] font-semibold text-[var(--foreground)] text-base">
+              <h3 className="font-[family-name:var(--font-cinzel)] font-semibold text-base text-gray-900">
                 {monthName}
               </h3>
 
               <button
-                className="flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-[var(--background-alt)]"
+                className="flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-slate-100"
                 onClick={handleNextMonth}
                 type="button"
               >
@@ -147,7 +146,7 @@ export function BrandedDatePicker({
             <div className="mb-2 grid grid-cols-7 gap-1">
               {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
                 <div
-                  className="flex h-8 items-center justify-center font-medium text-[var(--muted-foreground)] text-xs"
+                  className="flex h-8 items-center justify-center font-medium text-gray-600 text-xs"
                   key={day}
                 >
                   {day}
@@ -175,21 +174,20 @@ export function BrandedDatePicker({
                     animate={{ opacity: 1, scale: 1 }}
                     className={cn(
                       "flex h-10 items-center justify-center rounded-full text-sm transition-all will-change-transform motion-reduce:scale-100 motion-reduce:opacity-100",
-                      isSelected &&
-                        "bg-[var(--red)] font-semibold text-white hover:bg-[var(--red-hover)]",
+                      isSelected && "bg-orange-500 font-semibold text-white hover:bg-orange-600",
                       !isSelected &&
                         isToday &&
-                        "border-2 border-[var(--red)] font-semibold text-[var(--red)]",
-                      !(isSelected || isToday) &&
-                        "text-[var(--foreground)] hover:bg-[var(--background-alt)]"
+                        "border-2 border-orange-500 font-semibold text-orange-500",
+                      !(isSelected || isToday) && "text-gray-900 hover:bg-gray-50"
                     )}
                     initial={{ opacity: 0, scale: 0.8 }}
                     key={day}
                     onClick={() => handleDateSelect(day)}
                     transition={{
-                      duration: 0.15,
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 25,
                       delay: (index + firstDayOfMonth) * 0.008,
-                      ease: [0.16, 1, 0.3, 1],
                     }}
                     type="button"
                     whileHover={{ scale: 1.1 }}
@@ -203,7 +201,7 @@ export function BrandedDatePicker({
 
             {/* Today Button */}
             <button
-              className="mt-4 w-full rounded-full border border-[var(--border)] py-2 font-medium text-[var(--foreground)] text-sm transition-colors hover:bg-[var(--background-alt)]"
+              className="mt-4 w-full rounded-full border border-stone-200 py-2 font-medium text-gray-900 text-sm transition-colors hover:bg-gray-50"
               onClick={() => {
                 const today = new Date();
                 onChange(today.toISOString().split("T")[0] as string);

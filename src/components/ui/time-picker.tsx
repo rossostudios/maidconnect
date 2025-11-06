@@ -68,25 +68,18 @@ export function TimePicker({
       ) : null}
       <button
         className={cn(
-          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[var(--foreground)] text-sm shadow-black/5 shadow-inner transition hover:border-[var(--red)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--red)] focus-visible:outline-offset-2",
+          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-gray-900 text-sm shadow-black/5 shadow-inner transition hover:border-[#E85D48] focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-600 focus-visible:outline-offset-2",
           !value && "text-[#8a826d]"
         )}
         onClick={() => setOpen((prev) => !prev)}
         type="button"
       >
         <span className="flex items-center gap-2">
-          <HugeiconsIcon
-            aria-hidden="true"
-            className="h-4 w-4 text-[var(--red)]"
-            icon={Clock01Icon}
-          />
+          <HugeiconsIcon aria-hidden="true" className="h-4 w-4 text-[#E85D48]" icon={Clock01Icon} />
           {formatDisplay(value, placeholder)}
         </span>
         <HugeiconsIcon
-          className={cn(
-            "h-4 w-4 text-[var(--muted-foreground)] transition-transform",
-            open && "rotate-90"
-          )}
+          className={cn("h-4 w-4 text-gray-600 transition-transform", open && "rotate-90")}
           icon={ArrowRight01Icon}
         />
       </button>
@@ -101,8 +94,8 @@ export function TimePicker({
                   className={cn(
                     "flex items-center justify-between rounded-2xl px-4 py-2 text-sm transition",
                     isSelected
-                      ? "bg-[var(--foreground)] text-white shadow-[0_12px_32px_rgba(18,17,15,0.16)]"
-                      : "text-[var(--foreground)] hover:bg-[#f6f1ea]"
+                      ? "bg-gray-900 text-white shadow-[0_12px_32px_rgba(18,17,15,0.16)]"
+                      : "text-gray-900 hover:bg-[#f6f1ea]"
                   )}
                   key={time}
                   onClick={() => {

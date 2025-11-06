@@ -23,7 +23,7 @@ export default function GlobalError({
             minHeight: "100vh",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "var(--background)",
+            backgroundColor: "#F5F0E8",
             padding: "1rem",
           }}
         >
@@ -79,7 +79,7 @@ export default function GlobalError({
                 style={{
                   fontSize: "1.875rem",
                   fontWeight: "bold",
-                  color: "var(--foreground)",
+                  color: "#1A1614",
                   marginBottom: "0.75rem",
                 }}
               >
@@ -109,7 +109,7 @@ export default function GlobalError({
                 <button
                   onClick={reset}
                   style={{
-                    backgroundColor: "var(--red)",
+                    backgroundColor: "#E85D48",
                     color: "white",
                     fontWeight: "600",
                     padding: "0.75rem 1.5rem",
@@ -125,7 +125,7 @@ export default function GlobalError({
                   href="/"
                   style={{
                     backgroundColor: "white",
-                    color: "var(--foreground)",
+                    color: "#1A1614",
                     fontWeight: "600",
                     padding: "0.75rem 1.5rem",
                     borderRadius: "9999px",

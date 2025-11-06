@@ -69,7 +69,7 @@ export function ProductBottomSheet({ isOpen, onClose, features }: Props) {
       >
         {/* Header */}
         <div className="sticky top-0 z-10 flex items-center justify-between border-[#ebe5d8] border-b bg-white px-6 py-4">
-          <h2 className="font-semibold text-[var(--foreground)] text-lg">Product Features</h2>
+          <h2 className="font-semibold text-gray-900 text-lg">Product Features</h2>
           <button
             aria-label="Close product menu"
             className="flex h-10 w-10 items-center justify-center rounded-full text-[#524d43] transition hover:bg-[#ebe5d8] active:scale-95"
@@ -85,12 +85,12 @@ export function ProductBottomSheet({ isOpen, onClose, features }: Props) {
           <div className="space-y-3 landscape:grid landscape:grid-cols-2 landscape:gap-3 landscape:space-y-0">
             {features.map((feature) => (
               <Link
-                className="group flex flex-col gap-2 rounded-2xl border border-[#ebe5d8] bg-white p-5 transition hover:border-[var(--red)] hover:bg-[#fff5f2] active:scale-[0.98]"
+                className="group flex flex-col gap-2 rounded-2xl border border-[#ebe5d8] bg-white p-5 transition hover:border-[#E85D48] hover:bg-[#fff5f2] active:scale-[0.98]"
                 href={feature.href}
                 key={feature.name}
                 onClick={onClose}
               >
-                <span className="font-semibold text-[var(--foreground)] text-base group-hover:text-[var(--red)]">
+                <span className="font-semibold text-base text-gray-900 group-hover:text-[#E85D48]">
                   {feature.name}
                 </span>
                 <span className="text-[#7a6d62] text-sm leading-relaxed">

@@ -1,5 +1,5 @@
-import { notFound } from "next/navigation";
 import { unstable_noStore } from "next/cache";
+import { notFound } from "next/navigation";
 import { ChangelogEditor } from "@/components/admin/changelog/changelog-editor";
 import { requireUser } from "@/lib/auth/session";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -26,8 +26,8 @@ export default async function EditChangelogPage({ params }: { params: Promise<{ 
     <>
       {/* Header */}
       <header className="mb-8">
-        <h1 className="font-bold text-3xl text-[var(--foreground)]">Edit Changelog</h1>
-        <p className="mt-2 text-[var(--muted-foreground)] text-sm">
+        <h1 className="font-bold text-3xl text-gray-900">Edit Changelog</h1>
+        <p className="mt-2 text-gray-600 text-sm">
           Sprint {changelog.sprint_number}: {changelog.title}
         </p>
       </header>

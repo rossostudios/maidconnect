@@ -1,15 +1,20 @@
-import { getTranslations } from "next-intl/server";
 import { unstable_noStore } from "next/cache";
+import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
+import {
+  currentStepIndex,
+  getStepClassName,
+  transformProfileData,
+} from "@/lib/onboarding/profile-data-transformer";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { ApplicationForm } from "./application-form";
 import { DocumentUploadForm } from "./document-upload-form";
 import { ProfileBuildForm } from "./profile-build-form";
 
 const inputClass =
-  "w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-4 text-base shadow-sm transition focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]";
+  "w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-4 text-base shadow-sm transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20";
 
 const APPLICATION_SERVICE_OPTIONS = [
   "House cleaning",
@@ -37,21 +42,6 @@ const AVAILABILITY_OPTIONS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Fri
 const LANGUAGE_OPTIONS = ["Español", "English", "Português", "Français"];
 
 const STEP_IDS = ["application", "documents", "profile"] as const;
-
-function currentStepIndex(status: string | null) {
-  switch (status) {
-    case "application_pending":
-      return 0;
-    case "application_in_review":
-      return 1;
-    case "approved":
-      return 2;
-    case "active":
-      return 3;
-    default:
-      return 0;
-  }
-}
 
 type ProfileInitialData = {
   bio?: string | null;
@@ -102,24 +92,10 @@ export default async function ProfessionalOnboardingPage({
     .eq("profile_id", user.id)
     .maybeSingle();
 
-  let profileInitialData: ProfileInitialData | undefined;
+  // Transform Supabase data to form initial data using helper
   const professionalProfileRecord =
     (professionalProfileData as SupabaseProfessionalProfile | null) ?? null;
-  if (professionalProfileRecord) {
-    const availabilitySchedule =
-      professionalProfileRecord.availability &&
-      typeof professionalProfileRecord.availability === "object"
-        ? (professionalProfileRecord.availability.schedule ?? [])
-        : [];
-    profileInitialData = {
-      bio: professionalProfileRecord.bio ?? "",
-      languages: professionalProfileRecord.languages ?? [],
-      services: Array.isArray(professionalProfileRecord.services)
-        ? professionalProfileRecord.services
-        : [],
-      availability: Array.isArray(availabilitySchedule) ? availabilitySchedule : [],
-    };
-  }
+  const profileInitialData = transformProfileData(professionalProfileRecord);
 
   return (
     <section className="flex-1 space-y-10">
@@ -128,15 +104,15 @@ export default async function ProfessionalOnboardingPage({
           <p className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
             {t(isActive ? "labels.profileSettings" : "labels.onboarding")}
           </p>
-          <h1 className="type-serif-lg mt-4 text-[var(--foreground)]">
+          <h1 className="type-serif-lg mt-4 text-gray-900">
             {t(isActive ? "headings.editProfile" : "headings.launchProfile")}
           </h1>
-          <p className="mt-4 max-w-2xl text-[var(--muted-foreground)] text-lg leading-relaxed">
+          <p className="mt-4 max-w-2xl text-gray-600 text-lg leading-relaxed">
             {t(isActive ? "descriptions.active" : "descriptions.notActive")}
           </p>
         </div>
         <Link
-          className="inline-flex items-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[var(--foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)]"
+          className="inline-flex items-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-gray-900 text-sm transition hover:border-[#E85D48] hover:text-[#E85D48]"
           href="/dashboard/pro"
         >
           {t("backToDashboard")}
@@ -148,16 +124,7 @@ export default async function ProfessionalOnboardingPage({
           {STEP_IDS.map((stepId, index) => {
             const isCompleted = stepIndex > index;
             const isCurrent = stepIndex === index && !onboardingComplete;
-
-            const stepClassName = (() => {
-              if (isCompleted) {
-                return "border-green-200 bg-green-50";
-              }
-              if (isCurrent) {
-                return "border-[#ebe5d8] bg-white shadow-[0_10px_40px_rgba(18,17,15,0.04)]";
-              }
-              return "border-[#ebe5d8] bg-white";
-            })();
+            const stepClassName = getStepClassName(isCompleted, isCurrent);
 
             return (
               <li
@@ -165,7 +132,7 @@ export default async function ProfessionalOnboardingPage({
                 key={stepId}
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--red)] font-semibold text-lg text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E85D48] font-semibold text-lg text-white">
                     {index + 1}
                   </div>
                   {(() => {
@@ -190,10 +157,10 @@ export default async function ProfessionalOnboardingPage({
                     );
                   })()}
                 </div>
-                <h2 className="mt-6 font-semibold text-[var(--foreground)] text-xl">
+                <h2 className="mt-6 font-semibold text-gray-900 text-xl">
                   {t(`steps.${stepId}.title`)}
                 </h2>
-                <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
+                <p className="mt-3 text-base text-gray-600 leading-relaxed">
                   {t(`steps.${stepId}.description`)}
                 </p>
               </li>
@@ -272,24 +239,24 @@ export default async function ProfessionalOnboardingPage({
             >
               <div className="grid gap-8 lg:grid-cols-2">
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("sections.uploadDocuments.required")}
                   </h3>
-                  <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
+                  <ul className="mt-4 space-y-3 text-base text-gray-600">
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[var(--red)]" />
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#E85D48]" />
                       <span>{t("sections.uploadDocuments.requiredDocs.governmentId")}</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[var(--red)]" />
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#E85D48]" />
                       <span>{t("sections.uploadDocuments.requiredDocs.proofOfAddress")}</span>
                     </li>
                   </ul>
 
-                  <h3 className="mt-8 font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="mt-8 font-semibold text-gray-900 text-xl">
                     {t("sections.uploadDocuments.optional")}
                   </h3>
-                  <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
+                  <ul className="mt-4 space-y-3 text-base text-gray-600">
                     <li className="flex items-start gap-3">
                       <span className="mt-1 h-1.5 w-1.5 rounded-full bg-gray-400" />
                       <span>{t("sections.uploadDocuments.optionalDocs.certifications")}</span>
@@ -301,8 +268,8 @@ export default async function ProfessionalOnboardingPage({
                   </ul>
 
                   <div className="mt-8 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                    <p className="text-[var(--muted-foreground)] text-sm leading-relaxed">
-                      <strong className="text-[var(--foreground)]">
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      <strong className="text-gray-900">
                         {t("sections.uploadDocuments.acceptedFormats")}
                       </strong>{" "}
                       {t("sections.uploadDocuments.formatInfo")}
@@ -379,8 +346,8 @@ function SectionWrapper({
   return (
     <section className="rounded-[28px] border border-[#ebe5d8] bg-white p-10 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
       <header className="mb-8">
-        <h2 className="font-semibold text-3xl text-[var(--foreground)]">{title}</h2>
-        <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">{subtitle}</p>
+        <h2 className="font-semibold text-3xl text-gray-900">{title}</h2>
+        <p className="mt-3 text-base text-gray-600 leading-relaxed">{subtitle}</p>
       </header>
       {children}
     </section>

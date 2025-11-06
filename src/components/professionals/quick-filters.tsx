@@ -102,10 +102,10 @@ export function QuickFilters({ onFilterChange }: QuickFiltersProps) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-[var(--foreground)] text-sm">Quick Filters</h3>
+        <h3 className="font-semibold text-gray-900 text-sm">Quick Filters</h3>
         {activeCount > 0 && (
           <button
-            className="text-[var(--red)] text-xs transition hover:underline"
+            className="text-[#E85D48] text-xs transition hover:underline"
             onClick={clearAllFilters}
             type="button"
           >
@@ -119,8 +119,8 @@ export function QuickFilters({ onFilterChange }: QuickFiltersProps) {
           <button
             className={`flex items-center gap-2 rounded-full border-2 px-4 py-2 text-sm transition ${
               filter.active
-                ? "border-[var(--red)] bg-[var(--red)] text-white"
-                : "border-[#ebe5d8] bg-white text-[#7d7566] hover:border-[var(--red)] hover:text-[var(--red)]"
+                ? "border-[#E85D48] bg-[#E85D48] text-white"
+                : "border-[#ebe5d8] bg-white text-[#7d7566] hover:border-[#E85D48] hover:text-[#E85D48]"
             }`}
             key={filter.id}
             onClick={() => toggleFilter(filter.id)}

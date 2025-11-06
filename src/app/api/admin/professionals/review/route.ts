@@ -1,10 +1,15 @@
 import { NextResponse } from "next/server";
-import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
 import {
-  sendProfessionalApprovedEmail,
-  sendProfessionalInfoRequestedEmail,
-  sendProfessionalRejectedEmail,
-} from "@/lib/email/send";
+  createProfessionalReview,
+  determineNewStatus,
+  getReviewSuccessMessage,
+  type ReviewInput,
+  sendReviewNotificationEmail,
+  updateProfessionalStatus,
+  validateProfessionalProfile,
+  validateReviewInput,
+} from "@/lib/admin/professional-review-service";
+import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 /**
@@ -30,191 +35,79 @@ export async function POST(request: Request) {
   try {
     // Verify admin access
     const admin = await requireAdmin();
-
     const supabase = await createSupabaseServerClient();
 
-    const body = (await request.json()) as {
-      professionalId: string;
-      action: "approve" | "reject" | "request_info";
-      notes?: string;
-      internalNotes?: string;
-      rejectionReason?: string;
-      documentsVerified?: boolean;
-      backgroundCheckPassed?: boolean;
-      referencesVerified?: boolean;
-    };
+    const body = (await request.json()) as ReviewInput;
 
-    const {
-      professionalId,
-      action,
-      notes,
-      internalNotes,
-      rejectionReason,
-      documentsVerified,
-      backgroundCheckPassed,
-      referencesVerified,
-    } = body;
-
-    if (!(professionalId && action)) {
-      return NextResponse.json(
-        { error: "professionalId and action are required" },
-        { status: 400 }
-      );
+    // Validate input using service
+    const inputValidation = validateReviewInput(body);
+    if (!inputValidation.success) {
+      return NextResponse.json({ error: inputValidation.error }, { status: 400 });
     }
 
-    if (action === "reject" && !rejectionReason) {
-      return NextResponse.json(
-        { error: "rejectionReason is required when rejecting" },
-        { status: 400 }
-      );
-    }
-
-    // Fetch professional profile with current status and name
-    const { data: profile, error: profileError } = await supabase
+    // Fetch professional profile
+    const { data: profile } = await supabase
       .from("profiles")
       .select("id, role, onboarding_status, full_name")
-      .eq("id", professionalId)
+      .eq("id", body.professionalId)
       .single();
 
-    if (profileError || !profile) {
-      return NextResponse.json({ error: "Professional not found" }, { status: 404 });
+    // Validate profile using service
+    const profileValidation = validateProfessionalProfile(profile);
+    if (!profileValidation.success) {
+      return NextResponse.json({ error: profileValidation.error }, { status: profile ? 400 : 404 });
     }
 
-    if (profile.role !== "professional") {
-      return NextResponse.json({ error: "User is not a professional" }, { status: 400 });
+    // Determine new status using service
+    const statusResult = determineNewStatus(body.action, profile!.onboarding_status);
+    if (!statusResult.success) {
+      return NextResponse.json({ error: statusResult.error }, { status: 400 });
     }
 
-    // Determine new status based on action
-    let newStatus: string | null = null;
-    let reviewStatus: "approved" | "rejected" | "needs_info" = "approved";
+    const { newStatus, reviewStatus } = statusResult.result!;
 
-    switch (action) {
-      case "approve":
-        // Move from application_in_review -> approved
-        if (profile.onboarding_status !== "application_in_review") {
-          return NextResponse.json(
-            {
-              error: `Cannot approve professional in status: ${profile.onboarding_status}`,
-            },
-            { status: 400 }
-          );
-        }
-        newStatus = "approved";
-        reviewStatus = "approved";
-        break;
+    // Create review record using service
+    const review = await createProfessionalReview(supabase, body, admin.id, reviewStatus);
 
-      case "reject":
-        reviewStatus = "rejected";
-        // Keep status same but mark as rejected
-        break;
-
-      case "request_info":
-        reviewStatus = "needs_info";
-        // Keep status same
-        break;
-
-      default:
-        return NextResponse.json({ error: "Invalid action" }, { status: 400 });
-    }
-
-    // Create professional review record
-    const { data: review, error: reviewError } = await supabase
-      .from("admin_professional_reviews")
-      .insert({
-        professional_id: professionalId,
-        reviewed_by: admin.id,
-        review_type: "application",
-        status: reviewStatus,
-        documents_verified: documentsVerified,
-        background_check_passed: backgroundCheckPassed || null,
-        references_verified: referencesVerified,
-        notes: notes || null,
-        internal_notes: internalNotes || null,
-        rejection_reason: reviewStatus === "rejected" ? rejectionReason : null,
-        reviewed_at: new Date().toISOString(),
-      })
-      .select()
-      .single();
-
-    if (reviewError) {
-      return NextResponse.json({ error: "Failed to create review record" }, { status: 500 });
-    }
-
-    // Update professional onboarding status if approved
+    // Update professional status if approved
     if (newStatus) {
-      const { error: updateError } = await supabase
-        .from("profiles")
-        .update({ onboarding_status: newStatus })
-        .eq("id", professionalId);
-
-      if (updateError) {
-        return NextResponse.json(
-          { error: "Failed to update professional status" },
-          { status: 500 }
-        );
-      }
+      await updateProfessionalStatus(supabase, body.professionalId, newStatus);
     }
 
     // Create audit log
     await createAuditLog({
       adminId: admin.id,
-      actionType: action === "approve" ? "approve_professional" : "reject_professional",
-      targetUserId: professionalId,
+      actionType: body.action === "approve" ? "approve_professional" : "reject_professional",
+      targetUserId: body.professionalId,
       targetResourceType: "professional_review",
       targetResourceId: review.id,
       details: {
-        action,
+        action: body.action,
         reviewStatus,
-        previousStatus: profile.onboarding_status,
-        newStatus: newStatus || profile.onboarding_status,
-        documentsVerified,
-        backgroundCheckPassed,
-        referencesVerified,
+        previousStatus: profile!.onboarding_status,
+        newStatus: newStatus || profile!.onboarding_status,
+        documentsVerified: body.documentsVerified,
+        backgroundCheckPassed: body.backgroundCheckPassed,
+        referencesVerified: body.referencesVerified,
       },
-      notes: notes || internalNotes || undefined,
+      notes: body.notes || body.internalNotes || undefined,
     });
 
-    // Send email notification to professional
-    try {
-      const { data: professionalAuth } = await supabase.auth.admin.getUserById(professionalId);
-      const professionalEmail = professionalAuth?.user?.email;
-
-      if (professionalEmail) {
-        const professionalName = profile.full_name || "Professional";
-
-        if (action === "approve") {
-          await sendProfessionalApprovedEmail(professionalEmail, professionalName, notes);
-        } else if (action === "reject") {
-          await sendProfessionalRejectedEmail(
-            professionalEmail,
-            professionalName,
-            rejectionReason!,
-            notes
-          );
-        } else if (action === "request_info") {
-          await sendProfessionalInfoRequestedEmail(professionalEmail, professionalName, notes);
-        }
-      }
-    } catch (emailError) {
-      // Intentionally suppress email errors - notification emails are non-critical
-      console.warn("Failed to send professional review notification email:", emailError);
-    }
-
-    const getMessage = () => {
-      if (action === "approve") {
-        return "Professional approved successfully";
-      }
-      if (action === "reject") {
-        return "Professional application rejected";
-      }
-      return "Information requested from professional";
-    };
+    // Send email notification using service
+    await sendReviewNotificationEmail(
+      supabase,
+      body.professionalId,
+      profile!.full_name || "Professional",
+      body.action,
+      body.notes,
+      body.rejectionReason
+    );
 
     return NextResponse.json({
       success: true,
       review,
-      newStatus: newStatus || profile.onboarding_status,
-      message: getMessage(),
+      newStatus: newStatus || profile!.onboarding_status,
+      message: getReviewSuccessMessage(body.action),
     });
   } catch (error: any) {
     return NextResponse.json(

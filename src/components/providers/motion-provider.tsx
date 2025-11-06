@@ -1,7 +1,7 @@
 /**
  * Motion Provider
  *
- * Wraps the application with Framer Motion's MotionConfig.
+ * Wraps the application with Motion's MotionConfig.
  * Automatically respects user's motion preferences and provides
  * consistent animation timing across all components.
  *
@@ -11,8 +11,8 @@
 
 "use client";
 
-import type { Transition } from "framer-motion";
-import { MotionConfig } from "framer-motion";
+import type { Transition } from "motion/react";
+import { MotionConfig } from "motion/react";
 
 type MotionProviderProps = {
   children: React.ReactNode;

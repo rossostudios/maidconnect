@@ -93,7 +93,7 @@ export function ServiceAddonsManager({
       {/* Active Add-ons */}
       {activeAddons.length > 0 && (
         <div className="space-y-2">
-          <h4 className="font-semibold text-[var(--foreground)] text-sm">
+          <h4 className="font-semibold text-gray-900 text-sm">
             {t("activeAddons", { count: activeAddons.length })}
           </h4>
           {activeAddons.map((addon) => (
@@ -131,7 +131,7 @@ export function ServiceAddonsManager({
         <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-8 text-center">
           <p className="text-[#7a6d62] text-sm">{t("emptyState")}</p>
           <button
-            className="mt-3 font-semibold text-[var(--red)] text-sm hover:text-[var(--red-hover)]"
+            className="mt-3 font-semibold text-[#E85D48] text-sm hover:text-red-700"
             onClick={handleAddNew}
             type="button"
           >
@@ -143,7 +143,7 @@ export function ServiceAddonsManager({
       {/* Add New Button */}
       {addons.length > 0 && !isAdding && !editingId && (
         <button
-          className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-[#e5dfd4] border-dashed bg-white/90 px-4 py-3 font-semibold text-[#7a6d62] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)]"
+          className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-[#e5dfd4] border-dashed bg-white/90 px-4 py-3 font-semibold text-[#7a6d62] text-sm transition hover:border-[#E85D48] hover:text-[#E85D48]"
           onClick={handleAddNew}
           type="button"
         >
@@ -199,7 +199,7 @@ function AddonCard({
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <h4 className="font-semibold text-[var(--foreground)]">{addon.name}</h4>
+            <h4 className="font-semibold text-gray-900">{addon.name}</h4>
             {!addon.is_active && (
               <span className="rounded-full bg-gray-200 px-2 py-0.5 font-semibold text-gray-600 text-xs">
                 {t("inactive")}
@@ -208,7 +208,7 @@ function AddonCard({
           </div>
           {addon.description && <p className="mt-1 text-[#7a6d62] text-sm">{addon.description}</p>}
           <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[#7a6d62] text-xs">
-            <span className="font-semibold text-[var(--red)]">{priceFormatted}</span>
+            <span className="font-semibold text-[#E85D48]">{priceFormatted}</span>
             <span>⏱️ {durationFormatted}</span>
           </div>
         </div>
@@ -216,21 +216,21 @@ function AddonCard({
         {/* Actions */}
         <div className="flex gap-2">
           <button
-            className="rounded-md px-2 py-1 font-medium text-[#7a6d62] text-xs transition hover:bg-[#f0ece5] hover:text-[var(--red)]"
+            className="rounded-md px-2 py-1 font-medium text-[#7a6d62] text-xs transition hover:bg-[#f0ece5] hover:text-[#E85D48]"
             onClick={onEdit}
             type="button"
           >
             {t("actions.edit")}
           </button>
           <button
-            className="rounded-md px-2 py-1 font-medium text-[#7a6d62] text-xs transition hover:bg-[#f0ece5] hover:text-[var(--red)]"
+            className="rounded-md px-2 py-1 font-medium text-[#7a6d62] text-xs transition hover:bg-[#f0ece5] hover:text-[#E85D48]"
             onClick={onToggleActive}
             type="button"
           >
             {addon.is_active ? t("actions.deactivate") : t("actions.activate")}
           </button>
           <button
-            className="rounded-md px-2 py-1 font-medium text-red-600 text-xs transition hover:bg-red-50"
+            className="rounded-md px-2 py-1 font-medium text-[#E85D48] text-xs transition hover:bg-[#E85D48]/10"
             onClick={onDelete}
             type="button"
           >
@@ -281,19 +281,16 @@ function AddonForm({
       className="space-y-4 rounded-lg border border-[#f0ece5] bg-white p-4"
       onSubmit={handleSubmit}
     >
-      <h4 className="font-semibold text-[var(--foreground)]">
+      <h4 className="font-semibold text-gray-900">
         {addon ? t("form.editTitle") : t("form.createTitle")}
       </h4>
 
       <div>
-        <label
-          className="mb-1 block font-medium text-[var(--foreground)] text-sm"
-          htmlFor="addon-name"
-        >
+        <label className="mb-1 block font-medium text-gray-900 text-sm" htmlFor="addon-name">
           {t("form.fields.name.label")}
         </label>
         <input
-          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
           id="addon-name"
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           placeholder={t("form.fields.name.placeholder")}
@@ -304,14 +301,11 @@ function AddonForm({
       </div>
 
       <div>
-        <label
-          className="mb-1 block font-medium text-[var(--foreground)] text-sm"
-          htmlFor="addon-description"
-        >
+        <label className="mb-1 block font-medium text-gray-900 text-sm" htmlFor="addon-description">
           {t("form.fields.description.label")}
         </label>
         <textarea
-          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
           id="addon-description"
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           placeholder={t("form.fields.description.placeholder")}
@@ -322,14 +316,11 @@ function AddonForm({
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label
-            className="mb-1 block font-medium text-[var(--foreground)] text-sm"
-            htmlFor="addon-price"
-          >
+          <label className="mb-1 block font-medium text-gray-900 text-sm" htmlFor="addon-price">
             {t("form.fields.price.label")}
           </label>
           <input
-            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
+            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
             id="addon-price"
             min="0"
             onChange={(e) =>
@@ -344,14 +335,11 @@ function AddonForm({
         </div>
 
         <div>
-          <label
-            className="mb-1 block font-medium text-[var(--foreground)] text-sm"
-            htmlFor="addon-duration"
-          >
+          <label className="mb-1 block font-medium text-gray-900 text-sm" htmlFor="addon-duration">
             {t("form.fields.extraTime.label")}
           </label>
           <input
-            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
+            className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
             id="addon-duration"
             min="0"
             onChange={(e) =>
@@ -376,19 +364,19 @@ function AddonForm({
           onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
           type="checkbox"
         />
-        <span className="text-[var(--foreground)] text-sm">{t("form.fields.active.label")}</span>
+        <span className="text-gray-900 text-sm">{t("form.fields.active.label")}</span>
       </label>
 
       <div className="flex justify-end gap-3">
         <button
-          className="rounded-md border border-[#e5dfd4] px-4 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)]"
+          className="rounded-md border border-[#e5dfd4] px-4 py-2 font-semibold text-[#7a6d62] text-sm transition hover:border-[#E85D48] hover:text-[#E85D48]"
           onClick={onCancel}
           type="button"
         >
           {t("form.cancel")}
         </button>
         <button
-          className="rounded-md bg-[var(--red)] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[var(--red-hover)]"
+          className="rounded-md bg-[#E85D48] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#D64A36]"
           type="submit"
         >
           {addon ? t("form.saveChanges") : t("form.createAddon")}

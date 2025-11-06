@@ -29,7 +29,7 @@ const STATUS_CONFIG: Record<
   application_pending: {
     label: "Complete Application",
     description: "Finish your application to get reviewed",
-    color: "#E63946",
+    color: "#E85D48",
     bgColor: "#FEF2F2",
     showBadge: true,
   },

@@ -135,7 +135,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
   return (
     <div className="space-y-6">
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+        <div className="rounded-lg border border-red-200 bg-[#E85D48]/10 p-4">
           <p className="text-red-800 text-sm">{error}</p>
         </div>
       )}
@@ -156,8 +156,8 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
                 width={96}
               />
             ) : (
-              <div className="flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#E63946]/10">
-                <HugeiconsIcon className="h-12 w-12 text-[#E63946]" icon={UserCircleIcon} />
+              <div className="flex h-24 w-24 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#E85D48]/10">
+                <HugeiconsIcon className="h-12 w-12 text-[#E85D48]" icon={UserCircleIcon} />
               </div>
             )}
             <button
@@ -196,7 +196,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
           </label>
           {isEditing ? (
             <input
-              className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 text-[#171717] focus:outline-none focus:ring-2 focus:ring-[#E63946]"
+              className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 text-[#171717] focus:outline-none focus:ring-2 focus:ring-[#E85D48]"
               onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
               type="text"
               value={formData.full_name}
@@ -223,7 +223,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 text-[#171717] focus:outline-none focus:ring-2 focus:ring-[#E63946]"
+                className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 text-[#171717] focus:outline-none focus:ring-2 focus:ring-[#E85D48]"
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 type="tel"
                 value={formData.phone}
@@ -240,7 +240,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
             </label>
             {isEditing ? (
               <input
-                className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 text-[#171717] focus:outline-none focus:ring-2 focus:ring-[#E63946]"
+                className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 text-[#171717] focus:outline-none focus:ring-2 focus:ring-[#E85D48]"
                 onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                 type="text"
                 value={formData.city}
@@ -258,7 +258,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
           </label>
           {isEditing ? (
             <input
-              className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 text-[#171717] focus:outline-none focus:ring-2 focus:ring-[#E63946]"
+              className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 text-[#171717] focus:outline-none focus:ring-2 focus:ring-[#E85D48]"
               onChange={(e) => setFormData({ ...formData, country: e.target.value })}
               type="text"
               value={formData.country}
@@ -274,7 +274,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
         {isEditing ? (
           <>
             <button
-              className="flex items-center gap-2 rounded-lg bg-[#E63946] px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-[#D32F40] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg bg-[#E85D48] px-6 py-2.5 font-semibold text-sm text-white transition-colors hover:bg-[#D32F40] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isSaving}
               onClick={handleSave}
             >

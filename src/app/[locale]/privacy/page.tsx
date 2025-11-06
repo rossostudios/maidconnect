@@ -23,7 +23,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
   const lastUpdated = "30 de Enero de 2025";
 
   return (
-    <div className="min-h-screen bg-[var(--background)]">
+    <div className="min-h-screen bg-[#fbf9f7]">
       <SiteHeader />
       <main className="px-4 py-16">
         <div className="mx-auto max-w-4xl">
@@ -44,7 +44,7 @@ export default async function PrivacyPolicyPage({ params }: Props) {
 function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
   return (
     <>
-      <h1 className="mb-4 font-bold text-4xl text-[var(--foreground)]">
+      <h1 className="mb-4 font-bold text-4xl text-gray-900">
         Política de Privacidad y Protección de Datos Personales
       </h1>
       <p className="mb-2 text-[#7d7566]">
@@ -57,26 +57,26 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
       <div className="prose prose-lg max-w-none space-y-8">
         {/* Section 1 */}
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">
             1. Responsable del Tratamiento de Datos
           </h2>
-          <div className="mb-4 rounded-lg border border-[#ebe5d8] bg-[var(--background)] p-4">
-            <p className="mb-2 text-[var(--foreground)]">
+          <div className="mb-4 rounded-lg border border-[#ebe5d8] bg-[#fbf9f7] p-4">
+            <p className="mb-2 text-gray-900">
               <strong>Razón Social:</strong> [Su empresa - Por completar]
             </p>
-            <p className="mb-2 text-[var(--foreground)]">
+            <p className="mb-2 text-gray-900">
               <strong>NIT:</strong> [Por completar]
             </p>
-            <p className="mb-2 text-[var(--foreground)]">
+            <p className="mb-2 text-gray-900">
               <strong>Domicilio:</strong> [Dirección en Colombia - Por completar]
             </p>
-            <p className="mb-2 text-[var(--foreground)]">
+            <p className="mb-2 text-gray-900">
               <strong>Correo Electrónico:</strong>{" "}
-              <a className="text-[var(--red)] hover:underline" href="mailto:privacy@casaora.com">
+              <a className="text-[#E85D48] hover:underline" href="mailto:privacy@casaora.com">
                 privacy@casaora.com
               </a>
             </p>
-            <p className="mb-2 text-[var(--foreground)]">
+            <p className="mb-2 text-gray-900">
               <strong>Teléfono:</strong> [Por completar]
             </p>
           </div>
@@ -88,13 +88,11 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         {/* Section 2 */}
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">
             2. Datos Personales que Recopilamos
           </h2>
 
-          <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">
-            2.1 Datos de Identificación
-          </h3>
+          <h3 className="mb-3 font-semibold text-gray-900 text-xl">2.1 Datos de Identificación</h3>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
             <li>Nombre completo</li>
             <li>Correo electrónico</li>
@@ -103,9 +101,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <li>Documento de identidad (solo para profesionales verificados)</li>
           </ul>
 
-          <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">
-            2.2 Datos de Ubicación
-          </h3>
+          <h3 className="mb-3 font-semibold text-gray-900 text-xl">2.2 Datos de Ubicación</h3>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
             <li>Coordenadas GPS durante check-in y check-out de servicios</li>
             <li>
@@ -117,9 +113,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </li>
           </ul>
 
-          <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">
-            2.3 Datos Financieros
-          </h3>
+          <h3 className="mb-3 font-semibold text-gray-900 text-xl">2.3 Datos Financieros</h3>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
             <li>Historial de pagos y transacciones</li>
             <li>Información de cuenta bancaria (solo para profesionales que reciben pagos)</li>
@@ -129,7 +123,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </li>
           </ul>
 
-          <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">
+          <h3 className="mb-3 font-semibold text-gray-900 text-xl">
             2.4 Datos de Uso y Comunicaciones
           </h3>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
@@ -143,14 +137,12 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         {/* Section 3 */}
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
-            3. Finalidades del Tratamiento
-          </h2>
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">3. Finalidades del Tratamiento</h2>
           <p className="mb-4 text-[#7d7566]">
             Sus datos personales son utilizados para las siguientes finalidades:
           </p>
 
-          <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">
+          <h3 className="mb-3 font-semibold text-gray-900 text-xl">
             3.1 Finalidades Principales (Esenciales para el Servicio)
           </h3>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
@@ -177,7 +169,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </li>
           </ul>
 
-          <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">
+          <h3 className="mb-3 font-semibold text-gray-900 text-xl">
             3.2 Finalidades Secundarias (Opcionales)
           </h3>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
@@ -194,7 +186,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         {/* Section 4 */}
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">
             4. Derechos del Titular (Artículo 8, Ley 1581)
           </h2>
           <p className="mb-4 text-[#7d7566]">
@@ -228,10 +220,8 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </li>
           </ul>
 
-          <div className="rounded-lg border-[var(--red)] border-l-4 bg-[#fff5f2] p-4">
-            <h3 className="mb-2 font-semibold text-[var(--foreground)]">
-              ¿Cómo Ejercer Sus Derechos?
-            </h3>
+          <div className="rounded-lg border-[#E85D48] border-l-4 bg-[#fff5f2] p-4">
+            <h3 className="mb-2 font-semibold text-gray-900">¿Cómo Ejercer Sus Derechos?</h3>
             <p className="mb-2 text-[#7d7566]">
               Para ejercer cualquiera de estos derechos, puede contactarnos por los siguientes
               medios:
@@ -239,7 +229,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <ul className="ml-6 list-disc text-[#7d7566]">
               <li>
                 <strong>Correo electrónico:</strong>{" "}
-                <a className="text-[var(--red)] hover:underline" href="mailto:privacy@casaora.com">
+                <a className="text-[#E85D48] hover:underline" href="mailto:privacy@casaora.com">
                   privacy@casaora.com
                 </a>
               </li>
@@ -259,7 +249,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         {/* Section 5 */}
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">
             5. Autorización y Consentimiento
           </h2>
           <p className="mb-4 text-[#7d7566]">
@@ -267,7 +257,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             informada, conforme al Artículo 9 de la Ley 1581 de 2012.
           </p>
 
-          <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">
+          <h3 className="mb-3 font-semibold text-gray-900 text-xl">
             5.1 Mecanismos de Autorización
           </h3>
           <p className="mb-4 text-[#7d7566]">La autorización se obtiene mediante:</p>
@@ -277,7 +267,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <li>Consentimiento específico para finalidades secundarias (marketing, análisis)</li>
           </ul>
 
-          <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">
+          <h3 className="mb-3 font-semibold text-gray-900 text-xl">
             5.2 Revocación del Consentimiento
           </h3>
           <p className="mb-4 text-[#7d7566]">
@@ -288,46 +278,34 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         {/* Section 6 */}
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
-            6. Compartir Datos con Terceros
-          </h2>
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">6. Compartir Datos con Terceros</h2>
           <p className="mb-4 text-[#7d7566]">
             Compartimos sus datos personales únicamente en las siguientes circunstancias:
           </p>
 
-          <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">
-            6.1 Proveedores de Servicios
-          </h3>
+          <h3 className="mb-3 font-semibold text-gray-900 text-xl">6.1 Proveedores de Servicios</h3>
           <div className="mb-4 space-y-2">
             <div className="rounded-lg border border-[#ebe5d8] bg-white p-3">
-              <p className="mb-1 font-semibold text-[var(--foreground)]">
-                Stripe Inc. (Estados Unidos)
-              </p>
+              <p className="mb-1 font-semibold text-gray-900">Stripe Inc. (Estados Unidos)</p>
               <p className="text-[#7d7566] text-sm">
                 Finalidad: Procesamiento de pagos | Certificación: PCI DSS Level 1
               </p>
             </div>
             <div className="rounded-lg border border-[#ebe5d8] bg-white p-3">
-              <p className="mb-1 font-semibold text-[var(--foreground)]">
-                Supabase Inc. (Estados Unidos)
-              </p>
+              <p className="mb-1 font-semibold text-gray-900">Supabase Inc. (Estados Unidos)</p>
               <p className="text-[#7d7566] text-sm">
                 Finalidad: Almacenamiento de base de datos | Certificación: SOC 2 Type II
               </p>
             </div>
             <div className="rounded-lg border border-[#ebe5d8] bg-white p-3">
-              <p className="mb-1 font-semibold text-[var(--foreground)]">
-                Vercel Inc. (Estados Unidos)
-              </p>
+              <p className="mb-1 font-semibold text-gray-900">Vercel Inc. (Estados Unidos)</p>
               <p className="text-[#7d7566] text-sm">
                 Finalidad: Hosting de aplicación | Certificación: SOC 2 Type II
               </p>
             </div>
           </div>
 
-          <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">
-            6.2 Entre Usuarios
-          </h3>
+          <h3 className="mb-3 font-semibold text-gray-900 text-xl">6.2 Entre Usuarios</h3>
           <p className="mb-4 text-[#7d7566]">
             Para facilitar la prestación del servicio, compartimos información entre clientes y
             profesionales:
@@ -338,16 +316,14 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <li>Dirección del servicio (solo para el profesional asignado)</li>
           </ul>
 
-          <p className="font-semibold text-[var(--red)]">
+          <p className="font-semibold text-[#E85D48]">
             ⚠️ NO vendemos sus datos personales a terceros bajo ninguna circunstancia.
           </p>
         </section>
 
         {/* Section 7 */}
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
-            7. Medidas de Seguridad
-          </h2>
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">7. Medidas de Seguridad</h2>
           <p className="mb-4 text-[#7d7566]">
             Implementamos medidas técnicas, humanas y administrativas para proteger sus datos:
           </p>
@@ -375,9 +351,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         {/* Section 8 */}
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
-            8. Retención de Datos
-          </h2>
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">8. Retención de Datos</h2>
           <p className="mb-4 text-[#7d7566]">
             Conservamos sus datos personales durante los siguientes períodos:
           </p>
@@ -408,7 +382,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         {/* Section 9 */}
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">
             9. Transferencia Internacional de Datos
           </h2>
           <p className="mb-4 text-[#7d7566]">
@@ -426,7 +400,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         {/* Section 10 */}
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">
             10. Cookies y Tecnologías Similares
           </h2>
           <p className="mb-4 text-[#7d7566]">Utilizamos cookies y tecnologías similares para:</p>
@@ -448,7 +422,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         {/* Section 11 */}
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">11. Menores de Edad</h2>
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">11. Menores de Edad</h2>
           <p className="text-[#7d7566]">
             Casaora está dirigido a personas mayores de 18 años. No recopilamos intencionalmente
             información de menores de edad. Si detectamos que hemos recopilado datos de un menor,
@@ -458,7 +432,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         {/* Section 12 */}
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">
             12. Modificaciones a Esta Política
           </h2>
           <p className="mb-4 text-[#7d7566]">
@@ -474,14 +448,12 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         {/* Section 13 */}
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
-            13. Autoridades de Control
-          </h2>
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">13. Autoridades de Control</h2>
           <p className="mb-4 text-[#7d7566]">
             Si considera que sus derechos no han sido respetados, puede presentar una queja ante:
           </p>
           <div className="rounded-lg border border-[#ebe5d8] bg-white p-4">
-            <p className="mb-2 font-semibold text-[var(--foreground)]">
+            <p className="mb-2 font-semibold text-gray-900">
               Superintendencia de Industria y Comercio (SIC)
             </p>
             <p className="mb-1 text-[#7d7566]">Delegatura de Protección de Datos Personales</p>
@@ -492,7 +464,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <p className="text-[#7d7566]">
               Web:{" "}
               <a
-                className="text-[var(--red)] hover:underline"
+                className="text-[#E85D48] hover:underline"
                 href="https://www.sic.gov.co"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -505,32 +477,30 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
         {/* Section 14 */}
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">14. Contacto</h2>
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">14. Contacto</h2>
           <p className="mb-4 text-[#7d7566]">
             Para preguntas, solicitudes o inquietudes sobre esta Política de Privacidad o el
             tratamiento de sus datos personales:
           </p>
           <div className="rounded-lg border border-[#ebe5d8] bg-white p-4">
-            <p className="mb-2 text-[var(--foreground)]">
+            <p className="mb-2 text-gray-900">
               <strong>Correo Electrónico:</strong>{" "}
-              <a className="text-[var(--red)] hover:underline" href="mailto:privacy@casaora.com">
+              <a className="text-[#E85D48] hover:underline" href="mailto:privacy@casaora.com">
                 privacy@casaora.com
               </a>
             </p>
-            <p className="mb-2 text-[var(--foreground)]">
+            <p className="mb-2 text-gray-900">
               <strong>Asunto:</strong> "Protección de Datos Personales"
             </p>
-            <p className="text-[var(--foreground)]">
+            <p className="text-gray-900">
               <strong>Tiempo de respuesta:</strong> Máximo 15 días hábiles
             </p>
           </div>
         </section>
 
         {/* Legal Declaration */}
-        <section className="rounded-lg border-2 border-[var(--red)] bg-[#fff5f2] p-6">
-          <h2 className="mb-4 font-bold text-[var(--foreground)] text-xl">
-            Declaración de Consentimiento
-          </h2>
+        <section className="rounded-lg border-2 border-[#E85D48] bg-[#fff5f2] p-6">
+          <h2 className="mb-4 font-bold text-gray-900 text-xl">Declaración de Consentimiento</h2>
           <p className="text-[#7d7566]">Al registrarse y usar Casaora, usted declara que:</p>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
             <li>Ha leído y entendido esta Política de Privacidad</li>
@@ -538,7 +508,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             <li>Conoce sus derechos y los medios para ejercerlos</li>
             <li>Acepta el uso de sus datos para las finalidades descritas</li>
           </ul>
-          <p className="font-semibold text-[var(--foreground)]">
+          <p className="font-semibold text-gray-900">
             Esta Política de Privacidad cumple con la Ley 1581 de 2012, el Decreto 1377 de 2013, y
             demás normas aplicables en Colombia.
           </p>
@@ -551,7 +521,7 @@ function SpanishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
   return (
     <>
-      <h1 className="mb-4 font-bold text-4xl text-[var(--foreground)]">
+      <h1 className="mb-4 font-bold text-4xl text-gray-900">
         Privacy Policy & Personal Data Protection
       </h1>
       <p className="mb-2 text-[#7d7566]">
@@ -563,24 +533,24 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
 
       <div className="prose prose-lg max-w-none space-y-8">
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">1. Data Controller</h2>
-          <div className="mb-4 rounded-lg border border-[#ebe5d8] bg-[var(--background)] p-4">
-            <p className="mb-2 text-[var(--foreground)]">
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">1. Data Controller</h2>
+          <div className="mb-4 rounded-lg border border-[#ebe5d8] bg-[#fbf9f7] p-4">
+            <p className="mb-2 text-gray-900">
               <strong>Company Name:</strong> [Your company - To be completed]
             </p>
-            <p className="mb-2 text-[var(--foreground)]">
+            <p className="mb-2 text-gray-900">
               <strong>Tax ID:</strong> [To be completed]
             </p>
-            <p className="mb-2 text-[var(--foreground)]">
+            <p className="mb-2 text-gray-900">
               <strong>Address:</strong> [Address in Colombia - To be completed]
             </p>
-            <p className="mb-2 text-[var(--foreground)]">
+            <p className="mb-2 text-gray-900">
               <strong>Email:</strong>{" "}
-              <a className="text-[var(--red)] hover:underline" href="mailto:privacy@casaora.com">
+              <a className="text-[#E85D48] hover:underline" href="mailto:privacy@casaora.com">
                 privacy@casaora.com
               </a>
             </p>
-            <p className="mb-2 text-[var(--foreground)]">
+            <p className="mb-2 text-gray-900">
               <strong>Phone:</strong> [To be completed]
             </p>
           </div>
@@ -591,20 +561,16 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
-            2. Personal Data We Collect
-          </h2>
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">2. Personal Data We Collect</h2>
 
-          <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">
-            2.1 Identification Data
-          </h3>
+          <h3 className="mb-3 font-semibold text-gray-900 text-xl">2.1 Identification Data</h3>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
             <li>Full name, email address, phone number</li>
             <li>Physical address (for service delivery)</li>
             <li>Identity document (professionals only)</li>
           </ul>
 
-          <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">2.2 Location Data</h3>
+          <h3 className="mb-3 font-semibold text-gray-900 text-xl">2.2 Location Data</h3>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
             <li>GPS coordinates during service check-in/check-out</li>
             <li>
@@ -612,9 +578,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </li>
           </ul>
 
-          <h3 className="mb-3 font-semibold text-[var(--foreground)] text-xl">
-            2.3 Financial Data
-          </h3>
+          <h3 className="mb-3 font-semibold text-gray-900 text-xl">2.3 Financial Data</h3>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
             <li>Payment history and transactions</li>
             <li>Bank account information (professionals receiving payments)</li>
@@ -626,7 +590,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">
             3. Your Rights (Article 8, Law 1581)
           </h2>
           <p className="mb-4 text-[#7d7566]">As a data subject, you have the following rights:</p>
@@ -651,15 +615,13 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
             </li>
           </ul>
 
-          <div className="rounded-lg border-[var(--red)] border-l-4 bg-[#fff5f2] p-4">
-            <h3 className="mb-2 font-semibold text-[var(--foreground)]">
-              How to Exercise Your Rights
-            </h3>
+          <div className="rounded-lg border-[#E85D48] border-l-4 bg-[#fff5f2] p-4">
+            <h3 className="mb-2 font-semibold text-gray-900">How to Exercise Your Rights</h3>
             <p className="mb-2 text-[#7d7566]">Contact us at:</p>
             <ul className="ml-6 list-disc text-[#7d7566]">
               <li>
                 <strong>Email:</strong>{" "}
-                <a className="text-[var(--red)] hover:underline" href="mailto:privacy@casaora.com">
+                <a className="text-[#E85D48] hover:underline" href="mailto:privacy@casaora.com">
                   privacy@casaora.com
                 </a>
               </li>
@@ -674,37 +636,37 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">
             4. Data Sharing with Third Parties
           </h2>
           <p className="mb-4 text-[#7d7566]">We share your data only with:</p>
           <div className="mb-4 space-y-2">
             <div className="rounded-lg border border-[#ebe5d8] bg-white p-3">
-              <p className="mb-1 font-semibold text-[var(--foreground)]">Stripe Inc. (USA)</p>
+              <p className="mb-1 font-semibold text-gray-900">Stripe Inc. (USA)</p>
               <p className="text-[#7d7566] text-sm">
                 Purpose: Payment processing | Certification: PCI DSS Level 1
               </p>
             </div>
             <div className="rounded-lg border border-[#ebe5d8] bg-white p-3">
-              <p className="mb-1 font-semibold text-[var(--foreground)]">Supabase Inc. (USA)</p>
+              <p className="mb-1 font-semibold text-gray-900">Supabase Inc. (USA)</p>
               <p className="text-[#7d7566] text-sm">
                 Purpose: Database storage | Certification: SOC 2 Type II
               </p>
             </div>
             <div className="rounded-lg border border-[#ebe5d8] bg-white p-3">
-              <p className="mb-1 font-semibold text-[var(--foreground)]">Vercel Inc. (USA)</p>
+              <p className="mb-1 font-semibold text-gray-900">Vercel Inc. (USA)</p>
               <p className="text-[#7d7566] text-sm">
                 Purpose: Application hosting | Certification: SOC 2 Type II
               </p>
             </div>
           </div>
-          <p className="font-semibold text-[var(--red)]">
+          <p className="font-semibold text-[#E85D48]">
             ⚠️ We NEVER sell your personal data to third parties.
           </p>
         </section>
 
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">5. Security Measures</h2>
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">5. Security Measures</h2>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
             <li>
               <strong>Encryption:</strong> HTTPS (TLS 1.3) for all communications
@@ -728,7 +690,7 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">6. Data Retention</h2>
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">6. Data Retention</h2>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
             <li>
               <strong>Active accounts:</strong> While account is active
@@ -749,29 +711,29 @@ function EnglishPrivacyPolicy({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-4 font-bold text-2xl text-[var(--foreground)]">7. Contact</h2>
+          <h2 className="mb-4 font-bold text-2xl text-gray-900">7. Contact</h2>
           <div className="rounded-lg border border-[#ebe5d8] bg-white p-4">
-            <p className="mb-2 text-[var(--foreground)]">
+            <p className="mb-2 text-gray-900">
               <strong>Email:</strong>{" "}
-              <a className="text-[var(--red)] hover:underline" href="mailto:privacy@casaora.com">
+              <a className="text-[#E85D48] hover:underline" href="mailto:privacy@casaora.com">
                 privacy@casaora.com
               </a>
             </p>
-            <p className="text-[var(--foreground)]">
+            <p className="text-gray-900">
               <strong>Response time:</strong> Maximum 15 business days
             </p>
           </div>
         </section>
 
-        <section className="rounded-lg border-2 border-[var(--red)] bg-[#fff5f2] p-6">
-          <h2 className="mb-4 font-bold text-[var(--foreground)] text-xl">Consent Declaration</h2>
+        <section className="rounded-lg border-2 border-[#E85D48] bg-[#fff5f2] p-6">
+          <h2 className="mb-4 font-bold text-gray-900 text-xl">Consent Declaration</h2>
           <p className="text-[#7d7566]">By registering and using Casaora, you declare that:</p>
           <ul className="mb-4 ml-6 list-disc text-[#7d7566]">
             <li>You have read and understood this Privacy Policy</li>
             <li>You authorize the processing of your personal data as established herein</li>
             <li>You know your rights and how to exercise them</li>
           </ul>
-          <p className="font-semibold text-[var(--foreground)]">
+          <p className="font-semibold text-gray-900">
             This Privacy Policy complies with Colombian Law 1581 of 2012 and applicable regulations.
           </p>
         </section>

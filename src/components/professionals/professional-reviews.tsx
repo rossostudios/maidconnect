@@ -32,23 +32,21 @@ function ReviewCard({ review }: { review: ProfessionalReviewSummary }) {
   return (
     <li className="space-y-2 rounded-2xl border border-[#efe7dc] bg-[#fbfafa] p-5">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-sm">
+        <div className="flex items-center gap-2 font-semibold text-gray-900 text-sm">
           <HugeiconsIcon
             aria-hidden="true"
-            className="h-4 w-4 fill-[var(--red)] text-[var(--red)]"
+            className="h-4 w-4 fill-red-600 text-[#E85D48]"
             icon={StarIcon}
           />
           <span>{review.rating.toFixed(1)}</span>
         </div>
         <p className="text-[#7a6d62] text-xs">{formatDate(review.createdAt)}</p>
       </div>
-      {review.title ? (
-        <p className="font-semibold text-[var(--foreground)] text-sm">{review.title}</p>
-      ) : null}
+      {review.title ? <p className="font-semibold text-gray-900 text-sm">{review.title}</p> : null}
       {review.comment ? (
-        <p className="text-[var(--muted-foreground)] text-sm leading-relaxed">{review.comment}</p>
+        <p className="text-gray-600 text-sm leading-relaxed">{review.comment}</p>
       ) : null}
-      <p className="font-semibold text-[var(--muted-foreground)] text-xs uppercase tracking-[0.24em]">
+      <p className="font-semibold text-gray-600 text-xs uppercase tracking-[0.24em]">
         {review.reviewerName ?? "Verified household"}
       </p>
     </li>
@@ -71,17 +69,17 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
     <section className="rounded-[32px] border border-[#ebe5d8] bg-white p-6 shadow-[0_24px_60px_rgba(18,17,15,0.06)]">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h3 className="font-semibold text-[var(--foreground)] text-lg">Reviews</h3>
+          <h3 className="font-semibold text-gray-900 text-lg">Reviews</h3>
           <p className="text-[#7a6d62] text-sm">
             Hear from households who have worked with this professional. Reviews are verified after
             each completed visit.
           </p>
         </div>
         {averageRating ? (
-          <div className="flex items-center gap-2 rounded-full border border-[#efe7dc] bg-[#fbfafa] px-4 py-2 font-semibold text-[var(--foreground)] text-sm">
+          <div className="flex items-center gap-2 rounded-full border border-[#efe7dc] bg-[#fbfafa] px-4 py-2 font-semibold text-gray-900 text-sm">
             <HugeiconsIcon
               aria-hidden="true"
-              className="h-4 w-4 fill-[var(--red)] text-[var(--red)]"
+              className="h-4 w-4 fill-red-600 text-[#E85D48]"
               icon={StarIcon}
             />
             {averageRating.toFixed(1)}{" "}
@@ -97,10 +95,10 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
         >
           <input name="professionalId" type="hidden" value={professionalId} />
           <div className="grid gap-3 sm:grid-cols-[140px_1fr]">
-            <label className="flex items-center gap-2 font-medium text-[var(--foreground)] text-sm">
+            <label className="flex items-center gap-2 font-medium text-gray-900 text-sm">
               Rating
               <select
-                className="rounded-full border border-[#e5dfd4] bg-white px-3 py-1 font-medium text-[var(--foreground)] text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--red)] focus-visible:outline-offset-2"
+                className="rounded-full border border-[#e5dfd4] bg-white px-3 py-1 font-medium text-gray-900 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-600 focus-visible:outline-offset-2"
                 defaultValue="5"
                 name="rating"
                 required
@@ -113,21 +111,21 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
               </select>
             </label>
             <input
-              className="w-full rounded-full border border-[#e5dfd4] bg-white px-4 py-2 text-[var(--foreground)] text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)26]"
+              className="w-full rounded-full border border-[#e5dfd4] bg-white px-4 py-2 text-gray-900 text-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/15"
               name="title"
               placeholder="Headline"
               type="text"
             />
           </div>
           <textarea
-            className="w-full rounded-2xl border border-[#e5dfd4] bg-white px-4 py-3 text-[var(--foreground)] text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)26]"
+            className="w-full rounded-2xl border border-[#e5dfd4] bg-white px-4 py-3 text-gray-900 text-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/15"
             name="comment"
             placeholder="Share the experience, what went well, and anything future households should know."
             required
             rows={3}
           />
           {state.status === "error" && state.message ? (
-            <p className="text-red-600 text-sm">{state.message}</p>
+            <p className="text-[#E85D48] text-sm">{state.message}</p>
           ) : null}
           {state.status === "success" ? (
             <p className="text-green-700 text-sm">
@@ -136,7 +134,7 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
           ) : null}
           <div className="flex justify-end">
             <button
-              className="inline-flex items-center justify-center rounded-full border border-[var(--foreground)] bg-[var(--foreground)] px-5 py-2 font-semibold text-sm text-white shadow-sm transition hover:border-[var(--red)] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex items-center justify-center rounded-full border border-gray-900 bg-gray-900 px-5 py-2 font-semibold text-sm text-white shadow-sm transition hover:border-[#E85D48] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
               disabled={pending}
               type="submit"
             >
@@ -149,7 +147,7 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
           <p>
             Sign in as a customer to share your experience after a completed booking.{" "}
             <Link
-              className="font-semibold text-[var(--foreground)] underline-offset-4 hover:underline"
+              className="font-semibold text-gray-900 underline-offset-4 hover:underline"
               href="/auth/sign-in"
             >
               Login now

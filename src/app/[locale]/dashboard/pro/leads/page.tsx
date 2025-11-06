@@ -5,8 +5,8 @@
  * Sprint 2: Professional Inbox Improvements
  */
 
-import { redirect } from "next/navigation";
 import { unstable_noStore } from "next/cache";
+import { redirect } from "next/navigation";
 import { LeadQueue } from "@/components/professional/lead-queue";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -75,7 +75,7 @@ export default async function ProLeadsPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="font-bold text-3xl text-[var(--foreground)]">Lead Queue</h1>
+        <h1 className="font-bold text-3xl text-gray-900">Lead Queue</h1>
         <p className="mt-2 text-[#7d7566]">Pending booking requests waiting for your response</p>
       </div>
 

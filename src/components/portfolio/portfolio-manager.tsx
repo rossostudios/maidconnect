@@ -131,14 +131,11 @@ export function PortfolioManager({
     <div className="space-y-6">
       {/* Featured Work */}
       <div>
-        <label
-          className="mb-2 block font-semibold text-[var(--foreground)] text-sm"
-          htmlFor="featured-work"
-        >
+        <label className="mb-2 block font-semibold text-gray-900 text-sm" htmlFor="featured-work">
           {t("fields.description.label")}
         </label>
         <textarea
-          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
+          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
           id="featured-work"
           onChange={(e) => setFeaturedWork(e.target.value)}
           placeholder={t("fields.description.placeholder")}
@@ -150,7 +147,7 @@ export function PortfolioManager({
 
       {/* Upload New Images */}
       <div>
-        <h3 className="mb-3 font-semibold text-[var(--foreground)] text-sm">{t("upload.title")}</h3>
+        <h3 className="mb-3 font-semibold text-gray-900 text-sm">{t("upload.title")}</h3>
         <ImageUploadDropzone
           maxImages={20 - images.length}
           onImagesUploaded={handleImagesUploaded}
@@ -159,7 +156,7 @@ export function PortfolioManager({
 
       {/* Current Images */}
       <div>
-        <h3 className="mb-3 font-semibold text-[var(--foreground)] text-sm">
+        <h3 className="mb-3 font-semibold text-gray-900 text-sm">
           {t("upload.currentImages", { count: images.length })}
         </h3>
 
@@ -186,7 +183,7 @@ export function PortfolioManager({
                     <div className="space-y-2">
                       <input
                         autoFocus
-                        className="w-full rounded-md border border-[#e5dfd4] px-2 py-1 text-sm focus:border-[var(--red)] focus:outline-none"
+                        className="w-full rounded-md border border-[#e5dfd4] px-2 py-1 text-sm focus:border-[#E85D48] focus:outline-none"
                         defaultValue={image.caption || ""}
                         onBlur={(e) => handleUpdateCaption(image.id, e.target.value)}
                         onKeyDown={(e) => {
@@ -200,13 +197,13 @@ export function PortfolioManager({
                     </div>
                   ) : (
                     <>
-                      <p className="font-semibold text-[var(--foreground)] text-sm">
+                      <p className="font-semibold text-gray-900 text-sm">
                         {image.caption || "(No caption)"}
                       </p>
                       <p className="mt-1 truncate text-[#7a6d62] text-xs">{image.url}</p>
                       <div className="mt-2 flex flex-wrap gap-2">
                         <button
-                          className="text-[var(--red)] text-xs hover:text-[var(--red-hover)]"
+                          className="text-[#E85D48] text-xs hover:text-red-700"
                           onClick={() => setEditingId(image.id)}
                           type="button"
                         >
@@ -214,7 +211,7 @@ export function PortfolioManager({
                         </button>
                         <span className="text-[#e5dfd4] text-xs">•</span>
                         <button
-                          className="text-[#7a6d62] text-xs hover:text-[var(--red)] disabled:cursor-not-allowed disabled:opacity-50"
+                          className="text-[#7a6d62] text-xs hover:text-[#E85D48] disabled:cursor-not-allowed disabled:opacity-50"
                           disabled={index === 0}
                           onClick={() => handleMoveUp(image.id)}
                           type="button"
@@ -222,7 +219,7 @@ export function PortfolioManager({
                           {t("actions.moveUp")}
                         </button>
                         <button
-                          className="text-[#7a6d62] text-xs hover:text-[var(--red)] disabled:cursor-not-allowed disabled:opacity-50"
+                          className="text-[#7a6d62] text-xs hover:text-[#E85D48] disabled:cursor-not-allowed disabled:opacity-50"
                           disabled={index === sortedImages.length - 1}
                           onClick={() => handleMoveDown(image.id)}
                           type="button"
@@ -231,7 +228,7 @@ export function PortfolioManager({
                         </button>
                         <span className="text-[#e5dfd4] text-xs">•</span>
                         <button
-                          className="text-red-600 text-xs hover:text-red-700"
+                          className="text-[#E85D48] text-xs hover:text-red-700"
                           onClick={() => handleDeleteImage(image.id)}
                           type="button"
                         >
@@ -256,9 +253,7 @@ export function PortfolioManager({
         {images.length === 0 && (
           <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-12 text-center">
             <p className="text-2xl">📸</p>
-            <p className="mt-2 font-semibold text-[var(--foreground)] text-sm">
-              {t("emptyState.title")}
-            </p>
+            <p className="mt-2 font-semibold text-gray-900 text-sm">{t("emptyState.title")}</p>
             <p className="mt-1 text-[#7a6d62] text-sm">{t("emptyState.description")}</p>
           </div>
         )}
@@ -266,7 +261,7 @@ export function PortfolioManager({
 
       {/* Upload Tips */}
       <div className="rounded-lg border border-[#f0ece5] bg-[#fdfaf6] p-4">
-        <h4 className="font-semibold text-[var(--foreground)] text-sm">📸 {t("tips.title")}</h4>
+        <h4 className="font-semibold text-gray-900 text-sm">📸 {t("tips.title")}</h4>
         <ul className="mt-2 space-y-1 text-[#7a6d62] text-sm">
           <li>• {t("tips.tip1")}</li>
           <li>• {t("tips.tip2")}</li>
@@ -279,7 +274,7 @@ export function PortfolioManager({
       {/* Save Button */}
       <div className="flex justify-end gap-3">
         <button
-          className="rounded-md bg-[var(--red)] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md bg-[#E85D48] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={handleSave}
           type="button"

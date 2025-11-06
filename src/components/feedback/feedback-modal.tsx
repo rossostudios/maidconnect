@@ -151,8 +151,8 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
             <HugeiconsIcon className="h-8 w-8 text-green-600" icon={CheckmarkCircle01Icon} />
           </div>
-          <h3 className="font-bold text-2xl text-[var(--foreground)]">{t("success.title")}</h3>
-          <p className="mt-2 text-[var(--muted-foreground)] text-base">{t("success.message")}</p>
+          <h3 className="font-bold text-2xl text-gray-900">{t("success.title")}</h3>
+          <p className="mt-2 text-base text-gray-600">{t("success.message")}</p>
         </div>
       </BaseModal>
     );
@@ -178,7 +178,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
       >
         {/* Feedback Type */}
         <div className="mb-6">
-          <div className="mb-3 block font-semibold text-[var(--foreground)] text-base">
+          <div className="mb-3 block font-semibold text-base text-gray-900">
             {t("form.typeLabel")}
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -189,19 +189,19 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                 <button
                   className={`flex flex-col items-center gap-2 rounded-xl border-2 p-4 text-center transition ${
                     isSelected
-                      ? "border-[var(--red)] bg-[var(--red)10]"
-                      : "border-[#ebe5d8] bg-white hover:border-[var(--red)]/50"
+                      ? "border-[#E85D48] bg-[#E85D48]/10"
+                      : "border-[#ebe5d8] bg-white hover:border-[#E85D48]/50"
                   }`}
                   key={type.value}
                   onClick={() => form.updateField("feedbackType", type.value)}
                   type="button"
                 >
                   <HugeiconsIcon
-                    className={`h-6 w-6 ${isSelected ? "text-[var(--red)]" : "text-[#7a6d62]"}`}
+                    className={`h-6 w-6 ${isSelected ? "text-[#E85D48]" : "text-[#7a6d62]"}`}
                     icon={type.icon}
                   />
                   <span
-                    className={`font-medium text-sm ${isSelected ? "text-[var(--red)]" : "text-[var(--foreground)]"}`}
+                    className={`font-medium text-sm ${isSelected ? "text-[#E85D48]" : "text-gray-900"}`}
                   >
                     {type.label}
                   </span>
@@ -216,14 +216,11 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
         {/* Subject (Optional) */}
         <div className="mb-6">
-          <label
-            className="mb-2 block font-semibold text-[var(--foreground)] text-base"
-            htmlFor="subject"
-          >
+          <label className="mb-2 block font-semibold text-base text-gray-900" htmlFor="subject">
             {t("form.subjectLabel")} <span className="text-[#7a6d62]">({t("form.optional")})</span>
           </label>
           <input
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33] disabled:opacity-60"
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20 disabled:opacity-60"
             disabled={feedbackMutation.isLoading}
             id="subject"
             maxLength={200}
@@ -236,14 +233,11 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
         {/* Message */}
         <div className="mb-6">
-          <label
-            className="mb-2 block font-semibold text-[var(--foreground)] text-base"
-            htmlFor="message"
-          >
-            {t("form.messageLabel")} <span className="text-red-500">*</span>
+          <label className="mb-2 block font-semibold text-base text-gray-900" htmlFor="message">
+            {t("form.messageLabel")} <span className="text-[#E85D48]/100">*</span>
           </label>
           <textarea
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33] disabled:opacity-60"
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20 disabled:opacity-60"
             disabled={feedbackMutation.isLoading}
             id="message"
             maxLength={5000}
@@ -261,14 +255,11 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
         {/* Email (for anonymous users) */}
         <div className="mb-6">
-          <label
-            className="mb-2 block font-semibold text-[var(--foreground)] text-base"
-            htmlFor="email"
-          >
+          <label className="mb-2 block font-semibold text-base text-gray-900" htmlFor="email">
             {t("form.emailLabel")} <span className="text-[#7a6d62]">({t("form.optional")})</span>
           </label>
           <input
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33] disabled:opacity-60"
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-base shadow-sm transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20 disabled:opacity-60"
             disabled={feedbackMutation.isLoading}
             id="email"
             onChange={(e) => form.updateField("email", e.target.value)}
@@ -284,15 +275,13 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
           <label className="flex items-start gap-3">
             <input
               checked={form.formData.consent}
-              className="mt-1 h-4 w-4 rounded border-[#ebe5d8] text-[var(--red)] transition focus:ring-2 focus:ring-[var(--red)33] disabled:opacity-60"
+              className="mt-1 h-4 w-4 rounded border-[#ebe5d8] text-[#E85D48] transition focus:ring-2 focus:ring-[#E85D48]/20 disabled:opacity-60"
               disabled={feedbackMutation.isLoading}
               onChange={(e) => form.updateField("consent", e.target.checked)}
               required
               type="checkbox"
             />
-            <span className="text-[var(--muted-foreground)] text-sm leading-relaxed">
-              {t("form.consentText")}
-            </span>
+            <span className="text-gray-600 text-sm leading-relaxed">{t("form.consentText")}</span>
           </label>
         </div>
 
@@ -303,12 +292,14 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
         {/* Error Message */}
         {form.error && (
-          <div className="mb-6 rounded-xl bg-red-50 p-4 text-red-800 text-sm">{form.error}</div>
+          <div className="mb-6 rounded-xl bg-[#E85D48]/10 p-4 text-red-800 text-sm">
+            {form.error}
+          </div>
         )}
 
         {/* Submit Button */}
         <button
-          className="w-full rounded-full bg-[var(--red)] px-6 py-4 font-semibold text-base text-white transition hover:bg-[var(--red)] disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-full bg-[#E85D48] px-6 py-4 font-semibold text-base text-white transition hover:bg-[#E85D48] disabled:cursor-not-allowed disabled:opacity-60"
           disabled={
             feedbackMutation.isLoading ||
             !form.formData.consent ||

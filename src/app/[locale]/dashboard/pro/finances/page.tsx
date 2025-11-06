@@ -1,5 +1,5 @@
-import { getTranslations } from "next-intl/server";
 import { unstable_noStore } from "next/cache";
+import { getTranslations } from "next-intl/server";
 import { FinancesOverview } from "@/components/finances/finances-overview";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -48,10 +48,8 @@ export default async function ProFinancesPage({ params }: { params: Promise<{ lo
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="font-semibold text-3xl text-[var(--foreground)]">{t("title")}</h1>
-        <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
-          {t("description")}
-        </p>
+        <h1 className="font-semibold text-3xl text-gray-900">{t("title")}</h1>
+        <p className="mt-2 text-base text-gray-600 leading-relaxed">{t("description")}</p>
       </div>
 
       <FinancesOverview bookings={bookings} payouts={payouts} />

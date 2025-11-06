@@ -24,13 +24,13 @@ export type ConfirmationModalProps = {
 const variantConfig = {
   default: {
     icon: InformationCircleIcon,
-    iconColor: "text-[var(--red)]",
-    confirmButton: "bg-[var(--red)] hover:bg-[var(--red-hover)]",
+    iconColor: "text-[#E85D48]",
+    confirmButton: "bg-[#E85D48] hover:bg-[#D64A36]",
   },
   danger: {
     icon: AlertCircleIcon,
-    iconColor: "text-red-600",
-    confirmButton: "bg-red-600 hover:bg-red-700",
+    iconColor: "text-[#E85D48]",
+    confirmButton: "bg-[#E85D48] hover:bg-[#D64A36]",
   },
   success: {
     icon: CheckmarkCircle01Icon,
@@ -91,7 +91,7 @@ export function ConfirmationModal({
         </div>
 
         {/* Title */}
-        <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">{title}</h3>
+        <h3 className="mb-2 font-semibold text-gray-900 text-lg">{title}</h3>
 
         {/* Message */}
         <p className="mb-6 text-[#7a6d62] text-sm leading-relaxed">{message}</p>
@@ -99,7 +99,7 @@ export function ConfirmationModal({
         {/* Actions */}
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--foreground)] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-base text-gray-900 transition hover:border-gray-900 disabled:cursor-not-allowed disabled:opacity-70"
             disabled={isLoading}
             onClick={onClose}
             type="button"

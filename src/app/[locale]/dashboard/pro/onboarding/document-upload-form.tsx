@@ -80,7 +80,7 @@ export function DocumentUploadForm({ inputClass }: Props) {
       <div className="flex justify-end border-[#ebe5d8] border-t pt-8">
         <button
           className={cn(
-            "inline-flex items-center justify-center rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]",
+            "inline-flex items-center justify-center rounded-full bg-[#E85D48] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36]",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}
@@ -145,7 +145,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
       )}
     >
       <div className="flex items-center justify-between">
-        <label className="font-semibold text-[var(--foreground)] text-lg" htmlFor={inputId}>
+        <label className="font-semibold text-gray-900 text-lg" htmlFor={inputId}>
           {config.label}
         </label>
         <span
@@ -157,7 +157,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
           {config.required ? t("badges.required") : t("badges.optional")}
         </span>
       </div>
-      <p className="mt-3 text-[var(--muted-foreground)] text-sm">
+      <p className="mt-3 text-gray-600 text-sm">
         {t(config.required ? "uploadInstruction.required" : "uploadInstruction.optional", {
           formats: ACCEPTED_TYPE_LABEL,
           maxSize: MAX_FILE_SIZE_LABEL,
@@ -168,7 +168,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         aria-invalid={Boolean(serverError || clientError)}
         className={cn(
           inputClass,
-          "mt-4 cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-[var(--red)] file:px-4 file:py-2 file:font-semibold file:text-sm file:text-white hover:file:bg-[var(--red-hover)]",
+          "mt-4 cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-[#E85D48] file:px-4 file:py-2 file:font-semibold file:text-sm file:text-white hover:file:bg-red-700",
           (serverError || clientError) && errorClass
         )}
         id={inputId}
@@ -204,7 +204,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         </div>
       ) : null}
       {clientError ? (
-        <p className="mt-3 flex items-center gap-2 text-red-600 text-sm">
+        <p className="mt-3 flex items-center gap-2 text-[#E85D48] text-sm">
           <svg
             aria-label="Error icon"
             className="h-4 w-4"
@@ -222,7 +222,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         </p>
       ) : null}
       {serverError ? (
-        <p className="mt-3 flex items-center gap-2 text-red-600 text-sm">
+        <p className="mt-3 flex items-center gap-2 text-[#E85D48] text-sm">
           <svg
             aria-label="Error icon"
             className="h-4 w-4"
@@ -246,12 +246,12 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
 function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
-      <div className="rounded-2xl border border-red-200 bg-red-50 p-6 shadow-sm" role="alert">
+      <div className="rounded-2xl border border-red-200 bg-[#E85D48]/10 p-6 shadow-sm" role="alert">
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
             <svg
               aria-label="Error icon"
-              className="h-5 w-5 text-red-600"
+              className="h-5 w-5 text-[#E85D48]"
               fill="none"
               role="img"
               stroke="currentColor"

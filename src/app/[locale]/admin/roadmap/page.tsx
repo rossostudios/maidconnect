@@ -5,8 +5,8 @@
  */
 
 import { Add01Icon } from "@hugeicons/core-free-icons";
-import { unstable_noStore } from "next/cache";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
 import { RoadmapAdminList } from "@/components/roadmap/roadmap-admin-list";
@@ -32,7 +32,7 @@ export default async function AdminRoadmapPage() {
         </div>
 
         <Link
-          className="inline-flex items-center gap-2 rounded-lg bg-[#E63946] px-6 py-3 font-medium text-white transition hover:bg-[#D32F40]"
+          className="inline-flex items-center gap-2 rounded-lg bg-[#E85D48] px-6 py-3 font-medium text-white transition hover:bg-[#D32F40]"
           href="/admin/roadmap/new"
         >
           <HugeiconsIcon icon={Add01Icon} size={20} />
@@ -44,7 +44,7 @@ export default async function AdminRoadmapPage() {
       <Suspense
         fallback={
           <div className="flex items-center justify-center py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#E63946] border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#E85D48] border-t-transparent" />
           </div>
         }
       >

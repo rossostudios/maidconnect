@@ -8,28 +8,26 @@ export async function ConciergeSection() {
   const t = await getTranslations("concierge");
 
   return (
-    <section className="py-20 sm:py-24 lg:py-28" id="concierge">
+    <section className="bg-stone-900 py-20 sm:py-24 lg:py-32" id="concierge">
       <Container>
-        <div className="mx-auto max-w-5xl space-y-16 text-center">
-          <div className="space-y-7">
-            <h2 className="type-serif-lg text-[var(--foreground)]">{t("title")}</h2>
-            <p className="mx-auto max-w-2xl text-[var(--muted-foreground)] text-xl">
-              {t("subtitle")}
-            </p>
+        <div className="mx-auto flex max-w-5xl flex-col gap-16 text-center">
+          <div className="flex flex-col gap-7">
+            <h2 className="serif-display-lg text-white">{t("title")}</h2>
+            <p className="lead mx-auto max-w-2xl text-white/80">{t("subtitle")}</p>
           </div>
 
-          <div className="flex flex-col items-center justify-center gap-4 pt-6 sm:flex-row">
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button href="/professionals" icon label={t("browseProfessionals")} />
             <Button href="#get-started" label={t("bookConsultation")} variant="secondary" />
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-6 pt-10 text-[var(--muted-foreground)] text-sm">
+          <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-stone-400">
             <span className="inline-flex items-center gap-2">
-              <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-orange-500" icon={Location01Icon} />
               {t("cities")}
             </span>
             <span className="inline-flex items-center gap-2">
-              <HugeiconsIcon className="h-4 w-4" icon={TranslateIcon} />
+              <HugeiconsIcon className="h-5 w-5 text-orange-500" icon={TranslateIcon} />
               {t("languages")}
             </span>
           </div>

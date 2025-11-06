@@ -114,7 +114,7 @@ export function TimeExtensionModal({
       customActions={
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-lg border-2 border-[#ebe5d8] px-4 py-3 font-semibold text-[var(--foreground)] transition hover:border-[var(--foreground)]"
+            className="flex-1 rounded-lg border-2 border-[#ebe5d8] px-4 py-3 font-semibold text-gray-900 transition hover:border-gray-900"
             disabled={form.isSubmitting}
             onClick={onClose}
             type="button"
@@ -122,7 +122,7 @@ export function TimeExtensionModal({
             Cancel
           </button>
           <button
-            className="flex-1 rounded-lg bg-[var(--red)] px-4 py-3 font-semibold text-white transition hover:bg-[var(--red)] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-lg bg-[#E85D48] px-4 py-3 font-semibold text-white transition hover:bg-[#E85D48] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={form.isSubmitting || !currentMinutes || currentMinutes <= 0}
             onClick={handleExtend}
             type="button"
@@ -140,7 +140,7 @@ export function TimeExtensionModal({
     >
       {/* Preset Options */}
       <div className="mb-6">
-        <div className="mb-3 block font-medium text-[var(--foreground)] text-sm">Quick Options</div>
+        <div className="mb-3 block font-medium text-gray-900 text-sm">Quick Options</div>
         <div className="grid grid-cols-2 gap-3">
           {PRESET_OPTIONS.map((option) => {
             const isSelected = selectedMinutes === option.minutes;
@@ -150,8 +150,8 @@ export function TimeExtensionModal({
               <button
                 className={`rounded-xl border-2 p-4 text-left transition ${
                   isSelected
-                    ? "border-[var(--red)] bg-[var(--red)]/5"
-                    : "border-[#ebe5d8] hover:border-[var(--red)]/50"
+                    ? "border-[#E85D48] bg-[#E85D48]/5"
+                    : "border-[#ebe5d8] hover:border-[#E85D48]/50"
                 }`}
                 key={option.minutes}
                 onClick={() => handlePresetClick(option.minutes)}
@@ -159,13 +159,11 @@ export function TimeExtensionModal({
               >
                 <div className="mb-1 flex items-center gap-2">
                   <HugeiconsIcon
-                    className={isSelected ? "text-[var(--red)]" : "text-[#7a6d62]"}
+                    className={isSelected ? "text-[#E85D48]" : "text-[#7a6d62]"}
                     icon={Clock01Icon}
                     size={16}
                   />
-                  <span className="font-semibold text-[var(--foreground)] text-sm">
-                    {option.label}
-                  </span>
+                  <span className="font-semibold text-gray-900 text-sm">{option.label}</span>
                 </div>
                 <p className="text-[#7a6d62] text-xs">{formatCurrency(cost)}</p>
               </button>
@@ -176,11 +174,11 @@ export function TimeExtensionModal({
 
       {/* Custom Duration */}
       <div className="mb-6">
-        <label className="mb-2 block font-medium text-[var(--foreground)] text-sm" htmlFor="custom">
+        <label className="mb-2 block font-medium text-gray-900 text-sm" htmlFor="custom">
           Custom Duration (minutes)
         </label>
         <input
-          className="w-full rounded-lg border-2 border-[#ebe5d8] px-4 py-3 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
+          className="w-full rounded-lg border-2 border-[#ebe5d8] px-4 py-3 text-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
           id="custom"
           max="240"
           min="1"
@@ -209,7 +207,7 @@ export function TimeExtensionModal({
 
       {/* Error Message */}
       {form.error && (
-        <div className="mb-4 rounded-lg bg-red-50 p-3 text-red-800 text-sm">{form.error}</div>
+        <div className="mb-4 rounded-lg bg-[#E85D48]/10 p-3 text-red-800 text-sm">{form.error}</div>
       )}
 
       {/* Info Note */}

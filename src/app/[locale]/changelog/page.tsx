@@ -12,6 +12,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
+import { sanitizeRichContent } from "@/lib/sanitize";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type Changelog = {
@@ -43,7 +44,7 @@ const categoryConfig = {
   security: {
     icon: Shield01Icon,
     label: "Security",
-    color: "text-red-600 bg-red-50 border-red-200",
+    color: "text-[#E85D48] bg-[#E85D48]/10 border-red-200",
   },
   design: {
     icon: PaintBoardIcon,
@@ -98,7 +99,7 @@ async function ChangelogList() {
     return (
       <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-12 text-center">
         <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-[#7a6d62]" icon={MagicWand01Icon} />
-        <h3 className="mb-2 font-bold text-[var(--foreground)] text-xl">No Updates Yet</h3>
+        <h3 className="mb-2 font-bold text-gray-900 text-xl">No Updates Yet</h3>
         <p className="text-[#7a6d62]">We'll post our first changelog soon. Stay tuned!</p>
       </div>
     );
@@ -115,25 +116,25 @@ async function ChangelogList() {
 
         return (
           <article
-            className="group rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[var(--red)] hover:shadow-md sm:p-8"
+            className="group rounded-[28px] border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:border-[#E85D48] hover:shadow-md sm:p-8"
             key={changelog.id}
           >
             {/* Header */}
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-[var(--red)20] px-3 py-1 font-semibold text-[var(--red)] text-sm">
+              <span className="rounded-full bg-[#E85D48]/20 px-3 py-1 font-semibold text-[#E85D48] text-sm">
                 Sprint {changelog.sprint_number}
               </span>
               <span className="text-[#7a6d62] text-sm">{formattedDate}</span>
             </div>
 
             {/* Title */}
-            <h2 className="mb-3 font-bold text-2xl text-[var(--foreground)] group-hover:text-[var(--red)] sm:text-3xl">
+            <h2 className="mb-3 font-bold text-2xl text-gray-900 group-hover:text-[#E85D48] sm:text-3xl">
               {changelog.title}
             </h2>
 
             {/* Summary */}
             {changelog.summary && (
-              <p className="mb-4 text-[var(--muted-foreground)] text-base leading-relaxed sm:text-lg">
+              <p className="mb-4 text-base text-gray-600 leading-relaxed sm:text-lg">
                 {changelog.summary}
               </p>
             )}
@@ -178,20 +179,19 @@ async function ChangelogList() {
             )}
 
             {/* Content Preview */}
-            {/* Security: dangerouslySetInnerHTML is required to render HTML content preview.
-                Content is admin-controlled and sanitized before storage in Supabase. */}
             <div
               className="prose prose-sm sm:prose-base mb-6 line-clamp-4 max-w-none"
               dangerouslySetInnerHTML={{
-                __html:
+                __html: sanitizeRichContent(
                   changelog.content.substring(0, 500) +
-                  (changelog.content.length > 500 ? "..." : ""),
+                    (changelog.content.length > 500 ? "..." : "")
+                ),
               }}
             />
 
             {/* Read More Link */}
             <Link
-              className="inline-flex items-center gap-2 font-semibold text-[var(--red)] text-base transition hover:gap-3"
+              className="inline-flex items-center gap-2 font-semibold text-[#E85D48] text-base transition hover:gap-3"
               href={`/changelog/${changelog.slug}`}
             >
               Read full update
@@ -209,15 +209,15 @@ export default function ChangelogPage() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
 
-      <main className="flex-1 bg-[var(--background)] px-4 py-12 sm:px-6 lg:px-8">
+      <main className="flex-1 bg-[#fbf9f7] px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl">
           {/* Header */}
           <div className="mb-12 text-center">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-100 to-blue-100">
               <HugeiconsIcon className="h-8 w-8 text-purple-600" icon={MagicWand01Icon} />
             </div>
-            <h1 className="type-serif-lg mb-4 text-[var(--foreground)]">What's New</h1>
-            <p className="text-[var(--muted-foreground)] text-lg sm:text-xl">
+            <h1 className="type-serif-lg mb-4 text-gray-900">What's New</h1>
+            <p className="text-gray-600 text-lg sm:text-xl">
               Stay up to date with the latest features, improvements, and updates to Casaora
             </p>
           </div>

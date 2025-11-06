@@ -83,7 +83,7 @@ export default async function ReviewsRatingsPage({ params }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+    <div className="min-h-screen bg-stone-50 text-gray-900">
       {/* Security: dangerouslySetInnerHTML is safe here - jsonLd is server-generated structured data for SEO */}
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -106,11 +106,9 @@ export default async function ReviewsRatingsPage({ params }: Props) {
           id="features"
         >
           <div className="mx-auto max-w-6xl">
-            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
-              {t("features.title")}
-            </h2>
+            <h2 className="type-serif-lg text-center text-gray-900">{t("features.title")}</h2>
 
-            <p className="mx-auto mt-6 max-w-3xl text-center text-[var(--muted-foreground)] text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-3xl text-center text-gray-600 text-lg leading-relaxed">
               {t("features.subtitle")}
             </p>
 
@@ -167,43 +165,41 @@ export default async function ReviewsRatingsPage({ params }: Props) {
         {/* Rating Categories Section */}
         <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
-              {t("categories.title")}
-            </h2>
+            <h2 className="type-serif-lg text-center text-gray-900">{t("categories.title")}</h2>
 
             <div className="mt-16 grid gap-8 md:grid-cols-2">
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={StarIcon} />
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#E85D48]/10">
+                  <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={StarIcon} />
                 </div>
-                <h3 className="mt-6 font-semibold text-2xl text-[var(--foreground)]">
+                <h3 className="mt-6 font-semibold text-2xl text-gray-900">
                   {t("categories.forProfessionals.title")}
                 </h3>
-                <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
+                <ul className="mt-4 space-y-3 text-base text-gray-600">
                   <li className="flex items-start gap-2">
                     <HugeiconsIcon
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#E85D48]"
                       icon={CheckmarkCircle02Icon}
                     />
                     <span>{t("categories.forProfessionals.serviceQuality")}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <HugeiconsIcon
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#E85D48]"
                       icon={CheckmarkCircle02Icon}
                     />
                     <span>{t("categories.forProfessionals.communication")}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <HugeiconsIcon
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#E85D48]"
                       icon={CheckmarkCircle02Icon}
                     />
                     <span>{t("categories.forProfessionals.punctuality")}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <HugeiconsIcon
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#E85D48]"
                       icon={CheckmarkCircle02Icon}
                     />
                     <span>{t("categories.forProfessionals.value")}</span>
@@ -212,37 +208,37 @@ export default async function ReviewsRatingsPage({ params }: Props) {
               </div>
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={UserGroupIcon} />
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#E85D48]/10">
+                  <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={UserGroupIcon} />
                 </div>
-                <h3 className="mt-6 font-semibold text-2xl text-[var(--foreground)]">
+                <h3 className="mt-6 font-semibold text-2xl text-gray-900">
                   {t("categories.forCustomers.title")}
                 </h3>
-                <ul className="mt-4 space-y-3 text-[var(--muted-foreground)] text-base">
+                <ul className="mt-4 space-y-3 text-base text-gray-600">
                   <li className="flex items-start gap-2">
                     <HugeiconsIcon
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#E85D48]"
                       icon={CheckmarkCircle02Icon}
                     />
                     <span>{t("categories.forCustomers.clarity")}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <HugeiconsIcon
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#E85D48]"
                       icon={CheckmarkCircle02Icon}
                     />
                     <span>{t("categories.forCustomers.respect")}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <HugeiconsIcon
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#E85D48]"
                       icon={CheckmarkCircle02Icon}
                     />
                     <span>{t("categories.forCustomers.payment")}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <HugeiconsIcon
-                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--red)]"
+                      className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#E85D48]"
                       icon={CheckmarkCircle02Icon}
                     />
                     <span>{t("categories.forCustomers.communication")}</span>
@@ -256,62 +252,60 @@ export default async function ReviewsRatingsPage({ params }: Props) {
         {/* Benefits Section */}
         <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
-              {t("benefits.title")}
-            </h2>
+            <h2 className="type-serif-lg text-center text-gray-900">{t("benefits.title")}</h2>
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("benefits.mutualRespect.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("benefits.mutualRespect.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("benefits.verifiedOnly.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("benefits.verifiedOnly.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("benefits.accountability.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("benefits.accountability.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("benefits.balancedFeedback.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("benefits.balancedFeedback.description")}
                   </p>
                 </div>
@@ -323,22 +317,22 @@ export default async function ReviewsRatingsPage({ params }: Props) {
         {/* CTA Section */}
         <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="type-serif-lg text-[var(--foreground)]">{t("cta.title")}</h2>
+            <h2 className="type-serif-lg text-gray-900">{t("cta.title")}</h2>
 
-            <p className="mx-auto mt-6 max-w-2xl text-[var(--muted-foreground)] text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-2xl text-gray-600 text-lg leading-relaxed">
               {t("cta.description")}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                className="inline-flex items-center justify-center rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
+                className="inline-flex items-center justify-center rounded-full bg-[#E85D48] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
                 href="/professionals"
               >
                 {t("cta.browseProfessionals")}
               </Link>
 
               <Link
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-base text-gray-900 transition hover:border-[var(--red)] hover:text-[#E85D48]"
                 href="/auth/sign-up"
               >
                 {t("cta.signUpFree")}

@@ -84,7 +84,7 @@ export function DisputeResolutionDashboard() {
             icon={Search01Icon}
           />
           <input
-            className="w-full rounded-lg border border-[#E5E5E5] bg-white py-3 pr-4 pl-12 text-[#171717] placeholder:text-[#A3A3A3] focus:border-[#E63946] focus:outline-none focus:ring-2 focus:ring-[#E63946]"
+            className="w-full rounded-lg border border-[#E5E5E5] bg-white py-3 pr-4 pl-12 text-[#171717] placeholder:text-[#A3A3A3] focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]"
             onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="Search disputes..."
             type="text"
@@ -100,7 +100,7 @@ export function DisputeResolutionDashboard() {
           <HugeiconsIcon className="h-4 w-4" icon={FilterIcon} />
           Filters
           {activeFiltersCount > 0 && (
-            <span className="ml-1 rounded-full bg-[#E63946] px-2 py-0.5 font-semibold text-white text-xs">
+            <span className="ml-1 rounded-full bg-[#E85D48] px-2 py-0.5 font-semibold text-white text-xs">
               {activeFiltersCount}
             </span>
           )}
@@ -116,7 +116,7 @@ export function DisputeResolutionDashboard() {
                   Status
                 </label>
                 <select
-                  className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-2.5 text-[#171717] focus:border-[#E63946] focus:outline-none focus:ring-2 focus:ring-[#E63946]"
+                  className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-2.5 text-[#171717] focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]"
                   onChange={(e) => {
                     setStatusFilter(e.target.value);
                     setPagination((prev) => ({ ...prev, page: 1 }));
@@ -137,7 +137,7 @@ export function DisputeResolutionDashboard() {
                   Priority
                 </label>
                 <select
-                  className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-2.5 text-[#171717] focus:border-[#E63946] focus:outline-none focus:ring-2 focus:ring-[#E63946]"
+                  className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-2.5 text-[#171717] focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]"
                   onChange={(e) => {
                     setPriorityFilter(e.target.value);
                     setPagination((prev) => ({ ...prev, page: 1 }));
@@ -157,7 +157,7 @@ export function DisputeResolutionDashboard() {
             {activeFiltersCount > 0 && (
               <div className="mt-4 border-[#E5E5E5] border-t pt-4">
                 <button
-                  className="font-medium text-[#E63946] text-sm transition-colors hover:text-[#D32F40]"
+                  className="font-medium text-[#E85D48] text-sm transition-colors hover:text-[#D32F40]"
                   onClick={() => {
                     setStatusFilter("all");
                     setPriorityFilter("all");

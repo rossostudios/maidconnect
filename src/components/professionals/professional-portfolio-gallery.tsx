@@ -16,14 +16,14 @@ export function ProfessionalPortfolioGallery({ images }: Props) {
     <section className="rounded-[32px] border border-[#ebe5d8] bg-white p-6 shadow-[0_24px_60px_rgba(18,17,15,0.06)]">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h3 className="font-semibold text-[var(--foreground)] text-lg">Portfolio</h3>
+          <h3 className="font-semibold text-gray-900 text-lg">Portfolio</h3>
           <p className="text-[#7a6d62] text-sm">
             A sample of recent work to showcase attention to detail, organization, and finishing
             touches.
           </p>
         </div>
         {hasImages ? null : (
-          <div className="flex items-center gap-2 rounded-full border border-[#d8cfbf] border-dashed px-3 py-1.5 font-semibold text-[var(--muted-foreground)] text-xs uppercase tracking-[0.26em]">
+          <div className="flex items-center gap-2 rounded-full border border-[#d8cfbf] border-dashed px-3 py-1.5 font-semibold text-gray-600 text-xs uppercase tracking-[0.26em]">
             <HugeiconsIcon className="h-3.5 w-3.5" icon={Camera01Icon} />
             Coming soon
           </div>
@@ -47,16 +47,14 @@ export function ProfessionalPortfolioGallery({ images }: Props) {
                 />
               </div>
               {item.caption ? (
-                <figcaption className="p-4 text-[var(--muted-foreground)] text-sm">
-                  {item.caption}
-                </figcaption>
+                <figcaption className="p-4 text-gray-600 text-sm">{item.caption}</figcaption>
               ) : null}
             </figure>
           ))}
         </div>
       ) : (
         <div className="mt-5 rounded-[28px] border border-[#d8cfbf] border-dashed bg-[#fbfafa] p-6 text-[#7a6d62] text-sm">
-          <p className="font-semibold text-[var(--foreground)]">No portfolio images yet</p>
+          <p className="font-semibold text-gray-900">No portfolio images yet</p>
           <p className="mt-2 text-sm">
             Once this professional uploads photos of their work, you&apos;ll see them here.
           </p>

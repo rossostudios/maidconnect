@@ -143,11 +143,11 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
       <div className="space-y-6 py-12 text-center">
         <div className="flex justify-center">
           <div className="flex h-20 w-20 items-center justify-center">
-            <div className="h-16 w-16 animate-spin rounded-full border-4 border-[#ebe5d8] border-t-[var(--foreground)]" />
+            <div className="h-16 w-16 animate-spin rounded-full border-4 border-[#ebe5d8] border-t-gray-900" />
           </div>
         </div>
         <div>
-          <h2 className="font-semibold text-2xl text-[var(--foreground)]">
+          <h2 className="font-semibold text-2xl text-gray-900">
             {t("searching", { defaultValue: "Finding your perfect matches..." })}
           </h2>
           <p className="mt-2 text-[#7a6d62]">
@@ -170,7 +170,7 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
             <HugeiconsIcon className="h-8 w-8 text-green-600" icon={MagicWand01Icon} />
           </div>
         </div>
-        <h2 className="font-semibold text-2xl text-[var(--foreground)]">
+        <h2 className="font-semibold text-2xl text-gray-900">
           {t("title", {
             defaultValue: "We found {count} perfect matches!",
             count: matches.length,
@@ -195,7 +195,7 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
             >
               {/* Match Score Badge */}
               {index === 0 && (
-                <div className="bg-gradient-to-r from-[var(--red)] to-[var(--red-hover)] px-4 py-2 text-center font-semibold text-sm text-white">
+                <div className="bg-gradient-to-r from-red-600 to-[var(--red-hover)] px-4 py-2 text-center font-semibold text-sm text-white">
                   ⭐ {t("topMatch", { defaultValue: "Top Match" })} - {match.matchScore}%{" "}
                   {t("compatibility", { defaultValue: "Compatibility" })}
                 </div>
@@ -220,13 +220,11 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
                   <div className="flex-1">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <h3 className="font-semibold text-[var(--foreground)] text-lg">
-                          {match.name}
-                        </h3>
+                        <h3 className="font-semibold text-gray-900 text-lg">{match.name}</h3>
                         <p className="text-[#7a6d62] text-sm">{match.service}</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold text-[var(--foreground)] text-lg">
+                        <p className="font-semibold text-gray-900 text-lg">
                           {formatCurrency(match.hourlyRate)}/hr
                         </p>
                         <p className="text-[#7a6d62] text-xs">{match.experienceYears} years exp.</p>
@@ -281,7 +279,7 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
                     {/* Action */}
                     <div className="mt-4">
                       <Link
-                        className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--foreground)] px-4 py-2.5 font-semibold text-sm text-white transition hover:bg-[#2d2822]"
+                        className="inline-flex w-full items-center justify-center rounded-xl bg-gray-900 px-4 py-2.5 font-semibold text-sm text-white transition hover:bg-[#2d2822]"
                         href={`/professionals/${match.id}`}
                       >
                         {t("viewProfile", { defaultValue: "View Profile & Book" })}
@@ -298,21 +296,21 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
       {/* Actions */}
       <div className="space-y-3 pt-4">
         <Link
-          className="block w-full rounded-xl bg-white px-6 py-3 text-center font-semibold text-[var(--foreground)] transition hover:bg-[#fbfafa]"
+          className="block w-full rounded-xl bg-white px-6 py-3 text-center font-semibold text-gray-900 transition hover:bg-[#fbfafa]"
           href="/professionals"
         >
           {t("browseAll", { defaultValue: "Browse All Professionals" })}
         </Link>
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[var(--foreground)] hover:text-[var(--foreground)]"
+            className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-gray-900 hover:text-gray-900"
             onClick={onBack}
             type="button"
           >
             {t("refineSearch", { defaultValue: "Refine Search" })}
           </button>
           <button
-            className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[var(--foreground)] hover:text-[var(--foreground)]"
+            className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-gray-900 hover:text-gray-900"
             onClick={onRestart}
             type="button"
           >

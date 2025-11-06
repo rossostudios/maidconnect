@@ -43,7 +43,7 @@ export function ThemeToggle({ size = "default", showLabel = false }: ThemeToggle
   return (
     <button
       aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
-      className={`${sizeClasses[size]} ${showLabel ? "w-auto gap-2 px-4" : ""} flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white text-[var(--foreground)] transition-all hover:scale-105 hover:border-[var(--foreground)] active:scale-95 dark:border-[#3a3530] dark:bg-[var(--foreground)] dark:text-[var(--background)] dark:hover:border-[var(--background)]`}
+      className={`${sizeClasses[size]} ${showLabel ? "w-auto gap-2 px-4" : ""} flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white text-gray-900 transition-all hover:scale-105 hover:border-gray-900 active:scale-95 dark:border-[#3a3530] dark:bg-gray-900 dark:text-stone-50 dark:hover:border-stone-50`}
       onClick={toggleTheme}
       type="button"
     >

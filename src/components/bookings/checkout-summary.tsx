@@ -58,20 +58,20 @@ export function CheckoutSummary({
     <div className="space-y-6">
       {/* Service Summary */}
       <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-        <h3 className="mb-4 font-semibold text-[var(--foreground)] text-lg">Booking Summary</h3>
+        <h3 className="mb-4 font-semibold text-gray-900 text-lg">Booking Summary</h3>
 
         <div className="space-y-3">
           {/* Service Name */}
           <div className="flex justify-between">
             <span className="text-[#7d7566] text-sm">Service</span>
-            <span className="font-medium text-[var(--foreground)] text-sm">{serviceName}</span>
+            <span className="font-medium text-gray-900 text-sm">{serviceName}</span>
           </div>
 
           {/* Duration (if provided) */}
           {durationHours && hourlyRate && (
             <div className="flex justify-between">
               <span className="text-[#7d7566] text-sm">Duration</span>
-              <span className="text-[var(--foreground)] text-sm">
+              <span className="text-gray-900 text-sm">
                 {formatCurrency(hourlyRate, { currency })} × {durationHours}h
               </span>
             </div>
@@ -80,7 +80,7 @@ export function CheckoutSummary({
           <div className="border-[#ebe5d8] border-t pt-3">
             <div className="flex justify-between">
               <span className="text-[#7d7566] text-sm">Subtotal</span>
-              <span className="font-semibold text-[var(--foreground)] text-sm">
+              <span className="font-semibold text-gray-900 text-sm">
                 {formatCurrency(subtotal, { currency })}
               </span>
             </div>
@@ -102,16 +102,14 @@ export function CheckoutSummary({
           {/* Tax */}
           <div className="flex justify-between">
             <span className="text-[#7d7566] text-sm">Tax ({(taxRate * 100).toFixed(0)}%)</span>
-            <span className="text-[var(--foreground)] text-sm">
-              {formatCurrency(taxAmount, { currency })}
-            </span>
+            <span className="text-gray-900 text-sm">{formatCurrency(taxAmount, { currency })}</span>
           </div>
 
           {/* Tip Line (if enabled) */}
           {tippingEnabled && tipAmount > 0 && (
             <div className="flex justify-between">
               <span className="text-[#7d7566] text-sm">Tip</span>
-              <span className="font-medium text-[var(--red)] text-sm">
+              <span className="font-medium text-[#E85D48] text-sm">
                 {formatCurrency(tipAmount, { currency })}
               </span>
             </div>
@@ -120,17 +118,17 @@ export function CheckoutSummary({
           {/* Total */}
           <div className="flex justify-between border-[#ebe5d8] border-t pt-3">
             <div className="flex items-center gap-2">
-              <span className="font-bold text-[var(--foreground)]">Total</span>
+              <span className="font-bold text-gray-900">Total</span>
               <button
                 aria-label="Payment information"
-                className="text-[#7d7566] transition-colors hover:text-[var(--foreground)]"
+                className="text-[#7d7566] transition-colors hover:text-gray-900"
                 onClick={() => setShowDepositInfo(!showDepositInfo)}
                 type="button"
               >
                 <HugeiconsIcon className="h-5 w-5" icon={InformationCircleIcon} />
               </button>
             </div>
-            <span className="font-bold text-2xl text-[var(--red)]">
+            <span className="font-bold text-2xl text-[#E85D48]">
               {formatCurrency(totalAmount, { currency })}
             </span>
           </div>
@@ -161,28 +159,25 @@ export function CheckoutSummary({
 
       {/* Cancellation Policy */}
       <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-        <h3 className="mb-3 font-semibold text-[var(--foreground)] text-base">
-          Cancellation Policy
-        </h3>
+        <h3 className="mb-3 font-semibold text-base text-gray-900">Cancellation Policy</h3>
         <div className="space-y-2 text-[#7d7566] text-sm">
           <p className="leading-relaxed">
-            Free reschedule up to{" "}
-            <span className="font-semibold text-[var(--foreground)]">24 hours</span> before your
-            service. Cancelling inside 24 hours may incur fees to respect your professional's time:
+            Free reschedule up to <span className="font-semibold text-gray-900">24 hours</span>{" "}
+            before your service. Cancelling inside 24 hours may incur fees to respect your
+            professional's time:
           </p>
           <ul className="ml-4 list-disc space-y-1.5">
             <li>
-              <span className="font-medium text-[var(--foreground)]">24+ hours:</span> 100% refund
+              <span className="font-medium text-gray-900">24+ hours:</span> 100% refund
             </li>
             <li>
-              <span className="font-medium text-[var(--foreground)]">12-24 hours:</span> 50% refund
+              <span className="font-medium text-gray-900">12-24 hours:</span> 50% refund
             </li>
             <li>
-              <span className="font-medium text-[var(--foreground)]">4-12 hours:</span> 25% refund
+              <span className="font-medium text-gray-900">4-12 hours:</span> 25% refund
             </li>
             <li>
-              <span className="font-medium text-[var(--foreground)]">Less than 4 hours:</span> No
-              refund
+              <span className="font-medium text-gray-900">Less than 4 hours:</span> No refund
             </li>
           </ul>
           <p className="pt-2 text-[#9d9383] text-xs italic">

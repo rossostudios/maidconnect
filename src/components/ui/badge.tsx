@@ -13,14 +13,14 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: "border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)]",
-        primary: "bg-[var(--red)] text-white",
-        secondary: "bg-[var(--green)] text-white",
+        default: "border border-[#ebe5d8] bg-white text-gray-900",
+        primary: "bg-[#E85D48] text-white",
+        secondary: "bg-green-600 text-white",
         success: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
         warning: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400",
         danger: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
         info: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400",
-        outline: "border border-[var(--border)] text-[var(--foreground)]",
+        outline: "border border-[#ebe5d8] text-gray-900",
       },
     },
     defaultVariants: {

@@ -105,17 +105,17 @@ export function DashboardMobileNav({
               >
                 <div className="relative">
                   <HugeiconsIcon
-                    className={`h-6 w-6 ${isItemActive ? "text-[var(--red)]" : "text-[#7a6d62]"}`}
+                    className={`h-6 w-6 ${isItemActive ? "text-[#E85D48]" : "text-[#7a6d62]"}`}
                     icon={IconComponent}
                   />
                   {item.badge !== undefined && item.badge > 0 && (
-                    <span className="-top-1 -right-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[var(--red)] px-1.5 font-bold text-[10px] text-white">
+                    <span className="-top-1 -right-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[#E85D48] px-1.5 font-bold text-[10px] text-white">
                       {item.badge > 9 ? "9+" : item.badge}
                     </span>
                   )}
                 </div>
                 <span
-                  className={`text-xs ${isItemActive ? "font-semibold text-[var(--red)]" : "text-[#7a6d62]"}`}
+                  className={`text-xs ${isItemActive ? "font-semibold text-[#E85D48]" : "text-[#7a6d62]"}`}
                 >
                   {item.label}
                 </span>
@@ -132,17 +132,17 @@ export function DashboardMobileNav({
             >
               <div className="relative">
                 <HugeiconsIcon
-                  className={`h-6 w-6 ${isItemActive ? "text-[var(--red)]" : "text-[#7a6d62]"}`}
+                  className={`h-6 w-6 ${isItemActive ? "text-[#E85D48]" : "text-[#7a6d62]"}`}
                   icon={IconComponent}
                 />
                 {item.badge !== undefined && item.badge > 0 && (
-                  <span className="-top-1 -right-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[var(--red)] px-1.5 font-bold text-[10px] text-white">
+                  <span className="-top-1 -right-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[#E85D48] px-1.5 font-bold text-[10px] text-white">
                     {item.badge > 9 ? "9+" : item.badge}
                   </span>
                 )}
               </div>
               <span
-                className={`text-xs ${isItemActive ? "font-semibold text-[var(--red)]" : "text-[#7a6d62]"}`}
+                className={`text-xs ${isItemActive ? "font-semibold text-[#E85D48]" : "text-[#7a6d62]"}`}
               >
                 {item.label}
               </span>

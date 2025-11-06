@@ -29,7 +29,7 @@ const SelectTrigger = ({
   <SelectPrimitive.Trigger
     className={cn(
       "flex h-10 w-full items-center justify-between rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 text-sm",
-      "focus:outline-none focus:ring-2 focus:ring-[#E63946] focus:ring-offset-2",
+      "focus:outline-none focus:ring-2 focus:ring-[#E85D48] focus:ring-offset-2",
       "disabled:cursor-not-allowed disabled:opacity-50",
       "transition-colors hover:bg-[#FAFAF9]",
       "[&>span]:line-clamp-1",
@@ -157,7 +157,7 @@ const SelectItem = ({
   >
     <span className="absolute right-2 flex h-4 w-4 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <HugeiconsIcon className="h-4 w-4 text-[#E63946]" icon={Tick02Icon} />
+        <HugeiconsIcon className="h-4 w-4 text-[#E85D48]" icon={Tick02Icon} />
       </SelectPrimitive.ItemIndicator>
     </span>
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

@@ -8,8 +8,8 @@ import { signUpAction } from "./actions";
 import { defaultSignUpState, type SignUpActionState } from "./types";
 
 const inputClass =
-  "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[var(--foreground)] shadow-sm transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)1a]";
-const errorInputClass = "border-red-400 focus:border-red-500 focus:ring-red-200";
+  "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[#1A1614] shadow-sm transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/10";
+const errorInputClass = "border-[#E85D48]/50 focus:border-[#E85D48] focus:ring-[#E85D48]/10";
 
 function getInputClassName(error: string | undefined): string {
   return cn(inputClass, error && errorInputClass);
@@ -17,7 +17,7 @@ function getInputClassName(error: string | undefined): string {
 
 function getRoleOptionClassName(error: string | undefined): string {
   return cn(
-    "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition focus-within:border-[var(--red)] hover:border-[var(--red)]",
+    "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition focus-within:border-[#E85D48] hover:border-[#E85D48]",
     error && "border-red-400 focus-within:border-red-400 hover:border-red-400"
   );
 }
@@ -25,15 +25,13 @@ function getRoleOptionClassName(error: string | undefined): string {
 function RoleSelection({ t, error }: { t: (key: string) => string; error: string | undefined }) {
   return (
     <section className="space-y-5">
-      <div className="block font-semibold text-[var(--foreground)] text-sm">
-        {t("accountTypeLabel")}
-      </div>
-      <p className="text-[var(--muted-foreground)] text-xs">{t("accountTypeHelper")}</p>
+      <div className="block font-semibold text-[#1A1614] text-sm">{t("accountTypeLabel")}</div>
+      <p className="text-[#1A1614]/60 text-xs">{t("accountTypeHelper")}</p>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <label className={getRoleOptionClassName(error)}>
-          <span className="flex items-center gap-2 text-[var(--foreground)]">
+          <span className="flex items-center gap-2 text-[#1A1614]">
             <input
-              className="h-4 w-4 accent-[var(--foreground)]"
+              className="h-4 w-4 accent-[#E85D48]"
               defaultChecked
               name="role"
               type="radio"
@@ -41,24 +39,22 @@ function RoleSelection({ t, error }: { t: (key: string) => string; error: string
             />{" "}
             {t("customerLabel")}
           </span>
-          <span className="text-[var(--muted-foreground)] text-sm">{t("customerDescription")}</span>
+          <span className="text-[#1A1614]/60 text-sm">{t("customerDescription")}</span>
         </label>
         <label className={getRoleOptionClassName(error)}>
-          <span className="flex items-center gap-2 text-[var(--foreground)]">
+          <span className="flex items-center gap-2 text-[#1A1614]">
             <input
-              className="h-4 w-4 accent-[var(--foreground)]"
+              className="h-4 w-4 accent-[#E85D48]"
               name="role"
               type="radio"
               value="professional"
             />{" "}
             {t("professionalLabel")}
           </span>
-          <span className="text-[var(--muted-foreground)] text-sm">
-            {t("professionalDescription")}
-          </span>
+          <span className="text-[#1A1614]/60 text-sm">{t("professionalDescription")}</span>
         </label>
       </div>
-      {error ? <p className="text-red-600 text-xs">{error}</p> : null}
+      {error ? <p className="text-[#E85D48] text-xs">{error}</p> : null}
     </section>
   );
 }
@@ -71,7 +67,9 @@ function FormStatusMessages({
   t: (key: string) => string;
 }) {
   if (state.status === "error" && state.error) {
-    return <p className="rounded-md bg-red-50 px-3 py-2 text-red-700 text-sm">{state.error}</p>;
+    return (
+      <p className="rounded-md bg-[#E85D48]/10 px-3 py-2 text-red-700 text-sm">{state.error}</p>
+    );
   }
   if (state.status === "success") {
     return (
@@ -224,7 +222,7 @@ export function SignUpForm() {
 
       <button
         className={cn(
-          "w-full rounded-full border border-[var(--foreground)] bg-[var(--foreground)] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:border-[var(--red)] hover:bg-[#2b2624]",
+          "w-full rounded-full border border-[#E85D48] bg-[#E85D48] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:bg-[#D64A36]",
           isPending && "cursor-not-allowed opacity-60"
         )}
         disabled={isPending}
@@ -248,12 +246,12 @@ function Field({ label, children, helper, error }: FieldProps) {
 
   return (
     <div className="space-y-3">
-      <label className="block font-semibold text-[var(--foreground)] text-sm" htmlFor={childId}>
+      <label className="block font-semibold text-[#1A1614] text-sm" htmlFor={childId}>
         {label}
       </label>
-      {helper ? <p className="text-[var(--muted-foreground)] text-xs">{helper}</p> : null}
+      {helper ? <p className="text-[#1A1614]/60 text-xs">{helper}</p> : null}
       {children}
-      {error ? <p className="text-red-600 text-xs">{error}</p> : null}
+      {error ? <p className="text-[#E85D48] text-xs">{error}</p> : null}
     </div>
   );
 }

@@ -47,9 +47,9 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
       <div className="mb-4 flex items-start justify-between">
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <h3 className="font-semibold text-[var(--foreground)] text-lg">{service.name}</h3>
+            <h3 className="font-semibold text-gray-900 text-lg">{service.name}</h3>
             {service.isFeatured && (
-              <span className="rounded-full bg-[var(--red)] px-2 py-1 font-medium text-white text-xs">
+              <span className="rounded-full bg-[#E85D48] px-2 py-1 font-medium text-white text-xs">
                 {t("featured")}
               </span>
             )}
@@ -70,16 +70,16 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
                 onClick={() => onEdit(service)}
                 type="button"
               >
-                <HugeiconsIcon className="h-4 w-4 text-[var(--foreground)]" icon={Edit02Icon} />
+                <HugeiconsIcon className="h-4 w-4 text-gray-900" icon={Edit02Icon} />
               </button>
             )}
             {onDelete && (
               <button
-                className="rounded-lg border-2 border-red-200 bg-white p-2 transition hover:bg-red-50"
+                className="rounded-lg border-2 border-red-200 bg-white p-2 transition hover:bg-[#E85D48]/10"
                 onClick={() => onDelete(service.id)}
                 type="button"
               >
-                <HugeiconsIcon className="h-4 w-4 text-red-600" icon={Delete02Icon} />
+                <HugeiconsIcon className="h-4 w-4 text-[#E85D48]" icon={Delete02Icon} />
               </button>
             )}
           </div>
@@ -94,7 +94,7 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
       {/* Pricing & Duration */}
       <div className="mb-4 flex items-center gap-4">
         <div className="flex items-baseline gap-1">
-          <span className="font-bold text-2xl text-[var(--red)]">
+          <span className="font-bold text-2xl text-[#E85D48]">
             {formatPrice(service.basePriceCop)}
           </span>
           <span className="text-[#9ca3af] text-sm">
@@ -114,7 +114,7 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
       <div className="flex items-center gap-4 border-[#e5e7eb] border-t pt-4">
         <div className="flex items-center gap-1">
           <HugeiconsIcon className="h-4 w-4 text-yellow-500" icon={StarIcon} />
-          <span className="font-medium text-[var(--foreground)] text-sm">
+          <span className="font-medium text-gray-900 text-sm">
             {service.averageRating > 0 ? service.averageRating.toFixed(1) : "N/A"}
           </span>
         </div>
@@ -133,7 +133,7 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
       {/* Included Items */}
       {service.includedItems.length > 0 && (
         <div className="mt-4 rounded-xl bg-[#f9fafb] p-3">
-          <p className="mb-2 font-medium text-[var(--foreground)] text-xs">{t("included")}:</p>
+          <p className="mb-2 font-medium text-gray-900 text-xs">{t("included")}:</p>
           <ul className="space-y-1">
             {service.includedItems.slice(0, 3).map((item, index) => (
               <li className="text-[#6b7280] text-xs" key={index}>

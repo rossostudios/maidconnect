@@ -112,7 +112,7 @@ export function TourTooltip({
     const originalPosition = (targetElement as HTMLElement).style.position;
 
     // Highlight target
-    (targetElement as HTMLElement).style.outline = "2px solid var(--red)";
+    (targetElement as HTMLElement).style.outline = "2px solid #E85D48";
     (targetElement as HTMLElement).style.outlineOffset = "4px";
     (targetElement as HTMLElement).style.zIndex = "9998";
 
@@ -169,7 +169,7 @@ export function TourTooltip({
         {/* Progress bar */}
         <div className="mb-4 h-1 overflow-hidden rounded-full bg-gray-100">
           <div
-            className="h-full bg-[var(--red)] transition-all duration-300"
+            className="h-full bg-[#E85D48] transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -209,7 +209,7 @@ export function TourTooltip({
             )}
 
             <button
-              className="flex items-center gap-1 rounded-lg bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[var(--red)]"
+              className="flex items-center gap-1 rounded-lg bg-[#E85D48] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#E85D48]"
               onClick={onNext}
               type="button"
             >

@@ -40,7 +40,7 @@ export function StickyLanguageSwitcher() {
       <div className="relative">
         <button
           aria-label="Select language"
-          className="flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-medium text-[var(--foreground)] text-sm shadow-md transition hover:border-[var(--red)] hover:shadow-lg"
+          className="flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-medium text-gray-900 text-sm shadow-md transition hover:border-[#E85D48] hover:shadow-lg"
           onClick={() => setIsOpen(!isOpen)}
           type="button"
         >
@@ -86,10 +86,10 @@ export function StickyLanguageSwitcher() {
                   type="button"
                 >
                   <span className="text-2xl">{lang.flag}</span>
-                  <span className="text-[var(--foreground)] text-sm">{lang.name}</span>
+                  <span className="text-gray-900 text-sm">{lang.name}</span>
                   {lang.code === locale && (
                     <svg
-                      className="ml-auto h-5 w-5 text-[var(--red)]"
+                      className="ml-auto h-5 w-5 text-[#E85D48]"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >

@@ -41,18 +41,16 @@ export function CookieConsent() {
             {/* Icon and Text */}
             <div className="flex flex-1 items-start gap-4">
               <div className="flex-shrink-0">
-                <div className="rounded-full bg-[var(--background)] p-3">
-                  <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={CookieIcon} />
+                <div className="rounded-full bg-[#fbf9f7] p-3">
+                  <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={CookieIcon} />
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="mb-1 font-semibold text-[var(--foreground)] text-lg">
-                  We use cookies
-                </h3>
+                <h3 className="mb-1 font-semibold text-gray-900 text-lg">We use cookies</h3>
                 <p className="text-[#7d7566] text-sm">
                   We use cookies to improve your experience, analyze site traffic, and provide
                   personalized content. By clicking "Accept", you consent to our use of cookies.{" "}
-                  <Link className="font-semibold text-[var(--red)] hover:underline" href="/privacy">
+                  <Link className="font-semibold text-[#E85D48] hover:underline" href="/privacy">
                     Learn more
                   </Link>
                 </p>
@@ -62,14 +60,14 @@ export function CookieConsent() {
             {/* Actions */}
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <button
-                className="rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-2.5 font-semibold text-[var(--foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)]"
+                className="rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-2.5 font-semibold text-gray-900 text-sm transition hover:border-[#E85D48] hover:text-[#E85D48]"
                 onClick={declineCookies}
                 type="button"
               >
                 Decline
               </button>
               <button
-                className="rounded-full bg-[var(--red)] px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-[#ff4529]"
+                className="rounded-full bg-[#E85D48] px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-[#ff4529]"
                 onClick={acceptCookies}
                 type="button"
               >
@@ -80,7 +78,7 @@ export function CookieConsent() {
             {/* Close button */}
             <button
               aria-label="Close cookie banner"
-              className="absolute top-4 right-4 rounded-full p-2 text-[#7d7566] transition hover:bg-[var(--background)] hover:text-[var(--foreground)] md:relative md:top-0 md:right-0"
+              className="absolute top-4 right-4 rounded-full p-2 text-[#7d7566] transition hover:bg-[#fbf9f7] hover:text-gray-900 md:relative md:top-0 md:right-0"
               onClick={declineCookies}
               type="button"
             >

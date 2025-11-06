@@ -18,7 +18,7 @@ type ButtonProps = {
 };
 
 const baseClasses =
-  "group inline-flex items-center justify-center rounded-full border font-medium transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]";
+  "group inline-flex items-center justify-center rounded-full border font-medium transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E85D48]";
 
 const sizeClasses: Record<ButtonSize, string> = {
   sm: "px-6 py-[0.75rem] text-sm",
@@ -28,14 +28,14 @@ const sizeClasses: Record<ButtonSize, string> = {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "border-transparent bg-[var(--red)] text-white shadow-[var(--shadow-card)] hover:bg-[var(--red-hover)] hover:shadow-[var(--shadow-elevated)] active:scale-[0.98]",
+    "border-transparent bg-[#E85D48] text-white shadow-md hover:bg-[#D64A36] hover:shadow-lg active:scale-[0.98]",
   secondary:
-    "border-[var(--red)] bg-transparent text-[var(--red)] hover:bg-[var(--red)] hover:text-white active:scale-[0.98]",
+    "border-[#E85D48] bg-transparent text-[#E85D48] hover:bg-[#E85D48] hover:text-white active:scale-[0.98]",
   ghost:
-    "border-transparent text-[var(--foreground)] hover:text-[var(--red)] hover:bg-[var(--red-light)] active:scale-[0.98]",
-  card: "w-full justify-between gap-3 border border-transparent bg-[var(--red)] text-white shadow-[var(--shadow-elevated)] hover:bg-[var(--red-hover)] hover:shadow-[var(--shadow-dramatic)] active:scale-[0.98]",
+    "border-transparent text-gray-900 hover:text-[#E85D48] hover:bg-[#E85D48]/10 active:scale-[0.98]",
+  card: "w-full justify-between gap-3 border border-transparent bg-[#E85D48] text-white shadow-lg hover:bg-[#D64A36] hover:shadow-xl active:scale-[0.98]",
   luxury:
-    "border-[var(--red)] bg-white text-[var(--red)] hover:bg-[var(--red)] hover:text-white active:scale-[0.98]",
+    "border-[#E85D48] bg-white text-[#E85D48] hover:bg-[#E85D48] hover:text-white active:scale-[0.98]",
 };
 
 export function Button({
@@ -65,7 +65,7 @@ export function Button({
         if (kbd) {
           return (
             <Kbd
-              className="border-[var(--border)] bg-white/10 font-medium text-current opacity-80 transition-opacity group-hover:opacity-100"
+              className="border-[#ebe5d8] bg-white/10 font-medium text-current opacity-80 transition-opacity group-hover:opacity-100"
               size="lg"
               variant="outline"
             >

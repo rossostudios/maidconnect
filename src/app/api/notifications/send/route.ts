@@ -1,14 +1,34 @@
+/**
+ * Send Push Notifications API
+ * POST /api/notifications/send - Send push notification to user's devices
+ *
+ * REFACTORED: Complexity 18 → <15
+ * - Extracted VAPID setup and sending logic to notification-send-service.ts
+ * - Route now focuses on orchestration
+ *
+ * Note: Uses Node.js runtime because web-push doesn't work in edge runtime
+ */
+
 import { NextRequest, NextResponse } from "next/server";
+import type {
+  NotificationRequest,
+  NotificationSubscription,
+} from "@/lib/notifications/notification-send-service";
+import {
+  buildNotificationPayload,
+  configureVAPIDKeys,
+  countSuccessfulSends,
+  saveNotificationHistory,
+  sendToAllSubscriptions,
+  validateNotificationRequest,
+} from "@/lib/notifications/notification-send-service";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
-// Note: This endpoint uses Node.js runtime because web-push doesn't work in edge runtime
-
-// Send push notification to user(s)
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createSupabaseServerClient();
 
-    // Check authentication (should be server-side or admin)
+    // Check authentication
     const {
       data: { user },
       error: authError,
@@ -18,21 +38,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Parse request body
-    const { userId, title, body, url, tag, requireInteraction } = await request.json();
+    // Parse and validate request body using service
+    const body = await request.json();
+    const validation = validateNotificationRequest(body);
 
-    if (!(userId && title && body)) {
-      return NextResponse.json(
-        { error: "Missing required fields: userId, title, body" },
-        { status: 400 }
-      );
+    if (!validation.valid) {
+      return NextResponse.json({ error: validation.error }, { status: 400 });
     }
+
+    const notificationRequest: NotificationRequest = body;
 
     // Get user's notification subscriptions
     const { data: subscriptions, error: subError } = await supabase
       .from("notification_subscriptions")
       .select("*")
-      .eq("user_id", userId);
+      .eq("user_id", notificationRequest.userId);
 
     if (subError) {
       return NextResponse.json({ error: "Failed to fetch subscriptions" }, { status: 500 });
@@ -48,67 +68,27 @@ export async function POST(request: NextRequest) {
     // Import web-push dynamically (only works in Node.js runtime)
     const webPush = (await import("web-push")).default;
 
-    // Configure web-push with VAPID keys
-    const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-    const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY;
-    const vapidSubject = process.env.VAPID_SUBJECT || "mailto:support@casaora.com";
-
-    if (!(vapidPublicKey && vapidPrivateKey)) {
+    // Configure VAPID keys using service
+    const vapidConfig = configureVAPIDKeys();
+    if (!vapidConfig) {
       return NextResponse.json({ error: "Push notifications not configured" }, { status: 500 });
     }
 
-    webPush.setVapidDetails(vapidSubject, vapidPublicKey, vapidPrivateKey);
+    webPush.setVapidDetails(vapidConfig.subject, vapidConfig.publicKey, vapidConfig.privateKey);
 
-    // Prepare notification payload
-    const payload = JSON.stringify({
-      title,
-      body,
-      icon: "/icon-192x192.png",
-      badge: "/badge-72x72.png",
-      url: url || "/dashboard/customer",
-      tag: tag || "default",
-      requireInteraction,
-    });
+    // Build payload and send to all subscriptions using service
+    const payload = buildNotificationPayload(notificationRequest);
+    const results = await sendToAllSubscriptions(
+      webPush,
+      subscriptions as NotificationSubscription[],
+      payload,
+      supabase
+    );
 
-    // Send to all user's subscriptions
-    const sendPromises = subscriptions.map(async (sub) => {
-      try {
-        const pushSubscription = {
-          endpoint: sub.endpoint,
-          keys: {
-            p256dh: sub.p256dh,
-            auth: sub.auth,
-          },
-        };
+    const successCount = countSuccessfulSends(results);
 
-        await webPush.sendNotification(pushSubscription, payload);
-        return { success: true, endpoint: sub.endpoint };
-      } catch (error: any) {
-        // If subscription is invalid (410 Gone), delete it
-        if (error.statusCode === 410) {
-          await supabase.from("notification_subscriptions").delete().eq("id", sub.id);
-        }
-
-        return { success: false, endpoint: sub.endpoint, error: error.message };
-      }
-    });
-
-    const results = await Promise.all(sendPromises);
-    const successCount = results.filter((r) => r.success).length;
-
-    // Save notification to history (use service role to bypass RLS)
-    try {
-      await supabase.from("notifications").insert({
-        user_id: userId,
-        title,
-        body,
-        url: url || null,
-        tag: tag || null,
-      });
-    } catch (historyError) {
-      // Intentionally suppress notification history errors - push notification was already sent
-      console.warn("Failed to save notification to history:", historyError);
-    }
+    // Save to history using service
+    await saveNotificationHistory(supabase, notificationRequest);
 
     return NextResponse.json({
       success: true,
@@ -132,17 +112,15 @@ export async function sendPushNotification(
     requireInteraction?: boolean;
   }
 ) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/api/notifications/send`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        userId,
-        ...notification,
-      }),
-    }
-  );
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const response = await fetch(`${appUrl}/api/notifications/send`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      userId,
+      ...notification,
+    }),
+  });
 
   if (!response.ok) {
     throw new Error("Failed to send push notification");

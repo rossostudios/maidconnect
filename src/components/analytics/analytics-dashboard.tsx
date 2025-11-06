@@ -76,7 +76,7 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-[var(--red)] border-t-2 border-b-2" />
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-[#E85D48] border-t-2 border-b-2" />
           <p className="text-[#6b7280]">{t("loading")}</p>
         </div>
       </div>
@@ -85,11 +85,11 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
 
   if (error) {
     return (
-      <div className="rounded-[24px] border-2 border-red-200 bg-red-50 p-6">
+      <div className="rounded-[24px] border-2 border-red-200 bg-[#E85D48]/10 p-6">
         <p className="font-semibold text-red-900">{t("error")}</p>
         <p className="mt-2 text-red-700 text-sm">{error}</p>
         <button
-          className="mt-4 rounded-xl bg-red-600 px-4 py-2 font-medium text-sm text-white transition hover:bg-red-700"
+          className="mt-4 rounded-xl bg-[#E85D48] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#D64A36]"
           onClick={() => loadData()}
           type="button"
         >
@@ -112,11 +112,11 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={ChartIcon} />
-          <h2 className="font-bold text-2xl text-[var(--foreground)]">{t("title")}</h2>
+          <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={ChartIcon} />
+          <h2 className="font-bold text-2xl text-gray-900">{t("title")}</h2>
         </div>
         <button
-          className="flex items-center gap-2 rounded-xl border-2 border-[#e5e7eb] bg-white px-4 py-2 font-medium text-[var(--foreground)] text-sm transition hover:bg-[#f9fafb] disabled:opacity-50"
+          className="flex items-center gap-2 rounded-xl border-2 border-[#e5e7eb] bg-white px-4 py-2 font-medium text-gray-900 text-sm transition hover:bg-[#f9fafb] disabled:opacity-50"
           disabled={refreshing}
           onClick={handleRefresh}
           type="button"
@@ -148,31 +148,25 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
 
         {/* Recent Activity Summary */}
         <div className="rounded-[24px] border-2 border-[#e5e7eb] bg-white p-6 shadow-sm">
-          <h3 className="mb-4 font-semibold text-[var(--foreground)] text-lg">
-            {t("recentActivity")}
-          </h3>
+          <h3 className="mb-4 font-semibold text-gray-900 text-lg">{t("recentActivity")}</h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between rounded-xl bg-[#f9fafb] p-4">
               <span className="text-[#6b7280] text-sm">{t("bookingsLast7Days")}</span>
-              <span className="font-bold text-[var(--foreground)] text-xl">
-                {metrics.bookingsLast7Days}
-              </span>
+              <span className="font-bold text-gray-900 text-xl">{metrics.bookingsLast7Days}</span>
             </div>
             <div className="flex items-center justify-between rounded-xl bg-[#f9fafb] p-4">
               <span className="text-[#6b7280] text-sm">{t("bookingsLast30Days")}</span>
-              <span className="font-bold text-[var(--foreground)] text-xl">
-                {metrics.bookingsLast30Days}
-              </span>
+              <span className="font-bold text-gray-900 text-xl">{metrics.bookingsLast30Days}</span>
             </div>
             <div className="flex items-center justify-between rounded-xl bg-[#f9fafb] p-4">
               <span className="text-[#6b7280] text-sm">{t("revenueLast7Days")}</span>
-              <span className="font-bold text-[var(--red)] text-xl">
+              <span className="font-bold text-[#E85D48] text-xl">
                 ${(metrics.revenueLast7DaysCop / 1000).toFixed(0)}k
               </span>
             </div>
             <div className="flex items-center justify-between rounded-xl bg-[#f9fafb] p-4">
               <span className="text-[#6b7280] text-sm">{t("revenueLast30Days")}</span>
-              <span className="font-bold text-[var(--red)] text-xl">
+              <span className="font-bold text-[#E85D48] text-xl">
                 ${(metrics.revenueLast30DaysCop / 1000).toFixed(0)}k
               </span>
             </div>

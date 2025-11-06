@@ -81,7 +81,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+    <div className="min-h-screen bg-[#fbf9f7] text-gray-900">
       {/* Security: dangerouslySetInnerHTML is safe here - jsonLd is server-generated structured data for SEO */}
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -104,11 +104,9 @@ export default async function PaymentProcessingPage({ params }: Props) {
           id="features"
         >
           <div className="mx-auto max-w-6xl">
-            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
-              {t("features.title")}
-            </h2>
+            <h2 className="type-serif-lg text-center text-gray-900">{t("features.title")}</h2>
 
-            <p className="mx-auto mt-6 max-w-3xl text-center text-[var(--muted-foreground)] text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-3xl text-center text-gray-600 text-lg leading-relaxed">
               {t("features.subtitle")}
             </p>
 
@@ -165,62 +163,62 @@ export default async function PaymentProcessingPage({ params }: Props) {
         {/* Payment Timeline Section */}
         <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
+            <h2 className="type-serif-lg text-center text-gray-900">
               {t("paymentTimeline.title")}
             </h2>
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <span className="font-semibold text-sm text-white">1</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("paymentTimeline.booking.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("paymentTimeline.booking.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <span className="font-semibold text-sm text-white">2</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("paymentTimeline.serviceDay.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("paymentTimeline.serviceDay.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <span className="font-semibold text-sm text-white">3</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("paymentTimeline.serviceComplete.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("paymentTimeline.serviceComplete.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <span className="font-semibold text-sm text-white">4</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("paymentTimeline.postService.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("paymentTimeline.postService.description")}
                   </p>
                 </div>
@@ -232,62 +230,60 @@ export default async function PaymentProcessingPage({ params }: Props) {
         {/* Protection Features Section */}
         <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
-              {t("protection.title")}
-            </h2>
+            <h2 className="type-serif-lg text-center text-gray-900">{t("protection.title")}</h2>
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("protection.chargedAfter.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("protection.chargedAfter.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("protection.cancellation.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("protection.cancellation.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("protection.dispute.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("protection.dispute.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("protection.encrypted.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("protection.encrypted.description")}
                   </p>
                 </div>
@@ -299,43 +295,43 @@ export default async function PaymentProcessingPage({ params }: Props) {
         {/* Accepted Payments Section */}
         <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
+            <h2 className="type-serif-lg text-center text-gray-900">
               {t("acceptedMethods.title")}
             </h2>
 
             <div className="mt-16 grid gap-8 md:grid-cols-3">
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <HugeiconsIcon className="h-8 w-8 text-[var(--red)]" icon={CreditCardIcon} />
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#E85D48]/10">
+                  <HugeiconsIcon className="h-8 w-8 text-[#E85D48]" icon={CreditCardIcon} />
                 </div>
-                <h3 className="mt-6 font-semibold text-[var(--foreground)] text-xl">
+                <h3 className="mt-6 font-semibold text-gray-900 text-xl">
                   {t("acceptedMethods.creditCards.title")}
                 </h3>
-                <p className="mt-3 text-[var(--muted-foreground)] text-base">
+                <p className="mt-3 text-base text-gray-600">
                   {t("acceptedMethods.creditCards.description")}
                 </p>
               </div>
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <HugeiconsIcon className="h-8 w-8 text-[var(--red)]" icon={CreditCardIcon} />
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#E85D48]/10">
+                  <HugeiconsIcon className="h-8 w-8 text-[#E85D48]" icon={CreditCardIcon} />
                 </div>
-                <h3 className="mt-6 font-semibold text-[var(--foreground)] text-xl">
+                <h3 className="mt-6 font-semibold text-gray-900 text-xl">
                   {t("acceptedMethods.debitCards.title")}
                 </h3>
-                <p className="mt-3 text-[var(--muted-foreground)] text-base">
+                <p className="mt-3 text-base text-gray-600">
                   {t("acceptedMethods.debitCards.description")}
                 </p>
               </div>
 
               <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <HugeiconsIcon className="h-8 w-8 text-[var(--red)]" icon={Invoice01Icon} />
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#E85D48]/10">
+                  <HugeiconsIcon className="h-8 w-8 text-[#E85D48]" icon={Invoice01Icon} />
                 </div>
-                <h3 className="mt-6 font-semibold text-[var(--foreground)] text-xl">
+                <h3 className="mt-6 font-semibold text-gray-900 text-xl">
                   {t("acceptedMethods.digitalReceipts.title")}
                 </h3>
-                <p className="mt-3 text-[var(--muted-foreground)] text-base">
+                <p className="mt-3 text-base text-gray-600">
                   {t("acceptedMethods.digitalReceipts.description")}
                 </p>
               </div>
@@ -346,22 +342,22 @@ export default async function PaymentProcessingPage({ params }: Props) {
         {/* CTA Section */}
         <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="type-serif-lg text-[var(--foreground)]">{t("cta.title")}</h2>
+            <h2 className="type-serif-lg text-gray-900">{t("cta.title")}</h2>
 
-            <p className="mx-auto mt-6 max-w-2xl text-[var(--muted-foreground)] text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-2xl text-gray-600 text-lg leading-relaxed">
               {t("cta.description")}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                className="inline-flex items-center justify-center rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
+                className="inline-flex items-center justify-center rounded-full bg-[#E85D48] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
                 href="/professionals"
               >
                 {t("cta.bookService")}
               </Link>
 
               <Link
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-base text-gray-900 transition hover:border-[var(--red)] hover:text-[#E85D48]"
                 href="/auth/sign-up"
               >
                 {t("cta.signUpFree")}

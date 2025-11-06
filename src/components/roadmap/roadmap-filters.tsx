@@ -6,11 +6,36 @@
 
 "use client";
 
-import { Cancel01Icon, Search01Icon } from "@hugeicons/core-free-icons";
+import {
+  BulbIcon,
+  Calendar01Icon,
+  Cancel01Icon,
+  Database01Icon,
+  Link04Icon,
+  LockIcon,
+  MagicWand01Icon,
+  PaintBoardIcon,
+  Rocket01Icon,
+  Search01Icon,
+  Tick02Icon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import type { RoadmapCategory, RoadmapStatus } from "@/types/roadmap";
 import { ROADMAP_CATEGORY_CONFIG, ROADMAP_STATUS_CONFIG } from "@/types/roadmap";
+
+// Icon mapping for status and category icons
+const ICON_MAP = {
+  BulbIcon,
+  Calendar01Icon,
+  Rocket01Icon,
+  Tick02Icon,
+  MagicWand01Icon,
+  Database01Icon,
+  PaintBoardIcon,
+  LockIcon,
+  Link04Icon,
+} as const;
 
 type RoadmapFiltersProps = {
   selectedStatuses: RoadmapStatus[];
@@ -57,16 +82,17 @@ export function RoadmapFilters({
     selectedStatuses.length > 0 || selectedCategories.length > 0 || searchQuery.length > 0;
 
   return (
-    <div className="space-y-6">
-      {/* Search bar */}
+    /* Auto Layout: Vertical stack, gap 24px */
+    <div className="flex flex-col gap-6">
+      {/* Search bar - Auto Layout: Horizontal stack, padding 12px, gap 8px */}
       <div className="relative">
         <div
-          className={`relative flex items-center gap-2 rounded-[16px] border-2 bg-white px-4 py-3 transition-all ${isSearchFocused ? "border-[var(--red)]" : "border-[#ebe5d8]"}
+          className={`relative flex items-center gap-2 rounded-[16px] border-2 bg-white px-4 py-3 transition-all ${isSearchFocused ? "border-[#E85D48]" : "border-[#ebe5d8]"}
         `}
         >
           <HugeiconsIcon className="flex-shrink-0 text-[#6B7280]" icon={Search01Icon} size={20} />
           <input
-            className="flex-1 bg-transparent text-[var(--foreground)] outline-none placeholder:text-[#9CA3AF]"
+            className="flex-1 bg-transparent text-gray-900 outline-none placeholder:text-[#9CA3AF]"
             onBlur={() => setIsSearchFocused(false)}
             onChange={(e) => onSearchChange(e.target.value)}
             onFocus={() => setIsSearchFocused(true)}
@@ -87,27 +113,29 @@ export function RoadmapFilters({
         </div>
       </div>
 
-      {/* Status filters */}
-      <div>
-        <h3 className="mb-3 font-semibold text-[var(--foreground)] text-sm">Filter by Status</h3>
+      {/* Status filters - Auto Layout: Vertical stack, gap 12px */}
+      <div className="flex flex-col gap-3">
+        <h3 className="font-semibold text-gray-900 text-sm">Filter by Status</h3>
+        {/* Auto Layout: Wrap, gap 8px */}
         <div className="flex flex-wrap gap-2">
           {(Object.keys(ROADMAP_STATUS_CONFIG) as RoadmapStatus[]).map((status) => {
             const config = ROADMAP_STATUS_CONFIG[status];
             const isSelected = selectedStatuses.includes(status);
+            const StatusIcon = ICON_MAP[config.icon as keyof typeof ICON_MAP];
 
             return (
               <button
                 className={`inline-flex items-center gap-1.5 rounded-[12px] border-2 px-3 py-2 font-medium text-sm transition-all duration-200 ${
                   isSelected
-                    ? "border-[var(--red)] bg-[#fff5f3] text-[var(--red)]"
-                    : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[var(--red)]"
+                    ? "border-[#E85D48] bg-[#fff5f3] text-[#E85D48]"
+                    : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#E85D48]"
                 }
                 `}
                 key={status}
                 onClick={() => handleStatusToggle(status)}
                 type="button"
               >
-                <span>{config.icon}</span>
+                <HugeiconsIcon icon={StatusIcon} size={16} />
                 <span>{config.label}</span>
               </button>
             );
@@ -115,27 +143,29 @@ export function RoadmapFilters({
         </div>
       </div>
 
-      {/* Category filters */}
-      <div>
-        <h3 className="mb-3 font-semibold text-[var(--foreground)] text-sm">Filter by Category</h3>
+      {/* Category filters - Auto Layout: Vertical stack, gap 12px */}
+      <div className="flex flex-col gap-3">
+        <h3 className="font-semibold text-gray-900 text-sm">Filter by Category</h3>
+        {/* Auto Layout: Wrap, gap 8px */}
         <div className="flex flex-wrap gap-2">
           {(Object.keys(ROADMAP_CATEGORY_CONFIG) as RoadmapCategory[]).map((category) => {
             const config = ROADMAP_CATEGORY_CONFIG[category];
             const isSelected = selectedCategories.includes(category);
+            const CategoryIcon = ICON_MAP[config.icon as keyof typeof ICON_MAP];
 
             return (
               <button
                 className={`inline-flex items-center gap-1.5 rounded-[12px] border-2 px-3 py-2 font-medium text-sm transition-all duration-200 ${
                   isSelected
-                    ? "border-[var(--red)] bg-[#fff5f3] text-[var(--red)]"
-                    : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[var(--red)]"
+                    ? "border-[#E85D48] bg-[#fff5f3] text-[#E85D48]"
+                    : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#E85D48]"
                 }
                 `}
                 key={category}
                 onClick={() => handleCategoryToggle(category)}
                 type="button"
               >
-                <span>{config.icon}</span>
+                <HugeiconsIcon icon={CategoryIcon} size={16} />
                 <span>{config.label}</span>
               </button>
             );
@@ -143,10 +173,10 @@ export function RoadmapFilters({
         </div>
       </div>
 
-      {/* Clear filters */}
+      {/* Clear filters - Auto Layout: Hug content */}
       {hasActiveFilters && (
         <button
-          className="font-medium text-[var(--red)] text-sm transition-colors hover:text-[var(--red)]"
+          className="self-start font-medium text-[#E85D48] text-sm transition-colors hover:text-[#E85D48]"
           onClick={clearAllFilters}
           type="button"
         >

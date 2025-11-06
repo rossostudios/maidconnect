@@ -127,12 +127,12 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
     <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={DollarCircleIcon} />
-          <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
+          <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={DollarCircleIcon} />
+          <h3 className="font-semibold text-gray-900 text-lg">{t("title")}</h3>
         </div>
         {needsConnect ? (
           <button
-            className="inline-flex items-center rounded-md bg-[var(--red)] px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex items-center rounded-md bg-[#E85D48] px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={isPending}
             onClick={startStripeOnboarding}
             type="button"
@@ -148,7 +148,7 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
           {needsConnect ? t("stripe.actionRequired") : t("stripe.connected")}
         </span>
       </p>
-      {onboardingError ? <p className="mt-3 text-red-600 text-xs">{onboardingError}</p> : null}
+      {onboardingError ? <p className="mt-3 text-[#E85D48] text-xs">{onboardingError}</p> : null}
 
       {noData ? (
         <p className="mt-6 text-[#7a6d62] text-sm">{t("emptyState")}</p>
@@ -174,28 +174,28 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
           </dl>
 
           <div className="mt-6 rounded-lg border border-[#efe7dc] bg-[#fbfafa] p-4 text-[#7a6d62] text-xs">
-            <p className="font-semibold text-[var(--foreground)]">{t("thisMonth")}</p>
+            <p className="font-semibold text-gray-900">{t("thisMonth")}</p>
             <div className="mt-2 grid gap-3 sm:grid-cols-2">
               <div>
-                <p className="text-[var(--muted-foreground)] text-xs uppercase tracking-wide">
+                <p className="text-gray-600 text-xs uppercase tracking-wide">
                   {t("metrics.capturedPayouts")}
                 </p>
-                <p className="font-semibold text-[var(--foreground)] text-sm">
+                <p className="font-semibold text-gray-900 text-sm">
                   {formatCOP(totals.thisMonthCaptured)}
                 </p>
               </div>
               <div>
-                <p className="text-[var(--muted-foreground)] text-xs uppercase tracking-wide">
+                <p className="text-gray-600 text-xs uppercase tracking-wide">
                   {t("metrics.upcomingHolds")}
                 </p>
-                <p className="font-semibold text-[var(--foreground)] text-sm">
+                <p className="font-semibold text-gray-900 text-sm">
                   {formatCOP(totals.thisMonthAuthorized)}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="mt-6 space-y-3 text-[var(--muted-foreground)] text-sm">
+          <div className="mt-6 space-y-3 text-gray-600 text-sm">
             <div className="flex items-center justify-between rounded-lg border border-[#efe7dc] bg-white/80 px-3 py-2">
               <span>{t("metrics.pendingRequests")}</span>
               <span>{formatCOP(totals.pending)}</span>
@@ -230,7 +230,7 @@ function SummaryCard({ icon, title, amount, description, tone, accent }: Summary
         <HugeiconsIcon className={`h-4 w-4 ${accent}`} icon={icon} />
         <dt className="font-semibold text-[#7a6d62] text-xs uppercase tracking-wide">{title}</dt>
       </div>
-      <dd className="mt-2 font-semibold text-[var(--foreground)] text-xl">{formatCOP(amount)}</dd>
+      <dd className="mt-2 font-semibold text-gray-900 text-xl">{formatCOP(amount)}</dd>
       <p className="mt-1 text-[#7a6d62] text-xs">{description}</p>
     </div>
   );

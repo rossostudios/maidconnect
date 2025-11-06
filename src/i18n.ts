@@ -5,7 +5,7 @@ import { routing } from "./i18n/routing";
 export const locales = ["en", "es"] as const;
 export type Locale = (typeof locales)[number];
 
-export const defaultLocale: Locale = "es"; // Spanish-first for Colombian market
+export const defaultLocale: Locale = "en"; // English as global default
 
 export default getRequestConfig(async ({ requestLocale }) => {
   // Wait for the locale from the request (comes from URL params)

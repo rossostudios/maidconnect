@@ -11,7 +11,7 @@ export async function CareersPositions() {
   return (
     <section className="bg-white py-20 sm:py-24 lg:py-32" id="positions">
       <Container className="max-w-5xl">
-        <h2 className="type-serif-lg text-[var(--foreground)]">{t("title")}</h2>
+        <h2 className="type-serif-lg text-gray-900">{t("title")}</h2>
 
         <div className="mt-16 space-y-16">
           {categories.map((categoryKey) => {
@@ -32,9 +32,7 @@ export async function CareersPositions() {
             return (
               <div key={categoryKey}>
                 {/* Category Title */}
-                <h3 className="mb-6 font-semibold text-2xl text-[var(--foreground)]">
-                  {categoryTitle}
-                </h3>
+                <h3 className="mb-6 font-semibold text-2xl text-gray-900">{categoryTitle}</h3>
 
                 {/* Job Listings */}
                 <div className="space-y-4">
@@ -50,9 +48,7 @@ export async function CareersPositions() {
                       >
                         {/* Job Info */}
                         <div className="flex-1">
-                          <h4 className="font-semibold text-[var(--foreground)] text-xl">
-                            {jobTitle}
-                          </h4>
+                          <h4 className="font-semibold text-gray-900 text-xl">{jobTitle}</h4>
                           <div className="mt-2 flex flex-wrap items-center gap-4 text-[#7d7566] text-sm">
                             <span className="flex items-center gap-1.5">
                               <svg
@@ -113,11 +109,11 @@ export async function CareersPositions() {
         </div>
 
         {/* No perfect match CTA */}
-        <div className="mt-16 rounded-[28px] bg-[var(--background)] p-8 text-center sm:p-12">
-          <h3 className="font-semibold text-2xl text-[var(--foreground)] sm:text-3xl">
+        <div className="mt-16 rounded-[28px] bg-[#fbf9f7] p-8 text-center sm:p-12">
+          <h3 className="font-semibold text-2xl text-gray-900 sm:text-3xl">
             Don't see a perfect match?
           </h3>
-          <p className="mt-4 text-[var(--muted-foreground)] text-lg leading-relaxed">
+          <p className="mt-4 text-gray-600 text-lg leading-relaxed">
             We're always looking for talented people. Send us your resume and let us know what
             you're passionate about.
           </p>

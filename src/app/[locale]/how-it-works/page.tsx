@@ -1,41 +1,27 @@
 import {
   ArrowRight01Icon,
-  HelpCircleIcon,
   LockIcon,
   Message01Icon,
   Shield01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import type { Metadata } from "next";
-import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { ProcessTimeline } from "@/components/how-it-works/process-timeline";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { CheckmarkList, CheckmarkListItem } from "@/components/ui/checkmark-list";
+import { Container } from "@/components/ui/container";
+import { TwoColumnFeature } from "@/components/ui/two-column-feature";
 import { Link } from "@/i18n/routing";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "howItWorks.meta" });
-
-  return {
-    title: t("title"),
-    description: t("description"),
-    openGraph: {
-      title: t("title"),
-      description: t("description"),
-      type: "website",
-    },
-  };
-}
-
-export default function HowItWorksPage() {
+export default async function HowItWorksPage() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-stone-50">
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
@@ -50,139 +36,109 @@ export default function HowItWorksPage() {
   );
 }
 
-function HeroSection() {
-  const t = useTranslations("howItWorks.hero");
+async function HeroSection() {
+  const t = await getTranslations("howItWorks.hero");
 
   return (
-    <section className="bg-[var(--background)] px-4 py-16 sm:py-24">
-      <div className="mx-auto max-w-4xl text-center">
-        <h1 className="type-serif-lg mb-6 text-[var(--foreground)]">{t("title")}</h1>
-        <p className="mx-auto mb-8 max-w-2xl text-[var(--muted-foreground)] text-xl leading-relaxed">
-          {t("subtitle")}
-        </p>
-      </div>
+    <section className="bg-white py-20 sm:py-24 lg:py-32">
+      <Container className="max-w-5xl">
+        <div className="text-center">
+          <p className="tagline text-stone-600">HOW IT WORKS</p>
+          <h1 className="serif-display-lg mt-6 text-stone-900">{t("title")}</h1>
+          <p className="lead mx-auto mt-6 max-w-3xl text-stone-900/70">{t("subtitle")}</p>
+        </div>
+      </Container>
     </section>
   );
 }
 
-function CustomerFlowSection() {
-  const t = useTranslations("howItWorks.customer");
-
-  const customerSteps = [
-    {
-      iconName: "Search",
-      titleKey: "steps.search.title",
-      descriptionKey: "steps.search.description",
-    },
-    {
-      iconName: "Calendar",
-      titleKey: "steps.book.title",
-      descriptionKey: "steps.book.description",
-    },
-    {
-      iconName: "UserCheck",
-      titleKey: "steps.service.title",
-      descriptionKey: "steps.service.description",
-    },
-    {
-      iconName: "Star",
-      titleKey: "steps.review.title",
-      descriptionKey: "steps.review.description",
-    },
-  ];
+async function CustomerFlowSection() {
+  const t = await getTranslations("howItWorks.customer");
 
   return (
-    <section className="bg-white px-4 py-16 sm:py-24">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-12 text-center">
-          <h2 className="type-serif-md mb-4 text-[var(--foreground)]">{t("title")}</h2>
-          <p className="mx-auto max-w-2xl text-[var(--muted-foreground)] text-lg">
-            {t("subtitle")}
-          </p>
-        </div>
+    <TwoColumnFeature
+      backgroundColor="cream"
+      description={t("subtitle")}
+      heading={t("title")}
+      image="/how-it-works-customer.jpg"
+      imageAlt="Customer booking process"
+      imagePosition="right"
+      tagline="FOR CUSTOMERS"
+    >
+      <CheckmarkList variant="default">
+        <CheckmarkListItem description={t("steps.search.description")}>
+          {t("steps.search.title")}
+        </CheckmarkListItem>
+        <CheckmarkListItem description={t("steps.book.description")}>
+          {t("steps.book.title")}
+        </CheckmarkListItem>
+        <CheckmarkListItem description={t("steps.service.description")}>
+          {t("steps.service.title")}
+        </CheckmarkListItem>
+        <CheckmarkListItem description={t("steps.review.description")}>
+          {t("steps.review.title")}
+        </CheckmarkListItem>
+      </CheckmarkList>
 
-        <div className="mx-auto max-w-3xl">
-          <ProcessTimeline steps={customerSteps} translationNamespace="howItWorks.customer" />
-        </div>
-
-        <div className="mt-12 text-center">
-          <Link
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-white shadow-[var(--shadow-card)] transition hover:bg-[var(--red-hover)]"
-            href="/professionals"
-          >
-            {t("cta")}
-            <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
-          </Link>
-        </div>
+      <div className="mt-8">
+        <Link
+          className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-8 py-4 font-semibold text-base text-white transition hover:bg-orange-600"
+          href="/professionals"
+        >
+          {t("cta")}
+          <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
+        </Link>
       </div>
-    </section>
+    </TwoColumnFeature>
   );
 }
 
-function ProfessionalFlowSection() {
-  const t = useTranslations("howItWorks.professional");
-
-  const professionalSteps = [
-    {
-      iconName: "FileText",
-      titleKey: "steps.apply.title",
-      descriptionKey: "steps.apply.description",
-    },
-    {
-      iconName: "ShieldCheck",
-      titleKey: "steps.verify.title",
-      descriptionKey: "steps.verify.description",
-    },
-    {
-      iconName: "Users",
-      titleKey: "steps.match.title",
-      descriptionKey: "steps.match.description",
-    },
-    {
-      iconName: "UserCheck",
-      titleKey: "steps.serve.title",
-      descriptionKey: "steps.serve.description",
-    },
-    {
-      iconName: "DollarSign",
-      titleKey: "steps.earn.title",
-      descriptionKey: "steps.earn.description",
-    },
-  ];
+async function ProfessionalFlowSection() {
+  const t = await getTranslations("howItWorks.professional");
 
   return (
-    <section className="bg-[var(--background-alt)] px-4 py-16 sm:py-24">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-12 text-center">
-          <h2 className="type-serif-md mb-4 text-[var(--foreground)]">{t("title")}</h2>
-          <p className="mx-auto max-w-2xl text-[var(--muted-foreground)] text-lg">
-            {t("subtitle")}
-          </p>
-        </div>
+    <TwoColumnFeature
+      backgroundColor="white"
+      description={t("subtitle")}
+      heading={t("title")}
+      image="/how-it-works-professional.jpg"
+      imageAlt="Professional sign-up process"
+      imagePosition="left"
+      tagline="FOR PROFESSIONALS"
+    >
+      <CheckmarkList variant="default">
+        <CheckmarkListItem description={t("steps.apply.description")}>
+          {t("steps.apply.title")}
+        </CheckmarkListItem>
+        <CheckmarkListItem description={t("steps.verify.description")}>
+          {t("steps.verify.title")}
+        </CheckmarkListItem>
+        <CheckmarkListItem description={t("steps.match.description")}>
+          {t("steps.match.title")}
+        </CheckmarkListItem>
+        <CheckmarkListItem description={t("steps.serve.description")}>
+          {t("steps.serve.title")}
+        </CheckmarkListItem>
+        <CheckmarkListItem description={t("steps.earn.description")}>
+          {t("steps.earn.title")}
+        </CheckmarkListItem>
+      </CheckmarkList>
 
-        <div className="mx-auto max-w-3xl">
-          <ProcessTimeline
-            steps={professionalSteps}
-            translationNamespace="howItWorks.professional"
-          />
-        </div>
-
-        <div className="mt-12 text-center">
-          <Link
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-white shadow-[var(--shadow-card)] transition hover:bg-[var(--red-hover)]"
-            href="/auth/sign-up?role=professional"
-          >
-            {t("cta")}
-            <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
-          </Link>
-        </div>
+      <div className="mt-8">
+        <Link
+          className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-8 py-4 font-semibold text-base text-white transition hover:bg-orange-600"
+          href="/auth/sign-up?role=professional"
+        >
+          {t("cta")}
+          <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
+        </Link>
       </div>
-    </section>
+    </TwoColumnFeature>
   );
 }
 
-function SafetyTrustSection() {
-  const t = useTranslations("howItWorks.safety");
+async function SafetyTrustSection() {
+  const t = await getTranslations("howItWorks.safety");
 
   const safetyFeatures = [
     {
@@ -203,13 +159,12 @@ function SafetyTrustSection() {
   ];
 
   return (
-    <section className="bg-white px-4 py-16 sm:py-24">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-12 text-center">
-          <h2 className="type-serif-md mb-4 text-[var(--foreground)]">{t("title")}</h2>
-          <p className="mx-auto max-w-2xl text-[var(--muted-foreground)] text-lg">
-            {t("subtitle")}
-          </p>
+    <section className="bg-stone-50 py-20 sm:py-24 lg:py-32">
+      <Container>
+        <div className="mb-16 text-center">
+          <p className="tagline text-stone-600">SAFETY & TRUST</p>
+          <h2 className="serif-display-lg mt-6 text-stone-900">{t("title")}</h2>
+          <p className="lead mx-auto mt-6 max-w-2xl text-stone-900/70">{t("subtitle")}</p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
@@ -217,111 +172,87 @@ function SafetyTrustSection() {
             const Icon = feature.icon;
             return (
               <div
-                className="rounded-xl border border-[#ebe5d8] bg-white p-8 text-center shadow-[var(--shadow-subtle)] transition hover:shadow-[var(--shadow-card)]"
+                className="rounded-[32px] border border-stone-200 bg-white p-10 text-center shadow-[0_4px_20px_rgba(18,17,15,0.02)] transition hover:shadow-[0_8px_30px_rgba(18,17,15,0.04)]"
                 key={index}
               >
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)]/10">
-                  <HugeiconsIcon className="h-8 w-8 text-[var(--red)]" icon={Icon} />
+                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-orange-500/10">
+                  <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={Icon} />
                 </div>
-                <h3 className="type-serif-sm mb-3 text-[var(--foreground)]">
-                  {t(feature.titleKey)}
-                </h3>
-                <p className="text-[var(--muted-foreground)] leading-relaxed">
+                <h3 className="serif-headline-sm mb-4 text-stone-900">{t(feature.titleKey)}</h3>
+                <p className="text-base text-stone-900/70 leading-relaxed">
                   {t(feature.descriptionKey)}
                 </p>
               </div>
             );
           })}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
 
-function FAQSection() {
-  const t = useTranslations("howItWorks.faq");
+async function FAQSection() {
+  const t = await getTranslations("howItWorks.faq");
 
-  const faqs = [
-    {
-      questionKey: "q1.question",
-      answerKey: "q1.answer",
-    },
-    {
-      questionKey: "q2.question",
-      answerKey: "q2.answer",
-    },
-    {
-      questionKey: "q3.question",
-      answerKey: "q3.answer",
-    },
-    {
-      questionKey: "q4.question",
-      answerKey: "q4.answer",
-    },
-  ];
+  const faqs = [{ key: "q1" }, { key: "q2" }, { key: "q3" }, { key: "q4" }];
 
   return (
-    <section className="bg-[var(--background-alt)] px-4 py-16 sm:py-24">
-      <div className="mx-auto max-w-4xl">
+    <section className="bg-white py-20 sm:py-24 lg:py-32">
+      <Container className="max-w-4xl">
         <div className="mb-12 text-center">
-          <HugeiconsIcon
-            className="mx-auto mb-4 h-12 w-12 text-[var(--red)]"
-            icon={HelpCircleIcon}
-          />
-          <h2 className="type-serif-md mb-4 text-[var(--foreground)]">{t("title")}</h2>
-          <p className="text-[var(--muted-foreground)] text-lg">{t("subtitle")}</p>
+          <h2 className="serif-display-lg text-stone-900">{t("title")}</h2>
+          <p className="lead mt-4 text-stone-900/70">{t("subtitle")}</p>
         </div>
 
-        <div className="space-y-6">
-          {faqs.map((faq, index) => (
-            <div
-              className="rounded-xl border border-[#ebe5d8] bg-white p-6 shadow-[var(--shadow-subtle)]"
-              key={index}
-            >
-              <h3 className="type-ui-sm mb-2 text-[var(--foreground)]">{t(faq.questionKey)}</h3>
-              <p className="text-[var(--muted-foreground)] leading-relaxed">{t(faq.answerKey)}</p>
-            </div>
+        <Accordion allowMultiple={false} variant="default">
+          {faqs.map((faq) => (
+            <AccordionItem key={faq.key} value={faq.key}>
+              <AccordionTrigger>{t(`${faq.key}.question`)}</AccordionTrigger>
+              <AccordionContent>{t(`${faq.key}.answer`)}</AccordionContent>
+            </AccordionItem>
           ))}
-        </div>
+        </Accordion>
 
-        <div className="mt-8 text-center">
-          <p className="mb-4 text-[var(--muted-foreground)]">{t("stillHaveQuestions")}</p>
+        <div className="mt-12 text-center">
+          <p className="mb-4 text-stone-900/70">{t("stillHaveQuestions")}</p>
           <Link
-            className="inline-flex items-center gap-2 font-semibold text-[var(--red)] transition hover:text-[var(--red-hover)]"
+            className="inline-flex items-center gap-2 font-semibold text-orange-500 transition hover:text-orange-600"
             href="/contact"
           >
             {t("contactUs")}
             <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
           </Link>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
 
-function CTASection() {
-  const t = useTranslations("howItWorks.cta");
+async function CTASection() {
+  const t = await getTranslations("howItWorks.cta");
 
   return (
-    <section className="bg-[var(--foreground)] px-4 py-16 sm:py-24">
-      <div className="mx-auto max-w-4xl text-center">
-        <h2 className="type-serif-md mb-6 text-white">{t("title")}</h2>
-        <p className="mb-8 text-white/90 text-xl">{t("subtitle")}</p>
-        <div className="flex flex-col justify-center gap-4 sm:flex-row">
-          <Link
-            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white bg-white px-8 py-4 font-semibold text-[var(--foreground)] shadow-[var(--shadow-card)] transition hover:bg-[#f3ece1]"
-            href="/professionals"
-          >
-            {t("browseButton")}
-          </Link>
-          <Link
-            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white px-8 py-4 font-semibold text-white transition hover:bg-white/10"
-            href="/auth/sign-up"
-          >
-            {t("signUpButton")}
-          </Link>
+    <section className="bg-stone-900 py-20 sm:py-24 lg:py-32">
+      <Container className="max-w-4xl">
+        <div className="text-center">
+          <h2 className="serif-display-lg text-white">{t("title")}</h2>
+          <p className="lead mt-6 text-white/90">{t("subtitle")}</p>
+          <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+            <Link
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-base text-stone-900 transition hover:bg-stone-100"
+              href="/professionals"
+            >
+              {t("browseButton")}
+            </Link>
+            <Link
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white px-8 py-4 font-semibold text-base text-white transition hover:bg-white/10"
+              href="/auth/sign-up"
+            >
+              {t("signUpButton")}
+            </Link>
+          </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

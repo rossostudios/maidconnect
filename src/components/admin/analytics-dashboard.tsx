@@ -282,8 +282,8 @@ export function AnalyticsDashboard() {
           <button
             className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
               selectedTimeRange === range
-                ? "bg-[var(--red)] text-white"
-                : "border border-[#e5dfd4] text-[var(--foreground)] hover:border-[var(--red)]"
+                ? "bg-[#E85D48] text-white"
+                : "border border-[#e5dfd4] text-gray-900 hover:border-[#E85D48]"
             }`}
             key={range}
             onClick={() => setSelectedTimeRange(range)}
@@ -347,44 +347,40 @@ export function AnalyticsDashboard() {
           <h3 className="mb-2 font-semibold text-[#7d7566] text-sm uppercase tracking-wide">
             Total Bookings
           </h3>
-          <p className="font-bold text-3xl text-[var(--foreground)]">{metrics.totalBookings}</p>
+          <p className="font-bold text-3xl text-gray-900">{metrics.totalBookings}</p>
         </div>
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
           <h3 className="mb-2 font-semibold text-[#7d7566] text-sm uppercase tracking-wide">
             Total Professionals
           </h3>
-          <p className="font-bold text-3xl text-[var(--foreground)]">
-            {metrics.totalProfessionals}
-          </p>
+          <p className="font-bold text-3xl text-gray-900">{metrics.totalProfessionals}</p>
         </div>
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
           <h3 className="mb-2 font-semibold text-[#7d7566] text-sm uppercase tracking-wide">
             Total Customers
           </h3>
-          <p className="font-bold text-3xl text-[var(--foreground)]">{metrics.totalCustomers}</p>
+          <p className="font-bold text-3xl text-gray-900">{metrics.totalCustomers}</p>
         </div>
       </div>
 
       {/* City Metrics */}
       <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-        <h2 className="mb-4 font-bold text-[var(--foreground)] text-xl">Metrics by City</h2>
+        <h2 className="mb-4 font-bold text-gray-900 text-xl">Metrics by City</h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-[#fbfafa]">
               <tr>
-                <th className="px-6 py-4 text-left font-semibold text-[var(--foreground)] text-sm">
-                  City
-                </th>
-                <th className="px-6 py-4 text-left font-semibold text-[var(--foreground)] text-sm">
+                <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">City</th>
+                <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">
                   Fill Rate
                 </th>
-                <th className="px-6 py-4 text-left font-semibold text-[var(--foreground)] text-sm">
+                <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">
                   Avg. TTFB
                 </th>
-                <th className="px-6 py-4 text-left font-semibold text-[var(--foreground)] text-sm">
+                <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">
                   Bookings
                 </th>
-                <th className="px-6 py-4 text-left font-semibold text-[var(--foreground)] text-sm">
+                <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">
                   Professionals
                 </th>
               </tr>
@@ -399,7 +395,7 @@ export function AnalyticsDashboard() {
               ) : (
                 cityMetrics.map((city) => (
                   <tr key={city.city}>
-                    <td className="px-6 py-4 font-medium text-[var(--foreground)]">{city.city}</td>
+                    <td className="px-6 py-4 font-medium text-gray-900">{city.city}</td>
                     <td className="px-6 py-4">
                       <span
                         className={`inline-flex rounded-full px-3 py-1 font-semibold text-xs ${
@@ -430,23 +426,21 @@ export function AnalyticsDashboard() {
 
       {/* Category Metrics */}
       <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-        <h2 className="mb-4 font-bold text-[var(--foreground)] text-xl">
-          Metrics by Service Category
-        </h2>
+        <h2 className="mb-4 font-bold text-gray-900 text-xl">Metrics by Service Category</h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-[#fbfafa]">
               <tr>
-                <th className="px-6 py-4 text-left font-semibold text-[var(--foreground)] text-sm">
+                <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">
                   Category
                 </th>
-                <th className="px-6 py-4 text-left font-semibold text-[var(--foreground)] text-sm">
+                <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">
                   Fill Rate
                 </th>
-                <th className="px-6 py-4 text-left font-semibold text-[var(--foreground)] text-sm">
+                <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">
                   Bookings
                 </th>
-                <th className="px-6 py-4 text-left font-semibold text-[var(--foreground)] text-sm">
+                <th className="px-6 py-4 text-left font-semibold text-gray-900 text-sm">
                   Avg. Price
                 </th>
               </tr>
@@ -461,7 +455,7 @@ export function AnalyticsDashboard() {
               ) : (
                 categoryMetrics.map((category) => (
                   <tr key={category.category}>
-                    <td className="px-6 py-4 font-medium text-[var(--foreground)]">
+                    <td className="px-6 py-4 font-medium text-gray-900">
                       {category.category
                         .replace(/_/g, " ")
                         .replace(/\b\w/g, (l) => l.toUpperCase())}
@@ -508,7 +502,7 @@ function MetricCard({ title, value, description, trend }: MetricCardProps) {
   const trendColors = {
     good: "border-green-200 bg-green-50",
     neutral: "border-yellow-200 bg-yellow-50",
-    poor: "border-red-200 bg-red-50",
+    poor: "border-red-200 bg-[#E85D48]/10",
   };
 
   const trendIndicators = {
@@ -523,7 +517,7 @@ function MetricCard({ title, value, description, trend }: MetricCardProps) {
         <h3 className="font-semibold text-[#7d7566] text-sm uppercase tracking-wide">{title}</h3>
         <span className="text-2xl">{trendIndicators[trend]}</span>
       </div>
-      <p className="mt-3 font-bold text-3xl text-[var(--foreground)]">{value}</p>
+      <p className="mt-3 font-bold text-3xl text-gray-900">{value}</p>
       <p className="mt-1 text-[#7d7566] text-sm">{description}</p>
     </div>
   );

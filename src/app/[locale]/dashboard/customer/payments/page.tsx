@@ -1,5 +1,5 @@
-import dynamic from "next/dynamic";
 import { unstable_noStore } from "next/cache";
+import dynamic from "next/dynamic";
 import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
@@ -99,10 +99,8 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="font-semibold text-3xl text-[var(--foreground)]">{t("title")}</h1>
-        <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
-          {t("description")}
-        </p>
+        <h1 className="font-semibold text-3xl text-gray-900">{t("title")}</h1>
+        <p className="mt-2 text-base text-gray-600 leading-relaxed">{t("description")}</p>
       </div>
 
       {/* Summary Cards */}
@@ -127,9 +125,7 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
       {/* Payment Methods */}
       {paymentMethods.length > 0 && (
         <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h2 className="mb-4 font-semibold text-[var(--foreground)] text-xl">
-            {t("paymentMethods.title")}
-          </h2>
+          <h2 className="mb-4 font-semibold text-gray-900 text-xl">{t("paymentMethods.title")}</h2>
           <div className="space-y-3">
             {paymentMethods.map((method) => (
               <div
@@ -140,7 +136,7 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ebe5d8]">
                     <svg
                       aria-label="Credit card icon"
-                      className="h-5 w-5 text-[var(--foreground)]"
+                      className="h-5 w-5 text-gray-900"
                       fill="none"
                       role="img"
                       stroke="currentColor"
@@ -155,7 +151,7 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
                     </svg>
                   </div>
                   <div>
-                    <p className="font-medium text-[var(--foreground)]">
+                    <p className="font-medium text-gray-900">
                       {method.card.brand.toUpperCase()} •••• {method.card.last4}
                     </p>
                     <p className="text-[#7d7566] text-sm">
@@ -171,9 +167,7 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
 
       {/* Payment History */}
       <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h2 className="mb-6 font-semibold text-[var(--foreground)] text-xl">
-          {t("paymentHistory.title")}
-        </h2>
+        <h2 className="mb-6 font-semibold text-gray-900 text-xl">{t("paymentHistory.title")}</h2>
         <PaymentHistoryTable bookings={bookings} />
       </div>
     </section>
@@ -192,7 +186,7 @@ function MetricCard({
   return (
     <div className="rounded-[28px] bg-white p-6 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
       <dt className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">{label}</dt>
-      <dd className="mt-3 font-semibold text-3xl text-[var(--foreground)]">{value}</dd>
+      <dd className="mt-3 font-semibold text-3xl text-gray-900">{value}</dd>
       <p className="mt-1 text-[#7d7566] text-sm">{description}</p>
     </div>
   );

@@ -59,14 +59,14 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
     <div className="space-y-6">
       {/* Icon */}
       <div className="flex justify-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--foreground)]/5">
-          <HugeiconsIcon className="h-8 w-8 text-[var(--foreground)]" icon={SecurityCheckIcon} />
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-900/5">
+          <HugeiconsIcon className="h-8 w-8 text-gray-900" icon={SecurityCheckIcon} />
         </div>
       </div>
 
       {/* Title */}
       <div className="text-center">
-        <h2 className="font-semibold text-2xl text-[var(--foreground)]">
+        <h2 className="font-semibold text-2xl text-gray-900">
           {t("title", { defaultValue: "Your must-haves" })}
         </h2>
         <p className="mt-2 text-[#7a6d62]">
@@ -78,7 +78,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
       <div className="space-y-6">
         {/* Language Preference */}
         <div>
-          <div className="mb-3 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm">
+          <div className="mb-3 flex items-center gap-2 font-medium text-gray-900 text-sm">
             <HugeiconsIcon className="h-4 w-4" icon={TranslateIcon} />
             {t("languageLabel", { defaultValue: "Language preference" })}
           </div>
@@ -90,8 +90,8 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
                 <button
                   className={`flex w-full items-center gap-3 rounded-xl border-2 px-4 py-3 transition ${
                     isSelected
-                      ? "border-[var(--foreground)] bg-[var(--foreground)]/5"
-                      : "border-[#ebe5d8] bg-white hover:border-[var(--foreground)]/30"
+                      ? "border-gray-900 bg-gray-900/5"
+                      : "border-[#ebe5d8] bg-white hover:border-gray-900/30"
                   }`}
                   key={lang.value}
                   onClick={() =>
@@ -104,13 +104,13 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
                   <span className="text-2xl">{lang.flag}</span>
                   <span
                     className={`flex-1 text-left font-medium ${
-                      isSelected ? "text-[var(--foreground)]" : "text-[var(--muted-foreground)]"
+                      isSelected ? "text-gray-900" : "text-gray-600"
                     }`}
                   >
                     {lang.label}
                   </span>
                   {isSelected && (
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--foreground)] text-white">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-900 text-white">
                       ✓
                     </div>
                   )}
@@ -122,7 +122,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
 
         {/* Verification Level */}
         <div>
-          <div className="mb-3 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm">
+          <div className="mb-3 flex items-center gap-2 font-medium text-gray-900 text-sm">
             <HugeiconsIcon className="h-4 w-4" icon={SecurityCheckIcon} />
             {t("verificationLabel", { defaultValue: "Required verification level" })}
           </div>
@@ -134,9 +134,9 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
                 <button
                   className={`flex w-full items-start gap-3 rounded-xl border-2 px-4 py-3 text-left transition ${
                     isSelected
-                      ? "border-[var(--foreground)] bg-[var(--foreground)]/5"
-                      : "border-[#ebe5d8] bg-white hover:border-[var(--foreground)]/30"
-                  } ${level.recommended ? "ring-2 ring-[var(--red)]/20" : ""}`}
+                      ? "border-gray-900 bg-gray-900/5"
+                      : "border-[#ebe5d8] bg-white hover:border-gray-900/30"
+                  } ${level.recommended ? "ring-2 ring-red-600/20" : ""}`}
                   key={level.value}
                   onClick={() =>
                     onUpdate({
@@ -145,20 +145,18 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
                   }
                   type="button"
                 >
-                  <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--foreground)]/10 font-semibold text-[var(--foreground)] text-xs">
+                  <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gray-900/10 font-semibold text-gray-900 text-xs">
                     {level.icon}
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
                       <span
-                        className={`font-medium ${
-                          isSelected ? "text-[var(--foreground)]" : "text-[var(--muted-foreground)]"
-                        }`}
+                        className={`font-medium ${isSelected ? "text-gray-900" : "text-gray-600"}`}
                       >
                         {level.label}
                       </span>
                       {level.recommended && (
-                        <span className="rounded-full bg-[var(--red)] px-2 py-1 font-semibold text-white text-xs">
+                        <span className="rounded-full bg-[#E85D48] px-2 py-1 font-semibold text-white text-xs">
                           Recommended
                         </span>
                       )}
@@ -166,7 +164,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
                     <p className="mt-1 text-[#7a6d62] text-xs">{level.description}</p>
                   </div>
                   {isSelected && (
-                    <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--foreground)] text-white">
+                    <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gray-900 text-white">
                       ✓
                     </div>
                   )}
@@ -179,14 +177,14 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
         {/* Experience Years */}
         <div>
           <label
-            className="mb-2 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm"
+            className="mb-2 flex items-center gap-2 font-medium text-gray-900 text-sm"
             htmlFor="experience-years"
           >
             <HugeiconsIcon className="h-4 w-4" icon={Award01Icon} />
             {t("experienceLabel", { defaultValue: "Minimum years of experience" })}
           </label>
           <select
-            className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[var(--foreground)] transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]/20"
+            className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-gray-900 transition focus:border-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900/20"
             id="experience-years"
             onChange={(e) => onUpdate({ experienceYears: Number(e.target.value) })}
             value={data.experienceYears || ""}
@@ -201,7 +199,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
 
         {/* Availability */}
         <div>
-          <div className="mb-3 flex items-center gap-2 font-medium text-[var(--foreground)] text-sm">
+          <div className="mb-3 flex items-center gap-2 font-medium text-gray-900 text-sm">
             <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
             {t("availabilityLabel", { defaultValue: "Availability needed" })}
           </div>
@@ -213,8 +211,8 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
                 <button
                   className={`flex flex-col items-center gap-2 rounded-xl border-2 p-3 transition ${
                     isSelected
-                      ? "border-[var(--foreground)] bg-[var(--foreground)]/5"
-                      : "border-[#ebe5d8] bg-white hover:border-[var(--foreground)]/30"
+                      ? "border-gray-900 bg-gray-900/5"
+                      : "border-[#ebe5d8] bg-white hover:border-gray-900/30"
                   }`}
                   key={option.value}
                   onClick={() =>
@@ -227,7 +225,7 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
                   <span className="text-xl">{option.icon}</span>
                   <span
                     className={`text-center font-medium text-xs ${
-                      isSelected ? "text-[var(--foreground)]" : "text-[var(--muted-foreground)]"
+                      isSelected ? "text-gray-900" : "text-gray-600"
                     }`}
                   >
                     {option.label}
@@ -242,21 +240,21 @@ export function PreferencesStep({ data, onUpdate, onNext, onBack, onSkip }: Pref
       {/* Actions */}
       <div className="flex gap-3 pt-4">
         <button
-          className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[var(--foreground)] hover:text-[var(--foreground)]"
+          className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-gray-900 hover:text-gray-900"
           onClick={onBack}
           type="button"
         >
           {t("back", { defaultValue: "Back" })}
         </button>
         <button
-          className="rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[var(--foreground)] hover:text-[var(--foreground)]"
+          className="rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-gray-900 hover:text-gray-900"
           onClick={onSkip}
           type="button"
         >
           {t("skip", { defaultValue: "Skip" })}
         </button>
         <button
-          className="flex-1 rounded-xl bg-[var(--foreground)] px-6 py-3 font-semibold text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] transition hover:bg-[#2d2822]"
+          className="flex-1 rounded-xl bg-gray-900 px-6 py-3 font-semibold text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] transition hover:bg-[#2d2822]"
           onClick={onNext}
           type="button"
         >

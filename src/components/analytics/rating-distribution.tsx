@@ -23,7 +23,7 @@ export function RatingDistribution({ metrics }: RatingDistributionProps) {
     { stars: 4, count: metrics.fourStarCount, color: "bg-green-400" },
     { stars: 3, count: metrics.threeStarCount, color: "bg-yellow-500" },
     { stars: 2, count: metrics.twoStarCount, color: "bg-orange-500" },
-    { stars: 1, count: metrics.oneStarCount, color: "bg-red-500" },
+    { stars: 1, count: metrics.oneStarCount, color: "bg-[#E85D48]/100" },
   ];
 
   const totalRatings = ratingData.reduce((sum, item) => sum + item.count, 0);
@@ -35,7 +35,7 @@ export function RatingDistribution({ metrics }: RatingDistributionProps) {
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
+          <h3 className="font-semibold text-gray-900 text-lg">{t("title")}</h3>
           <p className="text-[#6b7280] text-sm">
             {totalRatings} {t("totalRatings")}
           </p>
@@ -43,7 +43,7 @@ export function RatingDistribution({ metrics }: RatingDistributionProps) {
         <div className="text-right">
           <div className="flex items-center gap-1">
             <HugeiconsIcon className="h-5 w-5 fill-yellow-500 text-yellow-500" icon={StarIcon} />
-            <span className="font-bold text-2xl text-[var(--foreground)]">
+            <span className="font-bold text-2xl text-gray-900">
               {metrics.averageRating.toFixed(2)}
             </span>
           </div>
@@ -60,7 +60,7 @@ export function RatingDistribution({ metrics }: RatingDistributionProps) {
             <div className="flex items-center gap-3" key={item.stars}>
               {/* Star Label */}
               <div className="flex w-12 items-center gap-1">
-                <span className="font-medium text-[var(--foreground)] text-sm">{item.stars}</span>
+                <span className="font-medium text-gray-900 text-sm">{item.stars}</span>
                 <HugeiconsIcon
                   className="h-4 w-4 fill-yellow-500 text-yellow-500"
                   icon={StarIcon}
@@ -77,7 +77,7 @@ export function RatingDistribution({ metrics }: RatingDistributionProps) {
 
               {/* Count & Percentage */}
               <div className="flex w-24 items-center justify-end gap-2 text-sm">
-                <span className="font-semibold text-[var(--foreground)]">{item.count}</span>
+                <span className="font-semibold text-gray-900">{item.count}</span>
                 <span className="text-[#9ca3af]">({percentage.toFixed(1)}%)</span>
               </div>
             </div>
@@ -89,7 +89,7 @@ export function RatingDistribution({ metrics }: RatingDistributionProps) {
       <div className="mt-6 rounded-xl border-[#e5e7eb] border-t bg-gradient-to-r from-green-50 to-green-100 p-4 pt-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="font-medium text-[var(--foreground)] text-sm">{t("satisfactionRate")}</p>
+            <p className="font-medium text-gray-900 text-sm">{t("satisfactionRate")}</p>
             <p className="text-[#6b7280] text-xs">{t("satisfactionRateDescription")}</p>
           </div>
           <div className="text-right">

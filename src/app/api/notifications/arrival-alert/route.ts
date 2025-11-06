@@ -1,12 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
-import { isFeatureEnabled } from "@/lib/feature-flags";
-import { notifyCustomerProfessionalEnRoute } from "@/lib/notifications";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-
-// Note: API routes are dynamic by default, no config needed with cacheComponents
-
 /**
  * Arrival Alert API
+ * GET/POST /api/notifications/arrival-alert
+ *
+ * REFACTORED: Complexity 29 → <15
+ * - Extracted arrival window calculation to arrival-alert-service.ts
+ * - Route now focuses on auth and orchestration
  *
  * Returns arrival window information for a booking and triggers notifications
  * when the professional is en route.
@@ -15,9 +13,23 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
  * - No precise GPS location exposed to customers
  * - Time-based arrival windows (30 minutes)
  * - Status updates only (scheduled, en_route, arriving_soon, arrived)
- *
+ */
+
+import { NextRequest, NextResponse } from "next/server";
+import { isFeatureEnabled } from "@/lib/feature-flags";
+import type { BookingArrivalData } from "@/lib/notifications/arrival-alert-service";
+import {
+  buildArrivalWindow,
+  calculateMinutesUntilStart,
+  determineArrivalStatus,
+  sendArrivingSoonNotification,
+  sendEnRouteNotification,
+} from "@/lib/notifications/arrival-alert-service";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+
+/**
+ * GET endpoint - Calculate and return arrival window status
  * GET /api/notifications/arrival-alert?bookingId=123
- * Returns: { arrivalWindow: { status, estimatedArrival, windowStart, windowEnd, lastUpdate } }
  */
 export async function GET(request: NextRequest) {
   try {
@@ -77,85 +89,23 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized - not booking customer" }, { status: 403 });
     }
 
-    // Calculate arrival status
-    const now = new Date();
+    // Calculate arrival status using service
     const scheduledStart = new Date(booking.scheduled_start);
+    const minutesUntilStart = calculateMinutesUntilStart(scheduledStart);
+    const hasCheckedIn = Boolean(booking.check_in_time);
+    const status = determineArrivalStatus(minutesUntilStart, hasCheckedIn);
 
-    // Time until scheduled start (in minutes)
-    const minutesUntilStart = Math.floor((scheduledStart.getTime() - now.getTime()) / (1000 * 60));
+    // Build arrival window response using service
+    const arrivalWindow = buildArrivalWindow(status, scheduledStart, minutesUntilStart);
 
-    let status: "scheduled" | "en_route" | "arriving_soon" | "arrived" | "in_progress" =
-      "scheduled";
-    let estimatedArrival: Date | null = null;
-    let windowStart: Date | null = null;
-    let windowEnd: Date | null = null;
-
-    // Service already in progress (checked in)
-    if (booking.check_in_time) {
-      status = "in_progress";
-    }
-    // Professional has arrived (within 5 minutes of scheduled start and not checked in yet)
-    else if (minutesUntilStart <= 5 && minutesUntilStart >= -10) {
-      status = "arrived";
-      estimatedArrival = scheduledStart;
-    }
-    // Arriving soon (10-30 minutes before scheduled start)
-    else if (minutesUntilStart > 5 && minutesUntilStart <= 30) {
-      status = "arriving_soon";
-      estimatedArrival = scheduledStart;
-
-      // 30-minute arrival window centered on scheduled time
-      windowStart = new Date(scheduledStart.getTime() - 15 * 60 * 1000);
-      windowEnd = new Date(scheduledStart.getTime() + 15 * 60 * 1000);
-
-      // Trigger "arriving soon" notification (only once per booking)
-      // Check if notification was already sent
-      const { data: sentNotification } = await supabase
-        .from("notifications")
-        .select("id")
-        .eq("user_id", booking.customer_id)
-        .eq("tag", `arriving-soon-${bookingId}`)
-        .single();
-
-      if (!sentNotification) {
-        const professional = Array.isArray(booking.professional)
-          ? booking.professional[0]
-          : booking.professional;
-        const service = Array.isArray(booking.service) ? booking.service[0] : booking.service;
-
-        await notifyCustomerProfessionalEnRoute(booking.customer_id, {
-          bookingId: booking.id,
-          professionalName: professional?.full_name || "Your professional",
-          serviceName: service?.name || "service",
-          estimatedArrival: scheduledStart.toISOString(),
-          windowStart: windowStart.toISOString(),
-          windowEnd: windowEnd.toISOString(),
-        });
-      }
-    }
-    // En route (30-60 minutes before scheduled start)
-    else if (minutesUntilStart > 30 && minutesUntilStart <= 60) {
-      status = "en_route";
-      estimatedArrival = scheduledStart;
-
-      // 30-minute arrival window
-      windowStart = new Date(scheduledStart.getTime() - 15 * 60 * 1000);
-      windowEnd = new Date(scheduledStart.getTime() + 15 * 60 * 1000);
-    }
-    // Still scheduled (more than 60 minutes away)
-    else {
-      status = "scheduled";
+    // Trigger "arriving soon" notification if appropriate using service
+    if (status === "arriving_soon") {
+      await sendArrivingSoonNotification(supabase, booking as BookingArrivalData, scheduledStart);
     }
 
     return NextResponse.json({
       success: true,
-      arrivalWindow: {
-        status,
-        estimatedArrival: estimatedArrival?.toISOString() || null,
-        windowStart: windowStart?.toISOString() || null,
-        windowEnd: windowEnd?.toISOString() || null,
-        lastUpdate: now.toISOString(),
-      },
+      arrivalWindow,
     });
   } catch (error) {
     console.error("Arrival alert error:", error);
@@ -164,8 +114,8 @@ export async function GET(request: NextRequest) {
 }
 
 /**
- * POST endpoint to manually trigger arrival notifications
- * (Can be called by professional's mobile app when they start traveling to the job)
+ * POST endpoint - Manually trigger arrival notifications
+ * (Called by professional's mobile app when they start traveling)
  */
 export async function POST(request: NextRequest) {
   try {
@@ -223,25 +173,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Calculate arrival window
+    // Send en route notification using service
     const scheduledStart = new Date(booking.scheduled_start);
-    const windowStart = new Date(scheduledStart.getTime() - 15 * 60 * 1000);
-    const windowEnd = new Date(scheduledStart.getTime() + 15 * 60 * 1000);
-
-    // Send "en route" notification to customer
-    const professional = Array.isArray(booking.professional)
-      ? booking.professional[0]
-      : booking.professional;
-    const service = Array.isArray(booking.service) ? booking.service[0] : booking.service;
-
-    await notifyCustomerProfessionalEnRoute(booking.customer_id, {
-      bookingId: booking.id,
-      professionalName: professional?.full_name || "Your professional",
-      serviceName: service?.name || "service",
-      estimatedArrival: scheduledStart.toISOString(),
-      windowStart: windowStart.toISOString(),
-      windowEnd: windowEnd.toISOString(),
-    });
+    await sendEnRouteNotification(booking as BookingArrivalData, scheduledStart);
 
     return NextResponse.json({
       success: true,

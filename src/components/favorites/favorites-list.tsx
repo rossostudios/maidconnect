@@ -59,7 +59,7 @@ export function FavoritesList() {
 
   if (error) {
     return (
-      <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-base text-red-600">
+      <div className="rounded-2xl border border-red-200 bg-[#E85D48]/10 p-6 text-[#E85D48] text-base">
         {error || t("errors.loadFailed")}
       </div>
     );
@@ -71,12 +71,10 @@ export function FavoritesList() {
         <div className="flex justify-center">
           <HugeiconsIcon className="h-12 w-12 text-[#D4D4D4]" icon={FavouriteIcon} />
         </div>
-        <p className="mt-4 font-semibold text-[var(--foreground)] text-lg">{t("empty.title")}</p>
-        <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
-          {t("empty.description")}
-        </p>
+        <p className="mt-4 font-semibold text-gray-900 text-lg">{t("empty.title")}</p>
+        <p className="mt-2 text-base text-gray-600 leading-relaxed">{t("empty.description")}</p>
         <Link
-          className="mt-6 inline-flex rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
+          className="mt-6 inline-flex rounded-full bg-[#E85D48] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36]"
           href="/professionals"
         >
           {t("empty.browseProfessionals")}
@@ -88,7 +86,7 @@ export function FavoritesList() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="font-semibold text-[var(--foreground)] text-xl">
+        <h2 className="font-semibold text-gray-900 text-xl">
           {t("title", { count: favorites.length })}
         </h2>
       </div>
@@ -137,14 +135,14 @@ function ProfessionalCard({
                 width={64}
               />
             ) : (
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)] font-semibold text-white text-xl">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#E85D48] font-semibold text-white text-xl">
                 {professional.profile.full_name.charAt(0).toUpperCase()}
               </div>
             )}
 
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
-                <h3 className="truncate font-semibold text-[var(--foreground)] text-lg">
+                <h3 className="truncate font-semibold text-gray-900 text-lg">
                   {professional.business_name || professional.profile.full_name}
                 </h3>
                 {professional.verified && (
@@ -154,7 +152,7 @@ function ProfessionalCard({
                 )}
               </div>
               {professional.rating !== null && (
-                <div className="mt-1 flex items-center gap-1 text-[var(--muted-foreground)] text-sm">
+                <div className="mt-1 flex items-center gap-1 text-gray-600 text-sm">
                   <span>⭐</span>
                   <span className="font-semibold">{professional.rating.toFixed(1)}</span>
                   <span>({professional.total_reviews})</span>
@@ -165,7 +163,7 @@ function ProfessionalCard({
 
           {/* Bio */}
           {professional.bio && (
-            <p className="mt-4 line-clamp-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+            <p className="mt-4 line-clamp-2 text-base text-gray-600 leading-relaxed">
               {professional.bio}
             </p>
           )}
@@ -174,12 +172,12 @@ function ProfessionalCard({
           <div className="mt-6 flex items-center justify-between">
             <div>
               <p className="font-medium text-[#7d7566] text-sm">{t("card.startingAt")}</p>
-              <p className="mt-1 font-semibold text-[var(--red)] text-lg">
+              <p className="mt-1 font-semibold text-[#E85D48] text-lg">
                 {priceFormatted}
                 {t("card.perHour")}
               </p>
             </div>
-            <span className="font-semibold text-[var(--muted-foreground)] text-base group-hover:text-[var(--red)]">
+            <span className="font-semibold text-base text-gray-600 group-hover:text-[#E85D48]">
               {t("card.viewProfile")}
             </span>
           </div>

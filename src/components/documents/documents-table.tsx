@@ -55,7 +55,7 @@ export function DocumentsTable({ documents, labels }: Props) {
         header: "Document Type",
         cell: (info) => (
           <div>
-            <p className="font-medium text-[var(--foreground)]">
+            <p className="font-medium text-gray-900">
               {labels[info.getValue()] ?? info.getValue()}
             </p>
             {info.row.original.metadata?.note && (
@@ -67,9 +67,7 @@ export function DocumentsTable({ documents, labels }: Props) {
       columnHelper.accessor((row) => row.metadata?.originalName, {
         id: "filename",
         header: "File Name",
-        cell: (info) => (
-          <span className="text-[var(--foreground)]">{info.getValue() ?? "Unnamed file"}</span>
-        ),
+        cell: (info) => <span className="text-gray-900">{info.getValue() ?? "Unnamed file"}</span>,
       }),
       columnHelper.accessor((row) => row.metadata?.size, {
         id: "size",
@@ -91,7 +89,7 @@ export function DocumentsTable({ documents, labels }: Props) {
           const mimeType = info.getValue()?.mimeType || "";
           const extension = mimeType.split("/")[1]?.toUpperCase() || "—";
           return (
-            <span className="inline-flex items-center rounded-full bg-[#ebe5d8] px-2.5 py-1 font-medium text-[var(--foreground)] text-xs">
+            <span className="inline-flex items-center rounded-full bg-[#ebe5d8] px-2.5 py-1 font-medium text-gray-900 text-xs">
               {extension}
             </span>
           );
@@ -106,7 +104,7 @@ export function DocumentsTable({ documents, labels }: Props) {
           }
           return (
             <a
-              className="inline-flex items-center gap-1.5 rounded-lg border border-[#ebe5d8] px-3 py-1.5 font-semibold text-[var(--red)] text-sm transition hover:border-[var(--red)] hover:bg-[#fff5f2]"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-[#ebe5d8] px-3 py-1.5 font-semibold text-[#E85D48] text-sm transition hover:border-[#E85D48] hover:bg-[#fff5f2]"
               href={url}
               rel="noopener noreferrer"
               target="_blank"
@@ -177,10 +175,8 @@ export function DocumentsTable({ documents, labels }: Props) {
               </svg>
             </div>
           </div>
-          <h3 className="font-semibold text-[var(--foreground)] text-base">
-            No documents uploaded
-          </h3>
-          <p className="mt-1 text-[var(--muted-foreground)] text-sm">
+          <h3 className="font-semibold text-base text-gray-900">No documents uploaded</h3>
+          <p className="mt-1 text-gray-600 text-sm">
             Upload your verification documents to get started.
           </p>
         </div>
@@ -194,7 +190,7 @@ export function DocumentsTable({ documents, labels }: Props) {
       <div className="flex items-center gap-4">
         <div className="relative flex-1">
           <input
-            className="w-full rounded-lg border border-[#ebe5d8] px-4 py-2 pl-10 text-[var(--foreground)] text-sm placeholder-[#7d7566] focus:border-[var(--red)] focus:outline-none focus:ring-1 focus:ring-[var(--red)]"
+            className="w-full rounded-lg border border-[#ebe5d8] px-4 py-2 pl-10 text-gray-900 text-sm placeholder-[#7d7566] focus:border-[#E85D48] focus:outline-none focus:ring-1 focus:ring-[#E85D48]"
             onChange={(e) => table.getColumn("document_type")?.setFilterValue(e.target.value)}
             placeholder="Search documents..."
             type="text"
@@ -225,7 +221,7 @@ export function DocumentsTable({ documents, labels }: Props) {
       <div className="overflow-hidden rounded-lg border border-[#ebe5d8]">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px]">
-            <thead className="bg-[var(--background)]">
+            <thead className="bg-[#fbf9f7]">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
@@ -235,7 +231,7 @@ export function DocumentsTable({ documents, labels }: Props) {
                     >
                       {header.isPlaceholder ? null : header.column.getCanSort() ? (
                         <button
-                          className="flex w-full cursor-pointer select-none items-center gap-2 text-left hover:text-[var(--red)]"
+                          className="flex w-full cursor-pointer select-none items-center gap-2 text-left hover:text-[#E85D48]"
                           onClick={header.column.getToggleSortingHandler()}
                           type="button"
                         >
@@ -257,7 +253,7 @@ export function DocumentsTable({ documents, labels }: Props) {
             </thead>
             <tbody className="divide-y divide-[#ebe5d8] bg-white">
               {table.getRowModel().rows.map((row) => (
-                <tr className="transition hover:bg-[var(--background)]" key={row.id}>
+                <tr className="transition hover:bg-[#fbf9f7]" key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <td className="px-6 py-4" key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -278,7 +274,7 @@ export function DocumentsTable({ documents, labels }: Props) {
           </div>
           <div className="flex items-center gap-2">
             <button
-              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[var(--foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)] disabled:opacity-50"
+              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-gray-900 text-sm transition hover:border-[#E85D48] hover:text-[#E85D48] disabled:opacity-50"
               disabled={!table.getCanPreviousPage()}
               onClick={() => table.previousPage()}
               type="button"
@@ -286,7 +282,7 @@ export function DocumentsTable({ documents, labels }: Props) {
               Previous
             </button>
             <button
-              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-[var(--foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)] disabled:opacity-50"
+              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-gray-900 text-sm transition hover:border-[#E85D48] hover:text-[#E85D48] disabled:opacity-50"
               disabled={!table.getCanNextPage()}
               onClick={() => table.nextPage()}
               type="button"

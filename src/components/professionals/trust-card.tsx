@@ -27,7 +27,7 @@ export function TrustCard({ verificationLevel, onTimeRate, rating, reviewCount }
 
   return (
     <div className="rounded-[24px] border-2 border-[#e5e7eb] bg-[#f9fafb] p-6 shadow-sm">
-      <h3 className="mb-4 font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
+      <h3 className="mb-4 font-semibold text-gray-900 text-lg">{t("title")}</h3>
 
       {/* Trust Badges */}
       <div className="space-y-3">
@@ -50,7 +50,7 @@ export function TrustCard({ verificationLevel, onTimeRate, rating, reviewCount }
 
       {/* Explainer Link */}
       <a
-        className="mt-4 flex items-center gap-2 text-[var(--red)] text-sm transition hover:underline"
+        className="mt-4 flex items-center gap-2 text-[#E85D48] text-sm transition hover:underline"
         href="/trust-safety"
       >
         <HugeiconsIcon className="h-4 w-4" icon={InformationCircleIcon} />
@@ -61,19 +61,19 @@ export function TrustCard({ verificationLevel, onTimeRate, rating, reviewCount }
       <div className="mt-6 space-y-2 border-[#e5e7eb] border-t pt-4">
         <div className="flex items-center justify-between text-sm">
           <span className="text-[#6b7280]">{t("backgroundCheck")}</span>
-          <span className="font-semibold text-[var(--foreground)]">
+          <span className="font-semibold text-gray-900">
             {verificationLevel === "background-check" ? "✓" : "—"}
           </span>
         </div>
         <div className="flex items-center justify-between text-sm">
           <span className="text-[#6b7280]">{t("identityVerified")}</span>
-          <span className="font-semibold text-[var(--foreground)]">
+          <span className="font-semibold text-gray-900">
             {verificationLevel !== "none" ? "✓" : "—"}
           </span>
         </div>
         <div className="flex items-center justify-between text-sm">
           <span className="text-[#6b7280]">{t("responseTime")}</span>
-          <span className="font-semibold text-[var(--foreground)]">{t("responseTimeValue")}</span>
+          <span className="font-semibold text-gray-900">{t("responseTimeValue")}</span>
         </div>
       </div>
     </div>

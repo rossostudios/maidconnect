@@ -96,14 +96,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   }
 
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+    <div className="min-h-screen bg-stone-50 text-stone-900">
       <SiteHeader />
       <main data-tour="welcome">
         <HeroSection />
         <NewProfessionalsCarousel professionals={latestProfessionals} />
         <ServicesSection />
-        <ProcessSection />
         <TestimonialsSection />
+        <ProcessSection />
         <ConciergeSection />
       </main>
       <SiteFooter />

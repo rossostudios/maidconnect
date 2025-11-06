@@ -1,13 +1,15 @@
 /**
- * Framer Motion Animation Utilities
+ * Motion.dev Animation Utilities
  *
  * Consistent, accessible animation patterns for Casaora/MaidConnect.
  * All animations respect user's motion preferences via MotionConfig.
+ * Using motion.dev best practices: variants, spring physics, willChange optimization.
  *
- * @see https://motion.dev/docs/react-accessibility
+ * @see https://motion.dev/docs/react-animation
+ * @see https://motion.dev/docs/react-transitions
  */
 
-import type { Transition, Variants } from "framer-motion";
+import type { Transition, Variants } from "motion/react";
 
 /* ============================================
    ANIMATION TIMING
@@ -338,16 +340,26 @@ export const buttonPress = {
 
 /**
  * Card hover effect
+ * Using Tailwind-compatible shadow values and spring physics
  */
-export const cardHover = {
+export const cardHover: Variants = {
   rest: {
     scale: 1,
-    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.04)",
+    y: 0,
+    transition: {
+      type: "spring" as const,
+      stiffness: 300,
+      damping: 25,
+    },
   },
   hover: {
     scale: 1.01,
-    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.08)",
-    transition: fastTransition,
+    y: -2,
+    transition: {
+      type: "spring" as const,
+      stiffness: 400,
+      damping: 25,
+    },
   },
 };
 

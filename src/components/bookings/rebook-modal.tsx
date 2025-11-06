@@ -97,26 +97,26 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
 
       {/* Pre-filled Details */}
       <div className="rounded-xl border border-[#ebe5d8] bg-[#fbfafa] p-4">
-        <h3 className="mb-3 font-semibold text-[var(--foreground)] text-sm">Service Details</h3>
+        <h3 className="mb-3 font-semibold text-gray-900 text-sm">Service Details</h3>
         <div className="space-y-2 text-sm">
           <p>
             <span className="font-medium text-[#7a6d62]">Service:</span>{" "}
-            <span className="text-[var(--foreground)]">{booking.service_name}</span>
+            <span className="text-gray-900">{booking.service_name}</span>
           </p>
           <p>
             <span className="font-medium text-[#7a6d62]">Professional:</span>{" "}
-            <span className="text-[var(--foreground)]">{booking.professional?.full_name}</span>
+            <span className="text-gray-900">{booking.professional?.full_name}</span>
           </p>
           {booking.duration_minutes && (
             <p>
               <span className="font-medium text-[#7a6d62]">Duration:</span>{" "}
-              <span className="text-[var(--foreground)]">{booking.duration_minutes} minutes</span>
+              <span className="text-gray-900">{booking.duration_minutes} minutes</span>
             </p>
           )}
           {booking.amount_captured && (
             <p>
               <span className="font-medium text-[#7a6d62]">Amount:</span>{" "}
-              <span className="text-[var(--foreground)]">
+              <span className="text-gray-900">
                 {new Intl.NumberFormat("es-CO", {
                   style: "currency",
                   currency: booking.currency || "COP",
@@ -130,14 +130,11 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
 
       {/* Date/Time Selection */}
       <div>
-        <label
-          className="mb-2 block font-medium text-[var(--foreground)] text-sm"
-          htmlFor="rebook-schedule"
-        >
+        <label className="mb-2 block font-medium text-gray-900 text-sm" htmlFor="rebook-schedule">
           When would you like to schedule?
         </label>
         <input
-          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-[var(--foreground)] transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]/20"
+          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-gray-900 transition focus:border-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900/20"
           id="rebook-schedule"
           min={new Date().toISOString().slice(0, 16)}
           onChange={(e) => handleStartTimeChange(e.target.value)}
@@ -149,7 +146,7 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
 
       {/* Error Message */}
       {form.error && (
-        <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-red-800 text-sm">
+        <div className="rounded-xl border border-red-200 bg-[#E85D48]/10 p-4 text-red-800 text-sm">
           {form.error}
         </div>
       )}

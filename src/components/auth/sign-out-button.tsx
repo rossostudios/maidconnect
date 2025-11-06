@@ -25,7 +25,7 @@ export function SignOutButton({ className, showLabel = true, isCollapsed = false
     startTransition(async () => {
       try {
         await signOutAction();
-      } catch (error) {
+      } catch (_error) {
         // Error is handled by server action
         // Reset state if somehow we're still here
         setIsSigningOut(false);
@@ -39,7 +39,7 @@ export function SignOutButton({ className, showLabel = true, isCollapsed = false
     <button
       aria-label={isLoading ? "Signing out..." : "Sign out"}
       className={cn(
-        "flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-[#525252] text-sm transition-all hover:bg-[#F5F5F5] hover:text-[#E63946]",
+        "flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-[#525252] text-sm transition-all hover:bg-[#F5F5F5] hover:text-[#E85D48]",
         isCollapsed && "justify-center",
         isLoading && "cursor-wait opacity-50",
         className
@@ -54,7 +54,7 @@ export function SignOutButton({ className, showLabel = true, isCollapsed = false
         <HugeiconsIcon className="h-5 w-5 flex-shrink-0" icon={Logout01Icon} />
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#E63946] border-t-transparent" />
+            <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#E85D48] border-t-transparent" />
           </div>
         )}
       </div>

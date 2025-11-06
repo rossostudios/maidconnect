@@ -75,9 +75,9 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
           const active = isActive(item.href);
           return (
             <Link
-              className={`relative pb-1 transition hover:text-[var(--red)] ${
+              className={`relative pb-1 transition hover:text-[#E85D48] ${
                 active
-                  ? "font-semibold text-[var(--red)] after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:bg-[var(--red)] after:content-['']"
+                  ? "font-semibold text-[#E85D48] after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:bg-[#E85D48] after:content-['']"
                   : ""
               }`}
               href={item.href}
@@ -91,7 +91,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
         {/* Search Button with ⌘K */}
         <button
           aria-label="Search"
-          className="group ml-2 flex items-center gap-2 rounded-lg border border-[#dcd6c7] bg-white px-3 py-1.5 text-[#7a6d62] transition hover:border-[var(--red)] hover:bg-[#fff5f2] hover:text-[var(--red)]"
+          className="group ml-2 flex items-center gap-2 rounded-lg border border-[#dcd6c7] bg-white px-3 py-1.5 text-[#7a6d62] transition hover:border-[#E85D48] hover:bg-[#fff5f2] hover:text-[#E85D48]"
           onClick={openCommandPalette}
           type="button"
         >
@@ -116,8 +116,8 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
         {/* Messages Icon */}
         <Link
           aria-label={`Messages${unreadCount > 0 ? ` (${unreadCount} unread)` : ""}`}
-          className={`relative rounded-lg p-1.5 transition hover:bg-[#ebe5d8] hover:text-[var(--red)] ${
-            pathname === messagesHref ? "bg-[#fff5f2] text-[var(--red)]" : "text-[#524d43]"
+          className={`relative rounded-lg p-1.5 transition hover:bg-[#ebe5d8] hover:text-[#E85D48] ${
+            pathname === messagesHref ? "bg-[#fff5f2] text-[#E85D48]" : "text-[#524d43]"
           }`}
           href={messagesHref}
         >
@@ -136,7 +136,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
             />
           </svg>
           {unreadCount > 0 && (
-            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[var(--red)] px-1 font-bold text-[10px] text-white">
+            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#E85D48] px-1 font-bold text-[10px] text-white">
               {unreadCount > 9 ? "9+" : unreadCount}
             </span>
           )}
@@ -145,7 +145,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
         {/* Notifications Icon */}
         <button
           aria-label={`Notifications${notificationUnreadCount > 0 ? ` (${notificationUnreadCount} unread)` : ""}`}
-          className="relative rounded-lg p-1.5 text-[#524d43] transition hover:bg-[#ebe5d8] hover:text-[var(--red)]"
+          className="relative rounded-lg p-1.5 text-[#524d43] transition hover:bg-[#ebe5d8] hover:text-[#E85D48]"
           onClick={() => setIsNotificationsOpen(true)}
           type="button"
         >
@@ -164,7 +164,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
             />
           </svg>
           {notificationUnreadCount > 0 && (
-            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[var(--red)] px-1 font-bold text-[10px] text-white">
+            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#E85D48] px-1 font-bold text-[10px] text-white">
               {notificationUnreadCount > 9 ? "9+" : notificationUnreadCount}
             </span>
           )}
@@ -173,7 +173,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
         {/* Sign Out Button */}
         <Link
           aria-label="Sign out"
-          className="flex items-center gap-2 rounded-lg border border-[#dcd6c7] bg-white px-3 py-1.5 text-[#7a6d62] transition hover:border-[var(--red)] hover:bg-[#fff5f2] hover:text-[var(--red)]"
+          className="flex items-center gap-2 rounded-lg border border-[#dcd6c7] bg-white px-3 py-1.5 text-[#7a6d62] transition hover:border-[#E85D48] hover:bg-[#fff5f2] hover:text-[#E85D48]"
           href="/auth/sign-out"
         >
           <HugeiconsIcon className="h-4 w-4" icon={Logout01Icon} />

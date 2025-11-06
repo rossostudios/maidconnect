@@ -135,9 +135,9 @@ export function ProfessionalVettingDashboard() {
     return (
       <Card className="border-[#E5E5E5] bg-white">
         <CardContent className="p-8 text-center">
-          <p className="mb-4 text-[#E63946] text-sm">{error}</p>
+          <p className="mb-4 text-[#E85D48] text-sm">{error}</p>
           <button
-            className="rounded-lg bg-[#E63946] px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-[#D32F40]"
+            className="rounded-lg bg-[#E85D48] px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-[#D32F40]"
             onClick={fetchQueue}
             type="button"
           >
@@ -493,7 +493,7 @@ export function ProfessionalVettingDashboard() {
 
                       {/* Review Button */}
                       <button
-                        className="ml-6 rounded-lg bg-[#E63946] px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-[#D32F40]"
+                        className="ml-6 rounded-lg bg-[#E85D48] px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-[#D32F40]"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >

@@ -4,93 +4,21 @@
   color-scheme: light;
 
   /* ============================================
-     CASAORA DESIGN SYSTEM - STAAYS INSPIRED
-     Clean luxury aesthetic with cream + red
+     TYPOGRAPHY SYSTEM
+     Responsive typography using CSS clamp()
      ============================================ */
 
-  /* Primary Color Palette */
-  --charcoal: #1A1A1A;           /* Primary text - cooler, cleaner */
-  --cream: #FFFCF8;              /* Background - bright, clean */
-  --red: #E63946;                /* Primary accent - vibrant, energetic */
-  --red-hover: #D62839;          /* Hover state for red */
-  --red-light: #FFE8EA;          /* Light red for backgrounds */
-
-  /* Core Brand Colors */
-  --background: #FFFCF8;         /* Clean cream */
-  --background-alt: #FBF9F6;     /* Slightly darker cream */
-  --foreground: #1A1A1A;         /* Charcoal text */
-  --surface: #FFFFFF;            /* Pure white */
-  --surface-soft: #F8F6F3;       /* Soft cream surface */
-  --surface-elevated: #FFFFFF;   /* Elevated white */
-  --surface-contrast: #1A1A1A;   /* Dark contrast */
-  --muted: #F0EDE8;              /* Muted cream */
-  --muted-foreground: #6A6A6A;   /* Cool gray for secondary text */
-  --border: #F0EDE8;             /* Subtle light border */
-  --border-subtle: #F8F6F3;      /* Ultra subtle border */
-  --input-background: #FFFFFF;   /* White inputs */
-  --input-border: #E8E5E0;       /* Subtle input border */
-  --focus-ring: rgba(230, 57, 70, 0.25); /* Red focus ring */
-
-  /* Accent Colors */
-  --accent: #E63946;             /* Primary red accent */
-  --accent-red: #E63946;         /* Red accent */
-  --accent-red-hover: #D62839;   /* Red hover */
-  --accent-dark: #C41E2A;        /* Darker red for emphasis */
-
-  /* Cool Neutrals (replacing warm neutrals) */
-  --neutral-gray: #4A4A4A;       /* Mid gray */
-  --neutral-light: #F5F5F5;      /* Light gray */
-
-  /* Refined Status Colors */
-  --status-success: #2E7D32;     /* Clean green */
-  --status-warning: #F57C00;     /* Clean orange */
-  --status-error: #E63946;       /* Use brand red */
-  --status-info: #1976D2;        /* Clean blue */
-
-  /* Status Badge Colors (for backgrounds and text) */
-  --status-success-bg: #E8F5E9;  /* Light green background */
-  --status-success-text: #2E7D32; /* Dark green text */
-  --status-warning-bg: #FFF3E0;  /* Light orange background */
-  --status-warning-text: #E65100; /* Dark orange text */
-  --status-error-bg: #FFE8EA;    /* Light red background (brand) */
-  --status-error-text: #C41E2A;  /* Dark red text */
-  --status-info-bg: #E3F2FD;     /* Light blue background */
-  --status-info-text: #1565C0;   /* Dark blue text */
-
-  /* Additional Text Colors */
-  --label-muted: #6A6A6A;        /* Muted labels (replaces #7d7566, #7a6d62) */
-  --text-tertiary: #8A8A8A;      /* Tertiary text color */
-
-  /* Additional Border Colors */
-  --border-light: #F0EDE8;       /* Light borders (replaces #ebe5d8) */
-  --border-lighter: #F8F6F3;     /* Lighter borders (replaces #dcd6c7, #f0ece5) */
-
-  /* Minimal Shadows (lighter, more subtle) */
-  --shadow-subtle: 0 1px 8px rgba(0, 0, 0, 0.03);
-  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.04);
-  --shadow-elevated: 0 8px 24px rgba(0, 0, 0, 0.06);
-  --shadow-dramatic: 0 16px 48px rgba(0, 0, 0, 0.08);
-
-  /* Vertical Rhythm Spacing System (8px base unit) */
-  --space-1: 8px;
-  --space-2: 16px;
-  --space-3: 24px;
-  --space-4: 32px;
-  --space-5: 48px;
-  --space-6: 64px;
-  --space-7: 96px;
-
-  /* Typography Scale (significantly reduced for better readability) */
-  --font-display: clamp(32px, 4vw, 48px);    /* Reduced from 64px to 48px */
-  --font-h1: clamp(24px, 2.8vw, 36px);       /* Reduced from 44px to 36px */
-  --font-h2: clamp(20px, 2.2vw, 28px);       /* Reduced from 32px to 28px */
-  --font-h3: clamp(18px, 1.8vw, 22px);       /* Reduced from 26px to 22px */
+  /* Typography Scale */
+  --font-display: clamp(32px, 4vw, 48px);
+  --font-h1: clamp(24px, 2.8vw, 36px);
+  --font-h2: clamp(20px, 2.2vw, 28px);
+  --font-h3: clamp(18px, 1.8vw, 22px);
   --font-tagline: clamp(11px, 0.9vw, 13px);
   --font-body: clamp(16px, 1.1vw, 18px);
   --font-small: clamp(13px, 0.9vw, 15px);
   --font-nav: clamp(13px, 0.9vw, 15px);
 
-  /* Line Heights (balanced) */
+  /* Line Heights */
   --leading-display: 1.18;
   --leading-h1: 1.2;
   --leading-h2: 1.25;
@@ -105,14 +33,50 @@
   --tracking-medium: 0.005em;
   --tracking-ultra: 0.08em;
   --tracking-nav: 0.04em;
+
+  /* Spacing System (used in prose classes) */
+  --space-2: 16px;
+  --space-3: 24px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* SavvyCal-inspired color palette */
+  --color-background: #F5F0E8;       /* Warm cream background */
+  --color-foreground: #1A1614;       /* Rich dark brown/black */
+  --color-accent: #E85D48;           /* Coral/orange accent */
+  --color-accent-hover: #D64A36;     /* Darker coral for hover */
   --font-sans: var(--font-inter);
   --font-display: var(--font-inter);
   --font-ui: var(--font-inter);
+
+  /* ============================================
+     AUTO LAYOUT SPACING TOKENS
+     Semantic naming for consistent layouts
+     ============================================ */
+
+  /* Section Spacing - Vertical rhythm between major sections */
+  --spacing-section-sm: 3rem;     /* 48px - mobile sections */
+  --spacing-section: 6rem;        /* 96px - desktop sections */
+  --spacing-section-lg: 8rem;     /* 128px - hero sections */
+
+  /* Component Spacing - Between components within sections */
+  --spacing-component: 4rem;      /* 64px - component groups */
+  --spacing-component-sm: 2rem;   /* 32px - tight component groups */
+
+  /* Card/Element Internal Spacing */
+  --spacing-card-lg: 2rem;        /* 32px - large card padding */
+  --spacing-card: 1.5rem;         /* 24px - standard card padding */
+  --spacing-card-sm: 1rem;        /* 16px - compact card padding */
+
+  /* Auto Layout Gaps - Flexbox/grid gaps for predictable spacing */
+  --spacing-gap-xl: 3rem;         /* 48px - major element gaps */
+  --spacing-gap-lg: 2rem;         /* 32px - section element gaps */
+  --spacing-gap-md: 1.5rem;       /* 24px - standard gaps */
+  --spacing-gap: 1rem;            /* 16px - default gaps */
+  --spacing-gap-sm: 0.75rem;      /* 12px - tight gaps */
+  --spacing-gap-xs: 0.5rem;       /* 8px - minimal gaps */
+  --spacing-gap-2xs: 0.375rem;    /* 6px - extra minimal gaps */
+  --spacing-gap-3xs: 0.25rem;     /* 4px - ultra minimal gaps */
 }
 
 /* ============================================
@@ -120,16 +84,16 @@
    ============================================ */
 
 html {
-  background: var(--background);
-  color: var(--foreground);
+  background: #F5F0E8;
+  color: #1A1614;
 }
 
 body {
   min-height: 100%;
-  background-color: var(--background);
-  /* Simpler, cleaner background - no gradient for Staays minimal aesthetic */
-  background: var(--background);
-  color: var(--foreground);
+  background-color: #F5F0E8;
+  /* Warm cream background inspired by SavvyCal */
+  background: #F5F0E8;
+  color: #1A1614;
   font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: var(--font-body);
   line-height: var(--leading-body);
@@ -141,7 +105,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
-  accent-color: var(--accent);
+  accent-color: #E85D48;
   margin: 0;
 }
 
@@ -152,22 +116,22 @@ body {
 input,
 textarea,
 select {
-  background-color: var(--input-background);
-  border-color: var(--input-border);
+  background-color: #ffffff;
+  border-color: #e8e5e0;
   color: inherit;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: color-mix(in srgb, var(--muted-foreground) 65%, transparent);
+  color: color-mix(in srgb, #7a6d62 65%, transparent);
   opacity: 1;
 }
 
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--focus-ring);
+  outline: 2px solid rgba(232, 93, 72, 0.25);
   outline-offset: 2px;
 }
 
@@ -375,7 +339,7 @@ small,
   font-size: var(--font-tagline);
   letter-spacing: var(--tracking-ultra);
   line-height: var(--leading-tagline);
-  color: var(--muted-foreground);
+  color: #7a6d62;
 }
 
 /* ============================================
@@ -385,7 +349,7 @@ small,
 .hr-red {
   width: min(60px, 15%);
   height: 2px;
-  background: var(--red);
+  background: #E85D48;
   opacity: 1;
   border: none;
 }
@@ -394,7 +358,7 @@ small,
 .hr-gold {
   width: min(60px, 15%);
   height: 2px;
-  background: var(--red);
+  background: #E85D48;
   opacity: 1;
   border: none;
 }
@@ -447,17 +411,17 @@ small,
 
 .btn {
   padding: 14px 28px;
-  border: 1px solid var(--red);
+  border: 1px solid #E85D48;
   background: transparent;
-  color: var(--charcoal);
+  color: #1A1614;
   cursor: pointer;
   transition: all 0.25s ease;
   font-weight: 600; /* Semi-Bold for buttons */
 }
 
 .btn:hover {
-  border-color: var(--red-hover);
-  background: var(--red);
+  border-color: #D64A36;
+  background: #E85D48;
   color: white;
 }
 
@@ -485,8 +449,8 @@ small,
    ============================================ */
 
 ::selection {
-  background-color: var(--red-light);
-  color: var(--charcoal);
+  background-color: #fce4e0;
+  color: #1A1614;
 }
 
 /* ============================================
@@ -494,9 +458,9 @@ small,
    ============================================ */
 
 .glass-card {
-  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
-  background: color-mix(in srgb, var(--surface) 72%, transparent);
-  box-shadow: var(--shadow-subtle);
+  border: 1px solid color-mix(in srgb, #f0ede8 82%, transparent);
+  background: color-mix(in srgb, #ffffff 72%, transparent);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.03);
   backdrop-filter: blur(14px);
 }
 
@@ -523,7 +487,7 @@ small,
 }
 
 :focus-visible {
-  outline: 2px solid var(--focus-ring, var(--red));
+  outline: 2px solid rgba(232, 93, 72, 0.25);
   outline-offset: 2px;
   transition: outline 0.15s ease;
 }
@@ -535,7 +499,7 @@ small,
   left: 0;
   z-index: 9999;
   padding: 12px 24px;
-  background: var(--charcoal, #1A1A1A);
+  background: #1a1a1a;
   color: white;
   text-decoration: none;
   font-family: var(--font-inter), "Inter", sans-serif;
@@ -548,7 +512,7 @@ small,
 
 .skip-link:focus {
   top: 0;
-  outline: 2px solid var(--red, #E63946);
+  outline: 2px solid #E85D48;
   outline-offset: 2px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }

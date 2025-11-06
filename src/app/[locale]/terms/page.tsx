@@ -17,7 +17,7 @@ export default async function TermsPage({ params }: Props) {
   const lastUpdated = "30 de Enero de 2025";
 
   return (
-    <div className="min-h-screen bg-[var(--background)]">
+    <div className="min-h-screen bg-[#fbf9f7]">
       <SiteHeader />
       <main className="px-4 py-16">
         <div className="mx-auto max-w-4xl">
@@ -39,24 +39,22 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="mb-2 font-bold text-4xl text-[var(--foreground)]">
-          Términos y Condiciones de Uso
-        </h1>
+        <h1 className="mb-2 font-bold text-4xl text-gray-900">Términos y Condiciones de Uso</h1>
         <p className="text-[#7a6d62] text-sm">Última actualización: {lastUpdated}</p>
       </div>
 
       <div className="space-y-6">
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">
             1. Aceptación de los Términos
           </h2>
-          <p className="text-[var(--muted-foreground)]">
+          <p className="text-gray-600">
             Al acceder y utilizar la plataforma Casaora (&quot;la Plataforma&quot;), usted
             (&quot;Usuario&quot;) acepta estar sujeto a estos Términos y Condiciones de Uso
             (&quot;Términos&quot;). Si no está de acuerdo con estos Términos, no debe utilizar la
             Plataforma.
           </p>
-          <p className="mt-3 text-[var(--muted-foreground)]">
+          <p className="mt-3 text-gray-600">
             Casaora es operada por <strong>[NOMBRE DE LA EMPRESA]</strong>, NIT{" "}
             <strong>[NIT DE LA EMPRESA]</strong>, con domicilio en <strong>[DIRECCIÓN]</strong>,
             Colombia (&quot;Casaora&quot;, &quot;nosotros&quot;, &quot;nuestro&quot;).
@@ -64,19 +62,17 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            2. Descripción del Servicio
-          </h2>
-          <p className="text-[var(--muted-foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">2. Descripción del Servicio</h2>
+          <p className="text-gray-600">
             Casaora es una <strong>plataforma de intermediación digital</strong> que conecta a
             clientes que buscan servicios de limpieza doméstica con profesionales independientes que
             ofrecen dichos servicios.
           </p>
           <div className="mt-3 space-y-2">
-            <p className="text-[var(--muted-foreground)]">
+            <p className="text-gray-600">
               <strong>Casaora NO es:</strong>
             </p>
-            <ul className="ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+            <ul className="ml-6 list-disc space-y-1 text-gray-600">
               <li>Un empleador de los profesionales de limpieza</li>
               <li>Una agencia de empleo temporal</li>
               <li>Un proveedor directo de servicios de limpieza</li>
@@ -86,7 +82,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
               </li>
             </ul>
           </div>
-          <p className="mt-3 text-[var(--muted-foreground)]">
+          <p className="mt-3 text-gray-600">
             <strong>Casaora SÍ es:</strong> Una plataforma tecnológica que facilita la conexión,
             comunicación, reservación, y procesamiento de pagos entre clientes y profesionales
             independientes.
@@ -94,21 +90,21 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">
             3. Naturaleza de la Relación Contractual
           </h2>
           <div className="space-y-3">
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">
                 3.1 Profesionales Independientes
               </h3>
-              <p className="text-[var(--muted-foreground)]">
+              <p className="text-gray-600">
                 Los profesionales de limpieza registrados en la Plataforma son{" "}
                 <strong>contratistas independientes</strong> que operan su propio negocio. NO existe
                 relación laboral, de subordinación, ni de dependencia entre Casaora y los
                 profesionales.
               </p>
-              <ul className="mt-2 ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+              <ul className="mt-2 ml-6 list-disc space-y-1 text-gray-600">
                 <li>Los profesionales establecen su propia disponibilidad y tarifas</li>
                 <li>Los profesionales deciden qué reservas aceptar o rechazar</li>
                 <li>
@@ -123,10 +119,10 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             </div>
 
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">
                 3.2 Contrato Directo Cliente-Profesional
               </h3>
-              <p className="text-[var(--muted-foreground)]">
+              <p className="text-gray-600">
                 Cuando un cliente reserva un servicio a través de la Plataforma, se establece un{" "}
                 <strong>contrato directo de prestación de servicios</strong> entre el cliente y el
                 profesional. Casaora actúa únicamente como intermediario tecnológico.
@@ -136,15 +132,15 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">
             4. Registro y Cuenta de Usuario
           </h2>
           <div className="space-y-3">
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">
                 4.1 Requisitos de Registro
               </h3>
-              <ul className="ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+              <ul className="ml-6 list-disc space-y-1 text-gray-600">
                 <li>Debe ser mayor de 18 años</li>
                 <li>Debe proporcionar información veraz, precisa y completa</li>
                 <li>Debe mantener la confidencialidad de sus credenciales de acceso</li>
@@ -153,19 +149,17 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             </div>
 
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
-                4.2 Tipos de Cuenta
-              </h3>
-              <p className="text-[var(--muted-foreground)]">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">4.2 Tipos de Cuenta</h3>
+              <p className="text-gray-600">
                 <strong>Cuenta de Cliente:</strong> Permite buscar profesionales, realizar reservas,
                 y gestionar servicios.
               </p>
-              <p className="mt-2 text-[var(--muted-foreground)]">
+              <p className="mt-2 text-gray-600">
                 <strong>Cuenta de Profesional:</strong> Permite ofrecer servicios, recibir reservas,
                 y gestionar pagos. Los profesionales deben completar un proceso de verificación que
                 puede incluir:
               </p>
-              <ul className="mt-1 ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+              <ul className="mt-1 ml-6 list-disc space-y-1 text-gray-600">
                 <li>Verificación de identidad (cédula de ciudadanía o documento equivalente)</li>
                 <li>Verificación de antecedentes (cuando sea legalmente permitido)</li>
                 <li>Información de cuenta bancaria para recibir pagos</li>
@@ -176,10 +170,10 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">
             5. Obligaciones de los Clientes
           </h2>
-          <ul className="ml-6 list-disc space-y-2 text-[var(--muted-foreground)]">
+          <ul className="ml-6 list-disc space-y-2 text-gray-600">
             <li>
               <strong>Información Precisa:</strong> Proporcionar detalles correctos sobre la
               dirección, tipo de servicio, y requisitos especiales
@@ -208,10 +202,10 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">
             6. Obligaciones de los Profesionales
           </h2>
-          <ul className="ml-6 list-disc space-y-2 text-[var(--muted-foreground)]">
+          <ul className="ml-6 list-disc space-y-2 text-gray-600">
             <li>
               <strong>Calidad del Servicio:</strong> Prestar servicios de manera profesional,
               competente y diligente
@@ -243,15 +237,11 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            7. Reservas y Cancelaciones
-          </h2>
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">7. Reservas y Cancelaciones</h2>
           <div className="space-y-3">
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
-                7.1 Proceso de Reserva
-              </h3>
-              <ol className="ml-6 list-decimal space-y-1 text-[var(--muted-foreground)]">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">7.1 Proceso de Reserva</h3>
+              <ol className="ml-6 list-decimal space-y-1 text-gray-600">
                 <li>El cliente selecciona un profesional, servicio, fecha y hora</li>
                 <li>El cliente proporciona detalles del servicio y realiza el pago</li>
                 <li>
@@ -268,10 +258,10 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             </div>
 
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">
                 7.2 Política de Cancelación por el Cliente
               </h3>
-              <ul className="ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+              <ul className="ml-6 list-disc space-y-1 text-gray-600">
                 <li>
                   <strong>Más de 24 horas antes:</strong> Reembolso del 100% del monto pagado
                 </li>
@@ -286,10 +276,10 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             </div>
 
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">
                 7.3 Cancelación por el Profesional (Después de Aceptar)
               </h3>
-              <ul className="ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+              <ul className="ml-6 list-disc space-y-1 text-gray-600">
                 <li>El cliente recibe un reembolso del 100%</li>
                 <li>
                   El profesional puede recibir una penalización en su calificación o estado de
@@ -305,15 +295,13 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            8. Pagos y Comisiones
-          </h2>
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">8. Pagos y Comisiones</h2>
           <div className="space-y-3">
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">
                 8.1 Procesamiento de Pagos
               </h3>
-              <p className="text-[var(--muted-foreground)]">
+              <p className="text-gray-600">
                 Todos los pagos se procesan a través de <strong>Stripe</strong>, un procesador de
                 pagos certificado PCI DSS. Casaora no almacena información completa de tarjetas de
                 crédito o débito.
@@ -321,10 +309,10 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             </div>
 
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">
                 8.2 Estructura de Precios
               </h3>
-              <ul className="ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+              <ul className="ml-6 list-disc space-y-1 text-gray-600">
                 <li>
                   <strong>Cliente:</strong> Paga el precio del servicio establecido por el
                   profesional + tarifas de procesamiento de Stripe (si aplican)
@@ -342,10 +330,10 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             </div>
 
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">
                 8.3 Pagos a Profesionales
               </h3>
-              <ul className="ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+              <ul className="ml-6 list-disc space-y-1 text-gray-600">
                 <li>
                   Los fondos se retienen durante <strong>24 horas después del check-out</strong>{" "}
                   para permitir resolución de disputas
@@ -363,10 +351,8 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             </div>
 
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
-                8.4 Reembolsos
-              </h3>
-              <p className="text-[var(--muted-foreground)]">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">8.4 Reembolsos</h3>
+              <p className="text-gray-600">
                 Los reembolsos se procesan según la política de cancelación y pueden tardar de 5 a
                 10 días hábiles en reflejarse en la cuenta del cliente, dependiendo de la
                 institución financiera.
@@ -376,10 +362,8 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            9. Calificaciones y Reseñas
-          </h2>
-          <ul className="ml-6 list-disc space-y-2 text-[var(--muted-foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">9. Calificaciones y Reseñas</h2>
+          <ul className="ml-6 list-disc space-y-2 text-gray-600">
             <li>
               Los clientes pueden calificar y reseñar a los profesionales después de completar un
               servicio
@@ -401,13 +385,11 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">
             10. Prohibiciones y Conducta Inaceptable
           </h2>
-          <p className="mb-2 text-[var(--muted-foreground)]">
-            Los usuarios NO deben utilizar la Plataforma para:
-          </p>
-          <ul className="ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+          <p className="mb-2 text-gray-600">Los usuarios NO deben utilizar la Plataforma para:</p>
+          <ul className="ml-6 list-disc space-y-1 text-gray-600">
             <li>Eludir el sistema de pagos de la Plataforma (pagos fuera de la Plataforma)</li>
             <li>Acosar, amenazar, discriminar o abusar de otros usuarios</li>
             <li>Publicar contenido falso, engañoso o fraudulento</li>
@@ -420,24 +402,20 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            11. Disputas entre Usuarios
-          </h2>
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">11. Disputas entre Usuarios</h2>
           <div className="space-y-3">
-            <p className="text-[var(--muted-foreground)]">
+            <p className="text-gray-600">
               Casaora ofrece un sistema de mediación para ayudar a resolver disputas entre clientes
               y profesionales, pero NO es responsable de:
             </p>
-            <ul className="ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+            <ul className="ml-6 list-disc space-y-1 text-gray-600">
               <li>Daños a la propiedad durante la prestación del servicio</li>
               <li>Lesiones o accidentes ocurridos durante el servicio</li>
               <li>Calidad insatisfactoria del servicio prestado</li>
               <li>Incumplimiento de compromisos entre cliente y profesional</li>
             </ul>
-            <p className="mt-3 text-[var(--muted-foreground)]">
-              En caso de disputa, el usuario debe:
-            </p>
-            <ol className="ml-6 list-decimal space-y-1 text-[var(--muted-foreground)]">
+            <p className="mt-3 text-gray-600">En caso de disputa, el usuario debe:</p>
+            <ol className="ml-6 list-decimal space-y-1 text-gray-600">
               <li>Intentar resolver directamente con la otra parte</li>
               <li>
                 Si no se resuelve, reportar a Casaora dentro de las 48 horas siguientes al servicio
@@ -449,14 +427,14 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">
             12. Limitación de Responsabilidad
           </h2>
           <div className="space-y-3">
-            <p className="text-[var(--muted-foreground)]">
+            <p className="text-gray-600">
               <strong>EN LA MÁXIMA MEDIDA PERMITIDA POR LA LEY:</strong>
             </p>
-            <ul className="ml-6 list-disc space-y-2 text-[var(--muted-foreground)]">
+            <ul className="ml-6 list-disc space-y-2 text-gray-600">
               <li>
                 Casaora NO es responsable de los servicios prestados por profesionales
                 independientes, ni de su calidad, puntualidad, o resultados
@@ -477,7 +455,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
                 las comisiones pagadas por ese usuario en los últimos 6 meses
               </li>
             </ul>
-            <p className="mt-3 text-[var(--muted-foreground)]">
+            <p className="mt-3 text-gray-600">
               Los usuarios reconocen y aceptan que contratan servicios con terceros independientes
               bajo su propio riesgo.
             </p>
@@ -485,16 +463,14 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            13. Indemnización
-          </h2>
-          <p className="text-[var(--muted-foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">13. Indemnización</h2>
+          <p className="text-gray-600">
             El Usuario acepta defender, indemnizar y mantener indemne a Casaora, sus directores,
             empleados, contratistas y representantes de cualquier reclamación, demanda, daño,
             responsabilidad, costo o gasto (incluyendo honorarios de abogados razonables) que surjan
             de:
           </p>
-          <ul className="mt-2 ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+          <ul className="mt-2 ml-6 list-disc space-y-1 text-gray-600">
             <li>Su uso de la Plataforma</li>
             <li>Su violación de estos Términos</li>
             <li>Su violación de derechos de terceros</li>
@@ -503,18 +479,16 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">
             14. Suspensión y Terminación
           </h2>
           <div className="space-y-3">
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
-                14.1 Por Casaora
-              </h3>
-              <p className="text-[var(--muted-foreground)]">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">14.1 Por Casaora</h3>
+              <p className="text-gray-600">
                 Casaora puede suspender o terminar su cuenta inmediatamente si:
               </p>
-              <ul className="mt-1 ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+              <ul className="mt-1 ml-6 list-disc space-y-1 text-gray-600">
                 <li>Viola estos Términos</li>
                 <li>Proporciona información falsa o fraudulenta</li>
                 <li>Realiza actividades ilegales o prohibidas</li>
@@ -524,10 +498,8 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             </div>
 
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
-                14.2 Por el Usuario
-              </h3>
-              <p className="text-[var(--muted-foreground)]">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">14.2 Por el Usuario</h3>
+              <p className="text-gray-600">
                 Puede cerrar su cuenta en cualquier momento desde la configuración de su perfil. Los
                 servicios programados deben completarse o cancelarse según la política antes de
                 cerrar la cuenta.
@@ -535,10 +507,10 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
             </div>
 
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">
                 14.3 Efecto de la Terminación
               </h3>
-              <ul className="ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+              <ul className="ml-6 list-disc space-y-1 text-gray-600">
                 <li>Pierde acceso inmediato a su cuenta</li>
                 <li>
                   Los servicios programados deben ser cancelados (según política de cancelación)
@@ -554,20 +526,18 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            15. Propiedad Intelectual
-          </h2>
-          <p className="text-[var(--muted-foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">15. Propiedad Intelectual</h2>
+          <p className="text-gray-600">
             Todos los derechos de propiedad intelectual sobre la Plataforma, incluyendo pero no
             limitado a:
           </p>
-          <ul className="mt-2 ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+          <ul className="mt-2 ml-6 list-disc space-y-1 text-gray-600">
             <li>Código fuente y software</li>
             <li>Diseño, interfaz de usuario y experiencia</li>
             <li>Logotipos, marcas comerciales y nombres comerciales</li>
             <li>Contenido original creado por Casaora</li>
           </ul>
-          <p className="mt-3 text-[var(--muted-foreground)]">
+          <p className="mt-3 text-gray-600">
             Son propiedad exclusiva de Casaora o sus licenciantes. El Usuario recibe únicamente una
             licencia limitada, no exclusiva, no transferible para usar la Plataforma según estos
             Términos.
@@ -575,45 +545,43 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">
             16. Modificaciones a los Términos
           </h2>
-          <p className="text-[var(--muted-foreground)]">
+          <p className="text-gray-600">
             Casaora se reserva el derecho de modificar estos Términos en cualquier momento. Los
             cambios materiales serán notificados a través de:
           </p>
-          <ul className="mt-2 ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+          <ul className="mt-2 ml-6 list-disc space-y-1 text-gray-600">
             <li>Correo electrónico a la dirección registrada</li>
             <li>Notificación en la Plataforma</li>
             <li>Actualización de la fecha de &quot;Última actualización&quot;</li>
           </ul>
-          <p className="mt-3 text-[var(--muted-foreground)]">
+          <p className="mt-3 text-gray-600">
             El uso continuado de la Plataforma después de la notificación constituye aceptación de
             los nuevos Términos.
           </p>
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">
             17. Ley Aplicable y Jurisdicción
           </h2>
-          <p className="text-[var(--muted-foreground)]">
+          <p className="text-gray-600">
             Estos Términos se rigen por las leyes de la <strong>República de Colombia</strong>.
             Cualquier disputa que surja en relación con estos Términos o el uso de la Plataforma
             será sometida a la jurisdicción exclusiva de los tribunales competentes de{" "}
             <strong>[CIUDAD], Colombia</strong>.
           </p>
-          <p className="mt-3 text-[var(--muted-foreground)]">
+          <p className="mt-3 text-gray-600">
             Las partes acuerdan intentar resolver cualquier disputa mediante negociación de buena fe
             antes de iniciar procedimientos legales.
           </p>
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            18. Disposiciones Generales
-          </h2>
-          <ul className="ml-6 list-disc space-y-2 text-[var(--muted-foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">18. Disposiciones Generales</h2>
+          <ul className="ml-6 list-disc space-y-2 text-gray-600">
             <li>
               <strong>Divisibilidad:</strong> Si cualquier disposición de estos Términos es
               considerada inválida, las demás disposiciones permanecerán vigentes
@@ -638,13 +606,11 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            19. Información de Contacto
-          </h2>
-          <p className="text-[var(--muted-foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">19. Información de Contacto</h2>
+          <p className="text-gray-600">
             Para preguntas, comentarios o quejas sobre estos Términos, puede contactarnos:
           </p>
-          <ul className="mt-2 ml-6 list-none space-y-1 text-[var(--muted-foreground)]">
+          <ul className="mt-2 ml-6 list-none space-y-1 text-gray-600">
             <li>
               <strong>Correo electrónico:</strong> legal@casaora.com
             </li>
@@ -655,7 +621,7 @@ function SpanishTerms({ lastUpdated }: { lastUpdated: string }) {
               <strong>Teléfono:</strong> [NÚMERO DE TELÉFONO]
             </li>
           </ul>
-          <p className="mt-3 text-[var(--muted-foreground)]">
+          <p className="mt-3 text-gray-600">
             Nos comprometemos a responder a su consulta dentro de los{" "}
             <strong>15 días hábiles</strong> siguientes a su recepción.
           </p>
@@ -678,23 +644,19 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="mb-2 font-bold text-4xl text-[var(--foreground)]">
-          Terms and Conditions of Use
-        </h1>
+        <h1 className="mb-2 font-bold text-4xl text-gray-900">Terms and Conditions of Use</h1>
         <p className="text-[#7a6d62] text-sm">Last updated: {lastUpdated}</p>
       </div>
 
       <div className="space-y-6">
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            1. Acceptance of Terms
-          </h2>
-          <p className="text-[var(--muted-foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">1. Acceptance of Terms</h2>
+          <p className="text-gray-600">
             By accessing and using the Casaora platform (&quot;the Platform&quot;), you
             (&quot;User&quot;) agree to be bound by these Terms and Conditions of Use
             (&quot;Terms&quot;). If you do not agree to these Terms, you must not use the Platform.
           </p>
-          <p className="mt-3 text-[var(--muted-foreground)]">
+          <p className="mt-3 text-gray-600">
             Casaora is operated by <strong>[COMPANY NAME]</strong>, NIT{" "}
             <strong>[COMPANY NIT]</strong>, domiciled at <strong>[ADDRESS]</strong>, Colombia
             (&quot;Casaora&quot;, &quot;we&quot;, &quot;our&quot;).
@@ -702,19 +664,17 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            2. Service Description
-          </h2>
-          <p className="text-[var(--muted-foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">2. Service Description</h2>
+          <p className="text-gray-600">
             Casaora is a <strong>digital intermediation platform</strong> that connects clients
             seeking domestic cleaning services with independent professionals who offer such
             services.
           </p>
           <div className="mt-3 space-y-2">
-            <p className="text-[var(--muted-foreground)]">
+            <p className="text-gray-600">
               <strong>Casaora IS NOT:</strong>
             </p>
-            <ul className="ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+            <ul className="ml-6 list-disc space-y-1 text-gray-600">
               <li>An employer of cleaning professionals</li>
               <li>A temporary employment agency</li>
               <li>A direct provider of cleaning services</li>
@@ -724,7 +684,7 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
               </li>
             </ul>
           </div>
-          <p className="mt-3 text-[var(--muted-foreground)]">
+          <p className="mt-3 text-gray-600">
             <strong>Casaora IS:</strong> A technology platform that facilitates connection,
             communication, booking, and payment processing between clients and independent
             professionals.
@@ -732,15 +692,15 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">
             3. Nature of Contractual Relationship
           </h2>
           <div className="space-y-3">
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">
                 3.1 Independent Professionals
               </h3>
-              <p className="text-[var(--muted-foreground)]">
+              <p className="text-gray-600">
                 Cleaning professionals registered on the Platform are{" "}
                 <strong>independent contractors</strong> operating their own business. There is NO
                 employment, subordination, or dependency relationship between Casaora and the
@@ -749,10 +709,10 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
             </div>
 
             <div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
+              <h3 className="mb-2 font-semibold text-gray-900 text-lg">
                 3.2 Direct Client-Professional Contract
               </h3>
-              <p className="text-[var(--muted-foreground)]">
+              <p className="text-gray-600">
                 When a client books a service through the Platform, a{" "}
                 <strong>direct service provision contract</strong> is established between the client
                 and the professional. Casaora acts solely as a technology intermediary.
@@ -762,14 +722,12 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            4. Payment Processing
-          </h2>
-          <p className="text-[var(--muted-foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">4. Payment Processing</h2>
+          <p className="text-gray-600">
             All payments are processed through <strong>Stripe</strong>, a PCI DSS certified payment
             processor. Casaora does not store complete credit or debit card information.
           </p>
-          <p className="mt-3 text-[var(--muted-foreground)]">
+          <p className="mt-3 text-gray-600">
             Professionals receive payment 24 hours after check-out, minus Casaora&apos;s commission
             and Stripe processing fees. Professionals are responsible for declaring this income to
             tax authorities.
@@ -777,10 +735,8 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            5. Cancellation Policy
-          </h2>
-          <ul className="ml-6 list-disc space-y-1 text-[var(--muted-foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">5. Cancellation Policy</h2>
+          <ul className="ml-6 list-disc space-y-1 text-gray-600">
             <li>
               <strong>More than 24 hours before:</strong> 100% refund
             </li>
@@ -794,23 +750,21 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            6. Limitation of Liability
-          </h2>
-          <p className="text-[var(--muted-foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">6. Limitation of Liability</h2>
+          <p className="text-gray-600">
             <strong>TO THE MAXIMUM EXTENT PERMITTED BY LAW:</strong> Casaora is NOT responsible for
             services provided by independent professionals, nor for their quality, timeliness, or
             results. The Platform is provided &quot;AS IS&quot; without warranties of any kind.
           </p>
-          <p className="mt-3 text-[var(--muted-foreground)]">
+          <p className="mt-3 text-gray-600">
             Users acknowledge that they contract services with independent third parties at their
             own risk.
           </p>
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">7. Governing Law</h2>
-          <p className="text-[var(--muted-foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">7. Governing Law</h2>
+          <p className="text-gray-600">
             These Terms are governed by the laws of the <strong>Republic of Colombia</strong>. Any
             dispute arising in connection with these Terms or use of the Platform shall be subject
             to the exclusive jurisdiction of the competent courts of{" "}
@@ -819,13 +773,9 @@ function EnglishTerms({ lastUpdated }: { lastUpdated: string }) {
         </section>
 
         <section>
-          <h2 className="mb-3 font-semibold text-2xl text-[var(--foreground)]">
-            8. Contact Information
-          </h2>
-          <p className="text-[var(--muted-foreground)]">
-            For questions about these Terms, contact us:
-          </p>
-          <ul className="mt-2 ml-6 list-none space-y-1 text-[var(--muted-foreground)]">
+          <h2 className="mb-3 font-semibold text-2xl text-gray-900">8. Contact Information</h2>
+          <p className="text-gray-600">For questions about these Terms, contact us:</p>
+          <ul className="mt-2 ml-6 list-none space-y-1 text-gray-600">
             <li>
               <strong>Email:</strong> legal@casaora.com
             </li>

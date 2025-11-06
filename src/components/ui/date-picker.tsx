@@ -110,7 +110,7 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
       ) : null}
       <button
         className={cn(
-          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-[var(--foreground)] text-sm shadow-black/5 shadow-inner transition hover:border-[var(--red)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--red)] focus-visible:outline-offset-2",
+          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-gray-900 text-sm shadow-black/5 shadow-inner transition hover:border-[#E85D48] focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-600 focus-visible:outline-offset-2",
           !value && "text-[#8a826d]"
         )}
         onClick={() => setOpen((prev) => !prev)}
@@ -119,16 +119,13 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
         <span className="flex items-center gap-2">
           <HugeiconsIcon
             aria-hidden="true"
-            className="h-4 w-4 text-[var(--red)]"
+            className="h-4 w-4 text-[#E85D48]"
             icon={CalendarSetting01Icon}
           />
           {formatButtonLabel(value, placeholder)}
         </span>
         <HugeiconsIcon
-          className={cn(
-            "h-4 w-4 text-[var(--muted-foreground)] transition-transform",
-            open && "rotate-90"
-          )}
+          className={cn("h-4 w-4 text-gray-600 transition-transform", open && "rotate-90")}
           icon={ArrowRight01Icon}
         />
       </button>
@@ -137,7 +134,7 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
         <div className="absolute z-50 mt-3 w-full min-w-[280px] rounded-3xl border border-[#ebe5d8] bg-white p-4 shadow-[0_24px_60px_rgba(18,17,15,0.12)]">
           <div className="flex items-center justify-between">
             <button
-              className="rounded-full border border-[#ebe5d8] p-1 text-[var(--muted-foreground)] transition hover:border-[var(--red)] hover:text-[var(--red)]"
+              className="rounded-full border border-[#ebe5d8] p-1 text-gray-600 transition hover:border-[#E85D48] hover:text-[#E85D48]"
               onClick={() =>
                 setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))
               }
@@ -146,13 +143,13 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
               <HugeiconsIcon aria-hidden="true" className="h-4 w-4" icon={ArrowLeft01Icon} />
               <span className="sr-only">Previous month</span>
             </button>
-            <div className="font-semibold text-[var(--foreground)] text-sm">
+            <div className="font-semibold text-gray-900 text-sm">
               {new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(
                 viewDate
               )}
             </div>
             <button
-              className="rounded-full border border-[#ebe5d8] p-1 text-[var(--muted-foreground)] transition hover:border-[var(--red)] hover:text-[var(--red)]"
+              className="rounded-full border border-[#ebe5d8] p-1 text-gray-600 transition hover:border-[#E85D48] hover:text-[#E85D48]"
               onClick={() =>
                 setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))
               }
@@ -163,7 +160,7 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
             </button>
           </div>
 
-          <div className="mt-4 grid grid-cols-7 gap-1 text-center font-semibold text-[var(--muted-foreground)] text-xs uppercase tracking-[0.18em]">
+          <div className="mt-4 grid grid-cols-7 gap-1 text-center font-semibold text-gray-600 text-xs uppercase tracking-[0.18em]">
             {WEEKDAYS.map((day) => (
               <span key={day}>{day}</span>
             ))}
@@ -189,10 +186,9 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
                 <button
                   className={cn(
                     "rounded-full py-2 text-sm transition",
-                    inCurrentMonth ? "text-[var(--foreground)]" : "text-[#c9c2b6]",
-                    isSelected &&
-                      "bg-[var(--foreground)] text-white shadow-[0_10px_20px_rgba(18,17,15,0.16)]",
-                    !isSelected && isToday && "border border-[var(--red)] text-[var(--red)]",
+                    inCurrentMonth ? "text-gray-900" : "text-[#c9c2b6]",
+                    isSelected && "bg-gray-900 text-white shadow-[0_10px_20px_rgba(18,17,15,0.16)]",
+                    !isSelected && isToday && "border border-[#E85D48] text-[#E85D48]",
                     !(isSelected || isToday) && "hover:bg-[#f6f1ea]"
                   )}
                   key={date.toISOString()}
@@ -207,14 +203,14 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
 
           <div className="mt-4 flex items-center justify-between text-[#8a826d] text-xs">
             <button
-              className="rounded-full border border-transparent px-3 py-1 font-semibold text-[var(--red)] transition hover:border-[var(--red)]/40"
+              className="rounded-full border border-transparent px-3 py-1 font-semibold text-[#E85D48] transition hover:border-[#E85D48]/40"
               onClick={() => onChange(null)}
               type="button"
             >
               Clear
             </button>
             <button
-              className="rounded-full border border-[var(--foreground)] px-3 py-1 font-semibold text-[var(--foreground)] transition hover:border-[var(--red)] hover:text-[var(--red)]"
+              className="rounded-full border border-gray-900 px-3 py-1 font-semibold text-gray-900 transition hover:border-[#E85D48] hover:text-[#E85D48]"
               onClick={handleToday}
               type="button"
             >

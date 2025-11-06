@@ -25,7 +25,7 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
     if (score >= 50) {
       return "text-yellow-600";
     }
-    return "text-red-600";
+    return "text-[#E85D48]";
   };
 
   const getHealthBgColor = (score: number) => {
@@ -35,7 +35,7 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
     if (score >= 50) {
       return "bg-yellow-50";
     }
-    return "bg-red-50";
+    return "bg-[#E85D48]/10";
   };
 
   const getHealthBorderColor = (score: number) => {
@@ -52,8 +52,8 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
     <div className="rounded-[24px] border-2 border-[#e5e7eb] bg-white p-6 shadow-sm">
       {/* Header */}
       <div className="mb-6 flex items-center gap-3">
-        <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={Calendar03Icon} />
-        <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
+        <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={Calendar03Icon} />
+        <h3 className="font-semibold text-gray-900 text-lg">{t("title")}</h3>
       </div>
 
       {/* Health Score */}
@@ -69,9 +69,7 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
           </div>
           <div className="text-right">
             <p className="mb-1 text-[#6b7280] text-sm">{t("availableDays")}</p>
-            <p className="font-bold text-2xl text-[var(--foreground)]">
-              {health.availableDaysCount}/7
-            </p>
+            <p className="font-bold text-2xl text-gray-900">{health.availableDaysCount}/7</p>
           </div>
         </div>
       </div>
@@ -134,9 +132,7 @@ function HealthItem({ completed, label }: { completed: boolean; label: string })
           <HugeiconsIcon className="h-5 w-5" icon={AlertCircleIcon} />
         )}
       </div>
-      <span
-        className={`text-sm ${completed ? "font-medium text-[var(--foreground)]" : "text-[#6b7280]"}`}
-      >
+      <span className={`text-sm ${completed ? "font-medium text-gray-900" : "text-[#6b7280]"}`}>
         {label}
       </span>
     </div>

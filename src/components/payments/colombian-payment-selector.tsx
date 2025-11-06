@@ -76,7 +76,7 @@ export function ColombianPaymentSelector({
   return (
     <div className="space-y-4">
       <div className="mb-4">
-        <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
+        <h3 className="mb-2 font-semibold text-gray-900 text-lg">{t("title")}</h3>
         <p className="text-[#6b7280] text-sm">{t("subtitle")}</p>
       </div>
 
@@ -88,8 +88,8 @@ export function ColombianPaymentSelector({
             <button
               className={`relative w-full rounded-2xl border-2 p-5 text-left transition-all ${
                 selected === method.id
-                  ? "border-[var(--red)] bg-[var(--red)]/5 shadow-md"
-                  : "border-[#ebe5d8] bg-white hover:border-[var(--red)]/50 hover:shadow-sm"
+                  ? "border-[#E85D48] bg-[#E85D48]/5 shadow-md"
+                  : "border-[#ebe5d8] bg-white hover:border-[#E85D48]/50 hover:shadow-sm"
               }`}
               key={method.id}
               onClick={() => handleSelect(method.id)}
@@ -97,7 +97,7 @@ export function ColombianPaymentSelector({
             >
               {/* Badge */}
               {method.badge && (
-                <div className="absolute top-3 right-3 rounded-full bg-[var(--red)] px-3 py-1 font-semibold text-white text-xs">
+                <div className="absolute top-3 right-3 rounded-full bg-[#E85D48] px-3 py-1 font-semibold text-white text-xs">
                   {method.badge}
                 </div>
               )}
@@ -111,9 +111,7 @@ export function ColombianPaymentSelector({
 
                 {/* Details */}
                 <div className="flex-1">
-                  <div className="mb-1 font-semibold text-[var(--foreground)] text-base">
-                    {method.name}
-                  </div>
+                  <div className="mb-1 font-semibold text-base text-gray-900">{method.name}</div>
                   <div className="text-[#6b7280] text-sm">{method.description}</div>
                 </div>
 
@@ -121,7 +119,7 @@ export function ColombianPaymentSelector({
                 <div
                   className={`mt-1 h-6 w-6 flex-shrink-0 rounded-full border-2 transition-all ${
                     selected === method.id
-                      ? "border-[var(--red)] bg-[var(--red)]"
+                      ? "border-[#E85D48] bg-[#E85D48]"
                       : "border-[#d1d5db] bg-white"
                   }`}
                 >

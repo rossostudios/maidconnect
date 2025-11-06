@@ -132,10 +132,10 @@ export function ProfessionalsFilterSheet({
         {/* Header */}
         <div className="sticky top-0 z-10 flex items-center justify-between border-[#ebe5d8] border-b bg-white px-6 py-4">
           <div className="flex items-center gap-3">
-            <HugeiconsIcon className="h-5 w-5 text-[var(--foreground)]" icon={FilterIcon} />
-            <h2 className="font-semibold text-[var(--foreground)] text-lg">Filters</h2>
+            <HugeiconsIcon className="h-5 w-5 text-gray-900" icon={FilterIcon} />
+            <h2 className="font-semibold text-gray-900 text-lg">Filters</h2>
             {activeFilterCount > 0 && (
-              <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[var(--red)] px-2 font-semibold text-white text-xs">
+              <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#E85D48] px-2 font-semibold text-white text-xs">
                 {activeFilterCount}
               </span>
             )}
@@ -154,12 +154,12 @@ export function ProfessionalsFilterSheet({
         <div className="space-y-6 p-6">
           {/* Service Filter */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-sm">
+            <div className="flex items-center gap-2 font-semibold text-gray-900 text-sm">
               <HugeiconsIcon className="h-5 w-5" icon={FilterIcon} />
               {t("filters.service")}
             </div>
             <select
-              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-[var(--foreground)] text-base transition focus:border-[var(--foreground)] focus:outline-none"
+              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-base text-gray-900 transition focus:border-gray-900 focus:outline-none"
               onChange={(e) => setServiceFilter(e.target.value)}
               value={serviceFilter}
             >
@@ -173,12 +173,12 @@ export function ProfessionalsFilterSheet({
 
           {/* City Filter */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-sm">
+            <div className="flex items-center gap-2 font-semibold text-gray-900 text-sm">
               <HugeiconsIcon className="h-5 w-5" icon={Location01Icon} />
               {t("filters.city")}
             </div>
             <select
-              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-[var(--foreground)] text-base transition focus:border-[var(--foreground)] focus:outline-none"
+              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-base text-gray-900 transition focus:border-gray-900 focus:outline-none"
               onChange={(e) => setCityFilter(e.target.value)}
               value={cityFilter}
             >
@@ -192,12 +192,12 @@ export function ProfessionalsFilterSheet({
 
           {/* Rating Filter */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-sm">
+            <div className="flex items-center gap-2 font-semibold text-gray-900 text-sm">
               <HugeiconsIcon className="h-5 w-5" icon={Settings02Icon} />
               {t("filters.rating")}
             </div>
             <select
-              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-[var(--foreground)] text-base transition focus:border-[var(--foreground)] focus:outline-none"
+              className="w-full rounded-xl border border-[#e2ddd2] bg-[#fbfafa] px-4 py-3.5 text-base text-gray-900 transition focus:border-gray-900 focus:outline-none"
               onChange={(e) => setRatingFilter(e.target.value)}
               value={ratingFilter}
             >
@@ -214,11 +214,11 @@ export function ProfessionalsFilterSheet({
             <label className="flex cursor-pointer items-center gap-3">
               <input
                 checked={availableToday}
-                className="h-6 w-6 cursor-pointer rounded border-[#e2ddd2] text-[var(--red)] focus:ring-[var(--red)]"
+                className="h-6 w-6 cursor-pointer rounded border-[#e2ddd2] text-[#E85D48] focus:ring-[#E85D48]"
                 onChange={(e) => setAvailableToday(e.target.checked)}
                 type="checkbox"
               />
-              <span className="font-semibold text-[var(--foreground)] text-base">
+              <span className="font-semibold text-base text-gray-900">
                 {t("filters.availableToday")}
               </span>
             </label>
@@ -229,14 +229,14 @@ export function ProfessionalsFilterSheet({
         <div className="sticky bottom-0 border-[#ebe5d8] border-t bg-white p-6">
           <div className="flex gap-3">
             <button
-              className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3.5 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] active:scale-95"
+              className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3.5 font-semibold text-base text-gray-900 transition hover:border-[#E85D48] active:scale-95"
               onClick={handleReset}
               type="button"
             >
               {t("filters.reset")}
             </button>
             <button
-              className="flex-1 rounded-full bg-[var(--red)] px-6 py-3.5 font-semibold text-base text-white shadow-[var(--shadow-card)] transition hover:bg-[var(--red-hover)] active:scale-95"
+              className="flex-1 rounded-full bg-[#E85D48] px-6 py-3.5 font-semibold text-base text-white shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:bg-[#D64A36] active:scale-95"
               onClick={handleApply}
               type="button"
             >

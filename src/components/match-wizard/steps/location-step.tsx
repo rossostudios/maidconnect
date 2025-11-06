@@ -72,14 +72,14 @@ export function LocationStep({ data, onUpdate, onNext, onBack }: LocationStepPro
     <div className="space-y-6">
       {/* Icon */}
       <div className="flex justify-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--foreground)]/5">
-          <HugeiconsIcon className="h-8 w-8 text-[var(--foreground)]" icon={Location01Icon} />
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-900/5">
+          <HugeiconsIcon className="h-8 w-8 text-gray-900" icon={Location01Icon} />
         </div>
       </div>
 
       {/* Title */}
       <div className="text-center">
-        <h2 className="font-semibold text-2xl text-[var(--foreground)]">
+        <h2 className="font-semibold text-2xl text-gray-900">
           {t("title", { defaultValue: "Where do you need help?" })}
         </h2>
         <p className="mt-2 text-[#7a6d62]">
@@ -93,11 +93,11 @@ export function LocationStep({ data, onUpdate, onNext, onBack }: LocationStepPro
       <div className="space-y-4">
         {/* City Selection */}
         <div>
-          <label className="mb-2 block font-medium text-[var(--foreground)] text-sm" htmlFor="city">
+          <label className="mb-2 block font-medium text-gray-900 text-sm" htmlFor="city">
             {t("cityLabel", { defaultValue: "City" })} *
           </label>
           <select
-            className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[var(--foreground)] transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]/20"
+            className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-gray-900 transition focus:border-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900/20"
             id="city"
             onChange={(e) => handleCityChange(e.target.value)}
             value={data.city}
@@ -114,17 +114,14 @@ export function LocationStep({ data, onUpdate, onNext, onBack }: LocationStepPro
         {/* Neighborhood Selection */}
         {data.city && neighborhoods.length > 0 && (
           <div>
-            <label
-              className="mb-2 block font-medium text-[var(--foreground)] text-sm"
-              htmlFor="neighborhood"
-            >
+            <label className="mb-2 block font-medium text-gray-900 text-sm" htmlFor="neighborhood">
               {t("neighborhoodLabel", { defaultValue: "Neighborhood" })}{" "}
               <span className="font-normal text-[#7a6d62]">
                 ({t("optional", { defaultValue: "optional" })})
               </span>
             </label>
             <select
-              className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-[var(--foreground)] transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)]/20"
+              className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbfafa] px-4 py-3 text-gray-900 transition focus:border-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900/20"
               id="neighborhood"
               onChange={(e) => onUpdate({ neighborhood: e.target.value })}
               value={data.neighborhood || ""}
@@ -147,14 +144,14 @@ export function LocationStep({ data, onUpdate, onNext, onBack }: LocationStepPro
       {/* Actions */}
       <div className="flex gap-3 pt-4">
         <button
-          className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-[var(--foreground)] hover:text-[var(--foreground)]"
+          className="flex-1 rounded-xl border border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[#7a6d62] transition hover:border-gray-900 hover:text-gray-900"
           onClick={onBack}
           type="button"
         >
           {t("back", { defaultValue: "Back" })}
         </button>
         <button
-          className="flex-1 rounded-xl bg-[var(--foreground)] px-6 py-3 font-semibold text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] transition hover:bg-[#2d2822] disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex-1 rounded-xl bg-gray-900 px-6 py-3 font-semibold text-white shadow-[0_6px_18px_rgba(18,17,15,0.22)] transition hover:bg-[#2d2822] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!data.city}
           onClick={handleNext}
           type="button"

@@ -33,7 +33,7 @@ type FeedbackSubmission = {
 };
 
 const typeConfig = {
-  bug: { icon: Bug01Icon, label: "Bug", color: "text-red-600 bg-red-50" },
+  bug: { icon: Bug01Icon, label: "Bug", color: "text-[#E85D48] bg-[#E85D48]/10" },
   feature_request: {
     icon: Idea01Icon,
     label: "Feature Request",
@@ -57,7 +57,7 @@ const priorityBadge = {
   low: "bg-gray-100 text-gray-600",
   medium: "bg-blue-100 text-blue-600",
   high: "bg-orange-100 text-orange-600",
-  critical: "bg-red-100 text-red-600",
+  critical: "bg-red-100 text-[#E85D48]",
 };
 
 export default async function AdminFeedbackPage({
@@ -116,8 +116,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status
-              ? "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
-              : "bg-[#E63946] text-white"
+              ? "border border-[#E5E5E5] text-[#737373] hover:border-[#E85D48]"
+              : "bg-[#E85D48] text-white"
           }`}
           href="/admin/feedback"
         >
@@ -126,8 +126,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "new"
-              ? "bg-[#E63946] text-white"
-              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
+              ? "bg-[#E85D48] text-white"
+              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E85D48]"
           }`}
           href="/admin/feedback?status=new"
         >
@@ -136,8 +136,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "in_review"
-              ? "bg-[#E63946] text-white"
-              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
+              ? "bg-[#E85D48] text-white"
+              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E85D48]"
           }`}
           href="/admin/feedback?status=in_review"
         >
@@ -146,8 +146,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "resolved"
-              ? "bg-[#E63946] text-white"
-              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
+              ? "bg-[#E85D48] text-white"
+              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E85D48]"
           }`}
           href="/admin/feedback?status=resolved"
         >
@@ -174,7 +174,7 @@ export default async function AdminFeedbackPage({
 
             return (
               <article
-                className="group rounded-lg border border-[#E5E5E5] bg-white p-6 shadow-sm transition hover:border-[#E63946]"
+                className="group rounded-lg border border-[#E5E5E5] bg-white p-6 shadow-sm transition hover:border-[#E85D48]"
                 key={item.id}
               >
                 <div className="flex items-start justify-between gap-4">
@@ -227,7 +227,7 @@ export default async function AdminFeedbackPage({
 
                   {/* Actions */}
                   <Link
-                    className="flex items-center gap-2 rounded-lg bg-[#E63946] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#D32F40]"
+                    className="flex items-center gap-2 rounded-lg bg-[#E85D48] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#D32F40]"
                     href={`/admin/feedback/${item.id}`}
                   >
                     <HugeiconsIcon className="h-4 w-4" icon={ViewIcon} />

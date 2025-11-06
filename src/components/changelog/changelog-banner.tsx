@@ -51,7 +51,7 @@ export function ChangelogBanner() {
               <HugeiconsIcon className="h-4 w-4 text-purple-600" icon={MagicWand01Icon} />
             </div>
             <div className="flex-1">
-              <p className="font-semibold text-[var(--foreground)] text-sm sm:text-base">
+              <p className="font-semibold text-gray-900 text-sm sm:text-base">
                 <span className="hidden sm:inline">New update: </span>
                 {changelog.title}
               </p>
@@ -63,7 +63,7 @@ export function ChangelogBanner() {
                 })}
               </p>
             </div>
-            <span className="hidden rounded-full border border-[var(--red)] px-3 py-1 font-medium text-[var(--red)] text-sm transition group-hover:bg-[var(--red)] group-hover:text-white sm:inline-block">
+            <span className="hidden rounded-full border border-[#E85D48] px-3 py-1 font-medium text-[#E85D48] text-sm transition group-hover:bg-[#E85D48] group-hover:text-white sm:inline-block">
               View Details
             </span>
           </button>
@@ -71,7 +71,7 @@ export function ChangelogBanner() {
           {/* Dismiss Button */}
           <button
             aria-label="Dismiss"
-            className="rounded-full p-1.5 text-[#7a6d62] transition hover:bg-white/50 hover:text-[var(--foreground)]"
+            className="rounded-full p-1.5 text-[#7a6d62] transition hover:bg-white/50 hover:text-gray-900"
             onClick={handleDismiss}
             type="button"
           >

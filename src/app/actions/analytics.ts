@@ -1,5 +1,9 @@
 "use server";
 
+import {
+  type PerformanceMetricsData,
+  transformPerformanceMetricsData,
+} from "@/lib/analytics/metrics-transformer";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type {
   GenerateSnapshotResponse,
@@ -224,34 +228,8 @@ export async function initializePerformanceMetrics(
       return { success: false, error: error.message };
     }
 
-    const metrics: PerformanceMetrics = {
-      id: data.id,
-      profileId: data.profile_id,
-      totalBookings: data.total_bookings || 0,
-      completedBookings: data.completed_bookings || 0,
-      cancelledBookings: data.cancelled_bookings || 0,
-      completionRate: Number.parseFloat(data.completion_rate || 0),
-      cancellationRate: Number.parseFloat(data.cancellation_rate || 0),
-      totalRevenueCop: data.total_revenue_cop || 0,
-      revenueLast30DaysCop: data.revenue_last_30_days_cop || 0,
-      revenueLast7DaysCop: data.revenue_last_7_days_cop || 0,
-      averageBookingValueCop: data.average_booking_value_cop || 0,
-      averageRating: Number.parseFloat(data.average_rating || 0),
-      totalReviews: data.total_reviews || 0,
-      fiveStarCount: data.five_star_count || 0,
-      fourStarCount: data.four_star_count || 0,
-      threeStarCount: data.three_star_count || 0,
-      twoStarCount: data.two_star_count || 0,
-      oneStarCount: data.one_star_count || 0,
-      averageResponseTimeMinutes: data.average_response_time_minutes || 0,
-      onTimeArrivalRate: Number.parseFloat(data.on_time_arrival_rate || 0),
-      repeatCustomerRate: Number.parseFloat(data.repeat_customer_rate || 0),
-      bookingsLast30Days: data.bookings_last_30_days || 0,
-      bookingsLast7Days: data.bookings_last_7_days || 0,
-      lastCalculatedAt: data.last_calculated_at,
-      createdAt: data.created_at,
-      updatedAt: data.updated_at,
-    };
+    // Transform database result using helper to reduce complexity
+    const metrics = transformPerformanceMetricsData(data as PerformanceMetricsData);
 
     return { success: true, metrics };
   } catch (error) {

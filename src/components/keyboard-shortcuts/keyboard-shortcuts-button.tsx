@@ -23,9 +23,9 @@ export function KeyboardShortcutsButton({
         className={cn(
           "flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200 active:scale-95",
           variant === "light" &&
-            "border-[var(--red)] bg-[#fff5f3] text-[var(--red)] hover:bg-[var(--red)] hover:text-white",
+            "border-[#E85D48] bg-[#fff5f3] text-[#E85D48] hover:bg-[#E85D48] hover:text-white",
           variant === "dark" &&
-            "border-[var(--red)] bg-[var(--red)]/10 text-[var(--red)] hover:bg-[var(--red)] hover:text-white",
+            "border-[#E85D48] bg-[#E85D48]/10 text-[#E85D48] hover:bg-[#E85D48] hover:text-white",
           className
         )}
         onClick={openShortcutsPanel}

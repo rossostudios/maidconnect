@@ -236,7 +236,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       {/* Header */}
       <div className="mb-4 flex items-start justify-between">
         <div>
-          <h3 className="font-semibold text-[var(--foreground)] text-lg">
+          <h3 className="font-semibold text-gray-900 text-lg">
             {optimisticBooking.service_name || "Service"}
           </h3>
           <p className="text-[#7a6d62] text-sm">{scheduledDate}</p>
@@ -263,7 +263,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       {/* Address */}
       {optimisticBooking.address && (
         <div className="mb-4">
-          <p className="text-[var(--muted-foreground)] text-sm">
+          <p className="text-gray-600 text-sm">
             📍{" "}
             {typeof optimisticBooking.address === "object" &&
             "formatted" in optimisticBooking.address
@@ -284,11 +284,13 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
               </p>
             </div>
             <div className="text-right">
-              <p className={`font-bold text-2xl ${isOvertime ? "text-red-600" : "text-blue-900"}`}>
+              <p
+                className={`font-bold text-2xl ${isOvertime ? "text-[#E85D48]" : "text-blue-900"}`}
+              >
                 {formatDuration(elapsedTime)}
               </p>
               {isOvertime && (
-                <p className="font-semibold text-red-600 text-xs">
+                <p className="font-semibold text-[#E85D48] text-xs">
                   +{formatDuration(elapsedTime - totalPlannedMinutes)} overtime
                 </p>
               )}
@@ -301,7 +303,9 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       {message && (
         <div
           className={`mb-4 rounded-lg p-3 text-sm ${
-            message.type === "success" ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"
+            message.type === "success"
+              ? "bg-green-50 text-green-800"
+              : "bg-[#E85D48]/10 text-red-800"
           }`}
         >
           {message.text}
@@ -334,7 +338,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
           <>
             {/* Extend Time Button */}
             <button
-              className="w-full rounded-lg border-2 border-[var(--red)] bg-white px-4 py-3 font-semibold text-[var(--red)] transition hover:bg-[var(--red)] hover:text-white"
+              className="w-full rounded-lg border-2 border-[#E85D48] bg-white px-4 py-3 font-semibold text-[#E85D48] transition hover:bg-[#E85D48] hover:text-white"
               onClick={() => setShowTimeExtensionModal(true)}
               type="button"
             >
@@ -343,7 +347,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
             {/* Check-out button */}
             <button
-              className="w-full rounded-lg bg-[var(--red)] px-4 py-3 font-semibold text-white transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-70"
+              className="w-full rounded-lg bg-[#E85D48] px-4 py-3 font-semibold text-white transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-70"
               disabled={loading}
               onClick={() => handleCheckOut()}
               type="button"

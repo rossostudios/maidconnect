@@ -1,5 +1,5 @@
-import { getTranslations } from "next-intl/server";
 import { unstable_noStore } from "next/cache";
+import { getTranslations } from "next-intl/server";
 import { ProBookingCalendar } from "@/components/bookings/pro-booking-calendar";
 import { ProBookingList } from "@/components/bookings/pro-booking-list";
 import { Link } from "@/i18n/routing";
@@ -52,13 +52,11 @@ export default async function ProBookingsPage({ params }: { params: Promise<{ lo
     <section className="space-y-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="font-semibold text-3xl text-[var(--foreground)]">{t("title")}</h1>
-          <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
-            {t("description")}
-          </p>
+          <h1 className="font-semibold text-3xl text-gray-900">{t("title")}</h1>
+          <p className="mt-2 text-base text-gray-600 leading-relaxed">{t("description")}</p>
         </div>
         <Link
-          className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-[var(--foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)]"
+          className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-5 py-2.5 font-semibold text-gray-900 text-sm transition hover:border-[#E85D48] hover:text-[#E85D48]"
           href="/dashboard/pro/onboarding"
         >
           {t("updateAvailability")}
@@ -80,7 +78,7 @@ export default async function ProBookingsPage({ params }: { params: Promise<{ lo
       </div>
 
       <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
-        <h2 className="mb-6 font-semibold text-[var(--foreground)] text-xl">{t("allBookings")}</h2>
+        <h2 className="mb-6 font-semibold text-gray-900 text-xl">{t("allBookings")}</h2>
         <ProBookingList bookings={bookings} />
       </div>
     </section>

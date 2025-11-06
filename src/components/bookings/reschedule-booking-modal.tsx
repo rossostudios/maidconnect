@@ -110,16 +110,14 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
       submitLabel={t("buttons.reschedule")}
       title={t("title")}
     >
-      <p className="text-[var(--muted-foreground)] text-base">
-        {booking.service_name || "Service"}
-      </p>
+      <p className="text-base text-gray-600">{booking.service_name || "Service"}</p>
 
       {/* Current Schedule */}
       <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
         <p className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
           {t("currentScheduleLabel")}
         </p>
-        <p className="mt-2 text-[var(--foreground)] text-base">
+        <p className="mt-2 text-base text-gray-900">
           {booking.scheduled_start
             ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
                 dateStyle: "medium",
@@ -132,14 +130,11 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
       {/* New Schedule Form */}
       <div className="space-y-6">
         <div>
-          <label
-            className="mb-2 block font-semibold text-[var(--foreground)] text-base"
-            htmlFor="newDate"
-          >
+          <label className="mb-2 block font-semibold text-base text-gray-900" htmlFor="newDate">
             {t("newDateLabel")}
           </label>
           <input
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
             id="newDate"
             min={new Date().toISOString().split("T")[0]}
             onChange={(e) => form.updateField("newDate", e.target.value)}
@@ -149,14 +144,11 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
         </div>
 
         <div>
-          <label
-            className="mb-2 block font-semibold text-[var(--foreground)] text-base"
-            htmlFor="newTime"
-          >
+          <label className="mb-2 block font-semibold text-base text-gray-900" htmlFor="newTime">
             {t("newTimeLabel")}
           </label>
           <input
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
             id="newTime"
             onChange={(e) => form.updateField("newTime", e.target.value)}
             type="time"
@@ -175,7 +167,7 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
       {form.message && (
         <div
           className={`rounded-2xl p-4 text-base ${
-            form.success ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"
+            form.success ? "bg-green-50 text-green-800" : "bg-[#E85D48]/10 text-red-800"
           }`}
         >
           {form.message}

@@ -37,7 +37,9 @@ type BookingData = {
 };
 
 function isBookingThisMonth(booking: BookingData): boolean {
-  if (!booking.scheduled_start) return false;
+  if (!booking.scheduled_start) {
+    return false;
+  }
   const bookingDate = new Date(booking.scheduled_start);
   const now = new Date();
   return (
@@ -57,7 +59,9 @@ function calculateMetrics(bookings: BookingData[]): {
   ).length;
 
   const upcomingBookings = bookings.filter((b) => {
-    if (!b.scheduled_start) return false;
+    if (!b.scheduled_start) {
+      return false;
+    }
     const bookingDate = new Date(b.scheduled_start);
     return bookingDate > now && b.status === "confirmed";
   }).length;
@@ -130,7 +134,9 @@ export default async function CustomerDashboardPage() {
   const now = new Date();
   const upcomingBookingsList = bookings
     .filter((b) => {
-      if (!b.scheduled_start) return false;
+      if (!b.scheduled_start) {
+        return false;
+      }
       const bookingDate = new Date(b.scheduled_start);
       return bookingDate > now && (b.status === "confirmed" || b.status === "pending");
     })
@@ -156,8 +162,8 @@ export default async function CustomerDashboardPage() {
                   width={48}
                 />
               ) : (
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#E63946]/10">
-                  <HugeiconsIcon className="h-6 w-6 text-[#E63946]" icon={UserCircleIcon} />
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#E85D48]/10">
+                  <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={UserCircleIcon} />
                 </div>
               )}
             </div>
@@ -331,7 +337,7 @@ function MetricCard({
 }) {
   const colorClasses = {
     default: "bg-[#F5F5F5] text-[#737373]",
-    primary: "bg-[#E63946]/10 text-[#E63946]",
+    primary: "bg-[#E85D48]/10 text-[#E85D48]",
     success: "bg-[#28a745]/10 text-[#28a745]",
     warning: "bg-[#ffc107]/10 text-[#ffc107]",
     info: "bg-[#17a2b8]/10 text-[#17a2b8]",

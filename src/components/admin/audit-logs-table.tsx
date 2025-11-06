@@ -45,7 +45,7 @@ const getActionBadgeConfig = (action: string) => {
   }
   if (action.includes("reject") || action.includes("ban")) {
     return {
-      bg: "bg-red-50",
+      bg: "bg-[#E85D48]/10",
       text: "text-red-700",
       border: "border-red-200",
     };
@@ -154,7 +154,7 @@ export function AuditLogsTable({ logs, isLoading, pagination, onPageChange }: Pr
       <div className="rounded-lg border border-[#E5E5E5] bg-white">
         <div className="flex min-h-[400px] items-center justify-center">
           <div className="space-y-3 text-center">
-            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-[#E5E5E5] border-t-[#E63946]" />
+            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-[#E5E5E5] border-t-[#E85D48]" />
             <p className="text-[#737373] text-sm">Loading audit logs...</p>
           </div>
         </div>
@@ -194,7 +194,7 @@ export function AuditLogsTable({ logs, isLoading, pagination, onPageChange }: Pr
                         <div
                           className={
                             header.column.getCanSort()
-                              ? "flex cursor-pointer select-none items-center gap-2 transition-colors hover:text-[#E63946]"
+                              ? "flex cursor-pointer select-none items-center gap-2 transition-colors hover:text-[#E85D48]"
                               : ""
                           }
                           onClick={header.column.getToggleSortingHandler()}

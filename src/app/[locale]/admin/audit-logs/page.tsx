@@ -1,5 +1,5 @@
-import { AuditLogsDashboard } from "@/components/admin/audit-logs-dashboard";
 import { unstable_noStore } from "next/cache";
+import { AuditLogsDashboard } from "@/components/admin/audit-logs-dashboard";
 import { requireUser } from "@/lib/auth";
 
 export default async function AuditLogsPage() {

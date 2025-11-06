@@ -117,10 +117,10 @@ export function MatchWizard() {
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="font-semibold text-3xl text-[var(--foreground)] sm:text-4xl">
+          <h1 className="font-semibold text-3xl text-gray-900 sm:text-4xl">
             {t("title", { defaultValue: "Find Your Perfect Match" })}
           </h1>
-          <p className="mt-2 text-[var(--muted-foreground)] text-lg">
+          <p className="mt-2 text-gray-600 text-lg">
             {t("subtitle", {
               defaultValue:
                 "Answer a few questions and we'll recommend the best professionals for you",
@@ -132,7 +132,7 @@ export function MatchWizard() {
         <div className="mb-8">
           <div className="h-2 overflow-hidden rounded-full bg-[#ebe5d8]">
             <div
-              className="h-full rounded-full bg-[var(--foreground)] transition-all duration-300"
+              className="h-full rounded-full bg-gray-900 transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -209,7 +209,7 @@ export function MatchWizard() {
         {/* Exit Link */}
         <div className="mt-6 text-center">
           <button
-            className="text-[#7a6d62] text-sm hover:text-[var(--foreground)]"
+            className="text-[#7a6d62] text-sm hover:text-gray-900"
             onClick={exitWizard}
             type="button"
           >

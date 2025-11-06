@@ -49,7 +49,7 @@ type Pagination = {
 const getRoleBadgeColor = (role: UserRole) => {
   switch (role) {
     case "admin":
-      return "bg-[#E63946] text-white";
+      return "bg-[#E85D48] text-white";
     case "professional":
       return "bg-[#FFF4E6] text-[#FF8A00] border border-[#FFE0B2]";
     case "customer":
@@ -75,7 +75,7 @@ const getSuspensionBadge = (suspension: UserSuspension | null) => {
       <span
         className={`inline-flex items-center rounded-lg px-2.5 py-1 font-medium text-xs ${
           isBanned
-            ? "border border-red-200 bg-red-50 text-red-700"
+            ? "border border-red-200 bg-[#E85D48]/10 text-red-700"
             : "border border-yellow-200 bg-yellow-50 text-yellow-700"
         }`}
       >
@@ -108,8 +108,8 @@ const columns: ColumnDef<User>[] = [
                 width={40}
               />
             ) : (
-              <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#E63946]/10">
-                <HugeiconsIcon className="h-6 w-6 text-[#E63946]" icon={UserCircleIcon} />
+              <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#E85D48]/10">
+                <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={UserCircleIcon} />
               </div>
             )}
           </div>
@@ -198,7 +198,7 @@ export function UserManagementTable({ users, isLoading, pagination, onPageChange
       <div className="rounded-lg border border-[#E5E5E5] bg-white">
         <div className="flex min-h-[400px] items-center justify-center">
           <div className="space-y-3 text-center">
-            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-[#E5E5E5] border-t-[#E63946]" />
+            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-[#E5E5E5] border-t-[#E85D48]" />
             <p className="text-[#737373] text-sm">Loading users...</p>
           </div>
         </div>
@@ -238,7 +238,7 @@ export function UserManagementTable({ users, isLoading, pagination, onPageChange
                         <div
                           className={
                             header.column.getCanSort()
-                              ? "flex cursor-pointer select-none items-center gap-2 transition-colors hover:text-[#E63946]"
+                              ? "flex cursor-pointer select-none items-center gap-2 transition-colors hover:text-[#E85D48]"
                               : ""
                           }
                           onClick={header.column.getToggleSortingHandler()}

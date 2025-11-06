@@ -13,30 +13,30 @@ export function DashboardFooter() {
   const t = useTranslations("changelog");
 
   return (
-    <footer className="border-[#ebe5d8] border-t bg-[var(--background)] py-6">
+    <footer className="border-[#ebe5d8] border-t bg-[#fbf9f7] py-6">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center justify-between gap-4 text-[#7d7566] text-sm sm:flex-row">
           <p>© {currentYear} Casaora. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link className="transition hover:text-[var(--red)]" href="/support/account-suspended">
+            <Link className="transition hover:text-[#E85D48]" href="/support/account-suspended">
               Support
             </Link>
-            <Link className="transition hover:text-[var(--red)]" href="/privacy">
+            <Link className="transition hover:text-[#E85D48]" href="/privacy">
               Privacy
             </Link>
-            <Link className="transition hover:text-[var(--red)]" href="/terms">
+            <Link className="transition hover:text-[#E85D48]" href="/terms">
               Terms
             </Link>
-            <Link className="relative transition hover:text-[var(--red)]" href="/changelog">
+            <Link className="relative transition hover:text-[#E85D48]" href="/changelog">
               {t("whatsNew")}
               {unreadCount > 0 && (
-                <span className="-right-2 -top-1 absolute flex h-4 w-4 items-center justify-center rounded-full bg-[var(--red)] font-bold text-[10px] text-white">
+                <span className="-right-2 -top-1 absolute flex h-4 w-4 items-center justify-center rounded-full bg-[#E85D48] font-bold text-[10px] text-white">
                   {unreadCount}
                 </span>
               )}
             </Link>
             <button
-              className="transition hover:text-[var(--red)]"
+              className="transition hover:text-[#E85D48]"
               onClick={openFeedback}
               type="button"
             >

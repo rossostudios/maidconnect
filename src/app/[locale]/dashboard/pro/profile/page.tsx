@@ -1,5 +1,5 @@
-import { getTranslations } from "next-intl/server";
 import { unstable_noStore } from "next/cache";
+import { getTranslations } from "next-intl/server";
 import { ProfileEditor } from "@/components/profile/profile-editor";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
@@ -42,10 +42,8 @@ export default async function ProProfilePage({ params }: { params: Promise<{ loc
     <section className="space-y-6">
       {/* Header */}
       <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h1 className="font-semibold text-3xl text-[var(--foreground)]">{t("title")}</h1>
-        <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
-          {t("description")}
-        </p>
+        <h1 className="font-semibold text-3xl text-gray-900">{t("title")}</h1>
+        <p className="mt-2 text-base text-gray-600 leading-relaxed">{t("description")}</p>
       </div>
 
       {/* Profile Editor */}

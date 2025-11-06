@@ -11,4 +11,4 @@
  */
 export type HugeIcon =
   | ReadonlyArray<readonly [string, Readonly<Record<string, string | number>>]>
-  | Array<[string, Record<string, string | number>]>;
+  | [string, Record<string, string | number>][];

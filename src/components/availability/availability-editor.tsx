@@ -70,7 +70,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
       )}
 
       {error && (
-        <div className="rounded-xl bg-red-50 p-4 text-red-800">
+        <div className="rounded-xl bg-[#E85D48]/10 p-4 text-red-800">
           <p className="font-semibold text-sm">{error}</p>
         </div>
       )}
@@ -81,8 +81,8 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
           <button
             className={`flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition ${
               activeTab === "hours"
-                ? "border-[var(--red)] text-[var(--red)]"
-                : "border-transparent text-[#7d7566] hover:text-[var(--foreground)]"
+                ? "border-[#E85D48] text-[#E85D48]"
+                : "border-transparent text-[#7d7566] hover:text-gray-900"
             }`}
             onClick={() => setActiveTab("hours")}
             type="button"
@@ -93,8 +93,8 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
           <button
             className={`flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition ${
               activeTab === "blocked"
-                ? "border-[var(--red)] text-[var(--red)]"
-                : "border-transparent text-[#7d7566] hover:text-[var(--foreground)]"
+                ? "border-[#E85D48] text-[#E85D48]"
+                : "border-transparent text-[#7d7566] hover:text-gray-900"
             }`}
             onClick={() => setActiveTab("blocked")}
             type="button"
@@ -102,7 +102,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
             <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />
             {t("tabs.blockedDates")}
             {blockedDates.length > 0 && (
-              <span className="rounded-full bg-red-500 px-2 py-0.5 font-bold text-white text-xs">
+              <span className="rounded-full bg-[#E85D48]/100 px-2 py-0.5 font-bold text-white text-xs">
                 {blockedDates.length}
               </span>
             )}
@@ -115,9 +115,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
         {activeTab === "hours" && (
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold text-[var(--foreground)] text-lg">
-                {t("workingHours.title")}
-              </h3>
+              <h3 className="font-semibold text-gray-900 text-lg">{t("workingHours.title")}</h3>
               <p className="mt-1 text-[#7d7566] text-sm">{t("workingHours.description")}</p>
             </div>
             <WeeklyHoursEditor initialSchedule={weeklyHours} onChange={setWeeklyHours} />
@@ -127,9 +125,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
         {activeTab === "blocked" && (
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold text-[var(--foreground)] text-lg">
-                {t("blockedDates.title")}
-              </h3>
+              <h3 className="font-semibold text-gray-900 text-lg">{t("blockedDates.title")}</h3>
               <p className="mt-1 text-[#7d7566] text-sm">{t("blockedDates.description")}</p>
             </div>
             <BlockedDatesCalendar initialBlockedDates={blockedDates} onChange={setBlockedDates} />
@@ -141,7 +137,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
       <div className="flex items-center justify-end gap-3 border-[#ebe5d8] border-t pt-6">
         <div className="flex-1 text-[#7d7566] text-sm">{t("infoText")}</div>
         <button
-          className="rounded-full bg-[var(--red)] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[#E85D48] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={handleSave}
           type="button"

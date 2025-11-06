@@ -30,17 +30,17 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
   const savingsAmount = bundle.basePriceCop - bundle.finalPriceCop;
 
   return (
-    <div className="group rounded-[24px] border-2 border-[#e5e7eb] bg-white p-6 shadow-sm transition hover:border-[var(--red)]/30 hover:shadow-md">
+    <div className="group rounded-[24px] border-2 border-[#e5e7eb] bg-white p-6 shadow-sm transition hover:border-[#E85D48]/30 hover:shadow-md">
       {/* Header */}
       <div className="mb-4 flex items-start justify-between">
         <div className="flex-1">
-          <h4 className="mb-1 font-semibold text-[var(--foreground)] text-lg">{bundle.name}</h4>
+          <h4 className="mb-1 font-semibold text-gray-900 text-lg">{bundle.name}</h4>
           {bundle.description && <p className="text-[#6b7280] text-sm">{bundle.description}</p>}
         </div>
 
         {/* Discount Badge */}
         {bundle.discountPercentage > 0 && (
-          <div className="ml-4 rounded-full bg-[var(--red)] px-3 py-1 font-bold text-sm text-white">
+          <div className="ml-4 rounded-full bg-[#E85D48] px-3 py-1 font-bold text-sm text-white">
             {bundle.discountPercentage}% {t("off")}
           </div>
         )}
@@ -50,8 +50,8 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
       <div className="mb-4 space-y-2">
         {bundle.services.map((service, index) => (
           <div className="flex items-center gap-2 rounded-lg bg-[#f9fafb] px-3 py-2" key={index}>
-            <div className="h-2 w-2 rounded-full bg-[var(--red)]" />
-            <span className="flex-1 text-[var(--foreground)] text-sm">{service.name}</span>
+            <div className="h-2 w-2 rounded-full bg-[#E85D48]" />
+            <span className="flex-1 text-gray-900 text-sm">{service.name}</span>
             <span className="text-[#6b7280] text-xs">{service.durationMinutes} min</span>
           </div>
         ))}
@@ -63,9 +63,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
           <HugeiconsIcon className="h-5 w-5 text-[#6b7280]" icon={Clock01Icon} />
           <div>
             <p className="text-[#6b7280] text-xs">{t("totalDuration")}</p>
-            <p className="font-semibold text-[var(--foreground)] text-sm">
-              {bundle.totalDurationMinutes} min
-            </p>
+            <p className="font-semibold text-gray-900 text-sm">{bundle.totalDurationMinutes} min</p>
           </div>
         </div>
 
@@ -73,7 +71,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
           <HugeiconsIcon className="h-5 w-5 text-[#6b7280]" icon={FlashIcon} />
           <div>
             <p className="text-[#6b7280] text-xs">{t("usageCount")}</p>
-            <p className="font-semibold text-[var(--foreground)] text-sm">
+            <p className="font-semibold text-gray-900 text-sm">
               {bundle.usageCount} {t("times")}
             </p>
           </div>
@@ -89,7 +87,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
                 ${(bundle.basePriceCop / 1000).toFixed(0)}k COP
               </p>
             )}
-            <p className="font-bold text-2xl text-[var(--red)]">
+            <p className="font-bold text-2xl text-[#E85D48]">
               ${(bundle.finalPriceCop / 1000).toFixed(0)}k COP
             </p>
           </div>
@@ -108,7 +106,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
       {/* Actions */}
       <div className="flex gap-2">
         <button
-          className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
+          className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#E85D48] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
           onClick={() => onQuickQuote(bundle.id)}
           type="button"
         >
@@ -118,7 +116,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
 
         <button
           aria-label="Edit bundle"
-          className="rounded-xl border-2 border-[#e5e7eb] bg-white p-2 text-[var(--foreground)] transition hover:border-[var(--red)] hover:text-[var(--red)]"
+          className="rounded-xl border-2 border-[#e5e7eb] bg-white p-2 text-gray-900 transition hover:border-[#E85D48] hover:text-[#E85D48]"
           onClick={() => onEdit(bundle.id)}
           type="button"
         >
@@ -127,7 +125,7 @@ export function BundleCard({ bundle, onEdit, onDelete, onQuickQuote }: BundleCar
 
         <button
           aria-label="Delete bundle"
-          className="rounded-xl border-2 border-[#e5e7eb] bg-white p-2 text-[var(--foreground)] transition hover:border-red-500 hover:text-red-500"
+          className="rounded-xl border-2 border-[#e5e7eb] bg-white p-2 text-gray-900 transition hover:border-[#E85D48]/100 hover:text-[#E85D48]/100"
           onClick={() => onDelete(bundle.id)}
           type="button"
         >

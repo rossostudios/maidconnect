@@ -348,7 +348,7 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
                         "group relative flex cursor-pointer items-center gap-3 rounded-lg px-3 py-3 text-sm transition-colors",
                         "text-[#2e2419]",
                         "hover:bg-[#f5f0e8]",
-                        "aria-selected:bg-[var(--red)] aria-selected:text-white"
+                        "aria-selected:bg-[#E85D48] aria-selected:text-white"
                       )}
                       key={cmd.id}
                       onSelect={() => {
@@ -357,7 +357,7 @@ export function CommandPalette({ open, onClose, role, dashboardPath }: CommandPa
                       value={`${cmd.label} ${cmd.description || ""}`}
                     >
                       {cmd.icon && (
-                        <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#f5f0e8] text-[var(--muted-foreground)] group-aria-selected:bg-white/20 group-aria-selected:text-white">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#f5f0e8] text-gray-600 group-aria-selected:bg-white/20 group-aria-selected:text-white">
                           {cmd.icon}
                         </div>
                       )}

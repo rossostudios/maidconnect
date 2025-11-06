@@ -81,10 +81,10 @@ export function PayoutDashboard() {
 
   if (error) {
     return (
-      <div className="rounded-xl border border-red-200 bg-red-50 p-8 text-center">
+      <div className="rounded-xl border border-red-200 bg-[#E85D48]/10 p-8 text-center">
         <p className="text-red-800 text-sm">{error}</p>
         <button
-          className="mt-4 rounded-lg bg-red-600 px-4 py-2 font-semibold text-sm text-white hover:bg-red-700"
+          className="mt-4 rounded-lg bg-[#E85D48] px-4 py-2 font-semibold text-sm text-white hover:bg-[#D64A36]"
           onClick={fetchPayoutData}
           type="button"
         >
@@ -103,10 +103,10 @@ export function PayoutDashboard() {
   return (
     <div className="space-y-6">
       {/* Current Period Earnings */}
-      <div className="rounded-xl border border-[#f0ece5] bg-gradient-to-br from-[var(--red)]/10 to-white/90 p-6 shadow-sm">
+      <div className="rounded-xl border border-[#f0ece5] bg-gradient-to-br from-red-600/10 to-white/90 p-6 shadow-sm">
         <div className="mb-4 flex items-start justify-between">
           <div>
-            <h3 className="font-semibold text-[var(--foreground)] text-lg">Next Payout</h3>
+            <h3 className="font-semibold text-gray-900 text-lg">Next Payout</h3>
             <p className="mt-1 text-[#7a6d62] text-sm">
               {new Date(currentPeriod.nextPayoutDate).toLocaleDateString("en-US", {
                 weekday: "long",
@@ -117,7 +117,7 @@ export function PayoutDashboard() {
             </p>
           </div>
           <button
-            className="font-medium text-[var(--red)] text-xs hover:text-[var(--red-hover)]"
+            className="font-medium text-[#E85D48] text-xs hover:text-red-700"
             onClick={() => setShowScheduleInfo(!showScheduleInfo)}
             type="button"
           >
@@ -138,7 +138,7 @@ export function PayoutDashboard() {
             <p className="font-medium text-[#7a6d62] text-xs uppercase tracking-wide">
               Gross Earnings
             </p>
-            <p className="mt-1 font-bold text-2xl text-[var(--foreground)]">
+            <p className="mt-1 font-bold text-2xl text-gray-900">
               {formatPayoutAmount(currentPeriod.grossAmount, currentPeriod.currency)}
             </p>
             <p className="mt-1 text-[#7a6d62] text-xs">
@@ -150,7 +150,7 @@ export function PayoutDashboard() {
             <p className="font-medium text-[#7a6d62] text-xs uppercase tracking-wide">
               Platform Fee (18%)
             </p>
-            <p className="mt-1 font-bold text-2xl text-[var(--red)]">
+            <p className="mt-1 font-bold text-2xl text-[#E85D48]">
               -{formatPayoutAmount(currentPeriod.commissionAmount, currentPeriod.currency)}
             </p>
             <p className="mt-1 text-[#7a6d62] text-xs">Commission deducted</p>
@@ -177,7 +177,7 @@ export function PayoutDashboard() {
       {/* All Pending Earnings (future periods) */}
       {allPending.bookingCount > currentPeriod.bookingCount && (
         <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
-          <h4 className="mb-3 font-semibold text-[var(--foreground)]">Future Payouts</h4>
+          <h4 className="mb-3 font-semibold text-gray-900">Future Payouts</h4>
           <p className="text-[#7a6d62] text-sm">
             You have{" "}
             <span className="font-semibold">
@@ -195,7 +195,7 @@ export function PayoutDashboard() {
       {/* Current Period Bookings */}
       {currentPeriod.bookings.length > 0 && (
         <details className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
-          <summary className="cursor-pointer font-semibold text-[var(--foreground)]">
+          <summary className="cursor-pointer font-semibold text-gray-900">
             Bookings in Current Period ({currentPeriod.bookings.length})
           </summary>
           <div className="mt-4 space-y-2">
@@ -205,7 +205,7 @@ export function PayoutDashboard() {
                 key={booking.id}
               >
                 <div>
-                  <p className="font-medium text-[var(--foreground)] text-sm">
+                  <p className="font-medium text-gray-900 text-sm">
                     {booking.service_name || "Service"}
                   </p>
                   <p className="text-[#7a6d62] text-xs">
@@ -215,7 +215,7 @@ export function PayoutDashboard() {
                       : "—"}
                   </p>
                 </div>
-                <p className="font-semibold text-[var(--foreground)] text-sm">
+                <p className="font-semibold text-gray-900 text-sm">
                   {formatPayoutAmount(booking.amount_captured, currentPeriod.currency)}
                 </p>
               </div>
@@ -227,7 +227,7 @@ export function PayoutDashboard() {
       {/* Recent Payout History */}
       {recentPayouts.length > 0 && (
         <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
-          <h4 className="mb-4 font-semibold text-[var(--foreground)]">Recent Payouts</h4>
+          <h4 className="mb-4 font-semibold text-gray-900">Recent Payouts</h4>
           <div className="space-y-3">
             {recentPayouts.map((payout) => (
               <div
@@ -236,7 +236,7 @@ export function PayoutDashboard() {
               >
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <p className="font-semibold text-[var(--foreground)] text-sm">
+                    <p className="font-semibold text-gray-900 text-sm">
                       {formatPayoutAmount(payout.net_amount, payout.currency)}
                     </p>
                     <span
@@ -269,10 +269,10 @@ export function PayoutDashboard() {
                 </div>
                 <div className="text-right">
                   <p className="text-[#7a6d62] text-xs">Gross</p>
-                  <p className="font-medium text-[var(--foreground)] text-sm">
+                  <p className="font-medium text-gray-900 text-sm">
                     {formatPayoutAmount(payout.gross_amount, payout.currency)}
                   </p>
-                  <p className="text-[var(--red)] text-xs">
+                  <p className="text-[#E85D48] text-xs">
                     -{formatPayoutAmount(payout.commission_amount, payout.currency)} fee
                   </p>
                 </div>

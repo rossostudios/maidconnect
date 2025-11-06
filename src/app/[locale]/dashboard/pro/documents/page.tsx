@@ -1,5 +1,5 @@
-import dynamic from "next/dynamic";
 import { unstable_noStore } from "next/cache";
+import dynamic from "next/dynamic";
 import { getTranslations } from "next-intl/server";
 import {
   OPTIONAL_DOCUMENTS,
@@ -85,13 +85,11 @@ export default async function ProDocumentsPage({
     <section className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="font-semibold text-3xl text-[var(--foreground)]">{t("title")}</h1>
-          <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
-            {t("description")}
-          </p>
+          <h1 className="font-semibold text-3xl text-gray-900">{t("title")}</h1>
+          <p className="mt-2 text-base text-gray-600 leading-relaxed">{t("description")}</p>
         </div>
         <Link
-          className="inline-flex items-center justify-center rounded-full bg-[var(--red)] px-6 py-3 font-semibold text-sm text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
+          className="inline-flex items-center justify-center rounded-full bg-[#E85D48] px-6 py-3 font-semibold text-sm text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36]"
           href="/dashboard/pro/onboarding"
         >
           {t("uploadButton")}

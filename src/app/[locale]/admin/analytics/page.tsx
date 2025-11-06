@@ -1,5 +1,5 @@
-import { EnhancedAnalyticsDashboard } from "@/components/admin/enhanced-analytics-dashboard";
 import { unstable_noStore } from "next/cache";
+import { EnhancedAnalyticsDashboard } from "@/components/admin/enhanced-analytics-dashboard";
 import { requireUser } from "@/lib/auth";
 
 export const metadata = {

@@ -100,7 +100,7 @@ export function HelpSearchBar({
 
         <input
           autoFocus={autoFocus}
-          className="w-full rounded-lg border border-gray-300 bg-white py-3 pr-10 pl-12 text-gray-900 placeholder-gray-500 focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
+          className="w-full rounded-lg border border-gray-300 bg-white py-3 pr-10 pl-12 text-gray-900 placeholder-gray-500 focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
           onChange={(e) => {
             setQuery(e.target.value);
             setShowResults(true);
@@ -135,7 +135,7 @@ export function HelpSearchBar({
               return (
                 <div className="flex items-center justify-center px-4 py-8">
                   <HugeiconsIcon
-                    className="mr-2 h-5 w-5 animate-spin text-[var(--red)]"
+                    className="mr-2 h-5 w-5 animate-spin text-[#E85D48]"
                     icon={Loading01Icon}
                   />
                   <span className="text-gray-600 text-sm">{t("search.searching")}</span>
@@ -166,7 +166,7 @@ export function HelpSearchBar({
 
                   <div className="border-gray-100 border-t bg-gray-50 px-4 py-2 text-center">
                     <button
-                      className="text-[var(--red)] text-sm hover:underline"
+                      className="text-[#E85D48] text-sm hover:underline"
                       onClick={() => {
                         router.push(`/${locale}/help?q=${encodeURIComponent(query)}`);
                         setShowResults(false);
@@ -183,7 +183,7 @@ export function HelpSearchBar({
               <div className="px-4 py-8 text-center">
                 <p className="text-gray-600 text-sm">{t("search.noResults")}</p>
                 <button
-                  className="mt-2 text-[var(--red)] text-sm hover:underline"
+                  className="mt-2 text-[#E85D48] text-sm hover:underline"
                   onClick={() => router.push(`/${locale}/help`)}
                   type="button"
                 >

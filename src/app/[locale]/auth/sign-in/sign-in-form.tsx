@@ -9,7 +9,7 @@ type Props = {
 };
 
 const inputClasses =
-  "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[var(--foreground)] shadow-sm transition focus:border-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)1a]";
+  "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[#1A1614] shadow-sm transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/10";
 
 export function SignInForm({ redirectTo }: Props) {
   const t = useTranslations("pages.signIn.form");
@@ -21,7 +21,7 @@ export function SignInForm({ redirectTo }: Props) {
   return (
     <form action={formAction} className="space-y-6">
       <div className="space-y-2">
-        <label className="block font-medium text-[var(--foreground)] text-sm" htmlFor="email">
+        <label className="block font-medium text-[#1A1614] text-sm" htmlFor="email">
           {t("emailLabel")}
         </label>
         <input
@@ -36,7 +36,7 @@ export function SignInForm({ redirectTo }: Props) {
       </div>
 
       <div className="space-y-2">
-        <label className="block font-medium text-[var(--foreground)] text-sm" htmlFor="password">
+        <label className="block font-medium text-[#1A1614] text-sm" htmlFor="password">
           {t("passwordLabel")}
         </label>
         <input
@@ -52,10 +52,10 @@ export function SignInForm({ redirectTo }: Props) {
 
       {redirectTo ? <input name="redirectTo" type="hidden" value={redirectTo} /> : null}
 
-      {state.error ? <p className="text-red-600 text-sm">{state.error}</p> : null}
+      {state.error ? <p className="text-[#E85D48] text-sm">{state.error}</p> : null}
 
       <button
-        className="w-full rounded-full border border-[var(--foreground)] bg-[var(--foreground)] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:border-[var(--red)] hover:bg-[#2b2624] disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-full border border-[#E85D48] bg-[#E85D48] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-60"
         disabled={isPending}
         type="submit"
       >

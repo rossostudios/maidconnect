@@ -6,6 +6,14 @@
 
 "use client";
 
+import {
+  BulbIcon,
+  Calendar01Icon,
+  Rocket01Icon,
+  Search01Icon,
+  Tick02Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import type {
@@ -81,10 +89,11 @@ export function RoadmapBoard() {
   );
 
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
-      {/* Filters sidebar */}
+    /* Auto Layout: Horizontal stack (lg), gap 32px, responsive to vertical on mobile */
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[320px_1fr]">
+      {/* Filters sidebar - Auto Layout: Fixed width 320px, sticky position */}
       <div className="lg:col-span-1">
-        <div className="sticky top-4">
+        <div className="sticky top-6">
           <RoadmapFilters
             onCategoryChange={setSelectedCategories}
             onSearchChange={setSearchQuery}
@@ -96,34 +105,38 @@ export function RoadmapBoard() {
         </div>
       </div>
 
-      {/* Roadmap items */}
-      <div className="lg:col-span-3">
+      {/* Roadmap items - Auto Layout: Fill remaining width, vertical stack */}
+      <div className="lg:col-span-1">
         {isLoading ? (
+          /* Loading state - Auto Layout: Center aligned, padding 48px vertical */
           <div className="flex items-center justify-center py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[var(--red)] border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#E85D48] border-t-transparent" />
           </div>
         ) : items.length === 0 ? (
-          <div className="py-12 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#f3f4f6]">
-              <span className="text-3xl">🔍</span>
+          /* Empty state - Auto Layout: Vertical stack, center aligned, gap 16px, padding 48px */
+          <div className="flex flex-col items-center gap-4 py-12 text-center">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#E85D48]/10">
+              <HugeiconsIcon className="text-[#E85D48]" icon={Search01Icon} size={32} />
             </div>
-            <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">
-              {t("empty.title")}
-            </h3>
-            <p className="text-[#6B7280]">{t("empty.description")}</p>
+            <div className="flex flex-col gap-2">
+              <h3 className="serif-headline-sm text-[#1A1614]">{t("empty.title")}</h3>
+              <p className="text-[#7a6d62]">{t("empty.description")}</p>
+            </div>
           </div>
         ) : (
-          <div className="space-y-8">
+          /* Items list - Auto Layout: Vertical stack, gap 32px */
+          <div className="flex flex-col gap-8">
             {/* Show items grouped by status if no status filter is active */}
             {selectedStatuses.length === 0 ? (
               <>
-                {/* In Progress */}
+                {/* In Progress - Auto Layout: Vertical stack, gap 16px */}
                 {itemsByStatus.in_progress && itemsByStatus.in_progress.length > 0 && (
-                  <div>
-                    <h2 className="mb-4 flex items-center gap-2 font-bold text-[var(--foreground)] text-xl">
-                      <span>🚀</span>
+                  <div className="flex flex-col gap-4">
+                    <h2 className="serif-headline-md flex items-center gap-2 text-[#1A1614]">
+                      <HugeiconsIcon icon={Rocket01Icon} size={24} />
                       {t("status.in_progress")}
                     </h2>
+                    {/* Auto Layout: Grid, 2 columns on md+, gap 16px */}
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                       {itemsByStatus.in_progress.map((item) => (
                         <RoadmapItemCard item={item} key={item.id} />
@@ -132,13 +145,14 @@ export function RoadmapBoard() {
                   </div>
                 )}
 
-                {/* Planned */}
+                {/* Planned - Auto Layout: Vertical stack, gap 16px */}
                 {itemsByStatus.planned && itemsByStatus.planned.length > 0 && (
-                  <div>
-                    <h2 className="mb-4 flex items-center gap-2 font-bold text-[var(--foreground)] text-xl">
-                      <span>📅</span>
+                  <div className="flex flex-col gap-4">
+                    <h2 className="serif-headline-md flex items-center gap-2 text-[#1A1614]">
+                      <HugeiconsIcon icon={Calendar01Icon} size={24} />
                       {t("status.planned")}
                     </h2>
+                    {/* Auto Layout: Grid, 2 columns on md+, gap 16px */}
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                       {itemsByStatus.planned.map((item) => (
                         <RoadmapItemCard item={item} key={item.id} />
@@ -147,14 +161,15 @@ export function RoadmapBoard() {
                   </div>
                 )}
 
-                {/* Under Consideration */}
+                {/* Under Consideration - Auto Layout: Vertical stack, gap 16px */}
                 {itemsByStatus.under_consideration &&
                   itemsByStatus.under_consideration.length > 0 && (
-                    <div>
-                      <h2 className="mb-4 flex items-center gap-2 font-bold text-[var(--foreground)] text-xl">
-                        <span>💡</span>
+                    <div className="flex flex-col gap-4">
+                      <h2 className="serif-headline-md flex items-center gap-2 text-[#1A1614]">
+                        <HugeiconsIcon icon={BulbIcon} size={24} />
                         {t("status.under_consideration")}
                       </h2>
+                      {/* Auto Layout: Grid, 2 columns on md+, gap 16px */}
                       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                         {itemsByStatus.under_consideration.map((item) => (
                           <RoadmapItemCard item={item} key={item.id} />
@@ -163,13 +178,14 @@ export function RoadmapBoard() {
                     </div>
                   )}
 
-                {/* Shipped */}
+                {/* Shipped - Auto Layout: Vertical stack, gap 16px */}
                 {itemsByStatus.shipped && itemsByStatus.shipped.length > 0 && (
-                  <div>
-                    <h2 className="mb-4 flex items-center gap-2 font-bold text-[var(--foreground)] text-xl">
-                      <span>✅</span>
+                  <div className="flex flex-col gap-4">
+                    <h2 className="serif-headline-md flex items-center gap-2 text-[#1A1614]">
+                      <HugeiconsIcon icon={Tick02Icon} size={24} />
                       {t("status.shipped")}
                     </h2>
+                    {/* Auto Layout: Grid, 2 columns on md+, gap 16px */}
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                       {itemsByStatus.shipped.map((item) => (
                         <RoadmapItemCard item={item} key={item.id} />
@@ -180,6 +196,7 @@ export function RoadmapBoard() {
               </>
             ) : (
               /* If status filter is active, show all items in a grid */
+              /* Auto Layout: Grid, 2 columns on md+, gap 16px */
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {items.map((item) => (
                   <RoadmapItemCard item={item} key={item.id} />

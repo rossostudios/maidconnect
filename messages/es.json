@@ -1049,9 +1049,36 @@
     "becomeProfessional": "Ser profesional",
     "learnMore": "Más información"
   },
+  "search": {
+    "where": "DÓNDE",
+    "when": "CUÁNDO",
+    "service": "SERVICIO",
+    "searchButton": "BUSCAR",
+    "selectCity": "Seleccionar ciudad",
+    "selectDate": "Seleccionar fecha",
+    "anyService": "Cualquier servicio",
+    "cities": {
+      "bogota": "Bogotá",
+      "medellin": "Medellín",
+      "cali": "Cali",
+      "barranquilla": "Barranquilla",
+      "cartagena": "Cartagena",
+      "bucaramanga": "Bucaramanga"
+    },
+    "services": {
+      "cleaning": "Limpieza del Hogar",
+      "cooking": "Chef Personal",
+      "childcare": "Cuidado Infantil",
+      "elderly": "Cuidado de Ancianos",
+      "gardening": "Jardinería",
+      "pet": "Cuidado de Mascotas"
+    }
+  },
   "services": {
     "badge": "Servicios",
     "title": "Profesionales seleccionados para cada rutina",
+    "subtitle": "Servicios profesionales para el hogar que facilitan la vida. Desde limpieza hasta cuidado infantil, encuentra profesionales verificados listos para ayudar.",
+    "viewAll": "Ver Todos los Servicios",
     "cta": "Encontrar Profesionales",
     "learnMore": "Saber más",
     "from": "Desde",
@@ -1088,27 +1115,27 @@
   },
   "process": {
     "badge": "Cómo funciona",
-    "title": "De la búsqueda al soporte en cuatro pasos simples",
+    "title": "Nosotros curamos. Tú eliges.",
     "steps": {
       "step1": {
         "number": "01",
-        "title": "Comparta su perfil de hogar",
-        "description": "Complete nuestra entrada guiada detallando rutinas, preferencias, idiomas y certificaciones requeridas."
+        "title": "Verificamos rigurosamente",
+        "description": "Solo 5% aprueba. Verificación de antecedentes, pruebas de habilidades, entrevistas presenciales."
       },
       "step2": {
         "number": "02",
-        "title": "Conozca profesionales seleccionados",
-        "description": "Reciba una lista corta con videos de presentación, credenciales verificadas y precios transparentes para comparar con facilidad."
+        "title": "Explora perfiles curados",
+        "description": "Busca por idioma, ubicación, disponibilidad. Mira videos de presentación."
       },
       "step3": {
         "number": "03",
-        "title": "Reserve y confirme",
-        "description": "Programe su servicio con reserva instantánea o aprobada. Comuníquese directamente a través de mensajería segura."
+        "title": "Conecta y reserva",
+        "description": "Días de prueba disponibles. Mensajería segura. Tu horario."
       },
       "step4": {
         "number": "04",
-        "title": "Califique y vuelva a reservar",
-        "description": "Comparta comentarios después de cada visita. Guarde sus favoritos y vuelva a reservar con un clic para soporte continuo."
+        "title": "Te apoyamos",
+        "description": "Desde la incorporación hasta el apoyo continuo. Mantenemos los estándares."
       }
     }
   },
@@ -1155,7 +1182,7 @@
     }
   },
   "footer": {
-    "description": "Conéctese con empleadas domésticas y cuidadores verificados en toda Colombia. Completamente examinados, integrados y listos para apoyar su estilo de vida.",
+    "description": "El Arte del Hogar",
     "platform": "Plataforma",
     "company": "Empresa",
     "mobile": "Móvil",
@@ -2067,7 +2094,7 @@
   "professionalsDirectory": {
     "header": {
       "title": "Profesionales de Casaora",
-      "subtitle": "Cada especialista listado a continuación ha superado el proceso de verificación de cuatro etapas de Casaora y está autorizado para atender clientes a través de nuestra plataforma. Estos pasos incluyen la presentación y aprobación de su cédula (documento de identidad del gobierno colombiano), prueba de elegibilidad laboral, referencias y una entrevista en persona."
+      "subtitle": "Cada especialista ha superado la verificación de cuatro etapas de Casaora: cédula aprobada, elegibilidad laboral, referencias y entrevista presencial."
     },
     "filters": {
       "search": "Buscar por nombre, servicio o barrio",

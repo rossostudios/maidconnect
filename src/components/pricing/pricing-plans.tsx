@@ -73,8 +73,8 @@ export function PricingPlans() {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
-          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-[var(--red)]" />
-          <p className="text-[#6B7280]">Loading pricing plans...</p>
+          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-red-600" />
+          <p className="text-gray-500">Loading pricing plans...</p>
         </div>
       </div>
     );
@@ -84,10 +84,10 @@ export function PricingPlans() {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
-          <p className="mb-4 text-[var(--red)]">Error loading pricing plans</p>
-          <p className="text-[#6B7280] text-sm">{error}</p>
+          <p className="mb-4 text-orange-500">Error loading pricing plans</p>
+          <p className="text-gray-500 text-sm">{error}</p>
           <button
-            className="mt-4 rounded-[14px] border-2 border-[#ebe5d8] px-6 py-2 font-semibold text-[var(--foreground)] hover:border-[var(--foreground)]"
+            className="mt-4 rounded-[14px] border-2 border-stone-200 px-6 py-2 font-semibold text-gray-900 hover:border-gray-900"
             onClick={() => window.location.reload()}
             type="button"
           >
@@ -102,12 +102,12 @@ export function PricingPlans() {
     <div className="space-y-12">
       {/* Billing toggle */}
       <div className="flex items-center justify-center">
-        <div className="inline-flex items-center gap-4 rounded-[16px] border-2 border-[#ebe5d8] bg-white p-2">
+        <div className="inline-flex items-center gap-4 rounded-[16px] border-2 border-stone-200 bg-white p-2">
           <button
             className={`rounded-[12px] px-6 py-2 font-medium transition-all ${
               billingPeriod === "monthly"
-                ? "bg-[var(--red)] text-white"
-                : "text-[#6B7280] hover:text-[var(--foreground)]"
+                ? "bg-orange-500 text-white"
+                : "text-gray-500 hover:text-gray-900"
             }`}
             onClick={() => setBillingPeriod("monthly")}
             type="button"
@@ -117,8 +117,8 @@ export function PricingPlans() {
           <button
             className={`relative rounded-[12px] px-6 py-2 font-medium transition-all ${
               billingPeriod === "annual"
-                ? "bg-[var(--red)] text-white"
-                : "text-[#6B7280] hover:text-[var(--foreground)]"
+                ? "bg-orange-500 text-white"
+                : "text-gray-500 hover:text-gray-900"
             }`}
             onClick={() => setBillingPeriod("annual")}
             type="button"
@@ -140,24 +140,24 @@ export function PricingPlans() {
             <div
               className={`relative rounded-[28px] bg-white p-8 transition-all ${
                 plan.highlight_as_popular
-                  ? "scale-105 border-4 border-[var(--red)] shadow-xl"
-                  : "border-2 border-[#ebe5d8] hover:border-[var(--red)]"
+                  ? "scale-105 border-4 border-orange-500 shadow-xl"
+                  : "border-2 border-stone-200 hover:border-orange-500"
               }`}
               key={plan.id}
             >
               {/* Most popular badge */}
               {plan.highlight_as_popular && (
-                <div className="-top-4 -translate-x-1/2 absolute left-1/2 rounded-full bg-[var(--red)] px-4 py-1 font-semibold text-sm text-white">
+                <div className="-top-4 -translate-x-1/2 absolute left-1/2 rounded-full bg-orange-500 px-4 py-1 font-semibold text-sm text-white">
                   Most Popular
                 </div>
               )}
 
               {/* Plan name and description */}
               <div className="mb-6 text-center">
-                <h3 className="mb-2 font-bold text-2xl text-[var(--foreground)]">{plan.name}</h3>
-                <p className="text-[#6B7280]">{plan.description}</p>
+                <h3 className="mb-2 font-bold text-2xl text-gray-900">{plan.name}</h3>
+                <p className="text-gray-500">{plan.description}</p>
                 {plan.recommended_for && (
-                  <p className="mt-2 text-[#6B7280] text-sm italic">
+                  <p className="mt-2 text-gray-500 text-sm italic">
                     Recommended for: {plan.recommended_for}
                   </p>
                 )}
@@ -165,14 +165,14 @@ export function PricingPlans() {
 
               {/* Price */}
               <div className="mb-8 text-center">
-                <div className="type-serif-lg mb-2 text-[var(--foreground)]">
+                <div className="type-serif-lg mb-2 text-gray-900">
                   {getPrice(plan)}
                   {plan.price_monthly !== null && plan.price_monthly > 0 && (
-                    <span className="font-normal text-[#6B7280] text-xl">{getPeriod()}</span>
+                    <span className="font-normal text-gray-500 text-xl">{getPeriod()}</span>
                   )}
                 </div>
                 {getMonthlyEquivalent(plan) && (
-                  <div className="text-[#6B7280] text-sm">
+                  <div className="text-gray-500 text-sm">
                     billed annually ({getMonthlyEquivalent(plan)})
                   </div>
                 )}
@@ -182,8 +182,8 @@ export function PricingPlans() {
               <a
                 className={`mb-8 block w-full rounded-[14px] py-4 text-center font-semibold transition-all ${
                   plan.highlight_as_popular
-                    ? "bg-[var(--red)] text-white hover:bg-[var(--red)]"
-                    : "border-2 border-[#ebe5d8] text-[var(--foreground)] hover:border-[var(--foreground)]"
+                    ? "bg-orange-500 text-white hover:bg-orange-500"
+                    : "border-2 border-stone-200 text-gray-900 hover:border-gray-900"
                 }`}
                 href={plan.cta_url || "/auth/sign-up"}
               >
@@ -197,14 +197,14 @@ export function PricingPlans() {
                   .map((feature, idx) => (
                     <div className="flex items-start gap-3" key={idx}>
                       <HugeiconsIcon
-                        className="mt-0.5 flex-shrink-0 text-[#10B981]"
+                        className="mt-0.5 flex-shrink-0 text-green-500"
                         icon={Tick02Icon}
                         size={20}
                       />
-                      <span className="text-[var(--foreground)]">
+                      <span className="text-gray-900">
                         {feature.name}
                         {feature.limit && (
-                          <span className="ml-1 text-[#6B7280] text-sm">({feature.limit})</span>
+                          <span className="ml-1 text-gray-500 text-sm">({feature.limit})</span>
                         )}
                       </span>
                     </div>
@@ -213,25 +213,6 @@ export function PricingPlans() {
             </div>
           );
         })}
-      </div>
-
-      {/* Trust signals */}
-      <div className="py-8 text-center">
-        <p className="mb-6 text-[#6B7280]">Trusted by over 10,000+ professionals</p>
-        <div className="flex flex-wrap items-center justify-center gap-8">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">🔒</span>
-            <span className="text-[#6B7280] text-sm">Bank-level encryption</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">✓</span>
-            <span className="text-[#6B7280] text-sm">SOC 2 compliant</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">🌟</span>
-            <span className="text-[#6B7280] text-sm">4.9/5 rating</span>
-          </div>
-        </div>
       </div>
     </div>
   );

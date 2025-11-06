@@ -45,14 +45,14 @@ export function OnboardingChecklist({
       {/* Header */}
       <div className="mb-6">
         <div className="mb-2 flex items-center justify-between">
-          <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
-          <span className="font-bold text-2xl text-[var(--red)]">{completionPercentage}%</span>
+          <h3 className="font-semibold text-gray-900 text-lg">{t("title")}</h3>
+          <span className="font-bold text-2xl text-[#E85D48]">{completionPercentage}%</span>
         </div>
 
         {/* Progress Bar */}
         <div className="relative h-3 overflow-hidden rounded-full bg-[#f3f4f6]">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-[var(--red)] to-[#ff6b6b] transition-all duration-500"
+            className="h-full rounded-full bg-gradient-to-r from-red-600 to-[#ff6b6b] transition-all duration-500"
             style={{ width: `${completionPercentage}%` }}
           />
         </div>
@@ -78,7 +78,7 @@ export function OnboardingChecklist({
 
       {/* Required Items */}
       <div className="mb-6">
-        <h4 className="mb-3 font-semibold text-[var(--foreground)] text-sm uppercase tracking-wide">
+        <h4 className="mb-3 font-semibold text-gray-900 text-sm uppercase tracking-wide">
           {t("requiredItems")}
         </h4>
         <div className="space-y-2">
@@ -92,7 +92,7 @@ export function OnboardingChecklist({
       {optionalItems.length > 0 && (
         <div>
           <button
-            className="mb-3 flex w-full items-center justify-between font-semibold text-[var(--foreground)] text-sm uppercase tracking-wide transition hover:text-[var(--red)]"
+            className="mb-3 flex w-full items-center justify-between font-semibold text-gray-900 text-sm uppercase tracking-wide transition hover:text-[#E85D48]"
             onClick={() => setExpandedOptional(!expandedOptional)}
             type="button"
           >
@@ -144,7 +144,7 @@ function ChecklistItem({ item, onClick }: { item: OnboardingItem; onClick: () =>
       className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
         item.completed
           ? "border-green-200 bg-green-50 hover:bg-green-100"
-          : "border-[#e5e7eb] bg-white hover:border-[var(--red)]/50 hover:shadow-sm"
+          : "border-[#e5e7eb] bg-white hover:border-[#E85D48]/50 hover:shadow-sm"
       }`}
       onClick={onClick}
       type="button"
@@ -166,11 +166,7 @@ function ChecklistItem({ item, onClick }: { item: OnboardingItem; onClick: () =>
 
       {/* Label */}
       <div className="flex-1">
-        <p
-          className={`font-medium text-sm ${
-            item.completed ? "text-green-900" : "text-[var(--foreground)]"
-          }`}
-        >
+        <p className={`font-medium text-sm ${item.completed ? "text-green-900" : "text-gray-900"}`}>
           {t(item.id)}
         </p>
         {item.completedAt && (

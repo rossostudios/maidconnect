@@ -1,5 +1,6 @@
-import { AdminProfileEditor } from "@/components/admin/admin-profile-editor";
 import { unstable_noStore } from "next/cache";
+import { AdminProfileEditor } from "@/components/admin/admin-profile-editor";
+import { BackgroundCheckProviderSettings } from "@/components/admin/background-check-provider-settings";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -23,6 +24,19 @@ export default async function AdminSettingsPage() {
     avatar_url: string | null;
   } | null;
 
+  // Fetch background check provider settings
+  const { data: bgCheckSettings } = await supabase
+    .from("platform_settings")
+    .select("setting_value")
+    .eq("setting_key", "background_check_provider")
+    .maybeSingle();
+
+  const backgroundCheckSettings = bgCheckSettings?.setting_value || {
+    provider: "checkr",
+    enabled: true,
+    auto_initiate: false,
+  };
+
   return (
     <section className="space-y-8">
       <div>
@@ -44,6 +58,15 @@ export default async function AdminSettingsPage() {
           }}
           userId={user.id}
         />
+      </div>
+
+      {/* Background Check Provider Settings */}
+      <div className="rounded-lg border border-[#E5E5E5] bg-white p-8">
+        <h2 className="mb-2 font-semibold text-[#171717] text-xl">Background Check Provider</h2>
+        <p className="mb-6 text-[#737373] text-sm">
+          Configure which provider to use for professional background checks
+        </p>
+        <BackgroundCheckProviderSettings initialSettings={backgroundCheckSettings as any} />
       </div>
     </section>
   );

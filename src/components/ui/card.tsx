@@ -7,14 +7,14 @@
 
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import type { ComponentPropsWithoutRef, Ref } from "react";
 import { cardHover } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 export type CardVariant = "default" | "elevated" | "outlined" | "glass";
 
-interface BaseCardProps {
+type BaseCardProps = {
   /**
    * Visual variant
    * @default "default"
@@ -39,19 +39,17 @@ interface BaseCardProps {
    * @default false
    */
   disableMotion?: boolean;
-}
+};
 
 interface CardProps
   extends BaseCardProps,
     Omit<ComponentPropsWithoutRef<"div">, keyof BaseCardProps> {}
 
 const variantStyles: Record<CardVariant, string> = {
-  default: "bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-card)]",
-  elevated:
-    "bg-[var(--surface-elevated)] border border-[var(--border-subtle)] shadow-[var(--shadow-elevated)]",
-  outlined: "bg-[var(--background)] border-2 border-[var(--border)] shadow-none",
-  glass:
-    "bg-[var(--surface)]/70 border border-[var(--border-subtle)]/50 shadow-[var(--shadow-subtle)] backdrop-blur-lg",
+  default: "bg-white border border-stone-200 shadow-md",
+  elevated: "bg-white border border-gray-200 shadow-lg",
+  outlined: "bg-stone-50 border-2 border-stone-200 shadow-none",
+  glass: "bg-white/70 border border-gray-200/50 shadow-sm backdrop-blur-lg",
 };
 
 /**
@@ -88,7 +86,7 @@ export const Card = ({
   ...props
 }: CardProps & { ref?: Ref<HTMLDivElement> }) => {
   const baseStyles =
-    "rounded-xl overflow-hidden transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring)]";
+    "rounded-xl overflow-hidden transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600";
 
   const classes = cn(
     baseStyles,
@@ -103,6 +101,7 @@ export const Card = ({
           initial: "rest" as const,
           whileHover: "hover" as const,
           variants: cardHover,
+          style: { willChange: "transform" }, // Performance optimization
         }
       : {};
 
@@ -187,11 +186,7 @@ export const CardFooter = ({
   ref,
   ...props
 }: ComponentPropsWithoutRef<"div"> & { ref?: Ref<HTMLDivElement> }) => (
-  <div
-    className={cn("border-[var(--border-subtle)] border-t p-6 pt-4", className)}
-    ref={ref}
-    {...props}
-  />
+  <div className={cn("border-gray-200 border-t p-6 pt-4", className)} ref={ref} {...props} />
 );
 
 CardFooter.displayName = "CardFooter";

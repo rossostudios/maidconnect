@@ -79,7 +79,7 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-[var(--red)] border-t-2 border-b-2" />
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-[#E85D48] border-t-2 border-b-2" />
           <p className="text-[#6b7280]">{t("loading")}</p>
         </div>
       </div>
@@ -88,11 +88,11 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
 
   if (error) {
     return (
-      <div className="rounded-[24px] border-2 border-red-200 bg-red-50 p-6">
+      <div className="rounded-[24px] border-2 border-red-200 bg-[#E85D48]/10 p-6">
         <p className="font-semibold text-red-900">{t("error")}</p>
         <p className="mt-2 text-red-700 text-sm">{error}</p>
         <button
-          className="mt-4 rounded-xl bg-red-600 px-4 py-2 font-medium text-sm text-white transition hover:bg-red-700"
+          className="mt-4 rounded-xl bg-[#E85D48] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#D64A36]"
           onClick={() => loadServices()}
           type="button"
         >
@@ -107,11 +107,11 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-bold text-2xl text-[var(--foreground)]">{t("title")}</h2>
+          <h2 className="font-bold text-2xl text-gray-900">{t("title")}</h2>
           <p className="text-[#6b7280] text-sm">{t("description")}</p>
         </div>
         <button
-          className="flex items-center gap-2 rounded-xl bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
+          className="flex items-center gap-2 rounded-xl bg-[#E85D48] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
           type="button"
         >
           <HugeiconsIcon className="h-4 w-4" icon={Add01Icon} />
@@ -125,7 +125,7 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
         <button
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             filter === "all"
-              ? "bg-[var(--red)] text-white"
+              ? "bg-[#E85D48] text-white"
               : "bg-[#f3f4f6] text-[#6b7280] hover:bg-[#e5e7eb]"
           }`}
           onClick={() => setFilter("all")}
@@ -136,7 +136,7 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
         <button
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             filter === "active"
-              ? "bg-[var(--red)] text-white"
+              ? "bg-[#E85D48] text-white"
               : "bg-[#f3f4f6] text-[#6b7280] hover:bg-[#e5e7eb]"
           }`}
           onClick={() => setFilter("active")}
@@ -147,7 +147,7 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
         <button
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             filter === "inactive"
-              ? "bg-[var(--red)] text-white"
+              ? "bg-[#E85D48] text-white"
               : "bg-[#f3f4f6] text-[#6b7280] hover:bg-[#e5e7eb]"
           }`}
           onClick={() => setFilter("inactive")}
@@ -172,10 +172,10 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
         </div>
       ) : (
         <div className="rounded-[24px] border-2 border-[#e5e7eb] bg-white p-12 text-center">
-          <p className="font-semibold text-[var(--foreground)]">{t("noServices")}</p>
+          <p className="font-semibold text-gray-900">{t("noServices")}</p>
           <p className="mt-2 text-[#6b7280] text-sm">{t("noServicesDescription")}</p>
           <button
-            className="mt-6 rounded-xl bg-[var(--red)] px-6 py-3 font-medium text-white transition hover:bg-[#cc3333]"
+            className="mt-6 rounded-xl bg-[#E85D48] px-6 py-3 font-medium text-white transition hover:bg-[#cc3333]"
             type="button"
           >
             {t("createFirstService")}

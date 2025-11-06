@@ -101,7 +101,7 @@ export function AmaraMessageActions({
           aria-label={t("thumbsDown")}
           className={cn(
             "group rounded-md p-1.5 transition-all hover:bg-gray-100",
-            feedback === "negative" && "bg-red-50 text-red-600"
+            feedback === "negative" && "bg-[#E85D48]/10 text-[#E85D48]"
           )}
           onClick={() => handleFeedback("negative")}
           title={t("thumbsDown")}
@@ -111,7 +111,7 @@ export function AmaraMessageActions({
             className={cn(
               "h-3.5 w-3.5 transition-colors",
               feedback === "negative"
-                ? "fill-red-600 text-red-600"
+                ? "fill-red-600 text-[#E85D48]"
                 : "text-gray-400 group-hover:text-gray-600"
             )}
             icon={ThumbsDownIcon}

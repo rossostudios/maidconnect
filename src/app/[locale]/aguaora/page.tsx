@@ -1,7 +1,7 @@
 import { MagicWand01Icon } from "@hugeicons/core-free-icons";
-import { unstable_noStore } from "next/cache";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { Metadata } from "next";
+import { unstable_noStore } from "next/cache";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 
@@ -38,20 +38,18 @@ export default async function AguaoraPage({ params }: { params: Promise<{ locale
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="flex flex-1 items-center justify-center bg-gradient-to-br from-[var(--background)] to-[#f3ece1] px-4 py-24">
+      <main className="flex flex-1 items-center justify-center bg-gradient-to-br from-[#fbf9f7] to-[#f3ece1] px-4 py-24">
         <div className="mx-auto max-w-2xl text-center">
           {/* Logo/Brand */}
-          <div className="mb-8 inline-flex items-center justify-center rounded-full bg-[var(--red)]/10 p-6">
-            <HugeiconsIcon className="h-12 w-12 text-[var(--red)]" icon={MagicWand01Icon} />
+          <div className="mb-8 inline-flex items-center justify-center rounded-full bg-[#E85D48]/10 p-6">
+            <HugeiconsIcon className="h-12 w-12 text-[#E85D48]" icon={MagicWand01Icon} />
           </div>
 
           {/* Brand Name */}
-          <h1 className="type-serif-display mb-6 text-[var(--foreground)] tracking-[0.15em]">
-            AGUAORA
-          </h1>
+          <h1 className="type-serif-display mb-6 text-gray-900 tracking-[0.15em]">AGUAORA</h1>
 
           {/* Tagline */}
-          <p className="mb-8 text-[var(--muted-foreground)] text-xl leading-relaxed sm:text-2xl">
+          <p className="mb-8 text-gray-600 text-xl leading-relaxed sm:text-2xl">
             {isSpanish ? "Agua potable a tu puerta" : "Fresh water at your doorstep"}
           </p>
 
@@ -63,12 +61,12 @@ export default async function AguaoraPage({ params }: { params: Promise<{ locale
           </p>
 
           {/* Coming Soon Badge */}
-          <div className="inline-flex items-center gap-3 rounded-full border-2 border-[var(--red)] bg-white px-8 py-4 shadow-[var(--shadow-card)]">
+          <div className="inline-flex items-center gap-3 rounded-full border-2 border-[#E85D48] bg-white px-8 py-4 shadow-sm">
             <div className="flex h-2 w-2 items-center justify-center">
-              <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-[var(--red)] opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--red)]" />
+              <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-[#E85D48] opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#E85D48]" />
             </div>
-            <span className="font-semibold text-[var(--foreground)] text-lg uppercase tracking-wider">
+            <span className="font-semibold text-gray-900 text-lg uppercase tracking-wider">
               {isSpanish ? "Próximamente" : "Coming Soon"}
             </span>
           </div>
@@ -77,7 +75,7 @@ export default async function AguaoraPage({ params }: { params: Promise<{ locale
           <p className="mt-12 text-[#7a7165] text-sm">
             {isSpanish ? "Una empresa hermana de" : "A sister company of"}{" "}
             <a
-              className="font-semibold text-[var(--red)] underline underline-offset-2 transition hover:text-[var(--red-hover)]"
+              className="font-semibold text-[#E85D48] underline underline-offset-2 transition hover:text-red-700"
               href="/"
             >
               Casaora

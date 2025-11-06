@@ -20,7 +20,7 @@ export function RecentlyViewed() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 text-[var(--foreground)]">
+      <div className="flex items-center gap-2 text-gray-900">
         <HugeiconsIcon className="h-5 w-5" icon={Clock01Icon} />
         <h2 className="font-semibold text-lg">Recently Viewed</h2>
       </div>
@@ -28,7 +28,7 @@ export function RecentlyViewed() {
       <div className="scrollbar-hide flex gap-4 overflow-x-auto pb-4">
         {recentlyViewed.map((item) => (
           <Link
-            className="group min-w-[240px] flex-shrink-0 rounded-2xl border border-[#ebe5d8] bg-white p-4 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[var(--red)] hover:shadow-[0_20px_50px_rgba(18,17,15,0.08)]"
+            className="group min-w-[240px] flex-shrink-0 rounded-2xl border border-[#ebe5d8] bg-white p-4 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[#E85D48] hover:shadow-[0_20px_50px_rgba(18,17,15,0.08)]"
             href={`/professionals/${item.id}`}
             key={item.id}
           >
@@ -46,7 +46,7 @@ export function RecentlyViewed() {
 
               {/* Info */}
               <div className="flex-1 space-y-1">
-                <h3 className="font-semibold text-[var(--foreground)] text-base leading-tight group-hover:text-[var(--red)]">
+                <h3 className="font-semibold text-base text-gray-900 leading-tight group-hover:text-[#E85D48]">
                   {item.name}
                 </h3>
                 <p className="text-[#7d7566] text-sm">{item.service}</p>

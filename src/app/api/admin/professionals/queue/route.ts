@@ -1,4 +1,10 @@
 import { NextResponse } from "next/server";
+import {
+  enrichProfessionalData,
+  groupDocumentsByProfessional,
+  groupProfessionalsByStatus,
+  groupReviewsByProfessional,
+} from "@/lib/admin/professional-queue-helpers";
 import { requireAdmin } from "@/lib/admin-helpers";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -67,8 +73,14 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "Failed to fetch professionals" }, { status: 500 });
     }
 
+    // Transform profile from array to object (Supabase joins return arrays)
+    const transformedProfessionals = (professionals || []).map((prof: any) => ({
+      ...prof,
+      profile: Array.isArray(prof.profile) ? prof.profile[0] : prof.profile,
+    }));
+
     // Filter by onboarding_status if needed
-    let filteredProfessionals = professionals || [];
+    let filteredProfessionals = transformedProfessionals;
     if (status) {
       filteredProfessionals = filteredProfessionals.filter(
         (p: any) => p.profile?.onboarding_status === status
@@ -109,53 +121,19 @@ export async function GET(request: Request) {
       .in("professional_id", professionalIds)
       .order("created_at", { ascending: false });
 
-    // Group data by professional
-    const documentsMap = new Map<string, any[]>();
-    for (const doc of allDocuments || []) {
-      if (!documentsMap.has(doc.profile_id)) {
-        documentsMap.set(doc.profile_id, []);
-      }
-      documentsMap.get(doc.profile_id)!.push(doc);
-    }
+    // Group data using helpers to reduce complexity
+    const documentsMap = groupDocumentsByProfessional(allDocuments);
+    const reviewsMap = groupReviewsByProfessional(allReviews);
 
-    const reviewsMap = new Map<string, any[]>();
-    for (const review of allReviews || []) {
-      if (!reviewsMap.has(review.professional_id)) {
-        reviewsMap.set(review.professional_id, []);
-      }
-      reviewsMap.get(review.professional_id)!.push(review);
-    }
+    // Enrich professional data using helper
+    const enrichedProfessionals = enrichProfessionalData(
+      filteredProfessionals,
+      documentsMap,
+      reviewsMap
+    );
 
-    // Combine data
-    const enrichedProfessionals = filteredProfessionals.map((prof: any) => {
-      const documents = documentsMap.get(prof.profile_id) || [];
-      const reviews = reviewsMap.get(prof.profile_id) || [];
-
-      return {
-        ...prof,
-        documents,
-        reviews,
-        email: null, // We don't have access to auth.users.email in this query
-        documentsCount: documents.length,
-        latestReview: reviews[0] || null,
-        waitingDays: Math.floor(
-          (Date.now() - new Date(prof.created_at).getTime()) / (1000 * 60 * 60 * 24)
-        ),
-      };
-    });
-
-    // Group by onboarding status
-    const grouped = {
-      application_in_review: enrichedProfessionals.filter(
-        (p: any) => p.profile?.onboarding_status === "application_in_review"
-      ),
-      approved: enrichedProfessionals.filter(
-        (p: any) => p.profile?.onboarding_status === "approved"
-      ),
-      application_pending: enrichedProfessionals.filter(
-        (p: any) => p.profile?.onboarding_status === "application_pending"
-      ),
-    };
+    // Group by status using helper
+    const grouped = groupProfessionalsByStatus(enrichedProfessionals);
 
     return NextResponse.json({
       professionals: enrichedProfessionals,

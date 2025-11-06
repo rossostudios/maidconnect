@@ -60,7 +60,7 @@ const variantStyles = {
   danger: {
     card: "border-[#E5E5E5]",
     iconBg: "bg-red-100",
-    iconColor: "text-red-600",
+    iconColor: "text-[#E85D48]",
   },
   info: {
     card: "border-[#E5E5E5]",
@@ -90,9 +90,9 @@ export function MetricCard({
       <Card className={cn("animate-pulse", className)}>
         <CardContent className="p-6">
           <div className="space-y-3">
-            <div className="h-4 w-20 rounded bg-[var(--surface-elevated)]" />
-            <div className="h-8 w-32 rounded bg-[var(--surface-elevated)]" />
-            <div className="h-3 w-24 rounded bg-[var(--surface-elevated)]" />
+            <div className="h-4 w-20 rounded bg-gray-100" />
+            <div className="h-8 w-32 rounded bg-gray-100" />
+            <div className="h-3 w-24 rounded bg-gray-100" />
           </div>
         </CardContent>
       </Card>
@@ -137,7 +137,7 @@ export function MetricCard({
                     className={cn(
                       "font-semibold text-sm",
                       trend === "up" && "text-green-600",
-                      trend === "down" && "text-red-600",
+                      trend === "down" && "text-[#E85D48]",
                       trend === "neutral" && "text-[#737373]"
                     )}
                   >

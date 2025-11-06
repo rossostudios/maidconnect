@@ -120,7 +120,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
       <div className="flex items-center justify-between border-gray-100 border-b bg-white px-4 py-3 sm:rounded-t-2xl sm:px-6 sm:py-4">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center">
-            <AmaraIcon className="text-[var(--red)]" size={40} />
+            <AmaraIcon className="text-[#E85D48]" size={40} />
           </div>
           <div>
             <h3 className="font-semibold text-base text-gray-900">{t("title")}</h3>
@@ -144,7 +144,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
           <div className="space-y-4 pb-6">
             <div className="amara-message flex justify-start gap-3">
               <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
-                <AmaraIcon className="text-[var(--red)]" size={32} />
+                <AmaraIcon className="text-[#E85D48]" size={32} />
               </div>
               <div className="max-w-[85%] rounded-2xl border border-gray-100 bg-white px-4 py-3 text-gray-900 shadow-sm sm:max-w-[75%]">
                 <p className="text-[15px] leading-relaxed">{t("greeting")}</p>
@@ -164,7 +164,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
             {/* Assistant avatar */}
             {message.role === "assistant" && (
               <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
-                <AmaraIcon className="text-[var(--red)]" size={32} />
+                <AmaraIcon className="text-[#E85D48]" size={32} />
               </div>
             )}
 
@@ -173,7 +173,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
                 className={cn(
                   "max-w-[85%] rounded-2xl px-4 py-3 shadow-sm transition-shadow hover:shadow-md sm:max-w-[75%]",
                   message.role === "user"
-                    ? "bg-[var(--red)] text-white"
+                    ? "bg-[#E85D48] text-white"
                     : "border border-gray-100 bg-white text-gray-900"
                 )}
               >
@@ -231,7 +231,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         {isLoading && (
           <div className="amara-typing-indicator flex justify-start gap-3">
             <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
-              <AmaraIcon className="text-[var(--red)]" size={32} />
+              <AmaraIcon className="text-[#E85D48]" size={32} />
             </div>
             <div className="rounded-2xl border border-gray-100 bg-white px-4 py-3 shadow-sm">
               <div className="flex space-x-1.5">
@@ -246,7 +246,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         {/* Error message */}
         {error && (
           <div className="flex justify-center">
-            <div className="amara-error rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm">
+            <div className="amara-error rounded-xl border border-red-200 bg-[#E85D48]/10 px-4 py-3 text-red-700 text-sm">
               {t("errorMessage")}
             </div>
           </div>
@@ -323,7 +323,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         <div className="mb-3 flex items-end gap-2 sm:gap-3">
           <div className="relative flex-1">
             <input
-              className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900 transition placeholder:text-gray-400 focus:border-[var(--red)] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[var(--red)]/10"
+              className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900 transition placeholder:text-gray-400 focus:border-[#E85D48] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#E85D48]/10"
               disabled={isLoading}
               maxLength={500}
               name="message"
@@ -335,7 +335,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
           </div>
           <button
             aria-label={t("send")}
-            className="flex h-11 min-h-[44px] w-11 min-w-[44px] flex-shrink-0 items-center justify-center rounded-xl bg-[var(--red)] text-white shadow-sm transition hover:bg-[var(--red-hover)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-[var(--red)]"
+            className="flex h-11 min-h-[44px] w-11 min-w-[44px] flex-shrink-0 items-center justify-center rounded-xl bg-[#E85D48] text-white shadow-sm transition hover:bg-[#D64A36] active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-[#E85D48]"
             disabled={isLoading || !input.trim()}
             type="submit"
           >
@@ -350,7 +350,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         {/* Privacy Policy Text */}
         <p className="text-center text-gray-500 text-xs">
           By chatting with Amara, you agree to our{" "}
-          <Link className="text-[var(--red)] hover:underline" href="/privacy">
+          <Link className="text-[#E85D48] hover:underline" href="/privacy">
             Privacy Policy
           </Link>
         </p>

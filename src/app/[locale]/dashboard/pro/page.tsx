@@ -179,8 +179,8 @@ export default async function ProfessionalDashboardPage() {
                   width={48}
                 />
               ) : (
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#E63946]/10">
-                  <HugeiconsIcon className="h-6 w-6 text-[#E63946]" icon={UserCircleIcon} />
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#E85D48]/10">
+                  <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={UserCircleIcon} />
                 </div>
               )}
             </div>
@@ -366,7 +366,7 @@ function MetricCard({
 }) {
   const colorClasses = {
     default: "bg-[#F5F5F5] text-[#737373]",
-    primary: "bg-[#E63946]/10 text-[#E63946]",
+    primary: "bg-[#E85D48]/10 text-[#E85D48]",
     success: "bg-[#28a745]/10 text-[#28a745]",
     warning: "bg-[#ffc107]/10 text-[#ffc107]",
     info: "bg-[#17a2b8]/10 text-[#17a2b8]",

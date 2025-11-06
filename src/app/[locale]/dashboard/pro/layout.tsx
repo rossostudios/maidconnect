@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { ProHeader } from "@/components/professional/pro-header";
 import { ProSidebar } from "@/components/professional/pro-sidebar";
 import { requireUser } from "@/lib/auth";
+import { calculateOnboardingCompletion } from "@/lib/onboarding/completion-calculator";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type Props = {
@@ -27,32 +28,10 @@ export default async function ProLayout({ children }: Props) {
     .maybeSingle();
 
   // Calculate onboarding completion percentage
-  const calculateOnboardingCompletion = () => {
-    if (!professionalProfile) return 0;
-    if (profile?.onboarding_status === "active") return 100;
-
-    let completed = 0;
-    const total = 10; // Total number of onboarding steps
-
-    // Application fields (4 points)
-    if (professionalProfile.bio) completed++;
-    if (professionalProfile.years_of_experience) completed++;
-    if (professionalProfile.references) completed++;
-    if (professionalProfile.service_areas?.length > 0) completed++;
-
-    // Services (2 points)
-    if (professionalProfile.services?.length > 0) completed += 2;
-
-    // Availability (2 points)
-    if (professionalProfile.default_availability) completed += 2;
-
-    // Portfolio (2 points)
-    if (professionalProfile.portfolio_images?.length > 0) completed += 2;
-
-    return Math.round((completed / total) * 100);
-  };
-
-  const onboardingCompletion = calculateOnboardingCompletion();
+  const onboardingCompletion = calculateOnboardingCompletion(
+    professionalProfile,
+    profile?.onboarding_status
+  );
 
   // Fetch pending leads count for badge
   const { count: pendingLeadsCount } = await supabase

@@ -91,21 +91,21 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={Clock01Icon} />
-          <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
+          <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={Clock01Icon} />
+          <h3 className="font-semibold text-gray-900 text-lg">{t("title")}</h3>
         </div>
 
         {editing ? (
           <div className="flex gap-2">
             <button
-              className="rounded-xl border-2 border-[#e5e7eb] bg-white px-4 py-2 font-medium text-[var(--foreground)] text-sm transition hover:bg-[#f9fafb]"
+              className="rounded-xl border-2 border-[#e5e7eb] bg-white px-4 py-2 font-medium text-gray-900 text-sm transition hover:bg-[#f9fafb]"
               onClick={handleCancel}
               type="button"
             >
               {t("cancel")}
             </button>
             <button
-              className="rounded-xl bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333] disabled:opacity-50"
+              className="rounded-xl bg-[#E85D48] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333] disabled:opacity-50"
               disabled={saving}
               onClick={handleSave}
               type="button"
@@ -115,7 +115,7 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
           </div>
         ) : (
           <button
-            className="rounded-xl bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
+            className="rounded-xl bg-[#E85D48] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
             onClick={() => setEditing(true)}
             type="button"
           >
@@ -143,12 +143,12 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
                 <div className="flex items-center gap-3">
                   <input
                     checked={dayHours?.isAvailable}
-                    className="h-5 w-5 cursor-pointer rounded border-[#d1d5db] text-[var(--red)] focus:ring-[var(--red)]"
+                    className="h-5 w-5 cursor-pointer rounded border-[#d1d5db] text-[#E85D48] focus:ring-[#E85D48]"
                     disabled={!editing}
                     onChange={() => handleDayToggle(day.value)}
                     type="checkbox"
                   />
-                  <span className="font-medium text-[var(--foreground)] text-sm">
+                  <span className="font-medium text-gray-900 text-sm">
                     {t(`days.${day.label.toLowerCase()}`)}
                   </span>
                 </div>

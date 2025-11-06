@@ -2,8 +2,8 @@ import { createNavigation } from "next-intl/navigation";
 import { defineRouting } from "next-intl/routing";
 
 export const routing = defineRouting({
-  locales: ["es", "en"], // Spanish-first for Colombian market
-  defaultLocale: "es",
+  locales: ["en", "es"], // English as global default
+  defaultLocale: "en",
   localeCookie: {
     name: "NEXT_LOCALE",
     // Expires in 1 year

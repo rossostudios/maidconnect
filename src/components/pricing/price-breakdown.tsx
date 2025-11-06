@@ -33,34 +33,34 @@ export function PriceBreakdown({
   const totalWithFees = showPlatformFee ? subtotal + platformFee : subtotal;
 
   return (
-    <div className={`space-y-3 rounded-xl border border-[#f0ece5] bg-[#fbfafa] p-5 ${className}`}>
-      <h3 className="font-semibold text-[var(--foreground)] text-base">Price Breakdown</h3>
+    <div className={`space-y-3 rounded-xl border border-stone-200 bg-stone-50 p-5 ${className}`}>
+      <h3 className="font-semibold text-base text-gray-900">Price Breakdown</h3>
 
       <div className="space-y-2">
         {/* Base service cost */}
         <div className="flex items-start justify-between text-sm">
           <div className="flex flex-col">
-            <span className="text-[#5a5549]">Service</span>
-            <span className="text-[#9a8f82] text-xs">
+            <span className="text-stone-600">Service</span>
+            <span className="text-stone-500 text-xs">
               {formatCOP(hourlyRate)}/hr × {hours} {hours === 1 ? "hour" : "hours"}
             </span>
           </div>
-          <span className="font-medium text-[var(--foreground)]">{formatCOP(baseAmount)}</span>
+          <span className="font-medium text-gray-900">{formatCOP(baseAmount)}</span>
         </div>
 
         {/* Add-ons */}
         {addonsTotal > 0 && (
           <div className="flex justify-between text-sm">
-            <span className="text-[#5a5549]">Add-ons</span>
-            <span className="font-medium text-[var(--foreground)]">{formatCOP(addonsTotal)}</span>
+            <span className="text-stone-600">Add-ons</span>
+            <span className="font-medium text-gray-900">{formatCOP(addonsTotal)}</span>
           </div>
         )}
 
         {/* Subtotal (if showing platform fee) */}
         {showPlatformFee && (
-          <div className="flex justify-between border-[#e8e4db] border-t pt-2 text-sm">
-            <span className="text-[#5a5549]">Subtotal</span>
-            <span className="font-medium text-[var(--foreground)]">{formatCOP(subtotal)}</span>
+          <div className="flex justify-between pt-2 text-sm">
+            <span className="text-stone-600">Subtotal</span>
+            <span className="font-medium text-gray-900">{formatCOP(subtotal)}</span>
           </div>
         )}
 
@@ -68,14 +68,14 @@ export function PriceBreakdown({
         {showPlatformFee && (
           <div className="flex items-start justify-between text-sm">
             <div className="flex items-center gap-1.5">
-              <span className="text-[#5a5549]">Platform Fee</span>
+              <span className="text-stone-600">Platform Fee</span>
               <div className="group relative">
                 <HugeiconsIcon
-                  className="h-3.5 w-3.5 text-[#9a8f82] transition hover:text-[var(--foreground)]"
+                  className="h-3.5 w-3.5 text-stone-500 transition hover:text-gray-900"
                   icon={HelpCircleIcon}
                 />
-                <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-64 rounded-lg border border-[#e8e4db] bg-white p-3 opacity-0 shadow-lg transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
-                  <p className="text-[#5a5549] text-xs leading-relaxed">
+                <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-64 rounded-lg border border-stone-200 bg-white p-3 opacity-0 shadow-lg transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
+                  <p className="text-stone-600 text-xs leading-relaxed">
                     This fee supports platform operations including payment processing, customer
                     support, insurance, and technology infrastructure that keeps Casaora safe and
                     reliable.
@@ -83,21 +83,21 @@ export function PriceBreakdown({
                 </div>
               </div>
             </div>
-            <span className="font-medium text-[var(--foreground)]">{formatCOP(platformFee)}</span>
+            <span className="font-medium text-gray-900">{formatCOP(platformFee)}</span>
           </div>
         )}
 
         {/* Total */}
-        <div className="flex justify-between border-[#e8e4db] border-t pt-3 font-semibold text-base">
-          <span className="text-[var(--foreground)]">Total</span>
-          <span className="text-[var(--red)]">{formatCOP(totalWithFees)}</span>
+        <div className="flex justify-between pt-3 font-semibold text-base">
+          <span className="text-gray-900">Total</span>
+          <span className="text-orange-500">{formatCOP(totalWithFees)}</span>
         </div>
       </div>
 
       {/* Trust badge */}
       {showPlatformFee && (
-        <div className="mt-3 rounded-lg bg-[#f1f8e9] p-3 text-center">
-          <p className="text-[#558b2f] text-xs leading-relaxed">
+        <div className="mt-3 rounded-lg bg-green-50 p-3 text-center">
+          <p className="text-green-700 text-xs leading-relaxed">
             <span className="font-semibold">100% Secure Payment</span> · Your payment is protected
             by Stripe. Funds are only released after service completion.
           </p>
@@ -127,16 +127,14 @@ export function CompactPrice({
 
   if (!showBreakdown) {
     return (
-      <div className={`font-semibold text-[var(--foreground)] ${className}`}>
-        {formatCOP(hourlyRate)}/hr
-      </div>
+      <div className={`font-semibold text-gray-900 ${className}`}>{formatCOP(hourlyRate)}/hr</div>
     );
   }
 
   return (
     <div className={`${className}`}>
-      <div className="font-semibold text-[var(--foreground)]">{formatCOP(hourlyRate)}/hr</div>
-      <div className="text-[#7a6d62] text-xs">{formatCOP(totalWithFee)}/hr total with fees</div>
+      <div className="font-semibold text-gray-900">{formatCOP(hourlyRate)}/hr</div>
+      <div className="text-stone-600 text-xs">{formatCOP(totalWithFee)}/hr total with fees</div>
     </div>
   );
 }

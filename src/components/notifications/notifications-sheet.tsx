@@ -130,7 +130,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
       <div className="fixed top-0 right-0 z-50 flex h-full w-full max-w-md flex-col bg-white shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between border-[#E5E5E5] border-b px-6 py-4">
-          <h2 className="font-semibold text-[var(--foreground)] text-xl">Notifications</h2>
+          <h2 className="font-semibold text-gray-900 text-xl">Notifications</h2>
           <button
             className="rounded-lg p-2 text-[#737373] transition hover:bg-[#F5F5F5]"
             onClick={onClose}
@@ -158,9 +158,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
           <div className="flex gap-4">
             <button
               className={`font-medium text-sm transition ${
-                filter === "unread"
-                  ? "text-[var(--foreground)]"
-                  : "text-[#737373] hover:text-[var(--foreground)]"
+                filter === "unread" ? "text-gray-900" : "text-[#737373] hover:text-gray-900"
               }`}
               onClick={() => setFilter("unread")}
               type="button"
@@ -169,9 +167,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
             </button>
             <button
               className={`font-medium text-sm transition ${
-                filter === "all"
-                  ? "text-[var(--foreground)]"
-                  : "text-[#737373] hover:text-[var(--foreground)]"
+                filter === "all" ? "text-gray-900" : "text-[#737373] hover:text-gray-900"
               }`}
               onClick={() => setFilter("all")}
               type="button"
@@ -181,7 +177,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
           </div>
           {unreadCount > 0 && (
             <button
-              className="font-medium text-[var(--red)] text-xs transition hover:text-[#e54d3c]"
+              className="font-medium text-[#E85D48] text-xs transition hover:text-[#e54d3c]"
               onClick={markAllAsRead}
               type="button"
             >
@@ -196,7 +192,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
             if (loading) {
               return (
                 <div className="flex items-center justify-center p-12">
-                  <div className="h-8 w-8 animate-spin rounded-full border-[var(--red)] border-b-2" />
+                  <div className="h-8 w-8 animate-spin rounded-full border-[#E85D48] border-b-2" />
                 </div>
               );
             }
@@ -219,7 +215,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                       />
                     </svg>
                   </div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-base">
+                  <h3 className="font-semibold text-base text-gray-900">
                     {filter === "unread" ? "All caught up!" : "No notifications"}
                   </h3>
                   <p className="mt-1 text-center text-[#737373] text-sm">
@@ -234,8 +230,8 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
               <div className="divide-y divide-[#E5E5E5]">
                 {notifications.map((notification) => (
                   <div
-                    className={`p-4 transition hover:bg-[var(--background)] ${
-                      notification.read_at ? "" : "bg-[var(--red)]/5"
+                    className={`p-4 transition hover:bg-[#fbf9f7] ${
+                      notification.read_at ? "" : "bg-[#E85D48]/5"
                     }`}
                     key={notification.id}
                   >
@@ -250,12 +246,10 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0 flex-1">
-                            <p className="font-semibold text-[var(--foreground)] text-sm">
+                            <p className="font-semibold text-gray-900 text-sm">
                               {notification.title}
                             </p>
-                            <p className="mt-1 text-[var(--muted-foreground)] text-sm">
-                              {notification.body}
-                            </p>
+                            <p className="mt-1 text-gray-600 text-sm">{notification.body}</p>
                             <p className="mt-1 text-[#737373] text-xs">
                               {formatDistanceToNow(new Date(notification.created_at), {
                                 addSuffix: true,
@@ -263,19 +257,17 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                             </p>
                           </div>
                           {!notification.read_at && (
-                            <div className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--red)]" />
+                            <div className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#E85D48]" />
                           )}
                         </div>
                       </Link>
                     ) : (
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">
-                          <p className="font-semibold text-[var(--foreground)] text-sm">
+                          <p className="font-semibold text-gray-900 text-sm">
                             {notification.title}
                           </p>
-                          <p className="mt-1 text-[var(--muted-foreground)] text-sm">
-                            {notification.body}
-                          </p>
+                          <p className="mt-1 text-gray-600 text-sm">{notification.body}</p>
                           <p className="mt-1 text-[#737373] text-xs">
                             {formatDistanceToNow(new Date(notification.created_at), {
                               addSuffix: true,
@@ -284,7 +276,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                         </div>
                         {!notification.read_at && (
                           <button
-                            className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--red)] transition hover:bg-[#e54d3c]"
+                            className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#E85D48] transition hover:bg-[#e54d3c]"
                             onClick={() => markAsRead([notification.id])}
                             type="button"
                           />

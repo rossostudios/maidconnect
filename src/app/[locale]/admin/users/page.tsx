@@ -1,5 +1,5 @@
-import { UserManagementDashboard } from "@/components/admin/user-management-dashboard";
 import { unstable_noStore } from "next/cache";
+import { UserManagementDashboard } from "@/components/admin/user-management-dashboard";
 import { requireUser } from "@/lib/auth";
 
 export default async function AdminUsersPage() {

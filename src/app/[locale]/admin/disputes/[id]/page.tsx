@@ -51,7 +51,11 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-8">
-      <button className="type-ui-sm mb-4 text-[#FF5D46]" onClick={() => router.back()}>
+      <button
+        className="type-ui-sm mb-4 text-[#FF5D46]"
+        onClick={() => router.back()}
+        type="button"
+      >
         ← Back
       </button>
 
@@ -108,9 +112,12 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
             <h2 className="type-ui-md mb-4 font-semibold">Resolve Dispute</h2>
             <div className="space-y-4">
               <div>
-                <label className="type-ui-sm mb-2 block font-medium">Resolution Action</label>
+                <label className="type-ui-sm mb-2 block font-medium" htmlFor="resolution-action">
+                  Resolution Action
+                </label>
                 <select
                   className="w-full rounded-lg border border-[#EBE5D8] px-4 py-2"
+                  id="resolution-action"
                   onChange={(e) => setResolutionAction(e.target.value)}
                   value={resolutionAction}
                 >
@@ -122,9 +129,12 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
                 </select>
               </div>
               <div>
-                <label className="type-ui-sm mb-2 block font-medium">Resolution Notes</label>
+                <label className="type-ui-sm mb-2 block font-medium" htmlFor="resolution-notes">
+                  Resolution Notes
+                </label>
                 <textarea
                   className="w-full rounded-lg border border-[#EBE5D8] px-4 py-3"
+                  id="resolution-notes"
                   onChange={(e) => setResolutionNotes(e.target.value)}
                   placeholder="Explain the resolution decision..."
                   rows={4}
@@ -135,6 +145,7 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
                 className="type-ui-sm rounded-lg bg-[#FF5D46] px-6 py-3 font-medium text-white hover:bg-[#E54A35] disabled:opacity-50"
                 disabled={!(resolutionAction && resolutionNotes)}
                 onClick={handleResolve}
+                type="button"
               >
                 Resolve Dispute
               </button>

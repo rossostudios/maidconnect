@@ -1,5 +1,5 @@
-import { MessagingInterface } from "@/components/messaging/messaging-interface";
 import { unstable_noStore } from "next/cache";
+import { MessagingInterface } from "@/components/messaging/messaging-interface";
 import { requireUser } from "@/lib/auth";
 
 export default async function CustomerMessagesPage() {

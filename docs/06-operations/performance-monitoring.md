@@ -108,7 +108,7 @@ Metrics are automatically logged to console during development:
 import Image from 'next/image';
 
 <Image
-  src="/hero.jpg"
+  src="/new-hero.jpg"
   width={1200}
   height={600}
   priority // For above-the-fold images

@@ -206,7 +206,7 @@ export default function DataRightsPage() {
 function PageHeader() {
   return (
     <div>
-      <h1 className="mb-2 font-bold text-3xl text-[var(--foreground)]">Your Data Rights</h1>
+      <h1 className="mb-2 font-bold text-3xl text-gray-900">Your Data Rights</h1>
       <p className="text-[#7a6d62]">
         Under Colombian Law (Ley 1581 de 2012), you have the right to access, export, and delete
         your personal data.
@@ -218,7 +218,7 @@ function PageHeader() {
 function StatusMessages({ error, success }: { error: string | null; success: string | null }) {
   if (error) {
     return (
-      <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-red-800">
+      <div className="rounded-xl border border-red-200 bg-[#E85D48]/10 p-4 text-red-800">
         <p className="font-semibold">Error</p>
         <p className="text-sm">{error}</p>
       </div>
@@ -247,10 +247,10 @@ function ExportDataSection({
   return (
     <section className="rounded-[28px] border border-[#dcd6c7] bg-white p-8 shadow-sm">
       <div className="mb-4 flex items-start gap-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--red)]/10">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#E85D48]/10">
           <svg
             aria-label="Export data icon"
-            className="h-6 w-6 text-[var(--red)]"
+            className="h-6 w-6 text-[#E85D48]"
             fill="none"
             role="img"
             stroke="currentColor"
@@ -265,12 +265,12 @@ function ExportDataSection({
           </svg>
         </div>
         <div className="flex-1">
-          <h2 className="mb-2 font-semibold text-[var(--foreground)] text-xl">Export Your Data</h2>
-          <p className="mb-4 text-[var(--muted-foreground)] text-sm">
+          <h2 className="mb-2 font-semibold text-gray-900 text-xl">Export Your Data</h2>
+          <p className="mb-4 text-gray-600 text-sm">
             Download a complete copy of your personal data stored on Casaora. This includes your
             profile, bookings, messages, reviews, and consent records.
           </p>
-          <ul className="mb-6 ml-4 list-disc space-y-1 text-[var(--muted-foreground)] text-sm">
+          <ul className="mb-6 ml-4 list-disc space-y-1 text-gray-600 text-sm">
             <li>Profile information (name, contact details, preferences)</li>
             <li>Booking history (as customer or professional)</li>
             <li>Messages and conversations</li>
@@ -317,12 +317,12 @@ function DeleteAccountSection({
   onCancel: () => void;
 }) {
   return (
-    <section className="rounded-[28px] border border-red-200 bg-red-50 p-8 shadow-sm">
+    <section className="rounded-[28px] border border-red-200 bg-[#E85D48]/10 p-8 shadow-sm">
       <div className="mb-4 flex items-start gap-4">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-100">
           <svg
             aria-label="Delete account icon"
-            className="h-6 w-6 text-red-600"
+            className="h-6 w-6 text-[#E85D48]"
             fill="none"
             role="img"
             stroke="currentColor"
@@ -355,7 +355,7 @@ function DeleteAccountSection({
           {!showDeleteConfirm && (
             <button
               className={cn(
-                "rounded-full border border-red-600 bg-red-600 px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-red-700",
+                "rounded-full border border-[#E85D48] bg-[#E85D48] px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-[#D64A36]",
                 isCheckingDeletion && "cursor-not-allowed opacity-60"
               )}
               disabled={isCheckingDeletion}
@@ -410,7 +410,7 @@ function DeletionConfirmation({
           Type <strong>DELETE MY ACCOUNT</strong> below to confirm:
         </p>
         <input
-          className="w-full rounded-full border border-red-300 bg-white px-4 py-2 text-sm focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-200"
+          className="w-full rounded-full border border-red-300 bg-white px-4 py-2 text-sm focus:border-[#E85D48]/100 focus:outline-none focus:ring-2 focus:ring-red-200"
           onChange={(e) => onConfirmTextChange(e.target.value)}
           placeholder="DELETE MY ACCOUNT"
           type="text"
@@ -419,7 +419,7 @@ function DeletionConfirmation({
         <div className="flex gap-3">
           <button
             className={cn(
-              "rounded-full border border-red-600 bg-red-600 px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-red-700",
+              "rounded-full border border-[#E85D48] bg-[#E85D48] px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-[#D64A36]",
               isDeletingAccount && "cursor-not-allowed opacity-60"
             )}
             disabled={isDeletingAccount || confirmText !== "DELETE MY ACCOUNT"}
@@ -429,7 +429,7 @@ function DeletionConfirmation({
             {isDeletingAccount ? "Deleting..." : "Confirm Deletion"}
           </button>
           <button
-            className="rounded-full border border-[#dcd6c7] bg-white px-6 py-2.5 font-semibold text-[var(--foreground)] text-sm transition hover:bg-[var(--background)]"
+            className="rounded-full border border-[#dcd6c7] bg-white px-6 py-2.5 font-semibold text-gray-900 text-sm transition hover:bg-[#fbf9f7]"
             onClick={onCancel}
             type="button"
           >
@@ -457,7 +457,7 @@ function DeletionConfirmation({
           </ul>
         )}
       <button
-        className="rounded-full border border-[#dcd6c7] bg-white px-6 py-2.5 font-semibold text-[var(--foreground)] text-sm transition hover:bg-[var(--background)]"
+        className="rounded-full border border-[#dcd6c7] bg-white px-6 py-2.5 font-semibold text-gray-900 text-sm transition hover:bg-[#fbf9f7]"
         onClick={onCancel}
         type="button"
       >
@@ -469,10 +469,8 @@ function DeletionConfirmation({
 
 function LegalNoticeSection() {
   return (
-    <section className="rounded-xl bg-[var(--background)] p-6">
-      <h3 className="mb-2 font-semibold text-[var(--foreground)] text-sm">
-        Your Rights Under Colombian Law
-      </h3>
+    <section className="rounded-xl bg-[#fbf9f7] p-6">
+      <h3 className="mb-2 font-semibold text-gray-900 text-sm">Your Rights Under Colombian Law</h3>
       <p className="mb-3 text-[#7a6d62] text-sm">
         According to Ley 1581 de 2012 (Colombian Data Protection Law), you have the following
         rights:
@@ -496,7 +494,7 @@ function LegalNoticeSection() {
       </ul>
       <p className="mt-4 text-[#7a6d62] text-sm">
         For questions about your data rights, contact us at{" "}
-        <a className="font-semibold text-[var(--red)] underline" href="mailto:privacy@casaora.com">
+        <a className="font-semibold text-[#E85D48] underline" href="mailto:privacy@casaora.com">
           privacy@casaora.com
         </a>
       </p>

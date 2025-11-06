@@ -41,7 +41,7 @@ export function ProcessTimeline({ steps, translationNamespace }: ProcessTimeline
   return (
     <div className="relative">
       {/* Vertical line */}
-      <div className="absolute top-0 bottom-0 left-6 w-0.5 bg-gradient-to-b from-[var(--red)] via-[var(--red)]/50 to-transparent md:left-8" />
+      <div className="absolute top-0 bottom-0 left-6 w-0.5 bg-gradient-to-b from-red-600 via-red-600/50 to-transparent md:left-8" />
 
       {/* Steps */}
       <div className="space-y-8">
@@ -53,23 +53,19 @@ export function ProcessTimeline({ steps, translationNamespace }: ProcessTimeline
               {/* Step indicator */}
               <div className="relative z-10 flex flex-shrink-0 flex-col items-center">
                 {/* Number badge */}
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--red)] font-bold text-white shadow-[var(--shadow-card)] md:h-16 md:w-16 md:text-lg">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#E85D48] font-bold text-white shadow-sm md:h-16 md:w-16 md:text-lg">
                   {index + 1}
                 </div>
               </div>
 
               {/* Content card */}
               <div className="flex-1 pb-8">
-                <div className="rounded-xl border border-[#ebe5d8] bg-white p-6 shadow-[var(--shadow-subtle)] transition hover:shadow-[var(--shadow-card)]">
-                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--red)]/10">
-                    <HugeiconsIcon className="h-7 w-7 text-[var(--red)]" icon={icon} />
+                <div className="rounded-xl border border-[#ebe5d8] bg-white p-6 shadow-xs transition hover:shadow-sm">
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#E85D48]/10">
+                    <HugeiconsIcon className="h-7 w-7 text-[#E85D48]" icon={icon} />
                   </div>
-                  <h3 className="mb-2 font-semibold text-[var(--foreground)] text-xl">
-                    {t(step.titleKey)}
-                  </h3>
-                  <p className="text-[var(--muted-foreground)] leading-relaxed">
-                    {t(step.descriptionKey)}
-                  </p>
+                  <h3 className="mb-2 font-semibold text-gray-900 text-xl">{t(step.titleKey)}</h3>
+                  <p className="text-gray-600 leading-relaxed">{t(step.descriptionKey)}</p>
                 </div>
               </div>
             </div>

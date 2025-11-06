@@ -60,14 +60,14 @@ export function AmaraOnboardingTooltip({ onDismiss }: AmaraOnboardingTooltipProp
       }`}
     >
       {/* Tooltip Card */}
-      <div className="rounded-2xl border border-[var(--red)]/20 bg-white p-4 shadow-xl">
+      <div className="rounded-2xl border border-[#E85D48]/20 bg-white p-4 shadow-xl">
         {/* Header */}
         <div className="mb-3 flex items-start gap-3">
-          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]/10">
-            <AmaraIcon className="text-[var(--red)]" size={24} />
+          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]/10">
+            <AmaraIcon className="text-[#E85D48]" size={24} />
           </div>
           <div className="flex-1">
-            <h3 className="font-semibold text-[var(--foreground)] text-sm">{t("title")}</h3>
+            <h3 className="font-semibold text-gray-900 text-sm">{t("title")}</h3>
           </div>
           <button
             aria-label="Dismiss"
@@ -80,13 +80,11 @@ export function AmaraOnboardingTooltip({ onDismiss }: AmaraOnboardingTooltipProp
         </div>
 
         {/* Description */}
-        <p className="mb-4 text-[var(--muted-foreground)] text-sm leading-relaxed">
-          {t("description")}
-        </p>
+        <p className="mb-4 text-gray-600 text-sm leading-relaxed">{t("description")}</p>
 
         {/* Action Button */}
         <button
-          className="w-full rounded-lg bg-[var(--red)] px-4 py-2.5 font-semibold text-sm text-white transition hover:bg-[var(--red)] active:scale-95"
+          className="w-full rounded-lg bg-[#E85D48] px-4 py-2.5 font-semibold text-sm text-white transition hover:bg-[#E85D48] active:scale-95"
           onClick={handleDismiss}
           type="button"
         >
@@ -95,7 +93,7 @@ export function AmaraOnboardingTooltip({ onDismiss }: AmaraOnboardingTooltipProp
       </div>
 
       {/* Pointer Arrow */}
-      <div className="-bottom-2 absolute right-8 h-4 w-4 rotate-45 border-[var(--red)]/20 border-r border-b bg-white" />
+      <div className="-bottom-2 absolute right-8 h-4 w-4 rotate-45 border-[#E85D48]/20 border-r border-b bg-white" />
     </div>
   );
 }

@@ -228,14 +228,14 @@ export function AvailabilityCalendar({
     <div className={cn("space-y-4", className)}>
       {/* Calendar Header */}
       <div className="flex items-center justify-between">
-        <h3 className={cn("font-semibold text-[var(--foreground)]", sizeConfig.headerText)}>
+        <h3 className={cn("font-semibold text-gray-900", sizeConfig.headerText)}>
           {getMonthLabel(locale)}
         </h3>
         <div className={cn("flex gap-2", sizeConfig.buttonGap)}>
           {showTodayButton && (
             <button
               className={cn(
-                "rounded-md border border-[#e5dfd4] font-medium text-[#7a6d62] transition hover:border-[var(--red)] hover:text-[var(--red)]",
+                "rounded-md border border-[#e5dfd4] font-medium text-[#7a6d62] transition hover:border-[#E85D48] hover:text-[#E85D48]",
                 sizeConfig.button
               )}
               onClick={goToToday}
@@ -247,7 +247,7 @@ export function AvailabilityCalendar({
           <button
             aria-label="Previous month"
             className={cn(
-              "rounded-md border border-[#e5dfd4] text-[#7a6d62] transition hover:border-[var(--red)] hover:text-[var(--red)]",
+              "rounded-md border border-[#e5dfd4] text-[#7a6d62] transition hover:border-[#E85D48] hover:text-[#E85D48]",
               sizeConfig.navButton
             )}
             onClick={goToPreviousMonth}
@@ -258,7 +258,7 @@ export function AvailabilityCalendar({
           <button
             aria-label="Next month"
             className={cn(
-              "rounded-md border border-[#e5dfd4] text-[#7a6d62] transition hover:border-[var(--red)] hover:text-[var(--red)]",
+              "rounded-md border border-[#e5dfd4] text-[#7a6d62] transition hover:border-[#E85D48] hover:text-[#E85D48]",
               sizeConfig.navButton
             )}
             onClick={goToNextMonth}
@@ -283,12 +283,12 @@ export function AvailabilityCalendar({
 
       {/* Error State */}
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-center">
+        <div className="rounded-lg border border-red-200 bg-[#E85D48]/10 p-4 text-center">
           <p className={cn("text-red-800", sizeConfig.text)}>{error.message}</p>
           {dataSource.type === "api" && (
             <button
               className={cn(
-                "mt-2 font-semibold text-red-600 hover:text-red-700",
+                "mt-2 font-semibold text-[#E85D48] hover:text-red-700",
                 sizeConfig.smallText
               )}
               onClick={apiData.refetch}
@@ -354,7 +354,7 @@ export function AvailabilityCalendar({
                     calendarDay.isToday && themeConfig.today,
                     canSelect ? themeConfig.selectable : "cursor-not-allowed opacity-60",
                     calendarDay.isPast && "text-gray-400",
-                    !calendarDay.isPast && "text-[var(--foreground)]",
+                    !calendarDay.isPast && "text-gray-900",
                     !calendarDay.inCurrentMonth && "opacity-40"
                   )}
                   disabled={!canSelect}
@@ -395,7 +395,7 @@ export function AvailabilityCalendar({
         selectedDateAvailability &&
         selectedDateAvailability.availableSlots.length > 0 && (
           <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4">
-            <h4 className={cn("mb-3 font-semibold text-[var(--foreground)]", sizeConfig.text)}>
+            <h4 className={cn("mb-3 font-semibold text-gray-900", sizeConfig.text)}>
               Available times on{" "}
               {selectedDate.toLocaleDateString(locale, { month: "long", day: "numeric" })}
             </h4>
@@ -430,8 +430,8 @@ export function AvailabilityCalendar({
                       "rounded-md border font-medium transition",
                       sizeConfig.timeSlotButton,
                       isTimeSelected
-                        ? "border-[var(--red)] bg-[var(--red)] text-white"
-                        : "border-[#e5dfd4] bg-white text-[var(--foreground)] hover:border-[var(--red)] hover:text-[var(--red)]"
+                        ? "border-[#E85D48] bg-[#E85D48] text-white"
+                        : "border-[#e5dfd4] bg-white text-gray-900 hover:border-[#E85D48] hover:text-[#E85D48]"
                     )}
                     key={time}
                     onClick={() => onTimeSelect?.(time)}
@@ -515,20 +515,20 @@ function getThemeConfig(theme: CalendarTheme) {
   const configs = {
     default: {
       gridBorder: "border-[#ebe5d8]",
-      selected: "ring-2 ring-[var(--red)] ring-inset",
+      selected: "ring-2 ring-red-600 ring-inset",
       today: "font-bold",
-      selectable: "cursor-pointer hover:ring-2 hover:ring-[var(--red)33]",
+      selectable: "cursor-pointer hover:ring-2 hover:ring-red-600/20",
     },
     professional: {
       gridBorder: "border-[#efe7dc]",
-      selected: "border-[var(--red)] ring-2 ring-[var(--red)33]",
-      today: "font-bold text-[var(--red)]",
-      selectable: "cursor-pointer hover:border-[var(--red)]",
+      selected: "border-[#E85D48] ring-2 ring-red-600/20",
+      today: "font-bold text-[#E85D48]",
+      selectable: "cursor-pointer hover:border-[#E85D48]",
     },
     customer: {
       gridBorder: "border-[#ebe5d8]",
-      selected: "scale-105 ring-4 ring-[var(--red)] ring-offset-2",
-      today: "border-[var(--red)]",
+      selected: "scale-105 ring-4 ring-red-600 ring-offset-2",
+      today: "border-[#E85D48]",
       selectable: "hover:-translate-y-1 cursor-pointer hover:scale-105 hover:shadow-lg",
     },
   };
@@ -602,7 +602,7 @@ function getStatusColors(status: DayAvailability["status"] | undefined) {
       text: "text-yellow-700",
     },
     booked: {
-      bg: "bg-red-50 border-red-200",
+      bg: "bg-[#E85D48]/10 border-red-200",
       text: "text-red-700",
     },
     blocked: {
@@ -611,7 +611,7 @@ function getStatusColors(status: DayAvailability["status"] | undefined) {
     },
   };
 
-  return status ? colors[status] : { bg: "bg-white", text: "text-[var(--foreground)]" };
+  return status ? colors[status] : { bg: "bg-white", text: "text-gray-900" };
 }
 
 /**

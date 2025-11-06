@@ -48,9 +48,7 @@ export function LocalProfessionals({
       <section className={`bg-[#fbfafa] py-16 ${className}`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="rounded-3xl border border-[#ebe5d8] bg-white p-12 text-center">
-            <p className="text-[var(--muted-foreground)] text-lg">
-              {t("professionals.empty", { city: cityName })}
-            </p>
+            <p className="text-gray-600 text-lg">{t("professionals.empty", { city: cityName })}</p>
             <p className="mt-4 text-[#8a8175] text-base">{t("professionals.emptyDescription")}</p>
           </div>
         </div>
@@ -63,10 +61,10 @@ export function LocalProfessionals({
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section Header */}
         <div className="mb-12">
-          <h2 className="mb-4 font-bold text-3xl text-[var(--foreground)] sm:text-4xl">
+          <h2 className="mb-4 font-bold text-3xl text-gray-900 sm:text-4xl">
             {t("professionals.title", { city: cityName })}
           </h2>
-          <p className="text-[var(--muted-foreground)] text-lg">
+          <p className="text-gray-600 text-lg">
             {t("professionals.description", { count: professionals.length })}
           </p>
         </div>
@@ -81,7 +79,7 @@ export function LocalProfessionals({
         {/* View All CTA */}
         <div className="mt-12 text-center">
           <Link
-            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[var(--red)] px-8 py-4 font-semibold text-[var(--red)] text-base transition hover:bg-[var(--red)] hover:text-white"
+            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#E85D48] px-8 py-4 font-semibold text-[#E85D48] text-base transition hover:bg-[#E85D48] hover:text-white"
             href={`/professionals?city=${cityName.toLowerCase().replace(/\s+/g, "-")}`}
           >
             {t("professionals.viewAll")}
@@ -119,7 +117,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
       )}
 
       {/* Profile Image */}
-      <div className="mb-4 aspect-square overflow-hidden rounded-xl bg-gradient-to-br from-[var(--red)]/10 to-[var(--red)]/5">
+      <div className="mb-4 aspect-square overflow-hidden rounded-xl bg-gradient-to-br from-red-600/10 to-red-600/5">
         {professional.profile_image_url ? (
           <Image
             alt={professional.full_name || "Professional"}
@@ -132,7 +130,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
           />
         ) : (
           <div className="flex h-full items-center justify-center">
-            <span className="type-serif-lg text-[var(--red)]">
+            <span className="type-serif-lg text-[#E85D48]">
               {professional.full_name?.charAt(0).toUpperCase() || "?"}
             </span>
           </div>
@@ -141,13 +139,13 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
 
       {/* Professional Info */}
       <div>
-        <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg group-hover:text-[var(--red)]">
+        <h3 className="mb-2 font-semibold text-gray-900 text-lg group-hover:text-[#E85D48]">
           {professional.full_name || t("professionals.card.unnamed")}
         </h3>
 
         {/* Location */}
         {professional.city && (
-          <div className="mb-3 flex items-center gap-2 text-[var(--muted-foreground)] text-sm">
+          <div className="mb-3 flex items-center gap-2 text-gray-600 text-sm">
             <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
             <span>{professional.city}</span>
           </div>
@@ -156,11 +154,8 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
         {/* Rating */}
         {professional.average_rating && professional.total_reviews > 0 && (
           <div className="mb-3 flex items-center gap-2">
-            <HugeiconsIcon
-              className="h-4 w-4 fill-[var(--red)] text-[var(--red)]"
-              icon={StarIcon}
-            />
-            <span className="font-medium text-[var(--foreground)] text-sm">
+            <HugeiconsIcon className="h-4 w-4 fill-red-600 text-[#E85D48]" icon={StarIcon} />
+            <span className="font-medium text-gray-900 text-sm">
               {professional.average_rating.toFixed(1)}
             </span>
             <span className="text-[#8a8175] text-sm">
@@ -174,14 +169,14 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
           <div className="mb-4 flex flex-wrap gap-2">
             {professional.services.slice(0, 2).map((service, index) => (
               <span
-                className="rounded-full bg-[var(--red)]/10 px-3 py-1 text-[var(--red)] text-xs"
+                className="rounded-full bg-[#E85D48]/10 px-3 py-1 text-[#E85D48] text-xs"
                 key={index}
               >
                 {service.name}
               </span>
             ))}
             {professional.services.length > 2 && (
-              <span className="rounded-full bg-[#ebe5d8] px-3 py-1 text-[var(--muted-foreground)] text-xs">
+              <span className="rounded-full bg-[#ebe5d8] px-3 py-1 text-gray-600 text-xs">
                 +{professional.services.length - 2}
               </span>
             )}
@@ -192,7 +187,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
         {hourlyRate && (
           <div className="flex items-baseline justify-between border-[#ebe5d8] border-t pt-4">
             <span className="text-[#8a8175] text-sm">{t("professionals.card.startingAt")}</span>
-            <span className="font-bold text-[var(--foreground)] text-xl">{hourlyRate}/hr</span>
+            <span className="font-bold text-gray-900 text-xl">{hourlyRate}/hr</span>
           </div>
         )}
       </div>

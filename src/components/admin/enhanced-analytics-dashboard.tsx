@@ -63,7 +63,7 @@ type CategoryMetrics = {
   avgPrice: number;
 };
 
-const COLORS = ["#E63946", "#6B7F5C", "#1A1A1A", "#F4A259", "#457B9D"];
+const COLORS = ["#E85D48", "#6B7F5C", "#1A1A1A", "#F4A259", "#457B9D"];
 
 export function EnhancedAnalyticsDashboard() {
   const [metrics, setMetrics] = useState<AnalyticsMetrics | null>(null);
@@ -299,8 +299,8 @@ export function EnhancedAnalyticsDashboard() {
           <button
             className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
               selectedTimeRange === range
-                ? "bg-[#E63946] text-white"
-                : "border border-[#E5E5E5] text-[#171717] hover:border-[#E63946]"
+                ? "bg-[#E85D48] text-white"
+                : "border border-[#E5E5E5] text-[#171717] hover:border-[#E85D48]"
             }`}
             key={range}
             onClick={() => setSelectedTimeRange(range)}
@@ -368,7 +368,7 @@ export function EnhancedAnalyticsDashboard() {
           <CardContent>
             <ChartContainer
               config={{
-                bookings: { label: "Bookings", color: "#E63946" },
+                bookings: { label: "Bookings", color: "#E85D48" },
               }}
             >
               <LineChart data={trendData} height={300}>
@@ -383,8 +383,8 @@ export function EnhancedAnalyticsDashboard() {
                 <Line
                   activeDot={{ r: 6 }}
                   dataKey="bookings"
-                  dot={{ fill: "#E63946", r: 4 }}
-                  stroke="#E63946"
+                  dot={{ fill: "#E85D48", r: 4 }}
+                  stroke="#E85D48"
                   strokeWidth={2}
                   type="monotone"
                 />
@@ -440,7 +440,7 @@ export function EnhancedAnalyticsDashboard() {
         <CardContent>
           <ChartContainer
             config={{
-              bookings: { label: "Bookings", color: "#E63946" },
+              bookings: { label: "Bookings", color: "#E85D48" },
             }}
           >
             <BarChart data={cityMetrics} height={300}>
@@ -452,7 +452,7 @@ export function EnhancedAnalyticsDashboard() {
               />
               <YAxis axisLine={{ stroke: "#E5E5E5" }} tick={{ fill: "#737373", fontSize: 12 }} />
               <ChartTooltip content={<ChartTooltipContent />} />
-              <Bar dataKey="bookingCount" fill="#E63946" radius={[8, 8, 0, 0]} />
+              <Bar dataKey="bookingCount" fill="#E85D48" radius={[8, 8, 0, 0]} />
             </BarChart>
           </ChartContainer>
         </CardContent>

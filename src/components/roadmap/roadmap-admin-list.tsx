@@ -107,8 +107,8 @@ export function RoadmapAdminList() {
           <button
             className={`border-b-2 px-4 py-3 font-medium text-sm transition-colors ${
               activeFilter === filter
-                ? "border-[var(--red)] text-[var(--red)]"
-                : "border-transparent text-[#6B7280] hover:text-[var(--foreground)]"
+                ? "border-[#E85D48] text-[#E85D48]"
+                : "border-transparent text-[#6B7280] hover:text-gray-900"
             }`}
             key={filter}
             onClick={() => setActiveFilter(filter)}
@@ -125,17 +125,17 @@ export function RoadmapAdminList() {
       {/* Items list */}
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-[var(--red)] border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#E85D48] border-t-transparent" />
         </div>
       ) : items.length === 0 ? (
         <div className="py-12 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#f3f4f6]">
             <span className="text-3xl">📋</span>
           </div>
-          <h3 className="mb-2 font-semibold text-[var(--foreground)] text-lg">No roadmap items</h3>
+          <h3 className="mb-2 font-semibold text-gray-900 text-lg">No roadmap items</h3>
           <p className="mb-4 text-[#6B7280]">Get started by creating your first roadmap item</p>
           <Link
-            className="inline-flex items-center gap-2 rounded-[12px] bg-[var(--red)] px-6 py-3 font-medium text-white transition-all hover:bg-[var(--red)]"
+            className="inline-flex items-center gap-2 rounded-[12px] bg-[#E85D48] px-6 py-3 font-medium text-white transition-all hover:bg-[#E85D48]"
             href="/admin/roadmap/new"
           >
             Create Roadmap Item
@@ -149,15 +149,13 @@ export function RoadmapAdminList() {
 
             return (
               <div
-                className="rounded-[20px] border-2 border-[#ebe5d8] bg-white p-6 transition-all hover:border-[var(--red)]"
+                className="rounded-[20px] border-2 border-[#ebe5d8] bg-white p-6 transition-all hover:border-[#E85D48]"
                 key={item.id}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0 flex-1">
                     <div className="mb-2 flex items-center gap-3">
-                      <h3 className="font-semibold text-[var(--foreground)] text-lg">
-                        {item.title}
-                      </h3>
+                      <h3 className="font-semibold text-gray-900 text-lg">{item.title}</h3>
                       {getStatusBadge(item.visibility)}
                     </div>
 
@@ -217,12 +215,12 @@ export function RoadmapAdminList() {
                     </Link>
 
                     <button
-                      className="rounded-lg p-2 transition-colors hover:bg-red-50"
+                      className="rounded-lg p-2 transition-colors hover:bg-[#E85D48]/10"
                       onClick={() => handleDelete(item.id, item.title)}
                       title="Archive"
                       type="button"
                     >
-                      <HugeiconsIcon className="text-red-600" icon={Delete01Icon} size={18} />
+                      <HugeiconsIcon className="text-[#E85D48]" icon={Delete01Icon} size={18} />
                     </button>
                   </div>
                 </div>

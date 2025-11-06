@@ -1,5 +1,5 @@
-import { PricingControlsManager } from "@/components/admin/pricing-controls-manager";
 import { unstable_noStore } from "next/cache";
+import { PricingControlsManager } from "@/components/admin/pricing-controls-manager";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 

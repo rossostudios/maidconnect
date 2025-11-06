@@ -220,7 +220,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
 
   if (error) {
     return (
-      <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-base text-red-600">
+      <div className="rounded-2xl border border-red-200 bg-[#E85D48]/10 p-6 text-[#E85D48] text-base">
         {error}
       </div>
     );
@@ -231,7 +231,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
       {/* Conversations List */}
       <div className="w-96 flex-shrink-0 overflow-y-auto border-[#E5E5E5] border-r">
         <div className="border-[#E5E5E5] border-b bg-white px-6 py-5">
-          <h2 className="font-semibold text-[var(--foreground)] text-xl">Conversations</h2>
+          <h2 className="font-semibold text-gray-900 text-xl">Conversations</h2>
           <p className="mt-1 text-[#737373] text-sm">
             {conversations.length} {conversations.length === 1 ? "conversation" : "conversations"}
           </p>
@@ -241,7 +241,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
         <div className="border-[#E5E5E5] border-b bg-white px-6 py-4">
           <div className="relative">
             <input
-              className="w-full rounded-lg border border-[#E5E5E5] px-4 py-2 pl-10 text-[var(--foreground)] text-sm placeholder-[#737373] focus:border-[var(--red)] focus:outline-none focus:ring-1 focus:ring-[var(--red)]"
+              className="w-full rounded-lg border border-[#E5E5E5] px-4 py-2 pl-10 text-gray-900 text-sm placeholder-[#737373] focus:border-[#E85D48] focus:outline-none focus:ring-1 focus:ring-[#E85D48]"
               placeholder="Search conversations..."
               type="text"
             />
@@ -283,8 +283,8 @@ export function MessagingInterface({ userId, userRole }: Props) {
                   </svg>
                 </div>
               </div>
-              <h3 className="font-semibold text-[var(--foreground)] text-base">No conversations</h3>
-              <p className="mt-1 text-[var(--muted-foreground)] text-sm">
+              <h3 className="font-semibold text-base text-gray-900">No conversations</h3>
+              <p className="mt-1 text-gray-600 text-sm">
                 Messages will appear when you book a service
               </p>
             </div>
@@ -297,8 +297,8 @@ export function MessagingInterface({ userId, userRole }: Props) {
 
               return (
                 <button
-                  className={`w-full p-6 text-left transition hover:bg-[var(--red)]/5 ${
-                    selectedConversation?.id === conv.id ? "bg-[var(--red)]/5" : ""
+                  className={`w-full p-6 text-left transition hover:bg-[#E85D48]/5 ${
+                    selectedConversation?.id === conv.id ? "bg-[#E85D48]/5" : ""
                   }`}
                   key={conv.id}
                   onClick={() => {
@@ -322,7 +322,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                           width={48}
                         />
                       ) : (
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--red)] font-semibold text-base text-white">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#E85D48] font-semibold text-base text-white">
                           {otherUser.full_name.charAt(0).toUpperCase()}
                         </div>
                       )}
@@ -330,16 +330,16 @@ export function MessagingInterface({ userId, userRole }: Props) {
 
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between gap-2">
-                        <h3 className="truncate font-semibold text-[var(--foreground)] text-base">
+                        <h3 className="truncate font-semibold text-base text-gray-900">
                           {otherUser.full_name}
                         </h3>
                         {unreadCount > 0 && (
-                          <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[var(--red)] px-2 font-semibold text-white text-xs">
+                          <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#E85D48] px-2 font-semibold text-white text-xs">
                             {unreadCount}
                           </span>
                         )}
                       </div>
-                      <p className="truncate text-[var(--muted-foreground)] text-sm">
+                      <p className="truncate text-gray-600 text-sm">
                         Booking #{conv.booking.id.slice(0, 8)}
                       </p>
                       {conv.last_message_at && (
@@ -378,14 +378,12 @@ export function MessagingInterface({ userId, userRole }: Props) {
                         width={48}
                       />
                     ) : (
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--red)] font-semibold text-base text-white">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#E85D48] font-semibold text-base text-white">
                         {otherUser.full_name.charAt(0).toUpperCase()}
                       </div>
                     )}
                     <div>
-                      <h3 className="font-semibold text-[var(--foreground)] text-lg">
-                        {otherUser.full_name}
-                      </h3>
+                      <h3 className="font-semibold text-gray-900 text-lg">{otherUser.full_name}</h3>
                       <p className="text-[#737373] text-sm">
                         Booking #{selectedConversation.booking.id.slice(0, 8)} •{" "}
                         {new Date(
@@ -402,7 +400,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                     <button
                       className={`flex items-center gap-2 rounded-lg px-4 py-2 font-medium text-sm transition ${
                         translationEnabled
-                          ? "bg-[var(--red)] text-white hover:bg-[var(--red-hover)]"
+                          ? "bg-[#E85D48] text-white hover:bg-[#D64A36]"
                           : "text-[#737373] hover:bg-[#F5F5F5]"
                       }`}
                       onClick={() => setTranslationEnabled(!translationEnabled)}
@@ -413,7 +411,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                     </button>
                     {translationEnabled && (
                       <select
-                        className="rounded-lg border border-[#E5E5E5] px-3 py-2 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-1 focus:ring-[var(--red)]"
+                        className="rounded-lg border border-[#E5E5E5] px-3 py-2 text-sm focus:border-[#E85D48] focus:outline-none focus:ring-1 focus:ring-[#E85D48]"
                         onChange={(e) => setTargetLanguage(e.target.value as SupportedLanguage)}
                         value={targetLanguage}
                       >
@@ -465,10 +463,8 @@ export function MessagingInterface({ userId, userRole }: Props) {
                   </svg>
                 </div>
               </div>
-              <h3 className="font-semibold text-[var(--foreground)] text-xl">
-                Select a conversation
-              </h3>
-              <p className="mt-2 text-[var(--muted-foreground)] text-base">
+              <h3 className="font-semibold text-gray-900 text-xl">Select a conversation</h3>
+              <p className="mt-2 text-base text-gray-600">
                 Choose a conversation from the list to start messaging
               </p>
             </div>
@@ -508,7 +504,7 @@ function MessageThread({
   if (loading && messages.length === 0) {
     return (
       <div className="flex flex-1 items-center justify-center">
-        <p className="text-[var(--muted-foreground)] text-base">Loading messages...</p>
+        <p className="text-base text-gray-600">Loading messages...</p>
       </div>
     );
   }
@@ -517,9 +513,7 @@ function MessageThread({
     <div className="flex-1 space-y-6 overflow-y-auto p-6">
       {messages.length === 0 ? (
         <div className="flex h-full items-center justify-center">
-          <p className="text-[var(--muted-foreground)] text-base">
-            No messages yet. Start the conversation!
-          </p>
+          <p className="text-base text-gray-600">No messages yet. Start the conversation!</p>
         </div>
       ) : (
         messages.map((msg) => {
@@ -531,9 +525,7 @@ function MessageThread({
             <div className={`flex ${isCurrentUser ? "justify-end" : "justify-start"}`} key={msg.id}>
               <div
                 className={`max-w-[70%] rounded-xl px-4 py-3 ${
-                  isCurrentUser
-                    ? "bg-[var(--red)] text-white"
-                    : "bg-[#F5F5F5] text-[var(--foreground)]"
+                  isCurrentUser ? "bg-[#E85D48] text-white" : "bg-[#F5F5F5] text-gray-900"
                 }`}
               >
                 {hasTranslation ? (
@@ -546,7 +538,7 @@ function MessageThread({
                         Show original
                       </summary>
                       <p
-                        className={`mt-1 text-sm ${isCurrentUser ? "text-white/90" : "text-[var(--foreground)]"}`}
+                        className={`mt-1 text-sm ${isCurrentUser ? "text-white/90" : "text-gray-900"}`}
                       >
                         {msg.message}
                       </p>
@@ -658,7 +650,7 @@ function MessageInput({
       {/* Message Input */}
       <div className="flex gap-3">
         <input
-          className="flex-1 rounded-xl border border-[#E5E5E5] px-4 py-4 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33] disabled:opacity-50"
+          className="flex-1 rounded-xl border border-[#E5E5E5] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20 disabled:opacity-50"
           disabled={isSending}
           name="message"
           onChange={handleMessageChange}
@@ -668,7 +660,7 @@ function MessageInput({
           value={message}
         />
         <button
-          className="rounded-full bg-[var(--red)] px-6 py-4 font-semibold text-base text-white transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[#E85D48] px-6 py-4 font-semibold text-base text-white transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!message.trim() || isSending}
           type="submit"
         >

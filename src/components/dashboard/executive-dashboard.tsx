@@ -86,6 +86,59 @@ export function ExecutiveDashboard() {
   const [dateRange, setDateRange] = useState<DateRange>("30d");
   const [activeTab, setActiveTab] = useState("overview");
 
+  // Helper function to generate revenue data based on date range
+  const generateRevenueData = useCallback((bookings: any[], range: DateRange) => {
+    const data: Array<{ date: string; revenue: number; bookings: number }> = [];
+    const days = range === "7d" ? 7 : range === "30d" ? 30 : range === "90d" ? 90 : 365;
+
+    // Group by day
+    for (let i = days - 1; i >= 0; i--) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      const dateStr = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+
+      const dayBookings = bookings.filter((b) => {
+        const bookingDate = new Date(b.created_at);
+        return bookingDate.toDateString() === date.toDateString();
+      });
+
+      const revenue =
+        dayBookings
+          .filter((b) => b.status !== "cancelled")
+          .reduce((sum, b) => sum + (b.amount_estimated || 0), 0) / 100;
+
+      data.push({
+        date: dateStr,
+        revenue,
+        bookings: dayBookings.length,
+      });
+    }
+
+    return data;
+  }, []);
+
+  // Helper function to generate utilization data
+  const generateUtilizationData = useCallback((range: DateRange) => {
+    const data: Array<{ date: string; rate: number }> = [];
+    const days = range === "7d" ? 7 : range === "30d" ? 30 : range === "90d" ? 90 : 365;
+
+    for (let i = days - 1; i >= 0; i--) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      const dateStr = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+
+      // Simulate utilization data (in real app, fetch from database)
+      const rate = 35 + Math.random() * 20;
+
+      data.push({
+        date: dateStr,
+        rate: Number(rate.toFixed(1)),
+      });
+    }
+
+    return data;
+  }, []);
+
   const loadMetrics = useCallback(async () => {
     try {
       const supabase = createSupabaseBrowserClient();
@@ -234,7 +287,7 @@ export function ExecutiveDashboard() {
     } finally {
       setIsLoading(false);
     }
-  }, [dateRange]);
+  }, [dateRange, generateRevenueData, generateUtilizationData]);
 
   useEffect(() => {
     loadMetrics();
@@ -246,59 +299,6 @@ export function ExecutiveDashboard() {
 
     return () => clearInterval(interval);
   }, [loadMetrics]);
-
-  // Helper function to generate revenue data based on date range
-  const generateRevenueData = (bookings: any[], range: DateRange) => {
-    const data: Array<{ date: string; revenue: number; bookings: number }> = [];
-    const days = range === "7d" ? 7 : range === "30d" ? 30 : range === "90d" ? 90 : 365;
-
-    // Group by day
-    for (let i = days - 1; i >= 0; i--) {
-      const date = new Date();
-      date.setDate(date.getDate() - i);
-      const dateStr = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-
-      const dayBookings = bookings.filter((b) => {
-        const bookingDate = new Date(b.created_at);
-        return bookingDate.toDateString() === date.toDateString();
-      });
-
-      const revenue =
-        dayBookings
-          .filter((b) => b.status !== "cancelled")
-          .reduce((sum, b) => sum + (b.amount_estimated || 0), 0) / 100;
-
-      data.push({
-        date: dateStr,
-        revenue,
-        bookings: dayBookings.length,
-      });
-    }
-
-    return data;
-  };
-
-  // Helper function to generate utilization data
-  const generateUtilizationData = (range: DateRange) => {
-    const data: Array<{ date: string; rate: number }> = [];
-    const days = range === "7d" ? 7 : range === "30d" ? 30 : range === "90d" ? 90 : 365;
-
-    for (let i = days - 1; i >= 0; i--) {
-      const date = new Date();
-      date.setDate(date.getDate() - i);
-      const dateStr = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-
-      // Simulate utilization data (in real app, fetch from database)
-      const rate = 35 + Math.random() * 20;
-
-      data.push({
-        date: dateStr,
-        rate: Number(rate.toFixed(1)),
-      });
-    }
-
-    return data;
-  };
 
   if (isLoading || !metrics) {
     return (
@@ -360,7 +360,7 @@ export function ExecutiveDashboard() {
             <div
               className={cn(
                 "flex items-center gap-4 rounded-xl px-5 py-4 transition-all",
-                alert.type === "critical" && "border border-red-200 bg-red-50",
+                alert.type === "critical" && "border border-red-200 bg-[#E85D48]/10",
                 alert.type === "warning" && "border border-yellow-200 bg-yellow-50",
                 alert.type === "info" && "border border-blue-200 bg-blue-50"
               )}
@@ -369,7 +369,7 @@ export function ExecutiveDashboard() {
               <HugeiconsIcon
                 className={cn(
                   "h-5 w-5 flex-shrink-0",
-                  alert.type === "critical" && "text-red-600",
+                  alert.type === "critical" && "text-[#E85D48]",
                   alert.type === "warning" && "text-yellow-600",
                   alert.type === "info" && "text-blue-600"
                 )}
@@ -646,7 +646,7 @@ export function ExecutiveDashboard() {
                         tickLine={false}
                         type="category"
                       />
-                      <Bar dataKey="count" fill="#E63946" radius={[0, 8, 8, 0]} />
+                      <Bar dataKey="count" fill="#E85D48" radius={[0, 8, 8, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>

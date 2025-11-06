@@ -33,7 +33,7 @@ export function PortfolioGallery({
       {/* Featured Work Description */}
       {featuredWork && (
         <div className="rounded-lg border border-[#f0ece5] bg-[#fdfaf6] p-4">
-          <h3 className="font-semibold text-[var(--foreground)] text-sm">Featured Work</h3>
+          <h3 className="font-semibold text-gray-900 text-sm">Featured Work</h3>
           <p className="mt-2 text-[#7a6d62] text-sm">{featuredWork}</p>
         </div>
       )}
@@ -42,7 +42,7 @@ export function PortfolioGallery({
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {sortedImages.map((image) => (
           <button
-            className="group relative aspect-square overflow-hidden rounded-lg border border-[#e5dfd4] bg-[#f0ece5] transition hover:border-[var(--red)] hover:shadow-md"
+            className="group relative aspect-square overflow-hidden rounded-lg border border-[#e5dfd4] bg-[#f0ece5] transition hover:border-[#E85D48] hover:shadow-md"
             key={image.id}
             onClick={() => setSelectedImage(image)}
             type="button"

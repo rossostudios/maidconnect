@@ -355,6 +355,39 @@ export async function sendProfessionalInfoRequestedEmail(
 }
 
 /**
+ * Send background check completion notification to professional
+ */
+export async function sendBackgroundCheckCompletedEmail(
+  recipientEmail: string,
+  professionalName: string,
+  status: "clear" | "consider" | "suspended",
+  recommendation: "approved" | "review_required" | "rejected"
+): Promise<SendEmailResult> {
+  try {
+    // Determine email subject based on status
+    let subject = "Background Check Complete";
+    if (status === "clear" && recommendation === "approved") {
+      subject = "✓ Background Check Complete - Application Moving Forward";
+    } else if (status === "consider" || recommendation === "review_required") {
+      subject = "Background Check Complete - Manual Review Required";
+    } else {
+      subject = "Background Check Complete - Application Update";
+    }
+
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: recipientEmail,
+      subject,
+      html: templates.backgroundCheckCompletedEmail(professionalName, status, recommendation),
+    });
+
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
+  }
+}
+
+/**
  * Generic send email function
  * Use this for custom emails or when specific templates don't exist
  */

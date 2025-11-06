@@ -8,16 +8,14 @@ export async function SiteHeader() {
   const dashboardHref = user ? getDashboardRouteForRole(user.role) : undefined;
 
   return (
-    <header className="sticky top-0 z-50 border-[var(--border)] border-b bg-white py-4 text-[var(--foreground)] shadow-sm">
-      <Container className="flex items-center justify-between gap-8">
-        {/* Logo */}
+    <header className="sticky top-0 z-50 bg-white/80 py-4 shadow-sm backdrop-blur-sm">
+      <Container className="flex items-center justify-between gap-8 text-slate-900">
         <Link className="flex items-center gap-2 transition-opacity hover:opacity-80" href="/">
-          <span className="type-serif-sm text-[var(--foreground)] uppercase tracking-[0.08em] lg:text-[28px]">
+          <span className="font-semibold text-xl uppercase tracking-wider lg:text-2xl">
             CASAORA
           </span>
         </Link>
 
-        {/* Navigation */}
         <SiteHeaderClient dashboardHref={dashboardHref} isAuthenticated={!!user} />
       </Container>
     </header>

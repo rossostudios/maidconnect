@@ -30,7 +30,7 @@ const categoryConfig = {
   security: {
     icon: Shield01Icon,
     label: "Security",
-    color: "text-red-600 bg-red-50 border-red-200",
+    color: "text-[#E85D48] bg-[#E85D48]/10 border-red-200",
   },
   design: {
     icon: PaintBoardIcon,
@@ -73,11 +73,11 @@ export default async function ChangelogDetailPage({
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
 
-      <main className="flex-1 bg-[var(--background)] px-4 py-12 sm:px-6 lg:px-8">
+      <main className="flex-1 bg-[#fbf9f7] px-4 py-12 sm:px-6 lg:px-8">
         <article className="mx-auto max-w-4xl">
           {/* Back Link */}
           <Link
-            className="mb-8 inline-flex items-center gap-2 font-medium text-[#7a6d62] text-base transition hover:text-[var(--red)]"
+            className="mb-8 inline-flex items-center gap-2 font-medium text-[#7a6d62] text-base transition hover:text-[#E85D48]"
             href="/changelog"
           >
             <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
@@ -87,16 +87,16 @@ export default async function ChangelogDetailPage({
           {/* Header */}
           <div className="mb-8 rounded-[28px] border border-[#ebe5d8] bg-white p-8">
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-[var(--red)20] px-3 py-1 font-semibold text-[var(--red)] text-sm">
+              <span className="rounded-full bg-[#E85D48]/20 px-3 py-1 font-semibold text-[#E85D48] text-sm">
                 Sprint {changelog.sprint_number}
               </span>
               <span className="text-[#7a6d62] text-sm">{formattedDate}</span>
             </div>
 
-            <h1 className="type-serif-lg mb-4 text-[var(--foreground)]">{changelog.title}</h1>
+            <h1 className="type-serif-lg mb-4 text-gray-900">{changelog.title}</h1>
 
             {changelog.summary && (
-              <p className="mb-6 text-[var(--muted-foreground)] text-lg leading-relaxed sm:text-xl">
+              <p className="mb-6 text-gray-600 text-lg leading-relaxed sm:text-xl">
                 {changelog.summary}
               </p>
             )}
@@ -154,11 +154,11 @@ export default async function ChangelogDetailPage({
           {/* Tags */}
           {changelog.tags && changelog.tags.length > 0 && (
             <div className="mt-8 rounded-[28px] border border-[#ebe5d8] bg-white p-6">
-              <h3 className="mb-3 font-semibold text-[var(--foreground)] text-base">Tags</h3>
+              <h3 className="mb-3 font-semibold text-base text-gray-900">Tags</h3>
               <div className="flex flex-wrap gap-2">
                 {changelog.tags.map((tag: string) => (
                   <span
-                    className="rounded-full border border-[#ebe5d8] bg-[var(--background)] px-3 py-1 text-[var(--muted-foreground)] text-sm"
+                    className="rounded-full border border-[#ebe5d8] bg-[#fbf9f7] px-3 py-1 text-gray-600 text-sm"
                     key={tag}
                   >
                     #{tag}
@@ -171,7 +171,7 @@ export default async function ChangelogDetailPage({
           {/* Back to Top */}
           <div className="mt-12 text-center">
             <Link
-              className="inline-flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)]"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-base text-gray-900 transition hover:border-[var(--red)] hover:text-[#E85D48]"
               href="/changelog"
             >
               <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />

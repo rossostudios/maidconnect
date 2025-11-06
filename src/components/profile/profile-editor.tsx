@@ -127,14 +127,14 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       )}
 
       {submissionState.error && (
-        <div className="rounded-xl bg-red-50 p-4 text-red-800">
+        <div className="rounded-xl bg-[#E85D48]/10 p-4 text-red-800">
           <p className="font-semibold text-sm">{submissionState.error}</p>
         </div>
       )}
 
       {/* Basic Information */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-lg">
+        <div className="flex items-center gap-2 font-semibold text-gray-900 text-lg">
           <HugeiconsIcon className="h-5 w-5" icon={UserIcon} />
           <h3>{t("sections.basicInfo.title")}</h3>
         </div>
@@ -142,13 +142,13 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
         <div className="grid gap-4 md:grid-cols-2">
           <div>
             <label
-              className="mb-2 block font-semibold text-[var(--foreground)] text-sm"
+              className="mb-2 block font-semibold text-gray-900 text-sm"
               htmlFor="profile-fullname"
             >
               {t("sections.basicInfo.fields.fullName.label")}
             </label>
             <input
-              className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
+              className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
               id="profile-fullname"
               onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
               placeholder={t("sections.basicInfo.fields.fullName.placeholder")}
@@ -158,10 +158,10 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
           </div>
 
           <div>
-            <div className="mb-2 block font-semibold text-[var(--foreground)] text-sm">
+            <div className="mb-2 block font-semibold text-gray-900 text-sm">
               {t("sections.basicInfo.fields.email.label")}
             </div>
-            <div className="flex items-center gap-2 rounded-xl border border-[#ebe5d8] bg-[var(--background)] px-4 py-3">
+            <div className="flex items-center gap-2 rounded-xl border border-[#ebe5d8] bg-[#fbf9f7] px-4 py-3">
               <HugeiconsIcon className="h-4 w-4 text-[#7d7566]" icon={Mail01Icon} />
               <span className="text-[#7d7566] text-base">{profile.email}</span>
             </div>
@@ -172,7 +172,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
 
           <div>
             <label
-              className="mb-2 block font-semibold text-[var(--foreground)] text-sm"
+              className="mb-2 block font-semibold text-gray-900 text-sm"
               htmlFor="profile-phone"
             >
               {t("sections.basicInfo.fields.phoneNumber.label")}
@@ -192,13 +192,13 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
 
           <div>
             <label
-              className="mb-2 block font-semibold text-[var(--foreground)] text-sm"
+              className="mb-2 block font-semibold text-gray-900 text-sm"
               htmlFor="profile-avatar"
             >
               {t("sections.basicInfo.fields.avatarUrl.label")}
             </label>
             <input
-              className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
+              className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
               id="profile-avatar"
               onChange={(e) => setProfile({ ...profile, avatar_url: e.target.value })}
               placeholder={t("sections.basicInfo.fields.avatarUrl.placeholder")}
@@ -214,20 +214,17 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
 
       {/* Bio */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-lg">
+        <div className="flex items-center gap-2 font-semibold text-gray-900 text-lg">
           <HugeiconsIcon className="h-5 w-5" icon={Award01Icon} />
           <h3>{t("sections.professionalSummary.title")}</h3>
         </div>
 
         <div>
-          <label
-            className="mb-2 block font-semibold text-[var(--foreground)] text-sm"
-            htmlFor="profile-bio"
-          >
+          <label className="mb-2 block font-semibold text-gray-900 text-sm" htmlFor="profile-bio">
             {t("sections.professionalSummary.fields.bio.label")}
           </label>
           <textarea
-            className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
+            className="w-full rounded-xl border border-[#ebe5d8] bg-white px-4 py-3 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
             id="profile-bio"
             onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
             placeholder={t("sections.professionalSummary.fields.bio.placeholder")}
@@ -243,7 +240,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
 
       {/* Languages */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-lg">
+        <div className="flex items-center gap-2 font-semibold text-gray-900 text-lg">
           <HugeiconsIcon className="h-5 w-5" icon={GlobeIcon} />
           <h3>{t("sections.languages.title")}</h3>
         </div>
@@ -253,8 +250,8 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             <button
               className={`rounded-full border-2 px-4 py-2 font-semibold text-sm transition ${
                 profile.languages.includes(language)
-                  ? "border-[var(--red)] bg-[var(--red)] text-white"
-                  : "border-[#ebe5d8] bg-white text-[var(--foreground)] hover:border-[var(--red)] hover:text-[var(--red)]"
+                  ? "border-[#E85D48] bg-[#E85D48] text-white"
+                  : "border-[#ebe5d8] bg-white text-gray-900 hover:border-[#E85D48] hover:text-[#E85D48]"
               }`}
               key={language}
               onClick={() => handleLanguageToggle(language)}
@@ -269,7 +266,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
 
       {/* Primary Services */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 font-semibold text-[var(--foreground)] text-lg">
+        <div className="flex items-center gap-2 font-semibold text-gray-900 text-lg">
           <HugeiconsIcon className="h-5 w-5" icon={Award01Icon} />
           <h3>{t("sections.services.title")}</h3>
         </div>
@@ -279,8 +276,8 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             <button
               className={`rounded-full border-2 px-4 py-2 font-semibold text-sm transition ${
                 profile.primary_services.includes(service)
-                  ? "border-[var(--red)] bg-[var(--red)] text-white"
-                  : "border-[#ebe5d8] bg-white text-[var(--foreground)] hover:border-[var(--red)] hover:text-[var(--red)]"
+                  ? "border-[#E85D48] bg-[#E85D48] text-white"
+                  : "border-[#ebe5d8] bg-white text-gray-900 hover:border-[#E85D48] hover:text-[#E85D48]"
               }`}
               key={service}
               onClick={() => handleServiceToggle(service)}
@@ -296,7 +293,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
       {/* Save Button */}
       <div className="flex items-center justify-end gap-3 border-[#ebe5d8] border-t pt-6">
         <button
-          className="rounded-full bg-[var(--red)] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[#E85D48] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={isPending}
           onClick={handleSave}
           type="button"

@@ -44,7 +44,7 @@ const DEFAULT_ZOOM = 6;
 // Custom marker icon with price overlay
 function createCustomIcon(price: number | null, verified: boolean) {
   const priceText = price ? `$${Math.round(price / 100)}k` : "N/A";
-  const bgColor = verified ? "#10b981" : "var(--red)";
+  const bgColor = verified ? "#10b981" : "#dc2626";
 
   return new Icon({
     iconUrl: `data:image/svg+xml,${encodeURIComponent(`
@@ -209,7 +209,7 @@ const MapViewComponent = memo(
 
                         {/* Price */}
                         {professional.hourlyRateCop ? (
-                          <p className="font-semibold text-[var(--red)] text-sm">
+                          <p className="font-semibold text-[#E85D48] text-sm">
                             {formatCOP(professional.hourlyRateCop)}/hr
                           </p>
                         ) : null}
@@ -221,7 +221,7 @@ const MapViewComponent = memo(
                       </div>
                     </div>
 
-                    <div className="mt-2 border-gray-200 border-t pt-2 text-center text-[var(--red)] text-xs">
+                    <div className="mt-2 border-gray-200 border-t pt-2 text-center text-[#E85D48] text-xs">
                       View Profile →
                     </div>
                   </Link>

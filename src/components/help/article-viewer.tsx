@@ -160,11 +160,11 @@ export function ArticleViewer({
     <div className="mx-auto max-w-4xl">
       {/* Breadcrumb */}
       <nav className="mb-6 flex items-center gap-2 text-gray-600 text-sm">
-        <Link className="hover:text-[var(--red)]" href={`/${locale}/help`}>
+        <Link className="hover:text-[#E85D48]" href={`/${locale}/help`}>
           {t("breadcrumb.home")}
         </Link>
         <span>/</span>
-        <Link className="hover:text-[var(--red)]" href={`/${locale}/help/${categorySlug}`}>
+        <Link className="hover:text-[#E85D48]" href={`/${locale}/help/${categorySlug}`}>
           {categoryName}
         </Link>
       </nav>
@@ -187,7 +187,7 @@ export function ArticleViewer({
 
       {/* Article Content */}
       <div
-        className="prose prose-lg mb-12 max-w-none prose-code:rounded prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-headings:font-semibold prose-a:text-[var(--red)] prose-code:text-gray-900 prose-headings:text-gray-900 prose-strong:text-gray-900 prose-a:no-underline prose-code:before:content-none prose-code:after:content-none hover:prose-a:underline"
+        className="prose prose-lg mb-12 max-w-none prose-code:rounded prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-headings:font-semibold prose-a:text-[#E85D48] prose-code:text-gray-900 prose-headings:text-gray-900 prose-strong:text-gray-900 prose-a:no-underline prose-code:before:content-none prose-code:after:content-none hover:prose-a:underline"
         dangerouslySetInnerHTML={{ __html: sanitizedContent }}
       />
 
@@ -215,7 +215,7 @@ export function ArticleViewer({
                 {t("feedback.helpful")}
               </button>
               <button
-                className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 transition hover:border-red-500 hover:bg-red-50 hover:text-red-700 disabled:opacity-50"
+                className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 transition hover:border-[#E85D48]/100 hover:bg-[#E85D48]/10 hover:text-red-700 disabled:opacity-50"
                 disabled={submitting}
                 onClick={() => handleFeedback(false)}
                 type="button"
@@ -232,7 +232,7 @@ export function ArticleViewer({
           <div className="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-6">
             <h4 className="mb-3 font-semibold text-gray-900">{t("feedback.tellUsMore")}</h4>
             <textarea
-              className="mb-4 w-full rounded-lg border border-gray-300 p-3 focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
+              className="mb-4 w-full rounded-lg border border-gray-300 p-3 focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
               onChange={(e) => setFeedbackText(e.target.value)}
               placeholder={t("feedback.placeholder")}
               rows={4}
@@ -240,7 +240,7 @@ export function ArticleViewer({
             />
             <div className="flex gap-3">
               <button
-                className="rounded-lg bg-[var(--red)] px-6 py-2 font-medium text-white transition hover:bg-[var(--red)] disabled:opacity-50"
+                className="rounded-lg bg-[#E85D48] px-6 py-2 font-medium text-white transition hover:bg-[#E85D48] disabled:opacity-50"
                 disabled={submitting}
                 onClick={() => {
                   handleFeedbackTextSubmit();
@@ -268,15 +268,15 @@ export function ArticleViewer({
           <div className="grid gap-4 md:grid-cols-2">
             {relatedArticles.map((related) => (
               <Link
-                className="group rounded-lg border border-gray-200 p-4 transition hover:border-[var(--red)] hover:shadow-md"
+                className="group rounded-lg border border-gray-200 p-4 transition hover:border-[#E85D48] hover:shadow-md"
                 href={`/${locale}/help/${related.category_slug}/${related.slug}`}
                 key={related.id}
               >
-                <h4 className="mb-2 font-semibold text-gray-900 group-hover:text-[var(--red)]">
+                <h4 className="mb-2 font-semibold text-gray-900 group-hover:text-[#E85D48]">
                   {related.title}
                 </h4>
                 {related.excerpt && <p className="text-gray-600 text-sm">{related.excerpt}</p>}
-                <div className="mt-3 flex items-center text-[var(--red)] text-sm">
+                <div className="mt-3 flex items-center text-[#E85D48] text-sm">
                   <span>{t("related.readMore")}</span>
                   <HugeiconsIcon className="ml-1 h-4 w-4" icon={ArrowRight01Icon} />
                 </div>
@@ -288,11 +288,11 @@ export function ArticleViewer({
 
       {/* Contact Support CTA */}
       <div className="rounded-lg border border-gray-200 bg-gradient-to-br from-gray-50 to-white p-8 text-center">
-        <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-[var(--red)]" icon={BubbleChatIcon} />
+        <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-[#E85D48]" icon={BubbleChatIcon} />
         <h3 className="mb-2 font-semibold text-gray-900 text-xl">{t("contact.title")}</h3>
         <p className="mb-6 text-gray-600">{t("contact.description")}</p>
         <Link
-          className="inline-flex items-center gap-2 rounded-lg bg-[var(--red)] px-6 py-3 font-semibold text-white transition hover:bg-[var(--red)]"
+          className="inline-flex items-center gap-2 rounded-lg bg-[#E85D48] px-6 py-3 font-semibold text-white transition hover:bg-[#E85D48]"
           href={`/${locale}/contact`}
         >
           {t("contact.button")}

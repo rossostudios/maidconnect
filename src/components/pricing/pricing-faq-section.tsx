@@ -67,7 +67,7 @@ export function PricingFaqSection() {
     <div className="space-y-4">
       {SAMPLE_FAQS.map((faq) => (
         <div
-          className="overflow-hidden rounded-[20px] border-2 border-[#ebe5d8] bg-white transition-all hover:border-[var(--red)]"
+          className="overflow-hidden rounded-[20px] border-2 border-stone-200 bg-white transition-all hover:border-orange-500"
           key={faq.id}
         >
           <button
@@ -75,9 +75,9 @@ export function PricingFaqSection() {
             onClick={() => toggleFaq(faq.id)}
             type="button"
           >
-            <span className="font-semibold text-[var(--foreground)] text-lg">{faq.question}</span>
+            <span className="font-semibold text-gray-900 text-lg">{faq.question}</span>
             <HugeiconsIcon
-              className={`flex-shrink-0 text-[#6B7280] transition-transform ${
+              className={`flex-shrink-0 text-gray-500 transition-transform ${
                 openFaqId === faq.id ? "rotate-180" : ""
               }`}
               icon={ArrowDown01Icon}
@@ -87,7 +87,7 @@ export function PricingFaqSection() {
 
           {openFaqId === faq.id && (
             <div className="px-6 pb-5">
-              <p className="text-[#6B7280] leading-relaxed">{faq.answer}</p>
+              <p className="text-gray-500 leading-relaxed">{faq.answer}</p>
             </div>
           )}
         </div>
@@ -95,9 +95,9 @@ export function PricingFaqSection() {
 
       {/* Contact support */}
       <div className="pt-8 text-center">
-        <p className="mb-4 text-[#6B7280]">Still have questions?</p>
+        <p className="mb-4 text-gray-500">Still have questions?</p>
         <a
-          className="inline-block rounded-[14px] border-2 border-[#ebe5d8] px-6 py-3 font-medium text-[var(--foreground)] transition-all hover:border-[var(--foreground)]"
+          className="inline-block rounded-[14px] border-2 border-stone-200 px-6 py-3 font-medium text-gray-900 transition-all hover:border-gray-900"
           href="/contact"
         >
           Contact Support

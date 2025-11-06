@@ -1,5 +1,9 @@
 "use server";
 
+import { insertBookingAddons } from "@/lib/bookings/addon-service";
+import { mapBookingInputToUpdateData } from "@/lib/bookings/booking-field-mapper";
+import { buildBookingInsertData } from "@/lib/bookings/booking-insert-builder";
+import { calculateBookingPricing } from "@/lib/bookings/pricing-service";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type {
   Booking,
@@ -33,104 +37,31 @@ export async function createBooking(
   try {
     const supabase = await createSupabaseServerClient();
 
-    // SECURITY: Fetch actual service price from database (never trust client input)
-    const { data: service, error: serviceError } = await supabase
-      .from("professional_services")
-      .select("base_price_cop")
-      .eq("id", input.serviceId)
-      .single();
+    // SECURITY: Calculate pricing from database (never trust client input)
+    const pricingResult = await calculateBookingPricing(
+      supabase,
+      input.serviceId,
+      input.pricingTierId,
+      input.addonIds
+    );
 
-    if (serviceError || !service) {
-      return { success: false, error: "Service not found" };
+    if (!pricingResult.success) {
+      return { success: false, error: pricingResult.error };
     }
 
-    const serverBasePrice = service.base_price_cop;
-
-    // SECURITY: Fetch actual tier price from database if tier is selected
-    let serverTierPrice = 0;
-    if (input.pricingTierId) {
-      const { data: tier, error: tierError } = await supabase
-        .from("service_pricing_tiers")
-        .select("price_cop")
-        .eq("id", input.pricingTierId)
-        .single();
-
-      if (tierError || !tier) {
-        return { success: false, error: "Pricing tier not found" };
-      }
-
-      serverTierPrice = tier.price_cop;
-    }
-
-    // SECURITY: Calculate addon prices from database (never trust client input)
-    let serverAddonPrice = 0;
-    if (input.addonIds && input.addonIds.length > 0) {
-      const { data: addons } = await supabase
-        .from("service_addons")
-        .select("price_cop")
-        .in("id", input.addonIds);
-
-      if (addons) {
-        serverAddonPrice = addons.reduce((sum, addon) => sum + addon.price_cop, 0);
-      }
-    }
-
-    // SECURITY: Calculate total from server-side data (ignore client input)
-    const serverTotalPrice = serverBasePrice + serverTierPrice + serverAddonPrice;
+    // Build insert data using helper to reduce complexity
+    const insertData = buildBookingInsertData(customerId, input, pricingResult.pricing);
 
     // Create booking with server-calculated prices
-    const { data, error } = await supabase
-      .from("bookings")
-      .insert({
-        customer_id: customerId,
-        professional_id: input.professionalId,
-        service_id: input.serviceId,
-        pricing_tier_id: input.pricingTierId || null,
-        scheduled_date: input.scheduledDate,
-        scheduled_start_time: input.scheduledStartTime,
-        scheduled_end_time: input.scheduledEndTime,
-        service_address_id: input.serviceAddressId || null,
-        service_address_line1: input.serviceAddressLine1 || null,
-        service_address_line2: input.serviceAddressLine2 || null,
-        service_address_city: input.serviceAddressCity || null,
-        service_address_postal_code: input.servicePostalCode || null,
-        service_address_country: input.serviceAddressCountry || "CO",
-        location_lat: input.locationLat || null,
-        location_lng: input.locationLng || null,
-        base_price_cop: serverBasePrice,
-        tier_price_cop: serverTierPrice,
-        addons_price_cop: serverAddonPrice,
-        total_price_cop: serverTotalPrice,
-        customer_notes: input.customerNotes || null,
-        special_requirements: input.specialRequirements || [],
-      })
-      .select()
-      .single();
+    const { data, error } = await supabase.from("bookings").insert(insertData).select().single();
 
     if (error) {
       console.error("Error creating booking:", error);
       return { success: false, error: error.message };
     }
 
-    // Add booking addons
-    if (input.addonIds && input.addonIds.length > 0) {
-      const { data: addonData } = await supabase
-        .from("service_addons")
-        .select("id, name, price_cop")
-        .in("id", input.addonIds);
-
-      if (addonData && addonData.length > 0) {
-        const bookingAddons = addonData.map((addon) => ({
-          booking_id: data.id,
-          addon_id: addon.id,
-          addon_name: addon.name,
-          addon_price_cop: addon.price_cop,
-          quantity: 1,
-        }));
-
-        await supabase.from("booking_addons").insert(bookingAddons);
-      }
-    }
+    // Insert booking addons using service
+    await insertBookingAddons(supabase, data.id, input.addonIds);
 
     const booking: Booking = mapDatabaseBooking(data);
     return { success: true, booking };
@@ -153,43 +84,8 @@ export async function updateBooking(
   try {
     const supabase = await createSupabaseServerClient();
 
-    const updateData: any = {};
-    if (input.scheduledDate) {
-      updateData.scheduled_date = input.scheduledDate;
-    }
-    if (input.scheduledStartTime) {
-      updateData.scheduled_start_time = input.scheduledStartTime;
-    }
-    if (input.scheduledEndTime) {
-      updateData.scheduled_end_time = input.scheduledEndTime;
-    }
-    if (input.serviceAddressId !== undefined) {
-      updateData.service_address_id = input.serviceAddressId;
-    }
-    if (input.serviceAddressLine1 !== undefined) {
-      updateData.service_address_line1 = input.serviceAddressLine1;
-    }
-    if (input.serviceAddressLine2 !== undefined) {
-      updateData.service_address_line2 = input.serviceAddressLine2;
-    }
-    if (input.serviceAddressCity !== undefined) {
-      updateData.service_address_city = input.serviceAddressCity;
-    }
-    if (input.servicePostalCode !== undefined) {
-      updateData.service_address_postal_code = input.servicePostalCode;
-    }
-    if (input.customerNotes !== undefined) {
-      updateData.customer_notes = input.customerNotes;
-    }
-    if (input.professionalNotes !== undefined) {
-      updateData.professional_notes = input.professionalNotes;
-    }
-    if (input.specialRequirements !== undefined) {
-      updateData.special_requirements = input.specialRequirements;
-    }
-    if (input.status) {
-      updateData.status = input.status;
-    }
+    // Map input fields to database format using helper to reduce complexity
+    const updateData = mapBookingInputToUpdateData(input);
 
     const { data, error } = await supabase
       .from("bookings")

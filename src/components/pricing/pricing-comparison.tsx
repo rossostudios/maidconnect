@@ -1,0 +1,149 @@
+/**
+ * Pricing Comparison Table
+ *
+ * Detailed feature comparison between Basic and Premium plans
+ */
+
+"use client";
+
+import { useTranslations } from "next-intl";
+import {
+  ComparisonTable,
+  ComparisonTableBody,
+  ComparisonTableCell,
+  ComparisonTableHeader,
+  ComparisonTableHeaderCell,
+  ComparisonTableRow,
+} from "@/components/ui/comparison-table";
+import { Container } from "@/components/ui/container";
+
+export function PricingComparison() {
+  const t = useTranslations("pricing.comparison");
+
+  return (
+    <section className="bg-white py-20 sm:py-24 lg:py-32">
+      <Container className="max-w-5xl">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <h2 className="serif-display-lg mb-4 text-stone-900">{t("title")}</h2>
+          <p className="lead text-stone-900/70">{t("subtitle")}</p>
+        </div>
+
+        {/* Comparison Table */}
+        <ComparisonTable>
+          <ComparisonTableHeader>
+            <ComparisonTableHeaderCell>Feature</ComparisonTableHeaderCell>
+            <ComparisonTableHeaderCell>Basic</ComparisonTableHeaderCell>
+            <ComparisonTableHeaderCell featured>Premium</ComparisonTableHeaderCell>
+          </ComparisonTableHeader>
+
+          <ComparisonTableBody>
+            {/* Core Features */}
+            <ComparisonTableRow category="Core Features" />
+
+            <ComparisonTableRow>
+              <ComparisonTableCell.Feature>Monthly bookings</ComparisonTableCell.Feature>
+              <ComparisonTableCell type="text" value="Up to 50" />
+              <ComparisonTableCell featured type="text" value="Unlimited" />
+            </ComparisonTableRow>
+
+            <ComparisonTableRow>
+              <ComparisonTableCell.Feature>Calendar connections</ComparisonTableCell.Feature>
+              <ComparisonTableCell type="text" value="3" />
+              <ComparisonTableCell featured type="text" value="Unlimited" />
+            </ComparisonTableRow>
+
+            <ComparisonTableRow>
+              <ComparisonTableCell.Feature>Team members</ComparisonTableCell.Feature>
+              <ComparisonTableCell type="text" value="1" />
+              <ComparisonTableCell featured type="text" value="Unlimited" />
+            </ComparisonTableRow>
+
+            <ComparisonTableRow>
+              <ComparisonTableCell.Feature>Payment processing</ComparisonTableCell.Feature>
+              <ComparisonTableCell type="check" />
+              <ComparisonTableCell featured type="check" />
+            </ComparisonTableRow>
+
+            <ComparisonTableRow>
+              <ComparisonTableCell.Feature>Email notifications</ComparisonTableCell.Feature>
+              <ComparisonTableCell type="check" />
+              <ComparisonTableCell featured type="check" />
+            </ComparisonTableRow>
+
+            {/* Branding & Customization */}
+            <ComparisonTableRow category="Branding & Customization" />
+
+            <ComparisonTableRow>
+              <ComparisonTableCell.Feature>Custom colors & logo</ComparisonTableCell.Feature>
+              <ComparisonTableCell type="check" />
+              <ComparisonTableCell featured type="check" />
+            </ComparisonTableRow>
+
+            <ComparisonTableRow>
+              <ComparisonTableCell.Feature>Custom domain</ComparisonTableCell.Feature>
+              <ComparisonTableCell type="x" />
+              <ComparisonTableCell featured type="check" />
+            </ComparisonTableRow>
+
+            <ComparisonTableRow>
+              <ComparisonTableCell.Feature>Remove Casaora branding</ComparisonTableCell.Feature>
+              <ComparisonTableCell type="x" />
+              <ComparisonTableCell featured type="check" />
+            </ComparisonTableRow>
+
+            <ComparisonTableRow>
+              <ComparisonTableCell.Feature>Custom email templates</ComparisonTableCell.Feature>
+              <ComparisonTableCell type="x" />
+              <ComparisonTableCell featured type="check" />
+            </ComparisonTableRow>
+
+            {/* Advanced Features */}
+            <ComparisonTableRow category="Advanced Features" />
+
+            <ComparisonTableRow>
+              <ComparisonTableCell.Feature>Priority support</ComparisonTableCell.Feature>
+              <ComparisonTableCell type="x" />
+              <ComparisonTableCell featured type="check" />
+            </ComparisonTableRow>
+
+            <ComparisonTableRow>
+              <ComparisonTableCell.Feature>Advanced analytics</ComparisonTableCell.Feature>
+              <ComparisonTableCell type="x" />
+              <ComparisonTableCell featured type="check" />
+            </ComparisonTableRow>
+
+            <ComparisonTableRow>
+              <ComparisonTableCell.Feature>API access</ComparisonTableCell.Feature>
+              <ComparisonTableCell type="x" />
+              <ComparisonTableCell featured type="check" />
+            </ComparisonTableRow>
+
+            <ComparisonTableRow>
+              <ComparisonTableCell.Feature>Automated workflows</ComparisonTableCell.Feature>
+              <ComparisonTableCell type="x" />
+              <ComparisonTableCell featured type="check" />
+            </ComparisonTableRow>
+
+            <ComparisonTableRow>
+              <ComparisonTableCell.Feature>Team collaboration tools</ComparisonTableCell.Feature>
+              <ComparisonTableCell type="x" />
+              <ComparisonTableCell featured type="check" />
+            </ComparisonTableRow>
+          </ComparisonTableBody>
+        </ComparisonTable>
+
+        {/* CTA below table */}
+        <div className="mt-12 text-center">
+          <p className="text-base text-stone-900/70">
+            Not sure which plan is right for you?{" "}
+            <a className="font-semibold text-orange-500 hover:text-orange-600" href="/contact">
+              Contact us
+            </a>{" "}
+            and we'll help you choose.
+          </p>
+        </div>
+      </Container>
+    </section>
+  );
+}

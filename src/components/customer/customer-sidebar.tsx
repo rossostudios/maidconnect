@@ -132,7 +132,7 @@ export function CustomerSidebar({
                   <Link
                     className={`flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-sm transition-all ${
                       active
-                        ? "bg-[#FEF2F2] text-[#E63946]"
+                        ? "bg-[#FEF2F2] text-[#E85D48]"
                         : "text-[#525252] hover:bg-[#F5F5F5] hover:text-[#171717]"
                     } ${isCollapsed ? "justify-center" : ""}`}
                     href={item.href}
@@ -145,14 +145,14 @@ export function CustomerSidebar({
                       <>
                         <span className="flex-1">{item.label}</span>
                         {showBadge && (
-                          <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#E63946] px-1.5 font-semibold text-white text-xs">
+                          <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#E85D48] px-1.5 font-semibold text-white text-xs">
                             {unreadMessagesCount > 99 ? "99+" : unreadMessagesCount}
                           </span>
                         )}
                       </>
                     )}
                     {isCollapsed && showBadge && (
-                      <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[#E63946]" />
+                      <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[#E85D48]" />
                     )}
                   </Link>
                 );

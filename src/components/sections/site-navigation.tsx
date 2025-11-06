@@ -94,7 +94,7 @@ export function SiteNavigation() {
 
   return (
     <nav
-      className="order-3 flex w-full justify-between gap-6 font-medium text-[var(--foreground)] text-sm sm:order-none sm:w-auto sm:justify-end"
+      className="order-3 flex w-full justify-between gap-6 font-medium text-gray-900 text-sm sm:order-none sm:w-auto sm:justify-end"
       data-tour="navigation"
     >
       <div className="flex w-full items-center justify-between gap-6 overflow-x-auto sm:w-auto sm:overflow-visible">
@@ -104,7 +104,7 @@ export function SiteNavigation() {
             aria-controls="site-product-menu"
             aria-expanded={isProductOpen}
             aria-haspopup="true"
-            className="flex items-center gap-1 whitespace-nowrap text-[var(--foreground)] transition hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)] focus-visible:outline-offset-2"
+            className="flex items-center gap-1 whitespace-nowrap text-gray-900 transition hover:text-[#E85D48] focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-600 focus-visible:outline-offset-2"
             id="site-product-toggle"
             onClick={handleProductClick}
             onFocus={handleMouseEnter}
@@ -133,17 +133,15 @@ export function SiteNavigation() {
                 <div className="grid grid-cols-2 gap-2">
                   {productFeatures.map((feature) => (
                     <Link
-                      className="group flex flex-col gap-1 rounded-xl p-3 transition hover:bg-[color-mix(in_srgb,var(--accent)_12%,transparent)] hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)] focus-visible:outline-offset-2"
+                      className="group flex flex-col gap-1 rounded-xl p-3 transition hover:bg-[#fff5f2] hover:text-[#E85D48] focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-600 focus-visible:outline-offset-2"
                       href={feature.href}
                       key={feature.name}
                       role="menuitem"
                     >
-                      <span className="font-semibold text-[var(--foreground)] text-sm transition group-hover:text-[var(--accent)]">
+                      <span className="font-semibold text-gray-900 text-sm transition group-hover:text-[#E85D48]">
                         {feature.name}
                       </span>
-                      <span className="text-[var(--muted-foreground)] text-xs">
-                        {feature.description}
-                      </span>
+                      <span className="text-gray-600 text-xs">{feature.description}</span>
                     </Link>
                   ))}
                 </div>
@@ -155,7 +153,7 @@ export function SiteNavigation() {
         {/* Regular Links */}
         {links.map((link) => (
           <Link
-            className="whitespace-nowrap text-[var(--foreground)] transition hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)] focus-visible:outline-offset-2"
+            className="whitespace-nowrap text-gray-900 transition hover:text-[#E85D48] focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-600 focus-visible:outline-offset-2"
             href={link.href}
             key={link.href}
           >

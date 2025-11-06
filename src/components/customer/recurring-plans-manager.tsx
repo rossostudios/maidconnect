@@ -90,8 +90,8 @@ export function RecurringPlansManager({
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "all"
-              ? "border-[var(--red)] text-[var(--red)]"
-              : "border-transparent text-[#7d7566] hover:text-[var(--foreground)]"
+              ? "border-[#E85D48] text-[#E85D48]"
+              : "border-transparent text-[#7d7566] hover:text-gray-900"
           }`}
           onClick={() => setFilter("all")}
         >
@@ -100,8 +100,8 @@ export function RecurringPlansManager({
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "active"
-              ? "border-[var(--red)] text-[var(--red)]"
-              : "border-transparent text-[#7d7566] hover:text-[var(--foreground)]"
+              ? "border-[#E85D48] text-[#E85D48]"
+              : "border-transparent text-[#7d7566] hover:text-gray-900"
           }`}
           onClick={() => setFilter("active")}
         >
@@ -110,8 +110,8 @@ export function RecurringPlansManager({
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "paused"
-              ? "border-[var(--red)] text-[var(--red)]"
-              : "border-transparent text-[#7d7566] hover:text-[var(--foreground)]"
+              ? "border-[#E85D48] text-[#E85D48]"
+              : "border-transparent text-[#7d7566] hover:text-gray-900"
           }`}
           onClick={() => setFilter("paused")}
         >
@@ -125,7 +125,7 @@ export function RecurringPlansManager({
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#ebe5d8]">
             <HugeiconsIcon className="h-8 w-8 text-[#7d7566]" icon={Calendar03Icon} />
           </div>
-          <h3 className="font-semibold text-[var(--foreground)] text-xl">
+          <h3 className="font-semibold text-gray-900 text-xl">
             {filter === "active"
               ? "No active recurring plans"
               : filter === "paused"
@@ -255,7 +255,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
               src={plan.professional.avatar_url}
             />
           ) : (
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)] font-bold text-white text-xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#E85D48] font-bold text-white text-xl">
               {plan.professional?.full_name?.charAt(0).toUpperCase() || "?"}
             </div>
           )}
@@ -265,9 +265,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
         <div className="min-w-0 flex-1">
           <div className="mb-4 flex items-start justify-between gap-4">
             <div>
-              <h3 className="mb-1 font-bold text-[var(--foreground)] text-xl">
-                {plan.service_name}
-              </h3>
+              <h3 className="mb-1 font-bold text-gray-900 text-xl">{plan.service_name}</h3>
               <div className="flex items-center gap-2 text-[#7d7566] text-sm">
                 <span>with {plan.professional?.full_name || "Unknown Professional"}</span>
               </div>
@@ -294,11 +292,9 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
           {/* Plan Info Grid */}
           <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
             <div className="flex items-center gap-2 text-sm">
-              <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={Calendar02Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={Calendar02Icon} />
               <div>
-                <p className="font-medium text-[var(--foreground)]">
-                  {FREQUENCY_LABELS[plan.frequency]}
-                </p>
+                <p className="font-medium text-gray-900">{FREQUENCY_LABELS[plan.frequency]}</p>
                 {plan.day_of_week !== null && (
                   <p className="text-[#7d7566] text-xs">
                     {DAY_NAMES[plan.day_of_week]} at {plan.preferred_time}
@@ -308,11 +304,9 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
             </div>
 
             <div className="flex items-center gap-2 text-sm">
-              <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={Clock01Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={Clock01Icon} />
               <div>
-                <p className="font-medium text-[var(--foreground)]">
-                  {plan.duration_minutes} minutes
-                </p>
+                <p className="font-medium text-gray-900">{plan.duration_minutes} minutes</p>
                 <p className="text-[#7d7566] text-xs">Duration</p>
               </div>
             </div>
@@ -322,7 +316,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
                 $
               </div>
               <div>
-                <p className="font-medium text-[var(--foreground)]">
+                <p className="font-medium text-gray-900">
                   {formatCurrency(plan.final_amount, { currency: plan.currency as any })}
                 </p>
                 <p className="text-green-600 text-xs">
@@ -347,7 +341,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
                 <p className="text-[#7d7566] text-xs">Next booking</p>
-                <p className="font-medium text-[var(--foreground)]">
+                <p className="font-medium text-gray-900">
                   {new Date(plan.next_booking_date).toLocaleDateString("en-US", {
                     weekday: "short",
                     month: "short",
@@ -357,9 +351,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
               </div>
               <div>
                 <p className="text-[#7d7566] text-xs">Completed bookings</p>
-                <p className="font-medium text-[var(--foreground)]">
-                  {plan.total_bookings_completed}
-                </p>
+                <p className="font-medium text-gray-900">{plan.total_bookings_completed}</p>
               </div>
             </div>
           </div>
@@ -379,7 +371,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
         {plan.status === "active" && (
           <>
             <button
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-[#e5dfd4] bg-white px-6 py-3 font-semibold text-[var(--foreground)] transition hover:border-yellow-500 hover:text-yellow-600 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-[#e5dfd4] bg-white px-6 py-3 font-semibold text-gray-900 transition hover:border-yellow-500 hover:text-yellow-600 disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isProcessing}
               onClick={() => setShowPauseModal(true)}
             >
@@ -387,7 +379,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
               Pause Plan
             </button>
             <button
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-[#e5dfd4] bg-white px-6 py-3 font-semibold text-[var(--foreground)] transition hover:border-red-500 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-[#e5dfd4] bg-white px-6 py-3 font-semibold text-gray-900 transition hover:border-[#E85D48]/100 hover:text-[#E85D48] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isProcessing}
               onClick={handleCancel}
             >
@@ -400,14 +392,14 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
         {plan.status === "paused" && (
           <>
             <button
-              className="flex-1 rounded-lg bg-[var(--red)] px-6 py-3 font-semibold text-white transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex-1 rounded-lg bg-[#E85D48] px-6 py-3 font-semibold text-white transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isProcessing}
               onClick={handleResume}
             >
               {isProcessing ? "Processing..." : "Resume Plan"}
             </button>
             <button
-              className="flex-1 rounded-lg border-2 border-[#e5dfd4] bg-white px-6 py-3 font-semibold text-[var(--foreground)] transition hover:border-red-500 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex-1 rounded-lg border-2 border-[#e5dfd4] bg-white px-6 py-3 font-semibold text-gray-900 transition hover:border-[#E85D48]/100 hover:text-[#E85D48] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isProcessing}
               onClick={handleCancel}
             >
@@ -433,7 +425,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
                 Cancel
               </button>
               <button
-                className="flex-1 rounded-lg bg-[var(--red)] px-4 py-2 font-semibold text-white disabled:opacity-50"
+                className="flex-1 rounded-lg bg-[#E85D48] px-4 py-2 font-semibold text-white disabled:opacity-50"
                 disabled={isProcessing}
                 onClick={handlePause}
               >

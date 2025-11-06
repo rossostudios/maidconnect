@@ -1049,9 +1049,36 @@
     "becomeProfessional": "Join our network",
     "learnMore": "Learn more"
   },
+  "search": {
+    "where": "WHERE",
+    "when": "WHEN",
+    "service": "SERVICE",
+    "searchButton": "SEARCH",
+    "selectCity": "Select city",
+    "selectDate": "Select date",
+    "anyService": "Any service",
+    "cities": {
+      "bogota": "Bogotá",
+      "medellin": "Medellín",
+      "cali": "Cali",
+      "barranquilla": "Barranquilla",
+      "cartagena": "Cartagena",
+      "bucaramanga": "Bucaramanga"
+    },
+    "services": {
+      "cleaning": "House Cleaning",
+      "cooking": "Personal Chef",
+      "childcare": "Childcare",
+      "elderly": "Elderly Care",
+      "gardening": "Gardening",
+      "pet": "Pet Care"
+    }
+  },
   "services": {
     "badge": "Services",
     "title": "Exceptional Professionals in Every Category",
+    "subtitle": "Professional home services that make life easier. From cleaning to childcare, find verified professionals ready to help.",
+    "viewAll": "View All Services",
     "cta": "Find Professionals",
     "learnMore": "Learn more",
     "from": "From",
@@ -1093,22 +1120,22 @@
       "step1": {
         "number": "01",
         "title": "We vet rigorously",
-        "description": "Only 5% of applicants make it onto Casaora. Every professional completes background verification, skill assessments, and in-person interviews before you ever see their profile."
+        "description": "Only 5% pass. Background checks, skill tests, in-person interviews."
       },
       "step2": {
         "number": "02",
-        "title": "You browse our curated network",
-        "description": "Search and filter by your needs—language, experience, availability, location. Watch video introductions. Compare profiles. Everything is transparent."
+        "title": "Browse curated profiles",
+        "description": "Search by language, location, availability. Watch video intros."
       },
       "step3": {
         "number": "03",
-        "title": "You choose & connect",
-        "description": "Found your match? Book a consultation or trial day. Communicate directly through our secure platform. Your choice, your timeline."
+        "title": "Connect & book",
+        "description": "Trial days available. Secure messaging. Your timeline."
       },
       "step4": {
         "number": "04",
-        "title": "We support ongoing",
-        "description": "From onboarding to ongoing support, we're here. Rate your experience, provide feedback, and know we maintain standards long-term."
+        "title": "We support you",
+        "description": "From onboarding to ongoing support. We maintain standards."
       }
     }
   },
@@ -1155,7 +1182,7 @@
     }
   },
   "footer": {
-    "description": "Casaora — Colombia's premier boutique domestic staffing agency. Exceptional household professionals for exceptional homes. The Art of Home.",
+    "description": "The Art of Home",
     "platform": "Platform",
     "company": "Company",
     "mobile": "Mobile",
@@ -2067,7 +2094,7 @@
   "professionalsDirectory": {
     "header": {
       "title": "Casaora professionals",
-      "subtitle": "Every specialist listed below has cleared Casaora's four-stage vetting process and is authorised to serve customers via our platform. These steps include submission and approval of their cédula (Colombian government ID), proof of work eligibility, references, and an in-person interview."
+      "subtitle": "Every specialist here has passed Casaora's four-step vetting—ID approval, work eligibility, references, and an in-person interview."
     },
     "filters": {
       "search": "Search by name, service, or neighbourhood",

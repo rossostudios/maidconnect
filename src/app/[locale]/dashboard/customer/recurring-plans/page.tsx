@@ -5,8 +5,8 @@
  * Sprint 2: Supply & Ops - Recurring Plans UI
  */
 
-import { redirect } from "next/navigation";
 import { unstable_noStore } from "next/cache";
+import { redirect } from "next/navigation";
 import { RecurringPlansManager } from "@/components/customer/recurring-plans-manager";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -82,7 +82,7 @@ export default async function RecurringPlansPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="font-bold text-3xl text-[var(--foreground)]">Recurring Plans</h1>
+        <h1 className="font-bold text-3xl text-gray-900">Recurring Plans</h1>
         <p className="mt-2 text-[#7d7566]">
           Manage your recurring service subscriptions and save up to 15%
         </p>

@@ -125,7 +125,7 @@ export function GuestSignupPrompt({ bookingId }: GuestSignupPromptProps) {
               />
             </svg>
           </div>
-          <h2 className="mb-2 font-bold text-2xl text-[var(--foreground)]">Booking Confirmed!</h2>
+          <h2 className="mb-2 font-bold text-2xl text-gray-900">Booking Confirmed!</h2>
           <p className="text-[#7d7566] text-base">
             Create an account to track your booking and enjoy faster checkout next time
           </p>
@@ -134,9 +134,9 @@ export function GuestSignupPrompt({ bookingId }: GuestSignupPromptProps) {
         <form className="space-y-4" onSubmit={handleSignup}>
           {/* Pre-filled email (read-only) */}
           <div>
-            <label className="mb-2 block font-medium text-[var(--foreground)] text-sm">Email</label>
+            <label className="mb-2 block font-medium text-gray-900 text-sm">Email</label>
             <input
-              className="w-full rounded-lg border border-[#e5dfd4] bg-[#f9fafb] px-4 py-3 text-[var(--foreground)] text-sm"
+              className="w-full rounded-lg border border-[#e5dfd4] bg-[#f9fafb] px-4 py-3 text-gray-900 text-sm"
               disabled
               readOnly
               type="email"
@@ -146,15 +146,12 @@ export function GuestSignupPrompt({ bookingId }: GuestSignupPromptProps) {
 
           {/* Password input */}
           <div>
-            <label
-              className="mb-2 block font-medium text-[var(--foreground)] text-sm"
-              htmlFor="password"
-            >
+            <label className="mb-2 block font-medium text-gray-900 text-sm" htmlFor="password">
               Create Password
             </label>
             <input
               autoComplete="new-password"
-              className="w-full rounded-lg border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)]/20"
+              className="w-full rounded-lg border border-[#e5dfd4] px-4 py-3 text-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
               disabled={isLoading}
               id="password"
               minLength={8}
@@ -169,9 +166,7 @@ export function GuestSignupPrompt({ bookingId }: GuestSignupPromptProps) {
 
           {/* Benefits list */}
           <div className="rounded-lg bg-[#fbfafa] p-4">
-            <p className="mb-2 font-semibold text-[var(--foreground)] text-sm">
-              With an account you can:
-            </p>
+            <p className="mb-2 font-semibold text-gray-900 text-sm">With an account you can:</p>
             <ul className="space-y-1 text-[#7d7566] text-sm">
               <li className="flex items-start gap-2">
                 <span className="text-green-600">✓</span>
@@ -195,7 +190,7 @@ export function GuestSignupPrompt({ bookingId }: GuestSignupPromptProps) {
           {/* Action buttons */}
           <div className="flex gap-3">
             <button
-              className="flex-1 rounded-lg border-2 border-[#e5dfd4] bg-white px-6 py-3 font-semibold text-[var(--foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)]"
+              className="flex-1 rounded-lg border-2 border-[#e5dfd4] bg-white px-6 py-3 font-semibold text-gray-900 text-sm transition hover:border-[#E85D48] hover:text-[#E85D48]"
               disabled={isLoading}
               onClick={handleSkip}
               type="button"
@@ -203,7 +198,7 @@ export function GuestSignupPrompt({ bookingId }: GuestSignupPromptProps) {
               Skip for now
             </button>
             <button
-              className="flex-1 rounded-lg bg-[var(--red)] px-6 py-3 font-semibold text-sm text-white transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex-1 rounded-lg bg-[#E85D48] px-6 py-3 font-semibold text-sm text-white transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isLoading}
               type="submit"
             >

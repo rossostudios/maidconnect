@@ -73,11 +73,9 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
         {/* Header */}
         <div className="mb-16 flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
           <div className="max-w-xl space-y-4">
-            <p className="font-medium text-[var(--muted-foreground)] text-sm uppercase tracking-wider">
-              NEW PROFESSIONALS
-            </p>
-            <h2 className="type-serif-lg text-[var(--foreground)]">Latest Arrivals</h2>
-            <p className="text-[var(--muted-foreground)] text-base leading-relaxed">
+            <p className="tagline text-[#7a6d62]">NEW PROFESSIONALS</p>
+            <h2 className="serif-display-lg text-[#1A1614]">Latest Arrivals</h2>
+            <p className="text-[#1A1614]/70 text-base leading-relaxed">
               Meet our newest professionals ready to help with your home care needs.
             </p>
           </div>
@@ -86,7 +84,7 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
           <div className="flex gap-2">
             <button
               aria-label="Previous"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] bg-transparent text-[var(--foreground)] transition hover:bg-[var(--foreground)] hover:text-white disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-[var(--foreground)]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#E85D48]/30 bg-white text-[#1A1614] transition hover:border-[#E85D48] hover:bg-[#E85D48] hover:text-white disabled:opacity-30 disabled:hover:border-[#E85D48]/30 disabled:hover:bg-white disabled:hover:text-[#1A1614]"
               disabled={!canScrollLeft}
               onClick={() => scroll("left")}
               type="button"
@@ -95,7 +93,7 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
             </button>
             <button
               aria-label="Next"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] bg-transparent text-[var(--foreground)] transition hover:bg-[var(--foreground)] hover:text-white disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-[var(--foreground)]"
+              className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#E85D48]/30 bg-white text-[#1A1614] transition hover:border-[#E85D48] hover:bg-[#E85D48] hover:text-white disabled:opacity-30 disabled:hover:border-[#E85D48]/30 disabled:hover:bg-white disabled:hover:text-[#1A1614]"
               disabled={!canScrollRight}
               onClick={() => scroll("right")}
               type="button"
@@ -130,11 +128,11 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
 
               {/* Info */}
               <div className="space-y-1">
-                <h3 className="font-medium text-[var(--foreground)] text-base">{pro.name}</h3>
-                <p className="text-[var(--muted-foreground)] text-sm">
+                <h3 className="font-semibold text-[#1A1614] text-base">{pro.name}</h3>
+                <p className="text-[#7a6d62] text-sm">
                   {pro.city}, {pro.country}
                 </p>
-                <p className="font-medium text-[var(--foreground)] text-sm">€{pro.hourlyRate}/hr</p>
+                <p className="font-semibold text-[#E85D48] text-sm">€{pro.hourlyRate}/hr</p>
               </div>
             </Link>
           ))}
@@ -143,7 +141,7 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
         {/* View All Link */}
         <div className="mt-12 text-center">
           <Link
-            className="inline-flex items-center justify-center rounded-full border border-[var(--foreground)] bg-transparent px-8 py-3 font-medium text-[var(--foreground)] text-sm transition hover:bg-[var(--foreground)] hover:text-white"
+            className="inline-flex items-center justify-center rounded-full border-2 border-[#E85D48] bg-transparent px-8 py-3 font-semibold text-[#E85D48] text-sm transition hover:bg-[#E85D48] hover:text-white"
             href="/professionals"
           >
             View All Professionals

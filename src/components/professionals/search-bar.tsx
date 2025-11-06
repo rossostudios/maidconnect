@@ -176,7 +176,7 @@ export function SearchBar({
       {/* Search Input */}
       <div className="relative">
         <HugeiconsIcon
-          className="-translate-y-1/2 pointer-events-none absolute top-1/2 left-5 h-6 w-6 text-[var(--muted-foreground)]"
+          className="-translate-y-1/2 pointer-events-none absolute top-1/2 left-5 h-6 w-6 text-gray-600"
           icon={Search01Icon}
         />
         <input
@@ -184,7 +184,7 @@ export function SearchBar({
           aria-controls="search-suggestions"
           aria-expanded={isOpen}
           autoComplete="off"
-          className="w-full rounded-full border border-[#e2ddd2] bg-[#fbfafa] py-4 pr-14 pl-14 text-[var(--foreground)] text-base shadow-black/5 shadow-inner outline-none transition focus:border-[var(--foreground)]"
+          className="w-full rounded-full border border-[#e2ddd2] bg-[#fbfafa] py-4 pr-14 pl-14 text-base text-gray-900 shadow-black/5 shadow-inner outline-none transition focus:border-gray-900"
           onChange={(e) => handleInputChange(e.target.value)}
           onFocus={() => {
             if (suggestions.length > 0) {
@@ -201,10 +201,7 @@ export function SearchBar({
         {/* Loading / Clear Button */}
         <div className="-translate-y-1/2 absolute top-1/2 right-5 flex items-center gap-2">
           {isLoading && (
-            <HugeiconsIcon
-              className="h-5 w-5 animate-spin text-[var(--muted-foreground)]"
-              icon={Loading01Icon}
-            />
+            <HugeiconsIcon className="h-5 w-5 animate-spin text-gray-600" icon={Loading01Icon} />
           )}
           {query.length > 0 && !isLoading && (
             <button
@@ -213,10 +210,7 @@ export function SearchBar({
               onClick={handleClear}
               type="button"
             >
-              <HugeiconsIcon
-                className="h-5 w-5 text-[var(--muted-foreground)]"
-                icon={Cancel01Icon}
-              />
+              <HugeiconsIcon className="h-5 w-5 text-gray-600" icon={Cancel01Icon} />
             </button>
           )}
         </div>
@@ -256,7 +250,7 @@ export function SearchBar({
 
                 {/* Professional Info */}
                 <div className="min-w-0 flex-1">
-                  <div className="font-semibold text-[var(--foreground)] text-base">
+                  <div className="font-semibold text-base text-gray-900">
                     {highlightMatch(suggestion.name, query)}
                   </div>
                   <div className="text-[#7d7566] text-sm">
@@ -264,7 +258,7 @@ export function SearchBar({
                       ? highlightMatch(suggestion.service, query)
                       : "Flexible services"}
                   </div>
-                  <div className="text-[var(--muted-foreground)] text-xs">
+                  <div className="text-gray-600 text-xs">
                     {highlightMatch(suggestion.location, query)}
                   </div>
                 </div>
@@ -272,8 +266,8 @@ export function SearchBar({
                 {/* Rating (if available) */}
                 {suggestion.rating !== undefined && suggestion.rating > 0 && (
                   <div className="flex flex-shrink-0 items-center gap-1 text-sm">
-                    <span className="text-[var(--foreground)]">★</span>
-                    <span className="font-semibold text-[var(--foreground)]">
+                    <span className="text-gray-900">★</span>
+                    <span className="font-semibold text-gray-900">
                       {suggestion.rating.toFixed(1)}
                     </span>
                     {suggestion.reviewCount !== undefined && suggestion.reviewCount > 0 && (
@@ -287,7 +281,7 @@ export function SearchBar({
 
           {/* Footer hint */}
           <div className="border-[#ebe5d8] border-t bg-[#fbfafa] px-5 py-3">
-            <p className="text-center text-[var(--muted-foreground)] text-xs">
+            <p className="text-center text-gray-600 text-xs">
               Use ↑↓ to navigate, Enter to select, Esc to close
             </p>
           </div>
@@ -302,7 +296,7 @@ export function SearchBar({
         >
           <div className="px-5 py-8 text-center">
             <p className="text-[#7d7566] text-sm">No professionals found for "{query}"</p>
-            <p className="mt-1 text-[var(--muted-foreground)] text-xs">
+            <p className="mt-1 text-gray-600 text-xs">
               Try searching by name, service type, or city
             </p>
           </div>
@@ -327,7 +321,7 @@ function highlightMatch(text: string, query: string): React.ReactNode {
   return parts.map((part, index) => {
     if (regex.test(part)) {
       return (
-        <mark className="bg-yellow-100 font-semibold text-[var(--foreground)]" key={index}>
+        <mark className="bg-yellow-100 font-semibold text-gray-900" key={index}>
           {part}
         </mark>
       );

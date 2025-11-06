@@ -90,7 +90,7 @@ const BookAgainCardComponent = memo(
     };
 
     return (
-      <div className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[var(--red)] hover:shadow-[0_20px_60px_rgba(18,17,15,0.08)]">
+      <div className="group rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:border-[#E85D48] hover:shadow-[0_20px_60px_rgba(18,17,15,0.08)]">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-4">
@@ -105,7 +105,7 @@ const BookAgainCardComponent = memo(
                   width={56}
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center bg-[var(--red)] font-semibold text-lg text-white">
+                <div className="flex h-full w-full items-center justify-center bg-[#E85D48] font-semibold text-lg text-white">
                   {booking.professionalName
                     .split(" ")
                     .map((n) => n[0])
@@ -116,9 +116,7 @@ const BookAgainCardComponent = memo(
             </div>
 
             <div>
-              <h3 className="font-semibold text-[var(--foreground)] text-lg">
-                {booking.professionalName}
-              </h3>
+              <h3 className="font-semibold text-gray-900 text-lg">{booking.professionalName}</h3>
               <p className="text-[#7d7566] text-sm">{booking.serviceName}</p>
             </div>
           </div>
@@ -141,20 +139,20 @@ const BookAgainCardComponent = memo(
             <span>{booking.durationHours}h session</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="font-semibold text-[var(--foreground)]">
-              {formatCOP(booking.amount)}
-            </span>
+            <span className="font-semibold text-gray-900">{formatCOP(booking.amount)}</span>
           </div>
         </div>
 
         {/* Error Message */}
         {error && (
-          <div className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-red-700 text-sm">{error}</div>
+          <div className="mt-4 rounded-lg bg-[#E85D48]/10 px-4 py-3 text-red-700 text-sm">
+            {error}
+          </div>
         )}
 
         {/* Quick Rebook Button */}
         <button
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[var(--red)] px-6 py-3 font-semibold text-white transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#E85D48] px-6 py-3 font-semibold text-white transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-60"
           disabled={isRebooking}
           onClick={handleBookAgain}
           type="button"
@@ -204,7 +202,7 @@ export function BookAgainSection({ previousBookings, onBookAgain }: BookAgainSec
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-semibold text-2xl text-[var(--foreground)]">Book Again</h2>
+        <h2 className="font-semibold text-2xl text-gray-900">Book Again</h2>
         <p className="text-[#7d7566] text-sm">Your recent professionals</p>
       </div>
 

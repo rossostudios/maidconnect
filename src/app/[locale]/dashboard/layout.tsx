@@ -45,12 +45,12 @@ export default async function DashboardLayout({ children }: Props) {
   const userRole = "professional" as const;
 
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--background)] text-[var(--foreground)]">
+    <div className="flex min-h-screen flex-col bg-stone-50 text-gray-900">
       <div className="flex flex-1 flex-col">
-        <header className="bg-[var(--background)] py-4">
+        <header className="bg-stone-50 py-4">
           <Container className="flex items-center justify-between gap-4">
             <Link className="flex items-center" href="/">
-              <span className="type-serif-sm text-[var(--foreground)] uppercase tracking-[0.08em] lg:text-[26px]">
+              <span className="type-serif-sm text-gray-900 uppercase tracking-[0.08em] lg:text-[26px]">
                 CASAORA
               </span>
             </Link>
@@ -58,7 +58,7 @@ export default async function DashboardLayout({ children }: Props) {
           </Container>
         </header>
 
-        <main className="flex-1 bg-[var(--background)] pt-10 pb-16">
+        <main className="flex-1 bg-stone-50 pt-10 pb-16">
           <Container className="max-w-5xl">
             <Breadcrumbs />
             <div className="space-y-8">{children}</div>

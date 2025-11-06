@@ -101,7 +101,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       customActions={
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-base text-gray-900 transition hover:border-[#E85D48] hover:text-[#E85D48] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={form.isSubmitting}
             onClick={onClose}
             type="button"
@@ -110,7 +110,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
           </button>
           {policy?.canCancel && (
             <button
-              className="flex-1 rounded-full bg-red-600 px-6 py-3 font-semibold text-base text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70"
+              className="flex-1 rounded-full bg-[#E85D48] px-6 py-3 font-semibold text-base text-white transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-70"
               disabled={form.isSubmitting}
               onClick={handleCancel}
               type="button"
@@ -126,7 +126,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       size="lg"
       title={t("title")}
     >
-      <p className="text-[var(--muted-foreground)] text-base">
+      <p className="text-base text-gray-600">
         {booking.service_name || "Service"} •{" "}
         {booking.scheduled_start
           ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
@@ -140,7 +140,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       {policy && (
         <div
           className={`mt-6 rounded-2xl border p-6 ${
-            policy.canCancel ? "border-yellow-200 bg-yellow-50" : "border-red-200 bg-red-50"
+            policy.canCancel ? "border-yellow-200 bg-yellow-50" : "border-red-200 bg-[#E85D48]/10"
           }`}
         >
           <p
@@ -166,10 +166,10 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
 
       {/* Policy Details */}
       <details className="mt-6">
-        <summary className="cursor-pointer font-semibold text-[var(--foreground)] text-base">
+        <summary className="cursor-pointer font-semibold text-base text-gray-900">
           {t("policy.viewPolicy")}
         </summary>
-        <pre className="mt-3 whitespace-pre-wrap text-[var(--muted-foreground)] text-sm leading-relaxed">
+        <pre className="mt-3 whitespace-pre-wrap text-gray-600 text-sm leading-relaxed">
           {getCancellationPolicyDescription()}
         </pre>
       </details>
@@ -177,14 +177,11 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       {/* Reason Input */}
       {policy?.canCancel && (
         <div className="mt-6">
-          <label
-            className="mb-2 block font-semibold text-[var(--foreground)] text-base"
-            htmlFor="reason"
-          >
+          <label className="mb-2 block font-semibold text-base text-gray-900" htmlFor="reason">
             {t("form.reasonLabel")}
           </label>
           <textarea
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
             id="reason"
             onChange={(e) => form.updateField("reason", e.target.value)}
             placeholder={t("form.reasonPlaceholder")}
@@ -198,7 +195,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       {form.message && (
         <div
           className={`mt-6 rounded-2xl p-4 text-base ${
-            form.success ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"
+            form.success ? "bg-green-50 text-green-800" : "bg-[#E85D48]/10 text-red-800"
           }`}
         >
           {form.message}

@@ -57,7 +57,7 @@ type Pagination = {
 const getPriorityConfig = (priority: string) => {
   const configs = {
     urgent: {
-      bg: "bg-red-50",
+      bg: "bg-[#E85D48]/10",
       text: "text-red-700",
       border: "border-red-200",
       label: "Urgent",
@@ -137,8 +137,8 @@ const columns: ColumnDef<Dispute>[] = [
       return (
         <div className="flex items-center gap-2">
           <div className="flex-shrink-0">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#E5E5E5] bg-[#E63946]/10">
-              <HugeiconsIcon className="h-4 w-4 text-[#E63946]" icon={Alert02Icon} />
+            <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#E5E5E5] bg-[#E85D48]/10">
+              <HugeiconsIcon className="h-4 w-4 text-[#E85D48]" icon={Alert02Icon} />
             </div>
           </div>
           <p className="font-medium text-[#171717] text-sm capitalize">{type.replace(/_/g, " ")}</p>
@@ -252,7 +252,7 @@ export function DisputesTable({ disputes, isLoading, pagination, onPageChange }:
       <div className="rounded-lg border border-[#E5E5E5] bg-white">
         <div className="flex min-h-[400px] items-center justify-center">
           <div className="space-y-3 text-center">
-            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-[#E5E5E5] border-t-[#E63946]" />
+            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-[#E5E5E5] border-t-[#E85D48]" />
             <p className="text-[#737373] text-sm">Loading disputes...</p>
           </div>
         </div>
@@ -292,7 +292,7 @@ export function DisputesTable({ disputes, isLoading, pagination, onPageChange }:
                         <div
                           className={
                             header.column.getCanSort()
-                              ? "flex cursor-pointer select-none items-center gap-2 transition-colors hover:text-[#E63946]"
+                              ? "flex cursor-pointer select-none items-center gap-2 transition-colors hover:text-[#E85D48]"
                               : ""
                           }
                           onClick={header.column.getToggleSortingHandler()}

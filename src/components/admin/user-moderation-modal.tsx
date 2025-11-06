@@ -144,8 +144,8 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
                 className={
                   "type-ui-sm flex-1 rounded-lg border-2 px-4 py-3 font-medium transition" +
                   (form.formData.action === "ban"
-                    ? "border-red-600 bg-red-50 text-red-700"
-                    : "border-[#EBE5D8] bg-white text-[#121110] hover:border-red-600")
+                    ? "border-[#E85D48] bg-[#E85D48]/10 text-red-700"
+                    : "border-[#EBE5D8] bg-white text-[#121110] hover:border-[#E85D48]")
                 }
                 onClick={() => form.updateField("action", "ban")}
                 type="button"
@@ -181,7 +181,7 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
         {!isUnsuspending && (
           <div>
             <label className="type-ui-sm mb-2 block font-medium text-[#121110]">
-              Reason <span className="text-red-600">*</span>
+              Reason <span className="text-[#E85D48]">*</span>
             </label>
             <textarea
               className="w-full resize-none rounded-lg border border-[#EBE5D8] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF5D46]"
@@ -196,7 +196,7 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
         {isUnsuspending && (
           <div>
             <label className="type-ui-sm mb-2 block font-medium text-[#121110]">
-              Reason for Lifting Suspension <span className="text-red-600">*</span>
+              Reason for Lifting Suspension <span className="text-[#E85D48]">*</span>
             </label>
             <textarea
               className="w-full resize-none rounded-lg border border-[#EBE5D8] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#FF5D46]"
@@ -222,13 +222,13 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
         </div>
 
         {form.error && (
-          <div className="rounded-lg border border-red-200 bg-red-50 p-4">
+          <div className="rounded-lg border border-red-200 bg-[#E85D48]/10 p-4">
             <p className="type-body-sm text-red-700">{form.error}</p>
           </div>
         )}
 
         {isBanning && (
-          <div className="rounded-lg border border-red-300 bg-red-50 p-4">
+          <div className="rounded-lg border border-red-300 bg-[#E85D48]/10 p-4">
             <p className="type-ui-sm mb-1 font-medium text-red-800">Warning:</p>
             <p className="type-body-sm text-red-700">
               Banning a user is a permanent action. The user will not be able to access their
@@ -249,7 +249,7 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
           <button
             className={
               "type-ui-sm flex-1 rounded-full px-6 py-3 font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-50" +
-              (isBanning ? "bg-red-600 hover:bg-red-700" : "bg-[#FF5D46] hover:bg-[#E54A35]")
+              (isBanning ? "bg-[#E85D48] hover:bg-[#D64A36]" : "bg-[#FF5D46] hover:bg-[#E54A35]")
             }
             disabled={moderationMutation.isLoading}
             onClick={handleSubmit}

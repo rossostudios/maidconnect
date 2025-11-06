@@ -199,10 +199,10 @@ export function ArrivalWindowTracker({
 
         <div className="flex-1">
           <h3 className={`font-semibold ${config.color} text-lg`}>{config.title}</h3>
-          <p className="mt-1 text-[var(--muted-foreground)] text-base">{config.description}</p>
+          <p className="mt-1 text-base text-gray-600">{config.description}</p>
 
           {timeDisplay && (
-            <div className="mt-3 flex items-center gap-2 text-[var(--foreground)] text-base">
+            <div className="mt-3 flex items-center gap-2 text-base text-gray-900">
               <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
               <span className="font-medium">{timeDisplay}</span>
             </div>

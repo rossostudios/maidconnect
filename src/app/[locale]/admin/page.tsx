@@ -10,6 +10,7 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import { unstable_noStore } from "next/cache";
 import Image from "next/image";
+import { BackgroundCheckDashboard } from "@/components/admin/background-check-dashboard";
 import { ProfessionalVettingDashboard } from "@/components/admin/professional-vetting-dashboard";
 import { BookingPipeline } from "@/components/dashboard/booking-pipeline";
 import { ExecutiveDashboard } from "@/components/dashboard/executive-dashboard";
@@ -60,8 +61,8 @@ export default async function AdminHomePage() {
                   width={48}
                 />
               ) : (
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#E63946]/10">
-                  <HugeiconsIcon className="h-6 w-6 text-[#E63946]" icon={UserCircleIcon} />
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#E85D48]/10">
+                  <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={UserCircleIcon} />
                 </div>
               )}
             </div>
@@ -95,6 +96,15 @@ export default async function AdminHomePage() {
           <p className="text-[#737373] text-sm">Review and approve professional applications</p>
         </div>
         <ProfessionalVettingDashboard />
+      </section>
+
+      {/* Background Checks */}
+      <section className="mb-10 min-h-[400px]">
+        <div className="mb-6">
+          <h2 className="mb-2 font-bold text-2xl text-[#171717]">Background Checks</h2>
+          <p className="text-[#737373] text-sm">Monitor and review background check results</p>
+        </div>
+        <BackgroundCheckDashboard />
       </section>
 
       {/* Management Tools */}

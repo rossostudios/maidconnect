@@ -16,7 +16,11 @@ import { requireUser } from "@/lib/auth/session";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 const typeConfig = {
-  bug: { icon: Bug01Icon, label: "Bug Report", color: "text-red-600 bg-red-50 border-red-200" },
+  bug: {
+    icon: Bug01Icon,
+    label: "Bug Report",
+    color: "text-[#E85D48] bg-[#E85D48]/10 border-red-200",
+  },
   feature_request: {
     icon: Idea01Icon,
     label: "Feature Request",
@@ -56,7 +60,7 @@ const priorityBadge = {
   low: "bg-gray-100 text-gray-600 border-gray-200",
   medium: "bg-blue-100 text-blue-600 border-blue-200",
   high: "bg-orange-100 text-orange-600 border-orange-200",
-  critical: "bg-red-100 text-red-600 border-red-200",
+  critical: "bg-red-100 text-[#E85D48] border-red-200",
 };
 
 export default async function FeedbackDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -119,13 +123,11 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
           <dl className="space-y-1">
             <div className="flex justify-between text-sm">
               <dt className="text-[#7a6d62]">Email:</dt>
-              <dd className="font-medium text-[var(--foreground)]">
-                {feedback.user_email || "Anonymous"}
-              </dd>
+              <dd className="font-medium text-gray-900">{feedback.user_email || "Anonymous"}</dd>
             </div>
             <div className="flex justify-between text-sm">
               <dt className="text-[#7a6d62]">Role:</dt>
-              <dd className="font-medium text-[var(--foreground)] capitalize">
+              <dd className="font-medium text-gray-900 capitalize">
                 {feedback.user_role || "Unknown"}
               </dd>
             </div>
@@ -137,7 +139,7 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
             <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
             <span className="font-semibold">Submission Time</span>
           </div>
-          <p className="font-medium text-[var(--foreground)] text-sm">
+          <p className="font-medium text-gray-900 text-sm">
             {new Date(feedback.created_at).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
@@ -151,25 +153,23 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
 
       {/* Message */}
       <div className="mb-6 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-        <h2 className="mb-4 font-bold text-[var(--foreground)] text-xl">Message</h2>
-        <p className="whitespace-pre-wrap text-[var(--muted-foreground)] leading-relaxed">
-          {feedback.message}
-        </p>
+        <h2 className="mb-4 font-bold text-gray-900 text-xl">Message</h2>
+        <p className="whitespace-pre-wrap text-gray-600 leading-relaxed">{feedback.message}</p>
       </div>
 
       {/* Technical Context */}
       <div className="mb-6 rounded-2xl border border-[#ebe5d8] bg-white p-6">
         <div className="mb-4 flex items-center gap-2">
           <HugeiconsIcon className="h-5 w-5 text-[#7a6d62]" icon={ComputerIcon} />
-          <h2 className="font-bold text-[var(--foreground)] text-xl">Technical Context</h2>
+          <h2 className="font-bold text-gray-900 text-xl">Technical Context</h2>
         </div>
 
         <dl className="space-y-3">
           <div>
             <dt className="mb-1 font-semibold text-[#7a6d62] text-sm">Page URL</dt>
-            <dd className="break-all font-mono text-[var(--foreground)] text-sm">
+            <dd className="break-all font-mono text-gray-900 text-sm">
               <a
-                className="text-[var(--red)] hover:underline"
+                className="text-[#E85D48] hover:underline"
                 href={feedback.page_url}
                 rel="noopener noreferrer"
                 target="_blank"
@@ -181,22 +181,20 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
 
           <div>
             <dt className="mb-1 font-semibold text-[#7a6d62] text-sm">Page Path</dt>
-            <dd className="font-mono text-[var(--foreground)] text-sm">{feedback.page_path}</dd>
+            <dd className="font-mono text-gray-900 text-sm">{feedback.page_path}</dd>
           </div>
 
           {feedback.user_agent && (
             <div>
               <dt className="mb-1 font-semibold text-[#7a6d62] text-sm">User Agent</dt>
-              <dd className="break-all font-mono text-[var(--foreground)] text-xs">
-                {feedback.user_agent}
-              </dd>
+              <dd className="break-all font-mono text-gray-900 text-xs">{feedback.user_agent}</dd>
             </div>
           )}
 
           {feedback.viewport_size && (
             <div>
               <dt className="mb-1 font-semibold text-[#7a6d62] text-sm">Viewport Size</dt>
-              <dd className="font-mono text-[var(--foreground)] text-sm">
+              <dd className="font-mono text-gray-900 text-sm">
                 {(feedback.viewport_size as any).width} × {(feedback.viewport_size as any).height} (
                 {(feedback.viewport_size as any).pixelRatio}x)
               </dd>
@@ -207,11 +205,9 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
 
       {/* Admin Notes */}
       {feedback.admin_notes && (
-        <div className="mb-6 rounded-2xl border border-[#ebe5d8] bg-[var(--background)] p-6">
-          <h2 className="mb-4 font-bold text-[var(--foreground)] text-xl">Admin Notes</h2>
-          <p className="whitespace-pre-wrap text-[var(--muted-foreground)]">
-            {feedback.admin_notes}
-          </p>
+        <div className="mb-6 rounded-2xl border border-[#ebe5d8] bg-[#fbf9f7] p-6">
+          <h2 className="mb-4 font-bold text-gray-900 text-xl">Admin Notes</h2>
+          <p className="whitespace-pre-wrap text-gray-600">{feedback.admin_notes}</p>
         </div>
       )}
 

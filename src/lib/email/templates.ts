@@ -668,3 +668,101 @@ export function rebookNudgeEmail(
     </html>
   `;
 }
+
+export function backgroundCheckCompletedEmail(
+  professionalName: string,
+  status: "clear" | "consider" | "suspended",
+  recommendation: "approved" | "review_required" | "rejected"
+): string {
+  // Determine header color and status message based on result
+  let headerColor = "#10b981"; // green
+  let statusTitle = "Background Check Complete";
+  let statusMessage = "";
+  let nextSteps = "";
+
+  if (status === "clear" && recommendation === "approved") {
+    headerColor = "#10b981"; // green
+    statusTitle = "✓ Background Check Complete";
+    statusMessage =
+      "<p><strong>Great news!</strong> Your background check has been completed and you passed all verification requirements.</p>";
+    nextSteps = `
+      <p><strong>What's next?</strong></p>
+      <ul>
+        <li>Your profile will be reviewed by our team within 24-48 hours</li>
+        <li>You'll receive a notification once your application is approved</li>
+        <li>After approval, you can start accepting bookings</li>
+      </ul>
+    `;
+  } else if (status === "consider" || recommendation === "review_required") {
+    headerColor = "#f59e0b"; // orange
+    statusTitle = "Background Check - Manual Review Required";
+    statusMessage =
+      "<p>Your background check has been completed. Our team needs to manually review some aspects of your results before making a final decision.</p>";
+    nextSteps = `
+      <p><strong>What happens next?</strong></p>
+      <ul>
+        <li>Our team will review your background check within 2-3 business days</li>
+        <li>We may contact you if additional information is needed</li>
+        <li>You'll receive a notification once the review is complete</li>
+      </ul>
+      <p>This is a standard procedure and doesn't necessarily indicate any issues.</p>
+    `;
+  } else {
+    // suspended or rejected
+    headerColor = "#ef4444"; // red
+    statusTitle = "Background Check - Unable to Approve";
+    statusMessage =
+      "<p>Unfortunately, we're unable to approve your professional application based on the results of your background check.</p>";
+    nextSteps = `
+      <p><strong>What does this mean?</strong></p>
+      <ul>
+        <li>Your application cannot proceed at this time</li>
+        <li>This decision is based on our safety and trust requirements</li>
+        <li>If you believe there's an error, please contact our support team</li>
+      </ul>
+      <p>We take the safety of our community very seriously and appreciate your understanding.</p>
+    `;
+  }
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-case=1.0">
+      <style>${baseStyles}</style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header" style="background-color: ${headerColor};">
+          <h1>${statusTitle}</h1>
+        </div>
+        <div class="content">
+          <p>Hi ${professionalName},</p>
+
+          ${statusMessage}
+
+          <div class="booking-details">
+            <p><span class="label">Check Status:</span> ${status === "clear" ? "Passed" : status === "consider" ? "Under Review" : "Did Not Pass"}</p>
+            <p><span class="label">Recommendation:</span> ${recommendation === "approved" ? "Approved for Next Steps" : recommendation === "review_required" ? "Manual Review Required" : "Application Declined"}</p>
+          </div>
+
+          ${nextSteps}
+
+          ${
+            status !== "suspended" && recommendation !== "rejected"
+              ? '<div style="text-align: center; margin: 30px 0;"><a href="/dashboard/pro/onboarding" class="button">View Application Status</a></div>'
+              : ""
+          }
+
+          <p>If you have any questions or concerns, please don't hesitate to contact our support team.</p>
+        </div>
+        <div class="footer">
+          <p>Casaora - Connecting you with trusted service</p>
+          <p>Contact support: support@casaora.co</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}

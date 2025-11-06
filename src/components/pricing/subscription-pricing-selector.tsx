@@ -31,9 +31,9 @@ export function SubscriptionPricingSelector({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-[var(--foreground)] text-sm">Booking Frequency</h3>
+        <h3 className="font-semibold text-gray-900 text-sm">Booking Frequency</h3>
         <button
-          className="text-[var(--red)] text-xs hover:text-[var(--red-hover)]"
+          className="text-orange-500 text-xs hover:text-red-700"
           onClick={() => setShowDetails(!showDetails)}
           type="button"
         >
@@ -52,8 +52,8 @@ export function SubscriptionPricingSelector({
             <button
               className={`relative rounded-lg border p-4 text-left transition ${
                 isSelected
-                  ? "border-[var(--red)] bg-[var(--red)]/5 ring-2 ring-[var(--red)]/20"
-                  : "border-[#e5dfd4] bg-white hover:border-[var(--red)]/50"
+                  ? "border-orange-500 bg-orange-500/5 ring-2 ring-red-600/20"
+                  : "border-stone-200 bg-white hover:border-orange-500/50"
               }`}
               key={tier}
               onClick={() => onTierChange(tier)}
@@ -61,7 +61,7 @@ export function SubscriptionPricingSelector({
             >
               {/* Recommended Badge */}
               {isRecommended && (
-                <div className="-right-1 -top-1 absolute rounded-full bg-[var(--red)] px-2 py-1 font-semibold text-white text-xs">
+                <div className="-right-1 -top-1 absolute rounded-full bg-orange-500 px-2 py-1 font-semibold text-white text-xs">
                   Recommended
                 </div>
               )}
@@ -73,14 +73,10 @@ export function SubscriptionPricingSelector({
                     <span className={`text-lg ${isSelected ? "opacity-100" : "opacity-40"}`}>
                       {isSelected ? "⚫" : "○"}
                     </span>
-                    <h4 className="font-semibold text-[var(--foreground)]">
-                      {getTierDescription(tier)}
-                    </h4>
+                    <h4 className="font-semibold text-gray-900">{getTierDescription(tier)}</h4>
                   </div>
                   {discountLabel && (
-                    <p className="mt-1 font-semibold text-[var(--red)] text-xs">
-                      💰 {discountLabel}
-                    </p>
+                    <p className="mt-1 font-semibold text-orange-500 text-xs">💰 {discountLabel}</p>
                   )}
                 </div>
               </div>
@@ -88,29 +84,27 @@ export function SubscriptionPricingSelector({
               {/* Price */}
               <div className="mt-3">
                 {tier === "none" ? (
-                  <p className="font-bold text-[var(--foreground)] text-lg">
-                    {formatCOP(pricing.finalPrice)}
-                  </p>
+                  <p className="font-bold text-gray-900 text-lg">{formatCOP(pricing.finalPrice)}</p>
                 ) : (
                   <div>
-                    <p className="text-[#7a6d62] text-xs line-through">
+                    <p className="text-stone-600 text-xs line-through">
                       {formatCOP(pricing.basePrice)}
                     </p>
-                    <p className="font-bold text-[var(--red)] text-lg">
+                    <p className="font-bold text-lg text-orange-500">
                       {formatCOP(pricing.finalPrice)}
                     </p>
                   </div>
                 )}
-                <p className="mt-1 text-[#7a6d62] text-xs">per booking</p>
+                <p className="mt-1 text-stone-600 text-xs">per booking</p>
               </div>
 
               {/* Savings Summary */}
               {tier !== "none" && (
-                <div className="mt-3 rounded-md bg-[#fdfaf6] px-2 py-1.5 text-xs">
-                  <p className="font-semibold text-[var(--foreground)]">
+                <div className="mt-3 rounded-md bg-stone-50 px-2 py-1.5 text-xs">
+                  <p className="font-semibold text-gray-900">
                     Save {formatCOP(pricing.totalSavingsEstimate || 0)} over 3 months
                   </p>
-                  <p className="text-[#7a6d62]">~{estimateBookingsCount(tier, 3)} bookings</p>
+                  <p className="text-stone-600">~{estimateBookingsCount(tier, 3)} bookings</p>
                 </div>
               )}
             </button>
@@ -120,22 +114,22 @@ export function SubscriptionPricingSelector({
 
       {/* Detailed Benefits */}
       {showDetails && selectedTier !== "none" && (
-        <div className="rounded-lg border border-[#f0ece5] bg-[#fdfaf6] p-4">
-          <h4 className="font-semibold text-[var(--foreground)] text-sm">
+        <div className="rounded-lg border border-stone-200 bg-stone-50 p-4">
+          <h4 className="font-semibold text-gray-900 text-sm">
             {getTierDescription(selectedTier)} Benefits
           </h4>
           <ul className="mt-3 space-y-2">
             {getTierBenefits(selectedTier).map((benefit, index) => (
               <li className="flex items-start gap-2 text-sm" key={index}>
-                <span className="text-[var(--red)]">✓</span>
-                <span className="text-[#7a6d62]">{benefit}</span>
+                <span className="text-orange-500">✓</span>
+                <span className="text-stone-600">{benefit}</span>
               </li>
             ))}
           </ul>
 
           {/* Cancellation Policy */}
-          <div className="mt-4 rounded-md bg-white p-3 text-[#7a6d62] text-xs">
-            <p className="font-semibold text-[var(--foreground)]">Flexible cancellation</p>
+          <div className="mt-4 rounded-md bg-white p-3 text-stone-600 text-xs">
+            <p className="font-semibold text-gray-900">Flexible cancellation</p>
             <p className="mt-1">
               You can skip one booking, pause your subscription, or cancel anytime with 24-hour
               notice. No long-term commitment required.
@@ -146,8 +140,8 @@ export function SubscriptionPricingSelector({
 
       {/* One-time booking info */}
       {selectedTier === "none" && showDetails && (
-        <div className="rounded-lg border border-[#f0ece5] bg-white p-4">
-          <p className="text-[#7a6d62] text-sm">
+        <div className="rounded-lg border border-stone-200 bg-white p-4">
+          <p className="text-sm text-stone-600">
             💡 <span className="font-semibold">Tip:</span> Switch to recurring bookings anytime to
             unlock discounts and priority service. You can always pause or cancel.
           </p>
@@ -174,11 +168,11 @@ export function SubscriptionPricingBadge({
   const pricing = calculateSubscriptionPricing(basePrice, tier);
 
   return (
-    <div className="inline-flex items-center gap-2 rounded-full bg-[var(--red)]/10 px-3 py-1">
-      <span className="font-semibold text-[var(--red)] text-xs">
+    <div className="inline-flex items-center gap-2 rounded-full bg-orange-500/10 px-3 py-1">
+      <span className="font-semibold text-orange-500 text-xs">
         💰 {pricing.discountPercent}% OFF
       </span>
-      <span className="text-[#7a6d62] text-xs">
+      <span className="text-stone-600 text-xs">
         Save {formatCOP(pricing.savingsPerBooking)} per booking
       </span>
     </div>

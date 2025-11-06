@@ -3,11 +3,12 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { CompanyStory } from "@/components/about/company-story";
+import { CompanyStory, StatsSection, StoryContent } from "@/components/about/company-story";
 import { MissionVision } from "@/components/about/mission-vision";
 import { TeamSection } from "@/components/about/team-section";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
+import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -31,12 +32,18 @@ export async function generateMetadata({
 
 export default function AboutPage() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-stone-50">
       <SiteHeader />
 
       <main className="flex-1">
         {/* Company Story Hero */}
         <CompanyStory />
+
+        {/* Stats Section */}
+        <StatsSection />
+
+        {/* Story Content (Problem, Solution, Journey) */}
+        <StoryContent />
 
         {/* Mission & Vision */}
         <MissionVision />
@@ -83,29 +90,26 @@ function TrustIndicators() {
   ];
 
   return (
-    <section className="bg-white px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-      <div className="mx-auto max-w-7xl">
-        <div className="mx-auto mb-12 max-w-3xl text-center">
-          <h2 className="mb-4 font-bold text-3xl text-[var(--foreground)] sm:text-4xl">
-            {t("title")}
-          </h2>
-          <p className="text-[var(--muted-foreground)] text-lg">{t("subtitle")}</p>
+    <section className="bg-stone-50 py-20 sm:py-24 lg:py-32">
+      <Container>
+        <div className="mb-16 text-center">
+          <p className="tagline text-stone-600">WHY CHOOSE US</p>
+          <h2 className="serif-display-lg mt-6 text-stone-900">{t("title")}</h2>
+          <p className="lead mx-auto mt-6 max-w-2xl text-stone-900/70">{t("subtitle")}</p>
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {indicators.map((indicator, index) => (
             <div className="text-center" key={index}>
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#6B7F5C]/10">
-                <HugeiconsIcon className="h-6 w-6 text-[#6B7F5C]" icon={CheckmarkCircle01Icon} />
+              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-orange-500/10">
+                <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={CheckmarkCircle01Icon} />
               </div>
-              <h3 className="mb-2 font-semibold text-[var(--foreground)]">
-                {t(indicator.titleKey)}
-              </h3>
-              <p className="text-[var(--muted-foreground)] text-sm">{t(indicator.descKey)}</p>
+              <h3 className="serif-headline-sm mb-4 text-stone-900">{t(indicator.titleKey)}</h3>
+              <p className="text-base text-stone-900/70 leading-relaxed">{t(indicator.descKey)}</p>
             </div>
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
@@ -118,30 +122,30 @@ function CTASection() {
   const t = useTranslations("about.cta");
 
   return (
-    <section className="bg-[var(--foreground)] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-      <div className="mx-auto max-w-4xl text-center">
-        <h2 className="mb-4 font-[family-name:var(--font-cinzel)] text-3xl text-white tracking-wide sm:text-4xl">
-          {t("title")}
-        </h2>
-        <p className="mb-8 text-lg text-white/90">{t("subtitle")}</p>
+    <section className="bg-stone-900 py-20 sm:py-24 lg:py-32">
+      <Container className="max-w-4xl">
+        <div className="text-center">
+          <h2 className="serif-display-lg text-white">{t("title")}</h2>
+          <p className="lead mt-6 text-white/90">{t("subtitle")}</p>
 
-        <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-          <Link
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-[var(--foreground)] shadow-[var(--shadow-card)] transition hover:bg-[#f3ece1] active:scale-95"
-            href="/professionals"
-          >
-            {t("browseProfessionals")}
-            <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
-          </Link>
+          <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+            <Link
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-base text-stone-900 transition hover:bg-stone-100"
+              href="/professionals"
+            >
+              {t("browseProfessionals")}
+              <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
+            </Link>
 
-          <Link
-            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white px-8 py-4 font-semibold text-white transition hover:bg-white/10 active:scale-95"
-            href="/auth/sign-up"
-          >
-            {t("signUp")}
-          </Link>
+            <Link
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white px-8 py-4 font-semibold text-base text-white transition hover:bg-white/10"
+              href="/auth/sign-up"
+            >
+              {t("signUp")}
+            </Link>
+          </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

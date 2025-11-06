@@ -30,15 +30,13 @@ export async function ContactCards() {
               key={option.key}
             >
               <div className="space-y-6">
-                <h2 className="font-semibold text-3xl text-[var(--foreground)]">
-                  {t(`${option.key}.title`)}
-                </h2>
-                <p className="text-[var(--muted-foreground)] text-base leading-relaxed">
+                <h2 className="serif-headline-lg text-[#1A1614]">{t(`${option.key}.title`)}</h2>
+                <p className="text-[#1A1614]/70 text-base leading-relaxed">
                   {t(`${option.key}.description`)}
                 </p>
               </div>
               <Link
-                className="mt-12 inline-flex w-fit items-center justify-center rounded-full bg-[var(--foreground)] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#2d2822]"
+                className="mt-12 inline-flex w-fit items-center justify-center rounded-full bg-[#E85D48] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#D64A36]"
                 href={option.buttonHref}
               >
                 {t(`${option.key}.buttonText`)}

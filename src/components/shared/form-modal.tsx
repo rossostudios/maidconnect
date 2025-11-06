@@ -67,7 +67,7 @@ export function FormModal({
             {customActions || (
               <>
                 <button
-                  className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)] disabled:cursor-not-allowed disabled:opacity-70"
+                  className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-base text-gray-900 transition hover:border-[#E85D48] hover:text-[#E85D48] disabled:cursor-not-allowed disabled:opacity-70"
                   disabled={isSubmitting}
                   onClick={onClose}
                   type="button"
@@ -75,7 +75,7 @@ export function FormModal({
                   {cancelLabel}
                 </button>
                 <button
-                  className="flex-1 rounded-full bg-[var(--red)] px-6 py-3 font-semibold text-base text-white transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-70"
+                  className="flex-1 rounded-full bg-[#E85D48] px-6 py-3 font-semibold text-base text-white transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-70"
                   disabled={isSubmitting || submitDisabled}
                   type="submit"
                 >

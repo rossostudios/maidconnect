@@ -42,7 +42,7 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut }: 
       <nav className="hidden items-center gap-8 lg:flex">
         {mainLinks.map((link) => (
           <Link
-            className="font-medium text-[var(--foreground)] text-sm transition-colors hover:text-[var(--red)]"
+            className="font-medium text-sm transition-colors hover:text-[#E85D48]"
             href={link.href}
             key={link.href}
           >
@@ -50,12 +50,11 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut }: 
           </Link>
         ))}
 
-        {/* Language Switcher */}
         <LanguageSwitcher />
 
         {isAuthenticated ? (
           <Link
-            className="rounded-full bg-[var(--red)] px-6 py-2.5 font-semibold text-sm text-white transition-all hover:bg-[var(--red-hover)] active:scale-95"
+            className="rounded-full bg-[#E85D48] px-6 py-2.5 font-semibold text-sm text-white shadow-sm transition-all hover:bg-[#D64A36] active:scale-95"
             href={dashboardHref || "/dashboard"}
           >
             {t("dashboard")}
@@ -63,13 +62,13 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut }: 
         ) : (
           <div className="flex items-center gap-3">
             <Link
-              className="font-medium text-[var(--foreground)] text-sm transition-colors hover:text-[var(--red)]"
+              className="font-medium text-sm transition-colors hover:text-[#E85D48]"
               href="/auth/sign-in"
             >
               {t("login")}
             </Link>
             <Link
-              className="rounded-full bg-[var(--red)] px-6 py-2.5 font-semibold text-sm text-white transition-all hover:bg-[var(--red-hover)] active:scale-95"
+              className="rounded-full bg-[#E85D48] px-6 py-2.5 font-semibold text-sm text-white shadow-sm transition-all hover:bg-[#D64A36] active:scale-95"
               href="/auth/sign-up"
             >
               {t("signUp")}
@@ -78,7 +77,7 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut }: 
         )}
       </nav>
 
-      {/* Mobile Menu (shows on mobile/tablet) */}
+      {/* Mobile Menu */}
       <div className="lg:hidden">
         <MobileMenu
           dashboardHref={dashboardHref}

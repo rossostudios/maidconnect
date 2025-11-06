@@ -13,14 +13,19 @@ export function AnimatedMarquee({ text, className, speed = 12 }: AnimatedMarquee
   const repeatedText = new Array(12).fill(text).join("   •   ");
 
   return (
-    <div className={cn("relative z-10 overflow-hidden bg-[var(--red)] py-2.5 sm:py-3", className)}>
+    <div
+      className={cn(
+        "relative z-10 overflow-hidden bg-white/90 py-2.5 shadow-sm backdrop-blur-sm sm:py-3",
+        className
+      )}
+    >
       <div
         className="flex whitespace-nowrap will-change-transform"
         style={{
           animation: `marquee ${speed}s linear infinite`,
         }}
       >
-        <span className="font-[family-name:var(--font-cinzel)] font-semibold text-white text-xl tracking-[0.06em] sm:text-2xl lg:text-3xl">
+        <span className="font-[family-name:var(--font-cinzel)] font-semibold text-red-700 text-xl tracking-[0.06em] sm:text-2xl lg:text-3xl">
           {repeatedText}
         </span>
       </div>

@@ -25,8 +25,8 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
     () => ({
       theme: "flat" as const,
       variables: {
-        colorPrimary: "var(--red)",
-        colorText: "var(--foreground)",
+        colorPrimary: "#E85D48",
+        colorText: "#1a1715",
         colorBackground: "#ffffff",
         borderRadius: "12px",
       },
@@ -67,7 +67,7 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
 
   if (!stripePromise) {
     return (
-      <div className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-red-600 text-sm">
+      <div className="mt-4 rounded-xl bg-[#E85D48]/10 px-4 py-3 text-[#E85D48] text-sm">
         Stripe publishable key is not configured.
       </div>
     );
@@ -81,14 +81,14 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
             Payment method on file. You can update it anytime.
           </p>
         ) : (
-          <p className="text-[var(--muted-foreground)] text-sm leading-relaxed">
+          <p className="text-gray-600 text-sm leading-relaxed">
             We'll authorize a small amount (COP $50,000) to keep your payment method on file. You're
             only charged after a service is completed.
           </p>
         )}
-        {message ? <p className="text-red-600 text-sm">{message}</p> : null}
+        {message ? <p className="text-[#E85D48] text-sm">{message}</p> : null}
         <button
-          className="inline-flex w-fit items-center justify-center rounded-full bg-[var(--red)] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex w-fit items-center justify-center rounded-full bg-[#E85D48] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={status === "loading"}
           onClick={handleStart}
           type="button"
@@ -114,7 +114,7 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
         onSuccess={() => setStatus("success")}
         reset={() => setClientSecret(null)}
       />
-      {message ? <p className="mt-2 text-red-600 text-xs">{message}</p> : null}
+      {message ? <p className="mt-2 text-[#E85D48] text-xs">{message}</p> : null}
     </Elements>
   );
 }
@@ -169,7 +169,7 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
       <PaymentElement options={{ layout: "tabs" }} />
       <div className="flex items-center gap-3">
         <button
-          className="inline-flex items-center justify-center rounded-full bg-[var(--red)] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center justify-center rounded-full bg-[#E85D48] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={isSubmitting}
           onClick={handleSubmit}
           type="button"
@@ -177,7 +177,7 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
           {isSubmitting ? "Authorizing…" : "Authorize"}
         </button>
         <button
-          className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-6 py-3 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-6 py-3 font-semibold text-base text-gray-900 transition hover:border-[#E85D48] hover:text-[#E85D48] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={isSubmitting}
           onClick={reset}
           type="button"
@@ -185,7 +185,7 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
           Cancel
         </button>
       </div>
-      <p className="text-[var(--muted-foreground)] text-sm leading-relaxed">
+      <p className="text-gray-600 text-sm leading-relaxed">
         You'll only be charged after the service is completed. Authorizations expire automatically
         if unused.
       </p>

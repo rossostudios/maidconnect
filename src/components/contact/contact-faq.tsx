@@ -17,9 +17,9 @@ export function ContactFAQ() {
   };
 
   return (
-    <section className="bg-[var(--background)] py-20 sm:py-24 lg:py-32">
+    <section className="bg-[#F5F0E8] py-20 sm:py-24 lg:py-32">
       <Container className="max-w-4xl">
-        <h2 className="type-serif-lg mb-12 text-center text-[var(--foreground)]">{t("title")}</h2>
+        <h2 className="serif-display-lg mb-12 text-center text-[#1A1614]">{t("title")}</h2>
         <div className="space-y-4">
           {faqKeys.map((key, index) => (
             <div
@@ -31,11 +31,11 @@ export function ContactFAQ() {
                 onClick={() => toggleFAQ(index)}
                 type="button"
               >
-                <span className="pr-8 font-semibold text-[var(--foreground)] text-xl">
+                <span className="serif-headline-sm pr-8 text-[#1A1614]">
                   {t(`questions.${key}.question`)}
                 </span>
                 <HugeiconsIcon
-                  className={`h-6 w-6 flex-shrink-0 text-[#7d7566] transition-transform duration-300 ${
+                  className={`h-6 w-6 flex-shrink-0 text-[#E85D48] transition-transform duration-300 ${
                     openIndex === index ? "rotate-180" : ""
                   }`}
                   icon={ArrowDown01Icon}
@@ -48,7 +48,7 @@ export function ContactFAQ() {
               >
                 <div className="overflow-hidden">
                   <div className="border-[#ebe5d8] border-t p-8 pt-6">
-                    <p className="text-[var(--muted-foreground)] text-base leading-relaxed">
+                    <p className="text-[#1A1614]/70 text-base leading-relaxed">
                       {t(`questions.${key}.answer`)}
                     </p>
                   </div>

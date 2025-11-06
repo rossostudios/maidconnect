@@ -119,10 +119,10 @@ export function SavedAddressesManager({
       {/* Empty State */}
       {addresses.length === 0 && !isAdding && (
         <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
-          <p className="text-[var(--muted-foreground)] text-base">{t("emptyState.message")}</p>
+          <p className="text-base text-gray-600">{t("emptyState.message")}</p>
           {showManagement && (
             <button
-              className="mt-4 font-semibold text-[var(--red)] text-base hover:text-[var(--red-hover)]"
+              className="mt-4 font-semibold text-[#E85D48] text-base hover:text-red-700"
               onClick={handleAddNew}
               type="button"
             >
@@ -135,7 +135,7 @@ export function SavedAddressesManager({
       {/* Add New Button */}
       {addresses.length > 0 && !isAdding && !editingId && showManagement && (
         <button
-          className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-[#ebe5d8] border-dashed bg-white px-6 py-4 font-semibold text-[var(--muted-foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)]"
+          className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-[#ebe5d8] border-dashed bg-white px-6 py-4 font-semibold text-base text-gray-600 transition hover:border-[#E85D48] hover:text-[#E85D48]"
           onClick={handleAddNew}
           type="button"
         >
@@ -179,7 +179,7 @@ function AddressCard({
     <button
       className={`w-full rounded-2xl border p-6 text-left shadow-sm transition ${
         isSelected
-          ? "border-[var(--red)] bg-[var(--red)]/5 ring-2 ring-[var(--red)]/20"
+          ? "border-[#E85D48] bg-[#E85D48]/5 ring-2 ring-red-600/20"
           : "border-[#ebe5d8] bg-white hover:shadow-md"
       } cursor-pointer`}
       onClick={onSelect}
@@ -189,28 +189,28 @@ function AddressCard({
         <div className="flex-1">
           <div className="flex items-center gap-3">
             <span className="text-2xl">{getAddressIcon(address.label)}</span>
-            <h4 className="font-semibold text-[var(--foreground)] text-lg">{address.label}</h4>
+            <h4 className="font-semibold text-gray-900 text-lg">{address.label}</h4>
             {address.is_default && (
-              <span className="rounded-full bg-[var(--red)]/10 px-3 py-1 font-semibold text-[var(--red)] text-xs">
+              <span className="rounded-full bg-[#E85D48]/10 px-3 py-1 font-semibold text-[#E85D48] text-xs">
                 {t("addressCard.defaultBadge")}
               </span>
             )}
           </div>
-          <p className="mt-3 text-[var(--muted-foreground)] text-base">{addressText}</p>
+          <p className="mt-3 text-base text-gray-600">{addressText}</p>
           {address.building_access && (
-            <p className="mt-2 text-[var(--muted-foreground)] text-sm">
+            <p className="mt-2 text-gray-600 text-sm">
               🔑 <span className="font-semibold">{t("addressCard.buildingAccess")}:</span>{" "}
               {address.building_access}
             </p>
           )}
           {address.parking_info && (
-            <p className="mt-2 text-[var(--muted-foreground)] text-sm">
+            <p className="mt-2 text-gray-600 text-sm">
               🅿️ <span className="font-semibold">{t("addressCard.parkingInfo")}:</span>{" "}
               {address.parking_info}
             </p>
           )}
           {address.special_notes && (
-            <p className="mt-2 text-[var(--muted-foreground)] text-sm">
+            <p className="mt-2 text-gray-600 text-sm">
               📝 <span className="font-semibold">{t("addressCard.specialNotes")}:</span>{" "}
               {address.special_notes}
             </p>
@@ -222,7 +222,7 @@ function AddressCard({
           <div className="flex gap-2">
             {onEdit && (
               <button
-                className="rounded-full border-2 border-[#ebe5d8] px-4 py-2 font-semibold text-[var(--foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)]"
+                className="rounded-full border-2 border-[#ebe5d8] px-4 py-2 font-semibold text-gray-900 text-sm transition hover:border-[#E85D48] hover:text-[#E85D48]"
                 onClick={(e) => {
                   e.stopPropagation();
                   onEdit();
@@ -234,7 +234,7 @@ function AddressCard({
             )}
             {onDelete && (
               <button
-                className="rounded-full border-2 border-red-200 px-4 py-2 font-semibold text-red-700 text-sm transition hover:bg-red-50"
+                className="rounded-full border-2 border-red-200 px-4 py-2 font-semibold text-red-700 text-sm transition hover:bg-[#E85D48]/10"
                 onClick={(e) => {
                   e.stopPropagation();
                   onDelete();
@@ -252,7 +252,7 @@ function AddressCard({
     <div
       className={`rounded-2xl border p-6 shadow-sm transition ${
         isSelected
-          ? "border-[var(--red)] bg-[var(--red)]/5 ring-2 ring-[var(--red)]/20"
+          ? "border-[#E85D48] bg-[#E85D48]/5 ring-2 ring-red-600/20"
           : "border-[#ebe5d8] bg-white hover:shadow-md"
       }`}
     >
@@ -260,28 +260,28 @@ function AddressCard({
         <div className="flex-1">
           <div className="flex items-center gap-3">
             <span className="text-2xl">{getAddressIcon(address.label)}</span>
-            <h4 className="font-semibold text-[var(--foreground)] text-lg">{address.label}</h4>
+            <h4 className="font-semibold text-gray-900 text-lg">{address.label}</h4>
             {address.is_default && (
-              <span className="rounded-full bg-[var(--red)]/10 px-3 py-1 font-semibold text-[var(--red)] text-xs">
+              <span className="rounded-full bg-[#E85D48]/10 px-3 py-1 font-semibold text-[#E85D48] text-xs">
                 {t("addressCard.defaultBadge")}
               </span>
             )}
           </div>
-          <p className="mt-3 text-[var(--muted-foreground)] text-base">{addressText}</p>
+          <p className="mt-3 text-base text-gray-600">{addressText}</p>
           {address.building_access && (
-            <p className="mt-2 text-[var(--muted-foreground)] text-sm">
+            <p className="mt-2 text-gray-600 text-sm">
               🔑 <span className="font-semibold">{t("addressCard.buildingAccess")}:</span>{" "}
               {address.building_access}
             </p>
           )}
           {address.parking_info && (
-            <p className="mt-2 text-[var(--muted-foreground)] text-sm">
+            <p className="mt-2 text-gray-600 text-sm">
               🅿️ <span className="font-semibold">{t("addressCard.parkingInfo")}:</span>{" "}
               {address.parking_info}
             </p>
           )}
           {address.special_notes && (
-            <p className="mt-2 text-[var(--muted-foreground)] text-sm">
+            <p className="mt-2 text-gray-600 text-sm">
               📝 <span className="font-semibold">{t("addressCard.specialNotes")}:</span>{" "}
               {address.special_notes}
             </p>
@@ -293,7 +293,7 @@ function AddressCard({
           <div className="flex gap-2">
             {onEdit && (
               <button
-                className="rounded-full border-2 border-[#ebe5d8] px-4 py-2 font-semibold text-[var(--foreground)] text-sm transition hover:border-[var(--red)] hover:text-[var(--red)]"
+                className="rounded-full border-2 border-[#ebe5d8] px-4 py-2 font-semibold text-gray-900 text-sm transition hover:border-[#E85D48] hover:text-[#E85D48]"
                 onClick={(e) => {
                   e.stopPropagation();
                   onEdit();
@@ -305,7 +305,7 @@ function AddressCard({
             )}
             {onDelete && (
               <button
-                className="rounded-full border-2 border-red-200 px-4 py-2 font-semibold text-red-700 text-sm transition hover:bg-red-50"
+                className="rounded-full border-2 border-red-200 px-4 py-2 font-semibold text-red-700 text-sm transition hover:bg-[#E85D48]/10"
                 onClick={(e) => {
                   e.stopPropagation();
                   onDelete();
@@ -363,20 +363,20 @@ function AddressForm({
       className="space-y-6 rounded-2xl border border-[#ebe5d8] bg-white p-8 shadow-sm"
       onSubmit={handleSubmit}
     >
-      <h4 className="font-semibold text-[var(--foreground)] text-xl">
+      <h4 className="font-semibold text-gray-900 text-xl">
         {address ? t("form.editTitle") : t("form.addTitle")}
       </h4>
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
           <label
-            className="mb-2 block font-semibold text-[var(--foreground)] text-base"
+            className="mb-2 block font-semibold text-base text-gray-900"
             htmlFor="address-label"
           >
             {t("form.labelField")} *
           </label>
           <input
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
             id="address-label"
             onChange={(e) => setFormData({ ...formData, label: e.target.value })}
             placeholder={t("form.labelPlaceholder")}
@@ -388,13 +388,13 @@ function AddressForm({
 
         <div>
           <label
-            className="mb-2 block font-semibold text-[var(--foreground)] text-base"
+            className="mb-2 block font-semibold text-base text-gray-900"
             htmlFor="address-city"
           >
             {t("form.cityField")} *
           </label>
           <input
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
             id="address-city"
             onChange={(e) => setFormData({ ...formData, city: e.target.value })}
             placeholder={t("form.cityPlaceholder")}
@@ -407,13 +407,13 @@ function AddressForm({
 
       <div>
         <label
-          className="mb-2 block font-semibold text-[var(--foreground)] text-base"
+          className="mb-2 block font-semibold text-base text-gray-900"
           htmlFor="address-street"
         >
           {t("form.streetField")} *
         </label>
         <input
-          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
+          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
           id="address-street"
           onChange={(e) => setFormData({ ...formData, street: e.target.value })}
           placeholder={t("form.streetPlaceholder")}
@@ -426,13 +426,13 @@ function AddressForm({
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
           <label
-            className="mb-2 block font-semibold text-[var(--foreground)] text-base"
+            className="mb-2 block font-semibold text-base text-gray-900"
             htmlFor="address-neighborhood"
           >
             {t("form.neighborhoodField")}
           </label>
           <input
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
             id="address-neighborhood"
             onChange={(e) => setFormData({ ...formData, neighborhood: e.target.value })}
             placeholder={t("form.neighborhoodPlaceholder")}
@@ -443,13 +443,13 @@ function AddressForm({
 
         <div>
           <label
-            className="mb-2 block font-semibold text-[var(--foreground)] text-base"
+            className="mb-2 block font-semibold text-base text-gray-900"
             htmlFor="address-postal-code"
           >
             {t("form.postalCodeField")}
           </label>
           <input
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
+            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
             id="address-postal-code"
             onChange={(e) => setFormData({ ...formData, postal_code: e.target.value })}
             placeholder={t("form.postalCodePlaceholder")}
@@ -461,13 +461,13 @@ function AddressForm({
 
       <div>
         <label
-          className="mb-2 block font-semibold text-[var(--foreground)] text-base"
+          className="mb-2 block font-semibold text-base text-gray-900"
           htmlFor="address-building-access"
         >
           {t("form.buildingAccessField")}
         </label>
         <input
-          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
+          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
           id="address-building-access"
           onChange={(e) => setFormData({ ...formData, building_access: e.target.value })}
           placeholder={t("form.buildingAccessPlaceholder")}
@@ -478,13 +478,13 @@ function AddressForm({
 
       <div>
         <label
-          className="mb-2 block font-semibold text-[var(--foreground)] text-base"
+          className="mb-2 block font-semibold text-base text-gray-900"
           htmlFor="address-parking-info"
         >
           {t("form.parkingInfoField")}
         </label>
         <input
-          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
+          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
           id="address-parking-info"
           onChange={(e) => setFormData({ ...formData, parking_info: e.target.value })}
           placeholder={t("form.parkingInfoPlaceholder")}
@@ -495,13 +495,13 @@ function AddressForm({
 
       <div>
         <label
-          className="mb-2 block font-semibold text-[var(--foreground)] text-base"
+          className="mb-2 block font-semibold text-base text-gray-900"
           htmlFor="address-special-notes"
         >
           {t("form.specialNotesField")}
         </label>
         <textarea
-          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[var(--red)] focus:outline-none focus:ring-2 focus:ring-[var(--red)33]"
+          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
           id="address-special-notes"
           onChange={(e) => setFormData({ ...formData, special_notes: e.target.value })}
           placeholder={t("form.specialNotesPlaceholder")}
@@ -514,24 +514,24 @@ function AddressForm({
         <label className="flex items-center gap-3">
           <input
             checked={formData.is_default}
-            className="h-5 w-5 rounded border-[#ebe5d8] text-[var(--red)] focus:ring-[var(--red)]"
+            className="h-5 w-5 rounded border-[#ebe5d8] text-[#E85D48] focus:ring-[#E85D48]"
             onChange={(e) => setFormData({ ...formData, is_default: e.target.checked })}
             type="checkbox"
           />
-          <span className="text-[var(--foreground)] text-base">{t("form.setDefaultCheckbox")}</span>
+          <span className="text-base text-gray-900">{t("form.setDefaultCheckbox")}</span>
         </label>
       )}
 
       <div className="flex justify-end gap-3 border-[#ebe5d8] border-t pt-6">
         <button
-          className="rounded-full border-2 border-[#ebe5d8] px-6 py-3 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)]"
+          className="rounded-full border-2 border-[#ebe5d8] px-6 py-3 font-semibold text-base text-gray-900 transition hover:border-[#E85D48] hover:text-[#E85D48]"
           onClick={onCancel}
           type="button"
         >
           {t("form.cancelButton")}
         </button>
         <button
-          className="rounded-full bg-[var(--red)] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
+          className="rounded-full bg-[#E85D48] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36]"
           type="submit"
         >
           {address ? t("form.saveButton") : t("form.addButton")}

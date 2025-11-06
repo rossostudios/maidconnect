@@ -55,7 +55,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
       <div className="mb-4 flex items-start justify-between">
         <div className="flex-1">
           <div className="mb-2 flex items-center gap-2">
-            <h3 className="font-semibold text-[var(--foreground)] text-lg">
+            <h3 className="font-semibold text-gray-900 text-lg">
               {booking.service?.name || "Service"}
             </h3>
             <BookingStatusBadge status={booking.status} />
@@ -64,9 +64,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
         </div>
 
         <div className="text-right">
-          <p className="font-bold text-2xl text-[var(--red)]">
-            {formatPrice(booking.totalPriceCop)}
-          </p>
+          <p className="font-bold text-2xl text-[#E85D48]">{formatPrice(booking.totalPriceCop)}</p>
         </div>
       </div>
 
@@ -105,7 +103,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
       {/* Add-ons */}
       {booking.addons && booking.addons.length > 0 && (
         <div className="mb-4 rounded-xl bg-[#f9fafb] p-3">
-          <p className="mb-2 font-medium text-[var(--foreground)] text-xs">{t("addons")}:</p>
+          <p className="mb-2 font-medium text-gray-900 text-xs">{t("addons")}:</p>
           <ul className="space-y-1">
             {booking.addons.map((addon) => (
               <li className="text-[#6b7280] text-xs" key={addon.id}>
@@ -138,7 +136,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
 
         {canRate && (
           <button
-            className="flex-1 rounded-xl bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
+            className="flex-1 rounded-xl bg-[#E85D48] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#D64A36]"
             onClick={() => onRate(booking.id)}
             type="button"
           >
@@ -148,7 +146,7 @@ export function BookingCard({ booking, role, onView, onCancel, onRate }: Booking
 
         {canCancel && (
           <button
-            className="rounded-xl border-2 border-red-200 bg-white px-4 py-2 font-medium text-red-600 text-sm transition hover:bg-red-50"
+            className="rounded-xl border-2 border-red-200 bg-white px-4 py-2 font-medium text-[#E85D48] text-sm transition hover:bg-[#E85D48]/10"
             onClick={() => onCancel(booking.id)}
             type="button"
           >

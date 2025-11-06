@@ -90,7 +90,7 @@ export function CustomerHeader({ userEmail, userName, unreadMessagesCount = 0 }:
               icon={Message01Icon}
             />
             {unreadMessagesCount > 0 && (
-              <span className="absolute top-1 right-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#E63946] px-1 font-semibold text-[10px] text-white">
+              <span className="absolute top-1 right-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#E85D48] px-1 font-semibold text-[10px] text-white">
                 {unreadMessagesCount > 99 ? "99+" : unreadMessagesCount}
               </span>
             )}
@@ -109,8 +109,8 @@ export function CustomerHeader({ userEmail, userName, unreadMessagesCount = 0 }:
             />
             {unreadCount > 0 && (
               <span className="absolute top-1.5 right-1.5 flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#E63946] opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#E63946]" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#E85D48] opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#E85D48]" />
               </span>
             )}
           </button>
@@ -123,8 +123,8 @@ export function CustomerHeader({ userEmail, userName, unreadMessagesCount = 0 }:
               onClick={() => setShowProfileMenu(!showProfileMenu)}
               type="button"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E63946]/10 transition-colors group-hover:bg-[#E63946]/20">
-                <HugeiconsIcon className="h-5 w-5 text-[#E63946]" icon={UserCircleIcon} />
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E85D48]/10 transition-colors group-hover:bg-[#E85D48]/20">
+                <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={UserCircleIcon} />
               </div>
               <div className="hidden text-left md:block">
                 <p className="font-medium text-[#171717] text-sm">{userName || "Customer"}</p>
@@ -163,10 +163,10 @@ export function CustomerHeader({ userEmail, userName, unreadMessagesCount = 0 }:
                       onClick={() => setShowProfileMenu(false)}
                     >
                       <HugeiconsIcon
-                        className="h-5 w-5 text-[#525252] group-hover:text-[#E63946]"
+                        className="h-5 w-5 text-[#525252] group-hover:text-[#E85D48]"
                         icon={Logout01Icon}
                       />
-                      <span className="text-[#525252] text-sm group-hover:text-[#E63946]">
+                      <span className="text-[#525252] text-sm group-hover:text-[#E85D48]">
                         Sign out
                       </span>
                     </Link>
@@ -183,7 +183,6 @@ export function CustomerHeader({ userEmail, userName, unreadMessagesCount = 0 }:
         dashboardPath="/dashboard/customer"
         onClose={() => setShowCommandPalette(false)}
         open={showCommandPalette}
-        role="customer"
       />
 
       {/* Notifications Sheet */}

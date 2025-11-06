@@ -1,6 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import {
+  parseReviewRatings,
+  validateBookingAuthorization,
+  validateReviewInput,
+} from "@/lib/reviews/review-validation-service";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type ReviewActionState = {
@@ -24,17 +29,18 @@ export async function submitCustomerReviewAction(
     const communicationRatingValue = formData.get("communicationRating") as string | null;
     const respectfulnessRatingValue = formData.get("respectfulnessRating") as string | null;
 
-    if (!customerId) {
-      return { status: "error", message: "Missing customer information." };
-    }
+    // Validate basic input using helper to reduce complexity
+    const inputValidation = validateReviewInput({
+      customerId,
+      bookingId,
+      rating: ratingValue,
+      punctualityRating: punctualityRatingValue,
+      communicationRating: communicationRatingValue,
+      respectfulnessRating: respectfulnessRatingValue,
+    });
 
-    if (!bookingId) {
-      return { status: "error", message: "Missing booking information." };
-    }
-
-    const rating = ratingValue ? Number.parseInt(ratingValue, 10) : Number.NaN;
-    if (!Number.isFinite(rating) || rating < 1 || rating > 5) {
-      return { status: "error", message: "Please provide a rating between 1 and 5." };
+    if (!inputValidation.success) {
+      return { status: "error", message: inputValidation.error };
     }
 
     const supabase = await createSupabaseServerClient();
@@ -51,45 +57,39 @@ export async function submitCustomerReviewAction(
       return { status: "error", message: "Please sign in to leave a review." };
     }
 
-    // Verify this is a professional rating their customer
-    const { data: booking, error: bookingError } = await supabase
-      .from("bookings")
-      .select("id, professional_id, customer_id, status")
-      .eq("id", bookingId)
-      .eq("professional_id", user.id)
-      .eq("customer_id", customerId)
-      .maybeSingle();
+    // Verify booking authorization using helper to reduce complexity
+    const authResult = await validateBookingAuthorization(
+      supabase,
+      bookingId!,
+      customerId!,
+      user.id
+    );
 
-    if (bookingError || !booking) {
-      return { status: "error", message: "Booking not found or you're not authorized." };
+    if (!authResult.success) {
+      return { status: "error", message: authResult.error };
     }
 
-    if (booking.status !== "completed") {
-      return { status: "error", message: "Can only review completed bookings." };
-    }
-
-    // Parse optional category ratings
-    const punctualityRating = punctualityRatingValue
-      ? Number.parseInt(punctualityRatingValue, 10)
-      : null;
-    const communicationRating = communicationRatingValue
-      ? Number.parseInt(communicationRatingValue, 10)
-      : null;
-    const respectfulnessRating = respectfulnessRatingValue
-      ? Number.parseInt(respectfulnessRatingValue, 10)
-      : null;
+    // Parse ratings using helper to reduce complexity
+    const ratings = parseReviewRatings({
+      customerId,
+      bookingId,
+      rating: ratingValue,
+      punctualityRating: punctualityRatingValue,
+      communicationRating: communicationRatingValue,
+      respectfulnessRating: respectfulnessRatingValue,
+    });
 
     // Insert the review
     const { error } = await supabase.from("customer_reviews").insert({
-      customer_id: customerId,
+      customer_id: customerId!,
       professional_id: user.id,
-      booking_id: bookingId,
-      rating,
+      booking_id: bookingId!,
+      rating: ratings.rating,
       title,
       comment,
-      punctuality_rating: punctualityRating,
-      communication_rating: communicationRating,
-      respectfulness_rating: respectfulnessRating,
+      punctuality_rating: ratings.punctualityRating,
+      communication_rating: ratings.communicationRating,
+      respectfulness_rating: ratings.respectfulnessRating,
     });
 
     if (error) {

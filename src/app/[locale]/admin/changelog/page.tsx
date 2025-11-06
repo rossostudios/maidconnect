@@ -38,7 +38,7 @@ const categoryConfig = {
   features: { icon: MagicWand01Icon, label: "Features", color: "text-purple-600 bg-purple-50" },
   improvements: { icon: FlashIcon, label: "Improvements", color: "text-blue-600 bg-blue-50" },
   fixes: { icon: Bug01Icon, label: "Fixes", color: "text-green-600 bg-green-50" },
-  security: { icon: Shield01Icon, label: "Security", color: "text-red-600 bg-red-50" },
+  security: { icon: Shield01Icon, label: "Security", color: "text-[#E85D48] bg-[#E85D48]/10" },
   design: { icon: PaintBoardIcon, label: "Design", color: "text-pink-600 bg-pink-50" },
 };
 
@@ -93,7 +93,7 @@ export default async function AdminChangelogPage({
           </p>
         </div>
         <Link
-          className="flex items-center gap-2 rounded-lg bg-[#E63946] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#D32F40]"
+          className="flex items-center gap-2 rounded-lg bg-[#E85D48] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#D32F40]"
           href="/admin/changelog/new"
         >
           <HugeiconsIcon className="h-4 w-4" icon={Add01Icon} />
@@ -106,8 +106,8 @@ export default async function AdminChangelogPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status
-              ? "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
-              : "bg-[#E63946] text-white"
+              ? "border border-[#E5E5E5] text-[#737373] hover:border-[#E85D48]"
+              : "bg-[#E85D48] text-white"
           }`}
           href="/admin/changelog"
         >
@@ -116,8 +116,8 @@ export default async function AdminChangelogPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "draft"
-              ? "bg-[#E63946] text-white"
-              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
+              ? "bg-[#E85D48] text-white"
+              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E85D48]"
           }`}
           href="/admin/changelog?status=draft"
         >
@@ -126,8 +126,8 @@ export default async function AdminChangelogPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "published"
-              ? "bg-[#E63946] text-white"
-              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
+              ? "bg-[#E85D48] text-white"
+              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E85D48]"
           }`}
           href="/admin/changelog?status=published"
         >
@@ -136,8 +136,8 @@ export default async function AdminChangelogPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "archived"
-              ? "bg-[#E63946] text-white"
-              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E63946]"
+              ? "bg-[#E85D48] text-white"
+              : "border border-[#E5E5E5] text-[#737373] hover:border-[#E85D48]"
           }`}
           href="/admin/changelog?status=archived"
         >
@@ -152,7 +152,7 @@ export default async function AdminChangelogPage({
           <h3 className="mb-2 font-bold text-[#171717] text-xl">No Changelogs Yet</h3>
           <p className="mb-6 text-[#737373]">Create your first changelog to get started</p>
           <Link
-            className="inline-flex items-center gap-2 rounded-lg bg-[#E63946] px-6 py-3 font-semibold text-white transition hover:bg-[#D32F40]"
+            className="inline-flex items-center gap-2 rounded-lg bg-[#E85D48] px-6 py-3 font-semibold text-white transition hover:bg-[#D32F40]"
             href="/admin/changelog/new"
           >
             <HugeiconsIcon className="h-4 w-4" icon={Add01Icon} />
@@ -163,14 +163,14 @@ export default async function AdminChangelogPage({
         <div className="space-y-4">
           {changelogList.map((changelog: Changelog) => (
             <article
-              className="group rounded-lg border border-[#E5E5E5] bg-white p-6 shadow-sm transition hover:border-[#E63946]"
+              className="group rounded-lg border border-[#E5E5E5] bg-white p-6 shadow-sm transition hover:border-[#E85D48]"
               key={changelog.id}
             >
               <div className="flex items-start justify-between gap-4">
                 {/* Content */}
                 <div className="flex-1">
                   <div className="mb-3 flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-[#FEE2E2] px-3 py-1 font-semibold text-[#E63946] text-xs">
+                    <span className="rounded-full bg-[#FEE2E2] px-3 py-1 font-semibold text-[#E85D48] text-xs">
                       Sprint {changelog.sprint_number}
                     </span>
                     <span
@@ -221,7 +221,7 @@ export default async function AdminChangelogPage({
                 {/* Actions */}
                 <div className="flex flex-col gap-2">
                   <Link
-                    className="flex items-center gap-2 rounded-lg border border-[#E5E5E5] px-3 py-2 font-medium text-[#737373] text-sm transition hover:border-[#E63946] hover:text-[#E63946]"
+                    className="flex items-center gap-2 rounded-lg border border-[#E5E5E5] px-3 py-2 font-medium text-[#737373] text-sm transition hover:border-[#E85D48] hover:text-[#E85D48]"
                     href={`/changelog/${changelog.slug}`}
                     target="_blank"
                     title="Preview"
@@ -230,7 +230,7 @@ export default async function AdminChangelogPage({
                     Preview
                   </Link>
                   <Link
-                    className="flex items-center gap-2 rounded-lg bg-[#E63946] px-3 py-2 font-medium text-sm text-white transition hover:bg-[#D32F40]"
+                    className="flex items-center gap-2 rounded-lg bg-[#E85D48] px-3 py-2 font-medium text-sm text-white transition hover:bg-[#D32F40]"
                     href={`/admin/changelog/${changelog.id}/edit`}
                   >
                     <HugeiconsIcon className="h-4 w-4" icon={Edit01Icon} />

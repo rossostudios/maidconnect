@@ -2,8 +2,8 @@
  * Edit Roadmap Item Page (Admin)
  */
 
-import { notFound } from "next/navigation";
 import { unstable_noStore } from "next/cache";
+import { notFound } from "next/navigation";
 import { RoadmapEditor } from "@/components/roadmap/roadmap-editor";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { RoadmapItem } from "@/types/roadmap";
@@ -39,7 +39,7 @@ export default async function EditRoadmapPage({ params }: PageProps) {
   return (
     <>
       <div className="mb-8">
-        <h1 className="mb-2 font-bold text-3xl text-[var(--foreground)]">Edit Roadmap Item</h1>
+        <h1 className="mb-2 font-bold text-3xl text-gray-900">Edit Roadmap Item</h1>
         <p className="text-[#6B7280]">Update "{roadmapItem.title}"</p>
       </div>
 

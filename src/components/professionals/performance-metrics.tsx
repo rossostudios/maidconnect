@@ -93,9 +93,7 @@ export function PerformanceMetrics({ metrics, variant = "compact", showLabels = 
   // Detailed variant
   return (
     <div className="space-y-4">
-      {showLabels && (
-        <h3 className="font-semibold text-[var(--foreground)] text-sm">Performance Metrics</h3>
-      )}
+      {showLabels && <h3 className="font-semibold text-gray-900 text-sm">Performance Metrics</h3>}
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {/* On-Time Rate */}
@@ -156,8 +154,8 @@ export function PerformanceMetrics({ metrics, variant = "compact", showLabels = 
       {totalCompletedBookings !== undefined && totalCompletedBookings > 0 && (
         <div className="flex items-center gap-2 rounded-xl border border-[#ebe5d8] bg-white p-3">
           <HugeiconsIcon className="h-4 w-4 text-blue-600" icon={AnalyticsUpIcon} />
-          <p className="text-[var(--muted-foreground)] text-sm">
-            <span className="font-semibold text-[var(--foreground)]">{totalCompletedBookings}</span>{" "}
+          <p className="text-gray-600 text-sm">
+            <span className="font-semibold text-gray-900">{totalCompletedBookings}</span>{" "}
             {totalCompletedBookings === 1 ? "service" : "services"} completed on Casaora
           </p>
         </div>

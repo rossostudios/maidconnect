@@ -1,13 +1,14 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "motion/react";
 import { usePathname } from "next/navigation";
 
 type PageTransitionProps = {
   children: React.ReactNode;
 };
 
-const pageVariants = {
+// Optimized variants with spring physics for more natural motion
+const pageVariants: Variants = {
   initial: {
     y: "100%",
     zIndex: 100,
@@ -15,10 +16,33 @@ const pageVariants = {
   animate: {
     y: 0,
     zIndex: 100,
+    transition: {
+      type: "spring" as const,
+      stiffness: 80,
+      damping: 20,
+    },
   },
   exit: {
     y: "-100%",
     zIndex: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 100,
+      damping: 25,
+    },
+  },
+};
+
+const overlayVariants: Variants = {
+  initial: {
+    opacity: 0.2,
+  },
+  animate: {
+    opacity: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut" as const,
+    },
   },
 };
 
@@ -34,7 +58,7 @@ export function PageTransition({ children }: PageTransitionProps) {
   }
 
   return (
-    <AnimatePresence initial={false}>
+    <AnimatePresence initial={false} mode="wait">
       <motion.div
         animate="animate"
         exit="exit"
@@ -50,10 +74,7 @@ export function PageTransition({ children }: PageTransitionProps) {
           height: "100vh",
           overflow: "auto",
           backgroundColor: "white",
-        }}
-        transition={{
-          duration: 1.0,
-          ease: [0.25, 0.1, 0.25, 1], // Custom smooth easing curve
+          willChange: "transform", // Performance optimization
         }}
         variants={pageVariants}
       >
@@ -61,8 +82,8 @@ export function PageTransition({ children }: PageTransitionProps) {
 
         {/* Black overlay during transition */}
         <motion.div
-          animate={{ opacity: 0 }}
-          initial={{ opacity: 0.2 }}
+          animate="animate"
+          initial="initial"
           style={{
             position: "fixed",
             top: 0,
@@ -71,11 +92,9 @@ export function PageTransition({ children }: PageTransitionProps) {
             bottom: 0,
             backgroundColor: "black",
             pointerEvents: "none",
+            willChange: "opacity", // Performance optimization
           }}
-          transition={{
-            duration: 0.5,
-            ease: "easeOut",
-          }}
+          variants={overlayVariants}
         />
       </motion.div>
     </AnimatePresence>

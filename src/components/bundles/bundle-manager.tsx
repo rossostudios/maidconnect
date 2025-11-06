@@ -47,12 +47,12 @@ export function BundleManager({
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <HugeiconsIcon className="h-6 w-6 text-[var(--red)]" icon={PackageIcon} />
-          <h3 className="font-semibold text-[var(--foreground)] text-lg">{t("title")}</h3>
+          <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={PackageIcon} />
+          <h3 className="font-semibold text-gray-900 text-lg">{t("title")}</h3>
         </div>
 
         <button
-          className="flex items-center gap-2 rounded-xl bg-[var(--red)] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
+          className="flex items-center gap-2 rounded-xl bg-[#E85D48] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
           onClick={onCreateBundle}
           type="button"
         >
@@ -69,7 +69,7 @@ export function BundleManager({
         <button
           className={`rounded-lg px-4 py-2 text-sm transition ${
             filter === "all"
-              ? "bg-[var(--red)] font-semibold text-white"
+              ? "bg-[#E85D48] font-semibold text-white"
               : "bg-[#f9fafb] text-[#6b7280] hover:bg-[#f3f4f6]"
           }`}
           onClick={() => setFilter("all")}
@@ -80,7 +80,7 @@ export function BundleManager({
         <button
           className={`rounded-lg px-4 py-2 text-sm transition ${
             filter === "active"
-              ? "bg-[var(--red)] font-semibold text-white"
+              ? "bg-[#E85D48] font-semibold text-white"
               : "bg-[#f9fafb] text-[#6b7280] hover:bg-[#f3f4f6]"
           }`}
           onClick={() => setFilter("active")}
@@ -91,7 +91,7 @@ export function BundleManager({
         <button
           className={`rounded-lg px-4 py-2 text-sm transition ${
             filter === "inactive"
-              ? "bg-[var(--red)] font-semibold text-white"
+              ? "bg-[#E85D48] font-semibold text-white"
               : "bg-[#f9fafb] text-[#6b7280] hover:bg-[#f3f4f6]"
           }`}
           onClick={() => setFilter("inactive")}
@@ -117,10 +117,10 @@ export function BundleManager({
       ) : (
         <div className="rounded-xl bg-[#f9fafb] py-12 text-center">
           <HugeiconsIcon className="mx-auto mb-3 h-12 w-12 text-[#d1d5db]" icon={PackageIcon} />
-          <p className="mb-2 font-semibold text-[var(--foreground)] text-lg">{t("noBundles")}</p>
+          <p className="mb-2 font-semibold text-gray-900 text-lg">{t("noBundles")}</p>
           <p className="mb-4 text-[#6b7280] text-sm">{t("noBundlesDescription")}</p>
           <button
-            className="rounded-xl bg-[var(--red)] px-6 py-3 font-medium text-sm text-white transition hover:bg-[#cc3333]"
+            className="rounded-xl bg-[#E85D48] px-6 py-3 font-medium text-sm text-white transition hover:bg-[#cc3333]"
             onClick={onCreateBundle}
             type="button"
           >

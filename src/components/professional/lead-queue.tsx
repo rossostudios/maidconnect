@@ -106,8 +106,8 @@ export function LeadQueue({ initialBookings, professionalId: _professionalId }: 
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "all"
-              ? "border-[var(--red)] text-[var(--red)]"
-              : "border-transparent text-[#7d7566] hover:text-[var(--foreground)]"
+              ? "border-[#E85D48] text-[#E85D48]"
+              : "border-transparent text-[#7d7566] hover:text-gray-900"
           }`}
           onClick={() => setFilter("all")}
         >
@@ -116,8 +116,8 @@ export function LeadQueue({ initialBookings, professionalId: _professionalId }: 
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "pending"
-              ? "border-[var(--red)] text-[var(--red)]"
-              : "border-transparent text-[#7d7566] hover:text-[var(--foreground)]"
+              ? "border-[#E85D48] text-[#E85D48]"
+              : "border-transparent text-[#7d7566] hover:text-gray-900"
           }`}
           onClick={() => setFilter("pending")}
         >
@@ -126,8 +126,8 @@ export function LeadQueue({ initialBookings, professionalId: _professionalId }: 
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "confirmed"
-              ? "border-[var(--red)] text-[var(--red)]"
-              : "border-transparent text-[#7d7566] hover:text-[var(--foreground)]"
+              ? "border-[#E85D48] text-[#E85D48]"
+              : "border-transparent text-[#7d7566] hover:text-gray-900"
           }`}
           onClick={() => setFilter("confirmed")}
         >
@@ -141,7 +141,7 @@ export function LeadQueue({ initialBookings, professionalId: _professionalId }: 
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#ebe5d8]">
             <HugeiconsIcon className="h-8 w-8 text-[#7d7566]" icon={Calendar03Icon} />
           </div>
-          <h3 className="font-semibold text-[var(--foreground)] text-xl">
+          <h3 className="font-semibold text-gray-900 text-xl">
             {filter === "pending"
               ? "No pending requests"
               : filter === "confirmed"
@@ -212,7 +212,7 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
               width={64}
             />
           ) : (
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--red)] font-bold text-white text-xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#E85D48] font-bold text-white text-xl">
               {booking.customer?.full_name?.charAt(0).toUpperCase() || "?"}
             </div>
           )}
@@ -222,9 +222,7 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
         <div className="min-w-0 flex-1">
           <div className="mb-4 flex items-start justify-between gap-4">
             <div>
-              <h3 className="mb-1 font-bold text-[var(--foreground)] text-xl">
-                {booking.service_name}
-              </h3>
+              <h3 className="mb-1 font-bold text-gray-900 text-xl">{booking.service_name}</h3>
               <div className="flex items-center gap-2 text-[#7d7566] text-sm">
                 <HugeiconsIcon className="h-4 w-4" icon={UserIcon} />
                 <span>{booking.customer?.full_name || "Unknown Customer"}</span>
@@ -252,9 +250,9 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
           {/* Booking Info Grid */}
           <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
             <div className="flex items-center gap-2 text-sm">
-              <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={Calendar03Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={Calendar03Icon} />
               <div>
-                <p className="font-medium text-[var(--foreground)]">
+                <p className="font-medium text-gray-900">
                   {new Date(booking.scheduled_start).toLocaleDateString("en-US", {
                     weekday: "short",
                     month: "short",
@@ -272,11 +270,9 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
 
             {booking.duration_minutes && (
               <div className="flex items-center gap-2 text-sm">
-                <HugeiconsIcon className="h-5 w-5 text-[var(--red)]" icon={Clock01Icon} />
+                <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={Clock01Icon} />
                 <div>
-                  <p className="font-medium text-[var(--foreground)]">
-                    {booking.duration_minutes} minutes
-                  </p>
+                  <p className="font-medium text-gray-900">{booking.duration_minutes} minutes</p>
                   <p className="text-[#7d7566] text-xs">Duration</p>
                 </div>
               </div>
@@ -287,7 +283,7 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
                 $
               </div>
               <div>
-                <p className="font-medium text-[var(--foreground)]">
+                <p className="font-medium text-gray-900">
                   {formatCurrency(booking.amount_estimated, { currency: booking.currency as any })}
                 </p>
                 <p className="text-[#7d7566] text-xs">Estimated</p>
@@ -309,9 +305,7 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
           {/* Special Instructions */}
           {booking.special_instructions && (
             <div className="mb-4 rounded-lg bg-[#fbfafa] p-4">
-              <p className="mb-1 font-medium text-[var(--foreground)] text-sm">
-                Special Instructions:
-              </p>
+              <p className="mb-1 font-medium text-gray-900 text-sm">Special Instructions:</p>
               <p className="text-[#7d7566] text-sm">{booking.special_instructions}</p>
             </div>
           )}
@@ -330,14 +324,14 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
       {isPending && (
         <div className="mt-6 flex gap-3 border-[#ebe5d8] border-t pt-6">
           <button
-            className="flex-1 rounded-lg border-2 border-[#e5dfd4] bg-white px-6 py-3 font-semibold text-[var(--foreground)] transition hover:border-red-500 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-1 rounded-lg border-2 border-[#e5dfd4] bg-white px-6 py-3 font-semibold text-gray-900 transition hover:border-[#E85D48]/100 hover:text-[#E85D48] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isProcessing}
             onClick={handleDecline}
           >
             {isProcessing ? "Processing..." : "Decline"}
           </button>
           <button
-            className="flex-1 rounded-lg bg-[var(--red)] px-6 py-3 font-semibold text-white transition hover:bg-[var(--red-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-1 rounded-lg bg-[#E85D48] px-6 py-3 font-semibold text-white transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isProcessing}
             onClick={handleAccept}
           >
@@ -348,7 +342,7 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
 
       {booking.status === "confirmed" && (
         <div className="mt-6 border-[#ebe5d8] border-t pt-6">
-          <button className="w-full rounded-lg border border-[#e5dfd4] px-6 py-3 font-semibold text-[var(--foreground)] transition hover:border-[var(--red)] hover:text-[var(--red)]">
+          <button className="w-full rounded-lg border border-[#e5dfd4] px-6 py-3 font-semibold text-gray-900 transition hover:border-[#E85D48] hover:text-[#E85D48]">
             View Booking Details
           </button>
         </div>

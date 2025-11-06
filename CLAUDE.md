@@ -154,6 +154,99 @@ const HeavyChart = dynamic(() => import('@/components/charts/heavy-chart'), {
 
 ## Code Style & Architecture
 
+### Tailwind CSS Design System
+
+**CRITICAL: Use Tailwind classes exclusively for styling. Do NOT create custom CSS variables for spacing or colors.**
+
+#### Spacing Guidelines
+
+✅ **CORRECT: Use Tailwind's built-in spacing scale**
+```tsx
+// Section spacing
+<section className="py-16 sm:py-20 lg:py-24">
+
+// Component gaps
+<div className="flex flex-col gap-6">
+
+// Card padding
+<article className="p-8 rounded-3xl border">
+```
+
+❌ **WRONG: Custom CSS variables**
+```tsx
+// DO NOT DO THIS
+<section className="py-[var(--spacing-section)]">
+<div className="gap-[--spacing-gap]">
+```
+
+#### Tailwind Spacing Scale (8px base unit)
+
+| Class | Pixels | Use Case |
+|-------|--------|----------|
+| `gap-2` | 8px | Minimal gaps (icon + text) |
+| `gap-4` | 16px | Default element spacing |
+| `gap-6` | 24px | Card/component internal spacing |
+| `gap-8` | 32px | Related component groups |
+| `gap-12` | 48px | Major element separation |
+| `gap-16` | 64px | Component group spacing |
+| `gap-24` | 96px | Section spacing |
+
+#### Section Spacing Patterns
+
+```tsx
+// Standard sections (most content)
+<section className="py-16 sm:py-20 lg:py-24">
+
+// Feature sections (high visual impact)
+<section className="py-20 sm:py-24 lg:py-32">
+
+// Hero sections
+<section className="py-24 sm:py-32 lg:py-40">
+```
+
+#### Color Usage - Tailwind Classes Only
+
+✅ **CORRECT:**
+```tsx
+<div className="bg-white border-gray-200 text-gray-600">
+<button className="bg-red-600 hover:bg-red-700 text-white">
+<p className="text-gray-900">
+```
+
+❌ **WRONG:**
+```tsx
+<div className="bg-[var(--background)] border-[var(--border)] text-[var(--muted-foreground)]">
+<button className="bg-[var(--red)] hover:bg-[var(--red-hover)]">
+```
+
+**Brand Color Palette:**
+- Primary: `bg-red-600` (actions), `bg-red-50` (backgrounds)
+- Text: `text-gray-900` (headings), `text-gray-600` (body)
+- Borders: `border-gray-200` (default), `border-gray-300` (strong)
+- Backgrounds: `bg-white` (cards), `bg-gray-50` (sections)
+
+#### Component Layout Patterns
+
+**Use flexbox/grid with `gap-*` instead of margin on children:**
+
+```tsx
+// ✅ CORRECT: Flex with gap
+<div className="flex flex-col gap-6">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</div>
+
+// ❌ WRONG: Margin on children
+<div className="flex flex-col">
+  <div className="mb-6">Item 1</div>
+  <div className="mb-6">Item 2</div>
+  <div>Item 3</div>
+</div>
+```
+
+**Reference:** See `docs/component-library.md` for complete design system documentation.
+
 ### TypeScript Configuration
 
 **Strict Mode is MANDATORY** - See @tsconfig.json:

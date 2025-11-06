@@ -125,7 +125,7 @@ export function AdminSidebar({
                   <Link
                     className={`flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-sm transition-all ${
                       active
-                        ? "bg-[#FEF2F2] text-[#E63946]"
+                        ? "bg-[#FEF2F2] text-[#E85D48]"
                         : "text-[#525252] hover:bg-[#F5F5F5] hover:text-[#171717]"
                     } ${isCollapsed ? "justify-center" : ""}`}
                     href={item.href}

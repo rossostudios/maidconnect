@@ -3,10 +3,15 @@ import {
   type DirectoryProfessional,
   ProfessionalsDirectory,
 } from "@/components/professionals/professionals-directory";
-import { type VerificationLevel } from "@/components/professionals/verification-badge";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { ProfessionalsGridSkeleton } from "@/components/skeletons/professionals-skeletons";
+import {
+  extractHourlyRate,
+  extractPrimaryService,
+  filterLanguages,
+  parseVerificationLevel,
+} from "@/lib/professionals/mapper-helpers";
 import {
   computeAvailableToday,
   formatLocation,
@@ -44,18 +49,10 @@ const DEFAULT_PRO_PHOTO =
 function mapRowToDirectoryProfessional(row: ListActiveProfessionalRow): DirectoryProfessional {
   const services = parseServices(row.services);
   const availability = parseAvailability(row.availability);
-  const primaryService =
-    services.find((service) => Boolean(service.name))?.name ?? row.primary_services?.[0] ?? null;
-  const hourlyRate =
-    services.find((service) => typeof service.hourlyRateCop === "number")?.hourlyRateCop ?? null;
 
-  // Parse verification level
-  const verificationLevel: VerificationLevel =
-    row.verification_level === "basic" ||
-    row.verification_level === "enhanced" ||
-    row.verification_level === "background-check"
-      ? row.verification_level
-      : "none";
+  // Extract service information using helper functions
+  const primaryService = extractPrimaryService(services, row.primary_services);
+  const hourlyRate = extractHourlyRate(services);
 
   return {
     id: row.profile_id,
@@ -63,9 +60,7 @@ function mapRowToDirectoryProfessional(row: ListActiveProfessionalRow): Director
     service: primaryService,
     experienceYears: row.experience_years ?? null,
     hourlyRateCop: hourlyRate,
-    languages: Array.isArray(row.languages)
-      ? row.languages.filter((lang): lang is string => typeof lang === "string")
-      : [],
+    languages: filterLanguages(row.languages),
     city: row.city ?? null,
     country: row.country ?? null,
     location: formatLocation(row.city, row.country) || "Colombia",
@@ -73,7 +68,7 @@ function mapRowToDirectoryProfessional(row: ListActiveProfessionalRow): Director
     photoUrl: DEFAULT_PRO_PHOTO,
     bio: row.bio,
     // Week 3-4: Trust signals
-    verificationLevel,
+    verificationLevel: parseVerificationLevel(row.verification_level),
     rating: row.rating ?? 0,
     reviewCount: row.review_count ?? 0,
     onTimeRate: row.on_time_rate ?? 0,
@@ -120,7 +115,7 @@ async function ProfessionalsGrid() {
 
 export default function ProfessionalsPage() {
   return (
-    <div className="bg-[var(--background)] text-[var(--foreground)]">
+    <div className="bg-[#F5F0E8] text-[#1A1614]">
       {/* Static shell - loads instantly */}
       <SiteHeader />
       <main>

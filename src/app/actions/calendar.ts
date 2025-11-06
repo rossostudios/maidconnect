@@ -1,8 +1,8 @@
 "use server";
 
+import { calculateCalendarHealth } from "@/lib/calendar/calendar-health-calculator";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type {
-  CalendarHealth,
   CheckAvailabilityResponse,
   DayOfWeek,
   GetCalendarHealthResponse,
@@ -215,53 +215,8 @@ export async function getCalendarHealth(profileId: string): Promise<GetCalendarH
       return { success: false, error: travelBufferError.message };
     }
 
-    const hasWorkingHours = workingHoursData && workingHoursData.length > 0;
-    const hasServiceRadius = !!travelBufferData?.service_radius_km;
-    const hasTravelBuffers =
-      !!travelBufferData?.travel_buffer_before_minutes &&
-      !!travelBufferData?.travel_buffer_after_minutes;
-
-    const availableDaysCount = workingHoursData
-      ? workingHoursData.filter((h) => h.is_available).length
-      : 0;
-
-    // Calculate health score
-    let healthScore = 0;
-    if (hasWorkingHours) {
-      healthScore += 40;
-    }
-    if (hasServiceRadius) {
-      healthScore += 30;
-    }
-    if (hasTravelBuffers) {
-      healthScore += 30;
-    }
-
-    // Generate recommendations
-    const recommendations: string[] = [];
-    if (!hasWorkingHours) {
-      recommendations.push("Set your working hours to let customers know when you're available");
-    }
-    if (!hasServiceRadius) {
-      recommendations.push("Define your service area to appear in location-based searches");
-    }
-    if (!hasTravelBuffers) {
-      recommendations.push(
-        "Set travel buffers to prevent double-bookings and account for travel time"
-      );
-    }
-    if (availableDaysCount < 5) {
-      recommendations.push("Add more available days to increase booking opportunities");
-    }
-
-    const health: CalendarHealth = {
-      hasWorkingHours,
-      hasServiceRadius,
-      hasTravelBuffers,
-      availableDaysCount,
-      healthScore,
-      recommendations,
-    };
+    // Calculate health using helper to reduce complexity
+    const health = calculateCalendarHealth(workingHoursData, travelBufferData);
 
     return {
       success: true,

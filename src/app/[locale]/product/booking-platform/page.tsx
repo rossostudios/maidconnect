@@ -86,7 +86,7 @@ export default async function BookingPlatformPage({ params }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+    <div className="min-h-screen bg-[#fbf9f7] text-gray-900">
       {/* Security: dangerouslySetInnerHTML is safe here - jsonLd is server-generated structured data for SEO */}
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -109,11 +109,9 @@ export default async function BookingPlatformPage({ params }: Props) {
           id="features"
         >
           <div className="mx-auto max-w-6xl">
-            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
-              {t("features.title")}
-            </h2>
+            <h2 className="type-serif-lg text-center text-gray-900">{t("features.title")}</h2>
 
-            <p className="mx-auto mt-6 max-w-3xl text-center text-[var(--muted-foreground)] text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-3xl text-center text-gray-600 text-lg leading-relaxed">
               {t("features.subtitle")}
             </p>
 
@@ -170,62 +168,60 @@ export default async function BookingPlatformPage({ params }: Props) {
         {/* Benefits Section */}
         <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="type-serif-lg text-center text-[var(--foreground)]">
-              {t("benefits.title")}
-            </h2>
+            <h2 className="type-serif-lg text-center text-gray-900">{t("benefits.title")}</h2>
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("benefits.noPhoneTag.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("benefits.noPhoneTag.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("benefits.transparentPricing.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("benefits.transparentPricing.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("benefits.flexibleScheduling.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("benefits.flexibleScheduling.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[var(--red)]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
                   <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[var(--foreground)] text-xl">
+                  <h3 className="font-semibold text-gray-900 text-xl">
                     {t("benefits.easyRescheduling.title")}
                   </h3>
-                  <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
                     {t("benefits.easyRescheduling.description")}
                   </p>
                 </div>
@@ -237,22 +233,22 @@ export default async function BookingPlatformPage({ params }: Props) {
         {/* CTA Section */}
         <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="type-serif-lg text-[var(--foreground)]">{t("cta.title")}</h2>
+            <h2 className="type-serif-lg text-gray-900">{t("cta.title")}</h2>
 
-            <p className="mx-auto mt-6 max-w-2xl text-[var(--muted-foreground)] text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-2xl text-gray-600 text-lg leading-relaxed">
               {t("cta.description")}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                className="inline-flex items-center justify-center rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
+                className="inline-flex items-center justify-center rounded-full bg-[#E85D48] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
                 href="/professionals"
               >
                 {t("cta.browseProfessionals")}
               </Link>
 
               <Link
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-[var(--foreground)] text-base transition hover:border-[var(--red)] hover:text-[var(--red)]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-base text-gray-900 transition hover:border-[var(--red)] hover:text-[#E85D48]"
                 href="/auth/sign-up"
               >
                 {t("cta.signUpFree")}

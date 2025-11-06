@@ -110,126 +110,115 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
       <div className="space-y-6">
         {/* Professional Details */}
         <section>
-          <h3 className="mb-3 font-semibold text-[var(--red)] text-sm uppercase tracking-wide">
+          <h3 className="mb-3 font-semibold text-[#E85D48] text-sm uppercase tracking-wide">
             Professional Information
           </h3>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <div className="font-medium text-[var(--label-muted)] text-xs">Name</div>
-              <p className="text-[var(--foreground)] text-sm">{professional.full_name || "—"}</p>
+              <div className="font-medium text-[#7a6d62] text-xs">Name</div>
+              <p className="text-gray-900 text-sm">{professional.full_name || "—"}</p>
             </div>
             <div>
-              <div className="font-medium text-[var(--label-muted)] text-xs">Experience</div>
-              <p className="text-[var(--foreground)] text-sm">
+              <div className="font-medium text-[#7a6d62] text-xs">Experience</div>
+              <p className="text-gray-900 text-sm">
                 {professional.experience_years ? `${professional.experience_years} years` : "—"}
               </p>
             </div>
             <div>
-              <div className="font-medium text-[var(--label-muted)] text-xs">Location</div>
-              <p className="text-[var(--foreground)] text-sm">
+              <div className="font-medium text-[#7a6d62] text-xs">Location</div>
+              <p className="text-gray-900 text-sm">
                 {professional.profile?.city
                   ? `${professional.profile.city}, ${professional.profile.country}`
                   : "—"}
               </p>
             </div>
             <div>
-              <div className="font-medium text-[var(--label-muted)] text-xs">Phone</div>
-              <p className="text-[var(--foreground)] text-sm">
-                {professional.profile?.phone || "—"}
-              </p>
+              <div className="font-medium text-[#7a6d62] text-xs">Phone</div>
+              <p className="text-gray-900 text-sm">{professional.profile?.phone || "—"}</p>
             </div>
             <div>
-              <div className="font-medium text-[var(--label-muted)] text-xs">Hourly Rate</div>
-              <p className="text-[var(--foreground)] text-sm">
+              <div className="font-medium text-[#7a6d62] text-xs">Hourly Rate</div>
+              <p className="text-gray-900 text-sm">
                 {formatMoney(professional.rate_expectations?.hourly_cop)}
               </p>
             </div>
             <div>
-              <div className="font-medium text-[var(--label-muted)] text-xs">Languages</div>
-              <p className="text-[var(--foreground)] text-sm">
-                {professional.languages?.join(", ") || "—"}
-              </p>
+              <div className="font-medium text-[#7a6d62] text-xs">Languages</div>
+              <p className="text-gray-900 text-sm">{professional.languages?.join(", ") || "—"}</p>
             </div>
           </div>
 
           {professional.bio && (
             <div className="mt-4">
-              <div className="font-medium text-[var(--label-muted)] text-xs">Bio</div>
-              <p className="mt-1 text-[var(--foreground)] text-sm">{professional.bio}</p>
+              <div className="font-medium text-[#7a6d62] text-xs">Bio</div>
+              <p className="mt-1 text-gray-900 text-sm">{professional.bio}</p>
             </div>
           )}
 
           <div className="mt-4">
-            <div className="font-medium text-[var(--label-muted)] text-xs">Services</div>
+            <div className="font-medium text-[#7a6d62] text-xs">Services</div>
             <div className="mt-1 flex flex-wrap gap-2">
               {professional.primary_services?.map((service, idx) => (
                 <span
-                  className="rounded-md bg-[var(--red)]/10 px-2 py-1 font-medium text-[var(--red)] text-xs"
+                  className="rounded-md bg-[#E85D48]/10 px-2 py-1 font-medium text-[#E85D48] text-xs"
                   key={idx}
                 >
                   {service}
                 </span>
-              )) || <p className="text-[var(--label-muted)] text-sm">None listed</p>}
+              )) || <p className="text-[#7a6d62] text-sm">None listed</p>}
             </div>
           </div>
         </section>
 
         {/* References */}
         <section>
-          <h3 className="mb-3 font-semibold text-[var(--red)] text-sm uppercase tracking-wide">
+          <h3 className="mb-3 font-semibold text-[#E85D48] text-sm uppercase tracking-wide">
             References ({professional.references_data?.length || 0})
           </h3>
           {professional.references_data && professional.references_data.length > 0 ? (
             <div className="space-y-2">
               {professional.references_data.map((ref: any, idx: number) => (
-                <div
-                  className="rounded-lg border border-[var(--border-light)] bg-[var(--border-lighter)] p-3"
-                  key={idx}
-                >
-                  <p className="font-medium text-[var(--foreground)] text-sm">
-                    {ref.name || "Unnamed"}
-                  </p>
-                  <p className="text-[var(--label-muted)] text-xs">{ref.contact || "—"}</p>
+                <div className="rounded-lg border border-[#ebe5d8] bg-[#fdfaf6] p-3" key={idx}>
+                  <p className="font-medium text-gray-900 text-sm">{ref.name || "Unnamed"}</p>
+                  <p className="text-[#7a6d62] text-xs">{ref.contact || "—"}</p>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-[var(--label-muted)] text-sm">No references provided</p>
+            <p className="text-[#7a6d62] text-sm">No references provided</p>
           )}
         </section>
 
         {/* Documents */}
         <section>
-          <h3 className="mb-3 font-semibold text-[var(--red)] text-sm uppercase tracking-wide">
+          <h3 className="mb-3 font-semibold text-[#E85D48] text-sm uppercase tracking-wide">
             Documents ({professional.documents.length})
           </h3>
           {professional.documents.length > 0 ? (
             <div className="space-y-2">
               {professional.documents.map((doc: any) => (
                 <div
-                  className="flex items-center justify-between rounded-lg border border-[var(--border-light)] bg-[var(--border-lighter)] p-3"
+                  className="flex items-center justify-between rounded-lg border border-[#ebe5d8] bg-[#fdfaf6] p-3"
                   key={doc.profile_id + doc.document_type}
                 >
                   <div>
-                    <p className="font-medium text-[var(--foreground)] text-sm">
-                      {doc.document_type}
-                    </p>
-                    <p className="text-[var(--label-muted)] text-xs">
+                    <p className="font-medium text-gray-900 text-sm">{doc.document_type}</p>
+                    <p className="text-[#7a6d62] text-xs">
                       Uploaded {new Date(doc.uploaded_at).toLocaleDateString()}
                     </p>
                   </div>
-                  <span className="text-[var(--status-success-text)] text-xs">✓ Uploaded</span>
+                  <span className="text-green-600 text-xs">✓ Uploaded</span>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-[var(--label-muted)] text-sm">No documents uploaded</p>
+            <p className="text-[#7a6d62] text-sm">No documents uploaded</p>
           )}
         </section>
 
         {/* Review Form */}
-        <section className="rounded-xl border-2 border-[var(--red)]/20 bg-[var(--red)]/5 p-4">
-          <h3 className="mb-4 font-semibold text-[var(--red)] text-sm uppercase tracking-wide">
+        <section className="rounded-xl border-2 border-[#E85D48]/20 bg-[#E85D48]/5 p-4">
+          <h3 className="mb-4 font-semibold text-[#E85D48] text-sm uppercase tracking-wide">
             Review Decision
           </h3>
 
@@ -238,8 +227,8 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             <button
               className={`flex-1 rounded-lg border-2 px-4 py-2 font-semibold text-sm transition ${
                 form.formData.action === "approve"
-                  ? "border-[var(--status-success-text)] bg-[var(--status-success-bg)] text-[var(--status-success-text)]"
-                  : "border-gray-200 bg-white text-gray-700 hover:border-[var(--status-success-bg)]"
+                  ? "border-green-600 bg-green-50 text-green-600"
+                  : "border-gray-200 bg-white text-gray-700 hover:border-green-200"
               }`}
               onClick={() => form.updateField("action", "approve")}
               type="button"
@@ -249,8 +238,8 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             <button
               className={`flex-1 rounded-lg border-2 px-4 py-2 font-semibold text-sm transition ${
                 form.formData.action === "reject"
-                  ? "border-[var(--status-error-text)] bg-[var(--status-error-bg)] text-[var(--status-error-text)]"
-                  : "border-gray-200 bg-white text-gray-700 hover:border-[var(--status-error-bg)]"
+                  ? "border-[#E85D48] bg-[#E85D48]/10 text-[#E85D48]"
+                  : "border-gray-200 bg-white text-gray-700 hover:border-red-200"
               }`}
               onClick={() => form.updateField("action", "reject")}
               type="button"
@@ -260,8 +249,8 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             <button
               className={`flex-1 rounded-lg border-2 px-4 py-2 font-semibold text-sm transition ${
                 form.formData.action === "request_info"
-                  ? "border-[var(--status-warning-text)] bg-[var(--status-warning-bg)] text-[var(--status-warning-text)]"
-                  : "border-gray-200 bg-white text-gray-700 hover:border-[var(--status-warning-bg)]"
+                  ? "border-yellow-600 bg-yellow-50 text-yellow-600"
+                  : "border-gray-200 bg-white text-gray-700 hover:border-yellow-200"
               }`}
               onClick={() => form.updateField("action", "request_info")}
               type="button"
@@ -279,7 +268,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
                 onChange={(e) => form.updateField("documentsVerified", e.target.checked)}
                 type="checkbox"
               />
-              <span className="text-[var(--foreground)] text-sm">Documents verified</span>
+              <span className="text-gray-900 text-sm">Documents verified</span>
             </label>
             <label className="flex items-center gap-2">
               <input
@@ -288,7 +277,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
                 onChange={(e) => form.updateField("referencesVerified", e.target.checked)}
                 type="checkbox"
               />
-              <span className="text-[var(--foreground)] text-sm">References verified</span>
+              <span className="text-gray-900 text-sm">References verified</span>
             </label>
             <label className="flex items-center gap-2">
               <input
@@ -299,7 +288,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
                 }
                 type="checkbox"
               />
-              <span className="text-[var(--foreground)] text-sm">Background check passed</span>
+              <span className="text-gray-900 text-sm">Background check passed</span>
             </label>
           </div>
 
@@ -307,13 +296,13 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           <div className="space-y-3">
             <div>
               <label
-                className="mb-1 block font-medium text-[var(--foreground)] text-xs"
+                className="mb-1 block font-medium text-gray-900 text-xs"
                 htmlFor="review-notes"
               >
                 Notes (visible to professional)
               </label>
               <textarea
-                className="w-full rounded-lg border border-[var(--border-light)] p-2 text-sm"
+                className="w-full rounded-lg border border-[#ebe5d8] p-2 text-sm"
                 id="review-notes"
                 onChange={(e) => form.updateField("notes", e.target.value)}
                 placeholder="Optional feedback for the professional..."
@@ -324,13 +313,13 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
 
             <div>
               <label
-                className="mb-1 block font-medium text-[var(--foreground)] text-xs"
+                className="mb-1 block font-medium text-gray-900 text-xs"
                 htmlFor="review-internal-notes"
               >
                 Internal Notes (admin only)
               </label>
               <textarea
-                className="w-full rounded-lg border border-[var(--border-light)] p-2 text-sm"
+                className="w-full rounded-lg border border-[#ebe5d8] p-2 text-sm"
                 id="review-internal-notes"
                 onChange={(e) => form.updateField("internalNotes", e.target.value)}
                 placeholder="Internal notes not visible to professional..."
@@ -342,13 +331,13 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             {form.formData.action === "reject" && (
               <div>
                 <label
-                  className="mb-1 block font-medium text-[var(--status-error-text)] text-xs"
+                  className="mb-1 block font-medium text-[#E85D48] text-xs"
                   htmlFor="rejection-reason"
                 >
                   Rejection Reason (required)
                 </label>
                 <textarea
-                  className="w-full rounded-lg border border-[var(--status-error-bg)] p-2 text-sm"
+                  className="w-full rounded-lg border border-red-200 p-2 text-sm"
                   id="rejection-reason"
                   onChange={(e) => form.updateField("rejectionReason", e.target.value)}
                   placeholder="Explain why the application is being rejected..."
@@ -361,8 +350,8 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           </div>
 
           {form.error && (
-            <div className="mt-3 rounded-lg border border-[var(--status-error-bg)] bg-[var(--status-error-bg)] p-3">
-              <p className="text-[var(--status-error-text)] text-sm">{form.error}</p>
+            <div className="mt-3 rounded-lg border border-red-200 bg-[#E85D48]/10 p-3">
+              <p className="text-[#E85D48] text-sm">{form.error}</p>
             </div>
           )}
         </section>
@@ -371,7 +360,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
       {/* Custom Footer Actions */}
       <div className="mt-6 flex justify-end gap-3">
         <button
-          className="rounded-lg border border-[var(--border-light)] px-6 py-2 font-semibold text-[var(--foreground)] text-sm transition hover:bg-[var(--border-lighter)] disabled:opacity-50"
+          className="rounded-lg border border-[#ebe5d8] px-6 py-2 font-semibold text-gray-900 text-sm transition hover:bg-[#fdfaf6] disabled:opacity-50"
           disabled={reviewMutation.isLoading}
           onClick={onClose}
           type="button"
@@ -379,7 +368,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           Cancel
         </button>
         <button
-          className="rounded-lg bg-[var(--red)] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[var(--red-hover)] disabled:opacity-50"
+          className="rounded-lg bg-[#E85D48] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#D64A36] disabled:opacity-50"
           disabled={reviewMutation.isLoading}
           onClick={handleSubmit}
           type="button"

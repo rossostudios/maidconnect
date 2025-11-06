@@ -27,23 +27,25 @@ export default function RoadmapPage() {
   return (
     <>
       <SiteHeader />
-      <div className="min-h-screen bg-[var(--background)]">
-        {/* Header */}
+      {/* Auto Layout: Vertical stack, fill width, hug height */}
+      <div className="flex min-h-screen flex-col bg-[#F5F0E8]">
+        {/* Header - Auto Layout: Vertical stack, padding 48px vertical */}
         <div className="border-[#ebe5d8] border-b bg-white">
-          <div className="container mx-auto max-w-6xl px-4 py-12">
-            <div className="mx-auto max-w-3xl text-center">
-              <h1 className="type-serif-lg mb-4 text-[var(--foreground)]">{t("title")}</h1>
-              <p className="text-[#6B7280] text-lg">{t("subtitle")}</p>
+          <div className="container mx-auto max-w-7xl px-6 py-16 lg:px-8">
+            {/* Auto Layout: Vertical stack, gap 16px, center aligned */}
+            <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
+              <h1 className="serif-display-lg text-[#1A1614]">{t("title")}</h1>
+              <p className="lead text-[#1A1614]/70">{t("subtitle")}</p>
             </div>
           </div>
         </div>
 
-        {/* Main content */}
-        <div className="container mx-auto max-w-6xl px-4 py-8">
+        {/* Main content - Auto Layout: padding 32px, fill remaining space */}
+        <div className="container mx-auto max-w-7xl flex-1 px-6 py-12 lg:px-8">
           <Suspense
             fallback={
               <div className="flex items-center justify-center py-12">
-                <div className="h-8 w-8 animate-spin rounded-full border-4 border-[var(--red)] border-t-transparent" />
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#E85D48] border-t-transparent" />
               </div>
             }
           >

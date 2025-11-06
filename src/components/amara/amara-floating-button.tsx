@@ -69,14 +69,14 @@ export function AmaraFloatingButton({ className, locale }: AmaraFloatingButtonPr
         <div className="fixed right-4 bottom-4 z-50 sm:right-6 sm:bottom-6">
           {/* Pulse Ring Animation (only when onboarding is visible) */}
           {showOnboarding && (
-            <div className="amara-pulse-ring absolute inset-0 rounded-full bg-[var(--red)]" />
+            <div className="amara-pulse-ring absolute inset-0 rounded-full bg-[#E85D48]" />
           )}
 
           {/* Button */}
           <button
             aria-label={t("openChat")}
             className={cn(
-              "relative flex h-14 w-14 items-center justify-center rounded-full bg-[var(--red)] text-white shadow-lg transition-all hover:shadow-xl active:scale-95 sm:h-16 sm:w-16",
+              "relative flex h-14 w-14 items-center justify-center rounded-full bg-[#E85D48] text-white shadow-lg transition-all hover:shadow-xl active:scale-95 sm:h-16 sm:w-16",
               className
             )}
             onClick={() => {

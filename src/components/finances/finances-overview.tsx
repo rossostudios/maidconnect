@@ -29,7 +29,7 @@ type Props = {
   payouts: Payout[];
 };
 
-const COLORS = ["var(--red)", "var(--foreground)", "#7d7566", "#ebe5d8", "var(--muted-foreground)"];
+const COLORS = ["#E85D48", "#12110f", "#7d7566", "#ebe5d8", "#7a6d62"];
 
 // Dynamically import Recharts components (150-200KB library)
 const LineChartComponent = dynamic(
@@ -58,8 +58,8 @@ const LineChartComponent = dynamic(
               <Line
                 activeDot={{ r: 6 }}
                 dataKey="earnings"
-                dot={{ fill: "var(--red)", r: 4 }}
-                stroke="var(--red)"
+                dot={{ fill: "#E85D48", r: 4 }}
+                stroke="#E85D48"
                 strokeWidth={3}
                 type="monotone"
               />
@@ -77,7 +77,7 @@ const LineChartComponent = dynamic(
 const BarChartComponent = dynamic(
   () =>
     import("recharts").then((mod) => ({
-      default: ({ data, dataKey = "bookings", fill = "var(--red)", formatter }: any) => {
+      default: ({ data, dataKey = "bookings", fill = "#E85D48", formatter }: any) => {
         const { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } = mod;
         return (
           <ResponsiveContainer height={300} width="100%">
@@ -266,24 +266,22 @@ export function FinancesOverview({ bookings, payouts }: Props) {
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Earnings Over Time */}
         <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h2 className="mb-6 font-semibold text-[var(--foreground)] text-xl">
-            {t("charts.earningsTrend")}
-          </h2>
+          <h2 className="mb-6 font-semibold text-gray-900 text-xl">{t("charts.earningsTrend")}</h2>
           <LineChartComponent data={earningsData} formatCurrency={formatCurrency} />
         </div>
 
         {/* Bookings Count Over Time */}
         <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h2 className="mb-6 font-semibold text-[var(--foreground)] text-xl">
+          <h2 className="mb-6 font-semibold text-gray-900 text-xl">
             {t("charts.bookingsByMonth")}
           </h2>
-          <BarChartComponent data={earningsData} dataKey="bookings" fill="var(--red)" />
+          <BarChartComponent data={earningsData} dataKey="bookings" fill="#E85D48" />
         </div>
 
         {/* Revenue by Service */}
         {serviceData.length > 0 && (
           <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-            <h2 className="mb-6 font-semibold text-[var(--foreground)] text-xl">
+            <h2 className="mb-6 font-semibold text-gray-900 text-xl">
               {t("charts.revenueByService")}
             </h2>
             <PieChartComponent data={serviceData} formatCurrency={formatCurrency} />
@@ -293,13 +291,13 @@ export function FinancesOverview({ bookings, payouts }: Props) {
         {/* Payout History */}
         {payoutHistory.length > 0 && (
           <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-            <h2 className="mb-6 font-semibold text-[var(--foreground)] text-xl">
+            <h2 className="mb-6 font-semibold text-gray-900 text-xl">
               {t("charts.recentPayouts")}
             </h2>
             <BarChartComponent
               data={payoutHistory}
               dataKey="amount"
-              fill="var(--foreground)"
+              fill="#12110f"
               formatter={formatCurrency}
             />
           </div>
@@ -321,7 +319,7 @@ function MetricCard({
   return (
     <div className="rounded-[28px] bg-white p-6 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
       <dt className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">{label}</dt>
-      <dd className="mt-3 font-semibold text-3xl text-[var(--foreground)]">{value}</dd>
+      <dd className="mt-3 font-semibold text-3xl text-gray-900">{value}</dd>
       <p className="mt-1 text-[#7d7566] text-sm">{description}</p>
     </div>
   );

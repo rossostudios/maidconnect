@@ -113,16 +113,18 @@ export function BaseModal({
         return;
       }
 
-      const focusableElements = modalRef.current?.querySelectorAll(
+      const focusableElementsNodeList = modalRef.current?.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       );
 
-      if (!focusableElements || focusableElements.length === 0) {
+      if (!focusableElementsNodeList || focusableElementsNodeList.length === 0) {
         return;
       }
 
+      // Convert NodeList to array to use .at() method
+      const focusableElements = Array.from(focusableElementsNodeList);
       const firstElement = focusableElements[0] as HTMLElement;
-      const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+      const lastElement = focusableElements.at(-1) as HTMLElement;
 
       if (e.shiftKey) {
         // Shift + Tab
@@ -184,7 +186,7 @@ export function BaseModal({
           <div className="sticky top-0 z-10 flex items-start justify-between border-[#ebe5d8] border-b bg-white px-6 py-5">
             <div className="flex-1 pr-8">
               {title && (
-                <h2 className="font-semibold text-[var(--foreground)] text-xl" id="modal-title">
+                <h2 className="font-semibold text-gray-900 text-xl" id="modal-title">
                   {title}
                 </h2>
               )}
@@ -193,7 +195,7 @@ export function BaseModal({
             {showCloseButton && (
               <button
                 aria-label="Close modal"
-                className="rounded-full p-2 text-[var(--muted-foreground)] transition hover:bg-[#ebe5d8]"
+                className="rounded-full p-2 text-gray-600 transition hover:bg-[#ebe5d8]"
                 onClick={onClose}
                 type="button"
               >
