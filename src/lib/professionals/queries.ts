@@ -24,31 +24,27 @@ export const getLatestProfessionals = unstable_cache(
       const supabase = createSupabaseAnonClient();
 
       const { data, error } = await supabase
-        .from("users")
+        .from("professional_profiles")
         .select(
           `
-        id,
-        name,
-        city,
-        country,
-        profile_picture,
+        profile_id,
+        full_name,
+        avatar_url,
         hourly_rate,
-        specialties
+        primary_services,
+        profiles!inner (
+          city,
+          country
+        )
       `
         )
-        .eq("role", "professional")
-        .eq("is_active", true)
-        .not("profile_picture", "is", null) // Only show pros with profile pictures
+        .eq("status", "active")
+        .not("avatar_url", "is", null) // Only show pros with profile pictures
         .order("created_at", { ascending: false })
         .limit(limit);
 
       if (error) {
-        console.error("Error fetching latest professionals:", {
-          message: error.message,
-          details: error.details,
-          hint: error.hint,
-          code: error.code,
-        });
+        console.error("Error fetching latest professionals:", error);
         return [];
       }
 
@@ -59,15 +55,18 @@ export const getLatestProfessionals = unstable_cache(
       }
 
       // Transform to match component interface
-      return data.map((pro) => ({
-        id: pro.id,
-        name: pro.name || "Professional",
-        city: pro.city || "Unknown",
-        country: pro.country || "",
-        profilePicture: pro.profile_picture,
-        hourlyRate: pro.hourly_rate || 25,
-        specialties: Array.isArray(pro.specialties) ? pro.specialties : [],
-      }));
+      return data.map((pro) => {
+        const profile = Array.isArray(pro.profiles) ? pro.profiles[0] : pro.profiles;
+        return {
+          id: pro.profile_id,
+          name: pro.full_name || "Professional",
+          city: profile?.city || "Unknown",
+          country: profile?.country || "",
+          profilePicture: pro.avatar_url,
+          hourlyRate: pro.hourly_rate || 25,
+          specialties: Array.isArray(pro.primary_services) ? pro.primary_services : [],
+        };
+      });
     } catch (error) {
       console.error("Unexpected error fetching professionals:", error);
       return [];
