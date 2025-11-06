@@ -40,9 +40,9 @@ export default async function DashboardLayout({ children }: Props) {
   }
 
   // For other dashboard routes (referrals, account), render with website wrapper
+  // At this point, user.role is NOT customer or professional (we returned early above)
   const navLinks = navByRole[user.role] ?? navByRole.professional ?? [];
-  const userRole =
-    user.role === "customer" || user.role === "professional" ? user.role : "professional";
+  const userRole = "professional" as const;
 
   return (
     <div className="flex min-h-screen flex-col bg-[var(--background)] text-[var(--foreground)]">

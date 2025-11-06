@@ -44,9 +44,9 @@ export function CustomerHeader({ userEmail, userName, unreadMessagesCount = 0 }:
 
   return (
     <>
-      <header className="flex h-16 items-center justify-between border-[#E5E5E5] border-b bg-white pr-8">
+      <header className="flex h-16 items-center justify-between border-[#E5E5E5] border-b bg-white">
         {/* Left: Mobile Menu + Breadcrumbs */}
-        <div className="flex min-w-0 flex-1 items-center gap-6 pl-8">
+        <div className="flex min-w-0 flex-1 items-center gap-6 px-8">
           {/* Mobile Menu */}
           <div className="flex-shrink-0 lg:hidden">
             <CustomerMobileSidebar unreadMessagesCount={unreadMessagesCount} />
@@ -59,7 +59,7 @@ export function CustomerHeader({ userEmail, userName, unreadMessagesCount = 0 }:
         </div>
 
         {/* Right: Actions */}
-        <div className="flex flex-shrink-0 items-center gap-3">
+        <div className="flex flex-shrink-0 items-center gap-3 pr-8">
           {/* Search Button */}
           <button
             aria-label="Search"
