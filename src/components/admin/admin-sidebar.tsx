@@ -89,7 +89,7 @@ export function AdminSidebar({
     >
       {/* Header - More spacious */}
       <div
-        className={`flex items-center border-[#E5E5E5] border-b px-6 py-6 ${
+        className={`flex h-16 items-center border-[#E5E5E5] border-b px-6 ${
           isCollapsed ? "justify-center" : "justify-between"
         }`}
       >
