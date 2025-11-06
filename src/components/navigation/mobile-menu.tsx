@@ -57,12 +57,12 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
 
       {/* Slide-in Menu - Shows on all screen sizes */}
       <div
-        className={`fixed top-0 right-0 z-[70] h-full w-[320px] transform bg-white text-gray-900 shadow-[0_24px_60px_rgba(18,17,15,0.06)] transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 z-[70] h-full w-[320px] transform bg-white text-gray-900 shadow-2xl ring-1 ring-gray-900/10 transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-[#ebe5d8] border-b p-5">
+        <div className="flex items-center justify-between border-b border-gray-200 p-5">
           <span className="font-semibold text-gray-900 text-lg">Menu</span>
           <button
             aria-label="Close menu"
@@ -81,7 +81,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
             <LanguageSwitcher />
           </div>
 
-          <div className="mb-4 border-[#ebe5d8] border-t" />
+          <div className="mb-4 border-t border-gray-200" />
           {links.map((link) => (
             <Link
               className="rounded-lg px-4 py-3 font-medium text-base text-gray-900 transition hover:bg-[#E85D48]/10 hover:text-gray-900"
@@ -97,7 +97,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
           ))}
 
           {/* Divider */}
-          {isAuthenticated && <div className="my-4 border-[#ebe5d8] border-t" />}
+          {isAuthenticated && <div className="my-4 border-t border-gray-200" />}
 
           {/* Auth Actions */}
           {isAuthenticated ? (
@@ -112,7 +112,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
                 </Link>
               )}
               <button
-                className="mt-3 rounded-lg border-2 border-[#ebe5d8] px-4 py-3 text-center font-semibold text-base text-gray-900 transition hover:border-gray-900 hover:text-white active:scale-95"
+                className="mt-3 rounded-lg border-2 border-gray-200 px-4 py-3 text-center font-semibold text-base text-gray-900 transition hover:border-gray-900 hover:bg-gray-900 hover:text-white active:scale-95"
                 onClick={() => {
                   onSignOut?.();
                   closeMenu();
@@ -125,7 +125,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
           ) : (
             <div className="flex flex-col gap-3">
               <Link
-                className="rounded-lg border-2 border-[#ebe5d8] px-4 py-3 text-center font-semibold text-base text-gray-900 transition hover:border-gray-900 hover:text-white"
+                className="rounded-lg border-2 border-gray-200 px-4 py-3 text-center font-semibold text-base text-gray-900 transition hover:border-gray-900 hover:bg-gray-900 hover:text-white"
                 href="/auth/sign-in"
                 onClick={closeMenu}
               >
