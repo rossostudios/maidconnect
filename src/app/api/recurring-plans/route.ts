@@ -59,8 +59,8 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
   const finalAmount = data.baseAmount - discountAmount;
 
   // Create recurring plan
-  const { data: plan, error: createError } = await supabase
-    // @ts-expect-error - Sprint 2 feature: recurring_plans table will be created in migration
+  // Sprint 2 feature: recurring_plans table will be created in migration
+  const { data: plan, error: createError } = await (supabase as any)
     .from("recurring_plans")
     .insert({
       customer_id: user.id,

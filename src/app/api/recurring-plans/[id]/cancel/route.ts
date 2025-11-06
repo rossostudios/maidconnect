@@ -20,8 +20,8 @@ export async function POST(_request: NextRequest, { params }: { params: Promise<
     const { id } = await params;
 
     // Update the plan to cancelled status
-    const { data: plan, error } = await supabase
-      // @ts-expect-error - Sprint 2 feature: recurring_plans table will be created in migration
+    // Sprint 2 feature: recurring_plans table will be created in migration
+    const { data: plan, error } = await (supabase as any)
       .from("recurring_plans")
       .update({
         status: "cancelled",

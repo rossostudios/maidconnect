@@ -31,8 +31,8 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       return NextResponse.json({ error: "end_date must be after start_date" }, { status: 400 });
     }
 
-    const { data: plan, error } = await supabase
-      // @ts-expect-error - Sprint 2 feature: recurring_plans table will be created in migration
+    // Sprint 2 feature: recurring_plans table will be created in migration
+    const { data: plan, error } = await (supabase as any)
       .from("recurring_plans")
       .update({
         status: "paused",
