@@ -7,7 +7,7 @@
  */
 
 import { z } from "zod";
-import { ok, requireCustomerProfile, withCustomer } from "@/lib/api";
+import { ok, withCustomer } from "@/lib/api";
 import { ValidationError } from "@/lib/errors";
 
 const updateFavoritesSchema = z.object({
@@ -19,7 +19,17 @@ const updateFavoritesSchema = z.object({
  * Get customer's favorite professionals
  */
 export const GET = withCustomer(async ({ user, supabase }) => {
-  const profile = await requireCustomerProfile(supabase, user.id);
+  // Try to get customer profile, but don't fail if it doesn't exist yet
+  const { data: profile } = await supabase
+    .from("customer_profiles")
+    .select("favorite_professionals")
+    .eq("profile_id", user.id)
+    .maybeSingle();
+
+  // If no profile exists yet, return empty favorites
+  if (!profile) {
+    return ok({ favorites: [] });
+  }
 
   const favoriteIds = (profile.favorite_professionals as string[]) || [];
 
@@ -62,8 +72,25 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
   const body = await request.json();
   const { professionalId, action } = updateFavoritesSchema.parse(body);
 
-  // Get current profile
-  const profile = await requireCustomerProfile(supabase, user.id);
+  // Get current profile or create if doesn't exist
+  let { data: profile } = await supabase
+    .from("customer_profiles")
+    .select("favorite_professionals")
+    .eq("profile_id", user.id)
+    .maybeSingle();
+
+  // If profile doesn't exist, create it
+  if (!profile) {
+    const { error: createError } = await supabase
+      .from("customer_profiles")
+      .insert({ profile_id: user.id, favorite_professionals: [] });
+
+    if (createError) {
+      throw new ValidationError("Failed to create customer profile");
+    }
+
+    profile = { favorite_professionals: [] };
+  }
 
   let favorites = (profile.favorite_professionals as string[]) || [];
 

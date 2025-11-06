@@ -14,9 +14,9 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
+import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Link, usePathname } from "@/i18n/routing";
 import type { HugeIcon } from "@/types/icons";
-import { SignOutButton } from "@/components/auth/sign-out-button";
 import { ProOnboardingBadge } from "./pro-onboarding-badge";
 
 type OnboardingStatus =
@@ -103,9 +103,11 @@ export function ProSidebar({
       }`}
     >
       {/* Header */}
-      <div className={`flex items-center border-[#E5E5E5] border-b px-6 py-6 ${
-        isCollapsed ? "justify-center" : "justify-between"
-      }`}>
+      <div
+        className={`flex items-center border-[#E5E5E5] border-b px-6 py-6 ${
+          isCollapsed ? "justify-center" : "justify-between"
+        }`}
+      >
         {!isCollapsed && (
           <Link className="flex items-center" href="/">
             <span className="font-bold text-[#171717] text-lg tracking-tight">CASAORA</span>
@@ -123,10 +125,7 @@ export function ProSidebar({
 
       {/* Onboarding Badge */}
       {!isCollapsed && (
-        <ProOnboardingBadge
-          completionPercentage={onboardingCompletion}
-          status={onboardingStatus}
-        />
+        <ProOnboardingBadge completionPercentage={onboardingCompletion} status={onboardingStatus} />
       )}
 
       {/* Navigation */}
