@@ -810,6 +810,11 @@
           "description": "Haz clic en el ícono de corazón en cualquier profesional para guardarlos aquí para acceso rápido.",
           "browseProfessionals": "Explorar Profesionales"
         },
+        "empty": {
+          "title": "Aún no hay favoritos",
+          "description": "Haz clic en el ícono de corazón en cualquier profesional para guardarlos aquí para acceso rápido.",
+          "browseProfessionals": "Explorar Profesionales"
+        },
         "title": "Tus Favoritos ({count})",
         "card": {
           "verified": "Verificado",
@@ -818,13 +823,17 @@
           "viewProfile": "Ver perfil →"
         },
         "errors": {
-          "failedToLoad": "Error al cargar favoritos"
+          "failedToLoad": "Error al cargar favoritos",
+          "fetchFailed": "Error al obtener favoritos",
+          "loadFailed": "Error al cargar favoritos"
         }
       },
       "addressManager": {
         "emptyState": {
           "noAddresses": "Aún no hay direcciones guardadas.",
-          "addFirst": "Agrega tu primera dirección →"
+          "addFirst": "Agrega tu primera dirección →",
+          "message": "Aún no hay direcciones guardadas.",
+          "addFirstButton": "Agrega tu primera dirección"
         },
         "addNew": "Agregar nueva dirección",
         "card": {

@@ -810,6 +810,11 @@
           "description": "Click the heart icon on any professional to save them here for quick access.",
           "browseProfessionals": "Browse Professionals"
         },
+        "empty": {
+          "title": "No favorites yet",
+          "description": "Click the heart icon on any professional to save them here for quick access.",
+          "browseProfessionals": "Browse Professionals"
+        },
         "title": "Your Favorites ({count})",
         "card": {
           "verified": "Verified",
@@ -818,13 +823,17 @@
           "viewProfile": "View profile →"
         },
         "errors": {
-          "failedToLoad": "Failed to load favorites"
+          "failedToLoad": "Failed to load favorites",
+          "fetchFailed": "Failed to fetch favorites",
+          "loadFailed": "Failed to load favorites"
         }
       },
       "addressManager": {
         "emptyState": {
           "noAddresses": "No saved addresses yet.",
-          "addFirst": "Add your first address →"
+          "addFirst": "Add your first address →",
+          "message": "No saved addresses yet.",
+          "addFirstButton": "Add your first address"
         },
         "addNew": "Add new address",
         "card": {
