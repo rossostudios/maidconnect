@@ -6,7 +6,7 @@ import {
   FavouriteIcon,
   Home09Icon,
   Location01Icon,
-  Menu01Icon,
+  MenuTwoLineIcon,
   Cancel01Icon,
   Message01Icon,
   RepeatIcon,
@@ -104,7 +104,7 @@ export function CustomerSidebar({
           onClick={onClose || handleToggle}
           type="button"
         >
-          <HugeiconsIcon className="h-5 w-5" icon={isCollapsed ? Menu01Icon : Cancel01Icon} />
+          <HugeiconsIcon className="h-5 w-5" icon={isCollapsed ? MenuTwoLineIcon : Cancel01Icon} />
         </button>
       </div>
 

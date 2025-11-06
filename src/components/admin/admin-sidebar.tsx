@@ -7,7 +7,7 @@ import {
   ClipboardIcon,
   DollarCircleIcon,
   MapsLocation01Icon,
-  Menu01Icon,
+  MenuTwoLineIcon,
   Message01Icon,
   StarIcon,
   UserGroupIcon,
@@ -100,7 +100,7 @@ export function AdminSidebar({
           className="rounded-lg p-2 text-[#737373] transition-colors hover:bg-[#F5F5F5] hover:text-[#171717]"
           onClick={onClose || handleToggle}
         >
-          <HugeiconsIcon className="h-5 w-5" icon={isCollapsed ? Menu01Icon : Cancel01Icon} />
+          <HugeiconsIcon className="h-5 w-5" icon={isCollapsed ? MenuTwoLineIcon : Cancel01Icon} />
         </button>
       </div>
 

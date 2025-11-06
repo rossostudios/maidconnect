@@ -7,7 +7,7 @@ import {
   FileAttachmentIcon,
   Home09Icon,
   Image02Icon,
-  Menu01Icon,
+  MenuTwoLineIcon,
   Cancel01Icon,
   Settings02Icon,
   UserIcon,
@@ -116,7 +116,7 @@ export function ProSidebar({
           onClick={onClose || handleToggle}
           type="button"
         >
-          <HugeiconsIcon className="h-5 w-5" icon={isCollapsed ? Menu01Icon : Cancel01Icon} />
+          <HugeiconsIcon className="h-5 w-5" icon={isCollapsed ? MenuTwoLineIcon : Cancel01Icon} />
         </button>
       </div>
 
