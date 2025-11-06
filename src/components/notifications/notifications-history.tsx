@@ -112,7 +112,7 @@ export function NotificationsHistory() {
 
   if (error) {
     return (
-      <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-base text-red-600">
+      <div className="rounded-xl border border-red-200 bg-red-50 p-6 text-base text-red-600">
         {error}
       </div>
     );
@@ -127,7 +127,7 @@ export function NotificationsHistory() {
             className={`font-medium text-base transition ${
               filter === "all"
                 ? "text-[var(--foreground)]"
-                : "text-[#7d7566] hover:text-[var(--foreground)]"
+                : "text-[#737373] hover:text-[var(--foreground)]"
             }`}
             onClick={() => setFilter("all")}
             type="button"
@@ -138,7 +138,7 @@ export function NotificationsHistory() {
             className={`font-medium text-base transition ${
               filter === "unread"
                 ? "text-[var(--foreground)]"
-                : "text-[#7d7566] hover:text-[var(--foreground)]"
+                : "text-[#737373] hover:text-[var(--foreground)]"
             }`}
             onClick={() => setFilter("unread")}
             type="button"
@@ -159,13 +159,13 @@ export function NotificationsHistory() {
 
       {/* Notifications list */}
       {notifications.length === 0 ? (
-        <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-16 text-center">
+        <div className="rounded-xl border border-[#E5E5E5] bg-white p-16 text-center">
           <div className="mx-auto max-w-md">
             <div className="mb-4 flex justify-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#ebe5d8]">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#F5F5F5]">
                 <svg
                   aria-hidden="true"
-                  className="h-8 w-8 text-[#7d7566]"
+                  className="h-8 w-8 text-[#737373]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -193,9 +193,9 @@ export function NotificationsHistory() {
         <div className="space-y-2">
           {notifications.map((notification) => (
             <div
-              className={`rounded-2xl border p-6 transition hover:border-[var(--red)]/30 ${
+              className={`rounded-xl border p-6 transition hover:border-[var(--red)]/30 ${
                 notification.read_at
-                  ? "border-[#ebe5d8] bg-white"
+                  ? "border-[#E5E5E5] bg-white"
                   : "border-[var(--red)]/20 bg-[var(--red)]/5"
               }`}
               key={notification.id}
@@ -214,7 +214,7 @@ export function NotificationsHistory() {
                       <p className="mt-1 text-[var(--muted-foreground)] text-sm">
                         {notification.body}
                       </p>
-                      <p className="mt-2 text-[#7d7566] text-xs">
+                      <p className="mt-2 text-[#737373] text-xs">
                         {formatDistanceToNow(new Date(notification.created_at), {
                           addSuffix: true,
                         })}
@@ -228,7 +228,7 @@ export function NotificationsHistory() {
                       <p className="mt-1 text-[var(--muted-foreground)] text-sm">
                         {notification.body}
                       </p>
-                      <p className="mt-2 text-[#7d7566] text-xs">
+                      <p className="mt-2 text-[#737373] text-xs">
                         {formatDistanceToNow(new Date(notification.created_at), {
                           addSuffix: true,
                         })}
