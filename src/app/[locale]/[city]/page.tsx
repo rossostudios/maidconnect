@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { CityHeroSection } from "@/components/city/hero-section";
@@ -41,6 +42,61 @@ const SUPPORTED_CITIES = {
 };
 
 type Params = Promise<{ city: string; locale: string }>;
+
+/**
+ * Cached function to fetch professionals by city
+ * Caches results for 1 hour to improve build performance and reduce database load
+ */
+const getCityProfessionals = unstable_cache(
+  async (cityName: string) => {
+    const supabase = await createSupabaseServerClient();
+
+    const { data: professionals, error } = await supabase
+      .from("profiles")
+      .select(
+        `
+        profile_id,
+        full_name,
+        city,
+        bio,
+        hourly_rate_cop,
+        profile_image_url,
+        is_verified,
+        average_rating,
+        total_reviews,
+        professional_services!inner (
+          services (
+            name
+          )
+        )
+      `
+      )
+      .ilike("city", `%${cityName}%`)
+      .eq("is_verified", true)
+      .order("average_rating", { ascending: false })
+      .limit(12);
+
+    if (error) {
+      console.error("Error fetching professionals:", error);
+      return [];
+    }
+
+    // Transform data
+    return (
+      professionals?.map((pro) => ({
+        ...pro,
+        services:
+          // @ts-expect-error - Supabase typing for nested relations
+          pro.professional_services?.map((ps) => ({ name: ps.services.name })) || [],
+      })) || []
+    );
+  },
+  ["city-professionals"],
+  {
+    revalidate: 3600, // Cache for 1 hour
+    tags: ["professionals"],
+  }
+);
 
 /**
  * Generate static params for pre-rendering city pages at build time
@@ -113,46 +169,9 @@ export default async function CityLandingPage({ params }: { params: Params }) {
   }
 
   const cityName = locale === "es" ? cityConfig.name : cityConfig.nameEn;
-  const supabase = await createSupabaseServerClient();
 
-  // Fetch professionals serving this city
-  const { data: professionals, error } = await supabase
-    .from("profiles")
-    .select(
-      `
-      profile_id,
-      full_name,
-      city,
-      bio,
-      hourly_rate_cop,
-      profile_image_url,
-      is_verified,
-      average_rating,
-      total_reviews,
-      professional_services!inner (
-        services (
-          name
-        )
-      )
-    `
-    )
-    .ilike("city", `%${cityName}%`)
-    .eq("is_verified", true)
-    .order("average_rating", { ascending: false })
-    .limit(12);
-
-  if (error) {
-    console.error("Error fetching professionals:", error);
-  }
-
-  // Transform data for component
-  const transformedProfessionals =
-    professionals?.map((pro) => ({
-      ...pro,
-      services:
-        // @ts-expect-error - Supabase typing for nested relations
-        pro.professional_services?.map((ps) => ({ name: ps.services.name })) || [],
-    })) || [];
+  // Fetch professionals serving this city (cached)
+  const transformedProfessionals = await getCityProfessionals(cityName);
 
   // Calculate stats
   const stats = {
