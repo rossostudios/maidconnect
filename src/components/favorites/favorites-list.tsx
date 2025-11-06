@@ -1,5 +1,7 @@
 "use client";
 
+import { FavouriteIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
@@ -66,7 +68,9 @@ export function FavoritesList() {
   if (favorites.length === 0) {
     return (
       <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
-        <p className="text-4xl">🤍</p>
+        <div className="flex justify-center">
+          <HugeiconsIcon className="h-12 w-12 text-[#D4D4D4]" icon={FavouriteIcon} />
+        </div>
         <p className="mt-4 font-semibold text-[var(--foreground)] text-lg">{t("empty.title")}</p>
         <p className="mt-2 text-[var(--muted-foreground)] text-base leading-relaxed">
           {t("empty.description")}

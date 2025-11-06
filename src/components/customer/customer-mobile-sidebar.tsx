@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu01Icon } from "@hugeicons/core-free-icons";
+import { MenuTwoLineIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 import { CustomerSidebar } from "./customer-sidebar";
@@ -33,7 +33,7 @@ export function CustomerMobileSidebar({ unreadMessagesCount = 0 }: Props) {
         onClick={() => setIsOpen(true)}
         type="button"
       >
-        <HugeiconsIcon className="h-6 w-6" icon={Menu01Icon} />
+        <HugeiconsIcon className="h-6 w-6" icon={MenuTwoLineIcon} />
       </button>
 
       {/* Backdrop */}
@@ -50,7 +50,10 @@ export function CustomerMobileSidebar({ unreadMessagesCount = 0 }: Props) {
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <CustomerSidebar onClose={() => setIsOpen(false)} unreadMessagesCount={unreadMessagesCount} />
+        <CustomerSidebar
+          onClose={() => setIsOpen(false)}
+          unreadMessagesCount={unreadMessagesCount}
+        />
       </div>
     </>
   );

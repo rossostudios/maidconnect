@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu01Icon } from "@hugeicons/core-free-icons";
+import { MenuTwoLineIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 import { AdminSidebar } from "./admin-sidebar";
@@ -27,8 +27,9 @@ export function AdminMobileSidebar() {
         aria-label="Open menu"
         className="rounded-lg p-2 text-[#4A4A4A] transition-colors hover:bg-[#F5F5F5] hover:text-[#1A1A1A] lg:hidden"
         onClick={() => setIsOpen(true)}
+        type="button"
       >
-        <HugeiconsIcon className="h-6 w-6" icon={Menu01Icon} />
+        <HugeiconsIcon className="h-6 w-6" icon={MenuTwoLineIcon} />
       </button>
 
       {/* Backdrop */}

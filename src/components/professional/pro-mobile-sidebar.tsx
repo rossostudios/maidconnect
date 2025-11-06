@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu01Icon } from "@hugeicons/core-free-icons";
+import { MenuTwoLineIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 import { ProSidebar } from "./pro-sidebar";
@@ -46,7 +46,7 @@ export function ProMobileSidebar({
         onClick={() => setIsOpen(true)}
         type="button"
       >
-        <HugeiconsIcon className="h-6 w-6" icon={Menu01Icon} />
+        <HugeiconsIcon className="h-6 w-6" icon={MenuTwoLineIcon} />
       </button>
 
       {/* Backdrop */}
