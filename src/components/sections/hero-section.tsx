@@ -75,11 +75,11 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="absolute inset-0 z-10 flex items-center">
+      <div className="absolute inset-0 z-10 flex items-center py-12 sm:py-16 md:py-20 lg:py-24">
         <Container className="max-w-6xl px-4 sm:px-6 lg:px-8">
           <motion.div
             animate="visible"
-            className="mx-auto flex max-w-5xl flex-col items-center gap-8 text-center sm:gap-10 md:gap-12"
+            className="mx-auto flex max-w-5xl flex-col items-center gap-6 text-center sm:gap-8 md:gap-10 lg:gap-12"
             initial="hidden"
             variants={containerVariants}
           >
