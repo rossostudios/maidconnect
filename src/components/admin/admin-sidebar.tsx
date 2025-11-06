@@ -3,7 +3,6 @@
 import {
   Alert01Icon,
   Analytics01Icon,
-  Cancel01Icon,
   ClipboardIcon,
   DollarCircleIcon,
   MapsLocation01Icon,
@@ -89,7 +88,9 @@ export function AdminSidebar({
       }`}
     >
       {/* Header - More spacious */}
-      <div className="flex items-center justify-between border-[#E5E5E5] border-b px-6 py-6">
+      <div className={`flex items-center border-[#E5E5E5] border-b px-6 py-6 ${
+        isCollapsed ? "justify-center" : "justify-between"
+      }`}>
         {!isCollapsed && (
           <Link className="flex items-center" href="/">
             <span className="font-bold text-[#171717] text-lg tracking-tight">CASAORA</span>
@@ -100,7 +101,7 @@ export function AdminSidebar({
           className="rounded-lg p-2 text-[#737373] transition-colors hover:bg-[#F5F5F5] hover:text-[#171717]"
           onClick={onClose || handleToggle}
         >
-          <HugeiconsIcon className="h-5 w-5" icon={isCollapsed ? MenuTwoLineIcon : Cancel01Icon} />
+          <HugeiconsIcon className="h-5 w-5" icon={MenuTwoLineIcon} />
         </button>
       </div>
 

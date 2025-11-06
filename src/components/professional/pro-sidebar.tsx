@@ -8,7 +8,6 @@ import {
   Home09Icon,
   Image02Icon,
   MenuTwoLineIcon,
-  Cancel01Icon,
   Settings02Icon,
   UserIcon,
   UserMultiple02Icon,
@@ -104,7 +103,9 @@ export function ProSidebar({
       }`}
     >
       {/* Header */}
-      <div className="flex items-center justify-between border-[#E5E5E5] border-b px-6 py-6">
+      <div className={`flex items-center border-[#E5E5E5] border-b px-6 py-6 ${
+        isCollapsed ? "justify-center" : "justify-between"
+      }`}>
         {!isCollapsed && (
           <Link className="flex items-center" href="/">
             <span className="font-bold text-[#171717] text-lg tracking-tight">CASAORA</span>
@@ -116,7 +117,7 @@ export function ProSidebar({
           onClick={onClose || handleToggle}
           type="button"
         >
-          <HugeiconsIcon className="h-5 w-5" icon={isCollapsed ? MenuTwoLineIcon : Cancel01Icon} />
+          <HugeiconsIcon className="h-5 w-5" icon={MenuTwoLineIcon} />
         </button>
       </div>
 
