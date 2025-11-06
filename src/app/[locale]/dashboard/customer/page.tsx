@@ -1,77 +1,26 @@
-import { getTranslations } from "next-intl/server";
+import {
+  Calendar03Icon,
+  CreditCardIcon,
+  FavouriteIcon,
+  Home09Icon,
+  Location01Icon,
+  Search01Icon,
+  Settings02Icon,
+  UserCircleIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import Image from "next/image";
 import { Suspense } from "react";
-import { SavedAddressesManager } from "@/components/addresses/saved-addresses-manager";
 import { CustomerBookingList } from "@/components/bookings/customer-booking-list";
 import { FavoritesList } from "@/components/favorites/favorites-list";
 import { NotificationPermissionPrompt } from "@/components/notifications/notification-permission-prompt";
-import { PaymentAuthorizationCard } from "@/components/payments/payment-authorization-card";
 import {
-  AddressesSkeleton,
   BookingsListSkeleton,
   FavoritesListSkeleton,
 } from "@/components/skeletons/dashboard-skeletons";
 import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
-import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
-
-const QUICK_LINK_IDS = ["bookProfessional", "viewPastVisits", "updatePayment"] as const;
-
-const QUICK_LINKS_HREFS: Record<string, string> = {
-  bookProfessional: "/professionals",
-  viewPastVisits: "/dashboard/customer/bookings",
-  updatePayment: "/dashboard/customer/payments",
-};
-
-const VERIFICATION_ORDER = ["basic", "standard", "enhanced"] as const;
-
-const CUSTOMER_TASK_IDS = ["profile", "verification", "payment", "booking"] as const;
-
-const CUSTOMER_TASK_HREFS: Record<string, string> = {
-  profile: "/dashboard/customer/settings",
-  verification: "#", // TODO: Create verification upgrade page when tier system is implemented
-  payment: "/dashboard/customer/payments",
-  booking: "/professionals",
-};
-
-function isVerificationTierAtLeast(current: string | null, target: string) {
-  const currentIndex = VERIFICATION_ORDER.indexOf(
-    (current ?? "") as (typeof VERIFICATION_ORDER)[number]
-  );
-  const targetIndex = VERIFICATION_ORDER.indexOf(target as (typeof VERIFICATION_ORDER)[number]);
-  if (targetIndex === -1) {
-    return false;
-  }
-  if (currentIndex === -1) {
-    return false;
-  }
-  return currentIndex >= targetIndex;
-}
-
-function formatPropertyType(
-  propertyType: string | null | undefined,
-  propertyTypeMap: Record<string, string>,
-  notSet: string
-): string {
-  if (!propertyType) {
-    return notSet;
-  }
-  return propertyTypeMap[propertyType] ?? propertyType;
-}
-
-type ProfileData = {
-  phone: string | null;
-  city: string | null;
-  country: string | null;
-  full_name: string | null;
-  stripe_customer_id: string | null;
-} | null;
-
-type CustomerProfileData = {
-  verification_tier: string | null;
-  property_preferences: Record<string, unknown> | null;
-  saved_addresses: unknown;
-} | null;
 
 type BookingData = {
   id: string;
@@ -86,398 +35,321 @@ type BookingData = {
   professional: { full_name: string | null; profile_id: string } | null;
 };
 
-async function checkHasPaymentMethod(stripeCustomerId: string | null): Promise<boolean> {
-  if (!stripeCustomerId) {
-    return false;
-  }
-  try {
-    const paymentMethods = await stripe.paymentMethods.list({
-      customer: stripeCustomerId,
-      type: "card",
-      limit: 1,
-    });
-    return paymentMethods.data.length > 0;
-  } catch (_error) {
-    console.error("Error fetching payment methods:", _error);
-    return false;
-  }
+function isBookingThisMonth(booking: BookingData): boolean {
+  if (!booking.scheduled_start) return false;
+  const bookingDate = new Date(booking.scheduled_start);
+  const now = new Date();
+  return (
+    bookingDate.getMonth() === now.getMonth() &&
+    bookingDate.getFullYear() === now.getFullYear()
+  );
 }
 
-function calculateCompletedTasks(
-  hasProfileDetails: boolean,
-  verificationTier: string,
-  hasPaymentMethod: boolean,
-  hasCompletedBooking: boolean
-): Record<(typeof CUSTOMER_TASK_IDS)[number], boolean> {
-  return {
-    profile: hasProfileDetails,
-    verification: isVerificationTierAtLeast(verificationTier, "standard"),
-    payment: hasPaymentMethod,
-    booking: hasCompletedBooking,
-  };
+function calculateMetrics(bookings: BookingData[]): {
+  activeBookings: number;
+  upcomingBookings: number;
+  completedThisMonth: number;
+  totalSaved: number;
+} {
+  const now = new Date();
+  const activeBookings = bookings.filter(
+    (b) => b.status === "confirmed" || b.status === "in_progress"
+  ).length;
+
+  const upcomingBookings = bookings.filter((b) => {
+    if (!b.scheduled_start) return false;
+    const bookingDate = new Date(b.scheduled_start);
+    return bookingDate > now && b.status === "confirmed";
+  }).length;
+
+  const completedThisMonth = bookings.filter(
+    (b) => b.status === "completed" && isBookingThisMonth(b)
+  ).length;
+
+  // Calculate total saved from completed bookings (could be enhanced later)
+  const totalSaved = bookings
+    .filter((b) => b.status === "completed" && b.amount_captured)
+    .reduce((sum, b) => sum + (b.amount_captured || 0), 0);
+
+  return { activeBookings, upcomingBookings, completedThisMonth, totalSaved };
 }
 
-export default async function CustomerDashboardPage(props: {
-  params: Promise<{ locale: string }>;
-}) {
-  const params = await props.params;
-  const t = await getTranslations({ locale: params.locale, namespace: "dashboard.customer.main" });
+function formatCOPWithFallback(value?: number | null) {
+  if (!value || Number.isNaN(value)) {
+    return "$0";
+  }
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
 
+export default async function CustomerDashboardPage() {
   const user = await requireUser({ allowedRoles: ["customer"] });
   const supabase = await createSupabaseServerClient();
 
-  const [{ data: profileData }, { data: customerData }, { data: bookingsData }] = await Promise.all(
-    [
-      supabase
-        .from("profiles")
-        .select("phone, city, country, full_name, stripe_customer_id")
-        .eq("id", user.id)
-        .maybeSingle(),
-      supabase
-        .from("customer_profiles")
-        .select("verification_tier, property_preferences, saved_addresses")
-        .eq("profile_id", user.id)
-        .maybeSingle(),
-      supabase
-        .from("bookings")
-        .select(`
-        id,
-        status,
-        scheduled_start,
-        duration_minutes,
-        service_name,
-        amount_authorized,
-        amount_captured,
-        currency,
-        created_at,
-        professional:professional_profiles!professional_id(full_name, profile_id)
-      `)
-        .eq("customer_id", user.id)
-        .order("created_at", { ascending: false }),
-    ]
-  );
+  // Fetch user profile
+  const { data: profileData } = await supabase
+    .from("profiles")
+    .select("avatar_url, full_name")
+    .eq("id", user.id)
+    .maybeSingle();
 
-  const profile = (profileData as ProfileData) ?? null;
-  const customerProfile = (customerData as CustomerProfileData) ?? null;
+  const avatarUrl = profileData?.avatar_url;
 
-  const verificationTier = customerProfile?.verification_tier ?? "basic";
-  const propertyType =
-    (customerProfile?.property_preferences?.property_type as string | undefined) ?? null;
-  const savedAddresses = (customerProfile?.saved_addresses as any[]) || [];
+  // Determine greeting based on time of day
+  const hour = new Date().getHours();
+  let greeting = "Good evening";
+  if (hour < 12) {
+    greeting = "Good morning";
+  } else if (hour < 18) {
+    greeting = "Good afternoon";
+  }
 
-  const hasProfileDetails = Boolean(profile?.phone && profile.city);
-  const hasPaymentMethod = await checkHasPaymentMethod(profile?.stripe_customer_id ?? null);
+  const userName = profileData?.full_name?.split(" ")[0] || "Customer";
+
+  // Fetch bookings
+  const { data: bookingsData } = await supabase
+    .from("bookings")
+    .select(
+      `id, status, scheduled_start, duration_minutes, service_name, amount_authorized, amount_captured, currency, created_at,
+      professional:professional_profiles!professional_id(full_name, profile_id)`
+    )
+    .eq("customer_id", user.id)
+    .order("created_at", { ascending: false });
+
   const bookings = (bookingsData as BookingData[] | null) ?? [];
 
-  const hasCompletedBooking = bookings.some((b) => b.status === "completed");
+  const metrics = calculateMetrics(bookings);
+  const { activeBookings, upcomingBookings, completedThisMonth, totalSaved } = metrics;
 
-  const completedTasks = calculateCompletedTasks(
-    hasProfileDetails,
-    verificationTier,
-    hasPaymentMethod,
-    hasCompletedBooking
-  );
+  // Get upcoming bookings for display
+  const now = new Date();
+  const upcomingBookingsList = bookings
+    .filter((b) => {
+      if (!b.scheduled_start) return false;
+      const bookingDate = new Date(b.scheduled_start);
+      return bookingDate > now && (b.status === "confirmed" || b.status === "pending");
+    })
+    .slice(0, 5);
 
   return (
-    <section className="flex-1 space-y-8">
+    <>
       {/* Push Notification Permission Prompt */}
       <NotificationPermissionPrompt variant="banner" />
 
-      <header className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <div>
-          <p className="font-semibold text-[var(--label-muted)] text-xs uppercase tracking-[0.2em]">
-            {t("header.dashboardLabel")}
-          </p>
-          <h1 className="type-serif-lg mt-4 text-[var(--foreground)]">
-            {profile?.full_name
-              ? t("header.welcomeBackWithName", { name: profile.full_name })
-              : t("header.welcomeBack")}
-          </h1>
-          <p className="mt-4 text-[var(--muted-foreground)] text-lg leading-relaxed">
-            {t("header.description")}
-          </p>
-        </div>
-
-        <dl className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <SummaryCard label={t("summary.accountEmail")} value={user.email ?? "—"} />
-          <SummaryCard
-            label={t("summary.phone")}
-            value={profile?.phone ?? t("summary.addYourPhone")}
-          />
-          <SummaryCard
-            label={t("summary.city")}
-            value={profile?.city ?? t("summary.addYourCity")}
-          />
-          <SummaryCard
-            label={t("summary.verificationTier")}
-            value={verificationTier.toUpperCase()}
-          />
-        </dl>
-      </header>
-
-      <section className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 className="font-semibold text-3xl text-[var(--foreground)]">{t("tasks.title")}</h2>
-            <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
-              {t("tasks.description")}
-            </p>
-          </div>
-          <Link
-            className="inline-flex items-center justify-center rounded-full bg-[var(--red)] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
-            href="/dashboard/customer/settings"
-          >
-            {t("tasks.updateProfile")}
-          </Link>
-        </div>
-
-        <ol className="mt-8 grid gap-6 md:grid-cols-2">
-          {CUSTOMER_TASK_IDS.map((taskId, index) => {
-            const isComplete = completedTasks[taskId];
-            return (
-              <li
-                className="rounded-2xl border border-[var(--border-light)] bg-white p-6 shadow-sm transition hover:shadow-md"
-                key={taskId}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--red)] font-semibold text-sm text-white">
-                      {index + 1}
-                    </div>
-                    <span className="font-semibold text-[var(--foreground)] text-base">
-                      {t(`tasks.${taskId}.title`)}
-                    </span>
-                  </div>
-                  {isComplete ? (
-                    <span className="rounded-full bg-[var(--status-success-bg)] px-3 py-1 font-semibold text-[var(--status-success-text)] text-xs">
-                      {t("tasks.status.completed")}
-                    </span>
-                  ) : (
-                    <span className="rounded-full bg-[var(--status-warning-bg)] px-3 py-1 font-semibold text-[var(--status-warning-text)] text-xs">
-                      {t("tasks.status.actionNeeded")}
-                    </span>
-                  )}
+      {/* Greeting & Quick Stats */}
+      <section className="mb-8">
+        <div className="mb-8 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            {/* Profile Photo Circle */}
+            <div className="flex-shrink-0">
+              {avatarUrl ? (
+                <Image
+                  alt={userName}
+                  className="h-12 w-12 rounded-full border-2 border-[#E5E5E5] object-cover"
+                  height={48}
+                  src={avatarUrl}
+                  width={48}
+                />
+              ) : (
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#E63946]/10">
+                  <HugeiconsIcon className="h-6 w-6 text-[#E63946]" icon={UserCircleIcon} />
                 </div>
-                <p className="mt-4 text-[var(--muted-foreground)] text-base leading-relaxed">
-                  {t(`tasks.${taskId}.description`)}
-                </p>
-                {(() => {
-                  if (taskId === "payment") {
-                    return <PaymentAuthorizationCard hasPaymentMethod={hasPaymentMethod} />;
-                  }
-                  if (isComplete) {
-                    return null;
-                  }
-                  return (
-                    <Link
-                      className="mt-4 inline-flex items-center font-semibold text-[var(--red)] text-base hover:text-[var(--red-hover)]"
-                      href={CUSTOMER_TASK_HREFS[taskId] || "#"}
-                    >
-                      {t(`tasks.${taskId}.cta`)} →
-                    </Link>
-                  );
-                })()}
-                {taskId === "verification" && !isComplete ? (
-                  <p className="mt-4 text-[var(--status-warning-text)] text-sm">
-                    {t("tasks.verification.upgradeNote")}
-                  </p>
-                ) : null}
-              </li>
-            );
-          })}
-        </ol>
-      </section>
+              )}
+            </div>
 
-      <section
-        className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm"
-        id="addresses"
-      >
-        <h2 className="font-semibold text-3xl text-[var(--foreground)]">
-          {t("sections.addresses.title")}
-        </h2>
-        <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
-          {t("sections.addresses.description")}
-        </p>
-        <div className="mt-8">
-          <Suspense fallback={<AddressesSkeleton />}>
-            <SavedAddressesManager addresses={savedAddresses} />
-          </Suspense>
+            {/* Greeting Text */}
+            <div>
+              <h1 className="mb-1 font-bold text-3xl text-[#171717]">
+                {greeting}, {userName}
+              </h1>
+              <p className="text-[#737373]">Manage your bookings and home services</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Metrics Grid */}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <MetricCard
+            icon={Calendar03Icon}
+            label="Active Bookings"
+            value={activeBookings.toString()}
+            color="info"
+          />
+          <MetricCard
+            icon={Home09Icon}
+            label="Upcoming Bookings"
+            value={upcomingBookings.toString()}
+            color="warning"
+          />
+          <MetricCard
+            icon={Calendar03Icon}
+            label="Completed This Month"
+            value={completedThisMonth.toString()}
+            color="success"
+          />
+          <MetricCard
+            icon={CreditCardIcon}
+            label="Total Spent"
+            value={formatCOPWithFallback(totalSaved)}
+            color="primary"
+          />
         </div>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h3 className="font-semibold text-2xl text-[var(--foreground)]">
-            {t("sections.propertyPreferences.title")}
-          </h3>
-          <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
-            {t("sections.propertyPreferences.description")}
-          </p>
-          <dl className="mt-6 space-y-4 text-base">
-            <div>
-              <dt className="font-semibold text-[var(--label-muted)] text-xs uppercase tracking-[0.2em]">
-                {t("summary.propertyType")}
-              </dt>
-              <dd className="mt-2 text-[var(--foreground)]">
-                {formatPropertyType(
-                  propertyType,
-                  {
-                    apartment: t("summary.propertyTypes.apartment"),
-                    house: t("summary.propertyTypes.house"),
-                    office: t("summary.propertyTypes.office"),
-                    other: t("summary.propertyTypes.other"),
-                  },
-                  t("summary.notSet")
-                )}
-              </dd>
-            </div>
-            <div>
-              <dt className="font-semibold text-[var(--label-muted)] text-xs uppercase tracking-[0.2em]">
-                {t("summary.city")}
-              </dt>
-              <dd className="mt-2 text-[var(--foreground)]">
-                {profile?.city ?? t("summary.addYourCity")}
-              </dd>
-            </div>
-            <div>
-              <dt className="font-semibold text-[var(--label-muted)] text-xs uppercase tracking-[0.2em]">
-                {t("summary.country")}
-              </dt>
-              <dd className="mt-2 text-[var(--foreground)]">{profile?.country ?? "Colombia"}</dd>
-            </div>
-          </dl>
-          <Link
-            className="mt-6 inline-flex items-center font-semibold text-[var(--red)] text-base hover:text-[var(--red-hover)]"
-            href="/dashboard/customer/settings"
-          >
-            {t("sections.propertyPreferences.updatePreferences")}
-          </Link>
-        </div>
-
-        <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h3 className="font-semibold text-2xl text-[var(--foreground)]">
-            {t("sections.needHelp.title")}
-          </h3>
-          <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
-            {t("sections.needHelp.description")}
-          </p>
-          <ul className="mt-6 space-y-3 text-[var(--foreground)] text-base">
-            <li>
-              <span className="font-semibold">{t("sections.needHelp.liveChat")}</span>{" "}
-              {t("sections.needHelp.liveChatHours")}
-            </li>
-            <li>
-              <span className="font-semibold">{t("sections.needHelp.email")}</span>{" "}
-              {t("sections.needHelp.emailAddress")}
-            </li>
-            <li>
-              <span className="font-semibold">{t("sections.needHelp.emergencyLine")}</span>{" "}
-              {t("sections.needHelp.emergencyPhone")}
-            </li>
-          </ul>
-          <Link
-            className="mt-6 inline-flex items-center font-semibold text-[var(--red)] text-base hover:text-[var(--red-hover)]"
-            href="/support/account-suspended"
-          >
-            {t("sections.needHelp.browseHelpCenter")}
-          </Link>
-        </div>
-      </section>
-
-      <section
-        className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm"
-        id="bookings"
-      >
-        <h2 className="font-semibold text-3xl text-[var(--foreground)]">
-          {t("sections.bookings.title")}
-        </h2>
-        <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
-          {t("sections.bookings.description")}
-        </p>
-        <div className="mt-8">
+      {/* Upcoming Bookings */}
+      {upcomingBookingsList.length > 0 ? (
+        <section className="mb-8">
+          <div className="mb-6">
+            <h2 className="mb-2 font-bold text-2xl text-[#171717]">Upcoming Bookings</h2>
+            <p className="text-[#737373] text-sm">Your scheduled appointments</p>
+          </div>
           <Suspense fallback={<BookingsListSkeleton />}>
-            <CustomerBookingList bookings={bookings} />
+            <CustomerBookingList bookings={upcomingBookingsList} />
           </Suspense>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
-      <section
-        className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm"
-        id="favorites"
-      >
-        <h2 className="font-semibold text-3xl text-[var(--foreground)]">
-          {t("sections.favorites.title")}
-        </h2>
-        <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
-          {t("sections.favorites.description")}
-        </p>
-        <div className="mt-8">
+      {/* Favorite Professionals */}
+      <section className="mb-8">
+        <div className="mb-6">
+          <h2 className="mb-2 font-bold text-2xl text-[#171717]">Favorite Professionals</h2>
+          <p className="text-[#737373] text-sm">Your trusted service providers</p>
+        </div>
+        <div className="rounded-lg border border-[#E5E5E5] bg-white p-6">
           <Suspense fallback={<FavoritesListSkeleton />}>
             <FavoritesList />
           </Suspense>
         </div>
       </section>
 
-      <section
-        className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm"
-        id="messages"
-      >
-        <h2 className="font-semibold text-3xl text-[var(--foreground)]">
-          {t("sections.messages.title")}
-        </h2>
-        <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
-          {t("sections.messages.description")}
-        </p>
-        <div className="mt-8">
+      {/* Quick Actions */}
+      <section className="mb-8">
+        <div className="mb-6">
+          <h2 className="mb-2 font-bold text-2xl text-[#171717]">Quick Actions</h2>
+          <p className="text-[#737373] text-sm">Manage your account and services</p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {/* Book a Professional */}
           <Link
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--red)] px-6 py-3 font-medium text-base text-white transition hover:bg-[var(--red-hover)]"
-            href="/dashboard/customer/messages"
+            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
+            href="/professionals"
           >
-            {t("sections.messages.viewAllMessages")}
-            <svg
-              aria-label="Arrow icon"
-              className="h-5 w-5"
-              fill="none"
-              role="img"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
-            </svg>
+            <div className="mb-2 flex items-center gap-3">
+              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={Search01Icon} />
+              <h3 className="font-semibold text-[#171717] text-base">Book a Professional</h3>
+            </div>
+            <p className="text-[#A3A3A3] text-sm">
+              Find and book trusted home cleaning professionals
+            </p>
+          </Link>
+
+          {/* View All Bookings */}
+          <Link
+            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
+            href="/dashboard/customer/bookings"
+          >
+            <div className="mb-2 flex items-center gap-3">
+              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={Calendar03Icon} />
+              <h3 className="font-semibold text-[#171717] text-base">View All Bookings</h3>
+            </div>
+            <p className="text-[#A3A3A3] text-sm">
+              See your complete booking history and upcoming appointments
+            </p>
+          </Link>
+
+          {/* Manage Addresses */}
+          <Link
+            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
+            href="/dashboard/customer/addresses"
+          >
+            <div className="mb-2 flex items-center gap-3">
+              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={Location01Icon} />
+              <h3 className="font-semibold text-[#171717] text-base">Manage Addresses</h3>
+            </div>
+            <p className="text-[#A3A3A3] text-sm">
+              Add and update your saved service locations
+            </p>
+          </Link>
+
+          {/* Manage Payments */}
+          <Link
+            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
+            href="/dashboard/customer/payments"
+          >
+            <div className="mb-2 flex items-center gap-3">
+              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={CreditCardIcon} />
+              <h3 className="font-semibold text-[#171717] text-base">Manage Payments</h3>
+            </div>
+            <p className="text-[#A3A3A3] text-sm">
+              Update your payment methods and billing information
+            </p>
+          </Link>
+
+          {/* Favorites */}
+          <Link
+            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
+            href="/dashboard/customer/favorites"
+          >
+            <div className="mb-2 flex items-center gap-3">
+              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={FavouriteIcon} />
+              <h3 className="font-semibold text-[#171717] text-base">Favorites</h3>
+            </div>
+            <p className="text-[#A3A3A3] text-sm">
+              Manage your list of favorite professionals
+            </p>
+          </Link>
+
+          {/* Settings */}
+          <Link
+            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
+            href="/dashboard/customer/settings"
+          >
+            <div className="mb-2 flex items-center gap-3">
+              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={Settings02Icon} />
+              <h3 className="font-semibold text-[#171717] text-base">Settings</h3>
+            </div>
+            <p className="text-[#A3A3A3] text-sm">
+              Update your profile and account preferences
+            </p>
           </Link>
         </div>
       </section>
-
-      <section className="grid gap-6 lg:grid-cols-3">
-        {QUICK_LINK_IDS.map((linkId) => (
-          <Link
-            className="group hover:-translate-y-1 rounded-[28px] border border-[var(--border-light)] bg-white p-8 shadow-sm transition hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)]"
-            href={QUICK_LINKS_HREFS[linkId] || "#"}
-            key={linkId}
-          >
-            <h3 className="font-semibold text-[var(--foreground)] text-lg">
-              {t(`quickLinks.${linkId}.title`)}
-            </h3>
-            <p className="mt-3 text-[var(--muted-foreground)] text-base leading-relaxed">
-              {t(`quickLinks.${linkId}.description`)}
-            </p>
-            <span className="mt-4 inline-flex items-center font-semibold text-[var(--red)] text-base group-hover:text-[var(--red-hover)]">
-              {t("quickLinks.goNow")}
-            </span>
-          </Link>
-        ))}
-      </section>
-    </section>
+    </>
   );
 }
 
-function SummaryCard({ label, value }: { label: string; value: string }) {
+function MetricCard({
+  icon,
+  label,
+  value,
+  color = "default",
+}: {
+  icon: any;
+  label: string;
+  value: string;
+  color?: "default" | "primary" | "success" | "warning" | "info";
+}) {
+  const colorClasses = {
+    default: "bg-[#F5F5F5] text-[#737373]",
+    primary: "bg-[#E63946]/10 text-[#E63946]",
+    success: "bg-[#28a745]/10 text-[#28a745]",
+    warning: "bg-[#ffc107]/10 text-[#ffc107]",
+    info: "bg-[#17a2b8]/10 text-[#17a2b8]",
+  };
+
   return (
-    <div className="rounded-2xl bg-white p-6 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-      <dt className="font-semibold text-[var(--label-muted)] text-xs uppercase tracking-[0.2em]">
-        {label}
-      </dt>
-      <dd className="mt-2 font-medium text-[var(--foreground)] text-base">{value}</dd>
+    <div className="rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:shadow-md">
+      <div className="mb-3 flex items-center justify-between">
+        <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${colorClasses[color]}`}>
+          <HugeiconsIcon className="h-5 w-5" icon={icon} />
+        </div>
+      </div>
+      <dt className="text-[#737373] text-sm">{label}</dt>
+      <dd className="mt-1 font-bold text-2xl text-[#171717]">{value}</dd>
     </div>
   );
 }
