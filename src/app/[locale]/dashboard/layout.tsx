@@ -32,6 +32,14 @@ const navByRole: Record<
 
 export default async function DashboardLayout({ children }: Props) {
   const user = await requireUser();
+
+  // Customer and Professional dashboards have their own app shell layouts
+  // Skip rendering the website wrapper for these roles
+  if (user.role === "customer" || user.role === "professional") {
+    return <>{children}</>;
+  }
+
+  // For other dashboard routes (referrals, account), render with website wrapper
   const navLinks = navByRole[user.role] ?? navByRole.professional ?? [];
   const userRole =
     user.role === "customer" || user.role === "professional" ? user.role : "professional";
