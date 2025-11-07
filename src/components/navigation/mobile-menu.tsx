@@ -57,13 +57,13 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
 
       {/* Slide-in Menu - Shows on all screen sizes */}
       <div
-        className={`fixed top-0 right-0 z-[70] h-full w-[320px] transform border-l-4 border-gray-600 bg-white/100 text-gray-900 shadow-[0_25px_60px_rgba(0,0,0,0.4)] backdrop-filter-none transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 z-[70] h-full w-[320px] transform border-gray-600 border-l-4 bg-white/100 text-gray-900 shadow-[0_25px_60px_rgba(0,0,0,0.4)] backdrop-filter-none transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
         style={{ backgroundColor: "#ffffff" }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b-2 border-gray-300 bg-gray-50 p-5">
+        <div className="flex items-center justify-between border-gray-300 border-b-2 bg-gray-50 p-5">
           <span className="font-semibold text-gray-900 text-lg">Menu</span>
           <button
             aria-label="Close menu"
@@ -82,7 +82,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
             <LanguageSwitcher />
           </div>
 
-          <div className="mb-4 border-t-2 border-gray-300" />
+          <div className="mb-4 border-gray-300 border-t-2" />
           {links.map((link) => (
             <Link
               className="rounded-lg px-4 py-3 font-medium text-base text-gray-900 transition hover:bg-[#E85D48]/10 hover:text-gray-900"
@@ -98,7 +98,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
           ))}
 
           {/* Divider */}
-          {isAuthenticated && <div className="my-4 border-t-2 border-gray-300" />}
+          {isAuthenticated && <div className="my-4 border-gray-300 border-t-2" />}
 
           {/* Auth Actions */}
           {isAuthenticated ? (

@@ -8,7 +8,7 @@
 -- ============================================================================
 
 -- Create platform_settings table for global configuration
-CREATE TABLE public.platform_settings (
+CREATE TABLE IF NOT EXISTS public.platform_settings (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   setting_key text NOT NULL UNIQUE,
   setting_value jsonb NOT NULL DEFAULT '{}'::jsonb,
@@ -17,7 +17,7 @@ CREATE TABLE public.platform_settings (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-CREATE INDEX idx_platform_settings_key ON public.platform_settings(setting_key);
+CREATE INDEX IF NOT EXISTS idx_platform_settings_key ON public.platform_settings(setting_key);
 
 COMMENT ON TABLE public.platform_settings IS 'Global platform configuration settings';
 COMMENT ON COLUMN public.platform_settings.setting_key IS 'Unique key for the setting (e.g., "background_check_provider")';
@@ -30,6 +30,7 @@ COMMENT ON COLUMN public.platform_settings.setting_value IS 'JSONB value contain
 ALTER TABLE public.platform_settings ENABLE ROW LEVEL SECURITY;
 
 -- Only admins can view platform settings
+DROP POLICY IF EXISTS "Admins can view platform settings" ON public.platform_settings;
 CREATE POLICY "Admins can view platform settings"
   ON public.platform_settings
   FOR SELECT
@@ -44,6 +45,7 @@ CREATE POLICY "Admins can view platform settings"
   );
 
 -- Only admins can update platform settings
+DROP POLICY IF EXISTS "Admins can update platform settings" ON public.platform_settings;
 CREATE POLICY "Admins can update platform settings"
   ON public.platform_settings
   FOR UPDATE
@@ -66,6 +68,7 @@ CREATE POLICY "Admins can update platform settings"
   );
 
 -- Service role can manage all settings
+DROP POLICY IF EXISTS "Service role can manage all platform settings" ON public.platform_settings;
 CREATE POLICY "Service role can manage all platform settings"
   ON public.platform_settings
   FOR ALL
@@ -78,6 +81,7 @@ CREATE POLICY "Service role can manage all platform settings"
 -- ============================================================================
 
 -- Updated_at trigger
+DROP TRIGGER IF EXISTS set_platform_settings_updated_at ON public.platform_settings;
 CREATE TRIGGER set_platform_settings_updated_at
   BEFORE UPDATE ON public.platform_settings
   FOR EACH ROW
@@ -97,7 +101,8 @@ VALUES (
     'auto_initiate', false
   ),
   'Configuration for background check provider (checkr or truora)'
-);
+)
+ON CONFLICT (setting_key) DO NOTHING;
 
 -- Insert default SMS provider setting (for future use)
 INSERT INTO public.platform_settings (setting_key, setting_value, description)
@@ -108,7 +113,8 @@ VALUES (
     'enabled', false
   ),
   'Configuration for SMS notification provider'
-);
+)
+ON CONFLICT (setting_key) DO NOTHING;
 
 -- Insert default deposit rules
 INSERT INTO public.platform_settings (setting_key, setting_value, description)
@@ -120,4 +126,5 @@ VALUES (
     'require_deposit', true
   ),
   'Booking deposit requirements and percentages'
-);
+)
+ON CONFLICT (setting_key) DO NOTHING;

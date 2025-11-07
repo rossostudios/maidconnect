@@ -94,7 +94,7 @@ export function HeroSection() {
 
             {/* Main Headline */}
             <motion.h1
-              className="max-w-4xl text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl md:text-6xl lg:text-7xl"
+              className="max-w-4xl font-extrabold text-4xl text-white leading-[1.1] sm:text-5xl md:text-6xl lg:text-7xl"
               style={{ willChange: "transform, opacity" }}
               variants={itemVariants}
             >
@@ -103,7 +103,7 @@ export function HeroSection() {
 
             {/* Subtitle */}
             <motion.p
-              className="max-w-2xl text-lg leading-relaxed text-white/90 sm:text-xl md:text-2xl"
+              className="max-w-2xl text-lg text-white/90 leading-relaxed sm:text-xl md:text-2xl"
               style={{ willChange: "transform, opacity" }}
               variants={itemVariants}
             >
@@ -132,13 +132,16 @@ export function HeroSection() {
                 variants={trustSignalVariants} // Gesture animation
                 whileHover={{ scale: 1.05 }}
               >
-                <span className="text-xl font-semibold text-white sm:text-2xl">500+</span>
+                <span className="font-semibold text-white text-xl sm:text-2xl">500+</span>
                 <span className="text-xs sm:text-sm">
                   {t("trustSignals.verified") || "Verified Professionals"}
                 </span>
               </motion.div>
 
-              <motion.div className="hidden h-4 w-px bg-white/20 sm:block" variants={trustSignalVariants} />
+              <motion.div
+                className="hidden h-4 w-px bg-white/20 sm:block"
+                variants={trustSignalVariants}
+              />
 
               <motion.div
                 className="flex items-baseline gap-1.5 sm:gap-2"
@@ -146,11 +149,14 @@ export function HeroSection() {
                 variants={trustSignalVariants}
                 whileHover={{ scale: 1.05 }}
               >
-                <span className="text-xl font-semibold text-white sm:text-2xl">15+</span>
+                <span className="font-semibold text-white text-xl sm:text-2xl">15+</span>
                 <span className="text-xs sm:text-sm">{t("trustSignals.cities") || "Cities"}</span>
               </motion.div>
 
-              <motion.div className="hidden h-4 w-px bg-white/20 sm:block" variants={trustSignalVariants} />
+              <motion.div
+                className="hidden h-4 w-px bg-white/20 sm:block"
+                variants={trustSignalVariants}
+              />
 
               <motion.div
                 className="flex items-baseline gap-1.5 sm:gap-2"
@@ -158,8 +164,10 @@ export function HeroSection() {
                 variants={trustSignalVariants}
                 whileHover={{ scale: 1.05 }}
               >
-                <span className="text-xl font-semibold text-white sm:text-2xl">4.9★</span>
-                <span className="text-xs sm:text-sm">{t("trustSignals.rating") || "Average Rating"}</span>
+                <span className="font-semibold text-white text-xl sm:text-2xl">4.9★</span>
+                <span className="text-xs sm:text-sm">
+                  {t("trustSignals.rating") || "Average Rating"}
+                </span>
               </motion.div>
             </motion.div>
           </motion.div>

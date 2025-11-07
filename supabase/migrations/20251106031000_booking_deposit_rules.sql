@@ -11,14 +11,20 @@
 -- Booking Authorization Tracking
 -- ====================
 
-CREATE TYPE authorization_status AS ENUM (
-  'authorized',
-  'captured',
-  'cancelled',
-  'expired'
-);
+-- Create enum type if it doesn't exist
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'authorization_status') THEN
+    CREATE TYPE authorization_status AS ENUM (
+      'authorized',
+      'captured',
+      'cancelled',
+      'expired'
+    );
+  END IF;
+END $$;
 
-CREATE TABLE public.booking_authorizations (
+CREATE TABLE IF NOT EXISTS public.booking_authorizations (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   booking_id uuid NOT NULL REFERENCES public.bookings(id) ON DELETE CASCADE,
   stripe_payment_intent_id text NOT NULL,
@@ -32,10 +38,10 @@ CREATE TABLE public.booking_authorizations (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
-CREATE INDEX idx_booking_authorizations_booking ON public.booking_authorizations(booking_id);
-CREATE INDEX idx_booking_authorizations_status ON public.booking_authorizations(status);
-CREATE INDEX idx_booking_authorizations_stripe ON public.booking_authorizations(stripe_payment_intent_id);
-CREATE INDEX idx_booking_authorizations_expires ON public.booking_authorizations(expires_at) WHERE status = 'authorized';
+CREATE INDEX IF NOT EXISTS idx_booking_authorizations_booking ON public.booking_authorizations(booking_id);
+CREATE INDEX IF NOT EXISTS idx_booking_authorizations_status ON public.booking_authorizations(status);
+CREATE INDEX IF NOT EXISTS idx_booking_authorizations_stripe ON public.booking_authorizations(stripe_payment_intent_id);
+CREATE INDEX IF NOT EXISTS idx_booking_authorizations_expires ON public.booking_authorizations(expires_at) WHERE status = 'authorized';
 
 COMMENT ON TABLE public.booking_authorizations IS 'Tracks Stripe payment authorizations for deposits';
 COMMENT ON COLUMN public.booking_authorizations.authorized_amount IS 'Initial deposit amount held (in cents)';
@@ -75,6 +81,7 @@ COMMENT ON COLUMN public.professional_profiles.services IS 'JSONB array of servi
 ALTER TABLE public.booking_authorizations ENABLE ROW LEVEL SECURITY;
 
 -- Users can view authorizations for their bookings
+DROP POLICY IF EXISTS "Users can view their booking authorizations" ON public.booking_authorizations;
 CREATE POLICY "Users can view their booking authorizations"
   ON public.booking_authorizations
   FOR SELECT
@@ -88,6 +95,7 @@ CREATE POLICY "Users can view their booking authorizations"
   );
 
 -- Service role can manage all authorizations
+DROP POLICY IF EXISTS "Service role can manage all booking authorizations" ON public.booking_authorizations;
 CREATE POLICY "Service role can manage all booking authorizations"
   ON public.booking_authorizations
   FOR ALL
@@ -100,6 +108,7 @@ CREATE POLICY "Service role can manage all booking authorizations"
 -- ============================================================================
 
 -- Updated_at trigger for booking_authorizations
+DROP TRIGGER IF EXISTS set_booking_authorizations_updated_at ON public.booking_authorizations;
 CREATE TRIGGER set_booking_authorizations_updated_at
   BEFORE UPDATE ON public.booking_authorizations
   FOR EACH ROW
@@ -126,6 +135,7 @@ BEGIN
 END;
 $$;
 
+DROP TRIGGER IF EXISTS audit_booking_status ON public.bookings;
 CREATE TRIGGER audit_booking_status
   AFTER UPDATE ON public.bookings
   FOR EACH ROW
@@ -214,11 +224,29 @@ COMMENT ON FUNCTION public.is_authorization_expired IS 'Check if a booking autho
 -- ============================================================================
 
 -- Ensure deposit amount doesn't exceed total
-ALTER TABLE public.bookings
-ADD CONSTRAINT check_deposit_amount_valid
-CHECK (deposit_amount IS NULL OR deposit_amount <= amount_authorized);
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint
+    WHERE conname = 'check_deposit_amount_valid'
+    AND conrelid = 'public.bookings'::regclass
+  ) THEN
+    ALTER TABLE public.bookings
+    ADD CONSTRAINT check_deposit_amount_valid
+    CHECK (deposit_amount IS NULL OR deposit_amount <= total_amount);
+  END IF;
+END $$;
 
 -- Ensure insurance fee is non-negative
-ALTER TABLE public.bookings
-ADD CONSTRAINT check_insurance_fee_non_negative
-CHECK (insurance_fee >= 0);
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint
+    WHERE conname = 'check_insurance_fee_non_negative'
+    AND conrelid = 'public.bookings'::regclass
+  ) THEN
+    ALTER TABLE public.bookings
+    ADD CONSTRAINT check_insurance_fee_non_negative
+    CHECK (insurance_fee >= 0);
+  END IF;
+END $$;

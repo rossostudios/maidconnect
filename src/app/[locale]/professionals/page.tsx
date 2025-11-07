@@ -89,13 +89,22 @@ async function ProfessionalsGrid() {
   });
 
   if (error) {
+    // Proper error handling following Supabase best practices
     console.error("Error fetching professionals:", {
-      message: error.message,
-      details: error.details,
-      hint: error.hint,
-      code: error.code,
-      fullError: error,
+      message: error.message || "Unknown error",
+      details: error.details || null,
+      hint: error.hint || null,
+      code: error.code || null,
+      // Serialize the full error properly
+      fullError: JSON.stringify(error, Object.getOwnPropertyNames(error)),
     });
+
+    // Log to help debug RPC function issues
+    console.error("RPC call failed: list_active_professionals", {
+      parameters: { p_customer_lat: null, p_customer_lon: null },
+      errorType: error.constructor.name,
+    });
+
     return <ProfessionalsDirectory professionals={[]} />;
   }
 
