@@ -37,6 +37,9 @@ yarn-error.log*
 .env*
 !.env.example
 
+# config files with API keys
+codex-config.toml
+
 # vercel
 .vercel
 

@@ -2601,7 +2601,9 @@
     "article": {
       "meta": {
         "updated": "Actualizado {date}",
-        "views": "{count, plural, =1 {1 vista} other {# vistas}}"
+        "views": "{count, plural, =1 {1 vista} other {# vistas}}",
+        "readTime": "{minutes} min de lectura",
+        "recentlyUpdated": "Actualizado Recientemente"
       },
       "feedback": {
         "question": "¿le resultó útil este artículo?",
