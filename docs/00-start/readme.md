@@ -10,7 +10,10 @@ Welcome to the Casaora documentation! This directory contains the essential star
 ### 2. Project Overview
 [readme.md](./readme.md) - Detailed project overview, tech stack, development setup, and recent improvements.
 
-### 3. Changelog
+### 3. Docs Style Guide
+[docs-style-guide.md](./docs-style-guide.md) - One-page rules to keep docs concise and consistent.
+
+### 4. Changelog
 [changelog.md](./changelog.md) - High-level version history and major changes.
 
 ## Quick Navigation

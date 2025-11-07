@@ -46,7 +46,7 @@ export function HeroSearchBar({ className }: HeroSearchBarProps) {
     >
       <div className="grid overflow-visible rounded-[32px] md:grid-cols-[minmax(220px,1fr)_minmax(220px,1fr)_minmax(280px,1.3fr)_auto]">
         {/* Location Input */}
-        <div className="group relative flex items-center px-8 py-6 transition-all hover:bg-stone-50">
+        <div className="group relative flex items-center px-8 py-6">
           <div className="flex-1">
             <label
               className="block font-semibold text-stone-600 text-xs uppercase tracking-[0.2em]"
@@ -73,7 +73,7 @@ export function HeroSearchBar({ className }: HeroSearchBarProps) {
         </div>
 
         {/* Date Input */}
-        <div className="group relative z-20 flex items-center px-8 py-6 transition-all hover:bg-stone-50">
+        <div className="group relative z-20 flex items-center px-8 py-6">
           <div className="flex-1">
             <label className="block font-semibold text-stone-600 text-xs uppercase tracking-[0.2em]">
               {t("when")}
@@ -86,7 +86,7 @@ export function HeroSearchBar({ className }: HeroSearchBarProps) {
         </div>
 
         {/* Service Type */}
-        <div className="group relative flex items-center px-8 py-6 transition-all hover:bg-stone-50">
+        <div className="group relative flex items-center px-8 py-6">
           <div className="flex-1">
             <label
               className="block font-semibold text-stone-600 text-xs uppercase tracking-[0.2em]"

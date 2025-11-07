@@ -49,23 +49,17 @@ CASAORA's design system embodies **quiet luxury** - sophisticated, understated e
 
 ## Color System
 
+**Using Tailwind CSS 4.1:** All colors are implemented using Tailwind CSS 4.1 utility classes. We do NOT use custom CSS or CSS variables. See [CLAUDE.md](../../CLAUDE.md#tailwind-css-design-system) for complete styling guidelines.
+
 ### Core Palette
 
-CASAORA uses a refined three-color foundation inspired by luxury interiors:
+CASAORA uses a refined three-color foundation inspired by luxury interiors, implemented via Tailwind classes:
 
-```css
-:root {
-  /* Primary Colors */
-  --cream: #FFFCF8;        /* Warm white background */
-  --charcoal: #1A1A1A;     /* Deep gray-black for text */
-  --red: #E63946;          /* Vibrant accent color */
-
-  /* Semantic Mappings */
-  --background: #FFFCF8;
-  --foreground: #1A1A1A;
-  --accent: #E63946;
-}
-```
+| Color | Hex Code | Tailwind Classes | Usage |
+|-------|----------|------------------|-------|
+| **Cream** | `#FFFCF8` | Background: `bg-[#FFFCF8]` | Warm white backgrounds |
+| **Charcoal** | `#1A1A1A` | Text: `text-gray-900`, Background: `bg-gray-900` | Deep gray-black for text/dark surfaces |
+| **Red (Accent)** | `#E63946` | `bg-red-600`, `text-red-600`, `border-red-600` | Vibrant accent color |
 
 #### Color Usage Guide
 
@@ -89,33 +83,25 @@ CASAORA uses a refined three-color foundation inspired by luxury interiors:
 
 ### Secondary Colors
 
-```css
-:root {
-  /* Red Variations */
-  --red-hover: #D62839;         /* Darker red for hover states */
-  --red-light: #FFE8EA;         /* Light red background tint */
+Implemented using Tailwind CSS 4.1 utility classes:
 
-  /* Neutral Grays */
-  --muted-foreground: #757575;  /* Secondary text, less emphasis */
-  --border: #E8E4DC;            /* Borders, dividers, subtle lines */
-
-  /* Surface Colors */
-  --surface: #FFFFFF;           /* Pure white for cards on cream */
-  --surface-contrast: #1A1A1A;  /* Dark surfaces (footer, etc.) */
-}
-```
+| Color Purpose | Tailwind Class | Usage Example |
+|---------------|----------------|---------------|
+| **Red Hover** | `bg-red-700` or `hover:bg-red-700` | Darker red for hover states |
+| **Red Light** | `bg-red-50` | Light red background tint |
+| **Muted Text** | `text-gray-600` | Secondary text, less emphasis |
+| **Borders** | `border-gray-200` | Borders, dividers, subtle lines |
+| **Pure White** | `bg-white` | Pure white for cards on cream |
+| **Dark Surface** | `bg-gray-900` | Dark surfaces (footer, etc.) |
 
 ### Semantic Colors
 
-```css
-:root {
-  /* Feedback Colors */
-  --success: #10B981;    /* Green for success states */
-  --warning: #F59E0B;    /* Amber for warnings */
-  --error: #EF4444;      /* Red for errors (slightly different from accent) */
-  --info: #3B82F6;       /* Blue for informational messages */
-}
-```
+| State | Tailwind Class | Usage Example |
+|-------|----------------|---------------|
+| **Success** | `bg-green-500`, `text-green-600` | Success states, confirmations |
+| **Warning** | `bg-amber-500`, `text-amber-600` | Warnings, cautions |
+| **Error** | `bg-red-500`, `text-red-600` | Errors, destructive actions |
+| **Info** | `bg-blue-500`, `text-blue-600` | Informational messages |
 
 ### Color Application (90-9-1 Rule)
 

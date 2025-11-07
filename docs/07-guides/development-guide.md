@@ -79,7 +79,7 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
 });
 ```
 
-**See also:** [API Middleware Guide](/docs/API_MIDDLEWARE_GUIDE.md)
+**See also:** [API Middleware Guide](/docs/07-guides/api-middleware-guide.md)
 
 ---
 
@@ -179,7 +179,7 @@ export function DeleteConfirm({ isOpen, onClose, onConfirm }: Props) {
 }
 ```
 
-**See also:** [Modal Patterns Guide](/docs/MODAL_PATTERNS_GUIDE.md)
+**See also:** [Modal Patterns Guide](/docs/07-guides/modal-patterns-guide.md)
 
 ---
 
@@ -545,7 +545,7 @@ await mutation.mutate(formData);
 ---
 
 **See also:**
-- [Quick Reference](/docs/07-guides/QUICK_REFERENCE.md) - Cheat sheet
-- [API Middleware Guide](/docs/API_MIDDLEWARE_GUIDE.md) - Deep dive on API patterns
-- [Modal Patterns Guide](/docs/MODAL_PATTERNS_GUIDE.md) - Deep dive on modal patterns
+- [Quick Reference](/docs/07-guides/quick-reference.md) - Cheat sheet
+- [API Middleware Guide](/docs/07-guides/api-middleware-guide.md) - Deep dive on API patterns
+- [Modal Patterns Guide](/docs/07-guides/modal-patterns-guide.md) - Deep dive on modal patterns
 - [Architecture](/docs/03-technical/architecture.md) - System overview

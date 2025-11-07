@@ -65,18 +65,13 @@ async function getCategoryWithArticles(categorySlug: string, locale: string) {
   }
 
   // Get articles for this category
+  const titleField = locale === "es" ? "title_es" : "title_en";
+  const excerptField = locale === "es" ? "excerpt_es" : "excerpt_en";
+
   const { data: rawArticles } = await supabase
     .from("help_articles")
     .select(
-      `
-      id,
-      slug,
-      ${locale === "es" ? "title_es as title" : "title_en as title"},
-      ${locale === "es" ? "excerpt_es as excerpt" : "excerpt_en as excerpt"},
-      view_count,
-      helpful_count,
-      not_helpful_count
-    `
+      `id, slug, ${titleField} as title, ${excerptField} as excerpt, view_count, helpful_count, not_helpful_count`
     )
     .eq("category_id", category.id)
     .eq("is_published", true)

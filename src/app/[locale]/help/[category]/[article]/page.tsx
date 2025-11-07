@@ -38,14 +38,13 @@ export async function generateMetadata({
   const { locale, category, article: articleSlug } = await params;
   const supabase = createSupabaseAnonClient();
 
+  const titleField = locale === "es" ? "title_es" : "title_en";
+  const excerptField = locale === "es" ? "excerpt_es" : "excerpt_en";
+
   const { data: article } = await supabase
     .from("help_articles")
     .select(
-      `
-      ${locale === "es" ? "title_es as title" : "title_en as title"},
-      ${locale === "es" ? "excerpt_es as excerpt" : "excerpt_en as excerpt"},
-      help_categories!inner(slug)
-    `
+      `${titleField} as title, ${excerptField} as excerpt, help_categories!inner(slug)`
     )
     .eq("slug", articleSlug)
     .eq("help_categories.slug", category)
@@ -75,25 +74,14 @@ async function getArticleData(
   const supabase = createSupabaseAnonClient();
 
   // Get article with category
+  const titleField = locale === "es" ? "title_es" : "title_en";
+  const contentField = locale === "es" ? "content_es" : "content_en";
+  const nameField = locale === "es" ? "name_es" : "name_en";
+
   const { data: rawArticle, error } = await supabase
     .from("help_articles")
     .select(
-      `
-      id,
-      category_id,
-      slug,
-      ${locale === "es" ? "title_es as title" : "title_en as title"},
-      ${locale === "es" ? "content_es as content" : "content_en as content"},
-      view_count,
-      helpful_count,
-      not_helpful_count,
-      created_at,
-      updated_at,
-      category:help_categories!inner(
-        slug,
-        ${locale === "es" ? "name_es as name" : "name_en as name"}
-      )
-    `
+      `id, category_id, slug, ${titleField} as title, ${contentField} as content, view_count, helpful_count, not_helpful_count, created_at, updated_at, category:help_categories!inner(slug, ${nameField} as name)`
     )
     .eq("slug", articleSlug)
     .eq("help_categories.slug", categorySlug)
@@ -116,18 +104,12 @@ async function getArticleData(
   });
 
   // Get related articles
+  const excerptField = locale === "es" ? "excerpt_es" : "excerpt_en";
+
   const { data: rawRelatedArticlesData } = await supabase
     .from("help_article_relations")
     .select(
-      `
-      related_article:help_articles!help_article_relations_related_article_id_fkey(
-        id,
-        slug,
-        ${locale === "es" ? "title_es as title" : "title_en as title"},
-        ${locale === "es" ? "excerpt_es as excerpt" : "excerpt_en as excerpt"},
-        category:help_categories!inner(slug)
-      )
-    `
+      `related_article:help_articles!help_article_relations_related_article_id_fkey(id, slug, ${titleField} as title, ${excerptField} as excerpt, category:help_categories!inner(slug))`
     )
     .eq("article_id", article.id)
     .limit(4);
@@ -157,13 +139,7 @@ async function getArticleData(
     const { data: rawSameCategoryArticles } = await supabase
       .from("help_articles")
       .select(
-        `
-        id,
-        slug,
-        ${locale === "es" ? "title_es as title" : "title_en as title"},
-        ${locale === "es" ? "excerpt_es as excerpt" : "excerpt_en as excerpt"},
-        view_count
-      `
+        `id, slug, ${titleField} as title, ${excerptField} as excerpt, view_count`
       )
       .eq("category_id", article.category_id)
       .eq("is_published", true)

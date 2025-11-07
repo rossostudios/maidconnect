@@ -485,6 +485,6 @@ npm run format
 ---
 
 **See also:**
-- [Development Guide](/docs/07-guides/DEVELOPMENT_GUIDE.md) - Detailed how-to guide
-- [API Middleware Guide](/docs/API_MIDDLEWARE_GUIDE.md) - API patterns
-- [Modal Patterns Guide](/docs/MODAL_PATTERNS_GUIDE.md) - Modal patterns
+- [Development Guide](/docs/07-guides/development-guide.md) - Detailed how-to guide
+- [API Middleware Guide](/docs/07-guides/api-middleware-guide.md) - API patterns
+- [Modal Patterns Guide](/docs/07-guides/modal-patterns-guide.md) - Modal patterns

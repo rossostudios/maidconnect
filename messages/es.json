@@ -58,8 +58,8 @@
     "pro": {
       "main": {
         "welcomeBack": "Bienvenido de nuevo",
-        "dashboardDescription": "Tu panel de control para gestionar reservas, servicios y comunicaciones con clientes.",
-        "onboardingDescription": "Revisa tu progreso de incorporación y completa los siguientes pasos para comenzar a aceptar reservas.",
+        "dashboardDescription": "su panel de control para gestionar reservas, servicios y comunicaciones con clientes.",
+        "onboardingDescription": "Revise su progreso de incorporación y complete los siguientes pasos para comenzar a aceptar reservas.",
         "signOut": "Cerrar sesión",
         "metrics": {
           "activeBookings": "Reservas activas",
@@ -69,22 +69,22 @@
         },
         "onboarding": {
           "title": "Lista de verificación de incorporación",
-          "description": "Completa cada paso para que los clientes puedan descubrirte y reservarte. Los elementos faltantes están resaltados a continuación.",
+          "description": "Complete cada paso para que los clientes puedan descubrirte y reservarle. Los elementos faltantes están resaltados a continuación.",
           "manageButton": "Gestionar incorporación",
           "tasks": {
             "application": {
               "title": "Detalles de solicitud enviados",
-              "description": "Cuéntanos quién eres, tu experiencia, referencias y dónde trabajas.",
+              "description": "Cuéntenos quién es, su experiencia, referencias y dónde trabajas.",
               "cta": "Actualizar solicitud"
             },
             "documents": {
               "title": "Documentos requeridos cargados",
-              "description": "Carga tu identificación oficial y comprobante de domicilio para verificación.",
+              "description": "Cargue su identificación oficial y comprobante de domicilio para verificación.",
               "cta": "Cargar documentos"
             },
             "profile": {
               "title": "Perfil público listo",
-              "description": "Completa tu biografía, servicios, precios y disponibilidad para activarte.",
+              "description": "Complete su biografía, servicios, precios y disponibilidad para activarte.",
               "cta": "Finalizar perfil"
             }
           },
@@ -94,36 +94,36 @@
           },
           "warnings": {
             "missing": "Falta:",
-            "addService": "Agrega al menos un servicio para mostrar a los clientes lo que ofreces.",
+            "addService": "Agregue al menos un servicio para mostrar a los clientes lo que ofreces.",
             "profileActivated": "Perfil activado el",
-            "addReferences": "Agrega dos referencias profesionales para que podamos completar tu verificación de antecedentes."
+            "addReferences": "Agregue dos referencias profesionales para que podamos completar su verificación de antecedentes."
           }
         },
         "sections": {
           "pendingRatings": "Calificaciones de Clientes Pendientes",
           "bookingCalendar": {
             "title": "Calendario de reservas",
-            "description": "Ve tus próximas reservas, gestiona solicitudes y rastrea visitas completadas.",
+            "description": "Vea sus próximas reservas, gestione solicitudes y rastrea visitas completadas.",
             "updateAvailability": "Actualizar disponibilidad"
           },
           "recentBookings": "Reservas recientes",
           "services": {
             "title": "Servicios y complementos",
-            "description": "Gestiona tus servicios principales y crea complementos personalizados para aumentar el valor de las reservas.",
+            "description": "Gestione sus servicios principales y cree complementos personalizados para aumentar el valor de las reservas.",
             "editButton": "Editar servicios",
-            "yourServices": "Tus servicios",
-            "noServices": "Aún no has agregado servicios. Agrega servicios en tu perfil.",
+            "yourServices": "sus servicios",
+            "noServices": "Aún no ha agregado servicios. Agregue servicios en su perfil.",
             "customAddons": "Complementos personalizados",
             "addonsDescription": "Ofrece extras como limpieza profunda, lavandería o cuidado de mascotas."
           },
           "documents": {
             "title": "Centro de documentos",
-            "description": "Mantén tu documentación de verificación actualizada. Carga nuevos archivos si tu información cambia.",
-            "noDocuments": "Aún no tenemos documentos archivados. Por favor carga los documentos requeridos.",
+            "description": "Mantenga su documentación de verificación actualizada. Cargue nuevos archivos si su información cambia.",
+            "noDocuments": "Aún no tenemos documentos archivados. Por favor cargue los documentos requeridos.",
             "unnamedFile": "Archivo sin nombre",
             "uploaded": "Cargado",
             "download": "Descargar",
-            "downloadError": "No pudimos generar un enlace de descarga. Intenta recargar.",
+            "downloadError": "No pudimos generar un enlace de descarga. Intente recargar.",
             "manageLink": "Gestionar documentos",
             "unknownStatus": "Desconocido"
           }
@@ -131,16 +131,16 @@
       },
       "availability": {
         "title": "Configuración de Disponibilidad",
-        "description": "Gestiona tus horarios de trabajo y bloquea fechas cuando no estés disponible. Esto controla cuándo los clientes pueden reservarte.",
+        "description": "Gestione sus horarios de trabajo y bloquee fechas cuando no esté disponible. Esto controla cuándo los clientes pueden reservarle.",
         "tips": {
           "title": "Consejos para Gestionar Disponibilidad",
           "workingHours": {
             "label": "Horario de Trabajo:",
-            "text": "Establece horarios realistas que puedas mantener consistentemente. Los clientes valoran la confiabilidad."
+            "text": "Establezca horarios realistas que pueda mantener consistentemente. Los clientes valoran la confiabilidad."
           },
           "blockedDates": {
             "label": "Fechas Bloqueadas:",
-            "text": "Bloquea fechas con anticipación para vacaciones o tiempo personal. Actualiza esto regularmente para evitar conflictos de reservas."
+            "text": "Bloquee fechas con anticipación para vacaciones o tiempo personal. Actualice esto regularmente para evitar conflictos de reservas."
           },
           "bufferTime": {
             "label": "Tiempo de Margen:",
@@ -148,32 +148,32 @@
           },
           "flexibility": {
             "label": "Flexibilidad:",
-            "text": "Cuantas más horas estés disponible, más oportunidades de reserva tendrás."
+            "text": "Cuantas más horas esté disponible, más oportunidades de reserva tendrá."
           }
         }
       },
       "bookings": {
         "title": "Calendario de reservas",
-        "description": "Ve tus próximas reservas, gestiona solicitudes y rastrea visitas completadas.",
+        "description": "Vea sus próximas reservas, gestione solicitudes y rastrea visitas completadas.",
         "updateAvailability": "Actualizar disponibilidad",
         "allBookings": "Todas las reservas"
       },
       "documents": {
         "title": "Centro de Documentos",
-        "description": "Mantén tu documentación de verificación actualizada. Carga nuevos archivos si tu información cambia.",
+        "description": "Mantenga su documentación de verificación actualizada. Cargue nuevos archivos si su información cambia.",
         "uploadButton": "Cargar Documentos"
       },
       "finances": {
         "title": "Finanzas y Analíticas",
-        "description": "Rastrea tus ganancias, ve analíticas y gestiona pagos."
+        "description": "Rastrea sus ganancias, ve analíticas y gestione pagos."
       },
       "portfolio": {
         "title": "Portafolio",
-        "description": "Muestra tu mejor trabajo con fotos y descripciones. Un portafolio sólido ayuda a que los clientes te elijan con confianza."
+        "description": "Muestra su mejor trabajo con fotos y descripciones. Un portafolio sólido ayuda a que los clientes le elijan con confianza."
       },
       "profile": {
         "title": "Configuración de Perfil",
-        "description": "Actualiza tu información pública, detalles de contacto y resumen profesional. Los cambios se reflejan en tu listado público."
+        "description": "Actualice su información pública, detalles de contacto y resumen profesional. Los cambios se reflejan en su listado público."
       },
       "onboarding": {
         "labels": {
@@ -181,26 +181,26 @@
           "onboarding": "INCORPORACIÓN"
         },
         "headings": {
-          "editProfile": "Edita tu perfil",
-          "launchProfile": "Lanza tu perfil de Casaora"
+          "editProfile": "Edite su perfil",
+          "launchProfile": "Lance su perfil de Casaora"
         },
         "descriptions": {
-          "active": "Actualiza tu información pública, servicios y disponibilidad. Los cambios se reflejan instantáneamente en tu listado.",
-          "notActive": "Completa los pasos a continuación para desbloquear reservas. Puedes guardar y volver en cualquier momento; el progreso se recuerda."
+          "active": "Actualice su información pública, servicios y disponibilidad. Los cambios se reflejan instantáneamente en su listado.",
+          "notActive": "Complete los pasos a continuación para desbloquear reservas. puede guardar y volver en cualquier momento; el progreso se recuerda."
         },
         "backToDashboard": "Volver al panel",
         "steps": {
           "application": {
             "title": "Enviar solicitud",
-            "description": "Cuéntanos sobre tu experiencia, servicios y referencias."
+            "description": "Cuéntenos sobre su experiencia, servicios y referencias."
           },
           "documents": {
             "title": "Cargar documentos",
             "description": "Proporciona identificación requerida y comprobante de domicilio."
           },
           "profile": {
-            "title": "Construye tu perfil",
-            "description": "Crea una biografía convincente, selecciona servicios y establece tarifas."
+            "title": "Construya su perfil",
+            "description": "Cree una biografía convincente, seleccione servicios y establezca tarifas."
           }
         },
         "status": {
@@ -209,21 +209,21 @@
           "pending": "Pendiente"
         },
         "success": {
-          "profileLive": "¡Tu perfil está en vivo!",
-          "updateDescription": "Actualiza tu información pública a continuación cuando necesites refrescar tu listado."
+          "profileLive": "¡su perfil está en vivo!",
+          "updateDescription": "Actualice su información pública a continuación cuando necesite refrescar su listado."
         },
         "sections": {
           "publicProfile": {
             "title": "Perfil público",
-            "description": "Ajusta tu biografía, servicios, idiomas y disponibilidad semanal. Los cambios actualizan tu listado instantáneamente."
+            "description": "Ajuste su biografía, servicios, idiomas y disponibilidad semanal. Los cambios actualizan su listado instantáneamente."
           },
           "applicationDetails": {
             "title": "Detalles de Solicitud",
-            "description": "Comparte tu trayectoria profesional. Esta información nos ayuda a verificar tu experiencia y emparejarte con los clientes adecuados."
+            "description": "Comparta su trayectoria profesional. Esta información nos ayuda a verificar su experiencia y emparejarte con los clientes adecuados."
           },
           "uploadDocuments": {
             "title": "Cargar documentos requeridos",
-            "description": "Carga de forma segura escaneos o fotos de tu identificación. Almacenamos todo en Supabase Storage encriptado.",
+            "description": "Cargue de forma segura escaneos o fotos de su identificación. Almacenamos todo en Supabase Storage encriptado.",
             "required": "Requerido",
             "requiredDocs": {
               "governmentId": "Identificación oficial (Cédula de Ciudadanía o Cédula de Extranjería)",
@@ -235,15 +235,15 @@
               "workPermits": "Permisos de trabajo (si aplica)"
             },
             "acceptedFormats": "Formatos aceptados:",
-            "formatInfo": "PDF, JPG, PNG (máx 5MB cada uno). Nuestro equipo revisa las cargas en 3-5 días hábiles y te mantiene informado durante el proceso."
+            "formatInfo": "PDF, JPG, PNG (máx 5MB cada uno). Nuestro equipo revise las cargas en 3-5 días hábiles y le mantiene informado durante el proceso."
           },
           "createProfile": {
-            "title": "Crea tu perfil público",
-            "description": "Crea una presencia convincente que genere confianza con nuevos clientes. Esta información aparece en tu listado de Casaora."
+            "title": "Cree su perfil público",
+            "description": "Cree una presencia convincente que genere confianza con nuevos clientes. Esta información aparece en su listado de Casaora."
           }
         },
         "complete": {
-          "title": "¡Incorporación completa!",
+          "title": "¡Incorporación complete!",
           "description": "Regresa al panel para gestionar reservas y comenzar a conectar con clientes."
         }
       },
@@ -278,7 +278,7 @@
           },
           "services": {
             "label": "Servicios ofrecidos",
-            "helper": "Selecciona todos los servicios que puedes proporcionar con confianza.",
+            "helper": "Seleccione todos los servicios que puede proporcionar con confianza.",
             "options": {
               "houseCleaning": "Limpieza del hogar",
               "laundry": "Lavandería",
@@ -316,7 +316,7 @@
             "checkboxLabel": "Autorizo a Casaora a realizar verificaciones de identidad y antecedentes para la incorporación."
           }
         },
-        "infoText": "Enviar esta solicitud activa a nuestro equipo de revisión para iniciar la verificación. Aún puedes editar detalles más tarde.",
+        "infoText": "Enviar esta solicitud activa a nuestro equipo de revisión para iniciar la verificación. Aún puede editar detalles más tarde.",
         "submitting": "Enviando…",
         "submit": "Enviar solicitud"
       },
@@ -340,7 +340,7 @@
         "fields": {
           "bio": {
             "label": "Biografía profesional",
-            "placeholder": "Comparte tu trayectoria, especialidades y por qué a los clientes les encanta trabajar contigo."
+            "placeholder": "Comparta su trayectoria, especialidades y por qué a los clientes les encanta trabajar con usted."
           },
           "languages": {
             "label": "Idiomas"
@@ -355,11 +355,11 @@
           },
           "serviceDescription": {
             "label": "Descripción del servicio",
-            "placeholder": "Describe qué está incluido en este servicio"
+            "placeholder": "Describa qué está incluido en este servicio"
           },
           "availability": {
             "label": "Disponibilidad semanal",
-            "helper": "Establece tus horarios de trabajo típicos para cada día.",
+            "helper": "Establezca sus horarios de trabajo típicos para cada día.",
             "start": "Inicio",
             "end": "Fin"
           },
@@ -374,8 +374,8 @@
           "saving": "Guardando…"
         },
         "footnotes": {
-          "submitForReview": "Una vez aprobado, tu perfil se activa en 24 horas. Puedes continuar refinando detalles en cualquier momento.",
-          "saveProfile": "Tus cambios se actualizan instantáneamente en tu listado público."
+          "submitForReview": "Una vez aprobado, su perfil se activa en 24 horas. puede continuar refinando detalles en cualquier momento.",
+          "saveProfile": "sus cambios se actualizan instantáneamente en su listado público."
         },
         "characters": "caracteres"
       },
@@ -409,7 +409,7 @@
           "allBookings": "Todas las Reservas"
         },
         "table": {
-          "booking": "Reserva",
+          "booking": "Reserve",
           "service": "Servicio",
           "scheduled": "Programado",
           "amount": "Monto (COP)",
@@ -428,7 +428,7 @@
           "noActions": "No hay acciones disponibles"
         },
         "success": "¡{action} reserva exitosamente!",
-        "successAlternate": "¡Reserva {action}da exitosamente!"
+        "successAlternate": "¡Reserve {action}da exitosamente!"
       },
       "financialSummary": {
         "title": "Resumen financiero",
@@ -462,8 +462,8 @@
       "serviceAddons": {
         "activeAddons": "Complementos Activos ({count})",
         "inactiveAddons": "Complementos Inactivos ({count})",
-        "emptyState": "Aún no hay complementos. Crea tu primer complemento para ofrecer servicios adicionales a los clientes.",
-        "createFirst": "Crear tu primer complemento →",
+        "emptyState": "Aún no hay complementos. Cree su primer complemento para ofrecer servicios adicionales a los clientes.",
+        "createFirst": "Crear su primer complemento →",
         "addNew": "Agregar nuevo complemento de servicio",
         "form": {
           "editTitle": "Editar Complemento",
@@ -475,7 +475,7 @@
             },
             "description": {
               "label": "Descripción",
-              "placeholder": "Describe qué incluye este complemento..."
+              "placeholder": "Describa qué incluye este complemento..."
             },
             "price": {
               "label": "Precio (COP) *",
@@ -484,7 +484,7 @@
             "extraTime": {
               "label": "Tiempo Extra (minutos)",
               "placeholder": "0",
-              "helper": "Establece en 0 si esto no agrega tiempo extra"
+              "helper": "Establezca en 0 si esto no agregue tiempo extra"
             },
             "active": {
               "label": "Activo (los clientes pueden ver y reservar este complemento)"
@@ -506,7 +506,7 @@
           "activate": "Activar",
           "delete": "Eliminar"
         },
-        "deleteConfirm": "¿Estás seguro de que quieres eliminar este complemento?"
+        "deleteConfirm": "¿está seguro de que quiere eliminar este complemento?"
       },
       "financesOverview": {
         "metrics": {
@@ -518,7 +518,7 @@
             "label": "Este Mes"
           },
           "avgBookingValue": {
-            "label": "Valor Promedio de Reserva",
+            "label": "Valor Promedio de Reserve",
             "description": "reservas totales"
           },
           "pendingPayouts": {
@@ -537,8 +537,8 @@
         "fields": {
           "description": {
             "label": "Descripción de Trabajo Destacado",
-            "placeholder": "Describe tus especialidades y qué hace único tu trabajo...",
-            "helper": "Esto aparecerá encima de tu galería de portafolio"
+            "placeholder": "Describa sus especialidades y qué hace único su trabajo...",
+            "helper": "Esto aparecerá encima de su galería de portafolio"
           }
         },
         "upload": {
@@ -554,20 +554,20 @@
         },
         "emptyState": {
           "title": "Aún no hay imágenes de portafolio",
-          "description": "Carga imágenes usando la zona de carga arriba para mostrar tu mejor trabajo"
+          "description": "Cargue imágenes usando la zona de cargue arriba para mostrar su mejor trabajo"
         },
         "tips": {
           "title": "Consejos de Portafolio",
-          "tip1": "Usa imágenes de alta calidad que muestren tu mejor trabajo",
-          "tip2": "Agrega leyendas para explicar en qué consistió el proyecto",
+          "tip1": "Usa imágenes de alta calidad que muestren su mejor trabajo",
+          "tip2": "Agregue leyendas para explicar en qué consistió el proyecto",
           "tip3": "Las fotos de antes/después son particularmente efectivas",
-          "tip4": "Mantén tu portafolio actualizado con trabajo reciente",
+          "tip4": "Mantenga su portafolio actualizado con trabajo reciente",
           "tip5": "Apunta a 6-12 imágenes para un portafolio bien equilibrado"
         },
         "saving": "Guardando...",
         "save": "Guardar Portafolio",
         "success": "¡Portafolio actualizado exitosamente!",
-        "error": "Error al actualizar el portafolio. Por favor intenta de nuevo."
+        "error": "Error al actualizar el portafolio. Por favor intente de nuevo."
       },
       "availabilityEditor": {
         "tabs": {
@@ -575,14 +575,14 @@
           "blockedDates": "Fechas Bloqueadas"
         },
         "workingHours": {
-          "title": "Establece tu Horario Semanal",
-          "description": "Define qué días y horas estás disponible para reservas. Los clientes solo pueden reservar durante estos horarios."
+          "title": "Establezca su Horario Semanal",
+          "description": "Defina qué días y horas está disponible para reservas. Los clientes solo pueden reservar durante estos horarios."
         },
         "blockedDates": {
           "title": "Bloquear Fechas Específicas",
-          "description": "Marca fechas cuando no estés disponible (vacaciones, días festivos, tiempo personal). Estas fechas no serán reservables incluso si caen dentro de tu horario de trabajo."
+          "description": "Marque fechas cuando no esté disponible (vacaciones, días festivos, tiempo personal). Estas fechas no serán reservables incluso si caen dentro de su horario de trabajo."
         },
-        "infoText": "Los cambios se reflejarán inmediatamente en tu perfil público",
+        "infoText": "Los cambios se reflejarán inmediatamente en su perfil público",
         "saving": "Guardando...",
         "save": "Guardar Disponibilidad",
         "success": "¡Disponibilidad actualizada exitosamente!"
@@ -594,11 +594,11 @@
             "fields": {
               "fullName": {
                 "label": "Nombre Completo",
-                "placeholder": "Tu nombre completo"
+                "placeholder": "su nombre completo"
               },
               "email": {
                 "label": "Correo Electrónico",
-                "helper": "El correo no se puede cambiar aquí. Contacta soporte si es necesario."
+                "helper": "El correo no se puede cambiar aquí. Comuníquese con soporte si es necesario."
               },
               "phoneNumber": {
                 "label": "Número de Teléfono",
@@ -616,14 +616,14 @@
             "fields": {
               "bio": {
                 "label": "Biografía",
-                "placeholder": "Cuéntale a los clientes sobre tu experiencia, especialidades y qué te hace genial...",
+                "placeholder": "Cuéntale a los clientes sobre su experiencia, especialidades y qué le hace genial...",
                 "characterCounter": "/500 caracteres"
               }
             }
           },
           "languages": {
             "title": "Idiomas",
-            "helper": "Selecciona todos los idiomas en los que puedes comunicarte",
+            "helper": "Seleccione todos los idiomas en los que puede comunicarte",
             "options": {
               "english": "English",
               "spanish": "Español",
@@ -634,7 +634,7 @@
           },
           "services": {
             "title": "Servicios Principales",
-            "helper": "Selecciona todos los servicios que ofreces",
+            "helper": "Seleccione todos los servicios que ofreces",
             "options": {
               "houseCleaning": "Limpieza del hogar",
               "laundry": "Lavandería",
@@ -653,8 +653,8 @@
         "success": "¡Perfil actualizado exitosamente!"
       },
       "pendingRatings": {
-        "title": "Califica a Tus Clientes Recientes",
-        "description": "Comparte tu retroalimentación para ayudar a construir una comunidad confiable.",
+        "title": "Califica a sus Clientes Recientes",
+        "description": "Comparta su retroalimentación para ayudar a construir una comunidad confiable.",
         "service": "Servicio",
         "customerInfo": "Cliente • {date}",
         "rateButton": "Calificar Cliente"
@@ -666,15 +666,15 @@
           "dashboardLabel": "PANEL DE CLIENTE",
           "welcomeBack": "Bienvenido de nuevo",
           "welcomeBackWithName": "Bienvenido de nuevo, {name}",
-          "description": "Explora profesionales verificados, revisa próximas visitas y gestiona pagos en un solo lugar.",
+          "description": "Explore profesionales verificados, revise próximas visitas y gestione pagos en un solo lugar.",
           "signOut": "Cerrar sesión"
         },
         "summary": {
           "accountEmail": "Correo de cuenta",
           "phone": "Teléfono",
-          "addYourPhone": "Agrega tu teléfono",
+          "addYourPhone": "Agregue su teléfono",
           "city": "Ciudad",
-          "addYourCity": "Agrega tu ciudad",
+          "addYourCity": "Agregue su ciudad",
           "verificationTier": "Nivel de verificación",
           "propertyType": "Tipo de propiedad",
           "country": "País",
@@ -687,28 +687,28 @@
           }
         },
         "tasks": {
-          "title": "Prepárate para reservar",
-          "description": "Completa estos pasos rápidos para desbloquear confirmaciones de reserva instantáneas y profesionales mejor calificados.",
+          "title": "Prepárese para reservar",
+          "description": "Complete estos pasos rápidos para desbloquear confirmaciones de reserva instantáneas y profesionales mejor calificados.",
           "updateProfile": "Actualizar perfil",
           "profile": {
-            "title": "Completa tu perfil",
-            "description": "Agrega tus datos de contacto y dónde se realizarán los servicios para que los profesionales puedan prepararse.",
+            "title": "Complete su perfil",
+            "description": "Agregue sus datos de contacto y dónde se realizarán los servicios para que los profesionales puedan prepararse.",
             "cta": "Editar perfil"
           },
           "verification": {
-            "title": "Verifica tu identidad",
-            "description": "Sube un pasaporte o identificación oficial para obtener una insignia verificada y reservas más rápidas.",
+            "title": "Verifique su identidad",
+            "description": "Suba un pasaporte o identificación oficial para obtener una insignia verificada y reservas más rápidas.",
             "cta": "Iniciar verificación",
-            "upgradeNote": "Actualiza a Estándar para desbloquear la insignia de verificación."
+            "upgradeNote": "Actualice a Estándar para desbloquear la insignia de verificación."
           },
           "payment": {
-            "title": "Agrega un método de pago",
-            "description": "Almacena de forma segura una tarjeta u opción de pago local para confirmar reservas al instante.",
+            "title": "Agregue un método de pago",
+            "description": "Almacene de forma segura una tarjeta u opción de pago local para confirmar reservas al instante.",
             "cta": "Agregar método de pago"
           },
           "booking": {
-            "title": "Reserva tu primera visita",
-            "description": "Elige un profesional de confianza y programa tu primer servicio doméstico.",
+            "title": "Reserve su primera visita",
+            "description": "Elija un profesional de confianza y programe su primer servicio doméstico.",
             "cta": "Encontrar profesionales"
           },
           "status": {
@@ -719,31 +719,31 @@
         "quickLinks": {
           "bookProfessional": {
             "title": "Reservar un profesional",
-            "description": "Explora expertos verificados por servicio, idioma y disponibilidad."
+            "description": "Explore expertos verificados por servicio, idioma y disponibilidad."
           },
           "viewPastVisits": {
             "title": "Ver visitas pasadas",
-            "description": "Descarga recibos, agrega propinas o vuelve a reservar tus favoritos."
+            "description": "Descargue recibos, agregue propinas o vuelva a reservar sus favoritos."
           },
           "updatePayment": {
             "title": "Actualizar método de pago",
-            "description": "Gestiona tarjetas y opciones de pago locales de forma segura."
+            "description": "Gestione tarjetas y opciones de pago locales de forma segura."
           },
           "goNow": "Ir ahora →"
         },
         "sections": {
           "addresses": {
             "title": "Direcciones Guardadas",
-            "description": "Gestiona tus ubicaciones de servicio para reservas más rápidas. Agrega detalles como acceso al edificio e información de estacionamiento."
+            "description": "Gestione sus ubicaciones de servicio para reservas más rápidas. Agregue detalles como acceso al edificio e información de estacionamiento."
           },
           "propertyPreferences": {
             "title": "Preferencias de propiedad",
-            "description": "Compartir algunos detalles sobre tu hogar ayuda a los profesionales a prepararse con los suministros adecuados.",
+            "description": "Compartir algunos detalles sobre su hogar ayuda a los profesionales a prepararse con los suministros adecuados.",
             "updatePreferences": "Actualizar preferencias →"
           },
           "needHelp": {
-            "title": "¿Necesitas ayuda?",
-            "description": "Nuestro equipo de soporte puede ayudarte con verificación, reservas o cualquier otra cosa que necesites.",
+            "title": "¿necesita ayuda?",
+            "description": "Nuestro equipo de soporte puede ayudarle con verificación, reservas o cualquier otra cosa que necesite.",
             "liveChat": "Chat en vivo:",
             "liveChatHours": "Días laborales 8:00–20:00 COT",
             "email": "Correo electrónico:",
@@ -754,15 +754,15 @@
           },
           "bookings": {
             "title": "Mis Reservas",
-            "description": "Ve y gestiona tus citas de servicio próximas y pasadas."
+            "description": "Vea y gestione sus citas de servicio próximas y pasadas."
           },
           "favorites": {
             "title": "Mis Favoritos",
-            "description": "Acceso rápido a tus profesionales favoritos para volver a reservar fácilmente."
+            "description": "Acceso rápido a sus profesionales favoritos para volver a reservar fácilmente."
           },
           "messages": {
             "title": "Mensajes",
-            "description": "Chatea con profesionales sobre tus reservas y detalles del servicio.",
+            "description": "Chatee con profesionales sobre sus reservas y detalles del servicio.",
             "viewAllMessages": "Ver todos los mensajes"
           }
         }
@@ -770,9 +770,9 @@
       "bookingList": {
         "emptyState": {
           "noBookings": "Aún no hay reservas.",
-          "browseText": "Explora nuestro",
+          "browseText": "Explore nuestro",
           "professionalDirectory": "directorio de profesionales",
-          "bookFirstService": "para reservar tu primer servicio."
+          "bookFirstService": "para reservar su primer servicio."
         },
         "sections": {
           "upcomingServices": "Servicios Próximos",
@@ -807,15 +807,15 @@
         "emptyState": {
           "emoji": "🤍",
           "title": "Aún no hay favoritos",
-          "description": "Haz clic en el ícono de corazón en cualquier profesional para guardarlos aquí para acceso rápido.",
+          "description": "haga clic en el ícono de corazón en cualquier profesional para guardarlos aquí para acceso rápido.",
           "browseProfessionals": "Explorar Profesionales"
         },
         "empty": {
           "title": "Aún no hay favoritos",
-          "description": "Haz clic en el ícono de corazón en cualquier profesional para guardarlos aquí para acceso rápido.",
+          "description": "haga clic en el ícono de corazón en cualquier profesional para guardarlos aquí para acceso rápido.",
           "browseProfessionals": "Explorar Profesionales"
         },
-        "title": "Tus Favoritos ({count})",
+        "title": "sus Favoritos ({count})",
         "card": {
           "verified": "Verificado",
           "startingAt": "Desde",
@@ -831,9 +831,9 @@
       "addressManager": {
         "emptyState": {
           "noAddresses": "Aún no hay direcciones guardadas.",
-          "addFirst": "Agrega tu primera dirección →",
+          "addFirst": "Agregue su primera dirección →",
           "message": "Aún no hay direcciones guardadas.",
-          "addFirstButton": "Agrega tu primera dirección"
+          "addFirstButton": "Agregue su primera dirección"
         },
         "addNew": "Agregar nueva dirección",
         "card": {
@@ -886,10 +886,10 @@
           "saveChanges": "Guardar Cambios",
           "addAddress": "Agregar Dirección"
         },
-        "confirmDelete": "¿Estás seguro de que quieres eliminar esta dirección?"
+        "confirmDelete": "¿está seguro de que quiere eliminar esta dirección?"
       },
       "cancelBookingModal": {
-        "title": "Cancelar Reserva",
+        "title": "Cancelar Reserve",
         "serviceInfo": "{service} • {date}",
         "policy": {
           "title": "Ver Política de Cancelación",
@@ -899,19 +899,19 @@
           "hours": "{hours} horas"
         },
         "reasonLabel": "Motivo de cancelación (opcional)",
-        "reasonPlaceholder": "Hazle saber al profesional por qué necesitas cancelar...",
+        "reasonPlaceholder": "Hazle saber al profesional por qué necesita cancelar...",
         "actions": {
-          "keepBooking": "Mantener Reserva",
-          "cancelBooking": "Cancelar Reserva",
+          "keepBooking": "Mantener Reserve",
+          "cancelBooking": "Cancelar Reserve",
           "canceling": "Cancelando..."
         },
         "messages": {
           "cannotCancel": "No se puede cancelar esta reserva",
-          "success": "¡Reserva cancelada exitosamente! {refund} será reembolsado."
+          "success": "¡Reserve cancelada exitosamente! {refund} será reembolsado."
         }
       },
       "rescheduleBookingModal": {
-        "title": "Reprogramar Reserva",
+        "title": "Reprogramar Reserve",
         "serviceInfo": "{service}",
         "currentSchedule": {
           "label": "Horario Actual",
@@ -927,7 +927,7 @@
         },
         "importantNotice": {
           "title": "Importante",
-          "description": "El profesional deberá confirmar la nueva hora. Tu reserva se restablecerá al estado \"pendiente de confirmación\"."
+          "description": "El profesional deberá confirmar la nueva hora. su reserva se restablecerá al estado \"pendiente de confirmación\"."
         },
         "actions": {
           "cancel": "Cancelar",
@@ -935,26 +935,26 @@
           "rescheduling": "Reprogramando..."
         },
         "messages": {
-          "selectDateTime": "Por favor selecciona una nueva fecha y hora",
+          "selectDateTime": "Por favor seleccione una nueva fecha y hora",
           "futureDate": "La nueva hora debe estar en el futuro",
-          "success": "¡Reserva reprogramada exitosamente!"
+          "success": "¡Reserve reprogramada exitosamente!"
         }
       },
       "bookingsPage": {
         "title": "Mis Reservas",
-        "description": "Ve y gestiona tus citas de servicio próximas y pasadas."
+        "description": "Vea y gestione sus citas de servicio próximas y pasadas."
       },
       "favoritesPage": {
         "title": "Mis Favoritos",
-        "description": "Acceso rápido a tus profesionales favoritos para volver a reservar fácilmente."
+        "description": "Acceso rápido a sus profesionales favoritos para volver a reservar fácilmente."
       },
       "addressesPage": {
         "title": "Direcciones Guardadas",
-        "description": "Gestiona tus ubicaciones de servicio para reservas más rápidas. Agrega detalles como acceso al edificio e información de estacionamiento."
+        "description": "Gestione sus ubicaciones de servicio para reservas más rápidas. Agregue detalles como acceso al edificio e información de estacionamiento."
       },
       "paymentsPage": {
         "title": "Pagos e Historial",
-        "description": "Ve tu historial de pagos, gestiona métodos de pago y rastrea gastos.",
+        "description": "Vea su historial de pagos, gestione métodos de pago y rastrea gastos.",
         "metrics": {
           "totalSpent": {
             "label": "Total Gastado",
@@ -979,11 +979,11 @@
         }
       },
       "messagesPage": {
-        "description": "Chatea con profesionales sobre tus reservas y detalles del servicio."
+        "description": "Chatee con profesionales sobre sus reservas y detalles del servicio."
       },
       "settings": {
         "title": "Configuración de Cuenta",
-        "description": "Gestiona tu información de perfil, preferencias y direcciones guardadas",
+        "description": "Gestione su información de perfil, preferencias y direcciones guardadas",
         "profile": {
           "title": "Información del Perfil",
           "fullName": "Nombre Completo",
@@ -991,13 +991,13 @@
           "phone": "Teléfono",
           "city": "Ciudad",
           "note": "Nota",
-          "noteDescription": "Para actualizar tu información de perfil, por favor contacta a soporte en support@casaora.co"
+          "noteDescription": "Para actualizar su información de perfil, por favor comuníquese con a soporte en support@casaora.co"
         },
         "preferences": {
           "title": "Preferencias de Propiedad",
           "propertyType": "Tipo de Propiedad",
           "comingSoon": "Próximamente",
-          "comingSoonDescription": "La edición completa de preferencias de propiedad estará disponible pronto. Por ahora, puedes actualizarlas durante la reserva."
+          "comingSoonDescription": "La edición complete de preferencias de propiedad estará disponible pronto. Por ahora, puede actualizarlas durante la reserva."
         },
         "addresses": {
           "title": "Direcciones Guardadas"
@@ -1028,7 +1028,7 @@
     },
     "adminDashboard": {
       "title": "Panel de Administración",
-      "description": "Gestión y moderación completa de la plataforma"
+      "description": "Gestión y moderación complete de la plataforma"
     }
   },
   "hero": {
@@ -1077,7 +1077,7 @@
   "services": {
     "badge": "Servicios",
     "title": "Profesionales seleccionados para cada rutina",
-    "subtitle": "Servicios profesionales para el hogar que facilitan la vida. Desde limpieza hasta cuidado infantil, encuentra profesionales verificados listos para ayudar.",
+    "subtitle": "Servicios profesionales para el hogar que facilitan la vida. Desde limpieza hasta cuidado infantil, encuentre profesionales verificados listos para ayudar.",
     "viewAll": "Ver Todos los Servicios",
     "cta": "Encontrar Profesionales",
     "learnMore": "Saber más",
@@ -1085,7 +1085,7 @@
     "perHour": "/hora",
     "professionals": "profesionales verificados",
     "reviews": "opiniones",
-    "responsesIn": "Responde en",
+    "responsesIn": "Responda en",
     "items": {
       "housekeeping": {
         "title": "Servicio Doméstico y Limpieza Profunda",
@@ -1124,17 +1124,17 @@
       },
       "step2": {
         "number": "02",
-        "title": "Explora perfiles curados",
-        "description": "Busca por idioma, ubicación, disponibilidad. Mira videos de presentación."
+        "title": "Explore perfiles curados",
+        "description": "Busca por idioma, ubicación, disponibilidad. Mire videos de presentación."
       },
       "step3": {
         "number": "03",
         "title": "Conecta y reserva",
-        "description": "Días de prueba disponibles. Mensajería segura. Tu horario."
+        "description": "Días de prueba disponibles. Mensajería segura. su horario."
       },
       "step4": {
         "number": "04",
-        "title": "Te apoyamos",
+        "title": "le apoyamos",
         "description": "Desde la incorporación hasta el apoyo continuo. Mantenemos los estándares."
       }
     }
@@ -1240,7 +1240,7 @@
     "deleted": "Eliminado exitosamente",
     "created": "Creado exitosamente",
     "updated": "Actualizado exitosamente",
-    "bookingCreated": "Reserva creada exitosamente",
+    "bookingCreated": "Reserve creada exitosamente",
     "messageSent": "Mensaje enviado exitosamente"
   },
   "pages": {
@@ -1260,7 +1260,7 @@
         "title": "Potentes funciones de reserva",
         "subtitle": "Todo lo que necesita para programar servicios de manera rápida y segura",
         "instantBooking": {
-          "title": "Reserva Instantánea y Aprobada",
+          "title": "Reserve Instantánea y Aprobada",
           "description": "Reserve inmediatamente con profesionales verificados o solicite aprobación para necesidades personalizadas. Obtenga confirmación instantánea para servicios estándar."
         },
         "realTimeAvailability": {
@@ -1284,7 +1284,7 @@
           "description": "Vea disponibilidad, lea reseñas y explore galerías de portafolio"
         },
         "step3": {
-          "title": "Confirmar Reserva",
+          "title": "Confirmar Reserve",
           "description": "Elija fecha y hora, agregue complementos de servicio y autorice el pago"
         },
         "step4": {
@@ -1472,7 +1472,7 @@
         },
         "serviceComplete": {
           "title": "Servicio completo - La salida captura el pago",
-          "description": "Cuando el profesional se registra de salida y marca el servicio como completo, la autorización se convierte en un cargo real. Aquí es cuando se le factura."
+          "description": "Cuando el profesional se registra de salida y marque el servicio como completo, la autorización se convierte en un cargo real. Aquí es cuando se le factura."
         },
         "postService": {
           "title": "Post-servicio - Procesamiento de recibo y pago",
@@ -1483,7 +1483,7 @@
         "title": "Su protección de pago",
         "chargedAfter": {
           "title": "Solo se cobra después de completar el servicio",
-          "description": "Las retenciones de autorización no son cargos. Solo se le factura cuando el profesional marca el servicio como completo y se registra de salida."
+          "description": "Las retenciones de autorización no son cargos. Solo se le factura cuando el profesional marque el servicio como completo y se registra de salida."
         },
         "cancellation": {
           "title": "Protecciones de cancelación",
@@ -1552,7 +1552,7 @@
         "title": "Cómo funciona",
         "description": "Mensajería simple y segura vinculada a sus reservas",
         "step1": {
-          "title": "Completar Reserva",
+          "title": "Completar Reserve",
           "description": "Reserve un servicio con cualquier profesional para desbloquear el acceso a mensajería"
         },
         "step2": {
@@ -1640,7 +1640,7 @@
         },
         "detailedCategories": {
           "title": "Categorías de Calificación Detalladas",
-          "description": "Califique calidad, comunicación, puntualidad y valor por separado. Obtenga la imagen completa más allá de una sola calificación de estrellas."
+          "description": "Califique calidad, comunicación, puntualidad y valor por separado. Obtenga la imagen complete más allá de una sola calificación de estrellas."
         }
       },
       "howItWorks": {
@@ -1660,7 +1660,7 @@
         },
         "step4": {
           "title": "Construir Reputación",
-          "description": "Su reseña ayuda a otros y construye su puntaje de reputación como cliente"
+          "description": "Su reseña ayuda a otros y construya su puntaje de reputación como cliente"
         }
       },
       "categories": {
@@ -1684,7 +1684,7 @@
         "title": "Por qué funciona nuestro sistema de reseñas",
         "mutualRespect": {
           "title": "Respeto mutuo y equidad",
-          "description": "Las reseñas bidireccionales significan que tanto los clientes como los profesionales tienen responsabilidad. Esto crea un ambiente respetuoso y profesional para todos."
+          "description": "Las reseñas bidireccionales significan que tanto los clientes como los profesionales tienen responsabilidad. Esto cree un ambiente respetuoso y profesional para todos."
         },
         "verifiedOnly": {
           "title": "Solo reseñas verificadas",
@@ -1709,10 +1709,10 @@
     "adminDashboard": {
       "meta": {
         "title": "Panel de Administración - Herramientas de Gestión de Plataforma | Casaora",
-        "description": "Herramientas de administración de nivel empresarial para moderar profesionales, revisar reservas, procesar pagos y mantener la calidad de la plataforma. Supervisión completa."
+        "description": "Herramientas de administración de nivel empresarial para moderar profesionales, revisar reservas, procesar pagos y mantener la calidad de la plataforma. Supervisión complete."
       },
       "hero": {
-        "headline": "Gestión y supervisión completa de la plataforma",
+        "headline": "Gestión y supervisión complete de la plataforma",
         "description": "Herramientas de administración de nivel empresarial para moderar profesionales, revisar reservas, procesar pagos y mantener la calidad de la plataforma.",
         "primaryCTA": "Solicitar Demo",
         "secondaryCTA": "Más Información",
@@ -1727,7 +1727,7 @@
         },
         "bookingOversight": {
           "title": "Supervisión de Reservas",
-          "description": "Vea todas las reservas, resuelva disputas, procese reembolsos y maneje cancelaciones. Visibilidad completa de transacciones."
+          "description": "Vea todas las reservas, resuelva disputas, procese reembolsos y maneje cancelaciones. Visibilidad complete de transacciones."
         },
         "payoutProcessing": {
           "title": "Procesamiento de Pagos",
@@ -1801,22 +1801,22 @@
     "contact": {
       "meta": {
         "title": "Contáctanos | Casaora",
-        "description": "Ponte en contacto con nuestro equipo de soporte, aprende sobre cómo convertirte en profesional o comunícate para oportunidades de asociación."
+        "description": "Ponte en contacto con nuestro equipo de soporte, aprende sobre cómo convertirte en profesional o comuníquese para oportunidades de asociación."
       },
       "hero": {
         "badge": "CONTACTO",
-        "title": "¿Cómo podemos ayudarte?",
-        "description": "Ya sea que estés buscando contratar profesionales de confianza, interesado en unirte a nuestra red, o simplemente tengas una pregunta, nuestro equipo está aquí para ayudarte."
+        "title": "¿Cómo podemos ayudarle?",
+        "description": "Ya sea que esté buscando contratar profesionales de confianza, interesado en unirte a nuestra red, o simplemente tenga una pregunta, nuestro equipo está aquí para ayudarle."
       },
       "cards": {
         "support": {
           "title": "Soporte",
-          "description": "Completa nuestro formulario o envíanos un correo a support@casaora.co con tu pregunta.",
+          "description": "Complete nuestro formulario o envíanos un correo a support@casaora.co con su pregunta.",
           "buttonText": "Enviar consulta"
         },
         "customers": {
           "title": "Para clientes",
-          "description": "Explora nuestros profesionales verificados y reserva ayuda confiable para tu hogar.",
+          "description": "Explore nuestros profesionales verificados y reserva ayuda confiable para su hogar.",
           "buttonText": "Encontrar un profesional"
         },
         "professionals": {
@@ -1829,20 +1829,20 @@
         "title": "Preguntas frecuentes",
         "questions": {
           "verification": {
-            "question": "¿Cómo verifica Casaora a los profesionales?",
+            "question": "¿Cómo verifique Casaora a los profesionales?",
             "answer": "Todos los profesionales pasan por un proceso integral de evaluación que incluye verificación de antecedentes, verificación de referencias y evaluación de habilidades. Verificamos documentos de identidad, historial laboral y realizamos entrevistas en persona para garantizar calidad y seguridad."
           },
           "payments": {
             "question": "¿Cómo funcionan los pagos?",
-            "answer": "Cuando reservas un servicio, autorizamos una retención en tu método de pago. Los fondos solo se capturan después de que se completa el servicio. Los profesionales reciben el pago dentro de 2-3 días hábiles después de completar el servicio. Todos los pagos se procesan de forma segura a través de Stripe."
+            "answer": "Cuando reservas un servicio, autorizamos una retención en su método de pago. Los fondos solo se capturan después de que se complete el servicio. Los profesionales reciben el pago dentro de 2-3 días hábiles después de completar el servicio. Todos los pagos se procesan de forma segura a través de Stripe."
           },
           "cancellation": {
             "question": "¿Qué sucede si necesito cancelar?",
-            "answer": "Puedes cancelar cualquier reserva antes de la hora de inicio programada a través de tu panel. Las cancelaciones realizadas con 24+ horas de anticipación reciben un reembolso completo. Las cancelaciones dentro de las 24 horas pueden incurrir en una tarifa de cancelación para compensar al profesional por su tiempo reservado."
+            "answer": "puede cancelar cualquier reserva antes de la hora de inicio programada a través de su panel. Las cancelaciones realizadas con 24+ horas de anticipación reciben un reembolso completo. Las cancelaciones dentro de las 24 horas pueden incurrir en una tarifa de cancelación para compensar al profesional por su tiempo reservado."
           },
           "recurring": {
             "question": "¿Puedo reservar servicios recurrentes?",
-            "answer": "¡Sí! Durante el proceso de reserva, puedes configurar citas recurrentes semanales, quincenales o mensuales. Esto asegura que tengas ayuda consistente y construyas una relación a largo plazo con tu profesional preferido."
+            "answer": "¡Sí! Durante el proceso de reserva, puede configurar citas recurrentes semanales, quincenales o mensuales. Esto asegura que tenga ayuda consistente y construya una relación a largo plazo con su profesional preferido."
           },
           "areas": {
             "question": "¿Qué áreas cubren?",
@@ -1850,7 +1850,7 @@
           },
           "becomePro": {
             "question": "¿Cómo me convierto en profesional en Casaora?",
-            "answer": "Haz clic en 'Solicitar unirme' y completa nuestro formulario de solicitud. Revisaremos tu información, realizaremos una verificación de antecedentes y programaremos una entrevista. Una vez aprobado, completarás la incorporación y podrás comenzar a aceptar reservas. El proceso completo generalmente toma de 5 a 7 días hábiles."
+            "answer": "haga clic en 'Solicitar unirme' y complete nuestro formulario de solicitud. Revisaremos su información, realizaremos una verificación de antecedentes y programaremos una entrevista. Una vez aprobado, completarás la incorporación y podrás comenzar a aceptar reservas. El proceso completo generalmente toma de 5 a 7 días hábiles."
           }
         }
       }
@@ -1913,7 +1913,7 @@
       },
       "values": {
         "title": "Los valores que guían cómo trabajamos",
-        "description": "En Casaora, la cultura no es un póster en la pared — es cómo tomamos decisiones cada día. Si estos valores resuenan contigo, te sentirás como en casa.",
+        "description": "En Casaora, la cultura no es un póster en la pared — es cómo tomamos decisiones cada día. Si estos valores resuenan con usted, le sentirás como en casa.",
         "items": {
           "clarity": {
             "title": "Claridad",
@@ -1951,7 +1951,7 @@
       },
       "hero": {
         "title": "Bienvenido de nuevo",
-        "description": "Inicia sesión para gestionar tus reservas, documentos y pagos en un solo espacio."
+        "description": "Inicia sesión para gestionar sus reservas, documentos y pagos en un solo espacio."
       },
       "form": {
         "emailLabel": "Correo electrónico",
@@ -1960,7 +1960,7 @@
         "passwordPlaceholder": "••••••••",
         "signInButton": "Iniciar sesión",
         "signingInButton": "Iniciando sesión…",
-        "needAccount": "¿Necesitas una cuenta?",
+        "needAccount": "¿necesita una cuenta?",
         "createOneNow": "Crear una ahora"
       },
       "footer": {
@@ -1970,7 +1970,7 @@
         "imageAlt": "Hospitalidad Casaora",
         "badge": "Talento doméstico de confianza",
         "title": "Profesionales meticulosos seleccionados para hogares de expatriados.",
-        "description": "Nuestro equipo bilingüe de conserjería verifica cada perfil con entrevistas, visitas de prueba y controles de calidad continuos."
+        "description": "Nuestro equipo bilingüe de conserjería verifique cada perfil con entrevistas, visitas de prueba y controles de calidad continuos."
       }
     },
     "signUp": {
@@ -1981,16 +1981,16 @@
         "signIn": "Iniciar sesión"
       },
       "hero": {
-        "title": "Crea tu cuenta de Casaora",
-        "description": "Cuéntanos cómo planeas usar la plataforma y adaptaremos la experiencia para hogares o profesionales."
+        "title": "Cree su cuenta de Casaora",
+        "description": "Cuéntenos cómo planea usar la plataforma y adaptaremos la experiencia para hogares o profesionales."
       },
       "form": {
         "accountTypeLabel": "Tipo de cuenta",
-        "accountTypeHelper": "Elige la experiencia que mejor se adapte a cómo planeas usar Casaora.",
+        "accountTypeHelper": "Elija la experiencia que mejor se adapte a cómo planea usar Casaora.",
         "customerLabel": "Cliente",
-        "customerDescription": "Reserva profesionales pre-verificados para tu hogar.",
+        "customerDescription": "Reserve profesionales pre-verificados para su hogar.",
         "professionalLabel": "Profesional",
-        "professionalDescription": "Gestiona tu perfil, reservas y pagos.",
+        "professionalDescription": "Gestione su perfil, reservas y pagos.",
         "fullNameLabel": "Nombre completo",
         "fullNamePlaceholder": "Andrea Martínez",
         "phoneLabel": "Teléfono",
@@ -2003,32 +2003,32 @@
         "emailLabel": "Correo electrónico",
         "emailPlaceholder": "tu@ejemplo.com",
         "propertyTypeLabel": "Tipo de propiedad",
-        "propertyTypePlaceholder": "Selecciona un tipo de propiedad",
+        "propertyTypePlaceholder": "Seleccione un tipo de propiedad",
         "propertyApartment": "Apartamento",
         "propertyHouse": "Casa",
         "propertyOffice": "Oficina",
         "propertyOther": "Otro",
         "passwordLabel": "Contraseña",
-        "passwordPlaceholder": "Crea una contraseña",
+        "passwordPlaceholder": "Cree una contraseña",
         "confirmPasswordLabel": "Confirmar contraseña",
-        "confirmPasswordPlaceholder": "Repite la contraseña",
+        "confirmPasswordPlaceholder": "Repita la contraseña",
         "termsLabel": "Acepto los",
         "termsLink": "términos de servicio",
         "termsConfirm": "de Casaora y confirmo que entiendo las pautas de respeto mutuo.",
-        "successMessage": "Cuenta creada. Por favor revisa tu correo electrónico para verificar y finalizar el inicio de sesión.",
+        "successMessage": "Cuenta creada. Por favor revise su correo electrónico para verificar y finalizar el inicio de sesión.",
         "createAccountButton": "Crear cuenta",
         "creatingAccountButton": "Creando cuenta…",
-        "haveAccount": "¿Ya tienes una cuenta?",
+        "haveAccount": "¿Ya tiene una cuenta?",
         "signInInstead": "Iniciar sesión"
       },
       "footer": {
-        "support": "Te guiaremos con incorporación de conserjería después de enviar tus detalles."
+        "support": "le guiaremos con incorporación de conserjería después de enviar sus detalles."
       },
       "sidebar": {
         "imageAlt": "Incorporación Casaora",
         "badge": "Incorporación de conserjería",
         "title": "Entrevistamos, verificamos antecedentes y capacitamos a cada profesional.",
-        "description": "Construye confianza desde la primera visita con incorporación estructurada, manuales del hogar y soporte receptivo."
+        "description": "Construya confianza desde la primera visita con incorporación estructurada, manuales del hogar y soporte receptivo."
       }
     },
     "terms": {
@@ -2061,7 +2061,7 @@
       "availableToday": "Disponible hoy",
       "bookingSection": {
         "title": "Reservar una cita",
-        "description": "Elige una fecha para ver los horarios disponibles y solicitar una reserva"
+        "description": "Elija una fecha para ver los horarios disponibles y solicitar una reserva"
       },
       "tabs": {
         "about": "Acerca de",
@@ -2071,13 +2071,13 @@
       },
       "aboutTab": {
         "title": "Acerca de",
-        "defaultBio": "Este profesional está finalizando su biografía pública. Comunícate con una solicitud de reserva para conocer más sobre su experiencia."
+        "defaultBio": "Este profesional está finalizando su biografía pública. Comuníquese con una solicitud de reserva para conocer más sobre su experiencia."
       },
       "servicesTab": {
         "title": "Servicios y tarifas",
         "serviceLabel": "Servicio",
         "rateOnRequest": "Tarifa bajo consulta",
-        "noServicesMessage": "Los servicios se están finalizando. Envía una solicitud de reserva con los detalles que necesitas y confirmaremos el precio."
+        "noServicesMessage": "Los servicios se están finalizando. Envíe una solicitud de reserva con los detalles que necesita y confirmaremos el precio."
       },
       "portfolioTab": {
         "title": "Portafolio",
@@ -2121,42 +2121,42 @@
       "hired": "contratado",
       "favorites": "favoritos",
       "favorite": "Agregar a favoritos",
-      "noBio": "Este profesional está preparando su biografía pública. Vuelve pronto.",
+      "noBio": "Este profesional está preparando su biografía pública. Vuelva pronto.",
       "newBadge": "Nuevo en Casaora",
       "flexibleServices": "Servicios flexibles",
       "rateOnRequest": "Tarifa bajo consulta"
     }
   },
   "matchWizard": {
-    "title": "Encuentra tu Coincidencia Perfecta",
-    "subtitle": "Responde algunas preguntas para encontrar a los mejores profesionales para tus necesidades",
+    "title": "Encuentre su Coincidencia Perfecta",
+    "subtitle": "Responda algunas preguntas para encontrar a los mejores profesionales para sus necesidades",
     "step": "Paso",
     "of": "de",
     "complete": "completo",
     "exit": "Salir del asistente y explorar todos los profesionales",
     "location": {
-      "title": "¿Dónde necesitas ayuda?",
-      "description": "Selecciona tu ciudad y barrio para encontrar profesionales cercanos",
+      "title": "¿Dónde necesita ayuda?",
+      "description": "Seleccione su ciudad y barrio para encontrar profesionales cercanos",
       "cityLabel": "Ciudad",
-      "selectCity": "Selecciona tu ciudad",
+      "selectCity": "Seleccione su ciudad",
       "neighborhoodLabel": "Barrio",
       "optional": "opcional",
-      "selectNeighborhood": "Selecciona un barrio",
+      "selectNeighborhood": "Seleccione un barrio",
       "back": "Atrás",
       "next": "Siguiente Paso"
     },
     "service": {
-      "title": "¿Qué servicio necesitas?",
-      "description": "Elige el tipo de servicio que estás buscando",
+      "title": "¿Qué servicio necesita?",
+      "description": "Elija el tipo de servicio que está buscando",
       "serviceTypeLabel": "Tipo de Servicio",
-      "selectService": "Selecciona un servicio",
+      "selectService": "Seleccione un servicio",
       "templateLabel": "Plantilla de Servicio",
-      "selectTemplate": "Elige una plantilla (opcional)",
+      "selectTemplate": "Elija una plantilla (opcional)",
       "back": "Atrás",
       "next": "Siguiente Paso"
     },
     "homeDetails": {
-      "title": "Cuéntanos sobre tu hogar",
+      "title": "Cuéntenos sobre su hogar",
       "description": "Esto nos ayuda a encontrar el profesional adecuado para ti",
       "bedroomsLabel": "Número de habitaciones",
       "bathroomsLabel": "Número de baños",
@@ -2170,7 +2170,7 @@
     },
     "timingBudget": {
       "title": "¿Cuándo y cuánto?",
-      "description": "Ayúdanos a encontrar profesionales que se ajusten a tu horario y presupuesto",
+      "description": "Ayúdenos a encontrar profesionales que se ajusten a su horario y presupuesto",
       "dateLabel": "Fecha Preferida",
       "timeLabel": "Hora Preferida",
       "frequencyLabel": "Frecuencia",
@@ -2205,12 +2205,12 @@
     },
     "results": {
       "title": "¡Encontramos {count} coincidencias perfectas!",
-      "description": "Basado en tus preferencias, aquí están nuestras mejores recomendaciones",
+      "description": "Basado en sus preferencias, aquí están nuestras mejores recomendaciones",
       "matchScore": "{score}% coincidencia",
       "viewProfile": "Ver Perfil Completo",
       "bookNow": "Reservar Ahora",
       "noMatches": "No se encontraron coincidencias exactas",
-      "noMatchesDescription": "Intenta ajustar tus preferencias o explora todos los profesionales",
+      "noMatchesDescription": "Intente ajustar sus preferencias o explore todos los profesionales",
       "browseAll": "Explorar Todos los Profesionales",
       "startOver": "Empezar de Nuevo"
     }
@@ -2224,42 +2224,42 @@
     "noUpdates": "No hay nuevas actualizaciones",
     "success": {
       "title": "¡Gracias por revisar!",
-      "message": "Estás al día con las últimas actualizaciones."
+      "message": "está al día con las últimas actualizaciones."
     }
   },
   "feedback": {
     "title": "Enviar comentarios",
-    "description": "Ayúdanos a mejorar Casaora compartiendo tus ideas, sugerencias o reportando problemas.",
+    "description": "Ayúdenos a mejorar Casaora compartiendo sus ideas, sugerencias o reportando problemas.",
     "form": {
       "typeLabel": "¿Qué tipo de comentario es este?",
       "subjectLabel": "Asunto",
       "subjectPlaceholder": "Resumen breve (opcional)",
-      "messageLabel": "Tu comentario",
-      "messagePlaceholder": "Cuéntanos qué piensas...",
+      "messageLabel": "su comentario",
+      "messagePlaceholder": "Cuéntenos qué piensas...",
       "emailLabel": "Correo electrónico",
       "emailPlaceholder": "tu@email.com",
-      "emailHelp": "Solo lo usaremos para hacer seguimiento a tu comentario",
+      "emailHelp": "Solo lo usaremos para hacer seguimiento a su comentario",
       "optional": "opcional",
       "consentText": "Acepto que Casaora procese estos comentarios para mejorar la plataforma.",
-      "privacyNotice": "Recopilamos tus comentarios, URL de la página e información del navegador para mejorar Casaora. Tu correo es opcional para seguimiento. Respetamos tu privacidad y cumplimos con las leyes colombianas de protección de datos.",
+      "privacyNotice": "Recopilamos sus comentarios, URL de la página e información del navegador para mejorar Casaora. su correo es opcional para seguimiento. Respetamos su privacidad y cumplimos con las leyes colombianas de protección de datos.",
       "submit": "Enviar comentarios",
       "submitting": "Enviando..."
     },
     "success": {
       "title": "¡Gracias!",
-      "message": "Hemos recibido tu comentario. Apreciamos que te hayas tomado el tiempo para ayudarnos a mejorar."
+      "message": "Hemos recibido su comentario. Apreciamos que le hayas tomado el tiempo para ayudarnos a mejorar."
     }
   },
   "pricing": {
     "meta": {
       "title": "Precios - Planes Simples y Transparentes | Casaora",
-      "description": "Elige el plan perfecto para tus necesidades. Precios transparentes sin tarifas ocultas. Comienza gratis o actualiza para funciones premium."
+      "description": "Elija el plan perfecto para sus necesidades. Precios transparentes sin tarifas ocultas. Comienza gratis o actualice para funciones premium."
     },
     "title": "Precios simples y transparentes",
-    "subtitle": "Elige el plan que funcione para ti. Todos los planes incluyen nuestras funciones principales sin tarifas ocultas.",
+    "subtitle": "Elija el plan que funcione para ti. Todos los planes incluyen nuestras funciones principales sin tarifas ocultas.",
     "faq": {
       "title": "Preguntas frecuentes",
-      "subtitle": "¿Tienes preguntas? Estamos aquí para ayudar."
+      "subtitle": "¿tiene preguntas? Estamos aquí para ayudar."
     },
     "cta": {
       "title": "¿Listo para comenzar?",
@@ -2271,30 +2271,30 @@
   "roadmap": {
     "meta": {
       "title": "Hoja de Ruta del Producto - Lo Que Estamos Construyendo | Casaora",
-      "description": "Mira en qué estamos trabajando y vota por las funciones que te gustaría ver. Tu opinión da forma a nuestro producto."
+      "description": "Mire en qué estamos trabajando y vote por las funciones que le gustaría ver. su opinión da forma a nuestro producto."
     },
     "title": "Hoja de Ruta del Producto",
-    "subtitle": "Mira lo que estamos construyendo y vota por las funciones que más deseas. Tu opinión da forma a nuestro futuro.",
+    "subtitle": "Mire lo que estamos construyendo y vote por las funciones que más deseas. su opinión da forma a nuestro futuro.",
     "empty": {
       "title": "Aún no hay elementos en la hoja de ruta",
-      "description": "Vuelve pronto para ver en qué estamos trabajando. Sé el primero en sugerir funciones y votar por lo que más te importa."
+      "description": "Vuelva pronto para ver en qué estamos trabajando. Sé el primero en sugerir funciones y votar por lo que más le importa."
     }
   },
   "amara": {
     "title": "Amara",
     "subtitle": "Asistente de Reservas IA",
     "greeting": "👋 ¡Hola! Bienvenido a Casaora.",
-    "welcomeMessage": "¡Hola! Soy Amara, tu asistente de reservas con IA. ¿Cómo puedo ayudarte a encontrar el profesional de limpieza perfecto hoy?",
+    "welcomeMessage": "¡Hola! Soy Amara, su asistente de reservas con IA. ¿Cómo puedo ayudarle a encontrar el profesional de limpieza perfecto hoy?",
     "openChat": "Chatear con Amara",
     "closeChat": "Cerrar chat",
-    "inputPlaceholder": "Escribe tu mensaje...",
+    "inputPlaceholder": "Escribe su mensaje...",
     "send": "Enviar mensaje",
-    "errorMessage": "Lo siento, tuve problemas procesando eso. ¿Podrías reformular tu pregunta?",
+    "errorMessage": "Lo siento, tuve problemas procesando eso. ¿Podrías reformular su pregunta?",
     "onboarding": {
-      "title": "Conoce a Amara, Tu Asistente IA",
-      "description": "Puedo ayudarte a encontrar profesionales, verificar disponibilidad y reservar servicios al instante. ¡Pregúntame lo que quieras!",
+      "title": "Conoce a Amara, su Asistente IA",
+      "description": "Puedo ayudarle a encontrar profesionales, verificar disponibilidad y reservar servicios al instante. ¡Pregúntame lo que quieras!",
       "dismiss": "¡Entendido!",
-      "hint": "¡Nuevo! Haz clic para chatear"
+      "hint": "¡Nuevo! haga clic para chatear"
     },
     "searchingProfessionals": "Buscando profesionales...",
     "checkingAvailability": "Verificando disponibilidad...",
@@ -2365,7 +2365,7 @@
         "subtitle": "Estos principios guían todo lo que hacemos",
         "trust": {
           "title": "Confianza Primero",
-          "description": "Verificamos a cada profesional y mantenemos comunicación transparente para ganar y mantener tu confianza."
+          "description": "Verificamos a cada profesional y mantenemos comunicación transparente para ganar y mantener su confianza."
         },
         "quality": {
           "title": "Servicio de Calidad",
@@ -2407,7 +2407,7 @@
         },
         "available": {
           "title": "Siempre Disponible",
-          "description": "Con miembros del equipo en diferentes zonas horarias, brindamos soporte receptivo cuando lo necesitas."
+          "description": "Con miembros del equipo en diferentes zonas horarias, brindamos soporte receptivo cuando lo necesita."
         },
         "expertise": {
           "title": "Experiencia Diversa",
@@ -2415,7 +2415,7 @@
         }
       },
       "joinTeam": {
-        "title": "¿Quieres Unirte a Nuestra Misión?",
+        "title": "¿quiere Unirte a Nuestra Misión?",
         "description": "Siempre estamos buscando personas apasionadas que quieran hacer una diferencia en las vidas de expatriados y profesionales.",
         "cta": "Contáctanos"
       }
@@ -2433,11 +2433,11 @@
       },
       "support": {
         "title": "Soporte Personalizado",
-        "description": "Nuestro equipo bilingüe está disponible para ayudar a resolver cualquier problema antes, durante y después de tu servicio."
+        "description": "Nuestro equipo bilingüe está disponible para ayudar a resolver cualquier problema antes, durante y después de su servicio."
       },
       "transparency": {
         "title": "Transparencia Total",
-        "description": "Reseñas verificadas, precios claros y perfiles detallados de profesionales para que puedas reservar con confianza."
+        "description": "Reseñas verificadas, precios claros y perfiles detallados de profesionales para que pueda reservar con confianza."
       }
     },
     "cta": {
@@ -2450,65 +2450,65 @@
   "howItWorks": {
     "meta": {
       "title": "Cómo Funciona - Pasos Simples para Servicio de Calidad | Casaora",
-      "description": "Descubre cómo Casaora facilita encontrar profesionales de servicios domésticos confiables. Explora perfiles verificados, reserva servicios y recibe apoyo en cada paso."
+      "description": "Descubre cómo Casaora facilita encontrar profesionales de servicios domésticos confiables. Explore perfiles verificados, reserva servicios y recibe apoyo en cada paso."
     },
     "hero": {
       "title": "Cómo Funciona Casaora",
-      "subtitle": "Ya sea que busques ayuda u ofrezcas tus servicios, hemos hecho el proceso simple, seguro y transparente."
+      "subtitle": "Ya sea que busques ayuda u ofrezcas sus servicios, hemos hecho el proceso simple, seguro y transparente."
     },
     "customer": {
       "title": "Para Clientes",
-      "subtitle": "Encuentra profesionales confiables en 4 sencillos pasos",
+      "subtitle": "Encuentre profesionales confiables en 4 sencillos pasos",
       "steps": {
         "search": {
           "title": "Buscar y Explorar",
-          "description": "Explora profesionales verificados por tipo de servicio, ubicación y disponibilidad. Filtra por idioma, calificaciones y experiencia para encontrar tu coincidencia perfecta."
+          "description": "Explore profesionales verificados por tipo de servicio, ubicación y disponibilidad. Filtra por idioma, calificaciones y experiencia para encontrar su coincidencia perfecta."
         },
         "book": {
-          "title": "Reserva tu Servicio",
-          "description": "Elige tu fecha y hora preferida, revisa precios transparentes y reserva al instante. Nuestro equipo de asistencia está disponible si necesitas ayuda."
+          "title": "Reserve su Servicio",
+          "description": "Elija su fecha y hora preferida, revise precios transparentes y reserva al instante. Nuestro equipo de asistencia está disponible si necesita ayuda."
         },
         "service": {
           "title": "Disfruta Servicio de Calidad",
-          "description": "El profesional llega a tiempo y brinda un servicio excepcional. Nuestro equipo de soporte está disponible si necesitas asistencia."
+          "description": "El profesional llega a tiempo y brinda un servicio excepcional. Nuestro equipo de soporte está disponible si necesita asistencia."
         },
         "review": {
-          "title": "Opina y Reserva de Nuevo",
-          "description": "Comparte tu experiencia para ayudar a otros. ¿Te encantó tu profesional? Guárdalo como favorito y vuelve a reservar con un clic."
+          "title": "Opina y Reserve de Nuevo",
+          "description": "Comparta su experiencia para ayudar a otros. ¿le encantó su profesional? Guárdalo como favorito y vuelva a reservar con un clic."
         }
       },
       "cta": "Explorar Profesionales"
     },
     "professional": {
       "title": "Para Profesionales",
-      "subtitle": "Haz crecer tu negocio en 5 pasos sencillos",
+      "subtitle": "Haz crecer su negocio en 5 pasos sencillos",
       "steps": {
         "apply": {
           "title": "Solicita Unirte",
-          "description": "Completa nuestra solicitud simple con tu experiencia, habilidades y disponibilidad. El proceso toma menos de 10 minutos."
+          "description": "Complete nuestra solicitud simple con su experiencia, habilidades y disponibilidad. El proceso toma menos de 10 minutos."
         },
         "verify": {
-          "title": "Verifica tu Perfil",
-          "description": "Completa verificación de antecedentes, verificación de ID y evaluación de habilidades. Nuestro equipo te guía en cada paso en inglés o español."
+          "title": "Verifique su Perfil",
+          "description": "Complete verificación de antecedentes, verificación de ID y evaluación de habilidades. Nuestro equipo le guía en cada paso en inglés o español."
         },
         "match": {
           "title": "Obtén Coincidencias",
-          "description": "Crea tu perfil, establece tus tarifas y obtén coincidencias con clientes que necesitan tus servicios. Tú controlas tu horario."
+          "description": "Cree su perfil, establezca sus tarifas y obtén coincidencias con clientes que necesitan sus servicios. Tú controlas su horario."
         },
         "serve": {
           "title": "Brinda Excelente Servicio",
-          "description": "Llega a tiempo, proporciona un servicio excelente y construye tu reputación a través de opiniones y calificaciones de clientes."
+          "description": "Llega a tiempo, proporciona un servicio excelente y construya su reputación a través de opiniones y calificaciones de clientes."
         },
         "earn": {
           "title": "Gana y Crece",
-          "description": "Recibe pagos de forma segura después de cada trabajo. Construye una base de clientes leales, gana más mediante reservas repetidas y haz crecer tu negocio."
+          "description": "Recibe pagos de forma segura después de cada trabajo. Construya una base de clientes leales, gana más mediante reservas repetidas y haz crecer su negocio."
         }
       },
       "cta": "Aplicar como Profesional"
     },
     "safety": {
       "title": "Seguridad y Confianza",
-      "subtitle": "Tu seguridad es nuestra máxima prioridad. Así es como te mantenemos protegido.",
+      "subtitle": "su seguridad es nuestra máxima prioridad. Así es como le mantenemos protegido.",
       "verification": {
         "title": "Verificación Rigurosa",
         "description": "Cada profesional se somete a verificación de antecedentes, verificación de ID y evaluación de habilidades antes de unirse a nuestra plataforma. Monitoreamos continuamente la calidad a través de opiniones."
@@ -2524,25 +2524,25 @@
     },
     "faq": {
       "title": "Preguntas Frecuentes",
-      "subtitle": "¿Tienes preguntas? Tenemos respuestas.",
+      "subtitle": "¿tiene preguntas? Tenemos respuestas.",
       "q1": {
         "question": "¿Cómo se verifican los profesionales?",
         "answer": "Cada profesional pasa por un proceso de verificación integral que incluye verificación de antecedentes, verificación de ID, verificación de referencias y evaluación de habilidades. También monitoreamos continuamente la calidad del servicio a través de opiniones y calificaciones de clientes."
       },
       "q2": {
         "question": "¿Qué pasa si no estoy satisfecho con el servicio?",
-        "answer": "Tu satisfacción está garantizada. Si no estás contento con un servicio, contacta a nuestro equipo de asistencia dentro de las 24 horas y trabajaremos para resolver el problema, ya sea organizando una repetición, encontrando un profesional diferente o emitiendo un reembolso."
+        "answer": "su satisfacción está garantizada. Si no está contento con un servicio, comuníquese con a nuestro equipo de asistencia dentro de las 24 horas y trabajaremos para resolver el problema, ya sea organizando una repetición, encontrando un profesional diferente o emitiendo un reembolso."
       },
       "q3": {
         "question": "¿Cómo funcionan los pagos?",
-        "answer": "Para clientes: Paga de forma segura a través de la plataforma usando tarjetas de crédito/débito o transferencias bancarias. Tu pago se mantiene seguro hasta que se complete el servicio. Para profesionales: Recibes el pago automáticamente después de cada trabajo completado, menos nuestra pequeña tarifa de servicio."
+        "answer": "Para clientes: Paga de forma segura a través de la plataforma usando tarjetas de crédito/débito o transferencias bancarias. su pago se mantiene seguro hasta que se complete el servicio. Para profesionales: Recibes el pago automáticamente después de cada trabajo completado, menos nuestra pequeña tarifa de servicio."
       },
       "q4": {
         "question": "¿Puedo comunicarme en inglés aunque esté en Colombia?",
-        "answer": "¡Absolutamente! Toda nuestra plataforma, equipo de soporte y muchos de nuestros profesionales son completamente bilingües. Puedes explorar, reservar y obtener soporte completamente en inglés o español, lo que te resulte más cómodo."
+        "answer": "¡Absolutamente! Toda nuestra plataforma, equipo de soporte y muchos de nuestros profesionales son completamente bilingües. puede explorar, reservar y obtener soporte completamente en inglés o español, lo que le resulte más cómodo."
       },
-      "stillHaveQuestions": "¿Aún tienes preguntas?",
-      "contactUs": "Contacta a nuestro equipo de soporte"
+      "stillHaveQuestions": "¿Aún tiene preguntas?",
+      "contactUs": "Comuníquese con a nuestro equipo de soporte"
     },
     "cta": {
       "title": "¿Listo para Comenzar?",
@@ -2554,16 +2554,16 @@
   "help": {
     "meta": {
       "title": "Centro de Ayuda",
-      "description": "Encuentra respuestas a preguntas comunes y aprende a usar Casaora"
+      "description": "Encuentre respuestas a preguntas comunes y aprende a usar Casaora"
     },
     "hero": {
-      "title": "¿Cómo podemos ayudarte?",
-      "subtitle": "Busca en nuestra base de conocimientos o explora las categorías a continuación"
+      "title": "¿Cómo podemos ayudarle?",
+      "subtitle": "Busca en nuestra base de conocimientos o explore las categorías a continuación"
     },
     "search": {
       "placeholder": "Buscar ayuda...",
       "searching": "Buscando...",
-      "noResults": "No se encontraron artículos que coincidan con tu búsqueda",
+      "noResults": "No se encontraron artículos que coincidan con su búsqueda",
       "viewAll": "Ver todos los resultados",
       "browseAll": "Explorar todos los artículos"
     },
@@ -2579,7 +2579,7 @@
       "views": "vistas"
     },
     "contact": {
-      "title": "¿Aún necesitas ayuda?",
+      "title": "¿Aún necesita ayuda?",
       "description": "Nuestro equipo de soporte está aquí para asistirte",
       "button": "Contactar Soporte"
     },
@@ -2594,7 +2594,7 @@
       "backToHelp": "Volver al Centro de Ayuda",
       "noArticles": {
         "title": "Aún no hay artículos",
-        "description": "Vuelve pronto para ver artículos útiles en esta categoría",
+        "description": "Vuelva pronto para ver artículos útiles en esta categoría",
         "button": "Explorar Otras Categorías"
       }
     },
@@ -2604,11 +2604,11 @@
         "views": "{count, plural, =1 {1 vista} other {# vistas}}"
       },
       "feedback": {
-        "question": "¿Te resultó útil este artículo?",
+        "question": "¿le resultó útil este artículo?",
         "helpful": "Sí, útil",
         "notHelpful": "No útil",
-        "thanksHelpful": "¡Gracias por tu comentario!",
-        "thanksNotHelpful": "Gracias por tu comentario. Trabajaremos para mejorar este artículo.",
+        "thanksHelpful": "¡Gracias por su comentario!",
+        "thanksNotHelpful": "Gracias por su comentario. Trabajaremos para mejorar este artículo.",
         "tellUsMore": "Dinos qué podríamos mejorar:",
         "placeholder": "¿Cómo podemos mejorar este artículo?",
         "submit": "Enviar Comentario",
@@ -2621,8 +2621,8 @@
         "readMore": "Leer más"
       },
       "contact": {
-        "title": "¿Aún tienes preguntas?",
-        "description": "Nuestro equipo de soporte está aquí para ayudarte",
+        "title": "¿Aún tiene preguntas?",
+        "description": "Nuestro equipo de soporte está aquí para ayudarle",
         "button": "Contactar Soporte"
       }
     }
@@ -2632,15 +2632,15 @@
       "status": {
         "enRoute": {
           "title": "{name} está en camino",
-          "description": "Tu profesional está viajando a tu ubicación."
+          "description": "su profesional está viajando a su ubicación."
         },
         "arrivingSoon": {
           "title": "{name} está llegando pronto",
-          "description": "Tu profesional debería llegar en los próximos 30 minutos."
+          "description": "su profesional debería llegar en los próximos 30 minutos."
         },
         "arrived": {
           "title": "{name} ha llegado",
-          "description": "Tu profesional está en tu ubicación y registrará su llegada en breve."
+          "description": "su profesional está en su ubicación y registrará su llegada en breve."
         }
       },
       "timeWindow": "Esperado entre {start} - {end}",
@@ -2648,18 +2648,18 @@
       "updatedJustNow": "Actualizado justo ahora",
       "updatedMinuteAgo": "Actualizado hace 1 minuto",
       "updatedMinutesAgo": "Actualizado hace {minutes} minutos",
-      "privacyNotice": "La ubicación de tu profesional es privada. Solo se comparten ventanas de tiempo de llegada para respetar la privacidad."
+      "privacyNotice": "La ubicación de su profesional es privada. Solo se comparten ventanas de tiempo de llegada para respetar la privacidad."
     }
   },
   "city": {
     "meta": {
       "title": "Servicios Profesionales de Limpieza en {city} | Casaora",
-      "description": "Encuentra profesionales de limpieza verificados y confiables en {city}. Reserva limpieza del hogar, limpieza profunda y más. Profesionales con verificación de antecedentes y reseñas reales."
+      "description": "Encuentre profesionales de limpieza verificados y confiables en {city}. Reserve limpieza del hogar, limpieza profunda y más. Profesionales con verificación de antecedentes y reseñas reales."
     },
     "hero": {
       "title": "Servicios de Limpieza Confiables en {city}",
-      "description": "Conéctate con profesionales de limpieza verificados en {city}. Todos nuestros profesionales tienen verificación de antecedentes, están asegurados y calificados por clientes reales de tu comunidad.",
-      "visualTagline": "Tu Marketplace Local de Limpieza",
+      "description": "Conéctate con profesionales de limpieza verificados en {city}. Todos nuestros profesionales tienen verificación de antecedentes, están asegurados y calificados por clientes reales de su comunidad.",
+      "visualTagline": "su Marketplace Local de Limpieza",
       "popularServices": "Servicios Populares",
       "services": {
         "cleaning": "Limpieza del Hogar",
@@ -2677,9 +2677,9 @@
     },
     "professionals": {
       "title": "Profesionales Mejor Calificados en {city}",
-      "description": "{count} profesionales de limpieza verificados listos para ayudarte",
+      "description": "{count} profesionales de limpieza verificados listos para ayudarle",
       "empty": "Aún no hay profesionales en {city}",
-      "emptyDescription": "¡Vuelve pronto! Estamos expandiéndonos a nuevas áreas regularmente.",
+      "emptyDescription": "¡Vuelva pronto! Estamos expandiéndonos a nuevas áreas regularmente.",
       "viewAll": "Ver Todos los Profesionales",
       "card": {
         "verified": "Verificado",
@@ -2693,8 +2693,8 @@
         "title": "AGUAORA - Lujos Botánicos para el Hogar Próximamente",
         "description": "AGUAORA ofrece sales de baño botánicas, velas artesanales y productos de lujo para el hogar. Una empresa hermana de Casaora. Próximamente."
       },
-      "tagline": "Lujos Botánicos para Tu Hogar",
-      "description": "AGUAORA selecciona sales de baño botánicas premium, velas artesanales y productos refinados para el hogar que transforman momentos cotidianos en experiencias sensoriales.",
+      "tagline": "Lujos Botánicos para su Hogar",
+      "description": "AGUAORA seleccione sales de baño botánicas premium, velas artesanales y productos refinados para el hogar que transforman momentos cotidianos en experiencias sensoriales.",
       "comingSoon": "Próximamente",
       "sisterCompany": "Una empresa hermana de"
     }
@@ -2709,26 +2709,26 @@
       "responseTimeValue": "< 2 horas"
     },
     "paymentSelector": {
-      "title": "Selecciona tu método de pago",
-      "subtitle": "Elige cómo quieres pagar. Todos los métodos son seguros y encriptados.",
+      "title": "Seleccione su método de pago",
+      "subtitle": "Elija cómo quiere pagar. Todos los métodos son seguros y encriptados.",
       "pseHelp": {
         "title": "PSE - Rápido y Seguro",
-        "description": "Transfiere directamente desde tu cuenta bancaria. Confirmación instantánea, sin comisiones adicionales."
+        "description": "Transfiere directamente desde su cuenta bancaria. Confirmación instantánea, sin comisiones adicionales."
       },
       "nequiHelp": {
-        "title": "Nequi - Paga desde tu celular",
-        "description": "Pago rápido usando tu app Nequi. Instantáneo y conveniente."
+        "title": "Nequi - Paga desde su celular",
+        "description": "Pago rápido usando su app Nequi. Instantáneo y conveniente."
       },
       "securityNote": "Pago seguro con Stripe • Todas las transacciones encriptadas"
     },
     "onboardingChecklist": {
-      "title": "Completa tu Perfil",
+      "title": "Complete su Perfil",
       "ready": "¡Listo para aceptar reservas!",
       "incomplete": "{completed} de {total} elementos requeridos completos",
       "requiredItems": "Elementos Requeridos",
       "optionalItems": "Elementos Opcionales (Recomendados)",
-      "helpTitle": "Completa todos los elementos requeridos para comenzar a aceptar reservas",
-      "helpDescription": "Estos pasos ayudan a que los clientes confíen en ti y aumentan tu tasa de éxito de reservas.",
+      "helpTitle": "Complete todos los elementos requeridos para comenzar a aceptar reservas",
+      "helpDescription": "Estos pasos ayudan a que los clientes confíen en ti y aumentan su tasa de éxito de reservas.",
       "items": {
         "profile_photo": "Subir foto de perfil",
         "services": "Agregar al menos un servicio",
@@ -2748,8 +2748,8 @@
       "saving": "Guardando...",
       "cancel": "Cancelar",
       "unavailable": "No disponible",
-      "helpTitle": "Configura tu disponibilidad semanal",
-      "helpDescription": "Los clientes solo pueden reservarte durante estas horas. Sé específico para evitar conflictos.",
+      "helpTitle": "Configura su disponibilidad semanal",
+      "helpDescription": "Los clientes solo pueden reservarle durante estas horas. Sé específico para evitar conflictos.",
       "days": {
         "sunday": "Domingo",
         "monday": "Lunes",
@@ -2767,7 +2767,7 @@
       "saving": "Guardando...",
       "cancel": "Cancelar",
       "radiusLabel": "Radio de Servicio",
-      "radiusDescription": "Serás visible para clientes dentro de {radius} km de tu ubicación de servicio",
+      "radiusDescription": "Serás visible para clientes dentro de {radius} km de su ubicación de servicio",
       "bufferBeforeLabel": "Tiempo de Viaje Antes",
       "bufferAfterLabel": "Tiempo de Viaje Después",
       "minutes": "minutos",
@@ -2775,7 +2775,7 @@
       "currentLocation": "Ubicación actual",
       "noLocationSet": "Aún no se ha configurado ubicación",
       "updateLocation": "Actualizar Ubicación",
-      "helpTitle": "Define dónde quieres trabajar",
+      "helpTitle": "Defina dónde quiere trabajar",
       "helpDescription": "Los tiempos de viaje previenen reservas dobles al reservar tiempo antes/después de cada trabajo."
     },
     "calendarHealth": {
@@ -2787,7 +2787,7 @@
       "hasTravelBuffers": "Tiempos de viaje configurados",
       "recommendations": "Recomendaciones",
       "perfectHealth": "¡Salud del calendario perfecta!",
-      "perfectHealthDescription": "Tu calendario está completamente configurado y listo para aceptar reservas."
+      "perfectHealthDescription": "su calendario está completamente configurado y listo para aceptar reservas."
     },
     "bundleCard": {
       "off": "DESC",
@@ -2801,15 +2801,15 @@
     "bundleManager": {
       "title": "Paquetes de Servicios",
       "createBundle": "Crear Paquete",
-      "description": "Crea paquetes de servicios reutilizables para acelerar cotizaciones y aumentar el valor de reservas.",
+      "description": "Cree paquetes de servicios reutilizables para acelerar cotizaciones y aumentar el valor de reservas.",
       "all": "Todos",
       "active": "Activos",
       "inactive": "Inactivos",
       "noBundles": "Aún no hay paquetes",
-      "noBundlesDescription": "Crea tu primer paquete de servicios para ahorrar tiempo y aumentar el valor promedio de tus reservas.",
-      "createFirstBundle": "Crear Tu Primer Paquete",
+      "noBundlesDescription": "Cree su primer paquete de servicios para ahorrar tiempo y aumentar el valor promedio de sus reservas.",
+      "createFirstBundle": "Crear su Primer Paquete",
       "helpTitle": "¿Por qué usar paquetes de servicios?",
-      "helpDescription": "Los paquetes ayudan a los clientes a reservar múltiples servicios a la vez, aumentan el valor promedio de tus reservas y te ahorran tiempo en cotizaciones personalizadas."
+      "helpDescription": "Los paquetes ayudan a los clientes a reservar múltiples servicios a la vez, aumentan el valor promedio de sus reservas y le ahorran tiempo en cotizaciones personalizadas."
     },
     "performanceMetricsCard": {
       "title": "Métricas de Rendimiento",
@@ -2823,7 +2823,7 @@
       "reviews": "reseñas",
       "last30Days": "Últimos 30 días",
       "cancelled": "canceladas",
-      "averageBookingValue": "Valor Promedio por Reserva",
+      "averageBookingValue": "Valor Promedio por Reserve",
       "repeatCustomerRate": "Tasa de Clientes Recurrentes",
       "onTimeArrivalRate": "Tasa de Llegada a Tiempo",
       "averageResponseTime": "Tiempo de Respuesta Promedio",
@@ -2834,7 +2834,7 @@
       "period": "Últimos {days} días",
       "totalRevenue": "Ingresos Totales",
       "totalBookings": "Reservas Totales",
-      "averagePerBooking": "Prom/Reserva",
+      "averagePerBooking": "Prom/Reserve",
       "bookings": "reservas",
       "noData": "Aún no hay datos de ingresos disponibles"
     },
@@ -2883,20 +2883,20 @@
     },
     "serviceManager": {
       "title": "Catálogo de Servicios",
-      "description": "Gestiona tus servicios, precios y disponibilidad",
+      "description": "Gestione sus servicios, precios y disponibilidad",
       "createService": "Crear Servicio",
       "all": "Todos",
       "active": "Activos",
       "inactive": "Inactivos",
       "noServices": "No se encontraron servicios",
-      "noServicesDescription": "Crea tu primer servicio para comenzar a recibir reservas",
-      "createFirstService": "Crear Tu Primer Servicio",
+      "noServicesDescription": "Cree su primer servicio para comenzar a recibir reservas",
+      "createFirstService": "Crear su Primer Servicio",
       "loading": "Cargando servicios...",
       "error": "Error al cargar servicios",
       "retry": "Reintentar",
-      "confirmDelete": "¿Estás seguro de que quieres desactivar este servicio? Se ocultará de los clientes.",
-      "helpTitle": "Gestiona tu catálogo de servicios",
-      "helpDescription": "Los servicios son cómo los clientes te reservan. Agrega descripciones detalladas, niveles de precios y complementos para maximizar las reservas."
+      "confirmDelete": "¿está seguro de que quiere desactivar este servicio? Se ocultará de los clientes.",
+      "helpTitle": "Gestione su catálogo de servicios",
+      "helpDescription": "Los servicios son cómo los clientes le reservan. Agregue descripciones detalladas, niveles de precios y complementos para maximizar las reservas."
     },
     "bookingStatusBadge": {
       "pending": "Pendiente",
@@ -2917,7 +2917,7 @@
     },
     "bookingList": {
       "title": "Mis Reservas",
-      "description": "Ver y gestionar todas tus reservas",
+      "description": "Ver y gestionar todas sus reservas",
       "all": "Todas",
       "pending": "Pendientes",
       "confirmed": "Confirmadas",

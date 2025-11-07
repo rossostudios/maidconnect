@@ -45,7 +45,7 @@ mcp__exa__web_search_exa: "[your feature] production checklist"
 - **Styling:** TailwindCSS 4
 - **Linting:** Biome (NOT ESLint/Prettier)
 - **Testing:** Playwright
-- **i18n:** next-intl (Spanish-first for Colombian market)
+- **i18n:** next-intl (English-first with geolocation detection)
 - **State:** React Query (@tanstack/react-query)
 - **Validation:** Zod 4
 - **Payments:** Stripe
@@ -156,7 +156,9 @@ const HeavyChart = dynamic(() => import('@/components/charts/heavy-chart'), {
 
 ### Tailwind CSS Design System
 
-**CRITICAL: Use Tailwind classes exclusively for styling. Do NOT create custom CSS variables for spacing or colors.**
+**CRITICAL: Use Tailwind CSS 4.1 classes exclusively for ALL styling. NO custom CSS or CSS variables.**
+
+We use **Tailwind CSS 4.1** for the entire design system. All colors, spacing, typography, and layouts use Tailwind utility classes. Never create custom CSS or CSS variables.
 
 #### Spacing Guidelines
 
@@ -213,10 +215,10 @@ const HeavyChart = dynamic(() => import('@/components/charts/heavy-chart'), {
 <p className="text-gray-900">
 ```
 
-❌ **WRONG:**
+❌ **WRONG: Never use CSS variables**
 ```tsx
-<div className="bg-[var(--background)] border-[var(--border)] text-[var(--muted-foreground)]">
-<button className="bg-[var(--red)] hover:bg-[var(--red-hover)]">
+<div className="bg-[var(--background)]">  // NO CSS VARIABLES!
+<button style={{ color: 'var(--red)' }}>  // NO INLINE STYLES WITH CSS VARS!
 ```
 
 **Brand Color Palette:**
@@ -245,7 +247,7 @@ const HeavyChart = dynamic(() => import('@/components/charts/heavy-chart'), {
 </div>
 ```
 
-**Reference:** See `docs/component-library.md` for complete design system documentation.
+**Reference:** See `docs/02-design/design-system.md` for complete design system documentation.
 
 ### TypeScript Configuration
 
@@ -1193,7 +1195,7 @@ test.describe('Booking Flow', () => {
 
 1. **Test user flows, not implementation details**
 2. **Use semantic selectors:** `getByRole`, `getByLabel`, `getByText`
-3. **Test in Spanish (primary language)**
+3. **Test in both languages** (English primary, Spanish via geolocation)
 4. **Mock external services** (Stripe, email)
 5. **Test edge cases:** errors, loading states, empty states
 
@@ -1268,7 +1270,7 @@ Migration guide: docs/AUTH_MIGRATION.md
 2. **Keep first line under 72 characters**
 3. **Reference issues:** `Closes #123`, `Fixes #456`
 4. **Explain WHY, not WHAT** in the body
-5. **Use Spanish for user-facing changes**
+5. **Provide translations** for user-facing changes (English + Spanish)
 
 ---
 
@@ -1504,14 +1506,155 @@ Before requesting review:
 
 ---
 
+## Documentation Maintenance
+
+### CRITICAL: Keep Documentation in Sync with Code
+
+**Whenever you make changes to the following areas, you MUST update the corresponding documentation:**
+
+#### Design System Changes
+- **What:** Colors, typography, spacing, components, animations, branding
+- **Update:** `/docs/02-design/`
+  - `design-system.md` - Design tokens and patterns
+  - `component-library.md` - Component API reference
+  - `motion-guidelines.md` - Animation patterns
+  - `branding-guidelines-2025.md` - Brand assets and voice
+- **When:** Immediately after implementing design changes
+- **Why:** Designers and developers need accurate design system reference
+
+#### API & Database Changes
+- **What:** New endpoints, schema changes, RLS policies, migrations
+- **Update:** `/docs/03-technical/`
+  - `api-reference.md` - API endpoints documentation
+  - `database-schema.md` - Tables, relationships, RLS policies
+  - `authentication.md` - Auth flows and security
+  - `webhooks.md` - Webhook handling
+- **When:** With the same PR that introduces the changes
+- **Why:** API consumers need accurate interface documentation
+
+#### Feature Additions or Changes
+- **What:** New features, modified workflows, removed features
+- **Update:** `/docs/04-features/`
+  - Create new feature doc or update existing
+  - Include: Architecture, user flows, technical implementation, configuration
+- **When:** After feature is complete and tested
+- **Why:** Product team and developers need to understand feature capabilities
+
+#### Operational Process Changes
+- **What:** Deployment procedures, monitoring setup, incident response, on-call
+- **Update:** `/docs/05-deployment/` and `/docs/06-operations/`
+  - `deployment-guide.md` - Deployment procedures
+  - `ci-cd.md` - Pipeline changes
+  - `incident-response.md` - Incident procedures
+  - `on-call-runbook.md` - On-call procedures
+  - `monitoring.md` - Monitoring setup
+- **When:** Immediately after process change
+- **Why:** Operations team needs accurate runbooks for production
+
+#### Legal & Compliance Changes
+- **What:** Privacy policy updates, terms changes, compliance requirements
+- **Update:** `/docs/07-compliance/`
+  - `privacy-policy.md` - Data handling changes
+  - `terms-of-service.md` - Terms updates
+  - `cookie-policy.md` - Cookie usage changes
+  - Compliance guides (GDPR, Law 1581)
+- **When:** Before deploying changes (requires legal review)
+- **Why:** Legal compliance and user transparency
+
+#### Developer Workflow Changes
+- **What:** New coding patterns, tools, build process, contribution guidelines
+- **Update:** `/docs/07-guides/`
+  - `development-guide.md` - Development workflows
+  - `contributing.md` - Contribution process
+  - `code-review-checklist.md` - Review criteria
+  - `CLAUDE.md` (this file) - Project rules
+- **When:** Immediately after workflow changes
+- **Why:** Team needs consistent development practices
+
+### Documentation Update Checklist
+
+When making significant changes, follow this checklist:
+
+- [ ] **Identify affected documentation** - Which docs need updates?
+- [ ] **Update content** - Make changes accurate and clear
+- [ ] **Update examples** - Ensure code examples still work
+- [ ] **Update version/date** - Add "Last Updated" date to modified docs
+- [ ] **Update index** - Add new docs to [Documentation Index](/docs/00-start/documentation-index.md)
+- [ ] **Update changelog** - Note significant changes in [Changelog](/docs/00-start/changelog.md)
+- [ ] **Test links** - Verify all internal links still work
+- [ ] **Review for clarity** - Can a new team member understand it?
+
+### When to Create New Documentation
+
+**Create new documentation when:**
+1. Adding a major new feature (1000+ lines of code)
+2. Implementing a new external integration
+3. Adding a new compliance requirement
+4. Creating a new operational process
+5. Discovering a complex pattern worth documenting
+
+**Where to create it:**
+- Features: `/docs/04-features/[feature-name].md`
+- Technical guides: `/docs/03-technical/[topic].md`
+- Operations: `/docs/06-operations/[process].md`
+- Compliance: `/docs/07-compliance/[requirement].md`
+
+### When to Archive Documentation
+
+**Archive documentation when:**
+1. Feature is removed from the platform
+2. Technical approach is completely replaced
+3. Process is no longer used
+4. Compliance requirement no longer applies
+
+**How to archive:**
+```bash
+# Move to archives with timestamp
+mv docs/[category]/[old-doc].md docs/08-archives/[category]/[old-doc].md
+
+# Add note at top of archived file explaining why
+# Update documentation index to remove reference
+```
+
+### Documentation Review Schedule
+
+**Quarterly Review (Every 3 months):**
+- Review all documentation for accuracy
+- Update outdated examples
+- Archive deprecated content
+- Update statistics in Documentation Index
+
+**Before Major Releases:**
+- Audit all customer-facing documentation
+- Verify API documentation matches implementation
+- Update deployment guides with new procedures
+- Review compliance documentation for changes
+
+### Red Flags: Documentation Debt
+
+**Warning signs that documentation is falling behind:**
+- ❌ Last updated > 3 months ago on active features
+- ❌ Examples use old API patterns
+- ❌ New team members ask questions answered in (outdated) docs
+- ❌ Documentation contradicts actual implementation
+- ❌ PR reviews find undocumented changes
+
+**If you see these signs:**
+1. Stop and update documentation immediately
+2. Create issue to track documentation debt
+3. Schedule dedicated documentation sprint
+4. Review with team to prevent recurrence
+
+---
+
 ## Questions or Issues?
 
 1. **Check existing code:** Search codebase for similar patterns
 2. **Use Exa MCP:** Research best practices for your specific case
-3. **Consult documentation:** See links in each section
+3. **Consult documentation:** See [Documentation Index](/docs/00-start/documentation-index.md)
 4. **Ask team:** Create GitHub issue or discussion
 
 ---
 
-**Last Updated:** 2025-11-05
-**Version:** 1.1.0
+**Last Updated:** 2025-11-07
+**Version:** 1.2.0

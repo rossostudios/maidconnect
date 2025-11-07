@@ -1,0 +1,257 @@
+AMARA AI ASSISTANT - ARCHITECTURE DIAGRAM
+==========================================
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         CLIENT SIDE (Browser)                               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                               │
+│  ┌────────────────────────────────────────────────────────────────────────┐ │
+│  │  AmaraFloatingButton (React Component)                                 │ │
+│  │  ├─ Feature Flag Check: show_amara_assistant                           │ │
+│  │  ├─ Floating Button (bottom-right, 56x56px)                            │ │
+│  │  ├─ Pulsing Ring Animation (onboarding visible)                        │ │
+│  │  ├─ Dynamic Import: AmaraChatInterface                                 │ │
+│  │  └─ AmaraOnboardingTooltip (localStorage: amara_onboarding_dismissed)  │ │
+│  └────────────────────────────────────────────────────────────────────────┘ │
+│                                    │                                         │
+│                                    ▼                                         │
+│  ┌────────────────────────────────────────────────────────────────────────┐ │
+│  │  AmaraChatInterface (Client Component - 'use client')                  │ │
+│  │                                                                         │ │
+│  │  useChat Hook (Vercel AI SDK)                                          │ │
+│  │  ├─ transport: DefaultChatTransport({api: "/api/amara/chat"})         │ │
+│  │  ├─ messages: Array<Message>                                           │ │
+│  │  ├─ sendMessage: (message) => Promise                                  │ │
+│  │  └─ status: "idle" | "streaming" | "submitted" | "error"              │ │
+│  │                                                                         │ │
+│  │  UI Elements:                                                          │ │
+│  │  ├─ Header (close button)                                              │ │
+│  │  ├─ Messages Container                                                 │ │
+│  │  │   ├─ Welcome/Greeting Section                                       │ │
+│  │  │   ├─ Assistant Messages (with AmaraIcon)                            │ │
+│  │  │   ├─ User Messages (speech bubble style)                            │ │
+│  │  │   ├─ Tool Call Indicators (searching, checking, creating)           │ │
+│  │  │   ├─ Typing Indicator (···)                                         │ │
+│  │  │   └─ Error Messages                                                 │ │
+│  │  ├─ Action Buttons (Home, Messages, Help, News)                        │ │
+│  │  ├─ Quick Replies (contextual buttons)                                 │ │
+│  │  ├─ Message Actions (feedback on hover)                                │ │
+│  │  └─ Input Form (textarea + send button)                                │ │
+│  │                                                                         │ │
+│  │  Animations (amara-animations.css):                                    │ │
+│  │  ├─ Message slide-in                                                   │ │
+│  │  ├─ Typing indicator dots                                              │ │
+│  │  ├─ Pulse ring                                                         │ │
+│  │  ├─ Quick reply hover                                                  │ │
+│  │  └─ Chat window transitions                                            │ │
+│  └────────────────────────────────────────────────────────────────────────┘ │
+│                                    │                                         │
+│  ┌─────────────────────────────────┴──────────────────────────────────────┐ │
+│  │  AmaraMessageActions (hover actions)                                   │ │
+│  │  ├─ Thumbs Up/Down (feedback)                                          │ │
+│  │  ├─ Copy Message                                                       │ │
+│  │  └─ Retry (for future use)                                             │ │
+│  └─────────────────────────────────────────────────────────────────────────┘ │
+│                                    │                                         │
+│  ┌─────────────────────────────────┴──────────────────────────────────────┐ │
+│  │  AmaraQuickReplies (contextual suggestions)                            │ │
+│  │  ├─ Welcome: Find cleaner, Check availability, Top rated, Near me     │ │
+│  │  ├─ After Search: Check availability, Search area, See reviews        │ │
+│  │  └─ After Availability: Book now, Check other times                    │ │
+│  └────────────────────────────────────────────────────────────────────────┘ │
+│                                                                               │
+└───────────────────────────┬───────────────────────────────────────────────────┘
+                            │ HTTP (Streaming)
+                            │ POST /api/amara/chat
+                            │ POST /api/amara/feedback
+                            ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      SERVER SIDE (Next.js API Routes)                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                               │
+│  ┌────────────────────────────────────────────────────────────────────────┐ │
+│  │  POST /api/amara/chat/route.ts                                         │ │
+│  │                                                                         │ │
+│  │  1. Authentication                                                      │ │
+│  │     └─ createSupabaseServerClient()                                     │ │
+│  │        ├─ getUser() (validate session)                                  │ │
+│  │        └─ Return 401 if not authenticated                               │ │
+│  │                                                                         │ │
+│  │  2. Request Validation                                                  │ │
+│  │     └─ validateRequestBody(amaraChatRequestSchema)                      │ │
+│  │        ├─ messages: ChatMessage[]                                       │ │
+│  │        └─ conversationId?: UUID                                         │ │
+│  │                                                                         │ │
+│  │  3. User Context Loading                                                │ │
+│  │     ├─ profiles: { locale, full_name }                                  │ │
+│  │     └─ customer_profiles: { city }                                      │ │
+│  │                                                                         │ │
+│  │  4. System Prompt Generation                                             │ │
+│  │     └─ getAmaraSystemPrompt(userContext)                                │ │
+│  │        ├─ English OR Spanish based on locale                            │ │
+│  │        ├─ Inject user name, city, locale                                │ │
+│  │        └─ Define capabilities and guidelines                            │ │
+│  │                                                                         │ │
+│  │  5. AI Call with Streaming                                              │ │
+│  │     └─ streamText({                                                     │ │
+│  │         model: amaraModel (Claude Haiku 4.5),                           │ │
+│  │         messages: [...],                                                │ │
+│  │         tools: amaraTools,                                              │ │
+│  │         onFinish: async (result) => { ... }                             │ │
+│  │       })                                                                │ │
+│  │                                                                         │ │
+│  │  6. Conversation Persistence (onFinish)                                 │ │
+│  │     ├─ Check if conversationId exists                                   │ │
+│  │     ├─ If not: INSERT amara_conversations                               │ │
+│  │     │   ├─ user_id: auth.uid()                                          │ │
+│  │     │   ├─ locale: userContext.locale                                   │ │
+│  │     │   └─ is_active: true                                              │ │
+│  │     ├─ INSERT amara_messages                                            │ │
+│  │     │   ├─ conversation_id                                              │ │
+│  │     │   ├─ role: "assistant"                                            │ │
+│  │     │   ├─ content: assistant response                                  │ │
+│  │     │   └─ metadata: { model, usage, timestamp }                        │ │
+│  │     └─ UPDATE conversations.last_message_at                             │ │
+│  │                                                                         │ │
+│  │  7. Return Streaming Response                                            │ │
+│  │     └─ result.toTextStreamResponse()                                    │ │
+│  │                                                                         │ │
+│  │  Rate Limiting: withRateLimit(handler, "api") [100 req/min]            │ │
+│  └────────────────────────────────────────────────────────────────────────┘ │
+│                                                                               │
+│  ┌────────────────────────────────────────────────────────────────────────┐ │
+│  │  POST /api/amara/feedback/route.ts                                     │ │
+│  │                                                                         │ │
+│  │  1. Authenticate user                                                   │ │
+│  │  2. Validate request (messageId, feedback type)                         │ │
+│  │  3. Fetch message metadata                                              │ │
+│  │  4. Merge feedback into metadata:                                       │ │
+│  │     ├─ feedback.type: "positive" | "negative"                           │ │
+│  │     ├─ feedback.comment: optional                                       │ │
+│  │     └─ feedback.timestamp: ISO datetime                                 │ │
+│  │  5. UPDATE amara_messages.metadata                                      │ │
+│  │                                                                         │ │
+│  │  Rate Limiting: withRateLimit(handler, "feedback")                     │ │
+│  └────────────────────────────────────────────────────────────────────────┘ │
+│                                                                               │
+└───────────────────────────┬───────────────────────────────────────────────────┘
+                            │
+          ┌─────────────────┼─────────────────┬────────────────┐
+          │                 │                 │                │
+          ▼                 ▼                 ▼                ▼
+┌──────────────────┐  ┌──────────────────┐  ┌──────────────┐  ┌─────────────┐
+│   ANTHROPIC AI   │  │  SUPABASE (DB)   │  │   TOOLS      │  │  LOGGING    │
+├──────────────────┤  ├──────────────────┤  ├──────────────┤  ├─────────────┤
+│                  │  │                  │  │              │  │             │
+│ Claude Haiku 4.5 │  │ amara_           │  │ 1. Search    │  │ Better      │
+│                  │  │ conversations    │  │    Professionals
+│ Capabilities:    │  │ ├─ id (UUID)     │  │    ├─ RPC    │  │ Stack (     │
+│ ├─ Search Tools  │  │ ├─ user_id       │  │    │   list_ │  │ Logtail)    │
+│ ├─ Availability  │  │ ├─ locale (EN/ES)│  │    │   active│  │             │
+│ ├─ Booking Draft │  │ ├─ is_active     │  │    │   prof. │  │ Log events: │
+│ └─ Conversation  │  │ ├─ last_msg_at   │  │    │         │  │ ├─ Chat     │
+│                  │  │ ├─ metadata      │  │    │ 2. Check│  │ │   start    │
+│ Max Tokens: 1K   │  │ └─ timestamps    │  │    │   Avail.│  │ ├─ Errors   │
+│ Temperature: 0.7 │  │                  │  │    │    ├─ API│  │ ├─ Tools   │
+│ Cost: $1M input  │  │ amara_messages   │  │    │    │ GET │  │ │   called  │
+│       $5M output │  │ ├─ id (UUID)     │  │    │    │     │  │ └─ Feedback│
+│                  │  │ ├─ conv_id       │  │    │    │ 3.  │  │             │
+│ API Key:         │  │ ├─ role          │  │    │    │ Book│  │ Analytics: │
+│ ANTHROPIC_       │  │ ├─ content       │  │    │    │ Drft│  │ ├─ Token   │
+│ API_KEY          │  │ ├─ tool_calls    │  │    │    │     │  │ │   usage  │
+│                  │  │ ├─ tool_results  │  │    │    └─ Format
+│ Response:        │  │ ├─ metadata      │  │    │       draft│  │ ├─ Tool  │
+│ ├─ Text stream   │  │ │   ├─ model     │  │    │         │  │ │   calls  │
+│ ├─ Tool calls    │  │ │   ├─ usage     │  │    │         │  │ └─ User    │
+│ └─ Usage stats   │  │ │   ├─ timestamp │  │    │         │  │   feedback │
+│                  │  │ │   └─ feedback  │  │    │         │  │             │
+│                  │  │ └─ timestamps    │  │    │         │  │             │
+│                  │  │                  │  │    │         │  │             │
+│                  │  │ RLS Policies:    │  │    │         │  │             │
+│                  │  │ ├─ Users see own │  │    │         │  │             │
+│                  │  │ │   conversations│  │    │         │  │             │
+│                  │  │ ├─ Service role  │  │    │         │  │             │
+│                  │  │ │   for analytics│  │    │         │  │             │
+│                  │  │ └─ Auth required │  │    │         │  │             │
+│                  │  │                  │  │    │         │  │             │
+└──────────────────┘  └──────────────────┘  └──────────────┘  └─────────────┘
+
+DATA FLOW EXAMPLE:
+=================
+
+User Message → Floating Button → useChat Hook → POST /api/amara/chat
+                                    │
+                                    ▼
+                        Validate Auth + Input
+                                    │
+                                    ▼
+                        Load User Context
+                                    │
+                                    ▼
+                        Generate System Prompt
+                                    │
+                                    ▼
+                        Call Claude Haiku 4.5 + Tools
+                                    │
+                        ┌───────────┼───────────┐
+                        │           │           │
+                        ▼           ▼           ▼
+                    Search        Check      Create
+                    Tools         Avail.     Draft
+                        │           │           │
+                        ▼           ▼           ▼
+                    Return Search  Calendar  Draft
+                    Results        Windows   Object
+                        │           │           │
+                        └───────────┼───────────┘
+                                    │
+                                    ▼
+                        Stream Response to Client
+                                    │
+                        ┌───────────┼───────────┐
+                        │                       │
+                        ▼                       ▼
+                    Display in Chat      Save to DB
+                        UI              (onFinish)
+                        │                       │
+                        │        ┌──────────────┼────────────┐
+                        │        │              │            │
+                        │        ▼              ▼            ▼
+                        │    Insert Conv.    Insert Msg.  Update Last
+                        │    (if needed)     with content   Message
+                        │        │              │            │
+                        │        └──────────────┼────────────┘
+                        │                       │
+                        ▼                       ▼
+                    User reads        Saved to amara_
+                    response          conversations/messages
+
+FEATURE FLAG CONTROL:
+====================
+
+Environment: NEXT_PUBLIC_FEATURE_SHOW_AMARA_ASSISTANT
+
+└─ Default: true (enabled)
+   └─ Check in: AmaraFloatingButton.tsx
+      └─ if (!isFeatureEnabled("show_amara_assistant")) return null;
+
+Override: Set in .env.local or production dashboard
+NEXT_PUBLIC_FEATURE_SHOW_AMARA_ASSISTANT=false
+
+LOCALIZATION (i18n):
+===================
+
+System Prompt ─────┬─► English Prompt
+                   └─► Spanish Prompt
+                        (Based on user.locale)
+
+UI Labels ─────────┬─► English Keys (en.json)
+                   └─► Spanish Keys (es.json)
+                        (Based on user.locale)
+
+Quick Replies ─────┬─► English (Find cleaner, Check availability...)
+                   └─► Spanish (Buscar limpiador, Verificar disponibilidad...)
+
+Error Messages ────┬─► English
+                   └─► Spanish (Locale-aware)
+

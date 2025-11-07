@@ -1,6 +1,6 @@
-# Maidconnect
+# Casaora (MaidConnect)
 
-A concierge-style marketplace connecting foreigners in Colombia with trusted domestic service professionals.
+Casaora is a concierge-style marketplace connecting foreigners in Colombia with trusted domestic service professionals. “MaidConnect” refers to this codebase and internal project name.
 
 ## Quick Start
 
@@ -16,7 +16,9 @@ Visit [http://localhost:3000](http://localhost:3000)
 
 ## Documentation
 
-Full documentation: [docs/00-start/documentation-index.md](docs/00-start/documentation-index.md)
+- Start here: `docs/00-start/documentation-index.md`
+- Feature docs: `docs/04-features/`
+- Help Center docs: `docs/04-features/help-center.md`
 
 ## Tech Stack
 
@@ -28,16 +30,21 @@ Full documentation: [docs/00-start/documentation-index.md](docs/00-start/documen
 
 ## Environment Setup
 
-Copy `.env.example` to `.env.local` and add your credentials:
+Copy `.env.example` to `.env.local` (recommended for Next.js) or `.env` and add your credentials:
 
 ```bash
 cp .env.example .env.local
 ```
 
-Required variables:
+Minimum required to run locally:
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `STRIPE_SECRET_KEY`
 - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
 
-See [docs/00-start/readme.md](docs/00-start/readme.md) for detailed setup.
+See `.env.example` for all optional integrations (Logtail, Upstash, VAPID, Amara, etc.) and `docs/05-deployment/deployment-guide.md` for production notes.
+
+## Help Center
+
+- User-facing route: `/{locale}/help`
+- Developer guide: `docs/04-features/help-center.md`

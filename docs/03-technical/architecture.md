@@ -227,7 +227,7 @@ src/
 │   │   ├── cron/                # Scheduled jobs
 │   │   └── webhooks/            # Webhook handlers
 │   │
-│   └── middleware.ts            # Edge middleware (auth, i18n)
+│   └── proxy.ts                 # Request proxy (auth, i18n, CSRF)
 │
 ├── components/                  # React components
 │   ├── ui/                      # Base UI components
@@ -363,7 +363,7 @@ src/
      │
      ▼
 ┌─────────────────┐
-│  Middleware     │
+│  Proxy (proxy.ts)│
 │  validates JWT  │
 │  on each request│
 └────┬────────────┘
@@ -496,7 +496,7 @@ src/
 **Integration Points**:
 - `lib/supabase/client.ts` - Client-side Supabase client
 - `lib/supabase/server-client.ts` - Server-side Supabase client
-- Middleware for auth validation
+- `proxy.ts` for auth validation and session management
 
 **Connection**:
 ```typescript
@@ -950,7 +950,7 @@ import { AvailabilityCalendar } from "@/components/shared/availability-calendar"
 **Library**: `/src/lib/api/`
 - `auth.ts` - Authentication and authorization helpers
 - `response.ts` - Consistent response formatting
-- `middleware.ts` - Higher-order functions for route handlers
+- `middleware.ts` - Higher-order functions for route handlers (Note: This is API route middleware, different from Next.js's proxy.ts)
 - `index.ts` - Unified exports
 
 **Middleware Functions**:

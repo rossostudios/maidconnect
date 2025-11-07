@@ -92,17 +92,13 @@ async function getCategories(_locale: string): Promise<Category[]> {
 async function getPopularArticles(locale: string): Promise<PopularArticle[]> {
   const supabase = createSupabaseAnonClient();
 
+  const titleField = locale === "es" ? "title_es" : "title_en";
+  const excerptField = locale === "es" ? "excerpt_es" : "excerpt_en";
+
   const { data: rawArticles } = await supabase
     .from("help_articles")
     .select(
-      `
-      id,
-      slug,
-      ${locale === "es" ? "title_es as title" : "title_en as title"},
-      ${locale === "es" ? "excerpt_es as excerpt" : "excerpt_en as excerpt"},
-      view_count,
-      category:help_categories!inner(slug)
-    `
+      `id, slug, ${titleField} as title, ${excerptField} as excerpt, view_count, category:help_categories!inner(slug)`
     )
     .eq("is_published", true)
     .order("view_count", { ascending: false })
