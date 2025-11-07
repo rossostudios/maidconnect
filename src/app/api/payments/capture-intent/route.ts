@@ -9,6 +9,7 @@
 import { z } from "zod";
 import { ok, withAuth } from "@/lib/api";
 import { BusinessRuleError, NotFoundError, UnauthorizedError } from "@/lib/errors";
+import { createRateLimitResponse, rateLimit } from "@/lib/rate-limit";
 import { stripe } from "@/lib/stripe";
 
 const captureIntentSchema = z.object({
@@ -17,6 +18,12 @@ const captureIntentSchema = z.object({
 });
 
 export const POST = withAuth(async ({ user, supabase }, request: Request) => {
+  // Rate limiting: 20 payment captures per hour per user
+  const rateLimitResult = await rateLimit(request, "booking");
+  if (!rateLimitResult.success) {
+    return createRateLimitResponse(rateLimitResult);
+  }
+
   // Parse and validate request body
   const body = await request.json();
   const { paymentIntentId, amountToCapture } = captureIntentSchema.parse(body);

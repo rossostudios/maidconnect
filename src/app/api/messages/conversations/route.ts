@@ -9,6 +9,7 @@
 import { z } from "zod";
 import { created, forbidden, notFound, ok, withAuth } from "@/lib/api";
 import { ValidationError } from "@/lib/errors";
+import { createRateLimitResponse, rateLimit } from "@/lib/rate-limit";
 
 const createConversationSchema = z.object({
   bookingId: z.string().uuid(),
@@ -59,6 +60,12 @@ export const GET = withAuth(async ({ user, supabase }) => {
  * Create a new conversation for a booking
  */
 export const POST = withAuth(async ({ user, supabase }, request: Request) => {
+  // Rate limiting: 30 conversation actions per minute per user
+  const rateLimitResult = await rateLimit(request, "messaging");
+  if (!rateLimitResult.success) {
+    return createRateLimitResponse(rateLimitResult);
+  }
+
   // Parse and validate request body
   const body = await request.json();
   const { bookingId } = createConversationSchema.parse(body);

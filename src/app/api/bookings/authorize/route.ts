@@ -11,6 +11,7 @@ import { ok, requireCustomerOwnership, withCustomer } from "@/lib/api";
 import { sendNewBookingRequestEmail } from "@/lib/email/send";
 import { BusinessRuleError } from "@/lib/errors";
 import { notifyCustomerBookingConfirmed, notifyProfessionalNewBooking } from "@/lib/notifications";
+import { createRateLimitResponse, rateLimit } from "@/lib/rate-limit";
 import { stripe } from "@/lib/stripe";
 
 const authorizeSchema = z.object({
@@ -174,6 +175,12 @@ async function sendAuthorizationNotifications(supabase: any, bookingId: string) 
 }
 
 export const POST = withCustomer(async ({ user, supabase }, request: Request) => {
+  // Rate limiting: 10 payment authorizations per hour per user
+  const rateLimitResult = await rateLimit(request, "booking");
+  if (!rateLimitResult.success) {
+    return createRateLimitResponse(rateLimitResult);
+  }
+
   const body = await request.json();
   const { bookingId, paymentIntentId } = authorizeSchema.parse(body);
 
