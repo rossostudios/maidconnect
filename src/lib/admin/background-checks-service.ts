@@ -64,9 +64,15 @@ export function extractChecksPerformed(resultData: BackgroundCheckResultData | n
 
   const checksPerformed: CheckType[] = [];
 
-  if (resultData.criminal) checksPerformed.push("criminal");
-  if (resultData.identity) checksPerformed.push("identity");
-  if (resultData.disciplinary) checksPerformed.push("disciplinary");
+  if (resultData.criminal) {
+    checksPerformed.push("criminal");
+  }
+  if (resultData.identity) {
+    checksPerformed.push("identity");
+  }
+  if (resultData.disciplinary) {
+    checksPerformed.push("disciplinary");
+  }
 
   return checksPerformed;
 }

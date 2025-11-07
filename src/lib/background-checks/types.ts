@@ -24,7 +24,7 @@ export type BackgroundCheckType =
 // Professional Information (Input)
 // ============================================================================
 
-export interface ProfessionalInfo {
+export type ProfessionalInfo = {
   // Required fields
   professionalId: string;
   firstName: string;
@@ -50,13 +50,13 @@ export interface ProfessionalInfo {
 
   // Optional metadata
   metadata?: Record<string, unknown>;
-}
+};
 
 // ============================================================================
 // Background Check Result (Output)
 // ============================================================================
 
-export interface BackgroundCheckResult {
+export type BackgroundCheckResult = {
   // Common fields
   id: string; // Our internal ID
   providerCheckId: string; // Provider's ID (Checkr or Truora)
@@ -87,9 +87,9 @@ export interface BackgroundCheckResult {
   // Metadata
   createdAt: Date;
   updatedAt: Date;
-}
+};
 
-export interface CheckTypeResult {
+export type CheckTypeResult = {
   status: "clear" | "consider" | "suspended" | "pending";
   records: Array<{
     description: string;
@@ -98,7 +98,7 @@ export interface CheckTypeResult {
     details?: Record<string, unknown>;
   }>;
   completedAt?: Date;
-}
+};
 
 // ============================================================================
 // Webhook Event Types
@@ -110,7 +110,7 @@ export type WebhookEventType =
   | "check.updated"
   | "check.failed";
 
-export interface WebhookEvent {
+export type WebhookEvent = {
   type: WebhookEventType;
   provider: BackgroundCheckProvider;
   checkId: string;
@@ -118,13 +118,13 @@ export interface WebhookEvent {
   status: BackgroundCheckStatus;
   timestamp: Date;
   data: Record<string, unknown>;
-}
+};
 
 // ============================================================================
 // Provider Configuration
 // ============================================================================
 
-export interface ProviderConfig {
+export type ProviderConfig = {
   provider: BackgroundCheckProvider;
   apiKey: string;
   webhookSecret: string;
@@ -136,30 +136,30 @@ export interface ProviderConfig {
 
   // Provider-specific settings
   settings?: Record<string, unknown>;
-}
+};
 
 // ============================================================================
 // API Responses
 // ============================================================================
 
-export interface CreateCheckResponse {
+export type CreateCheckResponse = {
   success: boolean;
   checkId?: string;
   providerCheckId?: string;
   error?: string;
   estimatedCompletionDate?: Date;
-}
+};
 
-export interface GetCheckStatusResponse {
+export type GetCheckStatusResponse = {
   success: boolean;
   check?: BackgroundCheckResult;
   error?: string;
-}
+};
 
-export interface CancelCheckResponse {
+export type CancelCheckResponse = {
   success: boolean;
   error?: string;
-}
+};
 
 // ============================================================================
 // Error Types

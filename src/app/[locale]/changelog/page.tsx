@@ -178,7 +178,7 @@ async function ChangelogList() {
               </div>
             )}
 
-            {/* Content Preview */}
+            {/* Content Preview - Safe: Content sanitized with DOMPurify via sanitizeRichContent() */}
             <div
               className="prose prose-sm sm:prose-base mb-6 line-clamp-4 max-w-none"
               dangerouslySetInnerHTML={{

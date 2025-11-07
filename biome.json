@@ -60,6 +60,9 @@
       "nursery": {
         "noIncrementDecrement": "off",
         "useMaxParams": "warn"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "warn"
       }
     }
   },

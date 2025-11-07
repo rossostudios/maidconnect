@@ -23,12 +23,14 @@ type HelpSearchBarProps = {
   placeholder?: string;
   autoFocus?: boolean;
   className?: string;
+  onClose?: () => void;
 };
 
 export function HelpSearchBar({
   placeholder,
   autoFocus = false,
   className = "",
+  onClose,
 }: HelpSearchBarProps) {
   const t = useTranslations("help");
   const locale = useLocale();
@@ -37,7 +39,54 @@ export function HelpSearchBar({
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const debouncedQuery = useDebounce(query, 300);
+
+  // Reset selected index when results change
+  useEffect(() => {
+    setSelectedIndex(-1);
+  }, []);
+
+  // Utility: Highlight search terms in text
+  const highlightSearchTerm = useCallback((text: string, searchQuery: string): string => {
+    if (!searchQuery.trim()) {
+      return text;
+    }
+    // Escape special regex characters
+    const escapedQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const regex = new RegExp(`(${escapedQuery})`, "gi");
+    return text.replace(regex, '<mark class="bg-yellow-200 text-gray-900 font-medium">$1</mark>');
+  }, []);
+
+  // Track search analytics
+  const trackSearch = useCallback(
+    async (searchQuery: string, resultCount: number) => {
+      try {
+        const supabase = createSupabaseBrowserClient();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        let sessionId = localStorage.getItem("help_session_id");
+        if (!sessionId) {
+          sessionId = crypto.randomUUID();
+          localStorage.setItem("help_session_id", sessionId);
+        }
+
+        await supabase.from("help_search_analytics").insert({
+          query: searchQuery.trim(),
+          locale,
+          result_count: resultCount,
+          user_id: user?.id || null,
+          session_id: user ? null : sessionId,
+        });
+      } catch (error) {
+        // Silent fail - don't disrupt user experience
+        console.error("Analytics tracking failed:", error);
+      }
+    },
+    [locale]
+  );
 
   const searchArticles = useCallback(
     async (searchQuery: string) => {
@@ -53,14 +102,18 @@ export function HelpSearchBar({
         const { data, error } = await supabase.rpc("search_help_articles", {
           search_query: searchQuery,
           locale,
-          limit_count: 5,
+          limit_count: 8, // Increased from 5 to 8
         });
 
         if (error) {
           console.error("Search error:", error);
           setResults([]);
         } else {
-          setResults((data as SearchResult[]) || []);
+          const searchResults = (data as SearchResult[]) || [];
+          setResults(searchResults);
+
+          // Track search analytics
+          trackSearch(searchQuery, searchResults.length);
         }
       } catch (error) {
         console.error("Search failed:", error);
@@ -69,7 +122,7 @@ export function HelpSearchBar({
         setIsLoading(false);
       }
     },
-    [locale]
+    [locale, trackSearch]
   );
 
   useEffect(() => {
@@ -78,16 +131,65 @@ export function HelpSearchBar({
     });
   }, [debouncedQuery, searchArticles]);
 
-  const handleResultClick = (result: SearchResult) => {
+  const handleResultClick = async (result: SearchResult) => {
+    // Track the click in analytics
+    try {
+      const supabase = createSupabaseBrowserClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      const sessionId = localStorage.getItem("help_session_id");
+
+      await supabase
+        .from("help_search_analytics")
+        .update({ clicked_article_id: result.id })
+        .match({
+          query: query.trim(),
+          locale,
+          ...(user ? { user_id: user.id } : { session_id: sessionId }),
+        })
+        .order("created_at", { ascending: false })
+        .limit(1);
+    } catch (error) {
+      console.error("Click tracking failed:", error);
+    }
+
+    // Navigate to article
     router.push(`/${locale}/help/${result.category_slug}/${result.slug}`);
     setQuery("");
     setShowResults(false);
+    onClose?.();
   };
 
   const handleClear = () => {
     setQuery("");
     setResults([]);
     setShowResults(false);
+    onClose?.();
+  };
+
+  // Keyboard navigation handler
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!showResults || results.length === 0) {
+      return;
+    }
+
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev < results.length - 1 ? prev + 1 : 0));
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev > 0 ? prev - 1 : results.length - 1));
+        break;
+      case "Enter":
+        e.preventDefault();
+        if (selectedIndex >= 0 && results[selectedIndex]) {
+          handleResultClick(results[selectedIndex]);
+        }
+        break;
+    }
   };
 
   return (
@@ -106,6 +208,7 @@ export function HelpSearchBar({
             setShowResults(true);
           }}
           onFocus={() => setShowResults(true)}
+          onKeyDown={handleKeyDown}
           placeholder={placeholder || t("search.placeholder")}
           type="search"
           value={query}
@@ -145,9 +248,13 @@ export function HelpSearchBar({
             if (results.length > 0) {
               return (
                 <div className="max-h-96 overflow-y-auto">
-                  {results.map((result) => (
+                  {results.map((result, index) => (
                     <button
-                      className="w-full border-gray-100 border-b px-4 py-3 text-left transition last:border-b-0 hover:bg-gray-50"
+                      className={`w-full border-gray-100 border-b px-4 py-3 text-left transition last:border-b-0 ${
+                        selectedIndex === index
+                          ? "border-[#E85D48] bg-[#E85D48]/10"
+                          : "hover:bg-gray-50"
+                      }`}
                       key={result.id}
                       onClick={() => handleResultClick(result)}
                       type="button"
@@ -157,9 +264,19 @@ export function HelpSearchBar({
                           {result.category_name}
                         </span>
                       </div>
-                      <div className="font-medium text-gray-900">{result.title}</div>
+                      <div
+                        className="font-medium text-gray-900"
+                        dangerouslySetInnerHTML={{
+                          __html: highlightSearchTerm(result.title, query),
+                        }}
+                      />
                       {result.excerpt && (
-                        <p className="mt-1 line-clamp-2 text-gray-600 text-sm">{result.excerpt}</p>
+                        <p
+                          className="mt-1 line-clamp-2 text-gray-600 text-sm"
+                          dangerouslySetInnerHTML={{
+                            __html: highlightSearchTerm(result.excerpt, query),
+                          }}
+                        />
                       )}
                     </button>
                   ))}

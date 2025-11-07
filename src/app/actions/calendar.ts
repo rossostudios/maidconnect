@@ -15,13 +15,13 @@ import type {
 /**
  * Update working hours for a specific day
  */
-export async function updateWorkingHours(
-  profileId: string,
-  dayOfWeek: DayOfWeek,
-  startTime: string,
-  endTime: string,
-  isAvailable: boolean
-): Promise<UpdateWorkingHoursResponse> {
+export async function updateWorkingHours(options: {
+  profileId: string;
+  dayOfWeek: DayOfWeek;
+  startTime: string;
+  endTime: string;
+  isAvailable: boolean;
+}): Promise<UpdateWorkingHoursResponse> {
   try {
     const supabase = await createSupabaseServerClient();
 
@@ -30,11 +30,11 @@ export async function updateWorkingHours(
       .from("professional_working_hours")
       .upsert(
         {
-          profile_id: profileId,
-          day_of_week: dayOfWeek,
-          start_time: startTime,
-          end_time: endTime,
-          is_available: isAvailable,
+          profile_id: options.profileId,
+          day_of_week: options.dayOfWeek,
+          start_time: options.startTime,
+          end_time: options.endTime,
+          is_available: options.isAvailable,
           updated_at: new Date().toISOString(),
         },
         {
@@ -120,28 +120,30 @@ export async function getWorkingHours(
 /**
  * Update travel buffer settings
  */
-export async function updateTravelBuffer(
-  profileId: string,
-  serviceRadiusKm: number,
-  serviceLat: number,
-  serviceLng: number,
-  travelBufferBeforeMinutes: number,
-  travelBufferAfterMinutes: number,
-  avgTravelSpeedKmh = 30
-): Promise<UpdateTravelBufferResponse> {
+export async function updateTravelBuffer(options: {
+  profileId: string;
+  serviceRadiusKm: number;
+  serviceLat: number;
+  serviceLng: number;
+  travelBufferBeforeMinutes: number;
+  travelBufferAfterMinutes: number;
+  avgTravelSpeedKmh?: number;
+}): Promise<UpdateTravelBufferResponse> {
   try {
     const supabase = await createSupabaseServerClient();
+
+    const avgTravelSpeedKmh = options.avgTravelSpeedKmh ?? 30;
 
     // Upsert travel buffer
     const { data, error } = await supabase
       .from("professional_travel_buffers")
       .upsert(
         {
-          profile_id: profileId,
-          service_radius_km: serviceRadiusKm,
-          service_location: `POINT(${serviceLng} ${serviceLat})`, // PostGIS format: POINT(lng lat)
-          travel_buffer_before_minutes: travelBufferBeforeMinutes,
-          travel_buffer_after_minutes: travelBufferAfterMinutes,
+          profile_id: options.profileId,
+          service_radius_km: options.serviceRadiusKm,
+          service_location: `POINT(${options.serviceLng} ${options.serviceLat})`, // PostGIS format: POINT(lng lat)
+          travel_buffer_before_minutes: options.travelBufferBeforeMinutes,
+          travel_buffer_after_minutes: options.travelBufferAfterMinutes,
           avg_travel_speed_kmh: avgTravelSpeedKmh,
           updated_at: new Date().toISOString(),
         },
@@ -163,8 +165,8 @@ export async function updateTravelBuffer(
       profileId: data.profile_id,
       serviceRadiusKm: data.service_radius_km,
       serviceLocation: {
-        lat: serviceLat,
-        lng: serviceLng,
+        lat: options.serviceLat,
+        lng: options.serviceLng,
       },
       travelBufferBeforeMinutes: data.travel_buffer_before_minutes,
       travelBufferAfterMinutes: data.travel_buffer_after_minutes,

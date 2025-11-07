@@ -31,7 +31,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
     const email = authUser?.user?.email || null;
 
     // Get professional profile if applicable
-    let professionalProfile = null;
+    let professionalProfile: any = null;
     if (profile.role === "professional") {
       const { data: proProfile } = await supabase
         .from("professional_profiles")
@@ -67,7 +67,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
     );
 
     // Get booking stats
-    let bookingStats = null;
+    let bookingStats: { total: number; completed: number } | null = null;
     if (profile.role === "customer") {
       const { count: totalBookings } = await supabase
         .from("bookings")

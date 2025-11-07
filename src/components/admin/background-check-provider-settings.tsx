@@ -11,13 +11,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-interface BackgroundCheckProviderSettingsProps {
+type BackgroundCheckProviderSettingsProps = {
   initialSettings: {
     provider: "checkr" | "truora";
     enabled: boolean;
     auto_initiate: boolean;
   };
-}
+};
 
 export function BackgroundCheckProviderSettings({
   initialSettings,

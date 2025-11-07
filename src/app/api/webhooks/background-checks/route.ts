@@ -269,7 +269,9 @@ async function autoApproveOnboarding(
     .eq("profile_id", professionalId)
     .single();
 
-  if (!professional) return;
+  if (!professional) {
+    return;
+  }
 
   // Only auto-approve if documents verified and interview completed
   if (professional.documents_verified && professional.interview_completed) {

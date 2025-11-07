@@ -13,7 +13,7 @@ import { BackgroundCheckError, BackgroundCheckProvider, ErrorCodes } from "./typ
 /**
  * Provider configuration stored in database or environment
  */
-interface StoredProviderConfig {
+type StoredProviderConfig = {
   // Active provider
   activeProvider: BackgroundCheckProvider;
 
@@ -33,7 +33,7 @@ interface StoredProviderConfig {
 
   // Fallback provider if primary fails
   fallbackProvider?: BackgroundCheckProvider;
-}
+};
 
 /**
  * Factory class to create background check provider instances
@@ -121,7 +121,7 @@ export class BackgroundCheckProviderFactory {
    * Get fallback provider if configured
    */
   getFallbackProvider(): BackgroundCheckProviderInterface | null {
-    if (!(this.config && this.config.fallbackProvider)) {
+    if (!this.config?.fallbackProvider) {
       return null;
     }
 
@@ -182,7 +182,9 @@ export class BackgroundCheckProviderFactory {
   private createProvider(
     providerName: BackgroundCheckProvider
   ): BackgroundCheckProviderInterface | null {
-    if (!this.config) return null;
+    if (!this.config) {
+      return null;
+    }
 
     switch (providerName) {
       case "checkr": {

@@ -43,9 +43,7 @@ export async function generateMetadata({
 
   const { data: article } = await supabase
     .from("help_articles")
-    .select(
-      `${titleField} as title, ${excerptField} as excerpt, help_categories!inner(slug)`
-    )
+    .select(`${titleField} as title, ${excerptField} as excerpt, help_categories!inner(slug)`)
     .eq("slug", articleSlug)
     .eq("help_categories.slug", category)
     .eq("is_published", true)
@@ -98,7 +96,7 @@ async function getArticleData(
   };
 
   // Increment view count (fire and forget, ignore errors)
-  // biome-ignore lint/suspicious/noVoid: Fire-and-forget pattern for analytics
+  // biome-ignore lint/complexity/noVoid: Fire-and-forget pattern for analytics
   void supabase.rpc("increment_article_view_count", {
     article_id: article.id,
   });
@@ -138,9 +136,7 @@ async function getArticleData(
   if (relatedArticles.length === 0) {
     const { data: rawSameCategoryArticles } = await supabase
       .from("help_articles")
-      .select(
-        `id, slug, ${titleField} as title, ${excerptField} as excerpt, view_count`
-      )
+      .select(`id, slug, ${titleField} as title, ${excerptField} as excerpt, view_count`)
       .eq("category_id", article.category_id)
       .eq("is_published", true)
       .neq("id", article.id)

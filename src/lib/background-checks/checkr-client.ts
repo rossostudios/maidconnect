@@ -5,7 +5,7 @@
  * Docs: https://docs.checkr.com/
  */
 
-import crypto from "crypto";
+import crypto from "node:crypto";
 import { BackgroundCheckProviderInterface } from "./provider-interface";
 import {
   BackgroundCheckError,
@@ -20,7 +20,7 @@ import {
   WebhookEvent,
 } from "./types";
 
-interface CheckrCandidate {
+type CheckrCandidate = {
   id: string;
   first_name: string;
   last_name: string;
@@ -32,9 +32,9 @@ interface CheckrCandidate {
   driver_license_number?: string;
   driver_license_state?: string;
   copy_requested: boolean;
-}
+};
 
-interface CheckrReport {
+type CheckrReport = {
   id: string;
   status: string; // 'pending', 'complete', 'consider', 'suspended', 'canceled'
   completed_at?: string;
@@ -54,9 +54,9 @@ interface CheckrReport {
     completed_at?: string;
     result?: string;
   }>;
-}
+};
 
-interface CheckrRecordResult {
+type CheckrRecordResult = {
   status: string;
   records: Array<{
     case_number?: string;
@@ -73,7 +73,7 @@ interface CheckrRecordResult {
       sentence?: string;
     }>;
   }>;
-}
+};
 
 export class CheckrClient extends BackgroundCheckProviderInterface {
   private readonly apiVersion = "v1";
@@ -370,11 +370,15 @@ export class CheckrClient extends BackgroundCheckProviderInterface {
   }
 
   private estimateCompletionDate(tat?: string): Date | undefined {
-    if (!tat) return;
+    if (!tat) {
+      return;
+    }
 
     // TAT (Turnaround Time) is typically in minutes
     const minutes = Number.parseInt(tat, 10);
-    if (isNaN(minutes)) return;
+    if (Number.isNaN(minutes)) {
+      return;
+    }
 
     const now = new Date();
     now.setMinutes(now.getMinutes() + minutes);
@@ -386,20 +390,30 @@ export class CheckrClient extends BackgroundCheckProviderInterface {
   ): Array<"criminal" | "identity" | "disciplinary"> {
     const checks: Array<"criminal" | "identity" | "disciplinary"> = [];
 
-    if (report.criminal_search) checks.push("criminal");
-    if (report.national_id_search) checks.push("identity");
+    if (report.criminal_search) {
+      checks.push("criminal");
+    }
+    if (report.national_id_search) {
+      checks.push("identity");
+    }
 
     return checks;
   }
 
   private determineSeverity(charges?: Array<{ severity?: string }>): "low" | "medium" | "high" {
-    if (!charges || charges.length === 0) return "low";
+    if (!charges || charges.length === 0) {
+      return "low";
+    }
 
     const hasFelony = charges.some((c) => c.severity?.toLowerCase().includes("felony"));
-    if (hasFelony) return "high";
+    if (hasFelony) {
+      return "high";
+    }
 
     const hasMisdemeanor = charges.some((c) => c.severity?.toLowerCase().includes("misdemeanor"));
-    if (hasMisdemeanor) return "medium";
+    if (hasMisdemeanor) {
+      return "medium";
+    }
 
     return "low";
   }
@@ -408,9 +422,15 @@ export class CheckrClient extends BackgroundCheckProviderInterface {
     status: BackgroundCheckStatus,
     _report: CheckrReport
   ): "approved" | "review_required" | "rejected" {
-    if (status === "clear") return "approved";
-    if (status === "suspended") return "rejected";
-    if (status === "consider") return "review_required";
+    if (status === "clear") {
+      return "approved";
+    }
+    if (status === "suspended") {
+      return "rejected";
+    }
+    if (status === "consider") {
+      return "review_required";
+    }
     return "review_required";
   }
 

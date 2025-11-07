@@ -12,22 +12,16 @@
  * type BookingUpdate = TablesUpdate<'bookings'>;
  */
 
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[];
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       profiles: {
         Row: {
           id: string;
-          role: 'customer' | 'professional' | 'admin';
-          onboarding_status: 'pending' | 'completed' | 'suspended';
+          role: "customer" | "professional" | "admin";
+          onboarding_status: "pending" | "completed" | "suspended";
           phone: string | null;
           phone_verified: boolean;
           sms_notifications_enabled: boolean;
@@ -38,8 +32,8 @@ export interface Database {
         };
         Insert: {
           id: string;
-          role: 'customer' | 'professional' | 'admin';
-          onboarding_status?: 'pending' | 'completed' | 'suspended';
+          role: "customer" | "professional" | "admin";
+          onboarding_status?: "pending" | "completed" | "suspended";
           phone?: string | null;
           phone_verified?: boolean;
           sms_notifications_enabled?: boolean;
@@ -50,8 +44,8 @@ export interface Database {
         };
         Update: {
           id?: string;
-          role?: 'customer' | 'professional' | 'admin';
-          onboarding_status?: 'pending' | 'completed' | 'suspended';
+          role?: "customer" | "professional" | "admin";
+          onboarding_status?: "pending" | "completed" | "suspended";
           phone?: string | null;
           phone_verified?: boolean;
           sms_notifications_enabled?: boolean;
@@ -66,7 +60,14 @@ export interface Database {
           id: string;
           customer_id: string;
           professional_id: string;
-          status: 'pending' | 'authorized' | 'confirmed' | 'in_progress' | 'completed' | 'cancelled' | 'disputed';
+          status:
+            | "pending"
+            | "authorized"
+            | "confirmed"
+            | "in_progress"
+            | "completed"
+            | "cancelled"
+            | "disputed";
           service_name: string;
           scheduled_start: string;
           scheduled_end: string | null;
@@ -91,7 +92,14 @@ export interface Database {
           id?: string;
           customer_id: string;
           professional_id: string;
-          status?: 'pending' | 'authorized' | 'confirmed' | 'in_progress' | 'completed' | 'cancelled' | 'disputed';
+          status?:
+            | "pending"
+            | "authorized"
+            | "confirmed"
+            | "in_progress"
+            | "completed"
+            | "cancelled"
+            | "disputed";
           service_name: string;
           scheduled_start: string;
           scheduled_end?: string | null;
@@ -116,7 +124,14 @@ export interface Database {
           id?: string;
           customer_id?: string;
           professional_id?: string;
-          status?: 'pending' | 'authorized' | 'confirmed' | 'in_progress' | 'completed' | 'cancelled' | 'disputed';
+          status?:
+            | "pending"
+            | "authorized"
+            | "confirmed"
+            | "in_progress"
+            | "completed"
+            | "cancelled"
+            | "disputed";
           service_name?: string;
           scheduled_start?: string;
           scheduled_end?: string | null;
@@ -369,10 +384,10 @@ export interface Database {
           id: string;
           booking_id: string;
           filed_by: string;
-          dispute_type: 'quality' | 'no_show' | 'billing' | 'other';
+          dispute_type: "quality" | "no_show" | "billing" | "other";
           description: string;
           evidence_urls: string[];
-          status: 'filed' | 'investigating' | 'resolved' | 'closed';
+          status: "filed" | "investigating" | "resolved" | "closed";
           resolution_notes: string | null;
           resolution_action: string | null;
           refund_amount: number | null;
@@ -385,10 +400,10 @@ export interface Database {
           id?: string;
           booking_id: string;
           filed_by: string;
-          dispute_type: 'quality' | 'no_show' | 'billing' | 'other';
+          dispute_type: "quality" | "no_show" | "billing" | "other";
           description: string;
           evidence_urls?: string[];
-          status?: 'filed' | 'investigating' | 'resolved' | 'closed';
+          status?: "filed" | "investigating" | "resolved" | "closed";
           resolution_notes?: string | null;
           resolution_action?: string | null;
           refund_amount?: number | null;
@@ -401,10 +416,10 @@ export interface Database {
           id?: string;
           booking_id?: string;
           filed_by?: string;
-          dispute_type?: 'quality' | 'no_show' | 'billing' | 'other';
+          dispute_type?: "quality" | "no_show" | "billing" | "other";
           description?: string;
           evidence_urls?: string[];
-          status?: 'filed' | 'investigating' | 'resolved' | 'closed';
+          status?: "filed" | "investigating" | "resolved" | "closed";
           resolution_notes?: string | null;
           resolution_action?: string | null;
           refund_amount?: number | null;
@@ -421,7 +436,7 @@ export interface Database {
     Functions: {
       increment_article_view_count: {
         Args: { article_id: string };
-        Returns: void;
+        Returns: undefined;
       };
       are_users_blocked: {
         Args: { user1_id: string; user2_id: string };
@@ -437,44 +452,54 @@ export interface Database {
       };
     };
     Enums: {
-      app_role: 'customer' | 'professional' | 'admin';
-      booking_status: 'pending' | 'authorized' | 'confirmed' | 'in_progress' | 'completed' | 'cancelled' | 'disputed';
-      dispute_type: 'quality' | 'no_show' | 'billing' | 'other';
-      dispute_status: 'filed' | 'investigating' | 'resolved' | 'closed';
+      app_role: "customer" | "professional" | "admin";
+      booking_status:
+        | "pending"
+        | "authorized"
+        | "confirmed"
+        | "in_progress"
+        | "completed"
+        | "cancelled"
+        | "disputed";
+      dispute_type: "quality" | "no_show" | "billing" | "other";
+      dispute_status: "filed" | "investigating" | "resolved" | "closed";
     };
   };
-}
+};
 
 // Helper types for table operations
-export type Tables<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Row'];
-export type TablesInsert<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Insert'];
-export type TablesUpdate<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Update'];
-export type Enums<T extends keyof Database['public']['Enums']> = Database['public']['Enums'][T];
+export type Tables<T extends keyof Database["public"]["Tables"]> =
+  Database["public"]["Tables"][T]["Row"];
+export type TablesInsert<T extends keyof Database["public"]["Tables"]> =
+  Database["public"]["Tables"][T]["Insert"];
+export type TablesUpdate<T extends keyof Database["public"]["Tables"]> =
+  Database["public"]["Tables"][T]["Update"];
+export type Enums<T extends keyof Database["public"]["Enums"]> = Database["public"]["Enums"][T];
 
 // Commonly used types
-export type Booking = Tables<'bookings'>;
-export type Profile = Tables<'profiles'>;
-export type HelpArticle = Tables<'help_articles'>;
-export type HelpCategory = Tables<'help_categories'>;
-export type Conversation = Tables<'conversations'>;
-export type Message = Tables<'messages'>;
-export type ProfessionalProfile = Tables<'professional_profiles'>;
-export type Dispute = Tables<'disputes'>;
+export type Booking = Tables<"bookings">;
+export type Profile = Tables<"profiles">;
+export type HelpArticle = Tables<"help_articles">;
+export type HelpCategory = Tables<"help_categories">;
+export type Conversation = Tables<"conversations">;
+export type Message = Tables<"messages">;
+export type ProfessionalProfile = Tables<"professional_profiles">;
+export type Dispute = Tables<"disputes">;
 
 // Insert types
-export type BookingInsert = TablesInsert<'bookings'>;
-export type ProfileInsert = TablesInsert<'profiles'>;
-export type HelpArticleInsert = TablesInsert<'help_articles'>;
-export type MessageInsert = TablesInsert<'messages'>;
+export type BookingInsert = TablesInsert<"bookings">;
+export type ProfileInsert = TablesInsert<"profiles">;
+export type HelpArticleInsert = TablesInsert<"help_articles">;
+export type MessageInsert = TablesInsert<"messages">;
 
 // Update types
-export type BookingUpdate = TablesUpdate<'bookings'>;
-export type ProfileUpdate = TablesUpdate<'profiles'>;
-export type HelpArticleUpdate = TablesUpdate<'help_articles'>;
-export type MessageUpdate = TablesUpdate<'messages'>;
+export type BookingUpdate = TablesUpdate<"bookings">;
+export type ProfileUpdate = TablesUpdate<"profiles">;
+export type HelpArticleUpdate = TablesUpdate<"help_articles">;
+export type MessageUpdate = TablesUpdate<"messages">;
 
 // Enum types
-export type AppRole = Enums<'app_role'>;
-export type BookingStatus = Enums<'booking_status'>;
-export type DisputeType = Enums<'dispute_type'>;
-export type DisputeStatus = Enums<'dispute_status'>;
+export type AppRole = Enums<"app_role">;
+export type BookingStatus = Enums<"booking_status">;
+export type DisputeType = Enums<"dispute_type">;
+export type DisputeStatus = Enums<"dispute_status">;

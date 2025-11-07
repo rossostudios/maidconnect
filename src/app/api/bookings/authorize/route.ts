@@ -69,32 +69,32 @@ function formatBookingDetails(fullBooking: any) {
 }
 
 // Helper: Send notifications to professional
-async function notifyProfessional(
-  _supabase: any,
-  fullBooking: any,
-  professionalUser: any,
-  professionalProfile: any,
-  customerUser: any
-) {
-  if (!professionalUser?.user?.email) {
+async function notifyProfessional(options: {
+  supabase: any;
+  fullBooking: any;
+  professionalUser: any;
+  professionalProfile: any;
+  customerUser: any;
+}) {
+  if (!options.professionalUser?.user?.email) {
     return;
   }
 
-  const details = formatBookingDetails(fullBooking);
+  const details = formatBookingDetails(options.fullBooking);
 
-  await sendNewBookingRequestEmail(professionalUser.user.email, {
-    professionalName: professionalProfile?.full_name || "there",
-    customerName: customerUser?.user?.user_metadata?.full_name || "A customer",
-    serviceName: fullBooking.service_name || "Service",
+  await sendNewBookingRequestEmail(options.professionalUser.user.email, {
+    professionalName: options.professionalProfile?.full_name || "there",
+    customerName: options.customerUser?.user?.user_metadata?.full_name || "A customer",
+    serviceName: options.fullBooking.service_name || "Service",
     ...details,
-    bookingId: fullBooking.id,
+    bookingId: options.fullBooking.id,
   });
 
-  await notifyProfessionalNewBooking(fullBooking.professional_id, {
-    id: fullBooking.id,
-    serviceName: fullBooking.service_name || "Service",
-    customerName: customerUser?.user?.user_metadata?.full_name || "A customer",
-    scheduledStart: fullBooking.scheduled_start || new Date().toISOString(),
+  await notifyProfessionalNewBooking(options.fullBooking.professional_id, {
+    id: options.fullBooking.id,
+    serviceName: options.fullBooking.service_name || "Service",
+    customerName: options.customerUser?.user?.user_metadata?.full_name || "A customer",
+    scheduledStart: options.fullBooking.scheduled_start || new Date().toISOString(),
   });
 }
 
@@ -160,13 +160,13 @@ async function sendAuthorizationNotifications(supabase: any, bookingId: string) 
       );
 
     await Promise.all([
-      notifyProfessional(
+      notifyProfessional({
         supabase,
         fullBooking,
         professionalUser,
         professionalProfile,
-        customerUser
-      ),
+        customerUser,
+      }),
       notifyCustomer(fullBooking, customerUser, professionalProfile),
     ]);
   } catch (_emailError) {

@@ -25,7 +25,7 @@ async function verifyPayoutAuth(
 }
 
 // Helper: Fetch professionals eligible for payout
-async function fetchEligibleProfessionals(supabase: any, professionalId?: string) {
+function fetchEligibleProfessionals(supabase: any, professionalId?: string) {
   let query = supabase
     .from("professional_profiles")
     .select("profile_id, stripe_connect_account_id, stripe_connect_onboarding_status")
@@ -72,27 +72,27 @@ async function fetchPendingBookings(
 }
 
 // Helper: Create payout record in database
-async function createPayoutRecord(
-  supabase: any,
-  professionalId: string,
-  connectAccountId: string,
-  payout: any,
-  periodStart: Date,
-  periodEnd: Date
-) {
-  return supabase
+function createPayoutRecord(options: {
+  supabase: any;
+  professionalId: string;
+  connectAccountId: string;
+  payout: any;
+  periodStart: Date;
+  periodEnd: Date;
+}) {
+  return options.supabase
     .from("payouts")
     .insert({
-      professional_id: professionalId,
-      stripe_connect_account_id: connectAccountId,
-      gross_amount: payout.grossAmount,
-      commission_amount: payout.commissionAmount,
-      net_amount: payout.netAmount,
-      currency: payout.currency,
+      professional_id: options.professionalId,
+      stripe_connect_account_id: options.connectAccountId,
+      gross_amount: options.payout.grossAmount,
+      commission_amount: options.payout.commissionAmount,
+      net_amount: options.payout.netAmount,
+      currency: options.payout.currency,
       status: "processing",
-      booking_ids: payout.bookingIds,
-      period_start: periodStart.toISOString(),
-      period_end: periodEnd.toISOString(),
+      booking_ids: options.payout.bookingIds,
+      period_start: options.periodStart.toISOString(),
+      period_end: options.periodEnd.toISOString(),
       payout_date: new Date().toISOString(),
     })
     .select()
@@ -100,30 +100,30 @@ async function createPayoutRecord(
 }
 
 // Helper: Create Stripe transfer and update payout
-async function processStripeTransfer(
-  supabase: any,
-  payoutRecord: any,
-  professional: any,
-  payout: any,
-  periodStart: Date,
-  periodEnd: Date
-) {
+async function processStripeTransfer(options: {
+  supabase: any;
+  payoutRecord: any;
+  professional: any;
+  payout: any;
+  periodStart: Date;
+  periodEnd: Date;
+}) {
   const transfer = await stripe.transfers.create({
-    amount: payout.netAmount,
-    currency: payout.currency.toLowerCase(),
-    destination: professional.stripe_connect_account_id,
-    description: `Payout for ${payout.bookingCount} bookings (${periodStart.toDateString()} - ${periodEnd.toDateString()})`,
+    amount: options.payout.netAmount,
+    currency: options.payout.currency.toLowerCase(),
+    destination: options.professional.stripe_connect_account_id,
+    description: `Payout for ${options.payout.bookingCount} bookings (${options.periodStart.toDateString()} - ${options.periodEnd.toDateString()})`,
     metadata: {
-      payout_id: payoutRecord.id,
-      professional_id: professional.profile_id,
-      booking_count: payout.bookingCount.toString(),
-      period_start: periodStart.toISOString(),
-      period_end: periodEnd.toISOString(),
+      payout_id: options.payoutRecord.id,
+      professional_id: options.professional.profile_id,
+      booking_count: options.payout.bookingCount.toString(),
+      period_start: options.periodStart.toISOString(),
+      period_end: options.periodEnd.toISOString(),
     },
   });
 
   // Update payout record with Stripe transfer ID and status
-  await supabase
+  await options.supabase
     .from("payouts")
     .update({
       stripe_payout_id: transfer.id,
@@ -132,36 +132,36 @@ async function processStripeTransfer(
         ? new Date((transfer.destination_payment as any).arrival_date * 1000).toISOString()
         : null,
     })
-    .eq("id", payoutRecord.id);
+    .eq("id", options.payoutRecord.id);
 
   // Mark bookings as included in this payout
-  await supabase
+  await options.supabase
     .from("bookings")
-    .update({ included_in_payout_id: payoutRecord.id })
-    .in("id", payout.bookingIds);
+    .update({ included_in_payout_id: options.payoutRecord.id })
+    .in("id", options.payout.bookingIds);
 
   return transfer;
 }
 
 // Helper: Process single professional payout
-async function processProfessionalPayout(
-  supabase: any,
-  professional: any,
-  periodStart: Date,
-  periodEnd: Date,
-  dryRun: boolean
-) {
+async function processProfessionalPayout(options: {
+  supabase: any;
+  professional: any;
+  periodStart: Date;
+  periodEnd: Date;
+  dryRun: boolean;
+}) {
   // Fetch pending bookings
   const bookingsResult = await fetchPendingBookings(
-    supabase,
-    professional.profile_id,
-    periodStart,
-    periodEnd
+    options.supabase,
+    options.professional.profile_id,
+    options.periodStart,
+    options.periodEnd
   );
 
   if (bookingsResult.error) {
     return {
-      professionalId: professional.profile_id,
+      professionalId: options.professional.profile_id,
       success: false,
       error: "Failed to fetch bookings",
     };
@@ -172,7 +172,7 @@ async function processProfessionalPayout(
   // Skip if no bookings in current period
   if (periodBookings.length === 0) {
     return {
-      professionalId: professional.profile_id,
+      professionalId: options.professional.profile_id,
       success: true,
       skipped: true,
       reason: "No bookings in current period",
@@ -185,7 +185,7 @@ async function processProfessionalPayout(
   // Skip if net amount is 0
   if (payout.netAmount <= 0) {
     return {
-      professionalId: professional.profile_id,
+      professionalId: options.professional.profile_id,
       success: true,
       skipped: true,
       reason: "Net amount is zero",
@@ -193,9 +193,9 @@ async function processProfessionalPayout(
   }
 
   // If dry run, just return calculation
-  if (dryRun) {
+  if (options.dryRun) {
     return {
-      professionalId: professional.profile_id,
+      professionalId: options.professional.profile_id,
       success: true,
       dryRun: true,
       calculation: {
@@ -209,18 +209,18 @@ async function processProfessionalPayout(
   }
 
   // Create payout record
-  const { data: payoutRecord, error: payoutError } = await createPayoutRecord(
-    supabase,
-    professional.profile_id,
-    professional.stripe_connect_account_id,
+  const { data: payoutRecord, error: payoutError } = await createPayoutRecord({
+    supabase: options.supabase,
+    professionalId: options.professional.profile_id,
+    connectAccountId: options.professional.stripe_connect_account_id,
     payout,
-    periodStart,
-    periodEnd
-  );
+    periodStart: options.periodStart,
+    periodEnd: options.periodEnd,
+  });
 
   if (payoutError || !payoutRecord) {
     return {
-      professionalId: professional.profile_id,
+      professionalId: options.professional.profile_id,
       success: false,
       error: "Failed to create payout record",
     };
@@ -228,17 +228,17 @@ async function processProfessionalPayout(
 
   // Create Stripe transfer
   try {
-    const transfer = await processStripeTransfer(
-      supabase,
+    const transfer = await processStripeTransfer({
+      supabase: options.supabase,
       payoutRecord,
-      professional,
+      professional: options.professional,
       payout,
-      periodStart,
-      periodEnd
-    );
+      periodStart: options.periodStart,
+      periodEnd: options.periodEnd,
+    });
 
     return {
-      professionalId: professional.profile_id,
+      professionalId: options.professional.profile_id,
       success: true,
       payoutId: payoutRecord.id,
       stripeTransferId: transfer.id,
@@ -247,7 +247,7 @@ async function processProfessionalPayout(
     };
   } catch (stripeError: any) {
     // Update payout status to failed
-    await supabase
+    await options.supabase
       .from("payouts")
       .update({
         status: "failed",
@@ -256,7 +256,7 @@ async function processProfessionalPayout(
       .eq("id", payoutRecord.id);
 
     return {
-      professionalId: professional.profile_id,
+      professionalId: options.professional.profile_id,
       success: false,
       payoutId: payoutRecord.id,
       error: stripeError.message || "Stripe transfer failed",
@@ -317,16 +317,34 @@ export async function POST(request: Request) {
     }
 
     // Process each professional
-    const results = [];
+    const results: Array<{
+      professionalId: string;
+      success: boolean;
+      error?: string;
+      skipped?: boolean;
+      reason?: string;
+      dryRun?: boolean;
+      calculation?: {
+        grossAmount: number;
+        commissionAmount: number;
+        netAmount: number;
+        currency: string;
+        bookingCount: number;
+      };
+      payoutId?: string;
+      stripeTransferId?: string;
+      netAmount?: number;
+      bookingCount?: number;
+    }> = [];
     for (const professional of professionals) {
       try {
-        const result = await processProfessionalPayout(
+        const result = await processProfessionalPayout({
           supabase,
           professional,
           periodStart,
           periodEnd,
-          dryRun
-        );
+          dryRun,
+        });
         results.push(result);
       } catch (error: any) {
         results.push({

@@ -5,7 +5,7 @@
  * Docs: https://docs.truora.com/
  */
 
-import crypto from "crypto";
+import crypto from "node:crypto";
 import { BackgroundCheckProviderInterface } from "./provider-interface";
 import {
   BackgroundCheckError,
@@ -20,7 +20,7 @@ import {
   WebhookEvent,
 } from "./types";
 
-interface TruoraCheck {
+type TruoraCheck = {
   check_id: string;
   account_id: string;
   type: string; // 'background-check-colombia'
@@ -35,9 +35,9 @@ interface TruoraCheck {
     disciplinary_records?: TruoraCheckResult; // Procuraduría
     identity_validation?: TruoraCheckResult;
   };
-}
+};
 
-interface TruoraCheckResult {
+type TruoraCheckResult = {
   status: string;
   summary: "pass" | "fail" | "review";
   breakdown?: Array<{
@@ -47,7 +47,7 @@ interface TruoraCheckResult {
     severity?: string;
     details?: Record<string, unknown>;
   }>;
-}
+};
 
 export class TruoraClient extends BackgroundCheckProviderInterface {
   private readonly apiVersion = "v1";
@@ -325,9 +325,15 @@ export class TruoraClient extends BackgroundCheckProviderInterface {
 
     let totalCost = 0;
 
-    if (checkTypes.includes("criminal")) totalCost += 200;
-    if (checkTypes.includes("disciplinary")) totalCost += 100;
-    if (checkTypes.includes("identity")) totalCost += 100;
+    if (checkTypes.includes("criminal")) {
+      totalCost += 200;
+    }
+    if (checkTypes.includes("disciplinary")) {
+      totalCost += 100;
+    }
+    if (checkTypes.includes("identity")) {
+      totalCost += 100;
+    }
 
     // Add base fee
     totalCost += 50;
@@ -386,11 +392,17 @@ export class TruoraClient extends BackgroundCheckProviderInterface {
   }
 
   private mapSeverity(severity?: string): "low" | "medium" | "high" {
-    if (!severity) return "low";
+    if (!severity) {
+      return "low";
+    }
 
     const sev = severity.toLowerCase();
-    if (sev.includes("high") || sev.includes("grave")) return "high";
-    if (sev.includes("medium") || sev.includes("moderate")) return "medium";
+    if (sev.includes("high") || sev.includes("grave")) {
+      return "high";
+    }
+    if (sev.includes("medium") || sev.includes("moderate")) {
+      return "medium";
+    }
     return "low";
   }
 
@@ -401,12 +413,18 @@ export class TruoraClient extends BackgroundCheckProviderInterface {
         (result) => result.summary === "pass"
       );
 
-      if (allChecksPassed) return "approved";
+      if (allChecksPassed) {
+        return "approved";
+      }
       return "review_required";
     }
 
-    if (check.status === "failure") return "rejected";
-    if (check.status === "manual_review") return "review_required";
+    if (check.status === "failure") {
+      return "rejected";
+    }
+    if (check.status === "manual_review") {
+      return "review_required";
+    }
 
     return "review_required";
   }

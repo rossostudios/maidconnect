@@ -236,7 +236,7 @@ export default async function CityLandingPage({ params }: { params: Params }) {
 
   return (
     <>
-      {/* Schema Markup */}
+      {/* Schema Markup - Safe: JSON-LD schema markup with server-generated data only */}
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         type="application/ld+json"

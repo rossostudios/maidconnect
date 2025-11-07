@@ -8,6 +8,7 @@ import "../globals.css";
 import { AmaraFloatingButton } from "@/components/amara/amara-floating-button";
 import { ChangelogBanner } from "@/components/changelog/changelog-banner";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { GlobalSearchModal } from "@/components/help/global-search-modal";
 import { CookieConsent } from "@/components/legal/cookie-consent";
 import { FeedbackProvider } from "@/components/providers/feedback-provider";
 import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
@@ -102,6 +103,7 @@ export default async function RootLayout({
                   <AmaraFloatingButton locale={locale} />
                 </Suspense>
                 <CookieConsent />
+                <GlobalSearchModal />
               </FeedbackProvider>
             </NextIntlClientProvider>
           </ThemeProvider>

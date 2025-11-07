@@ -23,11 +23,11 @@ type BackgroundCheckWithProfile = BackgroundCheckResult & {
   daysWaiting: number;
 };
 
-interface BackgroundCheckDetailModalProps {
+type BackgroundCheckDetailModalProps = {
   check: BackgroundCheckWithProfile;
   onClose: () => void;
   onComplete: () => void;
-}
+};
 
 export function BackgroundCheckDetailModal({
   check,

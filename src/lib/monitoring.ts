@@ -27,13 +27,13 @@
  * });
  */
 
-import { logger } from '@/lib/logger';
+import { logger } from "@/lib/logger";
 
 // ============================================================================
 // TYPES
 // ============================================================================
 
-export interface LogContext {
+export type LogContext = {
   userId?: string;
   requestId?: string;
   method?: string;
@@ -41,32 +41,32 @@ export interface LogContext {
   ip?: string;
   userAgent?: string;
   [key: string]: unknown;
-}
+};
 
-export interface PerformanceMetrics {
+export type PerformanceMetrics = {
   operation: string;
   durationMs: number;
   success: boolean;
   error?: string;
   metadata?: Record<string, unknown>;
-}
+};
 
-export interface BusinessMetric {
+export type BusinessMetric = {
   metricName: string;
   value: number;
   unit?: string;
   tags?: Record<string, string>;
   timestamp?: string;
-}
+};
 
 // ============================================================================
 // PERFORMANCE TRACKING
 // ============================================================================
 
 export class PerformanceTracker {
-  private startTime: number;
-  private operation: string;
-  private context: Record<string, unknown>;
+  private readonly startTime: number;
+  private readonly operation: string;
+  private readonly context: Record<string, unknown>;
 
   constructor(operation: string, context: Record<string, unknown> = {}) {
     this.startTime = Date.now();
@@ -77,7 +77,11 @@ export class PerformanceTracker {
   /**
    * End performance tracking and log metrics
    */
-  end(result: { success: boolean; error?: Error | string; metadata?: Record<string, unknown> } = { success: true }): number {
+  end(
+    result: { success: boolean; error?: Error | string; metadata?: Record<string, unknown> } = {
+      success: true,
+    }
+  ): number {
     const durationMs = Date.now() - this.startTime;
 
     const metrics: PerformanceMetrics = {
@@ -95,7 +99,7 @@ export class PerformanceTracker {
     if (result.success) {
       logger.info(`[Performance] ${this.operation}`, {
         ...metrics,
-        level: durationMs > 1000 ? 'slow' : durationMs > 500 ? 'moderate' : 'fast',
+        level: durationMs > 1000 ? "slow" : durationMs > 500 ? "moderate" : "fast",
       });
     } else {
       logger.error(`[Performance] ${this.operation} failed`, {
@@ -128,7 +132,10 @@ export class PerformanceTracker {
 /**
  * Track performance of an operation
  */
-export function trackPerformance(operation: string, context: Record<string, unknown> = {}): PerformanceTracker {
+export function trackPerformance(
+  operation: string,
+  context: Record<string, unknown> = {}
+): PerformanceTracker {
   return new PerformanceTracker(operation, context);
 }
 
@@ -143,14 +150,15 @@ export function getRequestContext(request: Request): LogContext {
   return {
     method: request.method,
     path: new URL(request.url).pathname,
-    ip: request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-        request.headers.get('x-real-ip') ||
-        request.headers.get('cf-connecting-ip') ||
-        'unknown',
-    userAgent: request.headers.get('user-agent') || 'unknown',
-    // @ts-ignore - Set by auth middleware
+    ip:
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      request.headers.get("x-real-ip") ||
+      request.headers.get("cf-connecting-ip") ||
+      "unknown",
+    userAgent: request.headers.get("user-agent") || "unknown",
+    // @ts-expect-error - Set by auth middleware
     userId: request.userId,
-    // @ts-ignore - Set by proxy/middleware
+    // @ts-expect-error - Set by proxy/middleware
     requestId: request.requestId || crypto.randomUUID(),
   };
 }
@@ -170,7 +178,7 @@ export function logApiRequest(params: {
   const { method, path, userId, statusCode, durationMs, error, metadata } = params;
 
   const logData = {
-    type: 'api_request',
+    type: "api_request",
     method,
     path,
     userId,
@@ -195,7 +203,7 @@ export function logApiRequest(params: {
  */
 export function logDatabaseQuery(params: {
   table: string;
-  operation: 'select' | 'insert' | 'update' | 'delete' | 'rpc';
+  operation: "select" | "insert" | "update" | "delete" | "rpc";
   durationMs: number;
   success: boolean;
   error?: string;
@@ -204,7 +212,7 @@ export function logDatabaseQuery(params: {
   const { table, operation, durationMs, success, error, metadata } = params;
 
   const logData = {
-    type: 'database_query',
+    type: "database_query",
     table,
     operation,
     durationMs,
@@ -228,10 +236,10 @@ export function logDatabaseQuery(params: {
  */
 export function logBusinessMetric(metric: BusinessMetric): void {
   logger.info(`[Metric] ${metric.metricName}`, {
-    type: 'business_metric',
+    type: "business_metric",
     metricName: metric.metricName,
     value: metric.value,
-    unit: metric.unit || 'count',
+    unit: metric.unit || "count",
     tags: metric.tags || {},
     timestamp: metric.timestamp || new Date().toISOString(),
   });
@@ -249,7 +257,9 @@ export function logBusinessMetric(metric: BusinessMetric): void {
  *   // Your handler
  * });
  */
-export function withMonitoring<T extends (request: Request, ...args: unknown[]) => Promise<Response>>(
+export function withMonitoring<
+  T extends (request: Request, ...args: unknown[]) => Promise<Response>,
+>(
   handler: T,
   options: {
     operationName?: string;
@@ -343,7 +353,7 @@ export function withMonitoring<T extends (request: Request, ...args: unknown[]) 
  */
 export async function monitorQuery<T>(
   table: string,
-  operation: 'select' | 'insert' | 'update' | 'delete' | 'rpc',
+  operation: "select" | "insert" | "update" | "delete" | "rpc",
   query: Promise<T>
 ): Promise<T> {
   const startTime = Date.now();
@@ -384,9 +394,9 @@ export async function monitorQuery<T>(
  */
 export function trackBookingCreated(success: boolean, metadata?: Record<string, string>): void {
   logBusinessMetric({
-    metricName: 'booking.created',
+    metricName: "booking.created",
     value: success ? 1 : 0,
-    unit: 'success',
+    unit: "success",
     tags: {
       success: String(success),
       ...metadata,
@@ -397,11 +407,15 @@ export function trackBookingCreated(success: boolean, metadata?: Record<string, 
 /**
  * Track payment success rate
  */
-export function trackPaymentProcessed(success: boolean, amountCents: number, metadata?: Record<string, string>): void {
+export function trackPaymentProcessed(
+  success: boolean,
+  amountCents: number,
+  metadata?: Record<string, string>
+): void {
   logBusinessMetric({
-    metricName: 'payment.processed',
+    metricName: "payment.processed",
     value: amountCents,
-    unit: 'cents',
+    unit: "cents",
     tags: {
       success: String(success),
       ...metadata,
@@ -414,9 +428,9 @@ export function trackPaymentProcessed(success: boolean, amountCents: number, met
  */
 export function trackMessageSent(conversationId: string): void {
   logBusinessMetric({
-    metricName: 'message.sent',
+    metricName: "message.sent",
     value: 1,
-    unit: 'count',
+    unit: "count",
     tags: {
       conversationId,
     },
@@ -428,9 +442,9 @@ export function trackMessageSent(conversationId: string): void {
  */
 export function trackDisputeFiled(bookingId: string, disputeType: string): void {
   logBusinessMetric({
-    metricName: 'dispute.filed',
+    metricName: "dispute.filed",
     value: 1,
-    unit: 'count',
+    unit: "count",
     tags: {
       bookingId,
       disputeType,
@@ -443,9 +457,9 @@ export function trackDisputeFiled(bookingId: string, disputeType: string): void 
  */
 export function trackProfessionalOnboarded(professionalId: string, durationDays: number): void {
   logBusinessMetric({
-    metricName: 'professional.onboarded',
+    metricName: "professional.onboarded",
     value: 1,
-    unit: 'count',
+    unit: "count",
     tags: {
       professionalId,
       durationDays: String(durationDays),
@@ -461,8 +475,8 @@ export function trackProfessionalOnboarded(professionalId: string, durationDays:
  * Log error with full context
  */
 export function logError(error: Error, context: Record<string, unknown> = {}): void {
-  logger.error('Application Error', {
-    type: 'error',
+  logger.error("Application Error", {
+    type: "error",
     message: error.message,
     name: error.name,
     stack: error.stack,
@@ -476,7 +490,7 @@ export function logError(error: Error, context: Record<string, unknown> = {}): v
  */
 export function logWarning(message: string, context: Record<string, unknown> = {}): void {
   logger.warn(message, {
-    type: 'warning',
+    type: "warning",
     ...context,
     timestamp: new Date().toISOString(),
   });
@@ -497,8 +511,8 @@ export function logHealthCheck(checks: {
 }): void {
   const healthy = Object.values(checks).every((status) => status === true);
 
-  logger.info('[Health Check]', {
-    type: 'health_check',
+  logger.info("[Health Check]", {
+    type: "health_check",
     healthy,
     checks,
     timestamp: new Date().toISOString(),

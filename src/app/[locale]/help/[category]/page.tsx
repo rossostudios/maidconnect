@@ -1,5 +1,6 @@
 import { ArrowRight01Icon, BookOpen01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -92,6 +93,9 @@ export default async function HelpCategoryPage({
 }: {
   params: Promise<{ locale: string; category: string }>;
 }) {
+  // Force dynamic rendering so freshly published articles appear without redeploys
+  await headers();
+
   const { locale, category: categorySlug } = await params;
   const data = await getCategoryWithArticles(categorySlug, locale);
 

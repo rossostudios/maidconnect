@@ -89,19 +89,19 @@ async function getUserInfo(
 /**
  * Handle suspension action
  */
-async function handleSuspend(
-  supabase: SupabaseClient,
-  userId: string,
-  adminId: string,
-  reason: string,
-  durationDays: number | undefined,
-  details: Record<string, any> | undefined
-) {
+async function handleSuspend(options: {
+  supabase: SupabaseClient;
+  userId: string;
+  adminId: string;
+  reason: string;
+  durationDays: number | undefined;
+  details: Record<string, any> | undefined;
+}) {
   // Check if already suspended
-  const { data: existing } = await supabase
+  const { data: existing } = await options.supabase
     .from("user_suspensions")
     .select("id")
-    .eq("user_id", userId)
+    .eq("user_id", options.userId)
     .is("lifted_at", null)
     .maybeSingle();
 
@@ -110,20 +110,20 @@ async function handleSuspend(
   }
 
   // Calculate expiry date (default 7 days)
-  const days = durationDays || 7;
+  const days = options.durationDays || 7;
   const expiresAt = new Date();
   expiresAt.setDate(expiresAt.getDate() + days);
 
   // Create suspension record
-  const { data: suspension, error: suspendError } = await supabase
+  const { data: suspension, error: suspendError } = await options.supabase
     .from("user_suspensions")
     .insert({
-      user_id: userId,
-      suspended_by: adminId,
+      user_id: options.userId,
+      suspended_by: options.adminId,
       suspension_type: "temporary",
-      reason,
+      reason: options.reason,
       expires_at: expiresAt.toISOString(),
-      details: details || null,
+      details: options.details || null,
     })
     .select()
     .single();
@@ -134,13 +134,13 @@ async function handleSuspend(
 
   // Create audit log
   await createAuditLog({
-    adminId,
+    adminId: options.adminId,
     actionType: "suspend_user",
-    targetUserId: userId,
+    targetUserId: options.userId,
     targetResourceType: "user_suspension",
     targetResourceId: suspension.id,
-    details: { ...details, durationDays: days },
-    notes: reason,
+    details: { ...options.details, durationDays: days },
+    notes: options.reason,
   });
 
   return { result: suspension, durationDays: days };
@@ -149,18 +149,18 @@ async function handleSuspend(
 /**
  * Handle ban action
  */
-async function handleBan(
-  supabase: SupabaseClient,
-  userId: string,
-  adminId: string,
-  reason: string,
-  details: Record<string, any> | undefined
-) {
+async function handleBan(options: {
+  supabase: SupabaseClient;
+  userId: string;
+  adminId: string;
+  reason: string;
+  details: Record<string, any> | undefined;
+}) {
   // Check if already banned
-  const { data: existing } = await supabase
+  const { data: existing } = await options.supabase
     .from("user_suspensions")
     .select("id")
-    .eq("user_id", userId)
+    .eq("user_id", options.userId)
     .eq("suspension_type", "permanent")
     .is("lifted_at", null)
     .maybeSingle();
@@ -170,15 +170,15 @@ async function handleBan(
   }
 
   // Create permanent ban record
-  const { data: ban, error: banError } = await supabase
+  const { data: ban, error: banError } = await options.supabase
     .from("user_suspensions")
     .insert({
-      user_id: userId,
-      suspended_by: adminId,
+      user_id: options.userId,
+      suspended_by: options.adminId,
       suspension_type: "permanent",
-      reason,
+      reason: options.reason,
       expires_at: null,
-      details: details || null,
+      details: options.details || null,
     })
     .select()
     .single();
@@ -189,13 +189,13 @@ async function handleBan(
 
   // Create audit log
   await createAuditLog({
-    adminId,
+    adminId: options.adminId,
     actionType: "ban_user",
-    targetUserId: userId,
+    targetUserId: options.userId,
     targetResourceType: "user_suspension",
     targetResourceId: ban.id,
-    details,
-    notes: reason,
+    details: options.details,
+    notes: options.reason,
   });
 
   return { result: ban };
@@ -281,7 +281,14 @@ async function executeModerationAction(
 ): Promise<{ result: any; durationDays?: number } | { error: NextResponse }> {
   switch (action) {
     case "suspend": {
-      const result = await handleSuspend(supabase, userId, adminId, reason!, durationDays, details);
+      const result = await handleSuspend({
+        supabase,
+        userId,
+        adminId,
+        reason: reason!,
+        durationDays,
+        details,
+      });
       if ("error" in result) {
         return result;
       }
@@ -289,7 +296,13 @@ async function executeModerationAction(
     }
 
     case "ban": {
-      const result = await handleBan(supabase, userId, adminId, reason!, details);
+      const result = await handleBan({
+        supabase,
+        userId,
+        adminId,
+        reason: reason!,
+        details,
+      });
       if ("error" in result) {
         return result;
       }

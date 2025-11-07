@@ -448,22 +448,22 @@ export async function getProfessionalBookingSummary(
 /**
  * Check booking availability
  */
-export async function checkBookingAvailability(
-  professionalId: string,
-  date: string,
-  startTime: string,
-  endTime: string,
-  excludeBookingId?: string
-): Promise<CheckBookingAvailabilityResponse> {
+export async function checkBookingAvailability(options: {
+  professionalId: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  excludeBookingId?: string;
+}): Promise<CheckBookingAvailabilityResponse> {
   try {
     const supabase = await createSupabaseServerClient();
 
     const { data, error } = await supabase.rpc("check_booking_availability", {
-      professional_profile_id: professionalId,
-      booking_date: date,
-      start_time: startTime,
-      end_time: endTime,
-      exclude_booking_id: excludeBookingId || null,
+      professional_profile_id: options.professionalId,
+      booking_date: options.date,
+      start_time: options.startTime,
+      end_time: options.endTime,
+      exclude_booking_id: options.excludeBookingId || null,
     });
 
     if (error) {

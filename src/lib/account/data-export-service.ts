@@ -314,7 +314,7 @@ export async function exportNotificationsData(
   userId: string
 ): Promise<ExportData> {
   const { data: notifications } = await supabase
-    .from("notifications_history")
+    .from("notifications")
     .select("*")
     .eq("user_id", userId)
     .order("created_at", { ascending: false })

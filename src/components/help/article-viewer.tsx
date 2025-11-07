@@ -4,11 +4,13 @@ import {
   ArrowRight01Icon,
   BubbleChatIcon,
   Calendar01Icon,
+  Clock01Icon,
   ThumbsDownIcon,
   ThumbsUpIcon,
   ViewIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { marked } from "marked";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
@@ -42,6 +44,20 @@ type ArticleViewerProps = {
   relatedArticles?: RelatedArticle[];
 };
 
+// Calculate estimated read time based on word count
+function calculateReadTime(content: string): number {
+  const wordsPerMinute = 200;
+  const wordCount = content.trim().split(/\s+/).length;
+  return Math.ceil(wordCount / wordsPerMinute);
+}
+
+// Check if article was recently updated (within last 30 days)
+function isRecentlyUpdated(updatedAt: string): boolean {
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  return new Date(updatedAt) > thirtyDaysAgo;
+}
+
 export function ArticleViewer({
   article,
   categorySlug,
@@ -55,6 +71,10 @@ export function ArticleViewer({
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
   const [feedbackText, setFeedbackText] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  // Calculate read time and check if recently updated
+  const readTime = calculateReadTime(article.content);
+  const recentlyUpdated = isRecentlyUpdated(article.updated_at);
 
   const handleFeedback = async (isHelpful: boolean) => {
     if (feedbackSubmitted) {
@@ -152,9 +172,14 @@ export function ArticleViewer({
     }).format(date);
   };
 
-  // Sanitize article content to prevent XSS attacks
+  // Convert markdown to HTML, then sanitize to prevent XSS attacks
   // Admin-controlled content, but still sanitized for safety
-  const sanitizedContent = useMemo(() => sanitizeRichContent(article.content), [article.content]);
+  const sanitizedContent = useMemo(() => {
+    // Convert markdown to HTML first (using parse for synchronous conversion)
+    const html = marked.parse(article.content, { async: false }) as string;
+    // Then sanitize the HTML
+    return sanitizeRichContent(html);
+  }, [article.content]);
 
   return (
     <div className="mx-auto max-w-4xl">
@@ -173,14 +198,30 @@ export function ArticleViewer({
       <div className="mb-8">
         <h1 className="mb-4 font-bold text-3xl text-gray-900 md:text-4xl">{article.title}</h1>
 
-        <div className="flex flex-wrap items-center gap-4 text-gray-600 text-sm">
+        <div className="flex flex-wrap items-center gap-3 text-gray-600 text-sm">
+          {/* Recently Updated Badge */}
+          {recentlyUpdated && (
+            <span className="rounded-full bg-green-100 px-2.5 py-1 font-medium text-green-700 text-xs">
+              {t("meta.recentlyUpdated")}
+            </span>
+          )}
+
+          {/* Updated Date */}
           <div className="flex items-center gap-1.5">
             <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />
             <span>{t("meta.updated", { date: formatDate(article.updated_at) })}</span>
           </div>
+
+          {/* View Count */}
           <div className="flex items-center gap-1.5">
             <HugeiconsIcon className="h-4 w-4" icon={ViewIcon} />
             <span>{t("meta.views", { count: article.view_count })}</span>
+          </div>
+
+          {/* Read Time */}
+          <div className="flex items-center gap-1.5">
+            <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
+            <span>{t("meta.readTime", { minutes: readTime })}</span>
           </div>
         </div>
       </div>
