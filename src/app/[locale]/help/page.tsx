@@ -92,13 +92,10 @@ async function getCategories(_locale: string): Promise<Category[]> {
 async function getPopularArticles(locale: string): Promise<PopularArticle[]> {
   const supabase = createSupabaseAnonClient();
 
-  const titleField = locale === "es" ? "title_es" : "title_en";
-  const excerptField = locale === "es" ? "excerpt_es" : "excerpt_en";
-
   const { data: rawArticles } = await supabase
     .from("help_articles")
     .select(
-      `id, slug, ${titleField} as title, ${excerptField} as excerpt, view_count, category:help_categories!inner(slug)`
+      "id, slug, title_en, title_es, excerpt_en, excerpt_es, view_count, category:help_categories!inner(slug)"
     )
     .eq("is_published", true)
     .order("view_count", { ascending: false })
@@ -108,20 +105,15 @@ async function getPopularArticles(locale: string): Promise<PopularArticle[]> {
     return [];
   }
 
-  // Type assertion for the dynamic query result
-  const articles = rawArticles as unknown as Array<{
-    id: string;
-    slug: string;
-    title: string;
-    excerpt: string | null;
-    view_count: number;
-    category: { slug: string };
-  }>;
-
-  return articles.map((article) => ({
-    ...article,
+  // Map to correct language
+  return rawArticles.map((article) => ({
+    id: article.id,
+    slug: article.slug,
+    title: locale === "es" ? article.title_es : article.title_en,
+    excerpt: locale === "es" ? article.excerpt_es : article.excerpt_en,
+    view_count: article.view_count,
     category_slug: article.category.slug,
-  })) as PopularArticle[];
+  }));
 }
 
 export default async function HelpCenterPage({

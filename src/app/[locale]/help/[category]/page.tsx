@@ -65,22 +65,31 @@ async function getCategoryWithArticles(categorySlug: string, locale: string) {
     return null;
   }
 
-  // Get articles for this category
-  const titleField = locale === "es" ? "title_es" : "title_en";
-  const excerptField = locale === "es" ? "excerpt_es" : "excerpt_en";
-
-  const { data: rawArticles } = await supabase
+  // Get articles for this category - fetch both language columns
+  const { data: rawArticles, error: articlesError } = await supabase
     .from("help_articles")
     .select(
-      `id, slug, ${titleField} as title, ${excerptField} as excerpt, view_count, helpful_count, not_helpful_count`
+      "id, slug, title_en, title_es, excerpt_en, excerpt_es, view_count, helpful_count, not_helpful_count"
     )
     .eq("category_id", category.id)
     .eq("is_published", true)
     .order("display_order")
     .order("created_at", { ascending: false });
 
-  // Type assertion for the dynamic query result
-  const articles = (rawArticles || []) as unknown as Article[];
+  if (articlesError) {
+    console.error('[Help Category Page Error]', articlesError);
+  }
+
+  // Map to the correct language and type
+  const articles: Article[] = (rawArticles || []).map(article => ({
+    id: article.id,
+    slug: article.slug,
+    title: locale === "es" ? article.title_es : article.title_en,
+    excerpt: locale === "es" ? article.excerpt_es : article.excerpt_en,
+    view_count: article.view_count,
+    helpful_count: article.helpful_count,
+    not_helpful_count: article.not_helpful_count,
+  }));
 
   return {
     category,
