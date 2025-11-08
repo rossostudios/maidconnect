@@ -6,6 +6,7 @@
  * AFTER: Reduced complexity through helper extraction
  */
 
+import { NextResponse } from "next/server";
 import { z } from "zod";
 import { ok, requireCustomerOwnership, withCustomer } from "@/lib/api";
 import { sendNewBookingRequestEmail } from "@/lib/email/send";
@@ -174,7 +175,7 @@ async function sendAuthorizationNotifications(supabase: any, bookingId: string) 
   }
 }
 
-export const POST = withCustomer(async ({ user, supabase }, request: Request) => {
+export const POST = withCustomer(async ({ user, supabase }, request: Request): Promise<NextResponse> => {
   // Rate limiting: 10 payment authorizations per hour per user
   const rateLimitResult = await rateLimit(request, "booking");
   if (!rateLimitResult.success) {

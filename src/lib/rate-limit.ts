@@ -21,6 +21,7 @@
  * }
  */
 
+import { NextResponse } from "next/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 
@@ -404,24 +405,23 @@ export async function rateLimit(
 /**
  * Create a rate limit response (429 Too Many Requests)
  */
-export function createRateLimitResponse(result: RateLimitResult): Response {
-  const headers = new Headers({
-    "Content-Type": "application/json",
+export function createRateLimitResponse(result: RateLimitResult): NextResponse {
+  const headers: Record<string, string> = {
     "X-RateLimit-Limit": result.limit.toString(),
     "X-RateLimit-Remaining": result.remaining.toString(),
     "X-RateLimit-Reset": new Date(result.reset).toISOString(),
-  });
+  };
 
   if (result.retryAfter) {
-    headers.set("Retry-After", result.retryAfter.toString());
+    headers["Retry-After"] = result.retryAfter.toString();
   }
 
-  return new Response(
-    JSON.stringify({
+  return NextResponse.json(
+    {
       error: "Too many requests",
       message: `Rate limit exceeded. Please try again in ${result.retryAfter} seconds.`,
       retryAfter: result.retryAfter,
-    }),
+    },
     {
       status: 429,
       headers,

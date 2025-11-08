@@ -6,14 +6,34 @@
 
 import { z } from "zod";
 
+const messagePartSchema = z
+  .object({
+    type: z.string(),
+  })
+  .passthrough();
+
 /**
  * Schema for chat message
  */
-export const chatMessageSchema = z.object({
-  role: z.enum(["user", "assistant", "system"]),
-  content: z.string().min(1, "Message content cannot be empty"),
-  id: z.string().optional(),
-});
+export const chatMessageSchema = z
+  .object({
+    role: z.enum(["user", "assistant", "system"]),
+    content: z.string().optional(),
+    parts: z.array(messagePartSchema).optional(),
+    id: z.string().optional(),
+  })
+  .refine(
+    (value) => {
+      if (typeof value.content === "string" && value.content.trim().length > 0) {
+        return true;
+      }
+      return Array.isArray(value.parts) && value.parts.length > 0;
+    },
+    {
+      message: "Message must include content or parts",
+      path: ["content"],
+    }
+  );
 
 /**
  * Schema for chat request to the API
@@ -50,10 +70,13 @@ export const updateConversationSchema = z.object({
 export const createMessageSchema = z.object({
   conversationId: z.string().uuid(),
   role: z.enum(["user", "assistant", "system"]),
-  content: z.string().min(1).max(10_000),
+  content: z.string().min(1).max(10_000).optional(),
+  parts: z.array(messagePartSchema).optional(),
+  attachments: z.array(messagePartSchema).optional(),
   toolCalls: z.any().optional(),
   toolResults: z.any().optional(),
   metadata: z.record(z.string(), z.any()).optional(),
+  status: z.enum(["submitted", "streaming", "completed", "error"]).optional(),
 });
 
 /**

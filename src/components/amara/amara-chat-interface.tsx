@@ -18,18 +18,31 @@ import {
   SentIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import type { FileUIPart, ToolUIPart } from "ai";
 import { DefaultChatTransport } from "ai";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+import {
+  Conversation,
+  ConversationContent,
+  ConversationEmptyState,
+  ConversationScrollButton,
+} from "@/components/ai-elements/conversation";
+import { Loader } from "@/components/ai-elements/loader";
+import {
+  Message,
+  MessageActions,
+  MessageAttachments,
+  MessageAvatar,
+  MessageContent,
+  MessageMarkdown,
+} from "@/components/ai-elements/message";
+import { Suggestion, Suggestions } from "@/components/ai-elements/suggestion";
+import { ToolCall } from "@/components/ai-elements/tool";
 import { Link } from "@/i18n/routing";
-import { cn } from "@/lib/utils";
 import { AmaraIcon } from "./amara-icon";
 import { AmaraMessageActions } from "./amara-message-actions";
-import {
-  AmaraQuickReplies,
-  getContextualQuickReplies,
-  type QuickReply,
-} from "./amara-quick-replies";
+import { getContextualQuickReplies, type QuickReply } from "./amara-quick-replies";
 import "./amara-animations.css";
 
 type AmaraChatInterfaceProps = {
@@ -97,8 +110,9 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
   }, [messages, t]);
 
   // Handle quick reply selection
-  const handleQuickReplySelect = (reply: QuickReply) => {
-    setInput(reply.text);
+  const handleQuickReplySelect = (reply: QuickReply | string) => {
+    const text = typeof reply === "string" ? reply : reply.text;
+    setInput(text);
     // Auto-submit the quick reply
     setTimeout(() => {
       if (inputRef.current) {
@@ -138,132 +152,88 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
       </div>
 
       {/* Messages */}
-      <div className="flex-1 space-y-4 overflow-y-auto bg-gray-50/50 px-4 py-4 sm:px-6 sm:py-6">
-        {/* Greeting Section */}
-        {messages.length === 1 && (
-          <div className="space-y-4 pb-6">
-            <div className="amara-message flex justify-start gap-3">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
-                <AmaraIcon className="text-[#E85D48]" size={32} />
-              </div>
-              <div className="max-w-[85%] rounded-2xl border border-gray-100 bg-white px-4 py-3 text-gray-900 shadow-sm sm:max-w-[75%]">
-                <p className="text-[15px] leading-relaxed">{t("greeting")}</p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {messages.map((message) => (
-          <div
-            className={cn(
-              "amara-message flex gap-3",
-              message.role === "user" ? "justify-end" : "justify-start"
-            )}
-            key={message.id}
-          >
-            {/* Assistant avatar */}
-            {message.role === "assistant" && (
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
-                <AmaraIcon className="text-[#E85D48]" size={32} />
-              </div>
+      <div className="flex-1 bg-gray-50/50">
+        <Conversation className="h-full">
+          <ConversationContent>
+            {messages.length === 1 && (
+              <ConversationEmptyState
+                description={t("greeting")}
+                icon={<AmaraIcon className="text-[#E85D48]" size={36} />}
+                title={t("title")}
+              />
             )}
 
-            <div className="group flex flex-col">
-              <div
-                className={cn(
-                  "max-w-[85%] rounded-2xl px-4 py-3 shadow-sm transition-shadow hover:shadow-md sm:max-w-[75%]",
-                  message.role === "user"
-                    ? "bg-[#E85D48] text-white"
-                    : "border border-gray-100 bg-white text-gray-900"
-                )}
-              >
-                {/* Render message parts */}
-                {message.parts?.map((part, partIndex) => {
-                  if (part.type === "text") {
-                    return (
-                      <p
-                        className="whitespace-pre-wrap text-[15px] leading-relaxed"
-                        key={partIndex}
-                      >
-                        {part.text}
-                      </p>
-                    );
-                  }
+            {messages.map((message) => {
+              const textParts = message.parts?.filter((part) => part.type === "text") || [];
+              const fileParts = (message.parts?.filter((part) => part.type === "file") ||
+                []) as FileUIPart[];
+              const toolParts = (message.parts?.filter((part) => part.type.startsWith("tool-")) ||
+                []) as ToolUIPart[];
 
-                  // Handle tool-call parts (v6 format)
-                  if (part.type.startsWith("tool-")) {
-                    const toolName = part.type.replace("tool-", "");
-                    return (
-                      <div
-                        className={cn(
-                          "mt-3 rounded-lg border p-3 text-xs",
-                          message.role === "user"
-                            ? "border-white/20 bg-white/10 text-white"
-                            : "border-blue-100 bg-blue-50 text-blue-900"
-                        )}
-                        key={partIndex}
-                      >
-                        <p className="font-medium">
-                          {toolName === "searchProfessionals" && t("searchingProfessionals")}
-                          {toolName === "checkAvailability" && t("checkingAvailability")}
-                          {toolName === "createBookingDraft" && t("creatingBookingDraft")}
-                        </p>
-                      </div>
-                    );
-                  }
+              return (
+                <Message from={message.role} key={message.id}>
+                  <MessageAvatar
+                    avatar={<AmaraIcon className="mx-auto mt-1" size={28} />}
+                    from={message.role}
+                  />
+                  <div>
+                    <MessageContent from={message.role}>
+                      {textParts.length > 0 &&
+                        textParts.map((part, index) => (
+                          <MessageMarkdown key={`${message.id}-text-${index}`} text={part.text} />
+                        ))}
+                      <MessageAttachments files={fileParts} />
+                      {toolParts.length > 0 && (
+                        <div className="mt-3 space-y-3">
+                          {toolParts.map((part) => (
+                            <ToolCall key={part.toolCallId} part={part} />
+                          ))}
+                        </div>
+                      )}
+                    </MessageContent>
+                    {message.role === "assistant" && message.id !== "welcome" && (
+                      <MessageActions>
+                        <AmaraMessageActions
+                          content={textParts[0]?.text || ""}
+                          messageId={message.id}
+                        />
+                      </MessageActions>
+                    )}
+                  </div>
+                </Message>
+              );
+            })}
 
-                  return null;
-                })}
+            {isLoading && (
+              <div className="flex items-center gap-3 rounded-2xl border border-gray-100 bg-white px-4 py-3 shadow-sm">
+                <AmaraIcon className="text-[#E85D48]" size={28} />
+                <Loader />
+                <span className="text-gray-500 text-sm">{t("typing")}</span>
               </div>
+            )}
 
-              {/* Message Actions (only for assistant messages) */}
-              {message.role === "assistant" && message.id !== "welcome" && (
-                <AmaraMessageActions
-                  content={message.parts?.find((p) => p.type === "text")?.text || ""}
-                  messageId={message.id}
-                />
-              )}
-            </div>
-          </div>
-        ))}
-
-        {/* Typing indicator */}
-        {isLoading && (
-          <div className="amara-typing-indicator flex justify-start gap-3">
-            <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center">
-              <AmaraIcon className="text-[#E85D48]" size={32} />
-            </div>
-            <div className="rounded-2xl border border-gray-100 bg-white px-4 py-3 shadow-sm">
-              <div className="flex space-x-1.5">
-                <div className="amara-typing-dot h-2 w-2 rounded-full bg-gray-400" />
-                <div className="amara-typing-dot h-2 w-2 rounded-full bg-gray-400" />
-                <div className="amara-typing-dot h-2 w-2 rounded-full bg-gray-400" />
+            {error && (
+              <div className="rounded-xl border border-red-200 bg-[#E85D48]/10 px-4 py-3 text-red-700 text-sm">
+                {t("errorMessage")}
               </div>
-            </div>
-          </div>
-        )}
+            )}
 
-        {/* Error message */}
-        {error && (
-          <div className="flex justify-center">
-            <div className="amara-error rounded-xl border border-red-200 bg-[#E85D48]/10 px-4 py-3 text-red-700 text-sm">
-              {t("errorMessage")}
-            </div>
-          </div>
-        )}
+            {!isLoading && quickReplies.length > 0 && (
+              <Suggestions>
+                {quickReplies.map((reply) => (
+                  <Suggestion
+                    key={reply.text}
+                    onClickSuggestion={() => handleQuickReplySelect(reply.text)}
+                    suggestion={reply.text}
+                  />
+                ))}
+              </Suggestions>
+            )}
 
-        {/* Quick Replies */}
-        {!isLoading && quickReplies.length > 0 && (
-          <div className="pt-2">
-            <AmaraQuickReplies
-              disabled={isLoading}
-              onSelect={handleQuickReplySelect}
-              replies={quickReplies}
-            />
-          </div>
-        )}
-
-        <div ref={messagesEndRef} />
+            <div ref={messagesEndRef} />
+          </ConversationContent>
+          <ConversationScrollButton />
+        </Conversation>
       </div>
 
       {/* Action Buttons */}

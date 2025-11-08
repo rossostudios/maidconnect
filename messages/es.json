@@ -2290,6 +2290,7 @@
     "inputPlaceholder": "Escribe su mensaje...",
     "send": "Enviar mensaje",
     "errorMessage": "Lo siento, tuve problemas procesando eso. ¿Podrías reformular su pregunta?",
+    "typing": "Amara está trabajando en una respuesta...",
     "onboarding": {
       "title": "Conoce a Amara, su Asistente IA",
       "description": "Puedo ayudarle a encontrar profesionales, verificar disponibilidad y reservar servicios al instante. ¡Pregúntame lo que quieras!",
@@ -2604,6 +2605,9 @@
         "views": "{count, plural, =1 {1 vista} other {# vistas}}",
         "readTime": "{minutes} min de lectura",
         "recentlyUpdated": "Actualizado Recientemente"
+      },
+      "toc": {
+        "title": "En esta página"
       },
       "feedback": {
         "question": "¿le resultó útil este artículo?",

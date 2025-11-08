@@ -2290,6 +2290,7 @@
     "inputPlaceholder": "Type your message...",
     "send": "Send message",
     "errorMessage": "Sorry, I had trouble processing that. Could you try rephrasing?",
+    "typing": "Amara is working on a response...",
     "onboarding": {
       "title": "Meet Amara, Your AI Assistant",
       "description": "I can help you find professionals, check availability, and book services instantly. Just ask me anything!",
@@ -2604,6 +2605,9 @@
         "views": "{count, plural, =1 {1 view} other {# views}}",
         "readTime": "{minutes} min read",
         "recentlyUpdated": "Recently Updated"
+      },
+      "toc": {
+        "title": "On this page"
       },
       "feedback": {
         "question": "Was this article helpful?",

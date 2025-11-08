@@ -1,9 +1,18 @@
 import { notFound } from "next/navigation";
 import { ArticleViewer } from "@/components/help/article-viewer";
+import { TableOfContents } from "@/components/help/table-of-contents";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { Container } from "@/components/ui/container";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
+
+type ArticleTag = {
+  id: string;
+  slug: string;
+  name_en: string;
+  name_es: string;
+  color: string;
+};
 
 type ArticleData = {
   id: string;
@@ -20,6 +29,7 @@ type ArticleData = {
     slug: string;
     name: string;
   };
+  tags?: ArticleTag[];
 };
 
 type RelatedArticle = {
@@ -41,11 +51,24 @@ export async function generateMetadata({
   const titleField = locale === "es" ? "title_es" : "title_en";
   const excerptField = locale === "es" ? "excerpt_es" : "excerpt_en";
 
+  // First get the category_id from the category slug
+  const { data: categoryData } = await supabase
+    .from("help_categories")
+    .select("id")
+    .eq("slug", category)
+    .single();
+
+  if (!categoryData) {
+    return {
+      title: "Article Not Found",
+    };
+  }
+
   const { data: article } = await supabase
     .from("help_articles")
-    .select(`${titleField} as title, ${excerptField} as excerpt, help_categories!inner(slug)`)
+    .select(`${titleField}:title, ${excerptField}:excerpt`)
     .eq("slug", articleSlug)
-    .eq("help_categories.slug", category)
+    .eq("category_id", categoryData.id)
     .eq("is_published", true)
     .single();
 
@@ -74,12 +97,11 @@ async function getArticleData(
   // Get article with category
   const titleField = locale === "es" ? "title_es" : "title_en";
   const contentField = locale === "es" ? "content_es" : "content_en";
-  const nameField = locale === "es" ? "name_es" : "name_en";
 
   const { data: rawArticle, error } = await supabase
     .from("help_articles")
     .select(
-      `id, category_id, slug, ${titleField} as title, ${contentField} as content, view_count, helpful_count, not_helpful_count, created_at, updated_at, category:help_categories!inner(slug, ${nameField} as name)`
+      `id, category_id, slug, ${titleField}:title, ${contentField}:content, view_count, helpful_count, not_helpful_count, created_at, updated_at, category:help_categories!inner(slug, name_en, name_es)`
     )
     .eq("slug", articleSlug)
     .eq("help_categories.slug", categorySlug)
@@ -91,8 +113,17 @@ async function getArticleData(
   }
 
   // Type assertion for the dynamic query result
-  const article = rawArticle as unknown as Omit<ArticleData, "category"> & {
-    category: { slug: string; name: string };
+  const rawData = rawArticle as unknown as Omit<ArticleData, "category"> & {
+    category: { slug: string; name_en: string; name_es: string };
+  };
+
+  // Map category name based on locale
+  const article = {
+    ...rawData,
+    category: {
+      slug: rawData.category.slug,
+      name: locale === "es" ? rawData.category.name_es : rawData.category.name_en,
+    },
   };
 
   // Increment view count (fire and forget, ignore errors)
@@ -101,13 +132,28 @@ async function getArticleData(
     article_id: article.id,
   });
 
+  // Get article tags
+  const { data: rawTagsData } = await supabase
+    .from("help_article_tags_relation")
+    .select(
+      "tag:help_article_tags!help_article_tags_relation_tag_id_fkey(id, slug, name_en, name_es, color)"
+    )
+    .eq("article_id", article.id);
+
+  // Type assertion for tags query result
+  const tagsData = rawTagsData as unknown as Array<{
+    tag: ArticleTag;
+  }> | null;
+
+  const tags = tagsData?.map((rel) => rel.tag) || [];
+
   // Get related articles
   const excerptField = locale === "es" ? "excerpt_es" : "excerpt_en";
 
   const { data: rawRelatedArticlesData } = await supabase
     .from("help_article_relations")
     .select(
-      `related_article:help_articles!help_article_relations_related_article_id_fkey(id, slug, ${titleField} as title, ${excerptField} as excerpt, category:help_categories!inner(slug))`
+      `related_article:help_articles!help_article_relations_related_article_id_fkey(id, slug, ${titleField}:title, ${excerptField}:excerpt, category:help_categories!inner(slug))`
     )
     .eq("article_id", article.id)
     .limit(4);
@@ -136,7 +182,7 @@ async function getArticleData(
   if (relatedArticles.length === 0) {
     const { data: rawSameCategoryArticles } = await supabase
       .from("help_articles")
-      .select(`id, slug, ${titleField} as title, ${excerptField} as excerpt, view_count`)
+      .select(`id, slug, ${titleField}:title, ${excerptField}:excerpt, view_count`)
       .eq("category_id", article.category_id)
       .eq("is_published", true)
       .neq("id", article.id)
@@ -168,6 +214,7 @@ async function getArticleData(
         slug: (article.category as unknown as { slug: string }).slug,
         name: (article.category as unknown as { name: string }).name,
       },
+      tags,
     } as ArticleData,
     relatedArticles,
   };
@@ -192,12 +239,19 @@ export default async function HelpArticlePage({
       <SiteHeader />
       <div className="min-h-screen bg-white py-12">
         <Container>
-          <ArticleViewer
-            article={article}
-            categoryName={article.category.name}
-            categorySlug={article.category.slug}
-            relatedArticles={relatedArticles}
-          />
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_250px]">
+            <div>
+              <ArticleViewer
+                article={article}
+                categoryName={article.category.name}
+                categorySlug={article.category.slug}
+                relatedArticles={relatedArticles}
+              />
+            </div>
+            <aside className="hidden lg:block">
+              <TableOfContents />
+            </aside>
+          </div>
         </Container>
       </div>
       <SiteFooter />

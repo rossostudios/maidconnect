@@ -14,9 +14,18 @@ import { marked } from "marked";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { ArticleTags } from "@/components/help/article-tags";
 import { sanitizeRichContent } from "@/lib/sanitize";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { toast } from "@/lib/toast";
+
+type ArticleTag = {
+  id: string;
+  slug: string;
+  name_en: string;
+  name_es: string;
+  color: string;
+};
 
 type HelpArticle = {
   id: string;
@@ -27,6 +36,7 @@ type HelpArticle = {
   not_helpful_count: number;
   created_at: string;
   updated_at: string;
+  tags?: ArticleTag[];
 };
 
 type RelatedArticle = {
@@ -197,6 +207,13 @@ export function ArticleViewer({
       {/* Article Header */}
       <div className="mb-8">
         <h1 className="mb-4 font-bold text-3xl text-gray-900 md:text-4xl">{article.title}</h1>
+
+        {/* Article Tags */}
+        {article.tags && article.tags.length > 0 && (
+          <div className="mb-4">
+            <ArticleTags locale={locale} tags={article.tags} />
+          </div>
+        )}
 
         <div className="flex flex-wrap items-center gap-3 text-gray-600 text-sm">
           {/* Recently Updated Badge */}

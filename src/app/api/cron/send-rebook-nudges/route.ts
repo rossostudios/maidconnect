@@ -9,7 +9,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 import { sendEmail } from "@/lib/email/send";
-import * as templates from "@/lib/email/templates";
+import { rebookNudgeEmail } from "@/lib/email/templates";
 import { isFeatureEnabled } from "@/lib/feature-flags";
 import { notifyCustomerRebookNudge } from "@/lib/notifications";
 
@@ -140,7 +140,7 @@ export async function GET(request: NextRequest) {
             await sendEmail(
               customer.email,
               `Ready for Your Next Service? - ${booking.service_name}`,
-              templates.rebookNudgeEmail(
+              rebookNudgeEmail(
                 {
                   customerName: customer.full_name,
                   professionalName: professional.full_name,
