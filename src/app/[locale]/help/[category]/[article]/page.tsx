@@ -48,9 +48,6 @@ export async function generateMetadata({
   const { locale, category, article: articleSlug } = await params;
   const supabase = createSupabaseAnonClient();
 
-  const titleField = locale === "es" ? "title_es" : "title_en";
-  const excerptField = locale === "es" ? "excerpt_es" : "excerpt_en";
-
   // First get the category_id from the category slug
   const { data: categoryData } = await supabase
     .from("help_categories")
@@ -66,7 +63,7 @@ export async function generateMetadata({
 
   const { data: article } = await supabase
     .from("help_articles")
-    .select(`${titleField}:title, ${excerptField}:excerpt`)
+    .select("title_en, title_es, excerpt_en, excerpt_es")
     .eq("slug", articleSlug)
     .eq("category_id", categoryData.id)
     .eq("is_published", true)
@@ -78,12 +75,12 @@ export async function generateMetadata({
     };
   }
 
-  // Type assertion for the dynamic query result
-  const typedArticle = article as unknown as { title: string; excerpt: string | null };
+  const title = locale === "es" ? article.title_es : article.title_en;
+  const excerpt = locale === "es" ? article.excerpt_es : article.excerpt_en;
 
   return {
-    title: `${typedArticle.title} - Help Center`,
-    description: typedArticle.excerpt || typedArticle.title,
+    title: `${title} - Help Center`,
+    description: excerpt || title,
   };
 }
 
@@ -94,14 +91,11 @@ async function getArticleData(
 ): Promise<{ article: ArticleData; relatedArticles: RelatedArticle[] } | null> {
   const supabase = createSupabaseAnonClient();
 
-  // Get article with category
-  const titleField = locale === "es" ? "title_es" : "title_en";
-  const contentField = locale === "es" ? "content_es" : "content_en";
-
+  // Get article with category - fetch both language columns
   const { data: rawArticle, error } = await supabase
     .from("help_articles")
     .select(
-      `id, category_id, slug, ${titleField}:title, ${contentField}:content, view_count, helpful_count, not_helpful_count, created_at, updated_at, category:help_categories!inner(slug, name_en, name_es)`
+      "id, category_id, slug, title_en, title_es, content_en, content_es, view_count, helpful_count, not_helpful_count, created_at, updated_at, category:help_categories!inner(slug, name_en, name_es)"
     )
     .eq("slug", articleSlug)
     .eq("help_categories.slug", categorySlug)
@@ -112,17 +106,21 @@ async function getArticleData(
     return null;
   }
 
-  // Type assertion for the dynamic query result
-  const rawData = rawArticle as unknown as Omit<ArticleData, "category"> & {
-    category: { slug: string; name_en: string; name_es: string };
-  };
-
-  // Map category name based on locale
+  // Map to correct language
   const article = {
-    ...rawData,
+    id: rawArticle.id,
+    category_id: rawArticle.category_id,
+    slug: rawArticle.slug,
+    title: locale === "es" ? rawArticle.title_es : rawArticle.title_en,
+    content: locale === "es" ? rawArticle.content_es : rawArticle.content_en,
+    view_count: rawArticle.view_count,
+    helpful_count: rawArticle.helpful_count,
+    not_helpful_count: rawArticle.not_helpful_count,
+    created_at: rawArticle.created_at,
+    updated_at: rawArticle.updated_at,
     category: {
-      slug: rawData.category.slug,
-      name: locale === "es" ? rawData.category.name_es : rawData.category.name_en,
+      slug: rawArticle.category.slug,
+      name: locale === "es" ? rawArticle.category.name_es : rawArticle.category.name_en,
     },
   };
 
@@ -147,60 +145,42 @@ async function getArticleData(
 
   const tags = tagsData?.map((rel) => rel.tag) || [];
 
-  // Get related articles
-  const excerptField = locale === "es" ? "excerpt_es" : "excerpt_en";
-
+  // Get related articles - fetch both language columns
   const { data: rawRelatedArticlesData } = await supabase
     .from("help_article_relations")
     .select(
-      `related_article:help_articles!help_article_relations_related_article_id_fkey(id, slug, ${titleField}:title, ${excerptField}:excerpt, category:help_categories!inner(slug))`
+      "related_article:help_articles!help_article_relations_related_article_id_fkey(id, slug, title_en, title_es, excerpt_en, excerpt_es, category:help_categories!inner(slug))"
     )
     .eq("article_id", article.id)
     .limit(4);
 
-  // Type assertion for the related articles query result
-  const relatedArticlesData = rawRelatedArticlesData as unknown as Array<{
-    related_article: {
-      id: string;
-      slug: string;
-      title: string;
-      excerpt: string | null;
-      category: { slug: string };
-    };
-  }> | null;
-
-  const relatedArticles =
-    relatedArticlesData?.map((rel) => ({
+  const relatedArticles: RelatedArticle[] =
+    rawRelatedArticlesData?.map((rel: any) => ({
       id: rel.related_article.id,
       category_slug: rel.related_article.category.slug,
       slug: rel.related_article.slug,
-      title: rel.related_article.title,
-      excerpt: rel.related_article.excerpt,
+      title: locale === "es" ? rel.related_article.title_es : rel.related_article.title_en,
+      excerpt: locale === "es" ? rel.related_article.excerpt_es : rel.related_article.excerpt_en,
     })) || [];
 
   // If no explicit relations, get articles from same category
   if (relatedArticles.length === 0) {
     const { data: rawSameCategoryArticles } = await supabase
       .from("help_articles")
-      .select(`id, slug, ${titleField}:title, ${excerptField}:excerpt, view_count`)
+      .select("id, slug, title_en, title_es, excerpt_en, excerpt_es, view_count")
       .eq("category_id", article.category_id)
       .eq("is_published", true)
       .neq("id", article.id)
       .order("view_count", { ascending: false })
       .limit(4);
 
-    // Type assertion for the dynamic query result
-    const sameCategoryArticles = rawSameCategoryArticles as unknown as Array<{
-      id: string;
-      slug: string;
-      title: string;
-      excerpt: string | null;
-    }> | null;
-
-    if (sameCategoryArticles) {
+    if (rawSameCategoryArticles) {
       relatedArticles.push(
-        ...sameCategoryArticles.map((a) => ({
-          ...a,
+        ...rawSameCategoryArticles.map((a) => ({
+          id: a.id,
+          slug: a.slug,
+          title: locale === "es" ? a.title_es : a.title_en,
+          excerpt: locale === "es" ? a.excerpt_es : a.excerpt_en,
           category_slug: categorySlug,
         }))
       );
@@ -210,12 +190,8 @@ async function getArticleData(
   return {
     article: {
       ...article,
-      category: {
-        slug: (article.category as unknown as { slug: string }).slug,
-        name: (article.category as unknown as { name: string }).name,
-      },
       tags,
-    } as ArticleData,
+    },
     relatedArticles,
   };
 }
