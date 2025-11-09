@@ -2600,6 +2600,9 @@
       }
     },
     "article": {
+      "breadcrumb": {
+        "home": "Centro de Ayuda"
+      },
       "meta": {
         "updated": "Actualizado {date}",
         "views": "{count, plural, =1 {1 vista} other {# vistas}}",

@@ -106,14 +106,25 @@ async function getPopularArticles(locale: string): Promise<PopularArticle[]> {
   }
 
   // Map to correct language
-  return rawArticles.map((article) => ({
-    id: article.id,
-    slug: article.slug,
-    title: locale === "es" ? article.title_es : article.title_en,
-    excerpt: locale === "es" ? article.excerpt_es : article.excerpt_en,
-    view_count: article.view_count,
-    category_slug: article.category.slug,
-  }));
+  return rawArticles
+    .map((article) => {
+      // Supabase returns category as an array due to the join syntax
+      const category = Array.isArray(article.category) ? article.category[0] : article.category;
+
+      if (!category) {
+        return null;
+      }
+
+      return {
+        id: article.id,
+        slug: article.slug,
+        title: locale === "es" ? article.title_es : article.title_en,
+        excerpt: locale === "es" ? article.excerpt_es : article.excerpt_en,
+        view_count: article.view_count,
+        category_slug: category.slug,
+      };
+    })
+    .filter((article): article is NonNullable<typeof article> => article !== null);
 }
 
 export default async function HelpCenterPage({

@@ -4,7 +4,7 @@ import { TableOfContents } from "@/components/help/table-of-contents";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { Container } from "@/components/ui/container";
-import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
+import { createSupabaseAnonClient, createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type ArticleTag = {
   id: string;
@@ -106,6 +106,15 @@ async function getArticleData(
     return null;
   }
 
+  // Supabase returns category as an array due to the join syntax
+  const category = Array.isArray(rawArticle.category)
+    ? rawArticle.category[0]
+    : rawArticle.category;
+
+  if (!category) {
+    return null;
+  }
+
   // Map to correct language
   const article = {
     id: rawArticle.id,
@@ -119,8 +128,8 @@ async function getArticleData(
     created_at: rawArticle.created_at,
     updated_at: rawArticle.updated_at,
     category: {
-      slug: rawArticle.category.slug,
-      name: locale === "es" ? rawArticle.category.name_es : rawArticle.category.name_en,
+      slug: category.slug,
+      name: locale === "es" ? category.name_es : category.name_en,
     },
   };
 
@@ -210,20 +219,45 @@ export default async function HelpArticlePage({
 
   const { article, relatedArticles } = data;
 
+  // Check if user is admin (use authenticated server client)
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let isAdmin = false;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+    isAdmin = profile?.role === "admin";
+  }
+
   return (
     <>
       <SiteHeader />
       <div className="min-h-screen bg-white py-12">
         <Container>
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_250px]">
-            <div>
+            <div className="mx-auto w-full max-w-4xl">
+              {/* Mobile TOC - Collapsible at top (W3C G64) */}
+              <div className="mb-8 lg:hidden">
+                <TableOfContents />
+              </div>
+
               <ArticleViewer
                 article={article}
+                articleId={article.id}
                 categoryName={article.category.name}
                 categorySlug={article.category.slug}
+                isAdmin={isAdmin}
                 relatedArticles={relatedArticles}
               />
             </div>
+
+            {/* Desktop TOC - Sticky sidebar */}
             <aside className="hidden lg:block">
               <TableOfContents />
             </aside>

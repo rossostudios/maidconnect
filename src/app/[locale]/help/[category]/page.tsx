@@ -77,11 +77,11 @@ async function getCategoryWithArticles(categorySlug: string, locale: string) {
     .order("created_at", { ascending: false });
 
   if (articlesError) {
-    console.error('[Help Category Page Error]', articlesError);
+    console.error("[Help Category Page Error]", articlesError);
   }
 
   // Map to the correct language and type
-  const articles: Article[] = (rawArticles || []).map(article => ({
+  const articles: Article[] = (rawArticles || []).map((article) => ({
     id: article.id,
     slug: article.slug,
     title: locale === "es" ? article.title_es : article.title_en,

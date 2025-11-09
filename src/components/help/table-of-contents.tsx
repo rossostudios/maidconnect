@@ -1,5 +1,7 @@
 "use client";
 
+import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -18,6 +20,7 @@ export function TableOfContents({ className }: TableOfContentsProps) {
   const t = useTranslations("help.article");
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>("");
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     // Extract h2, h3 from article
@@ -70,32 +73,98 @@ export function TableOfContents({ className }: TableOfContentsProps) {
   }
 
   return (
-    <div className={cn("sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto", className)}>
-      <h4 className="mb-3 font-semibold text-gray-900 text-sm">{t("toc.title")}</h4>
-      <nav>
-        <ul className="space-y-2 text-sm">
-          {headings.map((heading) => (
-            <li key={heading.id} style={{ paddingLeft: `${(heading.level - 2) * 0.75}rem` }}>
-              <a
-                className={cn(
-                  "block transition hover:text-[#E85D48]",
-                  activeId === heading.id ? "font-medium text-[#E85D48]" : "text-gray-600"
-                )}
-                href={`#${heading.id}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById(heading.id)?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
+    <div
+      className={cn(
+        "lg:sticky lg:top-24 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto",
+        className
+      )}
+    >
+      {/* Mobile: Collapsible disclosure button */}
+      <button
+        className="flex w-full items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-3 text-left transition-colors hover:bg-gray-50 lg:hidden"
+        onClick={() => setIsOpen(!isOpen)}
+        type="button"
+      >
+        <span className="font-medium text-gray-900 text-sm">
+          {t("toc.title")} ({headings.length})
+        </span>
+        <HugeiconsIcon
+          className={cn("h-4 w-4 text-gray-500 transition-transform", isOpen && "rotate-180")}
+          icon={ArrowDown01Icon}
+        />
+      </button>
+
+      {/* Mobile: Collapsible content */}
+      <div className={cn("mt-2 lg:hidden", !isOpen && "hidden")}>
+        <nav>
+          <ul className="space-y-1 rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm">
+            {headings.map((heading) => (
+              <li
+                key={heading.id}
+                style={{
+                  paddingLeft: heading.level === 3 ? "0.75rem" : "0",
                 }}
               >
-                {heading.text}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+                <a
+                  className={cn(
+                    "block rounded px-2 py-1.5 transition-colors",
+                    activeId === heading.id
+                      ? "bg-white font-medium text-gray-900"
+                      : "text-gray-600 hover:bg-white hover:text-gray-900"
+                  )}
+                  href={`#${heading.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById(heading.id)?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                    setIsOpen(false); // Close on mobile after selection
+                  }}
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      {/* Desktop: Always visible with minimal Notion-style */}
+      <div className="hidden lg:block">
+        <h4 className="mb-4 text-gray-400 text-xs uppercase tracking-wide">{t("toc.title")}</h4>
+        <nav>
+          <ul className="space-y-1 border-gray-200 border-l pl-3 text-sm">
+            {headings.map((heading) => (
+              <li
+                key={heading.id}
+                style={{
+                  paddingLeft: heading.level === 3 ? "0.75rem" : "0",
+                }}
+              >
+                <a
+                  className={cn(
+                    "block py-1 transition-colors",
+                    activeId === heading.id
+                      ? "font-medium text-gray-900"
+                      : "text-gray-500 hover:text-gray-900"
+                  )}
+                  href={`#${heading.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById(heading.id)?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }}
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </div>
   );
 }

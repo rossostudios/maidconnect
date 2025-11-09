@@ -5,6 +5,7 @@ import {
   Analytics01Icon,
   ClipboardIcon,
   DollarCircleIcon,
+  FileIcon,
   MapsLocation01Icon,
   MenuTwoLineIcon,
   Message01Icon,
@@ -45,6 +46,10 @@ const navSections: NavSection[] = [
       { href: "/admin/analytics", label: "Analytics", icon: Analytics01Icon },
       { href: "/admin/pricing", label: "Pricing", icon: DollarCircleIcon },
     ],
+  },
+  {
+    title: "Content",
+    items: [{ href: "/admin/help/articles", label: "Help Articles", icon: FileIcon }],
   },
   {
     title: "Community",

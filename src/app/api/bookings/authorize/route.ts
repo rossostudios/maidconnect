@@ -175,30 +175,32 @@ async function sendAuthorizationNotifications(supabase: any, bookingId: string) 
   }
 }
 
-export const POST = withCustomer(async ({ user, supabase }, request: Request): Promise<NextResponse> => {
-  // Rate limiting: 10 payment authorizations per hour per user
-  const rateLimitResult = await rateLimit(request, "booking");
-  if (!rateLimitResult.success) {
-    return createRateLimitResponse(rateLimitResult);
+export const POST = withCustomer(
+  async ({ user, supabase }, request: Request): Promise<NextResponse> => {
+    // Rate limiting: 10 payment authorizations per hour per user
+    const rateLimitResult = await rateLimit(request, "booking");
+    if (!rateLimitResult.success) {
+      return createRateLimitResponse(rateLimitResult);
+    }
+
+    const body = await request.json();
+    const { bookingId, paymentIntentId } = authorizeSchema.parse(body);
+
+    await requireCustomerOwnership(supabase, user.id, bookingId);
+
+    const intent = await validatePaymentIntent(paymentIntentId, bookingId);
+
+    await supabase
+      .from("bookings")
+      .update({
+        status: "authorized",
+        stripe_payment_status: intent.status,
+        amount_authorized: intent.amount ?? intent.amount_received ?? null,
+      })
+      .eq("id", bookingId);
+
+    await sendAuthorizationNotifications(supabase, bookingId);
+
+    return ok({ success: true });
   }
-
-  const body = await request.json();
-  const { bookingId, paymentIntentId } = authorizeSchema.parse(body);
-
-  await requireCustomerOwnership(supabase, user.id, bookingId);
-
-  const intent = await validatePaymentIntent(paymentIntentId, bookingId);
-
-  await supabase
-    .from("bookings")
-    .update({
-      status: "authorized",
-      stripe_payment_status: intent.status,
-      amount_authorized: intent.amount ?? intent.amount_received ?? null,
-    })
-    .eq("id", bookingId);
-
-  await sendAuthorizationNotifications(supabase, bookingId);
-
-  return ok({ success: true });
-});
+);

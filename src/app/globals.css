@@ -397,6 +397,41 @@ small,
   line-height: var(--leading-body);
 }
 
+/* Remove any default borders from headings in prose */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  padding-top: 0 !important;
+  margin-top: 2rem !important;
+}
+
+.prose h1:first-child,
+.prose h2:first-child,
+.prose h3:first-child {
+  margin-top: 0 !important;
+}
+
+/* Hide default horizontal rules inside prose; show only custom separators */
+.prose hr {
+  margin: 0;
+  border: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.prose hr.article-separator {
+  opacity: 1;
+  height: auto;
+  border-top: 1px solid #e5e7eb;
+  margin: 2.5rem 0;
+}
+
 /* ============================================
    NAVIGATION & BUTTONS
    Inter for clean, modern interface elements
