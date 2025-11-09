@@ -374,9 +374,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                 <button
                   className={cn(
                     "rounded px-3 py-1.5 font-medium text-xs",
-                    previewMode === "en"
-                      ? "bg-[#E85D48] text-white shadow-sm"
-                      : "text-gray-600"
+                    previewMode === "en" ? "bg-[#E85D48] text-white shadow-sm" : "text-gray-600"
                   )}
                   onClick={() => setPreviewMode("en")}
                   type="button"
@@ -386,9 +384,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                 <button
                   className={cn(
                     "rounded px-3 py-1.5 font-medium text-xs",
-                    previewMode === "es"
-                      ? "bg-[#E85D48] text-white shadow-sm"
-                      : "text-gray-600"
+                    previewMode === "es" ? "bg-[#E85D48] text-white shadow-sm" : "text-gray-600"
                   )}
                   onClick={() => setPreviewMode("es")}
                   type="button"
@@ -398,9 +394,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                 <button
                   className={cn(
                     "rounded px-3 py-1.5 font-medium text-xs",
-                    previewMode === "both"
-                      ? "bg-[#E85D48] text-white shadow-sm"
-                      : "text-gray-600"
+                    previewMode === "both" ? "bg-[#E85D48] text-white shadow-sm" : "text-gray-600"
                   )}
                   onClick={() => setPreviewMode("both")}
                   type="button"
@@ -603,10 +597,12 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
             <div className="space-y-5">
               {/* Category & Slug */}
               <div className={propertyCardClass}>
-                <p className={propertyHeadingClass}>{locale === "es" ? "Información" : "Information"}</p>
+                <p className={propertyHeadingClass}>
+                  {locale === "es" ? "Información" : "Information"}
+                </p>
                 <div className="mt-4 space-y-3 text-sm">
                   <div className={propertyRowClass}>
-                    <span className="text-[12px] font-medium text-slate-500">
+                    <span className="font-medium text-[12px] text-slate-500">
                       {locale === "es" ? "Categoría" : "Category"}
                     </span>
                     <select
@@ -624,7 +620,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                   </div>
 
                   <div className={propertyRowClass}>
-                    <span className="text-[12px] font-medium text-slate-500">Slug</span>
+                    <span className="font-medium text-[12px] text-slate-500">Slug</span>
                     <div className="flex items-center gap-2">
                       <input
                         className={cn(propertyValueClass, "font-mono text-xs")}
@@ -635,7 +631,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                         value={slug}
                       />
                       <button
-                        className="rounded-2xl border border-slate-200/70 px-3 py-1.5 text-[11px] font-medium text-slate-600 transition hover:text-[#E85D48]"
+                        className="rounded-2xl border border-slate-200/70 px-3 py-1.5 font-medium text-[11px] text-slate-600 transition hover:text-[#E85D48]"
                         onClick={generateSlug}
                         type="button"
                       >
@@ -645,7 +641,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                   </div>
 
                   <div className={propertyRowClass}>
-                    <span className="text-[12px] font-medium text-slate-500">
+                    <span className="font-medium text-[12px] text-slate-500">
                       {locale === "es" ? "Orden" : "Order"}
                     </span>
                     <input
@@ -665,20 +661,20 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                 <div className="flex items-center justify-between">
                   <p className={propertyHeadingClass}>{locale === "es" ? "Etiquetas" : "Tags"}</p>
                   {selectedTags.length > 0 && (
-                    <span className="rounded-full bg-[#FEECE8] px-2 py-0.5 text-xs font-medium text-[#E85D48]">
+                    <span className="rounded-full bg-[#FEECE8] px-2 py-0.5 font-medium text-[#E85D48] text-xs">
                       {selectedTags.length}
                     </span>
                   )}
                 </div>
 
                 {selectedTags.length > 0 && (
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {selectedTags.map((tagId) => {
-                    const tag = tags.find((t) => t.id === tagId);
-                    if (!tag) return null;
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {selectedTags.map((tagId) => {
+                      const tag = tags.find((t) => t.id === tagId);
+                      if (!tag) return null;
                       return (
                         <span
-                          className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-700"
+                          className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-1 text-slate-700 text-xs"
                           key={tagId}
                         >
                           <span>{locale === "es" ? tag.name_es : tag.name_en}</span>
@@ -700,13 +696,13 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
 
                 <div className="mt-3 max-h-48 space-y-1 overflow-y-auto">
                   {tags.length === 0 ? (
-                    <p className="text-xs text-slate-400">
+                    <p className="text-slate-400 text-xs">
                       {locale === "es" ? "No hay etiquetas" : "No tags"}
                     </p>
                   ) : (
                     tags.map((tag) => (
                       <label
-                        className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1 text-xs text-slate-600 hover:bg-slate-50"
+                        className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1 text-slate-600 text-xs hover:bg-slate-50"
                         key={tag.id}
                       >
                         <input
@@ -734,11 +730,11 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
               <div className={propertyCardClass}>
                 <p className={propertyHeadingClass}>{locale === "es" ? "Estado" : "Status"}</p>
                 <div className={cn(propertyRowClass, "mt-4 bg-white/60")}>
-                  <span className="text-[12px] font-medium text-slate-500">
+                  <span className="font-medium text-[12px] text-slate-500">
                     {locale === "es" ? "Estado" : "Status"}
                   </span>
                   <div className="flex items-center justify-between gap-3">
-                    <span className="rounded-full bg-white px-3 py-1 text-sm font-medium text-slate-700">
+                    <span className="rounded-full bg-white px-3 py-1 font-medium text-slate-700 text-sm">
                       {isPublished
                         ? locale === "es"
                           ? "Publicado"

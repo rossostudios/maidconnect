@@ -26,7 +26,6 @@ import { cn } from "@/lib/utils";
 import type { BlockType, CalloutType, EditorBlock } from "@/types/block-editor";
 import { BLOCK_TYPES, CALLOUT_TYPES } from "@/types/block-editor";
 
-
 const editorTokens = {
   shell: "mx-auto w-full max-w-3xl px-4 sm:px-6 py-6",
   blockStack: "space-y-1",
@@ -37,8 +36,7 @@ const editorTokens = {
     "absolute top-2 right-2 flex items-center gap-1 rounded-full bg-white/90 px-1 py-0.5 text-slate-400 opacity-0 shadow-sm ring-1 ring-slate-200 transition-all group-hover:opacity-100",
   handleButton:
     "rounded-full p-1 transition hover:bg-slate-100 hover:text-slate-700 active:cursor-grabbing",
-  deleteButton:
-    "rounded-full p-1 text-red-400 transition hover:bg-red-50 hover:text-red-500",
+  deleteButton: "rounded-full p-1 text-red-400 transition hover:bg-red-50 hover:text-red-500",
 };
 
 const TEXT_BLOCK_TYPES: BlockType[] = [
@@ -60,10 +58,13 @@ const getDefaultMetadata = (type: BlockType): EditorBlock["metadata"] | undefine
   if (type === "image") {
     return { imageUrl: "", caption: "" };
   }
-  return undefined;
+  return;
 };
 
-const createBlock = (type: BlockType = "paragraph", overrides?: Partial<EditorBlock>): EditorBlock => ({
+const createBlock = (
+  type: BlockType = "paragraph",
+  overrides?: Partial<EditorBlock>
+): EditorBlock => ({
   id: overrides?.id ?? crypto.randomUUID(),
   type,
   content: overrides?.content ?? "",
@@ -119,8 +120,6 @@ const setCaretPosition = (element: HTMLElement, position: number) => {
 };
 
 const isCaretAtStart = (element: HTMLElement) => getCaretOffsetWithin(element) === 0;
-const isCaretAtEnd = (element: HTMLElement) =>
-  getCaretOffsetWithin(element) === (element.textContent?.length ?? 0);
 
 interface BlockEditorProps {
   initialContent?: string;
@@ -137,7 +136,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
   const [focusedBlockId, setFocusedBlockId] = useState<string | null>(null);
   const [showBlockMenu, setShowBlockMenu] = useState<string | null>(null);
   const [slashMenuSearch, setSlashMenuSearch] = useState("");
-  const [recentBlocks, setRecentBlocks] = useState<BlockType[]>([]);
+  const [recentBlocks] = useState<BlockType[]>([]);
   const [draggedBlockId, setDraggedBlockId] = useState<string | null>(null);
   const [dragOverBlockId, setDragOverBlockId] = useState<string | null>(null);
   const editorContainerRef = useRef<HTMLDivElement>(null);
@@ -152,7 +151,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
   const updateSelectionToolbar = useCallback(() => {
     const container = editorContainerRef.current;
     const selection = window.getSelection();
-    if (!container || !selection || selection.rangeCount === 0) {
+    if (!(container && selection) || selection.rangeCount === 0) {
       hideSelectionToolbar();
       return;
     }
@@ -212,7 +211,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
 
   const restoreSelection = useCallback(() => {
     const selection = window.getSelection();
-    if (!selection || !savedRangeRef.current) {
+    if (!(selection && savedRangeRef.current)) {
       return;
     }
     selection.removeAllRanges();
@@ -230,10 +229,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
 
   const handleLinkInsert = useCallback(() => {
     restoreSelection();
-    const url = window.prompt(
-      locale === "es" ? "Pega un enlace" : "Paste a link",
-      "https://"
-    );
+    const url = window.prompt(locale === "es" ? "Pega un enlace" : "Paste a link", "https://");
     if (url) {
       document.execCommand("createLink", false, url);
     } else {
@@ -269,46 +265,6 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
     setBlocks((prev) => prev.map((block) => (block.id === id ? { ...block, ...updates } : block)));
   }, []);
 
-  const addBlock = useCallback(
-    (
-      afterId: string,
-      type: BlockType = "paragraph",
-      options?: { content?: string; metadata?: EditorBlock["metadata"]; focus?: boolean }
-    ) => {
-      const newBlock = createBlock(type, {
-        content: options?.content ?? "",
-        metadata: options?.metadata ?? getDefaultMetadata(type),
-      });
-
-      setBlocks((prev) => {
-        const index = prev.findIndex((b) => b.id === afterId);
-        const newBlocks = [...prev];
-        newBlocks.splice(index + 1, 0, newBlock);
-        return newBlocks;
-      });
-
-      if (type !== "paragraph") {
-        setRecentBlocks((prev) => {
-          const updated = [type, ...prev.filter((t) => t !== type)].slice(0, 3);
-          return updated;
-        });
-      }
-
-      if (options?.focus !== false) {
-        setTimeout(() => {
-          const element = document.querySelector(`[data-block-id="${newBlock.id}"]`) as HTMLElement;
-          element?.focus();
-          if (element) {
-            setCaretPosition(element, 0);
-          }
-        }, 50);
-      }
-
-      return newBlock.id;
-    },
-    []
-  );
-
   const deleteBlock = useCallback((id: string) => {
     setBlocks((prev) => {
       if (prev.length === 1) {
@@ -325,7 +281,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
       const index = prev.findIndex((b) => b.id === blockId);
       if (index === -1) return prev;
       const block = prev[index];
-      if (!block || !TEXT_BLOCK_TYPES.includes(block.type)) return prev;
+      if (!(block && TEXT_BLOCK_TYPES.includes(block.type))) return prev;
 
       const before = textValue.slice(0, caretIndex);
       const after = textValue.slice(caretIndex);
@@ -368,7 +324,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
       if (index <= 0) return prev;
       const previous = prev[index - 1];
       const current = prev[index];
-      if (!previous || !current) return prev;
+      if (!(previous && current)) return prev;
 
       focusId = previous.id;
       caretPosition = (previous.content ?? "").length;
@@ -415,38 +371,35 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
   }, []);
 
   // Handle markdown paste
-  const handlePaste = useCallback(
-    (blockId: string, e: React.ClipboardEvent) => {
-      const pastedText = e.clipboardData.getData("text/plain");
+  const handlePaste = useCallback((blockId: string, e: React.ClipboardEvent) => {
+    const pastedText = e.clipboardData.getData("text/plain");
 
-      // Check if the pasted content looks like markdown
-      const hasMarkdownSyntax =
-        pastedText.includes("# ") ||
-        pastedText.includes("## ") ||
-        pastedText.includes("```") ||
-        pastedText.includes("- ") ||
-        pastedText.includes("* ") ||
-        pastedText.includes("1. ") ||
-        pastedText.includes("\n\n");
+    // Check if the pasted content looks like markdown
+    const hasMarkdownSyntax =
+      pastedText.includes("# ") ||
+      pastedText.includes("## ") ||
+      pastedText.includes("```") ||
+      pastedText.includes("- ") ||
+      pastedText.includes("* ") ||
+      pastedText.includes("1. ") ||
+      pastedText.includes("\n\n");
 
-      if (hasMarkdownSyntax && pastedText.length > 50) {
-        e.preventDefault();
+    if (hasMarkdownSyntax && pastedText.length > 50) {
+      e.preventDefault();
 
-        // Convert markdown to blocks
-        const newBlocks = markdownToBlocks(pastedText);
+      // Convert markdown to blocks
+      const newBlocks = markdownToBlocks(pastedText);
 
-        // Replace current block with pasted blocks
-        setBlocks((prev) => {
-          const index = prev.findIndex((b) => b.id === blockId);
-          const beforeBlocks = prev.slice(0, index);
-          const afterBlocks = prev.slice(index + 1);
-          return [...beforeBlocks, ...newBlocks, ...afterBlocks];
-        });
-      }
-      // Otherwise, let default paste behavior work (plain text)
-    },
-    []
-  );
+      // Replace current block with pasted blocks
+      setBlocks((prev) => {
+        const index = prev.findIndex((b) => b.id === blockId);
+        const beforeBlocks = prev.slice(0, index);
+        const afterBlocks = prev.slice(index + 1);
+        return [...beforeBlocks, ...newBlocks, ...afterBlocks];
+      });
+    }
+    // Otherwise, let default paste behavior work (plain text)
+  }, []);
 
   // Native drag-and-drop handlers
   const handleDragStart = useCallback((blockId: string) => {
@@ -587,8 +540,8 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
         >
           {toolbarButtons.map((button) => (
             <button
-              key={button.label}
               className="rounded-full p-1 transition hover:bg-slate-100"
+              key={button.label}
               onClick={(e) => {
                 e.preventDefault();
                 button.onClick();
@@ -604,7 +557,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
       )}
       {/* Empty state - Notion-style blank canvas */}
       {blocks.length === 0 && (
-        <div className="flex min-h-[320px] items-center justify-center rounded-3xl border border-dashed border-slate-200 bg-white/70 text-center">
+        <div className="flex min-h-[320px] items-center justify-center rounded-3xl border border-slate-200 border-dashed bg-white/70 text-center">
           <button
             className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-500 shadow-sm transition hover:border-[#E85D48]/30 hover:text-[#E85D48]"
             onClick={() => {
@@ -625,7 +578,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
             type="button"
           >
             <HugeiconsIcon className="h-5 w-5" icon={Add01Icon} />
-            <span className="text-base font-medium">
+            <span className="font-medium text-base">
               {locale === "es"
                 ? "Comienza a escribir o presiona '/'"
                 : "Start typing or tap '/' for commands"}
@@ -639,16 +592,14 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
         <div className={editorTokens.blockStack}>
           {blocks.map((block) => (
             <BlockComponent
-              addBlock={addBlock}
               block={block}
               deleteBlock={deleteBlock}
-              mergeBlockWithPrevious={mergeBlockWithPrevious}
-              splitBlock={splitBlock}
-              dragOverBlockId={dragOverBlockId}
               draggedBlockId={draggedBlockId}
+              dragOverBlockId={dragOverBlockId}
               isFocused={focusedBlockId === block.id}
               key={block.id}
               locale={locale}
+              mergeBlockWithPrevious={mergeBlockWithPrevious}
               moveBlock={moveBlock}
               onDragEnd={handleDragEnd}
               onDragOver={handleDragOver}
@@ -659,6 +610,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
               recentBlocks={recentBlocks}
               showBlockMenu={showBlockMenu === block.id}
               slashMenuSearch={slashMenuSearch}
+              splitBlock={splitBlock}
               toggleBlockMenu={() => {
                 setShowBlockMenu(showBlockMenu === block.id ? null : block.id);
                 setSlashMenuSearch("");
@@ -676,7 +628,6 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
 interface BlockComponentProps {
   block: EditorBlock;
   updateBlock: (id: string, updates: Partial<EditorBlock>) => void;
-  addBlock: (afterId: string, type?: BlockType) => void;
   deleteBlock: (id: string) => void;
   splitBlock: (id: string, caretIndex: number, textValue: string) => void;
   mergeBlockWithPrevious: (id: string) => void;
@@ -701,7 +652,6 @@ interface BlockComponentProps {
 function BlockComponent({
   block,
   updateBlock,
-  addBlock,
   deleteBlock,
   splitBlock,
   mergeBlockWithPrevious,
@@ -997,9 +947,7 @@ function BlockComponent({
                       <button
                         className={cn(
                           "flex w-full items-center gap-3 rounded px-2 py-2 text-left text-sm",
-                          isSelected
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700"
+                          isSelected ? "bg-gray-100 text-gray-900" : "text-gray-700"
                         )}
                         key={type}
                         onClick={() => {
@@ -1117,7 +1065,7 @@ const BlockContent = React.forwardRef<HTMLElement, BlockContentProps>(
     }, []);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    useImperativeHandle(ref, () => sharedRef.current as HTMLElement | null);
+    useImperativeHandle(ref, () => sharedRef.current!);
 
     useEffect(() => {
       if (!sharedRef.current) return;
@@ -1129,153 +1077,153 @@ const BlockContent = React.forwardRef<HTMLElement, BlockContentProps>(
       }
     }, [block.content, block.type]);
 
-  if (block.type === "checkbox") {
-    const checked = Boolean(block.metadata?.checked);
-    return (
-      <div className="flex items-start gap-3 px-1 py-1">
-        <input
-          aria-label={locale === "es" ? "Completar elemento" : "Toggle checklist item"}
-          checked={checked}
-          className="mt-1 h-4 w-4 flex-shrink-0 rounded border-gray-300 text-[#E85D48] focus:ring-[#E85D48]"
-          onChange={(e) =>
-            updateBlock(block.id, {
-              metadata: { ...block.metadata, checked: e.target.checked },
-            })
-          }
-          type="checkbox"
-        />
-        <div
-          className={cn(
-            "min-h-[1.5rem] flex-1 px-1 py-0.5 text-gray-700 outline-none",
-            "empty:before:text-gray-300 empty:before:content-[attr(data-placeholder)]",
-            checked && "text-gray-500 line-through"
-          )}
-          contentEditable
-          data-block-id={block.id}
-          data-placeholder={placeholder}
-          onBlur={(e) =>
-            updateBlock(block.id, {
-              content: e.currentTarget.textContent ?? "",
-            })
-          }
-          onFocus={onFocus}
-          onInput={handleInput}
-          onKeyDown={handleKeyDown}
-          onPaste={onPaste}
-          ref={assignSharedRef as React.Ref<HTMLDivElement>}
-          suppressContentEditableWarning
-        />
-      </div>
-    );
-  }
-
-  if (block.type === "image") {
-    const imageUrl = block.metadata?.imageUrl ?? "";
-    const caption = block.metadata?.caption ?? block.content ?? "";
-
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (!file) {
-        return;
-      }
-      readFile(file);
-    };
-
-    const readFile = (file: File) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        updateBlock(block.id, {
-          metadata: { ...block.metadata, imageUrl: reader.result as string },
-        });
-      };
-      reader.readAsDataURL(file);
-    };
-
-    const handleDropUpload = (e: React.DragEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      const file = e.dataTransfer.files?.[0];
-      if (file && file.type.startsWith("image/")) {
-        readFile(file);
-      }
-    };
-
-    return (
-      <div
-        className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4"
-        onDragOver={(e) => e.preventDefault()}
-        onDrop={handleDropUpload}
-      >
-        {imageUrl ? (
-          <img
-            alt={caption || (locale === "es" ? "Imagen del artículo" : "Article image")}
-            className="max-h-96 w-full rounded-xl object-cover"
-            src={imageUrl}
-          />
-        ) : (
-          <div className="flex h-48 flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 bg-white text-slate-400 text-sm">
-            {locale === "es" ? "Agrega una imagen" : "Add an image"}
-          </div>
-        )}
-        <div className="flex flex-wrap gap-2">
-          <button
-            className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-600 transition hover:border-slate-300"
-            onClick={() => fileInputRef.current?.click()}
-            type="button"
-          >
-            <HugeiconsIcon className="h-4 w-4" icon={ImageAdd01Icon} />
-            {locale === "es" ? "Subir imagen/GIF" : "Upload image/GIF"}
-          </button>
-          {imageUrl && (
-            <button
-              className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-500 transition hover:border-red-200 hover:text-red-500"
-              onClick={() =>
-                updateBlock(block.id, {
-                  content: "",
-                  metadata: { ...block.metadata, imageUrl: "", caption: "" },
-                })
-              }
-              type="button"
-            >
-              <HugeiconsIcon className="h-4 w-4" icon={Delete02Icon} />
-              {locale === "es" ? "Eliminar" : "Remove"}
-            </button>
-          )}
+    if (block.type === "checkbox") {
+      const checked = Boolean(block.metadata?.checked);
+      return (
+        <div className="flex items-start gap-3 px-1 py-1">
           <input
-            accept="image/*"
-            className="hidden"
-            onChange={handleFileChange}
-            ref={fileInputRef}
-            type="file"
-          />
-          <input
-            className="flex-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 outline-none"
+            aria-label={locale === "es" ? "Completar elemento" : "Toggle checklist item"}
+            checked={checked}
+            className="mt-1 h-4 w-4 flex-shrink-0 rounded border-gray-300 text-[#E85D48] focus:ring-[#E85D48]"
             onChange={(e) =>
-              updateBlock(block.id, { metadata: { ...block.metadata, imageUrl: e.target.value } })
+              updateBlock(block.id, {
+                metadata: { ...block.metadata, checked: e.target.checked },
+              })
             }
-            placeholder="https://"
-            value={imageUrl}
+            type="checkbox"
+          />
+          <div
+            className={cn(
+              "min-h-[1.5rem] flex-1 px-1 py-0.5 text-gray-700 outline-none",
+              "empty:before:text-gray-300 empty:before:content-[attr(data-placeholder)]",
+              checked && "text-gray-500 line-through"
+            )}
+            contentEditable
+            data-block-id={block.id}
+            data-placeholder={placeholder}
+            onBlur={(e) =>
+              updateBlock(block.id, {
+                content: e.currentTarget.textContent ?? "",
+              })
+            }
+            onFocus={onFocus}
+            onInput={handleInput}
+            onKeyDown={handleKeyDown}
+            onPaste={onPaste}
+            ref={assignSharedRef as React.Ref<HTMLDivElement>}
+            suppressContentEditableWarning
           />
         </div>
-        <input
-          className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none"
-          onChange={(e) =>
-            updateBlock(block.id, {
-              content: e.target.value,
-              metadata: { ...block.metadata, caption: e.target.value },
-            })
-          }
-          placeholder={locale === "es" ? "Agrega una leyenda" : "Add a caption"}
-          value={caption}
-        />
-      </div>
-    );
-  }
+      );
+    }
+
+    if (block.type === "image") {
+      const imageUrl = block.metadata?.imageUrl ?? "";
+      const caption = block.metadata?.caption ?? block.content ?? "";
+
+      const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) {
+          return;
+        }
+        readFile(file);
+      };
+
+      const readFile = (file: File) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          updateBlock(block.id, {
+            metadata: { ...block.metadata, imageUrl: reader.result as string },
+          });
+        };
+        reader.readAsDataURL(file);
+      };
+
+      const handleDropUpload = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files?.[0];
+        if (file && file.type.startsWith("image/")) {
+          readFile(file);
+        }
+      };
+
+      return (
+        <div
+          className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4"
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={handleDropUpload}
+        >
+          {imageUrl ? (
+            <img
+              alt={caption || (locale === "es" ? "Imagen del artículo" : "Article image")}
+              className="max-h-96 w-full rounded-xl object-cover"
+              src={imageUrl}
+            />
+          ) : (
+            <div className="flex h-48 flex-col items-center justify-center rounded-xl border border-slate-300 border-dashed bg-white text-slate-400 text-sm">
+              {locale === "es" ? "Agrega una imagen" : "Add an image"}
+            </div>
+          )}
+          <div className="flex flex-wrap gap-2">
+            <button
+              className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-600 text-xs transition hover:border-slate-300"
+              onClick={() => fileInputRef.current?.click()}
+              type="button"
+            >
+              <HugeiconsIcon className="h-4 w-4" icon={ImageAdd01Icon} />
+              {locale === "es" ? "Subir imagen/GIF" : "Upload image/GIF"}
+            </button>
+            {imageUrl && (
+              <button
+                className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-500 text-xs transition hover:border-red-200 hover:text-red-500"
+                onClick={() =>
+                  updateBlock(block.id, {
+                    content: "",
+                    metadata: { ...block.metadata, imageUrl: "", caption: "" },
+                  })
+                }
+                type="button"
+              >
+                <HugeiconsIcon className="h-4 w-4" icon={Delete02Icon} />
+                {locale === "es" ? "Eliminar" : "Remove"}
+              </button>
+            )}
+            <input
+              accept="image/*"
+              className="hidden"
+              onChange={handleFileChange}
+              ref={fileInputRef}
+              type="file"
+            />
+            <input
+              className="flex-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-700 text-xs outline-none"
+              onChange={(e) =>
+                updateBlock(block.id, { metadata: { ...block.metadata, imageUrl: e.target.value } })
+              }
+              placeholder="https://"
+              value={imageUrl}
+            />
+          </div>
+          <input
+            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-700 text-sm outline-none"
+            onChange={(e) =>
+              updateBlock(block.id, {
+                content: e.target.value,
+                metadata: { ...block.metadata, caption: e.target.value },
+              })
+            }
+            placeholder={locale === "es" ? "Agrega una leyenda" : "Add a caption"}
+            value={caption}
+          />
+        </div>
+      );
+    }
 
     // Heading blocks - Minimal Notion-style
     if (block.type === "heading1") {
       return (
         <h1
-          className="min-h-[2.5rem] px-1 py-1 font-semibold text-3xl tracking-tight text-slate-900 outline-none empty:before:text-slate-300 empty:before:content-[attr(data-placeholder)]"
+          className="min-h-[2.5rem] px-1 py-1 font-semibold text-3xl text-slate-900 tracking-tight outline-none empty:before:text-slate-300 empty:before:content-[attr(data-placeholder)]"
           contentEditable
           data-block-id={block.id}
           data-placeholder={placeholder}
@@ -1311,7 +1259,7 @@ const BlockContent = React.forwardRef<HTMLElement, BlockContentProps>(
     if (block.type === "heading3") {
       return (
         <h3
-          className="min-h-[1.75rem] px-1 py-1 font-semibold text-xl text-slate-900 outline-none empty:before:text-slate-300 empty:before:content-[attr(data-placeholder)]"
+          className="min-h-[1.75rem] px-1 py-1 font-semibold text-slate-900 text-xl outline-none empty:before:text-slate-300 empty:before:content-[attr(data-placeholder)]"
           contentEditable
           data-block-id={block.id}
           data-placeholder={placeholder}
@@ -1340,7 +1288,7 @@ const BlockContent = React.forwardRef<HTMLElement, BlockContentProps>(
           )}
         >
           {items.map((item, idx) => (
-            <li className="text-base leading-7 text-slate-700" key={idx}>
+            <li className="text-base text-slate-700 leading-7" key={idx}>
               <div
                 className="min-h-[1.5rem] px-1 py-0.5 outline-none empty:before:text-slate-300 empty:before:content-[attr(data-placeholder)]"
                 contentEditable
@@ -1482,7 +1430,7 @@ const BlockContent = React.forwardRef<HTMLElement, BlockContentProps>(
     // Default: Paragraph - Clean minimal paragraph
     return (
       <div
-        className="min-h-[1.75rem] w-full px-1 py-1 text-base leading-7 text-slate-800 outline-none empty:before:text-slate-300 empty:before:content-[attr(data-placeholder)]"
+        className="min-h-[1.75rem] w-full px-1 py-1 text-base text-slate-800 leading-7 outline-none empty:before:text-slate-300 empty:before:content-[attr(data-placeholder)]"
         contentEditable
         data-block-id={block.id}
         data-placeholder={placeholder}

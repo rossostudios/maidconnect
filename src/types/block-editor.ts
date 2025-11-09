@@ -3,12 +3,12 @@
  * Notion-style block-based editor for help articles
  */
 
-import type { IconSvgObject } from "@hugeicons/core-free-icons";
 import {
   Alert01Icon,
   Cancel01Icon,
   CheckListIcon,
   CheckmarkCircle02Icon,
+  CodeIcon,
   Heading01Icon,
   Heading02Icon,
   Heading03Icon,
@@ -21,7 +21,8 @@ import {
   TextIcon,
 } from "@hugeicons/core-free-icons";
 
-import { CodeIcon } from "@hugeicons/core-free-icons";
+// Type for Hugeicons icon objects
+type IconSvgObject = typeof TextIcon;
 
 export type BlockType =
   | "paragraph"
@@ -62,13 +63,20 @@ export type BlockEditorProps = {
 /**
  * Block type icons and labels
  */
-export const BLOCK_TYPES: Record<BlockType, { label: string; icon: IconSvgObject; shortcut: string }> = {
+export const BLOCK_TYPES: Record<
+  BlockType,
+  { label: string; icon: IconSvgObject; shortcut: string }
+> = {
   paragraph: { label: "Text", icon: TextIcon, shortcut: "Ctrl+Alt+0" },
   heading1: { label: "Heading 1", icon: Heading01Icon, shortcut: "Ctrl+Alt+1" },
   heading2: { label: "Heading 2", icon: Heading02Icon, shortcut: "Ctrl+Alt+2" },
   heading3: { label: "Heading 3", icon: Heading03Icon, shortcut: "Ctrl+Alt+3" },
   bulletList: { label: "Bullet List", icon: LeftToRightListBulletIcon, shortcut: "Ctrl+Shift+8" },
-  orderedList: { label: "Numbered List", icon: LeftToRightListNumberIcon, shortcut: "Ctrl+Shift+7" },
+  orderedList: {
+    label: "Numbered List",
+    icon: LeftToRightListNumberIcon,
+    shortcut: "Ctrl+Shift+7",
+  },
   checkbox: { label: "Checklist", icon: CheckListIcon, shortcut: "Ctrl+Shift+C" },
   code: { label: "Code Block", icon: CodeIcon, shortcut: "Ctrl+Alt+C" },
   callout: { label: "Callout", icon: Note01Icon, shortcut: "Ctrl+Alt+I" },

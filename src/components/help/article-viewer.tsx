@@ -260,7 +260,7 @@ export function ArticleViewer({
   return (
     <div className={articleTheme.shell}>
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-sm text-slate-500">
+      <nav className="flex items-center gap-2 text-slate-500 text-sm">
         <Link className="hover:text-[#E85D48]" href={`/${locale}/help`}>
           {t("breadcrumb.home")}
         </Link>
@@ -273,13 +273,13 @@ export function ArticleViewer({
       {/* Article Header */}
       <div className="space-y-4">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <h1 className="font-semibold text-3xl tracking-tight text-slate-900 md:text-[40px] md:leading-tight">
+          <h1 className="font-semibold text-3xl text-slate-900 tracking-tight md:text-[40px] md:leading-tight">
             {article.title}
           </h1>
 
           {isAdmin && articleId && (
             <Link
-              className="inline-flex shrink-0 items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 text-xs font-medium text-slate-600 shadow-sm transition hover:border-[#E85D48]/40 hover:text-[#E85D48]"
+              className="inline-flex shrink-0 items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2 font-medium text-slate-600 text-xs shadow-sm transition hover:border-[#E85D48]/40 hover:text-[#E85D48]"
               href={`/${locale}/admin/help/articles/${articleId}/edit`}
             >
               <HugeiconsIcon className="h-3.5 w-3.5" icon={PencilEdit02Icon} />
@@ -295,7 +295,7 @@ export function ArticleViewer({
         <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_320px]">
           <div className={articleTheme.metaCard}>
             {recentlyUpdated && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-600">
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 font-semibold text-emerald-600 text-xs">
                 <HugeiconsIcon className="h-3.5 w-3.5" icon={CheckmarkCircle02Icon} />
                 {t("meta.recentlyUpdated")}
               </span>
@@ -318,7 +318,7 @@ export function ArticleViewer({
                 {locale === "en" ? "Need to Know" : "Lo que necesitas saber"}
               </h3>
             </div>
-            <div className="space-y-3 text-sm text-slate-700">
+            <div className="space-y-3 text-slate-700 text-sm">
               <div className="flex items-start gap-2">
                 <HugeiconsIcon className="mt-0.5 h-4 w-4 text-slate-500" icon={Clock01Icon} />
                 <div>
@@ -329,7 +329,10 @@ export function ArticleViewer({
                 </div>
               </div>
               <div className="flex items-start gap-2">
-                <HugeiconsIcon className="mt-0.5 h-4 w-4 text-emerald-500" icon={CheckmarkCircle02Icon} />
+                <HugeiconsIcon
+                  className="mt-0.5 h-4 w-4 text-emerald-500"
+                  icon={CheckmarkCircle02Icon}
+                />
                 <div>
                   <span className="font-medium">
                     {locale === "en" ? "You'll learn:" : "Aprenderás:"}
@@ -343,7 +346,9 @@ export function ArticleViewer({
                 <div className="flex items-start gap-2">
                   <HugeiconsIcon className="mt-0.5 h-4 w-4 text-sky-500" icon={Link01Icon} />
                   <div>
-                    <span className="font-medium">{locale === "en" ? "Related:" : "Relacionado:"}</span>{" "}
+                    <span className="font-medium">
+                      {locale === "en" ? "Related:" : "Relacionado:"}
+                    </span>{" "}
                     {relatedArticles.length} {locale === "en" ? "articles" : "artículos"}
                   </div>
                 </div>
@@ -505,8 +510,8 @@ export function ArticleViewer({
                 <h4 className="mb-2 font-semibold text-slate-900 group-hover:text-[#E85D48]">
                   {related.title}
                 </h4>
-                {related.excerpt && <p className="text-sm text-slate-600">{related.excerpt}</p>}
-                <div className="mt-3 flex items-center text-sm text-[#E85D48]">
+                {related.excerpt && <p className="text-slate-600 text-sm">{related.excerpt}</p>}
+                <div className="mt-3 flex items-center text-[#E85D48] text-sm">
                   <span>{t("related.readMore")}</span>
                   <HugeiconsIcon className="ml-1 h-4 w-4" icon={ArrowRight01Icon} />
                 </div>
@@ -517,9 +522,9 @@ export function ArticleViewer({
       )}
 
       {/* Contact Support CTA */}
-      <div className={cn(articleTheme.gradientCard, "text-center") }>
+      <div className={cn(articleTheme.gradientCard, "text-center")}>
         <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-[#E85D48]" icon={BubbleChatIcon} />
-        <h3 className="mb-2 font-semibold text-xl text-slate-900">{t("contact.title")}</h3>
+        <h3 className="mb-2 font-semibold text-slate-900 text-xl">{t("contact.title")}</h3>
         <p className="mb-6 text-slate-600">{t("contact.description")}</p>
         <Link
           className="inline-flex items-center gap-2 rounded-xl bg-[#E85D48] px-6 py-3 font-semibold text-white transition hover:bg-[#d54a36]"
