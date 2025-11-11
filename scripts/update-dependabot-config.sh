@@ -1,3 +1,31 @@
+#!/bin/bash
+
+# =============================================================================
+# Update Dependabot Configuration
+# =============================================================================
+# This script updates .github/dependabot.yml to reduce deployment noise
+#
+# Changes:
+# - Weekly → Monthly updates
+# - 10 → 3 max open PRs
+# - Better grouping strategy
+#
+# Usage: bash scripts/update-dependabot-config.sh
+# =============================================================================
+
+set -e
+
+CONFIG_FILE=".github/dependabot.yml"
+
+echo "🔧 Updating Dependabot configuration..."
+echo ""
+
+# Backup existing config
+cp "$CONFIG_FILE" "$CONFIG_FILE.backup"
+echo "📦 Backup created: $CONFIG_FILE.backup"
+
+# Create new optimized config
+cat > "$CONFIG_FILE" << 'EOF'
 # GitHub Dependabot Configuration - OPTIMIZED
 # Reduces deployment noise by limiting PR frequency and grouping updates
 # Documentation: https://docs.github.com/en/code-security/dependabot
@@ -71,3 +99,21 @@ updates:
       - "dependencies"
     commit-message:
       prefix: "ci"
+EOF
+
+echo "✅ Dependabot configuration updated"
+echo ""
+echo "Key changes:"
+echo "  📅 Update frequency: Weekly → Monthly"
+echo "  📊 Max open PRs: 10 → 3"
+echo "  📦 Better grouping: Separate prod/dev dependencies"
+echo "  🚫 Ignore major version updates (manual review required)"
+echo ""
+echo "To apply changes:"
+echo "  git add .github/dependabot.yml"
+echo "  git commit -m 'chore: optimize Dependabot config to reduce deployments'"
+echo "  git push origin main"
+echo ""
+echo "To restore backup:"
+echo "  mv $CONFIG_FILE.backup $CONFIG_FILE"
+echo ""
