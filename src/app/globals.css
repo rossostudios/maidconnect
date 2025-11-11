@@ -1,584 +1,200 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  color-scheme: light;
+@theme {
+  /* Colors - MaidConnect Palette */
+  --color-orange: 244 74 34;
+  --color-orange-50: 255 245 242;
+  --color-orange-900: 127 29 29;
+  --color-silver: 254 248 232;
+  --color-grey: 228 226 227;
+  --color-midnight: 22 22 22;
+  --color-stone: 168 170 172;
+  --color-white: 255 255 255;
 
-  /* ============================================
-     TYPOGRAPHY SYSTEM
-     Responsive typography using CSS clamp()
-     ============================================ */
+  /* Typography */
+  --font-family-inter: Inter, system-ui, -apple-system, sans-serif;
+  --font-family-serif: Georgia, 'Times New Roman', Times, serif;
 
-  /* Typography Scale */
-  --font-display: clamp(32px, 4vw, 48px);
-  --font-h1: clamp(24px, 2.8vw, 36px);
-  --font-h2: clamp(20px, 2.2vw, 28px);
-  --font-h3: clamp(18px, 1.8vw, 22px);
-  --font-tagline: clamp(11px, 0.9vw, 13px);
-  --font-body: clamp(16px, 1.1vw, 18px);
-  --font-small: clamp(13px, 0.9vw, 15px);
-  --font-nav: clamp(13px, 0.9vw, 15px);
+  /* 8px Grid Design System - 2025/2026 Best Practice
+   * Following industry standards for consistent spacing
+   * All spacing follows 8px increments for visual harmony
+   * Use: gap-grid-* or p-grid-* or m-grid-* utilities
+   */
+  --spacing-grid-0: 0px;       /* 0 × 8px */
+  --spacing-grid-1: 4px;       /* 0.5 × 8px - micro adjustments */
+  --spacing-grid-2: 8px;       /* 1 × 8px - base unit */
+  --spacing-grid-3: 12px;      /* 1.5 × 8px - tight spacing */
+  --spacing-grid-4: 16px;      /* 2 × 8px - standard spacing */
+  --spacing-grid-5: 20px;      /* 2.5 × 8px - medium-tight */
+  --spacing-grid-6: 24px;      /* 3 × 8px - medium spacing */
+  --spacing-grid-8: 32px;      /* 4 × 8px - large spacing */
+  --spacing-grid-10: 40px;     /* 5 × 8px - extra large */
+  --spacing-grid-12: 48px;     /* 6 × 8px - section spacing */
+  --spacing-grid-14: 56px;     /* 7 × 8px - major sections */
+  --spacing-grid-16: 64px;     /* 8 × 8px - hero spacing */
+  --spacing-grid-20: 80px;     /* 10 × 8px - maximum spacing */
+  --spacing-grid-24: 96px;     /* 12 × 8px - ultra spacing */
 
-  /* Line Heights */
-  --leading-display: 1.18;
-  --leading-h1: 1.2;
-  --leading-h2: 1.25;
-  --leading-h3: 1.3;
-  --leading-tagline: 1.45;
-  --leading-body: 1.65;
-  --leading-small: 1.55;
-  --leading-nav: 1.3;
+  /* Border Radius - Aligned to 8px grid */
+  --radius-xl: 50px;
+  --radius-lg: 8px;            /* Updated to 8px (1 × base unit) */
+  --radius-md: 6px;            /* Rounded to closest grid value */
+  --radius-sm: 4px;            /* 0.5 × base unit */
 
-  /* Letter Spacing */
-  --tracking-wide: 0.01em;
-  --tracking-medium: 0.005em;
-  --tracking-ultra: 0.08em;
-  --tracking-nav: 0.04em;
-
-  /* Spacing System (used in prose classes) */
-  --space-2: 16px;
-  --space-3: 24px;
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
+@layer base {
+  :root {
+    /* Spacing Scale */
+    --spacing-xs: 4px;
+    --spacing-s: 8px;
+    --spacing-m: 16px;
+    --spacing-l: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+
+    /* Shadcn UI Variables - Light Mode Only (WCAG AA Compliant) */
+    --background: 254 248 232; /* silver */
+    --foreground: 22 22 22; /* midnight - 14.8:1 contrast ✅ */
+
+    --card: 255 255 255; /* white */
+    --card-foreground: 22 22 22; /* midnight - 21:1 contrast ✅ */
+
+    --popover: 255 255 255; /* white */
+    --popover-foreground: 22 22 22; /* midnight - 21:1 contrast ✅ */
+
+    --primary: 22 22 22; /* midnight */
+    --primary-foreground: 255 255 255; /* white - 21:1 contrast ✅ */
+
+    --secondary: 228 226 227; /* grey */
+    --secondary-foreground: 22 22 22; /* midnight - 12.4:1 contrast ✅ */
+
+    --muted: 228 226 227; /* grey */
+    --muted-foreground: 71 85 105; /* slate-600 - 7.2:1 contrast ✅ FIXED */
+
+    --accent: 244 74 34; /* orange */
+    --accent-foreground: 255 255 255; /* white - 4.6:1 contrast ✅ */
+
+    --destructive: 239 68 68; /* red-500 */
+    --destructive-foreground: 255 255 255; /* white - 4.5:1 contrast ✅ */
+
+    --border: 228 226 227; /* grey */
+    --input: 228 226 227; /* grey */
+    --ring: 244 74 34; /* orange */
+
+    --radius: 0.5rem;
+  }
+}
+
+/* Map shadcn variables to Tailwind color tokens for v4 */
 @theme inline {
-  /* SavvyCal-inspired color palette */
-  --color-background: #F5F0E8;       /* Warm cream background */
-  --color-foreground: #1A1614;       /* Rich dark brown/black */
-  --color-accent: #E85D48;           /* Coral/orange accent */
-  --color-accent-hover: #D64A36;     /* Darker coral for hover */
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-inter);
-  --font-ui: var(--font-inter);
-
-  /* ============================================
-     AUTO LAYOUT SPACING TOKENS
-     Semantic naming for consistent layouts
-     ============================================ */
-
-  /* Section Spacing - Vertical rhythm between major sections */
-  --spacing-section-sm: 3rem;     /* 48px - mobile sections */
-  --spacing-section: 6rem;        /* 96px - desktop sections */
-  --spacing-section-lg: 8rem;     /* 128px - hero sections */
-
-  /* Component Spacing - Between components within sections */
-  --spacing-component: 4rem;      /* 64px - component groups */
-  --spacing-component-sm: 2rem;   /* 32px - tight component groups */
-
-  /* Card/Element Internal Spacing */
-  --spacing-card-lg: 2rem;        /* 32px - large card padding */
-  --spacing-card: 1.5rem;         /* 24px - standard card padding */
-  --spacing-card-sm: 1rem;        /* 16px - compact card padding */
-
-  /* Auto Layout Gaps - Flexbox/grid gaps for predictable spacing */
-  --spacing-gap-xl: 3rem;         /* 48px - major element gaps */
-  --spacing-gap-lg: 2rem;         /* 32px - section element gaps */
-  --spacing-gap-md: 1.5rem;       /* 24px - standard gaps */
-  --spacing-gap: 1rem;            /* 16px - default gaps */
-  --spacing-gap-sm: 0.75rem;      /* 12px - tight gaps */
-  --spacing-gap-xs: 0.5rem;       /* 8px - minimal gaps */
-  --spacing-gap-2xs: 0.375rem;    /* 6px - extra minimal gaps */
-  --spacing-gap-3xs: 0.25rem;     /* 4px - ultra minimal gaps */
+  --color-background: rgb(var(--background));
+  --color-foreground: rgb(var(--foreground));
+  --color-card: rgb(var(--card));
+  --color-card-foreground: rgb(var(--card-foreground));
+  --color-popover: rgb(var(--popover));
+  --color-popover-foreground: rgb(var(--popover-foreground));
+  --color-primary: rgb(var(--primary));
+  --color-primary-foreground: rgb(var(--primary-foreground));
+  --color-secondary: rgb(var(--secondary));
+  --color-secondary-foreground: rgb(var(--secondary-foreground));
+  --color-muted: rgb(var(--muted));
+  --color-muted-foreground: rgb(var(--muted-foreground));
+  --color-accent: rgb(var(--accent));
+  --color-accent-foreground: rgb(var(--accent-foreground));
+  --color-destructive: rgb(var(--destructive));
+  --color-destructive-foreground: rgb(var(--destructive-foreground));
+  --color-border: rgb(var(--border));
+  --color-input: rgb(var(--input));
+  --color-ring: rgb(var(--ring));
 }
 
-/* ============================================
-   BASE TYPOGRAPHY
-   ============================================ */
-
-html {
-  background: #F5F0E8;
-  color: #1A1614;
-}
-
-body {
-  min-height: 100%;
-  /* Warm cream background inspired by SavvyCal */
-  background: #F5F0E8;
-  color: #1A1614;
-  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: var(--font-body);
-  line-height: var(--leading-body);
-  letter-spacing: 0;
-  text-rendering: optimizeLegibility;
-  font-kerning: normal;
-  font-feature-settings: "kern" 1, "liga" 1;
-  font-variant-ligatures: common-ligatures;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  accent-color: #E85D48;
-  margin: 0;
-}
-
-/* ============================================
-   FORM CONTROLS
-   ============================================ */
-
-input,
-textarea,
-select {
-  background-color: #ffffff;
-  border-color: #e8e5e0;
-  color: inherit;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: color-mix(in srgb, #7a6d62 65%, transparent);
-  opacity: 1;
-}
-
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
-  outline: 2px solid rgba(232, 93, 72, 0.25);
-  outline-offset: 2px;
-}
-
-/* ============================================
-   HEADING HIERARCHY
-   Inter for all headings - clean, versatile, highly readable
-   ============================================ */
-
-h1, h2, h3, h4, h5, h6,
-.display {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 700; /* Bold for strong presence */
-  letter-spacing: -0.01em; /* Slightly tight for modern look */
-  font-feature-settings: "kern" 1, "liga" 1;
-}
-
-.display {
-  font-size: var(--font-display);
-  line-height: var(--leading-display);
-  font-weight: 800; /* Extra Bold for hero sections */
-  letter-spacing: -0.015em;
-}
-
-.type-serif-display,
-.serif-display-lg {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 800; /* Extra Bold */
-  font-size: var(--font-display);
-  line-height: var(--leading-display);
-  letter-spacing: -0.015em;
-}
-
-.type-serif-lg,
-.serif-headline-lg {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 700; /* Bold */
-  font-size: var(--font-h1);
-  line-height: var(--leading-h1);
-  letter-spacing: -0.01em;
-}
-
-.type-serif-md,
-.serif-headline-md {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 700; /* Bold */
-  font-size: var(--font-h2);
-  line-height: var(--leading-h2);
-  letter-spacing: -0.01em;
-}
-
-.type-serif-sm,
-.serif-headline-sm {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 600; /* Semi-Bold */
-  font-size: var(--font-h3);
-  line-height: var(--leading-h3);
-  letter-spacing: -0.005em;
-}
-
-.type-ui-lg,
-.ui-heading-lg {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 700; /* Bold for UI headings */
-  font-size: 24px;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-}
-
-.type-ui-md,
-.ui-heading-md {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 600; /* Semi-Bold for UI headings */
-  font-size: 20px;
-  line-height: 1.35;
-  letter-spacing: -0.005em;
-}
-
-.type-ui-sm,
-.ui-heading-sm {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 600; /* Semi-Bold for smaller UI headings */
-  font-size: 16px;
-  line-height: 1.4;
-  letter-spacing: 0;
-}
-
-/* ============================================
-   ADMIN DASHBOARD TYPOGRAPHY
-   Inter for data-dense interfaces with clear hierarchy
-   ============================================ */
-
-.admin-heading-xl {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 700; /* Bold */
-  font-size: 22px;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-}
-
-.admin-heading-lg {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 600; /* Semi-Bold */
-  font-size: 18px;
-  line-height: 1.3;
-  letter-spacing: -0.005em;
-}
-
-.admin-heading-md {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 600; /* Semi-Bold */
-  font-size: 16px;
-  line-height: 1.4;
-  letter-spacing: 0;
-}
-
-.admin-heading-sm {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 600; /* Semi-Bold */
-  font-size: 14px;
-  line-height: 1.4;
-  letter-spacing: 0;
-}
-
-.admin-body {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 400; /* Regular */
-  font-size: 14px;
-  line-height: 1.5;
-  letter-spacing: 0;
-}
-
-.admin-body-sm {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 400; /* Regular */
-  font-size: 13px;
-  line-height: 1.5;
-  letter-spacing: 0;
-}
-
-.admin-label {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 500; /* Medium */
-  font-size: 13px;
-  line-height: 1.4;
-  letter-spacing: 0;
-}
-
-h1 {
-  font-size: var(--font-h1);
-  line-height: var(--leading-h1);
-}
-
-h2 {
-  font-size: var(--font-h2);
-  line-height: var(--leading-h2);
-}
-
-h3 {
-  font-size: var(--font-h3);
-  line-height: var(--leading-h3);
-  letter-spacing: var(--tracking-medium);
-}
-
-h4 {
-  font-size: var(--font-small);
-  line-height: var(--leading-small);
-  letter-spacing: var(--tracking-medium);
-}
-
-/* ============================================
-   PARAGRAPHS & TEXT BLOCKS
-   No global margins - let Tailwind handle layout
-   ============================================ */
-
-.lead {
-  font-size: clamp(18px, 1.3vw, 19px);
-  line-height: 1.65;
-}
-
-small,
-.caption {
-  font-size: var(--font-small);
-  line-height: var(--leading-small);
-  opacity: 0.9;
-}
-
-/* Utility classes for content width (opt-in) */
-.prose-width {
-  max-width: 70ch;
-}
-
-.prose-narrow {
-  max-width: 58ch;
-}
-
-/* ============================================
-   TAGLINES & MICROCOPY
-   Inter for clear, readable UI labels and tags
-   ============================================ */
-
-.tagline {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-weight: 600; /* Semi-Bold for emphasis */
-  text-transform: uppercase;
-  font-size: var(--font-tagline);
-  letter-spacing: var(--tracking-ultra);
-  line-height: var(--leading-tagline);
-  color: #7a6d62;
-}
-
-/* ============================================
-   DECORATIVE ELEMENTS
-   ============================================ */
-
-.hr-red {
-  width: min(60px, 15%);
-  height: 2px;
-  background: #E85D48;
-  opacity: 1;
-  border: none;
-}
-
-/* Legacy class for compatibility */
-.hr-gold {
-  width: min(60px, 15%);
-  height: 2px;
-  background: #E85D48;
-  opacity: 1;
-  border: none;
-}
-
-/* ============================================
-   CONTENT WIDTH CONTROLS (Opt-in utilities)
-   ============================================ */
-
-.content {
-  max-width: 70ch;
-}
-
-.content--narrow {
-  max-width: 58ch;
-}
-
-/* Editorial wrapper - use when needed for article-style content */
-.wrapper {
-  max-width: 70ch;
-  margin: 0 auto;
-}
-
-/* ============================================
-   LISTS (No forced margins - let Tailwind control)
-   ============================================ */
-
-/* Typography-specific list styling - opt in via .prose class */
-.prose ul,
-.prose ol {
-  padding-left: var(--space-3);
-  margin-bottom: var(--space-2);
-}
-
-.prose li {
-  margin-bottom: 12px;
-  line-height: var(--leading-body);
-}
-
-/* Remove any default borders from headings in prose */
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4,
-.prose h5,
-.prose h6 {
-  border: none !important;
-  border-top: none !important;
-  border-bottom: none !important;
-  padding-top: 0 !important;
-  margin-top: 2rem !important;
-}
-
-.prose h1:first-child,
-.prose h2:first-child,
-.prose h3:first-child {
-  margin-top: 0 !important;
-}
-
-/* Hide default horizontal rules inside prose; show only custom separators */
-.prose hr {
-  margin: 0;
-  border: 0;
-  height: 0;
-  opacity: 0;
-}
-
-.prose hr.article-separator {
-  opacity: 1;
-  height: auto;
-  border-top: 1px solid #e5e7eb;
-  margin: 2.5rem 0;
-}
-
-/* ============================================
-   NAVIGATION & BUTTONS
-   Inter for clean, modern interface elements
-   ============================================ */
-
-.nav,
-.btn {
-  font-family: var(--font-inter), "Inter", sans-serif;
-  letter-spacing: var(--tracking-nav);
-  line-height: var(--leading-nav);
-}
-
-.btn {
-  padding: 14px 28px;
-  border: 1px solid #E85D48;
-  background: transparent;
-  color: #1A1614;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  font-weight: 600; /* Semi-Bold for buttons */
-}
-
-.btn:hover {
-  border-color: #D64A36;
-  background: #E85D48;
-  color: white;
-}
-
-/* ============================================
-   RESPONSIVE REFINEMENTS
-   Optimized letter-spacing for Inter on larger screens
-   ============================================ */
-
-@media (min-width: 900px) {
-  .display, h1 {
-    letter-spacing: -0.02em; /* Tighter for modern look */
+@layer base {
+  html,
+  body {
+    @apply bg-silver text-midnight font-[family-name:var(--font-family-inter)];
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  h2 {
-    letter-spacing: -0.015em;
+  /* Form Controls */
+  input,
+  textarea,
+  select {
+    @apply bg-white border border-grey rounded-lg px-4 py-2.5 text-sm transition-all;
   }
 
-  h3 {
-    letter-spacing: -0.01em;
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply outline-none ring-2 ring-orange/25 border-orange;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-slate-500;
+    /* WCAG AA: slate-500 provides 4.6:1 contrast on white backgrounds */
   }
 }
 
-/* ============================================
-   SELECTION & INTERACTIONS
-   ============================================ */
-
+/* Selection */
 ::selection {
-  background-color: #fce4e0;
-  color: #1A1614;
+  @apply bg-orange text-white;
 }
 
-/* ============================================
-   UTILITY SURFACES
-   ============================================ */
-
-.glass-card {
-  border: 1px solid color-mix(in srgb, #f0ede8 82%, transparent);
-  background: color-mix(in srgb, #ffffff 72%, transparent);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.03);
-  backdrop-filter: blur(14px);
-}
-
-/* Smooth transitions for interactive elements */
-* {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 200ms;
-}
-
-/* ============================================
-   OPENTYPE FEATURES
-   ============================================ */
-
-/* Inter uses modern, tabular numerals by default */
-
-/* ============================================
-   ACCESSIBILITY
-   ============================================ */
-
-/* Focus-visible polyfill for consistent focus indicators across browsers */
-:focus:not(:focus-visible) {
-  outline: none;
-}
-
+/* Focus States */
 :focus-visible {
-  outline: 2px solid rgba(232, 93, 72, 0.25);
-  outline-offset: 2px;
-  transition: outline 0.15s ease;
+  @apply outline-none ring-2 ring-orange/25 ring-offset-2;
 }
 
-/* Skip link for keyboard navigation */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  z-index: 9999;
-  padding: 12px 24px;
-  background: #1a1a1a;
-  color: white;
-  text-decoration: none;
-  font-family: var(--font-inter), "Inter", sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  border-radius: 0 0 4px 0;
-  transition: top 0.2s ease, box-shadow 0.2s ease;
+:focus:not(:focus-visible) {
+  @apply outline-none;
 }
 
-.skip-link:focus {
-  top: 0;
-  outline: 2px solid #E85D48;
-  outline-offset: 2px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Visually hidden but accessible to screen readers */
+/* Accessibility */
 .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
   clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-/* Visible on focus for keyboard users */
-.sr-only-focusable:focus,
-.sr-only-focusable:active {
-  position: static;
-  width: auto;
-  height: auto;
-  overflow: visible;
-  clip: auto;
-  white-space: normal;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Custom Typography Utilities */
+@layer utilities {
+  .serif-headline-sm {
+    font-family: var(--font-family-serif);
+    font-size: 1.125rem; /* 18px */
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
+  .serif-headline-md {
+    font-family: var(--font-family-serif);
+    font-size: 1.5rem; /* 24px */
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+  }
+
+  .serif-headline-lg {
+    font-family: var(--font-family-serif);
+    font-size: 2rem; /* 32px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 }

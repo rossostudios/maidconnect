@@ -26,8 +26,8 @@ export function TrustCard({ verificationLevel, onTimeRate, rating, reviewCount }
   const t = useTranslations("components.trustCard");
 
   return (
-    <div className="rounded-[24px] border-2 border-[#e5e7eb] bg-[#f9fafb] p-6 shadow-sm">
-      <h3 className="mb-4 font-semibold text-gray-900 text-lg">{t("title")}</h3>
+    <div className="rounded-[24px] border-2 border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-sm">
+      <h3 className="mb-4 font-semibold text-[#0f172a] text-lg">{t("title")}</h3>
 
       {/* Trust Badges */}
       <div className="space-y-3">
@@ -50,7 +50,7 @@ export function TrustCard({ verificationLevel, onTimeRate, rating, reviewCount }
 
       {/* Explainer Link */}
       <a
-        className="mt-4 flex items-center gap-2 text-[#E85D48] text-sm transition hover:underline"
+        className="mt-4 flex items-center gap-2 text-[#64748b] text-sm transition hover:underline"
         href="/trust-safety"
       >
         <HugeiconsIcon className="h-4 w-4" icon={InformationCircleIcon} />
@@ -58,22 +58,22 @@ export function TrustCard({ verificationLevel, onTimeRate, rating, reviewCount }
       </a>
 
       {/* Additional Trust Signals */}
-      <div className="mt-6 space-y-2 border-[#e5e7eb] border-t pt-4">
+      <div className="mt-6 space-y-2 border-[#e2e8f0] border-t pt-4">
         <div className="flex items-center justify-between text-sm">
-          <span className="text-[#6b7280]">{t("backgroundCheck")}</span>
-          <span className="font-semibold text-gray-900">
+          <span className="text-[#94a3b8]">{t("backgroundCheck")}</span>
+          <span className="font-semibold text-[#0f172a]">
             {verificationLevel === "background-check" ? "✓" : "—"}
           </span>
         </div>
         <div className="flex items-center justify-between text-sm">
-          <span className="text-[#6b7280]">{t("identityVerified")}</span>
-          <span className="font-semibold text-gray-900">
+          <span className="text-[#94a3b8]">{t("identityVerified")}</span>
+          <span className="font-semibold text-[#0f172a]">
             {verificationLevel !== "none" ? "✓" : "—"}
           </span>
         </div>
         <div className="flex items-center justify-between text-sm">
-          <span className="text-[#6b7280]">{t("responseTime")}</span>
-          <span className="font-semibold text-gray-900">{t("responseTimeValue")}</span>
+          <span className="text-[#94a3b8]">{t("responseTime")}</span>
+          <span className="font-semibold text-[#0f172a]">{t("responseTimeValue")}</span>
         </div>
       </div>
     </div>

@@ -25,7 +25,7 @@ export function AdminMobileSidebar() {
       {/* Mobile Menu Button */}
       <button
         aria-label="Open menu"
-        className="rounded-lg p-2 text-[#4A4A4A] transition-colors hover:bg-[#F5F5F5] hover:text-[#1A1A1A] lg:hidden"
+        className="rounded-lg p-2 text-slate-900 transition-colors hover:bg-white hover:text-slate-900 lg:hidden dark:bg-slate-950 dark:text-slate-100 dark:text-slate-100"
         onClick={() => setIsOpen(true)}
         type="button"
       >
@@ -35,7 +35,7 @@ export function AdminMobileSidebar() {
       {/* Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          className="fixed inset-0 z-40 bg-slate-900/50 lg:hidden dark:bg-slate-100/50"
           onClick={() => setIsOpen(false)}
         />
       )}

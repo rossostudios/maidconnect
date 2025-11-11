@@ -101,12 +101,14 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
     .eq("profile_id", booking.professional_id)
     .single();
 
-  // Send push notification to customer
-  await notifyCustomerServiceStarted(booking.customer_id, {
-    id: booking.id,
-    serviceName: booking.service_name || "Service",
-    professionalName: professionalProfile?.full_name || "Your professional",
-  });
+  // Send push notification to customer (if customer_id exists)
+  if (booking.customer_id) {
+    await notifyCustomerServiceStarted(booking.customer_id, {
+      id: booking.id,
+      serviceName: booking.service_name || "Service",
+      professionalName: professionalProfile?.full_name || "Your professional",
+    });
+  }
 
   return ok({
     booking: {

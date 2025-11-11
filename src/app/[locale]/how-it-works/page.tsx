@@ -21,7 +21,7 @@ import { Link } from "@/i18n/routing";
 
 export default async function HowItWorksPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-stone-50">
+    <div className="flex min-h-screen flex-col bg-[#FFEEFF8E8]">
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
@@ -40,12 +40,12 @@ async function HeroSection() {
   const t = await getTranslations("howItWorks.hero");
 
   return (
-    <section className="bg-white py-20 sm:py-24 lg:py-32">
+    <section className="bg-[#FFEEFF8E8] py-20 sm:py-24 lg:py-32">
       <Container className="max-w-5xl">
         <div className="text-center">
-          <p className="tagline text-stone-600">HOW IT WORKS</p>
-          <h1 className="serif-display-lg mt-6 text-stone-900">{t("title")}</h1>
-          <p className="lead mx-auto mt-6 max-w-3xl text-stone-900/70">{t("subtitle")}</p>
+          <p className="tagline text-[#AA88AAAAC]">HOW IT WORKS</p>
+          <h1 className="serif-display-lg mt-6 text-[#116611616]">{t("title")}</h1>
+          <p className="lead mx-auto mt-6 max-w-3xl text-[#116611616]/70">{t("subtitle")}</p>
         </div>
       </Container>
     </section>
@@ -82,7 +82,7 @@ async function CustomerFlowSection() {
 
       <div className="mt-8">
         <Link
-          className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-8 py-4 font-semibold text-base text-white transition hover:bg-orange-600"
+          className="inline-flex items-center gap-2 rounded-full bg-[#FF4444A22]/100 px-8 py-4 font-semibold text-[#FFEEFF8E8] text-base transition hover:bg-[#FF4444A22]"
           href="/professionals"
         >
           {t("cta")}
@@ -126,7 +126,7 @@ async function ProfessionalFlowSection() {
 
       <div className="mt-8">
         <Link
-          className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-8 py-4 font-semibold text-base text-white transition hover:bg-orange-600"
+          className="inline-flex items-center gap-2 rounded-full bg-[#FF4444A22]/100 px-8 py-4 font-semibold text-[#FFEEFF8E8] text-base transition hover:bg-[#FF4444A22]"
           href="/auth/sign-up?role=professional"
         >
           {t("cta")}
@@ -159,12 +159,12 @@ async function SafetyTrustSection() {
   ];
 
   return (
-    <section className="bg-stone-50 py-20 sm:py-24 lg:py-32">
+    <section className="bg-[#FFEEFF8E8] py-20 sm:py-24 lg:py-32">
       <Container>
         <div className="mb-16 text-center">
-          <p className="tagline text-stone-600">SAFETY & TRUST</p>
-          <h2 className="serif-display-lg mt-6 text-stone-900">{t("title")}</h2>
-          <p className="lead mx-auto mt-6 max-w-2xl text-stone-900/70">{t("subtitle")}</p>
+          <p className="tagline text-[#AA88AAAAC]">SAFETY & TRUST</p>
+          <h2 className="serif-display-lg mt-6 text-[#116611616]">{t("title")}</h2>
+          <p className="lead mx-auto mt-6 max-w-2xl text-[#116611616]/70">{t("subtitle")}</p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
@@ -172,14 +172,14 @@ async function SafetyTrustSection() {
             const Icon = feature.icon;
             return (
               <div
-                className="rounded-[32px] border border-stone-200 bg-white p-10 text-center shadow-[0_4px_20px_rgba(18,17,15,0.02)] transition hover:shadow-[0_8px_30px_rgba(18,17,15,0.04)]"
+                className="rounded-[32px] border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-10 text-center shadow-[0_4px_20px_rgba(22,22,22,0.02)] transition hover:shadow-[0_8px_30px_rgba(22,22,22,0.04)]"
                 key={index}
               >
-                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-orange-500/10">
-                  <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={Icon} />
+                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#FF4444A22]/100/10">
+                  <HugeiconsIcon className="h-8 w-8 text-[#FF4444A22]" icon={Icon} />
                 </div>
-                <h3 className="serif-headline-sm mb-4 text-stone-900">{t(feature.titleKey)}</h3>
-                <p className="text-base text-stone-900/70 leading-relaxed">
+                <h3 className="serif-headline-sm mb-4 text-[#116611616]">{t(feature.titleKey)}</h3>
+                <p className="text-[#116611616]/70 text-base leading-relaxed">
                   {t(feature.descriptionKey)}
                 </p>
               </div>
@@ -197,11 +197,11 @@ async function FAQSection() {
   const faqs = [{ key: "q1" }, { key: "q2" }, { key: "q3" }, { key: "q4" }];
 
   return (
-    <section className="bg-white py-20 sm:py-24 lg:py-32">
+    <section className="bg-[#FFEEFF8E8] py-20 sm:py-24 lg:py-32">
       <Container className="max-w-4xl">
         <div className="mb-12 text-center">
-          <h2 className="serif-display-lg text-stone-900">{t("title")}</h2>
-          <p className="lead mt-4 text-stone-900/70">{t("subtitle")}</p>
+          <h2 className="serif-display-lg text-[#116611616]">{t("title")}</h2>
+          <p className="lead mt-4 text-[#116611616]/70">{t("subtitle")}</p>
         </div>
 
         <Accordion allowMultiple={false} variant="default">
@@ -214,9 +214,9 @@ async function FAQSection() {
         </Accordion>
 
         <div className="mt-12 text-center">
-          <p className="mb-4 text-stone-900/70">{t("stillHaveQuestions")}</p>
+          <p className="mb-4 text-[#116611616]/70">{t("stillHaveQuestions")}</p>
           <Link
-            className="inline-flex items-center gap-2 font-semibold text-orange-500 transition hover:text-orange-600"
+            className="inline-flex items-center gap-2 font-semibold text-[#FF4444A22] transition hover:text-[#FF4444A22]"
             href="/contact"
           >
             {t("contactUs")}
@@ -232,20 +232,20 @@ async function CTASection() {
   const t = await getTranslations("howItWorks.cta");
 
   return (
-    <section className="bg-stone-900 py-20 sm:py-24 lg:py-32">
+    <section className="bg-[#116611616] py-20 sm:py-24 lg:py-32">
       <Container className="max-w-4xl">
         <div className="text-center">
-          <h2 className="serif-display-lg text-white">{t("title")}</h2>
-          <p className="lead mt-6 text-white/90">{t("subtitle")}</p>
+          <h2 className="serif-display-lg text-[#FFEEFF8E8]">{t("title")}</h2>
+          <p className="lead mt-6 text-[#FFEEFF8E8]/90">{t("subtitle")}</p>
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-base text-stone-900 transition hover:bg-stone-100"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FFEEFF8E8] px-8 py-4 font-semibold text-[#116611616] text-base transition hover:bg-[#EE44EE2E3]"
               href="/professionals"
             >
               {t("browseButton")}
             </Link>
             <Link
-              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white px-8 py-4 font-semibold text-base text-white transition hover:bg-white/10"
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#FFEEFF8E8] px-8 py-4 font-semibold text-[#FFEEFF8E8] text-base transition hover:bg-[#FFEEFF8E8]/10"
               href="/auth/sign-up"
             >
               {t("signUpButton")}

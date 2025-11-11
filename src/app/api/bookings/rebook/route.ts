@@ -7,8 +7,17 @@
  */
 
 import { z } from "zod";
-import { ok, requireCustomerOwnership, withCustomer, withRateLimit } from "@/lib/api";
+import { type Booking, ok, requireCustomerOwnership, withCustomer, withRateLimit } from "@/lib/api";
 import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
+
+// Type for booking with joined professional profile
+type BookingWithProfessional = Booking & {
+  professional: {
+    id: string;
+    full_name: string | null;
+    avatar_url: string | null;
+  } | null;
+};
 
 const rebookSchema = z.object({
   originalBookingId: z.string().uuid(),
@@ -22,7 +31,7 @@ const handler = withCustomer(async ({ user, supabase }, request: Request) => {
   const { originalBookingId, scheduledStart, durationMinutes } = rebookSchema.parse(body);
 
   // Fetch original booking details
-  const originalBooking = await requireCustomerOwnership(
+  const originalBooking = await requireCustomerOwnership<BookingWithProfessional>(
     supabase,
     user.id,
     originalBookingId,

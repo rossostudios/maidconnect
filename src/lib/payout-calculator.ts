@@ -14,7 +14,7 @@ export const DEFAULT_COMMISSION_RATE = 0.18; // 18%
 
 export type BookingForPayout = {
   id: string;
-  amount_captured: number;
+  final_amount_captured: number;
   currency: Currency;
   completed_at?: string | null;
   checked_out_at?: string | null;
@@ -102,7 +102,10 @@ export function calculatePayoutFromBookings(bookings: BookingForPayout[]): Payou
   }
 
   // Sum up all captured amounts
-  const grossAmount = bookings.reduce((sum, booking) => sum + (booking.amount_captured || 0), 0);
+  const grossAmount = bookings.reduce(
+    (sum, booking) => sum + (booking.final_amount_captured || 0),
+    0
+  );
 
   const { commissionAmount, netAmount } = calculateCommission(grossAmount);
 
@@ -137,7 +140,10 @@ export async function calculatePayoutFromBookingsWithDynamicRates(
   }
 
   // Calculate gross amount
-  const grossAmount = bookings.reduce((sum, booking) => sum + (booking.amount_captured || 0), 0);
+  const grossAmount = bookings.reduce(
+    (sum, booking) => sum + (booking.final_amount_captured || 0),
+    0
+  );
 
   // Calculate commission per booking with dynamic rates
   let totalCommission = 0;
@@ -150,7 +156,7 @@ export async function calculatePayoutFromBookingsWithDynamicRates(
     );
 
     const rate = pricingRule?.commission_rate || DEFAULT_COMMISSION_RATE;
-    const { commissionAmount } = calculateCommission(booking.amount_captured || 0, rate);
+    const { commissionAmount } = calculateCommission(booking.final_amount_captured || 0, rate);
     totalCommission += commissionAmount;
   }
 

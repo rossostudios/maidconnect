@@ -1,11 +1,15 @@
+import { PortableText } from "@portabletext/react";
+import type { PortableTextBlock } from "@portabletext/types";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import type { Metadata } from "next";
 import { unstable_cache, unstable_noStore } from "next/cache";
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
 import { CityHeroSection } from "@/components/city/hero-section";
 import { LocalProfessionals } from "@/components/city/local-professionals";
 import { isFeatureEnabled } from "@/lib/feature-flags";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { serverClient } from "@/lib/sanity/client";
+import { portableTextComponents } from "@/lib/sanity/portable-text";
+import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
 /**
  * City Landing Pages - Dynamic Route
@@ -16,32 +20,73 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
  * - Dynamic meta tags with city name
  * - LocalBusiness Schema markup
  * - H1 optimization (city + primary keyword)
- * - Location-specific content
+ * - Location-specific content from Sanity CMS
+ * - Professional data from Supabase
  * - Mobile-friendly responsive design
  *
  * URL Structure: /en/bogota, /es/medellin, etc.
  *
- * Research: Top-ranking local pages see 612% increase in search traffic
+ * Hybrid Architecture:
+ * - Content (hero, SEO text, services) → Sanity
+ * - Professional listings, ratings → Supabase
  */
 
-// Colombian cities where Casaora operates
-const SUPPORTED_CITIES = {
-  bogota: { name: "Bogotá", nameEn: "Bogota", coordinates: { lat: 4.711, lng: -74.0721 } },
-  medellin: { name: "Medellín", nameEn: "Medellin", coordinates: { lat: 6.2442, lng: -75.5812 } },
-  cali: { name: "Cali", nameEn: "Cali", coordinates: { lat: 3.4516, lng: -76.532 } },
-  barranquilla: {
-    name: "Barranquilla",
-    nameEn: "Barranquilla",
-    coordinates: { lat: 10.9639, lng: -74.7964 },
-  },
-  cartagena: {
-    name: "Cartagena",
-    nameEn: "Cartagena",
-    coordinates: { lat: 10.3997, lng: -75.5144 },
-  },
+type CityPageData = {
+  _id: string;
+  name: string;
+  slug: { current: string };
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
+  heroTitle: string;
+  heroSubtitle: string;
+  heroDescription?: string;
+  heroImage?: {
+    asset: SanityImageSource;
+    alt?: string;
+  };
+  seoContent?: PortableTextBlock[];
+  services?: string[];
+  seoMetadata?: {
+    title?: string;
+    description?: string;
+    keywords?: string[];
+  };
 };
 
 type Params = Promise<{ city: string; locale: string }>;
+
+/**
+ * Fetch city page data from Sanity
+ */
+async function getCityData(citySlug: string, locale: string): Promise<CityPageData | null> {
+  const cityPage = await serverClient.fetch<CityPageData | null>(
+    `*[_type == "cityPage" && slug.current == $slug && language == $language && isPublished == true][0] {
+      _id,
+      name,
+      slug,
+      coordinates,
+      heroTitle,
+      heroSubtitle,
+      heroDescription,
+      heroImage {
+        asset,
+        alt
+      },
+      seoContent,
+      services,
+      seoMetadata {
+        title,
+        description,
+        keywords
+      }
+    }`,
+    { slug: citySlug, language: locale }
+  );
+
+  return cityPage;
+}
 
 /**
  * Cached function to fetch professionals by city
@@ -49,7 +94,7 @@ type Params = Promise<{ city: string; locale: string }>;
  */
 const getCityProfessionals = unstable_cache(
   async (cityName: string) => {
-    const supabase = await createSupabaseServerClient();
+    const supabase = createSupabaseAnonClient();
 
     const { data: professionals, error } = await supabase
       .from("profiles")
@@ -100,16 +145,23 @@ const getCityProfessionals = unstable_cache(
 
 /**
  * Generate static params for pre-rendering city pages at build time
- * Improves SEO and page load performance
+ * Fetches published city pages from Sanity
  */
 export async function generateStaticParams() {
-  const cities = Object.keys(SUPPORTED_CITIES);
   const locales = ["en", "es"];
-
   const params: Array<{ city: string; locale: string }> = [];
-  for (const city of cities) {
-    for (const locale of locales) {
-      params.push({ city, locale });
+
+  for (const locale of locales) {
+    // Fetch all published city pages for this locale
+    const cities = await serverClient.fetch<Array<{ slug: { current: string } }>>(
+      `*[_type == "cityPage" && language == $language && isPublished == true] {
+        slug
+      }`,
+      { language: locale }
+    );
+
+    for (const city of cities || []) {
+      params.push({ city: city.slug.current, locale });
     }
   }
 
@@ -117,26 +169,28 @@ export async function generateStaticParams() {
 }
 
 /**
- * Generate metadata for SEO
- * Includes city name in title tag and meta description
+ * Generate metadata for SEO using Sanity data
  */
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { city: citySlug, locale } = await params;
-  const t = await getTranslations({ locale, namespace: "city" });
+  const cityData = await getCityData(citySlug, locale);
 
-  const cityConfig = SUPPORTED_CITIES[citySlug as keyof typeof SUPPORTED_CITIES];
-
-  if (!cityConfig) {
+  if (!cityData) {
     return {
       title: "City Not Found",
     };
   }
 
-  const cityName = locale === "es" ? cityConfig.name : cityConfig.nameEn;
+  const title = cityData.seoMetadata?.title || cityData.heroTitle || cityData.name;
+  const description =
+    cityData.seoMetadata?.description ||
+    cityData.heroSubtitle ||
+    `Find trusted cleaning professionals in ${cityData.name}`;
 
   return {
-    title: t("meta.title", { city: cityName }),
-    description: t("meta.description", { city: cityName }),
+    title,
+    description,
+    keywords: cityData.seoMetadata?.keywords,
     alternates: {
       canonical: `/${locale}/${citySlug}`,
       languages: {
@@ -145,8 +199,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       },
     },
     openGraph: {
-      title: t("meta.title", { city: cityName }),
-      description: t("meta.description", { city: cityName }),
+      title,
+      description,
       url: `/${locale}/${citySlug}`,
       siteName: "Casaora",
       locale: locale === "es" ? "es_CO" : "en_US",
@@ -165,18 +219,18 @@ export default async function CityLandingPage({ params }: { params: Params }) {
   }
 
   const { city: citySlug, locale } = await params;
-  const cityConfig = SUPPORTED_CITIES[citySlug as keyof typeof SUPPORTED_CITIES];
 
-  if (!cityConfig) {
+  // Fetch city data from Sanity
+  const cityData = await getCityData(citySlug, locale);
+
+  if (!cityData) {
     notFound();
   }
 
-  const cityName = locale === "es" ? cityConfig.name : cityConfig.nameEn;
+  // Fetch professionals serving this city (cached) from Supabase
+  const transformedProfessionals = await getCityProfessionals(cityData.name);
 
-  // Fetch professionals serving this city (cached)
-  const transformedProfessionals = await getCityProfessionals(cityName);
-
-  // Calculate stats
+  // Calculate stats from Supabase data
   const stats = {
     professionalCount: transformedProfessionals.length,
     averageRating:
@@ -197,41 +251,36 @@ export default async function CityLandingPage({ params }: { params: Params }) {
     },
     areaServed: {
       "@type": "City",
-      name: cityName,
-      "@id": `https://www.wikidata.org/wiki/${cityConfig.name}`,
-    },
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Cleaning Services",
-      itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "House Cleaning",
-          },
+      name: cityData.name,
+      ...(cityData.coordinates && {
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: cityData.coordinates.lat,
+          longitude: cityData.coordinates.lng,
         },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Deep Cleaning",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Move-in/Move-out Cleaning",
-          },
-        },
-      ],
+      }),
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: stats.averageRating.toFixed(1),
-      reviewCount: stats.totalReviews,
-    },
+    hasOfferCatalog: cityData.services
+      ? {
+          "@type": "OfferCatalog",
+          name: "Cleaning Services",
+          itemListElement: cityData.services.map((service) => ({
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: service,
+            },
+          })),
+        }
+      : undefined,
+    aggregateRating:
+      stats.totalReviews > 0
+        ? {
+            "@type": "AggregateRating",
+            ratingValue: stats.averageRating.toFixed(1),
+            reviewCount: stats.totalReviews,
+          }
+        : undefined,
   };
 
   return (
@@ -242,38 +291,22 @@ export default async function CityLandingPage({ params }: { params: Params }) {
         type="application/ld+json"
       />
 
-      {/* Hero Section */}
-      <CityHeroSection cityName={cityName} citySlug={citySlug} locale={locale} stats={stats} />
+      {/* Hero Section - Content from Sanity */}
+      <CityHeroSection cityName={cityData.name} citySlug={citySlug} locale={locale} stats={stats} />
 
-      {/* Local Professionals Section */}
-      <LocalProfessionals cityName={cityName} professionals={transformedProfessionals} />
+      {/* Local Professionals Section - Data from Supabase */}
+      <LocalProfessionals cityName={cityData.name} professionals={transformedProfessionals} />
 
-      {/* SEO Content Section - Additional 300+ words for ranking */}
-      <section className="bg-white py-16">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8">
-          <div className="prose prose-lg mx-auto">
-            <h2 className="font-bold text-gray-900">
-              {locale === "es"
-                ? `Por qué elegir Casaora en ${cityName}`
-                : `Why Choose Casaora in ${cityName}`}
-            </h2>
-            <p className="text-gray-600">
-              {locale === "es"
-                ? `Casaora conecta a los residentes de ${cityName} con profesionales de limpieza verificados y confiables. Todos nuestros profesionales pasan por verificación de antecedentes y están calificados por clientes reales.`
-                : `Casaora connects ${cityName} residents with verified, trusted cleaning professionals. All our professionals undergo background checks and are rated by real customers.`}
-            </p>
-            <h3 className="font-semibold text-gray-900">
-              {locale === "es" ? "Servicios Disponibles" : "Available Services"}
-            </h3>
-            <ul>
-              <li>{locale === "es" ? "Limpieza Regular del Hogar" : "Regular House Cleaning"}</li>
-              <li>{locale === "es" ? "Limpieza Profunda" : "Deep Cleaning"}</li>
-              <li>{locale === "es" ? "Limpieza de Mudanza" : "Move-in/Move-out Cleaning"}</li>
-              <li>{locale === "es" ? "Limpieza de Oficinas" : "Office Cleaning"}</li>
-            </ul>
+      {/* SEO Content Section - Rich content from Sanity */}
+      {cityData.seoContent && cityData.seoContent.length > 0 && (
+        <section className="bg-[#FFEEFF8E8] py-16">
+          <div className="mx-auto max-w-4xl px-6 lg:px-8">
+            <div className="prose prose-lg mx-auto">
+              <PortableText components={portableTextComponents} value={cityData.seoContent} />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }

@@ -55,22 +55,22 @@ export function RevenueTrendChart({ trend, periodDays = 30 }: RevenueTrendChartP
   const chartHeight = 200;
 
   return (
-    <div className="rounded-[24px] border-2 border-[#e5e7eb] bg-white p-6 shadow-sm">
+    <div className="rounded-[24px] border-2 border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-sm">
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h3 className="font-semibold text-gray-900 text-lg">{t("title")}</h3>
-          <p className="text-[#6b7280] text-sm">{t("period", { days: periodDays })}</p>
+          <h3 className="font-semibold text-[#0f172a] text-lg">{t("title")}</h3>
+          <p className="text-[#94a3b8] text-sm">{t("period", { days: periodDays })}</p>
         </div>
         <div className="flex items-center gap-2">
           {isPositiveGrowth ? (
-            <HugeiconsIcon className="h-5 w-5 text-green-600" icon={ArrowUp01Icon} />
+            <HugeiconsIcon className="h-5 w-5 text-[#64748b]" icon={ArrowUp01Icon} />
           ) : (
-            <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={ArrowDown01Icon} />
+            <HugeiconsIcon className="h-5 w-5 text-[#64748b]" icon={ArrowDown01Icon} />
           )}
           <span
             className={`font-semibold text-sm ${
-              isPositiveGrowth ? "text-green-600" : "text-[#E85D48]"
+              isPositiveGrowth ? "text-[#64748b]" : "text-[#64748b]"
             }`}
           >
             {isPositiveGrowth ? "+" : ""}
@@ -81,17 +81,17 @@ export function RevenueTrendChart({ trend, periodDays = 30 }: RevenueTrendChartP
 
       {/* Summary Stats */}
       <div className="mb-6 grid gap-4 md:grid-cols-3">
-        <div className="rounded-xl bg-[#f9fafb] p-4">
-          <p className="mb-1 text-[#6b7280] text-xs">{t("totalRevenue")}</p>
-          <p className="font-bold text-2xl text-[#E85D48]">{formatCurrency(totalRevenue)}</p>
+        <div className="rounded-xl bg-[#f8fafc] p-4">
+          <p className="mb-1 text-[#94a3b8] text-xs">{t("totalRevenue")}</p>
+          <p className="font-bold text-2xl text-[#64748b]">{formatCurrency(totalRevenue)}</p>
         </div>
-        <div className="rounded-xl bg-[#f9fafb] p-4">
-          <p className="mb-1 text-[#6b7280] text-xs">{t("totalBookings")}</p>
-          <p className="font-bold text-2xl text-gray-900">{totalBookings}</p>
+        <div className="rounded-xl bg-[#f8fafc] p-4">
+          <p className="mb-1 text-[#94a3b8] text-xs">{t("totalBookings")}</p>
+          <p className="font-bold text-2xl text-[#0f172a]">{totalBookings}</p>
         </div>
-        <div className="rounded-xl bg-[#f9fafb] p-4">
-          <p className="mb-1 text-[#6b7280] text-xs">{t("averagePerBooking")}</p>
-          <p className="font-bold text-2xl text-gray-900">
+        <div className="rounded-xl bg-[#f8fafc] p-4">
+          <p className="mb-1 text-[#94a3b8] text-xs">{t("averagePerBooking")}</p>
+          <p className="font-bold text-2xl text-[#0f172a]">
             {totalBookings > 0 ? formatCurrency(totalRevenue / totalBookings) : "$0"}
           </p>
         </div>
@@ -109,23 +109,23 @@ export function RevenueTrendChart({ trend, periodDays = 30 }: RevenueTrendChartP
                 <div className="group relative flex flex-1 flex-col items-center" key={index}>
                   {/* Bar */}
                   <div
-                    className="w-full rounded-t-md bg-gradient-to-t from-red-600 to-[#ff6b6b] transition-all hover:opacity-80"
+                    className="w-full rounded-t-md bg-gradient-to-t from-[#64748b] to-[#64748b] transition-all hover:opacity-80"
                     style={{ height: `${barHeight}px` }}
                   />
 
                   {/* Tooltip on hover */}
-                  <div className="-top-16 -translate-x-1/2 pointer-events-none absolute left-1/2 z-10 hidden rounded-lg bg-gray-900 px-3 py-2 text-white text-xs shadow-lg group-hover:block">
+                  <div className="-top-16 -translate-x-1/2 pointer-events-none absolute left-1/2 z-10 hidden rounded-lg bg-[#0f172a] px-3 py-2 text-[#f8fafc] text-xs shadow-lg group-hover:block">
                     <p className="font-semibold">{formatCurrency(point.revenueCop)}</p>
-                    <p className="text-[#e5e7eb]">
+                    <p className="text-[#e2e8f0]">
                       {point.bookingsCount} {t("bookings")}
                     </p>
-                    <p className="text-[#e5e7eb]">{date.toLocaleDateString()}</p>
-                    <div className="-bottom-1 -translate-x-1/2 absolute left-1/2 h-2 w-2 rotate-45 bg-gray-900" />
+                    <p className="text-[#e2e8f0]">{date.toLocaleDateString()}</p>
+                    <div className="-bottom-1 -translate-x-1/2 absolute left-1/2 h-2 w-2 rotate-45 bg-[#0f172a]" />
                   </div>
 
                   {/* Date label (show every 5th day for 30-day view) */}
                   {(index % 5 === 0 || index === trend.length - 1) && (
-                    <p className="mt-2 text-[#9ca3af] text-[10px]">
+                    <p className="mt-2 text-[#94a3b8] text-[10px]">
                       {date.getDate()}/{date.getMonth() + 1}
                     </p>
                   )}
@@ -135,11 +135,11 @@ export function RevenueTrendChart({ trend, periodDays = 30 }: RevenueTrendChartP
           </div>
 
           {/* Zero line */}
-          <div className="absolute right-0 bottom-0 left-0 h-px bg-[#e5e7eb]" />
+          <div className="absolute right-0 bottom-0 left-0 h-px bg-[#e2e8f0]" />
         </div>
       ) : (
         <div className="flex items-center justify-center py-12">
-          <p className="text-[#9ca3af] text-sm">{t("noData")}</p>
+          <p className="text-[#94a3b8] text-sm">{t("noData")}</p>
         </div>
       )}
     </div>

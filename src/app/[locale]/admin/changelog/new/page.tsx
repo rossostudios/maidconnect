@@ -11,8 +11,8 @@ export default async function NewChangelogPage() {
     <>
       {/* Header */}
       <header className="mb-8">
-        <h1 className="font-bold text-3xl text-gray-900">Create New Changelog</h1>
-        <p className="mt-2 text-gray-600 text-sm">
+        <h1 className="font-bold text-3xl text-[#116611616]">Create New Changelog</h1>
+        <p className="mt-2 text-[#AA88AAAAC] text-sm">
           Create a new sprint update to keep users informed about the latest changes
         </p>
       </header>

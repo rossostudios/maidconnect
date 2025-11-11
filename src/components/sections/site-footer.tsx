@@ -9,8 +9,11 @@ import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { FeedbackLink } from "@/components/feedback/feedback-link";
 import { SiteFooterActions } from "@/components/sections/site-footer-actions";
+import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
+import { Separator } from "@/components/ui/separator";
 import { Link } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
 const socialLinks = [
   { label: "Facebook", href: "https://facebook.com/casaora", icon: Facebook02Icon },
@@ -58,7 +61,7 @@ export async function SiteFooter() {
 
   return (
     <footer
-      className="relative overflow-hidden bg-white/80 py-24 text-slate-900 shadow-sm backdrop-blur-sm"
+      className="relative overflow-hidden bg-slate-50/80 py-24 text-slate-900 shadow-sm backdrop-blur-sm"
       id="get-started"
     >
       <Container className="relative max-w-[1400px]">
@@ -66,11 +69,11 @@ export async function SiteFooter() {
           <div className="flex max-w-md flex-col gap-8">
             <span className="font-semibold text-2xl uppercase tracking-wider">CASAORA</span>
 
-            <p className="text-base text-slate-700 italic leading-relaxed">{t("description")}</p>
+            <p className="text-base text-slate-600 italic leading-relaxed">{t("description")}</p>
 
             <div className="flex flex-col gap-3">
               <a
-                className="flex items-center gap-3 text-base transition hover:text-[#E85D48]"
+                className="flex items-center gap-3 text-base transition hover:text-slate-700"
                 href="mailto:hello@casaora.com"
               >
                 <HugeiconsIcon className="h-5 w-5" icon={Mail01Icon} strokeWidth={2} />
@@ -81,7 +84,10 @@ export async function SiteFooter() {
                 {socialLinks.map(({ label, href, icon }) => (
                   <a
                     aria-label={label}
-                    className="rounded-full bg-white/60 p-3 text-slate-900 transition-all hover:bg-white hover:text-[#E85D48]"
+                    className={cn(
+                      "rounded-full bg-white/60 p-3 text-slate-900 transition-all",
+                      "hover:bg-white hover:text-slate-700"
+                    )}
                     href={href}
                     key={label}
                     rel="noreferrer"
@@ -105,15 +111,18 @@ export async function SiteFooter() {
                   {column.links.map((link) => (
                     <li key={link.label}>
                       <Link
-                        className="inline-flex items-center gap-2 text-base transition hover:text-[#E85D48]"
+                        className="inline-flex items-center gap-2 text-base transition hover:text-slate-700"
                         data-tour={link.href === "/help" ? "help" : undefined}
                         href={link.href}
                       >
                         {link.label}
                         {link.badge && (
-                          <span className="rounded-full bg-[#E85D48]/10 px-2.5 py-1 font-medium text-[#E85D48] text-xs uppercase tracking-wide">
+                          <Badge
+                            className="rounded-full bg-slate-900/10 px-2.5 py-1 font-medium text-slate-900 text-xs uppercase tracking-wide"
+                            variant="secondary"
+                          >
                             {link.badge}
-                          </span>
+                          </Badge>
                         )}
                       </Link>
                     </li>
@@ -124,9 +133,9 @@ export async function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 h-px w-full bg-white/40 backdrop-blur-xs" />
+        <Separator className="my-12 bg-slate-200" />
 
-        <div className="mt-8 flex flex-col gap-6 text-slate-600 text-sm sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-6 text-slate-600 text-sm sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-2">
             <p>
               © {year} Casaora. {t("allRightsReserved")}
@@ -136,16 +145,16 @@ export async function SiteFooter() {
 
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
             <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-              <Link className="transition hover:text-[#E85D48]" href="/terms">
+              <Link className="transition hover:text-slate-700" href="/terms">
                 {t("terms")}
               </Link>
-              <Link className="transition hover:text-[#E85D48]" href="/privacy">
+              <Link className="transition hover:text-slate-700" href="/privacy">
                 {t("privacy")}
               </Link>
-              <Link className="transition hover:text-[#E85D48]" href="/support/account-suspended">
+              <Link className="transition hover:text-slate-700" href="/support/account-suspended">
                 {t("cookies")}
               </Link>
-              <Link className="transition hover:text-[#E85D48]" href="/changelog">
+              <Link className="transition hover:text-slate-700" href="/changelog">
                 What's New
               </Link>
               <FeedbackLink>Feedback</FeedbackLink>

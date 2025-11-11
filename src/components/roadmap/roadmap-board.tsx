@@ -110,17 +110,17 @@ export function RoadmapBoard() {
         {isLoading ? (
           /* Loading state - Auto Layout: Center aligned, padding 48px vertical */
           <div className="flex items-center justify-center py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#E85D48] border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#64748b] border-t-transparent" />
           </div>
         ) : items.length === 0 ? (
           /* Empty state - Auto Layout: Vertical stack, center aligned, gap 16px, padding 48px */
           <div className="flex flex-col items-center gap-4 py-12 text-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#E85D48]/10">
-              <HugeiconsIcon className="text-[#E85D48]" icon={Search01Icon} size={32} />
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#64748b]/10">
+              <HugeiconsIcon className="text-[#64748b]" icon={Search01Icon} size={32} />
             </div>
             <div className="flex flex-col gap-2">
-              <h3 className="serif-headline-sm text-[#1A1614]">{t("empty.title")}</h3>
-              <p className="text-[#7a6d62]">{t("empty.description")}</p>
+              <h3 className="serif-headline-sm text-[#0f172a]">{t("empty.title")}</h3>
+              <p className="text-[#94a3b8]">{t("empty.description")}</p>
             </div>
           </div>
         ) : (
@@ -132,7 +132,7 @@ export function RoadmapBoard() {
                 {/* In Progress - Auto Layout: Vertical stack, gap 16px */}
                 {itemsByStatus.in_progress && itemsByStatus.in_progress.length > 0 && (
                   <div className="flex flex-col gap-4">
-                    <h2 className="serif-headline-md flex items-center gap-2 text-[#1A1614]">
+                    <h2 className="serif-headline-md flex items-center gap-2 text-[#0f172a]">
                       <HugeiconsIcon icon={Rocket01Icon} size={24} />
                       {t("status.in_progress")}
                     </h2>
@@ -148,7 +148,7 @@ export function RoadmapBoard() {
                 {/* Planned - Auto Layout: Vertical stack, gap 16px */}
                 {itemsByStatus.planned && itemsByStatus.planned.length > 0 && (
                   <div className="flex flex-col gap-4">
-                    <h2 className="serif-headline-md flex items-center gap-2 text-[#1A1614]">
+                    <h2 className="serif-headline-md flex items-center gap-2 text-[#0f172a]">
                       <HugeiconsIcon icon={Calendar01Icon} size={24} />
                       {t("status.planned")}
                     </h2>
@@ -165,7 +165,7 @@ export function RoadmapBoard() {
                 {itemsByStatus.under_consideration &&
                   itemsByStatus.under_consideration.length > 0 && (
                     <div className="flex flex-col gap-4">
-                      <h2 className="serif-headline-md flex items-center gap-2 text-[#1A1614]">
+                      <h2 className="serif-headline-md flex items-center gap-2 text-[#0f172a]">
                         <HugeiconsIcon icon={BulbIcon} size={24} />
                         {t("status.under_consideration")}
                       </h2>
@@ -181,7 +181,7 @@ export function RoadmapBoard() {
                 {/* Shipped - Auto Layout: Vertical stack, gap 16px */}
                 {itemsByStatus.shipped && itemsByStatus.shipped.length > 0 && (
                   <div className="flex flex-col gap-4">
-                    <h2 className="serif-headline-md flex items-center gap-2 text-[#1A1614]">
+                    <h2 className="serif-headline-md flex items-center gap-2 text-[#0f172a]">
                       <HugeiconsIcon icon={Tick02Icon} size={24} />
                       {t("status.shipped")}
                     </h2>

@@ -110,115 +110,134 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
       <div className="space-y-6">
         {/* Professional Details */}
         <section>
-          <h3 className="mb-3 font-semibold text-[#E85D48] text-sm uppercase tracking-wide">
+          <h3 className="mb-3 font-semibold text-red-700 text-sm uppercase tracking-wide dark:text-red-200">
             Professional Information
           </h3>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <div className="font-medium text-[#7a6d62] text-xs">Name</div>
-              <p className="text-gray-900 text-sm">{professional.full_name || "—"}</p>
+              <div className="font-medium text-slate-600 text-xs dark:text-slate-400">Name</div>
+              <p className="text-red-700 text-sm dark:text-red-200">
+                {professional.full_name || "—"}
+              </p>
             </div>
             <div>
-              <div className="font-medium text-[#7a6d62] text-xs">Experience</div>
-              <p className="text-gray-900 text-sm">
+              <div className="font-medium text-slate-600 text-xs dark:text-slate-400">
+                Experience
+              </div>
+              <p className="text-red-700 text-sm dark:text-red-200">
                 {professional.experience_years ? `${professional.experience_years} years` : "—"}
               </p>
             </div>
             <div>
-              <div className="font-medium text-[#7a6d62] text-xs">Location</div>
-              <p className="text-gray-900 text-sm">
+              <div className="font-medium text-slate-600 text-xs dark:text-slate-400">Location</div>
+              <p className="text-red-700 text-sm dark:text-red-200">
                 {professional.profile?.city
                   ? `${professional.profile.city}, ${professional.profile.country}`
                   : "—"}
               </p>
             </div>
             <div>
-              <div className="font-medium text-[#7a6d62] text-xs">Phone</div>
-              <p className="text-gray-900 text-sm">{professional.profile?.phone || "—"}</p>
+              <div className="font-medium text-slate-600 text-xs dark:text-slate-400">Phone</div>
+              <p className="text-red-700 text-sm dark:text-red-200">
+                {professional.profile?.phone || "—"}
+              </p>
             </div>
             <div>
-              <div className="font-medium text-[#7a6d62] text-xs">Hourly Rate</div>
-              <p className="text-gray-900 text-sm">
+              <div className="font-medium text-slate-600 text-xs dark:text-slate-400">
+                Hourly Rate
+              </div>
+              <p className="text-red-700 text-sm dark:text-red-200">
                 {formatMoney(professional.rate_expectations?.hourly_cop)}
               </p>
             </div>
             <div>
-              <div className="font-medium text-[#7a6d62] text-xs">Languages</div>
-              <p className="text-gray-900 text-sm">{professional.languages?.join(", ") || "—"}</p>
+              <div className="font-medium text-slate-600 text-xs dark:text-slate-400">
+                Languages
+              </div>
+              <p className="text-red-700 text-sm dark:text-red-200">
+                {professional.languages?.join(", ") || "—"}
+              </p>
             </div>
           </div>
 
           {professional.bio && (
             <div className="mt-4">
-              <div className="font-medium text-[#7a6d62] text-xs">Bio</div>
-              <p className="mt-1 text-gray-900 text-sm">{professional.bio}</p>
+              <div className="font-medium text-slate-600 text-xs dark:text-slate-400">Bio</div>
+              <p className="mt-1 text-red-700 text-sm dark:text-red-200">{professional.bio}</p>
             </div>
           )}
 
           <div className="mt-4">
-            <div className="font-medium text-[#7a6d62] text-xs">Services</div>
+            <div className="font-medium text-slate-600 text-xs dark:text-slate-400">Services</div>
             <div className="mt-1 flex flex-wrap gap-2">
               {professional.primary_services?.map((service, idx) => (
                 <span
-                  className="rounded-md bg-[#E85D48]/10 px-2 py-1 font-medium text-[#E85D48] text-xs"
+                  className="rounded-md bg-slate-900 px-2 py-1 font-medium text-white text-xs dark:bg-slate-100/10 dark:text-slate-100"
                   key={idx}
                 >
                   {service}
                 </span>
-              )) || <p className="text-[#7a6d62] text-sm">None listed</p>}
+              )) || <p className="text-slate-600 text-sm dark:text-slate-400">None listed</p>}
             </div>
           </div>
         </section>
 
         {/* References */}
         <section>
-          <h3 className="mb-3 font-semibold text-[#E85D48] text-sm uppercase tracking-wide">
+          <h3 className="mb-3 font-semibold text-red-700 text-sm uppercase tracking-wide dark:text-red-200">
             References ({professional.references_data?.length || 0})
           </h3>
           {professional.references_data && professional.references_data.length > 0 ? (
             <div className="space-y-2">
               {professional.references_data.map((ref: any, idx: number) => (
-                <div className="rounded-lg border border-[#ebe5d8] bg-[#fdfaf6] p-3" key={idx}>
-                  <p className="font-medium text-gray-900 text-sm">{ref.name || "Unnamed"}</p>
-                  <p className="text-[#7a6d62] text-xs">{ref.contact || "—"}</p>
+                <div
+                  className="rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-950"
+                  key={idx}
+                >
+                  <p className="font-medium text-red-700 text-sm dark:text-red-200">
+                    {ref.name || "Unnamed"}
+                  </p>
+                  <p className="text-slate-600 text-xs dark:text-slate-400">{ref.contact || "—"}</p>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-[#7a6d62] text-sm">No references provided</p>
+            <p className="text-slate-600 text-sm dark:text-slate-400">No references provided</p>
           )}
         </section>
 
         {/* Documents */}
         <section>
-          <h3 className="mb-3 font-semibold text-[#E85D48] text-sm uppercase tracking-wide">
+          <h3 className="mb-3 font-semibold text-red-700 text-sm uppercase tracking-wide dark:text-red-200">
             Documents ({professional.documents.length})
           </h3>
           {professional.documents.length > 0 ? (
             <div className="space-y-2">
               {professional.documents.map((doc: any) => (
                 <div
-                  className="flex items-center justify-between rounded-lg border border-[#ebe5d8] bg-[#fdfaf6] p-3"
+                  className="flex items-center justify-between rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-950"
                   key={doc.profile_id + doc.document_type}
                 >
                   <div>
-                    <p className="font-medium text-gray-900 text-sm">{doc.document_type}</p>
-                    <p className="text-[#7a6d62] text-xs">
+                    <p className="font-medium text-red-700 text-sm dark:text-red-200">
+                      {doc.document_type}
+                    </p>
+                    <p className="text-slate-600 text-xs dark:text-slate-400">
                       Uploaded {new Date(doc.uploaded_at).toLocaleDateString()}
                     </p>
                   </div>
-                  <span className="text-green-600 text-xs">✓ Uploaded</span>
+                  <span className="text-slate-900 text-xs dark:text-slate-100">✓ Uploaded</span>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-[#7a6d62] text-sm">No documents uploaded</p>
+            <p className="text-slate-600 text-sm dark:text-slate-400">No documents uploaded</p>
           )}
         </section>
 
         {/* Review Form */}
-        <section className="rounded-xl border-2 border-[#E85D48]/20 bg-[#E85D48]/5 p-4">
-          <h3 className="mb-4 font-semibold text-[#E85D48] text-sm uppercase tracking-wide">
+        <section className="rounded-xl border-2 border-slate-900 bg-slate-900 p-4 dark:border-slate-100/20 dark:bg-slate-100/5">
+          <h3 className="mb-4 font-semibold text-red-700 text-sm uppercase tracking-wide dark:text-red-200">
             Review Decision
           </h3>
 
@@ -227,8 +246,8 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             <button
               className={`flex-1 rounded-lg border-2 px-4 py-2 font-semibold text-sm transition ${
                 form.formData.action === "approve"
-                  ? "border-green-600 bg-green-50 text-green-600"
-                  : "border-gray-200 bg-white text-gray-700 hover:border-green-200"
+                  ? "border-slate-900 bg-slate-100 text-slate-900 dark:border-slate-100 dark:bg-slate-800 dark:text-slate-100"
+                  : "border-slate-200 bg-white text-slate-600 hover:border-slate-900 dark:border-slate-100/40 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
               }`}
               onClick={() => form.updateField("action", "approve")}
               type="button"
@@ -238,8 +257,8 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             <button
               className={`flex-1 rounded-lg border-2 px-4 py-2 font-semibold text-sm transition ${
                 form.formData.action === "reject"
-                  ? "border-[#E85D48] bg-[#E85D48]/10 text-[#E85D48]"
-                  : "border-gray-200 bg-white text-gray-700 hover:border-red-200"
+                  ? "border-slate-900 bg-slate-100 text-slate-900 dark:border-slate-100 dark:bg-slate-800 dark:text-slate-100"
+                  : "border-slate-200 bg-white text-slate-600 hover:border-slate-900 dark:border-slate-100/30 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
               }`}
               onClick={() => form.updateField("action", "reject")}
               type="button"
@@ -249,8 +268,8 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             <button
               className={`flex-1 rounded-lg border-2 px-4 py-2 font-semibold text-sm transition ${
                 form.formData.action === "request_info"
-                  ? "border-yellow-600 bg-yellow-50 text-yellow-600"
-                  : "border-gray-200 bg-white text-gray-700 hover:border-yellow-200"
+                  ? "border-slate-900 bg-slate-100 text-slate-900 dark:border-slate-100 dark:bg-slate-800 dark:text-slate-100"
+                  : "border-slate-200 bg-white text-slate-600 hover:border-slate-900 dark:border-slate-100/30 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
               }`}
               onClick={() => form.updateField("action", "request_info")}
               type="button"
@@ -268,7 +287,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
                 onChange={(e) => form.updateField("documentsVerified", e.target.checked)}
                 type="checkbox"
               />
-              <span className="text-gray-900 text-sm">Documents verified</span>
+              <span className="text-red-700 text-sm dark:text-red-200">Documents verified</span>
             </label>
             <label className="flex items-center gap-2">
               <input
@@ -277,7 +296,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
                 onChange={(e) => form.updateField("referencesVerified", e.target.checked)}
                 type="checkbox"
               />
-              <span className="text-gray-900 text-sm">References verified</span>
+              <span className="text-red-700 text-sm dark:text-red-200">References verified</span>
             </label>
             <label className="flex items-center gap-2">
               <input
@@ -288,7 +307,9 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
                 }
                 type="checkbox"
               />
-              <span className="text-gray-900 text-sm">Background check passed</span>
+              <span className="text-red-700 text-sm dark:text-red-200">
+                Background check passed
+              </span>
             </label>
           </div>
 
@@ -296,13 +317,13 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           <div className="space-y-3">
             <div>
               <label
-                className="mb-1 block font-medium text-gray-900 text-xs"
+                className="mb-1 block font-medium text-slate-900 text-xs dark:text-slate-100"
                 htmlFor="review-notes"
               >
                 Notes (visible to professional)
               </label>
               <textarea
-                className="w-full rounded-lg border border-[#ebe5d8] p-2 text-sm"
+                className="w-full rounded-lg border border-slate-200 p-2 text-sm dark:border-slate-800"
                 id="review-notes"
                 onChange={(e) => form.updateField("notes", e.target.value)}
                 placeholder="Optional feedback for the professional..."
@@ -313,13 +334,13 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
 
             <div>
               <label
-                className="mb-1 block font-medium text-gray-900 text-xs"
+                className="mb-1 block font-medium text-slate-900 text-xs dark:text-slate-100"
                 htmlFor="review-internal-notes"
               >
                 Internal Notes (admin only)
               </label>
               <textarea
-                className="w-full rounded-lg border border-[#ebe5d8] p-2 text-sm"
+                className="w-full rounded-lg border border-slate-200 p-2 text-sm dark:border-slate-800"
                 id="review-internal-notes"
                 onChange={(e) => form.updateField("internalNotes", e.target.value)}
                 placeholder="Internal notes not visible to professional..."
@@ -331,13 +352,13 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             {form.formData.action === "reject" && (
               <div>
                 <label
-                  className="mb-1 block font-medium text-[#E85D48] text-xs"
+                  className="mb-1 block font-medium text-slate-900 text-xs dark:text-slate-100"
                   htmlFor="rejection-reason"
                 >
                   Rejection Reason (required)
                 </label>
                 <textarea
-                  className="w-full rounded-lg border border-red-200 p-2 text-sm"
+                  className="w-full rounded-lg border border-slate-900 p-2 text-sm dark:border-slate-100/30"
                   id="rejection-reason"
                   onChange={(e) => form.updateField("rejectionReason", e.target.value)}
                   placeholder="Explain why the application is being rejected..."
@@ -350,8 +371,8 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           </div>
 
           {form.error && (
-            <div className="mt-3 rounded-lg border border-red-200 bg-[#E85D48]/10 p-3">
-              <p className="text-[#E85D48] text-sm">{form.error}</p>
+            <div className="mt-3 rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950">
+              <p className="text-red-700 text-sm dark:text-red-200">{form.error}</p>
             </div>
           )}
         </section>
@@ -360,7 +381,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
       {/* Custom Footer Actions */}
       <div className="mt-6 flex justify-end gap-3">
         <button
-          className="rounded-lg border border-[#ebe5d8] px-6 py-2 font-semibold text-gray-900 text-sm transition hover:bg-[#fdfaf6] disabled:opacity-50"
+          className="rounded-lg border border-slate-200 px-6 py-2 font-semibold text-red-700 text-sm transition hover:bg-white disabled:opacity-50 dark:border-slate-800 dark:bg-slate-950 dark:text-red-200"
           disabled={reviewMutation.isLoading}
           onClick={onClose}
           type="button"
@@ -368,7 +389,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           Cancel
         </button>
         <button
-          className="rounded-lg bg-[#E85D48] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#D64A36] disabled:opacity-50"
+          className="rounded-lg bg-slate-900 px-6 py-2 font-semibold text-sm text-white transition hover:bg-slate-900 disabled:opacity-50 dark:bg-slate-100 dark:bg-slate-100 dark:text-slate-950"
           disabled={reviewMutation.isLoading}
           onClick={handleSubmit}
           type="button"

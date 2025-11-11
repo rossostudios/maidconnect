@@ -28,7 +28,7 @@ export const Message = ({
 
 export const MessageAvatar = ({ from, avatar }: MessageBaseProps & { avatar?: ReactNode }) =>
   from === "assistant" ? (
-    <div className="mt-1 size-8 shrink-0 rounded-full bg-[#FFE7E2] text-[#E85D48]">{avatar}</div>
+    <div className="mt-1 size-8 shrink-0 rounded-full bg-[#f8fafc] text-[#64748b]">{avatar}</div>
   ) : (
     <div className="size-8 shrink-0" />
   );
@@ -40,8 +40,8 @@ export const MessageContent = ({
 }: MessageBaseProps & { children: ReactNode }) => (
   <div
     className={cn(
-      "max-w-full rounded-2xl px-4 py-3 text-sm shadow-sm ring-1 ring-black/5",
-      from === "user" ? "bg-[#E85D48] text-white" : "bg-white text-gray-900",
+      "max-w-full rounded-2xl px-4 py-3 text-sm shadow-sm ring-1 ring-[#0f172a]/5",
+      from === "user" ? "bg-[#64748b] text-[#f8fafc]" : "bg-[#f8fafc] text-[#0f172a]",
       className
     )}
   >
@@ -53,26 +53,28 @@ export const MessageMarkdown = memo(function MessageMarkdown({ text }: { text: s
   const compiled = useMemo(() => <Streamdown>{text}</Streamdown>, [text]);
 
   return (
-    <div className="prose-sm prose text-current [&_code]:rounded [&_code]:bg-black/10 [&_code]:px-1 [&_code]:py-0.5">
+    <div className="prose-sm prose text-current [&_code]:rounded [&_code]:bg-[#0f172a]/10 [&_code]:px-1 [&_code]:py-0.5">
       {compiled}
     </div>
   );
 });
 
 export const MessageAttachments = ({ files }: { files: FileUIPart[] }) => {
-  if (!files?.length) return null;
+  if (!files?.length) {
+    return null;
+  }
 
   return (
-    <div className="mt-3 space-y-2 text-gray-600 text-xs">
+    <div className="mt-3 space-y-2 text-[#94a3b8] text-xs">
       {files.map((file, index) => (
         <div
-          className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 px-3 py-2"
+          className="flex items-center justify-between rounded-lg border border-[#e2e8f0] bg-[#f8fafc] px-3 py-2"
           key={file.url ?? index}
         >
           <div className="truncate font-medium">{file.filename}</div>
           {file.url ? (
             <a
-              className="text-[#E85D48] underline"
+              className="text-[#64748b] underline"
               href={file.url}
               rel="noreferrer"
               target="_blank"
@@ -101,7 +103,7 @@ export const MessageAction = ({
 }: ButtonHTMLAttributes<HTMLButtonElement>) => (
   <button
     className={cn(
-      "rounded-full border border-gray-200 bg-white px-2 py-1 text-gray-500 transition hover:text-[#E85D48]",
+      "rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-2 py-1 text-[#94a3b8] transition hover:text-[#64748b]",
       className
     )}
     type="button"

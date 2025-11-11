@@ -6,10 +6,10 @@ Casaora is a concierge-style marketplace connecting foreigners in Colombia with 
 
 ```bash
 # Install dependencies
-npm install
+bun install
 
 # Run development server
-npm run dev
+bun run dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000)

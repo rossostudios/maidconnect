@@ -48,7 +48,7 @@ function getToastStyles(type: ToastType): string {
     font-family: system-ui, -apple-system, sans-serif;
     font-size: 14px;
     font-weight: 500;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(22, 22, 22, 0.15);
     pointer-events: auto;
     min-width: 300px;
     max-width: 500px;
@@ -57,10 +57,10 @@ function getToastStyles(type: ToastType): string {
   `;
 
   const typeStyles = {
-    success: "background-color: #10b981; color: white;",
-    error: "background-color: #ef4444; color: white;",
-    info: "background-color: #3b82f6; color: white;",
-    warning: "background-color: #f59e0b; color: white;",
+    success: "background-color: #FF4444A22; color: white;",
+    error: "background-color: #FF4444A22; color: white;",
+    info: "background-color: #FF4444A22; color: white;",
+    warning: "background-color: #FF4444A22; color: white;",
   };
 
   return baseStyles + typeStyles[type];
@@ -149,7 +149,7 @@ export function confirm(message: string, title = "Confirm"): Promise<boolean> {
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(22, 22, 22, 0.5);
       z-index: 10000;
       display: flex;
       align-items: center;
@@ -164,7 +164,7 @@ export function confirm(message: string, title = "Confirm"): Promise<boolean> {
       padding: 24px;
       max-width: 400px;
       width: 90%;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 20px 25px -5px rgba(22, 22, 22, 0.1);
       animation: scaleIn 0.2s ease-out;
     `;
 
@@ -173,7 +173,7 @@ export function confirm(message: string, title = "Confirm"): Promise<boolean> {
     titleElement.style.cssText = `
       font-size: 18px;
       font-weight: 600;
-      color: #211f1a;
+      color: #116611616;
       margin-bottom: 12px;
     `;
 
@@ -181,7 +181,7 @@ export function confirm(message: string, title = "Confirm"): Promise<boolean> {
     messageElement.textContent = message;
     messageElement.style.cssText = `
       font-size: 14px;
-      color: #5d574b;
+      color: #116611616;
       margin-bottom: 20px;
       line-height: 1.5;
     `;
@@ -198,21 +198,21 @@ export function confirm(message: string, title = "Confirm"): Promise<boolean> {
     cancelButton.style.cssText = `
       padding: 8px 16px;
       border-radius: 8px;
-      border: 2px solid #ebe5d8;
+      border: 2px solid #EE44EE2E3;
       background-color: white;
-      color: #211f1a;
+      color: #116611616;
       font-weight: 600;
       font-size: 14px;
       cursor: pointer;
       transition: all 0.2s;
     `;
     cancelButton.onmouseover = () => {
-      cancelButton.style.borderColor = "#8B7355";
-      cancelButton.style.color = "#8B7355";
+      cancelButton.style.borderColor = "#AA88AAAAC";
+      cancelButton.style.color = "#AA88AAAAC";
     };
     cancelButton.onmouseout = () => {
-      cancelButton.style.borderColor = "#ebe5d8";
-      cancelButton.style.color = "#211f1a";
+      cancelButton.style.borderColor = "#EE44EE2E3";
+      cancelButton.style.color = "#116611616";
     };
 
     const confirmButton = document.createElement("button");
@@ -221,7 +221,7 @@ export function confirm(message: string, title = "Confirm"): Promise<boolean> {
       padding: 8px 16px;
       border-radius: 8px;
       border: none;
-      background-color: #8B7355;
+      background-color: #AA88AAAAC;
       color: white;
       font-weight: 600;
       font-size: 14px;
@@ -229,10 +229,10 @@ export function confirm(message: string, title = "Confirm"): Promise<boolean> {
       transition: all 0.2s;
     `;
     confirmButton.onmouseover = () => {
-      confirmButton.style.backgroundColor = "#9B8B7E";
+      confirmButton.style.backgroundColor = "#AA88AAAAC";
     };
     confirmButton.onmouseout = () => {
-      confirmButton.style.backgroundColor = "#8B7355";
+      confirmButton.style.backgroundColor = "#AA88AAAAC";
     };
 
     const cleanup = () => {

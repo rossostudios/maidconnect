@@ -86,7 +86,7 @@ export const BLOCK_TYPES: Record<
 
 export const CALLOUT_TYPES = {
   info: { label: "Info", iconComponent: Idea01Icon, color: "blue" },
-  warning: { label: "Warning", iconComponent: Alert01Icon, color: "yellow" },
+  warning: { label: "Warning", iconComponent: Alert01Icon, color: "orange" },
   success: { label: "Success", iconComponent: CheckmarkCircle02Icon, color: "green" },
   error: { label: "Error", iconComponent: Cancel01Icon, color: "red" },
 } as const;

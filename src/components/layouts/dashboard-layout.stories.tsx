@@ -1,0 +1,17 @@
+// @ts-nocheck
+import type { Meta, StoryObj } from "@storybook/react";
+import { DashboardLayout } from "./dashboard-layout";
+
+const meta = {
+  title: "Layouts/DashboardLayout",
+  component: DashboardLayout,
+  parameters: {
+    layout: "padded",
+  },
+  tags: ["autodocs"],
+} satisfies Meta<typeof DashboardLayout>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};

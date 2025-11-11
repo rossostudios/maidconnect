@@ -194,7 +194,7 @@ describe("Pricing Calculations", () => {
     });
 
     it("should not recommend for low savings", () => {
-      const basePrice = 50_000; // Weekly: 7.5k/booking × 12 = 90k savings
+      const basePrice = 10_000; // Weekly: 1.5k/booking × 12 = 18k savings
       const result = shouldRecommendSubscription(basePrice);
       expect(result).toBe(false); // Below 20k threshold
     });
@@ -263,9 +263,15 @@ describe("Pricing Calculations", () => {
 
     it("should not include decimal places", () => {
       const formatted = formatCOP(100_500);
-      // Should round or show no decimals
-      expect(formatted).not.toContain(",5");
-      expect(formatted).not.toContain(".5");
+      // In Colombian format, period is thousand separator and comma is decimal separator
+      // "$ 100.500" is correct (period = thousands), "$ 100.500,99" would have decimals
+      // Test with decimal input to ensure rounding happens
+      const formattedWithDecimals = formatCOP(100_500.99);
+      // Should round to whole number, no comma-separated decimals at the end
+      expect(formattedWithDecimals).not.toMatch(/,\d+$/); // No comma followed by digits at end
+      expect(formattedWithDecimals).toContain("$"); // Has currency symbol
+      expect(formattedWithDecimals).toContain("100"); // Has the number
+      expect(formattedWithDecimals).toContain("501"); // Rounded up from .99
     });
 
     it("should handle zero", () => {
@@ -313,11 +319,11 @@ describe("Pricing Calculations", () => {
       }
     });
 
-    it("should handle negative base price gracefully", () => {
-      // Although invalid, should not crash
-      const result = calculateSubscriptionPricing(-100_000, "weekly");
-      expect(result.basePrice).toBe(-100_000);
-      expect(result.finalPrice).toBeLessThanOrEqual(result.basePrice);
+    it("should reject negative base prices", () => {
+      // Negative prices are invalid and should throw an error
+      expect(() => {
+        calculateSubscriptionPricing(-100_000, "weekly");
+      }).toThrow("Base price cannot be negative");
     });
   });
 });

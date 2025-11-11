@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { Currency } from "@/lib/format";
 import { formatPayoutAmount, getPayoutScheduleDescription } from "@/lib/payout-calculator";
 
@@ -73,24 +75,28 @@ export function PayoutDashboard() {
 
   if (loading) {
     return (
-      <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-8 text-center">
-        <p className="text-[#7a6d62] text-sm">Loading payout information...</p>
-      </div>
+      <Card className="border-slate-200 bg-slate-50">
+        <CardContent className="p-8 text-center text-slate-600 text-sm">
+          Loading payout information...
+        </CardContent>
+      </Card>
     );
   }
 
   if (error) {
     return (
-      <div className="rounded-xl border border-red-200 bg-[#E85D48]/10 p-8 text-center">
-        <p className="text-red-800 text-sm">{error}</p>
-        <button
-          className="mt-4 rounded-lg bg-[#E85D48] px-4 py-2 font-semibold text-sm text-white hover:bg-[#D64A36]"
-          onClick={fetchPayoutData}
-          type="button"
-        >
-          Retry
-        </button>
-      </div>
+      <Card className="border-red-200 bg-red-50">
+        <CardContent className="p-8 text-center">
+          <p className="text-red-600 text-sm">{error}</p>
+          <button
+            className="mt-4 rounded-lg bg-slate-900 px-4 py-2 font-semibold text-sm text-white hover:bg-slate-800"
+            onClick={fetchPayoutData}
+            type="button"
+          >
+            Retry
+          </button>
+        </CardContent>
+      </Card>
     );
   }
 
@@ -103,191 +109,157 @@ export function PayoutDashboard() {
   return (
     <div className="space-y-6">
       {/* Current Period Earnings */}
-      <div className="rounded-xl border border-[#f0ece5] bg-gradient-to-br from-red-600/10 to-white/90 p-6 shadow-sm">
-        <div className="mb-4 flex items-start justify-between">
-          <div>
-            <h3 className="font-semibold text-gray-900 text-lg">Next Payout</h3>
-            <p className="mt-1 text-[#7a6d62] text-sm">
-              {new Date(currentPeriod.nextPayoutDate).toLocaleDateString("en-US", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
-          </div>
-          <button
-            className="font-medium text-[#E85D48] text-xs hover:text-red-700"
-            onClick={() => setShowScheduleInfo(!showScheduleInfo)}
-            type="button"
-          >
-            {showScheduleInfo ? "Hide" : "View"} Schedule
-          </button>
-        </div>
-
-        {showScheduleInfo && (
-          <div className="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-3">
-            <p className="whitespace-pre-line text-blue-900 text-xs">
-              {getPayoutScheduleDescription()}
-            </p>
-          </div>
-        )}
-
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <div className="rounded-lg bg-white/80 p-4">
-            <p className="font-medium text-[#7a6d62] text-xs uppercase tracking-wide">
-              Gross Earnings
-            </p>
-            <p className="mt-1 font-bold text-2xl text-gray-900">
-              {formatPayoutAmount(currentPeriod.grossAmount, currentPeriod.currency)}
-            </p>
-            <p className="mt-1 text-[#7a6d62] text-xs">
-              {currentPeriod.bookingCount} booking{currentPeriod.bookingCount !== 1 ? "s" : ""}
-            </p>
+      <Card className="border-slate-200 bg-gradient-to-br from-slate-50 to-white shadow-sm">
+        <CardContent className="p-6">
+          <div className="mb-4 flex items-start justify-between">
+            <div>
+              <h3 className="font-semibold text-lg text-slate-900">Next Payout</h3>
+              <p className="mt-1 text-slate-600 text-sm">
+                {new Date(currentPeriod.nextPayoutDate).toLocaleDateString("en-US", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
+            </div>
+            <button
+              className="font-medium text-slate-700 text-xs hover:text-slate-900"
+              onClick={() => setShowScheduleInfo(!showScheduleInfo)}
+              type="button"
+            >
+              {showScheduleInfo ? "Hide" : "View"} Schedule
+            </button>
           </div>
 
-          <div className="rounded-lg bg-white/80 p-4">
-            <p className="font-medium text-[#7a6d62] text-xs uppercase tracking-wide">
-              Platform Fee (18%)
-            </p>
-            <p className="mt-1 font-bold text-2xl text-[#E85D48]">
-              -{formatPayoutAmount(currentPeriod.commissionAmount, currentPeriod.currency)}
-            </p>
-            <p className="mt-1 text-[#7a6d62] text-xs">Commission deducted</p>
+          {showScheduleInfo && (
+            <Card className="mb-4 border-slate-200 bg-white">
+              <CardContent className="p-3">
+                <p className="whitespace-pre-line text-slate-600 text-xs">
+                  {getPayoutScheduleDescription()}
+                </p>
+              </CardContent>
+            </Card>
+          )}
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <Card className="border-slate-200 bg-white/80">
+              <CardContent className="p-4">
+                <p className="font-medium text-slate-600 text-xs uppercase tracking-wide">
+                  Gross Earnings
+                </p>
+                <p className="mt-1 font-bold text-2xl text-slate-900">
+                  {formatPayoutAmount(currentPeriod.grossAmount, currentPeriod.currency)}
+                </p>
+                <p className="mt-1 text-slate-600 text-xs">
+                  {currentPeriod.bookingCount} booking{currentPeriod.bookingCount !== 1 ? "s" : ""}
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-200 bg-white/80">
+              <CardContent className="p-4">
+                <p className="font-medium text-slate-600 text-xs uppercase tracking-wide">
+                  Platform Fee (18%)
+                </p>
+                <p className="mt-1 font-bold text-2xl text-red-600">
+                  -{formatPayoutAmount(currentPeriod.commissionAmount, currentPeriod.currency)}
+                </p>
+                <p className="mt-1 text-slate-600 text-xs">Commission deducted</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-900 bg-gradient-to-br from-slate-900 to-slate-800">
+              <CardContent className="p-4">
+                <p className="font-medium text-white/80 text-xs uppercase tracking-wide">
+                  You Receive
+                </p>
+                <p className="mt-1 font-bold text-2xl text-white">
+                  {formatPayoutAmount(currentPeriod.netAmount, currentPeriod.currency)}
+                </p>
+                <p className="mt-1 text-white/80 text-xs">Net payout amount</p>
+              </CardContent>
+            </Card>
           </div>
 
-          <div className="rounded-lg bg-gradient-to-br from-green-500 to-green-600 p-4">
-            <p className="font-medium text-white/80 text-xs uppercase tracking-wide">You Receive</p>
-            <p className="mt-1 font-bold text-2xl text-white">
-              {formatPayoutAmount(currentPeriod.netAmount, currentPeriod.currency)}
-            </p>
-            <p className="mt-1 text-white/80 text-xs">Net payout amount</p>
-          </div>
-        </div>
-
-        {currentPeriod.bookingCount === 0 && (
-          <div className="mt-4 rounded-lg border border-yellow-200 bg-yellow-50 p-3">
-            <p className="text-xs text-yellow-800">
-              No completed bookings in the current payout period yet. Complete services to earn!
-            </p>
-          </div>
-        )}
-      </div>
+          {currentPeriod.bookingCount === 0 && (
+            <Card className="mt-4 border-amber-200 bg-amber-50">
+              <CardContent className="p-3 text-amber-800 text-xs">
+                No completed bookings in the current payout period yet. Complete services to earn!
+              </CardContent>
+            </Card>
+          )}
+        </CardContent>
+      </Card>
 
       {/* All Pending Earnings (future periods) */}
       {allPending.bookingCount > currentPeriod.bookingCount && (
-        <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
-          <h4 className="mb-3 font-semibold text-gray-900">Future Payouts</h4>
-          <p className="text-[#7a6d62] text-sm">
-            You have{" "}
-            <span className="font-semibold">
-              {formatPayoutAmount(
-                allPending.netAmount - currentPeriod.netAmount,
-                allPending.currency
-              )}
-            </span>{" "}
-            from {allPending.bookingCount - currentPeriod.bookingCount} booking(s) that will be
-            included in future payout periods.
-          </p>
-        </div>
-      )}
-
-      {/* Current Period Bookings */}
-      {currentPeriod.bookings.length > 0 && (
-        <details className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
-          <summary className="cursor-pointer font-semibold text-gray-900">
-            Bookings in Current Period ({currentPeriod.bookings.length})
-          </summary>
-          <div className="mt-4 space-y-2">
-            {currentPeriod.bookings.map((booking) => (
-              <div
-                className="flex items-center justify-between rounded-lg border border-[#ebe5d8] bg-[#fbfafa] p-3"
-                key={booking.id}
-              >
-                <div>
-                  <p className="font-medium text-gray-900 text-sm">
-                    {booking.service_name || "Service"}
-                  </p>
-                  <p className="text-[#7a6d62] text-xs">
-                    Completed:{" "}
-                    {booking.checked_out_at
-                      ? new Date(booking.checked_out_at).toLocaleDateString()
-                      : "—"}
-                  </p>
-                </div>
-                <p className="font-semibold text-gray-900 text-sm">
-                  {formatPayoutAmount(booking.amount_captured, currentPeriod.currency)}
-                </p>
-              </div>
-            ))}
-          </div>
-        </details>
+        <Card className="border-slate-200 bg-slate-50 shadow-sm">
+          <CardContent className="p-6">
+            <h4 className="mb-3 font-semibold text-slate-900">Future Payouts</h4>
+            <p className="text-slate-600 text-sm">
+              You have{" "}
+              <span className="font-semibold">
+                {formatPayoutAmount(
+                  allPending.netAmount - currentPeriod.netAmount,
+                  allPending.currency
+                )}
+              </span>{" "}
+              from {allPending.bookingCount - currentPeriod.bookingCount} booking(s) that will be
+              included in future payout periods.
+            </p>
+          </CardContent>
+        </Card>
       )}
 
       {/* Recent Payout History */}
       {recentPayouts.length > 0 && (
-        <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
-          <h4 className="mb-4 font-semibold text-gray-900">Recent Payouts</h4>
-          <div className="space-y-3">
+        <Card className="border-slate-200 bg-white shadow-sm">
+          <CardHeader className="p-6 pb-4">
+            <h4 className="font-semibold text-slate-900">Recent Payouts</h4>
+          </CardHeader>
+          <CardContent className="space-y-3 p-6 pt-0">
             {recentPayouts.map((payout) => (
               <div
-                className="flex items-center justify-between rounded-lg border border-[#ebe5d8] p-4"
+                className="flex items-center justify-between rounded-lg border border-slate-200 p-4"
                 key={payout.id}
               >
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <p className="font-semibold text-gray-900 text-sm">
+                    <p className="font-semibold text-slate-900 text-sm">
                       {formatPayoutAmount(payout.net_amount, payout.currency)}
                     </p>
-                    <span
-                      className={`inline-flex items-center rounded-full px-2 py-0.5 font-semibold text-xs ${(() => {
-                        const status = payout.status;
-                        if (status === "paid") {
-                          return "bg-green-100 text-green-800";
-                        }
-                        if (status === "processing") {
-                          return "bg-yellow-100 text-yellow-800";
-                        }
-                        if (status === "failed") {
-                          return "bg-red-100 text-red-800";
-                        }
-                        return "bg-gray-100 text-gray-800";
-                      })()}`}
+                    <Badge
+                      size="sm"
+                      variant={
+                        payout.status === "paid"
+                          ? "success"
+                          : payout.status === "failed"
+                            ? "danger"
+                            : "warning"
+                      }
                     >
                       {payout.status}
-                    </span>
+                    </Badge>
                   </div>
-                  <p className="mt-1 text-[#7a6d62] text-xs">
+                  <p className="mt-1 text-slate-600 text-xs">
                     {payout.booking_ids.length} booking(s) •{" "}
                     {new Date(payout.payout_date).toLocaleDateString()}
                   </p>
-                  {payout.arrival_date && (
-                    <p className="mt-1 text-[#7a6d62] text-xs">
-                      Expected arrival: {new Date(payout.arrival_date).toLocaleDateString()}
-                    </p>
-                  )}
                 </div>
                 <div className="text-right">
-                  <p className="text-[#7a6d62] text-xs">Gross</p>
-                  <p className="font-medium text-gray-900 text-sm">
+                  <p className="text-slate-600 text-xs">Gross</p>
+                  <p className="font-medium text-slate-900 text-sm">
                     {formatPayoutAmount(payout.gross_amount, payout.currency)}
                   </p>
-                  <p className="text-[#E85D48] text-xs">
+                  <p className="text-red-600 text-xs">
                     -{formatPayoutAmount(payout.commission_amount, payout.currency)} fee
                   </p>
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      )}
-
-      {recentPayouts.length === 0 && currentPeriod.bookingCount === 0 && (
-        <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-8 text-center">
-          <p className="text-[#7a6d62] text-sm">
-            No payout history yet. Complete your first booking to start earning!
-          </p>
-        </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   );

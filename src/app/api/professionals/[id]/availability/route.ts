@@ -70,9 +70,12 @@ export async function GET(request: Request, context: RouteContext) {
       advance_booking_days: 60,
     };
 
-    const rawSettings = professional.availability_settings as any;
+    const rawSettings = professional.availability_settings as unknown;
     const availabilitySettings: AvailabilitySettings =
-      rawSettings && typeof rawSettings === "object" && rawSettings.working_hours
+      rawSettings &&
+      typeof rawSettings === "object" &&
+      rawSettings !== null &&
+      "working_hours" in rawSettings
         ? (rawSettings as AvailabilitySettings)
         : defaultSettings;
 

@@ -12,6 +12,12 @@ import { AuthenticationError, NotFoundError, UnauthorizedError } from "@/lib/err
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { Database } from "@/types/database.types";
 
+// Type aliases for database tables
+export type Booking = Database["public"]["Tables"]["bookings"]["Row"];
+export type Profile = Database["public"]["Tables"]["profiles"]["Row"];
+// TODO: Re-enable when recurring_plans table is added to database types
+// export type RecurringPlan = Database["public"]["Tables"]["recurring_plans"]["Row"];
+
 /**
  * Authentication context returned by auth helpers
  */
@@ -161,12 +167,12 @@ export async function requireCustomer(user: User): Promise<void> {
  * @throws {NotFoundError} If booking doesn't exist
  * @throws {UnauthorizedError} If user doesn't own the booking
  */
-export async function requireProfessionalOwnership(
+export async function requireProfessionalOwnership<T = Booking>(
   supabase: SupabaseClient<Database>,
   userId: string,
   bookingId: string,
   select?: string
-): Promise<any> {
+): Promise<T> {
   const { data: booking, error } = await supabase
     .from("bookings")
     .select(select || "*")
@@ -177,12 +183,15 @@ export async function requireProfessionalOwnership(
     throw new NotFoundError("Booking", bookingId);
   }
 
-  // Type assertion needed when using custom select
-  if ((booking as any).professional_id !== userId) {
+  // Type-safe check: when select is not provided, booking is full Booking type
+  // When select is provided, caller must specify return type
+  const typedBooking = booking as unknown as T & { professional_id: string };
+
+  if (typedBooking.professional_id !== userId) {
     throw new UnauthorizedError("You are not authorized to access this booking");
   }
 
-  return booking;
+  return booking as unknown as T;
 }
 
 /**
@@ -202,12 +211,12 @@ export async function requireProfessionalOwnership(
  * @throws {NotFoundError} If booking doesn't exist
  * @throws {UnauthorizedError} If user doesn't own the booking
  */
-export async function requireCustomerOwnership(
+export async function requireCustomerOwnership<T = Booking>(
   supabase: SupabaseClient<Database>,
   userId: string,
   bookingId: string,
   select?: string
-): Promise<any> {
+): Promise<T> {
   const { data: booking, error } = await supabase
     .from("bookings")
     .select(select || "*")
@@ -218,12 +227,15 @@ export async function requireCustomerOwnership(
     throw new NotFoundError("Booking", bookingId);
   }
 
-  // Type assertion needed when using custom select
-  if ((booking as any).customer_id !== userId) {
+  // Type-safe check: when select is not provided, booking is full Booking type
+  // When select is provided, caller must specify return type
+  const typedBooking = booking as unknown as T & { customer_id: string };
+
+  if (typedBooking.customer_id !== userId) {
     throw new UnauthorizedError("You are not authorized to access this booking");
   }
 
-  return booking;
+  return booking as unknown as T;
 }
 
 /**
@@ -300,26 +312,36 @@ export async function requireCustomerProfile(
  * @throws {NotFoundError} If resource doesn't exist
  * @throws {UnauthorizedError} If user doesn't own the resource
  */
-export async function requireResourceOwnership<T>(
+export async function requireResourceOwnership<T extends Record<string, unknown>>(
   supabase: SupabaseClient<Database>,
   table: keyof Database["public"]["Tables"],
   resourceId: string,
   userId: string,
   ownerField = "profile_id"
 ): Promise<T> {
+  // Note: Type assertion is required here due to Supabase's generic type system
+  // The table parameter is validated by TypeScript to be a valid table name
   const { data: resource, error } = await supabase
-    .from(table as any)
+    .from(table)
     .select("*")
     .eq("id", resourceId)
     .maybeSingle();
 
   if (error || !resource) {
-    throw new NotFoundError(table as string, resourceId);
+    throw new NotFoundError(table, resourceId);
   }
 
-  if ((resource as any)[ownerField] !== userId) {
+  // Type guard: ensure ownerField exists in resource
+  if (!(ownerField in resource)) {
+    throw new Error(`Owner field "${ownerField}" does not exist on ${table}`);
+  }
+
+  const resourceWithOwner = resource as unknown as Record<string, unknown> &
+    Record<typeof ownerField, string>;
+
+  if (resourceWithOwner[ownerField] !== userId) {
     throw new UnauthorizedError(`You are not authorized to access this ${table}`);
   }
 
-  return resource as T;
+  return resource as unknown as T;
 }

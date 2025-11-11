@@ -285,6 +285,7 @@ export default async function proxy(request: NextRequest) {
   const isApiOrStatic = pathname.startsWith("/api") ||
                         pathname.startsWith("/_next") ||
                         pathname.startsWith("/_vercel") ||
+                        pathname.startsWith("/studio") ||
                         pathname.match(/\.(ico|png|jpg|jpeg|svg|gif|webp|css|js)$/);
 
   if (!getLocaleFromPathname(pathname) && !isApiOrStatic) {
@@ -363,6 +364,7 @@ export const config = {
     // Match all localized routes
     "/(en|es)/:path*",
     // Match all non-localized routes (will redirect to add locale)
-    "/((?!_next|_vercel|api|.*\\..*).*)",
+    // Excludes: _next, _vercel, api, studio, and file extensions
+    "/((?!_next|_vercel|api|studio|.*\\..*).*)",
   ],
 };

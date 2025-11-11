@@ -2225,6 +2225,17 @@
     "success": {
       "title": "Thanks for checking!",
       "message": "You're all caught up with the latest updates."
+    },
+    "meta": {
+      "title": "What's New - Changelog | Casaora",
+      "description": "Stay up to date with the latest features, improvements, and updates to Casaora. See what's new and what we're working on."
+    },
+    "hero": {
+      "title": "What's New",
+      "subtitle": "Stay up to date with the latest features, improvements, and updates to Casaora"
+    },
+    "detail": {
+      "backToChangelog": "Back to all updates"
     }
   },
   "feedback": {
@@ -2851,6 +2862,109 @@
       "retry": "Retry",
       "noBookings": "No bookings found",
       "noBookingsDescription": "When you book services or receive bookings, they will appear here"
+    }
+  },
+  "datePicker": {
+    "selectDate": "Select date",
+    "clear": "Clear",
+    "today": "Today",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "weekdays": {
+      "sunday": "S",
+      "monday": "M",
+      "tuesday": "T",
+      "wednesday": "W",
+      "thursday": "T",
+      "friday": "F",
+      "saturday": "S"
+    }
+  },
+  "cookieConsent": {
+    "title": "We use cookies",
+    "message": "We use cookies to improve your experience, analyze site traffic, and provide personalized content. By clicking \"Accept\", you consent to our use of cookies.",
+    "learnMore": "Learn more",
+    "decline": "Decline",
+    "accept": "Accept Cookies"
+  },
+  "commandPalette": {
+    "placeholder": "Search for commands, help articles, professionals...",
+    "searching": "Searching...",
+    "noResults": "No results found",
+    "noResultsDescription": "Try searching for something else",
+    "groups": {
+      "navigation": "Navigation",
+      "actions": "Actions",
+      "settings": "Settings",
+      "helpArticles": "Help Articles",
+      "professionals": "Professionals",
+      "changelog": "Changelog",
+      "roadmap": "Roadmap",
+      "cities": "Cities",
+      "recent": "Recent"
+    },
+    "commands": {
+      "goToDashboard": {
+        "label": "Go to Dashboard",
+        "description": "View your dashboard home"
+      },
+      "goToHome": {
+        "label": "Go to Home",
+        "description": "Return to the homepage"
+      },
+      "goToBookings": {
+        "label": "Go to Bookings",
+        "description": "Manage your bookings"
+      },
+      "goToProfile": {
+        "label": "Go to Profile",
+        "description": "Edit your professional profile"
+      },
+      "goToFavorites": {
+        "label": "Go to Favorites",
+        "description": "View your favorite professionals"
+      },
+      "goToPayments": {
+        "label": "Go to Payments",
+        "descriptionCustomer": "View your payment history",
+        "descriptionProfessional": "View your earnings and payouts"
+      },
+      "goToAvailability": {
+        "label": "Go to Availability",
+        "description": "Manage your availability calendar"
+      },
+      "goToPortfolio": {
+        "label": "Go to Portfolio",
+        "description": "Manage your work portfolio"
+      },
+      "goToLeads": {
+        "label": "Go to Leads",
+        "description": "View pending booking requests"
+      },
+      "goToDocuments": {
+        "label": "Go to Documents",
+        "description": "Manage verification documents"
+      },
+      "goToAddresses": {
+        "label": "Go to Addresses",
+        "description": "Manage your service addresses"
+      },
+      "goToRecurringPlans": {
+        "label": "Go to Recurring Plans",
+        "description": "Manage your recurring service plans"
+      },
+      "findProfessional": {
+        "label": "Find a Professional",
+        "description": "Search and book a professional"
+      },
+      "browseProfessionals": {
+        "label": "Browse Professionals",
+        "description": "Explore our professional network"
+      },
+      "goToSettings": {
+        "label": "Go to Settings",
+        "description": "Manage your account settings"
+      }
     }
   }
 }

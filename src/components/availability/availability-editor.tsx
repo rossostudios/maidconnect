@@ -4,6 +4,7 @@ import { Calendar01Icon, CheckmarkCircle01Icon, Clock01Icon } from "@hugeicons/c
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { toast } from "sonner";
 import { BlockedDatesCalendar } from "./blocked-dates-calendar";
 import { WeeklyHoursEditor } from "./weekly-hours-editor";
 
@@ -35,25 +36,32 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
     setSuccess(false);
     setError(null);
 
-    try {
-      const response = await fetch("/api/professional/availability", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          weeklyHours,
-          blockedDates,
-        }),
-      });
-
+    const savePromise = fetch("/api/professional/availability", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        weeklyHours,
+        blockedDates,
+      }),
+    }).then(async (response) => {
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.error || "Failed to update availability");
       }
+      return response;
+    });
 
+    try {
+      await toast.promise(savePromise, {
+        loading: "Saving availability...",
+        success: "Availability updated successfully",
+        error: (err) => err.message || "Failed to update availability",
+      });
       setSuccess(true);
       setTimeout(() => setSuccess(false), 3000);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to update availability");
+      const errorMessage = err instanceof Error ? err.message : "Failed to update availability";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -63,26 +71,26 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
     <div className="space-y-6">
       {/* Success/Error Messages */}
       {success && (
-        <div className="flex items-center gap-3 rounded-xl bg-green-50 p-4 text-green-800">
+        <div className="flex items-center gap-3 rounded-xl bg-[#64748b]/10 p-4 text-[#64748b]">
           <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle01Icon} />
           <p className="font-semibold text-sm">{t("success")}</p>
         </div>
       )}
 
       {error && (
-        <div className="rounded-xl bg-[#E85D48]/10 p-4 text-red-800">
+        <div className="rounded-xl bg-[#64748b]/10 p-4 text-[#64748b]">
           <p className="font-semibold text-sm">{error}</p>
         </div>
       )}
 
       {/* Tabs - Horizontally scrollable on mobile */}
-      <div className="overflow-x-auto border-[#ebe5d8] border-b">
+      <div className="overflow-x-auto border-[#e2e8f0] border-b">
         <div className="flex w-max gap-1 md:w-full">
           <button
             className={`flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition ${
               activeTab === "hours"
-                ? "border-[#E85D48] text-[#E85D48]"
-                : "border-transparent text-[#7d7566] hover:text-gray-900"
+                ? "border-[#64748b] text-[#64748b]"
+                : "border-transparent text-[#94a3b8] hover:text-[#0f172a]"
             }`}
             onClick={() => setActiveTab("hours")}
             type="button"
@@ -93,8 +101,8 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
           <button
             className={`flex flex-shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 font-semibold text-sm transition ${
               activeTab === "blocked"
-                ? "border-[#E85D48] text-[#E85D48]"
-                : "border-transparent text-[#7d7566] hover:text-gray-900"
+                ? "border-[#64748b] text-[#64748b]"
+                : "border-transparent text-[#94a3b8] hover:text-[#0f172a]"
             }`}
             onClick={() => setActiveTab("blocked")}
             type="button"
@@ -102,7 +110,7 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
             <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />
             {t("tabs.blockedDates")}
             {blockedDates.length > 0 && (
-              <span className="rounded-full bg-[#E85D48]/100 px-2 py-0.5 font-bold text-white text-xs">
+              <span className="rounded-full bg-[#64748b]/100 px-2 py-0.5 font-bold text-[#f8fafc] text-xs">
                 {blockedDates.length}
               </span>
             )}
@@ -115,8 +123,8 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
         {activeTab === "hours" && (
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold text-gray-900 text-lg">{t("workingHours.title")}</h3>
-              <p className="mt-1 text-[#7d7566] text-sm">{t("workingHours.description")}</p>
+              <h3 className="font-semibold text-[#0f172a] text-lg">{t("workingHours.title")}</h3>
+              <p className="mt-1 text-[#94a3b8] text-sm">{t("workingHours.description")}</p>
             </div>
             <WeeklyHoursEditor initialSchedule={weeklyHours} onChange={setWeeklyHours} />
           </div>
@@ -125,8 +133,8 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
         {activeTab === "blocked" && (
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold text-gray-900 text-lg">{t("blockedDates.title")}</h3>
-              <p className="mt-1 text-[#7d7566] text-sm">{t("blockedDates.description")}</p>
+              <h3 className="font-semibold text-[#0f172a] text-lg">{t("blockedDates.title")}</h3>
+              <p className="mt-1 text-[#94a3b8] text-sm">{t("blockedDates.description")}</p>
             </div>
             <BlockedDatesCalendar initialBlockedDates={blockedDates} onChange={setBlockedDates} />
           </div>
@@ -134,10 +142,10 @@ export function AvailabilityEditor({ initialWeeklyHours, initialBlockedDates }: 
       </div>
 
       {/* Save Button */}
-      <div className="flex items-center justify-end gap-3 border-[#ebe5d8] border-t pt-6">
-        <div className="flex-1 text-[#7d7566] text-sm">{t("infoText")}</div>
+      <div className="flex items-center justify-end gap-3 border-[#e2e8f0] border-t pt-6">
+        <div className="flex-1 text-[#94a3b8] text-sm">{t("infoText")}</div>
         <button
-          className="rounded-full bg-[#E85D48] px-8 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[#64748b] px-8 py-3 font-semibold text-[#f8fafc] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={handleSave}
           type="button"

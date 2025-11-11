@@ -1,109 +1,199 @@
 import {
   ArrowLeft01Icon,
   Bug01Icon,
+  Calendar01Icon,
   FlashIcon,
   MagicWand01Icon,
   PaintBoardIcon,
   Shield01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { PortableText } from "@portabletext/react";
+import type { PortableTextBlock } from "@portabletext/types";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
-import { sanitizeRichContent } from "@/lib/sanitize";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { serverClient } from "@/lib/sanity/client";
+import { getOptimizedImageUrl } from "@/lib/sanity/image";
+import { portableTextComponents } from "@/lib/sanity/portable-text";
+
+type ChangelogData = {
+  _id: string;
+  sprintNumber: number;
+  title: string;
+  slug: { current: string };
+  summary: string;
+  content: PortableTextBlock[];
+  publishedAt: string;
+  categories: string[];
+  tags: string[];
+  targetAudience: string;
+  featuredImage?: {
+    asset: SanityImageSource;
+    alt?: string;
+  };
+  impactMetrics?: {
+    metric: string;
+    value: string;
+    description?: string;
+  }[];
+};
 
 const categoryConfig = {
   features: {
     icon: MagicWand01Icon,
-    label: "Features",
-    color: "text-purple-600 bg-purple-50 border-purple-200",
+    label: { en: "Features", es: "Características" },
+    color: "text-[#FF4444A22] bg-[#FF4444A22]/10 border-[#FF4444A22]/35",
   },
   improvements: {
     icon: FlashIcon,
-    label: "Improvements",
-    color: "text-blue-600 bg-blue-50 border-blue-200",
+    label: { en: "Improvements", es: "Mejoras" },
+    color: "text-[#FF4444A22] bg-[#FFEEFF8E8] border-[#EE44EE2E3]",
   },
-  fixes: { icon: Bug01Icon, label: "Fixes", color: "text-green-600 bg-green-50 border-green-200" },
+  bug_fixes: {
+    icon: Bug01Icon,
+    label: { en: "Bug Fixes", es: "Correcciones" },
+    color: "text-[#FF4444A22] bg-[#FF4444A22]/10 border-[#FF4444A22]/40",
+  },
+  performance: {
+    icon: FlashIcon,
+    label: { en: "Performance", es: "Rendimiento" },
+    color: "text-[#FF4444A22] bg-[#FF4444A22]/10 border-[#FF4444A22]/35",
+  },
   security: {
     icon: Shield01Icon,
-    label: "Security",
-    color: "text-[#E85D48] bg-[#E85D48]/10 border-red-200",
+    label: { en: "Security", es: "Seguridad" },
+    color: "text-[#FF4444A22] bg-[#FF4444A22]/10 border-[#FF4444A22]/30",
   },
   design: {
     icon: PaintBoardIcon,
-    label: "Design",
-    color: "text-pink-600 bg-pink-50 border-pink-200",
+    label: { en: "Design", es: "Diseño" },
+    color: "text-[#FF4444A22] bg-[#FF4444A22]/10 border-[#FF4444A22]/35",
   },
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+
+  // Fetch changelog from Sanity
+  const changelog = await serverClient.fetch<{
+    title: string;
+    summary?: string;
+  } | null>(
+    `*[_type == "changelog" && slug.current == $slug && language == $language && publishedAt <= now()][0] {
+      title,
+      summary
+    }`,
+    { slug, language: locale }
+  );
+
+  if (!changelog) {
+    return {
+      title: "Changelog Not Found",
+    };
+  }
+
+  return {
+    title: `${changelog.title} - Changelog`,
+    description: changelog.summary || changelog.title,
+  };
+}
+
+async function getChangelogData(slug: string, locale: string): Promise<ChangelogData | null> {
+  const changelog = await serverClient.fetch<ChangelogData | null>(
+    `*[_type == "changelog" && slug.current == $slug && language == $language && publishedAt <= now()][0] {
+      _id,
+      sprintNumber,
+      title,
+      slug,
+      summary,
+      content,
+      publishedAt,
+      categories,
+      tags,
+      targetAudience,
+      featuredImage {
+        asset,
+        alt
+      },
+      impactMetrics[] {
+        metric,
+        value,
+        description
+      }
+    }`,
+    { slug, language: locale }
+  );
+
+  return changelog;
+}
 
 export default async function ChangelogDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string; locale: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const supabase = await createSupabaseServerClient();
+  const { locale, slug } = await params;
+  const changelog = await getChangelogData(slug, locale);
 
-  // Fetch changelog by slug
-  const { data: changelog, error } = await supabase
-    .from("changelogs")
-    .select("*")
-    .eq("slug", slug)
-    .eq("visibility", "published")
-    .single();
-
-  if (error || !changelog) {
+  if (!changelog) {
     notFound();
   }
 
-  const formattedDate = new Date(changelog.published_at).toLocaleDateString("en-US", {
+  const t = await getTranslations({ locale, namespace: "changelog" });
+
+  const formattedDate = new Date(changelog.publishedAt).toLocaleDateString(locale, {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
 
-  // Sanitize changelog content to prevent XSS attacks
-  // Admin-controlled content, but sanitized for security defense-in-depth
-  const sanitizedContent = sanitizeRichContent(changelog.content);
-
   return (
-    <div className="flex min-h-screen flex-col">
+    <>
       <SiteHeader />
+      <div className="min-h-screen bg-[#FFEEFF8E8]">
+        {/* Header */}
+        <header className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8] py-8">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            {/* Back Link */}
+            <Link
+              className="mb-6 inline-flex items-center gap-2 text-[#FF4444A22] text-sm transition hover:gap-3"
+              href={`/${locale}/changelog`}
+            >
+              <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
+              {t("detail.backToChangelog")}
+            </Link>
 
-      <main className="flex-1 bg-[#fbf9f7] px-4 py-12 sm:px-6 lg:px-8">
-        <article className="mx-auto max-w-4xl">
-          {/* Back Link */}
-          <Link
-            className="mb-8 inline-flex items-center gap-2 font-medium text-[#7a6d62] text-base transition hover:text-[#E85D48]"
-            href="/changelog"
-          >
-            <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
-            Back to all updates
-          </Link>
-
-          {/* Header */}
-          <div className="mb-8 rounded-[28px] border border-[#ebe5d8] bg-white p-8">
+            {/* Sprint Badge and Date */}
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-[#E85D48]/20 px-3 py-1 font-semibold text-[#E85D48] text-sm">
-                Sprint {changelog.sprint_number}
+              <span className="rounded-full bg-[#FF4444A22]/20 px-3 py-1 font-semibold text-[#FF4444A22] text-sm">
+                Sprint {changelog.sprintNumber}
               </span>
-              <span className="text-[#7a6d62] text-sm">{formattedDate}</span>
+              <span className="flex items-center gap-1.5 text-[#AA88AAAAC] text-sm">
+                <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />
+                {formattedDate}
+              </span>
             </div>
 
-            <h1 className="type-serif-lg mb-4 text-gray-900">{changelog.title}</h1>
+            {/* Title */}
+            <h1 className="type-serif-lg mb-4 text-[#116611616]">{changelog.title}</h1>
 
+            {/* Summary */}
             {changelog.summary && (
-              <p className="mb-6 text-gray-600 text-lg leading-relaxed sm:text-xl">
-                {changelog.summary}
-              </p>
+              <p className="text-[#AA88AAAAC] text-lg leading-relaxed">{changelog.summary}</p>
             )}
 
             {/* Categories */}
             {changelog.categories.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <div className="mt-6 flex flex-wrap gap-2">
                 {changelog.categories.map((category: string) => {
                   const config = categoryConfig[category as keyof typeof categoryConfig];
                   if (!config) {
@@ -118,70 +208,90 @@ export default async function ChangelogDetailPage({
                       key={category}
                     >
                       <HugeiconsIcon className="h-4 w-4" icon={Icon} />
-                      {config.label}
+                      {config.label[locale as "en" | "es"]}
                     </span>
                   );
                 })}
               </div>
             )}
           </div>
+        </header>
 
-          {/* Featured Image */}
-          {changelog.featured_image_url && (
-            <div className="mb-8 overflow-hidden rounded-[28px]">
-              <Image
-                alt={changelog.title}
-                className="h-auto w-full object-cover"
-                height={400}
-                loading="lazy"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 896px, 896px"
-                src={changelog.featured_image_url}
-                width={800}
-              />
-            </div>
-          )}
+        {/* Main Content */}
+        <main className="py-12">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-[28px] border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 shadow-sm sm:p-8">
+              {/* Featured Image */}
+              {changelog.featuredImage?.asset && (
+                <div className="mb-8 overflow-hidden rounded-2xl">
+                  <Image
+                    alt={changelog.featuredImage.alt || changelog.title}
+                    className="h-auto w-full object-cover"
+                    height={600}
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 896px, 896px"
+                    src={getOptimizedImageUrl(changelog.featuredImage.asset, { width: 1200 })}
+                    width={1200}
+                  />
+                </div>
+              )}
 
-          {/* Content */}
-          <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8">
-            {/* Security: Content is sanitized with DOMPurify to prevent XSS attacks.
-                Admin-controlled HTML content is cleaned while preserving formatting. */}
-            <div
-              className="prose prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-            />
-          </div>
+              {/* Impact Metrics */}
+              {changelog.impactMetrics && changelog.impactMetrics.length > 0 && (
+                <div className="mb-8 grid gap-4 sm:grid-cols-3">
+                  {changelog.impactMetrics.map((metric, index) => (
+                    <div
+                      className="rounded-xl border border-[#EE44EE2E3] bg-gradient-to-br from-[#FFEEFF8E8] to-[#FFEEFF8E8] p-4 text-center"
+                      key={index}
+                    >
+                      <div className="mb-1 font-bold text-2xl text-[#FF4444A22]">
+                        {metric.value}
+                      </div>
+                      <div className="font-medium text-[#116611616] text-sm">{metric.metric}</div>
+                      {metric.description && (
+                        <div className="mt-1 text-[#AA88AAAAC] text-xs">{metric.description}</div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
 
-          {/* Tags */}
-          {changelog.tags && changelog.tags.length > 0 && (
-            <div className="mt-8 rounded-[28px] border border-[#ebe5d8] bg-white p-6">
-              <h3 className="mb-3 font-semibold text-base text-gray-900">Tags</h3>
-              <div className="flex flex-wrap gap-2">
-                {changelog.tags.map((tag: string) => (
-                  <span
-                    className="rounded-full border border-[#ebe5d8] bg-[#fbf9f7] px-3 py-1 text-gray-600 text-sm"
-                    key={tag}
-                  >
-                    #{tag}
-                  </span>
-                ))}
+              {/* Content */}
+              <div className="prose prose-lg max-w-none">
+                <PortableText components={portableTextComponents} value={changelog.content} />
               </div>
+
+              {/* Tags */}
+              {changelog.tags.length > 0 && (
+                <div className="mt-8 border-[#EE44EE2E3] border-t pt-6">
+                  <div className="flex flex-wrap gap-2">
+                    {changelog.tags.map((tag) => (
+                      <span
+                        className="rounded-full bg-[#EE44EE2E3]/30 px-3 py-1 text-[#AA88AAAAC] text-sm"
+                        key={tag}
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-          )}
 
-          {/* Back to Top */}
-          <div className="mt-12 text-center">
-            <Link
-              className="inline-flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-base text-gray-900 transition hover:border-[var(--red)] hover:text-[#E85D48]"
-              href="/changelog"
-            >
-              <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
-              View all updates
-            </Link>
+            {/* Back to Changelog */}
+            <div className="mt-8 text-center">
+              <Link
+                className="inline-flex items-center gap-2 text-[#FF4444A22] hover:underline"
+                href={`/${locale}/changelog`}
+              >
+                <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
+                {t("detail.backToChangelog")}
+              </Link>
+            </div>
           </div>
-        </article>
-      </main>
-
+        </main>
+      </div>
       <SiteFooter />
-    </div>
+    </>
   );
 }

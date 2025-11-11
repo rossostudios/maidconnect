@@ -20,7 +20,7 @@ export function KeyboardBadge({ keys, className, size = "md" }: KeyboardBadgePro
         <span className="flex items-center gap-1" key={`${key}-${index}`}>
           <kbd
             className={cn(
-              "inline-flex items-center justify-center rounded-lg border border-[#dcd6c7] bg-[#fefcf9] font-medium font-mono text-gray-600 shadow-sm",
+              "inline-flex items-center justify-center rounded-lg border border-[#e2e8f0] bg-[#f8fafc] font-medium font-mono text-[#94a3b8] shadow-sm",
               size === "sm" && "min-w-[28px] px-2.5 py-1.5 text-xs",
               size === "md" && "min-w-[32px] px-3 py-1.5 text-sm"
             )}
@@ -29,7 +29,7 @@ export function KeyboardBadge({ keys, className, size = "md" }: KeyboardBadgePro
           </kbd>
           {/* Show "then" text between sequence keys */}
           {key === "then" && index < keys.length - 1 ? (
-            <span className="px-1 text-[#7a6d62] text-xs">then</span>
+            <span className="px-1 text-[#94a3b8] text-xs">then</span>
           ) : null}
         </span>
       ))}

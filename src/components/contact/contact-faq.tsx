@@ -17,13 +17,13 @@ export function ContactFAQ() {
   };
 
   return (
-    <section className="bg-[#F5F0E8] py-20 sm:py-24 lg:py-32">
+    <section className="bg-[#f8fafc] py-20 sm:py-24 lg:py-32">
       <Container className="max-w-4xl">
-        <h2 className="serif-display-lg mb-12 text-center text-[#1A1614]">{t("title")}</h2>
+        <h2 className="serif-display-lg mb-12 text-center text-[#0f172a]">{t("title")}</h2>
         <div className="space-y-4">
           {faqKeys.map((key, index) => (
             <div
-              className="overflow-hidden rounded-[24px] border border-[#ebe5d8] bg-white shadow-[0_4px_20px_rgba(18,17,15,0.02)] transition hover:shadow-[0_8px_30px_rgba(18,17,15,0.04)]"
+              className="overflow-hidden rounded-[24px] border border-[#e2e8f0] bg-[#f8fafc] shadow-[0_4px_20px_rgba(22,22,22,0.02)] transition hover:shadow-[0_8px_30px_rgba(22,22,22,0.04)]"
               key={key}
             >
               <button
@@ -31,11 +31,11 @@ export function ContactFAQ() {
                 onClick={() => toggleFAQ(index)}
                 type="button"
               >
-                <span className="serif-headline-sm pr-8 text-[#1A1614]">
+                <span className="serif-headline-sm pr-8 text-[#0f172a]">
                   {t(`questions.${key}.question`)}
                 </span>
                 <HugeiconsIcon
-                  className={`h-6 w-6 flex-shrink-0 text-[#E85D48] transition-transform duration-300 ${
+                  className={`h-6 w-6 flex-shrink-0 text-[#64748b] transition-transform duration-300 ${
                     openIndex === index ? "rotate-180" : ""
                   }`}
                   icon={ArrowDown01Icon}
@@ -47,8 +47,8 @@ export function ContactFAQ() {
                 }`}
               >
                 <div className="overflow-hidden">
-                  <div className="border-[#ebe5d8] border-t p-8 pt-6">
-                    <p className="text-[#1A1614]/70 text-base leading-relaxed">
+                  <div className="border-[#e2e8f0] border-t p-8 pt-6">
+                    <p className="text-[#0f172a]/70 text-base leading-relaxed">
                       {t(`questions.${key}.answer`)}
                     </p>
                   </div>

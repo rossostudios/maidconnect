@@ -40,7 +40,7 @@ export function ServicesSection() {
   return (
     <FeatureSection
       align="center"
-      backgroundColor="stone-50"
+      backgroundColor="slate-50"
       description={
         t("subtitle") ||
         "Professional home services that make life easier. From cleaning to childcare, find verified professionals ready to help."
@@ -48,7 +48,7 @@ export function ServicesSection() {
       heading={t("title")}
       id="services"
       tagline={t("badge")}
-      textColor="stone-900"
+      textColor="slate-900"
     >
       <FeatureGrid>
         {serviceKeys.map((key) => {
@@ -70,11 +70,11 @@ export function ServicesSection() {
       {/* CTA Section */}
       <div className="mt-16 text-center">
         <Link
-          className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-8 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:bg-orange-600 hover:shadow-xl active:scale-95"
+          className="inline-flex items-center justify-center rounded-full border-2 border-slate-900 bg-transparent px-8 py-4 font-semibold text-slate-900 shadow-lg transition-all duration-300 hover:bg-slate-900 hover:text-white hover:shadow-xl active:scale-95"
           href="/professionals"
         >
           {t("viewAll") || "View All Services"}
-          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
           </svg>
         </Link>

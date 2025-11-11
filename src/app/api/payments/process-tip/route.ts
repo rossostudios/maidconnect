@@ -7,8 +7,17 @@
  */
 
 import { z } from "zod";
-import { ok, requireCustomerOwnership, withCustomer, withRateLimit } from "@/lib/api";
+import { type Booking, ok, requireCustomerOwnership, withCustomer, withRateLimit } from "@/lib/api";
 import { BusinessRuleError, InvalidBookingStatusError, ValidationError } from "@/lib/errors";
+
+// Type for booking with joined professional profile
+type BookingWithProfessional = Booking & {
+  professional: {
+    id: string;
+    full_name: string | null;
+    email: string | null;
+  } | null;
+};
 
 const tipSchema = z.object({
   bookingId: z.string().uuid(),
@@ -22,7 +31,7 @@ const handler = withCustomer(async ({ user, supabase }, request: Request) => {
   const { bookingId, tipAmount, tipPercentage } = tipSchema.parse(body);
 
   // Fetch booking to validate ownership and status
-  const booking = await requireCustomerOwnership(
+  const booking = await requireCustomerOwnership<BookingWithProfessional>(
     supabase,
     user.id,
     bookingId,

@@ -8,10 +8,11 @@ import { HelpSearchBar } from "@/components/help/search-bar";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { Container } from "@/components/ui/container";
+import { serverClient } from "@/lib/sanity/client";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
 type Article = {
-  id: string;
+  _id: string;
   slug: string;
   title: string;
   excerpt: string | null;
@@ -26,14 +27,18 @@ export async function generateMetadata({
   params: Promise<{ locale: string; category: string }>;
 }) {
   const { locale, category: categorySlug } = await params;
-  const supabase = createSupabaseAnonClient();
 
-  const { data: category } = await supabase
-    .from("help_categories")
-    .select("name_en, name_es, description_en, description_es")
-    .eq("slug", categorySlug)
-    .eq("is_active", true)
-    .single();
+  // Fetch category from Sanity
+  const category = await serverClient.fetch<{
+    name: string;
+    description?: string;
+  } | null>(
+    `*[_type == "helpCategory" && slug.current == $slug && language == $language && isActive == true][0] {
+      name,
+      description
+    }`,
+    { slug: categorySlug, language: locale }
+  );
 
   if (!category) {
     return {
@@ -41,55 +46,79 @@ export async function generateMetadata({
     };
   }
 
-  const name = locale === "es" ? category.name_es : category.name_en;
-  const description = locale === "es" ? category.description_es : category.description_en;
-
   return {
-    title: `${name} - Help Center`,
-    description: description || `Learn about ${name}`,
+    title: `${category.name} - Help Center`,
+    description: category.description || `Learn about ${category.name}`,
   };
 }
 
 async function getCategoryWithArticles(categorySlug: string, locale: string) {
   const supabase = createSupabaseAnonClient();
 
-  // Get category
-  const { data: category, error: categoryError } = await supabase
-    .from("help_categories")
-    .select("*")
-    .eq("slug", categorySlug)
-    .eq("is_active", true)
-    .single();
+  // Get category from Sanity
+  const category = await serverClient.fetch<{
+    _id: string;
+    name: string;
+    description?: string;
+    slug: { current: string };
+  } | null>(
+    `*[_type == "helpCategory" && slug.current == $slug && language == $language && isActive == true][0] {
+      _id,
+      name,
+      description,
+      slug
+    }`,
+    { slug: categorySlug, language: locale }
+  );
 
-  if (categoryError || !category) {
+  if (!category) {
     return null;
   }
 
-  // Get articles for this category - fetch both language columns
-  const { data: rawArticles, error: articlesError } = await supabase
+  // Get articles for this category from Sanity
+  const sanityArticles = await serverClient.fetch<
+    Array<{
+      _id: string;
+      slug: { current: string };
+      title: string;
+      excerpt?: string;
+    }>
+  >(
+    `*[_type == "helpArticle" && category._ref == $categoryId && language == $language && isPublished == true] | order(publishedAt desc) {
+      _id,
+      slug,
+      title,
+      excerpt
+    }`,
+    { categoryId: category._id, language: locale }
+  );
+
+  // Get engagement data from Supabase
+  const { data: engagementData } = await supabase
     .from("help_articles")
-    .select(
-      "id, slug, title_en, title_es, excerpt_en, excerpt_es, view_count, helpful_count, not_helpful_count"
-    )
-    .eq("category_id", category.id)
-    .eq("is_published", true)
-    .order("display_order")
-    .order("created_at", { ascending: false });
+    .select("slug, view_count, helpful_count, not_helpful_count");
 
-  if (articlesError) {
-    console.error("[Help Category Page Error]", articlesError);
-  }
+  // Create map for quick lookup
+  const engagementMap = new Map(engagementData?.map((e) => [e.slug, e]) || []);
 
-  // Map to the correct language and type
-  const articles: Article[] = (rawArticles || []).map((article) => ({
-    id: article.id,
-    slug: article.slug,
-    title: locale === "es" ? article.title_es : article.title_en,
-    excerpt: locale === "es" ? article.excerpt_es : article.excerpt_en,
-    view_count: article.view_count,
-    helpful_count: article.helpful_count,
-    not_helpful_count: article.not_helpful_count,
-  }));
+  // Merge Sanity articles with Supabase engagement data
+  const articles: Article[] = (sanityArticles || []).map((article) => {
+    const engagement = engagementMap.get(article.slug.current) || {
+      view_count: 0,
+      helpful_count: 0,
+      not_helpful_count: 0,
+    };
+
+    return {
+      _id: article._id,
+      slug: article.slug.current,
+      title: article.title,
+      excerpt: article.excerpt || null,
+      view_count: engagement.view_count,
+      helpful_count: engagement.helpful_count,
+      not_helpful_count: engagement.not_helpful_count,
+    };
+  });
 
   return {
     category,
@@ -115,29 +144,28 @@ export default async function HelpCategoryPage({
   const { category, articles } = data;
   const t = await getTranslations({ locale, namespace: "help" });
 
-  const categoryName = locale === "es" ? category.name_es : category.name_en;
-  const categoryDescription = locale === "es" ? category.description_es : category.description_en;
-
   return (
     <>
       <SiteHeader />
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <div className="min-h-screen bg-gradient-to-b from-[#FFEEFF8E8] to-[#FFEEFF8E8]">
         {/* Header */}
-        <section className="border-gray-200 border-b bg-white py-12">
+        <section className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8] py-12">
           <Container>
             <div className="mx-auto max-w-4xl">
               {/* Breadcrumb */}
-              <nav className="mb-6 flex items-center gap-2 text-gray-600 text-sm">
-                <Link className="hover:text-[#E85D48]" href={`/${locale}/help`}>
+              <nav className="mb-6 flex items-center gap-2 text-[#AA88AAAAC] text-sm">
+                <Link className="hover:text-[#FF4444A22]" href={`/${locale}/help`}>
                   {t("breadcrumb.home")}
                 </Link>
                 <span>/</span>
-                <span className="text-gray-900">{categoryName}</span>
+                <span className="text-[#116611616]">{category.name}</span>
               </nav>
 
-              <h1 className="mb-4 font-bold text-3xl text-gray-900 md:text-4xl">{categoryName}</h1>
-              {categoryDescription && (
-                <p className="text-gray-600 text-lg">{categoryDescription}</p>
+              <h1 className="mb-4 font-bold text-3xl text-[#116611616] md:text-4xl">
+                {category.name}
+              </h1>
+              {category.description && (
+                <p className="text-[#AA88AAAAC] text-lg">{category.description}</p>
               )}
 
               {/* Search Bar */}
@@ -153,7 +181,7 @@ export default async function HelpCategoryPage({
           {articles.length > 0 ? (
             <div className="mx-auto max-w-4xl">
               <div className="mb-6 flex items-center justify-between">
-                <h2 className="font-semibold text-gray-900 text-xl">
+                <h2 className="font-semibold text-[#116611616] text-xl">
                   {t("category.articlesCount", { count: articles.length })}
                 </h2>
               </div>
@@ -171,20 +199,20 @@ export default async function HelpCategoryPage({
 
                   return (
                     <Link
-                      className="group block rounded-lg border border-gray-200 bg-white p-6 transition hover:border-[#E85D48] hover:shadow-md"
+                      className="group block rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:border-[#FF4444A22] hover:shadow-md"
                       href={`/${locale}/help/${categorySlug}/${article.slug}`}
-                      key={article.id}
+                      key={article._id}
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex-1">
-                          <h3 className="mb-2 font-semibold text-gray-900 text-lg group-hover:text-[#E85D48]">
+                          <h3 className="mb-2 font-semibold text-[#116611616] text-lg group-hover:text-[#FF4444A22]">
                             {article.title}
                           </h3>
                           {article.excerpt && (
-                            <p className="mb-3 text-gray-600 text-sm">{article.excerpt}</p>
+                            <p className="mb-3 text-[#AA88AAAAC] text-sm">{article.excerpt}</p>
                           )}
 
-                          <div className="flex flex-wrap items-center gap-4 text-gray-500 text-xs">
+                          <div className="flex flex-wrap items-center gap-4 text-[#AA88AAAAC] text-xs">
                             <span>
                               {article.view_count}{" "}
                               {article.view_count === 1 ? t("category.view") : t("category.views")}
@@ -194,7 +222,9 @@ export default async function HelpCategoryPage({
                               <span className="flex items-center gap-1">
                                 <span
                                   className={
-                                    helpfulPercentage >= 70 ? "text-green-600" : "text-gray-500"
+                                    helpfulPercentage >= 70
+                                      ? "text-[#FF4444A22]"
+                                      : "text-[#AA88AAAAC]"
                                   }
                                 >
                                   {helpfulPercentage}% {t("category.helpful")}
@@ -205,7 +235,7 @@ export default async function HelpCategoryPage({
                         </div>
 
                         <div className="flex-shrink-0">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 text-gray-400 transition group-hover:bg-[#E85D48]/10 group-hover:text-[#E85D48]">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFEEFF8E8] text-[#AA88AAAAC]/70 transition group-hover:bg-[#FF4444A22]/10 group-hover:text-[#FF4444A22]">
                             <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
                           </div>
                         </div>
@@ -216,17 +246,17 @@ export default async function HelpCategoryPage({
               </div>
             </div>
           ) : (
-            <div className="mx-auto max-w-4xl rounded-lg border border-gray-200 bg-white p-12 text-center">
+            <div className="mx-auto max-w-4xl rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-12 text-center">
               <HugeiconsIcon
-                className="mx-auto mb-4 h-12 w-12 text-gray-400"
+                className="mx-auto mb-4 h-12 w-12 text-[#AA88AAAAC]/70"
                 icon={BookOpen01Icon}
               />
-              <h3 className="mb-2 font-semibold text-gray-900 text-lg">
+              <h3 className="mb-2 font-semibold text-[#116611616] text-lg">
                 {t("category.noArticles.title")}
               </h3>
-              <p className="mb-6 text-gray-600">{t("category.noArticles.description")}</p>
+              <p className="mb-6 text-[#AA88AAAAC]">{t("category.noArticles.description")}</p>
               <Link
-                className="inline-flex items-center gap-2 rounded-lg bg-[#E85D48] px-6 py-3 font-semibold text-white transition hover:bg-[#E85D48]"
+                className="inline-flex items-center gap-2 rounded-lg bg-[#FF4444A22] px-6 py-3 font-semibold text-[#FFEEFF8E8] transition hover:bg-[#FF4444A22]"
                 href={`/${locale}/help`}
               >
                 {t("category.noArticles.button")}
@@ -238,7 +268,7 @@ export default async function HelpCategoryPage({
           {/* Back to Categories */}
           <div className="mx-auto mt-12 max-w-4xl text-center">
             <Link
-              className="inline-flex items-center gap-2 text-[#E85D48] hover:underline"
+              className="inline-flex items-center gap-2 text-[#FF4444A22] hover:underline"
               href={`/${locale}/help`}
             >
               <HugeiconsIcon className="h-4 w-4 rotate-180" icon={ArrowRight01Icon} />

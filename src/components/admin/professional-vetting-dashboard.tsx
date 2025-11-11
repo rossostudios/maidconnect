@@ -23,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { StatusCard, StatusCardGrid } from "@/components/ui/status-card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Dynamic import for modal (lazy load on demand)
@@ -121,23 +122,23 @@ export function ProfessionalVettingDashboard() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {[1, 2, 3].map((i) => (
             <div
-              className="h-48 animate-pulse rounded-xl border border-[#E5E5E5] bg-white"
+              className="h-48 animate-pulse rounded-xl border border-slate-200 bg-slate-50"
               key={i}
             />
           ))}
         </div>
-        <div className="h-96 animate-pulse rounded-xl border border-[#E5E5E5] bg-white" />
+        <div className="h-96 animate-pulse rounded-xl border border-slate-200 bg-slate-50" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <Card className="border-[#E5E5E5] bg-white">
+      <Card className="border-slate-200 bg-slate-50">
         <CardContent className="p-8 text-center">
-          <p className="mb-4 text-[#E85D48] text-sm">{error}</p>
+          <p className="mb-4 text-slate-600 text-sm">{error}</p>
           <button
-            className="rounded-lg bg-[#E85D48] px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-[#D32F40]"
+            className="rounded-lg bg-slate-600 px-6 py-3 font-semibold text-slate-50 text-sm transition-colors hover:bg-slate-600"
             onClick={fetchQueue}
             type="button"
           >
@@ -176,17 +177,17 @@ export function ProfessionalVettingDashboard() {
     {
       name: "Needs Review",
       count: data.counts.application_in_review,
-      color: "#f97316",
+      color: "#3b82f6", // blue-500 - action needed
     },
     {
       name: "Approved",
       count: data.counts.approved,
-      color: "#10b981",
+      color: "#10b981", // green-500 - success
     },
     {
       name: "Incomplete",
       count: data.counts.application_pending,
-      color: "#737373",
+      color: "#f59e0b", // amber-500 - warning
     },
   ];
 
@@ -208,84 +209,59 @@ export function ProfessionalVettingDashboard() {
 
   return (
     <div className="space-y-8">
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+      {/* Summary Cards - Following 8px Grid Design System */}
+      <StatusCardGrid>
         {/* Needs Review Card */}
-        <Card className="border-[#E5E5E5] bg-white transition-shadow hover:shadow-lg">
-          <CardContent className="p-8">
-            <div className="mb-6 flex items-center gap-3">
-              <div className="rounded-xl bg-orange-50 p-3">
-                <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={TimeScheduleIcon} />
-              </div>
-              <p className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
-                Needs Review
-              </p>
-            </div>
-            <p className="mb-2 font-bold text-4xl text-[#171717]">
-              {data.counts.application_in_review}
-            </p>
-            <p className="text-[#737373] text-sm">Waiting for admin review</p>
-          </CardContent>
-        </Card>
+        <StatusCard
+          description="Waiting for admin review"
+          icon={TimeScheduleIcon}
+          title="NEEDS REVIEW"
+          value={data.counts.application_in_review}
+          variant="review"
+        />
 
         {/* Approved Card */}
-        <Card className="border-[#E5E5E5] bg-white transition-shadow hover:shadow-lg">
-          <CardContent className="p-8">
-            <div className="mb-6 flex items-center gap-3">
-              <div className="rounded-xl bg-green-50 p-3">
-                <HugeiconsIcon className="h-6 w-6 text-green-600" icon={CheckmarkCircle02Icon} />
-              </div>
-              <p className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
-                Approved
-              </p>
-            </div>
-            <p className="mb-2 font-bold text-4xl text-[#171717]">{data.counts.approved}</p>
-            <p className="text-[#737373] text-sm">Ready to accept bookings</p>
-          </CardContent>
-        </Card>
+        <StatusCard
+          description="Ready to accept bookings"
+          icon={CheckmarkCircle02Icon}
+          title="APPROVED"
+          value={data.counts.approved}
+          variant="approved"
+        />
 
         {/* Incomplete Card */}
-        <Card className="border-[#E5E5E5] bg-white transition-shadow hover:shadow-lg">
-          <CardContent className="p-8">
-            <div className="mb-6 flex items-center gap-3">
-              <div className="rounded-xl bg-gray-50 p-3">
-                <HugeiconsIcon className="h-6 w-6 text-[#737373]" icon={FileEditIcon} />
-              </div>
-              <p className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
-                Incomplete
-              </p>
-            </div>
-            <p className="mb-2 font-bold text-4xl text-[#171717]">
-              {data.counts.application_pending}
-            </p>
-            <p className="text-[#737373] text-sm">Applications in progress</p>
-          </CardContent>
-        </Card>
-      </div>
+        <StatusCard
+          description="Applications in progress"
+          icon={FileEditIcon}
+          title="INCOMPLETE"
+          value={data.counts.application_pending}
+          variant="warning"
+        />
+      </StatusCardGrid>
 
       {/* Queue Distribution Chart */}
-      <Card className="border-[#E5E5E5] bg-white transition-shadow hover:shadow-lg">
+      <Card className="border-slate-200 bg-slate-50 transition-shadow hover:shadow-lg">
         <CardHeader className="flex flex-row items-center justify-between pb-6">
           <div>
-            <p className="mb-1 font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+            <p className="mb-1 font-semibold text-slate-500 text-xs uppercase tracking-wider">
               Queue Distribution
             </p>
-            <p className="text-[#737373] text-sm">Professionals by vetting status</p>
+            <p className="text-slate-500 text-sm">Professionals by vetting status</p>
           </div>
         </CardHeader>
         <CardContent className="pt-0">
           <div className="h-64">
             <ResponsiveContainer height="100%" width="100%">
               <BarChart data={chartData}>
-                <CartesianGrid stroke="#E5E5E5" strokeDasharray="3 3" vertical={false} />
+                <CartesianGrid stroke="slate-200" strokeDasharray="3 3" vertical={false} />
                 <XAxis
                   axisLine={false}
                   dataKey="name"
                   fontSize={12}
-                  stroke="#A3A3A3"
+                  stroke="slate-500"
                   tickLine={false}
                 />
-                <YAxis axisLine={false} fontSize={12} stroke="#A3A3A3" tickLine={false} />
+                <YAxis axisLine={false} fontSize={12} stroke="slate-500" tickLine={false} />
                 <Bar dataKey="count" radius={[8, 8, 0, 0]}>
                   {chartData.map((entry, index) => (
                     <Cell fill={entry.color} key={`cell-${index}`} />
@@ -304,7 +280,7 @@ export function ProfessionalVettingDashboard() {
             <TabsTrigger value="needs_review">
               Needs Review
               {data.counts.application_in_review > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-orange-100 px-2 py-0.5 font-semibold text-orange-600 text-xs">
+                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-slate-600/10 px-2 py-0.5 font-semibold text-slate-600 text-xs">
                   {data.counts.application_in_review}
                 </span>
               )}
@@ -312,7 +288,7 @@ export function ProfessionalVettingDashboard() {
             <TabsTrigger value="approved">
               Approved
               {data.counts.approved > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-green-100 px-2 py-0.5 font-semibold text-green-600 text-xs">
+                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-slate-600/10 px-2 py-0.5 font-semibold text-slate-600 text-xs">
                   {data.counts.approved}
                 </span>
               )}
@@ -320,7 +296,7 @@ export function ProfessionalVettingDashboard() {
             <TabsTrigger value="incomplete">
               Incomplete
               {data.counts.application_pending > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-gray-100 px-2 py-0.5 font-semibold text-[#737373] text-xs">
+                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-slate-200/30 px-2 py-0.5 font-semibold text-slate-500 text-xs">
                   {data.counts.application_pending}
                 </span>
               )}
@@ -329,7 +305,7 @@ export function ProfessionalVettingDashboard() {
 
           {/* Sort Filter */}
           <div className="flex items-center gap-3">
-            <HugeiconsIcon className="h-4 w-4 text-[#737373]" icon={FilterIcon} />
+            <HugeiconsIcon className="h-4 w-4 text-slate-500" icon={FilterIcon} />
             <Select onValueChange={(value) => setSortBy(value as SortOption)} value={sortBy}>
               <SelectTrigger className="w-48">
                 <SelectValue />
@@ -347,16 +323,30 @@ export function ProfessionalVettingDashboard() {
         {/* Needs Review Tab */}
         <TabsContent value="needs_review">
           {activeProfessionals.length === 0 ? (
-            <Card className="border-[#E5E5E5] bg-white">
-              <CardContent className="flex min-h-[400px] items-center justify-center">
-                <p className="text-[#737373] text-sm">No professionals need review.</p>
+            <Card className="border-slate-200 bg-white">
+              <CardContent className="flex min-h-[400px] items-center justify-center p-12">
+                <div className="flex max-w-md flex-col items-center gap-4 text-center">
+                  <div className="rounded-full bg-green-50 p-4">
+                    <HugeiconsIcon
+                      className="h-12 w-12 text-green-600"
+                      icon={CheckmarkCircle02Icon}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-lg text-slate-900">All caught up!</h3>
+                    <p className="text-slate-500 text-sm">
+                      No professionals are currently awaiting review. New applications will appear
+                      here when submitted.
+                    </p>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           ) : (
             <div className="space-y-6">
               {activeProfessionals.map((professional) => (
                 <Card
-                  className="border-[#E5E5E5] bg-white transition-shadow hover:shadow-lg"
+                  className="border-slate-200 bg-slate-50 transition-shadow hover:shadow-lg"
                   key={professional.profile_id}
                 >
                   <CardContent className="p-8">
@@ -365,24 +355,24 @@ export function ProfessionalVettingDashboard() {
                         {/* Header */}
                         <div className="mb-6 flex items-center gap-4">
                           <div className="flex items-center gap-3">
-                            <div className="rounded-xl bg-[#F5F5F5] p-3">
+                            <div className="rounded-xl bg-slate-50 p-3">
                               <HugeiconsIcon
-                                className="h-6 w-6 text-[#171717]"
+                                className="h-6 w-6 text-slate-900"
                                 icon={UserAccountIcon}
                               />
                             </div>
                             <div>
-                              <h4 className="font-semibold text-[#171717] text-lg">
+                              <h4 className="font-semibold text-lg text-slate-900">
                                 {professional.full_name || "Unnamed Professional"}
                               </h4>
-                              <p className="text-[#737373] text-sm">
+                              <p className="text-slate-500 text-sm">
                                 {professional.profile?.city && professional.profile?.country
                                   ? `${professional.profile.city}, ${professional.profile.country}`
                                   : "Location not specified"}
                               </p>
                             </div>
                           </div>
-                          <span className="rounded-full bg-orange-50 px-3 py-1 font-semibold text-orange-600 text-sm">
+                          <span className="rounded-full bg-slate-600/10 px-3 py-1 font-semibold text-slate-600 text-sm">
                             <HugeiconsIcon className="mr-1 inline h-4 w-4" icon={Calendar03Icon} />
                             {professional.waitingDays}d waiting
                           </span>
@@ -393,14 +383,14 @@ export function ProfessionalVettingDashboard() {
                           <div>
                             <div className="mb-1 flex items-center gap-2">
                               <HugeiconsIcon
-                                className="h-4 w-4 text-[#737373]"
+                                className="h-4 w-4 text-slate-500"
                                 icon={UserMultiple02Icon}
                               />
-                              <span className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                              <span className="font-semibold text-slate-500 text-xs uppercase tracking-wider">
                                 Services
                               </span>
                             </div>
-                            <p className="font-bold text-2xl text-[#171717]">
+                            <p className="font-bold text-2xl text-slate-900">
                               {professional.primary_services?.length || 0}
                             </p>
                           </div>
@@ -408,30 +398,30 @@ export function ProfessionalVettingDashboard() {
                           <div>
                             <div className="mb-1 flex items-center gap-2">
                               <HugeiconsIcon
-                                className="h-4 w-4 text-[#737373]"
+                                className="h-4 w-4 text-slate-500"
                                 icon={Award01Icon}
                               />
-                              <span className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                              <span className="font-semibold text-slate-500 text-xs uppercase tracking-wider">
                                 Experience
                               </span>
                             </div>
-                            <p className="font-bold text-2xl text-[#171717]">
+                            <p className="font-bold text-2xl text-slate-900">
                               {professional.experience_years || 0}
-                              <span className="ml-1 font-normal text-[#737373] text-sm">years</span>
+                              <span className="ml-1 font-normal text-slate-500 text-sm">years</span>
                             </p>
                           </div>
 
                           <div>
                             <div className="mb-1 flex items-center gap-2">
                               <HugeiconsIcon
-                                className="h-4 w-4 text-[#737373]"
+                                className="h-4 w-4 text-slate-500"
                                 icon={DocumentValidationIcon}
                               />
-                              <span className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                              <span className="font-semibold text-slate-500 text-xs uppercase tracking-wider">
                                 Documents
                               </span>
                             </div>
-                            <p className="font-bold text-2xl text-[#171717]">
+                            <p className="font-bold text-2xl text-slate-900">
                               {professional.documentsCount}
                             </p>
                           </div>
@@ -439,14 +429,14 @@ export function ProfessionalVettingDashboard() {
                           <div>
                             <div className="mb-1 flex items-center gap-2">
                               <HugeiconsIcon
-                                className="h-4 w-4 text-[#737373]"
+                                className="h-4 w-4 text-slate-500"
                                 icon={UserMultiple02Icon}
                               />
-                              <span className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                              <span className="font-semibold text-slate-500 text-xs uppercase tracking-wider">
                                 References
                               </span>
                             </div>
-                            <p className="font-bold text-2xl text-[#171717]">
+                            <p className="font-bold text-2xl text-slate-900">
                               {professional.references_data?.length || 0}
                             </p>
                           </div>
@@ -455,17 +445,17 @@ export function ProfessionalVettingDashboard() {
                         {/* Tags */}
                         <div className="flex flex-wrap gap-2">
                           {professional.consent_background_check && (
-                            <span className="rounded-lg bg-green-50 px-3 py-1.5 font-medium text-green-700 text-xs">
+                            <span className="rounded-lg bg-slate-600/10 px-3 py-1.5 font-medium text-slate-600 text-xs">
                               ✓ Background check consent
                             </span>
                           )}
                           {professional.stripe_connect_account_id && (
-                            <span className="rounded-lg bg-purple-50 px-3 py-1.5 font-medium text-purple-700 text-xs">
+                            <span className="rounded-lg bg-slate-600/10 px-3 py-1.5 font-medium text-slate-600 text-xs">
                               ✓ Stripe connected
                             </span>
                           )}
                           {professional.languages && professional.languages.length > 0 && (
-                            <span className="rounded-lg bg-blue-50 px-3 py-1.5 font-medium text-blue-700 text-xs">
+                            <span className="rounded-lg bg-slate-50 px-3 py-1.5 font-medium text-slate-600 text-xs">
                               {professional.languages.join(", ")}
                             </span>
                           )}
@@ -473,17 +463,17 @@ export function ProfessionalVettingDashboard() {
 
                         {/* Latest Review */}
                         {professional.latestReview && (
-                          <div className="mt-6 rounded-lg border border-[#E5E5E5] bg-[#FAFAF9] p-4">
-                            <p className="mb-2 font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                          <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
+                            <p className="mb-2 font-semibold text-slate-500 text-xs uppercase tracking-wider">
                               Latest Review
                             </p>
-                            <p className="mb-1 text-[#737373] text-sm">
-                              <span className="font-medium text-[#171717]">Status:</span>{" "}
+                            <p className="mb-1 text-slate-500 text-sm">
+                              <span className="font-medium text-slate-900">Status:</span>{" "}
                               {professional.latestReview.status} •{" "}
                               {new Date(professional.latestReview.created_at).toLocaleDateString()}
                             </p>
                             {professional.latestReview.notes && (
-                              <p className="mt-2 text-[#171717] text-sm">
+                              <p className="mt-2 text-slate-900 text-sm">
                                 {professional.latestReview.notes}
                               </p>
                             )}
@@ -493,7 +483,7 @@ export function ProfessionalVettingDashboard() {
 
                       {/* Review Button */}
                       <button
-                        className="ml-6 rounded-lg bg-[#E85D48] px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-[#D32F40]"
+                        className="ml-6 rounded-lg bg-slate-600 px-6 py-3 font-semibold text-slate-50 text-sm transition-colors hover:bg-slate-600"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >
@@ -510,16 +500,16 @@ export function ProfessionalVettingDashboard() {
         {/* Approved Tab */}
         <TabsContent value="approved">
           {activeProfessionals.length === 0 ? (
-            <Card className="border-[#E5E5E5] bg-white">
+            <Card className="border-slate-200 bg-slate-50">
               <CardContent className="flex min-h-[400px] items-center justify-center">
-                <p className="text-[#737373] text-sm">No approved professionals yet.</p>
+                <p className="text-slate-500 text-sm">No approved professionals yet.</p>
               </CardContent>
             </Card>
           ) : (
             <div className="space-y-6">
               {activeProfessionals.map((professional) => (
                 <Card
-                  className="border-[#E5E5E5] bg-white transition-shadow hover:shadow-lg"
+                  className="border-slate-200 bg-slate-50 transition-shadow hover:shadow-lg"
                   key={professional.profile_id}
                 >
                   <CardContent className="p-8">
@@ -528,24 +518,24 @@ export function ProfessionalVettingDashboard() {
                         {/* Same card structure as needs_review but without Review button */}
                         <div className="mb-6 flex items-center gap-4">
                           <div className="flex items-center gap-3">
-                            <div className="rounded-xl bg-green-50 p-3">
+                            <div className="rounded-xl bg-slate-600/10 p-3">
                               <HugeiconsIcon
-                                className="h-6 w-6 text-green-600"
+                                className="h-6 w-6 text-slate-600"
                                 icon={CheckmarkCircle02Icon}
                               />
                             </div>
                             <div>
-                              <h4 className="font-semibold text-[#171717] text-lg">
+                              <h4 className="font-semibold text-lg text-slate-900">
                                 {professional.full_name || "Unnamed Professional"}
                               </h4>
-                              <p className="text-[#737373] text-sm">
+                              <p className="text-slate-500 text-sm">
                                 {professional.profile?.city && professional.profile?.country
                                   ? `${professional.profile.city}, ${professional.profile.country}`
                                   : "Location not specified"}
                               </p>
                             </div>
                           </div>
-                          <span className="rounded-full bg-green-50 px-3 py-1 font-semibold text-green-600 text-sm">
+                          <span className="rounded-full bg-slate-600/10 px-3 py-1 font-semibold text-slate-600 text-sm">
                             ✓ Approved
                           </span>
                         </div>
@@ -554,14 +544,14 @@ export function ProfessionalVettingDashboard() {
                           <div>
                             <div className="mb-1 flex items-center gap-2">
                               <HugeiconsIcon
-                                className="h-4 w-4 text-[#737373]"
+                                className="h-4 w-4 text-slate-500"
                                 icon={UserMultiple02Icon}
                               />
-                              <span className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                              <span className="font-semibold text-slate-500 text-xs uppercase tracking-wider">
                                 Services
                               </span>
                             </div>
-                            <p className="font-bold text-2xl text-[#171717]">
+                            <p className="font-bold text-2xl text-slate-900">
                               {professional.primary_services?.length || 0}
                             </p>
                           </div>
@@ -569,30 +559,30 @@ export function ProfessionalVettingDashboard() {
                           <div>
                             <div className="mb-1 flex items-center gap-2">
                               <HugeiconsIcon
-                                className="h-4 w-4 text-[#737373]"
+                                className="h-4 w-4 text-slate-500"
                                 icon={Award01Icon}
                               />
-                              <span className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                              <span className="font-semibold text-slate-500 text-xs uppercase tracking-wider">
                                 Experience
                               </span>
                             </div>
-                            <p className="font-bold text-2xl text-[#171717]">
+                            <p className="font-bold text-2xl text-slate-900">
                               {professional.experience_years || 0}
-                              <span className="ml-1 font-normal text-[#737373] text-sm">years</span>
+                              <span className="ml-1 font-normal text-slate-500 text-sm">years</span>
                             </p>
                           </div>
 
                           <div>
                             <div className="mb-1 flex items-center gap-2">
                               <HugeiconsIcon
-                                className="h-4 w-4 text-[#737373]"
+                                className="h-4 w-4 text-slate-500"
                                 icon={DocumentValidationIcon}
                               />
-                              <span className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                              <span className="font-semibold text-slate-500 text-xs uppercase tracking-wider">
                                 Documents
                               </span>
                             </div>
-                            <p className="font-bold text-2xl text-[#171717]">
+                            <p className="font-bold text-2xl text-slate-900">
                               {professional.documentsCount}
                             </p>
                           </div>
@@ -600,14 +590,14 @@ export function ProfessionalVettingDashboard() {
                           <div>
                             <div className="mb-1 flex items-center gap-2">
                               <HugeiconsIcon
-                                className="h-4 w-4 text-[#737373]"
+                                className="h-4 w-4 text-slate-500"
                                 icon={UserMultiple02Icon}
                               />
-                              <span className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                              <span className="font-semibold text-slate-500 text-xs uppercase tracking-wider">
                                 References
                               </span>
                             </div>
-                            <p className="font-bold text-2xl text-[#171717]">
+                            <p className="font-bold text-2xl text-slate-900">
                               {professional.references_data?.length || 0}
                             </p>
                           </div>
@@ -615,7 +605,7 @@ export function ProfessionalVettingDashboard() {
                       </div>
 
                       <button
-                        className="ml-6 rounded-lg bg-[#171717] px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-[#404040]"
+                        className="ml-6 rounded-lg bg-slate-900 px-6 py-3 font-semibold text-slate-50 text-sm transition-colors hover:bg-slate-900"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >
@@ -632,16 +622,16 @@ export function ProfessionalVettingDashboard() {
         {/* Incomplete Tab */}
         <TabsContent value="incomplete">
           {activeProfessionals.length === 0 ? (
-            <Card className="border-[#E5E5E5] bg-white">
+            <Card className="border-slate-200 bg-slate-50">
               <CardContent className="flex min-h-[400px] items-center justify-center">
-                <p className="text-[#737373] text-sm">No incomplete applications.</p>
+                <p className="text-slate-500 text-sm">No incomplete applications.</p>
               </CardContent>
             </Card>
           ) : (
             <div className="space-y-6">
               {activeProfessionals.map((professional) => (
                 <Card
-                  className="border-[#E5E5E5] bg-white transition-shadow hover:shadow-lg"
+                  className="border-slate-200 bg-slate-50 transition-shadow hover:shadow-lg"
                   key={professional.profile_id}
                 >
                   <CardContent className="p-8">
@@ -649,24 +639,24 @@ export function ProfessionalVettingDashboard() {
                       <div className="flex-1">
                         <div className="mb-6 flex items-center gap-4">
                           <div className="flex items-center gap-3">
-                            <div className="rounded-xl bg-gray-50 p-3">
+                            <div className="rounded-xl bg-slate-50 p-3">
                               <HugeiconsIcon
-                                className="h-6 w-6 text-[#737373]"
+                                className="h-6 w-6 text-slate-500"
                                 icon={FileEditIcon}
                               />
                             </div>
                             <div>
-                              <h4 className="font-semibold text-[#171717] text-lg">
+                              <h4 className="font-semibold text-lg text-slate-900">
                                 {professional.full_name || "Unnamed Professional"}
                               </h4>
-                              <p className="text-[#737373] text-sm">
+                              <p className="text-slate-500 text-sm">
                                 {professional.profile?.city && professional.profile?.country
                                   ? `${professional.profile.city}, ${professional.profile.country}`
                                   : "Location not specified"}
                               </p>
                             </div>
                           </div>
-                          <span className="rounded-full bg-gray-100 px-3 py-1 font-semibold text-[#737373] text-sm">
+                          <span className="rounded-full bg-slate-200/30 px-3 py-1 font-semibold text-slate-500 text-sm">
                             Incomplete
                           </span>
                         </div>
@@ -675,14 +665,14 @@ export function ProfessionalVettingDashboard() {
                           <div>
                             <div className="mb-1 flex items-center gap-2">
                               <HugeiconsIcon
-                                className="h-4 w-4 text-[#737373]"
+                                className="h-4 w-4 text-slate-500"
                                 icon={UserMultiple02Icon}
                               />
-                              <span className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                              <span className="font-semibold text-slate-500 text-xs uppercase tracking-wider">
                                 Services
                               </span>
                             </div>
-                            <p className="font-bold text-2xl text-[#171717]">
+                            <p className="font-bold text-2xl text-slate-900">
                               {professional.primary_services?.length || 0}
                             </p>
                           </div>
@@ -690,30 +680,30 @@ export function ProfessionalVettingDashboard() {
                           <div>
                             <div className="mb-1 flex items-center gap-2">
                               <HugeiconsIcon
-                                className="h-4 w-4 text-[#737373]"
+                                className="h-4 w-4 text-slate-500"
                                 icon={Award01Icon}
                               />
-                              <span className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                              <span className="font-semibold text-slate-500 text-xs uppercase tracking-wider">
                                 Experience
                               </span>
                             </div>
-                            <p className="font-bold text-2xl text-[#171717]">
+                            <p className="font-bold text-2xl text-slate-900">
                               {professional.experience_years || 0}
-                              <span className="ml-1 font-normal text-[#737373] text-sm">years</span>
+                              <span className="ml-1 font-normal text-slate-500 text-sm">years</span>
                             </p>
                           </div>
 
                           <div>
                             <div className="mb-1 flex items-center gap-2">
                               <HugeiconsIcon
-                                className="h-4 w-4 text-[#737373]"
+                                className="h-4 w-4 text-slate-500"
                                 icon={DocumentValidationIcon}
                               />
-                              <span className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                              <span className="font-semibold text-slate-500 text-xs uppercase tracking-wider">
                                 Documents
                               </span>
                             </div>
-                            <p className="font-bold text-2xl text-[#171717]">
+                            <p className="font-bold text-2xl text-slate-900">
                               {professional.documentsCount}
                             </p>
                           </div>
@@ -721,14 +711,14 @@ export function ProfessionalVettingDashboard() {
                           <div>
                             <div className="mb-1 flex items-center gap-2">
                               <HugeiconsIcon
-                                className="h-4 w-4 text-[#737373]"
+                                className="h-4 w-4 text-slate-500"
                                 icon={UserMultiple02Icon}
                               />
-                              <span className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                              <span className="font-semibold text-slate-500 text-xs uppercase tracking-wider">
                                 References
                               </span>
                             </div>
-                            <p className="font-bold text-2xl text-[#171717]">
+                            <p className="font-bold text-2xl text-slate-900">
                               {professional.references_data?.length || 0}
                             </p>
                           </div>
@@ -736,7 +726,7 @@ export function ProfessionalVettingDashboard() {
                       </div>
 
                       <button
-                        className="ml-6 rounded-lg bg-[#737373] px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-[#525252]"
+                        className="ml-6 rounded-lg bg-slate-500 px-6 py-3 font-semibold text-slate-50 text-sm transition-colors hover:bg-slate-500"
                         onClick={() => setSelectedProfessional(professional)}
                         type="button"
                       >

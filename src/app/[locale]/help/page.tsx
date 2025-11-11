@@ -15,21 +15,22 @@ import { HelpSearchBar } from "@/components/help/search-bar";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { Container } from "@/components/ui/container";
+import { serverClient } from "@/lib/sanity/client";
+import { HELP_ARTICLES_BY_CATEGORY_QUERY, HELP_CATEGORIES_QUERY } from "@/lib/sanity/queries";
 import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 
 type Category = {
-  id: string;
-  slug: string;
-  name_en: string;
-  name_es: string;
-  description_en: string | null;
-  description_es: string | null;
-  icon: string;
+  _id: string;
+  slug: { current: string };
+  name: string;
+  description?: string;
+  icon?: string;
+  displayOrder: number;
   article_count: number;
 };
 
 type PopularArticle = {
-  id: string;
+  _id: string;
   category_slug: string;
   slug: string;
   title: string;
@@ -57,31 +58,37 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-async function getCategories(_locale: string): Promise<Category[]> {
-  const supabase = createSupabaseAnonClient();
-
-  const { data: categories } = await supabase
-    .from("help_categories")
-    .select("*")
-    .eq("is_active", true)
-    .order("display_order");
+async function getCategories(locale: string): Promise<Category[]> {
+  // Fetch categories from Sanity
+  const categories = await serverClient.fetch<
+    Array<{
+      _id: string;
+      slug: { current: string };
+      name: string;
+      description?: string;
+      icon?: string;
+      displayOrder: number;
+    }>
+  >(HELP_CATEGORIES_QUERY, { language: locale });
 
   if (!categories) {
     return [];
   }
 
-  // Get article counts for each category
+  // Get article counts for each category from Sanity
   const categoriesWithCounts = await Promise.all(
     categories.map(async (category) => {
-      const { count } = await supabase
-        .from("help_articles")
-        .select("*", { count: "exact", head: true })
-        .eq("category_id", category.id)
-        .eq("is_published", true);
+      const articles = await serverClient.fetch<Array<{ _id: string }>>(
+        HELP_ARTICLES_BY_CATEGORY_QUERY,
+        {
+          categoryId: category._id,
+          language: locale,
+        }
+      );
 
       return {
         ...category,
-        article_count: count || 0,
+        article_count: articles?.length || 0,
       };
     })
   );
@@ -92,39 +99,57 @@ async function getCategories(_locale: string): Promise<Category[]> {
 async function getPopularArticles(locale: string): Promise<PopularArticle[]> {
   const supabase = createSupabaseAnonClient();
 
-  const { data: rawArticles } = await supabase
-    .from("help_articles")
-    .select(
-      "id, slug, title_en, title_es, excerpt_en, excerpt_es, view_count, category:help_categories!inner(slug)"
-    )
-    .eq("is_published", true)
-    .order("view_count", { ascending: false })
-    .limit(6);
+  // Fetch all published articles from Sanity for this language
+  const sanityArticles = await serverClient.fetch<
+    Array<{
+      _id: string;
+      slug: { current: string };
+      title: string;
+      excerpt?: string;
+      category: {
+        slug: { current: string };
+      };
+    }>
+  >(
+    `*[_type == "helpArticle" && language == $language && isPublished == true] {
+      _id,
+      slug,
+      title,
+      excerpt,
+      "category": category->{
+        slug
+      }
+    }`,
+    { language: locale }
+  );
 
-  if (!rawArticles) {
+  if (!sanityArticles || sanityArticles.length === 0) {
     return [];
   }
 
-  // Map to correct language
-  return rawArticles
-    .map((article) => {
-      // Supabase returns category as an array due to the join syntax
-      const category = Array.isArray(article.category) ? article.category[0] : article.category;
+  // Get view counts from Supabase (engagement data stays in Supabase)
+  const { data: viewCounts } = await supabase
+    .from("help_articles")
+    .select("id, slug, view_count")
+    .order("view_count", { ascending: false });
 
-      if (!category) {
-        return null;
-      }
+  // Create a map of slug -> view_count for quick lookup
+  const viewCountMap = new Map(viewCounts?.map((vc) => [vc.slug, vc.view_count]) || []);
 
-      return {
-        id: article.id,
-        slug: article.slug,
-        title: locale === "es" ? article.title_es : article.title_en,
-        excerpt: locale === "es" ? article.excerpt_es : article.excerpt_en,
-        view_count: article.view_count,
-        category_slug: category.slug,
-      };
-    })
-    .filter((article): article is NonNullable<typeof article> => article !== null);
+  // Merge Sanity articles with Supabase view counts
+  const articlesWithViews = sanityArticles
+    .map((article) => ({
+      _id: article._id,
+      slug: article.slug.current,
+      title: article.title,
+      excerpt: article.excerpt || null,
+      view_count: viewCountMap.get(article.slug.current) || 0,
+      category_slug: article.category.slug.current,
+    }))
+    .sort((a, b) => b.view_count - a.view_count)
+    .slice(0, 6);
+
+  return articlesWithViews;
 }
 
 export default async function HelpCenterPage({
@@ -145,13 +170,13 @@ export default async function HelpCenterPage({
   return (
     <>
       <SiteHeader />
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <div className="min-h-screen bg-gradient-to-b from-[#FFEEFF8E8] to-[#FFEEFF8E8]">
         {/* Hero Section */}
-        <section className="border-gray-200 border-b bg-white py-16">
+        <section className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8] py-16">
           <Container>
             <div className="mx-auto max-w-3xl text-center">
-              <h1 className="type-serif-lg mb-4 text-gray-900">{t("hero.title")}</h1>
-              <p className="mb-8 text-gray-600 text-lg md:text-xl">{t("hero.subtitle")}</p>
+              <h1 className="type-serif-lg mb-4 text-[#116611616]">{t("hero.title")}</h1>
+              <p className="mb-8 text-[#AA88AAAAC] text-lg md:text-xl">{t("hero.subtitle")}</p>
 
               {/* Search Bar */}
               <HelpSearchBar autoFocus className="mx-auto max-w-2xl" />
@@ -162,28 +187,25 @@ export default async function HelpCenterPage({
         <Container className="py-16">
           {/* Categories Grid */}
           <section className="mb-16">
-            <h2 className="mb-8 text-center font-bold text-2xl text-gray-900 md:text-3xl">
+            <h2 className="mb-8 text-center font-bold text-2xl text-[#116611616] md:text-3xl">
               {t("categories.title")}
             </h2>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {categories.map((category) => {
-                const Icon = iconMap[category.icon] || BookOpen01Icon;
-                const name = locale === "es" ? category.name_es : category.name_en;
-                const description =
-                  locale === "es" ? category.description_es : category.description_en;
+                const Icon = iconMap[category.icon || "book-open"] || BookOpen01Icon;
 
                 return (
                   <Link
-                    className="group rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:border-[#E85D48] hover:shadow-md"
-                    href={`/${locale}/help/${category.slug}`}
-                    key={category.id}
+                    className="group rounded-xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 shadow-sm transition hover:border-[#FF4444A22] hover:shadow-md"
+                    href={`/${locale}/help/${category.slug.current}`}
+                    key={category._id}
                   >
                     <div className="mb-4 flex items-center justify-between">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#E85D48]/10 text-[#E85D48] transition group-hover:bg-[#E85D48] group-hover:text-white">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#FF4444A22]/10 text-[#FF4444A22] transition group-hover:bg-[#FF4444A22] group-hover:text-[#FFEEFF8E8]">
                         <HugeiconsIcon className="h-6 w-6" icon={Icon} />
                       </div>
-                      <span className="rounded-full bg-gray-100 px-3 py-1 text-gray-600 text-sm group-hover:bg-[#E85D48]/10 group-hover:text-[#E85D48]">
+                      <span className="rounded-full bg-[#EE44EE2E3]/30 px-3 py-1 text-[#AA88AAAAC] text-sm group-hover:bg-[#FF4444A22]/10 group-hover:text-[#FF4444A22]">
                         {category.article_count}{" "}
                         {category.article_count === 1
                           ? t("categories.article")
@@ -191,13 +213,15 @@ export default async function HelpCenterPage({
                       </span>
                     </div>
 
-                    <h3 className="mb-2 font-semibold text-gray-900 text-lg group-hover:text-[#E85D48]">
-                      {name}
+                    <h3 className="mb-2 font-semibold text-[#116611616] text-lg group-hover:text-[#FF4444A22]">
+                      {category.name}
                     </h3>
 
-                    {description && <p className="text-gray-600 text-sm">{description}</p>}
+                    {category.description && (
+                      <p className="text-[#AA88AAAAC] text-sm">{category.description}</p>
+                    )}
 
-                    <div className="mt-4 flex items-center text-[#E85D48] text-sm">
+                    <div className="mt-4 flex items-center text-[#FF4444A22] text-sm">
                       <span>{t("categories.browse")}</span>
                       <HugeiconsIcon
                         className="ml-1 h-4 w-4 transition group-hover:translate-x-1"
@@ -213,32 +237,34 @@ export default async function HelpCenterPage({
           {/* Popular Articles */}
           {popularArticles.length > 0 && (
             <section>
-              <h2 className="mb-8 text-center font-bold text-2xl text-gray-900 md:text-3xl">
+              <h2 className="mb-8 text-center font-bold text-2xl text-[#116611616] md:text-3xl">
                 {t("popular.title")}
               </h2>
 
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {popularArticles.map((article) => (
                   <Link
-                    className="group rounded-lg border border-gray-200 bg-white p-5 transition hover:border-[#E85D48] hover:shadow-md"
+                    className="group rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-5 transition hover:border-[#FF4444A22] hover:shadow-md"
                     href={`/${locale}/help/${article.category_slug}/${article.slug}`}
-                    key={article.id}
+                    key={article._id}
                   >
-                    <h3 className="mb-2 font-semibold text-gray-900 group-hover:text-[#E85D48]">
+                    <h3 className="mb-2 font-semibold text-[#116611616] group-hover:text-[#FF4444A22]">
                       {article.title}
                     </h3>
 
                     {article.excerpt && (
-                      <p className="mb-3 line-clamp-2 text-gray-600 text-sm">{article.excerpt}</p>
+                      <p className="mb-3 line-clamp-2 text-[#AA88AAAAC] text-sm">
+                        {article.excerpt}
+                      </p>
                     )}
 
-                    <div className="flex items-center justify-between text-gray-500 text-xs">
+                    <div className="flex items-center justify-between text-[#AA88AAAAC] text-xs">
                       <span>
                         {article.view_count}{" "}
                         {article.view_count === 1 ? t("popular.view") : t("popular.views")}
                       </span>
                       <HugeiconsIcon
-                        className="h-4 w-4 text-[#E85D48] opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100"
+                        className="h-4 w-4 text-[#FF4444A22] opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100"
                         icon={ArrowRight01Icon}
                       />
                     </div>
@@ -249,11 +275,11 @@ export default async function HelpCenterPage({
           )}
 
           {/* Contact CTA */}
-          <section className="mt-16 rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-white p-8 text-center md:p-12">
-            <h2 className="mb-4 font-bold text-2xl text-gray-900">{t("contact.title")}</h2>
-            <p className="mb-6 text-gray-600 text-lg">{t("contact.description")}</p>
+          <section className="mt-16 rounded-xl border border-[#EE44EE2E3] bg-gradient-to-br from-[#FFEEFF8E8] to-[#FFEEFF8E8] p-8 text-center md:p-12">
+            <h2 className="mb-4 font-bold text-2xl text-[#116611616]">{t("contact.title")}</h2>
+            <p className="mb-6 text-[#AA88AAAAC] text-lg">{t("contact.description")}</p>
             <Link
-              className="inline-flex items-center gap-2 rounded-lg bg-[#E85D48] px-8 py-3 font-semibold text-white transition hover:bg-[#E85D48]"
+              className="inline-flex items-center gap-2 rounded-lg bg-[#FF4444A22] px-8 py-3 font-semibold text-[#FFEEFF8E8] transition hover:bg-[#FF4444A22]"
               href={`/${locale}/contact`}
             >
               {t("contact.button")}

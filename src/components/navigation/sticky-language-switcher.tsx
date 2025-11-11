@@ -1,7 +1,6 @@
 "use client";
 
-import { Globe02Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { Check, ChevronDown, Globe } from "lucide-react";
 import { useLocale } from "next-intl";
 import { useState } from "react";
 import { type Locale } from "@/i18n";
@@ -40,22 +39,15 @@ export function StickyLanguageSwitcher() {
       <div className="relative">
         <button
           aria-label="Select language"
-          className="flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-4 py-2 font-medium text-gray-900 text-sm shadow-md transition hover:border-[#E85D48] hover:shadow-lg"
+          className="flex items-center gap-2 rounded-full border-2 border-slate-200 bg-white px-4 py-2 font-medium text-slate-900 text-sm shadow-md transition hover:border-slate-300 hover:shadow-lg"
           onClick={() => setIsOpen(!isOpen)}
           type="button"
         >
-          <HugeiconsIcon className="h-4 w-4" icon={Globe02Icon} />
+          <Globe className="h-4 w-4" />
           <span className="hidden sm:inline">{currentLanguage.flag}</span>
           <span className="hidden sm:inline">{currentLanguage.name}</span>
           <span className="sm:hidden">{currentLanguage.code.toUpperCase()}</span>
-          <svg
-            className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M19 9l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
-          </svg>
+          <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
         </button>
 
         {/* Dropdown Menu */}
@@ -75,31 +67,19 @@ export function StickyLanguageSwitcher() {
             />
 
             {/* Options */}
-            <div className="absolute top-full right-0 z-50 mt-2 w-48 overflow-hidden rounded-2xl border-2 border-[#ebe5d8] bg-white shadow-xl">
+            <div className="absolute top-full right-0 z-50 mt-2 w-48 overflow-hidden rounded-2xl border-2 border-slate-200 bg-white shadow-xl">
               {languages.map((lang) => (
                 <button
-                  className={`flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-[#fbfafa] ${
-                    lang.code === locale ? "bg-[#fbfafa] font-semibold" : ""
+                  className={`flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-slate-50 ${
+                    lang.code === locale ? "bg-slate-50 font-semibold" : ""
                   }`}
                   key={lang.code}
                   onClick={() => switchLanguage(lang.code)}
                   type="button"
                 >
                   <span className="text-2xl">{lang.flag}</span>
-                  <span className="text-gray-900 text-sm">{lang.name}</span>
-                  {lang.code === locale && (
-                    <svg
-                      className="ml-auto h-5 w-5 text-[#E85D48]"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        fillRule="evenodd"
-                      />
-                    </svg>
-                  )}
+                  <span className="text-slate-900 text-sm">{lang.name}</span>
+                  {lang.code === locale && <Check className="ml-auto h-5 w-5 text-slate-700" />}
                 </button>
               ))}
             </div>

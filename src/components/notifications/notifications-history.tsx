@@ -105,14 +105,14 @@ export function NotificationsHistory() {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-12">
-        <div className="h-8 w-8 animate-spin rounded-full border-[#E85D48] border-b-2" />
+        <div className="h-8 w-8 animate-spin rounded-full border-[#64748b] border-b-2" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="rounded-xl border border-red-200 bg-[#E85D48]/10 p-6 text-[#E85D48] text-base">
+      <div className="rounded-xl border border-[#64748b]/30 bg-[#64748b]/10 p-6 text-[#64748b] text-base">
         {error}
       </div>
     );
@@ -125,7 +125,7 @@ export function NotificationsHistory() {
         <div className="flex items-center gap-4">
           <button
             className={`font-medium text-base transition ${
-              filter === "all" ? "text-gray-900" : "text-[#737373] hover:text-gray-900"
+              filter === "all" ? "text-[#0f172a]" : "text-[#94a3b8] hover:text-[#0f172a]"
             }`}
             onClick={() => setFilter("all")}
             type="button"
@@ -134,7 +134,7 @@ export function NotificationsHistory() {
           </button>
           <button
             className={`font-medium text-base transition ${
-              filter === "unread" ? "text-gray-900" : "text-[#737373] hover:text-gray-900"
+              filter === "unread" ? "text-[#0f172a]" : "text-[#94a3b8] hover:text-[#0f172a]"
             }`}
             onClick={() => setFilter("unread")}
             type="button"
@@ -144,7 +144,7 @@ export function NotificationsHistory() {
         </div>
         {unreadCount > 0 && (
           <button
-            className="font-medium text-[#E85D48] text-sm transition hover:text-[#e54d3c]"
+            className="font-medium text-[#64748b] text-sm transition hover:text-[#64748b]"
             onClick={markAllAsRead}
             type="button"
           >
@@ -155,13 +155,13 @@ export function NotificationsHistory() {
 
       {/* Notifications list */}
       {notifications.length === 0 ? (
-        <div className="rounded-xl border border-[#E5E5E5] bg-white p-16 text-center">
+        <div className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-16 text-center">
           <div className="mx-auto max-w-md">
             <div className="mb-4 flex justify-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#F5F5F5]">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#f8fafc]">
                 <svg
                   aria-hidden="true"
-                  className="h-8 w-8 text-[#737373]"
+                  className="h-8 w-8 text-[#94a3b8]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -175,10 +175,10 @@ export function NotificationsHistory() {
                 </svg>
               </div>
             </div>
-            <h3 className="font-semibold text-gray-900 text-xl">
+            <h3 className="font-semibold text-[#0f172a] text-xl">
               {filter === "unread" ? "All caught up!" : "No notifications yet"}
             </h3>
-            <p className="mt-2 text-base text-gray-600">
+            <p className="mt-2 text-[#94a3b8] text-base">
               {filter === "unread"
                 ? "You've read all your notifications"
                 : "You'll see notifications here when there's activity on your account"}
@@ -189,10 +189,10 @@ export function NotificationsHistory() {
         <div className="space-y-2">
           {notifications.map((notification) => (
             <div
-              className={`rounded-xl border p-6 transition hover:border-[#E85D48]/30 ${
+              className={`rounded-xl border p-6 transition hover:border-[#64748b]/30 ${
                 notification.read_at
-                  ? "border-[#E5E5E5] bg-white"
-                  : "border-[#E85D48]/20 bg-[#E85D48]/5"
+                  ? "border-[#e2e8f0] bg-[#f8fafc]"
+                  : "border-[#64748b]/20 bg-[#64748b]/5"
               }`}
               key={notification.id}
             >
@@ -204,11 +204,11 @@ export function NotificationsHistory() {
                       href={notification.url}
                       onClick={() => markAsRead([notification.id])}
                     >
-                      <h3 className="font-semibold text-base text-gray-900">
+                      <h3 className="font-semibold text-[#0f172a] text-base">
                         {notification.title}
                       </h3>
-                      <p className="mt-1 text-gray-600 text-sm">{notification.body}</p>
-                      <p className="mt-2 text-[#737373] text-xs">
+                      <p className="mt-1 text-[#94a3b8] text-sm">{notification.body}</p>
+                      <p className="mt-2 text-[#94a3b8] text-xs">
                         {formatDistanceToNow(new Date(notification.created_at), {
                           addSuffix: true,
                         })}
@@ -216,11 +216,11 @@ export function NotificationsHistory() {
                     </Link>
                   ) : (
                     <>
-                      <h3 className="font-semibold text-base text-gray-900">
+                      <h3 className="font-semibold text-[#0f172a] text-base">
                         {notification.title}
                       </h3>
-                      <p className="mt-1 text-gray-600 text-sm">{notification.body}</p>
-                      <p className="mt-2 text-[#737373] text-xs">
+                      <p className="mt-1 text-[#94a3b8] text-sm">{notification.body}</p>
+                      <p className="mt-2 text-[#94a3b8] text-xs">
                         {formatDistanceToNow(new Date(notification.created_at), {
                           addSuffix: true,
                         })}
@@ -231,7 +231,7 @@ export function NotificationsHistory() {
 
                 {!notification.read_at && (
                   <button
-                    className="flex-shrink-0 font-medium text-[#E85D48] text-xs transition hover:text-[#e54d3c]"
+                    className="flex-shrink-0 font-medium text-[#64748b] text-xs transition hover:text-[#64748b]"
                     onClick={() => markAsRead([notification.id])}
                     type="button"
                   >

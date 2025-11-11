@@ -31,21 +31,21 @@ export const featureHighlights = [
     description:
       "Identity verification, background checks, references, and ongoing quality reviews for every professional.",
     icon: SecurityCheckIcon,
-    tone: "bg-[#f1e7d4]",
+    tone: "bg-[#FFEEFF8E8]",
   },
   {
     title: "Concierge-style matching",
     description:
       "Share your preferences and routines. Our bilingual concierges shortlist the right fit and manage introductions.",
     icon: MagicWand01Icon,
-    tone: "bg-[#e2ecdf]",
+    tone: "bg-[#EE44EE2E3]",
   },
   {
     title: "Expats-first support",
     description:
       "We bridge cultural expectations, contracts, and payments so you feel at home from day one.",
     icon: Globe02Icon,
-    tone: "bg-[#dde6f3]",
+    tone: "bg-[#FFEEFF8E8]",
   },
 ];
 

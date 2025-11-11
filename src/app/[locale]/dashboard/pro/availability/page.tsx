@@ -35,53 +35,58 @@ export default async function ProAvailabilityPage({
     console.error("Error fetching availability settings:", error);
   }
 
-  // Parse availability settings
-  const availabilitySettings = profileData?.availability_settings as any;
-  const weeklyHours = availabilitySettings?.weeklyHours as DaySchedule[] | undefined;
+  // Parse availability settings (JSONB column)
+  const availabilitySettings = profileData?.availability_settings as unknown;
+  const weeklyHours =
+    availabilitySettings &&
+    typeof availabilitySettings === "object" &&
+    "weeklyHours" in availabilitySettings
+      ? (availabilitySettings.weeklyHours as DaySchedule[] | undefined)
+      : undefined;
   const blockedDates = (profileData?.blocked_dates as string[]) || [];
 
   return (
     <section className="space-y-6">
       {/* Header */}
-      <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h1 className="font-semibold text-3xl text-gray-900">{t("title")}</h1>
-        <p className="mt-2 text-base text-gray-600 leading-relaxed">{t("description")}</p>
+      <div className="rounded-[28px] bg-[#FFEEFF8E8] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+        <h1 className="font-semibold text-3xl text-[#116611616]">{t("title")}</h1>
+        <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">{t("description")}</p>
       </div>
 
       {/* Availability Editor */}
-      <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
+      <div className="rounded-[28px] bg-[#FFEEFF8E8] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
         <AvailabilityEditor initialBlockedDates={blockedDates} initialWeeklyHours={weeklyHours} />
       </div>
 
       {/* Help Section */}
-      <div className="rounded-[28px] border border-[#ebe5d8] bg-white p-8 shadow-sm">
-        <h3 className="font-semibold text-gray-900 text-lg">{t("tips.title")}</h3>
-        <ul className="mt-4 space-y-3 text-base text-gray-600">
+      <div className="rounded-[28px] border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-8 shadow-sm">
+        <h3 className="font-semibold text-[#116611616] text-lg">{t("tips.title")}</h3>
+        <ul className="mt-4 space-y-3 text-[#AA88AAAAC] text-base">
           <li className="flex gap-3">
-            <span className="flex-shrink-0 text-[#E85D48]">•</span>
+            <span className="flex-shrink-0 text-[#FF4444A22]">•</span>
             <span>
-              <strong className="text-gray-900">{t("tips.workingHours.label")}</strong>{" "}
+              <strong className="text-[#116611616]">{t("tips.workingHours.label")}</strong>{" "}
               {t("tips.workingHours.text")}
             </span>
           </li>
           <li className="flex gap-3">
-            <span className="flex-shrink-0 text-[#E85D48]">•</span>
+            <span className="flex-shrink-0 text-[#FF4444A22]">•</span>
             <span>
-              <strong className="text-gray-900">{t("tips.blockedDates.label")}</strong>{" "}
+              <strong className="text-[#116611616]">{t("tips.blockedDates.label")}</strong>{" "}
               {t("tips.blockedDates.text")}
             </span>
           </li>
           <li className="flex gap-3">
-            <span className="flex-shrink-0 text-[#E85D48]">•</span>
+            <span className="flex-shrink-0 text-[#FF4444A22]">•</span>
             <span>
-              <strong className="text-gray-900">{t("tips.bufferTime.label")}</strong>{" "}
+              <strong className="text-[#116611616]">{t("tips.bufferTime.label")}</strong>{" "}
               {t("tips.bufferTime.text")}
             </span>
           </li>
           <li className="flex gap-3">
-            <span className="flex-shrink-0 text-[#E85D48]">•</span>
+            <span className="flex-shrink-0 text-[#FF4444A22]">•</span>
             <span>
-              <strong className="text-gray-900">{t("tips.flexibility.label")}</strong>{" "}
+              <strong className="text-[#116611616]">{t("tips.flexibility.label")}</strong>{" "}
               {t("tips.flexibility.text")}
             </span>
           </li>

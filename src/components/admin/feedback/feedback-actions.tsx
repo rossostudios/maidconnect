@@ -71,23 +71,28 @@ export function FeedbackActions({
   return (
     <div className="space-y-6">
       {error && (
-        <div className="rounded-2xl border border-red-200 bg-[#E85D48]/10 p-4 text-red-700 text-sm">
+        <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-red-700 text-sm dark:border-red-800 dark:bg-red-950 dark:text-red-200">
           {error}
         </div>
       )}
 
       {/* Status & Priority */}
-      <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-        <h3 className="mb-4 font-bold text-gray-900 text-lg">Update Status & Priority</h3>
+      <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
+        <h3 className="mb-4 font-bold text-lg text-slate-900 dark:text-slate-100">
+          Update Status & Priority
+        </h3>
 
         <div className="grid gap-4 md:grid-cols-2">
           {/* Status */}
           <div>
-            <label className="mb-2 block font-medium text-gray-900 text-sm" htmlFor="status">
+            <label
+              className="mb-2 block font-medium text-red-700 text-sm dark:text-red-200"
+              htmlFor="status"
+            >
               Status
             </label>
             <select
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-gray-900 focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+              className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
               id="status"
               onChange={(e) => setStatus(e.target.value)}
               value={status}
@@ -102,11 +107,14 @@ export function FeedbackActions({
 
           {/* Priority */}
           <div>
-            <label className="mb-2 block font-medium text-gray-900 text-sm" htmlFor="priority">
+            <label
+              className="mb-2 block font-medium text-red-700 text-sm dark:text-red-200"
+              htmlFor="priority"
+            >
               Priority
             </label>
             <select
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-gray-900 focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+              className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
               id="priority"
               onChange={(e) => setPriority(e.target.value)}
               value={priority}
@@ -122,11 +130,13 @@ export function FeedbackActions({
       </div>
 
       {/* Admin Notes */}
-      <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-        <h3 className="mb-4 font-bold text-gray-900 text-lg">Add Admin Notes</h3>
+      <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
+        <h3 className="mb-4 font-bold text-lg text-slate-900 dark:text-slate-100">
+          Add Admin Notes
+        </h3>
 
         <textarea
-          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-gray-900 focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+          className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
           id="admin_notes"
           onChange={(e) => setAdminNotes(e.target.value)}
           placeholder="Add internal notes about this feedback (optional)..."
@@ -138,7 +148,7 @@ export function FeedbackActions({
       {/* Save Button */}
       <div className="flex justify-end">
         <button
-          className="flex items-center gap-2 rounded-full bg-[#E85D48] px-6 py-3 font-semibold text-white transition hover:bg-[#E85D48] disabled:opacity-50"
+          className="flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 font-semibold text-white transition hover:bg-slate-900 disabled:opacity-50 dark:bg-slate-100 dark:bg-slate-100 dark:text-slate-950"
           disabled={saving}
           onClick={handleSave}
           type="button"

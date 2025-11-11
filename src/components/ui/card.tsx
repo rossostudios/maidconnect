@@ -1,18 +1,38 @@
 /**
  * Card Component
  *
- * Flexible, animated card component with hover effects.
+ * Flexible, animated card component with hover effects and neutral colors.
  * Supports motion animations and maintains accessibility.
  */
 
 "use client";
 
+import { cva, type VariantProps } from "class-variance-authority";
 import { motion } from "motion/react";
 import type { ComponentPropsWithoutRef, Ref } from "react";
+import * as React from "react";
 import { cardHover } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
-export type CardVariant = "default" | "elevated" | "outlined" | "glass";
+const cardVariants = cva(
+  "overflow-hidden rounded-lg transition-colors focus-visible:outline-2 focus-visible:outline-slate-900 focus-visible:outline-offset-2",
+  {
+    variants: {
+      variant: {
+        default: "bg-white shadow-sm ring-1 ring-black/5 dark:bg-neutral-900 dark:ring-white/10",
+        elevated: "bg-white shadow-md ring-1 ring-black/5 dark:bg-neutral-900 dark:ring-white/10",
+        outlined: "bg-white shadow-none ring-1 ring-black/8 dark:bg-neutral-900 dark:ring-white/12",
+        glass:
+          "bg-white/70 shadow-sm ring-1 ring-black/5 backdrop-blur-lg dark:bg-neutral-900/70 dark:ring-white/10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+
+export type CardVariant = VariantProps<typeof cardVariants>["variant"];
 
 type BaseCardProps = {
   /**
@@ -45,13 +65,6 @@ interface CardProps
   extends BaseCardProps,
     Omit<ComponentPropsWithoutRef<"div">, keyof BaseCardProps> {}
 
-const variantStyles: Record<CardVariant, string> = {
-  default: "bg-white border border-stone-200 shadow-md",
-  elevated: "bg-white border border-gray-200 shadow-lg",
-  outlined: "bg-stone-50 border-2 border-stone-200 shadow-none",
-  glass: "bg-white/70 border border-gray-200/50 shadow-sm backdrop-blur-lg",
-};
-
 /**
  * Card - Flexible container with optional animations
  *
@@ -66,13 +79,6 @@ const variantStyles: Record<CardVariant, string> = {
  *   </CardContent>
  * </Card>
  * ```
- *
- * @example
- * ```tsx
- * <Card href="/details" hoverable>
- *   Clickable card
- * </Card>
- * ```
  */
 export const Card = ({
   variant = "default",
@@ -84,13 +90,9 @@ export const Card = ({
   children,
   ref,
   ...props
-}: CardProps & { ref?: Ref<HTMLDivElement> }) => {
-  const baseStyles =
-    "rounded-xl overflow-hidden transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600";
-
+}: CardProps & { ref?: React.RefObject<HTMLDivElement | null> }) => {
   const classes = cn(
-    baseStyles,
-    variantStyles[variant],
+    cardVariants({ variant }),
     (hoverable || href || asButton) && "cursor-pointer",
     className
   );
@@ -159,7 +161,7 @@ export const CardHeader = ({
   className,
   ref,
   ...props
-}: ComponentPropsWithoutRef<"div"> & { ref?: Ref<HTMLDivElement> }) => (
+}: ComponentPropsWithoutRef<"div"> & { ref?: React.RefObject<HTMLDivElement | null> }) => (
   <div className={cn("p-6 pb-4", className)} ref={ref} {...props} />
 );
 
@@ -172,7 +174,7 @@ export const CardContent = ({
   className,
   ref,
   ...props
-}: ComponentPropsWithoutRef<"div"> & { ref?: Ref<HTMLDivElement> }) => (
+}: ComponentPropsWithoutRef<"div"> & { ref?: React.RefObject<HTMLDivElement | null> }) => (
   <div className={cn("p-6 pt-0", className)} ref={ref} {...props} />
 );
 
@@ -185,8 +187,12 @@ export const CardFooter = ({
   className,
   ref,
   ...props
-}: ComponentPropsWithoutRef<"div"> & { ref?: Ref<HTMLDivElement> }) => (
-  <div className={cn("border-gray-200 border-t p-6 pt-4", className)} ref={ref} {...props} />
+}: ComponentPropsWithoutRef<"div"> & { ref?: React.RefObject<HTMLDivElement | null> }) => (
+  <div
+    className={cn("border-black/5 border-t p-6 pt-4 dark:border-white/10", className)}
+    ref={ref}
+    {...props}
+  />
 );
 
 CardFooter.displayName = "CardFooter";
@@ -200,7 +206,7 @@ export const CardImage = ({
   ref,
   ...props
 }: ComponentPropsWithoutRef<"div"> & { aspectRatio?: string } & {
-  ref?: Ref<HTMLDivElement>;
+  ref?: React.RefObject<HTMLDivElement | null>;
 }) => (
   <div
     className={cn("relative overflow-hidden", className)}
@@ -211,3 +217,5 @@ export const CardImage = ({
 );
 
 CardImage.displayName = "CardImage";
+
+export { cardVariants };

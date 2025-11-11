@@ -4,6 +4,7 @@ import {
   CalendarSetting01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -15,13 +16,11 @@ type DatePickerProps = {
   required?: boolean;
 };
 
-const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
-
-function formatButtonLabel(date: Date | null, placeholder?: string) {
+function formatButtonLabel(date: Date | null, placeholder: string, locale: string) {
   if (!date) {
-    return placeholder ?? "Select date";
+    return placeholder;
   }
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat(locale, {
     month: "long",
     day: "numeric",
     year: "numeric",
@@ -29,9 +28,46 @@ function formatButtonLabel(date: Date | null, placeholder?: string) {
 }
 
 export function DatePicker({ value, onChange, placeholder, name, required }: DatePickerProps) {
+  const t = useTranslations("datePicker");
+  const locale = useLocale();
   const [open, setOpen] = useState(false);
-  const [viewDate, setViewDate] = useState<Date>(value ?? new Date());
+  const [viewDate, setViewDate] = useState<Date>(() => {
+    // Ensure we always have a valid Date object
+    if (value instanceof Date) {
+      return value;
+    }
+    if (value && typeof value === "string") {
+      const parsed = new Date(value);
+      return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+    }
+    return new Date();
+  });
   const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const weekdays = useMemo(
+    () => [
+      t("weekdays.sunday"),
+      t("weekdays.monday"),
+      t("weekdays.tuesday"),
+      t("weekdays.wednesday"),
+      t("weekdays.thursday"),
+      t("weekdays.friday"),
+      t("weekdays.saturday"),
+    ],
+    [t]
+  );
+
+  // Update viewDate when value prop changes
+  useEffect(() => {
+    if (value instanceof Date) {
+      setViewDate(value);
+    } else if (value && typeof value === "string") {
+      const parsed = new Date(value);
+      if (!Number.isNaN(parsed.getTime())) {
+        setViewDate(parsed);
+      }
+    }
+  }, [value]);
 
   useEffect(() => {
     const handler = (event: MouseEvent) => {
@@ -110,8 +146,8 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
       ) : null}
       <button
         className={cn(
-          "flex w-full items-center justify-between rounded-full border border-[#e5dfd4] bg-[#fefcf9] px-4 py-2 font-medium text-gray-900 text-sm shadow-black/5 shadow-inner transition hover:border-[#E85D48] focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-600 focus-visible:outline-offset-2",
-          !value && "text-[#8a826d]"
+          "flex w-full items-center justify-between rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 font-medium text-[#0f172a] text-sm shadow-[#0f172a]/5 shadow-inner transition hover:border-[#64748b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#64748b] focus-visible:outline-offset-2",
+          !value && "text-[#94a3b8]"
         )}
         onClick={() => setOpen((prev) => !prev)}
         type="button"
@@ -119,49 +155,47 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
         <span className="flex items-center gap-2">
           <HugeiconsIcon
             aria-hidden="true"
-            className="h-4 w-4 text-[#E85D48]"
+            className="h-4 w-4 text-[#64748b]"
             icon={CalendarSetting01Icon}
           />
-          {formatButtonLabel(value, placeholder)}
+          {formatButtonLabel(value, placeholder || t("selectDate"), locale)}
         </span>
         <HugeiconsIcon
-          className={cn("h-4 w-4 text-gray-600 transition-transform", open && "rotate-90")}
+          className={cn("h-4 w-4 text-[#94a3b8] transition-transform", open && "rotate-90")}
           icon={ArrowRight01Icon}
         />
       </button>
 
       {open ? (
-        <div className="absolute z-50 mt-3 w-full min-w-[280px] rounded-3xl border border-[#ebe5d8] bg-white p-4 shadow-[0_24px_60px_rgba(18,17,15,0.12)]">
+        <div className="absolute z-50 mt-3 w-full min-w-[280px] rounded-3xl border border-[#e2e8f0] bg-[#f8fafc] p-4 shadow-[0_24px_60px_rgba(22,22,22,0.12)]">
           <div className="flex items-center justify-between">
             <button
-              className="rounded-full border border-[#ebe5d8] p-1 text-gray-600 transition hover:border-[#E85D48] hover:text-[#E85D48]"
+              className="rounded-full border border-[#e2e8f0] p-1 text-[#94a3b8] transition hover:border-[#64748b] hover:text-[#64748b]"
               onClick={() =>
                 setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))
               }
               type="button"
             >
               <HugeiconsIcon aria-hidden="true" className="h-4 w-4" icon={ArrowLeft01Icon} />
-              <span className="sr-only">Previous month</span>
+              <span className="sr-only">{t("previousMonth")}</span>
             </button>
-            <div className="font-semibold text-gray-900 text-sm">
-              {new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(
-                viewDate
-              )}
+            <div className="font-semibold text-[#0f172a] text-sm">
+              {new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" }).format(viewDate)}
             </div>
             <button
-              className="rounded-full border border-[#ebe5d8] p-1 text-gray-600 transition hover:border-[#E85D48] hover:text-[#E85D48]"
+              className="rounded-full border border-[#e2e8f0] p-1 text-[#94a3b8] transition hover:border-[#64748b] hover:text-[#64748b]"
               onClick={() =>
                 setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))
               }
               type="button"
             >
               <HugeiconsIcon aria-hidden="true" className="h-4 w-4" icon={ArrowRight01Icon} />
-              <span className="sr-only">Next month</span>
+              <span className="sr-only">{t("nextMonth")}</span>
             </button>
           </div>
 
-          <div className="mt-4 grid grid-cols-7 gap-1 text-center font-semibold text-gray-600 text-xs uppercase tracking-[0.18em]">
-            {WEEKDAYS.map((day) => (
+          <div className="mt-4 grid grid-cols-7 gap-1 text-center font-semibold text-[#94a3b8] text-xs uppercase tracking-[0.18em]">
+            {weekdays.map((day) => (
               <span key={day}>{day}</span>
             ))}
           </div>
@@ -186,10 +220,11 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
                 <button
                   className={cn(
                     "rounded-full py-2 text-sm transition",
-                    inCurrentMonth ? "text-gray-900" : "text-[#c9c2b6]",
-                    isSelected && "bg-gray-900 text-white shadow-[0_10px_20px_rgba(18,17,15,0.16)]",
-                    !isSelected && isToday && "border border-[#E85D48] text-[#E85D48]",
-                    !(isSelected || isToday) && "hover:bg-[#f6f1ea]"
+                    inCurrentMonth ? "text-[#0f172a]" : "text-[#e2e8f0]",
+                    isSelected &&
+                      "bg-[#0f172a] text-[#f8fafc] shadow-[0_10px_20px_rgba(22,22,22,0.16)]",
+                    !isSelected && isToday && "border border-[#64748b] text-[#64748b]",
+                    !(isSelected || isToday) && "hover:bg-[#f8fafc]"
                   )}
                   key={date.toISOString()}
                   onClick={() => handleSelect(date)}
@@ -201,20 +236,20 @@ export function DatePicker({ value, onChange, placeholder, name, required }: Dat
             })}
           </div>
 
-          <div className="mt-4 flex items-center justify-between text-[#8a826d] text-xs">
+          <div className="mt-4 flex items-center justify-between text-[#94a3b8] text-xs">
             <button
-              className="rounded-full border border-transparent px-3 py-1 font-semibold text-[#E85D48] transition hover:border-[#E85D48]/40"
+              className="rounded-full border border-transparent px-3 py-1 font-semibold text-[#64748b] transition hover:border-[#64748b]/40"
               onClick={() => onChange(null)}
               type="button"
             >
-              Clear
+              {t("clear")}
             </button>
             <button
-              className="rounded-full border border-gray-900 px-3 py-1 font-semibold text-gray-900 transition hover:border-[#E85D48] hover:text-[#E85D48]"
+              className="rounded-full border border-[#0f172a] px-3 py-1 font-semibold text-[#0f172a] transition hover:border-[#64748b] hover:text-[#64748b]"
               onClick={handleToday}
               type="button"
             >
-              Today
+              {t("today")}
             </button>
           </div>
         </div>

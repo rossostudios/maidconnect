@@ -60,18 +60,18 @@ export function AmaraOnboardingTooltip({ onDismiss }: AmaraOnboardingTooltipProp
       }`}
     >
       {/* Tooltip Card */}
-      <div className="rounded-2xl border border-[#E85D48]/20 bg-white p-4 shadow-xl">
+      <div className="rounded-2xl border border-[#64748b]/20 bg-[#f8fafc] p-4 shadow-xl">
         {/* Header */}
         <div className="mb-3 flex items-start gap-3">
-          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]/10">
-            <AmaraIcon className="text-[#E85D48]" size={24} />
+          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#64748b]/10">
+            <AmaraIcon className="text-[#64748b]" size={24} />
           </div>
           <div className="flex-1">
-            <h3 className="font-semibold text-gray-900 text-sm">{t("title")}</h3>
+            <h3 className="font-semibold text-[#0f172a] text-sm">{t("title")}</h3>
           </div>
           <button
             aria-label="Dismiss"
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-[#94a3b8]/70 transition hover:bg-[#e2e8f0]/30 hover:text-[#94a3b8]"
             onClick={handleDismiss}
             type="button"
           >
@@ -80,11 +80,11 @@ export function AmaraOnboardingTooltip({ onDismiss }: AmaraOnboardingTooltipProp
         </div>
 
         {/* Description */}
-        <p className="mb-4 text-gray-600 text-sm leading-relaxed">{t("description")}</p>
+        <p className="mb-4 text-[#94a3b8] text-sm leading-relaxed">{t("description")}</p>
 
         {/* Action Button */}
         <button
-          className="w-full rounded-lg bg-[#E85D48] px-4 py-2.5 font-semibold text-sm text-white transition hover:bg-[#E85D48] active:scale-95"
+          className="w-full rounded-lg bg-[#64748b] px-4 py-2.5 font-semibold text-[#f8fafc] text-sm transition hover:bg-[#64748b] active:scale-95"
           onClick={handleDismiss}
           type="button"
         >
@@ -93,7 +93,7 @@ export function AmaraOnboardingTooltip({ onDismiss }: AmaraOnboardingTooltipProp
       </div>
 
       {/* Pointer Arrow */}
-      <div className="-bottom-2 absolute right-8 h-4 w-4 rotate-45 border-[#E85D48]/20 border-r border-b bg-white" />
+      <div className="-bottom-2 absolute right-8 h-4 w-4 rotate-45 border-[#64748b]/20 border-r border-b bg-[#f8fafc]" />
     </div>
   );
 }

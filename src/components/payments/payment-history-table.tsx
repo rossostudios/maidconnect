@@ -12,6 +12,8 @@ import {
 } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { useMemo, useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 type Booking = {
   id: string;
@@ -44,22 +46,20 @@ function formatCurrency(amount: number | null) {
 }
 
 function getStatusBadge(status: string) {
-  const styles: Record<string, { bg: string; text: string; label: string }> = {
-    completed: { bg: "bg-green-50", text: "text-green-700", label: "Paid" },
-    confirmed: { bg: "bg-blue-50", text: "text-blue-700", label: "Authorized" },
-    pending: { bg: "bg-orange-50", text: "text-orange-700", label: "Pending" },
-    cancelled: { bg: "bg-gray-50", text: "text-gray-700", label: "Cancelled" },
-    declined: { bg: "bg-[#E85D48]/10", text: "text-red-700", label: "Declined" },
+  const statusConfig: Record<string, { variant: any; label: string }> = {
+    completed: { variant: "success", label: "Paid" },
+    confirmed: { variant: "info", label: "Authorized" },
+    pending: { variant: "warning", label: "Pending" },
+    cancelled: { variant: "secondary", label: "Cancelled" },
+    declined: { variant: "danger", label: "Declined" },
   };
 
-  const style = styles[status] || { bg: "bg-gray-50", text: "text-gray-700", label: status };
+  const config = statusConfig[status] || { variant: "default", label: status };
 
   return (
-    <span
-      className={`inline-flex items-center rounded-full px-2.5 py-1 font-semibold text-xs ${style.bg} ${style.text}`}
-    >
-      {style.label}
-    </span>
+    <Badge size="sm" variant={config.variant}>
+      {config.label}
+    </Badge>
   );
 }
 
@@ -72,10 +72,10 @@ export function PaymentHistoryTable({ bookings }: Props) {
         header: "Date",
         cell: (info) => (
           <div>
-            <p className="font-medium text-gray-900">
+            <p className="font-medium text-slate-900">
               {format(new Date(info.getValue()), "MMM dd, yyyy")}
             </p>
-            <p className="text-[#7d7566] text-sm">{format(new Date(info.getValue()), "h:mm a")}</p>
+            <p className="text-slate-600 text-sm">{format(new Date(info.getValue()), "h:mm a")}</p>
           </div>
         ),
       }),
@@ -83,8 +83,8 @@ export function PaymentHistoryTable({ bookings }: Props) {
         header: "Service",
         cell: (info) => (
           <div>
-            <p className="font-medium text-gray-900">{info.getValue() || "—"}</p>
-            <p className="text-[#7d7566] text-sm">
+            <p className="font-medium text-slate-900">{info.getValue() || "—"}</p>
+            <p className="text-slate-600 text-sm">
               {info.row.original.professional?.full_name || "Unknown professional"}
             </p>
           </div>
@@ -94,12 +94,12 @@ export function PaymentHistoryTable({ bookings }: Props) {
         header: "Amount",
         cell: (info) => (
           <div>
-            <p className="font-medium text-gray-900">
+            <p className="font-medium text-slate-900">
               {formatCurrency(info.row.original.amount_captured || info.getValue())}
             </p>
             {info.row.original.amount_captured &&
               info.getValue() !== info.row.original.amount_captured && (
-                <p className="text-[#7d7566] text-sm">Auth: {formatCurrency(info.getValue())}</p>
+                <p className="text-slate-600 text-sm">Auth: {formatCurrency(info.getValue())}</p>
               )}
           </div>
         ),
@@ -113,9 +113,9 @@ export function PaymentHistoryTable({ bookings }: Props) {
         cell: (info) => {
           const id = info.getValue();
           if (!id) {
-            return <span className="text-[#7d7566]">—</span>;
+            return <span className="text-slate-500">—</span>;
           }
-          return <span className="font-mono text-[#7d7566] text-xs">{id.substring(0, 20)}...</span>;
+          return <span className="font-mono text-slate-500 text-xs">{id.substring(0, 20)}...</span>;
         },
       }),
     ],
@@ -145,9 +145,9 @@ export function PaymentHistoryTable({ bookings }: Props) {
       <div className="py-12 text-center">
         <div className="mx-auto max-w-md">
           <div className="mb-4 flex justify-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ebe5d8]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100">
               <svg
-                className="h-6 w-6 text-[#7d7566]"
+                className="h-6 w-6 text-slate-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -162,8 +162,8 @@ export function PaymentHistoryTable({ bookings }: Props) {
               </svg>
             </div>
           </div>
-          <h3 className="font-semibold text-base text-gray-900">No payment history</h3>
-          <p className="mt-1 text-gray-600 text-sm">
+          <h3 className="font-semibold text-base text-slate-900">No payment history</h3>
+          <p className="mt-1 text-slate-600 text-sm">
             Your payment history will appear here after you make your first booking.
           </p>
         </div>
@@ -174,25 +174,25 @@ export function PaymentHistoryTable({ bookings }: Props) {
   return (
     <div className="space-y-4">
       {/* Table - Horizontally scrollable on mobile */}
-      <div className="overflow-hidden rounded-lg border border-[#ebe5d8]">
+      <div className="overflow-hidden rounded-lg border border-slate-200">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px]">
-            <thead className="bg-[#fbf9f7]">
+            <thead className="bg-slate-50">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <th
-                      className="px-6 py-4 text-left font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]"
+                      className="px-6 py-4 text-left font-semibold text-slate-600 text-xs uppercase tracking-wider"
                       key={header.id}
                     >
                       {header.isPlaceholder ? null : header.column.getCanSort() ? (
                         <button
-                          className="flex w-full cursor-pointer select-none items-center gap-2 text-left hover:text-[#E85D48]"
+                          className="flex w-full cursor-pointer select-none items-center gap-2 text-left hover:text-slate-900"
                           onClick={header.column.getToggleSortingHandler()}
                           type="button"
                         >
                           {flexRender(header.column.columnDef.header, header.getContext())}
-                          <span className="text-[#d4c9b8]">
+                          <span className="text-slate-400">
                             {{
                               asc: "↑",
                               desc: "↓",
@@ -207,9 +207,9 @@ export function PaymentHistoryTable({ bookings }: Props) {
                 </tr>
               ))}
             </thead>
-            <tbody className="divide-y divide-[#ebe5d8] bg-white">
+            <tbody className="divide-y divide-slate-200 bg-white">
               {table.getRowModel().rows.map((row) => (
-                <tr className="transition hover:bg-[#fbf9f7]" key={row.id}>
+                <tr className="transition hover:bg-slate-50" key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <td className="px-6 py-4" key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -225,12 +225,16 @@ export function PaymentHistoryTable({ bookings }: Props) {
       {/* Pagination - Touch-friendly on mobile */}
       {table.getPageCount() > 1 && (
         <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
-          <div className="text-[#7d7566] text-sm">
+          <div className="text-slate-600 text-sm">
             Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
           </div>
           <div className="flex items-center gap-2">
             <button
-              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-gray-900 text-sm transition hover:border-[#E85D48] hover:text-[#E85D48] disabled:opacity-50"
+              className={cn(
+                "rounded-lg border px-4 py-2.5 font-semibold text-sm transition",
+                "border-slate-300 text-slate-700 hover:border-slate-400 hover:text-slate-900",
+                "disabled:cursor-not-allowed disabled:opacity-50"
+              )}
               disabled={!table.getCanPreviousPage()}
               onClick={() => table.previousPage()}
               type="button"
@@ -238,7 +242,11 @@ export function PaymentHistoryTable({ bookings }: Props) {
               Previous
             </button>
             <button
-              className="rounded-lg border border-[#ebe5d8] px-4 py-2.5 font-semibold text-gray-900 text-sm transition hover:border-[#E85D48] hover:text-[#E85D48] disabled:opacity-50"
+              className={cn(
+                "rounded-lg border px-4 py-2.5 font-semibold text-sm transition",
+                "border-slate-300 text-slate-700 hover:border-slate-400 hover:text-slate-900",
+                "disabled:cursor-not-allowed disabled:opacity-50"
+              )}
               disabled={!table.getCanNextPage()}
               onClick={() => table.nextPage()}
               type="button"

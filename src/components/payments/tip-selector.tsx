@@ -3,7 +3,9 @@
 import { FavouriteIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { type Currency, formatCurrency } from "@/lib/format";
+import { cn } from "@/lib/utils";
 
 /**
  * Tip Selector Component
@@ -78,94 +80,102 @@ export function TipSelector({
   };
 
   return (
-    <div className="space-y-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#fff5f3]">
-          <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={FavouriteIcon} />
+    <Card className="border-slate-200 bg-white">
+      <CardContent className="space-y-4 p-6">
+        {/* Header */}
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100">
+            <HugeiconsIcon className="h-5 w-5 text-slate-700" icon={FavouriteIcon} />
+          </div>
+          <div>
+            <h3 className="font-semibold text-base text-slate-900">Add a Tip</h3>
+            <p className="text-slate-600 text-sm">Show appreciation for great service (optional)</p>
+          </div>
         </div>
-        <div>
-          <h3 className="font-semibold text-base text-gray-900">Add a Tip</h3>
-          <p className="text-[#7d7566] text-sm">Show appreciation for great service (optional)</p>
-        </div>
-      </div>
 
-      {/* Preset Percentages */}
-      <div className="grid grid-cols-4 gap-3">
-        {PRESET_PERCENTAGES.map((percentage) => {
-          const tipAmount = Math.round((baseAmount * percentage) / 100);
-          const isSelected = selectedType === "preset" && selectedPercentage === percentage;
+        {/* Preset Percentages */}
+        <div className="grid grid-cols-4 gap-3">
+          {PRESET_PERCENTAGES.map((percentage) => {
+            const tipAmount = Math.round((baseAmount * percentage) / 100);
+            const isSelected = selectedType === "preset" && selectedPercentage === percentage;
 
-          return (
-            <button
-              className={`flex flex-col items-center justify-center gap-1 rounded-xl border-2 p-4 transition ${
-                isSelected
-                  ? "border-[#E85D48] bg-[#fff5f3]"
-                  : "border-[#e5dfd4] bg-white hover:border-[#d4cabb]"
-              }`}
-              key={percentage}
-              onClick={() => handlePresetClick(percentage)}
-              type="button"
-            >
-              <span
-                className={`font-bold text-base ${isSelected ? "text-[#E85D48]" : "text-gray-900"}`}
+            return (
+              <button
+                className={cn(
+                  "flex flex-col items-center justify-center gap-1 rounded-xl border-2 p-4 transition",
+                  isSelected
+                    ? "border-slate-900 bg-slate-50"
+                    : "border-slate-200 bg-white hover:border-slate-300"
+                )}
+                key={percentage}
+                onClick={() => handlePresetClick(percentage)}
+                type="button"
               >
-                {percentage}%
-              </span>
-              <span className="text-[#7d7566] text-xs">
-                {formatCurrency(tipAmount, { currency })}
-              </span>
-            </button>
-          );
-        })}
-      </div>
+                <span
+                  className={cn(
+                    "font-bold text-base",
+                    isSelected ? "text-slate-900" : "text-slate-700"
+                  )}
+                >
+                  {percentage}%
+                </span>
+                <span className="text-slate-600 text-xs">
+                  {formatCurrency(tipAmount, { currency })}
+                </span>
+              </button>
+            );
+          })}
+        </div>
 
-      {/* Custom Amount */}
-      <div className="space-y-2">
+        {/* Custom Amount */}
+        <div className="space-y-2">
+          <button
+            className={cn(
+              "w-full rounded-xl border-2 px-4 py-3 text-left text-sm transition",
+              selectedType === "custom"
+                ? "border-slate-900 bg-slate-50 font-semibold text-slate-900"
+                : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
+            )}
+            onClick={handleCustomClick}
+            type="button"
+          >
+            Custom Amount
+          </button>
+
+          {selectedType === "custom" && (
+            <div className="relative">
+              <span className="absolute top-3 left-3 text-base text-slate-600">$</span>
+              <input
+                className="w-full rounded-xl border border-slate-300 py-3 pr-4 pl-8 text-slate-900 transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-200"
+                inputMode="decimal"
+                onChange={(e) => handleCustomAmountChange(e.target.value)}
+                placeholder="0"
+                type="number"
+                value={customAmount}
+              />
+            </div>
+          )}
+        </div>
+
+        {/* No Tip Option */}
         <button
-          className={`w-full rounded-xl border-2 px-4 py-3 text-left text-sm transition ${
-            selectedType === "custom"
-              ? "border-[#E85D48] bg-[#fff5f3] font-semibold text-[#E85D48]"
-              : "border-[#e5dfd4] bg-white text-[#7d7566] hover:border-[#d4cabb]"
-          }`}
-          onClick={handleCustomClick}
+          className={cn(
+            "w-full rounded-xl border-2 px-4 py-3 text-center text-sm transition",
+            selectedType === "none"
+              ? "border-slate-300 bg-slate-50 font-medium text-slate-900"
+              : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
+          )}
+          onClick={handleNoTip}
           type="button"
         >
-          Custom Amount
+          No Tip
         </button>
 
-        {selectedType === "custom" && (
-          <div className="relative">
-            <span className="absolute top-3 left-3 text-[#7d7566] text-base">$</span>
-            <input
-              className="w-full rounded-xl border border-[#e5dfd4] py-3 pr-4 pl-8 text-gray-900 transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
-              inputMode="decimal"
-              onChange={(e) => handleCustomAmountChange(e.target.value)}
-              placeholder="0"
-              type="number"
-              value={customAmount}
-            />
-          </div>
-        )}
-      </div>
-
-      {/* No Tip Option */}
-      <button
-        className={`w-full rounded-xl border-2 px-4 py-3 text-center text-sm transition ${
-          selectedType === "none"
-            ? "border-[#d4cabb] bg-[#f5f2ed] font-medium text-gray-900"
-            : "border-[#e5dfd4] bg-white text-[#7d7566] hover:border-[#d4cabb]"
-        }`}
-        onClick={handleNoTip}
-        type="button"
-      >
-        No Tip
-      </button>
-
-      {/* Info Text */}
-      <p className="text-center text-[#7d7566] text-xs">
-        100% of your tip goes directly to your professional
-      </p>
-    </div>
+        {/* Info Text */}
+        <p className="text-center text-slate-500 text-xs">
+          100% of your tip goes directly to your professional
+        </p>
+      </CardContent>
+    </Card>
   );
 }

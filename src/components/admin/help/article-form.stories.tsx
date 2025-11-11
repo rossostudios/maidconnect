@@ -1,0 +1,19 @@
+// @ts-nocheck
+import type { Meta, StoryObj } from "@storybook/react";
+import { ArticleForm } from "./article-form";
+
+const meta = {
+  title: "Admin/Help/ArticleForm",
+  component: ArticleForm,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+} satisfies Meta<typeof ArticleForm>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {},
+};

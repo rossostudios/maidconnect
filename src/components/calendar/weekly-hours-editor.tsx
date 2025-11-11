@@ -87,25 +87,25 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
   };
 
   return (
-    <div className="rounded-[24px] border-2 border-[#e5e7eb] bg-white p-6 shadow-sm">
+    <div className="rounded-[24px] border-2 border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-sm">
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={Clock01Icon} />
-          <h3 className="font-semibold text-gray-900 text-lg">{t("title")}</h3>
+          <HugeiconsIcon className="h-6 w-6 text-[#64748b]" icon={Clock01Icon} />
+          <h3 className="font-semibold text-[#0f172a] text-lg">{t("title")}</h3>
         </div>
 
         {editing ? (
           <div className="flex gap-2">
             <button
-              className="rounded-xl border-2 border-[#e5e7eb] bg-white px-4 py-2 font-medium text-gray-900 text-sm transition hover:bg-[#f9fafb]"
+              className="rounded-xl border-2 border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 font-medium text-[#0f172a] text-sm transition hover:bg-[#f8fafc]"
               onClick={handleCancel}
               type="button"
             >
               {t("cancel")}
             </button>
             <button
-              className="rounded-xl bg-[#E85D48] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333] disabled:opacity-50"
+              className="rounded-xl bg-[#64748b] px-4 py-2 font-medium text-[#f8fafc] text-sm transition hover:bg-[#64748b] disabled:opacity-50"
               disabled={saving}
               onClick={handleSave}
               type="button"
@@ -115,7 +115,7 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
           </div>
         ) : (
           <button
-            className="rounded-xl bg-[#E85D48] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
+            className="rounded-xl bg-[#64748b] px-4 py-2 font-medium text-[#f8fafc] text-sm transition hover:bg-[#64748b]"
             onClick={() => setEditing(true)}
             type="button"
           >
@@ -133,8 +133,8 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
             <div
               className={`rounded-xl border-2 p-4 transition-all ${
                 dayHours?.isAvailable
-                  ? "border-green-200 bg-green-50"
-                  : "border-[#e5e7eb] bg-[#f9fafb]"
+                  ? "border-[#64748b]/40 bg-[#64748b]/10"
+                  : "border-[#e2e8f0] bg-[#f8fafc]"
               }`}
               key={day.value}
             >
@@ -143,12 +143,12 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
                 <div className="flex items-center gap-3">
                   <input
                     checked={dayHours?.isAvailable}
-                    className="h-5 w-5 cursor-pointer rounded border-[#d1d5db] text-[#E85D48] focus:ring-[#E85D48]"
+                    className="h-5 w-5 cursor-pointer rounded border-[#e2e8f0] text-[#64748b] focus:ring-[#64748b]"
                     disabled={!editing}
                     onChange={() => handleDayToggle(day.value)}
                     type="checkbox"
                   />
-                  <span className="font-medium text-gray-900 text-sm">
+                  <span className="font-medium text-[#0f172a] text-sm">
                     {t(`days.${day.label.toLowerCase()}`)}
                   </span>
                 </div>
@@ -157,15 +157,15 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
                 {dayHours?.isAvailable && (
                   <div className="flex items-center gap-2">
                     <input
-                      className="w-24 rounded-lg border-2 border-[#d1d5db] px-3 py-1 text-sm disabled:bg-[#f3f4f6]"
+                      className="w-24 rounded-lg border-2 border-[#e2e8f0] px-3 py-1 text-sm disabled:bg-[#f8fafc]"
                       disabled={!editing}
                       onChange={(e) => handleTimeChange(day.value, "startTime", e.target.value)}
                       type="time"
                       value={dayHours.startTime}
                     />
-                    <span className="text-[#6b7280]">-</span>
+                    <span className="text-[#94a3b8]">-</span>
                     <input
-                      className="w-24 rounded-lg border-2 border-[#d1d5db] px-3 py-1 text-sm disabled:bg-[#f3f4f6]"
+                      className="w-24 rounded-lg border-2 border-[#e2e8f0] px-3 py-1 text-sm disabled:bg-[#f8fafc]"
                       disabled={!editing}
                       onChange={(e) => handleTimeChange(day.value, "endTime", e.target.value)}
                       type="time"
@@ -175,7 +175,7 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
                 )}
 
                 {!dayHours?.isAvailable && (
-                  <span className="text-[#9ca3af] text-sm">{t("unavailable")}</span>
+                  <span className="text-[#94a3b8] text-sm">{t("unavailable")}</span>
                 )}
               </div>
             </div>
@@ -184,9 +184,9 @@ export function WeeklyHoursEditor({ workingHours, onUpdate }: WeeklyHoursEditorP
       </div>
 
       {/* Help Text */}
-      <div className="mt-6 rounded-xl bg-blue-50 p-4 text-blue-900 text-sm">
+      <div className="mt-6 rounded-xl bg-[#f8fafc] p-4 text-[#64748b] text-sm">
         <p className="font-semibold">{t("helpTitle")}</p>
-        <p className="mt-1 text-blue-800">{t("helpDescription")}</p>
+        <p className="mt-1 text-[#64748b]">{t("helpDescription")}</p>
       </div>
     </div>
   );

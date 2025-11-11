@@ -4,6 +4,9 @@ import { CreditCardIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 type PaymentMethod = {
   id: string;
@@ -76,8 +79,8 @@ export function ColombianPaymentSelector({
   return (
     <div className="space-y-4">
       <div className="mb-4">
-        <h3 className="mb-2 font-semibold text-gray-900 text-lg">{t("title")}</h3>
-        <p className="text-[#6b7280] text-sm">{t("subtitle")}</p>
+        <h3 className="mb-2 font-semibold text-lg text-slate-900">{t("title")}</h3>
+        <p className="text-slate-600 text-sm">{t("subtitle")}</p>
       </div>
 
       {/* Payment Method Options */}
@@ -86,42 +89,46 @@ export function ColombianPaymentSelector({
           .sort((a, b) => a.priority - b.priority)
           .map((method) => (
             <button
-              className={`relative w-full rounded-2xl border-2 p-5 text-left transition-all ${
+              className={cn(
+                "relative w-full rounded-xl border-2 p-5 text-left transition-all",
                 selected === method.id
-                  ? "border-[#E85D48] bg-[#E85D48]/5 shadow-md"
-                  : "border-[#ebe5d8] bg-white hover:border-[#E85D48]/50 hover:shadow-sm"
-              }`}
+                  ? "border-slate-900 bg-slate-50 shadow-md ring-2 ring-slate-200"
+                  : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
+              )}
               key={method.id}
               onClick={() => handleSelect(method.id)}
               type="button"
             >
               {/* Badge */}
               {method.badge && (
-                <div className="absolute top-3 right-3 rounded-full bg-[#E85D48] px-3 py-1 font-semibold text-white text-xs">
-                  {method.badge}
+                <div className="absolute top-3 right-3">
+                  <Badge size="sm" variant="default">
+                    {method.badge}
+                  </Badge>
                 </div>
               )}
 
               {/* Content */}
               <div className="flex items-start gap-4">
                 {/* Icon */}
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-[#f9fafb] text-2xl">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-slate-100 text-2xl">
                   {method.icon}
                 </div>
 
                 {/* Details */}
                 <div className="flex-1">
-                  <div className="mb-1 font-semibold text-base text-gray-900">{method.name}</div>
-                  <div className="text-[#6b7280] text-sm">{method.description}</div>
+                  <div className="mb-1 font-semibold text-base text-slate-900">{method.name}</div>
+                  <div className="text-slate-600 text-sm">{method.description}</div>
                 </div>
 
                 {/* Radio indicator */}
                 <div
-                  className={`mt-1 h-6 w-6 flex-shrink-0 rounded-full border-2 transition-all ${
+                  className={cn(
+                    "mt-1 h-6 w-6 flex-shrink-0 rounded-full border-2 transition-all",
                     selected === method.id
-                      ? "border-[#E85D48] bg-[#E85D48]"
-                      : "border-[#d1d5db] bg-white"
-                  }`}
+                      ? "border-slate-900 bg-slate-900"
+                      : "border-slate-300 bg-white"
+                  )}
                 >
                   {selected === method.id && (
                     <svg
@@ -144,21 +151,25 @@ export function ColombianPaymentSelector({
 
       {/* Help Text */}
       {selected === "pse" && (
-        <div className="rounded-xl bg-blue-50 p-4 text-blue-900 text-sm">
-          <p className="font-semibold">💡 {t("pseHelp.title")}</p>
-          <p className="mt-1 text-blue-800">{t("pseHelp.description")}</p>
-        </div>
+        <Card className="border-slate-200 bg-slate-50">
+          <CardContent className="p-4">
+            <p className="font-semibold text-slate-900 text-sm">💡 {t("pseHelp.title")}</p>
+            <p className="mt-1 text-slate-600 text-sm">{t("pseHelp.description")}</p>
+          </CardContent>
+        </Card>
       )}
 
       {selected === "nequi" && (
-        <div className="rounded-xl bg-purple-50 p-4 text-purple-900 text-sm">
-          <p className="font-semibold">💡 {t("nequiHelp.title")}</p>
-          <p className="mt-1 text-purple-800">{t("nequiHelp.description")}</p>
-        </div>
+        <Card className="border-slate-200 bg-slate-50">
+          <CardContent className="p-4">
+            <p className="font-semibold text-slate-900 text-sm">💡 {t("nequiHelp.title")}</p>
+            <p className="mt-1 text-slate-600 text-sm">{t("nequiHelp.description")}</p>
+          </CardContent>
+        </Card>
       )}
 
       {/* Security Badge */}
-      <div className="flex items-center justify-center gap-2 border-[#ebe5d8] border-t pt-4 text-[#6b7280] text-sm">
+      <div className="flex items-center justify-center gap-2 border-slate-200 border-t pt-4 text-slate-600 text-sm">
         <HugeiconsIcon className="h-5 w-5" icon={CreditCardIcon} />
         <span>{t("securityNote")}</span>
       </div>

@@ -15,8 +15,8 @@ export default async function AdminAnalyticsPage() {
   return (
     <section className="space-y-8">
       <div>
-        <h1 className="font-bold text-3xl text-[#171717]">Platform Analytics</h1>
-        <p className="mt-2 text-[#737373]">
+        <h1 className="font-bold text-3xl text-[#116611616]">Platform Analytics</h1>
+        <p className="mt-2 text-[#AA88AAAAC]">
           Liquidity metrics, supply utilization, and conversion insights
         </p>
       </div>

@@ -1,15 +1,11 @@
-/**
- * Pricing Plans Component
- *
- * Displays all pricing plans with monthly/annual toggle
- * Fetches pricing data from database via API
- */
-
 "use client";
 
 import { Tick02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import type { PricingPlan } from "@/types/pricing";
 
 export function PricingPlans() {
@@ -18,7 +14,6 @@ export function PricingPlans() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch pricing plans from API on mount
   useEffect(() => {
     const fetchPlans = async () => {
       try {
@@ -66,15 +61,14 @@ export function PricingPlans() {
     return null;
   };
 
-  // Get all features from a plan as a flat list
   const getAllFeatures = (plan: PricingPlan) => plan.features.flatMap((category) => category.items);
 
   if (loading) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
-          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-red-600" />
-          <p className="text-gray-500">Loading pricing plans...</p>
+          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-slate-200 border-t-slate-900" />
+          <p className="text-slate-600">Loading pricing plans...</p>
         </div>
       </div>
     );
@@ -84,10 +78,10 @@ export function PricingPlans() {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
-          <p className="mb-4 text-orange-500">Error loading pricing plans</p>
-          <p className="text-gray-500 text-sm">{error}</p>
+          <p className="mb-4 text-red-600">Error loading pricing plans</p>
+          <p className="mb-4 text-slate-600 text-sm">{error}</p>
           <button
-            className="mt-4 rounded-[14px] border-2 border-stone-200 px-6 py-2 font-semibold text-gray-900 hover:border-gray-900"
+            className="rounded-xl border-2 border-slate-300 px-6 py-2 font-semibold text-slate-900 hover:border-slate-900"
             onClick={() => window.location.reload()}
             type="button"
           >
@@ -102,33 +96,35 @@ export function PricingPlans() {
     <div className="space-y-12">
       {/* Billing toggle */}
       <div className="flex items-center justify-center">
-        <div className="inline-flex items-center gap-4 rounded-[16px] border-2 border-stone-200 bg-white p-2">
+        <Card className="inline-flex items-center gap-4 border-2 border-slate-200 bg-white p-2">
           <button
-            className={`rounded-[12px] px-6 py-2 font-medium transition-all ${
+            className={cn(
+              "rounded-xl px-6 py-2 font-medium transition-all",
               billingPeriod === "monthly"
-                ? "bg-orange-500 text-white"
-                : "text-gray-500 hover:text-gray-900"
-            }`}
+                ? "bg-slate-900 text-white"
+                : "text-slate-600 hover:text-slate-900"
+            )}
             onClick={() => setBillingPeriod("monthly")}
             type="button"
           >
             Monthly
           </button>
           <button
-            className={`relative rounded-[12px] px-6 py-2 font-medium transition-all ${
+            className={cn(
+              "relative rounded-xl px-6 py-2 font-medium transition-all",
               billingPeriod === "annual"
-                ? "bg-orange-500 text-white"
-                : "text-gray-500 hover:text-gray-900"
-            }`}
+                ? "bg-slate-900 text-white"
+                : "text-slate-600 hover:text-slate-900"
+            )}
             onClick={() => setBillingPeriod("annual")}
             type="button"
           >
             Annual
-            <span className="ml-2 rounded-full bg-green-100 px-2 py-0.5 text-green-700 text-xs">
+            <Badge className="ml-2" size="sm" variant="success">
               Save 20%
-            </span>
+            </Badge>
           </button>
-        </div>
+        </Card>
       </div>
 
       {/* Pricing cards */}
@@ -137,80 +133,79 @@ export function PricingPlans() {
           const allFeatures = getAllFeatures(plan);
 
           return (
-            <div
-              className={`relative rounded-[28px] bg-white p-8 transition-all ${
+            <Card
+              className={cn(
+                "relative bg-white transition-all",
                 plan.highlight_as_popular
-                  ? "scale-105 border-4 border-orange-500 shadow-xl"
-                  : "border-2 border-stone-200 hover:border-orange-500"
-              }`}
+                  ? "scale-105 border-4 border-slate-900 shadow-xl"
+                  : "border-2 border-slate-200 hover:border-slate-300"
+              )}
               key={plan.id}
             >
-              {/* Most popular badge */}
               {plan.highlight_as_popular && (
-                <div className="-top-4 -translate-x-1/2 absolute left-1/2 rounded-full bg-orange-500 px-4 py-1 font-semibold text-sm text-white">
+                <div className="-top-4 -translate-x-1/2 absolute left-1/2 rounded-full bg-slate-900 px-4 py-1 font-semibold text-sm text-white">
                   Most Popular
                 </div>
               )}
 
-              {/* Plan name and description */}
-              <div className="mb-6 text-center">
-                <h3 className="mb-2 font-bold text-2xl text-gray-900">{plan.name}</h3>
-                <p className="text-gray-500">{plan.description}</p>
-                {plan.recommended_for && (
-                  <p className="mt-2 text-gray-500 text-sm italic">
-                    Recommended for: {plan.recommended_for}
-                  </p>
-                )}
-              </div>
-
-              {/* Price */}
-              <div className="mb-8 text-center">
-                <div className="type-serif-lg mb-2 text-gray-900">
-                  {getPrice(plan)}
-                  {plan.price_monthly !== null && plan.price_monthly > 0 && (
-                    <span className="font-normal text-gray-500 text-xl">{getPeriod()}</span>
+              <CardContent className="p-8">
+                <div className="mb-6 text-center">
+                  <h3 className="mb-2 font-bold text-2xl text-slate-900">{plan.name}</h3>
+                  <p className="text-slate-600">{plan.description}</p>
+                  {plan.recommended_for && (
+                    <p className="mt-2 text-slate-600 text-sm italic">
+                      Recommended for: {plan.recommended_for}
+                    </p>
                   )}
                 </div>
-                {getMonthlyEquivalent(plan) && (
-                  <div className="text-gray-500 text-sm">
-                    billed annually ({getMonthlyEquivalent(plan)})
+
+                <div className="mb-8 text-center">
+                  <div className="type-serif-lg mb-2 text-slate-900">
+                    {getPrice(plan)}
+                    {plan.price_monthly !== null && plan.price_monthly > 0 && (
+                      <span className="font-normal text-slate-600 text-xl">{getPeriod()}</span>
+                    )}
                   </div>
-                )}
-              </div>
-
-              {/* CTA button */}
-              <a
-                className={`mb-8 block w-full rounded-[14px] py-4 text-center font-semibold transition-all ${
-                  plan.highlight_as_popular
-                    ? "bg-orange-500 text-white hover:bg-orange-500"
-                    : "border-2 border-stone-200 text-gray-900 hover:border-gray-900"
-                }`}
-                href={plan.cta_url || "/auth/sign-up"}
-              >
-                {plan.cta_text}
-              </a>
-
-              {/* Features */}
-              <div className="space-y-3">
-                {allFeatures
-                  .filter((feature) => feature.included)
-                  .map((feature, idx) => (
-                    <div className="flex items-start gap-3" key={idx}>
-                      <HugeiconsIcon
-                        className="mt-0.5 flex-shrink-0 text-green-500"
-                        icon={Tick02Icon}
-                        size={20}
-                      />
-                      <span className="text-gray-900">
-                        {feature.name}
-                        {feature.limit && (
-                          <span className="ml-1 text-gray-500 text-sm">({feature.limit})</span>
-                        )}
-                      </span>
+                  {getMonthlyEquivalent(plan) && (
+                    <div className="text-slate-600 text-sm">
+                      billed annually ({getMonthlyEquivalent(plan)})
                     </div>
-                  ))}
-              </div>
-            </div>
+                  )}
+                </div>
+
+                <a
+                  className={cn(
+                    "mb-8 block w-full rounded-xl py-4 text-center font-semibold transition-all",
+                    plan.highlight_as_popular
+                      ? "bg-slate-900 text-white hover:bg-slate-800"
+                      : "border-2 border-slate-300 text-slate-900 hover:border-slate-900"
+                  )}
+                  href={plan.cta_url || "/auth/sign-up"}
+                >
+                  {plan.cta_text}
+                </a>
+
+                <div className="space-y-3">
+                  {allFeatures
+                    .filter((feature) => feature.included)
+                    .map((feature, idx) => (
+                      <div className="flex items-start gap-3" key={idx}>
+                        <HugeiconsIcon
+                          className="mt-0.5 flex-shrink-0 text-green-600"
+                          icon={Tick02Icon}
+                          size={20}
+                        />
+                        <span className="text-slate-900">
+                          {feature.name}
+                          {feature.limit && (
+                            <span className="ml-1 text-slate-600 text-sm">({feature.limit})</span>
+                          )}
+                        </span>
+                      </div>
+                    ))}
+                </div>
+              </CardContent>
+            </Card>
           );
         })}
       </div>

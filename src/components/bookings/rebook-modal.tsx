@@ -90,33 +90,33 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
     >
       {/* Header Icon */}
       <div className="mb-6 flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-          <HugeiconsIcon className="h-6 w-6 text-green-600" icon={RefreshIcon} />
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#64748b]/10">
+          <HugeiconsIcon className="h-6 w-6 text-[#64748b]" icon={RefreshIcon} />
         </div>
       </div>
 
       {/* Pre-filled Details */}
-      <div className="rounded-xl border border-[#ebe5d8] bg-[#fbfafa] p-4">
-        <h3 className="mb-3 font-semibold text-gray-900 text-sm">Service Details</h3>
+      <div className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-4">
+        <h3 className="mb-3 font-semibold text-[#0f172a] text-sm">Service Details</h3>
         <div className="space-y-2 text-sm">
           <p>
-            <span className="font-medium text-[#7a6d62]">Service:</span>{" "}
-            <span className="text-gray-900">{booking.service_name}</span>
+            <span className="font-medium text-[#94a3b8]">Service:</span>{" "}
+            <span className="text-[#0f172a]">{booking.service_name}</span>
           </p>
           <p>
-            <span className="font-medium text-[#7a6d62]">Professional:</span>{" "}
-            <span className="text-gray-900">{booking.professional?.full_name}</span>
+            <span className="font-medium text-[#94a3b8]">Professional:</span>{" "}
+            <span className="text-[#0f172a]">{booking.professional?.full_name}</span>
           </p>
           {booking.duration_minutes && (
             <p>
-              <span className="font-medium text-[#7a6d62]">Duration:</span>{" "}
-              <span className="text-gray-900">{booking.duration_minutes} minutes</span>
+              <span className="font-medium text-[#94a3b8]">Duration:</span>{" "}
+              <span className="text-[#0f172a]">{booking.duration_minutes} minutes</span>
             </p>
           )}
           {booking.amount_captured && (
             <p>
-              <span className="font-medium text-[#7a6d62]">Amount:</span>{" "}
-              <span className="text-gray-900">
+              <span className="font-medium text-[#94a3b8]">Amount:</span>{" "}
+              <span className="text-[#0f172a]">
                 {new Intl.NumberFormat("es-CO", {
                   style: "currency",
                   currency: booking.currency || "COP",
@@ -130,11 +130,11 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
 
       {/* Date/Time Selection */}
       <div>
-        <label className="mb-2 block font-medium text-gray-900 text-sm" htmlFor="rebook-schedule">
+        <label className="mb-2 block font-medium text-[#0f172a] text-sm" htmlFor="rebook-schedule">
           When would you like to schedule?
         </label>
         <input
-          className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-gray-900 transition focus:border-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900/20"
+          className="w-full rounded-xl border border-[#e2e8f0] px-4 py-3 text-[#0f172a] transition focus:border-[#0f172a] focus:outline-none focus:ring-2 focus:ring-[#0f172a]/20"
           id="rebook-schedule"
           min={new Date().toISOString().slice(0, 16)}
           onChange={(e) => handleStartTimeChange(e.target.value)}
@@ -146,7 +146,7 @@ export function RebookModal({ booking, isOpen, onClose }: Props) {
 
       {/* Error Message */}
       {form.error && (
-        <div className="rounded-xl border border-red-200 bg-[#E85D48]/10 p-4 text-red-800 text-sm">
+        <div className="rounded-xl border border-[#64748b]/30 bg-[#64748b]/10 p-4 text-[#64748b] text-sm">
           {form.error}
         </div>
       )}

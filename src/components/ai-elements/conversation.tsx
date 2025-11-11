@@ -76,7 +76,7 @@ export const ConversationScrollButton = ({
   return (
     <button
       className={cn(
-        "-translate-x-1/2 absolute bottom-4 left-1/2 flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-2 font-medium text-gray-700 text-sm shadow hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E85D48]/60",
+        "-translate-x-1/2 absolute bottom-4 left-1/2 flex items-center gap-2 rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-3 py-2 font-medium text-[#94a3b8] text-sm shadow hover:bg-[#f8fafc] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#64748b]/60",
         className
       )}
       onClick={handleScrollToBottom}

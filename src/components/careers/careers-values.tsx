@@ -24,12 +24,12 @@ export async function CareersValues() {
   const values = ["clarity", "impact", "curiosity", "trust", "momentum", "collaboration"] as const;
 
   return (
-    <section className="bg-[#fbf9f7] py-20 sm:py-24 lg:py-32">
+    <section className="bg-[#f8fafc] py-20 sm:py-24 lg:py-32">
       <Container className="max-w-6xl">
         {/* Section Header */}
         <div className="max-w-3xl">
-          <h2 className="type-serif-lg text-gray-900">{t("title")}</h2>
-          <p className="mt-6 text-gray-600 text-lg leading-relaxed sm:text-xl">
+          <h2 className="type-serif-lg text-[#0f172a]">{t("title")}</h2>
+          <p className="mt-6 text-[#94a3b8] text-lg leading-relaxed sm:text-xl">
             {t("description")}
           </p>
         </div>
@@ -40,17 +40,17 @@ export async function CareersValues() {
             return (
               <div className="flex flex-col" key={valueKey}>
                 {/* Icon */}
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#E85D48]/10">
-                  <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={valueIcons[valueKey]} />
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#64748b]/10">
+                  <HugeiconsIcon className="h-6 w-6 text-[#64748b]" icon={valueIcons[valueKey]} />
                 </div>
 
                 {/* Title */}
-                <h3 className="mb-3 font-semibold text-gray-900 text-xl">
+                <h3 className="mb-3 font-semibold text-[#0f172a] text-xl">
                   {t(`items.${valueKey}.title`)}
                 </h3>
 
                 {/* Description */}
-                <p className="text-base text-gray-600 leading-relaxed">
+                <p className="text-[#94a3b8] text-base leading-relaxed">
                   {t(`items.${valueKey}.description`)}
                 </p>
               </div>

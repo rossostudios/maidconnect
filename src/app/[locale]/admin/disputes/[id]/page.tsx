@@ -52,7 +52,7 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
   return (
     <div className="container mx-auto max-w-4xl px-4 py-8">
       <button
-        className="type-ui-sm mb-4 text-[#FF5D46]"
+        className="type-ui-sm mb-4 text-[#FF4444A22]"
         onClick={() => router.back()}
         type="button"
       >
@@ -62,53 +62,53 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
       <h1 className="type-ui-lg mb-6 font-semibold">Dispute Details</h1>
 
       <div className="space-y-6">
-        <div className="rounded-2xl border border-[#EBE5D8] bg-white p-6">
+        <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
           <h2 className="type-ui-md mb-4 font-semibold">Information</h2>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="type-ui-sm font-medium text-[#121110]">Type</p>
-              <p className="type-body-sm text-[#8A8985] capitalize">
+              <p className="type-ui-sm font-medium text-[#116611616]">Type</p>
+              <p className="type-body-sm text-[#AA88AAAAC] capitalize">
                 {dispute.dispute_type?.replace(/_/g, " ")}
               </p>
             </div>
             <div>
-              <p className="type-ui-sm font-medium text-[#121110]">Status</p>
-              <p className="type-body-sm text-[#8A8985] capitalize">{dispute.status}</p>
+              <p className="type-ui-sm font-medium text-[#116611616]">Status</p>
+              <p className="type-body-sm text-[#AA88AAAAC] capitalize">{dispute.status}</p>
             </div>
             <div>
-              <p className="type-ui-sm font-medium text-[#121110]">Priority</p>
-              <p className="type-body-sm text-[#8A8985] capitalize">{dispute.priority}</p>
+              <p className="type-ui-sm font-medium text-[#116611616]">Priority</p>
+              <p className="type-body-sm text-[#AA88AAAAC] capitalize">{dispute.priority}</p>
             </div>
             <div>
-              <p className="type-ui-sm font-medium text-[#121110]">Opened By</p>
-              <p className="type-body-sm text-[#8A8985]">
+              <p className="type-ui-sm font-medium text-[#116611616]">Opened By</p>
+              <p className="type-body-sm text-[#AA88AAAAC]">
                 {dispute.opener?.full_name || dispute.opener?.email}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-[#EBE5D8] bg-white p-6">
+        <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
           <h2 className="type-ui-md mb-4 font-semibold">Description</h2>
-          <p className="type-body-sm text-[#121110]">{dispute.description}</p>
+          <p className="type-body-sm text-[#116611616]">{dispute.description}</p>
         </div>
 
         {dispute.customer_statement && (
-          <div className="rounded-2xl border border-[#EBE5D8] bg-white p-6">
+          <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
             <h2 className="type-ui-md mb-4 font-semibold">Customer Statement</h2>
-            <p className="type-body-sm text-[#121110]">{dispute.customer_statement}</p>
+            <p className="type-body-sm text-[#116611616]">{dispute.customer_statement}</p>
           </div>
         )}
 
         {dispute.professional_statement && (
-          <div className="rounded-2xl border border-[#EBE5D8] bg-white p-6">
+          <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
             <h2 className="type-ui-md mb-4 font-semibold">Professional Statement</h2>
-            <p className="type-body-sm text-[#121110]">{dispute.professional_statement}</p>
+            <p className="type-body-sm text-[#116611616]">{dispute.professional_statement}</p>
           </div>
         )}
 
         {dispute.status !== "resolved" && (
-          <div className="rounded-2xl border border-[#EBE5D8] bg-white p-6">
+          <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
             <h2 className="type-ui-md mb-4 font-semibold">Resolve Dispute</h2>
             <div className="space-y-4">
               <div>
@@ -116,7 +116,7 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
                   Resolution Action
                 </label>
                 <select
-                  className="w-full rounded-lg border border-[#EBE5D8] px-4 py-2"
+                  className="w-full rounded-lg border border-[#EE44EE2E3] px-4 py-2"
                   id="resolution-action"
                   onChange={(e) => setResolutionAction(e.target.value)}
                   value={resolutionAction}
@@ -133,7 +133,7 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
                   Resolution Notes
                 </label>
                 <textarea
-                  className="w-full rounded-lg border border-[#EBE5D8] px-4 py-3"
+                  className="w-full rounded-lg border border-[#EE44EE2E3] px-4 py-3"
                   id="resolution-notes"
                   onChange={(e) => setResolutionNotes(e.target.value)}
                   placeholder="Explain the resolution decision..."
@@ -142,7 +142,7 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
                 />
               </div>
               <button
-                className="type-ui-sm rounded-lg bg-[#FF5D46] px-6 py-3 font-medium text-white hover:bg-[#E54A35] disabled:opacity-50"
+                className="type-ui-sm rounded-lg bg-[#FF4444A22] px-6 py-3 font-medium text-[#FFEEFF8E8] hover:bg-[#FF4444A22] disabled:opacity-50"
                 disabled={!(resolutionAction && resolutionNotes)}
                 onClick={handleResolve}
                 type="button"

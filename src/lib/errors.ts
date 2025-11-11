@@ -54,12 +54,6 @@ export class UnauthorizedError extends AppError {
   }
 }
 
-export class TokenExpiredError extends AppError {
-  constructor(message = "Your session has expired. Please log in again", details?: unknown) {
-    super(message, 401, "TOKEN_EXPIRED", details);
-  }
-}
-
 export class InvalidCredentialsError extends AppError {
   constructor(message = "Invalid email or password", details?: unknown) {
     super(message, 401, "INVALID_CREDENTIALS", details);
@@ -117,28 +111,6 @@ export class ResourceConflictError extends AppError {
 }
 
 // ============================================
-// Database Errors
-// ============================================
-
-export class DatabaseError extends AppError {
-  constructor(message = "A database error occurred", details?: unknown) {
-    super(message, 500, "DATABASE_ERROR", details);
-  }
-}
-
-export class QueryError extends AppError {
-  constructor(message: string, query?: string) {
-    super(message, 500, "QUERY_ERROR", { query });
-  }
-}
-
-export class ConnectionError extends AppError {
-  constructor(message = "Could not connect to the database") {
-    super(message, 503, "CONNECTION_ERROR");
-  }
-}
-
-// ============================================
 // Rate Limiting Errors
 // ============================================
 
@@ -152,46 +124,12 @@ export class RateLimitError extends AppError {
 }
 
 // ============================================
-// Payment Errors
-// ============================================
-
-export class PaymentError extends AppError {
-  constructor(message: string, details?: unknown) {
-    super(message, 402, "PAYMENT_ERROR", details);
-  }
-}
-
-export class PaymentRequiredError extends AppError {
-  constructor(message = "Payment is required to access this resource") {
-    super(message, 402, "PAYMENT_REQUIRED");
-  }
-}
-
-export class PaymentFailedError extends AppError {
-  constructor(message = "Payment processing failed", details?: unknown) {
-    super(message, 400, "PAYMENT_FAILED", details);
-  }
-}
-
-export class InsufficientFundsError extends AppError {
-  constructor(message = "Insufficient funds for this transaction") {
-    super(message, 400, "INSUFFICIENT_FUNDS");
-  }
-}
-
-// ============================================
 // Business Logic Errors
 // ============================================
 
 export class BusinessRuleError extends AppError {
   constructor(message: string, code: string, details?: unknown) {
     super(message, 400, code, details);
-  }
-}
-
-export class BookingConflictError extends AppError {
-  constructor(message = "This time slot is not available") {
-    super(message, 409, "BOOKING_CONFLICT");
   }
 }
 

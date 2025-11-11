@@ -26,17 +26,17 @@ export async function ContactCards() {
         <div className="grid gap-8 md:grid-cols-3">
           {contactOptions.map((option) => (
             <div
-              className="flex flex-col justify-between rounded-[32px] border border-[#ebe5d8] bg-gradient-to-br from-[#fbfafa] to-white p-10 shadow-[0_10px_40px_rgba(18,17,15,0.04)] transition hover:shadow-[0_20px_60px_rgba(18,17,15,0.08)]"
+              className="flex flex-col justify-between rounded-[32px] border border-[#e2e8f0] bg-gradient-to-br from-[bg-[#f8fafc]] to-[#f8fafc] p-10 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:shadow-[0_20px_60px_rgba(22,22,22,0.08)]"
               key={option.key}
             >
               <div className="space-y-6">
-                <h2 className="serif-headline-lg text-[#1A1614]">{t(`${option.key}.title`)}</h2>
-                <p className="text-[#1A1614]/70 text-base leading-relaxed">
+                <h2 className="serif-headline-lg text-[#0f172a]">{t(`${option.key}.title`)}</h2>
+                <p className="text-[#0f172a]/70 text-base leading-relaxed">
                   {t(`${option.key}.description`)}
                 </p>
               </div>
               <Link
-                className="mt-12 inline-flex w-fit items-center justify-center rounded-full bg-[#E85D48] px-8 py-4 font-semibold text-base text-white transition hover:bg-[#D64A36]"
+                className="mt-12 inline-flex w-fit items-center justify-center rounded-full bg-[#64748b] px-8 py-4 font-semibold text-[#f8fafc] text-base transition hover:bg-[#64748b]"
                 href={option.buttonHref}
               >
                 {t(`${option.key}.buttonText`)}

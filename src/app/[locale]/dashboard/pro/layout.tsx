@@ -48,12 +48,12 @@ export default async function ProLayout({ children }: Props) {
     .eq("read", false);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[#FAFAF9]">
+    <div className="flex h-screen overflow-hidden bg-[#FFEEFF8E8]">
       {/* Desktop Sidebar */}
       <div className="hidden lg:block">
         <ProSidebar
           onboardingCompletion={onboardingCompletion}
-          onboardingStatus={profile?.onboarding_status as any}
+          onboardingStatus={profile?.onboarding_status ?? ""}
           pendingLeadsCount={pendingLeadsCount ?? 0}
         />
       </div>
@@ -63,7 +63,7 @@ export default async function ProLayout({ children }: Props) {
         {/* Header */}
         <ProHeader
           onboardingCompletion={onboardingCompletion}
-          onboardingStatus={profile?.onboarding_status as any}
+          onboardingStatus={profile?.onboarding_status ?? ""}
           pendingLeadsCount={pendingLeadsCount ?? 0}
           unreadMessagesCount={unreadMessagesCount ?? 0}
           userEmail={user.email ?? undefined}
@@ -71,7 +71,7 @@ export default async function ProLayout({ children }: Props) {
         />
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto bg-[#FAFAF9] px-8 py-8">{children}</main>
+        <main className="flex-1 overflow-y-auto bg-[#FFEEFF8E8] px-8 py-8">{children}</main>
       </div>
     </div>
   );

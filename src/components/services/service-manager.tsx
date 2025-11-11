@@ -1,10 +1,17 @@
 "use client";
 
-import { Add01Icon, FilterIcon } from "@hugeicons/core-free-icons";
+import {
+  Add01Icon,
+  Alert01Icon,
+  CheckmarkCircle01Icon,
+  FilterIcon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { deleteService, getServices } from "@/app/actions/services";
+import { confirm } from "@/lib/toast";
 import type { ProfessionalService } from "@/types";
 import { ServiceCard } from "./service-card";
 
@@ -48,16 +55,47 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
   }, [loadServices]);
 
   const handleDelete = async (serviceId: string) => {
-    if (!confirm(t("confirmDelete"))) {
+    const confirmed = await confirm(t("confirmDelete"), "Delete Service");
+    if (!confirmed) {
       return;
     }
 
-    const response = await deleteService(serviceId);
-    if (response.success) {
-      loadServices(); // Reload services
-    } else {
-      alert(response.error);
-    }
+    // Store the service for potential undo
+    const deletedService = services.find((s) => s.id === serviceId);
+
+    // Optimistically remove from UI
+    setServices((prev) => prev.filter((s) => s.id !== serviceId));
+
+    let isUndone = false;
+
+    // Show toast with undo action
+    toast.success("Service deleted", {
+      duration: 5000,
+      icon: <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle01Icon} />,
+      action: {
+        label: "Undo",
+        onClick: () => {
+          isUndone = true;
+          // Restore to UI
+          if (deletedService) {
+            setServices((prev) => [...prev, deletedService]);
+          }
+        },
+      },
+    });
+
+    // Wait for toast duration, then actually delete if not undone
+    setTimeout(async () => {
+      if (!isUndone) {
+        const response = await deleteService(serviceId);
+        if (!response.success) {
+          toast.error(response.error || "Failed to delete service", {
+            icon: <HugeiconsIcon className="h-5 w-5" icon={Alert01Icon} />,
+          });
+          loadServices(); // Reload to restore on error
+        }
+      }
+    }, 5000);
   };
 
   const handleEdit = (service: ProfessionalService) => {
@@ -79,8 +117,8 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-[#E85D48] border-t-2 border-b-2" />
-          <p className="text-[#6b7280]">{t("loading")}</p>
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-[#64748b] border-t-2 border-b-2" />
+          <p className="text-[#94a3b8]">{t("loading")}</p>
         </div>
       </div>
     );
@@ -88,11 +126,11 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
 
   if (error) {
     return (
-      <div className="rounded-[24px] border-2 border-red-200 bg-[#E85D48]/10 p-6">
-        <p className="font-semibold text-red-900">{t("error")}</p>
-        <p className="mt-2 text-red-700 text-sm">{error}</p>
+      <div className="rounded-[24px] border-2 border-[#64748b]/30 bg-[#64748b]/10 p-6">
+        <p className="font-semibold text-[#64748b]">{t("error")}</p>
+        <p className="mt-2 text-[#64748b] text-sm">{error}</p>
         <button
-          className="mt-4 rounded-xl bg-[#E85D48] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#D64A36]"
+          className="mt-4 rounded-xl bg-[#64748b] px-4 py-2 font-medium text-[#f8fafc] text-sm transition hover:bg-[#64748b]"
           onClick={() => loadServices()}
           type="button"
         >
@@ -107,11 +145,11 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-bold text-2xl text-gray-900">{t("title")}</h2>
-          <p className="text-[#6b7280] text-sm">{t("description")}</p>
+          <h2 className="font-bold text-2xl text-[#0f172a]">{t("title")}</h2>
+          <p className="text-[#94a3b8] text-sm">{t("description")}</p>
         </div>
         <button
-          className="flex items-center gap-2 rounded-xl bg-[#E85D48] px-4 py-2 font-medium text-sm text-white transition hover:bg-[#cc3333]"
+          className="flex items-center gap-2 rounded-xl bg-[#64748b] px-4 py-2 font-medium text-[#f8fafc] text-sm transition hover:bg-[#64748b]"
           type="button"
         >
           <HugeiconsIcon className="h-4 w-4" icon={Add01Icon} />
@@ -121,12 +159,12 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
 
       {/* Filter Tabs */}
       <div className="flex items-center gap-2">
-        <HugeiconsIcon className="h-5 w-5 text-[#6b7280]" icon={FilterIcon} />
+        <HugeiconsIcon className="h-5 w-5 text-[#94a3b8]" icon={FilterIcon} />
         <button
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             filter === "all"
-              ? "bg-[#E85D48] text-white"
-              : "bg-[#f3f4f6] text-[#6b7280] hover:bg-[#e5e7eb]"
+              ? "bg-[#64748b] text-[#f8fafc]"
+              : "bg-[#f8fafc] text-[#94a3b8] hover:bg-[#e2e8f0]"
           }`}
           onClick={() => setFilter("all")}
           type="button"
@@ -136,8 +174,8 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
         <button
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             filter === "active"
-              ? "bg-[#E85D48] text-white"
-              : "bg-[#f3f4f6] text-[#6b7280] hover:bg-[#e5e7eb]"
+              ? "bg-[#64748b] text-[#f8fafc]"
+              : "bg-[#f8fafc] text-[#94a3b8] hover:bg-[#e2e8f0]"
           }`}
           onClick={() => setFilter("active")}
           type="button"
@@ -147,8 +185,8 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
         <button
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             filter === "inactive"
-              ? "bg-[#E85D48] text-white"
-              : "bg-[#f3f4f6] text-[#6b7280] hover:bg-[#e5e7eb]"
+              ? "bg-[#64748b] text-[#f8fafc]"
+              : "bg-[#f8fafc] text-[#94a3b8] hover:bg-[#e2e8f0]"
           }`}
           onClick={() => setFilter("inactive")}
           type="button"
@@ -171,11 +209,11 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
           ))}
         </div>
       ) : (
-        <div className="rounded-[24px] border-2 border-[#e5e7eb] bg-white p-12 text-center">
-          <p className="font-semibold text-gray-900">{t("noServices")}</p>
-          <p className="mt-2 text-[#6b7280] text-sm">{t("noServicesDescription")}</p>
+        <div className="rounded-[24px] border-2 border-[#e2e8f0] bg-[#f8fafc] p-12 text-center">
+          <p className="font-semibold text-[#0f172a]">{t("noServices")}</p>
+          <p className="mt-2 text-[#94a3b8] text-sm">{t("noServicesDescription")}</p>
           <button
-            className="mt-6 rounded-xl bg-[#E85D48] px-6 py-3 font-medium text-white transition hover:bg-[#cc3333]"
+            className="mt-6 rounded-xl bg-[#64748b] px-6 py-3 font-medium text-[#f8fafc] transition hover:bg-[#64748b]"
             type="button"
           >
             {t("createFirstService")}
@@ -184,9 +222,9 @@ export function ServiceManager({ profileId }: ServiceManagerProps) {
       )}
 
       {/* Help Text */}
-      <div className="rounded-xl bg-blue-50 p-4 text-blue-900 text-sm">
+      <div className="rounded-xl bg-[#f8fafc] p-4 text-[#64748b] text-sm">
         <p className="font-semibold">{t("helpTitle")}</p>
-        <p className="mt-1 text-blue-800">{t("helpDescription")}</p>
+        <p className="mt-1 text-[#64748b]">{t("helpDescription")}</p>
       </div>
     </div>
   );

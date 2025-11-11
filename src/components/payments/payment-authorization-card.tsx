@@ -4,6 +4,8 @@ import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 type PaymentAuthorizationCardProps = {
   hasPaymentMethod: boolean;
@@ -25,8 +27,8 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
     () => ({
       theme: "flat" as const,
       variables: {
-        colorPrimary: "#E85D48",
-        colorText: "#1a1715",
+        colorPrimary: "#0f172a",
+        colorText: "#1e293b",
         colorBackground: "#ffffff",
         borderRadius: "12px",
       },
@@ -67,9 +69,11 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
 
   if (!stripePromise) {
     return (
-      <div className="mt-4 rounded-xl bg-[#E85D48]/10 px-4 py-3 text-[#E85D48] text-sm">
-        Stripe publishable key is not configured.
-      </div>
+      <Card className="mt-4 border-red-200 bg-red-50">
+        <CardContent className="px-4 py-3 text-red-800 text-sm">
+          Stripe publishable key is not configured.
+        </CardContent>
+      </Card>
     );
   }
 
@@ -81,14 +85,18 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
             Payment method on file. You can update it anytime.
           </p>
         ) : (
-          <p className="text-gray-600 text-sm leading-relaxed">
+          <p className="text-slate-600 text-sm leading-relaxed">
             We'll authorize a small amount (COP $50,000) to keep your payment method on file. You're
             only charged after a service is completed.
           </p>
         )}
-        {message ? <p className="text-[#E85D48] text-sm">{message}</p> : null}
+        {message ? <p className="text-red-600 text-sm">{message}</p> : null}
         <button
-          className="inline-flex w-fit items-center justify-center rounded-full bg-[#E85D48] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-70"
+          className={cn(
+            "inline-flex w-fit items-center justify-center rounded-full px-6 py-3 font-semibold text-base transition",
+            "bg-slate-900 text-white shadow-lg hover:bg-slate-800",
+            "disabled:cursor-not-allowed disabled:opacity-70"
+          )}
           disabled={status === "loading"}
           onClick={handleStart}
           type="button"
@@ -114,7 +122,7 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
         onSuccess={() => setStatus("success")}
         reset={() => setClientSecret(null)}
       />
-      {message ? <p className="mt-2 text-[#E85D48] text-xs">{message}</p> : null}
+      {message ? <p className="mt-2 text-red-600 text-xs">{message}</p> : null}
     </Elements>
   );
 }
@@ -165,30 +173,40 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
   }, [stripe, elements, onError, onSuccess, reset, router]);
 
   return (
-    <div className="mt-4 space-y-4 rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm">
-      <PaymentElement options={{ layout: "tabs" }} />
-      <div className="flex items-center gap-3">
-        <button
-          className="inline-flex items-center justify-center rounded-full bg-[#E85D48] px-6 py-3 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-70"
-          disabled={isSubmitting}
-          onClick={handleSubmit}
-          type="button"
-        >
-          {isSubmitting ? "Authorizing…" : "Authorize"}
-        </button>
-        <button
-          className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] px-6 py-3 font-semibold text-base text-gray-900 transition hover:border-[#E85D48] hover:text-[#E85D48] disabled:cursor-not-allowed disabled:opacity-70"
-          disabled={isSubmitting}
-          onClick={reset}
-          type="button"
-        >
-          Cancel
-        </button>
-      </div>
-      <p className="text-gray-600 text-sm leading-relaxed">
-        You'll only be charged after the service is completed. Authorizations expire automatically
-        if unused.
-      </p>
-    </div>
+    <Card className="mt-4 border-slate-200 bg-white shadow-sm">
+      <CardContent className="space-y-4 p-6">
+        <PaymentElement options={{ layout: "tabs" }} />
+        <div className="flex items-center gap-3">
+          <button
+            className={cn(
+              "inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold text-base transition",
+              "bg-slate-900 text-white shadow-lg hover:bg-slate-800",
+              "disabled:cursor-not-allowed disabled:opacity-70"
+            )}
+            disabled={isSubmitting}
+            onClick={handleSubmit}
+            type="button"
+          >
+            {isSubmitting ? "Authorizing…" : "Authorize"}
+          </button>
+          <button
+            className={cn(
+              "inline-flex items-center justify-center rounded-full border-2 px-6 py-3 font-semibold text-base transition",
+              "border-slate-300 text-slate-700 hover:border-slate-400 hover:text-slate-900",
+              "disabled:cursor-not-allowed disabled:opacity-70"
+            )}
+            disabled={isSubmitting}
+            onClick={reset}
+            type="button"
+          >
+            Cancel
+          </button>
+        </div>
+        <p className="text-slate-600 text-sm leading-relaxed">
+          You'll only be charged after the service is completed. Authorizations expire automatically
+          if unused.
+        </p>
+      </CardContent>
+    </Card>
   );
 }

@@ -196,9 +196,9 @@
 .amara-shimmer {
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.4) 50%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(254, 248, 232, 0) 0%,
+    rgba(254, 248, 232, 0.4) 50%,
+    rgba(254, 248, 232, 0) 100%
   );
   background-size: 1000px 100%;
   animation: shimmer 2s infinite linear;

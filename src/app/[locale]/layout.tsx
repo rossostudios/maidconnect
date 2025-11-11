@@ -1,22 +1,24 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Suspense } from "react";
+import { Toaster } from "sonner";
 import "../globals.css";
 import { AmaraFloatingButton } from "@/components/amara/amara-floating-button";
 import { ChangelogBanner } from "@/components/changelog/changelog-banner";
+import { UnifiedCommandPaletteWrapper } from "@/components/command-palette/unified-command-palette-wrapper";
 import { ErrorBoundary } from "@/components/error-boundary";
-import { GlobalSearchModal } from "@/components/help/global-search-modal";
 import { CookieConsent } from "@/components/legal/cookie-consent";
 import { FeedbackProvider } from "@/components/providers/feedback-provider";
 import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
-import { ThemeProvider } from "@/components/providers/theme-provider";
+import { DraftModeIndicator } from "@/components/sanity/draft-mode-indicator";
 import { WebVitalsReporter } from "@/components/web-vitals";
-import { locales } from "@/i18n";
+import { type Locale, locales } from "@/i18n";
 
 // Inter - versatile, highly readable for everything
 // Perfect for modern web interfaces with excellent legibility
@@ -76,21 +78,24 @@ export default async function RootLayout({
   const { locale } = await params;
 
   // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as any)) {
+  if (!locales.includes(locale as Locale)) {
     notFound();
   }
 
   // Get messages for the current locale
   const messages = await getMessages({ locale });
 
+  // Check if draft mode is enabled for Sanity Visual Editing
+  const isDraftMode = (await draftMode()).isEnabled;
+
   return (
     <html lang={locale}>
       <body className={`${inter.variable} antialiased`}>
         <WebVitalsReporter />
         <ErrorBoundary>
-          <ThemeProvider>
-            <NextIntlClientProvider locale={locale} messages={messages}>
-              <FeedbackProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <FeedbackProvider>
+              <UnifiedCommandPaletteWrapper>
                 <ChangelogBanner />
                 <Suspense fallback={<div>Loading...</div>}>
                   <SupabaseProvider>
@@ -103,11 +108,12 @@ export default async function RootLayout({
                   <AmaraFloatingButton locale={locale} />
                 </Suspense>
                 <CookieConsent />
-                <GlobalSearchModal />
-              </FeedbackProvider>
-            </NextIntlClientProvider>
-          </ThemeProvider>
+              </UnifiedCommandPaletteWrapper>
+            </FeedbackProvider>
+          </NextIntlClientProvider>
         </ErrorBoundary>
+        {isDraftMode && <DraftModeIndicator />}
+        <Toaster closeButton position="top-right" richColors toastOptions={{ duration: 4000 }} />
       </body>
     </html>
   );

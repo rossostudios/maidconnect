@@ -29,7 +29,9 @@ type Props = {
   payouts: Payout[];
 };
 
-const COLORS = ["#E85D48", "#12110f", "#7d7566", "#ebe5d8", "#7a6d62"];
+const COLORS = ["#475569", "#0f172a", "#64748b", "#94a3b8", "#cbd5e1"];
+
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 // Dynamically import Recharts components (150-200KB library)
 const LineChartComponent = dynamic(
@@ -40,17 +42,17 @@ const LineChartComponent = dynamic(
         return (
           <ResponsiveContainer height={300} width="100%">
             <LineChart data={data}>
-              <CartesianGrid stroke="#ebe5d8" strokeDasharray="3 3" />
-              <XAxis dataKey="month" stroke="#7d7566" style={{ fontSize: 12 }} />
+              <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
+              <XAxis dataKey="month" stroke="#64748b" style={{ fontSize: 12 }} />
               <YAxis
-                stroke="#7d7566"
+                stroke="#64748b"
                 style={{ fontSize: 12 }}
                 tickFormatter={(value) => `${value}k`}
               />
               <Tooltip
                 contentStyle={{
                   backgroundColor: "white",
-                  border: "1px solid #ebe5d8",
+                  border: "1px solid #e2e8f0",
                   borderRadius: "8px",
                 }}
                 formatter={(value: number) => formatCurrency(value)}
@@ -58,8 +60,8 @@ const LineChartComponent = dynamic(
               <Line
                 activeDot={{ r: 6 }}
                 dataKey="earnings"
-                dot={{ fill: "#E85D48", r: 4 }}
-                stroke="#E85D48"
+                dot={{ fill: "#0f172a", r: 4 }}
+                stroke="#0f172a"
                 strokeWidth={3}
                 type="monotone"
               />
@@ -77,26 +79,26 @@ const LineChartComponent = dynamic(
 const BarChartComponent = dynamic(
   () =>
     import("recharts").then((mod) => ({
-      default: ({ data, dataKey = "bookings", fill = "#E85D48", formatter }: any) => {
+      default: ({ data, dataKey = "bookings", fill = "#64748b", formatter }: any) => {
         const { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } = mod;
         return (
           <ResponsiveContainer height={300} width="100%">
             <BarChart data={data}>
-              <CartesianGrid stroke="#ebe5d8" strokeDasharray="3 3" />
+              <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
               <XAxis
                 dataKey={dataKey === "bookings" ? "month" : "date"}
-                stroke="#7d7566"
+                stroke="#94a3b8"
                 style={{ fontSize: 12 }}
               />
               <YAxis
-                stroke="#7d7566"
+                stroke="#94a3b8"
                 style={{ fontSize: 12 }}
                 tickFormatter={formatter ? (value: number) => `${value}k` : undefined}
               />
               <Tooltip
                 contentStyle={{
                   backgroundColor: "white",
-                  border: "1px solid #ebe5d8",
+                  border: "1px solid #e2e8f0",
                   borderRadius: "8px",
                 }}
                 formatter={formatter}
@@ -126,7 +128,7 @@ const PieChartComponent = dynamic(
                 cy="50%"
                 data={data}
                 dataKey="value"
-                fill="#8884d8"
+                fill="#64748b"
                 label={(props: any) => `${props.name} (${(props.percent * 100).toFixed(0)}%)`}
                 labelLine={false}
                 outerRadius={100}
@@ -150,7 +152,7 @@ const PieChartComponent = dynamic(
 // Loading skeleton for charts
 function ChartSkeleton() {
   return (
-    <div className="h-[300px] w-full animate-pulse rounded-lg bg-gradient-to-br from-[#ebe5d8]/30 to-[#ebe5d8]/10" />
+    <div className="h-[300px] w-full animate-pulse rounded-lg bg-gradient-to-br from-slate-100 to-slate-50" />
   );
 }
 
@@ -265,42 +267,54 @@ export function FinancesOverview({ bookings, payouts }: Props) {
       {/* Charts */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Earnings Over Time */}
-        <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h2 className="mb-6 font-semibold text-gray-900 text-xl">{t("charts.earningsTrend")}</h2>
-          <LineChartComponent data={earningsData} formatCurrency={formatCurrency} />
-        </div>
+        <Card className="border-slate-200 bg-white shadow-sm">
+          <CardHeader className="p-8 pb-6">
+            <h2 className="font-semibold text-slate-900 text-xl">{t("charts.earningsTrend")}</h2>
+          </CardHeader>
+          <CardContent className="p-8 pt-0">
+            <LineChartComponent data={earningsData} formatCurrency={formatCurrency} />
+          </CardContent>
+        </Card>
 
         {/* Bookings Count Over Time */}
-        <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-          <h2 className="mb-6 font-semibold text-gray-900 text-xl">
-            {t("charts.bookingsByMonth")}
-          </h2>
-          <BarChartComponent data={earningsData} dataKey="bookings" fill="#E85D48" />
-        </div>
+        <Card className="border-slate-200 bg-white shadow-sm">
+          <CardHeader className="p-8 pb-6">
+            <h2 className="font-semibold text-slate-900 text-xl">{t("charts.bookingsByMonth")}</h2>
+          </CardHeader>
+          <CardContent className="p-8 pt-0">
+            <BarChartComponent data={earningsData} dataKey="bookings" fill="#475569" />
+          </CardContent>
+        </Card>
 
         {/* Revenue by Service */}
         {serviceData.length > 0 && (
-          <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-            <h2 className="mb-6 font-semibold text-gray-900 text-xl">
-              {t("charts.revenueByService")}
-            </h2>
-            <PieChartComponent data={serviceData} formatCurrency={formatCurrency} />
-          </div>
+          <Card className="border-slate-200 bg-white shadow-sm">
+            <CardHeader className="p-8 pb-6">
+              <h2 className="font-semibold text-slate-900 text-xl">
+                {t("charts.revenueByService")}
+              </h2>
+            </CardHeader>
+            <CardContent className="p-8 pt-0">
+              <PieChartComponent data={serviceData} formatCurrency={formatCurrency} />
+            </CardContent>
+          </Card>
         )}
 
         {/* Payout History */}
         {payoutHistory.length > 0 && (
-          <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-            <h2 className="mb-6 font-semibold text-gray-900 text-xl">
-              {t("charts.recentPayouts")}
-            </h2>
-            <BarChartComponent
-              data={payoutHistory}
-              dataKey="amount"
-              fill="#12110f"
-              formatter={formatCurrency}
-            />
-          </div>
+          <Card className="border-slate-200 bg-white shadow-sm">
+            <CardHeader className="p-8 pb-6">
+              <h2 className="font-semibold text-slate-900 text-xl">{t("charts.recentPayouts")}</h2>
+            </CardHeader>
+            <CardContent className="p-8 pt-0">
+              <BarChartComponent
+                data={payoutHistory}
+                dataKey="amount"
+                fill="#0f172a"
+                formatter={formatCurrency}
+              />
+            </CardContent>
+          </Card>
         )}
       </div>
     </div>
@@ -317,10 +331,12 @@ function MetricCard({
   description: string;
 }) {
   return (
-    <div className="rounded-[28px] bg-white p-6 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-      <dt className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">{label}</dt>
-      <dd className="mt-3 font-semibold text-3xl text-gray-900">{value}</dd>
-      <p className="mt-1 text-[#7d7566] text-sm">{description}</p>
-    </div>
+    <Card className="border-slate-200 bg-white shadow-sm">
+      <CardContent className="p-6">
+        <dt className="font-semibold text-slate-600 text-xs uppercase tracking-wider">{label}</dt>
+        <dd className="mt-3 font-semibold text-3xl text-slate-900">{value}</dd>
+        <p className="mt-1 text-slate-600 text-sm">{description}</p>
+      </CardContent>
+    </Card>
   );
 }

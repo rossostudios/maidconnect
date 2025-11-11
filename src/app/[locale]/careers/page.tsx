@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default function CareersPage() {
   return (
-    <div className="min-h-screen bg-[#fbf9f7] text-gray-900">
+    <div className="min-h-screen bg-[#FFEEFF8E8] text-[#116611616]">
       <SiteHeader />
       <main>
         <CareersHero />

@@ -23,7 +23,7 @@ export default function GlobalError({
             minHeight: "100vh",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "#F5F0E8",
+            backgroundColor: "bg-[#FFEEFF8E8]",
             padding: "1rem",
           }}
         >
@@ -39,7 +39,7 @@ export default function GlobalError({
                 borderRadius: "28px",
                 padding: "2rem",
                 textAlign: "center",
-                boxShadow: "0 20px 60px -15px rgba(18,17,15,0.15)",
+                boxShadow: "0 20px 60px -15px rgba(22,22,22,0.15)",
               }}
             >
               {/* Icon */}
@@ -52,7 +52,7 @@ export default function GlobalError({
               >
                 <div
                   style={{
-                    backgroundColor: "#fef2f2",
+                    backgroundColor: "#FFEEFF8E8",
                     borderRadius: "9999px",
                     padding: "1.5rem",
                   }}
@@ -60,7 +60,7 @@ export default function GlobalError({
                   <svg
                     fill="none"
                     stroke="currentColor"
-                    style={{ width: "3rem", height: "3rem", color: "#ef4444" }}
+                    style={{ width: "3rem", height: "3rem", color: "#FF4444A22" }}
                     viewBox="0 0 24 24"
                   >
                     <title>Error Alert</title>
@@ -79,7 +79,7 @@ export default function GlobalError({
                 style={{
                   fontSize: "1.875rem",
                   fontWeight: "bold",
-                  color: "#1A1614",
+                  color: "#116611616",
                   marginBottom: "0.75rem",
                 }}
               >
@@ -90,7 +90,7 @@ export default function GlobalError({
               <p
                 style={{
                   fontSize: "1.125rem",
-                  color: "#7d7566",
+                  color: "#AA88AAAAC",
                   marginBottom: "2rem",
                 }}
               >
@@ -109,7 +109,7 @@ export default function GlobalError({
                 <button
                   onClick={reset}
                   style={{
-                    backgroundColor: "#E85D48",
+                    backgroundColor: "#FF4444A22",
                     color: "white",
                     fontWeight: "600",
                     padding: "0.75rem 1.5rem",
@@ -125,11 +125,11 @@ export default function GlobalError({
                   href="/"
                   style={{
                     backgroundColor: "white",
-                    color: "#1A1614",
+                    color: "#116611616",
                     fontWeight: "600",
                     padding: "0.75rem 1.5rem",
                     borderRadius: "9999px",
-                    border: "2px solid #ebe5d8",
+                    border: "2px solid #EE44EE2E3",
                     textDecoration: "none",
                     display: "inline-block",
                   }}

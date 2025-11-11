@@ -45,11 +45,11 @@ export function LocalProfessionals({
 
   if (professionals.length === 0) {
     return (
-      <section className={`bg-[#fbfafa] py-16 ${className}`}>
+      <section className={`bg-[#f8fafc] py-16 ${className}`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="rounded-3xl border border-[#ebe5d8] bg-white p-12 text-center">
-            <p className="text-gray-600 text-lg">{t("professionals.empty", { city: cityName })}</p>
-            <p className="mt-4 text-[#8a8175] text-base">{t("professionals.emptyDescription")}</p>
+          <div className="rounded-3xl border border-[#e2e8f0] bg-[#f8fafc] p-12 text-center">
+            <p className="text-[#94a3b8] text-lg">{t("professionals.empty", { city: cityName })}</p>
+            <p className="mt-4 text-[#94a3b8] text-base">{t("professionals.emptyDescription")}</p>
           </div>
         </div>
       </section>
@@ -57,14 +57,14 @@ export function LocalProfessionals({
   }
 
   return (
-    <section className={`bg-[#fbfafa] py-16 ${className}`}>
+    <section className={`bg-[#f8fafc] py-16 ${className}`}>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section Header */}
         <div className="mb-12">
-          <h2 className="mb-4 font-bold text-3xl text-gray-900 sm:text-4xl">
+          <h2 className="mb-4 font-bold text-3xl text-[#0f172a] sm:text-4xl">
             {t("professionals.title", { city: cityName })}
           </h2>
-          <p className="text-gray-600 text-lg">
+          <p className="text-[#94a3b8] text-lg">
             {t("professionals.description", { count: professionals.length })}
           </p>
         </div>
@@ -79,7 +79,7 @@ export function LocalProfessionals({
         {/* View All CTA */}
         <div className="mt-12 text-center">
           <Link
-            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#E85D48] px-8 py-4 font-semibold text-[#E85D48] text-base transition hover:bg-[#E85D48] hover:text-white"
+            className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#64748b] px-8 py-4 font-semibold text-[#64748b] text-base transition hover:bg-[#64748b] hover:text-[#f8fafc]"
             href={`/professionals?city=${cityName.toLowerCase().replace(/\s+/g, "-")}`}
           >
             {t("professionals.viewAll")}
@@ -103,21 +103,21 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
 
   return (
     <Link
-      className="group relative overflow-hidden rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-md"
+      className="group relative overflow-hidden rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-sm transition hover:shadow-md"
       href={`/professionals/${professional.profile_id}`}
     >
       {/* Verification Badge */}
       {professional.is_verified && (
-        <div className="absolute top-4 right-4 flex items-center gap-1 rounded-full bg-green-100 px-3 py-1">
-          <HugeiconsIcon className="h-3 w-3 fill-green-600 text-green-600" icon={IdVerifiedIcon} />
-          <span className="font-semibold text-green-700 text-xs">
+        <div className="absolute top-4 right-4 flex items-center gap-1 rounded-full bg-[#64748b]/10 px-3 py-1">
+          <HugeiconsIcon className="h-3 w-3 fill-[#64748b] text-[#64748b]" icon={IdVerifiedIcon} />
+          <span className="font-semibold text-[#64748b] text-xs">
             {t("professionals.card.verified")}
           </span>
         </div>
       )}
 
       {/* Profile Image */}
-      <div className="mb-4 aspect-square overflow-hidden rounded-xl bg-gradient-to-br from-red-600/10 to-red-600/5">
+      <div className="mb-4 aspect-square overflow-hidden rounded-xl bg-gradient-to-br from-[#64748b]/10 to-[#64748b]/5">
         {professional.profile_image_url ? (
           <Image
             alt={professional.full_name || "Professional"}
@@ -130,7 +130,7 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
           />
         ) : (
           <div className="flex h-full items-center justify-center">
-            <span className="type-serif-lg text-[#E85D48]">
+            <span className="type-serif-lg text-[#64748b]">
               {professional.full_name?.charAt(0).toUpperCase() || "?"}
             </span>
           </div>
@@ -139,13 +139,13 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
 
       {/* Professional Info */}
       <div>
-        <h3 className="mb-2 font-semibold text-gray-900 text-lg group-hover:text-[#E85D48]">
+        <h3 className="mb-2 font-semibold text-[#0f172a] text-lg group-hover:text-[#64748b]">
           {professional.full_name || t("professionals.card.unnamed")}
         </h3>
 
         {/* Location */}
         {professional.city && (
-          <div className="mb-3 flex items-center gap-2 text-gray-600 text-sm">
+          <div className="mb-3 flex items-center gap-2 text-[#94a3b8] text-sm">
             <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
             <span>{professional.city}</span>
           </div>
@@ -154,11 +154,11 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
         {/* Rating */}
         {professional.average_rating && professional.total_reviews > 0 && (
           <div className="mb-3 flex items-center gap-2">
-            <HugeiconsIcon className="h-4 w-4 fill-red-600 text-[#E85D48]" icon={StarIcon} />
-            <span className="font-medium text-gray-900 text-sm">
+            <HugeiconsIcon className="h-4 w-4 fill-[#64748b] text-[#64748b]" icon={StarIcon} />
+            <span className="font-medium text-[#0f172a] text-sm">
               {professional.average_rating.toFixed(1)}
             </span>
-            <span className="text-[#8a8175] text-sm">
+            <span className="text-[#94a3b8] text-sm">
               ({professional.total_reviews} {t("professionals.card.reviews")})
             </span>
           </div>
@@ -169,14 +169,14 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
           <div className="mb-4 flex flex-wrap gap-2">
             {professional.services.slice(0, 2).map((service, index) => (
               <span
-                className="rounded-full bg-[#E85D48]/10 px-3 py-1 text-[#E85D48] text-xs"
+                className="rounded-full bg-[#64748b]/10 px-3 py-1 text-[#64748b] text-xs"
                 key={index}
               >
                 {service.name}
               </span>
             ))}
             {professional.services.length > 2 && (
-              <span className="rounded-full bg-[#ebe5d8] px-3 py-1 text-gray-600 text-xs">
+              <span className="rounded-full bg-[#e2e8f0] px-3 py-1 text-[#94a3b8] text-xs">
                 +{professional.services.length - 2}
               </span>
             )}
@@ -185,9 +185,9 @@ function ProfessionalCard({ professional }: { professional: Professional }) {
 
         {/* Hourly Rate */}
         {hourlyRate && (
-          <div className="flex items-baseline justify-between border-[#ebe5d8] border-t pt-4">
-            <span className="text-[#8a8175] text-sm">{t("professionals.card.startingAt")}</span>
-            <span className="font-bold text-gray-900 text-xl">{hourlyRate}/hr</span>
+          <div className="flex items-baseline justify-between border-[#e2e8f0] border-t pt-4">
+            <span className="text-[#94a3b8] text-sm">{t("professionals.card.startingAt")}</span>
+            <span className="font-bold text-[#0f172a] text-xl">{hourlyRate}/hr</span>
           </div>
         )}
       </div>

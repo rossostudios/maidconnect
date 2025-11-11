@@ -65,7 +65,7 @@ export function SkipLink({ href = "main-content", children, className = "" }: Sk
       target.scrollIntoView({ behavior: "smooth", block: "start" });
       // Add visual focus if tabIndex was set
       if (target.tabIndex === -1) {
-        target.style.outline = "2px solid #dc2626"; // red-600
+        target.style.outline = "2px solid #64748b"; // red-600
         target.style.outlineOffset = "4px";
         // Remove outline after a short delay
         setTimeout(() => {

@@ -15,7 +15,7 @@ export function AnimatedMarquee({ text, className, speed = 12 }: AnimatedMarquee
   return (
     <div
       className={cn(
-        "relative z-10 overflow-hidden bg-white/90 py-2.5 shadow-sm backdrop-blur-sm sm:py-3",
+        "relative z-10 overflow-hidden bg-slate-50/90 py-2.5 shadow-sm backdrop-blur-sm sm:py-3",
         className
       )}
     >
@@ -25,7 +25,7 @@ export function AnimatedMarquee({ text, className, speed = 12 }: AnimatedMarquee
           animation: `marquee ${speed}s linear infinite`,
         }}
       >
-        <span className="font-[family-name:var(--font-cinzel)] font-semibold text-red-700 text-xl tracking-[0.06em] sm:text-2xl lg:text-3xl">
+        <span className="font-semibold font-serif text-slate-900 text-xl tracking-wider sm:text-2xl lg:text-3xl">
           {repeatedText}
         </span>
       </div>

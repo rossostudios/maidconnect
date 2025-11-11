@@ -13,7 +13,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { LargeAvailabilityCalendar } from "@/components/bookings/large-availability-calendar";
+import { AvailabilityCalendar as LargeAvailabilityCalendar } from "@/components/shared/availability-calendar";
 
 // Dynamic import for sheet (lazy load on demand)
 const BookingSheet = dynamic(
@@ -82,7 +82,7 @@ export function ProfessionalProfileView({
   const t = useTranslations("pages.professionalProfile");
   const [isBookingSheetOpen, setIsBookingSheetOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [availableSlots, setAvailableSlots] = useState<string[]>([]);
+  const [availableSlots] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<"about" | "services" | "portfolio" | "reviews">(
     "about"
   );
@@ -98,27 +98,29 @@ export function ProfessionalProfileView({
       ? professional.reviews.reduce((sum, r) => sum + r.rating, 0) / professional.reviews.length
       : 0;
 
-  const handleDateSelect = (date: Date, slots: string[]) => {
-    setSelectedDate(date);
-    setAvailableSlots(slots);
-    setIsBookingSheetOpen(true);
+  const handleDateSelect = (date: Date | null) => {
+    if (date) {
+      setSelectedDate(date);
+      // Note: Calendar component handles time slots internally
+      setIsBookingSheetOpen(true);
+    }
   };
 
   return (
     <div className="pb-24">
       <Container className="max-w-[1680px] pt-12">
         <Link
-          className="font-semibold text-[#5a5549] text-base transition hover:text-[#E85D48]"
+          className="font-semibold text-[#0f172a] text-base transition hover:text-[#64748b]"
           href="/professionals"
         >
           {t("backToDirectory")}
         </Link>
 
         {/* Professional Hero Card */}
-        <div className="mt-8 overflow-hidden rounded-[36px] border border-[#ebe5d8] bg-white shadow-[0_24px_60px_rgba(18,17,15,0.06)] sm:p-10 md:p-12">
+        <div className="mt-8 overflow-hidden rounded-[36px] border border-[#e2e8f0] bg-[#f8fafc] shadow-[0_24px_60px_rgba(22,22,22,0.06)] sm:p-10 md:p-12">
           <div className="grid gap-10 p-8 md:grid-cols-[280px_1fr] xl:grid-cols-[280px_1fr_320px]">
             {/* Photo */}
-            <div className="relative h-80 w-full overflow-hidden rounded-3xl shadow-[0_10px_40px_rgba(18,17,15,0.04)] md:h-full">
+            <div className="relative h-80 w-full overflow-hidden rounded-3xl shadow-[0_10px_40px_rgba(22,22,22,0.04)] md:h-full">
               <Image
                 alt={professional.name}
                 className="object-cover"
@@ -130,20 +132,20 @@ export function ProfessionalProfileView({
             {/* Info */}
             <div className="flex flex-col justify-center space-y-8">
               <div>
-                <h1 className="type-serif-lg text-gray-900 tracking-wide">{professional.name}</h1>
-                <p className="mt-2 text-[#7d7566] text-xl">
+                <h1 className="type-serif-lg text-[#0f172a] tracking-wide">{professional.name}</h1>
+                <p className="mt-2 text-[#94a3b8] text-xl">
                   {professional.service ?? t("availableForBookings")}
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-6 text-base text-gray-600">
+              <div className="flex flex-wrap gap-6 text-[#94a3b8] text-base">
                 <div className="flex items-center gap-2">
-                  <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={Location01Icon} />
+                  <HugeiconsIcon className="h-5 w-5 text-[#64748b]" icon={Location01Icon} />
                   <span>{locationLabel}</span>
                 </div>
                 {formattedRate && (
                   <div className="flex items-center gap-2">
-                    <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={Clock01Icon} />
+                    <HugeiconsIcon className="h-5 w-5 text-[#64748b]" icon={Clock01Icon} />
                     <span>
                       {formattedRate} {t("perHour")}
                     </span>
@@ -151,24 +153,24 @@ export function ProfessionalProfileView({
                 )}
                 {professional.languages.length > 0 && (
                   <div className="flex items-center gap-2">
-                    <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={Globe02Icon} />
+                    <HugeiconsIcon className="h-5 w-5 text-[#64748b]" icon={Globe02Icon} />
                     <span>{professional.languages.join(" / ")}</span>
                   </div>
                 )}
                 {professional.experienceYears !== null && (
                   <div className="flex items-center gap-2">
-                    <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={SecurityCheckIcon} />
+                    <HugeiconsIcon className="h-5 w-5 text-[#64748b]" icon={SecurityCheckIcon} />
                     <span>{t("yearsExperience", { years: professional.experienceYears })}</span>
                   </div>
                 )}
                 {averageRating > 0 && (
                   <div className="flex items-center gap-2">
                     <HugeiconsIcon
-                      className="h-5 w-5 fill-red-600 text-[#E85D48]"
+                      className="h-5 w-5 fill-[#64748b] text-[#64748b]"
                       icon={StarIcon}
                     />
                     <span className="font-semibold">{averageRating.toFixed(1)}</span>
-                    <span className="text-[#7d7566]">
+                    <span className="text-[#94a3b8]">
                       ({t("reviewsCount", { count: professional.reviews.length })})
                     </span>
                   </div>
@@ -176,7 +178,7 @@ export function ProfessionalProfileView({
               </div>
 
               {professional.availableToday && (
-                <div className="inline-flex w-fit items-center gap-2 rounded-full bg-[#E85D48]/10 px-5 py-2.5 font-semibold text-[#E85D48] text-base">
+                <div className="inline-flex w-fit items-center gap-2 rounded-full bg-[#64748b]/10 px-5 py-2.5 font-semibold text-[#64748b] text-base">
                   <HugeiconsIcon className="h-5 w-5" icon={CalendarSetting01Icon} />
                   {t("availableToday")}
                 </div>
@@ -210,26 +212,30 @@ export function ProfessionalProfileView({
           {/* Left: Large Calendar */}
           <div>
             <div className="mb-8">
-              <h2 className="font-semibold text-3xl text-gray-900">{t("bookingSection.title")}</h2>
-              <p className="mt-2 text-[#7d7566] text-lg">{t("bookingSection.description")}</p>
+              <h2 className="font-semibold text-3xl text-[#0f172a]">{t("bookingSection.title")}</h2>
+              <p className="mt-2 text-[#94a3b8] text-lg">{t("bookingSection.description")}</p>
             </div>
             <LargeAvailabilityCalendar
+              dataSource={{
+                type: "api",
+                professionalId: professional.id,
+              }}
               onDateSelect={handleDateSelect}
-              professionalId={professional.id}
+              size="large"
             />
           </div>
 
           {/* Right: Info Tabs */}
           <aside className="space-y-8">
             {/* Tab Navigation - Horizontally scrollable on mobile */}
-            <div className="rounded-[32px] border border-[#ebe5d8] bg-white shadow-[0_10px_40px_rgba(18,17,15,0.04)]">
+            <div className="rounded-[32px] border border-[#e2e8f0] bg-[#f8fafc] shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
               <div className="overflow-x-auto">
-                <div className="flex w-max border-[#ebe5d8] border-b md:w-full">
+                <div className="flex w-max border-[#e2e8f0] border-b md:w-full">
                   <button
                     className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
                       activeTab === "about"
-                        ? "border-[#E85D48] border-b-2 text-[#E85D48]"
-                        : "text-[#7d7566] hover:text-[#E85D48]"
+                        ? "border-[#64748b] border-b-2 text-[#64748b]"
+                        : "text-[#94a3b8] hover:text-[#64748b]"
                     }`}
                     onClick={() => setActiveTab("about")}
                     type="button"
@@ -239,8 +245,8 @@ export function ProfessionalProfileView({
                   <button
                     className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
                       activeTab === "services"
-                        ? "border-[#E85D48] border-b-2 text-[#E85D48]"
-                        : "text-[#7d7566] hover:text-[#E85D48]"
+                        ? "border-[#64748b] border-b-2 text-[#64748b]"
+                        : "text-[#94a3b8] hover:text-[#64748b]"
                     }`}
                     onClick={() => setActiveTab("services")}
                     type="button"
@@ -250,8 +256,8 @@ export function ProfessionalProfileView({
                   <button
                     className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
                       activeTab === "portfolio"
-                        ? "border-[#E85D48] border-b-2 text-[#E85D48]"
-                        : "text-[#7d7566] hover:text-[#E85D48]"
+                        ? "border-[#64748b] border-b-2 text-[#64748b]"
+                        : "text-[#94a3b8] hover:text-[#64748b]"
                     }`}
                     onClick={() => setActiveTab("portfolio")}
                     type="button"
@@ -261,8 +267,8 @@ export function ProfessionalProfileView({
                   <button
                     className={`flex-shrink-0 whitespace-nowrap px-6 py-4 font-semibold text-base transition md:flex-1 ${
                       activeTab === "reviews"
-                        ? "border-[#E85D48] border-b-2 text-[#E85D48]"
-                        : "text-[#7d7566] hover:text-[#E85D48]"
+                        ? "border-[#64748b] border-b-2 text-[#64748b]"
+                        : "text-[#94a3b8] hover:text-[#64748b]"
                     }`}
                     onClick={() => setActiveTab("reviews")}
                     type="button"
@@ -276,8 +282,8 @@ export function ProfessionalProfileView({
               <div className="p-8">
                 {activeTab === "about" && (
                   <div className="space-y-6">
-                    <h3 className="font-semibold text-2xl text-gray-900">{t("tabs.about")}</h3>
-                    <p className="text-base text-gray-600 leading-relaxed">
+                    <h3 className="font-semibold text-2xl text-[#0f172a]">{t("tabs.about")}</h3>
+                    <p className="text-[#94a3b8] text-base leading-relaxed">
                       {professional.bio ?? t("aboutSection.noBio")}
                     </p>
                   </div>
@@ -285,18 +291,18 @@ export function ProfessionalProfileView({
 
                 {activeTab === "services" && (
                   <div className="space-y-6">
-                    <h3 className="font-semibold text-2xl text-gray-900">
+                    <h3 className="font-semibold text-2xl text-[#0f172a]">
                       {t("servicesSection.title")}
                     </h3>
                     <div className="space-y-4">
                       {hasServices ? (
                         professional.services.map((service) => (
                           <div
-                            className="rounded-2xl border border-[#f0ece4] bg-[#fbfafa] p-5"
+                            className="rounded-2xl border border-[#f8fafc] bg-[#f8fafc] p-5"
                             key={`${service.name ?? "service"}-${service.description ?? "detail"}`}
                           >
                             <div className="flex flex-col gap-2">
-                              <div className="font-semibold text-base text-gray-900">
+                              <div className="font-semibold text-[#0f172a] text-base">
                                 {service.name ?? t("servicesSection.serviceFallback")}
                               </div>
                               {service.hourlyRateCop ? (
@@ -307,23 +313,23 @@ export function ProfessionalProfileView({
                                     showBreakdown={true}
                                   />
                                 ) : (
-                                  <div className="font-semibold text-[#E85D48] text-lg">
+                                  <div className="font-semibold text-[#64748b] text-lg">
                                     {formatCOPWithFallback(service.hourlyRateCop)}
                                   </div>
                                 )
                               ) : (
-                                <div className="font-semibold text-[#E85D48] text-lg">
+                                <div className="font-semibold text-[#64748b] text-lg">
                                   {t("servicesSection.rateOnRequest")}
                                 </div>
                               )}
                             </div>
                             {service.description && (
-                              <p className="mt-2 text-[#7d7566] text-base">{service.description}</p>
+                              <p className="mt-2 text-[#94a3b8] text-base">{service.description}</p>
                             )}
                           </div>
                         ))
                       ) : (
-                        <p className="text-[#7d7566] text-base">
+                        <p className="text-[#94a3b8] text-base">
                           {t("servicesSection.noServices")}
                         </p>
                       )}
@@ -333,7 +339,7 @@ export function ProfessionalProfileView({
 
                 {activeTab === "portfolio" && (
                   <div className="space-y-6">
-                    <h3 className="font-semibold text-2xl text-gray-900">{t("tabs.portfolio")}</h3>
+                    <h3 className="font-semibold text-2xl text-[#0f172a]">{t("tabs.portfolio")}</h3>
                     {professional.portfolioImages.length > 0 ? (
                       <div className="grid grid-cols-2 gap-4">
                         {professional.portfolioImages.slice(0, 6).map((image, index) => (
@@ -351,19 +357,19 @@ export function ProfessionalProfileView({
                         ))}
                       </div>
                     ) : (
-                      <p className="text-[#7d7566] text-base">{t("portfolioSection.noImages")}</p>
+                      <p className="text-[#94a3b8] text-base">{t("portfolioSection.noImages")}</p>
                     )}
                   </div>
                 )}
 
                 {activeTab === "reviews" && (
                   <div className="space-y-6">
-                    <h3 className="font-semibold text-2xl text-gray-900">{t("tabs.reviews")}</h3>
+                    <h3 className="font-semibold text-2xl text-[#0f172a]">{t("tabs.reviews")}</h3>
                     {professional.reviews.length > 0 ? (
                       <div className="space-y-6">
                         {professional.reviews.slice(0, 3).map((review) => (
                           <div
-                            className="space-y-3 border-[#ebe5d8] border-b pb-6 last:border-b-0 last:pb-0"
+                            className="space-y-3 border-[#e2e8f0] border-b pb-6 last:border-b-0 last:pb-0"
                             key={review.id}
                           >
                             <div className="flex items-center gap-2">
@@ -371,16 +377,16 @@ export function ProfessionalProfileView({
                                 <HugeiconsIcon
                                   className={`h-4 w-4 ${
                                     i < review.rating
-                                      ? "fill-red-600 text-[#E85D48]"
-                                      : "text-[#e5dfd4]"
+                                      ? "fill-[#64748b] text-[#64748b]"
+                                      : "text-[#e2e8f0]"
                                   }`}
                                   icon={StarIcon}
                                   key={i}
                                 />
                               ))}
                             </div>
-                            <p className="text-base text-gray-600">{review.comment}</p>
-                            <p className="text-[#7d7566] text-sm">
+                            <p className="text-[#94a3b8] text-base">{review.comment}</p>
+                            <p className="text-[#94a3b8] text-sm">
                               {review.reviewerName} ·{" "}
                               {new Date(review.createdAt).toLocaleDateString(
                                 locale === "es" ? "es-ES" : "en-US",
@@ -390,7 +396,7 @@ export function ProfessionalProfileView({
                           </div>
                         ))}
                         {professional.reviews.length > 3 && (
-                          <p className="text-[#7d7566] text-sm">
+                          <p className="text-[#94a3b8] text-sm">
                             {t("reviewsSection.moreReviews", {
                               count: professional.reviews.length - 3,
                             })}
@@ -398,7 +404,7 @@ export function ProfessionalProfileView({
                         )}
                       </div>
                     ) : (
-                      <p className="text-[#7d7566] text-base">{t("reviewsSection.noReviews")}</p>
+                      <p className="text-[#94a3b8] text-base">{t("reviewsSection.noReviews")}</p>
                     )}
                   </div>
                 )}

@@ -81,15 +81,15 @@ export function TableOfContents({ className }: TableOfContentsProps) {
     >
       {/* Mobile: Collapsible disclosure button */}
       <button
-        className="flex w-full items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-3 text-left transition-colors hover:bg-gray-50 lg:hidden"
+        className="flex w-full items-center justify-between rounded-lg border border-slate-200 bg-white px-4 py-3 text-left shadow-sm transition-colors hover:bg-slate-50 lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
         type="button"
       >
-        <span className="font-medium text-gray-900 text-sm">
+        <span className="font-medium text-slate-900 text-sm">
           {t("toc.title")} ({headings.length})
         </span>
         <HugeiconsIcon
-          className={cn("h-4 w-4 text-gray-500 transition-transform", isOpen && "rotate-180")}
+          className={cn("h-4 w-4 text-slate-500 transition-transform", isOpen && "rotate-180")}
           icon={ArrowDown01Icon}
         />
       </button>
@@ -97,7 +97,7 @@ export function TableOfContents({ className }: TableOfContentsProps) {
       {/* Mobile: Collapsible content */}
       <div className={cn("mt-2 lg:hidden", !isOpen && "hidden")}>
         <nav>
-          <ul className="space-y-1 rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm">
+          <ul className="space-y-1 rounded-lg border border-slate-200 bg-white p-3 text-sm shadow-sm">
             {headings.map((heading) => (
               <li
                 key={heading.id}
@@ -109,8 +109,8 @@ export function TableOfContents({ className }: TableOfContentsProps) {
                   className={cn(
                     "block rounded px-2 py-1.5 transition-colors",
                     activeId === heading.id
-                      ? "bg-white font-medium text-gray-900"
-                      : "text-gray-600 hover:bg-white hover:text-gray-900"
+                      ? "bg-slate-100 font-medium text-slate-900"
+                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                   )}
                   href={`#${heading.id}`}
                   onClick={(e) => {
@@ -132,9 +132,9 @@ export function TableOfContents({ className }: TableOfContentsProps) {
 
       {/* Desktop: Always visible with minimal Notion-style */}
       <div className="hidden lg:block">
-        <h4 className="mb-4 text-gray-400 text-xs uppercase tracking-wide">{t("toc.title")}</h4>
+        <h4 className="mb-4 text-slate-500 text-xs uppercase tracking-wide">{t("toc.title")}</h4>
         <nav>
-          <ul className="space-y-1 border-gray-200 border-l pl-3 text-sm">
+          <ul className="space-y-1 border-slate-200 border-l pl-3 text-sm">
             {headings.map((heading) => (
               <li
                 key={heading.id}
@@ -146,8 +146,8 @@ export function TableOfContents({ className }: TableOfContentsProps) {
                   className={cn(
                     "block py-1 transition-colors",
                     activeId === heading.id
-                      ? "font-medium text-gray-900"
-                      : "text-gray-500 hover:text-gray-900"
+                      ? "font-medium text-slate-900"
+                      : "text-slate-600 hover:text-slate-900"
                   )}
                   href={`#${heading.id}`}
                   onClick={(e) => {

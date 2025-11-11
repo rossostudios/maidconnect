@@ -12,7 +12,7 @@ type Props = {
   inputClass: string;
 };
 
-const errorClass = "border-red-300 focus:border-red-400 focus:ring-red-200";
+const errorClass = "border-[#FF4444A22]/50 focus:border-[#FF4444A22] focus:ring-[#FF4444A22]/30";
 
 export function ApplicationForm({ services, countries, inputClass }: Props) {
   const t = useTranslations("dashboard.pro.applicationForm");
@@ -104,13 +104,13 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
           {services.map((service) => (
             <label
               className={cn(
-                "flex cursor-pointer items-center gap-3 rounded-xl border-2 border-[#ebe5d8] bg-white p-4 font-medium text-base text-gray-900 transition hover:border-[#E85D48] hover:bg-[#fff5f2]",
-                hasError("services") && "border-red-300"
+                "flex cursor-pointer items-center gap-3 rounded-xl border-2 border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-4 font-medium text-[#116611616] text-base transition hover:border-[#FF4444A22] hover:bg-[#FFEEFF8E8]",
+                hasError("services") && "border-[#FF4444A22]/50"
               )}
               key={service}
             >
               <input
-                className="h-5 w-5 rounded border-[#ebe5d8] text-[#E85D48] focus:ring-[#E85D48]"
+                className="h-5 w-5 rounded border-[#EE44EE2E3] text-[#FF4444A22] focus:ring-[#FF4444A22]"
                 name="services"
                 type="checkbox"
                 value={service}
@@ -165,12 +165,12 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
       >
         <div className="space-y-4">
           {[1, 2].map((index) => (
-            <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6" key={index}>
+            <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6" key={index}>
               <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E85D48] font-semibold text-sm text-white">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FF4444A22] font-semibold text-[#FFEEFF8E8] text-sm">
                   {index}
                 </div>
-                <p className="font-semibold text-[#7d7566] text-sm uppercase tracking-[0.2em]">
+                <p className="font-semibold text-[#AA88AAAAC] text-sm uppercase tracking-[0.2em]">
                   {t("references.referenceLabel", { number: index })}
                 </p>
               </div>
@@ -202,10 +202,10 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
       </FormField>
 
       <FormField error={fieldError("consent")} label={t("consent.label")}>
-        <label className="flex cursor-pointer items-start gap-3 rounded-xl border-2 border-[#ebe5d8] bg-white p-5 text-base text-gray-900 transition hover:border-[#E85D48] hover:bg-[#fff5f2]">
+        <label className="flex cursor-pointer items-start gap-3 rounded-xl border-2 border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-5 text-[#116611616] text-base transition hover:border-[#FF4444A22] hover:bg-[#FFEEFF8E8]">
           <input
             aria-invalid={hasError("consent")}
-            className="mt-0.5 h-5 w-5 rounded border-[#ebe5d8] text-[#E85D48] focus:ring-[#E85D48]"
+            className="mt-0.5 h-5 w-5 rounded border-[#EE44EE2E3] text-[#FF4444A22] focus:ring-[#FF4444A22]"
             name="consent"
             type="checkbox"
           />
@@ -213,11 +213,11 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
         </label>
       </FormField>
 
-      <div className="flex flex-col gap-4 border-[#ebe5d8] border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-gray-600 text-sm">{t("footer.note")}</p>
+      <div className="flex flex-col gap-4 border-[#EE44EE2E3] border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-[#AA88AAAAC] text-sm">{t("footer.note")}</p>
         <button
           className={cn(
-            "inline-flex items-center justify-center rounded-full bg-[#E85D48] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36]",
+            "inline-flex items-center justify-center rounded-full bg-[#FF4444A22] px-8 py-4 font-semibold text-[#FFEEFF8E8] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[#FF4444A22]",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}
@@ -233,12 +233,15 @@ export function ApplicationForm({ services, countries, inputClass }: Props) {
 function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
-      <div className="rounded-2xl border border-red-200 bg-[#E85D48]/10 p-6 shadow-sm" role="alert">
+      <div
+        className="rounded-2xl border border-[#FF4444A22]/30 bg-[#FF4444A22]/10 p-6 shadow-sm"
+        role="alert"
+      >
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF4444A22]/10">
             <svg
               aria-label="Error icon"
-              className="h-5 w-5 text-[#E85D48]"
+              className="h-5 w-5 text-[#FF4444A22]"
               fill="none"
               role="img"
               stroke="currentColor"
@@ -252,19 +255,22 @@ function Feedback({ state }: { state: OnboardingActionState }) {
               />
             </svg>
           </div>
-          <p className="flex-1 text-base text-red-800 leading-relaxed">{state.error}</p>
+          <p className="flex-1 text-[#FF4444A22] text-base leading-relaxed">{state.error}</p>
         </div>
       </div>
     );
   }
   if (state.status === "success" && state.message) {
     return (
-      <div className="rounded-2xl border border-green-200 bg-green-50 p-6 shadow-sm" role="status">
+      <div
+        className="rounded-2xl border border-[#FF4444A22]/40 bg-[#FF4444A22]/10 p-6 shadow-sm"
+        role="status"
+      >
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF4444A22]/10">
             <svg
               aria-label="Success icon"
-              className="h-5 w-5 text-green-600"
+              className="h-5 w-5 text-[#FF4444A22]"
               fill="none"
               role="img"
               stroke="currentColor"
@@ -278,7 +284,7 @@ function Feedback({ state }: { state: OnboardingActionState }) {
               />
             </svg>
           </div>
-          <p className="flex-1 text-base text-green-800 leading-relaxed">{state.message}</p>
+          <p className="flex-1 text-[#FF4444A22] text-base leading-relaxed">{state.message}</p>
         </div>
       </div>
     );
@@ -299,13 +305,13 @@ function FormField({ label, children, helper, error, className }: FormFieldProps
 
   return (
     <div className={cn("space-y-3", className)}>
-      <label className="block font-semibold text-base text-gray-900" htmlFor={childId}>
+      <label className="block font-semibold text-[#116611616] text-base" htmlFor={childId}>
         {label}
       </label>
-      {helper ? <p className="text-gray-600 text-sm">{helper}</p> : null}
+      {helper ? <p className="text-[#AA88AAAAC] text-sm">{helper}</p> : null}
       {children}
       {error ? (
-        <p className="flex items-center gap-2 text-[#E85D48] text-sm">
+        <p className="flex items-center gap-2 text-[#FF4444A22] text-sm">
           <svg
             aria-label="Error icon"
             className="h-4 w-4"

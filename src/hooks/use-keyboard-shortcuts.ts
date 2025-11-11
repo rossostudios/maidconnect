@@ -87,16 +87,10 @@ export function useKeyboardShortcuts(
     []
   );
 
-  // Handle global shortcuts (command palette, help, escape)
+  // Handle global shortcuts (help, escape)
+  // Note: Cmd+K is handled by UnifiedCommandPalette component
   const handleGlobalShortcuts = useCallback(
     (event: KeyboardEvent, isTyping: boolean): boolean => {
-      // ⌘K / Ctrl+K - Open command palette
-      if ((event.metaKey || event.ctrlKey) && event.key === "k") {
-        event.preventDefault();
-        toggleCommandPalette();
-        return true;
-      }
-
       // ? - Show keyboard shortcuts
       if (event.key === "?" && !isTyping) {
         event.preventDefault();
@@ -113,7 +107,7 @@ export function useKeyboardShortcuts(
 
       return false;
     },
-    [toggleCommandPalette, toggleShortcutsPanel, closeAll]
+    [toggleShortcutsPanel, closeAll]
   );
 
   // Handle "G then X" navigation sequences

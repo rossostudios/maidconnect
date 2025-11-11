@@ -10,8 +10,8 @@ export default async function AdminUsersPage() {
   return (
     <section className="space-y-8">
       <div>
-        <h1 className="font-bold text-3xl text-[#171717]">User Management</h1>
-        <p className="mt-2 text-[#737373]">Manage users, roles, and account status</p>
+        <h1 className="font-bold text-3xl text-[#116611616]">User Management</h1>
+        <p className="mt-2 text-[#AA88AAAAC]">Manage users, roles, and account status</p>
       </div>
 
       <UserManagementDashboard />

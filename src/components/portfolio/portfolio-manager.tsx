@@ -3,8 +3,9 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { toast } from "sonner";
 import type { PortfolioImage } from "@/app/api/professional/portfolio/route";
-import { confirm, toast } from "@/lib/toast";
+import { confirm } from "@/lib/toast";
 import { ImageUploadDropzone } from "./image-upload-dropzone";
 
 type Props = {
@@ -30,22 +31,27 @@ export function PortfolioManager({
 
   const handleSave = async () => {
     setLoading(true);
-    try {
-      const response = await fetch("/api/professional/portfolio", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ images, featuredWork }),
-      });
 
+    const savePromise = fetch("/api/professional/portfolio", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ images, featuredWork }),
+    }).then(async (response) => {
       if (!response.ok) {
         throw new Error("Failed to update portfolio");
       }
+      return response;
+    });
 
+    try {
+      await toast.promise(savePromise, {
+        loading: "Saving portfolio...",
+        success: t("success"),
+        error: (error) => error.message || t("error"),
+      });
       onUpdate?.(images, featuredWork);
-      toast.success(t("success"));
     } catch (error) {
       console.error("Failed to update portfolio:", error);
-      toast.error(t("error"));
     } finally {
       setLoading(false);
     }
@@ -131,23 +137,23 @@ export function PortfolioManager({
     <div className="space-y-6">
       {/* Featured Work */}
       <div>
-        <label className="mb-2 block font-semibold text-gray-900 text-sm" htmlFor="featured-work">
+        <label className="mb-2 block font-semibold text-[#0f172a] text-sm" htmlFor="featured-work">
           {t("fields.description.label")}
         </label>
         <textarea
-          className="w-full rounded-md border border-[#e5dfd4] px-3 py-2 text-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+          className="w-full rounded-md border border-[#e2e8f0] px-3 py-2 text-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
           id="featured-work"
           onChange={(e) => setFeaturedWork(e.target.value)}
           placeholder={t("fields.description.placeholder")}
           rows={3}
           value={featuredWork}
         />
-        <p className="mt-1 text-[#7a6d62] text-xs">{t("fields.description.helper")}</p>
+        <p className="mt-1 text-[#94a3b8] text-xs">{t("fields.description.helper")}</p>
       </div>
 
       {/* Upload New Images */}
       <div>
-        <h3 className="mb-3 font-semibold text-gray-900 text-sm">{t("upload.title")}</h3>
+        <h3 className="mb-3 font-semibold text-[#0f172a] text-sm">{t("upload.title")}</h3>
         <ImageUploadDropzone
           maxImages={20 - images.length}
           onImagesUploaded={handleImagesUploaded}
@@ -156,7 +162,7 @@ export function PortfolioManager({
 
       {/* Current Images */}
       <div>
-        <h3 className="mb-3 font-semibold text-gray-900 text-sm">
+        <h3 className="mb-3 font-semibold text-[#0f172a] text-sm">
           {t("upload.currentImages", { count: images.length })}
         </h3>
 
@@ -164,7 +170,7 @@ export function PortfolioManager({
           <div className="space-y-3">
             {sortedImages.map((image, index) => (
               <div
-                className="flex gap-3 rounded-lg border border-[#e5dfd4] bg-white p-3"
+                className="flex gap-3 rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-3"
                 key={image.id}
               >
                 {/* Thumbnail */}
@@ -183,7 +189,7 @@ export function PortfolioManager({
                     <div className="space-y-2">
                       <input
                         autoFocus
-                        className="w-full rounded-md border border-[#e5dfd4] px-2 py-1 text-sm focus:border-[#E85D48] focus:outline-none"
+                        className="w-full rounded-md border border-[#e2e8f0] px-2 py-1 text-sm focus:border-[#64748b] focus:outline-none"
                         defaultValue={image.caption || ""}
                         onBlur={(e) => handleUpdateCaption(image.id, e.target.value)}
                         onKeyDown={(e) => {
@@ -197,21 +203,21 @@ export function PortfolioManager({
                     </div>
                   ) : (
                     <>
-                      <p className="font-semibold text-gray-900 text-sm">
+                      <p className="font-semibold text-[#0f172a] text-sm">
                         {image.caption || "(No caption)"}
                       </p>
-                      <p className="mt-1 truncate text-[#7a6d62] text-xs">{image.url}</p>
+                      <p className="mt-1 truncate text-[#94a3b8] text-xs">{image.url}</p>
                       <div className="mt-2 flex flex-wrap gap-2">
                         <button
-                          className="text-[#E85D48] text-xs hover:text-red-700"
+                          className="text-[#64748b] text-xs hover:text-[#64748b]"
                           onClick={() => setEditingId(image.id)}
                           type="button"
                         >
                           {t("actions.editCaption")}
                         </button>
-                        <span className="text-[#e5dfd4] text-xs">•</span>
+                        <span className="text-[#e2e8f0] text-xs">•</span>
                         <button
-                          className="text-[#7a6d62] text-xs hover:text-[#E85D48] disabled:cursor-not-allowed disabled:opacity-50"
+                          className="text-[#94a3b8] text-xs hover:text-[#64748b] disabled:cursor-not-allowed disabled:opacity-50"
                           disabled={index === 0}
                           onClick={() => handleMoveUp(image.id)}
                           type="button"
@@ -219,16 +225,16 @@ export function PortfolioManager({
                           {t("actions.moveUp")}
                         </button>
                         <button
-                          className="text-[#7a6d62] text-xs hover:text-[#E85D48] disabled:cursor-not-allowed disabled:opacity-50"
+                          className="text-[#94a3b8] text-xs hover:text-[#64748b] disabled:cursor-not-allowed disabled:opacity-50"
                           disabled={index === sortedImages.length - 1}
                           onClick={() => handleMoveDown(image.id)}
                           type="button"
                         >
                           {t("actions.moveDown")}
                         </button>
-                        <span className="text-[#e5dfd4] text-xs">•</span>
+                        <span className="text-[#e2e8f0] text-xs">•</span>
                         <button
-                          className="text-[#E85D48] text-xs hover:text-red-700"
+                          className="text-[#64748b] text-xs hover:text-[#64748b]"
                           onClick={() => handleDeleteImage(image.id)}
                           type="button"
                         >
@@ -241,7 +247,7 @@ export function PortfolioManager({
 
                 {/* Order Badge */}
                 <div className="flex-shrink-0">
-                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#f0ece5] font-semibold text-[#7a6d62] text-xs">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#e2e8f0] font-semibold text-[#94a3b8] text-xs">
                     {index + 1}
                   </span>
                 </div>
@@ -251,18 +257,18 @@ export function PortfolioManager({
         )}
 
         {images.length === 0 && (
-          <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-12 text-center">
+          <div className="rounded-lg border border-[#e2e8f0] bg-[#f8fafc]/90 p-12 text-center">
             <p className="text-2xl">📸</p>
-            <p className="mt-2 font-semibold text-gray-900 text-sm">{t("emptyState.title")}</p>
-            <p className="mt-1 text-[#7a6d62] text-sm">{t("emptyState.description")}</p>
+            <p className="mt-2 font-semibold text-[#0f172a] text-sm">{t("emptyState.title")}</p>
+            <p className="mt-1 text-[#94a3b8] text-sm">{t("emptyState.description")}</p>
           </div>
         )}
       </div>
 
       {/* Upload Tips */}
-      <div className="rounded-lg border border-[#f0ece5] bg-[#fdfaf6] p-4">
-        <h4 className="font-semibold text-gray-900 text-sm">📸 {t("tips.title")}</h4>
-        <ul className="mt-2 space-y-1 text-[#7a6d62] text-sm">
+      <div className="rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-4">
+        <h4 className="font-semibold text-[#0f172a] text-sm">📸 {t("tips.title")}</h4>
+        <ul className="mt-2 space-y-1 text-[#94a3b8] text-sm">
           <li>• {t("tips.tip1")}</li>
           <li>• {t("tips.tip2")}</li>
           <li>• {t("tips.tip3")}</li>
@@ -274,7 +280,7 @@ export function PortfolioManager({
       {/* Save Button */}
       <div className="flex justify-end gap-3">
         <button
-          className="rounded-md bg-[#E85D48] px-6 py-2 font-semibold text-sm text-white transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-md bg-[#64748b] px-6 py-2 font-semibold text-[#f8fafc] text-sm transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={loading}
           onClick={handleSave}
           type="button"

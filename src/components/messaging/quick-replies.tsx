@@ -129,7 +129,7 @@ export function QuickReplies({ onSelectReply }: QuickRepliesProps) {
   if (!isExpanded) {
     return (
       <button
-        className="flex items-center gap-2 rounded-lg border border-[#E5E5E5] bg-white px-4 py-2 font-medium text-gray-900 text-sm transition hover:border-[#E85D48] hover:text-[#E85D48]"
+        className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 font-medium text-slate-700 text-sm shadow-sm transition-all hover:border-slate-300 hover:bg-slate-50"
         onClick={() => setIsExpanded(true)}
         type="button"
       >
@@ -140,12 +140,12 @@ export function QuickReplies({ onSelectReply }: QuickRepliesProps) {
   }
 
   return (
-    <div className="rounded-lg border border-[#E5E5E5] bg-white p-4">
+    <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
       {/* Header */}
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="font-semibold text-gray-900 text-sm">Quick Reply Templates</h3>
+        <h3 className="font-semibold text-slate-900 text-sm">Quick Reply Templates</h3>
         <button
-          className="text-[#737373] transition hover:text-[#E85D48]"
+          className="text-slate-500 transition hover:text-slate-700"
           onClick={() => setIsExpanded(false)}
           type="button"
         >
@@ -159,8 +159,8 @@ export function QuickReplies({ onSelectReply }: QuickRepliesProps) {
           <button
             className={`whitespace-nowrap rounded-full px-3 py-1 font-medium text-xs transition ${
               selectedCategory === category
-                ? "bg-[#E85D48] text-white"
-                : "bg-[#FAFAF9] text-[#737373] hover:bg-[#F5F5F5]"
+                ? "bg-slate-900 text-white"
+                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
             }`}
             key={category}
             onClick={() => setSelectedCategory(category)}
@@ -175,7 +175,7 @@ export function QuickReplies({ onSelectReply }: QuickRepliesProps) {
       <div className="grid max-h-64 grid-cols-1 gap-2 overflow-y-auto sm:grid-cols-2">
         {filteredReplies.map((reply) => (
           <button
-            className="rounded-lg border border-[#E5E5E5] bg-[#FAFAF9] px-4 py-3 text-left text-sm transition hover:border-[#E85D48] hover:bg-white"
+            className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-left text-sm transition hover:border-slate-300 hover:bg-slate-100"
             key={reply.id}
             onClick={() => {
               onSelectReply(reply.message);
@@ -183,13 +183,13 @@ export function QuickReplies({ onSelectReply }: QuickRepliesProps) {
             }}
             type="button"
           >
-            <div className="mb-1 font-medium text-gray-900">{reply.label}</div>
-            <div className="line-clamp-2 text-[#737373] text-xs">{reply.message}</div>
+            <div className="mb-1 font-medium text-slate-900">{reply.label}</div>
+            <div className="line-clamp-2 text-slate-600 text-xs">{reply.message}</div>
           </button>
         ))}
       </div>
 
-      <p className="mt-3 text-center text-[#A3A3A3] text-xs">
+      <p className="mt-3 text-center text-slate-500 text-xs">
         Click a template to insert it into your message. You can edit it before sending.
       </p>
     </div>

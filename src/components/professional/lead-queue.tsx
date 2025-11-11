@@ -12,8 +12,8 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import { useState } from "react";
-import { formatCurrency } from "@/lib/format";
-import { toast } from "@/lib/toast";
+import { toast } from "sonner";
+import { type Currency, formatCurrency } from "@/lib/format";
 
 type BookingLead = {
   id: string;
@@ -23,7 +23,7 @@ type BookingLead = {
   scheduled_end: string | null;
   duration_minutes: number | null;
   amount_estimated: number;
-  currency: string;
+  currency: Currency | string;
   status: string;
   special_instructions: string | null;
   address: string | null;
@@ -102,12 +102,12 @@ export function LeadQueue({ initialBookings, professionalId: _professionalId }: 
   return (
     <div className="space-y-6">
       {/* Filter Tabs */}
-      <div className="flex gap-2 border-[#ebe5d8] border-b">
+      <div className="flex gap-2 border-[#e2e8f0] border-b">
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "all"
-              ? "border-[#E85D48] text-[#E85D48]"
-              : "border-transparent text-[#7d7566] hover:text-gray-900"
+              ? "border-[#64748b] text-[#64748b]"
+              : "border-transparent text-[#94a3b8] hover:text-[#0f172a]"
           }`}
           onClick={() => setFilter("all")}
         >
@@ -116,8 +116,8 @@ export function LeadQueue({ initialBookings, professionalId: _professionalId }: 
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "pending"
-              ? "border-[#E85D48] text-[#E85D48]"
-              : "border-transparent text-[#7d7566] hover:text-gray-900"
+              ? "border-[#64748b] text-[#64748b]"
+              : "border-transparent text-[#94a3b8] hover:text-[#0f172a]"
           }`}
           onClick={() => setFilter("pending")}
         >
@@ -126,8 +126,8 @@ export function LeadQueue({ initialBookings, professionalId: _professionalId }: 
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "confirmed"
-              ? "border-[#E85D48] text-[#E85D48]"
-              : "border-transparent text-[#7d7566] hover:text-gray-900"
+              ? "border-[#64748b] text-[#64748b]"
+              : "border-transparent text-[#94a3b8] hover:text-[#0f172a]"
           }`}
           onClick={() => setFilter("confirmed")}
         >
@@ -137,18 +137,18 @@ export function LeadQueue({ initialBookings, professionalId: _professionalId }: 
 
       {/* Lead Cards */}
       {filteredBookings.length === 0 ? (
-        <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#ebe5d8]">
-            <HugeiconsIcon className="h-8 w-8 text-[#7d7566]" icon={Calendar03Icon} />
+        <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-12 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#e2e8f0]">
+            <HugeiconsIcon className="h-8 w-8 text-[#94a3b8]" icon={Calendar03Icon} />
           </div>
-          <h3 className="font-semibold text-gray-900 text-xl">
+          <h3 className="font-semibold text-[#0f172a] text-xl">
             {filter === "pending"
               ? "No pending requests"
               : filter === "confirmed"
                 ? "No confirmed bookings"
                 : "No booking requests"}
           </h3>
-          <p className="mt-2 text-[#7d7566]">
+          <p className="mt-2 text-[#94a3b8]">
             {filter === "pending"
               ? "You're all caught up! New requests will appear here."
               : filter === "confirmed"
@@ -199,7 +199,7 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
   };
 
   return (
-    <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6 shadow-sm transition hover:shadow-md">
+    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-sm transition hover:shadow-md">
       <div className="flex items-start gap-6">
         {/* Customer Avatar */}
         <div className="flex-shrink-0">
@@ -212,7 +212,7 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
               width={64}
             />
           ) : (
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#E85D48] font-bold text-white text-xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#64748b] font-bold text-[#f8fafc] text-xl">
               {booking.customer?.full_name?.charAt(0).toUpperCase() || "?"}
             </div>
           )}
@@ -222,8 +222,8 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
         <div className="min-w-0 flex-1">
           <div className="mb-4 flex items-start justify-between gap-4">
             <div>
-              <h3 className="mb-1 font-bold text-gray-900 text-xl">{booking.service_name}</h3>
-              <div className="flex items-center gap-2 text-[#7d7566] text-sm">
+              <h3 className="mb-1 font-bold text-[#0f172a] text-xl">{booking.service_name}</h3>
+              <div className="flex items-center gap-2 text-[#94a3b8] text-sm">
                 <HugeiconsIcon className="h-4 w-4" icon={UserIcon} />
                 <span>{booking.customer?.full_name || "Unknown Customer"}</span>
               </div>
@@ -233,10 +233,10 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
             <span
               className={`inline-flex rounded-full px-3 py-1 font-semibold text-xs ${
                 isPending
-                  ? "bg-yellow-100 text-yellow-700"
+                  ? "bg-[#64748b]/10 text-[#64748b]"
                   : booking.status === "confirmed"
-                    ? "bg-green-100 text-green-700"
-                    : "bg-gray-100 text-gray-600"
+                    ? "bg-[#64748b]/10 text-[#64748b]"
+                    : "bg-[#e2e8f0]/30 text-[#94a3b8]"
               }`}
             >
               {isPending
@@ -250,16 +250,16 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
           {/* Booking Info Grid */}
           <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
             <div className="flex items-center gap-2 text-sm">
-              <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={Calendar03Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-[#64748b]" icon={Calendar03Icon} />
               <div>
-                <p className="font-medium text-gray-900">
+                <p className="font-medium text-[#0f172a]">
                   {new Date(booking.scheduled_start).toLocaleDateString("en-US", {
                     weekday: "short",
                     month: "short",
                     day: "numeric",
                   })}
                 </p>
-                <p className="text-[#7d7566] text-xs">
+                <p className="text-[#94a3b8] text-xs">
                   {new Date(booking.scheduled_start).toLocaleTimeString("en-US", {
                     hour: "numeric",
                     minute: "2-digit",
@@ -270,23 +270,27 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
 
             {booking.duration_minutes && (
               <div className="flex items-center gap-2 text-sm">
-                <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={Clock01Icon} />
+                <HugeiconsIcon className="h-5 w-5 text-[#64748b]" icon={Clock01Icon} />
                 <div>
-                  <p className="font-medium text-gray-900">{booking.duration_minutes} minutes</p>
-                  <p className="text-[#7d7566] text-xs">Duration</p>
+                  <p className="font-medium text-[#0f172a]">{booking.duration_minutes} minutes</p>
+                  <p className="text-[#94a3b8] text-xs">Duration</p>
                 </div>
               </div>
             )}
 
             <div className="flex items-center gap-2 text-sm">
-              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-green-100 font-bold text-green-600 text-xs">
+              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#64748b]/10 font-bold text-[#64748b] text-xs">
                 $
               </div>
               <div>
-                <p className="font-medium text-gray-900">
-                  {formatCurrency(booking.amount_estimated, { currency: booking.currency as any })}
+                <p className="font-medium text-[#0f172a]">
+                  {formatCurrency(booking.amount_estimated, {
+                    currency: (booking.currency === "COP" || booking.currency === "USD"
+                      ? booking.currency
+                      : "COP") as Currency,
+                  })}
                 </p>
-                <p className="text-[#7d7566] text-xs">Estimated</p>
+                <p className="text-[#94a3b8] text-xs">Estimated</p>
               </div>
             </div>
           </div>
@@ -295,23 +299,23 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
           {booking.address && (
             <div className="mb-4 flex items-start gap-2 text-sm">
               <HugeiconsIcon
-                className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#7d7566]"
+                className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#94a3b8]"
                 icon={LocationIcon}
               />
-              <p className="text-[#7d7566]">{booking.address}</p>
+              <p className="text-[#94a3b8]">{booking.address}</p>
             </div>
           )}
 
           {/* Special Instructions */}
           {booking.special_instructions && (
-            <div className="mb-4 rounded-lg bg-[#fbfafa] p-4">
-              <p className="mb-1 font-medium text-gray-900 text-sm">Special Instructions:</p>
-              <p className="text-[#7d7566] text-sm">{booking.special_instructions}</p>
+            <div className="mb-4 rounded-lg bg-[#f8fafc] p-4">
+              <p className="mb-1 font-medium text-[#0f172a] text-sm">Special Instructions:</p>
+              <p className="text-[#94a3b8] text-sm">{booking.special_instructions}</p>
             </div>
           )}
 
           {/* Metadata */}
-          <div className="flex items-center justify-between text-[#9d9383] text-xs">
+          <div className="flex items-center justify-between text-[#94a3b8] text-xs">
             <span>
               Requested {formatDistanceToNow(new Date(booking.created_at), { addSuffix: true })}
             </span>
@@ -322,16 +326,16 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
 
       {/* Actions */}
       {isPending && (
-        <div className="mt-6 flex gap-3 border-[#ebe5d8] border-t pt-6">
+        <div className="mt-6 flex gap-3 border-[#e2e8f0] border-t pt-6">
           <button
-            className="flex-1 rounded-lg border-2 border-[#e5dfd4] bg-white px-6 py-3 font-semibold text-gray-900 transition hover:border-[#E85D48]/100 hover:text-[#E85D48] disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-1 rounded-lg border-2 border-[#e2e8f0] bg-[#f8fafc] px-6 py-3 font-semibold text-[#0f172a] transition hover:border-[#64748b]/100 hover:text-[#64748b] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isProcessing}
             onClick={handleDecline}
           >
             {isProcessing ? "Processing..." : "Decline"}
           </button>
           <button
-            className="flex-1 rounded-lg bg-[#E85D48] px-6 py-3 font-semibold text-white transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-1 rounded-lg bg-[#64748b] px-6 py-3 font-semibold text-[#f8fafc] transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isProcessing}
             onClick={handleAccept}
           >
@@ -341,8 +345,8 @@ function LeadCard({ booking, onAccept, onDecline }: LeadCardProps) {
       )}
 
       {booking.status === "confirmed" && (
-        <div className="mt-6 border-[#ebe5d8] border-t pt-6">
-          <button className="w-full rounded-lg border border-[#e5dfd4] px-6 py-3 font-semibold text-gray-900 transition hover:border-[#E85D48] hover:text-[#E85D48]">
+        <div className="mt-6 border-[#e2e8f0] border-t pt-6">
+          <button className="w-full rounded-lg border border-[#e2e8f0] px-6 py-3 font-semibold text-[#0f172a] transition hover:border-[#64748b] hover:text-[#64748b]">
             View Booking Details
           </button>
         </div>

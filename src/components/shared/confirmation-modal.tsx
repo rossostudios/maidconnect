@@ -1,105 +1,47 @@
+/**
+ * Confirmation Modal - COMPATIBILITY WRAPPER
+ *
+ * This is a temporary wrapper around BaseModal
+ * to maintain compatibility during component cleanup.
+ *
+ * TODO: Migrate all components to use Dialog directly
+ */
+
 "use client";
 
-import {
-  Alert01Icon,
-  AlertCircleIcon,
-  CheckmarkCircle01Icon,
-  InformationCircleIcon,
-} from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { BaseModal } from "./base-modal";
+import { cn } from "@/lib/utils";
+import { BaseModal, type BaseModalProps } from "./base-modal";
 
-export type ConfirmationModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void | Promise<void>;
-  title: string;
+export interface ConfirmationModalProps extends Omit<BaseModalProps, "children"> {
   message: string;
+  onConfirm: () => void;
   confirmLabel?: string;
   cancelLabel?: string;
-  variant?: "default" | "danger" | "success" | "warning" | "info";
+  variant?: "default" | "danger";
   isLoading?: boolean;
-};
+}
 
-const variantConfig = {
-  default: {
-    icon: InformationCircleIcon,
-    iconColor: "text-[#E85D48]",
-    confirmButton: "bg-[#E85D48] hover:bg-[#D64A36]",
-  },
-  danger: {
-    icon: AlertCircleIcon,
-    iconColor: "text-[#E85D48]",
-    confirmButton: "bg-[#E85D48] hover:bg-[#D64A36]",
-  },
-  success: {
-    icon: CheckmarkCircle01Icon,
-    iconColor: "text-green-600",
-    confirmButton: "bg-green-600 hover:bg-green-700",
-  },
-  warning: {
-    icon: Alert01Icon,
-    iconColor: "text-yellow-600",
-    confirmButton: "bg-yellow-600 hover:bg-yellow-700",
-  },
-  info: {
-    icon: InformationCircleIcon,
-    iconColor: "text-blue-600",
-    confirmButton: "bg-blue-600 hover:bg-blue-700",
-  },
-};
-
-/**
- * ConfirmationModal - Simple confirm/cancel modal
- *
- * Features:
- * - Variant support (default, danger, success, warning, info)
- * - Icon indicators
- * - Loading state handling
- * - Consistent action buttons
- */
 export function ConfirmationModal({
-  isOpen,
-  onClose,
-  onConfirm,
-  title,
   message,
+  onConfirm,
   confirmLabel = "Confirm",
   cancelLabel = "Cancel",
   variant = "default",
   isLoading = false,
+  onClose,
+  ...props
 }: ConfirmationModalProps) {
-  const config = variantConfig[variant];
-
-  const handleConfirm = async () => {
-    await onConfirm();
-  };
-
   return (
-    <BaseModal
-      closeOnBackdropClick={!isLoading}
-      closeOnEscape={!isLoading}
-      isOpen={isOpen}
-      onClose={onClose}
-      showCloseButton={false}
-      size="sm"
-    >
-      <div className="text-center">
-        {/* Icon */}
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100">
-          <HugeiconsIcon className={`h-6 w-6 ${config.iconColor}`} icon={config.icon} />
-        </div>
-
-        {/* Title */}
-        <h3 className="mb-2 font-semibold text-gray-900 text-lg">{title}</h3>
-
-        {/* Message */}
-        <p className="mb-6 text-[#7a6d62] text-sm leading-relaxed">{message}</p>
-
-        {/* Actions */}
-        <div className="flex gap-3">
+    <BaseModal onClose={onClose} size="sm" {...props}>
+      <div className="space-y-6">
+        <p className="text-slate-900">{message}</p>
+        <div className="flex justify-end gap-3">
           <button
-            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-base text-gray-900 transition hover:border-gray-900 disabled:cursor-not-allowed disabled:opacity-70"
+            className={cn(
+              "rounded-lg border border-slate-200 bg-white px-4 py-2 font-medium text-slate-900 text-sm",
+              "transition-colors hover:bg-slate-50",
+              "disabled:cursor-not-allowed disabled:opacity-50"
+            )}
             disabled={isLoading}
             onClick={onClose}
             type="button"
@@ -107,9 +49,16 @@ export function ConfirmationModal({
             {cancelLabel}
           </button>
           <button
-            className={`flex-1 rounded-full px-6 py-3 font-semibold text-base text-white transition disabled:cursor-not-allowed disabled:opacity-70 ${config.confirmButton}`}
+            className={cn(
+              "rounded-lg px-4 py-2 font-medium text-sm text-white transition-colors",
+              "focus:outline-none focus:ring-2 focus:ring-offset-2",
+              "disabled:cursor-not-allowed disabled:opacity-50",
+              variant === "danger"
+                ? "bg-red-600 hover:bg-red-700 focus:ring-red-500"
+                : "bg-slate-900 hover:bg-slate-800 focus:ring-slate-500"
+            )}
             disabled={isLoading}
-            onClick={handleConfirm}
+            onClick={onConfirm}
             type="button"
           >
             {isLoading ? "Loading..." : confirmLabel}

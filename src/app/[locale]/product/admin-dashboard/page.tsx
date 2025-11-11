@@ -81,7 +81,7 @@ export default async function AdminDashboardPage({ params }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-[#fbf9f7] text-gray-900">
+    <div className="min-h-screen bg-[#FFEEFF8E8] text-[#116611616]">
       {/* Security: dangerouslySetInnerHTML is safe here - jsonLd is server-generated structured data for SEO */}
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -95,18 +95,18 @@ export default async function AdminDashboardPage({ params }: Props) {
           description={t("hero.description")}
           headline={t("hero.headline")}
           primaryCTA={{ label: t("hero.primaryCTA"), href: "/contact" }}
-          secondaryCTA={{ label: t("hero.secondaryCTA"), href: "#features" }}
+          secondaryCTA={{ label: t("hero.secondaryCTA"), href: "#FFEEFF8E8tures" }}
         />
 
         {/* Features Section */}
         <section
-          className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24"
+          className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8] px-6 py-16 sm:py-20 lg:py-24"
           id="features"
         >
           <div className="mx-auto max-w-6xl">
-            <h2 className="type-serif-lg text-center text-gray-900">{t("features.title")}</h2>
+            <h2 className="type-serif-lg text-center text-[#116611616]">{t("features.title")}</h2>
 
-            <p className="mx-auto mt-6 max-w-3xl text-center text-gray-600 text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-3xl text-center text-[#AA88AAAAC] text-lg leading-relaxed">
               {t("features.subtitle")}
             </p>
 
@@ -161,116 +161,130 @@ export default async function AdminDashboardPage({ params }: Props) {
         />
 
         {/* Admin Capabilities Section */}
-        <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
+        <section className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8] px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="type-serif-lg text-center text-gray-900">{t("capabilities.title")}</h2>
+            <h2 className="type-serif-lg text-center text-[#116611616]">
+              {t("capabilities.title")}
+            </h2>
 
             <div className="mt-16 space-y-4">
-              <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+              <div className="flex items-start gap-4 rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
                 <HugeiconsIcon
-                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#E85D48]"
+                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#FF4444A22]"
                   icon={CheckmarkCircle02Icon}
                 />
-                <p className="text-base text-gray-600">
+                <p className="text-[#AA88AAAAC] text-base">
                   {t("capabilities.professionalManagement")}
                 </p>
               </div>
-              <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+              <div className="flex items-start gap-4 rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
                 <HugeiconsIcon
-                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#E85D48]"
+                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#FF4444A22]"
                   icon={CheckmarkCircle02Icon}
                 />
-                <p className="text-base text-gray-600">{t("capabilities.bookingReview")}</p>
+                <p className="text-[#AA88AAAAC] text-base">{t("capabilities.bookingReview")}</p>
               </div>
-              <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+              <div className="flex items-start gap-4 rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
                 <HugeiconsIcon
-                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#E85D48]"
+                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#FF4444A22]"
                   icon={CheckmarkCircle02Icon}
                 />
-                <p className="text-base text-gray-600">{t("capabilities.payoutControl")}</p>
+                <p className="text-[#AA88AAAAC] text-base">{t("capabilities.payoutControl")}</p>
               </div>
-              <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+              <div className="flex items-start gap-4 rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
                 <HugeiconsIcon
-                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#E85D48]"
+                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#FF4444A22]"
                   icon={CheckmarkCircle02Icon}
                 />
-                <p className="text-base text-gray-600">{t("capabilities.disputeResolution")}</p>
+                <p className="text-[#AA88AAAAC] text-base">{t("capabilities.disputeResolution")}</p>
               </div>
-              <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+              <div className="flex items-start gap-4 rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
                 <HugeiconsIcon
-                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#E85D48]"
+                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#FF4444A22]"
                   icon={CheckmarkCircle02Icon}
                 />
-                <p className="text-base text-gray-600">{t("capabilities.userModeration")}</p>
+                <p className="text-[#AA88AAAAC] text-base">{t("capabilities.userModeration")}</p>
               </div>
-              <div className="flex items-start gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+              <div className="flex items-start gap-4 rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
                 <HugeiconsIcon
-                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#E85D48]"
+                  className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#FF4444A22]"
                   icon={CheckmarkCircle02Icon}
                 />
-                <p className="text-base text-gray-600">{t("capabilities.analytics")}</p>
+                <p className="text-[#AA88AAAAC] text-base">{t("capabilities.analytics")}</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Security Section */}
-        <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
+        <section className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8] px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="type-serif-lg text-center text-gray-900">{t("security.title")}</h2>
+            <h2 className="type-serif-lg text-center text-[#116611616]">{t("security.title")}</h2>
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
-                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#FF4444A22]">
+                  <HugeiconsIcon
+                    className="h-5 w-5 text-[#FFEEFF8E8]"
+                    icon={CheckmarkCircle02Icon}
+                  />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 text-xl">
+                  <h3 className="font-semibold text-[#116611616] text-xl">
                     {t("security.roleBasedAccess.title")}
                   </h3>
-                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
+                  <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">
                     {t("security.roleBasedAccess.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
-                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#FF4444A22]">
+                  <HugeiconsIcon
+                    className="h-5 w-5 text-[#FFEEFF8E8]"
+                    icon={CheckmarkCircle02Icon}
+                  />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 text-xl">
+                  <h3 className="font-semibold text-[#116611616] text-xl">
                     {t("security.auditLogs.title")}
                   </h3>
-                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
+                  <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">
                     {t("security.auditLogs.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
-                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#FF4444A22]">
+                  <HugeiconsIcon
+                    className="h-5 w-5 text-[#FFEEFF8E8]"
+                    icon={CheckmarkCircle02Icon}
+                  />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 text-xl">
+                  <h3 className="font-semibold text-[#116611616] text-xl">
                     {t("security.dataProtection.title")}
                   </h3>
-                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
+                  <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">
                     {t("security.dataProtection.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E85D48]">
-                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#FF4444A22]">
+                  <HugeiconsIcon
+                    className="h-5 w-5 text-[#FFEEFF8E8]"
+                    icon={CheckmarkCircle02Icon}
+                  />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 text-xl">
+                  <h3 className="font-semibold text-[#116611616] text-xl">
                     {t("security.twoFactorAuth.title")}
                   </h3>
-                  <p className="mt-2 text-base text-gray-600 leading-relaxed">
+                  <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">
                     {t("security.twoFactorAuth.description")}
                   </p>
                 </div>
@@ -280,83 +294,87 @@ export default async function AdminDashboardPage({ params }: Props) {
         </section>
 
         {/* Admin Tools Grid */}
-        <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
+        <section className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8] px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="type-serif-lg text-center text-gray-900">{t("tools.title")}</h2>
+            <h2 className="type-serif-lg text-center text-[#116611616]">{t("tools.title")}</h2>
 
             <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-gray-900">
+              <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
+                <h4 className="font-semibold text-[#116611616]">
                   {t("tools.professionalApproval").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-gray-600 text-sm">
+                <p className="mt-2 text-[#AA88AAAAC] text-sm">
                   {t("tools.professionalApproval").split(":")[1]}
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-gray-900">
+              <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
+                <h4 className="font-semibold text-[#116611616]">
                   {t("tools.documentVerification").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-gray-600 text-sm">
+                <p className="mt-2 text-[#AA88AAAAC] text-sm">
                   {t("tools.documentVerification").split(":")[1]}
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-gray-900">
+              <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
+                <h4 className="font-semibold text-[#116611616]">
                   {t("tools.payoutQueue").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-gray-600 text-sm">{t("tools.payoutQueue").split(":")[1]}</p>
+                <p className="mt-2 text-[#AA88AAAAC] text-sm">
+                  {t("tools.payoutQueue").split(":")[1]}
+                </p>
               </div>
 
-              <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-gray-900">
+              <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
+                <h4 className="font-semibold text-[#116611616]">
                   {t("tools.userManagement").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-gray-600 text-sm">
+                <p className="mt-2 text-[#AA88AAAAC] text-sm">
                   {t("tools.userManagement").split(":")[1]}
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-gray-900">
+              <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
+                <h4 className="font-semibold text-[#116611616]">
                   {t("tools.disputeResolution").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-gray-600 text-sm">
+                <p className="mt-2 text-[#AA88AAAAC] text-sm">
                   {t("tools.disputeResolution").split(":")[1]}
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-                <h4 className="font-semibold text-gray-900">
+              <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
+                <h4 className="font-semibold text-[#116611616]">
                   {t("tools.analytics").split(":")[0]}
                 </h4>
-                <p className="mt-2 text-gray-600 text-sm">{t("tools.analytics").split(":")[1]}</p>
+                <p className="mt-2 text-[#AA88AAAAC] text-sm">
+                  {t("tools.analytics").split(":")[1]}
+                </p>
               </div>
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="bg-white px-6 py-16 sm:py-20 lg:py-24">
+        <section className="bg-[#FFEEFF8E8] px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="type-serif-lg text-gray-900">{t("cta.title")}</h2>
+            <h2 className="type-serif-lg text-[#116611616]">{t("cta.title")}</h2>
 
-            <p className="mx-auto mt-6 max-w-2xl text-gray-600 text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-2xl text-[#AA88AAAAC] text-lg leading-relaxed">
               {t("cta.description")}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                className="inline-flex items-center justify-center rounded-full bg-[#E85D48] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[var(--red-hover)]"
+                className="inline-flex items-center justify-center rounded-full bg-[#FF4444A22] px-8 py-4 font-semibold text-[#FFEEFF8E8] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[var(--red-hover)]"
                 href="/contact"
               >
                 {t("cta.requestDemo")}
               </Link>
 
               <Link
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-base text-gray-900 transition hover:border-[var(--red)] hover:text-[#E85D48]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#EE44EE2E3] bg-[#FFEEFF8E8] px-8 py-4 font-semibold text-[#116611616] text-base transition hover:border-[var(--red)] hover:text-[#FF4444A22]"
                 href="/"
               >
                 {t("cta.learnMore")}

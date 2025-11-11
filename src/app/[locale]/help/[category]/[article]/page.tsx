@@ -1,31 +1,32 @@
+import type { PortableTextBlock } from "@portabletext/types";
 import { notFound } from "next/navigation";
 import { ArticleViewer } from "@/components/help/article-viewer";
 import { TableOfContents } from "@/components/help/table-of-contents";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { Container } from "@/components/ui/container";
+import { serverClient } from "@/lib/sanity/client";
 import { createSupabaseAnonClient, createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 type ArticleTag = {
-  id: string;
+  _id: string;
   slug: string;
-  name_en: string;
-  name_es: string;
+  name: string;
   color: string;
 };
 
 type ArticleData = {
-  id: string;
-  category_id: string;
+  _id: string;
   slug: string;
   title: string;
-  content: string;
+  content: PortableTextBlock[];
   view_count: number;
   helpful_count: number;
   not_helpful_count: number;
   created_at: string;
   updated_at: string;
   category: {
+    _id: string;
     slug: string;
     name: string;
   };
@@ -45,29 +46,19 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; category: string; article: string }>;
 }) {
-  const { locale, category, article: articleSlug } = await params;
-  const supabase = createSupabaseAnonClient();
+  const { locale, category: categorySlug, article: articleSlug } = await params;
 
-  // First get the category_id from the category slug
-  const { data: categoryData } = await supabase
-    .from("help_categories")
-    .select("id")
-    .eq("slug", category)
-    .single();
-
-  if (!categoryData) {
-    return {
-      title: "Article Not Found",
-    };
-  }
-
-  const { data: article } = await supabase
-    .from("help_articles")
-    .select("title_en, title_es, excerpt_en, excerpt_es")
-    .eq("slug", articleSlug)
-    .eq("category_id", categoryData.id)
-    .eq("is_published", true)
-    .single();
+  // Fetch article from Sanity
+  const article = await serverClient.fetch<{
+    title: string;
+    excerpt?: string;
+  } | null>(
+    `*[_type == "helpArticle" && slug.current == $slug && language == $language && isPublished == true && category->slug.current == $categorySlug][0] {
+      title,
+      excerpt
+    }`,
+    { slug: articleSlug, language: locale, categorySlug }
+  );
 
   if (!article) {
     return {
@@ -75,12 +66,9 @@ export async function generateMetadata({
     };
   }
 
-  const title = locale === "es" ? article.title_es : article.title_en;
-  const excerpt = locale === "es" ? article.excerpt_es : article.excerpt_en;
-
   return {
-    title: `${title} - Help Center`,
-    description: excerpt || title,
+    title: `${article.title} - Help Center`,
+    description: article.excerpt || article.title,
   };
 }
 
@@ -91,116 +79,161 @@ async function getArticleData(
 ): Promise<{ article: ArticleData; relatedArticles: RelatedArticle[] } | null> {
   const supabase = createSupabaseAnonClient();
 
-  // Get article with category - fetch both language columns
-  const { data: rawArticle, error } = await supabase
-    .from("help_articles")
-    .select(
-      "id, category_id, slug, title_en, title_es, content_en, content_es, view_count, helpful_count, not_helpful_count, created_at, updated_at, category:help_categories!inner(slug, name_en, name_es)"
-    )
-    .eq("slug", articleSlug)
-    .eq("help_categories.slug", categorySlug)
-    .eq("is_published", true)
-    .single();
-
-  if (error || !rawArticle) {
-    return null;
-  }
-
-  // Supabase returns category as an array due to the join syntax
-  const category = Array.isArray(rawArticle.category)
-    ? rawArticle.category[0]
-    : rawArticle.category;
-
-  if (!category) {
-    return null;
-  }
-
-  // Map to correct language
-  const article = {
-    id: rawArticle.id,
-    category_id: rawArticle.category_id,
-    slug: rawArticle.slug,
-    title: locale === "es" ? rawArticle.title_es : rawArticle.title_en,
-    content: locale === "es" ? rawArticle.content_es : rawArticle.content_en,
-    view_count: rawArticle.view_count,
-    helpful_count: rawArticle.helpful_count,
-    not_helpful_count: rawArticle.not_helpful_count,
-    created_at: rawArticle.created_at,
-    updated_at: rawArticle.updated_at,
+  // Fetch article from Sanity
+  const sanityArticle = await serverClient.fetch<{
+    _id: string;
+    slug: { current: string };
+    title: string;
+    content: PortableTextBlock[];
+    publishedAt: string;
+    _updatedAt: string;
     category: {
-      slug: category.slug,
-      name: locale === "es" ? category.name_es : category.name_en,
-    },
+      _id: string;
+      slug: { current: string };
+      name: string;
+    };
+    tags?: Array<{
+      _id: string;
+      slug: { current: string };
+      name: string;
+      color?: string;
+    }>;
+    relatedArticles?: Array<{
+      _id: string;
+      slug: { current: string };
+      title: string;
+      excerpt?: string;
+      category: {
+        slug: { current: string };
+      };
+    }>;
+  } | null>(
+    `*[_type == "helpArticle" && slug.current == $slug && language == $language && isPublished == true && category->slug.current == $categorySlug][0] {
+      _id,
+      _updatedAt,
+      slug,
+      title,
+      content,
+      publishedAt,
+      "category": category->{
+        _id,
+        slug,
+        name
+      },
+      "tags": tags[]-> {
+        _id,
+        slug,
+        name,
+        color
+      },
+      "relatedArticles": relatedArticles[]-> {
+        _id,
+        slug,
+        title,
+        excerpt,
+        "category": category->{
+          slug
+        }
+      }
+    }`,
+    { slug: articleSlug, language: locale, categorySlug }
+  );
+
+  if (!sanityArticle) {
+    return null;
+  }
+
+  // Get engagement data from Supabase
+  const { data: engagementData } = await supabase
+    .from("help_articles")
+    .select("slug, view_count, helpful_count, not_helpful_count")
+    .eq("slug", articleSlug)
+    .maybeSingle();
+
+  const engagement = engagementData || {
+    view_count: 0,
+    helpful_count: 0,
+    not_helpful_count: 0,
   };
 
   // Increment view count (fire and forget, ignore errors)
-  // biome-ignore lint/complexity/noVoid: Fire-and-forget pattern for analytics
-  void supabase.rpc("increment_article_view_count", {
-    article_id: article.id,
-  });
+  if (engagementData) {
+    // biome-ignore lint/complexity/noVoid: Fire-and-forget pattern for analytics
+    void supabase.rpc("increment_article_view_count", {
+      article_id: engagementData.slug,
+    });
+  }
 
-  // Get article tags
-  const { data: rawTagsData } = await supabase
-    .from("help_article_tags_relation")
-    .select(
-      "tag:help_article_tags!help_article_tags_relation_tag_id_fkey(id, slug, name_en, name_es, color)"
-    )
-    .eq("article_id", article.id);
+  // Map tags to expected format
+  const tags: ArticleTag[] = (sanityArticle.tags || []).map((tag) => ({
+    _id: tag._id,
+    slug: tag.slug.current,
+    name: tag.name,
+    color: tag.color || "#FF4444A22",
+  }));
 
-  // Type assertion for tags query result
-  const tagsData = rawTagsData as unknown as Array<{
-    tag: ArticleTag;
-  }> | null;
+  // Prepare article data
+  const article: ArticleData = {
+    _id: sanityArticle._id,
+    slug: sanityArticle.slug.current,
+    title: sanityArticle.title,
+    content: sanityArticle.content,
+    view_count: engagement.view_count,
+    helpful_count: engagement.helpful_count,
+    not_helpful_count: engagement.not_helpful_count,
+    created_at: sanityArticle.publishedAt || sanityArticle._updatedAt,
+    updated_at: sanityArticle._updatedAt,
+    category: {
+      _id: sanityArticle.category._id,
+      slug: sanityArticle.category.slug.current,
+      name: sanityArticle.category.name,
+    },
+    tags,
+  };
 
-  const tags = tagsData?.map((rel) => rel.tag) || [];
-
-  // Get related articles - fetch both language columns
-  const { data: rawRelatedArticlesData } = await supabase
-    .from("help_article_relations")
-    .select(
-      "related_article:help_articles!help_article_relations_related_article_id_fkey(id, slug, title_en, title_es, excerpt_en, excerpt_es, category:help_categories!inner(slug))"
-    )
-    .eq("article_id", article.id)
-    .limit(4);
-
-  const relatedArticles: RelatedArticle[] =
-    rawRelatedArticlesData?.map((rel: any) => ({
-      id: rel.related_article.id,
-      category_slug: rel.related_article.category.slug,
-      slug: rel.related_article.slug,
-      title: locale === "es" ? rel.related_article.title_es : rel.related_article.title_en,
-      excerpt: locale === "es" ? rel.related_article.excerpt_es : rel.related_article.excerpt_en,
-    })) || [];
+  // Map related articles
+  let relatedArticles: RelatedArticle[] = (sanityArticle.relatedArticles || []).map((rel) => ({
+    id: rel._id,
+    slug: rel.slug.current,
+    title: rel.title,
+    excerpt: rel.excerpt || null,
+    category_slug: rel.category.slug.current,
+  }));
 
   // If no explicit relations, get articles from same category
   if (relatedArticles.length === 0) {
-    const { data: rawSameCategoryArticles } = await supabase
-      .from("help_articles")
-      .select("id, slug, title_en, title_es, excerpt_en, excerpt_es, view_count")
-      .eq("category_id", article.category_id)
-      .eq("is_published", true)
-      .neq("id", article.id)
-      .order("view_count", { ascending: false })
-      .limit(4);
+    const sameCategoryArticles = await serverClient.fetch<
+      Array<{
+        _id: string;
+        slug: { current: string };
+        title: string;
+        excerpt?: string;
+      }>
+    >(
+      `*[_type == "helpArticle" && category._ref == $categoryId && language == $language && isPublished == true && _id != $currentArticleId] | order(_updatedAt desc) [0...4] {
+        _id,
+        slug,
+        title,
+        excerpt
+      }`,
+      {
+        categoryId: sanityArticle.category._id,
+        language: locale,
+        currentArticleId: sanityArticle._id,
+      }
+    );
 
-    if (rawSameCategoryArticles) {
-      relatedArticles.push(
-        ...rawSameCategoryArticles.map((a) => ({
-          id: a.id,
-          slug: a.slug,
-          title: locale === "es" ? a.title_es : a.title_en,
-          excerpt: locale === "es" ? a.excerpt_es : a.excerpt_en,
-          category_slug: categorySlug,
-        }))
-      );
-    }
+    relatedArticles = sameCategoryArticles.map((a) => ({
+      id: a._id,
+      slug: a.slug.current,
+      title: a.title,
+      excerpt: a.excerpt || null,
+      category_slug: categorySlug,
+    }));
   }
 
   return {
-    article: {
-      ...article,
-      tags,
-    },
+    article,
     relatedArticles,
   };
 }
@@ -238,7 +271,7 @@ export default async function HelpArticlePage({
   return (
     <>
       <SiteHeader />
-      <div className="min-h-screen bg-white py-12">
+      <div className="min-h-screen bg-[#FFEEFF8E8] py-12">
         <Container>
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_250px]">
             <div className="mx-auto w-full max-w-4xl">
@@ -249,7 +282,7 @@ export default async function HelpArticlePage({
 
               <ArticleViewer
                 article={article}
-                articleId={article.id}
+                articleId={article._id}
                 categoryName={article.category.name}
                 categorySlug={article.category.slug}
                 isAdmin={isAdmin}

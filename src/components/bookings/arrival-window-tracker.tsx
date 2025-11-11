@@ -1,10 +1,11 @@
 "use client";
 
-import { Clock01Icon, Location01Icon, Navigation01Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { Clock, MapPin, Navigation } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { isFeatureEnabled } from "@/lib/feature-flags";
+import { cn } from "@/lib/utils";
 
 export type ArrivalStatus = "scheduled" | "en_route" | "arriving_soon" | "arrived" | "in_progress";
 
@@ -41,7 +42,7 @@ export function ArrivalWindowTracker({
   professionalName,
   scheduledStart,
   status,
-  className = "",
+  className,
 }: ArrivalWindowTrackerProps) {
   const t = useTranslations("bookings.arrivalTracker");
   const [arrivalWindow, setArrivalWindow] = useState<ArrivalWindow | null>(null);
@@ -109,44 +110,34 @@ export function ArrivalWindowTracker({
 
   const statusConfig = {
     en_route: {
-      icon: Navigation01Icon,
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
-      borderColor: "border-blue-200",
+      icon: Navigation,
       title: t("status.enRoute.title", { name: professionalName }),
       description: t("status.enRoute.description"),
+      variant: "secondary" as const,
     },
     arriving_soon: {
-      icon: Location01Icon,
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
-      borderColor: "border-orange-200",
+      icon: MapPin,
       title: t("status.arrivingSoon.title", { name: professionalName }),
       description: t("status.arrivingSoon.description"),
+      variant: "default" as const,
     },
     arrived: {
-      icon: Location01Icon,
-      color: "text-green-600",
-      bgColor: "bg-green-50",
-      borderColor: "border-green-200",
+      icon: MapPin,
       title: t("status.arrived.title", { name: professionalName }),
       description: t("status.arrived.description"),
+      variant: "default" as const,
     },
     scheduled: {
-      icon: Clock01Icon,
-      color: "text-gray-600",
-      bgColor: "bg-gray-50",
-      borderColor: "border-gray-200",
+      icon: Clock,
       title: "",
       description: "",
+      variant: "outline" as const,
     },
     in_progress: {
-      icon: Clock01Icon,
-      color: "text-gray-600",
-      bgColor: "bg-gray-50",
-      borderColor: "border-gray-200",
+      icon: Clock,
       title: "",
       description: "",
+      variant: "outline" as const,
     },
   };
 
@@ -189,41 +180,43 @@ export function ArrivalWindowTracker({
   }
 
   return (
-    <div
-      className={`rounded-2xl border-2 ${config.borderColor} ${config.bgColor} p-6 shadow-sm ${className}`}
-    >
-      <div className="flex items-start gap-4">
-        <div className={`rounded-full ${config.bgColor} p-3 ${config.color}`}>
-          <HugeiconsIcon className="h-6 w-6" icon={Icon} />
-        </div>
+    <Card className={cn("border-2 shadow-sm", className)}>
+      <CardContent className="p-6">
+        <div className="flex items-start gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100">
+            <Icon className="h-6 w-6 text-slate-700" />
+          </div>
 
-        <div className="flex-1">
-          <h3 className={`font-semibold ${config.color} text-lg`}>{config.title}</h3>
-          <p className="mt-1 text-base text-gray-600">{config.description}</p>
+          <div className="flex-1 space-y-3">
+            <div>
+              <h3 className="font-semibold text-lg text-slate-900">{config.title}</h3>
+              <p className="mt-1 text-base text-slate-600">{config.description}</p>
+            </div>
 
-          {timeDisplay && (
-            <div className="mt-3 flex items-center gap-2 text-base text-gray-900">
-              <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
-              <span className="font-medium">{timeDisplay}</span>
+            {timeDisplay && (
+              <div className="flex items-center gap-2 text-base text-slate-700">
+                <Clock className="h-4 w-4" />
+                <span className="font-medium">{timeDisplay}</span>
+              </div>
+            )}
+
+            {lastUpdateDisplay && <p className="text-slate-500 text-sm">{lastUpdateDisplay}</p>}
+          </div>
+
+          {/* Animated pulse indicator */}
+          {arrivalWindow.status === "arriving_soon" && (
+            <div className="relative">
+              <div className="absolute h-3 w-3 animate-ping rounded-full bg-slate-400 opacity-75" />
+              <div className="relative h-3 w-3 rounded-full bg-slate-500" />
             </div>
           )}
-
-          {lastUpdateDisplay && <p className="mt-2 text-[#8a8175] text-sm">{lastUpdateDisplay}</p>}
         </div>
 
-        {/* Animated pulse indicator */}
-        {arrivalWindow.status === "arriving_soon" && (
-          <div className="relative">
-            <div className="absolute h-3 w-3 animate-ping rounded-full bg-orange-400 opacity-75" />
-            <div className="relative h-3 w-3 rounded-full bg-orange-500" />
-          </div>
-        )}
-      </div>
-
-      {/* Privacy notice */}
-      <div className="mt-4 rounded-lg border border-[#ebe5d8] bg-white/50 p-3">
-        <p className="text-[#8a8175] text-xs">{t("privacyNotice")}</p>
-      </div>
-    </div>
+        {/* Privacy notice */}
+        <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
+          <p className="text-slate-600 text-xs">{t("privacyNotice")}</p>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

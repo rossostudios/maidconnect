@@ -121,9 +121,9 @@ export function BookingPipeline() {
           label: "Pending",
           icon: TimeScheduleIcon,
           count: pendingBookings.length,
-          color: "text-yellow-600",
-          bgColor: "bg-yellow-50",
-          chartColor: "#eab308",
+          color: "text-slate-600",
+          bgColor: "bg-slate-50",
+          chartColor: "#64748b",
           bookings: pendingBookings.map((b) => ({
             id: b.id,
             created_at: b.created_at,
@@ -136,9 +136,9 @@ export function BookingPipeline() {
           label: "Confirmed",
           icon: CheckmarkCircle02Icon,
           count: confirmedBookings.length,
-          color: "text-blue-600",
-          bgColor: "bg-blue-50",
-          chartColor: "#3b82f6",
+          color: "text-slate-700",
+          bgColor: "bg-slate-100",
+          chartColor: "#475569",
           bookings: confirmedBookings.map((b) => ({
             id: b.id,
             created_at: b.created_at,
@@ -151,9 +151,9 @@ export function BookingPipeline() {
           label: "In Progress",
           icon: Loading03Icon,
           count: inProgressBookings.length,
-          color: "text-green-600",
-          bgColor: "bg-green-50",
-          chartColor: "#10b981",
+          color: "text-slate-800",
+          bgColor: "bg-slate-200",
+          chartColor: "#334155",
           bookings: inProgressBookings.map((b) => ({
             id: b.id,
             created_at: b.created_at,
@@ -166,9 +166,9 @@ export function BookingPipeline() {
           label: "Pending Payment",
           icon: DollarCircleIcon,
           count: pendingPaymentBookings.length,
-          color: "text-orange-600",
-          bgColor: "bg-orange-50",
-          chartColor: "#f97316",
+          color: "text-slate-700",
+          bgColor: "bg-slate-100",
+          chartColor: "#475569",
           bookings: pendingPaymentBookings.map((b) => ({
             id: b.id,
             created_at: b.created_at,
@@ -181,9 +181,9 @@ export function BookingPipeline() {
           label: "Completed",
           icon: CheckmarkCircle02Icon,
           count: completedBookings.length,
-          color: "text-[#6B7F5C]",
-          bgColor: "bg-[#6B7F5C]/10",
-          chartColor: "#6B7F5C",
+          color: "text-slate-900",
+          bgColor: "bg-slate-300",
+          chartColor: "#0f172a",
           bookings: completedBookings.map((b) => ({
             id: b.id,
             created_at: b.created_at,
@@ -217,10 +217,10 @@ export function BookingPipeline() {
       <div className="space-y-8">
         {/* Tabs & Filter skeleton */}
         <div className="flex items-center justify-between">
-          <div className="h-10 w-96 animate-pulse rounded-lg bg-[#F5F5F5] will-change-[opacity]" />
+          <div className="h-10 w-96 animate-pulse rounded-lg bg-slate-100 will-change-[opacity]" />
           <div className="flex items-center gap-3">
-            <div className="h-4 w-4 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
-            <div className="h-10 w-40 animate-pulse rounded-lg bg-[#F5F5F5] will-change-[opacity]" />
+            <div className="h-4 w-4 animate-pulse rounded bg-slate-100 will-change-[opacity]" />
+            <div className="h-10 w-40 animate-pulse rounded-lg bg-slate-100 will-change-[opacity]" />
           </div>
         </div>
 
@@ -228,15 +228,15 @@ export function BookingPipeline() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
           {[1, 2, 3, 4, 5].map((i) => (
             <div
-              className="animate-pulse rounded-xl border border-[#E5E5E5] bg-white p-8 will-change-[opacity]"
+              className="animate-pulse rounded-xl border border-slate-200 bg-white p-8 will-change-[opacity]"
               key={i}
             >
               <div className="mb-6 flex items-center gap-3">
-                <div className="h-12 w-12 animate-pulse rounded-xl bg-[#F5F5F5] will-change-[opacity]" />
-                <div className="h-3 w-16 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+                <div className="h-12 w-12 animate-pulse rounded-xl bg-slate-100 will-change-[opacity]" />
+                <div className="h-3 w-16 animate-pulse rounded bg-slate-100 will-change-[opacity]" />
               </div>
-              <div className="mb-2 h-10 w-16 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
-              <div className="h-4 w-24 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+              <div className="mb-2 h-10 w-16 animate-pulse rounded bg-slate-100 will-change-[opacity]" />
+              <div className="h-4 w-24 animate-pulse rounded bg-slate-100 will-change-[opacity]" />
             </div>
           ))}
         </div>
@@ -245,11 +245,11 @@ export function BookingPipeline() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {[1, 2].map((i) => (
             <div
-              className="h-[380px] animate-pulse rounded-xl border border-[#E5E5E5] bg-white p-6 will-change-[opacity]"
+              className="h-[380px] animate-pulse rounded-xl border border-slate-200 bg-white p-6 will-change-[opacity]"
               key={i}
             >
-              <div className="mb-6 h-16 w-full animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
-              <div className="h-64 animate-pulse rounded bg-[#F5F5F5] will-change-[opacity]" />
+              <div className="mb-6 h-16 w-full animate-pulse rounded bg-slate-100 will-change-[opacity]" />
+              <div className="h-64 animate-pulse rounded bg-slate-100 will-change-[opacity]" />
             </div>
           ))}
         </div>
@@ -272,7 +272,7 @@ export function BookingPipeline() {
 
           {/* Status Filter */}
           <div className="flex items-center gap-3">
-            <HugeiconsIcon className="h-4 w-4 text-[#737373]" icon={FilterIcon} />
+            <HugeiconsIcon className="h-4 w-4 text-slate-400" icon={FilterIcon} />
             <Select onValueChange={(value) => setFilter(value as FilterStatus)} value={filter}>
               <SelectTrigger className="w-40">
                 <SelectValue />
@@ -293,7 +293,7 @@ export function BookingPipeline() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
             {stages.map((stage) => (
               <Card
-                className="border-[#E5E5E5] bg-white transition-shadow hover:shadow-lg"
+                className="border-slate-200 bg-white transition-shadow hover:shadow-lg"
                 key={stage.id}
               >
                 <CardContent className="p-8">
@@ -301,12 +301,12 @@ export function BookingPipeline() {
                     <div className="rounded-xl p-3" style={{ backgroundColor: stage.bgColor }}>
                       <HugeiconsIcon className={cn("h-6 w-6", stage.color)} icon={stage.icon} />
                     </div>
-                    <p className="font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                    <p className="font-semibold text-slate-500 text-xs uppercase tracking-wider">
                       {stage.label}
                     </p>
                   </div>
-                  <p className="mb-2 font-bold text-4xl text-[#171717]">{stage.count}</p>
-                  <p className="text-[#737373] text-sm">
+                  <p className="mb-2 font-bold text-4xl text-slate-900">{stage.count}</p>
+                  <p className="text-slate-500 text-sm">
                     {totalActive > 0
                       ? `${((stage.count / totalActive) * 100).toFixed(0)}% of total`
                       : "No bookings"}
@@ -319,28 +319,28 @@ export function BookingPipeline() {
           {/* Charts Row */}
           <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2">
             {/* Stage Distribution Bar Chart */}
-            <Card className="border-[#E5E5E5] bg-white transition-shadow hover:shadow-lg">
+            <Card className="border-slate-200 bg-white transition-shadow hover:shadow-lg">
               <CardHeader className="flex flex-row items-center justify-between pb-6">
                 <div>
-                  <p className="mb-1 font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                  <p className="mb-1 font-semibold text-slate-500 text-xs uppercase tracking-wider">
                     Stage Distribution
                   </p>
-                  <p className="text-[#737373] text-sm">Bookings by lifecycle stage</p>
+                  <p className="text-slate-500 text-sm">Bookings by lifecycle stage</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     aria-label="Maximize chart"
-                    className="rounded-lg bg-[#F5F5F5] p-2 transition-colors hover:bg-[#E5E5E5]"
+                    className="rounded-lg bg-slate-50 p-2 transition-colors hover:bg-slate-100"
                     onClick={() => alert("Expand chart view - Feature coming soon!")}
                   >
-                    <HugeiconsIcon className="h-4 w-4 text-[#737373]" icon={Maximize01Icon} />
+                    <HugeiconsIcon className="h-4 w-4 text-slate-500" icon={Maximize01Icon} />
                   </button>
                   <button
                     aria-label="More options"
-                    className="rounded-lg bg-[#F5F5F5] p-2 transition-colors hover:bg-[#E5E5E5]"
+                    className="rounded-lg bg-slate-50 p-2 transition-colors hover:bg-slate-100"
                     onClick={() => alert("Export data, Refresh, Settings - Coming soon!")}
                   >
-                    <HugeiconsIcon className="h-4 w-4 text-[#737373]" icon={MoreVerticalIcon} />
+                    <HugeiconsIcon className="h-4 w-4 text-slate-500" icon={MoreVerticalIcon} />
                   </button>
                 </div>
               </CardHeader>
@@ -348,15 +348,15 @@ export function BookingPipeline() {
                 <div className="h-64">
                   <ResponsiveContainer height="100%" width="100%">
                     <BarChart data={stages}>
-                      <CartesianGrid stroke="#E5E5E5" strokeDasharray="3 3" vertical={false} />
+                      <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" vertical={false} />
                       <XAxis
                         axisLine={false}
                         dataKey="label"
                         fontSize={12}
-                        stroke="#A3A3A3"
+                        stroke="#94a3b8"
                         tickLine={false}
                       />
-                      <YAxis axisLine={false} fontSize={12} stroke="#A3A3A3" tickLine={false} />
+                      <YAxis axisLine={false} fontSize={12} stroke="#94a3b8" tickLine={false} />
                       <Bar dataKey="count" radius={[8, 8, 0, 0]}>
                         {stages.map((entry, index) => (
                           <Cell fill={entry.chartColor} key={`cell-${index}`} />
@@ -369,21 +369,21 @@ export function BookingPipeline() {
             </Card>
 
             {/* Pipeline Health Card */}
-            <Card className="border-[#E5E5E5] bg-white transition-shadow hover:shadow-lg">
+            <Card className="border-slate-200 bg-white transition-shadow hover:shadow-lg">
               <CardHeader className="flex flex-row items-center justify-between pb-6">
                 <div>
-                  <p className="mb-1 font-semibold text-[#A3A3A3] text-xs uppercase tracking-wider">
+                  <p className="mb-1 font-semibold text-slate-500 text-xs uppercase tracking-wider">
                     Pipeline Health
                   </p>
-                  <p className="text-[#737373] text-sm">Current conversion metrics</p>
+                  <p className="text-slate-500 text-sm">Current conversion metrics</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     aria-label="Maximize metrics"
-                    className="rounded-lg bg-[#F5F5F5] p-2 transition-colors hover:bg-[#E5E5E5]"
+                    className="rounded-lg bg-slate-50 p-2 transition-colors hover:bg-slate-100"
                     onClick={() => alert("Expand metrics view - Feature coming soon!")}
                   >
-                    <HugeiconsIcon className="h-4 w-4 text-[#737373]" icon={Maximize01Icon} />
+                    <HugeiconsIcon className="h-4 w-4 text-slate-500" icon={Maximize01Icon} />
                   </button>
                 </div>
               </CardHeader>
@@ -392,16 +392,16 @@ export function BookingPipeline() {
                   {/* Conversion Rate */}
                   <div>
                     <div className="mb-2 flex items-center justify-between">
-                      <span className="text-[#737373] text-sm">Conversion Rate</span>
-                      <span className="font-bold text-[#171717] text-lg">
+                      <span className="text-slate-500 text-sm">Conversion Rate</span>
+                      <span className="font-bold text-lg text-slate-900">
                         {totalActive > 0
                           ? `${(((stages.find((s) => s.id === "completed")?.count || 0) / totalActive) * 100).toFixed(1)}%`
                           : "0%"}
                       </span>
                     </div>
-                    <div className="h-3 w-full rounded-full bg-[#F5F5F5]">
+                    <div className="h-3 w-full rounded-full bg-slate-100">
                       <div
-                        className="h-3 rounded-full bg-green-500 transition-all"
+                        className="h-3 rounded-full bg-slate-600 transition-all"
                         style={{
                           width:
                             totalActive > 0
@@ -415,16 +415,16 @@ export function BookingPipeline() {
                   {/* Pending Acceptance Rate */}
                   <div>
                     <div className="mb-2 flex items-center justify-between">
-                      <span className="text-[#737373] text-sm">Pending Acceptance</span>
-                      <span className="font-bold text-[#171717] text-lg">
+                      <span className="text-slate-500 text-sm">Pending Acceptance</span>
+                      <span className="font-bold text-lg text-slate-900">
                         {totalActive > 0
                           ? `${(((stages.find((s) => s.id === "pending")?.count || 0) / totalActive) * 100).toFixed(1)}%`
                           : "0%"}
                       </span>
                     </div>
-                    <div className="h-3 w-full rounded-full bg-[#F5F5F5]">
+                    <div className="h-3 w-full rounded-full bg-slate-100">
                       <div
-                        className="h-3 rounded-full bg-yellow-500 transition-all"
+                        className="h-3 rounded-full bg-slate-400 transition-all"
                         style={{
                           width:
                             totalActive > 0
@@ -438,16 +438,16 @@ export function BookingPipeline() {
                   {/* In Progress Rate */}
                   <div>
                     <div className="mb-2 flex items-center justify-between">
-                      <span className="text-[#737373] text-sm">In Progress</span>
-                      <span className="font-bold text-[#171717] text-lg">
+                      <span className="text-slate-500 text-sm">In Progress</span>
+                      <span className="font-bold text-lg text-slate-900">
                         {totalActive > 0
                           ? `${(((stages.find((s) => s.id === "in_progress")?.count || 0) / totalActive) * 100).toFixed(1)}%`
                           : "0%"}
                       </span>
                     </div>
-                    <div className="h-3 w-full rounded-full bg-[#F5F5F5]">
+                    <div className="h-3 w-full rounded-full bg-slate-100">
                       <div
-                        className="h-3 rounded-full bg-blue-500 transition-all"
+                        className="h-3 rounded-full bg-slate-500 transition-all"
                         style={{
                           width:
                             totalActive > 0
@@ -459,12 +459,12 @@ export function BookingPipeline() {
                   </div>
 
                   {/* Total Active */}
-                  <div className="border-[#E5E5E5] border-t pt-4">
+                  <div className="border-slate-200 border-t pt-4">
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-[#171717] text-sm">
+                      <span className="font-semibold text-slate-900 text-sm">
                         Total Active Bookings
                       </span>
-                      <span className="font-bold text-2xl text-[#171717]">{totalActive}</span>
+                      <span className="font-bold text-2xl text-slate-900">{totalActive}</span>
                     </div>
                   </div>
                 </div>
@@ -476,14 +476,14 @@ export function BookingPipeline() {
         {/* Stages Tab */}
         <TabsContent value="stages">
           <div className="py-20 text-center">
-            <p className="text-[#737373]">Detailed stage breakdown coming soon...</p>
+            <p className="text-slate-500">Detailed stage breakdown coming soon...</p>
           </div>
         </TabsContent>
 
         {/* Timeline Tab */}
         <TabsContent value="timeline">
           <div className="py-20 text-center">
-            <p className="text-[#737373]">Booking timeline view coming soon...</p>
+            <p className="text-slate-500">Booking timeline view coming soon...</p>
           </div>
         </TabsContent>
       </Tabs>

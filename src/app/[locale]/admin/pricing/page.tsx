@@ -24,8 +24,8 @@ export default async function AdminPricingPage() {
   return (
     <section className="space-y-8">
       <div>
-        <h1 className="font-bold text-3xl text-[#171717]">Pricing Controls</h1>
-        <p className="mt-2 text-[#737373]">
+        <h1 className="font-bold text-3xl text-[#116611616]">Pricing Controls</h1>
+        <p className="mt-2 text-[#AA88AAAAC]">
           Manage commission rates, price floors/ceilings, and deposit rules by service category and
           city
         </p>

@@ -72,11 +72,11 @@ export function RoadmapVoteButton({
         className={`flex flex-col items-center justify-center rounded-[12px] border-2 font-medium transition-all duration-200 ${sizeClasses[size]}
           ${
             hasVoted
-              ? "border-[#E85D48] bg-[#fff5f3] text-[#E85D48]"
-              : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#E85D48] hover:text-[#E85D48]"
+              ? "border-[#64748b] bg-[#f8fafc] text-[#64748b]"
+              : "border-[#e2e8f0] bg-[#f8fafc] text-[#94a3b8] hover:border-[#64748b] hover:text-[#64748b]"
           }
           ${isLoading ? "cursor-not-allowed opacity-50" : "cursor-pointer"}
-          ${canVote ? "" : "hover:border-[#E85D48]"}
+          ${canVote ? "" : "hover:border-[#64748b]"}
         `}
         disabled={isLoading}
         onClick={handleClick}
@@ -94,10 +94,10 @@ export function RoadmapVoteButton({
 
       {/* Sign in prompt */}
       {showSignInPrompt && !canVote && (
-        <div className="-translate-x-1/2 absolute bottom-full left-1/2 z-10 mb-2 whitespace-nowrap rounded-lg bg-gray-900 px-3 py-2 text-sm text-white">
+        <div className="-translate-x-1/2 absolute bottom-full left-1/2 z-10 mb-2 whitespace-nowrap rounded-lg bg-[#0f172a] px-3 py-2 text-[#f8fafc] text-sm">
           Sign in to vote
           <div className="-translate-x-1/2 -mt-1 absolute top-full left-1/2">
-            <div className="h-2 w-2 rotate-45 bg-gray-900" />
+            <div className="h-2 w-2 rotate-45 bg-[#0f172a]" />
           </div>
         </div>
       )}

@@ -228,14 +228,14 @@ export function AvailabilityCalendar({
     <div className={cn("space-y-4", className)}>
       {/* Calendar Header */}
       <div className="flex items-center justify-between">
-        <h3 className={cn("font-semibold text-gray-900", sizeConfig.headerText)}>
+        <h3 className={cn("font-semibold text-[#0f172a]", sizeConfig.headerText)}>
           {getMonthLabel(locale)}
         </h3>
         <div className={cn("flex gap-2", sizeConfig.buttonGap)}>
           {showTodayButton && (
             <button
               className={cn(
-                "rounded-md border border-[#e5dfd4] font-medium text-[#7a6d62] transition hover:border-[#E85D48] hover:text-[#E85D48]",
+                "rounded-md border border-[#e2e8f0] font-medium text-[#94a3b8] transition hover:border-[#64748b] hover:text-[#64748b]",
                 sizeConfig.button
               )}
               onClick={goToToday}
@@ -247,7 +247,7 @@ export function AvailabilityCalendar({
           <button
             aria-label="Previous month"
             className={cn(
-              "rounded-md border border-[#e5dfd4] text-[#7a6d62] transition hover:border-[#E85D48] hover:text-[#E85D48]",
+              "rounded-md border border-[#e2e8f0] text-[#94a3b8] transition hover:border-[#64748b] hover:text-[#64748b]",
               sizeConfig.navButton
             )}
             onClick={goToPreviousMonth}
@@ -258,7 +258,7 @@ export function AvailabilityCalendar({
           <button
             aria-label="Next month"
             className={cn(
-              "rounded-md border border-[#e5dfd4] text-[#7a6d62] transition hover:border-[#E85D48] hover:text-[#E85D48]",
+              "rounded-md border border-[#e2e8f0] text-[#94a3b8] transition hover:border-[#64748b] hover:text-[#64748b]",
               sizeConfig.navButton
             )}
             onClick={goToNextMonth}
@@ -273,22 +273,22 @@ export function AvailabilityCalendar({
       {isLoading && (
         <div
           className={cn(
-            "rounded-lg border border-[#f0ece5] bg-white/90 text-center",
+            "rounded-lg border border-[#e2e8f0] bg-[#f8fafc]/90 text-center",
             sizeConfig.loadingPadding
           )}
         >
-          <p className={cn("text-[#7a6d62]", sizeConfig.text)}>Loading availability...</p>
+          <p className={cn("text-[#94a3b8]", sizeConfig.text)}>Loading availability...</p>
         </div>
       )}
 
       {/* Error State */}
       {error && (
-        <div className="rounded-lg border border-red-200 bg-[#E85D48]/10 p-4 text-center">
-          <p className={cn("text-red-800", sizeConfig.text)}>{error.message}</p>
+        <div className="rounded-lg border border-[#64748b]/30 bg-[#64748b]/10 p-4 text-center">
+          <p className={cn("text-[#64748b]", sizeConfig.text)}>{error.message}</p>
           {dataSource.type === "api" && (
             <button
               className={cn(
-                "mt-2 font-semibold text-[#E85D48] hover:text-red-700",
+                "mt-2 font-semibold text-[#64748b] hover:text-[#64748b]",
                 sizeConfig.smallText
               )}
               onClick={apiData.refetch}
@@ -305,7 +305,7 @@ export function AvailabilityCalendar({
         <>
           <div
             className={cn(
-              "grid grid-cols-7 gap-px overflow-hidden rounded-lg border border-[#ebe5d8] bg-[#ebe5d8]",
+              "grid grid-cols-7 gap-px overflow-hidden rounded-lg border border-[#e2e8f0] bg-[#e2e8f0]",
               themeConfig.gridBorder
             )}
           >
@@ -313,7 +313,7 @@ export function AvailabilityCalendar({
             {getDayHeaders(size).map((day) => (
               <div
                 className={cn(
-                  "bg-[#f0ece5] text-center font-semibold text-[#7a6d62] uppercase",
+                  "bg-[#e2e8f0] text-center font-semibold text-[#94a3b8] uppercase",
                   sizeConfig.headerPadding,
                   sizeConfig.smallText
                 )}
@@ -337,12 +337,12 @@ export function AvailabilityCalendar({
               const statusColors = getStatusColors(availability?.status);
 
               const bgColor = calendarDay.isPast
-                ? "bg-gray-50"
+                ? "bg-[#f8fafc]"
                 : calendarDay.inCurrentMonth
                   ? availability
                     ? statusColors.bg
-                    : "bg-white"
-                  : "bg-[#fbfafa]";
+                    : "bg-[#f8fafc]"
+                  : "bg-[#f8fafc]";
 
               return (
                 <button
@@ -353,8 +353,8 @@ export function AvailabilityCalendar({
                     isSelected && themeConfig.selected,
                     calendarDay.isToday && themeConfig.today,
                     canSelect ? themeConfig.selectable : "cursor-not-allowed opacity-60",
-                    calendarDay.isPast && "text-gray-400",
-                    !calendarDay.isPast && "text-gray-900",
+                    calendarDay.isPast && "text-[#94a3b8]/70",
+                    !calendarDay.isPast && "text-[#0f172a]",
                     !calendarDay.inCurrentMonth && "opacity-40"
                   )}
                   disabled={!canSelect}
@@ -379,7 +379,7 @@ export function AvailabilityCalendar({
 
           {/* Legend */}
           {showLegend && (
-            <div className={cn("flex flex-wrap gap-3 text-[#7a6d62]", sizeConfig.smallText)}>
+            <div className={cn("flex flex-wrap gap-3 text-[#94a3b8]", sizeConfig.smallText)}>
               <LegendItem icon="🟢" label="Available" />
               <LegendItem icon="🟡" label="Limited" />
               <LegendItem icon="🔴" label="Booked" />
@@ -394,8 +394,8 @@ export function AvailabilityCalendar({
         selectedDate &&
         selectedDateAvailability &&
         selectedDateAvailability.availableSlots.length > 0 && (
-          <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4">
-            <h4 className={cn("mb-3 font-semibold text-gray-900", sizeConfig.text)}>
+          <div className="rounded-lg border border-[#e2e8f0] bg-[#f8fafc]/90 p-4">
+            <h4 className={cn("mb-3 font-semibold text-[#0f172a]", sizeConfig.text)}>
               Available times on{" "}
               {selectedDate.toLocaleDateString(locale, { month: "long", day: "numeric" })}
             </h4>
@@ -430,8 +430,8 @@ export function AvailabilityCalendar({
                       "rounded-md border font-medium transition",
                       sizeConfig.timeSlotButton,
                       isTimeSelected
-                        ? "border-[#E85D48] bg-[#E85D48] text-white"
-                        : "border-[#e5dfd4] bg-white text-gray-900 hover:border-[#E85D48] hover:text-[#E85D48]"
+                        ? "border-[#64748b] bg-[#64748b] text-[#f8fafc]"
+                        : "border-[#e2e8f0] bg-[#f8fafc] text-[#0f172a] hover:border-[#64748b] hover:text-[#64748b]"
                     )}
                     key={time}
                     onClick={() => onTimeSelect?.(time)}
@@ -443,7 +443,7 @@ export function AvailabilityCalendar({
               })}
             </div>
             {selectedDateAvailability.bookingCount > 0 && (
-              <p className={cn("mt-3 text-[#7a6d62]", sizeConfig.smallText)}>
+              <p className={cn("mt-3 text-[#94a3b8]", sizeConfig.smallText)}>
                 {selectedDateAvailability.bookingCount} of {selectedDateAvailability.maxBookings}{" "}
                 slots booked today
               </p>
@@ -456,8 +456,8 @@ export function AvailabilityCalendar({
         selectedDate &&
         selectedDateAvailability &&
         selectedDateAvailability.availableSlots.length === 0 && (
-          <div className="rounded-lg border border-[#f0ece5] bg-white/90 p-4 text-center">
-            <p className={cn("text-[#7a6d62]", sizeConfig.text)}>
+          <div className="rounded-lg border border-[#e2e8f0] bg-[#f8fafc]/90 p-4 text-center">
+            <p className={cn("text-[#94a3b8]", sizeConfig.text)}>
               No available time slots on this date. Please choose another day.
             </p>
           </div>
@@ -514,21 +514,21 @@ function LegendItem({ icon, label }: { icon: string; label: string }) {
 function getThemeConfig(theme: CalendarTheme) {
   const configs = {
     default: {
-      gridBorder: "border-[#ebe5d8]",
-      selected: "ring-2 ring-red-600 ring-inset",
+      gridBorder: "border-[#e2e8f0]",
+      selected: "ring-2 ring-[#64748b] ring-inset",
       today: "font-bold",
-      selectable: "cursor-pointer hover:ring-2 hover:ring-red-600/20",
+      selectable: "cursor-pointer hover:ring-2 hover:ring-[#64748b]/20",
     },
     professional: {
-      gridBorder: "border-[#efe7dc]",
-      selected: "border-[#E85D48] ring-2 ring-red-600/20",
-      today: "font-bold text-[#E85D48]",
-      selectable: "cursor-pointer hover:border-[#E85D48]",
+      gridBorder: "border-[#e2e8f0]",
+      selected: "border-[#64748b] ring-2 ring-[#64748b]/20",
+      today: "font-bold text-[#64748b]",
+      selectable: "cursor-pointer hover:border-[#64748b]",
     },
     customer: {
-      gridBorder: "border-[#ebe5d8]",
-      selected: "scale-105 ring-4 ring-red-600 ring-offset-2",
-      today: "border-[#E85D48]",
+      gridBorder: "border-[#e2e8f0]",
+      selected: "scale-105 ring-4 ring-[#64748b] ring-offset-2",
+      today: "border-[#64748b]",
       selectable: "hover:-translate-y-1 cursor-pointer hover:scale-105 hover:shadow-lg",
     },
   };
@@ -594,24 +594,24 @@ function getSizeConfig(size: CalendarSize) {
 function getStatusColors(status: DayAvailability["status"] | undefined) {
   const colors = {
     available: {
-      bg: "bg-green-50 border-green-200",
-      text: "text-green-700",
+      bg: "bg-[#64748b]/10 border-[#64748b]/40",
+      text: "text-[#64748b]",
     },
     limited: {
-      bg: "bg-yellow-50 border-yellow-200",
-      text: "text-yellow-700",
+      bg: "bg-[#64748b]/5 border-[#64748b]/30",
+      text: "text-[#64748b]",
     },
     booked: {
-      bg: "bg-[#E85D48]/10 border-red-200",
-      text: "text-red-700",
+      bg: "bg-[#64748b]/10 border-[#64748b]/30",
+      text: "text-[#64748b]",
     },
     blocked: {
-      bg: "bg-gray-100 border-gray-200",
-      text: "text-gray-600",
+      bg: "bg-[#e2e8f0]/30 border-[#e2e8f0]",
+      text: "text-[#94a3b8]",
     },
   };
 
-  return status ? colors[status] : { bg: "bg-white", text: "text-gray-900" };
+  return status ? colors[status] : { bg: "bg-[#f8fafc]", text: "text-[#0f172a]" };
 }
 
 /**

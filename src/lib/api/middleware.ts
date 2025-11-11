@@ -233,28 +233,6 @@ export function withAuthMethods<T extends Record<string, AuthenticatedHandler<[R
 }
 
 /**
- * Rate limiting middleware (placeholder for future implementation)
- *
- * @example
- * ```typescript
- * export const POST = withRateLimit(
- *   { maxRequests: 10, windowMs: 60000 },
- *   async (request: Request) => {
- *     return ok({ success: true });
- *   }
- * );
- * ```
- */
-export function withRateLimit<T extends unknown[]>(
-  _options: { maxRequests: number; windowMs: number },
-  handler: RouteHandler<T>
-) {
-  // TODO: Implement rate limiting logic
-  // For now, just pass through to handler
-  return handler;
-}
-
-/**
  * CORS middleware
  *
  * @example

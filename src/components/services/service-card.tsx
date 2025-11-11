@@ -40,46 +40,48 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
   return (
     <div
       className={`group rounded-[24px] border-2 p-6 shadow-sm transition ${
-        service.isActive ? "border-[#e5e7eb] bg-white" : "border-[#f3f4f6] bg-[#f9fafb] opacity-60"
+        service.isActive
+          ? "border-[#e2e8f0] bg-[#f8fafc]"
+          : "border-[bg-[#f8fafc]] bg-[#f8fafc] opacity-60"
       }`}
     >
       {/* Header */}
       <div className="mb-4 flex items-start justify-between">
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <h3 className="font-semibold text-gray-900 text-lg">{service.name}</h3>
+            <h3 className="font-semibold text-[#0f172a] text-lg">{service.name}</h3>
             {service.isFeatured && (
-              <span className="rounded-full bg-[#E85D48] px-2 py-1 font-medium text-white text-xs">
+              <span className="rounded-full bg-[#64748b] px-2 py-1 font-medium text-[#f8fafc] text-xs">
                 {t("featured")}
               </span>
             )}
             {!service.isActive && (
-              <span className="rounded-full bg-[#9ca3af] px-2 py-1 font-medium text-white text-xs">
+              <span className="rounded-full bg-[#94a3b8] px-2 py-1 font-medium text-[#f8fafc] text-xs">
                 {t("inactive")}
               </span>
             )}
           </div>
-          <p className="mt-1 text-[#6b7280] text-sm">{t(`serviceType.${service.serviceType}`)}</p>
+          <p className="mt-1 text-[#94a3b8] text-sm">{t(`serviceType.${service.serviceType}`)}</p>
         </div>
 
         {showActions && (
           <div className="flex gap-2">
             {onEdit && (
               <button
-                className="rounded-lg border-2 border-[#e5e7eb] bg-white p-2 transition hover:bg-[#f9fafb]"
+                className="rounded-lg border-2 border-[#e2e8f0] bg-[#f8fafc] p-2 transition hover:bg-[#f8fafc]"
                 onClick={() => onEdit(service)}
                 type="button"
               >
-                <HugeiconsIcon className="h-4 w-4 text-gray-900" icon={Edit02Icon} />
+                <HugeiconsIcon className="h-4 w-4 text-[#0f172a]" icon={Edit02Icon} />
               </button>
             )}
             {onDelete && (
               <button
-                className="rounded-lg border-2 border-red-200 bg-white p-2 transition hover:bg-[#E85D48]/10"
+                className="rounded-lg border-2 border-[#64748b]/30 bg-[#f8fafc] p-2 transition hover:bg-[#64748b]/10"
                 onClick={() => onDelete(service.id)}
                 type="button"
               >
-                <HugeiconsIcon className="h-4 w-4 text-[#E85D48]" icon={Delete02Icon} />
+                <HugeiconsIcon className="h-4 w-4 text-[#64748b]" icon={Delete02Icon} />
               </button>
             )}
           </div>
@@ -88,22 +90,22 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
 
       {/* Description */}
       {service.description && (
-        <p className="mb-4 line-clamp-2 text-[#6b7280] text-sm">{service.description}</p>
+        <p className="mb-4 line-clamp-2 text-[#94a3b8] text-sm">{service.description}</p>
       )}
 
       {/* Pricing & Duration */}
       <div className="mb-4 flex items-center gap-4">
         <div className="flex items-baseline gap-1">
-          <span className="font-bold text-2xl text-[#E85D48]">
+          <span className="font-bold text-2xl text-[#64748b]">
             {formatPrice(service.basePriceCop)}
           </span>
-          <span className="text-[#9ca3af] text-sm">
+          <span className="text-[#94a3b8] text-sm">
             / {t(`pricingUnit.${service.pricingUnit}`)}
           </span>
         </div>
 
         {service.estimatedDurationMinutes && (
-          <div className="flex items-center gap-1 text-[#6b7280] text-sm">
+          <div className="flex items-center gap-1 text-[#94a3b8] text-sm">
             <HugeiconsIcon className="h-4 w-4" icon={Clock01Icon} />
             <span>{formatDuration(service.estimatedDurationMinutes)}</span>
           </div>
@@ -111,37 +113,37 @@ export function ServiceCard({ service, onEdit, onDelete, showActions = true }: S
       </div>
 
       {/* Metrics */}
-      <div className="flex items-center gap-4 border-[#e5e7eb] border-t pt-4">
+      <div className="flex items-center gap-4 border-[#e2e8f0] border-t pt-4">
         <div className="flex items-center gap-1">
-          <HugeiconsIcon className="h-4 w-4 text-yellow-500" icon={StarIcon} />
-          <span className="font-medium text-gray-900 text-sm">
+          <HugeiconsIcon className="h-4 w-4 text-[#64748b]" icon={StarIcon} />
+          <span className="font-medium text-[#0f172a] text-sm">
             {service.averageRating > 0 ? service.averageRating.toFixed(1) : "N/A"}
           </span>
         </div>
-        <span className="text-[#9ca3af] text-xs">•</span>
-        <span className="text-[#6b7280] text-sm">
+        <span className="text-[#94a3b8] text-xs">•</span>
+        <span className="text-[#94a3b8] text-sm">
           {service.bookingCount} {t("bookings")}
         </span>
         {service.requiresApproval && (
           <>
-            <span className="text-[#9ca3af] text-xs">•</span>
-            <span className="text-[#6b7280] text-sm">{t("requiresApproval")}</span>
+            <span className="text-[#94a3b8] text-xs">•</span>
+            <span className="text-[#94a3b8] text-sm">{t("requiresApproval")}</span>
           </>
         )}
       </div>
 
       {/* Included Items */}
       {service.includedItems.length > 0 && (
-        <div className="mt-4 rounded-xl bg-[#f9fafb] p-3">
-          <p className="mb-2 font-medium text-gray-900 text-xs">{t("included")}:</p>
+        <div className="mt-4 rounded-xl bg-[#f8fafc] p-3">
+          <p className="mb-2 font-medium text-[#0f172a] text-xs">{t("included")}:</p>
           <ul className="space-y-1">
             {service.includedItems.slice(0, 3).map((item, index) => (
-              <li className="text-[#6b7280] text-xs" key={index}>
+              <li className="text-[#94a3b8] text-xs" key={index}>
                 • {item}
               </li>
             ))}
             {service.includedItems.length > 3 && (
-              <li className="text-[#9ca3af] text-xs">
+              <li className="text-[#94a3b8] text-xs">
                 + {service.includedItems.length - 3} {t("more")}
               </li>
             )}

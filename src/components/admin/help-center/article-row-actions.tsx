@@ -5,7 +5,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "@/lib/toast";
+import { toast } from "sonner";
 import { deleteArticle } from "./article-actions";
 
 type ArticleRowActionsProps = {
@@ -46,7 +46,7 @@ export function ArticleRowActions({
       <div className="flex items-center justify-end gap-2">
         {/* View */}
         <Link
-          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#E5E5E5] text-[#737373] transition hover:border-[#E85D48] hover:text-[#E85D48]"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition hover:border-slate-900 hover:text-slate-900 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:text-slate-400"
           href={`/help/${categorySlug}/${articleSlug}`}
           target="_blank"
           title="View article"
@@ -56,7 +56,7 @@ export function ArticleRowActions({
 
         {/* Edit */}
         <Link
-          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#E5E5E5] text-[#737373] transition hover:border-[#E85D48] hover:text-[#E85D48]"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition hover:border-slate-900 hover:text-slate-900 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:text-slate-400"
           href={`/admin/help-center/${articleId}`}
           title="Edit article"
         >
@@ -65,7 +65,7 @@ export function ArticleRowActions({
 
         {/* Delete */}
         <button
-          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#E5E5E5] text-[#737373] transition hover:border-red-500 hover:text-red-500"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition hover:border-slate-900 hover:text-slate-900 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:text-slate-400"
           onClick={() => setShowDeleteConfirm(true)}
           title="Delete article"
           type="button"
@@ -76,24 +76,26 @@ export function ArticleRowActions({
 
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="max-w-md rounded-xl border border-[#E5E5E5] bg-white p-6 shadow-xl">
-            <h3 className="mb-2 font-bold text-[#171717] text-xl">Delete Article</h3>
-            <p className="mb-6 text-[#737373]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4 dark:bg-slate-100/50">
+          <div className="max-w-md rounded-xl border border-slate-200 bg-white p-6 shadow-xl dark:border-slate-800 dark:bg-slate-950">
+            <h3 className="mb-2 font-bold text-slate-900 text-xl dark:text-slate-100">
+              Delete Article
+            </h3>
+            <p className="mb-6 text-slate-600 dark:text-slate-400">
               Are you sure you want to delete <strong>"{articleTitle}"</strong>? This action cannot
               be undone.
             </p>
 
             <div className="flex gap-3">
               <button
-                className="flex-1 rounded-lg border border-[#E5E5E5] bg-white px-6 py-3 font-semibold text-[#171717] transition hover:bg-gray-50"
+                className="flex-1 rounded-lg border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-900 transition hover:bg-white dark:border-slate-800 dark:bg-slate-950 dark:bg-slate-950 dark:text-slate-100"
                 onClick={() => setShowDeleteConfirm(false)}
                 type="button"
               >
                 Cancel
               </button>
               <button
-                className="flex-1 rounded-lg bg-red-600 px-6 py-3 font-semibold text-white transition hover:bg-red-700 disabled:opacity-50"
+                className="flex-1 rounded-lg bg-slate-900 px-6 py-3 font-semibold text-white transition hover:bg-slate-900 disabled:opacity-50 dark:bg-slate-100 dark:bg-slate-100 dark:text-slate-950"
                 disabled={deleting}
                 onClick={handleDelete}
                 type="button"

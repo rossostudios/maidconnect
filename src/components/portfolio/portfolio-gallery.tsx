@@ -32,9 +32,9 @@ export function PortfolioGallery({
     <div className="space-y-4">
       {/* Featured Work Description */}
       {featuredWork && (
-        <div className="rounded-lg border border-[#f0ece5] bg-[#fdfaf6] p-4">
-          <h3 className="font-semibold text-gray-900 text-sm">Featured Work</h3>
-          <p className="mt-2 text-[#7a6d62] text-sm">{featuredWork}</p>
+        <div className="rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-4">
+          <h3 className="font-semibold text-[#0f172a] text-sm">Featured Work</h3>
+          <p className="mt-2 text-[#94a3b8] text-sm">{featuredWork}</p>
         </div>
       )}
 
@@ -42,7 +42,7 @@ export function PortfolioGallery({
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {sortedImages.map((image) => (
           <button
-            className="group relative aspect-square overflow-hidden rounded-lg border border-[#e5dfd4] bg-[#f0ece5] transition hover:border-[#E85D48] hover:shadow-md"
+            className="group relative aspect-square overflow-hidden rounded-lg border border-[#e2e8f0] bg-[#e2e8f0] transition hover:border-[#64748b] hover:shadow-md"
             key={image.id}
             onClick={() => setSelectedImage(image)}
             type="button"
@@ -57,13 +57,13 @@ export function PortfolioGallery({
               width={300}
             />
             {image.caption && (
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-left">
-                <p className="line-clamp-2 text-sm text-white">{image.caption}</p>
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0f172a]/70 to-transparent p-3 text-left">
+                <p className="line-clamp-2 text-[#f8fafc] text-sm">{image.caption}</p>
               </div>
             )}
             {/* Overlay icon */}
-            <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/20 group-hover:opacity-100">
-              <span className="text-2xl text-white">🔍</span>
+            <div className="absolute inset-0 flex items-center justify-center bg-[#0f172a]/0 opacity-0 transition group-hover:bg-[#0f172a]/20 group-hover:opacity-100">
+              <span className="text-2xl text-[#f8fafc]">🔍</span>
             </div>
           </button>
         ))}
@@ -130,7 +130,7 @@ function Lightbox({
   return (
     <div
       aria-label="Close lightbox"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#0f172a]/90 p-4"
       onClick={onClose}
       onKeyDown={handleKeyDown}
       role="button"
@@ -138,7 +138,7 @@ function Lightbox({
     >
       {/* Close Button */}
       <button
-        className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-2xl text-white transition hover:bg-white/20"
+        className="absolute top-4 right-4 rounded-full bg-[#f8fafc]/10 p-2 text-2xl text-[#f8fafc] transition hover:bg-[#f8fafc]/20"
         onClick={onClose}
         type="button"
       >
@@ -148,7 +148,7 @@ function Lightbox({
       {/* Previous Button */}
       {hasPrevious && (
         <button
-          className="-translate-y-1/2 absolute top-1/2 left-4 rounded-full bg-white/10 p-3 text-2xl text-white transition hover:bg-white/20"
+          className="-translate-y-1/2 absolute top-1/2 left-4 rounded-full bg-[#f8fafc]/10 p-3 text-2xl text-[#f8fafc] transition hover:bg-[#f8fafc]/20"
           onClick={(e) => {
             e.stopPropagation();
             handlePrevious();
@@ -162,7 +162,7 @@ function Lightbox({
       {/* Next Button */}
       {hasNext && (
         <button
-          className="-translate-y-1/2 absolute top-1/2 right-4 rounded-full bg-white/10 p-3 text-2xl text-white transition hover:bg-white/20"
+          className="-translate-y-1/2 absolute top-1/2 right-4 rounded-full bg-[#f8fafc]/10 p-3 text-2xl text-[#f8fafc] transition hover:bg-[#f8fafc]/20"
           onClick={(e) => {
             e.stopPropagation();
             handleNext();
@@ -184,8 +184,10 @@ function Lightbox({
           src={image.url}
           width={1200}
         />
-        {image.caption && <p className="mt-3 text-center text-sm text-white/90">{image.caption}</p>}
-        <p className="mt-2 text-center text-white/60 text-xs">
+        {image.caption && (
+          <p className="mt-3 text-center text-[#f8fafc]/90 text-sm">{image.caption}</p>
+        )}
+        <p className="mt-2 text-center text-[#f8fafc]/60 text-xs">
           {currentIndex + 1} of {allImages.length}
         </p>
       </div>
@@ -209,7 +211,7 @@ export function PortfolioPreview({ images }: { images: PortfolioImage[] }) {
     <div className="grid grid-cols-4 gap-2">
       {previewImages.map((image, index) => (
         <div
-          className="relative aspect-square overflow-hidden rounded-md bg-[#f0ece5]"
+          className="relative aspect-square overflow-hidden rounded-md bg-[#e2e8f0]"
           key={image.id}
         >
           <Image
@@ -221,7 +223,7 @@ export function PortfolioPreview({ images }: { images: PortfolioImage[] }) {
             width={100}
           />
           {index === 3 && remaining > 0 && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/60 font-semibold text-sm text-white">
+            <div className="absolute inset-0 flex items-center justify-center bg-[#0f172a]/60 font-semibold text-[#f8fafc] text-sm">
               +{remaining}
             </div>
           )}

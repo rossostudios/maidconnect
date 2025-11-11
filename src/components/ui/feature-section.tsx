@@ -48,8 +48,8 @@ export function FeatureSection({
   tagline,
   heading,
   description,
-  backgroundColor = "#F5F0E8",
-  textColor = "#1A1614",
+  backgroundColor = "bg-[#f8fafc]",
+  textColor = "#0f172a",
   illustration,
   children,
   className = "",
@@ -70,7 +70,7 @@ export function FeatureSection({
         <div className={`relative z-10 flex flex-col ${alignmentClasses}`}>
           {/* Tagline */}
           {tagline && (
-            <div className="tagline mb-4" style={{ color: "#7a6d62" }}>
+            <div className="tagline mb-4" style={{ color: "#94a3b8" }}>
               {tagline}
             </div>
           )}
@@ -127,20 +127,20 @@ export function FeatureCard({
     <div className="group flex flex-col items-center gap-3 text-center">
       {/* Icon */}
       {icon && (
-        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#E85D48]/10 text-[#E85D48]">
+        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#64748b]/10 text-[#64748b]">
           {icon}
         </div>
       )}
 
       {/* Title */}
-      <h3 className="serif-headline-sm text-[#1A1614]">{title}</h3>
+      <h3 className="serif-headline-sm text-[#0f172a]">{title}</h3>
 
       {/* Description */}
-      <p className="text-[#1A1614]/70 text-sm leading-relaxed">{description}</p>
+      <p className="text-[#0f172a]/70 text-sm leading-relaxed">{description}</p>
 
       {/* Link */}
       {href && (
-        <div className="mt-2 flex items-center gap-2 font-semibold text-[#E85D48] text-sm transition-colors group-hover:text-[#D64A36]">
+        <div className="mt-2 flex items-center gap-2 font-semibold text-[#64748b] text-sm transition-colors group-hover:text-[#64748b]">
           {linkText}
           <svg
             className="h-4 w-4 transition-transform group-hover:translate-x-1"
@@ -158,7 +158,7 @@ export function FeatureCard({
   if (href) {
     return (
       <a
-        className="block rounded-xl border border-[#e8e5e0] bg-white p-6 transition-all hover:border-[#E85D48]/30 hover:shadow-md"
+        className="block rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-6 transition-all hover:border-[#64748b]/30 hover:shadow-md"
         href={href}
       >
         {CardContent}
@@ -166,7 +166,7 @@ export function FeatureCard({
     );
   }
 
-  return <div className="rounded-xl border border-[#e8e5e0] bg-white p-6">{CardContent}</div>;
+  return <div className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-6">{CardContent}</div>;
 }
 
 /**

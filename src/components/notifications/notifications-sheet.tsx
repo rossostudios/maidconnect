@@ -114,7 +114,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 z-40 bg-black/20"
+        className="fixed inset-0 z-40 bg-[#0f172a]/20"
         onClick={onClose}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
@@ -127,12 +127,12 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
       />
 
       {/* Sheet */}
-      <div className="fixed top-0 right-0 z-50 flex h-full w-full max-w-md flex-col bg-white shadow-2xl">
+      <div className="fixed top-0 right-0 z-50 flex h-full w-full max-w-md flex-col bg-[#f8fafc] shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between border-[#E5E5E5] border-b px-6 py-4">
-          <h2 className="font-semibold text-gray-900 text-xl">Notifications</h2>
+        <div className="flex items-center justify-between border-[#e2e8f0] border-b px-6 py-4">
+          <h2 className="font-semibold text-[#0f172a] text-xl">Notifications</h2>
           <button
-            className="rounded-lg p-2 text-[#737373] transition hover:bg-[#F5F5F5]"
+            className="rounded-lg p-2 text-[#94a3b8] transition hover:bg-[#f8fafc]"
             onClick={onClose}
             type="button"
           >
@@ -154,11 +154,11 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
         </div>
 
         {/* Filters */}
-        <div className="flex items-center justify-between border-[#E5E5E5] border-b px-6 py-3">
+        <div className="flex items-center justify-between border-[#e2e8f0] border-b px-6 py-3">
           <div className="flex gap-4">
             <button
               className={`font-medium text-sm transition ${
-                filter === "unread" ? "text-gray-900" : "text-[#737373] hover:text-gray-900"
+                filter === "unread" ? "text-[#0f172a]" : "text-[#94a3b8] hover:text-[#0f172a]"
               }`}
               onClick={() => setFilter("unread")}
               type="button"
@@ -167,7 +167,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
             </button>
             <button
               className={`font-medium text-sm transition ${
-                filter === "all" ? "text-gray-900" : "text-[#737373] hover:text-gray-900"
+                filter === "all" ? "text-[#0f172a]" : "text-[#94a3b8] hover:text-[#0f172a]"
               }`}
               onClick={() => setFilter("all")}
               type="button"
@@ -177,7 +177,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
           </div>
           {unreadCount > 0 && (
             <button
-              className="font-medium text-[#E85D48] text-xs transition hover:text-[#e54d3c]"
+              className="font-medium text-[#64748b] text-xs transition hover:text-[#64748b]"
               onClick={markAllAsRead}
               type="button"
             >
@@ -192,17 +192,17 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
             if (loading) {
               return (
                 <div className="flex items-center justify-center p-12">
-                  <div className="h-8 w-8 animate-spin rounded-full border-[#E85D48] border-b-2" />
+                  <div className="h-8 w-8 animate-spin rounded-full border-[#64748b] border-b-2" />
                 </div>
               );
             }
             if (notifications.length === 0) {
               return (
                 <div className="flex flex-col items-center justify-center p-12">
-                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#F5F5F5]">
+                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#f8fafc]">
                     <svg
                       aria-hidden="true"
-                      className="h-8 w-8 text-[#737373]"
+                      className="h-8 w-8 text-[#94a3b8]"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -215,10 +215,10 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                       />
                     </svg>
                   </div>
-                  <h3 className="font-semibold text-base text-gray-900">
+                  <h3 className="font-semibold text-[#0f172a] text-base">
                     {filter === "unread" ? "All caught up!" : "No notifications"}
                   </h3>
-                  <p className="mt-1 text-center text-[#737373] text-sm">
+                  <p className="mt-1 text-center text-[#94a3b8] text-sm">
                     {filter === "unread"
                       ? "You've read all your notifications"
                       : "You'll see notifications here when there's activity"}
@@ -227,11 +227,11 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
               );
             }
             return (
-              <div className="divide-y divide-[#E5E5E5]">
+              <div className="divide-y divide-[#e2e8f0]">
                 {notifications.map((notification) => (
                   <div
-                    className={`p-4 transition hover:bg-[#fbf9f7] ${
-                      notification.read_at ? "" : "bg-[#E85D48]/5"
+                    className={`p-4 transition hover:bg-[#f8fafc] ${
+                      notification.read_at ? "" : "bg-[#64748b]/5"
                     }`}
                     key={notification.id}
                   >
@@ -246,29 +246,29 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0 flex-1">
-                            <p className="font-semibold text-gray-900 text-sm">
+                            <p className="font-semibold text-[#0f172a] text-sm">
                               {notification.title}
                             </p>
-                            <p className="mt-1 text-gray-600 text-sm">{notification.body}</p>
-                            <p className="mt-1 text-[#737373] text-xs">
+                            <p className="mt-1 text-[#94a3b8] text-sm">{notification.body}</p>
+                            <p className="mt-1 text-[#94a3b8] text-xs">
                               {formatDistanceToNow(new Date(notification.created_at), {
                                 addSuffix: true,
                               })}
                             </p>
                           </div>
                           {!notification.read_at && (
-                            <div className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#E85D48]" />
+                            <div className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#64748b]" />
                           )}
                         </div>
                       </Link>
                     ) : (
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">
-                          <p className="font-semibold text-gray-900 text-sm">
+                          <p className="font-semibold text-[#0f172a] text-sm">
                             {notification.title}
                           </p>
-                          <p className="mt-1 text-gray-600 text-sm">{notification.body}</p>
-                          <p className="mt-1 text-[#737373] text-xs">
+                          <p className="mt-1 text-[#94a3b8] text-sm">{notification.body}</p>
+                          <p className="mt-1 text-[#94a3b8] text-xs">
                             {formatDistanceToNow(new Date(notification.created_at), {
                               addSuffix: true,
                             })}
@@ -276,7 +276,7 @@ export function NotificationsSheet({ isOpen, onClose }: Props) {
                         </div>
                         {!notification.read_at && (
                           <button
-                            className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#E85D48] transition hover:bg-[#e54d3c]"
+                            className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#64748b] transition hover:bg-[#64748b]"
                             onClick={() => markAsRead([notification.id])}
                             type="button"
                           />

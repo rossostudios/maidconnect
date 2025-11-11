@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-[#F5F0E8] text-[#1A1614]">
+    <div className="min-h-screen bg-[#FFEEFF8E8] text-[#116611616]">
       <SiteHeader />
       <main>
         <ContactHero />

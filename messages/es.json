@@ -2225,6 +2225,17 @@
     "success": {
       "title": "¡Gracias por revisar!",
       "message": "está al día con las últimas actualizaciones."
+    },
+    "meta": {
+      "title": "Qué hay de nuevo - Registro de cambios | Casaora",
+      "description": "Mantente al día con las últimas funciones, mejoras y actualizaciones de Casaora. Ve qué hay de nuevo y en qué estamos trabajando."
+    },
+    "hero": {
+      "title": "Qué hay de nuevo",
+      "subtitle": "Mantente al día con las últimas funciones, mejoras y actualizaciones de Casaora"
+    },
+    "detail": {
+      "backToChangelog": "Volver a todas las actualizaciones"
     }
   },
   "feedback": {
@@ -2938,6 +2949,109 @@
       "retry": "Reintentar",
       "noBookings": "No se encontraron reservas",
       "noBookingsDescription": "Cuando reserves servicios o recibas reservas, aparecerán aquí"
+    }
+  },
+  "datePicker": {
+    "selectDate": "Seleccionar fecha",
+    "clear": "Limpiar",
+    "today": "Hoy",
+    "previousMonth": "Mes anterior",
+    "nextMonth": "Próximo mes",
+    "weekdays": {
+      "sunday": "D",
+      "monday": "L",
+      "tuesday": "M",
+      "wednesday": "M",
+      "thursday": "J",
+      "friday": "V",
+      "saturday": "S"
+    }
+  },
+  "cookieConsent": {
+    "title": "Usamos cookies",
+    "message": "Utilizamos cookies para mejorar su experiencia, analizar el tráfico del sitio y proporcionar contenido personalizado. Al hacer clic en \"Aceptar\", usted acepta el uso de cookies.",
+    "learnMore": "Más información",
+    "decline": "Rechazar",
+    "accept": "Aceptar Cookies"
+  },
+  "commandPalette": {
+    "placeholder": "Buscar comandos, artículos de ayuda, profesionales...",
+    "searching": "Buscando...",
+    "noResults": "No se encontraron resultados",
+    "noResultsDescription": "Intenta buscar algo diferente",
+    "groups": {
+      "navigation": "Navegación",
+      "actions": "Acciones",
+      "settings": "Configuración",
+      "helpArticles": "Artículos de Ayuda",
+      "professionals": "Profesionales",
+      "changelog": "Novedades",
+      "roadmap": "Hoja de Ruta",
+      "cities": "Ciudades",
+      "recent": "Reciente"
+    },
+    "commands": {
+      "goToDashboard": {
+        "label": "Ir al Panel",
+        "description": "Ver tu panel principal"
+      },
+      "goToHome": {
+        "label": "Ir al Inicio",
+        "description": "Volver a la página de inicio"
+      },
+      "goToBookings": {
+        "label": "Ir a Reservas",
+        "description": "Gestionar tus reservas"
+      },
+      "goToProfile": {
+        "label": "Ir al Perfil",
+        "description": "Editar tu perfil profesional"
+      },
+      "goToFavorites": {
+        "label": "Ir a Favoritos",
+        "description": "Ver tus profesionales favoritos"
+      },
+      "goToPayments": {
+        "label": "Ir a Pagos",
+        "descriptionCustomer": "Ver tu historial de pagos",
+        "descriptionProfessional": "Ver tus ganancias y pagos"
+      },
+      "goToAvailability": {
+        "label": "Ir a Disponibilidad",
+        "description": "Gestionar tu calendario de disponibilidad"
+      },
+      "goToPortfolio": {
+        "label": "Ir a Portafolio",
+        "description": "Gestionar tu portafolio de trabajo"
+      },
+      "goToLeads": {
+        "label": "Ir a Solicitudes",
+        "description": "Ver solicitudes de reserva pendientes"
+      },
+      "goToDocuments": {
+        "label": "Ir a Documentos",
+        "description": "Gestionar documentos de verificación"
+      },
+      "goToAddresses": {
+        "label": "Ir a Direcciones",
+        "description": "Gestionar tus direcciones de servicio"
+      },
+      "goToRecurringPlans": {
+        "label": "Ir a Planes Recurrentes",
+        "description": "Gestionar tus planes de servicio recurrentes"
+      },
+      "findProfessional": {
+        "label": "Encontrar un Profesional",
+        "description": "Buscar y reservar un profesional"
+      },
+      "browseProfessionals": {
+        "label": "Explorar Profesionales",
+        "description": "Explorar nuestra red de profesionales"
+      },
+      "goToSettings": {
+        "label": "Ir a Configuración",
+        "description": "Gestionar la configuración de tu cuenta"
+      }
     }
   }
 }

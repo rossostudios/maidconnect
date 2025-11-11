@@ -1,5 +1,25 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
+import type { SavedAddress } from "@/components/addresses/saved-addresses-manager";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+
+const updateAddressesSchema = z.object({
+  addresses: z.array(
+    z.object({
+      id: z.string(),
+      label: z.string(),
+      is_default: z.boolean(),
+      street: z.string(),
+      neighborhood: z.string().optional(),
+      city: z.string(),
+      postal_code: z.string().optional(),
+      building_access: z.string().optional(),
+      parking_info: z.string().optional(),
+      special_notes: z.string().optional(),
+      created_at: z.string(),
+    })
+  ),
+});
 
 /**
  * Get customer's saved addresses
@@ -27,8 +47,12 @@ export async function GET() {
       return NextResponse.json({ error: "Failed to fetch addresses" }, { status: 500 });
     }
 
+    // Type the JSONB column as unknown, then validate it's an array
+    const savedAddresses = profile?.saved_addresses as unknown;
+    const addresses: SavedAddress[] = Array.isArray(savedAddresses) ? savedAddresses : [];
+
     return NextResponse.json({
-      addresses: (profile?.saved_addresses as any[]) || [],
+      addresses,
     });
   } catch (_error) {
     return NextResponse.json({ error: "Failed to fetch addresses" }, { status: 500 });
@@ -52,16 +76,13 @@ export async function PUT(request: Request) {
   }
 
   try {
-    const body = (await request.json()) as { addresses: any[] };
-
-    if (!Array.isArray(body.addresses)) {
-      return NextResponse.json({ error: "addresses must be an array" }, { status: 400 });
-    }
+    const body = await request.json();
+    const { addresses } = updateAddressesSchema.parse(body);
 
     // Update saved addresses
     const { error } = await supabase
       .from("customer_profiles")
-      .update({ saved_addresses: body.addresses })
+      .update({ saved_addresses: addresses })
       .eq("profile_id", user.id);
 
     if (error) {
@@ -70,7 +91,7 @@ export async function PUT(request: Request) {
 
     return NextResponse.json({
       success: true,
-      addresses: body.addresses,
+      addresses,
     });
   } catch (_error) {
     return NextResponse.json({ error: "Failed to update addresses" }, { status: 500 });

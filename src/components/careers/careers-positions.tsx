@@ -1,3 +1,5 @@
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -9,9 +11,9 @@ export async function CareersPositions() {
   const categories = ["engineering", "product", "customerSuccess"] as const;
 
   return (
-    <section className="bg-white py-20 sm:py-24 lg:py-32" id="positions">
+    <section className="bg-[#f8fafc] py-20 sm:py-24 lg:py-32" id="positions">
       <Container className="max-w-5xl">
-        <h2 className="type-serif-lg text-gray-900">{t("title")}</h2>
+        <h2 className="type-serif-lg text-[#0f172a]">{t("title")}</h2>
 
         <div className="mt-16 space-y-16">
           {categories.map((categoryKey) => {
@@ -32,7 +34,7 @@ export async function CareersPositions() {
             return (
               <div key={categoryKey}>
                 {/* Category Title */}
-                <h3 className="mb-6 font-semibold text-2xl text-gray-900">{categoryTitle}</h3>
+                <h3 className="mb-6 font-semibold text-2xl text-[#0f172a]">{categoryTitle}</h3>
 
                 {/* Job Listings */}
                 <div className="space-y-4">
@@ -43,13 +45,13 @@ export async function CareersPositions() {
 
                     return (
                       <div
-                        className="flex flex-col gap-4 rounded-[20px] border border-[#ebe5d8] bg-white p-6 transition hover:border-[#dcd6c7] hover:shadow-[0_10px_40px_rgba(18,17,15,0.08)] sm:flex-row sm:items-center sm:justify-between"
+                        className="flex flex-col gap-4 rounded-[20px] border border-[#e2e8f0] bg-[#f8fafc] p-6 transition hover:border-[#e2e8f0] hover:shadow-[0_10px_40px_rgba(22,22,22,0.08)] sm:flex-row sm:items-center sm:justify-between"
                         key={jobKey}
                       >
                         {/* Job Info */}
                         <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900 text-xl">{jobTitle}</h4>
-                          <div className="mt-2 flex flex-wrap items-center gap-4 text-[#7d7566] text-sm">
+                          <h4 className="font-semibold text-[#0f172a] text-xl">{jobTitle}</h4>
+                          <div className="mt-2 flex flex-wrap items-center gap-4 text-[#94a3b8] text-sm">
                             <span className="flex items-center gap-1.5">
                               <svg
                                 aria-hidden="true"
@@ -94,11 +96,11 @@ export async function CareersPositions() {
                         </div>
 
                         {/* Apply Button */}
-                        <Button
-                          href={`mailto:careers@casaora.co?subject=Application: ${jobTitle}`}
-                          label={t("applyButton")}
-                          variant="primary"
-                        />
+                        <Button asChild>
+                          <a href={`mailto:careers@casaora.co?subject=Application: ${jobTitle}`}>
+                            {t("applyButton")}
+                          </a>
+                        </Button>
                       </div>
                     );
                   })}
@@ -109,20 +111,25 @@ export async function CareersPositions() {
         </div>
 
         {/* No perfect match CTA */}
-        <div className="mt-16 rounded-[28px] bg-[#fbf9f7] p-8 text-center sm:p-12">
-          <h3 className="font-semibold text-2xl text-gray-900 sm:text-3xl">
+        <div className="mt-16 rounded-[28px] bg-[#f8fafc] p-8 text-center sm:p-12">
+          <h3 className="font-semibold text-2xl text-[#0f172a] sm:text-3xl">
             Don't see a perfect match?
           </h3>
-          <p className="mt-4 text-gray-600 text-lg leading-relaxed">
+          <p className="mt-4 text-[#94a3b8] text-lg leading-relaxed">
             We're always looking for talented people. Send us your resume and let us know what
             you're passionate about.
           </p>
           <div className="mt-8">
-            <Button
-              href="mailto:careers@casaora.co?subject=General Application"
-              icon
-              label="Get in Touch"
-            />
+            <Button asChild>
+              <a href="mailto:careers@casaora.co?subject=General Application">
+                Get in Touch
+                <HugeiconsIcon
+                  aria-hidden="true"
+                  className="ml-2 h-4 w-4"
+                  icon={ArrowRight01Icon}
+                />
+              </a>
+            </Button>
           </div>
         </div>
       </Container>

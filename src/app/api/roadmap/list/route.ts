@@ -3,18 +3,22 @@
  *
  * GET /api/roadmap/list
  * Returns published roadmap items with optional filtering
+ * Hybrid architecture: Content from Sanity, votes from Supabase
  */
 
 import { NextResponse } from "next/server";
 import { handleApiError } from "@/lib/error-handler";
-import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { serverClient } from "@/lib/sanity/client";
+import { createSupabaseAnonClient } from "@/lib/supabase/server-client";
 import type { RoadmapListParams } from "@/types/roadmap";
 
 export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
     const searchParams = url.searchParams;
-    const supabase = await createSupabaseServerClient();
+
+    // Use anon client for public roadmap
+    const supabase = createSupabaseAnonClient();
 
     // Parse query parameters
     const page = Number.parseInt(searchParams.get("page") || "1", 10);
@@ -28,71 +32,84 @@ export async function GET(request: Request) {
     const sortBy = (searchParams.get("sort_by") as RoadmapListParams["sort_by"]) || "vote_count";
     const sortOrder = (searchParams.get("sort_order") as RoadmapListParams["sort_order"]) || "desc";
 
-    const offset = (page - 1) * limit;
+    // Get locale from header or default to 'en'
+    const locale = searchParams.get("locale") || "en";
 
-    // Get current user to check votes
+    // Get current user to check votes (use getUser instead of auth.user() for proper session refresh)
     const {
       data: { user },
     } = await supabase.auth.getUser();
 
-    // Build base query - only published items
-    let query = supabase
-      .from("roadmap_items")
-      .select("*", { count: "exact" })
-      .eq("visibility", "published");
+    // Build GROQ query for Sanity
+    const groqFilters = [`_type == "roadmapItem"`, "language == $language", "isPublished == true"];
 
     // Apply status filter
     if (statusParam) {
-      const statuses = statusParam.split(",");
-      if (statuses.length === 1) {
-        query = query.eq("status", statuses[0]);
-      } else {
-        query = query.in("status", statuses);
-      }
+      const statuses = statusParam
+        .split(",")
+        .map((s) => `"${s}"`)
+        .join(",");
+      groqFilters.push(`status in [${statuses}]`);
     }
 
     // Apply category filter
     if (categoryParam) {
-      const categories = categoryParam.split(",");
-      if (categories.length === 1) {
-        query = query.eq("category", categories[0]);
-      } else {
-        query = query.in("category", categories);
-      }
+      const categories = categoryParam
+        .split(",")
+        .map((c) => `"${c}"`)
+        .join(",");
+      groqFilters.push(`category in [${categories}]`);
     }
 
     // Apply target audience filter
     if (targetAudience && targetAudience !== "all") {
-      query = query.contains("target_audience", [targetAudience]);
+      groqFilters.push(`"${targetAudience}" in targetAudience`);
     }
 
-    // Apply search
+    // Apply search filter
     if (search) {
-      query = query.or(`title.ilike.%${search}%,description.ilike.%${search}%`);
+      groqFilters.push(`(title match "*${search}*" || description match "*${search}*")`);
     }
 
-    // Apply sorting
-    const ascending = sortOrder === "asc";
-    query = query.order(sortBy, { ascending });
+    // Build final GROQ query
+    const groqQuery = `*[${groqFilters.join(" && ")}] | order(publishedAt desc) {
+      _id,
+      title,
+      description,
+      category,
+      status,
+      targetAudience,
+      estimatedQuarter,
+      estimatedYear,
+      slug,
+      publishedAt
+    }`;
 
-    // Apply pagination
-    query = query.range(offset, offset + limit - 1);
+    // Fetch from Sanity
+    const sanityItems = await serverClient.fetch(groqQuery, { language: locale });
 
-    const { data: items, error, count } = await query;
-
-    if (error) {
-      console.error("Error fetching roadmap items:", error);
-      return NextResponse.json(
-        {
-          success: false,
-          error: {
-            code: "DATABASE_ERROR",
-            message: "Failed to fetch roadmap items",
-          },
+    if (!sanityItems) {
+      return NextResponse.json({
+        success: true,
+        data: [],
+        pagination: {
+          page,
+          limit,
+          total: 0,
+          total_pages: 0,
         },
-        { status: 500 }
-      );
+      });
     }
+
+    // Get vote counts from Supabase for all items
+    const { data: voteCounts } = await supabase
+      .from("roadmap_votes_summary")
+      .select("roadmap_item_id, vote_count");
+
+    // Create vote count map (slug -> count)
+    const voteCountMap = new Map(
+      voteCounts?.map((vc) => [vc.roadmap_item_id, vc.vote_count]) || []
+    );
 
     // If user is authenticated, check which items they've voted on
     let userVotes: Set<string> = new Set();
@@ -107,21 +124,49 @@ export async function GET(request: Request) {
       }
     }
 
-    // Enhance items with vote status
-    const itemsWithVoteStatus = (items || []).map((item) => ({
-      ...item,
-      hasVoted: user ? userVotes.has(item.id) : false,
+    // Merge Sanity content with Supabase vote data
+    const itemsWithVotes = sanityItems.map((item: any) => ({
+      id: item._id,
+      title: item.title,
+      description: item.description,
+      category: item.category,
+      status: item.status,
+      target_audience: item.targetAudience || [],
+      estimated_quarter: item.estimatedQuarter || null,
+      estimated_year: item.estimatedYear || null,
+      slug: item.slug?.current || item._id,
+      vote_count: voteCountMap.get(item._id) || 0,
+      hasVoted: user ? userVotes.has(item._id) : false,
       canVote: !!user,
+      published_at: item.publishedAt,
     }));
+
+    // Apply sorting
+    if (sortBy === "vote_count") {
+      itemsWithVotes.sort((a: (typeof itemsWithVotes)[0], b: (typeof itemsWithVotes)[0]) =>
+        sortOrder === "asc" ? a.vote_count - b.vote_count : b.vote_count - a.vote_count
+      );
+    } else if (sortBy === "created_at") {
+      itemsWithVotes.sort((a: (typeof itemsWithVotes)[0], b: (typeof itemsWithVotes)[0]) => {
+        const dateA = new Date(a.published_at).getTime();
+        const dateB = new Date(b.published_at).getTime();
+        return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
+      });
+    }
+
+    // Apply pagination
+    const total = itemsWithVotes.length;
+    const offset = (page - 1) * limit;
+    const paginatedItems = itemsWithVotes.slice(offset, offset + limit);
 
     return NextResponse.json({
       success: true,
-      data: itemsWithVoteStatus,
+      data: paginatedItems,
       pagination: {
         page,
         limit,
-        total: count || 0,
-        total_pages: Math.ceil((count || 0) / limit),
+        total,
+        total_pages: Math.ceil(total / limit),
       },
     });
   } catch (error) {

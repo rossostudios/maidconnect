@@ -36,7 +36,7 @@ export async function GET() {
       .select(
         `
         id,
-        amount_captured,
+        final_amount_captured,
         currency,
         checked_out_at,
         created_at,
@@ -46,7 +46,7 @@ export async function GET() {
       )
       .eq("professional_id", user.id)
       .eq("status", "completed")
-      .not("amount_captured", "is", null)
+      .not("final_amount_captured", "is", null)
       .is("included_in_payout_id", null) // Not yet included in a payout
       .order("checked_out_at", { ascending: false });
 
@@ -114,7 +114,7 @@ export async function GET() {
           service_name: b.service_name,
           scheduled_start: b.scheduled_start,
           checked_out_at: b.checked_out_at,
-          amount_captured: b.amount_captured,
+          amount_captured: b.final_amount_captured,
         })),
       },
       allPending: {

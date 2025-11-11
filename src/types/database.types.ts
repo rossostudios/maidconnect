@@ -210,6 +210,9 @@ export type Database = {
           amount_authorized: number | null;
           amount_captured: number | null;
           amount_estimated: number | null;
+          amount_final: number | null;
+          final_amount_captured: number | null;
+          tip_amount: number | null;
           canceled_at: string | null;
           canceled_by: string | null;
           canceled_reason: string | null;
@@ -255,6 +258,9 @@ export type Database = {
           amount_authorized?: number | null;
           amount_captured?: number | null;
           amount_estimated?: number | null;
+          amount_final?: number | null;
+          final_amount_captured?: number | null;
+          tip_amount?: number | null;
           canceled_at?: string | null;
           canceled_by?: string | null;
           canceled_reason?: string | null;
@@ -300,6 +306,9 @@ export type Database = {
           amount_authorized?: number | null;
           amount_captured?: number | null;
           amount_estimated?: number | null;
+          amount_final?: number | null;
+          final_amount_captured?: number | null;
+          tip_amount?: number | null;
           canceled_at?: string | null;
           canceled_by?: string | null;
           canceled_reason?: string | null;

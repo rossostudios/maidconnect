@@ -12,6 +12,22 @@ import { BusinessRuleError, InvalidBookingStatusError, ValidationError } from "@
 import { sendPushNotification } from "@/lib/notifications";
 import { stripe } from "@/lib/stripe";
 
+// Type for booking with joined professional profile
+type BookingWithProfessionalProfile = {
+  id: string;
+  professional_id: string;
+  customer_id: string;
+  status: string;
+  service_name: string | null;
+  service_hourly_rate: number | null;
+  amount_authorized: number;
+  time_extension_minutes: number | null;
+  time_extension_amount: number | null;
+  stripe_payment_intent_id: string | null;
+  currency: string | null;
+  professional_profiles: { full_name: string } | null;
+};
+
 const extendTimeSchema = z.object({
   bookingId: z.string().uuid("Invalid booking ID format"),
   additionalMinutes: z
@@ -27,7 +43,7 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
   const { bookingId, additionalMinutes } = extendTimeSchema.parse(body);
 
   // Fetch the booking with professional name for notification
-  const booking = await requireProfessionalOwnership(
+  const booking = await requireProfessionalOwnership<BookingWithProfessionalProfile>(
     supabase,
     user.id,
     bookingId,
@@ -101,7 +117,7 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
   }
 
   // Send notification to customer about time extension
-  const professionalName = (booking.professional_profiles as any)?.full_name || "Your professional";
+  const professionalName = booking.professional_profiles?.full_name || "Your professional";
   const formattedAmount = new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: booking.currency || "COP",

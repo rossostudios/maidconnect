@@ -79,8 +79,8 @@ export function AmaraMessageActions({
         <button
           aria-label={t("thumbsUp")}
           className={cn(
-            "group rounded-md p-1.5 transition-all hover:bg-gray-100",
-            feedback === "positive" && "bg-green-50 text-green-600"
+            "group rounded-md p-1.5 transition-all hover:bg-[#e2e8f0]/30",
+            feedback === "positive" && "bg-[#64748b]/10 text-[#64748b]"
           )}
           onClick={() => handleFeedback("positive")}
           title={t("thumbsUp")}
@@ -90,8 +90,8 @@ export function AmaraMessageActions({
             className={cn(
               "h-3.5 w-3.5 transition-colors",
               feedback === "positive"
-                ? "fill-green-600 text-green-600"
-                : "text-gray-400 group-hover:text-gray-600"
+                ? "fill-[#64748b] text-[#64748b]"
+                : "text-[#94a3b8]/70 group-hover:text-[#94a3b8]"
             )}
             icon={ThumbsUpIcon}
           />
@@ -100,8 +100,8 @@ export function AmaraMessageActions({
         <button
           aria-label={t("thumbsDown")}
           className={cn(
-            "group rounded-md p-1.5 transition-all hover:bg-gray-100",
-            feedback === "negative" && "bg-[#E85D48]/10 text-[#E85D48]"
+            "group rounded-md p-1.5 transition-all hover:bg-[#e2e8f0]/30",
+            feedback === "negative" && "bg-[#64748b]/10 text-[#64748b]"
           )}
           onClick={() => handleFeedback("negative")}
           title={t("thumbsDown")}
@@ -111,8 +111,8 @@ export function AmaraMessageActions({
             className={cn(
               "h-3.5 w-3.5 transition-colors",
               feedback === "negative"
-                ? "fill-red-600 text-[#E85D48]"
-                : "text-gray-400 group-hover:text-gray-600"
+                ? "fill-[#64748b] text-[#64748b]"
+                : "text-[#94a3b8]/70 group-hover:text-[#94a3b8]"
             )}
             icon={ThumbsDownIcon}
           />
@@ -120,21 +120,21 @@ export function AmaraMessageActions({
       </div>
 
       {/* Divider */}
-      <div className="h-4 w-px bg-gray-200" />
+      <div className="h-4 w-px bg-[#e2e8f0]" />
 
       {/* Copy Button */}
       <button
         aria-label={t("copyMessage")}
-        className="group rounded-md p-1.5 transition-all hover:bg-gray-100"
+        className="group rounded-md p-1.5 transition-all hover:bg-[#e2e8f0]/30"
         onClick={handleCopy}
         title={t("copyMessage")}
         type="button"
       >
         {copied ? (
-          <HugeiconsIcon className="h-3.5 w-3.5 text-green-600" icon={Tick02Icon} />
+          <HugeiconsIcon className="h-3.5 w-3.5 text-[#64748b]" icon={Tick02Icon} />
         ) : (
           <HugeiconsIcon
-            className="h-3.5 w-3.5 text-gray-400 transition-colors group-hover:text-gray-600"
+            className="h-3.5 w-3.5 text-[#94a3b8]/70 transition-colors group-hover:text-[#94a3b8]"
             icon={Copy01Icon}
           />
         )}
@@ -143,16 +143,16 @@ export function AmaraMessageActions({
       {/* Retry Button (only shown for errors) */}
       {showRetry && onRetry && (
         <>
-          <div className="h-4 w-px bg-gray-200" />
+          <div className="h-4 w-px bg-[#e2e8f0]" />
           <button
             aria-label={t("retry")}
-            className="group rounded-md p-1.5 transition-all hover:bg-gray-100"
+            className="group rounded-md p-1.5 transition-all hover:bg-[#e2e8f0]/30"
             onClick={onRetry}
             title={t("retry")}
             type="button"
           >
             <HugeiconsIcon
-              className="h-3.5 w-3.5 text-gray-400 transition-colors group-hover:text-gray-600"
+              className="h-3.5 w-3.5 text-[#94a3b8]/70 transition-colors group-hover:text-[#94a3b8]"
               icon={RefreshIcon}
             />
           </button>

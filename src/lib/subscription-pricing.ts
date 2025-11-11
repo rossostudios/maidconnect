@@ -41,6 +41,11 @@ export function calculateSubscriptionPricing(
   frequency: SubscriptionTier,
   estimateMonths = 3
 ): PricingCalculation {
+  // Validate input: negative prices don't make sense
+  if (basePrice < 0) {
+    throw new Error("Base price cannot be negative");
+  }
+
   const discountPercent = DISCOUNT_TIERS[frequency];
   const discountAmount = Math.round((basePrice * discountPercent) / 100);
   const finalPrice = basePrice - discountAmount;
@@ -116,6 +121,7 @@ export function formatCOP(amount: number): string {
     style: "currency",
     currency: "COP",
     minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   }).format(amount);
 }
 

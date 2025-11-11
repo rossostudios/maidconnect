@@ -1,91 +1,82 @@
+/**
+ * Form Modal - COMPATIBILITY WRAPPER
+ *
+ * This is a temporary wrapper around BaseModal
+ * to maintain compatibility during component cleanup.
+ *
+ * TODO: Migrate all components to use Dialog directly
+ */
+
 "use client";
 
-import { BaseModal, BaseModalProps } from "./base-modal";
+import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
+import { BaseModal, type BaseModalProps } from "./base-modal";
 
-export type FormModalProps = Omit<BaseModalProps, "children"> & {
-  children: React.ReactNode;
-  onSubmit?: (e: React.FormEvent) => void | Promise<void>;
+export interface FormModalProps extends Omit<BaseModalProps, "children"> {
+  children: ReactNode;
+  onSubmit?: () => void;
   submitLabel?: string;
   cancelLabel?: string;
-  isSubmitting?: boolean;
-  submitDisabled?: boolean;
+  isLoading?: boolean;
+  isSubmitting?: boolean; // Alias for isLoading
+  isSubmitDisabled?: boolean;
   showActions?: boolean;
-  customActions?: React.ReactNode;
-  formId?: string;
-};
+  customActions?: ReactNode;
+}
 
-/**
- * FormModal - Modal with integrated form handling
- *
- * Features:
- * - Built-in form submission handling
- * - Consistent action buttons (Cancel/Submit)
- * - Loading states
- * - Custom action buttons support
- * - Auto-disabled submit during loading
- */
 export function FormModal({
-  isOpen,
-  onClose,
   children,
-  title,
-  description,
-  size = "md",
   onSubmit,
   submitLabel = "Submit",
   cancelLabel = "Cancel",
+  isLoading = false,
   isSubmitting = false,
-  submitDisabled = false,
+  isSubmitDisabled = false,
   showActions = true,
   customActions,
-  formId = "form-modal",
-  ...baseModalProps
+  onClose,
+  ...props
 }: FormModalProps) {
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (onSubmit) {
-      await onSubmit(e);
-    }
-  };
+  const loading = isLoading || isSubmitting;
 
   return (
-    <BaseModal
-      description={description}
-      isOpen={isOpen}
-      onClose={onClose}
-      size={size}
-      title={title}
-      {...baseModalProps}
-    >
-      <form id={formId} onSubmit={handleSubmit}>
-        {/* Form Content */}
-        <div className="space-y-6">{children}</div>
-
-        {/* Action Buttons */}
-        {showActions && (
-          <div className="mt-8 flex gap-3">
-            {customActions || (
-              <>
-                <button
-                  className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-base text-gray-900 transition hover:border-[#E85D48] hover:text-[#E85D48] disabled:cursor-not-allowed disabled:opacity-70"
-                  disabled={isSubmitting}
-                  onClick={onClose}
-                  type="button"
-                >
-                  {cancelLabel}
-                </button>
-                <button
-                  className="flex-1 rounded-full bg-[#E85D48] px-6 py-3 font-semibold text-base text-white transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-70"
-                  disabled={isSubmitting || submitDisabled}
-                  type="submit"
-                >
-                  {isSubmitting ? "Loading..." : submitLabel}
-                </button>
-              </>
+    <BaseModal onClose={onClose} {...props}>
+      <div className="space-y-6">
+        <div>{children}</div>
+        {customActions ? (
+          customActions
+        ) : showActions ? (
+          <div className="flex justify-end gap-3">
+            <button
+              className={cn(
+                "rounded-lg border border-slate-200 bg-white px-4 py-2 font-medium text-slate-900 text-sm",
+                "transition-colors hover:bg-slate-50",
+                "disabled:cursor-not-allowed disabled:opacity-50"
+              )}
+              disabled={loading}
+              onClick={onClose}
+              type="button"
+            >
+              {cancelLabel}
+            </button>
+            {onSubmit && (
+              <button
+                className={cn(
+                  "rounded-lg bg-slate-900 px-4 py-2 font-medium text-sm text-white transition-colors",
+                  "hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2",
+                  "disabled:cursor-not-allowed disabled:opacity-50"
+                )}
+                disabled={isSubmitDisabled || loading}
+                onClick={onSubmit}
+                type="button"
+              >
+                {loading ? "Loading..." : submitLabel}
+              </button>
             )}
           </div>
-        )}
-      </form>
+        ) : null}
+      </div>
     </BaseModal>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { FormModal } from "@/components/shared/form-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useModalForm } from "@/hooks/use-modal-form";
@@ -39,13 +40,13 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
     method: "POST",
     refreshOnSuccess: true,
     onSuccess: (result) => {
-      form.setMessage(t("messages.success", { refund: result.refund.formatted_refund }), "success");
-      setTimeout(() => {
-        onClose();
-      }, 2000);
+      toast.success(t("messages.success", { refund: result.refund.formatted_refund }), {
+        duration: 5000,
+      });
+      onClose();
     },
     onError: (error) => {
-      form.setError(error.message || t("errors.failedToCancel"));
+      toast.error(error.message || t("errors.failedToCancel"));
     },
   });
 
@@ -101,7 +102,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       customActions={
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-3 font-semibold text-base text-gray-900 transition hover:border-[#E85D48] hover:text-[#E85D48] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-full border-2 border-[#e2e8f0] bg-[#f8fafc] px-6 py-3 font-semibold text-[#0f172a] text-base transition hover:border-[#64748b] hover:text-[#64748b] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={form.isSubmitting}
             onClick={onClose}
             type="button"
@@ -110,7 +111,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
           </button>
           {policy?.canCancel && (
             <button
-              className="flex-1 rounded-full bg-[#E85D48] px-6 py-3 font-semibold text-base text-white transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-70"
+              className="flex-1 rounded-full bg-[#64748b] px-6 py-3 font-semibold text-[#f8fafc] text-base transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-70"
               disabled={form.isSubmitting}
               onClick={handleCancel}
               type="button"
@@ -126,7 +127,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       size="lg"
       title={t("title")}
     >
-      <p className="text-base text-gray-600">
+      <p className="text-[#94a3b8] text-base">
         {booking.service_name || "Service"} •{" "}
         {booking.scheduled_start
           ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
@@ -140,18 +141,20 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       {policy && (
         <div
           className={`mt-6 rounded-2xl border p-6 ${
-            policy.canCancel ? "border-yellow-200 bg-yellow-50" : "border-red-200 bg-[#E85D48]/10"
+            policy.canCancel
+              ? "border-[#64748b]/30 bg-[#64748b]/5"
+              : "border-[#64748b]/30 bg-[#64748b]/10"
           }`}
         >
           <p
             className={`font-semibold text-base ${
-              policy.canCancel ? "text-yellow-900" : "text-red-900"
+              policy.canCancel ? "text-[#64748b]" : "text-[#64748b]"
             }`}
           >
             {policy.reason}
           </p>
           {policy.canCancel && (
-            <div className="mt-3 space-y-1 text-base text-yellow-800">
+            <div className="mt-3 space-y-1 text-[#64748b] text-base">
               <p>
                 <strong>Refund:</strong> {policy.refundPercentage}% (
                 {formatAmount(refundAmount, booking.currency)})
@@ -166,10 +169,10 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
 
       {/* Policy Details */}
       <details className="mt-6">
-        <summary className="cursor-pointer font-semibold text-base text-gray-900">
+        <summary className="cursor-pointer font-semibold text-[#0f172a] text-base">
           {t("policy.viewPolicy")}
         </summary>
-        <pre className="mt-3 whitespace-pre-wrap text-gray-600 text-sm leading-relaxed">
+        <pre className="mt-3 whitespace-pre-wrap text-[#94a3b8] text-sm leading-relaxed">
           {getCancellationPolicyDescription()}
         </pre>
       </details>
@@ -177,11 +180,11 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       {/* Reason Input */}
       {policy?.canCancel && (
         <div className="mt-6">
-          <label className="mb-2 block font-semibold text-base text-gray-900" htmlFor="reason">
+          <label className="mb-2 block font-semibold text-[#0f172a] text-base" htmlFor="reason">
             {t("form.reasonLabel")}
           </label>
           <textarea
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+            className="w-full rounded-xl border border-[#e2e8f0] px-4 py-4 text-base shadow-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
             id="reason"
             onChange={(e) => form.updateField("reason", e.target.value)}
             placeholder={t("form.reasonPlaceholder")}
@@ -195,7 +198,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       {form.message && (
         <div
           className={`mt-6 rounded-2xl p-4 text-base ${
-            form.success ? "bg-green-50 text-green-800" : "bg-[#E85D48]/10 text-red-800"
+            form.success ? "bg-[#64748b]/10 text-[#64748b]" : "bg-[#64748b]/10 text-[#64748b]"
           }`}
         >
           {form.message}

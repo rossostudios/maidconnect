@@ -1,12 +1,4 @@
-import {
-  Alert01Icon,
-  ClipboardIcon,
-  MapsLocation01Icon,
-  Message01Icon,
-  StarIcon,
-  UserCircleIcon,
-  UserGroupIcon,
-} from "@hugeicons/core-free-icons";
+import { UserCircleIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { unstable_noStore } from "next/cache";
 import Image from "next/image";
@@ -14,7 +6,6 @@ import { BackgroundCheckDashboard } from "@/components/admin/background-check-da
 import { ProfessionalVettingDashboard } from "@/components/admin/professional-vetting-dashboard";
 import { BookingPipeline } from "@/components/dashboard/booking-pipeline";
 import { ExecutiveDashboard } from "@/components/dashboard/executive-dashboard";
-import { Link } from "@/i18n/routing";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -55,24 +46,24 @@ export default async function AdminHomePage() {
               {avatarUrl ? (
                 <Image
                   alt={userName}
-                  className="h-12 w-12 rounded-full border-2 border-[#E5E5E5] object-cover"
+                  className="h-12 w-12 rounded-full border-2 border-[#E4E2E3] object-cover"
                   height={48}
                   src={avatarUrl}
                   width={48}
                 />
               ) : (
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#E85D48]/10">
-                  <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={UserCircleIcon} />
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#E4E2E3] bg-[#FEF8E8]">
+                  <HugeiconsIcon className="h-6 w-6 text-[#F44A22]" icon={UserCircleIcon} />
                 </div>
               )}
             </div>
 
             {/* Greeting Text */}
             <div>
-              <h1 className="mb-1 font-bold text-3xl text-[#171717]">
+              <h1 className="mb-1 font-bold text-3xl text-[#161616]">
                 {greeting}, {userName}
               </h1>
-              <p className="text-[#737373]">Here's what's happening with your platform today</p>
+              <p className="text-[#A8AAAC]">Here's what's happening with your platform today</p>
             </div>
           </div>
         </div>
@@ -83,8 +74,8 @@ export default async function AdminHomePage() {
       {/* Booking Pipeline */}
       <section className="mb-10 min-h-[800px]">
         <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-[#171717]">Booking Pipeline</h2>
-          <p className="text-[#737373] text-sm">Real-time view of bookings by lifecycle stage</p>
+          <h2 className="mb-2 font-bold text-2xl text-[#161616]">Booking Pipeline</h2>
+          <p className="text-[#A8AAAC] text-sm">Real-time view of bookings by lifecycle stage</p>
         </div>
         <BookingPipeline />
       </section>
@@ -92,8 +83,8 @@ export default async function AdminHomePage() {
       {/* Professional Vetting Queue */}
       <section className="mb-10 min-h-[400px]">
         <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-[#171717]">Professional Vetting Queue</h2>
-          <p className="text-[#737373] text-sm">Review and approve professional applications</p>
+          <h2 className="mb-2 font-bold text-2xl text-[#161616]">Professional Vetting Queue</h2>
+          <p className="text-[#A8AAAC] text-sm">Review and approve professional applications</p>
         </div>
         <ProfessionalVettingDashboard />
       </section>
@@ -101,92 +92,10 @@ export default async function AdminHomePage() {
       {/* Background Checks */}
       <section className="mb-10 min-h-[400px]">
         <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-[#171717]">Background Checks</h2>
-          <p className="text-[#737373] text-sm">Monitor and review background check results</p>
+          <h2 className="mb-2 font-bold text-2xl text-[#161616]">Background Checks</h2>
+          <p className="text-[#A8AAAC] text-sm">Monitor and review background check results</p>
         </div>
         <BackgroundCheckDashboard />
-      </section>
-
-      {/* Management Tools */}
-      <section className="min-h-[300px]">
-        <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-[#171717]">Management Tools</h2>
-          <p className="text-[#737373] text-sm">Quick access to platform management features</p>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {/* Changelog Management */}
-          <Link
-            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
-            href="/admin/changelog"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={StarIcon} />
-              <h3 className="font-semibold text-[#171717] text-base">Changelog Management</h3>
-            </div>
-            <p className="text-[#A3A3A3] text-sm">Create and manage sprint updates</p>
-          </Link>
-
-          {/* Feedback Management */}
-          <Link
-            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
-            href="/admin/feedback"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={Message01Icon} />
-              <h3 className="font-semibold text-[#171717] text-base">Feedback Management</h3>
-            </div>
-            <p className="text-[#A3A3A3] text-sm">Review and manage user feedback</p>
-          </Link>
-
-          {/* Roadmap Management */}
-          <Link
-            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
-            href="/admin/roadmap"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={MapsLocation01Icon} />
-              <h3 className="font-semibold text-[#171717] text-base">Roadmap Management</h3>
-            </div>
-            <p className="text-[#A3A3A3] text-sm">Manage public roadmap items</p>
-          </Link>
-
-          {/* User Management */}
-          <Link
-            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
-            href="/admin/users"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={UserGroupIcon} />
-              <h3 className="font-semibold text-[#171717] text-base">User Management</h3>
-            </div>
-            <p className="text-[#A3A3A3] text-sm">Manage users and suspensions</p>
-          </Link>
-
-          {/* Dispute Resolution */}
-          <Link
-            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
-            href="/admin/disputes"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={Alert01Icon} />
-              <h3 className="font-semibold text-[#171717] text-base">Dispute Resolution</h3>
-            </div>
-            <p className="text-[#A3A3A3] text-sm">Resolve customer/professional disputes</p>
-          </Link>
-
-          {/* Audit Logs */}
-          <Link
-            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
-            href="/admin/audit-logs"
-          >
-            <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={ClipboardIcon} />
-              <h3 className="font-semibold text-[#171717] text-base">Audit Logs</h3>
-            </div>
-            <p className="text-[#A3A3A3] text-sm">View all admin action history</p>
-          </Link>
-        </div>
       </section>
     </>
   );

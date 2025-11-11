@@ -2,14 +2,14 @@
 
 import { useTranslations } from "next-intl";
 import { useActionState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { type SignInActionState, signInAction } from "./actions";
 
 type Props = {
   redirectTo?: string | null;
 };
-
-const inputClasses =
-  "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[#1A1614] shadow-sm transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/10";
 
 export function SignInForm({ redirectTo }: Props) {
   const t = useTranslations("pages.signIn.form");
@@ -21,12 +21,11 @@ export function SignInForm({ redirectTo }: Props) {
   return (
     <form action={formAction} className="space-y-6">
       <div className="space-y-2">
-        <label className="block font-medium text-[#1A1614] text-sm" htmlFor="email">
-          {t("emailLabel")}
-        </label>
-        <input
+        <Label htmlFor="email">{t("emailLabel")}</Label>
+        <Input
+          aria-describedby={state.error ? "form-error" : undefined}
+          aria-invalid={Boolean(state.error)}
           autoComplete="email"
-          className={inputClasses}
           id="email"
           name="email"
           placeholder={t("emailPlaceholder")}
@@ -36,12 +35,11 @@ export function SignInForm({ redirectTo }: Props) {
       </div>
 
       <div className="space-y-2">
-        <label className="block font-medium text-[#1A1614] text-sm" htmlFor="password">
-          {t("passwordLabel")}
-        </label>
-        <input
+        <Label htmlFor="password">{t("passwordLabel")}</Label>
+        <Input
+          aria-describedby={state.error ? "form-error" : undefined}
+          aria-invalid={Boolean(state.error)}
           autoComplete="current-password"
-          className={inputClasses}
           id="password"
           name="password"
           placeholder={t("passwordPlaceholder")}
@@ -52,15 +50,15 @@ export function SignInForm({ redirectTo }: Props) {
 
       {redirectTo ? <input name="redirectTo" type="hidden" value={redirectTo} /> : null}
 
-      {state.error ? <p className="text-[#E85D48] text-sm">{state.error}</p> : null}
+      {state.error ? (
+        <p className="text-red-700 text-sm" id="form-error" role="alert">
+          {state.error}
+        </p>
+      ) : null}
 
-      <button
-        className="w-full rounded-full border border-[#E85D48] bg-[#E85D48] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-60"
-        disabled={isPending}
-        type="submit"
-      >
+      <Button className="w-full" disabled={isPending} type="submit">
         {isPending ? t("signingInButton") : t("signInButton")}
-      </button>
+      </Button>
     </form>
   );
 }

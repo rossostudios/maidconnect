@@ -88,7 +88,7 @@ export function DashboardMobileNav({
   ];
 
   return (
-    <nav className="fixed right-0 bottom-0 left-0 z-40 border-[#ebe5d8] border-t bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.08)] md:hidden">
+    <nav className="fixed right-0 bottom-0 left-0 z-40 border-slate-200 border-t bg-white shadow-[0_-4px_12px_rgba(0,0,0,0.05)] md:hidden">
       <div className="mx-auto flex max-w-screen-xl">
         {navItems.map((item) => {
           const IconComponent = item.icon;
@@ -105,17 +105,17 @@ export function DashboardMobileNav({
               >
                 <div className="relative">
                   <HugeiconsIcon
-                    className={`h-6 w-6 ${isItemActive ? "text-[#E85D48]" : "text-[#7a6d62]"}`}
+                    className={`h-6 w-6 ${isItemActive ? "text-slate-900" : "text-slate-600"}`}
                     icon={IconComponent}
                   />
                   {item.badge !== undefined && item.badge > 0 && (
-                    <span className="-top-1 -right-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[#E85D48] px-1.5 font-bold text-[10px] text-white">
+                    <span className="-right-1 -top-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-slate-900 px-1.5 font-bold text-[10px] text-white">
                       {item.badge > 9 ? "9+" : item.badge}
                     </span>
                   )}
                 </div>
                 <span
-                  className={`text-xs ${isItemActive ? "font-semibold text-[#E85D48]" : "text-[#7a6d62]"}`}
+                  className={`text-xs ${isItemActive ? "font-semibold text-slate-900" : "text-slate-600"}`}
                 >
                   {item.label}
                 </span>
@@ -132,17 +132,17 @@ export function DashboardMobileNav({
             >
               <div className="relative">
                 <HugeiconsIcon
-                  className={`h-6 w-6 ${isItemActive ? "text-[#E85D48]" : "text-[#7a6d62]"}`}
+                  className={`h-6 w-6 ${isItemActive ? "text-slate-900" : "text-slate-600"}`}
                   icon={IconComponent}
                 />
                 {item.badge !== undefined && item.badge > 0 && (
-                  <span className="-top-1 -right-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-[#E85D48] px-1.5 font-bold text-[10px] text-white">
+                  <span className="-right-1 -top-1 absolute flex h-5 min-w-[18px] items-center justify-center rounded-full bg-slate-900 px-1.5 font-bold text-[10px] text-white">
                     {item.badge > 9 ? "9+" : item.badge}
                   </span>
                 )}
               </div>
               <span
-                className={`text-xs ${isItemActive ? "font-semibold text-[#E85D48]" : "text-[#7a6d62]"}`}
+                className={`text-xs ${isItemActive ? "font-semibold text-slate-900" : "text-slate-600"}`}
               >
                 {item.label}
               </span>

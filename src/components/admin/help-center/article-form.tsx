@@ -5,8 +5,8 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { marked } from "marked";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
+import { toast } from "sonner";
 import { sanitizeRichContent } from "@/lib/sanitize";
-import { toast } from "@/lib/toast";
 import { createArticle, updateArticle } from "./article-actions";
 
 type Category = {
@@ -135,10 +135,10 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="mb-2 font-bold text-3xl text-[#171717]">
+          <h1 className="mb-2 font-bold text-3xl text-slate-900 dark:text-slate-100">
             {isEditing ? "Edit Article" : "Create New Article"}
           </h1>
-          <p className="text-[#737373]">
+          <p className="text-slate-600 dark:text-slate-400">
             {isEditing
               ? "Update the article content and settings"
               : "Write a new help center article"}
@@ -147,14 +147,14 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
 
         <div className="flex gap-3">
           <button
-            className="rounded-lg border border-[#E5E5E5] bg-white px-6 py-3 font-semibold text-[#171717] transition hover:border-[#E85D48]"
+            className="rounded-lg border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-900 transition hover:border-slate-900 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
             onClick={() => router.back()}
             type="button"
           >
             Cancel
           </button>
           <button
-            className="inline-flex items-center gap-2 rounded-lg bg-[#E85D48] px-6 py-3 font-semibold text-white transition hover:bg-[#D14B39] disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-6 py-3 font-semibold text-white transition hover:bg-slate-900 disabled:opacity-50 dark:bg-slate-100 dark:bg-slate-100 dark:text-slate-950"
             disabled={submitting}
             type="submit"
           >
@@ -170,11 +170,14 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
         <div className="space-y-6 lg:col-span-1">
           {/* Category */}
           <div>
-            <label className="mb-2 block font-semibold text-[#171717] text-sm" htmlFor="category">
+            <label
+              className="mb-2 block font-semibold text-red-700 text-sm dark:text-red-200"
+              htmlFor="category"
+            >
               Category
             </label>
             <select
-              className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-3 text-[#171717] transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+              className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-900 transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:focus:ring-slate-400/20"
               id="category"
               onChange={(e) => setCategoryId(e.target.value)}
               required
@@ -191,11 +194,14 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
 
           {/* Slug */}
           <div>
-            <label className="mb-2 block font-semibold text-[#171717] text-sm" htmlFor="slug">
+            <label
+              className="mb-2 block font-semibold text-red-700 text-sm dark:text-red-200"
+              htmlFor="slug"
+            >
               Slug (URL)
             </label>
             <input
-              className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-3 font-mono text-[#171717] text-sm transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+              className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 font-mono text-red-700 text-sm transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-red-200 dark:focus:ring-slate-400/20"
               id="slug"
               onChange={(e) => setSlug(e.target.value)}
               placeholder="your-article-slug"
@@ -203,21 +209,25 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               type="text"
               value={slug}
             />
-            <p className="mt-1 text-[#737373] text-xs">
+            <p className="mt-1 text-slate-600 text-xs dark:text-slate-400">
               Used in URL: /help/category/<strong>{slug || "slug"}</strong>
             </p>
           </div>
 
           {/* Published Status */}
-          <div className="rounded-lg border border-[#E5E5E5] bg-white p-4">
+          <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
             <label className="flex items-center justify-between">
               <div>
-                <div className="font-semibold text-[#171717] text-sm">Published</div>
-                <div className="text-[#737373] text-xs">Make this article visible to users</div>
+                <div className="font-semibold text-red-700 text-sm dark:text-red-200">
+                  Published
+                </div>
+                <div className="text-slate-600 text-xs dark:text-slate-400">
+                  Make this article visible to users
+                </div>
               </div>
               <input
                 checked={isPublished}
-                className="h-5 w-5 rounded border-[#E5E5E5] text-[#E85D48] focus:ring-2 focus:ring-[#E85D48]/20"
+                className="h-5 w-5 rounded border-slate-200 text-slate-900 focus:ring-2 focus:ring-slate-500/20 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
                 onChange={(e) => setIsPublished(e.target.checked)}
                 type="checkbox"
               />
@@ -225,9 +235,11 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
           </div>
 
           {/* Markdown Guide */}
-          <div className="rounded-lg border border-[#E5E5E5] bg-gray-50 p-4">
-            <h3 className="mb-3 font-semibold text-[#171717] text-sm">Markdown Guide</h3>
-            <div className="space-y-2 font-mono text-[#737373] text-xs">
+          <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
+            <h3 className="mb-3 font-semibold text-red-700 text-sm dark:text-red-200">
+              Markdown Guide
+            </h3>
+            <div className="space-y-2 font-mono text-slate-600 text-xs dark:text-slate-400">
               <div># Heading 1</div>
               <div>## Heading 2</div>
               <div>**bold text**</div>
@@ -248,8 +260,8 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               <button
                 className={`rounded-lg px-4 py-2 font-semibold text-sm transition ${
                   activeTab === "en"
-                    ? "bg-[#E85D48] text-white"
-                    : "border border-[#E5E5E5] bg-white text-[#737373] hover:border-[#E85D48]"
+                    ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-950"
+                    : "border border-slate-200 bg-white text-slate-600 hover:border-slate-900 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
                 }`}
                 onClick={() => setActiveTab("en")}
                 type="button"
@@ -259,8 +271,8 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               <button
                 className={`rounded-lg px-4 py-2 font-semibold text-sm transition ${
                   activeTab === "es"
-                    ? "bg-[#E85D48] text-white"
-                    : "border border-[#E5E5E5] bg-white text-[#737373] hover:border-[#E85D48]"
+                    ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-950"
+                    : "border border-slate-200 bg-white text-slate-600 hover:border-slate-900 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
                 }`}
                 onClick={() => setActiveTab("es")}
                 type="button"
@@ -272,8 +284,8 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
             <button
               className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm transition ${
                 previewMode
-                  ? "bg-[#E85D48] text-white"
-                  : "border border-[#E5E5E5] bg-white text-[#737373] hover:border-[#E85D48]"
+                  ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-950"
+                  : "border border-slate-200 bg-white text-slate-600 hover:border-slate-900 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
               }`}
               onClick={() => setPreviewMode(!previewMode)}
               type="button"
@@ -289,13 +301,13 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Title EN */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-[#171717] text-sm"
+                  className="mb-2 block font-semibold text-red-700 text-sm dark:text-red-200"
                   htmlFor="title_en"
                 >
                   Title (English)
                 </label>
                 <input
-                  className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-3 text-[#171717] transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                  className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-900 transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:focus:ring-slate-400/20"
                   id="title_en"
                   onChange={(e) => handleTitleEnChange(e.target.value)}
                   placeholder="How to create your first booking"
@@ -308,14 +320,16 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Excerpt EN */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-[#171717] text-sm"
+                  className="mb-2 block font-semibold text-red-700 text-sm dark:text-red-200"
                   htmlFor="excerpt_en"
                 >
                   Excerpt (English)
-                  <span className="ml-2 font-normal text-[#737373]">Optional</span>
+                  <span className="ml-2 font-normal text-slate-600 dark:text-slate-400">
+                    Optional
+                  </span>
                 </label>
                 <input
-                  className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-3 text-[#171717] transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                  className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-900 transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:focus:ring-slate-400/20"
                   id="excerpt_en"
                   onChange={(e) => setExcerptEn(e.target.value)}
                   placeholder="A brief summary of the article..."
@@ -327,19 +341,19 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
               {/* Content EN */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-[#171717] text-sm"
+                  className="mb-2 block font-semibold text-red-700 text-sm dark:text-red-200"
                   htmlFor="content_en"
                 >
                   Content (English)
                 </label>
                 {previewMode ? (
                   <div
-                    className="prose prose-lg max-w-none prose-code:rounded rounded-lg border border-[#E5E5E5] bg-white prose-code:bg-gray-100 p-6 prose-code:px-1.5 prose-code:py-0.5 prose-headings:font-semibold prose-a:text-[#E85D48] prose-code:text-gray-900 prose-headings:text-gray-900 prose-strong:text-gray-900 prose-a:no-underline prose-code:before:content-none prose-code:after:content-none hover:prose-a:underline"
+                    className="prose prose-lg max-w-none prose-code:rounded rounded-lg border border-slate-200 bg-white prose-code:bg-[#e2e8f0]/30 p-6 prose-code:px-1.5 prose-code:py-0.5 prose-headings:font-semibold prose-a:text-slate-900 prose-code:text-slate-900 prose-headings:text-slate-900 prose-strong:text-slate-900 prose-a:no-underline prose-code:before:content-none prose-code:after:content-none hover:prose-a:underline dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100"
                     dangerouslySetInnerHTML={{ __html: previewHtml }}
                   />
                 ) : (
                   <textarea
-                    className="min-h-[400px] w-full rounded-lg border border-[#E5E5E5] bg-white p-4 font-mono text-[#171717] text-sm transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                    className="min-h-[400px] w-full rounded-lg border border-slate-200 bg-white p-4 font-mono text-red-700 text-sm transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-red-200 dark:focus:ring-slate-400/20"
                     id="content_en"
                     onChange={(e) => setContentEn(e.target.value)}
                     placeholder="# Article Title
@@ -363,13 +377,13 @@ Your content here..."
               {/* Title ES */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-[#171717] text-sm"
+                  className="mb-2 block font-semibold text-red-700 text-sm dark:text-red-200"
                   htmlFor="title_es"
                 >
                   Título (Español)
                 </label>
                 <input
-                  className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-3 text-[#171717] transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                  className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-900 transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:focus:ring-slate-400/20"
                   id="title_es"
                   onChange={(e) => setTitleEs(e.target.value)}
                   placeholder="Cómo crear tu primera reserva"
@@ -382,14 +396,16 @@ Your content here..."
               {/* Excerpt ES */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-[#171717] text-sm"
+                  className="mb-2 block font-semibold text-red-700 text-sm dark:text-red-200"
                   htmlFor="excerpt_es"
                 >
                   Extracto (Español)
-                  <span className="ml-2 font-normal text-[#737373]">Opcional</span>
+                  <span className="ml-2 font-normal text-slate-600 dark:text-slate-400">
+                    Opcional
+                  </span>
                 </label>
                 <input
-                  className="w-full rounded-lg border border-[#E5E5E5] bg-white px-4 py-3 text-[#171717] transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                  className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-900 transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:focus:ring-slate-400/20"
                   id="excerpt_es"
                   onChange={(e) => setExcerptEs(e.target.value)}
                   placeholder="Un breve resumen del artículo..."
@@ -401,19 +417,19 @@ Your content here..."
               {/* Content ES */}
               <div>
                 <label
-                  className="mb-2 block font-semibold text-[#171717] text-sm"
+                  className="mb-2 block font-semibold text-red-700 text-sm dark:text-red-200"
                   htmlFor="content_es"
                 >
                   Contenido (Español)
                 </label>
                 {previewMode ? (
                   <div
-                    className="prose prose-lg max-w-none prose-code:rounded rounded-lg border border-[#E5E5E5] bg-white prose-code:bg-gray-100 p-6 prose-code:px-1.5 prose-code:py-0.5 prose-headings:font-semibold prose-a:text-[#E85D48] prose-code:text-gray-900 prose-headings:text-gray-900 prose-strong:text-gray-900 prose-a:no-underline prose-code:before:content-none prose-code:after:content-none hover:prose-a:underline"
+                    className="prose prose-lg max-w-none prose-code:rounded rounded-lg border border-slate-200 bg-white prose-code:bg-[#e2e8f0]/30 p-6 prose-code:px-1.5 prose-code:py-0.5 prose-headings:font-semibold prose-a:text-slate-900 prose-code:text-slate-900 prose-headings:text-slate-900 prose-strong:text-slate-900 prose-a:no-underline prose-code:before:content-none prose-code:after:content-none hover:prose-a:underline dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100"
                     dangerouslySetInnerHTML={{ __html: previewHtml }}
                   />
                 ) : (
                   <textarea
-                    className="min-h-[400px] w-full rounded-lg border border-[#E5E5E5] bg-white p-4 font-mono text-[#171717] text-sm transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                    className="min-h-[400px] w-full rounded-lg border border-slate-200 bg-white p-4 font-mono text-red-700 text-sm transition focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-red-200 dark:focus:ring-slate-400/20"
                     id="content_es"
                     onChange={(e) => setContentEs(e.target.value)}
                     placeholder="# Título del Artículo

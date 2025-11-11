@@ -18,11 +18,11 @@ export default async function CustomerFavoritesPage({
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="font-semibold text-3xl text-gray-900">{t("title")}</h1>
-        <p className="mt-2 text-base text-gray-600 leading-relaxed">{t("description")}</p>
+        <h1 className="font-semibold text-3xl text-[#116611616]">{t("title")}</h1>
+        <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">{t("description")}</p>
       </div>
 
-      <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
+      <div className="rounded-[28px] bg-[#FFEEFF8E8] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
         <FavoritesList />
       </div>
     </section>

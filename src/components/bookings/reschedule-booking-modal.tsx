@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
+import { toast } from "sonner";
 import { FormModal } from "@/components/shared/form-modal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useModalForm } from "@/hooks/use-modal-form";
@@ -87,13 +88,12 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
         newDurationMinutes: booking.duration_minutes,
       });
 
-      form.setMessage(result.message || t("success.rescheduled"), "success");
-
-      setTimeout(() => {
-        onClose();
-      }, 2000);
+      toast.success(result.message || t("success.rescheduled"), {
+        duration: 5000,
+      });
+      onClose();
     } catch (error) {
-      form.setError(error instanceof Error ? error.message : t("error.failed"));
+      toast.error(error instanceof Error ? error.message : t("error.failed"));
     }
   };
 
@@ -110,14 +110,14 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
       submitLabel={t("buttons.reschedule")}
       title={t("title")}
     >
-      <p className="text-base text-gray-600">{booking.service_name || "Service"}</p>
+      <p className="text-[#94a3b8] text-base">{booking.service_name || "Service"}</p>
 
       {/* Current Schedule */}
-      <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-        <p className="font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+      <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6">
+        <p className="font-semibold text-[#94a3b8] text-xs uppercase tracking-[0.2em]">
           {t("currentScheduleLabel")}
         </p>
-        <p className="mt-2 text-base text-gray-900">
+        <p className="mt-2 text-[#0f172a] text-base">
           {booking.scheduled_start
             ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
                 dateStyle: "medium",
@@ -130,11 +130,11 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
       {/* New Schedule Form */}
       <div className="space-y-6">
         <div>
-          <label className="mb-2 block font-semibold text-base text-gray-900" htmlFor="newDate">
+          <label className="mb-2 block font-semibold text-[#0f172a] text-base" htmlFor="newDate">
             {t("newDateLabel")}
           </label>
           <input
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+            className="w-full rounded-xl border border-[#e2e8f0] px-4 py-4 text-base shadow-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
             id="newDate"
             min={new Date().toISOString().split("T")[0]}
             onChange={(e) => form.updateField("newDate", e.target.value)}
@@ -144,11 +144,11 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
         </div>
 
         <div>
-          <label className="mb-2 block font-semibold text-base text-gray-900" htmlFor="newTime">
+          <label className="mb-2 block font-semibold text-[#0f172a] text-base" htmlFor="newTime">
             {t("newTimeLabel")}
           </label>
           <input
-            className="w-full rounded-xl border border-[#ebe5d8] px-4 py-4 text-base shadow-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+            className="w-full rounded-xl border border-[#e2e8f0] px-4 py-4 text-base shadow-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
             id="newTime"
             onChange={(e) => form.updateField("newTime", e.target.value)}
             type="time"
@@ -158,16 +158,16 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
       </div>
 
       {/* Important Notice */}
-      <div className="rounded-2xl border border-blue-200 bg-blue-50 p-6">
-        <p className="font-semibold text-base text-blue-900">{t("notice.title")}</p>
-        <p className="mt-3 text-base text-blue-800 leading-relaxed">{t("notice.description")}</p>
+      <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6">
+        <p className="font-semibold text-[#64748b] text-base">{t("notice.title")}</p>
+        <p className="mt-3 text-[#64748b] text-base leading-relaxed">{t("notice.description")}</p>
       </div>
 
       {/* Message */}
       {form.message && (
         <div
           className={`rounded-2xl p-4 text-base ${
-            form.success ? "bg-green-50 text-green-800" : "bg-[#E85D48]/10 text-red-800"
+            form.success ? "bg-[#64748b]/10 text-[#64748b]" : "bg-[#64748b]/10 text-[#64748b]"
           }`}
         >
           {form.message}

@@ -9,15 +9,14 @@ export const defaultLocale: Locale = "en"; // English as global default
 
 export default getRequestConfig(async ({ requestLocale }) => {
   // Wait for the locale from the request (comes from URL params)
-  let locale = await requestLocale;
+  const locale = await requestLocale;
 
   // Validate that the locale is supported, otherwise use default
-  if (!(locale && routing.locales.includes(locale as any))) {
-    locale = routing.defaultLocale;
-  }
+  const isValidLocale = locale && locales.includes(locale as Locale);
+  const validatedLocale: string = isValidLocale ? locale : routing.defaultLocale;
 
   return {
-    locale,
-    messages: (await import(`../messages/${locale}.json`)).default,
+    locale: validatedLocale,
+    messages: (await import(`../messages/${validatedLocale}.json`)).default,
   };
 });

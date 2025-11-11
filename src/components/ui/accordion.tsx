@@ -2,14 +2,28 @@
 
 import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { cva, type VariantProps } from "class-variance-authority";
 import type { ReactNode } from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { cn } from "@/lib/utils";
+
+const accordionVariants = cva("overflow-hidden transition-all", {
+  variants: {
+    variant: {
+      default: "rounded-3xl border border-slate-200 bg-white shadow-sm hover:shadow-md",
+      bordered: "rounded-2xl border-2 border-slate-200 bg-white hover:border-slate-300",
+      minimal: "border-slate-200 border-b",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
 type AccordionProps = {
   children: ReactNode;
   className?: string;
-  variant?: "default" | "bordered" | "minimal";
+  variant?: VariantProps<typeof accordionVariants>["variant"];
   allowMultiple?: boolean;
 };
 
@@ -76,7 +90,7 @@ export function Accordion({
   };
 
   return (
-    <div className={cn(spacing[variant], className)}>
+    <div className={cn(spacing[variant || "default"], className)}>
       {React.Children.map(children, (child) => {
         if (React.isValidElement<AccordionItemProps>(child)) {
           return (
@@ -84,7 +98,7 @@ export function Accordion({
               value={{
                 openItems,
                 toggleItem,
-                variant,
+                variant: variant || "default",
                 currentItem: child.props.value,
               }}
             >
@@ -101,18 +115,7 @@ export function Accordion({
 export function AccordionItem({ children, className, value: _value }: AccordionItemProps) {
   const { variant } = useAccordionContext();
 
-  const variantStyles = {
-    default:
-      "rounded-[24px] border border-stone-200 bg-white shadow-[0_4px_20px_rgba(18,17,15,0.02)] hover:shadow-[0_8px_30px_rgba(18,17,15,0.04)]",
-    bordered: "rounded-[20px] border-2 border-stone-200 bg-white hover:border-orange-500",
-    minimal: "border-stone-200 border-b",
-  };
-
-  return (
-    <div className={cn("overflow-hidden transition-all", variantStyles[variant], className)}>
-      {children}
-    </div>
-  );
+  return <div className={cn(accordionVariants({ variant }), className)}>{children}</div>;
 }
 
 export function AccordionTrigger({ children, className }: AccordionTriggerProps) {
@@ -136,10 +139,10 @@ export function AccordionTrigger({ children, className }: AccordionTriggerProps)
       onClick={() => toggleItem(currentItem)}
       type="button"
     >
-      <span className="serif-headline-sm pr-8 text-stone-900">{children}</span>
+      <span className="pr-8 font-semibold font-serif text-lg text-slate-900">{children}</span>
       <HugeiconsIcon
         className={cn(
-          "h-6 w-6 flex-shrink-0 text-orange-500 transition-transform duration-300",
+          "h-6 w-6 flex-shrink-0 text-slate-600 transition-transform duration-300",
           isOpen && "rotate-180"
         )}
         icon={ArrowDown01Icon}
@@ -153,7 +156,7 @@ export function AccordionContent({ children, className }: AccordionContentProps)
   const isOpen = openItems.has(currentItem);
 
   const variantStyles = {
-    default: "border-stone-200 border-t p-8 pt-6",
+    default: "border-slate-200 border-t p-8 pt-6",
     bordered: "px-6 pb-5",
     minimal: "pb-4",
   };
@@ -167,12 +170,9 @@ export function AccordionContent({ children, className }: AccordionContentProps)
     >
       <div className="overflow-hidden">
         <div className={cn(variantStyles[variant], className)}>
-          <div className="text-base text-stone-900/70 leading-relaxed">{children}</div>
+          <div className="text-base text-slate-600 leading-relaxed">{children}</div>
         </div>
       </div>
     </div>
   );
 }
-
-// Import React for context
-import React from "react";

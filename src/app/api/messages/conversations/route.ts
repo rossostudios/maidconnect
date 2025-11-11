@@ -92,6 +92,11 @@ export const POST = withAuth(async ({ user, supabase }, request: Request) => {
     throw notFound("Booking not found");
   }
 
+  // Validate customer_id is present (required for conversations)
+  if (!booking.customer_id) {
+    throw new ValidationError("Booking must have a customer to create a conversation");
+  }
+
   // Verify user is part of this booking
   if (user.id !== booking.customer_id && user.id !== booking.professional_id) {
     throw forbidden("Not authorized for this booking");

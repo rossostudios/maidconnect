@@ -6,9 +6,11 @@
  * AFTER: 107 lines (2 handlers) (28% reduction)
  */
 
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { created, forbidden, notFound, ok, withAuth } from "@/lib/api";
 import { ValidationError } from "@/lib/errors";
+import type { Database } from "@/types/supabase";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
@@ -22,7 +24,11 @@ const sendMessageSchema = z.object({
 /**
  * Helper to verify conversation access
  */
-async function verifyConversationAccess(supabase: any, conversationId: string, userId: string) {
+async function verifyConversationAccess(
+  supabase: SupabaseClient<Database>,
+  conversationId: string,
+  userId: string
+) {
   const { data: conversation, error } = await supabase
     .from("conversations")
     .select("customer_id, professional_id")
@@ -121,11 +127,14 @@ export const POST = withAuth(
     // First get current unread count
     const { data: currentConvo } = await supabase
       .from("conversations")
-      .select(recipientField)
+      .select("customer_unread_count, professional_unread_count")
       .eq("id", conversationId)
       .single();
 
-    const currentCount = (currentConvo as any)?.[recipientField] || 0;
+    const currentCount =
+      (recipientField === "customer_unread_count"
+        ? currentConvo?.customer_unread_count
+        : currentConvo?.professional_unread_count) || 0;
 
     await supabase
       .from("conversations")

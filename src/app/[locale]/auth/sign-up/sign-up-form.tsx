@@ -1,37 +1,39 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { ConsentCheckboxes } from "@/components/auth/consent-checkboxes";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { signUpAction } from "./actions";
 import { defaultSignUpState, type SignUpActionState } from "./types";
 
-const inputClass =
-  "w-full rounded-full border border-[#dcd6c7] bg-[#fefcf9] px-5 py-2.5 text-base text-[#1A1614] shadow-sm transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/10";
-const errorInputClass = "border-[#E85D48]/50 focus:border-[#E85D48] focus:ring-[#E85D48]/10";
-
-function getInputClassName(error: string | undefined): string {
-  return cn(inputClass, error && errorInputClass);
-}
-
 function getRoleOptionClassName(error: string | undefined): string {
   return cn(
-    "flex cursor-pointer flex-col gap-3 rounded-3xl border border-[#dcd6c7] bg-[#fefcf9] p-5 text-sm shadow-sm transition focus-within:border-[#E85D48] hover:border-[#E85D48]",
-    error && "border-red-400 focus-within:border-red-400 hover:border-red-400"
+    "flex cursor-pointer flex-col gap-3 rounded-lg border border-slate-300 bg-white p-5 text-sm shadow-sm transition-colors focus-within:border-slate-900 hover:border-slate-400",
+    error && "border-red-300 focus-within:border-red-500 hover:border-red-400"
   );
 }
 
 function RoleSelection({ t, error }: { t: (key: string) => string; error: string | undefined }) {
   return (
     <section className="space-y-5">
-      <div className="block font-semibold text-[#1A1614] text-sm">{t("accountTypeLabel")}</div>
-      <p className="text-[#1A1614]/60 text-xs">{t("accountTypeHelper")}</p>
+      <div className="block font-semibold text-slate-900 text-sm">{t("accountTypeLabel")}</div>
+      <p className="text-slate-600 text-xs">{t("accountTypeHelper")}</p>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <label className={getRoleOptionClassName(error)}>
-          <span className="flex items-center gap-2 text-[#1A1614]">
+          <span className="flex items-center gap-2 text-slate-900">
             <input
-              className="h-4 w-4 accent-[#E85D48]"
+              className="h-4 w-4 accent-slate-900"
               defaultChecked
               name="role"
               type="radio"
@@ -39,22 +41,26 @@ function RoleSelection({ t, error }: { t: (key: string) => string; error: string
             />{" "}
             {t("customerLabel")}
           </span>
-          <span className="text-[#1A1614]/60 text-sm">{t("customerDescription")}</span>
+          <span className="text-slate-600 text-sm">{t("customerDescription")}</span>
         </label>
         <label className={getRoleOptionClassName(error)}>
-          <span className="flex items-center gap-2 text-[#1A1614]">
+          <span className="flex items-center gap-2 text-slate-900">
             <input
-              className="h-4 w-4 accent-[#E85D48]"
+              className="h-4 w-4 accent-slate-900"
               name="role"
               type="radio"
               value="professional"
             />{" "}
             {t("professionalLabel")}
           </span>
-          <span className="text-[#1A1614]/60 text-sm">{t("professionalDescription")}</span>
+          <span className="text-slate-600 text-sm">{t("professionalDescription")}</span>
         </label>
       </div>
-      {error ? <p className="text-[#E85D48] text-xs">{error}</p> : null}
+      {error ? (
+        <p className="text-red-700 text-xs" role="alert">
+          {error}
+        </p>
+      ) : null}
     </section>
   );
 }
@@ -68,12 +74,20 @@ function FormStatusMessages({
 }) {
   if (state.status === "error" && state.error) {
     return (
-      <p className="rounded-md bg-[#E85D48]/10 px-3 py-2 text-red-700 text-sm">{state.error}</p>
+      <p
+        className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-red-700 text-sm"
+        role="alert"
+      >
+        {state.error}
+      </p>
     );
   }
   if (state.status === "success") {
     return (
-      <p className="rounded-md bg-green-50 px-3 py-2 text-green-700 text-sm">
+      <p
+        className="rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-green-700 text-sm"
+        role="status"
+      >
         {t("successMessage")}
       </p>
     );
@@ -88,6 +102,8 @@ export function SignUpForm() {
     signUpAction,
     defaultSignUpState
   );
+  const [selectedLocale, setSelectedLocale] = useState("en-US");
+  const [selectedPropertyType, setSelectedPropertyType] = useState("");
 
   const fieldError = (field: string) => state.fieldErrors?.[field];
 
@@ -104,9 +120,10 @@ export function SignUpForm() {
 
       <section className="grid gap-6 sm:grid-cols-2">
         <Field error={fieldError("fullName")} label={t("fullNameLabel")}>
-          <input
+          <Input
+            aria-describedby={fieldError("fullName") ? "fullName-error" : undefined}
             aria-invalid={Boolean(fieldError("fullName"))}
-            className={getInputClassName(fieldError("fullName"))}
+            className={fieldError("fullName") ? "border-red-500" : ""}
             id="fullName"
             name="fullName"
             placeholder={t("fullNamePlaceholder")}
@@ -115,9 +132,10 @@ export function SignUpForm() {
           />
         </Field>
         <Field error={fieldError("phone")} label={t("phoneLabel")}>
-          <input
+          <Input
+            aria-describedby={fieldError("phone") ? "phone-error" : undefined}
             aria-invalid={Boolean(fieldError("phone"))}
-            className={getInputClassName(fieldError("phone"))}
+            className={fieldError("phone") ? "border-red-500" : ""}
             id="phone"
             name="phone"
             placeholder={t("phonePlaceholder")}
@@ -126,9 +144,10 @@ export function SignUpForm() {
           />
         </Field>
         <Field error={fieldError("city")} label={t("cityLabel")}>
-          <input
+          <Input
+            aria-describedby={fieldError("city") ? "city-error" : undefined}
             aria-invalid={Boolean(fieldError("city"))}
-            className={getInputClassName(fieldError("city"))}
+            className={fieldError("city") ? "border-red-500" : ""}
             id="city"
             name="city"
             placeholder={t("cityPlaceholder")}
@@ -137,24 +156,31 @@ export function SignUpForm() {
           />
         </Field>
         <Field error={fieldError("locale")} label={t("preferredLanguageLabel")}>
-          <select
-            className={getInputClassName(fieldError("locale"))}
-            defaultValue="en-US"
-            id="locale"
-            name="locale"
-          >
-            <option value="en-US">{t("languageEnglish")}</option>
-            <option value="es-CO">{t("languageSpanish")}</option>
-          </select>
+          <Select name="locale" onValueChange={setSelectedLocale} value={selectedLocale}>
+            <SelectTrigger
+              aria-describedby={fieldError("locale") ? "locale-error" : undefined}
+              aria-invalid={Boolean(fieldError("locale"))}
+              className={fieldError("locale") ? "border-red-500" : ""}
+              id="locale"
+            >
+              <SelectValue placeholder={t("preferredLanguageLabel")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="en-US">{t("languageEnglish")}</SelectItem>
+              <SelectItem value="es-CO">{t("languageSpanish")}</SelectItem>
+            </SelectContent>
+          </Select>
+          <input name="locale" type="hidden" value={selectedLocale} />
         </Field>
       </section>
 
       <section className="grid gap-6 sm:grid-cols-2">
         <Field error={fieldError("email")} label={t("emailLabel")}>
-          <input
+          <Input
+            aria-describedby={fieldError("email") ? "email-error" : undefined}
             aria-invalid={Boolean(fieldError("email"))}
             autoComplete="email"
-            className={getInputClassName(fieldError("email"))}
+            className={fieldError("email") ? "border-red-500" : ""}
             id="email"
             name="email"
             placeholder={t("emailPlaceholder")}
@@ -163,27 +189,38 @@ export function SignUpForm() {
           />
         </Field>
         <Field error={fieldError("propertyType")} label={t("propertyTypeLabel")}>
-          <select
-            className={getInputClassName(fieldError("propertyType"))}
-            id="propertyType"
+          <Select
             name="propertyType"
+            onValueChange={setSelectedPropertyType}
+            value={selectedPropertyType}
           >
-            <option value="">{t("propertyTypePlaceholder")}</option>
-            {PROPERTY_TYPES.map((type) => (
-              <option key={type.value} value={type.value}>
-                {type.label}
-              </option>
-            ))}
-          </select>
+            <SelectTrigger
+              aria-describedby={fieldError("propertyType") ? "propertyType-error" : undefined}
+              aria-invalid={Boolean(fieldError("propertyType"))}
+              className={fieldError("propertyType") ? "border-red-500" : ""}
+              id="propertyType"
+            >
+              <SelectValue placeholder={t("propertyTypePlaceholder")} />
+            </SelectTrigger>
+            <SelectContent>
+              {PROPERTY_TYPES.map((type) => (
+                <SelectItem key={type.value} value={type.value}>
+                  {type.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <input name="propertyType" type="hidden" value={selectedPropertyType} />
         </Field>
       </section>
 
       <section className="grid gap-6 sm:grid-cols-2">
         <Field error={fieldError("password")} label={t("passwordLabel")}>
-          <input
+          <Input
+            aria-describedby={fieldError("password") ? "password-error" : undefined}
             aria-invalid={Boolean(fieldError("password"))}
             autoComplete="new-password"
-            className={getInputClassName(fieldError("password"))}
+            className={fieldError("password") ? "border-red-500" : ""}
             id="password"
             minLength={8}
             name="password"
@@ -193,10 +230,11 @@ export function SignUpForm() {
           />
         </Field>
         <Field error={fieldError("confirmPassword")} label={t("confirmPasswordLabel")}>
-          <input
+          <Input
+            aria-describedby={fieldError("confirmPassword") ? "confirmPassword-error" : undefined}
             aria-invalid={Boolean(fieldError("confirmPassword"))}
             autoComplete="new-password"
-            className={getInputClassName(fieldError("confirmPassword"))}
+            className={fieldError("confirmPassword") ? "border-red-500" : ""}
             id="confirmPassword"
             minLength={8}
             name="confirmPassword"
@@ -220,16 +258,9 @@ export function SignUpForm() {
 
       <FormStatusMessages state={state} t={t} />
 
-      <button
-        className={cn(
-          "w-full rounded-full border border-[#E85D48] bg-[#E85D48] px-5 py-2.5 font-semibold text-base text-white shadow-sm transition hover:bg-[#D64A36]",
-          isPending && "cursor-not-allowed opacity-60"
-        )}
-        disabled={isPending}
-        type="submit"
-      >
+      <Button className="w-full" disabled={isPending} type="submit">
         {isPending ? t("creatingAccountButton") : t("createAccountButton")}
-      </button>
+      </Button>
     </form>
   );
 }
@@ -243,15 +274,18 @@ type FieldProps = {
 
 function Field({ label, children, helper, error }: FieldProps) {
   const childId = (children as React.ReactElement<{ id?: string }>)?.props?.id;
+  const errorId = childId ? `${childId}-error` : undefined;
 
   return (
     <div className="space-y-3">
-      <label className="block font-semibold text-[#1A1614] text-sm" htmlFor={childId}>
-        {label}
-      </label>
-      {helper ? <p className="text-[#1A1614]/60 text-xs">{helper}</p> : null}
+      <Label htmlFor={childId}>{label}</Label>
+      {helper ? <p className="text-slate-600 text-xs">{helper}</p> : null}
       {children}
-      {error ? <p className="text-[#E85D48] text-xs">{error}</p> : null}
+      {error ? (
+        <p className="text-red-700 text-xs" id={errorId} role="alert">
+          {error}
+        </p>
+      ) : null}
     </div>
   );
 }

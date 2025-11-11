@@ -1,5 +1,7 @@
 "use client";
 
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 
 type Props = {
@@ -14,21 +16,22 @@ export function UnexpectedError({ message }: Props) {
   }
 
   return (
-    <div className="rounded-lg border border-red-200 bg-[#E85D48]/10 px-4 py-3 text-red-700 text-sm">
+    <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-800 text-sm shadow-sm">
       <div className="flex items-start justify-between gap-4">
-        <div>
+        <div className="flex-1">
           <p className="font-semibold">Something went wrong</p>
-          <p className="mt-1 text-[#E85D48] text-xs">
+          <p className="mt-1 text-red-700 text-xs">
             {message ??
               "Please try submitting again. If the issue continues, contact support so we can investigate."}
           </p>
         </div>
         <button
-          className="font-semibold text-[#E85D48]/100 text-xs uppercase tracking-wide transition hover:text-[#E85D48]"
+          aria-label="Dismiss error"
+          className="flex-shrink-0 text-red-600 transition hover:text-red-800"
           onClick={() => setVisible(false)}
           type="button"
         >
-          Dismiss
+          <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
         </button>
       </div>
     </div>

@@ -30,13 +30,15 @@ const editorTokens = {
   shell: "mx-auto w-full max-w-3xl px-4 sm:px-6 py-6",
   blockStack: "space-y-1",
   blockRow:
-    "group relative flex items-start gap-3 rounded-2xl pl-4 pr-16 py-1.5 transition hover:bg-slate-50",
-  dragOver: "bg-slate-50 border border-dashed border-slate-200",
+    "group relative flex items-start gap-3 rounded-2xl pl-4 pr-16 py-1.5 transition hover:bg-white dark:bg-slate-950",
+  dragOver:
+    "bg-white dark:bg-slate-950 border border-dashed border-slate-200 dark:border-slate-800",
   handleRail:
-    "absolute top-2 right-2 flex items-center gap-1 rounded-full bg-white/90 px-1 py-0.5 text-slate-400 opacity-0 shadow-sm ring-1 ring-slate-200 transition-all group-hover:opacity-100",
+    "absolute top-2 right-2 flex items-center gap-1 rounded-full bg-white dark:bg-slate-950/90 px-1 py-0.5 text-slate-600 dark:text-slate-400/70 opacity-0 shadow-sm ring-1 ring-[#e2e8f0] transition-all group-hover:opacity-100",
   handleButton:
-    "rounded-full p-1 transition hover:bg-slate-100 hover:text-slate-700 active:cursor-grabbing",
-  deleteButton: "rounded-full p-1 text-red-400 transition hover:bg-red-50 hover:text-red-500",
+    "rounded-full p-1 transition hover:bg-[#e2e8f0]/30 hover:text-slate-600 dark:text-slate-400 active:cursor-grabbing",
+  deleteButton:
+    "rounded-full p-1 text-slate-900 dark:text-slate-100 transition hover:bg-white dark:bg-slate-950 hover:text-slate-900 dark:text-slate-100",
 };
 
 const TEXT_BLOCK_TYPES: BlockType[] = [
@@ -90,9 +92,13 @@ const getCaretOffsetWithin = (element: HTMLElement): number => {
 };
 
 const setCaretPosition = (element: HTMLElement, position: number) => {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined") {
+    return;
+  }
   const selection = window.getSelection();
-  if (!selection) return;
+  if (!selection) {
+    return;
+  }
 
   const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
   let currentNode = walker.nextNode();
@@ -121,12 +127,12 @@ const setCaretPosition = (element: HTMLElement, position: number) => {
 
 const isCaretAtStart = (element: HTMLElement) => getCaretOffsetWithin(element) === 0;
 
-interface BlockEditorProps {
+type BlockEditorProps = {
   initialContent?: string;
   onChange?: (markdown: string) => void;
   placeholder?: string;
   locale: "en" | "es";
-}
+};
 
 export function BlockEditor({ initialContent = "", onChange, locale }: BlockEditorProps) {
   const [blocks, setBlocks] = useState<EditorBlock[]>(() =>
@@ -279,9 +285,13 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
     const newBlockId = crypto.randomUUID();
     setBlocks((prev) => {
       const index = prev.findIndex((b) => b.id === blockId);
-      if (index === -1) return prev;
+      if (index === -1) {
+        return prev;
+      }
       const block = prev[index];
-      if (!(block && TEXT_BLOCK_TYPES.includes(block.type))) return prev;
+      if (!(block && TEXT_BLOCK_TYPES.includes(block.type))) {
+        return prev;
+      }
 
       const before = textValue.slice(0, caretIndex);
       const after = textValue.slice(caretIndex);
@@ -321,10 +331,14 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
 
     setBlocks((prev) => {
       const index = prev.findIndex((b) => b.id === blockId);
-      if (index <= 0) return prev;
+      if (index <= 0) {
+        return prev;
+      }
       const previous = prev[index - 1];
       const current = prev[index];
-      if (!(previous && current)) return prev;
+      if (!(previous && current)) {
+        return prev;
+      }
 
       focusId = previous.id;
       caretPosition = (previous.content ?? "").length;
@@ -355,9 +369,15 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
   const moveBlock = useCallback((id: string, direction: "up" | "down") => {
     setBlocks((prev) => {
       const index = prev.findIndex((b) => b.id === id);
-      if (index === -1) return prev;
-      if (direction === "up" && index === 0) return prev;
-      if (direction === "down" && index === prev.length - 1) return prev;
+      if (index === -1) {
+        return prev;
+      }
+      if (direction === "up" && index === 0) {
+        return prev;
+      }
+      if (direction === "down" && index === prev.length - 1) {
+        return prev;
+      }
 
       const newBlocks = [...prev];
       const targetIndex = direction === "up" ? index - 1 : index + 1;
@@ -431,11 +451,15 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
         const draggedIndex = prev.findIndex((b) => b.id === draggedBlockId);
         const targetIndex = prev.findIndex((b) => b.id === targetBlockId);
 
-        if (draggedIndex === -1 || targetIndex === -1) return prev;
+        if (draggedIndex === -1 || targetIndex === -1) {
+          return prev;
+        }
 
         const newBlocks = [...prev];
         const draggedBlock = newBlocks[draggedIndex];
-        if (!draggedBlock) return prev;
+        if (!draggedBlock) {
+          return prev;
+        }
 
         // Remove dragged block
         newBlocks.splice(draggedIndex, 1);
@@ -482,7 +506,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
     {
       icon: HighlighterIcon,
       label: locale === "es" ? "Resaltar" : "Highlight",
-      onClick: () => applyFormatting("hiliteColor", "#FFF1A6"),
+      onClick: () => applyFormatting("hiliteColor", "#f8fafc"),
     },
     {
       icon: CodeIcon,
@@ -490,7 +514,9 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
       onClick: () => {
         restoreSelection();
         const selection = window.getSelection();
-        if (!selection || selection.rangeCount === 0) return;
+        if (!selection || selection.rangeCount === 0) {
+          return;
+        }
         const text = selection.toString();
         const safeText = text
           ? text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
@@ -531,7 +557,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
     <div className={cn("relative", editorTokens.shell)} ref={editorContainerRef}>
       {selectionToolbar.visible && (
         <div
-          className="pointer-events-auto absolute z-40 flex items-center gap-1 rounded-full border border-slate-200 bg-white/95 px-2 py-1 text-slate-600 shadow-xl"
+          className="pointer-events-auto absolute z-40 flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-600 shadow-xl dark:border-slate-800 dark:bg-slate-950/95 dark:text-slate-400"
           style={{
             left: selectionToolbar.x,
             top: selectionToolbar.y,
@@ -540,7 +566,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
         >
           {toolbarButtons.map((button) => (
             <button
-              className="rounded-full p-1 transition hover:bg-slate-100"
+              className="rounded-full p-1 transition hover:bg-[#e2e8f0]/30"
               key={button.label}
               onClick={(e) => {
                 e.preventDefault();
@@ -557,9 +583,9 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
       )}
       {/* Empty state - Notion-style blank canvas */}
       {blocks.length === 0 && (
-        <div className="flex min-h-[320px] items-center justify-center rounded-3xl border border-slate-200 border-dashed bg-white/70 text-center">
+        <div className="flex min-h-[320px] items-center justify-center rounded-3xl border border-slate-200 border-dashed bg-white text-center dark:border-slate-800 dark:bg-slate-950/70">
           <button
-            className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-500 shadow-sm transition hover:border-[#E85D48]/30 hover:text-[#E85D48]"
+            className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-600 shadow-sm transition hover:border-slate-900 hover:text-slate-900 dark:border-slate-100/30 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:text-slate-400"
             onClick={() => {
               const newBlock: EditorBlock = {
                 id: crypto.randomUUID(),
@@ -625,7 +651,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
   );
 }
 
-interface BlockComponentProps {
+type BlockComponentProps = {
   block: EditorBlock;
   updateBlock: (id: string, updates: Partial<EditorBlock>) => void;
   deleteBlock: (id: string) => void;
@@ -647,7 +673,7 @@ interface BlockComponentProps {
   draggedBlockId: string | null;
   dragOverBlockId: string | null;
   onPaste: (blockId: string, e: React.ClipboardEvent) => void;
-}
+};
 
 function BlockComponent({
   block,
@@ -705,11 +731,13 @@ function BlockComponent({
     if (showBlockMenu) {
       setSelectedIndex(0);
     }
-  }, [showBlockMenu, slashMenuSearch]);
+  }, [showBlockMenu]);
 
   // Click outside to close menu
   useEffect(() => {
-    if (!showBlockMenu) return;
+    if (!showBlockMenu) {
+      return;
+    }
 
     const handleClickOutside = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -729,7 +757,7 @@ function BlockComponent({
         behavior: "smooth",
       });
     }
-  }, [selectedIndex, showBlockMenu]);
+  }, [showBlockMenu]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     const target = e.currentTarget as HTMLElement;
@@ -874,18 +902,20 @@ function BlockComponent({
       {/* Block Menu - Minimal slash menu */}
       {showBlockMenu && (
         <div
-          className="absolute top-full left-0 z-50 mt-1 w-72 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg"
+          className="absolute top-full left-0 z-50 mt-1 w-72 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-lg dark:border-slate-800 dark:bg-slate-950"
           ref={menuRef}
         >
           {/* Search hint */}
-          <div className="border-gray-100 border-b bg-gray-50 px-3 py-2">
-            <p className="text-gray-500 text-xs">
+          <div className="border-slate-200 border-b bg-white px-3 py-2 dark:border-slate-800/40 dark:bg-slate-950">
+            <p className="text-slate-600 text-xs dark:text-slate-400">
               {slashMenuSearch ? (
                 <>
                   {locale === "es" ? "Buscando" : "Searching"}: "{slashMenuSearch}"
                 </>
+              ) : locale === "es" ? (
+                "Escribe para buscar bloques"
               ) : (
-                <>{locale === "es" ? "Escribe para buscar bloques" : "Type to search blocks"}</>
+                "Type to search blocks"
               )}
             </p>
           </div>
@@ -894,7 +924,7 @@ function BlockComponent({
             {/* Recent blocks section */}
             {showRecent && (
               <div className="mb-2">
-                <p className="px-2 py-1.5 font-medium text-gray-400 text-xs uppercase tracking-wide">
+                <p className="px-2 py-1.5 font-medium text-slate-600 text-xs uppercase tracking-wide dark:text-slate-400/70">
                   {locale === "es" ? "Recientes" : "Recent"}
                 </p>
                 {recentBlocksFiltered.map((type, idx) => {
@@ -903,7 +933,9 @@ function BlockComponent({
                     <button
                       className={cn(
                         "flex w-full items-center gap-3 rounded px-2 py-2 text-left text-sm",
-                        isSelected ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                        isSelected
+                          ? "bg-[#e2e8f0]/30 text-slate-900 dark:text-slate-100"
+                          : "text-slate-600 dark:text-slate-400"
                       )}
                       key={type}
                       onClick={() => {
@@ -913,13 +945,13 @@ function BlockComponent({
                       ref={isSelected ? selectedButtonRef : null}
                       type="button"
                     >
-                      <span className="flex h-8 w-8 items-center justify-center rounded border border-slate-200 bg-white text-base">
+                      <span className="flex h-8 w-8 items-center justify-center rounded border border-slate-200 bg-white text-base dark:border-slate-800 dark:bg-slate-950">
                         <HugeiconsIcon className="h-4 w-4" icon={BLOCK_TYPES[type].icon} />
                       </span>
                       <div className="flex-1">
                         <div className="font-medium">{BLOCK_TYPES[type].label}</div>
                         {isSelected && (
-                          <div className="text-gray-500 text-xs">
+                          <div className="text-slate-600 text-xs dark:text-slate-400">
                             {locale === "es" ? "Presiona Enter" : "Press Enter"}
                           </div>
                         )}
@@ -934,7 +966,7 @@ function BlockComponent({
             {filteredBlockTypes.length > 0 && (
               <div>
                 {showRecent && (
-                  <p className="px-2 py-1.5 font-medium text-gray-400 text-xs uppercase tracking-wide">
+                  <p className="px-2 py-1.5 font-medium text-slate-600 text-xs uppercase tracking-wide dark:text-slate-400/70">
                     {locale === "es" ? "Todos los bloques" : "All Blocks"}
                   </p>
                 )}
@@ -947,7 +979,9 @@ function BlockComponent({
                       <button
                         className={cn(
                           "flex w-full items-center gap-3 rounded px-2 py-2 text-left text-sm",
-                          isSelected ? "bg-gray-100 text-gray-900" : "text-gray-700"
+                          isSelected
+                            ? "bg-[#e2e8f0]/30 text-slate-900 dark:text-slate-100"
+                            : "text-slate-600 dark:text-slate-400"
                         )}
                         key={type}
                         onClick={() => {
@@ -957,13 +991,13 @@ function BlockComponent({
                         ref={isSelected ? selectedButtonRef : null}
                         type="button"
                       >
-                        <span className="flex h-8 w-8 items-center justify-center rounded border border-slate-200 bg-white text-base">
+                        <span className="flex h-8 w-8 items-center justify-center rounded border border-slate-200 bg-white text-base dark:border-slate-800 dark:bg-slate-950">
                           <HugeiconsIcon className="h-4 w-4" icon={BLOCK_TYPES[type].icon} />
                         </span>
                         <div className="flex-1">
                           <div className="font-medium">{BLOCK_TYPES[type].label}</div>
                           {isSelected && (
-                            <div className="text-gray-500 text-xs">
+                            <div className="text-slate-600 text-xs dark:text-slate-400">
                               {locale === "es" ? "Presiona Enter" : "Press Enter"}
                             </div>
                           )}
@@ -977,22 +1011,22 @@ function BlockComponent({
             {/* No results */}
             {filteredBlockTypes.length === 0 && (
               <div className="px-3 py-8 text-center">
-                <p className="text-gray-400 text-sm">
+                <p className="text-slate-600 text-sm dark:text-slate-400/70">
                   {locale === "es" ? "No se encontraron bloques" : "No blocks found"}
                 </p>
-                <p className="mt-1 text-gray-400 text-xs">
+                <p className="mt-1 text-slate-600 text-xs dark:text-slate-400/70">
                   {locale === "es" ? "Intenta con otra búsqueda" : "Try a different search"}
                 </p>
               </div>
             )}
 
             {/* Actions section */}
-            <div className="mt-2 border-gray-100 border-t pt-1">
-              <p className="px-2 py-1.5 font-medium text-gray-400 text-xs uppercase tracking-wide">
+            <div className="mt-2 border-slate-200 border-t pt-1 dark:border-slate-800/40">
+              <p className="px-2 py-1.5 font-medium text-slate-600 text-xs uppercase tracking-wide dark:text-slate-400/70">
                 {locale === "es" ? "Acciones" : "Actions"}
               </p>
               <button
-                className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-gray-700 text-sm"
+                className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-slate-600 text-sm dark:text-slate-400"
                 onClick={() => {
                   moveBlock(block.id, "up");
                   toggleBlockMenu();
@@ -1003,7 +1037,7 @@ function BlockComponent({
                 <span>{locale === "es" ? "Mover arriba" : "Move up"}</span>
               </button>
               <button
-                className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-gray-700 text-sm"
+                className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-slate-600 text-sm dark:text-slate-400"
                 onClick={() => {
                   moveBlock(block.id, "down");
                   toggleBlockMenu();
@@ -1014,7 +1048,7 @@ function BlockComponent({
                 <span>{locale === "es" ? "Mover abajo" : "Move down"}</span>
               </button>
               <button
-                className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-red-600 text-sm"
+                className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-red-700 text-sm dark:text-red-200"
                 onClick={() => {
                   deleteBlock(block.id);
                   toggleBlockMenu();
@@ -1046,7 +1080,7 @@ function BlockComponent({
   );
 }
 
-interface BlockContentProps {
+type BlockContentProps = {
   block: EditorBlock;
   handleInput: (e: React.FormEvent<HTMLDivElement>) => void;
   handleKeyDown: (e: React.KeyboardEvent) => void;
@@ -1054,383 +1088,188 @@ interface BlockContentProps {
   locale: "en" | "es";
   updateBlock: (id: string, updates: Partial<EditorBlock>) => void;
   onPaste: (e: React.ClipboardEvent) => void;
-}
+};
 
-const BlockContent = React.forwardRef<HTMLElement, BlockContentProps>(
-  ({ block, handleInput, handleKeyDown, onFocus, locale, updateBlock, onPaste }, ref) => {
-    const placeholder = getBlockPlaceholder(block.type, locale);
-    const sharedRef = useRef<HTMLElement | null>(null);
-    const assignSharedRef = useCallback((node: HTMLElement | null) => {
-      sharedRef.current = node;
-    }, []);
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
+const BlockContent = ({
+  block,
+  handleInput,
+  handleKeyDown,
+  onFocus,
+  locale,
+  updateBlock,
+  onPaste,
+  ref,
+}: BlockContentProps & { ref?: React.RefObject<HTMLElement | null> }) => {
+  const placeholder = getBlockPlaceholder(block.type, locale);
+  const sharedRef = useRef<HTMLElement | null>(null);
+  const assignSharedRef = useCallback((node: HTMLElement | null) => {
+    sharedRef.current = node;
+  }, []);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    useImperativeHandle(ref, () => sharedRef.current!);
+  useImperativeHandle(ref, () => sharedRef.current!);
 
-    useEffect(() => {
-      if (!sharedRef.current) return;
-      if (!(TEXT_BLOCK_TYPES.includes(block.type) || block.type === "code")) return;
-      const nextValue = block.content ?? "";
-      const currentValue = sharedRef.current.textContent ?? "";
-      if (currentValue !== nextValue) {
-        sharedRef.current.textContent = nextValue;
-      }
-    }, [block.content, block.type]);
-
-    if (block.type === "checkbox") {
-      const checked = Boolean(block.metadata?.checked);
-      return (
-        <div className="flex items-start gap-3 px-1 py-1">
-          <input
-            aria-label={locale === "es" ? "Completar elemento" : "Toggle checklist item"}
-            checked={checked}
-            className="mt-1 h-4 w-4 flex-shrink-0 rounded border-gray-300 text-[#E85D48] focus:ring-[#E85D48]"
-            onChange={(e) =>
-              updateBlock(block.id, {
-                metadata: { ...block.metadata, checked: e.target.checked },
-              })
-            }
-            type="checkbox"
-          />
-          <div
-            className={cn(
-              "min-h-[1.5rem] flex-1 px-1 py-0.5 text-gray-700 outline-none",
-              "empty:before:text-gray-300 empty:before:content-[attr(data-placeholder)]",
-              checked && "text-gray-500 line-through"
-            )}
-            contentEditable
-            data-block-id={block.id}
-            data-placeholder={placeholder}
-            onBlur={(e) =>
-              updateBlock(block.id, {
-                content: e.currentTarget.textContent ?? "",
-              })
-            }
-            onFocus={onFocus}
-            onInput={handleInput}
-            onKeyDown={handleKeyDown}
-            onPaste={onPaste}
-            ref={assignSharedRef as React.Ref<HTMLDivElement>}
-            suppressContentEditableWarning
-          />
-        </div>
-      );
+  useEffect(() => {
+    if (!sharedRef.current) {
+      return;
     }
+    if (!(TEXT_BLOCK_TYPES.includes(block.type) || block.type === "code")) {
+      return;
+    }
+    const nextValue = block.content ?? "";
+    const currentValue = sharedRef.current.textContent ?? "";
+    if (currentValue !== nextValue) {
+      sharedRef.current.textContent = nextValue;
+    }
+  }, [block.content, block.type]);
 
-    if (block.type === "image") {
-      const imageUrl = block.metadata?.imageUrl ?? "";
-      const caption = block.metadata?.caption ?? block.content ?? "";
-
-      const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) {
-          return;
-        }
-        readFile(file);
-      };
-
-      const readFile = (file: File) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          updateBlock(block.id, {
-            metadata: { ...block.metadata, imageUrl: reader.result as string },
-          });
-        };
-        reader.readAsDataURL(file);
-      };
-
-      const handleDropUpload = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        const file = e.dataTransfer.files?.[0];
-        if (file && file.type.startsWith("image/")) {
-          readFile(file);
-        }
-      };
-
-      return (
+  if (block.type === "checkbox") {
+    const checked = Boolean(block.metadata?.checked);
+    return (
+      <div className="flex items-start gap-3 px-1 py-1">
+        <input
+          aria-label={locale === "es" ? "Completar elemento" : "Toggle checklist item"}
+          checked={checked}
+          className="mt-1 h-4 w-4 flex-shrink-0 rounded border-slate-400/40 text-slate-900 focus:ring-slate-500 dark:border-slate-500/40 dark:text-slate-100 dark:focus:ring-slate-400"
+          onChange={(e) =>
+            updateBlock(block.id, {
+              metadata: { ...block.metadata, checked: e.target.checked },
+            })
+          }
+          type="checkbox"
+        />
         <div
-          className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4"
-          onDragOver={(e) => e.preventDefault()}
-          onDrop={handleDropUpload}
-        >
-          {imageUrl ? (
-            <img
-              alt={caption || (locale === "es" ? "Imagen del artículo" : "Article image")}
-              className="max-h-96 w-full rounded-xl object-cover"
-              src={imageUrl}
-            />
-          ) : (
-            <div className="flex h-48 flex-col items-center justify-center rounded-xl border border-slate-300 border-dashed bg-white text-slate-400 text-sm">
-              {locale === "es" ? "Agrega una imagen" : "Add an image"}
-            </div>
-          )}
-          <div className="flex flex-wrap gap-2">
-            <button
-              className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-600 text-xs transition hover:border-slate-300"
-              onClick={() => fileInputRef.current?.click()}
-              type="button"
-            >
-              <HugeiconsIcon className="h-4 w-4" icon={ImageAdd01Icon} />
-              {locale === "es" ? "Subir imagen/GIF" : "Upload image/GIF"}
-            </button>
-            {imageUrl && (
-              <button
-                className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-500 text-xs transition hover:border-red-200 hover:text-red-500"
-                onClick={() =>
-                  updateBlock(block.id, {
-                    content: "",
-                    metadata: { ...block.metadata, imageUrl: "", caption: "" },
-                  })
-                }
-                type="button"
-              >
-                <HugeiconsIcon className="h-4 w-4" icon={Delete02Icon} />
-                {locale === "es" ? "Eliminar" : "Remove"}
-              </button>
-            )}
-            <input
-              accept="image/*"
-              className="hidden"
-              onChange={handleFileChange}
-              ref={fileInputRef}
-              type="file"
-            />
-            <input
-              className="flex-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-700 text-xs outline-none"
-              onChange={(e) =>
-                updateBlock(block.id, { metadata: { ...block.metadata, imageUrl: e.target.value } })
-              }
-              placeholder="https://"
-              value={imageUrl}
-            />
-          </div>
-          <input
-            className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-700 text-sm outline-none"
-            onChange={(e) =>
-              updateBlock(block.id, {
-                content: e.target.value,
-                metadata: { ...block.metadata, caption: e.target.value },
-              })
-            }
-            placeholder={locale === "es" ? "Agrega una leyenda" : "Add a caption"}
-            value={caption}
-          />
-        </div>
-      );
-    }
-
-    // Heading blocks - Minimal Notion-style
-    if (block.type === "heading1") {
-      return (
-        <h1
-          className="min-h-[2.5rem] px-1 py-1 font-semibold text-3xl text-slate-900 tracking-tight outline-none empty:before:text-slate-300 empty:before:content-[attr(data-placeholder)]"
-          contentEditable
-          data-block-id={block.id}
-          data-placeholder={placeholder}
-          onBlur={(e) => updateBlock(block.id, { content: e.currentTarget.textContent ?? "" })}
-          onFocus={onFocus}
-          onInput={handleInput}
-          onKeyDown={handleKeyDown}
-          onPaste={onPaste}
-          ref={assignSharedRef as React.Ref<HTMLHeadingElement>}
-          suppressContentEditableWarning
-        />
-      );
-    }
-
-    if (block.type === "heading2") {
-      return (
-        <h2
-          className="min-h-[2rem] px-1 py-1 font-semibold text-2xl text-slate-900 outline-none empty:before:text-slate-300 empty:before:content-[attr(data-placeholder)]"
-          contentEditable
-          data-block-id={block.id}
-          data-placeholder={placeholder}
-          onBlur={(e) => updateBlock(block.id, { content: e.currentTarget.textContent ?? "" })}
-          onFocus={onFocus}
-          onInput={handleInput}
-          onKeyDown={handleKeyDown}
-          onPaste={onPaste}
-          ref={assignSharedRef as React.Ref<HTMLHeadingElement>}
-          suppressContentEditableWarning
-        />
-      );
-    }
-
-    if (block.type === "heading3") {
-      return (
-        <h3
-          className="min-h-[1.75rem] px-1 py-1 font-semibold text-slate-900 text-xl outline-none empty:before:text-slate-300 empty:before:content-[attr(data-placeholder)]"
-          contentEditable
-          data-block-id={block.id}
-          data-placeholder={placeholder}
-          onBlur={(e) => updateBlock(block.id, { content: e.currentTarget.textContent ?? "" })}
-          onFocus={onFocus}
-          onInput={handleInput}
-          onKeyDown={handleKeyDown}
-          onPaste={onPaste}
-          ref={assignSharedRef as React.Ref<HTMLHeadingElement>}
-          suppressContentEditableWarning
-        />
-      );
-    }
-
-    // List blocks - Clean minimal lists
-    if (block.type === "bulletList" || block.type === "orderedList") {
-      const ListTag = block.type === "bulletList" ? "ul" : "ol";
-      const items = block.metadata?.listItems ?? [""];
-
-      return (
-        <ListTag
           className={cn(
-            "space-y-1",
-            block.type === "bulletList" ? "list-disc" : "list-decimal",
-            "pl-6 marker:text-slate-300"
+            "min-h-[1.5rem] flex-1 px-1 py-0.5 text-slate-600 outline-none dark:text-slate-400",
+            "empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-slate-400/50",
+            checked && "text-slate-600 line-through dark:text-slate-400"
           )}
-        >
-          {items.map((item, idx) => (
-            <li className="text-base text-slate-700 leading-7" key={idx}>
-              <div
-                className="min-h-[1.5rem] px-1 py-0.5 outline-none empty:before:text-slate-300 empty:before:content-[attr(data-placeholder)]"
-                contentEditable
-                data-block-id={`${block.id}-${idx}`}
-                data-placeholder={placeholder}
-                onBlur={(e) => {
-                  const newItems = [...items];
-                  newItems[idx] = e.currentTarget.textContent ?? "";
-                  updateBlock(block.id, { metadata: { ...block.metadata, listItems: newItems } });
-                }}
-                onFocus={onFocus}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    const newItems = [...items];
-                    newItems.splice(idx + 1, 0, "");
-                    updateBlock(block.id, { metadata: { ...block.metadata, listItems: newItems } });
-                  }
-                  if (e.key === "Backspace" && !item && items.length > 1) {
-                    e.preventDefault();
-                    const newItems = items.filter((_, i) => i !== idx);
-                    updateBlock(block.id, { metadata: { ...block.metadata, listItems: newItems } });
-                  }
-                }}
-                suppressContentEditableWarning
-              >
-                {item}
-              </div>
-            </li>
-          ))}
-        </ListTag>
-      );
-    }
+          contentEditable
+          data-block-id={block.id}
+          data-placeholder={placeholder}
+          onBlur={(e) =>
+            updateBlock(block.id, {
+              content: e.currentTarget.textContent ?? "",
+            })
+          }
+          onFocus={onFocus}
+          onInput={handleInput}
+          onKeyDown={handleKeyDown}
+          onPaste={onPaste}
+          ref={assignSharedRef as React.Ref<HTMLDivElement>}
+          suppressContentEditableWarning
+        />
+      </div>
+    );
+  }
 
-    // Code block - Clean minimal code block
-    if (block.type === "code") {
-      return (
-        <div className="overflow-hidden rounded-lg border border-gray-200 bg-gray-50">
-          <div className="flex items-center justify-between border-gray-200 border-b bg-white px-3 py-2">
-            <select
-              className="rounded border-none bg-transparent px-2 py-1 text-gray-600 text-xs outline-none"
-              onChange={(e) => updateBlock(block.id, { metadata: { language: e.target.value } })}
-              value={block.metadata?.language ?? "plaintext"}
-            >
-              <option value="plaintext">Plain Text</option>
-              <option value="typescript">TypeScript</option>
-              <option value="javascript">JavaScript</option>
-              <option value="jsx">JSX</option>
-              <option value="tsx">TSX</option>
-              <option value="css">CSS</option>
-              <option value="html">HTML</option>
-              <option value="json">JSON</option>
-              <option value="sql">SQL</option>
-              <option value="bash">Bash</option>
-            </select>
-          </div>
-          <pre className="overflow-x-auto p-3">
-            <code
-              className="block font-mono text-gray-800 text-sm outline-none empty:before:text-gray-300 empty:before:content-[attr(data-placeholder)]"
-              contentEditable
-              data-block-id={block.id}
-              data-placeholder={placeholder}
-              onBlur={(e) => updateBlock(block.id, { content: e.currentTarget.textContent ?? "" })}
-              onFocus={onFocus}
-              onInput={handleInput}
-              onKeyDown={(e) => {
-                if (e.key === "Tab") {
-                  e.preventDefault();
-                  const selection = window.getSelection();
-                  if (selection && selection.rangeCount > 0) {
-                    const range = selection.getRangeAt(0);
-                    range.deleteContents();
-                    range.insertNode(document.createTextNode("  "));
-                    range.collapse(false);
-                  }
-                }
-              }}
-              onPaste={onPaste}
-              ref={assignSharedRef as React.Ref<HTMLDivElement>}
-              suppressContentEditableWarning
-            />
-          </pre>
-        </div>
-      );
-    }
+  if (block.type === "image") {
+    const imageUrl = block.metadata?.imageUrl ?? "";
+    const caption = block.metadata?.caption ?? block.content ?? "";
 
-    // Callout block - Clean minimal callouts
-    if (block.type === "callout") {
-      const calloutType = block.metadata?.calloutType ?? "info";
-      const calloutConfig = CALLOUT_TYPES[calloutType];
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) {
+        return;
+      }
+      readFile(file);
+    };
 
-      const calloutStyles = {
-        blue: "bg-blue-50 border-blue-100",
-        yellow: "bg-yellow-50 border-yellow-100",
-        green: "bg-green-50 border-green-100",
-        red: "bg-red-50 border-red-100",
+    const readFile = (file: File) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        updateBlock(block.id, {
+          metadata: { ...block.metadata, imageUrl: reader.result as string },
+        });
       };
+      reader.readAsDataURL(file);
+    };
 
-      return (
-        <div className={cn("rounded-2xl border p-4", calloutStyles[calloutConfig.color])}>
-          <div className="mb-2 flex items-center gap-2">
-            <HugeiconsIcon className="h-4 w-4" icon={calloutConfig.iconComponent} />
-            <select
-              className="rounded border-none bg-transparent px-2 py-0.5 text-gray-600 text-xs outline-none"
-              onChange={(e) =>
-                updateBlock(block.id, { metadata: { calloutType: e.target.value as CalloutType } })
-              }
-              value={calloutType}
-            >
-              {(Object.keys(CALLOUT_TYPES) as CalloutType[]).map((type) => (
-                <option key={type} value={type}>
-                  {CALLOUT_TYPES[type].label}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div
-            className="min-h-[1.5rem] px-1 py-0.5 text-slate-800 outline-none empty:before:text-slate-300 empty:before:content-[attr(data-placeholder)]"
-            contentEditable
-            data-block-id={block.id}
-            data-placeholder={placeholder}
-            onBlur={(e) => updateBlock(block.id, { content: e.currentTarget.textContent ?? "" })}
-            onFocus={onFocus}
-            onInput={handleInput}
-            onKeyDown={handleKeyDown}
-            onPaste={onPaste}
-            ref={assignSharedRef as React.Ref<HTMLDivElement>}
-            suppressContentEditableWarning
-          />
-        </div>
-      );
-    }
+    const handleDropUpload = (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      const file = e.dataTransfer.files?.[0];
+      if (file?.type.startsWith("image/")) {
+        readFile(file);
+      }
+    };
 
-    // Divider - Simple minimal line
-    if (block.type === "divider") {
-      return <hr className="article-separator my-6 border-slate-200" data-editor-separator />;
-    }
-
-    // Default: Paragraph - Clean minimal paragraph
     return (
       <div
-        className="min-h-[1.75rem] w-full px-1 py-1 text-base text-slate-800 leading-7 outline-none empty:before:text-slate-300 empty:before:content-[attr(data-placeholder)]"
+        className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950"
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={handleDropUpload}
+      >
+        {imageUrl ? (
+          <img
+            alt={caption || (locale === "es" ? "Imagen del artículo" : "Article image")}
+            className="max-h-96 w-full rounded-xl object-cover"
+            src={imageUrl}
+          />
+        ) : (
+          <div className="flex h-48 flex-col items-center justify-center rounded-xl border border-slate-400/40 border-dashed bg-white text-slate-600 text-sm dark:border-slate-500/40 dark:bg-slate-950 dark:text-slate-400/70">
+            {locale === "es" ? "Agrega una imagen" : "Add an image"}
+          </div>
+        )}
+        <div className="flex flex-wrap gap-2">
+          <button
+            className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-600 text-xs transition hover:border-slate-400/40 dark:border-slate-500/40 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
+            onClick={() => fileInputRef.current?.click()}
+            type="button"
+          >
+            <HugeiconsIcon className="h-4 w-4" icon={ImageAdd01Icon} />
+            {locale === "es" ? "Subir imagen/GIF" : "Upload image/GIF"}
+          </button>
+          {imageUrl && (
+            <button
+              className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-600 text-xs transition hover:border-slate-900 hover:text-slate-900 dark:border-slate-100/30 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:text-slate-400"
+              onClick={() =>
+                updateBlock(block.id, {
+                  content: "",
+                  metadata: { ...block.metadata, imageUrl: "", caption: "" },
+                })
+              }
+              type="button"
+            >
+              <HugeiconsIcon className="h-4 w-4" icon={Delete02Icon} />
+              {locale === "es" ? "Eliminar" : "Remove"}
+            </button>
+          )}
+          <input
+            accept="image/*"
+            className="hidden"
+            onChange={handleFileChange}
+            ref={fileInputRef}
+            type="file"
+          />
+          <input
+            className="flex-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-600 text-xs outline-none dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
+            onChange={(e) =>
+              updateBlock(block.id, { metadata: { ...block.metadata, imageUrl: e.target.value } })
+            }
+            placeholder="https://"
+            value={imageUrl}
+          />
+        </div>
+        <input
+          className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-600 text-sm outline-none dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
+          onChange={(e) =>
+            updateBlock(block.id, {
+              content: e.target.value,
+              metadata: { ...block.metadata, caption: e.target.value },
+            })
+          }
+          placeholder={locale === "es" ? "Agrega una leyenda" : "Add a caption"}
+          value={caption}
+        />
+      </div>
+    );
+  }
+
+  // Heading blocks - Minimal Notion-style
+  if (block.type === "heading1") {
+    return (
+      <h1
+        className="min-h-[2.5rem] px-1 py-1 font-semibold text-3xl text-slate-900 tracking-tight outline-none empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-slate-100 dark:text-slate-400/50"
         contentEditable
         data-block-id={block.id}
         data-placeholder={placeholder}
@@ -1439,11 +1278,222 @@ const BlockContent = React.forwardRef<HTMLElement, BlockContentProps>(
         onInput={handleInput}
         onKeyDown={handleKeyDown}
         onPaste={onPaste}
-        ref={assignSharedRef as React.Ref<HTMLDivElement>}
+        ref={assignSharedRef as React.Ref<HTMLHeadingElement>}
         suppressContentEditableWarning
       />
     );
   }
-);
+
+  if (block.type === "heading2") {
+    return (
+      <h2
+        className="min-h-[2rem] px-1 py-1 font-semibold text-2xl text-slate-900 outline-none empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-slate-100 dark:text-slate-400/50"
+        contentEditable
+        data-block-id={block.id}
+        data-placeholder={placeholder}
+        onBlur={(e) => updateBlock(block.id, { content: e.currentTarget.textContent ?? "" })}
+        onFocus={onFocus}
+        onInput={handleInput}
+        onKeyDown={handleKeyDown}
+        onPaste={onPaste}
+        ref={assignSharedRef as React.Ref<HTMLHeadingElement>}
+        suppressContentEditableWarning
+      />
+    );
+  }
+
+  if (block.type === "heading3") {
+    return (
+      <h3
+        className="min-h-[1.75rem] px-1 py-1 font-semibold text-slate-900 text-xl outline-none empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-slate-100 dark:text-slate-400/50"
+        contentEditable
+        data-block-id={block.id}
+        data-placeholder={placeholder}
+        onBlur={(e) => updateBlock(block.id, { content: e.currentTarget.textContent ?? "" })}
+        onFocus={onFocus}
+        onInput={handleInput}
+        onKeyDown={handleKeyDown}
+        onPaste={onPaste}
+        ref={assignSharedRef as React.Ref<HTMLHeadingElement>}
+        suppressContentEditableWarning
+      />
+    );
+  }
+
+  // List blocks - Clean minimal lists
+  if (block.type === "bulletList" || block.type === "orderedList") {
+    const ListTag = block.type === "bulletList" ? "ul" : "ol";
+    const items = block.metadata?.listItems ?? [""];
+
+    return (
+      <ListTag
+        className={cn(
+          "space-y-1",
+          block.type === "bulletList" ? "list-disc" : "list-decimal",
+          "pl-6 marker:text-slate-600 dark:text-slate-400/50"
+        )}
+      >
+        {items.map((item, idx) => (
+          <li className="text-base text-slate-600 leading-7 dark:text-slate-400" key={idx}>
+            <div
+              className="min-h-[1.5rem] px-1 py-0.5 outline-none empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-slate-400/50"
+              contentEditable
+              data-block-id={`${block.id}-${idx}`}
+              data-placeholder={placeholder}
+              onBlur={(e) => {
+                const newItems = [...items];
+                newItems[idx] = e.currentTarget.textContent ?? "";
+                updateBlock(block.id, { metadata: { ...block.metadata, listItems: newItems } });
+              }}
+              onFocus={onFocus}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  const newItems = [...items];
+                  newItems.splice(idx + 1, 0, "");
+                  updateBlock(block.id, { metadata: { ...block.metadata, listItems: newItems } });
+                }
+                if (e.key === "Backspace" && !item && items.length > 1) {
+                  e.preventDefault();
+                  const newItems = items.filter((_, i) => i !== idx);
+                  updateBlock(block.id, { metadata: { ...block.metadata, listItems: newItems } });
+                }
+              }}
+              suppressContentEditableWarning
+            >
+              {item}
+            </div>
+          </li>
+        ))}
+      </ListTag>
+    );
+  }
+
+  // Code block - Clean minimal code block
+  if (block.type === "code") {
+    return (
+      <div className="overflow-hidden rounded-lg border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
+        <div className="flex items-center justify-between border-slate-200 border-b bg-white px-3 py-2 dark:border-slate-800 dark:bg-slate-950">
+          <select
+            className="rounded border-none bg-transparent px-2 py-1 text-slate-600 text-xs outline-none dark:text-slate-400"
+            onChange={(e) => updateBlock(block.id, { metadata: { language: e.target.value } })}
+            value={block.metadata?.language ?? "plaintext"}
+          >
+            <option value="plaintext">Plain Text</option>
+            <option value="typescript">TypeScript</option>
+            <option value="javascript">JavaScript</option>
+            <option value="jsx">JSX</option>
+            <option value="tsx">TSX</option>
+            <option value="css">CSS</option>
+            <option value="html">HTML</option>
+            <option value="json">JSON</option>
+            <option value="sql">SQL</option>
+            <option value="bash">Bash</option>
+          </select>
+        </div>
+        <pre className="overflow-x-auto p-3">
+          <code
+            className="block font-mono text-red-700 text-sm outline-none empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-red-200 dark:text-slate-400/50"
+            contentEditable
+            data-block-id={block.id}
+            data-placeholder={placeholder}
+            onBlur={(e) => updateBlock(block.id, { content: e.currentTarget.textContent ?? "" })}
+            onFocus={onFocus}
+            onInput={handleInput}
+            onKeyDown={(e) => {
+              if (e.key === "Tab") {
+                e.preventDefault();
+                const selection = window.getSelection();
+                if (selection && selection.rangeCount > 0) {
+                  const range = selection.getRangeAt(0);
+                  range.deleteContents();
+                  range.insertNode(document.createTextNode("  "));
+                  range.collapse(false);
+                }
+              }
+            }}
+            onPaste={onPaste}
+            ref={assignSharedRef as React.Ref<HTMLDivElement>}
+            suppressContentEditableWarning
+          />
+        </pre>
+      </div>
+    );
+  }
+
+  // Callout block - Clean minimal callouts
+  if (block.type === "callout") {
+    const calloutType = block.metadata?.calloutType ?? "info";
+    const calloutConfig = CALLOUT_TYPES[calloutType];
+
+    const calloutStyles = {
+      blue: "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800",
+      orange: "bg-slate-900 dark:bg-slate-100/5 border-slate-900 dark:border-slate-100/20",
+      green: "bg-slate-900 dark:bg-slate-100/10 border-slate-900 dark:border-slate-100/30",
+      red: "bg-white dark:bg-slate-950 border-slate-900 dark:border-slate-100/20",
+    };
+
+    return (
+      <div className={cn("rounded-2xl border p-4", calloutStyles[calloutConfig.color])}>
+        <div className="mb-2 flex items-center gap-2">
+          <HugeiconsIcon className="h-4 w-4" icon={calloutConfig.iconComponent} />
+          <select
+            className="rounded border-none bg-transparent px-2 py-0.5 text-slate-600 text-xs outline-none dark:text-slate-400"
+            onChange={(e) =>
+              updateBlock(block.id, { metadata: { calloutType: e.target.value as CalloutType } })
+            }
+            value={calloutType}
+          >
+            {(Object.keys(CALLOUT_TYPES) as CalloutType[]).map((type) => (
+              <option key={type} value={type}>
+                {CALLOUT_TYPES[type].label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div
+          className="min-h-[1.5rem] px-1 py-0.5 text-slate-900 outline-none empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-slate-100 dark:text-slate-400/50"
+          contentEditable
+          data-block-id={block.id}
+          data-placeholder={placeholder}
+          onBlur={(e) => updateBlock(block.id, { content: e.currentTarget.textContent ?? "" })}
+          onFocus={onFocus}
+          onInput={handleInput}
+          onKeyDown={handleKeyDown}
+          onPaste={onPaste}
+          ref={assignSharedRef as React.Ref<HTMLDivElement>}
+          suppressContentEditableWarning
+        />
+      </div>
+    );
+  }
+
+  // Divider - Simple minimal line
+  if (block.type === "divider") {
+    return (
+      <hr
+        className="article-separator my-6 border-slate-200 dark:border-slate-800"
+        data-editor-separator
+      />
+    );
+  }
+
+  // Default: Paragraph - Clean minimal paragraph
+  return (
+    <div
+      className="min-h-[1.75rem] w-full px-1 py-1 text-base text-slate-900 leading-7 outline-none empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-slate-100 dark:text-slate-400/50"
+      contentEditable
+      data-block-id={block.id}
+      data-placeholder={placeholder}
+      onBlur={(e) => updateBlock(block.id, { content: e.currentTarget.textContent ?? "" })}
+      onFocus={onFocus}
+      onInput={handleInput}
+      onKeyDown={handleKeyDown}
+      onPaste={onPaste}
+      ref={assignSharedRef as React.Ref<HTMLDivElement>}
+      suppressContentEditableWarning
+    />
+  );
+};
 
 BlockContent.displayName = "BlockContent";

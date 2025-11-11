@@ -1,12 +1,23 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { createAuditLog, requireAdmin } from "@/lib/admin-helpers";
 import {
   type BookingForPayout,
   calculatePayoutFromBookings,
   getCurrentPayoutPeriod,
+  type PayoutCalculation,
 } from "@/lib/payout-calculator";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import type { Database } from "@/types/supabase";
+
+type ProfessionalProfile = {
+  profile_id: string;
+  stripe_connect_account_id: string;
+  stripe_connect_onboarding_status: string;
+};
+
+type PayoutRecord = Database["public"]["Tables"]["payouts"]["Row"];
 
 // Helper: Verify authentication (admin or cron)
 async function verifyPayoutAuth(
@@ -25,7 +36,7 @@ async function verifyPayoutAuth(
 }
 
 // Helper: Fetch professionals eligible for payout
-function fetchEligibleProfessionals(supabase: any, professionalId?: string) {
+function fetchEligibleProfessionals(supabase: SupabaseClient<Database>, professionalId?: string) {
   let query = supabase
     .from("professional_profiles")
     .select("profile_id, stripe_connect_account_id, stripe_connect_onboarding_status")
@@ -41,17 +52,17 @@ function fetchEligibleProfessionals(supabase: any, professionalId?: string) {
 
 // Helper: Fetch pending bookings for professional
 async function fetchPendingBookings(
-  supabase: any,
+  supabase: SupabaseClient<Database>,
   professionalId: string,
   periodStart: Date,
   periodEnd: Date
 ) {
   const { data: pendingBookings, error: bookingsError } = await supabase
     .from("bookings")
-    .select("id, amount_captured, currency, checked_out_at, created_at")
+    .select("id, final_amount_captured, currency, checked_out_at, created_at")
     .eq("professional_id", professionalId)
     .eq("status", "completed")
-    .not("amount_captured", "is", null)
+    .not("final_amount_captured", "is", null)
     .is("included_in_payout_id", null);
 
   if (bookingsError) {
@@ -73,10 +84,10 @@ async function fetchPendingBookings(
 
 // Helper: Create payout record in database
 function createPayoutRecord(options: {
-  supabase: any;
+  supabase: SupabaseClient<Database>;
   professionalId: string;
   connectAccountId: string;
-  payout: any;
+  payout: PayoutCalculation;
   periodStart: Date;
   periodEnd: Date;
 }) {
@@ -101,10 +112,10 @@ function createPayoutRecord(options: {
 
 // Helper: Create Stripe transfer and update payout
 async function processStripeTransfer(options: {
-  supabase: any;
-  payoutRecord: any;
-  professional: any;
-  payout: any;
+  supabase: SupabaseClient<Database>;
+  payoutRecord: PayoutRecord;
+  professional: ProfessionalProfile;
+  payout: PayoutCalculation;
   periodStart: Date;
   periodEnd: Date;
 }) {
@@ -122,15 +133,24 @@ async function processStripeTransfer(options: {
     },
   });
 
+  // Calculate arrival date if destination_payment is expanded
+  let arrivalDate: string | null = null;
+  if (
+    transfer.destination_payment &&
+    typeof transfer.destination_payment === "object" &&
+    "arrival_date" in transfer.destination_payment &&
+    typeof transfer.destination_payment.arrival_date === "number"
+  ) {
+    arrivalDate = new Date(transfer.destination_payment.arrival_date * 1000).toISOString();
+  }
+
   // Update payout record with Stripe transfer ID and status
   await options.supabase
     .from("payouts")
     .update({
       stripe_payout_id: transfer.id,
       status: "paid",
-      arrival_date: transfer.destination_payment
-        ? new Date((transfer.destination_payment as any).arrival_date * 1000).toISOString()
-        : null,
+      arrival_date: arrivalDate,
     })
     .eq("id", options.payoutRecord.id);
 

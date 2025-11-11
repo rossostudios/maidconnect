@@ -124,15 +124,15 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
   };
 
   return (
-    <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
+    <div className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc]/90 p-6 shadow-sm">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={DollarCircleIcon} />
-          <h3 className="font-semibold text-gray-900 text-lg">{t("title")}</h3>
+          <HugeiconsIcon className="h-5 w-5 text-[#64748b]" icon={DollarCircleIcon} />
+          <h3 className="font-semibold text-[#0f172a] text-lg">{t("title")}</h3>
         </div>
         {needsConnect ? (
           <button
-            className="inline-flex items-center rounded-md bg-[#E85D48] px-3 py-1.5 font-semibold text-white text-xs shadow-sm transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex items-center rounded-md bg-[#64748b] px-3 py-1.5 font-semibold text-[#f8fafc] text-xs shadow-sm transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={isPending}
             onClick={startStripeOnboarding}
             type="button"
@@ -141,68 +141,68 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
           </button>
         ) : null}
       </div>
-      <p className="mt-1 text-[#7a6d62] text-sm">{t("description")}</p>
-      <p className="mt-2 font-medium text-[#7a6d62] text-xs">
+      <p className="mt-1 text-[#94a3b8] text-sm">{t("description")}</p>
+      <p className="mt-2 font-medium text-[#94a3b8] text-xs">
         {t("stripe.statusLabel")}{" "}
-        <span className={needsConnect ? "text-[#c4534d]" : "text-[#2f7a47]"}>
+        <span className={needsConnect ? "text-[#64748b]" : "text-[#64748b]"}>
           {needsConnect ? t("stripe.actionRequired") : t("stripe.connected")}
         </span>
       </p>
-      {onboardingError ? <p className="mt-3 text-[#E85D48] text-xs">{onboardingError}</p> : null}
+      {onboardingError ? <p className="mt-3 text-[#64748b] text-xs">{onboardingError}</p> : null}
 
       {noData ? (
-        <p className="mt-6 text-[#7a6d62] text-sm">{t("emptyState")}</p>
+        <p className="mt-6 text-[#94a3b8] text-sm">{t("emptyState")}</p>
       ) : (
         <>
           <dl className="mt-6 grid gap-3 sm:grid-cols-2">
             <SummaryCard
-              accent="text-[#2f7a47]"
+              accent="text-[#64748b]"
               amount={totals.captured}
               description={t("cards.availableAfterCompletion.description")}
               icon={DollarCircleIcon}
               title={t("cards.availableAfterCompletion.title")}
-              tone="bg-[#f4fbf6]"
+              tone="bg-[#f8fafc]"
             />
             <SummaryCard
-              accent="text-[#c4534d]"
+              accent="text-[#64748b]"
               amount={totals.authorized}
               description={t("cards.activeHolds.description")}
               icon={RefreshIcon}
               title={t("cards.activeHolds.title")}
-              tone="bg-[#fef1ee]"
+              tone="bg-[#f8fafc]"
             />
           </dl>
 
-          <div className="mt-6 rounded-lg border border-[#efe7dc] bg-[#fbfafa] p-4 text-[#7a6d62] text-xs">
-            <p className="font-semibold text-gray-900">{t("thisMonth")}</p>
+          <div className="mt-6 rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-4 text-[#94a3b8] text-xs">
+            <p className="font-semibold text-[#0f172a]">{t("thisMonth")}</p>
             <div className="mt-2 grid gap-3 sm:grid-cols-2">
               <div>
-                <p className="text-gray-600 text-xs uppercase tracking-wide">
+                <p className="text-[#94a3b8] text-xs uppercase tracking-wide">
                   {t("metrics.capturedPayouts")}
                 </p>
-                <p className="font-semibold text-gray-900 text-sm">
+                <p className="font-semibold text-[#0f172a] text-sm">
                   {formatCOP(totals.thisMonthCaptured)}
                 </p>
               </div>
               <div>
-                <p className="text-gray-600 text-xs uppercase tracking-wide">
+                <p className="text-[#94a3b8] text-xs uppercase tracking-wide">
                   {t("metrics.upcomingHolds")}
                 </p>
-                <p className="font-semibold text-gray-900 text-sm">
+                <p className="font-semibold text-[#0f172a] text-sm">
                   {formatCOP(totals.thisMonthAuthorized)}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="mt-6 space-y-3 text-gray-600 text-sm">
-            <div className="flex items-center justify-between rounded-lg border border-[#efe7dc] bg-white/80 px-3 py-2">
+          <div className="mt-6 space-y-3 text-[#94a3b8] text-sm">
+            <div className="flex items-center justify-between rounded-lg border border-[#e2e8f0] bg-[#f8fafc]/80 px-3 py-2">
               <span>{t("metrics.pendingRequests")}</span>
               <span>{formatCOP(totals.pending)}</span>
             </div>
-            <div className="flex items-center justify-between rounded-lg border border-[#efe7dc] bg-white/80 px-3 py-2">
+            <div className="flex items-center justify-between rounded-lg border border-[#e2e8f0] bg-[#f8fafc]/80 px-3 py-2">
               <span className="flex items-center gap-2">
-                <HugeiconsIcon className="h-4 w-4 text-[#c4534d]" icon={AlertCircleIcon} />
+                <HugeiconsIcon className="h-4 w-4 text-[#64748b]" icon={AlertCircleIcon} />
                 {t("metrics.holdsReleased")}
               </span>
               <span>{formatCOP(totals.canceled)}</span>
@@ -225,13 +225,13 @@ type SummaryCardProps = {
 
 function SummaryCard({ icon, title, amount, description, tone, accent }: SummaryCardProps) {
   return (
-    <div className={`rounded-lg border border-[#efe7dc] ${tone} p-4`}>
+    <div className={`rounded-lg border border-[#e2e8f0] ${tone} p-4`}>
       <div className="flex items-center gap-2">
         <HugeiconsIcon className={`h-4 w-4 ${accent}`} icon={icon} />
-        <dt className="font-semibold text-[#7a6d62] text-xs uppercase tracking-wide">{title}</dt>
+        <dt className="font-semibold text-[#94a3b8] text-xs uppercase tracking-wide">{title}</dt>
       </div>
-      <dd className="mt-2 font-semibold text-gray-900 text-xl">{formatCOP(amount)}</dd>
-      <p className="mt-1 text-[#7a6d62] text-xs">{description}</p>
+      <dd className="mt-2 font-semibold text-[#0f172a] text-xl">{formatCOP(amount)}</dd>
+      <p className="mt-1 text-[#94a3b8] text-xs">{description}</p>
     </div>
   );
 }

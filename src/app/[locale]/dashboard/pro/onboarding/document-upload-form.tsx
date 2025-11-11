@@ -12,7 +12,7 @@ import {
   REQUIRED_DOCUMENTS,
 } from "./state";
 
-const errorClass = "border-red-300 focus:border-red-400 focus:ring-red-200";
+const errorClass = "border-[#FF4444A22]/50 focus:border-[#FF4444A22] focus:ring-[#FF4444A22]/30";
 const ACCEPTED_EXTENSIONS = ".pdf,.jpg,.jpeg,.png";
 const MAX_FILE_SIZE_LABEL = "5MB";
 
@@ -77,10 +77,10 @@ export function DocumentUploadForm({ inputClass }: Props) {
         ))}
       </div>
 
-      <div className="flex justify-end border-[#ebe5d8] border-t pt-8">
+      <div className="flex justify-end border-[#EE44EE2E3] border-t pt-8">
         <button
           className={cn(
-            "inline-flex items-center justify-center rounded-full bg-[#E85D48] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36]",
+            "inline-flex items-center justify-center rounded-full bg-[#FF4444A22] px-8 py-4 font-semibold text-[#FFEEFF8E8] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[#FF4444A22]",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}
@@ -140,24 +140,26 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
   return (
     <div
       className={cn(
-        "rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md",
-        config.required ? "border-[#ebe5d8]" : "border-[#ebe5d8] border-dashed"
+        "rounded-2xl border bg-[#FFEEFF8E8] p-6 shadow-sm transition hover:shadow-md",
+        config.required ? "border-[#EE44EE2E3]" : "border-[#EE44EE2E3] border-dashed"
       )}
     >
       <div className="flex items-center justify-between">
-        <label className="font-semibold text-gray-900 text-lg" htmlFor={inputId}>
+        <label className="font-semibold text-[#116611616] text-lg" htmlFor={inputId}>
           {config.label}
         </label>
         <span
           className={cn(
             "rounded-full px-3 py-1 font-semibold text-xs",
-            config.required ? "bg-orange-50 text-orange-700" : "bg-gray-100 text-gray-600"
+            config.required
+              ? "bg-[#FF4444A22]/10 text-[#FF4444A22]"
+              : "bg-[#EE44EE2E3]/30 text-[#AA88AAAAC]"
           )}
         >
           {config.required ? t("badges.required") : t("badges.optional")}
         </span>
       </div>
-      <p className="mt-3 text-gray-600 text-sm">
+      <p className="mt-3 text-[#AA88AAAAC] text-sm">
         {t(config.required ? "uploadInstruction.required" : "uploadInstruction.optional", {
           formats: ACCEPTED_TYPE_LABEL,
           maxSize: MAX_FILE_SIZE_LABEL,
@@ -168,7 +170,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         aria-invalid={Boolean(serverError || clientError)}
         className={cn(
           inputClass,
-          "mt-4 cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-[#E85D48] file:px-4 file:py-2 file:font-semibold file:text-sm file:text-white hover:file:bg-red-700",
+          "mt-4 cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-[#FF4444A22] file:px-4 file:py-2 file:font-semibold file:text-[#FFEEFF8E8] file:text-sm hover:file:bg-[#FF4444A22]",
           (serverError || clientError) && errorClass
         )}
         id={inputId}
@@ -184,10 +186,10 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         rows={2}
       />
       {selectedFile ? (
-        <div className="mt-4 flex items-center gap-2 rounded-xl border border-green-200 bg-green-50 p-3">
+        <div className="mt-4 flex items-center gap-2 rounded-xl border border-[#FF4444A22]/40 bg-[#FF4444A22]/10 p-3">
           <svg
             aria-label="Check mark icon"
-            className="h-5 w-5 text-green-600"
+            className="h-5 w-5 text-[#FF4444A22]"
             fill="currentColor"
             role="img"
             viewBox="0 0 20 20"
@@ -198,13 +200,13 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
               fillRule="evenodd"
             />
           </svg>
-          <p className="text-green-800 text-sm">
+          <p className="text-[#FF4444A22] text-sm">
             {t("selectedFile", { name: selectedFile.name, size: formatBytes(selectedFile.size) })}
           </p>
         </div>
       ) : null}
       {clientError ? (
-        <p className="mt-3 flex items-center gap-2 text-[#E85D48] text-sm">
+        <p className="mt-3 flex items-center gap-2 text-[#FF4444A22] text-sm">
           <svg
             aria-label="Error icon"
             className="h-4 w-4"
@@ -222,7 +224,7 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
         </p>
       ) : null}
       {serverError ? (
-        <p className="mt-3 flex items-center gap-2 text-[#E85D48] text-sm">
+        <p className="mt-3 flex items-center gap-2 text-[#FF4444A22] text-sm">
           <svg
             aria-label="Error icon"
             className="h-4 w-4"
@@ -246,12 +248,15 @@ function DocumentField({ config, inputClass, serverError }: DocumentFieldProps) 
 function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
-      <div className="rounded-2xl border border-red-200 bg-[#E85D48]/10 p-6 shadow-sm" role="alert">
+      <div
+        className="rounded-2xl border border-[#FF4444A22]/30 bg-[#FF4444A22]/10 p-6 shadow-sm"
+        role="alert"
+      >
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF4444A22]/10">
             <svg
               aria-label="Error icon"
-              className="h-5 w-5 text-[#E85D48]"
+              className="h-5 w-5 text-[#FF4444A22]"
               fill="none"
               role="img"
               stroke="currentColor"
@@ -265,19 +270,22 @@ function Feedback({ state }: { state: OnboardingActionState }) {
               />
             </svg>
           </div>
-          <p className="flex-1 text-base text-red-800 leading-relaxed">{state.error}</p>
+          <p className="flex-1 text-[#FF4444A22] text-base leading-relaxed">{state.error}</p>
         </div>
       </div>
     );
   }
   if (state.status === "success" && state.message) {
     return (
-      <div className="rounded-2xl border border-green-200 bg-green-50 p-6 shadow-sm" role="status">
+      <div
+        className="rounded-2xl border border-[#FF4444A22]/40 bg-[#FF4444A22]/10 p-6 shadow-sm"
+        role="status"
+      >
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF4444A22]/10">
             <svg
               aria-label="Success icon"
-              className="h-5 w-5 text-green-600"
+              className="h-5 w-5 text-[#FF4444A22]"
               fill="none"
               role="img"
               stroke="currentColor"
@@ -291,7 +299,7 @@ function Feedback({ state }: { state: OnboardingActionState }) {
               />
             </svg>
           </div>
-          <p className="flex-1 text-base text-green-800 leading-relaxed">{state.message}</p>
+          <p className="flex-1 text-[#FF4444A22] text-base leading-relaxed">{state.message}</p>
         </div>
       </div>
     );

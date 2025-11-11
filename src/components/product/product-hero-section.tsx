@@ -16,25 +16,25 @@ export function ProductHeroSection({
   badge,
 }: ProductHeroSectionProps) {
   return (
-    <section className="border-[#ebe5d8] border-b bg-white px-6 py-16 sm:py-20 lg:py-24">
+    <section className="border-[#e2e8f0] border-b bg-[#f8fafc] px-6 py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-5xl">
         {badge && (
           <div className="mb-6 flex justify-center">
-            <span className="inline-flex items-center rounded-full border-2 border-[#E85D48] bg-[#E85D48]/5 px-4 py-2 font-semibold text-[#E85D48] text-sm">
+            <span className="inline-flex items-center rounded-full border-2 border-[#64748b] bg-[#64748b]/5 px-4 py-2 font-semibold text-[#64748b] text-sm">
               {badge}
             </span>
           </div>
         )}
 
-        <h1 className="type-serif-display text-center text-gray-900">{headline}</h1>
+        <h1 className="type-serif-display text-center text-[#0f172a]">{headline}</h1>
 
-        <p className="mx-auto mt-8 max-w-3xl text-center text-gray-600 text-xl leading-relaxed sm:text-2xl">
+        <p className="mx-auto mt-8 max-w-3xl text-center text-[#94a3b8] text-xl leading-relaxed sm:text-2xl">
           {description}
         </p>
 
         <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
-            className="inline-flex items-center justify-center rounded-full bg-[#E85D48] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36]"
+            className="inline-flex items-center justify-center rounded-full bg-[#64748b] px-8 py-4 font-semibold text-[#f8fafc] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[#64748b]"
             href={primaryCTA.href}
           >
             {primaryCTA.label}
@@ -42,7 +42,7 @@ export function ProductHeroSection({
 
           {secondaryCTA && (
             <Link
-              className="inline-flex items-center justify-center rounded-full border-2 border-[#ebe5d8] bg-white px-8 py-4 font-semibold text-base text-gray-900 transition hover:border-[#E85D48] hover:text-[#E85D48]"
+              className="inline-flex items-center justify-center rounded-full border-2 border-[#e2e8f0] bg-[#f8fafc] px-8 py-4 font-semibold text-[#0f172a] text-base transition hover:border-[#64748b] hover:text-[#64748b]"
               href={secondaryCTA.href}
             >
               {secondaryCTA.label}

@@ -1,92 +1,55 @@
-import { ArrowRight01Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Kbd } from "@/components/ui/kbd";
-import { Link } from "@/i18n/routing";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react";
 import { cn } from "@/lib/utils";
 
-type ButtonVariant = "primary" | "secondary" | "ghost" | "card" | "luxury";
-type ButtonSize = "sm" | "md" | "lg";
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-full font-semibold text-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default:
+          "bg-primary text-primary-foreground shadow-md hover:bg-primary/90 active:scale-[0.98]",
+        destructive:
+          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 active:scale-[0.98]",
+        outline:
+          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground active:scale-[0.98]",
+        secondary:
+          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 active:scale-[0.98]",
+        ghost: "hover:bg-accent hover:text-accent-foreground active:scale-[0.98]",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-10 px-8 py-2",
+        sm: "h-9 rounded-full px-6 text-sm",
+        lg: "h-11 rounded-full px-10 text-base",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
 
-type ButtonProps = {
-  href: string;
-  label: string;
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  icon?: boolean;
-  kbd?: string;
-  className?: string;
-};
-
-const baseClasses =
-  "group inline-flex items-center justify-center rounded-full border font-medium transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E85D48]";
-
-const sizeClasses: Record<ButtonSize, string> = {
-  sm: "px-6 py-[0.75rem] text-sm",
-  md: "px-8 py-[0.9rem] text-sm",
-  lg: "px-10 py-[1.15rem] text-base",
-};
-
-const variantClasses: Record<ButtonVariant, string> = {
-  primary:
-    "border-transparent bg-[#E85D48] text-white shadow-md hover:bg-[#D64A36] hover:shadow-lg active:scale-[0.98]",
-  secondary:
-    "border-[#E85D48] bg-transparent text-[#E85D48] hover:bg-[#E85D48] hover:text-white active:scale-[0.98]",
-  ghost:
-    "border-transparent text-gray-900 hover:text-[#E85D48] hover:bg-[#E85D48]/10 active:scale-[0.98]",
-  card: "w-full justify-between gap-3 border border-transparent bg-[#E85D48] text-white shadow-lg hover:bg-[#D64A36] hover:shadow-xl active:scale-[0.98]",
-  luxury:
-    "border-[#E85D48] bg-white text-[#E85D48] hover:bg-[#E85D48] hover:text-white active:scale-[0.98]",
-};
-
-export function Button({
-  href,
-  label,
-  variant = "primary",
-  size = "md",
-  icon = false,
-  kbd,
-  className,
-}: ButtonProps) {
-  const hasIconOrKbd = icon || kbd;
-
-  return (
-    <Link
-      className={cn(
-        baseClasses,
-        sizeClasses[size],
-        variantClasses[variant],
-        hasIconOrKbd && "gap-3",
-        className
-      )}
-      href={href}
-    >
-      <span>{label}</span>
-      {(() => {
-        if (kbd) {
-          return (
-            <Kbd
-              className="border-[#ebe5d8] bg-white/10 font-medium text-current opacity-80 transition-opacity group-hover:opacity-100"
-              size="lg"
-              variant="outline"
-            >
-              {kbd}
-            </Kbd>
-          );
-        }
-        if (icon) {
-          return (
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-current/15 text-current transition-all group-hover:scale-110 group-hover:bg-current/25">
-              <HugeiconsIcon
-                aria-hidden="true"
-                className="h-4 w-4"
-                icon={ArrowRight01Icon}
-                strokeWidth={2}
-              />
-            </span>
-          );
-        }
-        return null;
-      })()}
-    </Link>
-  );
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
 }
+
+const Button = ({
+  className,
+  variant,
+  size,
+  asChild = false,
+  ref,
+  ...props
+}: ButtonProps & { ref?: React.RefObject<HTMLButtonElement | null> }) => {
+  const Comp = asChild ? Slot : "button";
+  return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
+};
+Button.displayName = "Button";
+
+export { Button, buttonVariants };

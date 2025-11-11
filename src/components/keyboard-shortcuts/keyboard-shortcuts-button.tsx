@@ -23,9 +23,9 @@ export function KeyboardShortcutsButton({
         className={cn(
           "flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200 active:scale-95",
           variant === "light" &&
-            "border-[#E85D48] bg-[#fff5f3] text-[#E85D48] hover:bg-[#E85D48] hover:text-white",
+            "border-[#64748b] bg-[#f8fafc] text-[#64748b] hover:bg-[#64748b] hover:text-[#f8fafc]",
           variant === "dark" &&
-            "border-[#E85D48] bg-[#E85D48]/10 text-[#E85D48] hover:bg-[#E85D48] hover:text-white",
+            "border-[#64748b] bg-[#64748b]/10 text-[#64748b] hover:bg-[#64748b] hover:text-[#f8fafc]",
           className
         )}
         onClick={openShortcutsPanel}
@@ -41,8 +41,8 @@ export function KeyboardShortcutsButton({
         <div
           className={cn(
             "-translate-x-1/2 pointer-events-none absolute bottom-full left-1/2 mb-2 whitespace-nowrap rounded-lg px-3 py-1.5 font-medium text-xs shadow-lg",
-            variant === "light" && "bg-[#2e2419] text-white",
-            variant === "dark" && "bg-white text-[#2e2419]"
+            variant === "light" && "bg-[#0f172a] text-[#f8fafc]",
+            variant === "dark" && "bg-[#f8fafc] text-[#0f172a]"
           )}
         >
           Keyboard shortcuts
@@ -50,7 +50,7 @@ export function KeyboardShortcutsButton({
           <div
             className={cn(
               "-translate-x-1/2 absolute top-full left-1/2 h-0 w-0 border-4 border-transparent",
-              variant === "light" && "border-t-[#2e2419]",
+              variant === "light" && "border-t-[#0f172a]",
               variant === "dark" && "border-t-white"
             )}
           />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 type AnimatedCounterProps = {
   /**
@@ -96,7 +97,7 @@ export function AnimatedCounter({
   });
 
   return (
-    <span className={className} ref={ref}>
+    <span className={cn("text-slate-900", className)} ref={ref}>
       {prefix}
       {formattedCount}
       {suffix}

@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronRight, Home } from "lucide-react";
 import { Link, usePathname } from "@/i18n/routing";
 
 type BreadcrumbItem = {
@@ -52,46 +53,25 @@ export function Breadcrumbs() {
 
   return (
     <nav aria-label="Breadcrumb">
-      <ol className="flex items-center gap-2 rounded-[28px] bg-white px-4 py-3 text-sm shadow-sm">
+      <ol className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm shadow-sm">
         <li>
           <Link
-            className="flex items-center gap-1.5 text-[#7d7566] transition hover:text-[#E85D48]"
+            className="flex items-center gap-1.5 text-slate-600 transition hover:text-slate-900"
             href="/"
           >
-            <svg
-              aria-hidden="true"
-              className="h-4 w-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-              />
-            </svg>
+            <Home className="h-4 w-4" />
             <span>Home</span>
           </Link>
         </li>
         {breadcrumbs.map((item, index) => (
           <li className="flex items-center gap-2" key={index}>
-            <svg
-              aria-hidden="true"
-              className="h-4 w-4 text-[#d4c9b8]"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
-            </svg>
+            <ChevronRight aria-hidden="true" className="h-4 w-4 text-slate-400" />
             {item.href ? (
-              <Link className="text-[#7d7566] transition hover:text-[#E85D48]" href={item.href}>
+              <Link className="text-slate-600 transition hover:text-slate-900" href={item.href}>
                 {item.label}
               </Link>
             ) : (
-              <span className="font-medium text-gray-900">{item.label}</span>
+              <span className="font-medium text-slate-900">{item.label}</span>
             )}
           </li>
         ))}

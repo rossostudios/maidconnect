@@ -59,7 +59,7 @@ export function FavoritesList() {
 
   if (error) {
     return (
-      <div className="rounded-2xl border border-red-200 bg-[#E85D48]/10 p-6 text-[#E85D48] text-base">
+      <div className="rounded-2xl border border-[#64748b]/30 bg-[#64748b]/10 p-6 text-[#64748b] text-base">
         {error || t("errors.loadFailed")}
       </div>
     );
@@ -67,14 +67,14 @@ export function FavoritesList() {
 
   if (favorites.length === 0) {
     return (
-      <div className="rounded-2xl border border-[#ebe5d8] bg-white p-12 text-center">
+      <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-12 text-center">
         <div className="flex justify-center">
-          <HugeiconsIcon className="h-12 w-12 text-[#D4D4D4]" icon={FavouriteIcon} />
+          <HugeiconsIcon className="h-12 w-12 text-[#e2e8f0]" icon={FavouriteIcon} />
         </div>
-        <p className="mt-4 font-semibold text-gray-900 text-lg">{t("empty.title")}</p>
-        <p className="mt-2 text-base text-gray-600 leading-relaxed">{t("empty.description")}</p>
+        <p className="mt-4 font-semibold text-[#0f172a] text-lg">{t("empty.title")}</p>
+        <p className="mt-2 text-[#94a3b8] text-base leading-relaxed">{t("empty.description")}</p>
         <Link
-          className="mt-6 inline-flex rounded-full bg-[#E85D48] px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36]"
+          className="mt-6 inline-flex rounded-full bg-[#64748b] px-8 py-4 font-semibold text-[#f8fafc] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[#64748b]"
           href="/professionals"
         >
           {t("empty.browseProfessionals")}
@@ -86,7 +86,7 @@ export function FavoritesList() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="font-semibold text-gray-900 text-xl">
+        <h2 className="font-semibold text-[#0f172a] text-xl">
           {t("title", { count: favorites.length })}
         </h2>
       </div>
@@ -119,7 +119,7 @@ function ProfessionalCard({
   }).format(professional.hourly_rate_cop);
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-[#ebe5d8] bg-white shadow-sm transition hover:shadow-md">
+    <div className="group relative overflow-hidden rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] shadow-sm transition hover:shadow-md">
       <Link href={`/professionals/${professional.profile_id}`}>
         <div className="p-6">
           {/* Header */}
@@ -135,14 +135,14 @@ function ProfessionalCard({
                 width={64}
               />
             ) : (
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#E85D48] font-semibold text-white text-xl">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#64748b] font-semibold text-[#f8fafc] text-xl">
                 {professional.profile.full_name.charAt(0).toUpperCase()}
               </div>
             )}
 
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
-                <h3 className="truncate font-semibold text-gray-900 text-lg">
+                <h3 className="truncate font-semibold text-[#0f172a] text-lg">
                   {professional.business_name || professional.profile.full_name}
                 </h3>
                 {professional.verified && (
@@ -152,7 +152,7 @@ function ProfessionalCard({
                 )}
               </div>
               {professional.rating !== null && (
-                <div className="mt-1 flex items-center gap-1 text-gray-600 text-sm">
+                <div className="mt-1 flex items-center gap-1 text-[#94a3b8] text-sm">
                   <span>⭐</span>
                   <span className="font-semibold">{professional.rating.toFixed(1)}</span>
                   <span>({professional.total_reviews})</span>
@@ -163,7 +163,7 @@ function ProfessionalCard({
 
           {/* Bio */}
           {professional.bio && (
-            <p className="mt-4 line-clamp-2 text-base text-gray-600 leading-relaxed">
+            <p className="mt-4 line-clamp-2 text-[#94a3b8] text-base leading-relaxed">
               {professional.bio}
             </p>
           )}
@@ -171,13 +171,13 @@ function ProfessionalCard({
           {/* Footer */}
           <div className="mt-6 flex items-center justify-between">
             <div>
-              <p className="font-medium text-[#7d7566] text-sm">{t("card.startingAt")}</p>
-              <p className="mt-1 font-semibold text-[#E85D48] text-lg">
+              <p className="font-medium text-[#94a3b8] text-sm">{t("card.startingAt")}</p>
+              <p className="mt-1 font-semibold text-[#64748b] text-lg">
                 {priceFormatted}
                 {t("card.perHour")}
               </p>
             </div>
-            <span className="font-semibold text-base text-gray-600 group-hover:text-[#E85D48]">
+            <span className="font-semibold text-[#94a3b8] text-base group-hover:text-[#64748b]">
               {t("card.viewProfile")}
             </span>
           </div>

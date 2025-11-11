@@ -15,7 +15,10 @@ export { withRateLimit } from "../rate-limit";
 // Authentication & Authorization
 export {
   type AuthContext,
+  type Booking,
+  // type RecurringPlan, // TODO: Re-enable when recurring_plans table is added to database types
   getOptionalAuth,
+  type Profile,
   requireAdmin,
   requireAuth,
   requireCustomer,

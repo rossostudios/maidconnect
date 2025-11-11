@@ -306,8 +306,6 @@ export function blocksToMarkdown(blocks: EditorBlock[]): string {
 
         case "divider":
           return '<hr class="article-separator" />';
-
-        case "paragraph":
         default:
           return block.content;
       }

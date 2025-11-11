@@ -232,28 +232,28 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
   const isOvertime = elapsedTime > totalPlannedMinutes;
 
   return (
-    <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
+    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6">
       {/* Header */}
       <div className="mb-4 flex items-start justify-between">
         <div>
-          <h3 className="font-semibold text-gray-900 text-lg">
+          <h3 className="font-semibold text-[#0f172a] text-lg">
             {optimisticBooking.service_name || "Service"}
           </h3>
-          <p className="text-[#7a6d62] text-sm">{scheduledDate}</p>
+          <p className="text-[#94a3b8] text-sm">{scheduledDate}</p>
         </div>
         <span
           className={`inline-flex items-center rounded-full px-3 py-1 font-semibold text-xs ${(() => {
             const status = optimisticBooking.status;
             if (status === "confirmed") {
-              return "bg-green-100 text-green-800";
+              return "bg-[#64748b]/10 text-[#64748b]";
             }
             if (status === "in_progress") {
-              return "bg-blue-100 text-blue-800";
+              return "bg-[#f8fafc] text-[#64748b]";
             }
             if (status === "completed") {
-              return "bg-purple-100 text-purple-800";
+              return "bg-[#64748b]/10 text-[#64748b]";
             }
-            return "bg-gray-100 text-gray-800";
+            return "bg-[#e2e8f0]/30 text-[#0f172a]";
           })()}`}
         >
           {optimisticBooking.status.replace(/_/g, " ")}
@@ -263,7 +263,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       {/* Address */}
       {optimisticBooking.address && (
         <div className="mb-4">
-          <p className="text-gray-600 text-sm">
+          <p className="text-[#94a3b8] text-sm">
             📍{" "}
             {typeof optimisticBooking.address === "object" &&
             "formatted" in optimisticBooking.address
@@ -275,22 +275,22 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
       {/* Timer for in_progress bookings */}
       {optimisticBooking.status === "in_progress" && (
-        <div className="mb-4 rounded-lg bg-blue-50 p-4">
+        <div className="mb-4 rounded-lg bg-[#f8fafc] p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-blue-900 text-sm">Service in progress</p>
-              <p className="text-blue-700 text-xs">
+              <p className="font-medium text-[#64748b] text-sm">Service in progress</p>
+              <p className="text-[#64748b] text-xs">
                 Planned: {formatDuration(totalPlannedMinutes)}
               </p>
             </div>
             <div className="text-right">
               <p
-                className={`font-bold text-2xl ${isOvertime ? "text-[#E85D48]" : "text-blue-900"}`}
+                className={`font-bold text-2xl ${isOvertime ? "text-[#64748b]" : "text-[#64748b]"}`}
               >
                 {formatDuration(elapsedTime)}
               </p>
               {isOvertime && (
-                <p className="font-semibold text-[#E85D48] text-xs">
+                <p className="font-semibold text-[#64748b] text-xs">
                   +{formatDuration(elapsedTime - totalPlannedMinutes)} overtime
                 </p>
               )}
@@ -304,8 +304,8 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
         <div
           className={`mb-4 rounded-lg p-3 text-sm ${
             message.type === "success"
-              ? "bg-green-50 text-green-800"
-              : "bg-[#E85D48]/10 text-red-800"
+              ? "bg-[#64748b]/10 text-[#64748b]"
+              : "bg-[#64748b]/10 text-[#64748b]"
           }`}
         >
           {message.text}
@@ -313,7 +313,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       )}
 
       {gpsError && (
-        <div className="mb-4 rounded-lg bg-yellow-50 p-3 text-sm text-yellow-800">
+        <div className="mb-4 rounded-lg bg-[#64748b]/5 p-3 text-[#64748b] text-sm">
           <p className="font-medium">Location Access Required</p>
           <p>{gpsError}</p>
         </div>
@@ -324,7 +324,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
         {/* Check-in button for confirmed bookings */}
         {optimisticBooking.status === "confirmed" && (
           <button
-            className="w-full rounded-lg bg-green-600 px-4 py-3 font-semibold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-70"
+            className="w-full rounded-lg bg-[#64748b] px-4 py-3 font-semibold text-[#f8fafc] transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={loading}
             onClick={handleCheckIn}
             type="button"
@@ -338,7 +338,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
           <>
             {/* Extend Time Button */}
             <button
-              className="w-full rounded-lg border-2 border-[#E85D48] bg-white px-4 py-3 font-semibold text-[#E85D48] transition hover:bg-[#E85D48] hover:text-white"
+              className="w-full rounded-lg border-2 border-[#64748b] bg-[#f8fafc] px-4 py-3 font-semibold text-[#64748b] transition hover:bg-[#64748b] hover:text-[#f8fafc]"
               onClick={() => setShowTimeExtensionModal(true)}
               type="button"
             >
@@ -347,7 +347,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
             {/* Check-out button */}
             <button
-              className="w-full rounded-lg bg-[#E85D48] px-4 py-3 font-semibold text-white transition hover:bg-[#D64A36] disabled:cursor-not-allowed disabled:opacity-70"
+              className="w-full rounded-lg bg-[#64748b] px-4 py-3 font-semibold text-[#f8fafc] transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-70"
               disabled={loading}
               onClick={() => handleCheckOut()}
               type="button"

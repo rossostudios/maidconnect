@@ -6,17 +6,7 @@ import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 import type { AppRole } from "@/lib/auth";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
-// Dynamically import heavy command palette components
-const CommandPalette = dynamic(
-  () =>
-    import("@/components/command-palette/command-palette").then((mod) => ({
-      default: mod.CommandPalette,
-    })),
-  {
-    ssr: false,
-  }
-);
-
+// Dynamically import keyboard shortcuts panel
 const KeyboardShortcutsPanel = dynamic(
   () =>
     import("@/components/keyboard-shortcuts/keyboard-shortcuts-panel").then((mod) => ({
@@ -118,16 +108,6 @@ export function KeyboardShortcutsProvider({ children }: { children: React.ReactN
   return (
     <KeyboardShortcutsContext.Provider value={contextValue}>
       {children}
-
-      {/* Command Palette (⌘K) - only mount when opened */}
-      {shortcuts.commandPaletteOpen && (
-        <CommandPalette
-          dashboardPath={dashboardPath}
-          onClose={shortcuts.closeCommandPalette}
-          open={shortcuts.commandPaletteOpen}
-          role={role}
-        />
-      )}
 
       {/* Keyboard Shortcuts Panel (?) - only mount when opened */}
       {shortcuts.shortcutsPanelOpen && (

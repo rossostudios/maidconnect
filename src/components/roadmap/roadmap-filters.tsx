@@ -87,12 +87,12 @@ export function RoadmapFilters({
       {/* Search bar - Auto Layout: Horizontal stack, padding 12px, gap 8px */}
       <div className="relative">
         <div
-          className={`relative flex items-center gap-2 rounded-[16px] border-2 bg-white px-4 py-3 transition-all ${isSearchFocused ? "border-[#E85D48]" : "border-[#ebe5d8]"}
+          className={`relative flex items-center gap-2 rounded-[16px] border-2 bg-[#f8fafc] px-4 py-3 transition-all ${isSearchFocused ? "border-[#64748b]" : "border-[#e2e8f0]"}
         `}
         >
-          <HugeiconsIcon className="flex-shrink-0 text-[#6B7280]" icon={Search01Icon} size={20} />
+          <HugeiconsIcon className="flex-shrink-0 text-[#94a3b8]" icon={Search01Icon} size={20} />
           <input
-            className="flex-1 bg-transparent text-gray-900 outline-none placeholder:text-[#9CA3AF]"
+            className="flex-1 bg-transparent text-[#0f172a] outline-none placeholder:text-[#94a3b8]"
             onBlur={() => setIsSearchFocused(false)}
             onChange={(e) => onSearchChange(e.target.value)}
             onFocus={() => setIsSearchFocused(true)}
@@ -103,11 +103,11 @@ export function RoadmapFilters({
           {searchQuery && (
             <button
               aria-label="Clear search"
-              className="rounded-lg p-1 transition-colors hover:bg-[#f3f4f6]"
+              className="rounded-lg p-1 transition-colors hover:bg-[#f8fafc]"
               onClick={() => onSearchChange("")}
               type="button"
             >
-              <HugeiconsIcon className="text-[#6B7280]" icon={Cancel01Icon} size={16} />
+              <HugeiconsIcon className="text-[#94a3b8]" icon={Cancel01Icon} size={16} />
             </button>
           )}
         </div>
@@ -115,7 +115,7 @@ export function RoadmapFilters({
 
       {/* Status filters - Auto Layout: Vertical stack, gap 12px */}
       <div className="flex flex-col gap-3">
-        <h3 className="font-semibold text-gray-900 text-sm">Filter by Status</h3>
+        <h3 className="font-semibold text-[#0f172a] text-sm">Filter by Status</h3>
         {/* Auto Layout: Wrap, gap 8px */}
         <div className="flex flex-wrap gap-2">
           {(Object.keys(ROADMAP_STATUS_CONFIG) as RoadmapStatus[]).map((status) => {
@@ -127,8 +127,8 @@ export function RoadmapFilters({
               <button
                 className={`inline-flex items-center gap-1.5 rounded-[12px] border-2 px-3 py-2 font-medium text-sm transition-all duration-200 ${
                   isSelected
-                    ? "border-[#E85D48] bg-[#fff5f3] text-[#E85D48]"
-                    : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#E85D48]"
+                    ? "border-[#64748b] bg-[#f8fafc] text-[#64748b]"
+                    : "border-[#e2e8f0] bg-[#f8fafc] text-[#94a3b8] hover:border-[#64748b]"
                 }
                 `}
                 key={status}
@@ -145,7 +145,7 @@ export function RoadmapFilters({
 
       {/* Category filters - Auto Layout: Vertical stack, gap 12px */}
       <div className="flex flex-col gap-3">
-        <h3 className="font-semibold text-gray-900 text-sm">Filter by Category</h3>
+        <h3 className="font-semibold text-[#0f172a] text-sm">Filter by Category</h3>
         {/* Auto Layout: Wrap, gap 8px */}
         <div className="flex flex-wrap gap-2">
           {(Object.keys(ROADMAP_CATEGORY_CONFIG) as RoadmapCategory[]).map((category) => {
@@ -157,8 +157,8 @@ export function RoadmapFilters({
               <button
                 className={`inline-flex items-center gap-1.5 rounded-[12px] border-2 px-3 py-2 font-medium text-sm transition-all duration-200 ${
                   isSelected
-                    ? "border-[#E85D48] bg-[#fff5f3] text-[#E85D48]"
-                    : "border-[#ebe5d8] bg-white text-[#6B7280] hover:border-[#E85D48]"
+                    ? "border-[#64748b] bg-[#f8fafc] text-[#64748b]"
+                    : "border-[#e2e8f0] bg-[#f8fafc] text-[#94a3b8] hover:border-[#64748b]"
                 }
                 `}
                 key={category}
@@ -176,7 +176,7 @@ export function RoadmapFilters({
       {/* Clear filters - Auto Layout: Hug content */}
       {hasActiveFilters && (
         <button
-          className="self-start font-medium text-[#E85D48] text-sm transition-colors hover:text-[#E85D48]"
+          className="self-start font-medium text-[#64748b] text-sm transition-colors hover:text-[#64748b]"
           onClick={clearAllFilters}
           type="button"
         >

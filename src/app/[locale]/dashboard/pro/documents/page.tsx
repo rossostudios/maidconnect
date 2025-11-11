@@ -17,7 +17,7 @@ const DocumentsTable = dynamic(
     })),
   {
     loading: () => (
-      <div className="h-[400px] w-full animate-pulse rounded-lg bg-gradient-to-br from-[#ebe5d8]/30 to-[#ebe5d8]/10" />
+      <div className="h-[400px] w-full animate-pulse rounded-lg bg-gradient-to-br from-[#EE44EE2E3]/30 to-[#EE44EE2E3]/10" />
     ),
   }
 );
@@ -85,18 +85,18 @@ export default async function ProDocumentsPage({
     <section className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="font-semibold text-3xl text-gray-900">{t("title")}</h1>
-          <p className="mt-2 text-base text-gray-600 leading-relaxed">{t("description")}</p>
+          <h1 className="font-semibold text-3xl text-[#116611616]">{t("title")}</h1>
+          <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">{t("description")}</p>
         </div>
         <Link
-          className="inline-flex items-center justify-center rounded-full bg-[#E85D48] px-6 py-3 font-semibold text-sm text-white shadow-[0_6px_18px_rgba(255,93,70,0.22)] transition hover:bg-[#D64A36]"
+          className="inline-flex items-center justify-center rounded-full bg-[#FF4444A22] px-6 py-3 font-semibold text-[#FFEEFF8E8] text-sm shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[#FF4444A22]"
           href="/dashboard/pro/onboarding"
         >
           {t("uploadButton")}
         </Link>
       </div>
 
-      <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
+      <div className="rounded-[28px] bg-[#FFEEFF8E8] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
         <DocumentsTable documents={documents} labels={DOCUMENT_LABELS} />
       </div>
     </section>

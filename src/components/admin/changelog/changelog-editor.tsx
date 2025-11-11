@@ -36,11 +36,31 @@ type ChangelogEditorProps = {
 };
 
 const categoryOptions = [
-  { value: "features", label: "Features", icon: MagicWand01Icon, color: "text-purple-600" },
-  { value: "improvements", label: "Improvements", icon: FlashIcon, color: "text-blue-600" },
-  { value: "fixes", label: "Fixes", icon: Bug01Icon, color: "text-green-600" },
-  { value: "security", label: "Security", icon: Shield01Icon, color: "text-[#E85D48]" },
-  { value: "design", label: "Design", icon: PaintBoardIcon, color: "text-pink-600" },
+  {
+    value: "features",
+    label: "Features",
+    icon: MagicWand01Icon,
+    color: "text-slate-900 dark:text-slate-100",
+  },
+  {
+    value: "improvements",
+    label: "Improvements",
+    icon: FlashIcon,
+    color: "text-slate-900 dark:text-slate-100",
+  },
+  { value: "fixes", label: "Fixes", icon: Bug01Icon, color: "text-slate-900 dark:text-slate-100" },
+  {
+    value: "security",
+    label: "Security",
+    icon: Shield01Icon,
+    color: "text-slate-900 dark:text-slate-100",
+  },
+  {
+    value: "design",
+    label: "Design",
+    icon: PaintBoardIcon,
+    color: "text-slate-900 dark:text-slate-100",
+  },
 ];
 
 const audienceOptions = [
@@ -156,27 +176,29 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
   return (
     <div className="mx-auto max-w-4xl">
       {error && (
-        <div className="mb-6 rounded-2xl border border-red-200 bg-[#E85D48]/10 p-4 text-red-700 text-sm">
+        <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 p-4 text-red-700 text-sm dark:border-red-800 dark:bg-red-950 dark:text-red-200">
           {error}
         </div>
       )}
 
       <form className="space-y-6">
         {/* Basic Info */}
-        <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-          <h3 className="mb-4 font-bold text-gray-900 text-lg">Basic Information</h3>
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
+          <h3 className="mb-4 font-bold text-lg text-slate-900 dark:text-slate-100">
+            Basic Information
+          </h3>
 
           <div className="space-y-4">
             {/* Sprint Number */}
             <div>
               <label
-                className="mb-2 block font-medium text-gray-900 text-sm"
+                className="mb-2 block font-medium text-red-700 text-sm dark:text-red-200"
                 htmlFor="sprint_number"
               >
                 Sprint Number *
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-gray-900 focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
                 id="sprint_number"
                 min="1"
                 onChange={(e) =>
@@ -193,11 +215,14 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
             {/* Title */}
             <div>
-              <label className="mb-2 block font-medium text-gray-900 text-sm" htmlFor="title">
+              <label
+                className="mb-2 block font-medium text-red-700 text-sm dark:text-red-200"
+                htmlFor="title"
+              >
                 Title *
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-gray-900 focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
                 id="title"
                 onChange={(e) => handleTitleChange(e.target.value)}
                 placeholder="e.g., Enhanced Search and New Dashboard Features"
@@ -209,11 +234,14 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
             {/* Slug */}
             <div>
-              <label className="mb-2 block font-medium text-gray-900 text-sm" htmlFor="slug">
+              <label
+                className="mb-2 block font-medium text-red-700 text-sm dark:text-red-200"
+                htmlFor="slug"
+              >
                 Slug *
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] bg-[#fbf9f7] px-4 py-3 font-mono text-gray-600 text-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-mono text-slate-600 text-sm focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400 dark:focus:ring-slate-400/20"
                 id="slug"
                 onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                 placeholder="auto-generated-from-title"
@@ -221,18 +249,21 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 type="text"
                 value={formData.slug}
               />
-              <p className="mt-1 text-[#7a6d62] text-xs">
+              <p className="mt-1 text-slate-600 text-xs dark:text-slate-400">
                 URL-friendly version of the title (auto-generated)
               </p>
             </div>
 
             {/* Summary */}
             <div>
-              <label className="mb-2 block font-medium text-gray-900 text-sm" htmlFor="summary">
+              <label
+                className="mb-2 block font-medium text-red-700 text-sm dark:text-red-200"
+                htmlFor="summary"
+              >
                 Summary
               </label>
               <textarea
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-gray-900 focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
                 id="summary"
                 onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
                 placeholder="Brief overview of this update (shown in list view)"
@@ -244,13 +275,13 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             {/* Published Date */}
             <div>
               <label
-                className="mb-2 block font-medium text-gray-900 text-sm"
+                className="mb-2 block font-medium text-red-700 text-sm dark:text-red-200"
                 htmlFor="published_at"
               >
                 Published Date *
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-gray-900 focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
                 id="published_at"
                 onChange={(e) => setFormData({ ...formData, published_at: e.target.value })}
                 required
@@ -262,11 +293,11 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         </div>
 
         {/* Content */}
-        <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
           <div className="mb-4 flex items-center justify-between">
-            <h3 className="font-bold text-gray-900 text-lg">Content *</h3>
+            <h3 className="font-bold text-lg text-slate-900 dark:text-slate-100">Content *</h3>
             <button
-              className="flex items-center gap-2 rounded-lg border border-[#ebe5d8] px-3 py-1.5 text-gray-600 text-sm transition hover:border-[#E85D48]"
+              className="flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-1.5 text-slate-600 text-sm transition hover:border-slate-900 dark:border-slate-100 dark:border-slate-800 dark:text-slate-400"
               onClick={() => setShowPreview(!showPreview)}
               type="button"
             >
@@ -277,12 +308,12 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
           {showPreview ? (
             <div
-              className="prose prose-lg max-w-none rounded-xl border border-[#ebe5d8] bg-[#fbf9f7] p-6"
+              className="prose prose-lg max-w-none rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950"
               dangerouslySetInnerHTML={{ __html: sanitizeRichContent(formData.content) }}
             />
           ) : (
             <textarea
-              className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 font-mono text-gray-900 text-sm focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+              className="w-full rounded-xl border border-slate-200 px-4 py-3 font-mono text-red-700 text-sm focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-red-200 dark:focus:ring-slate-400/20"
               id="content"
               onChange={(e) => setFormData({ ...formData, content: e.target.value })}
               placeholder="Write your changelog content here (supports HTML)..."
@@ -292,12 +323,14 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             />
           )}
 
-          <p className="mt-2 text-[#7a6d62] text-xs">Supports HTML formatting</p>
+          <p className="mt-2 text-slate-600 text-xs dark:text-slate-400">
+            Supports HTML formatting
+          </p>
         </div>
 
         {/* Categories */}
-        <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-          <h3 className="mb-4 font-bold text-gray-900 text-lg">Categories</h3>
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
+          <h3 className="mb-4 font-bold text-lg text-slate-900 dark:text-slate-100">Categories</h3>
           <div className="flex flex-wrap gap-3">
             {categoryOptions.map((option) => {
               const isSelected = formData.categories.includes(option.value);
@@ -306,8 +339,8 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 <button
                   className={`flex items-center gap-2 rounded-full border-2 px-4 py-2 font-medium text-sm transition ${
                     isSelected
-                      ? "border-[#E85D48] bg-[#E85D48] text-white"
-                      : "border-[#ebe5d8] text-gray-600 hover:border-[#E85D48]"
+                      ? "border-slate-900 bg-slate-900 text-white dark:border-slate-100 dark:bg-slate-100 dark:text-slate-950"
+                      : "border-slate-200 text-slate-600 hover:border-slate-900 dark:border-slate-100 dark:border-slate-800 dark:text-slate-400"
                   }`}
                   key={option.value}
                   onClick={() => handleCategoryToggle(option.value)}
@@ -322,17 +355,20 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         </div>
 
         {/* Tags & Audience */}
-        <div className="rounded-2xl border border-[#ebe5d8] bg-white p-6">
-          <h3 className="mb-4 font-bold text-gray-900 text-lg">Metadata</h3>
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
+          <h3 className="mb-4 font-bold text-lg text-slate-900 dark:text-slate-100">Metadata</h3>
 
           <div className="space-y-4">
             {/* Tags */}
             <div>
-              <label className="mb-2 block font-medium text-gray-900 text-sm" htmlFor="tags">
+              <label
+                className="mb-2 block font-medium text-red-700 text-sm dark:text-red-200"
+                htmlFor="tags"
+              >
                 Tags
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-gray-900 focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
                 id="tags"
                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
                 placeholder="performance, ui, mobile (comma-separated)"
@@ -343,7 +379,9 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
             {/* Target Audience */}
             <div>
-              <div className="mb-2 block font-medium text-gray-900 text-sm">Target Audience</div>
+              <div className="mb-2 block font-medium text-red-700 text-sm dark:text-red-200">
+                Target Audience
+              </div>
               <div className="flex flex-wrap gap-2">
                 {audienceOptions.map((option) => {
                   const isSelected = formData.target_audience.includes(option.value);
@@ -352,8 +390,8 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                     <button
                       className={`rounded-lg border-2 px-3 py-1.5 font-medium text-sm transition ${
                         isSelected
-                          ? "border-[#E85D48] bg-[#E85D48]/20 text-[#E85D48]"
-                          : "border-[#ebe5d8] text-gray-600 hover:border-[#E85D48]"
+                          ? "border-slate-900 bg-slate-100 text-slate-900 dark:border-slate-100 dark:bg-slate-800 dark:text-slate-100"
+                          : "border-slate-200 text-slate-600 hover:border-slate-900 dark:border-slate-100 dark:border-slate-800 dark:text-slate-400"
                       }`}
                       key={option.value}
                       onClick={() => handleAudienceToggle(option.value)}
@@ -369,13 +407,13 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             {/* Featured Image URL */}
             <div>
               <label
-                className="mb-2 block font-medium text-gray-900 text-sm"
+                className="mb-2 block font-medium text-red-700 text-sm dark:text-red-200"
                 htmlFor="featured_image_url"
               >
                 Featured Image URL
               </label>
               <input
-                className="w-full rounded-xl border border-[#ebe5d8] px-4 py-3 text-gray-900 focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
                 id="featured_image_url"
                 onChange={(e) => setFormData({ ...formData, featured_image_url: e.target.value })}
                 placeholder="https://example.com/image.jpg"
@@ -387,9 +425,9 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-between gap-4 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+        <div className="flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
           <button
-            className="rounded-full border border-[#ebe5d8] px-6 py-2.5 font-semibold text-gray-600 transition hover:border-[#E85D48]"
+            className="rounded-full border border-slate-200 px-6 py-2.5 font-semibold text-slate-600 transition hover:border-slate-900 dark:border-slate-100 dark:border-slate-800 dark:text-slate-400"
             disabled={saving}
             onClick={() => router.back()}
             type="button"
@@ -399,7 +437,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
           <div className="flex gap-3">
             <button
-              className="flex items-center gap-2 rounded-full border-2 border-[#ebe5d8] bg-white px-6 py-2.5 font-semibold text-gray-900 transition hover:border-[#E85D48] disabled:opacity-50"
+              className="flex items-center gap-2 rounded-full border-2 border-slate-200 bg-white px-6 py-2.5 font-semibold text-slate-900 transition hover:border-slate-900 disabled:opacity-50 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
               disabled={saving}
               onClick={(e) => handleSubmit(e, "draft")}
               type="button"
@@ -418,7 +456,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             </button>
 
             <button
-              className="flex items-center gap-2 rounded-full bg-[#E85D48] px-6 py-2.5 font-semibold text-white transition hover:bg-[#E85D48] disabled:opacity-50"
+              className="flex items-center gap-2 rounded-full bg-slate-900 px-6 py-2.5 font-semibold text-white transition hover:bg-slate-900 disabled:opacity-50 dark:bg-slate-100 dark:bg-slate-100 dark:text-slate-950"
               disabled={saving}
               onClick={(e) => handleSubmit(e, "published")}
               type="button"

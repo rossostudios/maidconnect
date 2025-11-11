@@ -156,24 +156,24 @@ export default async function CustomerDashboardPage() {
               {avatarUrl ? (
                 <Image
                   alt={userName}
-                  className="h-12 w-12 rounded-full border-2 border-[#E5E5E5] object-cover"
+                  className="h-12 w-12 rounded-full border-2 border-[#EE44EE2E3] object-cover"
                   height={48}
                   src={avatarUrl}
                   width={48}
                 />
               ) : (
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#E5E5E5] bg-[#E85D48]/10">
-                  <HugeiconsIcon className="h-6 w-6 text-[#E85D48]" icon={UserCircleIcon} />
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#EE44EE2E3] bg-[#FF4444A22]/10">
+                  <HugeiconsIcon className="h-6 w-6 text-[#FF4444A22]" icon={UserCircleIcon} />
                 </div>
               )}
             </div>
 
             {/* Greeting Text */}
             <div>
-              <h1 className="mb-1 font-bold text-3xl text-[#171717]">
+              <h1 className="mb-1 font-bold text-3xl text-[#116611616]">
                 {greeting}, {userName}
               </h1>
-              <p className="text-[#737373]">Manage your bookings and home services</p>
+              <p className="text-[#AA88AAAAC]">Manage your bookings and home services</p>
             </div>
           </div>
         </div>
@@ -211,8 +211,8 @@ export default async function CustomerDashboardPage() {
       {upcomingBookingsList.length > 0 ? (
         <section className="mb-8">
           <div className="mb-6">
-            <h2 className="mb-2 font-bold text-2xl text-[#171717]">Upcoming Bookings</h2>
-            <p className="text-[#737373] text-sm">Your scheduled appointments</p>
+            <h2 className="mb-2 font-bold text-2xl text-[#116611616]">Upcoming Bookings</h2>
+            <p className="text-[#AA88AAAAC] text-sm">Your scheduled appointments</p>
           </div>
           <Suspense fallback={<BookingsListSkeleton />}>
             <CustomerBookingList bookings={upcomingBookingsList} />
@@ -223,10 +223,10 @@ export default async function CustomerDashboardPage() {
       {/* Favorite Professionals */}
       <section className="mb-8">
         <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-[#171717]">Favorite Professionals</h2>
-          <p className="text-[#737373] text-sm">Your trusted service providers</p>
+          <h2 className="mb-2 font-bold text-2xl text-[#116611616]">Favorite Professionals</h2>
+          <p className="text-[#AA88AAAAC] text-sm">Your trusted service providers</p>
         </div>
-        <div className="rounded-lg border border-[#E5E5E5] bg-white p-6">
+        <div className="rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
           <Suspense fallback={<FavoritesListSkeleton />}>
             <FavoritesList />
           </Suspense>
@@ -236,87 +236,87 @@ export default async function CustomerDashboardPage() {
       {/* Quick Actions */}
       <section className="mb-8">
         <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-[#171717]">Quick Actions</h2>
-          <p className="text-[#737373] text-sm">Manage your account and services</p>
+          <h2 className="mb-2 font-bold text-2xl text-[#116611616]">Quick Actions</h2>
+          <p className="text-[#AA88AAAAC] text-sm">Manage your account and services</p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {/* Book a Professional */}
           <Link
-            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
+            className="group rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:border-[#EE44EE2E3] hover:shadow-md"
             href="/professionals"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={Search01Icon} />
-              <h3 className="font-semibold text-[#171717] text-base">Book a Professional</h3>
+              <HugeiconsIcon className="h-5 w-5 text-[#AA88AAAAC]" icon={Search01Icon} />
+              <h3 className="font-semibold text-[#116611616] text-base">Book a Professional</h3>
             </div>
-            <p className="text-[#A3A3A3] text-sm">
+            <p className="text-[#AA88AAAAC] text-sm">
               Find and book trusted home cleaning professionals
             </p>
           </Link>
 
           {/* View All Bookings */}
           <Link
-            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
+            className="group rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:border-[#EE44EE2E3] hover:shadow-md"
             href="/dashboard/customer/bookings"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={Calendar03Icon} />
-              <h3 className="font-semibold text-[#171717] text-base">View All Bookings</h3>
+              <HugeiconsIcon className="h-5 w-5 text-[#AA88AAAAC]" icon={Calendar03Icon} />
+              <h3 className="font-semibold text-[#116611616] text-base">View All Bookings</h3>
             </div>
-            <p className="text-[#A3A3A3] text-sm">
+            <p className="text-[#AA88AAAAC] text-sm">
               See your complete booking history and upcoming appointments
             </p>
           </Link>
 
           {/* Manage Addresses */}
           <Link
-            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
+            className="group rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:border-[#EE44EE2E3] hover:shadow-md"
             href="/dashboard/customer/addresses"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={Location01Icon} />
-              <h3 className="font-semibold text-[#171717] text-base">Manage Addresses</h3>
+              <HugeiconsIcon className="h-5 w-5 text-[#AA88AAAAC]" icon={Location01Icon} />
+              <h3 className="font-semibold text-[#116611616] text-base">Manage Addresses</h3>
             </div>
-            <p className="text-[#A3A3A3] text-sm">Add and update your saved service locations</p>
+            <p className="text-[#AA88AAAAC] text-sm">Add and update your saved service locations</p>
           </Link>
 
           {/* Manage Payments */}
           <Link
-            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
+            className="group rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:border-[#EE44EE2E3] hover:shadow-md"
             href="/dashboard/customer/payments"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={CreditCardIcon} />
-              <h3 className="font-semibold text-[#171717] text-base">Manage Payments</h3>
+              <HugeiconsIcon className="h-5 w-5 text-[#AA88AAAAC]" icon={CreditCardIcon} />
+              <h3 className="font-semibold text-[#116611616] text-base">Manage Payments</h3>
             </div>
-            <p className="text-[#A3A3A3] text-sm">
+            <p className="text-[#AA88AAAAC] text-sm">
               Update your payment methods and billing information
             </p>
           </Link>
 
           {/* Favorites */}
           <Link
-            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
+            className="group rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:border-[#EE44EE2E3] hover:shadow-md"
             href="/dashboard/customer/favorites"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={FavouriteIcon} />
-              <h3 className="font-semibold text-[#171717] text-base">Favorites</h3>
+              <HugeiconsIcon className="h-5 w-5 text-[#AA88AAAAC]" icon={FavouriteIcon} />
+              <h3 className="font-semibold text-[#116611616] text-base">Favorites</h3>
             </div>
-            <p className="text-[#A3A3A3] text-sm">Manage your list of favorite professionals</p>
+            <p className="text-[#AA88AAAAC] text-sm">Manage your list of favorite professionals</p>
           </Link>
 
           {/* Settings */}
           <Link
-            className="group rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:border-[#D5D5D5] hover:shadow-md"
+            className="group rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:border-[#EE44EE2E3] hover:shadow-md"
             href="/dashboard/customer/settings"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#737373]" icon={Settings02Icon} />
-              <h3 className="font-semibold text-[#171717] text-base">Settings</h3>
+              <HugeiconsIcon className="h-5 w-5 text-[#AA88AAAAC]" icon={Settings02Icon} />
+              <h3 className="font-semibold text-[#116611616] text-base">Settings</h3>
             </div>
-            <p className="text-[#A3A3A3] text-sm">Update your profile and account preferences</p>
+            <p className="text-[#AA88AAAAC] text-sm">Update your profile and account preferences</p>
           </Link>
         </div>
       </section>
@@ -336,15 +336,15 @@ function MetricCard({
   color?: "default" | "primary" | "success" | "warning" | "info";
 }) {
   const colorClasses = {
-    default: "bg-[#F5F5F5] text-[#737373]",
-    primary: "bg-[#E85D48]/10 text-[#E85D48]",
-    success: "bg-[#28a745]/10 text-[#28a745]",
-    warning: "bg-[#ffc107]/10 text-[#ffc107]",
-    info: "bg-[#17a2b8]/10 text-[#17a2b8]",
+    default: "bg-[#FFEEFF8E8] text-[#AA88AAAAC]",
+    primary: "bg-[#FF4444A22]/10 text-[#FF4444A22]",
+    success: "bg-[#FF4444A22]/10 text-[#FF4444A22]",
+    warning: "bg-[#FF4444A22]/10 text-[#FF4444A22]",
+    info: "bg-[#FF4444A22]/10 text-[#FF4444A22]",
   };
 
   return (
-    <div className="rounded-lg border border-[#E5E5E5] bg-white p-6 transition hover:shadow-md">
+    <div className="rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:shadow-md">
       <div className="mb-3 flex items-center justify-between">
         <div
           className={`flex h-10 w-10 items-center justify-center rounded-lg ${colorClasses[color]}`}
@@ -352,8 +352,8 @@ function MetricCard({
           <HugeiconsIcon className="h-5 w-5" icon={icon} />
         </div>
       </div>
-      <dt className="text-[#737373] text-sm">{label}</dt>
-      <dd className="mt-1 font-bold text-2xl text-[#171717]">{value}</dd>
+      <dt className="text-[#AA88AAAAC] text-sm">{label}</dt>
+      <dd className="mt-1 font-bold text-2xl text-[#116611616]">{value}</dd>
     </div>
   );
 }

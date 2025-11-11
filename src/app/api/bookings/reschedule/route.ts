@@ -13,6 +13,22 @@ import { sendBookingRescheduleEmail } from "@/lib/email/send";
 import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
 import { notifyProfessionalBookingRescheduled } from "@/lib/notifications";
 
+// Type for booking with joined profile data
+type BookingWithProfiles = {
+  id: string;
+  customer_id: string;
+  professional_id: string;
+  status: string;
+  scheduled_start: string;
+  duration_minutes: number;
+  service_name: string | null;
+  address_line1: string | null;
+  address_line2: string | null;
+  address_city: string | null;
+  customer_profiles: { full_name: string } | null;
+  professional_profiles: { full_name: string } | null;
+};
+
 const rescheduleBookingSchema = z.object({
   bookingId: z.string().uuid("Invalid booking ID format"),
   newScheduledStart: z.string().datetime("Invalid datetime format for newScheduledStart"),
@@ -33,7 +49,7 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
   }
 
   // Fetch the booking with names and address
-  const booking = await requireCustomerOwnership(
+  const booking = await requireCustomerOwnership<BookingWithProfiles>(
     supabase,
     user.id,
     bookingId,
@@ -90,8 +106,8 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
     const professionalEmail = professionalAuth?.user?.email;
 
     if (professionalEmail) {
-      const customerName = (booking.customer_profiles as any)?.full_name || "Customer";
-      const professionalName = (booking.professional_profiles as any)?.full_name || "Professional";
+      const customerName = booking.customer_profiles?.full_name || "Customer";
+      const professionalName = booking.professional_profiles?.full_name || "Professional";
       const address = [booking.address_line1, booking.address_line2, booking.address_city]
         .filter(Boolean)
         .join(", ");
@@ -125,7 +141,7 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
   }
 
   // Send in-app notification to professional
-  const customerName = (booking.customer_profiles as any)?.full_name || "Customer";
+  const customerName = booking.customer_profiles?.full_name || "Customer";
   await notifyProfessionalBookingRescheduled(booking.professional_id, {
     id: booking.id,
     serviceName: booking.service_name || "Service",

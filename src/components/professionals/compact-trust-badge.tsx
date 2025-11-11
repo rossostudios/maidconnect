@@ -7,6 +7,8 @@
  * Sprint 1: Trust & Conversion improvement
  */
 
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import type { VerificationLevel } from "./verification-badge";
 
 type CompactTrustBadgeProps = {
@@ -15,6 +17,7 @@ type CompactTrustBadgeProps = {
   rating: number;
   reviewCount: number;
   services?: string[];
+  className?: string;
 };
 
 export function CompactTrustBadge({
@@ -23,6 +26,7 @@ export function CompactTrustBadge({
   rating,
   reviewCount,
   services = [],
+  className,
 }: CompactTrustBadgeProps) {
   const badges: string[] = [];
 
@@ -73,11 +77,13 @@ export function CompactTrustBadge({
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2 text-[#5a5549] text-sm">
+    <div className={cn("flex flex-wrap items-center gap-2", className)}>
       {badges.map((badge, index) => (
-        <span key={index}>
-          {badge}
-          {index < badges.length - 1 && <span className="mx-2 text-[#9d9383]">·</span>}
+        <span className="flex items-center text-slate-700 text-sm" key={index}>
+          <Badge className="bg-slate-100 text-slate-700 hover:bg-slate-200" variant="secondary">
+            {badge}
+          </Badge>
+          {index < badges.length - 1 && <span className="mx-2 text-slate-400">·</span>}
         </span>
       ))}
     </div>

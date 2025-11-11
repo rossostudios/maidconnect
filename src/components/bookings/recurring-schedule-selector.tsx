@@ -142,24 +142,24 @@ export function RecurringScheduleSelector({
     }).format(amount);
 
   return (
-    <div className="space-y-6 rounded-2xl border border-[#ebe5d8] bg-white p-6">
+    <div className="space-y-6 rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6">
       {/* Toggle Recurring */}
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <h3 className="font-semibold text-gray-900 text-lg">Recurring Booking</h3>
-          <p className="mt-1 text-[#7d7566] text-sm">
+          <h3 className="font-semibold text-[#0f172a] text-lg">Recurring Booking</h3>
+          <p className="mt-1 text-[#94a3b8] text-sm">
             Save up to 15% with weekly, biweekly, or monthly plans
           </p>
         </div>
         <button
           className={`relative h-7 w-12 rounded-full transition ${
-            isEnabled ? "bg-[#E85D48]" : "bg-[#e5dfd4]"
+            isEnabled ? "bg-[#64748b]" : "bg-[#e2e8f0]"
           }`}
           onClick={() => handleToggle(!isEnabled)}
           type="button"
         >
           <span
-            className={`absolute top-1 h-5 w-5 rounded-full bg-white transition ${
+            className={`absolute top-1 h-5 w-5 rounded-full bg-[#f8fafc] transition ${
               isEnabled ? "right-1" : "left-1"
             }`}
           />
@@ -170,23 +170,23 @@ export function RecurringScheduleSelector({
         <>
           {/* Frequency Selection */}
           <div className="space-y-3">
-            <div className="block font-medium text-gray-900 text-sm">Frequency</div>
+            <div className="block font-medium text-[#0f172a] text-sm">Frequency</div>
             <div className="grid grid-cols-3 gap-3">
               {(["weekly", "biweekly", "monthly"] as RecurringFrequency[]).map((freq) => (
                 <button
                   className={`flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition ${
                     frequency === freq
-                      ? "border-[#E85D48] bg-[#fff5f3]"
-                      : "border-[#e5dfd4] bg-white hover:border-[#d4cabb]"
+                      ? "border-[#64748b] bg-[#f8fafc]"
+                      : "border-[#e2e8f0] bg-[#f8fafc] hover:border-[#e2e8f0]"
                   }`}
                   key={freq}
                   onClick={() => handleFrequencyChange(freq)}
                   type="button"
                 >
-                  <span className="font-semibold text-gray-900 text-sm">
+                  <span className="font-semibold text-[#0f172a] text-sm">
                     {FREQUENCY_LABELS[freq]}
                   </span>
-                  <span className="font-medium text-[#00a651] text-xs">
+                  <span className="font-medium text-[#64748b] text-xs">
                     Save {(FREQUENCY_DISCOUNTS[freq] * 100).toFixed(0)}%
                   </span>
                 </button>
@@ -196,16 +196,16 @@ export function RecurringScheduleSelector({
 
           {/* Start Date */}
           <div className="space-y-3">
-            <label className="block font-medium text-gray-900 text-sm" htmlFor="start-date">
+            <label className="block font-medium text-[#0f172a] text-sm" htmlFor="start-date">
               Start Date
             </label>
             <div className="relative">
               <HugeiconsIcon
-                className="absolute top-3 left-3 h-5 w-5 text-[#7d7566]"
+                className="absolute top-3 left-3 h-5 w-5 text-[#94a3b8]"
                 icon={Calendar01Icon}
               />
               <input
-                className="w-full rounded-xl border border-[#e5dfd4] py-3 pr-4 pl-11 text-gray-900 transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                className="w-full rounded-xl border border-[#e2e8f0] py-3 pr-4 pl-11 text-[#0f172a] transition focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
                 id="start-date"
                 min={new Date().toISOString().split("T")[0]}
                 onChange={(e) => handleStartDateChange(e.target.value)}
@@ -218,14 +218,14 @@ export function RecurringScheduleSelector({
           {/* Day of Week (for weekly/biweekly) */}
           {frequency !== "monthly" && (
             <div className="space-y-3">
-              <div className="block font-medium text-gray-900 text-sm">Day of Week</div>
+              <div className="block font-medium text-[#0f172a] text-sm">Day of Week</div>
               <div className="grid grid-cols-7 gap-2">
                 {DAY_NAMES.map((day, index) => (
                   <button
                     className={`rounded-lg border-2 px-2 py-3 text-xs transition ${
                       dayOfWeek === index
-                        ? "border-[#E85D48] bg-[#fff5f3] font-semibold text-[#E85D48]"
-                        : "border-[#e5dfd4] bg-white text-[#7d7566] hover:border-[#d4cabb]"
+                        ? "border-[#64748b] bg-[#f8fafc] font-semibold text-[#64748b]"
+                        : "border-[#e2e8f0] bg-[#f8fafc] text-[#94a3b8] hover:border-[#e2e8f0]"
                     }`}
                     key={day}
                     onClick={() => handleDayOfWeekChange(index)}
@@ -240,13 +240,13 @@ export function RecurringScheduleSelector({
 
           {/* End Condition */}
           <div className="space-y-3">
-            <div className="block font-medium text-gray-900 text-sm">End Condition</div>
+            <div className="block font-medium text-[#0f172a] text-sm">End Condition</div>
             <div className="grid grid-cols-3 gap-3">
               <button
                 className={`rounded-xl border-2 px-4 py-3 text-sm transition ${
                   endType === "occurrences"
-                    ? "border-[#E85D48] bg-[#fff5f3] font-semibold text-[#E85D48]"
-                    : "border-[#e5dfd4] bg-white text-[#7d7566] hover:border-[#d4cabb]"
+                    ? "border-[#64748b] bg-[#f8fafc] font-semibold text-[#64748b]"
+                    : "border-[#e2e8f0] bg-[#f8fafc] text-[#94a3b8] hover:border-[#e2e8f0]"
                 }`}
                 onClick={() => handleEndTypeChange("occurrences")}
                 type="button"
@@ -256,8 +256,8 @@ export function RecurringScheduleSelector({
               <button
                 className={`rounded-xl border-2 px-4 py-3 text-sm transition ${
                   endType === "date"
-                    ? "border-[#E85D48] bg-[#fff5f3] font-semibold text-[#E85D48]"
-                    : "border-[#e5dfd4] bg-white text-[#7d7566] hover:border-[#d4cabb]"
+                    ? "border-[#64748b] bg-[#f8fafc] font-semibold text-[#64748b]"
+                    : "border-[#e2e8f0] bg-[#f8fafc] text-[#94a3b8] hover:border-[#e2e8f0]"
                 }`}
                 onClick={() => handleEndTypeChange("date")}
                 type="button"
@@ -267,8 +267,8 @@ export function RecurringScheduleSelector({
               <button
                 className={`rounded-xl border-2 px-4 py-3 text-sm transition ${
                   endType === "never"
-                    ? "border-[#E85D48] bg-[#fff5f3] font-semibold text-[#E85D48]"
-                    : "border-[#e5dfd4] bg-white text-[#7d7566] hover:border-[#d4cabb]"
+                    ? "border-[#64748b] bg-[#f8fafc] font-semibold text-[#64748b]"
+                    : "border-[#e2e8f0] bg-[#f8fafc] text-[#94a3b8] hover:border-[#e2e8f0]"
                 }`}
                 onClick={() => handleEndTypeChange("never")}
                 type="button"
@@ -280,7 +280,7 @@ export function RecurringScheduleSelector({
             {endType === "occurrences" && (
               <div className="mt-3">
                 <input
-                  className="w-full rounded-xl border border-[#e5dfd4] px-4 py-3 text-gray-900 transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                  className="w-full rounded-xl border border-[#e2e8f0] px-4 py-3 text-[#0f172a] transition focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
                   max="52"
                   min="2"
                   onChange={(e) => handleOccurrencesChange(Number(e.target.value))}
@@ -294,11 +294,11 @@ export function RecurringScheduleSelector({
             {endType === "date" && (
               <div className="relative mt-3">
                 <HugeiconsIcon
-                  className="absolute top-3 left-3 h-5 w-5 text-[#7d7566]"
+                  className="absolute top-3 left-3 h-5 w-5 text-[#94a3b8]"
                   icon={Calendar01Icon}
                 />
                 <input
-                  className="w-full rounded-xl border border-[#e5dfd4] py-3 pr-4 pl-11 text-gray-900 transition focus:border-[#E85D48] focus:outline-none focus:ring-2 focus:ring-[#E85D48]/20"
+                  className="w-full rounded-xl border border-[#e2e8f0] py-3 pr-4 pl-11 text-[#0f172a] transition focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
                   min={startDate}
                   onChange={(e) => handleEndDateChange(e.target.value)}
                   type="date"
@@ -309,28 +309,28 @@ export function RecurringScheduleSelector({
           </div>
 
           {/* Pricing Summary */}
-          <div className="space-y-4 rounded-xl bg-gradient-to-br from-[#fff5f3] to-[#fef8f6] p-5">
+          <div className="space-y-4 rounded-xl bg-gradient-to-br from-[bg-[#f8fafc]] to-[#f8fafc] p-5">
             <div className="flex items-start gap-3">
-              <div className="rounded-full bg-[#E85D48]/10 p-2">
-                <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={InformationCircleIcon} />
+              <div className="rounded-full bg-[#64748b]/10 p-2">
+                <HugeiconsIcon className="h-5 w-5 text-[#64748b]" icon={InformationCircleIcon} />
               </div>
               <div className="flex-1 space-y-2">
-                <h4 className="font-semibold text-gray-900">Your Savings</h4>
+                <h4 className="font-semibold text-[#0f172a]">Your Savings</h4>
                 <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-[#7d7566]">Regular price:</span>
-                    <span className="text-[#7d7566] line-through">{formatCurrency(basePrice)}</span>
+                    <span className="text-[#94a3b8]">Regular price:</span>
+                    <span className="text-[#94a3b8] line-through">{formatCurrency(basePrice)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-900">Your price:</span>
-                    <span className="font-semibold text-[#E85D48]">
+                    <span className="text-[#0f172a]">Your price:</span>
+                    <span className="font-semibold text-[#64748b]">
                       {formatCurrency(discountedPrice)}
                     </span>
                   </div>
                   {endType === "occurrences" && (
-                    <div className="flex justify-between border-[#e5dfd4] border-t pt-2">
-                      <span className="font-medium text-gray-900">Total savings:</span>
-                      <span className="font-bold text-[#00a651]">
+                    <div className="flex justify-between border-[#e2e8f0] border-t pt-2">
+                      <span className="font-medium text-[#0f172a]">Total savings:</span>
+                      <span className="font-bold text-[#64748b]">
                         {formatCurrency(totalSavings)}
                       </span>
                     </div>
@@ -339,7 +339,7 @@ export function RecurringScheduleSelector({
               </div>
             </div>
             {endType === "never" && (
-              <p className="text-[#7d7566] text-xs">Cancel anytime. No commitment required.</p>
+              <p className="text-[#94a3b8] text-xs">Cancel anytime. No commitment required.</p>
             )}
           </div>
         </>

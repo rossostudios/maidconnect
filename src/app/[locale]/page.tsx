@@ -96,7 +96,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   }
 
   return (
-    <div className="min-h-screen bg-stone-50 text-stone-900">
+    <div className="min-h-screen bg-[#FFEEFF8E8] text-[#116611616]">
       <SiteHeader />
       <main data-tour="welcome">
         <HeroSection />

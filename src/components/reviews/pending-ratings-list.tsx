@@ -34,9 +34,9 @@ export function PendingRatingsList({ completedBookings }: Props) {
   }
 
   return (
-    <div className="rounded-xl border border-[#f0ece5] bg-white/90 p-6 shadow-sm">
-      <h3 className="font-semibold text-gray-900 text-lg">{t("title")}</h3>
-      <p className="mt-1 text-[#7a6d62] text-sm">{t("description")}</p>
+    <div className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc]/90 p-6 shadow-sm">
+      <h3 className="font-semibold text-[#0f172a] text-lg">{t("title")}</h3>
+      <p className="mt-1 text-[#94a3b8] text-sm">{t("description")}</p>
 
       <div className="mt-4 space-y-3">
         {bookingsNeedingReviews.map((booking) => {
@@ -48,19 +48,19 @@ export function PendingRatingsList({ completedBookings }: Props) {
 
           return (
             <div
-              className="flex items-center justify-between rounded-lg border border-[#ebe5d8] bg-[#fbfafa] p-4"
+              className="flex items-center justify-between rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-4"
               key={booking.id}
             >
               <div>
-                <p className="font-medium text-gray-900">
+                <p className="font-medium text-[#0f172a]">
                   {booking.service_name || t("defaultService")}
                 </p>
-                <p className="text-[#7a6d62] text-sm">
+                <p className="text-[#94a3b8] text-sm">
                   {t("customer")} • {date}
                 </p>
               </div>
               <button
-                className="rounded-lg bg-[#E85D48] px-4 py-2 font-semibold text-sm text-white transition hover:bg-[#D64A36]"
+                className="rounded-lg bg-[#64748b] px-4 py-2 font-semibold text-[#f8fafc] text-sm transition hover:bg-[#64748b]"
                 onClick={() => setSelectedBooking(booking)}
                 type="button"
               >

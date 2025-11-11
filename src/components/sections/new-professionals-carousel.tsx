@@ -4,7 +4,9 @@ import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
 type Professional = {
   id: string;
@@ -68,14 +70,18 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
   }
 
   return (
-    <section className="bg-white py-20 sm:py-32">
+    <section className="bg-slate-50 py-20 sm:py-32">
       <div className="mx-auto max-w-[1400px] px-6 sm:px-8">
         {/* Header */}
         <div className="mb-16 flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
           <div className="max-w-xl space-y-4">
-            <p className="tagline text-[#7a6d62]">NEW PROFESSIONALS</p>
-            <h2 className="serif-display-lg text-[#1A1614]">Latest Arrivals</h2>
-            <p className="text-[#1A1614]/70 text-base leading-relaxed">
+            <p className="font-medium text-slate-600 text-sm uppercase tracking-wider">
+              NEW PROFESSIONALS
+            </p>
+            <h2 className="font-semibold text-3xl text-slate-900 tracking-tight sm:text-4xl">
+              Latest Arrivals
+            </h2>
+            <p className="text-base text-slate-600 leading-relaxed">
               Meet our newest professionals ready to help with your home care needs.
             </p>
           </div>
@@ -84,19 +90,25 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
           <div className="flex gap-2">
             <button
               aria-label="Previous"
-              className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#E85D48]/30 bg-white text-[#1A1614] transition hover:border-[#E85D48] hover:bg-[#E85D48] hover:text-white disabled:opacity-30 disabled:hover:border-[#E85D48]/30 disabled:hover:bg-white disabled:hover:text-[#1A1614]"
+              className={cn(
+                "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-slate-300 bg-white text-slate-900 transition-all",
+                "hover:border-slate-900 hover:bg-slate-900 hover:text-white",
+                "disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:bg-white disabled:hover:text-slate-900"
+              )}
               disabled={!canScrollLeft}
               onClick={() => scroll("left")}
-              type="button"
             >
               <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
             </button>
             <button
               aria-label="Next"
-              className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#E85D48]/30 bg-white text-[#1A1614] transition hover:border-[#E85D48] hover:bg-[#E85D48] hover:text-white disabled:opacity-30 disabled:hover:border-[#E85D48]/30 disabled:hover:bg-white disabled:hover:text-[#1A1614]"
+              className={cn(
+                "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-slate-300 bg-white text-slate-900 transition-all",
+                "hover:border-slate-900 hover:bg-slate-900 hover:text-white",
+                "disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:bg-white disabled:hover:text-slate-900"
+              )}
               disabled={!canScrollRight}
               onClick={() => scroll("right")}
-              type="button"
             >
               <HugeiconsIcon className="h-4 w-4" icon={ArrowRight01Icon} />
             </button>
@@ -115,25 +127,27 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
               href={`/professionals/${pro.id}`}
               key={pro.id}
             >
-              {/* Image */}
-              <div className="relative mb-4 aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
-                <Image
-                  alt={pro.name}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  fill
-                  sizes="(max-width: 768px) 260px, 300px"
-                  src={pro.profilePicture || "/placeholder-professional.jpg"}
-                />
-              </div>
+              <Card className="overflow-hidden border-slate-200 bg-white transition-all duration-300 group-hover:shadow-lg">
+                {/* Image */}
+                <div className="relative aspect-[3/4] overflow-hidden bg-slate-100">
+                  <Image
+                    alt={pro.name}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 768px) 260px, 300px"
+                    src={pro.profilePicture || "/placeholder-professional.jpg"}
+                  />
+                </div>
 
-              {/* Info */}
-              <div className="space-y-1">
-                <h3 className="font-semibold text-[#1A1614] text-base">{pro.name}</h3>
-                <p className="text-[#7a6d62] text-sm">
-                  {pro.city}, {pro.country}
-                </p>
-                <p className="font-semibold text-[#E85D48] text-sm">€{pro.hourlyRate}/hr</p>
-              </div>
+                {/* Info */}
+                <CardContent className="space-y-1 p-4">
+                  <h3 className="font-semibold text-base text-slate-900">{pro.name}</h3>
+                  <p className="text-slate-600 text-sm">
+                    {pro.city}, {pro.country}
+                  </p>
+                  <p className="font-semibold text-slate-900 text-sm">€{pro.hourlyRate}/hr</p>
+                </CardContent>
+              </Card>
             </Link>
           ))}
         </div>
@@ -141,7 +155,7 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
         {/* View All Link */}
         <div className="mt-12 text-center">
           <Link
-            className="inline-flex items-center justify-center rounded-full border-2 border-[#E85D48] bg-transparent px-8 py-3 font-semibold text-[#E85D48] text-sm transition hover:bg-[#E85D48] hover:text-white"
+            className="inline-flex items-center justify-center rounded-full border-2 border-slate-900 bg-transparent px-8 py-3 font-semibold text-slate-900 text-sm transition-all hover:bg-slate-900 hover:text-white"
             href="/professionals"
           >
             View All Professionals

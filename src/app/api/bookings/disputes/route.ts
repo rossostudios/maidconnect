@@ -16,6 +16,17 @@ import {
   notifyProfessionalDisputeFiled,
 } from "@/lib/notifications";
 
+// Type for booking with joined profile data
+type BookingWithProfiles = {
+  id: string;
+  status: string;
+  customer_id: string;
+  professional_id: string;
+  completed_at: string | null;
+  customer_profiles: { full_name: string } | null;
+  professional_profiles: { full_name: string } | null;
+};
+
 const disputeSchema = z.object({
   bookingId: z.string().uuid("Invalid booking ID format"),
   reason: z.string().min(1, "Reason is required"),
@@ -28,7 +39,7 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
   const { bookingId, reason, description } = disputeSchema.parse(body);
 
   // Verify booking exists, belongs to user, is completed, and within 48-hour window
-  const booking = await requireCustomerOwnership(
+  const booking = await requireCustomerOwnership<BookingWithProfiles>(
     supabase,
     user.id,
     bookingId,
@@ -96,7 +107,7 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
   }
 
   // Notify professional about the dispute
-  const customerName = (booking.customer_profiles as any)?.full_name || "Customer";
+  const customerName = booking.customer_profiles?.full_name || "Customer";
   await notifyProfessionalDisputeFiled(booking.professional_id, {
     id: dispute.id,
     bookingId: booking.id,
@@ -105,7 +116,7 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
   });
 
   // Notify all admins about new dispute requiring review
-  const professionalName = (booking.professional_profiles as any)?.full_name || "Professional";
+  const professionalName = booking.professional_profiles?.full_name || "Professional";
   await notifyAllAdmins(notifyAdminDisputeFiled, {
     id: dispute.id,
     bookingId: booking.id,

@@ -1,6 +1,9 @@
 import { unstable_noStore } from "next/cache";
 import { getTranslations } from "next-intl/server";
-import { SavedAddressesManager } from "@/components/addresses/saved-addresses-manager";
+import {
+  type SavedAddress,
+  SavedAddressesManager,
+} from "@/components/addresses/saved-addresses-manager";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
@@ -43,54 +46,55 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
       saved_addresses: unknown;
     } | null) ?? null;
 
-  const savedAddresses = (customerProfile?.saved_addresses as any[]) || [];
+  const savedAddressesRaw = customerProfile?.saved_addresses;
+  const savedAddresses: SavedAddress[] = Array.isArray(savedAddressesRaw) ? savedAddressesRaw : [];
   const propertyType =
     (customerProfile?.property_preferences?.property_type as string | undefined) ?? null;
 
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="font-semibold text-3xl text-gray-900">{t("title")}</h1>
-        <p className="mt-2 text-base text-gray-600 leading-relaxed">{t("description")}</p>
+        <h1 className="font-semibold text-3xl text-[#116611616]">{t("title")}</h1>
+        <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">{t("description")}</p>
       </div>
 
       {/* Profile Information */}
-      <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h2 className="mb-6 font-semibold text-gray-900 text-xl">{t("profile.title")}</h2>
+      <div className="rounded-[28px] bg-[#FFEEFF8E8] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+        <h2 className="mb-6 font-semibold text-[#116611616] text-xl">{t("profile.title")}</h2>
         <div className="space-y-6">
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
-              <div className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+              <div className="mb-2 block font-semibold text-[#AA88AAAAC] text-xs uppercase tracking-[0.2em]">
                 {t("profile.fullName")}
               </div>
-              <p className="text-gray-900">{profile?.full_name || "—"}</p>
+              <p className="text-[#116611616]">{profile?.full_name || "—"}</p>
             </div>
             <div>
-              <div className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+              <div className="mb-2 block font-semibold text-[#AA88AAAAC] text-xs uppercase tracking-[0.2em]">
                 {t("profile.email")}
               </div>
-              <p className="text-gray-900">{user.email || "—"}</p>
+              <p className="text-[#116611616]">{user.email || "—"}</p>
             </div>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
-              <div className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+              <div className="mb-2 block font-semibold text-[#AA88AAAAC] text-xs uppercase tracking-[0.2em]">
                 {t("profile.phone")}
               </div>
-              <p className="text-gray-900">{profile?.phone || "—"}</p>
+              <p className="text-[#116611616]">{profile?.phone || "—"}</p>
             </div>
             <div>
-              <div className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+              <div className="mb-2 block font-semibold text-[#AA88AAAAC] text-xs uppercase tracking-[0.2em]">
                 {t("profile.city")}
               </div>
-              <p className="text-gray-900">{profile?.city || "—"}</p>
+              <p className="text-[#116611616]">{profile?.city || "—"}</p>
             </div>
           </div>
 
-          <div className="rounded-lg bg-[#fef5e7] p-4">
-            <p className="text-gray-600 text-sm">
-              <strong className="text-gray-900">{t("profile.note")}:</strong>{" "}
+          <div className="rounded-lg bg-[#FFEEFF8E8] p-4">
+            <p className="text-[#AA88AAAAC] text-sm">
+              <strong className="text-[#116611616]">{t("profile.note")}:</strong>{" "}
               {t("profile.noteDescription")}
             </p>
           </div>
@@ -98,21 +102,21 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
       </div>
 
       {/* Property Preferences */}
-      <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h2 className="mb-6 font-semibold text-gray-900 text-xl">{t("preferences.title")}</h2>
+      <div className="rounded-[28px] bg-[#FFEEFF8E8] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+        <h2 className="mb-6 font-semibold text-[#116611616] text-xl">{t("preferences.title")}</h2>
         <div className="space-y-4">
           <div>
-            <div className="mb-2 block font-semibold text-[#7d7566] text-xs uppercase tracking-[0.2em]">
+            <div className="mb-2 block font-semibold text-[#AA88AAAAC] text-xs uppercase tracking-[0.2em]">
               {t("preferences.propertyType")}
             </div>
-            <p className="text-gray-900">
+            <p className="text-[#116611616]">
               {propertyType ? propertyType.charAt(0).toUpperCase() + propertyType.slice(1) : "—"}
             </p>
           </div>
 
-          <div className="rounded-lg bg-[#fef5e7] p-4">
-            <p className="text-gray-600 text-sm">
-              <strong className="text-gray-900">{t("preferences.comingSoon")}:</strong>{" "}
+          <div className="rounded-lg bg-[#FFEEFF8E8] p-4">
+            <p className="text-[#AA88AAAAC] text-sm">
+              <strong className="text-[#116611616]">{t("preferences.comingSoon")}:</strong>{" "}
               {t("preferences.comingSoonDescription")}
             </p>
           </div>
@@ -120,8 +124,8 @@ export default async function CustomerSettingsPage(props: { params: Promise<{ lo
       </div>
 
       {/* Saved Addresses */}
-      <div className="rounded-[28px] bg-white p-8 shadow-[0_20px_60px_-15px_rgba(18,17,15,0.15)] backdrop-blur-sm">
-        <h2 className="mb-6 font-semibold text-gray-900 text-xl">{t("addresses.title")}</h2>
+      <div className="rounded-[28px] bg-[#FFEEFF8E8] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+        <h2 className="mb-6 font-semibold text-[#116611616] text-xl">{t("addresses.title")}</h2>
         <SavedAddressesManager addresses={savedAddresses} />
       </div>
     </section>

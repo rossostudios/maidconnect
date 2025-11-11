@@ -96,7 +96,7 @@ export default async function EditHelpArticlePage({
     .order("name_en");
 
   return (
-    <div className="min-h-screen bg-white py-8">
+    <div className="min-h-screen bg-[#FFEEFF8E8] py-8">
       <div className="container mx-auto max-w-7xl px-4">
         <ArticleForm
           categories={categories ?? []}

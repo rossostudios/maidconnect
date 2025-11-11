@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { toast } from "@/lib/toast";
+import { toast } from "sonner";
 
 type Props = {
   professionalId: string;
@@ -59,8 +59,8 @@ export function FavoriteButton({
     <button
       className={`inline-flex items-center justify-center gap-2 rounded-full transition ${
         isFavorite
-          ? "bg-[#E85D48] text-white hover:bg-[#D64A36]"
-          : "border border-[#e5dfd4] bg-white text-[#7a6d62] hover:border-[#E85D48] hover:text-[#E85D48]"
+          ? "bg-[#64748b] text-[#f8fafc] hover:bg-[#64748b]"
+          : "border border-[#e2e8f0] bg-[#f8fafc] text-[#94a3b8] hover:border-[#64748b] hover:text-[#64748b]"
       } ${sizeClasses[size]} disabled:cursor-not-allowed disabled:opacity-50`}
       disabled={loading}
       onClick={handleToggle}

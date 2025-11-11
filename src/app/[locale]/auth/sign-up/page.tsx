@@ -23,14 +23,17 @@ export default async function SignUpPage({ params }: Props) {
   const t = await getTranslations({ locale, namespace: "pages.signUp" });
 
   return (
-    <div className="grid min-h-screen grid-cols-1 bg-[#F5F0E8] md:h-screen md:grid-cols-[45%_55%] md:overflow-hidden">
-      <div className="flex h-full flex-col border-[#e5dfd4] border-r bg-[#F5F0E8] px-8 py-10 md:h-screen md:overflow-y-auto md:px-16 md:py-16">
-        <header className="flex items-center justify-between border-[#ece6da] border-b pb-6 text-[#1A1614] text-sm md:pb-10">
-          <Link className="font-semibold text-[#1A1614] transition hover:text-[#E85D48]" href="/">
+    <div className="grid min-h-screen grid-cols-1 bg-[#FFEEFF8E8] md:h-screen md:grid-cols-[45%_55%] md:overflow-hidden">
+      <div className="flex h-full flex-col border-[#EE44EE2E3] border-r bg-[#FFEEFF8E8] px-8 py-10 md:h-screen md:overflow-y-auto md:px-16 md:py-16">
+        <header className="flex items-center justify-between border-[#FFEEFF8E8] border-b pb-6 text-[#116611616] text-sm md:pb-10">
+          <Link
+            className="font-semibold text-[#116611616] transition hover:text-[#FF4444A22]"
+            href="/"
+          >
             Casaora
           </Link>
           <Link
-            className="font-semibold text-[#E85D48] transition hover:text-[#D64A36]"
+            className="font-semibold text-[#FF4444A22] transition hover:text-[#FF4444A22]"
             href={AUTH_ROUTES.signIn}
           >
             {t("header.signIn")}
@@ -39,15 +42,17 @@ export default async function SignUpPage({ params }: Props) {
         <main className="flex flex-1 justify-center pt-12 pb-16 md:pt-14">
           <div className="w-full max-w-3xl space-y-14">
             <div className="space-y-6">
-              <h1 className="serif-headline-lg text-[#1A1614]">{t("hero.title")}</h1>
-              <p className="text-[#1A1614]/70 text-lg leading-relaxed">{t("hero.description")}</p>
+              <h1 className="serif-headline-lg text-[#116611616]">{t("hero.title")}</h1>
+              <p className="text-[#116611616]/70 text-lg leading-relaxed">
+                {t("hero.description")}
+              </p>
             </div>
-            <div className="rounded-[40px] border border-[#e5dfd4] bg-white p-12 shadow-[0_28px_70px_rgba(18,17,15,0.08)]">
+            <div className="rounded-[40px] border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-12 shadow-[0_28px_70px_rgba(22,22,22,0.08)]">
               <SignUpForm />
-              <p className="mt-8 text-[#1A1614]/70 text-sm">
+              <p className="mt-8 text-[#116611616]/70 text-sm">
                 {t("form.haveAccount")}{" "}
                 <Link
-                  className="font-semibold text-[#E85D48] underline-offset-4 transition hover:text-[#D64A36] hover:underline"
+                  className="font-semibold text-[#FF4444A22] underline-offset-4 transition hover:text-[#FF4444A22] hover:underline"
                   href={AUTH_ROUTES.signIn}
                 >
                   {t("form.signInInstead")}
@@ -56,7 +61,7 @@ export default async function SignUpPage({ params }: Props) {
             </div>
           </div>
         </main>
-        <p className="mt-10 text-[#7a6d62] text-xs">{t("footer.support")}</p>
+        <p className="mt-10 text-[#AA88AAAAC] text-xs">{t("footer.support")}</p>
       </div>
       <div className="relative hidden md:block">
         <div className="sticky top-0 h-screen">
@@ -69,12 +74,12 @@ export default async function SignUpPage({ params }: Props) {
               src="/signup.png"
             />
             <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(17,16,14,0.8),rgba(33,31,26,0.4))]" />
-            <div className="absolute inset-x-14 bottom-14 max-w-md space-y-3 text-white">
-              <p className="font-semibold text-[#d7b59f] text-xs uppercase tracking-[0.3em]">
+            <div className="absolute inset-x-14 bottom-14 max-w-md space-y-3 text-[#FFEEFF8E8]">
+              <p className="font-semibold text-[#AA88AAAAC] text-xs uppercase tracking-[0.3em]">
                 {t("sidebar.badge")}
               </p>
               <h2 className="font-semibold text-2xl leading-snug">{t("sidebar.title")}</h2>
-              <p className="text-[#f3ece1] text-sm">{t("sidebar.description")}</p>
+              <p className="text-[bg-[#FFEEFF8E8]] text-sm">{t("sidebar.description")}</p>
             </div>
           </div>
         </div>

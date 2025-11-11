@@ -1,16 +1,11 @@
-/**
- * Pricing FAQ Section Component
- *
- * Displays frequently asked questions about pricing
- */
-
 "use client";
 
 import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
-// Placeholder data - will be replaced with API call
 const SAMPLE_FAQS = [
   {
     id: "1",
@@ -66,8 +61,11 @@ export function PricingFaqSection() {
   return (
     <div className="space-y-4">
       {SAMPLE_FAQS.map((faq) => (
-        <div
-          className="overflow-hidden rounded-[20px] border-2 border-stone-200 bg-white transition-all hover:border-orange-500"
+        <Card
+          className={cn(
+            "overflow-hidden border-2 transition-all",
+            openFaqId === faq.id ? "border-slate-900" : "border-slate-200 hover:border-slate-300"
+          )}
           key={faq.id}
         >
           <button
@@ -75,29 +73,29 @@ export function PricingFaqSection() {
             onClick={() => toggleFaq(faq.id)}
             type="button"
           >
-            <span className="font-semibold text-gray-900 text-lg">{faq.question}</span>
+            <span className="font-semibold text-lg text-slate-900">{faq.question}</span>
             <HugeiconsIcon
-              className={`flex-shrink-0 text-gray-500 transition-transform ${
+              className={cn(
+                "flex-shrink-0 text-slate-600 transition-transform",
                 openFaqId === faq.id ? "rotate-180" : ""
-              }`}
+              )}
               icon={ArrowDown01Icon}
               size={24}
             />
           </button>
 
           {openFaqId === faq.id && (
-            <div className="px-6 pb-5">
-              <p className="text-gray-500 leading-relaxed">{faq.answer}</p>
-            </div>
+            <CardContent className="px-6 pb-5">
+              <p className="text-slate-700 leading-relaxed">{faq.answer}</p>
+            </CardContent>
           )}
-        </div>
+        </Card>
       ))}
 
-      {/* Contact support */}
       <div className="pt-8 text-center">
-        <p className="mb-4 text-gray-500">Still have questions?</p>
+        <p className="mb-4 text-slate-600">Still have questions?</p>
         <a
-          className="inline-block rounded-[14px] border-2 border-stone-200 px-6 py-3 font-medium text-gray-900 transition-all hover:border-gray-900"
+          className="inline-block rounded-xl border-2 border-slate-300 px-6 py-3 font-medium text-slate-900 transition-all hover:border-slate-900"
           href="/contact"
         >
           Contact Support
