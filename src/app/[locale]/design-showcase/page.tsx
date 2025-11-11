@@ -53,12 +53,11 @@ export default function DesignShowcasePage() {
       {/* Feature Section 1 - Cream Background with Clean Home */}
       <FeatureSection
         align="center"
-        backgroundColor="stone-50"
+        backgroundColor="secondary"
         description="Professional home services that make life easier. From cleaning to childcare, find verified professionals ready to help with all your home needs."
         heading="Professional Home Services"
         illustration={<CleanHome />}
         tagline="WHAT WE OFFER"
-        textColor="stone-900"
       >
         <FeatureGrid>
           <FeatureCard
@@ -88,12 +87,11 @@ export default function DesignShowcasePage() {
       {/* Feature Section 2 - White Background with Clean Home */}
       <FeatureSection
         align="left"
-        backgroundColor="#FFEEFF8E8"
+        backgroundColor="primary"
         description="We ensure every professional on our platform is thoroughly vetted, background-checked, and ready to provide exceptional service."
         heading="Trusted Professionals, Verified Results"
         illustration={<CleanHome />}
         tagline="QUALITY ASSURANCE"
-        textColor="#116611616"
       >
         <FeatureGrid>
           <FeatureCard
@@ -129,12 +127,11 @@ export default function DesignShowcasePage() {
       {/* Feature Section 3 - Cream Background with Booking Calendar */}
       <FeatureSection
         align="center"
-        backgroundColor="bg-[#FFEEFF8E8]"
+        backgroundColor="inverse"
         description="Book services in minutes with our intuitive platform. Schedule, manage, and pay all in one place."
         heading="Simple, Seamless Booking"
         illustration={<BookingCalendar />}
         tagline="EASY SCHEDULING"
-        textColor="#116611616"
       >
         <div className="mx-auto max-w-3xl space-y-12">
           <div className="grid gap-8 md:grid-cols-2">
