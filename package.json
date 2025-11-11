@@ -93,10 +93,10 @@
     "zod": "4.1.12"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.3.2",
+    "@biomejs/biome": "^2.3.5",
     "@next/bundle-analyzer": "^16.0.1",
     "@playwright/test": "^1.56.1",
-    "@storybook/addon-a11y": "10.0.6",
+    "@storybook/addon-a11y": "10.0.7",
     "@storybook/addon-essentials": "9.0.0-alpha.12",
     "@storybook/addon-interactions": "9.0.0-alpha.10",
     "@storybook/addon-links": "10.1.0-alpha.7",
