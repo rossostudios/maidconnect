@@ -3,6 +3,7 @@
 import { MenuTwoLineIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
+import { Backdrop } from "@/components/ui/backdrop";
 import { CustomerSidebar } from "./customer-sidebar";
 
 type Props = {
@@ -38,9 +39,10 @@ export function CustomerMobileSidebar({ unreadMessagesCount = 0 }: Props) {
 
       {/* Backdrop */}
       {isOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-[#0f172a]/50 lg:hidden"
-          onClick={() => setIsOpen(false)}
+        <Backdrop
+          aria-label="Close menu"
+          className="z-40 bg-[#0f172a]/50 lg:hidden"
+          onClose={() => setIsOpen(false)}
         />
       )}
 

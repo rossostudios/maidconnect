@@ -3,6 +3,7 @@
 import { MenuTwoLineIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
+import { Backdrop } from "@/components/ui/backdrop";
 import { ProSidebar } from "./pro-sidebar";
 
 type OnboardingStatus =
@@ -51,9 +52,10 @@ export function ProMobileSidebar({
 
       {/* Backdrop */}
       {isOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-[#0f172a]/50 lg:hidden"
-          onClick={() => setIsOpen(false)}
+        <Backdrop
+          aria-label="Close menu"
+          className="z-40 bg-[#0f172a]/50 lg:hidden"
+          onClose={() => setIsOpen(false)}
         />
       )}
 

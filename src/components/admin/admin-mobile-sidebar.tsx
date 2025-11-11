@@ -3,6 +3,7 @@
 import { MenuTwoLineIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
+import { Backdrop } from "@/components/ui/backdrop";
 import { AdminSidebar } from "./admin-sidebar";
 
 export function AdminMobileSidebar() {
@@ -34,9 +35,10 @@ export function AdminMobileSidebar() {
 
       {/* Backdrop */}
       {isOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-slate-900/50 lg:hidden dark:bg-slate-100/50"
-          onClick={() => setIsOpen(false)}
+        <Backdrop
+          aria-label="Close menu"
+          className="z-40 bg-slate-900/50 lg:hidden dark:bg-slate-100/50"
+          onClose={() => setIsOpen(false)}
         />
       )}
 

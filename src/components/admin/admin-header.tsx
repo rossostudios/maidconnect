@@ -12,6 +12,7 @@ import { useState } from "react";
 import { AdminMobileSidebar } from "@/components/admin/admin-mobile-sidebar";
 import { Breadcrumbs } from "@/components/navigation/breadcrumbs";
 import { NotificationsSheet } from "@/components/notifications/notifications-sheet";
+import { Backdrop } from "@/components/ui/backdrop";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 import { useNotificationUnreadCount } from "@/hooks/use-notification-unread-count";
 import { Link } from "@/i18n/routing";
@@ -104,7 +105,10 @@ export function AdminHeader({ userEmail, userName }: Props) {
             {showProfileMenu && (
               <>
                 {/* Backdrop */}
-                <div className="fixed inset-0 z-40" onClick={() => setShowProfileMenu(false)} />
+                <Backdrop
+                  aria-label="Close profile menu"
+                  onClose={() => setShowProfileMenu(false)}
+                />
 
                 {/* Menu */}
                 <div className="absolute top-full right-0 z-50 mt-2 w-64 overflow-hidden rounded-xl border border-[#E5E5E5] bg-white shadow-lg">

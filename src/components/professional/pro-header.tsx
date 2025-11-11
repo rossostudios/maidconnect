@@ -14,6 +14,7 @@ import { useState } from "react";
 import { Breadcrumbs } from "@/components/navigation/breadcrumbs";
 import { NotificationsSheet } from "@/components/notifications/notifications-sheet";
 import { ProMobileSidebar } from "@/components/professional/pro-mobile-sidebar";
+import { Backdrop } from "@/components/ui/backdrop";
 import { useNotificationUnreadCount } from "@/hooks/use-notification-unread-count";
 import { Link } from "@/i18n/routing";
 
@@ -124,7 +125,10 @@ export function ProHeader({
             {showProfileMenu && (
               <>
                 {/* Backdrop */}
-                <div className="fixed inset-0 z-40" onClick={() => setShowProfileMenu(false)} />
+                <Backdrop
+                  aria-label="Close profile menu"
+                  onClose={() => setShowProfileMenu(false)}
+                />
 
                 {/* Menu */}
                 <div className="absolute top-full right-0 z-50 mt-2 w-64 overflow-hidden rounded-xl border border-[#e2e8f0] bg-[#f8fafc] shadow-lg">
