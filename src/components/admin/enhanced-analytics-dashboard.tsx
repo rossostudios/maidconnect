@@ -319,9 +319,7 @@ export function EnhancedAnalyticsDashboard() {
           trend={metrics.fillRate >= 70 ? "up" : metrics.fillRate >= 50 ? "neutral" : "down"}
           trendValue={`${metrics.fillRate.toFixed(0)}%`}
           value={`${metrics.fillRate.toFixed(1)}%`}
-          variant={
-            metrics.fillRate >= 70 ? "green" : metrics.fillRate >= 50 ? "orange" : "pink"
-          }
+          variant={metrics.fillRate >= 70 ? "green" : metrics.fillRate >= 50 ? "orange" : "pink"}
         />
         <MetricCard
           description="Days (avg. professional)"

@@ -1,0 +1,88 @@
+/**
+ * Testimonials Section Component
+ *
+ * Renders testimonials section from Sanity CMS
+ */
+
+import { Container } from "@/components/ui/container";
+
+type Testimonial = {
+  quote: string;
+  authorName: string;
+  authorRole?: string;
+  authorImage?: {
+    asset?: {
+      _ref: string;
+    };
+    alt?: string;
+  };
+  rating: number;
+};
+
+type TestimonialsSectionProps = {
+  data: {
+    title?: string;
+    description?: string;
+    testimonials?: Testimonial[];
+  };
+};
+
+export function TestimonialsSection({ data }: TestimonialsSectionProps) {
+  const { title, description, testimonials } = data;
+
+  if (!testimonials || testimonials.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="bg-[#f8fafc] py-20 sm:py-24 lg:py-32">
+      <Container>
+        {(title || description) && (
+          <div className="mb-16 text-center">
+            {title && <h2 className="serif-display-lg text-[#0f172a]">{title}</h2>}
+            {description && (
+              <p className="lead mx-auto mt-6 max-w-2xl text-[#0f172a]/70">{description}</p>
+            )}
+          </div>
+        )}
+
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {testimonials.map((testimonial, index) => (
+            <div
+              className="rounded-3xl border border-[#e2e8f0] bg-[#f8fafc] p-8 shadow-sm"
+              key={index}
+            >
+              <blockquote className="mb-6 text-[#0f172a] leading-relaxed">
+                "{testimonial.quote}"
+              </blockquote>
+
+              {/* Rating stars */}
+              <div className="mb-4 flex gap-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <span
+                    className={i < testimonial.rating ? "text-[#64748b]" : "text-[#94a3b8]"}
+                    key={i}
+                  >
+                    ★
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#64748b]/100/10 font-semibold text-[#64748b]">
+                  {testimonial.authorName.charAt(0)}
+                </div>
+                <div>
+                  <div className="font-semibold text-[#0f172a]">{testimonial.authorName}</div>
+                  {testimonial.authorRole && (
+                    <div className="text-[#0f172a]/60 text-sm">{testimonial.authorRole}</div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}

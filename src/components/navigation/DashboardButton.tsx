@@ -1,0 +1,34 @@
+"use client";
+
+import { useUnreadCount } from "@/hooks/useUnread";
+import { Link } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
+
+type Props = {
+  href: string;
+  label?: string;
+  className?: string;
+};
+
+export function DashboardButton({ href, label = "Dashboard", className }: Props) {
+  const { unreadCount } = useUnreadCount();
+
+  return (
+    <div className="relative inline-block">
+      <Link
+        className={cn(
+          "inline-flex items-center justify-center rounded-lg border border-stone-300 bg-white px-4 py-2 font-medium text-sm text-stone-900 shadow-sm transition hover:border-stone-400 hover:bg-stone-50 active:bg-stone-100",
+          className
+        )}
+        href={href}
+      >
+        {label}
+      </Link>
+      {unreadCount > 0 && (
+        <span className="-right-1 -top-1 absolute flex h-5 min-w-[20px] items-center justify-center rounded-full bg-stone-900 px-1.5 font-bold text-white text-xs">
+          {unreadCount > 99 ? "99+" : unreadCount}
+        </span>
+      )}
+    </div>
+  );
+}

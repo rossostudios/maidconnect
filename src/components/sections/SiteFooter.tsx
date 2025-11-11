@@ -1,0 +1,169 @@
+import {
+  Facebook02Icon,
+  InstagramIcon,
+  Mail01Icon,
+  NewTwitterIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { headers } from "next/headers";
+import { getTranslations } from "next-intl/server";
+import { FeedbackLink } from "@/components/feedback/feedback-link";
+import { SiteFooterActions } from "@/components/sections/site-footer-actions";
+import { Badge } from "@/components/ui/badge";
+import { Container } from "@/components/ui/container";
+import { Separator } from "@/components/ui/separator";
+import { Link } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
+
+const socialLinks = [
+  { label: "Facebook", href: "https://facebook.com/casaora", icon: Facebook02Icon },
+  { label: "X (Twitter)", href: "https://twitter.com/casaora", icon: NewTwitterIcon },
+  { label: "Instagram", href: "https://instagram.com/casaora", icon: InstagramIcon },
+];
+
+export async function SiteFooter() {
+  await headers();
+  const t = await getTranslations("footer");
+  const year = new Date().getFullYear();
+
+  const footerColumns = [
+    {
+      title: t("platform"),
+      links: [
+        { href: "/professionals", label: t("findProfessional") },
+        { href: "/how-it-works", label: t("howItWorks") },
+        { href: "/pricing", label: t("pricing") },
+        { href: "/roadmap", label: t("roadmap") },
+        { href: "/help", label: t("helpCenter") },
+        { href: "/contact", label: t("contact") },
+        { href: "#services", label: t("services") },
+      ],
+    },
+    {
+      title: t("company"),
+      links: [
+        { href: "/about", label: t("about") },
+        { href: "/auth/sign-in", label: t("loginSignup") },
+        { href: "/auth/sign-up?role=professional", label: t("applyProfessional") },
+        { href: "/careers", label: t("careers"), badge: "Hiring" },
+        { href: "/aguaora", label: "AGUAORA", badge: "Coming Soon" },
+        { href: "/support/account-suspended", label: t("support") },
+      ],
+    },
+    {
+      title: t("mobile"),
+      links: [
+        { href: "/mobile", label: t("iosApp"), badge: "Coming Soon" },
+        { href: "/mobile", label: t("androidApp"), badge: "Coming Soon" },
+      ],
+    },
+  ];
+
+  return (
+    <footer
+      className="relative overflow-hidden bg-stone-50/80 py-24 text-stone-900 shadow-sm backdrop-blur-sm"
+      id="get-started"
+    >
+      <Container className="relative max-w-[1400px]">
+        <div className="grid gap-16 lg:grid-cols-[1fr_auto]">
+          <div className="flex max-w-md flex-col gap-8">
+            <span className="font-semibold text-2xl uppercase tracking-wider">CASAORA</span>
+
+            <p className="text-base text-stone-600 italic leading-relaxed">{t("description")}</p>
+
+            <div className="flex flex-col gap-3">
+              <a
+                className="flex items-center gap-3 text-base transition hover:text-stone-700"
+                href="mailto:hello@casaora.com"
+              >
+                <HugeiconsIcon className="h-5 w-5" icon={Mail01Icon} strokeWidth={2} />
+                <span>hello@casaora.com</span>
+              </a>
+
+              <div className="flex items-center gap-3">
+                {socialLinks.map(({ label, href, icon }) => (
+                  <a
+                    aria-label={label}
+                    className={cn(
+                      "rounded-full bg-white/60 p-3 text-stone-900 transition-all",
+                      "hover:bg-white hover:text-stone-700"
+                    )}
+                    href={href}
+                    key={label}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    <HugeiconsIcon className="h-5 w-5" icon={icon} strokeWidth={2} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:gap-14">
+            {footerColumns.map((column) => (
+              <div className="flex flex-col gap-6" key={column.title}>
+                <h3 className="font-medium text-sm text-stone-600 uppercase tracking-[0.3em]">
+                  {column.title}
+                </h3>
+
+                <ul className="flex flex-col gap-4">
+                  {column.links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        className="inline-flex items-center gap-2 text-base transition hover:text-stone-700"
+                        data-tour={link.href === "/help" ? "help" : undefined}
+                        href={link.href}
+                      >
+                        {link.label}
+                        {link.badge && (
+                          <Badge
+                            className="rounded-full bg-stone-900/10 px-2.5 py-1 font-medium text-stone-900 text-xs uppercase tracking-wide"
+                            variant="secondary"
+                          >
+                            {link.badge}
+                          </Badge>
+                        )}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <Separator className="my-12 bg-stone-200" />
+
+        <div className="flex flex-col gap-6 text-sm text-stone-600 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-2">
+            <p>
+              © {year} Casaora. {t("allRightsReserved")}
+            </p>
+            <p>{t("remoteCompany")}</p>
+          </div>
+
+          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+              <Link className="transition hover:text-stone-700" href="/terms">
+                {t("terms")}
+              </Link>
+              <Link className="transition hover:text-stone-700" href="/privacy">
+                {t("privacy")}
+              </Link>
+              <Link className="transition hover:text-stone-700" href="/support/account-suspended">
+                {t("cookies")}
+              </Link>
+              <Link className="transition hover:text-stone-700" href="/changelog">
+                What's New
+              </Link>
+              <FeedbackLink>Feedback</FeedbackLink>
+            </div>
+
+            <SiteFooterActions />
+          </div>
+        </div>
+      </Container>
+    </footer>
+  );
+}
