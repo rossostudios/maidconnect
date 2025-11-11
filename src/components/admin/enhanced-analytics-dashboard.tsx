@@ -320,7 +320,7 @@ export function EnhancedAnalyticsDashboard() {
           trendValue={`${metrics.fillRate.toFixed(0)}%`}
           value={`${metrics.fillRate.toFixed(1)}%`}
           variant={
-            metrics.fillRate >= 70 ? "success" : metrics.fillRate >= 50 ? "warning" : "danger"
+            metrics.fillRate >= 70 ? "green" : metrics.fillRate >= 50 ? "orange" : "pink"
           }
         />
         <MetricCard
@@ -330,10 +330,10 @@ export function EnhancedAnalyticsDashboard() {
           value={`${metrics.avgTimeToFirstBooking.toFixed(1)}`}
           variant={
             metrics.avgTimeToFirstBooking <= 7
-              ? "success"
+              ? "green"
               : metrics.avgTimeToFirstBooking <= 14
-                ? "warning"
-                : "danger"
+                ? "orange"
+                : "pink"
           }
         />
         <MetricCard
@@ -343,10 +343,10 @@ export function EnhancedAnalyticsDashboard() {
           value={`${metrics.repeatBookingRate.toFixed(1)}%`}
           variant={
             metrics.repeatBookingRate >= 40
-              ? "success"
+              ? "green"
               : metrics.repeatBookingRate >= 25
-                ? "warning"
-                : "danger"
+                ? "orange"
+                : "pink"
           }
         />
         <MetricCard
@@ -354,7 +354,7 @@ export function EnhancedAnalyticsDashboard() {
           icon={UserMultiple02Icon}
           title="Active Professionals"
           value={`${metrics.activeProfessionals}/${metrics.totalProfessionals}`}
-          variant="info"
+          variant="blue"
         />
       </div>
 

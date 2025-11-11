@@ -8,11 +8,11 @@ import {
   UserCircleIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AdminMobileSidebar } from "@/components/admin/admin-mobile-sidebar";
-import { CommandPalette } from "@/components/command-palette/command-palette";
 import { Breadcrumbs } from "@/components/navigation/breadcrumbs";
 import { NotificationsSheet } from "@/components/notifications/notifications-sheet";
+import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 import { useNotificationUnreadCount } from "@/hooks/use-notification-unread-count";
 import { Link } from "@/i18n/routing";
 
@@ -22,23 +22,10 @@ type Props = {
 };
 
 export function AdminHeader({ userEmail, userName }: Props) {
-  const [showCommandPalette, setShowCommandPalette] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const { unreadCount } = useNotificationUnreadCount();
-
-  // Keyboard shortcut for CMD+K / CTRL+K
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setShowCommandPalette((open) => !open);
-      }
-    };
-
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, []);
+  const { openCommandPalette } = useKeyboardShortcuts();
 
   return (
     <>
@@ -62,7 +49,8 @@ export function AdminHeader({ userEmail, userName }: Props) {
           <button
             aria-label="Search"
             className="group flex w-64 items-center gap-2 rounded-lg border border-[#E5E5E5] bg-[#FAFAF9] px-4 py-2 transition-colors hover:bg-white"
-            onClick={() => setShowCommandPalette(true)}
+            onClick={openCommandPalette}
+            type="button"
           >
             <HugeiconsIcon
               className="h-4 w-4 flex-shrink-0 text-[#737373] group-hover:text-[#171717]"
@@ -81,6 +69,7 @@ export function AdminHeader({ userEmail, userName }: Props) {
             aria-label="Notifications"
             className="group relative rounded-lg p-2.5 transition-colors hover:bg-[#F5F5F5]"
             onClick={() => setShowNotifications(true)}
+            type="button"
           >
             <HugeiconsIcon
               className="h-5 w-5 text-[#737373] group-hover:text-[#171717]"
@@ -100,6 +89,7 @@ export function AdminHeader({ userEmail, userName }: Props) {
               aria-label="Profile menu"
               className="group flex items-center gap-2.5 rounded-lg p-2 transition-colors hover:bg-[#F5F5F5]"
               onClick={() => setShowProfileMenu(!showProfileMenu)}
+              type="button"
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E85D48]/10 transition-colors group-hover:bg-[#E85D48]/20">
                 <HugeiconsIcon className="h-5 w-5 text-[#E85D48]" icon={UserCircleIcon} />
@@ -157,13 +147,6 @@ export function AdminHeader({ userEmail, userName }: Props) {
           </div>
         </div>
       </header>
-
-      {/* Command Palette */}
-      <CommandPalette
-        dashboardPath="/admin"
-        onClose={() => setShowCommandPalette(false)}
-        open={showCommandPalette}
-      />
 
       {/* Notifications Sheet */}
       <NotificationsSheet isOpen={showNotifications} onClose={() => setShowNotifications(false)} />

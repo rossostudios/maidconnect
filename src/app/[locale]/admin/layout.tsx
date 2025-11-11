@@ -30,7 +30,6 @@ export default async function AdminLayout({ children }: Props) {
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Enhanced Header */}
         <AdminHeader
-          avatarUrl={profile?.avatar_url ?? undefined}
           userEmail={user.email ?? undefined}
           userName={profile?.full_name ?? undefined}
         />
