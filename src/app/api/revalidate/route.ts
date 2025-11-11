@@ -21,6 +21,7 @@ import { revalidatePath } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 
 const WEBHOOK_SECRET = process.env.SANITY_WEBHOOK_SECRET;
+const LOCALES = ["en", "es"] as const;
 
 type WebhookPayload = {
   _type: string;
@@ -35,6 +36,8 @@ type WebhookPayload = {
   };
   language?: string;
 };
+
+type PathBuilder = (document: WebhookPayload, locales: readonly string[]) => string[];
 
 /**
  * Verify webhook signature from Sanity
@@ -56,110 +59,143 @@ function verifySignature(body: string, signature: string | null): boolean {
 }
 
 /**
- * Get paths to revalidate based on document type and data
+ * Helper to add localized paths
  */
-function getPathsToRevalidate(document: WebhookPayload): string[] {
+function addLocalizedPaths(paths: string[], pathTemplate: (locale: string) => string): void {
+  for (const locale of LOCALES) {
+    paths.push(pathTemplate(locale));
+  }
+}
+
+/**
+ * Build paths for help articles
+ */
+function buildHelpArticlePaths(document: WebhookPayload): string[] {
   const paths: string[] = [];
-  const locales = ["en", "es"]; // Revalidate both locales
+  const categorySlug = document.category?.slug?.current;
+  const articleSlug = document.slug?.current;
 
-  switch (document._type) {
-    case "helpArticle": {
-      const categorySlug = document.category?.slug?.current;
-      const articleSlug = document.slug?.current;
+  // Revalidate specific article if both slugs exist
+  if (categorySlug && articleSlug) {
+    addLocalizedPaths(paths, (locale) => `/${locale}/help/${categorySlug}/${articleSlug}`);
+  }
 
-      if (categorySlug && articleSlug) {
-        // Revalidate the specific article page in both locales
-        for (const locale of locales) {
-          paths.push(`/${locale}/help/${categorySlug}/${articleSlug}`);
-        }
-      }
+  // Revalidate help index
+  addLocalizedPaths(paths, (locale) => `/${locale}/help`);
 
-      // Revalidate help index and category pages
-      for (const locale of locales) {
-        paths.push(`/${locale}/help`);
-        if (categorySlug) {
-          paths.push(`/${locale}/help/${categorySlug}`);
-        }
-      }
-      break;
-    }
-
-    case "helpCategory": {
-      const categorySlug = document.slug?.current;
-
-      if (categorySlug) {
-        // Revalidate category page in both locales
-        for (const locale of locales) {
-          paths.push(`/${locale}/help/${categorySlug}`);
-        }
-      }
-
-      // Revalidate help index
-      for (const locale of locales) {
-        paths.push(`/${locale}/help`);
-      }
-      break;
-    }
-
-    case "changelog": {
-      const changelogSlug = document.slug?.current;
-
-      if (changelogSlug) {
-        // Revalidate specific changelog page in both locales
-        for (const locale of locales) {
-          paths.push(`/${locale}/changelog/${changelogSlug}`);
-        }
-      }
-
-      // Revalidate changelog index
-      for (const locale of locales) {
-        paths.push(`/${locale}/changelog`);
-      }
-      break;
-    }
-
-    case "roadmapItem": {
-      // Revalidate roadmap page in both locales
-      for (const locale of locales) {
-        paths.push(`/${locale}/roadmap`);
-      }
-      break;
-    }
-
-    case "page": {
-      const pageSlug = document.slug?.current;
-
-      if (pageSlug) {
-        // Revalidate specific page in both locales
-        for (const locale of locales) {
-          paths.push(`/${locale}/${pageSlug}`);
-        }
-      }
-      break;
-    }
-
-    case "cityPage": {
-      const citySlug = document.slug?.current;
-
-      if (citySlug) {
-        // Revalidate city page in both locales
-        for (const locale of locales) {
-          paths.push(`/${locale}/city/${citySlug}`);
-        }
-
-        // Revalidate city index
-        for (const locale of locales) {
-          paths.push(`/${locale}/city`);
-        }
-      }
-      break;
-    }
-
-    default:
-      console.warn(`[Webhook] Unknown document type: ${document._type}`);
+  // Revalidate category page if category exists
+  if (categorySlug) {
+    addLocalizedPaths(paths, (locale) => `/${locale}/help/${categorySlug}`);
   }
 
   return paths;
+}
+
+/**
+ * Build paths for help categories
+ */
+function buildHelpCategoryPaths(document: WebhookPayload): string[] {
+  const paths: string[] = [];
+  const categorySlug = document.slug?.current;
+
+  // Revalidate category page if slug exists
+  if (categorySlug) {
+    addLocalizedPaths(paths, (locale) => `/${locale}/help/${categorySlug}`);
+  }
+
+  // Revalidate help index
+  addLocalizedPaths(paths, (locale) => `/${locale}/help`);
+
+  return paths;
+}
+
+/**
+ * Build paths for changelog entries
+ */
+function buildChangelogPaths(document: WebhookPayload): string[] {
+  const paths: string[] = [];
+  const changelogSlug = document.slug?.current;
+
+  // Revalidate specific changelog if slug exists
+  if (changelogSlug) {
+    addLocalizedPaths(paths, (locale) => `/${locale}/changelog/${changelogSlug}`);
+  }
+
+  // Revalidate changelog index
+  addLocalizedPaths(paths, (locale) => `/${locale}/changelog`);
+
+  return paths;
+}
+
+/**
+ * Build paths for roadmap items
+ */
+function buildRoadmapPaths(): string[] {
+  const paths: string[] = [];
+
+  // Revalidate roadmap page
+  addLocalizedPaths(paths, (locale) => `/${locale}/roadmap`);
+
+  return paths;
+}
+
+/**
+ * Build paths for generic pages
+ */
+function buildPagePaths(document: WebhookPayload): string[] {
+  const paths: string[] = [];
+  const pageSlug = document.slug?.current;
+
+  // Revalidate specific page if slug exists
+  if (pageSlug) {
+    addLocalizedPaths(paths, (locale) => `/${locale}/${pageSlug}`);
+  }
+
+  return paths;
+}
+
+/**
+ * Build paths for city pages
+ */
+function buildCityPagePaths(document: WebhookPayload): string[] {
+  const paths: string[] = [];
+  const citySlug = document.slug?.current;
+
+  if (citySlug) {
+    // Revalidate specific city page
+    addLocalizedPaths(paths, (locale) => `/${locale}/city/${citySlug}`);
+
+    // Revalidate city index
+    addLocalizedPaths(paths, (locale) => `/${locale}/city`);
+  }
+
+  return paths;
+}
+
+/**
+ * Registry of path builders by document type
+ */
+const pathBuilders: Record<string, PathBuilder> = {
+  helpArticle: buildHelpArticlePaths,
+  helpCategory: buildHelpCategoryPaths,
+  changelog: buildChangelogPaths,
+  roadmapItem: buildRoadmapPaths,
+  page: buildPagePaths,
+  cityPage: buildCityPagePaths,
+};
+
+/**
+ * Get paths to revalidate based on document type and data
+ */
+function getPathsToRevalidate(document: WebhookPayload): string[] {
+  const builder = pathBuilders[document._type];
+
+  if (!builder) {
+    console.warn(`[Webhook] Unknown document type: ${document._type}`);
+    return [];
+  }
+
+  return builder(document, LOCALES);
 }
 
 export async function POST(request: NextRequest) {
@@ -195,14 +231,14 @@ export async function POST(request: NextRequest) {
 
     // 4. Revalidate all affected paths
     const results = await Promise.allSettled(
-      paths.map(async (path) => {
+      paths.map((path) => {
         try {
           revalidatePath(path);
           console.log(`[Webhook] Revalidated: ${path}`);
-          return { path, success: true };
+          return Promise.resolve({ path, success: true });
         } catch (error) {
           console.error(`[Webhook] Failed to revalidate ${path}:`, error);
-          return { path, success: false, error };
+          return Promise.reject({ path, success: false, error });
         }
       })
     );
@@ -227,7 +263,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Health check endpoint
-export async function GET() {
+export function GET() {
   return NextResponse.json({
     status: "ok",
     message: "Sanity webhook endpoint is configured",
