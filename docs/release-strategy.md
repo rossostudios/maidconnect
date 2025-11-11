@@ -20,7 +20,7 @@
 
 ## Overview
 
-MaidConnect follows a **weekly release schedule** to balance frequent updates with deployment stability. This strategy reduces deployment noise while maintaining rapid iteration.
+Casaora follows a **weekly release schedule** to balance frequent updates with deployment stability. This strategy reduces deployment noise while maintaining rapid iteration.
 
 ### Goals
 
@@ -101,7 +101,7 @@ develop (staging)
 
 ## Semantic Versioning
 
-MaidConnect uses [Semantic Versioning 2.0.0](https://semver.org/):
+Casaora uses [Semantic Versioning 2.0.0](https://semver.org/):
 
 ```
 v MAJOR . MINOR . PATCH
@@ -211,7 +211,7 @@ git push origin v1.1.0
 
 ```bash
 gh release create v1.1.0 \
-  --title "MaidConnect v1.1.0" \
+  --title "Casaora v1.1.0" \
   --notes-file CHANGELOG.md \
   --latest
 ```
@@ -422,4 +422,4 @@ gh release create v1.2.0-beta.1 --prerelease
 
 **Questions or suggestions?** Open an issue or PR!
 
-🚀 **MaidConnect** | Built by [rossostudios](https://github.com/rossostudios)
+🚀 **Casaora** | Built by [rossostudios](https://github.com/rossostudios)

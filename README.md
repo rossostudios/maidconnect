@@ -1,50 +1,457 @@
-# Casaora (MaidConnect)
+# Casaora
 
-Casaora is a concierge-style marketplace connecting foreigners in Colombia with trusted domestic service professionals. “MaidConnect” refers to this codebase and internal project name.
+> Connecting expats in Colombia with trusted domestic service professionals
 
-## Quick Start
+**Casaora** is a concierge-style marketplace platform that bridges the gap between foreigners living in Colombia and verified, professional domestic service providers. Built for trust, transparency, and seamless service delivery.
+
+[![Next.js 16](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
+[![React 19](https://img.shields.io/badge/React-19-blue)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)](https://www.typescriptlang.org/)
+[![Tailwind CSS 4](https://img.shields.io/badge/Tailwind-4.1-38bdf8)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+---
+
+## 🌟 Features
+
+### For Customers
+
+- 🔍 **Smart Professional Matching** - AI-powered recommendations based on your needs
+- 📅 **Real-time Booking** - Instant availability checking and booking confirmation
+- 💳 **Secure Payments** - Integrated Stripe payment processing with Colombian payment methods
+- ⭐ **Reviews & Ratings** - Transparent feedback system with verified reviews
+- 🌐 **Bilingual Support** - Full English and Spanish localization
+- 📱 **Mobile-First Design** - Optimized for mobile devices with responsive UI
+
+### For Professionals
+
+- 📊 **Professional Dashboard** - Manage bookings, availability, and earnings
+- ✅ **Verification System** - Background checks and document verification
+- 💰 **Transparent Pricing** - Set your own rates and service packages
+- 📈 **Analytics & Insights** - Track performance metrics and customer feedback
+- 🗓️ **Calendar Management** - Integrated availability and scheduling system
+- 💬 **Direct Messaging** - Secure communication with customers
+
+### For Admins
+
+- 👥 **User Management** - Comprehensive admin dashboard for oversight
+- 🔒 **Professional Vetting** - Queue system for reviewing and approving professionals
+- 📊 **Platform Analytics** - Real-time statistics and performance metrics
+- 🎫 **Dispute Resolution** - Built-in system for handling customer issues
+- 📝 **Content Management** - Integrated CMS for help center and announcements
+- 🚨 **Audit Logging** - Complete activity tracking and compliance
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Node.js 18+** or **Bun** (recommended)
+- **PostgreSQL** (via Supabase)
+- **Stripe Account** (for payments)
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/rossostudios/casaora.git
+cd casaora
+
 # Install dependencies
 bun install
 
+# Copy environment variables
+cp .env.example .env.local
+
+# Set up Supabase
+supabase start
+
 # Run development server
-bun run dev
+bun dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000)
+Visit [http://localhost:3000](http://localhost:3000) to see the app.
 
-## Documentation
+---
 
-- Start here: `docs/00-start/documentation-index.md`
-- Feature docs: `docs/04-features/`
-- Help Center docs: `docs/04-features/help-center.md`
+## 📁 Project Structure
 
-## Tech Stack
+```
+casaora/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── [locale]/          # Internationalized routes (en/es)
+│   │   │   ├── admin/         # Admin dashboard
+│   │   │   ├── dashboard/     # Customer & Pro dashboards
+│   │   │   └── api/           # API routes
+│   │   └── globals.css        # Global Tailwind styles
+│   ├── components/
+│   │   ├── ui/                # Reusable UI components
+│   │   ├── admin/             # Admin-specific components
+│   │   ├── bookings/          # Booking system components
+│   │   └── professionals/     # Professional profiles
+│   ├── lib/
+│   │   ├── services/          # Business logic layer
+│   │   ├── repositories/      # Data access layer
+│   │   ├── integrations/      # External services (Stripe, Supabase)
+│   │   ├── utils/             # Helper functions
+│   │   └── shared/            # Cross-cutting concerns
+│   ├── hooks/                 # Custom React hooks
+│   ├── types/                 # TypeScript definitions
+│   └── i18n/                  # Internationalization config
+├── supabase/
+│   ├── migrations/            # Database migrations
+│   └── functions/             # Edge functions
+├── scripts/                   # Automation scripts
+├── docs/                      # Documentation
+└── tests/                     # E2E and unit tests
+```
 
-- Next.js 16 (App Router)
-- React 19
-- Tailwind CSS
-- Supabase (Database & Auth)
-- Stripe (Payments)
+---
 
-## Environment Setup
+## 🛠️ Tech Stack
 
-Copy `.env.example` to `.env.local` (recommended for Next.js) or `.env` and add your credentials:
+### Core
+
+- **[Next.js 16](https://nextjs.org/)** - React framework with App Router & Turbopack
+- **[React 19](https://react.dev/)** - UI library with React Server Components
+- **[TypeScript 5.7](https://www.typescriptlang.org/)** - Type safety
+- **[Bun](https://bun.sh/)** - Fast JavaScript runtime and package manager
+
+### Styling
+
+- **[Tailwind CSS 4.1](https://tailwindcss.com/)** - Utility-first CSS framework
+- **[Radix UI](https://www.radix-ui.com/)** - Accessible component primitives
+- **[Framer Motion](https://www.framer.com/motion/)** - Animations
+- **[HugeIcons](https://hugeicons.com/)** - Icon library
+
+### Database & Backend
+
+- **[Supabase](https://supabase.com/)** - PostgreSQL database, authentication, storage
+- **[Drizzle ORM](https://orm.drizzle.team/)** - Type-safe database queries
+- **[Stripe](https://stripe.com/)** - Payment processing
+
+### State Management & Forms
+
+- **[React Hook Form](https://react-hook-form.com/)** - Form management
+- **[Zod](https://zod.dev/)** - Schema validation
+- **[TanStack Query](https://tanstack.com/query)** - Data fetching and caching
+
+### Internationalization
+
+- **[next-intl](https://next-intl-docs.vercel.app/)** - i18n with English & Spanish support
+
+### AI & Content
+
+- **[Anthropic Claude](https://www.anthropic.com/)** - AI assistant (Amara)
+- **[Sanity CMS](https://www.sanity.io/)** - Headless CMS for help center
+
+### Developer Tools
+
+- **[Biome](https://biomejs.dev/)** - Fast linter and formatter
+- **[Playwright](https://playwright.dev/)** - E2E testing
+- **[Vitest](https://vitest.dev/)** - Unit testing
+- **[Storybook](https://storybook.js.org/)** - Component development
+
+---
+
+## 🔧 Development
+
+### Available Scripts
 
 ```bash
-cp .env.example .env.local
+# Development
+bun dev                 # Start dev server with Turbopack
+bun build              # Build for production
+bun start              # Start production server
+
+# Code Quality
+bun run check          # Run Biome linter
+bun run check:fix      # Auto-fix linting issues
+bun run format         # Format code
+
+# Testing
+bun test               # Run Playwright E2E tests
+bun test:ui            # Run tests with UI
+bun test:debug         # Debug tests
+
+# Database
+supabase start         # Start local Supabase
+supabase db push       # Push migrations
+supabase db reset      # Reset database
+
+# Deployment
+bash scripts/create-release.sh    # Create weekly release
 ```
 
-Minimum required to run locally:
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `STRIPE_SECRET_KEY`
-- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+### Environment Variables
 
-See `.env.example` for all optional integrations (Logtail, Upstash, VAPID, Amara, etc.) and `docs/05-deployment/deployment-guide.md` for production notes.
+Create `.env.local` with the following variables:
 
-## Help Center
+```env
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
 
-- User-facing route: `/{locale}/help`
-- Developer guide: `docs/04-features/help-center.md`
+# Stripe
+STRIPE_SECRET_KEY=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+
+# Optional: AI Assistant
+ANTHROPIC_API_KEY=
+
+# Optional: CMS
+NEXT_PUBLIC_SANITY_PROJECT_ID=
+NEXT_PUBLIC_SANITY_DATASET=
+SANITY_API_TOKEN=
+
+# Optional: Monitoring
+LOGTAIL_SOURCE_TOKEN=
+
+# Optional: Rate Limiting
+UPSTASH_REDIS_REST_URL=
+UPSTASH_REDIS_REST_TOKEN=
+```
+
+See [`.env.example`](.env.example) for complete list.
+
+---
+
+## 📦 Release Strategy
+
+Casaora follows a **weekly release schedule**:
+
+### Schedule
+
+- **Monday-Thursday:** Development on `develop` branch
+- **Friday 4pm:** Code freeze and release creation
+- **Friday 5pm:** Monitor production deployment
+- **Weekend:** Hotfixes only (critical issues)
+
+### Creating a Release
+
+```bash
+# Automated release (recommended)
+git checkout develop
+bash scripts/create-release.sh
+
+# Or specify version manually
+bash scripts/create-release.sh v1.2.0
+```
+
+The script automatically:
+1. ✅ Generates changelog from commits
+2. ✅ Merges `develop` → `main`
+3. ✅ Creates Git tag
+4. ✅ Creates GitHub release
+5. ✅ Triggers production deployment
+
+### Semantic Versioning
+
+- **Patch (v1.0.X):** Bug fixes, security patches
+- **Minor (v1.X.0):** New features, enhancements
+- **Major (vX.0.0):** Breaking changes
+
+**See:** [docs/release-strategy.md](docs/release-strategy.md) for complete guide.
+
+---
+
+## 🏗️ Architecture
+
+### Layered Architecture
+
+```
+┌─────────────────────────────────────┐
+│         Presentation Layer          │
+│    (Next.js App Router + React)     │
+└─────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────┐
+│         Business Logic Layer        │
+│       (Services in src/lib/)        │
+└─────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────┐
+│         Data Access Layer           │
+│    (Repositories in src/lib/)       │
+└─────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────┐
+│       External Services Layer       │
+│  (Supabase, Stripe, Sanity, etc.)   │
+└─────────────────────────────────────┘
+```
+
+### Key Principles
+
+- **Separation of Concerns:** Clear boundaries between layers
+- **Type Safety:** End-to-end TypeScript with strict mode
+- **Server Components:** Leverage React Server Components for performance
+- **Progressive Enhancement:** Works without JavaScript when possible
+- **Accessibility First:** WCAG 2.1 AA compliance with Radix UI
+
+---
+
+## 🧪 Testing
+
+### E2E Tests (Playwright)
+
+```bash
+bun test                 # Run all tests
+bun test:ui             # Interactive mode
+bun test:headed         # Headed browser mode
+bun test:debug          # Debug mode
+```
+
+### Unit Tests (Vitest)
+
+```bash
+bun run test:unit       # Run unit tests
+bun run test:coverage   # With coverage report
+```
+
+### Test Coverage Goals
+
+- **Critical paths:** 60%+ coverage
+- **Business logic:** 80%+ coverage
+- **Utilities:** 90%+ coverage
+
+---
+
+## 🚢 Deployment
+
+### Platforms
+
+- **Production:** [Vercel](https://vercel.com/)
+- **Database:** [Supabase Cloud](https://supabase.com/)
+- **CMS:** [Sanity Cloud](https://www.sanity.io/)
+
+### CI/CD Pipeline
+
+1. **Pull Request:** Automated checks (lint, type-check, tests)
+2. **Merge to `develop`:** Preview deployment
+3. **Merge to `main`:** Production deployment
+4. **GitHub Release:** Automatic changelog generation
+
+### Deployment Optimization
+
+We've optimized deployment frequency:
+- **Before:** ~77 deployments/week (excessive)
+- **After:** ~7-10 deployments/week (controlled)
+- **Reduction:** 85%+ fewer deployments
+
+**See:** [scripts/README.md](scripts/README.md) for deployment automation.
+
+---
+
+## 📚 Documentation
+
+- **[CLAUDE.md](CLAUDE.md)** - AI development guide
+- **[docs/release-strategy.md](docs/release-strategy.md)** - Release process
+- **[scripts/README.md](scripts/README.md)** - Automation scripts
+- **[docs/radix-to-react-aria-audit.md](docs/radix-to-react-aria-audit.md)** - UI migration plan
+- **[docs/design-system-8px-grid.md](docs/design-system-8px-grid.md)** - Design system
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how to get started:
+
+### Development Workflow
+
+1. **Fork and clone** the repository
+2. **Create a branch** from `develop`: `git checkout -b feature/your-feature`
+3. **Make your changes** following our code style
+4. **Write tests** for new functionality
+5. **Run checks:** `bun run check && bun test`
+6. **Create a PR** to `develop` branch
+
+### Commit Convention
+
+We use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```bash
+feat: add booking calendar view
+fix: resolve payment processing bug
+chore: update dependencies [skip deploy]
+docs: improve README
+```
+
+### Code Style
+
+- **Linting:** Biome (run `bun run check:fix`)
+- **Formatting:** Automatic with Biome
+- **TypeScript:** Strict mode enabled
+- **Components:** Tailwind CSS only (no CSS-in-JS)
+
+---
+
+## 🔒 Security
+
+### Reporting Vulnerabilities
+
+Please report security vulnerabilities to: **security@casaora.com**
+
+Do not create public GitHub issues for security vulnerabilities.
+
+### Security Measures
+
+- ✅ Row Level Security (RLS) on all Supabase tables
+- ✅ Rate limiting on API endpoints
+- ✅ Input sanitization and validation
+- ✅ CSRF protection
+- ✅ Secure payment processing (PCI compliant via Stripe)
+- ✅ Background checks for professionals
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+Built with these amazing open-source projects:
+
+- [Next.js](https://nextjs.org/) by Vercel
+- [Supabase](https://supabase.com/) - Open source Firebase alternative
+- [Tailwind CSS](https://tailwindcss.com/) by Tailwind Labs
+- [Radix UI](https://www.radix-ui.com/) by WorkOS
+- [Anthropic Claude](https://www.anthropic.com/) for AI capabilities
+
+---
+
+## 📞 Contact & Support
+
+- **Website:** [casaora.com](https://casaora.com)
+- **Email:** support@casaora.com
+- **Documentation:** [docs/](docs/)
+- **Issues:** [GitHub Issues](https://github.com/rossostudios/casaora/issues)
+
+---
+
+## 🗺️ Roadmap
+
+See our [public roadmap](https://github.com/rossostudios/casaora/roadmap) for upcoming features and improvements.
+
+**Current Focus (Q4 2025):**
+- 🔄 React Aria migration for better accessibility
+- 📱 Mobile app (React Native)
+- 🌎 Expansion to other Colombian cities
+- 🤖 Enhanced AI matching algorithms
+- 📊 Advanced analytics dashboard
+
+---
+
+<div align="center">
+
+**Built with ❤️ by [Rosso Studios](https://github.com/rossostudios)**
+
+[⬆ Back to Top](#casaora)
+
+</div>

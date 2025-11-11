@@ -18,7 +18,7 @@ REPO="rossostudios/casaora"
 VERSION="${1:-}"
 CURRENT_BRANCH=$(git branch --show-current)
 
-echo "🚀 MaidConnect Release Creator"
+echo "🚀 Casaora Release Creator"
 echo "================================"
 echo ""
 
@@ -155,7 +155,7 @@ CHANGELOG+="
 **Full Changelog**: https://github.com/$REPO/compare/$LAST_TAG...$VERSION
 **Deployment**: Production deployment will occur automatically after merge to \`main\`
 
-🚀 Generated with [MaidConnect Release Script](https://github.com/$REPO)
+🚀 Generated with [Casaora Release Script](https://github.com/$REPO)
 "
 
 echo ""
@@ -214,7 +214,7 @@ git push origin "$VERSION"
 # Create GitHub release
 echo "📦 Creating GitHub release..."
 echo "$CHANGELOG" | gh release create "$VERSION" \
-  --title "MaidConnect $VERSION" \
+  --title "Casaora $VERSION" \
   --notes-file - \
   --latest
 
