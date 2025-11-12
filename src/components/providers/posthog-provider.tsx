@@ -6,17 +6,13 @@
  */
 
 import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { initPostHog, posthog } from "@/lib/integrations/posthog/client";
 
-export function PostHogProvider({ children }: { children: React.ReactNode }) {
+// Component that uses useSearchParams - must be wrapped in Suspense
+function PostHogPageView() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  // Initialize PostHog on mount
-  useEffect(() => {
-    initPostHog();
-  }, []);
 
   // Track pageviews on route changes
   useEffect(() => {
@@ -32,5 +28,21 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
     }
   }, [pathname, searchParams]);
 
-  return <>{children}</>;
+  return null;
+}
+
+export function PostHogProvider({ children }: { children: React.ReactNode }) {
+  // Initialize PostHog on mount
+  useEffect(() => {
+    initPostHog();
+  }, []);
+
+  return (
+    <>
+      <Suspense fallback={null}>
+        <PostHogPageView />
+      </Suspense>
+      {children}
+    </>
+  );
 }
