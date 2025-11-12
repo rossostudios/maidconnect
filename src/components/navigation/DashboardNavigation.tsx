@@ -13,7 +13,7 @@ import { Link, usePathname } from "@/i18n/routing";
 // Dynamic import for sheet (lazy load on demand)
 const NotificationsSheet = dynamic(
   () =>
-    import("@/components/notifications/NotificationsSheet").then((mod) => mod.NotificationsSheet),
+    import("@/components/notifications/notifications-sheet").then((mod) => mod.NotificationsSheet),
   { ssr: false }
 );
 
