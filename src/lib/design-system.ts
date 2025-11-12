@@ -39,10 +39,10 @@ export const ICON_CONTAINER = {
   containerSize: "h-12 w-12" as const,
   /** Border radius - 8px for consistency with grid */
   borderRadius: "rounded-lg" as const,
-  /** Background - lightest slate with subtle opacity */
-  background: "bg-slate-50 dark:bg-slate-900/50" as const,
-  /** Icon color - medium slate for contrast */
-  iconColor: "text-slate-600 dark:text-slate-400" as const,
+  /** Background - lightest stone with subtle opacity */
+  background: "bg-stone-50 dark:bg-stone-900/50" as const,
+  /** Icon color - medium stone for contrast */
+  iconColor: "text-stone-600 dark:text-stone-400" as const,
   /** Padding inside container for visual balance */
   padding: "p-3" as const, // 12px = close to 8px grid
 } as const;
@@ -98,8 +98,8 @@ export const STATUS_VARIANTS = {
     label: "Error",
   },
   neutral: {
-    container: "bg-slate-50 dark:bg-slate-900/50",
-    icon: "text-slate-600 dark:text-slate-400",
+    container: "bg-stone-50 dark:bg-stone-900/50",
+    icon: "text-stone-600 dark:text-stone-400",
     label: "Neutral",
   },
 } as const;

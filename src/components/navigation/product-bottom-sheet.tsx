@@ -48,7 +48,7 @@ export function ProductBottomSheet({ isOpen, onClose, features }: Props) {
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm transition-opacity"
         onClick={onClose}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " " || e.key === "Escape") {
@@ -67,11 +67,11 @@ export function ProductBottomSheet({ isOpen, onClose, features }: Props) {
         }`}
       >
         {/* Header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between border-slate-200 border-b bg-white px-6 py-4">
-          <h2 className="font-semibold text-lg text-slate-900">Product Features</h2>
+        <div className="sticky top-0 z-10 flex items-center justify-between border-stone-200 border-b bg-white px-6 py-4">
+          <h2 className="font-semibold text-lg text-stone-900">Product Features</h2>
           <button
             aria-label="Close product menu"
-            className="flex h-10 w-10 items-center justify-center rounded-full text-slate-900 transition hover:bg-slate-100 active:scale-95"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-stone-900 transition hover:bg-stone-100 active:scale-95"
             onClick={onClose}
             type="button"
           >
@@ -84,15 +84,15 @@ export function ProductBottomSheet({ isOpen, onClose, features }: Props) {
           <div className="space-y-3 landscape:grid landscape:grid-cols-2 landscape:gap-3 landscape:space-y-0">
             {features.map((feature) => (
               <Link
-                className="group flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-slate-300 hover:bg-slate-50 active:scale-[0.98]"
+                className="group flex flex-col gap-2 rounded-2xl border border-stone-200 bg-white p-5 transition hover:border-stone-300 hover:bg-stone-50 active:scale-[0.98]"
                 href={feature.href}
                 key={feature.name}
                 onClick={onClose}
               >
-                <span className="font-semibold text-base text-slate-900 group-hover:text-slate-700">
+                <span className="font-semibold text-base text-stone-900 group-hover:text-stone-700">
                   {feature.name}
                 </span>
-                <span className="text-slate-600 text-sm leading-relaxed">
+                <span className="text-stone-600 text-sm leading-relaxed">
                   {feature.description}
                 </span>
               </Link>

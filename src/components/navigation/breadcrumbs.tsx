@@ -53,10 +53,10 @@ export function Breadcrumbs() {
 
   return (
     <nav aria-label="Breadcrumb">
-      <ol className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm shadow-sm">
+      <ol className="flex items-center gap-2 rounded-lg border border-stone-200 bg-white px-4 py-3 text-sm shadow-sm">
         <li>
           <Link
-            className="flex items-center gap-1.5 text-slate-600 transition hover:text-slate-900"
+            className="flex items-center gap-1.5 text-stone-600 transition hover:text-stone-900"
             href="/"
           >
             <Home className="h-4 w-4" />
@@ -65,13 +65,13 @@ export function Breadcrumbs() {
         </li>
         {breadcrumbs.map((item, index) => (
           <li className="flex items-center gap-2" key={index}>
-            <ChevronRight aria-hidden="true" className="h-4 w-4 text-slate-400" />
+            <ChevronRight aria-hidden="true" className="h-4 w-4 text-stone-400" />
             {item.href ? (
-              <Link className="text-slate-600 transition hover:text-slate-900" href={item.href}>
+              <Link className="text-stone-600 transition hover:text-stone-900" href={item.href}>
                 {item.label}
               </Link>
             ) : (
-              <span className="font-medium text-slate-900">{item.label}</span>
+              <span className="font-medium text-stone-900">{item.label}</span>
             )}
           </li>
         ))}

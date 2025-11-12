@@ -27,16 +27,16 @@ export function TestimonialsSection() {
   }
 
   return (
-    <section className="bg-slate-50 py-16 sm:py-20 lg:py-24" id="testimonials">
+    <section className="bg-stone-50 py-16 sm:py-20 lg:py-24" id="testimonials">
       <Container className="max-w-5xl">
         <div className="flex flex-col gap-12">
           {/* Header */}
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
             <div className="flex flex-col gap-3">
-              <p className="font-medium text-slate-600 text-sm uppercase tracking-wider">
+              <p className="font-medium text-stone-600 text-sm uppercase tracking-wider">
                 Testimonials
               </p>
-              <h2 className="font-semibold text-3xl text-slate-900 tracking-tight sm:text-4xl">
+              <h2 className="font-semibold text-3xl text-stone-900 tracking-tight sm:text-4xl">
                 What Our Clients Say
               </h2>
             </div>
@@ -47,8 +47,8 @@ export function TestimonialsSection() {
                 <button
                   aria-label="Previous"
                   className={cn(
-                    "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-slate-300 bg-white text-slate-900 transition-all",
-                    "hover:border-slate-900 hover:bg-slate-900 hover:text-white"
+                    "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-stone-300 bg-white text-stone-900 transition-all",
+                    "hover:border-stone-900 hover:bg-stone-900 hover:text-white"
                   )}
                   onClick={() => goTo(current - 1)}
                 >
@@ -57,8 +57,8 @@ export function TestimonialsSection() {
                 <button
                   aria-label="Next"
                   className={cn(
-                    "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-slate-300 bg-white text-slate-900 transition-all",
-                    "hover:border-slate-900 hover:bg-slate-900 hover:text-white"
+                    "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-stone-300 bg-white text-stone-900 transition-all",
+                    "hover:border-stone-900 hover:bg-stone-900 hover:text-white"
                   )}
                   onClick={() => goTo(current + 1)}
                 >
@@ -69,28 +69,28 @@ export function TestimonialsSection() {
           </div>
 
           {/* Testimonial Card */}
-          <Card className="rounded-2xl border-slate-200 bg-white shadow-lg">
+          <Card className="rounded-2xl border-stone-200 bg-white shadow-lg">
             <CardContent className="p-8 sm:p-12">
               <div className="flex flex-col gap-8" key={active.handle}>
                 {/* Quote */}
-                <blockquote className="text-lg text-slate-900 leading-relaxed sm:text-xl">
+                <blockquote className="text-lg text-stone-900 leading-relaxed sm:text-xl">
                   "{active.quote}"
                 </blockquote>
 
                 {/* Author Info */}
                 <div className="flex items-center gap-4">
-                  <Avatar className="h-14 w-14 ring-2 ring-slate-200">
+                  <Avatar className="h-14 w-14 ring-2 ring-stone-200">
                     <AvatarImage
                       alt={active.name}
                       src={active.avatar || "/placeholder-professional.jpg"}
                     />
-                    <AvatarFallback className="bg-slate-100 text-slate-900">
+                    <AvatarFallback className="bg-stone-100 text-stone-900">
                       {active.name.charAt(0)}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col gap-1">
-                    <p className="font-semibold text-base text-slate-900">{active.name}</p>
-                    <p className="text-slate-600 text-sm">{active.location}</p>
+                    <p className="font-semibold text-base text-stone-900">{active.name}</p>
+                    <p className="text-stone-600 text-sm">{active.location}</p>
                   </div>
                 </div>
               </div>
@@ -103,22 +103,22 @@ export function TestimonialsSection() {
                     <button
                       aria-label="Previous"
                       className={cn(
-                        "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-slate-300 bg-white text-slate-900 transition-all",
-                        "hover:border-slate-900 hover:bg-slate-900 hover:text-white"
+                        "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-stone-300 bg-white text-stone-900 transition-all",
+                        "hover:border-stone-900 hover:bg-stone-900 hover:text-white"
                       )}
                       onClick={() => goTo(current - 1)}
                       type="button"
                     >
                       <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
                     </button>
-                    <span className="text-slate-600 text-sm">
+                    <span className="text-stone-600 text-sm">
                       {current + 1} / {slides.length}
                     </span>
                     <button
                       aria-label="Next"
                       className={cn(
-                        "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-slate-300 bg-white text-slate-900 transition-all",
-                        "hover:border-slate-900 hover:bg-slate-900 hover:text-white"
+                        "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-stone-300 bg-white text-stone-900 transition-all",
+                        "hover:border-stone-900 hover:bg-stone-900 hover:text-white"
                       )}
                       onClick={() => goTo(current + 1)}
                       type="button"

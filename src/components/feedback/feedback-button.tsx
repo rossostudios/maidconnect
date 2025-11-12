@@ -22,7 +22,7 @@ export function FeedbackButton() {
       {/* Floating Button */}
       <button
         aria-label="Send Feedback"
-        className="group fixed right-6 bottom-6 z-40 flex items-center gap-2 rounded-full bg-slate-900 px-4 py-3 font-semibold text-white shadow-lg transition-all hover:bg-slate-800 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 sm:px-5 sm:py-4"
+        className="group fixed right-6 bottom-6 z-40 flex items-center gap-2 rounded-full bg-stone-900 px-4 py-3 font-semibold text-white shadow-lg transition-all hover:bg-stone-800 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2 sm:px-5 sm:py-4"
         data-feedback-button
         onClick={() => setIsOpen(true)}
         type="button"

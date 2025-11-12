@@ -433,7 +433,7 @@ const ProfessionalsDirectoryComponent = memo(
                         case "viewing":
                           return "bg-[#f8fafc] text-[#64748b] border-[#e2e8f0]";
                         case "booked":
-                          return "bg-slate-100 text-slate-900 border-[#0f172a]/20";
+                          return "bg-stone-100 text-stone-900 border-[#0f172a]/20";
                         case "demand":
                           return "bg-[#64748b]/10 text-[#64748b] border-[#64748b]/20";
                         case "rare":

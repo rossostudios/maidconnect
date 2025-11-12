@@ -73,8 +73,8 @@ const colorVariants = {
     trend: "text-purple-600 dark:text-purple-400",
   },
   default: {
-    accent: "border-slate-200 dark:border-slate-800",
-    trend: "text-slate-600 dark:text-slate-400",
+    accent: "border-stone-200 dark:border-stone-800",
+    trend: "text-stone-600 dark:text-stone-400",
   },
 };
 
@@ -162,7 +162,7 @@ export function MetricCard({
     return (
       <div
         className={cn(
-          "rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950",
+          "rounded-lg border border-stone-200 bg-white p-6 shadow-sm dark:border-stone-800 dark:bg-stone-950",
           "animate-pulse",
           className
         )}
@@ -174,15 +174,15 @@ export function MetricCard({
               className={cn(
                 ICON_CONTAINER.containerSize,
                 ICON_CONTAINER.borderRadius,
-                "bg-slate-100 dark:bg-slate-900"
+                "bg-stone-100 dark:bg-stone-900"
               )}
             />
           </div>
           {/* Content skeleton */}
           <div className="flex flex-col gap-2">
-            <div className="h-4 w-24 rounded bg-slate-200 dark:bg-slate-800" />
-            <div className="h-8 w-32 rounded bg-slate-200 dark:bg-slate-800" />
-            {trendValue && <div className="h-6 w-28 rounded-full bg-slate-200 dark:bg-slate-800" />}
+            <div className="h-4 w-24 rounded bg-stone-200 dark:bg-stone-800" />
+            <div className="h-8 w-32 rounded bg-stone-200 dark:bg-stone-800" />
+            {trendValue && <div className="h-6 w-28 rounded-full bg-stone-200 dark:bg-stone-800" />}
           </div>
         </div>
       </div>
@@ -200,10 +200,10 @@ export function MetricCard({
       <div
         className={cn(
           // Base styles - 8px grid system with proper spacing
-          "rounded-lg border bg-white shadow-sm dark:bg-slate-950",
+          "rounded-lg border bg-white shadow-sm dark:bg-stone-950",
           CARD_LAYOUT.padding,
           // Border color from variant
-          variant !== "default" ? colors.accent : "border-slate-200 dark:border-slate-800",
+          variant !== "default" ? colors.accent : "border-stone-200 dark:border-stone-800",
           // Interactive styles
           onClick && "cursor-pointer hover:shadow-md",
           // Smooth transitions
@@ -238,7 +238,7 @@ export function MetricCard({
           )}
 
           {/* Title */}
-          <h3 className="font-medium text-slate-600 text-sm uppercase tracking-wide dark:text-slate-400">
+          <h3 className="font-medium text-stone-600 text-sm uppercase tracking-wide dark:text-stone-400">
             {title}
           </h3>
 
@@ -250,7 +250,7 @@ export function MetricCard({
               initial="hidden"
               variants={valueVariants}
             >
-              <p className="font-bold text-3xl text-slate-900 dark:text-slate-100">{value}</p>
+              <p className="font-bold text-3xl text-stone-900 dark:text-stone-100">{value}</p>
               {trend && trendValue && (
                 <Badge
                   className="font-semibold"
@@ -264,7 +264,7 @@ export function MetricCard({
 
             {/* Description */}
             {description && (
-              <p className="text-slate-600 text-sm dark:text-slate-400">{description}</p>
+              <p className="text-stone-600 text-sm dark:text-stone-400">{description}</p>
             )}
           </div>
 

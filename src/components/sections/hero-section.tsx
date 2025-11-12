@@ -53,7 +53,7 @@ export function HeroSection() {
   const t = useTranslations("hero");
 
   return (
-    <section className="relative overflow-x-hidden bg-slate-50">
+    <section className="relative overflow-x-hidden bg-stone-50">
       {/* Background Image */}
       <div className="relative h-[600px] w-full sm:h-[700px] md:h-[750px] lg:h-[800px]">
         <Image
@@ -71,7 +71,7 @@ export function HeroSection() {
           }}
         />
         {/* Minimal Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/60 to-slate-900/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-stone-900/70 via-stone-900/60 to-stone-900/80" />
       </div>
 
       {/* Content */}
@@ -85,7 +85,7 @@ export function HeroSection() {
           >
             {/* Badge */}
             <motion.div
-              className="tagline rounded-full bg-slate-50/10 px-4 py-2 text-slate-50 backdrop-blur-sm sm:px-6 sm:py-2.5"
+              className="tagline rounded-full bg-stone-50/10 px-4 py-2 text-stone-50 backdrop-blur-sm sm:px-6 sm:py-2.5"
               style={{ willChange: "transform, opacity" }}
               variants={itemVariants} // Performance optimization
             >
@@ -94,7 +94,7 @@ export function HeroSection() {
 
             {/* Main Headline */}
             <motion.h1
-              className="max-w-4xl font-extrabold text-4xl text-slate-50 leading-[1.1] sm:text-5xl md:text-6xl lg:text-7xl"
+              className="max-w-4xl font-extrabold text-4xl text-stone-50 leading-[1.1] sm:text-5xl md:text-6xl lg:text-7xl"
               style={{ willChange: "transform, opacity" }}
               variants={itemVariants}
             >
@@ -103,7 +103,7 @@ export function HeroSection() {
 
             {/* Subtitle */}
             <motion.p
-              className="max-w-2xl text-lg text-slate-200 leading-relaxed sm:text-xl md:text-2xl"
+              className="max-w-2xl text-lg text-stone-200 leading-relaxed sm:text-xl md:text-2xl"
               style={{ willChange: "transform, opacity" }}
               variants={itemVariants}
             >
@@ -122,7 +122,7 @@ export function HeroSection() {
 
             {/* Trust Signals */}
             <motion.div
-              className="mt-4 flex flex-wrap items-center justify-center gap-4 text-slate-300 sm:mt-6 sm:gap-6 md:gap-8"
+              className="mt-4 flex flex-wrap items-center justify-center gap-4 text-stone-300 sm:mt-6 sm:gap-6 md:gap-8"
               style={{ willChange: "transform, opacity" }}
               variants={containerVariants}
             >
@@ -132,14 +132,14 @@ export function HeroSection() {
                 variants={trustSignalVariants} // Gesture animation
                 whileHover={{ scale: 1.05 }}
               >
-                <span className="font-semibold text-slate-50 text-xl sm:text-2xl">500+</span>
+                <span className="font-semibold text-stone-50 text-xl sm:text-2xl">500+</span>
                 <span className="text-xs sm:text-sm">
                   {t("trustSignals.verified") || "Verified Professionals"}
                 </span>
               </motion.div>
 
               <motion.div
-                className="hidden h-4 w-px bg-slate-50/20 sm:block"
+                className="hidden h-4 w-px bg-stone-50/20 sm:block"
                 variants={trustSignalVariants}
               />
 
@@ -149,12 +149,12 @@ export function HeroSection() {
                 variants={trustSignalVariants}
                 whileHover={{ scale: 1.05 }}
               >
-                <span className="font-semibold text-slate-50 text-xl sm:text-2xl">15+</span>
+                <span className="font-semibold text-stone-50 text-xl sm:text-2xl">15+</span>
                 <span className="text-xs sm:text-sm">{t("trustSignals.cities") || "Cities"}</span>
               </motion.div>
 
               <motion.div
-                className="hidden h-4 w-px bg-slate-50/20 sm:block"
+                className="hidden h-4 w-px bg-stone-50/20 sm:block"
                 variants={trustSignalVariants}
               />
 
@@ -164,7 +164,7 @@ export function HeroSection() {
                 variants={trustSignalVariants}
                 whileHover={{ scale: 1.05 }}
               >
-                <span className="font-semibold text-slate-50 text-xl sm:text-2xl">4.9★</span>
+                <span className="font-semibold text-stone-50 text-xl sm:text-2xl">4.9★</span>
                 <span className="text-xs sm:text-sm">
                   {t("trustSignals.rating") || "Average Rating"}
                 </span>

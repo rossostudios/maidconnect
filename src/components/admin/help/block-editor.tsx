@@ -30,15 +30,15 @@ const editorTokens = {
   shell: "mx-auto w-full max-w-3xl px-4 sm:px-6 py-6",
   blockStack: "space-y-1",
   blockRow:
-    "group relative flex items-start gap-3 rounded-2xl pl-4 pr-16 py-1.5 transition hover:bg-white dark:bg-slate-950",
+    "group relative flex items-start gap-3 rounded-2xl pl-4 pr-16 py-1.5 transition hover:bg-white dark:bg-stone-950",
   dragOver:
-    "bg-white dark:bg-slate-950 border border-dashed border-slate-200 dark:border-slate-800",
+    "bg-white dark:bg-stone-950 border border-dashed border-stone-200 dark:border-stone-800",
   handleRail:
-    "absolute top-2 right-2 flex items-center gap-1 rounded-full bg-white dark:bg-slate-950/90 px-1 py-0.5 text-slate-600 dark:text-slate-400/70 opacity-0 shadow-sm ring-1 ring-[#e2e8f0] transition-all group-hover:opacity-100",
+    "absolute top-2 right-2 flex items-center gap-1 rounded-full bg-white dark:bg-stone-950/90 px-1 py-0.5 text-stone-600 dark:text-stone-400/70 opacity-0 shadow-sm ring-1 ring-[#e2e8f0] transition-all group-hover:opacity-100",
   handleButton:
-    "rounded-full p-1 transition hover:bg-[#e2e8f0]/30 hover:text-slate-600 dark:text-slate-400 active:cursor-grabbing",
+    "rounded-full p-1 transition hover:bg-[#e2e8f0]/30 hover:text-stone-600 dark:text-stone-400 active:cursor-grabbing",
   deleteButton:
-    "rounded-full p-1 text-slate-900 dark:text-slate-100 transition hover:bg-white dark:bg-slate-950 hover:text-slate-900 dark:text-slate-100",
+    "rounded-full p-1 text-stone-900 dark:text-stone-100 transition hover:bg-white dark:bg-stone-950 hover:text-stone-900 dark:text-stone-100",
 };
 
 const TEXT_BLOCK_TYPES: BlockType[] = [
@@ -557,7 +557,7 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
     <div className={cn("relative", editorTokens.shell)} ref={editorContainerRef}>
       {selectionToolbar.visible && (
         <div
-          className="pointer-events-auto absolute z-40 flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-600 shadow-xl dark:border-slate-800 dark:bg-slate-950/95 dark:text-slate-400"
+          className="pointer-events-auto absolute z-40 flex items-center gap-1 rounded-full border border-stone-200 bg-white px-2 py-1 text-stone-600 shadow-xl dark:border-stone-800 dark:bg-stone-950/95 dark:text-stone-400"
           style={{
             left: selectionToolbar.x,
             top: selectionToolbar.y,
@@ -583,9 +583,9 @@ export function BlockEditor({ initialContent = "", onChange, locale }: BlockEdit
       )}
       {/* Empty state - Notion-style blank canvas */}
       {blocks.length === 0 && (
-        <div className="flex min-h-[320px] items-center justify-center rounded-3xl border border-slate-200 border-dashed bg-white text-center dark:border-slate-800 dark:bg-slate-950/70">
+        <div className="flex min-h-[320px] items-center justify-center rounded-3xl border border-stone-200 border-dashed bg-white text-center dark:border-stone-800 dark:bg-stone-950/70">
           <button
-            className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-600 shadow-sm transition hover:border-slate-900 hover:text-slate-900 dark:border-slate-100/30 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:text-slate-400"
+            className="flex items-center gap-2 rounded-2xl border border-stone-200 bg-white px-4 py-3 text-stone-600 shadow-sm transition hover:border-stone-900 hover:text-stone-900 dark:border-stone-100/30 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-100 dark:text-stone-400"
             onClick={() => {
               const newBlock: EditorBlock = {
                 id: crypto.randomUUID(),
@@ -902,12 +902,12 @@ function BlockComponent({
       {/* Block Menu - Minimal slash menu */}
       {showBlockMenu && (
         <div
-          className="absolute top-full left-0 z-50 mt-1 w-72 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-lg dark:border-slate-800 dark:bg-slate-950"
+          className="absolute top-full left-0 z-50 mt-1 w-72 overflow-hidden rounded-lg border border-stone-200 bg-white shadow-lg dark:border-stone-800 dark:bg-stone-950"
           ref={menuRef}
         >
           {/* Search hint */}
-          <div className="border-slate-200 border-b bg-white px-3 py-2 dark:border-slate-800/40 dark:bg-slate-950">
-            <p className="text-slate-600 text-xs dark:text-slate-400">
+          <div className="border-stone-200 border-b bg-white px-3 py-2 dark:border-stone-800/40 dark:bg-stone-950">
+            <p className="text-stone-600 text-xs dark:text-stone-400">
               {slashMenuSearch ? (
                 <>
                   {locale === "es" ? "Buscando" : "Searching"}: "{slashMenuSearch}"
@@ -924,7 +924,7 @@ function BlockComponent({
             {/* Recent blocks section */}
             {showRecent && (
               <div className="mb-2">
-                <p className="px-2 py-1.5 font-medium text-slate-600 text-xs uppercase tracking-wide dark:text-slate-400/70">
+                <p className="px-2 py-1.5 font-medium text-stone-600 text-xs uppercase tracking-wide dark:text-stone-400/70">
                   {locale === "es" ? "Recientes" : "Recent"}
                 </p>
                 {recentBlocksFiltered.map((type, idx) => {
@@ -934,8 +934,8 @@ function BlockComponent({
                       className={cn(
                         "flex w-full items-center gap-3 rounded px-2 py-2 text-left text-sm",
                         isSelected
-                          ? "bg-[#e2e8f0]/30 text-slate-900 dark:text-slate-100"
-                          : "text-slate-600 dark:text-slate-400"
+                          ? "bg-[#e2e8f0]/30 text-stone-900 dark:text-stone-100"
+                          : "text-stone-600 dark:text-stone-400"
                       )}
                       key={type}
                       onClick={() => {
@@ -945,13 +945,13 @@ function BlockComponent({
                       ref={isSelected ? selectedButtonRef : null}
                       type="button"
                     >
-                      <span className="flex h-8 w-8 items-center justify-center rounded border border-slate-200 bg-white text-base dark:border-slate-800 dark:bg-slate-950">
+                      <span className="flex h-8 w-8 items-center justify-center rounded border border-stone-200 bg-white text-base dark:border-stone-800 dark:bg-stone-950">
                         <HugeiconsIcon className="h-4 w-4" icon={BLOCK_TYPES[type].icon} />
                       </span>
                       <div className="flex-1">
                         <div className="font-medium">{BLOCK_TYPES[type].label}</div>
                         {isSelected && (
-                          <div className="text-slate-600 text-xs dark:text-slate-400">
+                          <div className="text-stone-600 text-xs dark:text-stone-400">
                             {locale === "es" ? "Presiona Enter" : "Press Enter"}
                           </div>
                         )}
@@ -966,7 +966,7 @@ function BlockComponent({
             {filteredBlockTypes.length > 0 && (
               <div>
                 {showRecent && (
-                  <p className="px-2 py-1.5 font-medium text-slate-600 text-xs uppercase tracking-wide dark:text-slate-400/70">
+                  <p className="px-2 py-1.5 font-medium text-stone-600 text-xs uppercase tracking-wide dark:text-stone-400/70">
                     {locale === "es" ? "Todos los bloques" : "All Blocks"}
                   </p>
                 )}
@@ -980,8 +980,8 @@ function BlockComponent({
                         className={cn(
                           "flex w-full items-center gap-3 rounded px-2 py-2 text-left text-sm",
                           isSelected
-                            ? "bg-[#e2e8f0]/30 text-slate-900 dark:text-slate-100"
-                            : "text-slate-600 dark:text-slate-400"
+                            ? "bg-[#e2e8f0]/30 text-stone-900 dark:text-stone-100"
+                            : "text-stone-600 dark:text-stone-400"
                         )}
                         key={type}
                         onClick={() => {
@@ -991,13 +991,13 @@ function BlockComponent({
                         ref={isSelected ? selectedButtonRef : null}
                         type="button"
                       >
-                        <span className="flex h-8 w-8 items-center justify-center rounded border border-slate-200 bg-white text-base dark:border-slate-800 dark:bg-slate-950">
+                        <span className="flex h-8 w-8 items-center justify-center rounded border border-stone-200 bg-white text-base dark:border-stone-800 dark:bg-stone-950">
                           <HugeiconsIcon className="h-4 w-4" icon={BLOCK_TYPES[type].icon} />
                         </span>
                         <div className="flex-1">
                           <div className="font-medium">{BLOCK_TYPES[type].label}</div>
                           {isSelected && (
-                            <div className="text-slate-600 text-xs dark:text-slate-400">
+                            <div className="text-stone-600 text-xs dark:text-stone-400">
                               {locale === "es" ? "Presiona Enter" : "Press Enter"}
                             </div>
                           )}
@@ -1011,22 +1011,22 @@ function BlockComponent({
             {/* No results */}
             {filteredBlockTypes.length === 0 && (
               <div className="px-3 py-8 text-center">
-                <p className="text-slate-600 text-sm dark:text-slate-400/70">
+                <p className="text-stone-600 text-sm dark:text-stone-400/70">
                   {locale === "es" ? "No se encontraron bloques" : "No blocks found"}
                 </p>
-                <p className="mt-1 text-slate-600 text-xs dark:text-slate-400/70">
+                <p className="mt-1 text-stone-600 text-xs dark:text-stone-400/70">
                   {locale === "es" ? "Intenta con otra búsqueda" : "Try a different search"}
                 </p>
               </div>
             )}
 
             {/* Actions section */}
-            <div className="mt-2 border-slate-200 border-t pt-1 dark:border-slate-800/40">
-              <p className="px-2 py-1.5 font-medium text-slate-600 text-xs uppercase tracking-wide dark:text-slate-400/70">
+            <div className="mt-2 border-stone-200 border-t pt-1 dark:border-stone-800/40">
+              <p className="px-2 py-1.5 font-medium text-stone-600 text-xs uppercase tracking-wide dark:text-stone-400/70">
                 {locale === "es" ? "Acciones" : "Actions"}
               </p>
               <button
-                className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-slate-600 text-sm dark:text-slate-400"
+                className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-stone-600 text-sm dark:text-stone-400"
                 onClick={() => {
                   moveBlock(block.id, "up");
                   toggleBlockMenu();
@@ -1037,7 +1037,7 @@ function BlockComponent({
                 <span>{locale === "es" ? "Mover arriba" : "Move up"}</span>
               </button>
               <button
-                className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-slate-600 text-sm dark:text-slate-400"
+                className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-stone-600 text-sm dark:text-stone-400"
                 onClick={() => {
                   moveBlock(block.id, "down");
                   toggleBlockMenu();
@@ -1130,7 +1130,7 @@ const BlockContent = ({
         <input
           aria-label={locale === "es" ? "Completar elemento" : "Toggle checklist item"}
           checked={checked}
-          className="mt-1 h-4 w-4 flex-shrink-0 rounded border-slate-400/40 text-slate-900 focus:ring-slate-500 dark:border-slate-500/40 dark:text-slate-100 dark:focus:ring-slate-400"
+          className="mt-1 h-4 w-4 flex-shrink-0 rounded border-stone-400/40 text-stone-900 focus:ring-stone-500 dark:border-stone-500/40 dark:text-stone-100 dark:focus:ring-stone-400"
           onChange={(e) =>
             updateBlock(block.id, {
               metadata: { ...block.metadata, checked: e.target.checked },
@@ -1140,9 +1140,9 @@ const BlockContent = ({
         />
         <div
           className={cn(
-            "min-h-[1.5rem] flex-1 px-1 py-0.5 text-slate-600 outline-none dark:text-slate-400",
-            "empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-slate-400/50",
-            checked && "text-slate-600 line-through dark:text-slate-400"
+            "min-h-[1.5rem] flex-1 px-1 py-0.5 text-stone-600 outline-none dark:text-stone-400",
+            "empty:before:text-stone-600 empty:before:content-[attr(data-placeholder)] dark:text-stone-400/50",
+            checked && "text-stone-600 line-through dark:text-stone-400"
           )}
           contentEditable
           data-block-id={block.id}
@@ -1195,7 +1195,7 @@ const BlockContent = ({
 
     return (
       <div
-        className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950"
+        className="flex flex-col gap-3 rounded-2xl border border-stone-200 bg-white p-4 dark:border-stone-800 dark:bg-stone-950"
         onDragOver={(e) => e.preventDefault()}
         onDrop={handleDropUpload}
       >
@@ -1206,13 +1206,13 @@ const BlockContent = ({
             src={imageUrl}
           />
         ) : (
-          <div className="flex h-48 flex-col items-center justify-center rounded-xl border border-slate-400/40 border-dashed bg-white text-slate-600 text-sm dark:border-slate-500/40 dark:bg-slate-950 dark:text-slate-400/70">
+          <div className="flex h-48 flex-col items-center justify-center rounded-xl border border-stone-400/40 border-dashed bg-white text-stone-600 text-sm dark:border-stone-500/40 dark:bg-stone-950 dark:text-stone-400/70">
             {locale === "es" ? "Agrega una imagen" : "Add an image"}
           </div>
         )}
         <div className="flex flex-wrap gap-2">
           <button
-            className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-600 text-xs transition hover:border-slate-400/40 dark:border-slate-500/40 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
+            className="inline-flex items-center gap-2 rounded-lg border border-stone-200 bg-white px-3 py-2 text-stone-600 text-xs transition hover:border-stone-400/40 dark:border-stone-500/40 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-400"
             onClick={() => fileInputRef.current?.click()}
             type="button"
           >
@@ -1221,7 +1221,7 @@ const BlockContent = ({
           </button>
           {imageUrl && (
             <button
-              className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-600 text-xs transition hover:border-slate-900 hover:text-slate-900 dark:border-slate-100/30 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:text-slate-400"
+              className="inline-flex items-center gap-2 rounded-lg border border-stone-200 bg-white px-3 py-2 text-stone-600 text-xs transition hover:border-stone-900 hover:text-stone-900 dark:border-stone-100/30 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-100 dark:text-stone-400"
               onClick={() =>
                 updateBlock(block.id, {
                   content: "",
@@ -1242,7 +1242,7 @@ const BlockContent = ({
             type="file"
           />
           <input
-            className="flex-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-600 text-xs outline-none dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
+            className="flex-1 rounded-lg border border-stone-200 bg-white px-3 py-2 text-stone-600 text-xs outline-none dark:border-stone-800 dark:bg-stone-950 dark:text-stone-400"
             onChange={(e) =>
               updateBlock(block.id, { metadata: { ...block.metadata, imageUrl: e.target.value } })
             }
@@ -1251,7 +1251,7 @@ const BlockContent = ({
           />
         </div>
         <input
-          className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-600 text-sm outline-none dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
+          className="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-stone-600 text-sm outline-none dark:border-stone-800 dark:bg-stone-950 dark:text-stone-400"
           onChange={(e) =>
             updateBlock(block.id, {
               content: e.target.value,
@@ -1269,7 +1269,7 @@ const BlockContent = ({
   if (block.type === "heading1") {
     return (
       <h1
-        className="min-h-[2.5rem] px-1 py-1 font-semibold text-3xl text-slate-900 tracking-tight outline-none empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-slate-100 dark:text-slate-400/50"
+        className="min-h-[2.5rem] px-1 py-1 font-semibold text-3xl text-stone-900 tracking-tight outline-none empty:before:text-stone-600 empty:before:content-[attr(data-placeholder)] dark:text-stone-100 dark:text-stone-400/50"
         contentEditable
         data-block-id={block.id}
         data-placeholder={placeholder}
@@ -1287,7 +1287,7 @@ const BlockContent = ({
   if (block.type === "heading2") {
     return (
       <h2
-        className="min-h-[2rem] px-1 py-1 font-semibold text-2xl text-slate-900 outline-none empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-slate-100 dark:text-slate-400/50"
+        className="min-h-[2rem] px-1 py-1 font-semibold text-2xl text-stone-900 outline-none empty:before:text-stone-600 empty:before:content-[attr(data-placeholder)] dark:text-stone-100 dark:text-stone-400/50"
         contentEditable
         data-block-id={block.id}
         data-placeholder={placeholder}
@@ -1305,7 +1305,7 @@ const BlockContent = ({
   if (block.type === "heading3") {
     return (
       <h3
-        className="min-h-[1.75rem] px-1 py-1 font-semibold text-slate-900 text-xl outline-none empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-slate-100 dark:text-slate-400/50"
+        className="min-h-[1.75rem] px-1 py-1 font-semibold text-stone-900 text-xl outline-none empty:before:text-stone-600 empty:before:content-[attr(data-placeholder)] dark:text-stone-100 dark:text-stone-400/50"
         contentEditable
         data-block-id={block.id}
         data-placeholder={placeholder}
@@ -1330,13 +1330,13 @@ const BlockContent = ({
         className={cn(
           "space-y-1",
           block.type === "bulletList" ? "list-disc" : "list-decimal",
-          "pl-6 marker:text-slate-600 dark:text-slate-400/50"
+          "pl-6 marker:text-stone-600 dark:text-stone-400/50"
         )}
       >
         {items.map((item, idx) => (
-          <li className="text-base text-slate-600 leading-7 dark:text-slate-400" key={idx}>
+          <li className="text-base text-stone-600 leading-7 dark:text-stone-400" key={idx}>
             <div
-              className="min-h-[1.5rem] px-1 py-0.5 outline-none empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-slate-400/50"
+              className="min-h-[1.5rem] px-1 py-0.5 outline-none empty:before:text-stone-600 empty:before:content-[attr(data-placeholder)] dark:text-stone-400/50"
               contentEditable
               data-block-id={`${block.id}-${idx}`}
               data-placeholder={placeholder}
@@ -1372,10 +1372,10 @@ const BlockContent = ({
   // Code block - Clean minimal code block
   if (block.type === "code") {
     return (
-      <div className="overflow-hidden rounded-lg border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
-        <div className="flex items-center justify-between border-slate-200 border-b bg-white px-3 py-2 dark:border-slate-800 dark:bg-slate-950">
+      <div className="overflow-hidden rounded-lg border border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950">
+        <div className="flex items-center justify-between border-stone-200 border-b bg-white px-3 py-2 dark:border-stone-800 dark:bg-stone-950">
           <select
-            className="rounded border-none bg-transparent px-2 py-1 text-slate-600 text-xs outline-none dark:text-slate-400"
+            className="rounded border-none bg-transparent px-2 py-1 text-stone-600 text-xs outline-none dark:text-stone-400"
             onChange={(e) => updateBlock(block.id, { metadata: { language: e.target.value } })}
             value={block.metadata?.language ?? "plaintext"}
           >
@@ -1393,7 +1393,7 @@ const BlockContent = ({
         </div>
         <pre className="overflow-x-auto p-3">
           <code
-            className="block font-mono text-red-700 text-sm outline-none empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-red-200 dark:text-slate-400/50"
+            className="block font-mono text-red-700 text-sm outline-none empty:before:text-stone-600 empty:before:content-[attr(data-placeholder)] dark:text-red-200 dark:text-stone-400/50"
             contentEditable
             data-block-id={block.id}
             data-placeholder={placeholder}
@@ -1427,10 +1427,10 @@ const BlockContent = ({
     const calloutConfig = CALLOUT_TYPES[calloutType];
 
     const calloutStyles = {
-      blue: "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800",
-      orange: "bg-slate-900 dark:bg-slate-100/5 border-slate-900 dark:border-slate-100/20",
-      green: "bg-slate-900 dark:bg-slate-100/10 border-slate-900 dark:border-slate-100/30",
-      red: "bg-white dark:bg-slate-950 border-slate-900 dark:border-slate-100/20",
+      blue: "bg-white dark:bg-stone-950 border-stone-200 dark:border-stone-800",
+      orange: "bg-stone-900 dark:bg-stone-100/5 border-stone-900 dark:border-stone-100/20",
+      green: "bg-stone-900 dark:bg-stone-100/10 border-stone-900 dark:border-stone-100/30",
+      red: "bg-white dark:bg-stone-950 border-stone-900 dark:border-stone-100/20",
     };
 
     return (
@@ -1438,7 +1438,7 @@ const BlockContent = ({
         <div className="mb-2 flex items-center gap-2">
           <HugeiconsIcon className="h-4 w-4" icon={calloutConfig.iconComponent} />
           <select
-            className="rounded border-none bg-transparent px-2 py-0.5 text-slate-600 text-xs outline-none dark:text-slate-400"
+            className="rounded border-none bg-transparent px-2 py-0.5 text-stone-600 text-xs outline-none dark:text-stone-400"
             onChange={(e) =>
               updateBlock(block.id, { metadata: { calloutType: e.target.value as CalloutType } })
             }
@@ -1452,7 +1452,7 @@ const BlockContent = ({
           </select>
         </div>
         <div
-          className="min-h-[1.5rem] px-1 py-0.5 text-slate-900 outline-none empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-slate-100 dark:text-slate-400/50"
+          className="min-h-[1.5rem] px-1 py-0.5 text-stone-900 outline-none empty:before:text-stone-600 empty:before:content-[attr(data-placeholder)] dark:text-stone-100 dark:text-stone-400/50"
           contentEditable
           data-block-id={block.id}
           data-placeholder={placeholder}
@@ -1472,7 +1472,7 @@ const BlockContent = ({
   if (block.type === "divider") {
     return (
       <hr
-        className="article-separator my-6 border-slate-200 dark:border-slate-800"
+        className="article-separator my-6 border-stone-200 dark:border-stone-800"
         data-editor-separator
       />
     );
@@ -1481,7 +1481,7 @@ const BlockContent = ({
   // Default: Paragraph - Clean minimal paragraph
   return (
     <div
-      className="min-h-[1.75rem] w-full px-1 py-1 text-base text-slate-900 leading-7 outline-none empty:before:text-slate-600 empty:before:content-[attr(data-placeholder)] dark:text-slate-100 dark:text-slate-400/50"
+      className="min-h-[1.75rem] w-full px-1 py-1 text-base text-stone-900 leading-7 outline-none empty:before:text-stone-600 empty:before:content-[attr(data-placeholder)] dark:text-stone-100 dark:text-stone-400/50"
       contentEditable
       data-block-id={block.id}
       data-placeholder={placeholder}

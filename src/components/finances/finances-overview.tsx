@@ -152,7 +152,7 @@ const PieChartComponent = dynamic(
 // Loading skeleton for charts
 function ChartSkeleton() {
   return (
-    <div className="h-[300px] w-full animate-pulse rounded-lg bg-gradient-to-br from-slate-100 to-slate-50" />
+    <div className="h-[300px] w-full animate-pulse rounded-lg bg-gradient-to-br from-stone-100 to-stone-50" />
   );
 }
 
@@ -267,9 +267,9 @@ export function FinancesOverview({ bookings, payouts }: Props) {
       {/* Charts */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Earnings Over Time */}
-        <Card className="border-slate-200 bg-white shadow-sm">
+        <Card className="border-stone-200 bg-white shadow-sm">
           <CardHeader className="p-8 pb-6">
-            <h2 className="font-semibold text-slate-900 text-xl">{t("charts.earningsTrend")}</h2>
+            <h2 className="font-semibold text-stone-900 text-xl">{t("charts.earningsTrend")}</h2>
           </CardHeader>
           <CardContent className="p-8 pt-0">
             <LineChartComponent data={earningsData} formatCurrency={formatCurrency} />
@@ -277,9 +277,9 @@ export function FinancesOverview({ bookings, payouts }: Props) {
         </Card>
 
         {/* Bookings Count Over Time */}
-        <Card className="border-slate-200 bg-white shadow-sm">
+        <Card className="border-stone-200 bg-white shadow-sm">
           <CardHeader className="p-8 pb-6">
-            <h2 className="font-semibold text-slate-900 text-xl">{t("charts.bookingsByMonth")}</h2>
+            <h2 className="font-semibold text-stone-900 text-xl">{t("charts.bookingsByMonth")}</h2>
           </CardHeader>
           <CardContent className="p-8 pt-0">
             <BarChartComponent data={earningsData} dataKey="bookings" fill="#475569" />
@@ -288,9 +288,9 @@ export function FinancesOverview({ bookings, payouts }: Props) {
 
         {/* Revenue by Service */}
         {serviceData.length > 0 && (
-          <Card className="border-slate-200 bg-white shadow-sm">
+          <Card className="border-stone-200 bg-white shadow-sm">
             <CardHeader className="p-8 pb-6">
-              <h2 className="font-semibold text-slate-900 text-xl">
+              <h2 className="font-semibold text-stone-900 text-xl">
                 {t("charts.revenueByService")}
               </h2>
             </CardHeader>
@@ -302,9 +302,9 @@ export function FinancesOverview({ bookings, payouts }: Props) {
 
         {/* Payout History */}
         {payoutHistory.length > 0 && (
-          <Card className="border-slate-200 bg-white shadow-sm">
+          <Card className="border-stone-200 bg-white shadow-sm">
             <CardHeader className="p-8 pb-6">
-              <h2 className="font-semibold text-slate-900 text-xl">{t("charts.recentPayouts")}</h2>
+              <h2 className="font-semibold text-stone-900 text-xl">{t("charts.recentPayouts")}</h2>
             </CardHeader>
             <CardContent className="p-8 pt-0">
               <BarChartComponent
@@ -331,11 +331,11 @@ function MetricCard({
   description: string;
 }) {
   return (
-    <Card className="border-slate-200 bg-white shadow-sm">
+    <Card className="border-stone-200 bg-white shadow-sm">
       <CardContent className="p-6">
-        <dt className="font-semibold text-slate-600 text-xs uppercase tracking-wider">{label}</dt>
-        <dd className="mt-3 font-semibold text-3xl text-slate-900">{value}</dd>
-        <p className="mt-1 text-slate-600 text-sm">{description}</p>
+        <dt className="font-semibold text-stone-600 text-xs uppercase tracking-wider">{label}</dt>
+        <dd className="mt-3 font-semibold text-3xl text-stone-900">{value}</dd>
+        <p className="mt-1 text-stone-600 text-sm">{description}</p>
       </CardContent>
     </Card>
   );

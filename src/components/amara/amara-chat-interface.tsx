@@ -130,21 +130,21 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
   }
 
   return (
-    <Card className="amara-chat-window fixed inset-0 z-50 flex flex-col border-slate-200 bg-white transition-all duration-300 sm:inset-auto sm:right-4 sm:bottom-4 sm:h-[600px] sm:w-full sm:max-w-[420px] sm:rounded-lg sm:border sm:shadow-lg md:right-6 md:bottom-6 md:h-[680px] md:max-w-[480px]">
+    <Card className="amara-chat-window fixed inset-0 z-50 flex flex-col border-stone-200 bg-white transition-all duration-300 sm:inset-auto sm:right-4 sm:bottom-4 sm:h-[600px] sm:w-full sm:max-w-[420px] sm:rounded-lg sm:border sm:shadow-lg md:right-6 md:bottom-6 md:h-[680px] md:max-w-[480px]">
       {/* Header */}
-      <div className="flex items-center justify-between border-slate-200 border-b bg-white px-4 py-3 sm:rounded-t-lg sm:px-6 sm:py-4">
+      <div className="flex items-center justify-between border-stone-200 border-b bg-white px-4 py-3 sm:rounded-t-lg sm:px-6 sm:py-4">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center">
-            <AmaraIcon className="text-slate-900" size={40} />
+            <AmaraIcon className="text-stone-900" size={40} />
           </div>
           <div>
-            <h3 className="font-semibold text-base text-slate-900">{t("title")}</h3>
-            <p className="text-slate-500 text-sm">{t("subtitle")}</p>
+            <h3 className="font-semibold text-base text-stone-900">{t("title")}</h3>
+            <p className="text-stone-500 text-sm">{t("subtitle")}</p>
           </div>
         </div>
         <button
           aria-label={t("closeChat")}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-md text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-md text-stone-600 transition-colors hover:bg-stone-100 hover:text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-400 focus:ring-offset-2"
           onClick={onClose}
           type="button"
         >
@@ -159,7 +159,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
             {messages.length === 1 && (
               <ConversationEmptyState
                 description={t("greeting")}
-                icon={<AmaraIcon className="text-slate-900" size={36} />}
+                icon={<AmaraIcon className="text-stone-900" size={36} />}
                 title={t("title")}
               />
             )}
@@ -206,10 +206,10 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
             })}
 
             {isLoading && (
-              <div className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3 shadow-sm">
-                <AmaraIcon className="text-slate-900" size={28} />
+              <div className="flex items-center gap-3 rounded-lg border border-stone-200 bg-white px-4 py-3 shadow-sm">
+                <AmaraIcon className="text-stone-900" size={28} />
                 <Loader />
-                <span className="text-slate-500 text-sm">{t("typing")}</span>
+                <span className="text-stone-500 text-sm">{t("typing")}</span>
               </div>
             )}
 
@@ -239,35 +239,35 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
 
       {/* Action Buttons */}
       {messages.length === 1 && (
-        <div className="border-slate-200 border-t bg-white px-4 py-3 sm:px-6 sm:py-4">
+        <div className="border-stone-200 border-t bg-white px-4 py-3 sm:px-6 sm:py-4">
           <div className="grid grid-cols-4 gap-2">
             <Link
-              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2 py-3 text-center transition hover:border-slate-300 hover:bg-slate-100 active:bg-slate-200 sm:px-3"
+              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-stone-200 bg-white px-2 py-3 text-center transition hover:border-stone-300 hover:bg-stone-100 active:bg-stone-200 sm:px-3"
               href="/"
             >
-              <HugeiconsIcon className="h-5 w-5 text-slate-600" icon={Home01Icon} />
-              <span className="font-medium text-slate-600 text-xs">Home</span>
+              <HugeiconsIcon className="h-5 w-5 text-stone-600" icon={Home01Icon} />
+              <span className="font-medium text-stone-600 text-xs">Home</span>
             </Link>
             <button
-              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2 py-3 text-center transition hover:border-slate-300 hover:bg-slate-100 active:bg-slate-200 sm:px-3"
+              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-stone-200 bg-white px-2 py-3 text-center transition hover:border-stone-300 hover:bg-stone-100 active:bg-stone-200 sm:px-3"
               type="button"
             >
-              <HugeiconsIcon className="h-5 w-5 text-slate-600" icon={Message01Icon} />
-              <span className="font-medium text-slate-600 text-xs">Messages</span>
+              <HugeiconsIcon className="h-5 w-5 text-stone-600" icon={Message01Icon} />
+              <span className="font-medium text-stone-600 text-xs">Messages</span>
             </button>
             <Link
-              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2 py-3 text-center transition hover:border-slate-300 hover:bg-slate-100 active:bg-slate-200 sm:px-3"
+              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-stone-200 bg-white px-2 py-3 text-center transition hover:border-stone-300 hover:bg-stone-100 active:bg-stone-200 sm:px-3"
               href="/support/account-suspended"
             >
-              <HugeiconsIcon className="h-5 w-5 text-slate-600" icon={HelpCircleIcon} />
-              <span className="font-medium text-slate-600 text-xs">Help</span>
+              <HugeiconsIcon className="h-5 w-5 text-stone-600" icon={HelpCircleIcon} />
+              <span className="font-medium text-stone-600 text-xs">Help</span>
             </Link>
             <Link
-              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2 py-3 text-center transition hover:border-slate-300 hover:bg-slate-100 active:bg-slate-200 sm:px-3"
+              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-stone-200 bg-white px-2 py-3 text-center transition hover:border-stone-300 hover:bg-stone-100 active:bg-stone-200 sm:px-3"
               href="/changelog"
             >
-              <HugeiconsIcon className="h-5 w-5 text-slate-600" icon={NewsIcon} />
-              <span className="font-medium text-slate-600 text-xs">News</span>
+              <HugeiconsIcon className="h-5 w-5 text-stone-600" icon={NewsIcon} />
+              <span className="font-medium text-stone-600 text-xs">News</span>
             </Link>
           </div>
         </div>
@@ -275,7 +275,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
 
       {/* Input */}
       <form
-        className="border-slate-200 border-t bg-white px-4 py-3 sm:rounded-b-lg sm:px-6"
+        className="border-stone-200 border-t bg-white px-4 py-3 sm:rounded-b-lg sm:px-6"
         onSubmit={async (e) => {
           e.preventDefault();
           if (!input.trim() || isLoading) {
@@ -294,7 +294,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         <div className="mb-3 flex items-end gap-2 sm:gap-3">
           <div className="relative flex-1">
             <input
-              className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-[15px] text-slate-900 transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-slate-900/10"
+              className="w-full rounded-lg border border-stone-200 bg-white px-4 py-3 text-[15px] text-stone-900 transition placeholder:text-stone-400 focus:border-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-stone-900/10"
               disabled={isLoading}
               maxLength={500}
               name="message"
@@ -306,7 +306,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
           </div>
           <button
             aria-label={t("send")}
-            className="inline-flex h-11 min-h-[44px] w-11 min-w-[44px] flex-shrink-0 items-center justify-center rounded-lg bg-slate-900 text-slate-50 shadow-sm transition hover:bg-slate-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-slate-900"
+            className="inline-flex h-11 min-h-[44px] w-11 min-w-[44px] flex-shrink-0 items-center justify-center rounded-lg bg-stone-900 text-stone-50 shadow-sm transition hover:bg-stone-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-stone-900"
             disabled={isLoading || !input.trim()}
             type="submit"
           >
@@ -319,9 +319,9 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         </div>
 
         {/* Privacy Policy Text */}
-        <p className="text-center text-slate-500 text-xs">
+        <p className="text-center text-stone-500 text-xs">
           By chatting with Amara, you agree to our{" "}
-          <Link className="text-slate-900 hover:underline" href="/privacy">
+          <Link className="text-stone-900 hover:underline" href="/privacy">
             Privacy Policy
           </Link>
         </p>

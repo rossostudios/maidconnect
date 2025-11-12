@@ -91,38 +91,38 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
       title={isUnsuspending ? "Lift Suspension" : isBanning ? "Ban User" : "Suspend User"}
     >
       <div className="space-y-6">
-        <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
+        <div className="rounded-lg border border-stone-200 bg-white p-4 dark:border-stone-800 dark:bg-stone-950">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#e2e8f0]">
-              <span className="type-ui-md font-medium text-slate-600 dark:text-slate-400">
+              <span className="type-ui-md font-medium text-stone-600 dark:text-stone-400">
                 {((user.full_name || "?").charAt(0) || "?").toUpperCase()}
               </span>
             </div>
             <div>
-              <p className="type-ui-sm font-semibold text-slate-900 dark:text-slate-100">
+              <p className="type-ui-sm font-semibold text-stone-900 dark:text-stone-100">
                 {user.full_name || "Unnamed User"}
               </p>
-              <p className="type-body-sm text-slate-600 dark:text-slate-400">{user.email}</p>
-              <p className="type-body-sm text-slate-600 capitalize dark:text-slate-400">
+              <p className="type-body-sm text-stone-600 dark:text-stone-400">{user.email}</p>
+              <p className="type-body-sm text-stone-600 capitalize dark:text-stone-400">
                 Role: {user.role}
               </p>
             </div>
           </div>
 
           {user.suspension && (
-            <div className="mt-4 border-slate-200 border-t pt-4 dark:border-slate-800">
-              <p className="type-ui-sm mb-2 font-medium text-slate-900 dark:text-slate-100">
+            <div className="mt-4 border-stone-200 border-t pt-4 dark:border-stone-800">
+              <p className="type-ui-sm mb-2 font-medium text-stone-900 dark:text-stone-100">
                 Current Suspension:
               </p>
-              <p className="type-body-sm text-slate-600 dark:text-slate-400">
+              <p className="type-body-sm text-stone-600 dark:text-stone-400">
                 Type:{" "}
                 {user.suspension.type === "permanent" ? "Permanent Ban" : "Temporary Suspension"}
               </p>
-              <p className="type-body-sm mt-1 text-slate-600 dark:text-slate-400">
+              <p className="type-body-sm mt-1 text-stone-600 dark:text-stone-400">
                 Reason: {user.suspension.reason}
               </p>
               {user.suspension.expires_at && (
-                <p className="type-body-sm mt-1 text-slate-600 dark:text-slate-400">
+                <p className="type-body-sm mt-1 text-stone-600 dark:text-stone-400">
                   Expires: {new Date(user.suspension.expires_at).toLocaleDateString()}
                 </p>
               )}
@@ -132,7 +132,7 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
 
         {!user.suspension && (
           <div>
-            <label className="type-ui-sm mb-2 block font-medium text-slate-900 dark:text-slate-100">
+            <label className="type-ui-sm mb-2 block font-medium text-stone-900 dark:text-stone-100">
               Action
             </label>
             <div className="flex gap-3">
@@ -140,8 +140,8 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
                 className={
                   "type-ui-sm flex-1 rounded-lg border-2 px-4 py-3 font-medium transition" +
                   (form.formData.action === "suspend"
-                    ? "border-slate-900 bg-slate-900 text-white dark:border-slate-100 dark:bg-slate-100/10 dark:text-slate-100"
-                    : "border-slate-200 bg-white text-slate-900 hover:border-slate-900 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100")
+                    ? "border-stone-900 bg-stone-900 text-white dark:border-stone-100 dark:bg-stone-100/10 dark:text-stone-100"
+                    : "border-stone-200 bg-white text-stone-900 hover:border-stone-900 dark:border-stone-100 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-100")
                 }
                 onClick={() => form.updateField("action", "suspend")}
                 type="button"
@@ -152,8 +152,8 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
                 className={
                   "type-ui-sm flex-1 rounded-lg border-2 px-4 py-3 font-medium transition" +
                   (form.formData.action === "ban"
-                    ? "border-slate-900 bg-slate-100 text-slate-900 dark:border-slate-100 dark:bg-slate-800 dark:text-slate-100"
-                    : "border-slate-200 bg-white text-slate-900 hover:border-slate-900 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100")
+                    ? "border-stone-900 bg-stone-100 text-stone-900 dark:border-stone-100 dark:bg-stone-800 dark:text-stone-100"
+                    : "border-stone-200 bg-white text-stone-900 hover:border-stone-900 dark:border-stone-100 dark:border-stone-800 dark:bg-stone-950 dark:text-stone-100")
                 }
                 onClick={() => form.updateField("action", "ban")}
                 type="button"
@@ -166,11 +166,11 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
 
         {form.formData.action === "suspend" && (
           <div>
-            <label className="type-ui-sm mb-2 block font-medium text-slate-900 dark:text-slate-100">
+            <label className="type-ui-sm mb-2 block font-medium text-stone-900 dark:text-stone-100">
               Duration (days)
             </label>
             <select
-              className="w-full rounded-lg border border-slate-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-slate-500 dark:border-slate-800 dark:focus:ring-slate-400"
+              className="w-full rounded-lg border border-stone-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-stone-500 dark:border-stone-800 dark:focus:ring-stone-400"
               onChange={(e) =>
                 form.updateField("durationDays", Number.parseInt(e.target.value, 10))
               }
@@ -188,11 +188,11 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
 
         {!isUnsuspending && (
           <div>
-            <label className="type-ui-sm mb-2 block font-medium text-slate-900 dark:text-slate-100">
-              Reason <span className="text-slate-900 dark:text-slate-100">*</span>
+            <label className="type-ui-sm mb-2 block font-medium text-stone-900 dark:text-stone-100">
+              Reason <span className="text-stone-900 dark:text-stone-100">*</span>
             </label>
             <textarea
-              className="w-full resize-none rounded-lg border border-slate-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 dark:border-slate-800 dark:focus:ring-slate-400"
+              className="w-full resize-none rounded-lg border border-stone-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-stone-500 dark:border-stone-800 dark:focus:ring-stone-400"
               onChange={(e) => form.updateField("reason", e.target.value)}
               placeholder="Provide a clear reason for this action..."
               rows={4}
@@ -203,12 +203,12 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
 
         {isUnsuspending && (
           <div>
-            <label className="type-ui-sm mb-2 block font-medium text-slate-900 dark:text-slate-100">
+            <label className="type-ui-sm mb-2 block font-medium text-stone-900 dark:text-stone-100">
               Reason for Lifting Suspension{" "}
-              <span className="text-slate-900 dark:text-slate-100">*</span>
+              <span className="text-stone-900 dark:text-stone-100">*</span>
             </label>
             <textarea
-              className="w-full resize-none rounded-lg border border-slate-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 dark:border-slate-800 dark:focus:ring-slate-400"
+              className="w-full resize-none rounded-lg border border-stone-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-stone-500 dark:border-stone-800 dark:focus:ring-stone-400"
               onChange={(e) => form.updateField("liftReason", e.target.value)}
               placeholder="Why is this suspension being lifted?"
               rows={4}
@@ -218,11 +218,11 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
         )}
 
         <div>
-          <label className="type-ui-sm mb-2 block font-medium text-slate-900 dark:text-slate-100">
+          <label className="type-ui-sm mb-2 block font-medium text-stone-900 dark:text-stone-100">
             Additional Notes (optional)
           </label>
           <textarea
-            className="w-full resize-none rounded-lg border border-slate-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 dark:border-slate-800 dark:focus:ring-slate-400"
+            className="w-full resize-none rounded-lg border border-stone-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-stone-500 dark:border-stone-800 dark:focus:ring-stone-400"
             onChange={(e) => form.updateField("details", e.target.value)}
             placeholder="Any additional context or notes..."
             rows={3}
@@ -237,8 +237,8 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
         )}
 
         {isBanning && (
-          <div className="rounded-lg border border-slate-900 bg-slate-900 p-4 dark:border-slate-100/50 dark:bg-slate-100/10">
-            <p className="type-ui-sm mb-1 font-medium text-slate-900 dark:text-slate-100">
+          <div className="rounded-lg border border-stone-900 bg-stone-900 p-4 dark:border-stone-100/50 dark:bg-stone-100/10">
+            <p className="type-ui-sm mb-1 font-medium text-stone-900 dark:text-stone-100">
               Warning:
             </p>
             <p className="type-body-sm text-red-700 dark:text-red-200">
@@ -250,7 +250,7 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
 
         <div className="flex gap-3 pt-4">
           <button
-            className="type-ui-sm flex-1 rounded-full border-2 border-slate-200 px-6 py-3 font-semibold text-slate-900 transition hover:border-slate-900 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:text-slate-100"
+            className="type-ui-sm flex-1 rounded-full border-2 border-stone-200 px-6 py-3 font-semibold text-stone-900 transition hover:border-stone-900 hover:text-stone-900 disabled:cursor-not-allowed disabled:opacity-50 dark:border-stone-100 dark:border-stone-800 dark:text-stone-100 dark:text-stone-100"
             disabled={moderationMutation.isLoading}
             onClick={onClose}
             type="button"
@@ -259,10 +259,10 @@ export function UserModerationModal({ user, onClose, onComplete }: Props) {
           </button>
           <button
             className={
-              "type-ui-sm flex-1 rounded-full px-6 py-3 font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-50 dark:text-slate-950" +
+              "type-ui-sm flex-1 rounded-full px-6 py-3 font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-50 dark:text-stone-950" +
               (isBanning
-                ? "bg-slate-900 hover:bg-slate-900 dark:bg-slate-100 dark:bg-slate-100"
-                : "bg-slate-900 hover:bg-slate-900 dark:bg-slate-100 dark:bg-slate-100")
+                ? "bg-stone-900 hover:bg-stone-900 dark:bg-stone-100 dark:bg-stone-100"
+                : "bg-stone-900 hover:bg-stone-900 dark:bg-stone-100 dark:bg-stone-100")
             }
             disabled={moderationMutation.isLoading}
             onClick={handleSubmit}

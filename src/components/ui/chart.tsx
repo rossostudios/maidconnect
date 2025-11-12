@@ -63,12 +63,12 @@ const ChartTooltipContent = ({
 
   return (
     <div
-      className={cn("rounded-lg border border-slate-200 bg-white p-3 shadow-lg", className)}
+      className={cn("rounded-lg border border-stone-200 bg-white p-3 shadow-lg", className)}
       ref={ref}
       {...props}
     >
       {!hideLabel && label && (
-        <div className="mb-2 font-medium text-slate-900 text-sm">
+        <div className="mb-2 font-medium text-stone-900 text-sm">
           {labelFormatter ? labelFormatter(label) : label}
         </div>
       )}
@@ -85,8 +85,8 @@ const ChartTooltipContent = ({
                 style={{ backgroundColor: entry.color }}
               />
             )}
-            <span className="flex-1 text-slate-600">{entry.name}</span>
-            <span className="font-semibold text-slate-900">
+            <span className="flex-1 text-stone-600">{entry.name}</span>
+            <span className="font-semibold text-stone-900">
               {valueFormatter ? valueFormatter(entry.value) : entry.value}
             </span>
           </div>
@@ -125,7 +125,7 @@ const ChartLegendContent = ({
       {payload.map((entry, index) => (
         <div className="flex items-center gap-2 text-sm" key={`legend-${index}`}>
           <div className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.color }} />
-          <span className="text-slate-600">{entry[nameKey]}</span>
+          <span className="text-stone-600">{entry[nameKey]}</span>
         </div>
       ))}
     </div>

@@ -9,8 +9,20 @@
   --color-silver: 254 248 232;
   --color-grey: 228 226 227;
   --color-midnight: 22 22 22;
-  --color-stone: 168 170 172;
   --color-white: 255 255 255;
+
+  /* Stone Color Scale - Complete Palette */
+  --color-stone-50: 250 250 249;    /* Lightest - backgrounds */
+  --color-stone-100: 245 245 244;   /* Very light - hover states */
+  --color-stone-200: 231 229 228;   /* Light - borders */
+  --color-stone-300: 214 211 209;   /* Medium-light - dividers */
+  --color-stone-400: 168 162 158;   /* Medium - disabled text */
+  --color-stone-500: 120 113 108;   /* Base - secondary text */
+  --color-stone-600: 87 83 78;      /* Medium-dark - body text */
+  --color-stone-700: 68 64 60;      /* Dark - headings */
+  --color-stone-800: 41 37 36;      /* Darker - emphasis */
+  --color-stone-900: 28 25 23;      /* Darkest - high contrast */
+  --color-stone: 120 113 108;       /* Alias for stone-500 (backwards compat) */
 
   /* Typography */
   --font-family-inter: Inter, system-ui, -apple-system, sans-serif;
@@ -75,7 +87,7 @@
     --secondary-foreground: 22 22 22; /* midnight - 12.4:1 contrast ✅ */
 
     --muted: 228 226 227; /* grey */
-    --muted-foreground: 71 85 105; /* slate-600 - 7.2:1 contrast ✅ FIXED */
+    --muted-foreground: 87 83 78; /* stone-600 - 7.2:1 contrast ✅ FIXED */
 
     --accent: 244 74 34; /* orange */
     --accent-foreground: 255 255 255; /* white - 4.6:1 contrast ✅ */
@@ -137,8 +149,8 @@
 
   input::placeholder,
   textarea::placeholder {
-    @apply text-slate-500;
-    /* WCAG AA: slate-500 provides 4.6:1 contrast on white backgrounds */
+    @apply text-stone-500;
+    /* WCAG AA: stone-500 provides 4.6:1 contrast on white backgrounds */
   }
 }
 

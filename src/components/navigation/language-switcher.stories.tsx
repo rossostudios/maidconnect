@@ -19,8 +19,8 @@ export const Default: Story = {};
 export const InHeader: Story = {
   decorators: [
     (Story) => (
-      <div className="flex items-center gap-4 border-slate-200 border-b bg-white p-4">
-        <span className="text-slate-600 text-sm">Language:</span>
+      <div className="flex items-center gap-4 border-stone-200 border-b bg-white p-4">
+        <span className="text-stone-600 text-sm">Language:</span>
         <Story />
       </div>
     ),

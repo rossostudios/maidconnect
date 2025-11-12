@@ -12,7 +12,7 @@ export function FeedbackLink({ children, className }: FeedbackLinkProps) {
 
   return (
     <button
-      className={className || "text-slate-600 underline transition hover:text-slate-900"}
+      className={className || "text-stone-600 underline transition hover:text-stone-900"}
       onClick={openFeedback}
       type="button"
     >

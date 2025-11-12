@@ -70,18 +70,18 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
   }
 
   return (
-    <section className="bg-slate-50 py-20 sm:py-32">
+    <section className="bg-stone-50 py-20 sm:py-32">
       <div className="mx-auto max-w-[1400px] px-6 sm:px-8">
         {/* Header */}
         <div className="mb-16 flex flex-col items-start justify-between gap-8 sm:flex-row sm:items-end">
           <div className="max-w-xl space-y-4">
-            <p className="font-medium text-slate-600 text-sm uppercase tracking-wider">
+            <p className="font-medium text-stone-600 text-sm uppercase tracking-wider">
               NEW PROFESSIONALS
             </p>
-            <h2 className="font-semibold text-3xl text-slate-900 tracking-tight sm:text-4xl">
+            <h2 className="font-semibold text-3xl text-stone-900 tracking-tight sm:text-4xl">
               Latest Arrivals
             </h2>
-            <p className="text-base text-slate-600 leading-relaxed">
+            <p className="text-base text-stone-600 leading-relaxed">
               Meet our newest professionals ready to help with your home care needs.
             </p>
           </div>
@@ -91,9 +91,9 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
             <button
               aria-label="Previous"
               className={cn(
-                "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-slate-300 bg-white text-slate-900 transition-all",
-                "hover:border-slate-900 hover:bg-slate-900 hover:text-white",
-                "disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:bg-white disabled:hover:text-slate-900"
+                "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-stone-300 bg-white text-stone-900 transition-all",
+                "hover:border-stone-900 hover:bg-stone-900 hover:text-white",
+                "disabled:opacity-30 disabled:hover:border-stone-300 disabled:hover:bg-white disabled:hover:text-stone-900"
               )}
               disabled={!canScrollLeft}
               onClick={() => scroll("left")}
@@ -103,9 +103,9 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
             <button
               aria-label="Next"
               className={cn(
-                "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-slate-300 bg-white text-slate-900 transition-all",
-                "hover:border-slate-900 hover:bg-slate-900 hover:text-white",
-                "disabled:opacity-30 disabled:hover:border-slate-300 disabled:hover:bg-white disabled:hover:text-slate-900"
+                "inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-stone-300 bg-white text-stone-900 transition-all",
+                "hover:border-stone-900 hover:bg-stone-900 hover:text-white",
+                "disabled:opacity-30 disabled:hover:border-stone-300 disabled:hover:bg-white disabled:hover:text-stone-900"
               )}
               disabled={!canScrollRight}
               onClick={() => scroll("right")}
@@ -127,9 +127,9 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
               href={`/professionals/${pro.id}`}
               key={pro.id}
             >
-              <Card className="overflow-hidden border-slate-200 bg-white transition-all duration-300 group-hover:shadow-lg">
+              <Card className="overflow-hidden border-stone-200 bg-white transition-all duration-300 group-hover:shadow-lg">
                 {/* Image */}
-                <div className="relative aspect-[3/4] overflow-hidden bg-slate-100">
+                <div className="relative aspect-[3/4] overflow-hidden bg-stone-100">
                   <Image
                     alt={pro.name}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -141,11 +141,11 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
 
                 {/* Info */}
                 <CardContent className="space-y-1 p-4">
-                  <h3 className="font-semibold text-base text-slate-900">{pro.name}</h3>
-                  <p className="text-slate-600 text-sm">
+                  <h3 className="font-semibold text-base text-stone-900">{pro.name}</h3>
+                  <p className="text-stone-600 text-sm">
                     {pro.city}, {pro.country}
                   </p>
-                  <p className="font-semibold text-slate-900 text-sm">€{pro.hourlyRate}/hr</p>
+                  <p className="font-semibold text-stone-900 text-sm">€{pro.hourlyRate}/hr</p>
                 </CardContent>
               </Card>
             </Link>
@@ -155,7 +155,7 @@ export function NewProfessionalsCarousel({ professionals }: NewProfessionalsCaro
         {/* View All Link */}
         <div className="mt-12 text-center">
           <Link
-            className="inline-flex items-center justify-center rounded-full border-2 border-slate-900 bg-transparent px-8 py-3 font-semibold text-slate-900 text-sm transition-all hover:bg-slate-900 hover:text-white"
+            className="inline-flex items-center justify-center rounded-full border-2 border-stone-900 bg-transparent px-8 py-3 font-semibold text-stone-900 text-sm transition-all hover:bg-stone-900 hover:text-white"
             href="/professionals"
           >
             View All Professionals

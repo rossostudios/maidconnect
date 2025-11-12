@@ -20,7 +20,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
       {/* Privacy Policy Consent - REQUIRED */}
       <label
         className={cn(
-          "flex cursor-pointer items-start gap-3 text-slate-900 text-sm",
+          "flex cursor-pointer items-start gap-3 text-stone-900 text-sm",
           errors?.privacyConsent && "text-red-700"
         )}
       >
@@ -29,7 +29,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
           aria-invalid={Boolean(errors?.privacyConsent)}
           aria-required="true"
           className={cn(
-            "mt-[2px] h-4 w-4 shrink-0 rounded border-slate-300 accent-slate-900",
+            "mt-[2px] h-4 w-4 shrink-0 rounded border-stone-300 accent-stone-900",
             errors?.privacyConsent && "border-red-500 accent-red-600"
           )}
           id="privacyConsent"
@@ -42,7 +42,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             <>
               He leído y acepto la{" "}
               <Link
-                className="font-semibold text-slate-900 underline decoration-slate-400 underline-offset-4 transition-colors hover:decoration-orange"
+                className="font-semibold text-stone-900 underline decoration-stone-400 underline-offset-4 transition-colors hover:decoration-orange"
                 href="/privacy"
                 target="_blank"
               >
@@ -58,7 +58,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             <>
               I have read and accept the{" "}
               <Link
-                className="font-semibold text-slate-900 underline decoration-slate-400 underline-offset-4 transition-colors hover:decoration-orange"
+                className="font-semibold text-stone-900 underline decoration-stone-400 underline-offset-4 transition-colors hover:decoration-orange"
                 href="/privacy"
                 target="_blank"
               >
@@ -82,7 +82,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
       {/* Terms of Service Consent - REQUIRED */}
       <label
         className={cn(
-          "flex cursor-pointer items-start gap-3 text-slate-900 text-sm",
+          "flex cursor-pointer items-start gap-3 text-stone-900 text-sm",
           errors?.termsConsent && "text-red-700"
         )}
       >
@@ -91,7 +91,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
           aria-invalid={Boolean(errors?.termsConsent)}
           aria-required="true"
           className={cn(
-            "mt-[2px] h-4 w-4 shrink-0 rounded border-slate-300 accent-slate-900",
+            "mt-[2px] h-4 w-4 shrink-0 rounded border-stone-300 accent-stone-900",
             errors?.termsConsent && "border-red-500 accent-red-600"
           )}
           id="termsConsent"
@@ -104,7 +104,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             <>
               He leído y acepto los{" "}
               <Link
-                className="font-semibold text-slate-900 underline decoration-slate-400 underline-offset-4 transition-colors hover:decoration-orange"
+                className="font-semibold text-stone-900 underline decoration-stone-400 underline-offset-4 transition-colors hover:decoration-orange"
                 href="/terms"
                 target="_blank"
               >
@@ -120,7 +120,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             <>
               I have read and accept the{" "}
               <Link
-                className="font-semibold text-slate-900 underline decoration-slate-400 underline-offset-4 transition-colors hover:decoration-orange"
+                className="font-semibold text-stone-900 underline decoration-stone-400 underline-offset-4 transition-colors hover:decoration-orange"
                 href="/terms"
                 target="_blank"
               >

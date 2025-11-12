@@ -311,9 +311,9 @@ function ServiceDetailsStep({
 
       {/* Availability Calendar - TODO: Fix calendar API integration */}
       <div>
-        <div className="mb-2 block font-medium text-slate-900 text-sm">Select Date & Time *</div>
-        <div className="rounded-lg border-2 border-slate-200 bg-white p-4">
-          <p className="text-slate-500 text-sm">Calendar integration coming soon</p>
+        <div className="mb-2 block font-medium text-stone-900 text-sm">Select Date & Time *</div>
+        <div className="rounded-lg border-2 border-stone-200 bg-white p-4">
+          <p className="text-stone-500 text-sm">Calendar integration coming soon</p>
         </div>
         {/* <AvailabilityCalendar
           durationHours={bookingData.durationHours}

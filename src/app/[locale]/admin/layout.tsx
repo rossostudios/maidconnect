@@ -20,7 +20,7 @@ export default async function AdminLayout({ children }: Props) {
     .single();
 
   return (
-    <div className="flex h-screen overflow-hidden bg-slate-50">
+    <div className="flex h-screen overflow-hidden bg-stone-50">
       {/* Desktop Sidebar - More spacious */}
       <div className="hidden lg:block">
         <AdminSidebar />
@@ -35,7 +35,7 @@ export default async function AdminLayout({ children }: Props) {
         />
 
         {/* Main Content Area - More spacious */}
-        <main className="flex-1 overflow-y-auto bg-slate-50 px-8 py-8">{children}</main>
+        <main className="flex-1 overflow-y-auto bg-stone-50 px-8 py-8">{children}</main>
       </div>
     </div>
   );

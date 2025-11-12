@@ -105,23 +105,23 @@ export function BackgroundCheckDashboard() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {[1, 2, 3, 4].map((i) => (
             <div
-              className="h-48 animate-pulse rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950"
+              className="h-48 animate-pulse rounded-xl border border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950"
               key={i}
             />
           ))}
         </div>
-        <div className="h-96 animate-pulse rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950" />
+        <div className="h-96 animate-pulse rounded-xl border border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <Card className="border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
+      <Card className="border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950">
         <CardContent className="p-8 text-center">
           <p className="mb-4 text-red-700 text-sm dark:text-red-200">{error}</p>
           <button
-            className="rounded-lg bg-slate-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-200"
+            className="rounded-lg bg-stone-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2 dark:bg-stone-100 dark:text-stone-950 dark:hover:bg-stone-200"
             onClick={fetchChecks}
             type="button"
           >
@@ -199,15 +199,15 @@ export function BackgroundCheckDashboard() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "pending":
-        return "bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100";
+        return "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-100";
       case "clear":
-        return "bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100";
+        return "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-100";
       case "consider":
-        return "bg-slate-900 dark:bg-slate-100/5 text-white dark:text-slate-100";
+        return "bg-stone-900 dark:bg-stone-100/5 text-white dark:text-stone-100";
       case "suspended":
-        return "bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100";
+        return "bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-100";
       default:
-        return "bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400";
+        return "bg-white dark:bg-stone-950 text-stone-600 dark:text-stone-400";
     }
   };
 
@@ -215,11 +215,11 @@ export function BackgroundCheckDashboard() {
   const getProviderBadge = (provider: string) => {
     switch (provider.toLowerCase()) {
       case "checkr":
-        return "bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100";
+        return "bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-100";
       case "truora":
-        return "bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100";
+        return "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-100";
       default:
-        return "bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400";
+        return "bg-white dark:bg-stone-950 text-stone-600 dark:text-stone-400";
     }
   };
 
@@ -265,13 +265,13 @@ export function BackgroundCheckDashboard() {
       </StatusCardGrid>
 
       {/* Check Distribution Chart */}
-      <Card className="border-slate-200 bg-white transition-shadow hover:shadow-lg dark:border-slate-800 dark:bg-slate-950">
+      <Card className="border-stone-200 bg-white transition-shadow hover:shadow-lg dark:border-stone-800 dark:bg-stone-950">
         <CardHeader className="flex flex-row items-center justify-between pb-6">
           <div>
-            <p className="mb-1 font-semibold text-slate-600 text-xs uppercase tracking-wider dark:text-slate-400">
+            <p className="mb-1 font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
               Check Distribution
             </p>
-            <p className="text-slate-600 text-sm dark:text-slate-400">
+            <p className="text-stone-600 text-sm dark:text-stone-400">
               Background checks by status
             </p>
           </div>
@@ -307,7 +307,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="pending">
               Pending
               {data.counts.pending > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-slate-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-slate-100/10 dark:text-slate-100">
+                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-stone-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-stone-100/10 dark:text-stone-100">
                   {data.counts.pending}
                 </span>
               )}
@@ -315,7 +315,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="consider">
               Consider
               {data.counts.consider > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-slate-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-slate-100/10 dark:text-slate-100">
+                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-stone-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-stone-100/10 dark:text-stone-100">
                   {data.counts.consider}
                 </span>
               )}
@@ -323,7 +323,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="clear">
               Clear
               {data.counts.clear > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-slate-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-slate-100/10 dark:text-slate-100">
+                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-stone-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-stone-100/10 dark:text-stone-100">
                   {data.counts.clear}
                 </span>
               )}
@@ -331,7 +331,7 @@ export function BackgroundCheckDashboard() {
             <TabsTrigger value="suspended">
               Suspended
               {data.counts.suspended > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-slate-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-slate-100/10 dark:text-slate-100">
+                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-stone-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-stone-100/10 dark:text-stone-100">
                   {data.counts.suspended}
                 </span>
               )}
@@ -341,7 +341,7 @@ export function BackgroundCheckDashboard() {
           {/* Sort Filter */}
           <div className="flex items-center gap-3">
             <HugeiconsIcon
-              className="h-4 w-4 text-slate-600 dark:text-slate-400"
+              className="h-4 w-4 text-stone-600 dark:text-stone-400"
               icon={FilterIcon}
             />
             <Select onValueChange={(value) => setSortBy(value as SortOption)} value={sortBy}>
@@ -361,9 +361,9 @@ export function BackgroundCheckDashboard() {
         {["pending", "consider", "clear", "suspended"].map((tabValue) => (
           <TabsContent key={tabValue} value={tabValue}>
             {activeChecks.length === 0 ? (
-              <Card className="border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
+              <Card className="border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950">
                 <CardContent className="flex min-h-[400px] items-center justify-center">
-                  <p className="text-slate-600 text-sm dark:text-slate-400">
+                  <p className="text-stone-600 text-sm dark:text-stone-400">
                     No {tabValue} background checks found.
                   </p>
                 </CardContent>
@@ -372,7 +372,7 @@ export function BackgroundCheckDashboard() {
               <div className="space-y-6">
                 {activeChecks.map((check) => (
                   <Card
-                    className="border-slate-200 bg-white transition-shadow hover:shadow-lg dark:border-slate-800 dark:bg-slate-950"
+                    className="border-stone-200 bg-white transition-shadow hover:shadow-lg dark:border-stone-800 dark:bg-stone-950"
                     key={check.id}
                   >
                     <CardContent className="p-8">
@@ -381,17 +381,17 @@ export function BackgroundCheckDashboard() {
                           {/* Header */}
                           <div className="mb-6 flex items-center gap-4">
                             <div className="flex items-center gap-3">
-                              <div className="rounded-xl bg-white p-3 dark:bg-slate-950">
+                              <div className="rounded-xl bg-white p-3 dark:bg-stone-950">
                                 <HugeiconsIcon
-                                  className="h-6 w-6 text-slate-900 dark:text-slate-100"
+                                  className="h-6 w-6 text-stone-900 dark:text-stone-100"
                                   icon={UserAccountIcon}
                                 />
                               </div>
                               <div>
-                                <h4 className="font-semibold text-lg text-slate-900 dark:text-slate-100">
+                                <h4 className="font-semibold text-lg text-stone-900 dark:text-stone-100">
                                   {check.professional.full_name || "Unnamed Professional"}
                                 </h4>
-                                <p className="text-slate-600 text-sm dark:text-slate-400">
+                                <p className="text-stone-600 text-sm dark:text-stone-400">
                                   {check.professional.city && check.professional.country
                                     ? `${check.professional.city}, ${check.professional.country}`
                                     : check.professional.email || "No contact info"}
@@ -417,16 +417,16 @@ export function BackgroundCheckDashboard() {
                             <div>
                               <div className="mb-1 flex items-center gap-2">
                                 <HugeiconsIcon
-                                  className="h-4 w-4 text-slate-600 dark:text-slate-400"
+                                  className="h-4 w-4 text-stone-600 dark:text-stone-400"
                                   icon={TimeScheduleIcon}
                                 />
-                                <span className="font-semibold text-slate-600 text-xs uppercase tracking-wider dark:text-slate-400">
+                                <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
                                   Waiting Time
                                 </span>
                               </div>
-                              <p className="font-bold text-2xl text-slate-900 dark:text-slate-100">
+                              <p className="font-bold text-2xl text-stone-900 dark:text-stone-100">
                                 {check.daysWaiting}
-                                <span className="ml-1 font-normal text-slate-600 text-sm dark:text-slate-400">
+                                <span className="ml-1 font-normal text-stone-600 text-sm dark:text-stone-400">
                                   days
                                 </span>
                               </p>
@@ -435,14 +435,14 @@ export function BackgroundCheckDashboard() {
                             <div>
                               <div className="mb-1 flex items-center gap-2">
                                 <HugeiconsIcon
-                                  className="h-4 w-4 text-slate-600 dark:text-slate-400"
+                                  className="h-4 w-4 text-stone-600 dark:text-stone-400"
                                   icon={SecurityCheckIcon}
                                 />
-                                <span className="font-semibold text-slate-600 text-xs uppercase tracking-wider dark:text-slate-400">
+                                <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
                                   Checks Performed
                                 </span>
                               </div>
-                              <p className="font-bold text-2xl text-slate-900 dark:text-slate-100">
+                              <p className="font-bold text-2xl text-stone-900 dark:text-stone-100">
                                 {check.checksPerformed?.length || 0}
                               </p>
                             </div>
@@ -450,10 +450,10 @@ export function BackgroundCheckDashboard() {
                             <div>
                               <div className="mb-1 flex items-center gap-2">
                                 <HugeiconsIcon
-                                  className="h-4 w-4 text-slate-600 dark:text-slate-400"
+                                  className="h-4 w-4 text-stone-600 dark:text-stone-400"
                                   icon={CheckmarkCircle02Icon}
                                 />
-                                <span className="font-semibold text-slate-600 text-xs uppercase tracking-wider dark:text-slate-400">
+                                <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
                                   Recommendation
                                 </span>
                               </div>
@@ -467,10 +467,10 @@ export function BackgroundCheckDashboard() {
                             <div>
                               <div className="mb-1 flex items-center gap-2">
                                 <HugeiconsIcon
-                                  className="h-4 w-4 text-slate-600 dark:text-slate-400"
+                                  className="h-4 w-4 text-stone-600 dark:text-stone-400"
                                   icon={TimeScheduleIcon}
                                 />
-                                <span className="font-semibold text-slate-600 text-xs uppercase tracking-wider dark:text-slate-400">
+                                <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
                                   Completed
                                 </span>
                               </div>
@@ -487,7 +487,7 @@ export function BackgroundCheckDashboard() {
                             <div className="flex flex-wrap gap-2">
                               {check.checksPerformed.map((checkType) => (
                                 <span
-                                  className="rounded-lg bg-white px-3 py-1.5 font-medium text-slate-900 text-xs dark:bg-slate-950 dark:text-slate-100"
+                                  className="rounded-lg bg-white px-3 py-1.5 font-medium text-stone-900 text-xs dark:bg-stone-950 dark:text-stone-100"
                                   key={checkType}
                                 >
                                   {checkType === "criminal" && "Criminal Background"}
@@ -500,7 +500,7 @@ export function BackgroundCheckDashboard() {
 
                           {/* Criminal Records Warning */}
                           {check.results.criminal && check.results.criminal.records.length > 0 && (
-                            <div className="mt-6 rounded-lg border border-slate-900 bg-white p-4 dark:border-slate-100/30 dark:bg-slate-950">
+                            <div className="mt-6 rounded-lg border border-stone-900 bg-white p-4 dark:border-stone-100/30 dark:bg-stone-950">
                               <p className="mb-2 font-semibold text-red-700 text-sm dark:text-red-200">
                                 ⚠ Criminal Records Found
                               </p>
@@ -514,7 +514,7 @@ export function BackgroundCheckDashboard() {
 
                         {/* View Details Button */}
                         <button
-                          className="ml-6 rounded-lg bg-slate-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-slate-900 dark:bg-slate-100 dark:bg-slate-100 dark:text-slate-950"
+                          className="ml-6 rounded-lg bg-stone-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-stone-900 dark:bg-stone-100 dark:bg-stone-100 dark:text-stone-950"
                           onClick={() => setSelectedCheck(check)}
                           type="button"
                         >

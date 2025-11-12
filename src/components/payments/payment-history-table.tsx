@@ -72,10 +72,10 @@ export function PaymentHistoryTable({ bookings }: Props) {
         header: "Date",
         cell: (info) => (
           <div>
-            <p className="font-medium text-slate-900">
+            <p className="font-medium text-stone-900">
               {format(new Date(info.getValue()), "MMM dd, yyyy")}
             </p>
-            <p className="text-slate-600 text-sm">{format(new Date(info.getValue()), "h:mm a")}</p>
+            <p className="text-stone-600 text-sm">{format(new Date(info.getValue()), "h:mm a")}</p>
           </div>
         ),
       }),
@@ -83,8 +83,8 @@ export function PaymentHistoryTable({ bookings }: Props) {
         header: "Service",
         cell: (info) => (
           <div>
-            <p className="font-medium text-slate-900">{info.getValue() || "—"}</p>
-            <p className="text-slate-600 text-sm">
+            <p className="font-medium text-stone-900">{info.getValue() || "—"}</p>
+            <p className="text-stone-600 text-sm">
               {info.row.original.professional?.full_name || "Unknown professional"}
             </p>
           </div>
@@ -94,12 +94,12 @@ export function PaymentHistoryTable({ bookings }: Props) {
         header: "Amount",
         cell: (info) => (
           <div>
-            <p className="font-medium text-slate-900">
+            <p className="font-medium text-stone-900">
               {formatCurrency(info.row.original.amount_captured || info.getValue())}
             </p>
             {info.row.original.amount_captured &&
               info.getValue() !== info.row.original.amount_captured && (
-                <p className="text-slate-600 text-sm">Auth: {formatCurrency(info.getValue())}</p>
+                <p className="text-stone-600 text-sm">Auth: {formatCurrency(info.getValue())}</p>
               )}
           </div>
         ),
@@ -113,9 +113,9 @@ export function PaymentHistoryTable({ bookings }: Props) {
         cell: (info) => {
           const id = info.getValue();
           if (!id) {
-            return <span className="text-slate-500">—</span>;
+            return <span className="text-stone-500">—</span>;
           }
-          return <span className="font-mono text-slate-500 text-xs">{id.substring(0, 20)}...</span>;
+          return <span className="font-mono text-stone-500 text-xs">{id.substring(0, 20)}...</span>;
         },
       }),
     ],
@@ -145,9 +145,9 @@ export function PaymentHistoryTable({ bookings }: Props) {
       <div className="py-12 text-center">
         <div className="mx-auto max-w-md">
           <div className="mb-4 flex justify-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-stone-100">
               <svg
-                className="h-6 w-6 text-slate-500"
+                className="h-6 w-6 text-stone-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -162,8 +162,8 @@ export function PaymentHistoryTable({ bookings }: Props) {
               </svg>
             </div>
           </div>
-          <h3 className="font-semibold text-base text-slate-900">No payment history</h3>
-          <p className="mt-1 text-slate-600 text-sm">
+          <h3 className="font-semibold text-base text-stone-900">No payment history</h3>
+          <p className="mt-1 text-stone-600 text-sm">
             Your payment history will appear here after you make your first booking.
           </p>
         </div>
@@ -174,25 +174,25 @@ export function PaymentHistoryTable({ bookings }: Props) {
   return (
     <div className="space-y-4">
       {/* Table - Horizontally scrollable on mobile */}
-      <div className="overflow-hidden rounded-lg border border-slate-200">
+      <div className="overflow-hidden rounded-lg border border-stone-200">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px]">
-            <thead className="bg-slate-50">
+            <thead className="bg-stone-50">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <th
-                      className="px-6 py-4 text-left font-semibold text-slate-600 text-xs uppercase tracking-wider"
+                      className="px-6 py-4 text-left font-semibold text-stone-600 text-xs uppercase tracking-wider"
                       key={header.id}
                     >
                       {header.isPlaceholder ? null : header.column.getCanSort() ? (
                         <button
-                          className="flex w-full cursor-pointer select-none items-center gap-2 text-left hover:text-slate-900"
+                          className="flex w-full cursor-pointer select-none items-center gap-2 text-left hover:text-stone-900"
                           onClick={header.column.getToggleSortingHandler()}
                           type="button"
                         >
                           {flexRender(header.column.columnDef.header, header.getContext())}
-                          <span className="text-slate-400">
+                          <span className="text-stone-400">
                             {{
                               asc: "↑",
                               desc: "↓",
@@ -207,9 +207,9 @@ export function PaymentHistoryTable({ bookings }: Props) {
                 </tr>
               ))}
             </thead>
-            <tbody className="divide-y divide-slate-200 bg-white">
+            <tbody className="divide-y divide-stone-200 bg-white">
               {table.getRowModel().rows.map((row) => (
-                <tr className="transition hover:bg-slate-50" key={row.id}>
+                <tr className="transition hover:bg-stone-50" key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <td className="px-6 py-4" key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -225,14 +225,14 @@ export function PaymentHistoryTable({ bookings }: Props) {
       {/* Pagination - Touch-friendly on mobile */}
       {table.getPageCount() > 1 && (
         <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
-          <div className="text-slate-600 text-sm">
+          <div className="text-stone-600 text-sm">
             Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
           </div>
           <div className="flex items-center gap-2">
             <button
               className={cn(
                 "rounded-lg border px-4 py-2.5 font-semibold text-sm transition",
-                "border-slate-300 text-slate-700 hover:border-slate-400 hover:text-slate-900",
+                "border-stone-300 text-stone-700 hover:border-stone-400 hover:text-stone-900",
                 "disabled:cursor-not-allowed disabled:opacity-50"
               )}
               disabled={!table.getCanPreviousPage()}
@@ -244,7 +244,7 @@ export function PaymentHistoryTable({ bookings }: Props) {
             <button
               className={cn(
                 "rounded-lg border px-4 py-2.5 font-semibold text-sm transition",
-                "border-slate-300 text-slate-700 hover:border-slate-400 hover:text-slate-900",
+                "border-stone-300 text-stone-700 hover:border-stone-400 hover:text-stone-900",
                 "disabled:cursor-not-allowed disabled:opacity-50"
               )}
               disabled={!table.getCanNextPage()}

@@ -64,7 +64,7 @@ export function PricingFaqSection() {
         <Card
           className={cn(
             "overflow-hidden border-2 transition-all",
-            openFaqId === faq.id ? "border-slate-900" : "border-slate-200 hover:border-slate-300"
+            openFaqId === faq.id ? "border-stone-900" : "border-stone-200 hover:border-stone-300"
           )}
           key={faq.id}
         >
@@ -73,10 +73,10 @@ export function PricingFaqSection() {
             onClick={() => toggleFaq(faq.id)}
             type="button"
           >
-            <span className="font-semibold text-lg text-slate-900">{faq.question}</span>
+            <span className="font-semibold text-lg text-stone-900">{faq.question}</span>
             <HugeiconsIcon
               className={cn(
-                "flex-shrink-0 text-slate-600 transition-transform",
+                "flex-shrink-0 text-stone-600 transition-transform",
                 openFaqId === faq.id ? "rotate-180" : ""
               )}
               icon={ArrowDown01Icon}
@@ -86,16 +86,16 @@ export function PricingFaqSection() {
 
           {openFaqId === faq.id && (
             <CardContent className="px-6 pb-5">
-              <p className="text-slate-700 leading-relaxed">{faq.answer}</p>
+              <p className="text-stone-700 leading-relaxed">{faq.answer}</p>
             </CardContent>
           )}
         </Card>
       ))}
 
       <div className="pt-8 text-center">
-        <p className="mb-4 text-slate-600">Still have questions?</p>
+        <p className="mb-4 text-stone-600">Still have questions?</p>
         <a
-          className="inline-block rounded-xl border-2 border-slate-300 px-6 py-3 font-medium text-slate-900 transition-all hover:border-slate-900"
+          className="inline-block rounded-xl border-2 border-stone-300 px-6 py-3 font-medium text-stone-900 transition-all hover:border-stone-900"
           href="/contact"
         >
           Contact Support

@@ -81,7 +81,7 @@ export function RoadmapAdminList() {
 
   const getStatusBadge = (visibility: RoadmapVisibility) => {
     const colors = {
-      draft: "bg-slate-100 text-slate-700 border-slate-200",
+      draft: "bg-stone-100 text-stone-700 border-stone-200",
       published: "bg-green-100 text-green-700 border-green-200",
       archived: "bg-amber-100 text-amber-700 border-amber-200",
     };
@@ -103,20 +103,20 @@ export function RoadmapAdminList() {
   return (
     <div className="space-y-6">
       {/* Filter tabs */}
-      <div className="flex items-center gap-2 border-slate-200 border-b">
+      <div className="flex items-center gap-2 border-stone-200 border-b">
         {(["all", "draft", "published", "archived"] as const).map((filter) => (
           <button
             className={`border-b-2 px-4 py-3 font-medium text-sm transition-colors ${
               activeFilter === filter
-                ? "border-slate-900 text-slate-900"
-                : "border-transparent text-slate-600 hover:text-slate-900"
+                ? "border-stone-900 text-stone-900"
+                : "border-transparent text-stone-600 hover:text-stone-900"
             }`}
             key={filter}
             onClick={() => setActiveFilter(filter)}
             type="button"
           >
             {filter.charAt(0).toUpperCase() + filter.slice(1)}
-            <span className="ml-2 rounded-full bg-slate-100 px-2 py-0.5 text-xs">
+            <span className="ml-2 rounded-full bg-stone-100 px-2 py-0.5 text-xs">
               {filterCounts[filter]}
             </span>
           </button>
@@ -126,17 +126,17 @@ export function RoadmapAdminList() {
       {/* Items list */}
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-slate-900 border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-stone-900 border-t-transparent" />
         </div>
       ) : items.length === 0 ? (
         <div className="py-12 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-stone-100">
             <span className="text-3xl">📋</span>
           </div>
-          <h3 className="mb-2 font-semibold text-lg text-slate-900">No roadmap items</h3>
-          <p className="mb-4 text-slate-600">Get started by creating your first roadmap item</p>
+          <h3 className="mb-2 font-semibold text-lg text-stone-900">No roadmap items</h3>
+          <p className="mb-4 text-stone-600">Get started by creating your first roadmap item</p>
           <Link
-            className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-6 py-3 font-medium text-white transition-all hover:bg-slate-800"
+            className="inline-flex items-center gap-2 rounded-lg bg-stone-900 px-6 py-3 font-medium text-white transition-all hover:bg-stone-800"
             href="/admin/roadmap/new"
           >
             Create Roadmap Item
@@ -150,13 +150,13 @@ export function RoadmapAdminList() {
 
             return (
               <div
-                className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-black/5 transition-all hover:border-slate-300 hover:shadow-md"
+                className="rounded-lg border border-stone-200 bg-white p-6 shadow-sm ring-1 ring-black/5 transition-all hover:border-stone-300 hover:shadow-md"
                 key={item.id}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0 flex-1">
                     <div className="mb-2 flex items-center gap-3">
-                      <h3 className="font-semibold text-lg text-slate-900">{item.title}</h3>
+                      <h3 className="font-semibold text-lg text-stone-900">{item.title}</h3>
                       {getStatusBadge(item.visibility)}
                     </div>
 
@@ -172,17 +172,17 @@ export function RoadmapAdminList() {
                         <span>{statusConfig.label}</span>
                       </span>
 
-                      <span className="inline-flex items-center gap-1 rounded-lg bg-slate-100 px-2 py-1 font-medium text-slate-600 text-xs">
+                      <span className="inline-flex items-center gap-1 rounded-lg bg-stone-100 px-2 py-1 font-medium text-stone-600 text-xs">
                         <span>{categoryConfig.icon}</span>
                         <span>{categoryConfig.label}</span>
                       </span>
 
                       {item.target_quarter && (
-                        <span className="text-slate-600 text-xs">{item.target_quarter}</span>
+                        <span className="text-stone-600 text-xs">{item.target_quarter}</span>
                       )}
                     </div>
 
-                    <div className="flex items-center gap-4 text-slate-600 text-sm">
+                    <div className="flex items-center gap-4 text-stone-600 text-sm">
                       <div className="flex items-center gap-1.5">
                         <HugeiconsIcon icon={ArrowUp01Icon} size={16} />
                         <span>{item.vote_count} votes</span>
@@ -198,21 +198,21 @@ export function RoadmapAdminList() {
                   <div className="flex items-center gap-2">
                     {item.visibility === "published" && (
                       <Link
-                        className="rounded-lg p-2 transition-colors hover:bg-slate-50"
+                        className="rounded-lg p-2 transition-colors hover:bg-stone-50"
                         href={`/roadmap/${item.slug}`}
                         target="_blank"
                         title="Preview"
                       >
-                        <HugeiconsIcon className="text-slate-600" icon={ViewIcon} size={18} />
+                        <HugeiconsIcon className="text-stone-600" icon={ViewIcon} size={18} />
                       </Link>
                     )}
 
                     <Link
-                      className="rounded-lg p-2 transition-colors hover:bg-slate-50"
+                      className="rounded-lg p-2 transition-colors hover:bg-stone-50"
                       href={`/admin/roadmap/${item.id}/edit`}
                       title="Edit"
                     >
-                      <HugeiconsIcon className="text-slate-600" icon={Edit01Icon} size={18} />
+                      <HugeiconsIcon className="text-stone-600" icon={Edit01Icon} size={18} />
                     </Link>
 
                     <button

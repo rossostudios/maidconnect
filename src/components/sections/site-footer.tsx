@@ -61,7 +61,7 @@ export async function SiteFooter() {
 
   return (
     <footer
-      className="relative overflow-hidden bg-slate-50/80 py-24 text-slate-900 shadow-sm backdrop-blur-sm"
+      className="relative overflow-hidden bg-stone-50/80 py-24 text-stone-900 shadow-sm backdrop-blur-sm"
       id="get-started"
     >
       <Container className="relative max-w-[1400px]">
@@ -69,11 +69,11 @@ export async function SiteFooter() {
           <div className="flex max-w-md flex-col gap-8">
             <span className="font-semibold text-2xl uppercase tracking-wider">CASAORA</span>
 
-            <p className="text-base text-slate-600 italic leading-relaxed">{t("description")}</p>
+            <p className="text-base text-stone-600 italic leading-relaxed">{t("description")}</p>
 
             <div className="flex flex-col gap-3">
               <a
-                className="flex items-center gap-3 text-base transition hover:text-slate-700"
+                className="flex items-center gap-3 text-base transition hover:text-stone-700"
                 href="mailto:hello@casaora.com"
               >
                 <HugeiconsIcon className="h-5 w-5" icon={Mail01Icon} strokeWidth={2} />
@@ -85,8 +85,8 @@ export async function SiteFooter() {
                   <a
                     aria-label={label}
                     className={cn(
-                      "rounded-full bg-white/60 p-3 text-slate-900 transition-all",
-                      "hover:bg-white hover:text-slate-700"
+                      "rounded-full bg-white/60 p-3 text-stone-900 transition-all",
+                      "hover:bg-white hover:text-stone-700"
                     )}
                     href={href}
                     key={label}
@@ -103,7 +103,7 @@ export async function SiteFooter() {
           <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:gap-14">
             {footerColumns.map((column) => (
               <div className="flex flex-col gap-6" key={column.title}>
-                <h3 className="font-medium text-slate-600 text-sm uppercase tracking-[0.3em]">
+                <h3 className="font-medium text-stone-600 text-sm uppercase tracking-[0.3em]">
                   {column.title}
                 </h3>
 
@@ -111,14 +111,14 @@ export async function SiteFooter() {
                   {column.links.map((link) => (
                     <li key={link.label}>
                       <Link
-                        className="inline-flex items-center gap-2 text-base transition hover:text-slate-700"
+                        className="inline-flex items-center gap-2 text-base transition hover:text-stone-700"
                         data-tour={link.href === "/help" ? "help" : undefined}
                         href={link.href}
                       >
                         {link.label}
                         {link.badge && (
                           <Badge
-                            className="rounded-full bg-slate-900/10 px-2.5 py-1 font-medium text-slate-900 text-xs uppercase tracking-wide"
+                            className="rounded-full bg-stone-900/10 px-2.5 py-1 font-medium text-stone-900 text-xs uppercase tracking-wide"
                             variant="secondary"
                           >
                             {link.badge}
@@ -133,9 +133,9 @@ export async function SiteFooter() {
           </div>
         </div>
 
-        <Separator className="my-12 bg-slate-200" />
+        <Separator className="my-12 bg-stone-200" />
 
-        <div className="flex flex-col gap-6 text-slate-600 text-sm sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-6 text-stone-600 text-sm sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col gap-2">
             <p>
               © {year} Casaora. {t("allRightsReserved")}
@@ -145,16 +145,16 @@ export async function SiteFooter() {
 
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
             <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-              <Link className="transition hover:text-slate-700" href="/terms">
+              <Link className="transition hover:text-stone-700" href="/terms">
                 {t("terms")}
               </Link>
-              <Link className="transition hover:text-slate-700" href="/privacy">
+              <Link className="transition hover:text-stone-700" href="/privacy">
                 {t("privacy")}
               </Link>
-              <Link className="transition hover:text-slate-700" href="/support/account-suspended">
+              <Link className="transition hover:text-stone-700" href="/support/account-suspended">
                 {t("cookies")}
               </Link>
-              <Link className="transition hover:text-slate-700" href="/changelog">
+              <Link className="transition hover:text-stone-700" href="/changelog">
                 What's New
               </Link>
               <FeedbackLink>Feedback</FeedbackLink>

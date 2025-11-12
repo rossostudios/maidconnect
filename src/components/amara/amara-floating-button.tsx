@@ -22,8 +22,8 @@ const AmaraChatInterface = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-slate-200 border-t-transparent" />
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/50">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-stone-200 border-t-transparent" />
       </div>
     ),
   }
@@ -69,14 +69,14 @@ export function AmaraFloatingButton({ className, locale }: AmaraFloatingButtonPr
         <div className="fixed right-4 bottom-4 z-50 sm:right-6 sm:bottom-6">
           {/* Pulse Ring Animation (only when onboarding is visible) */}
           {showOnboarding && (
-            <div className="amara-pulse-ring absolute inset-0 rounded-full bg-slate-900" />
+            <div className="amara-pulse-ring absolute inset-0 rounded-full bg-stone-900" />
           )}
 
           {/* Button */}
           <button
             aria-label={t("openChat")}
             className={cn(
-              "relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-slate-900 text-slate-50 shadow-lg transition-all hover:bg-slate-800 hover:shadow-xl active:scale-95 sm:h-16 sm:w-16",
+              "relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-stone-900 text-stone-50 shadow-lg transition-all hover:bg-stone-800 hover:shadow-xl active:scale-95 sm:h-16 sm:w-16",
               className
             )}
             onClick={() => {
@@ -85,7 +85,7 @@ export function AmaraFloatingButton({ className, locale }: AmaraFloatingButtonPr
             }}
             type="button"
           >
-            <AmaraIcon className="text-slate-50" size={32} />
+            <AmaraIcon className="text-stone-50" size={32} />
           </button>
         </div>
       )}

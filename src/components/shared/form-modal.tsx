@@ -50,8 +50,8 @@ export function FormModal({
           <div className="flex justify-end gap-3">
             <button
               className={cn(
-                "rounded-lg border border-slate-200 bg-white px-4 py-2 font-medium text-slate-900 text-sm",
-                "transition-colors hover:bg-slate-50",
+                "rounded-lg border border-stone-200 bg-white px-4 py-2 font-medium text-stone-900 text-sm",
+                "transition-colors hover:bg-stone-50",
                 "disabled:cursor-not-allowed disabled:opacity-50"
               )}
               disabled={loading}
@@ -63,8 +63,8 @@ export function FormModal({
             {onSubmit && (
               <button
                 className={cn(
-                  "rounded-lg bg-slate-900 px-4 py-2 font-medium text-sm text-white transition-colors",
-                  "hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2",
+                  "rounded-lg bg-stone-900 px-4 py-2 font-medium text-sm text-white transition-colors",
+                  "hover:bg-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2",
                   "disabled:cursor-not-allowed disabled:opacity-50"
                 )}
                 disabled={isSubmitDisabled || loading}

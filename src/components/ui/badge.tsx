@@ -12,21 +12,21 @@ import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
 
 const badgeVariants = cva(
-  "inline-flex items-center gap-1.5 rounded-full font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2",
+  "inline-flex items-center gap-1.5 rounded-full font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-stone-400 focus:ring-offset-2",
   {
     variants: {
       variant: {
-        default: "border border-slate-200 bg-white text-slate-900",
-        secondary: "border border-slate-200 bg-slate-100 text-slate-700",
+        default: "border border-stone-200 bg-white text-stone-900",
+        secondary: "border border-stone-200 bg-stone-100 text-stone-700",
         success: "border border-green-200 bg-green-50 text-green-700",
         warning: "border border-yellow-200 bg-yellow-50 text-yellow-700",
         danger: "border border-red-200 bg-red-50 text-red-700",
         info: "border border-blue-200 bg-blue-50 text-blue-700",
-        outline: "border border-slate-300 bg-transparent text-slate-700",
+        outline: "border border-stone-300 bg-transparent text-stone-700",
         // Status variants with neutral colors
         pending: "border border-yellow-200 bg-yellow-50 text-yellow-700",
         confirmed: "border border-blue-200 bg-blue-50 text-blue-700",
-        in_progress: "border border-slate-200 bg-slate-100 text-slate-700",
+        in_progress: "border border-stone-200 bg-stone-100 text-stone-700",
         completed: "border border-green-200 bg-green-50 text-green-700",
         cancelled: "border border-red-200 bg-red-50 text-red-700",
       },

@@ -43,7 +43,7 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut }: 
       <nav className="hidden items-center gap-8 lg:flex">
         {mainLinks.map((link) => (
           <Link
-            className="font-medium text-sm transition-colors hover:text-slate-700"
+            className="font-medium text-sm transition-colors hover:text-stone-700"
             href={link.href}
             key={link.href}
           >
@@ -56,8 +56,8 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut }: 
         {isAuthenticated ? (
           <Link
             className={cn(
-              "inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-2.5 font-semibold text-sm text-white shadow-sm",
-              "transition-all hover:bg-slate-700 active:scale-95"
+              "inline-flex items-center justify-center rounded-full bg-stone-900 px-6 py-2.5 font-semibold text-sm text-white shadow-sm",
+              "transition-all hover:bg-stone-700 active:scale-95"
             )}
             href={dashboardHref || "/dashboard"}
           >
@@ -66,15 +66,15 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut }: 
         ) : (
           <div className="flex items-center gap-3">
             <Link
-              className="font-medium text-sm transition-colors hover:text-slate-700"
+              className="font-medium text-sm transition-colors hover:text-stone-700"
               href="/auth/sign-in"
             >
               {t("login")}
             </Link>
             <Link
               className={cn(
-                "inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-2.5 font-semibold text-sm text-white shadow-sm",
-                "transition-all hover:bg-slate-700 active:scale-95"
+                "inline-flex items-center justify-center rounded-full bg-stone-900 px-6 py-2.5 font-semibold text-sm text-white shadow-sm",
+                "transition-all hover:bg-stone-700 active:scale-95"
               )}
               href="/auth/sign-up"
             >

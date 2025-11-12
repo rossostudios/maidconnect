@@ -42,19 +42,19 @@ const typeConfig = {
   improvement: { icon: AnalyticsUpIcon, label: "Improvement", color: "text-blue-700 bg-blue-100" },
   complaint: { icon: Sad01Icon, label: "Complaint", color: "text-orange-700 bg-orange-100" },
   praise: { icon: ThumbsUpIcon, label: "Praise", color: "text-green-700 bg-green-100" },
-  other: { icon: AlertCircleIcon, label: "Other", color: "text-slate-700 bg-slate-100" },
+  other: { icon: AlertCircleIcon, label: "Other", color: "text-stone-700 bg-stone-100" },
 };
 
 const statusBadge = {
   new: "bg-blue-100 text-blue-700",
   in_review: "bg-amber-100 text-amber-700",
   resolved: "bg-green-100 text-green-700",
-  closed: "bg-slate-100 text-slate-700",
+  closed: "bg-stone-100 text-stone-700",
   spam: "bg-red-100 text-red-700",
 };
 
 const priorityBadge = {
-  low: "bg-slate-100 text-slate-700",
+  low: "bg-stone-100 text-stone-700",
   medium: "bg-blue-100 text-blue-700",
   high: "bg-orange-100 text-orange-700",
   critical: "bg-red-100 text-red-700",
@@ -107,17 +107,17 @@ export default async function AdminFeedbackPage({
     <section className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="font-bold text-3xl text-slate-900">Feedback Management</h1>
-        <p className="mt-2 text-slate-600 text-sm">Review and manage user feedback submissions</p>
+        <h1 className="font-bold text-3xl text-stone-900">Feedback Management</h1>
+        <p className="mt-2 text-stone-600 text-sm">Review and manage user feedback submissions</p>
       </div>
 
       {/* Status Filter Tabs */}
-      <div className="flex gap-2 border-slate-200 border-b pb-4">
+      <div className="flex gap-2 border-stone-200 border-b pb-4">
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status
-              ? "border border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900"
-              : "bg-slate-900 text-white"
+              ? "border border-stone-200 text-stone-600 hover:border-stone-300 hover:text-stone-900"
+              : "bg-stone-900 text-white"
           }`}
           href="/admin/feedback"
         >
@@ -126,8 +126,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "new"
-              ? "bg-slate-900 text-white"
-              : "border border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900"
+              ? "bg-stone-900 text-white"
+              : "border border-stone-200 text-stone-600 hover:border-stone-300 hover:text-stone-900"
           }`}
           href="/admin/feedback?status=new"
         >
@@ -136,8 +136,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "in_review"
-              ? "bg-slate-900 text-white"
-              : "border border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900"
+              ? "bg-stone-900 text-white"
+              : "border border-stone-200 text-stone-600 hover:border-stone-300 hover:text-stone-900"
           }`}
           href="/admin/feedback?status=in_review"
         >
@@ -146,8 +146,8 @@ export default async function AdminFeedbackPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "resolved"
-              ? "bg-slate-900 text-white"
-              : "border border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900"
+              ? "bg-stone-900 text-white"
+              : "border border-stone-200 text-stone-600 hover:border-stone-300 hover:text-stone-900"
           }`}
           href="/admin/feedback?status=resolved"
         >
@@ -157,10 +157,10 @@ export default async function AdminFeedbackPage({
 
       {/* Feedback List */}
       {feedbackList.length === 0 ? (
-        <div className="rounded-lg border border-slate-200 bg-white p-12 text-center shadow-sm ring-1 ring-black/5">
-          <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-slate-400" icon={AlertCircleIcon} />
-          <h3 className="mb-2 font-bold text-slate-900 text-xl">No Feedback Yet</h3>
-          <p className="text-slate-600">Feedback submissions will appear here</p>
+        <div className="rounded-lg border border-stone-200 bg-white p-12 text-center shadow-sm ring-1 ring-black/5">
+          <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-stone-400" icon={AlertCircleIcon} />
+          <h3 className="mb-2 font-bold text-stone-900 text-xl">No Feedback Yet</h3>
+          <p className="text-stone-600">Feedback submissions will appear here</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -174,7 +174,7 @@ export default async function AdminFeedbackPage({
 
             return (
               <article
-                className="group rounded-lg border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-black/5 transition hover:border-slate-300 hover:shadow-md"
+                className="group rounded-lg border border-stone-200 bg-white p-6 shadow-sm ring-1 ring-black/5 transition hover:border-stone-300 hover:shadow-md"
                 key={item.id}
               >
                 <div className="flex items-start justify-between gap-4">
@@ -197,7 +197,7 @@ export default async function AdminFeedbackPage({
                       >
                         {item.priority}
                       </span>
-                      <span className="text-slate-600 text-xs">
+                      <span className="text-stone-600 text-xs">
                         {new Date(item.created_at).toLocaleDateString("en-US", {
                           year: "numeric",
                           month: "short",
@@ -209,17 +209,17 @@ export default async function AdminFeedbackPage({
                     </div>
 
                     {item.subject && (
-                      <h3 className="mb-2 font-bold text-lg text-slate-900">{item.subject}</h3>
+                      <h3 className="mb-2 font-bold text-lg text-stone-900">{item.subject}</h3>
                     )}
 
-                    <p className="mb-3 line-clamp-2 text-slate-600 text-sm">{item.message}</p>
+                    <p className="mb-3 line-clamp-2 text-stone-600 text-sm">{item.message}</p>
 
                     <div className="flex flex-wrap gap-4 text-xs">
-                      <span className="text-slate-600">
+                      <span className="text-stone-600">
                         <strong>From:</strong> {item.user_email || "Anonymous"}{" "}
                         {item.user_role && `(${item.user_role})`}
                       </span>
-                      <span className="text-slate-600">
+                      <span className="text-stone-600">
                         <strong>Page:</strong> {item.page_path}
                       </span>
                     </div>
@@ -227,7 +227,7 @@ export default async function AdminFeedbackPage({
 
                   {/* Actions */}
                   <Link
-                    className="flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 font-medium text-sm text-white transition hover:bg-slate-800"
+                    className="flex items-center gap-2 rounded-lg bg-stone-900 px-4 py-2 font-medium text-sm text-white transition hover:bg-stone-800"
                     href={`/admin/feedback/${item.id}`}
                   >
                     <HugeiconsIcon className="h-4 w-4" icon={ViewIcon} />

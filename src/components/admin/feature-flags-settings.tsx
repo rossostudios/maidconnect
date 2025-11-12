@@ -118,7 +118,7 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
       )}
 
       {successMessage && (
-        <div className="rounded-lg border border-slate-900 bg-slate-900 p-4 dark:border-slate-100/40 dark:bg-slate-100/10">
+        <div className="rounded-lg border border-stone-900 bg-stone-900 p-4 dark:border-stone-100/40 dark:bg-stone-100/10">
           <p className="text-red-700 text-sm dark:text-red-200">{successMessage}</p>
         </div>
       )}
@@ -126,7 +126,7 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
       <div className="space-y-4">
         {features.map((feature) => (
           <div
-            className="flex items-center justify-between rounded-lg border border-slate-200 bg-white p-4 transition-colors hover:bg-white dark:border-slate-800 dark:bg-slate-950 dark:bg-slate-950"
+            className="flex items-center justify-between rounded-lg border border-stone-200 bg-white p-4 transition-colors hover:bg-white dark:border-stone-800 dark:bg-stone-950 dark:bg-stone-950"
             key={feature.key}
           >
             <div className="flex-1">
@@ -135,12 +135,12 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
                   {feature.name}
                 </h4>
                 {feature.beta && (
-                  <span className="rounded-full bg-slate-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-slate-100/10 dark:text-slate-100">
+                  <span className="rounded-full bg-stone-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-stone-100/10 dark:text-stone-100">
                     BETA
                   </span>
                 )}
               </div>
-              <p className="mt-1 text-slate-600 text-xs dark:text-slate-400">
+              <p className="mt-1 text-stone-600 text-xs dark:text-stone-400">
                 {feature.description}
               </p>
             </div>
@@ -148,14 +148,14 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
             <button
               aria-label={`Toggle ${feature.name}`}
               className={`relative h-6 w-11 flex-shrink-0 rounded-full transition-colors ${
-                flags[feature.key] ? "bg-slate-900 dark:bg-slate-100" : "bg-[#e2e8f0]"
+                flags[feature.key] ? "bg-stone-900 dark:bg-stone-100" : "bg-[#e2e8f0]"
               } ${isSaving ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
               disabled={isSaving}
               onClick={() => handleToggle(feature.key, flags[feature.key])}
               type="button"
             >
               <span
-                className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-transform dark:bg-slate-950 ${
+                className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-transform dark:bg-stone-950 ${
                   flags[feature.key] ? "translate-x-5" : "translate-x-0"
                 }`}
               />
@@ -164,7 +164,7 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
         ))}
       </div>
 
-      <div className="rounded-lg border border-slate-900 bg-white p-4 dark:border-slate-100 dark:bg-slate-950">
+      <div className="rounded-lg border border-stone-900 bg-white p-4 dark:border-stone-100 dark:bg-stone-950">
         <p className="text-red-700 text-sm dark:text-red-200">
           <strong>Note:</strong> Changes to feature flags take effect immediately across the entire
           platform. Use with caution in production.

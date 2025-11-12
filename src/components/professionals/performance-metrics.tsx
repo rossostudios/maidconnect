@@ -47,12 +47,12 @@ export function PerformanceMetrics({
   // Helper to determine badge variant based on rate
   const getRateBadgeClass = (rate: number | undefined) => {
     if (rate === undefined || rate < 75) {
-      return "bg-slate-100 text-slate-500";
+      return "bg-stone-100 text-stone-500";
     }
     if (rate < 90) {
-      return "bg-slate-100 text-slate-700";
+      return "bg-stone-100 text-stone-700";
     }
-    return "bg-slate-100 text-slate-900";
+    return "bg-stone-100 text-stone-900";
   };
 
   const onTimeBadgeClass = getRateBadgeClass(onTimeRate);
@@ -83,7 +83,7 @@ export function PerformanceMetrics({
         {/* Completion Count */}
         {totalCompletedBookings !== undefined && totalCompletedBookings > 0 && (
           <Badge
-            className="flex items-center gap-1.5 bg-slate-100 text-slate-700"
+            className="flex items-center gap-1.5 bg-stone-100 text-stone-700"
             variant="secondary"
           >
             <HugeiconsIcon className="h-3.5 w-3.5" icon={AnalyticsUpIcon} />
@@ -97,20 +97,20 @@ export function PerformanceMetrics({
   // Detailed variant
   return (
     <div className={cn(performanceMetricsVariants({ variant }), className)}>
-      {showLabels && <h3 className="font-semibold text-slate-900 text-sm">Performance Metrics</h3>}
+      {showLabels && <h3 className="font-semibold text-stone-900 text-sm">Performance Metrics</h3>}
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {/* On-Time Rate */}
         {onTimeRate !== undefined && (
-          <Card className={cn("border-slate-200 bg-slate-50 p-4", onTimeBadgeClass)}>
+          <Card className={cn("border-stone-200 bg-stone-50 p-4", onTimeBadgeClass)}>
             <div className="flex items-center gap-2">
-              <HugeiconsIcon className="h-5 w-5 text-slate-600" icon={Clock01Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-stone-600" icon={Clock01Icon} />
               <div>
-                <p className="font-semibold text-slate-900">{Math.round(onTimeRate)}%</p>
-                <p className="text-slate-600 text-xs">On-Time Arrival</p>
+                <p className="font-semibold text-stone-900">{Math.round(onTimeRate)}%</p>
+                <p className="text-stone-600 text-xs">On-Time Arrival</p>
               </div>
             </div>
-            <p className="mt-2 text-slate-500 text-xs">
+            <p className="mt-2 text-stone-500 text-xs">
               {(() => {
                 if (onTimeRate >= 90) {
                   return "Consistently arrives within 15 minutes of scheduled time";
@@ -126,15 +126,15 @@ export function PerformanceMetrics({
 
         {/* Acceptance Rate */}
         {acceptanceRate !== undefined && (
-          <Card className={cn("border-slate-200 bg-slate-50 p-4", acceptanceBadgeClass)}>
+          <Card className={cn("border-stone-200 bg-stone-50 p-4", acceptanceBadgeClass)}>
             <div className="flex items-center gap-2">
-              <HugeiconsIcon className="h-5 w-5 text-slate-600" icon={CheckmarkCircle01Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-stone-600" icon={CheckmarkCircle01Icon} />
               <div>
-                <p className="font-semibold text-slate-900">{Math.round(acceptanceRate)}%</p>
-                <p className="text-slate-600 text-xs">Acceptance Rate</p>
+                <p className="font-semibold text-stone-900">{Math.round(acceptanceRate)}%</p>
+                <p className="text-stone-600 text-xs">Acceptance Rate</p>
               </div>
             </div>
-            <p className="mt-2 text-slate-500 text-xs">
+            <p className="mt-2 text-stone-500 text-xs">
               {(() => {
                 if (acceptanceRate >= 90) {
                   return "Highly responsive and reliable";
@@ -151,10 +151,10 @@ export function PerformanceMetrics({
 
       {/* Completion Badge */}
       {totalCompletedBookings !== undefined && totalCompletedBookings > 0 && (
-        <Card className="flex items-center gap-2 border-slate-200 bg-white p-3">
-          <HugeiconsIcon className="h-4 w-4 text-slate-600" icon={AnalyticsUpIcon} />
-          <p className="text-slate-600 text-sm">
-            <span className="font-semibold text-slate-900">{totalCompletedBookings}</span>{" "}
+        <Card className="flex items-center gap-2 border-stone-200 bg-white p-3">
+          <HugeiconsIcon className="h-4 w-4 text-stone-600" icon={AnalyticsUpIcon} />
+          <p className="text-stone-600 text-sm">
+            <span className="font-semibold text-stone-900">{totalCompletedBookings}</span>{" "}
             {totalCompletedBookings === 1 ? "service" : "services"} completed on Casaora
           </p>
         </Card>

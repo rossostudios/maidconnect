@@ -77,8 +77,8 @@ export function FeedbackActions({
       )}
 
       {/* Status & Priority */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
-        <h3 className="mb-4 font-bold text-lg text-slate-900 dark:text-slate-100">
+      <div className="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-950">
+        <h3 className="mb-4 font-bold text-lg text-stone-900 dark:text-stone-100">
           Update Status & Priority
         </h3>
 
@@ -92,7 +92,7 @@ export function FeedbackActions({
               Status
             </label>
             <select
-              className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
+              className="w-full rounded-xl border border-stone-200 px-4 py-3 text-stone-900 focus:border-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500/20 dark:border-stone-100 dark:border-stone-800 dark:text-stone-100 dark:focus:ring-stone-400/20"
               id="status"
               onChange={(e) => setStatus(e.target.value)}
               value={status}
@@ -114,7 +114,7 @@ export function FeedbackActions({
               Priority
             </label>
             <select
-              className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
+              className="w-full rounded-xl border border-stone-200 px-4 py-3 text-stone-900 focus:border-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500/20 dark:border-stone-100 dark:border-stone-800 dark:text-stone-100 dark:focus:ring-stone-400/20"
               id="priority"
               onChange={(e) => setPriority(e.target.value)}
               value={priority}
@@ -130,13 +130,13 @@ export function FeedbackActions({
       </div>
 
       {/* Admin Notes */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
-        <h3 className="mb-4 font-bold text-lg text-slate-900 dark:text-slate-100">
+      <div className="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-950">
+        <h3 className="mb-4 font-bold text-lg text-stone-900 dark:text-stone-100">
           Add Admin Notes
         </h3>
 
         <textarea
-          className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
+          className="w-full rounded-xl border border-stone-200 px-4 py-3 text-stone-900 focus:border-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500/20 dark:border-stone-100 dark:border-stone-800 dark:text-stone-100 dark:focus:ring-stone-400/20"
           id="admin_notes"
           onChange={(e) => setAdminNotes(e.target.value)}
           placeholder="Add internal notes about this feedback (optional)..."
@@ -148,7 +148,7 @@ export function FeedbackActions({
       {/* Save Button */}
       <div className="flex justify-end">
         <button
-          className="flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 font-semibold text-white transition hover:bg-slate-900 disabled:opacity-50 dark:bg-slate-100 dark:bg-slate-100 dark:text-slate-950"
+          className="flex items-center gap-2 rounded-full bg-stone-900 px-6 py-3 font-semibold text-white transition hover:bg-stone-900 disabled:opacity-50 dark:bg-stone-100 dark:bg-stone-100 dark:text-stone-950"
           disabled={saving}
           onClick={handleSave}
           type="button"

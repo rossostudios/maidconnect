@@ -10,9 +10,9 @@ import { cn } from "@/lib/utils";
 const accordionVariants = cva("overflow-hidden transition-all", {
   variants: {
     variant: {
-      default: "rounded-3xl border border-slate-200 bg-white shadow-sm hover:shadow-md",
-      bordered: "rounded-2xl border-2 border-slate-200 bg-white hover:border-slate-300",
-      minimal: "border-slate-200 border-b",
+      default: "rounded-3xl border border-stone-200 bg-white shadow-sm hover:shadow-md",
+      bordered: "rounded-2xl border-2 border-stone-200 bg-white hover:border-stone-300",
+      minimal: "border-stone-200 border-b",
     },
   },
   defaultVariants: {
@@ -139,10 +139,10 @@ export function AccordionTrigger({ children, className }: AccordionTriggerProps)
       onClick={() => toggleItem(currentItem)}
       type="button"
     >
-      <span className="pr-8 font-semibold font-serif text-lg text-slate-900">{children}</span>
+      <span className="pr-8 font-semibold font-serif text-lg text-stone-900">{children}</span>
       <HugeiconsIcon
         className={cn(
-          "h-6 w-6 flex-shrink-0 text-slate-600 transition-transform duration-300",
+          "h-6 w-6 flex-shrink-0 text-stone-600 transition-transform duration-300",
           isOpen && "rotate-180"
         )}
         icon={ArrowDown01Icon}
@@ -156,7 +156,7 @@ export function AccordionContent({ children, className }: AccordionContentProps)
   const isOpen = openItems.has(currentItem);
 
   const variantStyles = {
-    default: "border-slate-200 border-t p-8 pt-6",
+    default: "border-stone-200 border-t p-8 pt-6",
     bordered: "px-6 pb-5",
     minimal: "pb-4",
   };
@@ -170,7 +170,7 @@ export function AccordionContent({ children, className }: AccordionContentProps)
     >
       <div className="overflow-hidden">
         <div className={cn(variantStyles[variant], className)}>
-          <div className="text-base text-slate-600 leading-relaxed">{children}</div>
+          <div className="text-base text-stone-600 leading-relaxed">{children}</div>
         </div>
       </div>
     </div>

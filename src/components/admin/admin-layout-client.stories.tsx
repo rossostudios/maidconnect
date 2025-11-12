@@ -16,6 +16,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: <div className="p-8 text-slate-900">Admin dashboard content goes here</div>,
+    children: <div className="p-8 text-stone-900">Admin dashboard content goes here</div>,
   },
 };

@@ -15,7 +15,7 @@ import { cardHover } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 const cardVariants = cva(
-  "overflow-hidden rounded-lg transition-colors focus-visible:outline-2 focus-visible:outline-slate-900 focus-visible:outline-offset-2",
+  "overflow-hidden rounded-lg transition-colors focus-visible:outline-2 focus-visible:outline-stone-900 focus-visible:outline-offset-2",
   {
     variants: {
       variant: {

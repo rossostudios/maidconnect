@@ -408,7 +408,7 @@ export function UnifiedCommandPalette({
 
   return (
     <Command.Dialog
-      className="-translate-x-1/2 fixed top-[20%] left-1/2 z-[100] w-full max-w-2xl overflow-hidden rounded-lg border border-slate-200/60 bg-[#f8fafc] shadow-[0_24px_60px_rgba(22,22,22,0.20)] dark:border-slate-700/60"
+      className="-translate-x-1/2 fixed top-[20%] left-1/2 z-[100] w-full max-w-2xl overflow-hidden rounded-lg border border-stone-200/60 bg-[#f8fafc] shadow-[0_24px_60px_rgba(22,22,22,0.20)] dark:border-stone-700/60"
       onOpenChange={handleOpenChange}
       open={open}
       shouldFilter
@@ -417,7 +417,7 @@ export function UnifiedCommandPalette({
       <span className="sr-only">Command Palette</span>
 
       {/* Search Input */}
-      <div className="flex items-center border-slate-200/60 border-b px-4 dark:border-slate-700/60">
+      <div className="flex items-center border-stone-200/60 border-b px-4 dark:border-stone-700/60">
         <HugeiconsIcon
           aria-hidden="true"
           className="mr-3 h-5 w-5 flex-shrink-0 text-[#94a3b8]"
@@ -706,27 +706,27 @@ export function UnifiedCommandPalette({
       </Command.List>
 
       {/* Footer */}
-      <div className="flex items-center gap-4 border-slate-200/60 border-t bg-[#f8fafc] px-4 py-3 text-[#94a3b8] text-xs dark:border-slate-700/60">
+      <div className="flex items-center gap-4 border-stone-200/60 border-t bg-[#f8fafc] px-4 py-3 text-[#94a3b8] text-xs dark:border-stone-700/60">
         <div className="flex items-center gap-1.5">
-          <kbd className="rounded border border-slate-200/60 bg-white px-2 py-1 font-mono text-[#64748b] text-[10px] shadow-sm dark:border-slate-700/60">
+          <kbd className="rounded border border-stone-200/60 bg-white px-2 py-1 font-mono text-[#64748b] text-[10px] shadow-sm dark:border-stone-700/60">
             ↑↓
           </kbd>
           <span>Navigate</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <kbd className="rounded border border-slate-200/60 bg-white px-2 py-1 font-mono text-[#64748b] text-[10px] shadow-sm dark:border-slate-700/60">
+          <kbd className="rounded border border-stone-200/60 bg-white px-2 py-1 font-mono text-[#64748b] text-[10px] shadow-sm dark:border-stone-700/60">
             ↵
           </kbd>
           <span>Select</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <kbd className="rounded border border-slate-200/60 bg-white px-2 py-1 font-mono text-[#64748b] text-[10px] shadow-sm dark:border-slate-700/60">
+          <kbd className="rounded border border-stone-200/60 bg-white px-2 py-1 font-mono text-[#64748b] text-[10px] shadow-sm dark:border-stone-700/60">
             Esc
           </kbd>
           <span>Close</span>
         </div>
         <div className="ml-auto flex items-center gap-1.5">
-          <kbd className="rounded border border-slate-200/60 bg-white px-2 py-1 font-mono text-[#64748b] text-[10px] shadow-sm dark:border-slate-700/60">
+          <kbd className="rounded border border-stone-200/60 bg-white px-2 py-1 font-mono text-[#64748b] text-[10px] shadow-sm dark:border-stone-700/60">
             ⌘K
           </kbd>
           <span>to open</span>

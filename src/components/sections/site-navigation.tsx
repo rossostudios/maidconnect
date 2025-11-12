@@ -95,7 +95,7 @@ export function SiteNavigation() {
 
   return (
     <nav
-      className="order-3 flex w-full justify-between gap-6 font-medium text-slate-900 text-sm sm:order-none sm:w-auto sm:justify-end"
+      className="order-3 flex w-full justify-between gap-6 font-medium text-stone-900 text-sm sm:order-none sm:w-auto sm:justify-end"
       data-tour="navigation"
     >
       <div className="flex w-full items-center justify-between gap-6 overflow-x-auto sm:w-auto sm:overflow-visible">
@@ -106,8 +106,8 @@ export function SiteNavigation() {
             aria-expanded={isProductOpen}
             aria-haspopup="true"
             className={cn(
-              "flex items-center gap-1 whitespace-nowrap text-slate-900 transition hover:text-slate-700",
-              "focus-visible:outline focus-visible:outline-2 focus-visible:outline-slate-900 focus-visible:outline-offset-2"
+              "flex items-center gap-1 whitespace-nowrap text-stone-900 transition hover:text-stone-700",
+              "focus-visible:outline focus-visible:outline-2 focus-visible:outline-stone-900 focus-visible:outline-offset-2"
             )}
             id="site-product-toggle"
             onClick={handleProductClick}
@@ -133,23 +133,23 @@ export function SiteNavigation() {
               onMouseLeave={handleMouseLeave}
               role="menu"
             >
-              <div className="w-[640px] rounded-2xl border border-slate-200 bg-white p-3 shadow-lg backdrop-blur-sm">
+              <div className="w-[640px] rounded-2xl border border-stone-200 bg-white p-3 shadow-lg backdrop-blur-sm">
                 <div className="grid grid-cols-2 gap-2">
                   {productFeatures.map((feature) => (
                     <Link
                       className={cn(
                         "group flex flex-col gap-1 rounded-xl p-3 transition",
-                        "hover:bg-slate-50 hover:text-slate-700",
-                        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-slate-900 focus-visible:outline-offset-2"
+                        "hover:bg-stone-50 hover:text-stone-700",
+                        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-stone-900 focus-visible:outline-offset-2"
                       )}
                       href={feature.href}
                       key={feature.name}
                       role="menuitem"
                     >
-                      <span className="font-semibold text-slate-900 text-sm transition group-hover:text-slate-700">
+                      <span className="font-semibold text-stone-900 text-sm transition group-hover:text-stone-700">
                         {feature.name}
                       </span>
-                      <span className="text-slate-600 text-xs">{feature.description}</span>
+                      <span className="text-stone-600 text-xs">{feature.description}</span>
                     </Link>
                   ))}
                 </div>
@@ -162,8 +162,8 @@ export function SiteNavigation() {
         {links.map((link) => (
           <Link
             className={cn(
-              "whitespace-nowrap text-slate-900 transition hover:text-slate-700",
-              "focus-visible:outline focus-visible:outline-2 focus-visible:outline-slate-900 focus-visible:outline-offset-2"
+              "whitespace-nowrap text-stone-900 transition hover:text-stone-700",
+              "focus-visible:outline focus-visible:outline-2 focus-visible:outline-stone-900 focus-visible:outline-offset-2"
             )}
             href={link.href}
             key={link.href}
