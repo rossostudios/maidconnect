@@ -29,7 +29,7 @@ type Props = {
   payouts: Payout[];
 };
 
-const COLORS = ["#475569", "#0f172a", "#64748b", "#94a3b8", "#cbd5e1"];
+const COLORS = ["#57534E", "#1C1917", "#78716C", "#A8A29E", "#D6D3D1"]; // stone-600, stone-900, stone-500, stone-400, stone-300
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
@@ -42,17 +42,17 @@ const LineChartComponent = dynamic(
         return (
           <ResponsiveContainer height={300} width="100%">
             <LineChart data={data}>
-              <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
-              <XAxis dataKey="month" stroke="#64748b" style={{ fontSize: 12 }} />
+              <CartesianGrid stroke="#E7E5E4" strokeDasharray="3 3" />
+              <XAxis dataKey="month" stroke="#78716C" style={{ fontSize: 12 }} />
               <YAxis
-                stroke="#64748b"
+                stroke="#78716C"
                 style={{ fontSize: 12 }}
                 tickFormatter={(value) => `${value}k`}
               />
               <Tooltip
                 contentStyle={{
                   backgroundColor: "white",
-                  border: "1px solid #e2e8f0",
+                  border: "1px solid #E7E5E4",
                   borderRadius: "8px",
                 }}
                 formatter={(value: number) => formatCurrency(value)}
@@ -60,8 +60,8 @@ const LineChartComponent = dynamic(
               <Line
                 activeDot={{ r: 6 }}
                 dataKey="earnings"
-                dot={{ fill: "#0f172a", r: 4 }}
-                stroke="#0f172a"
+                dot={{ fill: "#1C1917", r: 4 }}
+                stroke="#1C1917"
                 strokeWidth={3}
                 type="monotone"
               />
@@ -79,26 +79,26 @@ const LineChartComponent = dynamic(
 const BarChartComponent = dynamic(
   () =>
     import("recharts").then((mod) => ({
-      default: ({ data, dataKey = "bookings", fill = "#64748b", formatter }: any) => {
+      default: ({ data, dataKey = "bookings", fill = "#78716C", formatter }: any) => {
         const { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } = mod;
         return (
           <ResponsiveContainer height={300} width="100%">
             <BarChart data={data}>
-              <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
+              <CartesianGrid stroke="#E7E5E4" strokeDasharray="3 3" />
               <XAxis
                 dataKey={dataKey === "bookings" ? "month" : "date"}
-                stroke="#94a3b8"
+                stroke="#A8A29E"
                 style={{ fontSize: 12 }}
               />
               <YAxis
-                stroke="#94a3b8"
+                stroke="#A8A29E"
                 style={{ fontSize: 12 }}
                 tickFormatter={formatter ? (value: number) => `${value}k` : undefined}
               />
               <Tooltip
                 contentStyle={{
                   backgroundColor: "white",
-                  border: "1px solid #e2e8f0",
+                  border: "1px solid #E7E5E4",
                   borderRadius: "8px",
                 }}
                 formatter={formatter}
@@ -128,7 +128,7 @@ const PieChartComponent = dynamic(
                 cy="50%"
                 data={data}
                 dataKey="value"
-                fill="#64748b"
+                fill="#78716C"
                 label={(props: any) => `${props.name} (${(props.percent * 100).toFixed(0)}%)`}
                 labelLine={false}
                 outerRadius={100}
@@ -282,7 +282,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
             <h2 className="font-semibold text-slate-900 text-xl">{t("charts.bookingsByMonth")}</h2>
           </CardHeader>
           <CardContent className="p-8 pt-0">
-            <BarChartComponent data={earningsData} dataKey="bookings" fill="#475569" />
+            <BarChartComponent data={earningsData} dataKey="bookings" fill="#57534E" />
           </CardContent>
         </Card>
 
@@ -310,7 +310,7 @@ export function FinancesOverview({ bookings, payouts }: Props) {
               <BarChartComponent
                 data={payoutHistory}
                 dataKey="amount"
-                fill="#0f172a"
+                fill="#1C1917"
                 formatter={formatCurrency}
               />
             </CardContent>

@@ -144,16 +144,16 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
       {/* Data Processing Consent - REQUIRED (Ley 1581 de 2012) */}
       <label
         className={cn(
-          "flex items-start gap-3 text-[#0f172a] text-sm",
-          errors?.dataProcessingConsent && "text-[#64748b]"
+          "flex items-start gap-3 text-stone-900 text-sm",
+          errors?.dataProcessingConsent && "text-stone-500"
         )}
       >
         <input
           aria-invalid={Boolean(errors?.dataProcessingConsent)}
           aria-required="true"
           className={cn(
-            "mt-[2px] h-4 w-4 shrink-0 accent-[#0f172a]",
-            errors?.dataProcessingConsent && "accent-[#64748b]"
+            "mt-[2px] h-4 w-4 shrink-0 accent-stone-900",
+            errors?.dataProcessingConsent && "accent-stone-500"
           )}
           name="dataProcessingConsent"
           required
@@ -167,7 +167,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
               transferencia a terceros (como procesadores de pago, proveedores de servicios en la
               nube, y otros necesarios para la operación de la plataforma), de acuerdo con lo
               establecido en la Ley 1581 de 2012 y la Política de Privacidad.{" "}
-              <span className="text-[#64748b]">*</span>
+              <span className="text-stone-500">*</span>
             </>
           ) : (
             <>
@@ -175,19 +175,19 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
               storage, use, circulation, processing, and transfer to third parties (such as payment
               processors, cloud service providers, and others necessary for platform operation), in
               accordance with Law 1581 of 2012 and the Privacy Policy.{" "}
-              <span className="text-[#64748b]">*</span>
+              <span className="text-stone-500">*</span>
             </>
           )}
         </span>
       </label>
       {errors?.dataProcessingConsent ? (
-        <p className="ml-7 text-[#64748b] text-xs">{errors.dataProcessingConsent}</p>
+        <p className="ml-7 text-stone-500 text-xs">{errors.dataProcessingConsent}</p>
       ) : null}
 
       {/* Marketing Communications - OPTIONAL */}
-      <label className="flex items-start gap-3 text-[#0f172a] text-sm">
+      <label className="flex items-start gap-3 text-stone-900 text-sm">
         <input
-          className="mt-[2px] h-4 w-4 shrink-0 accent-[#0f172a]"
+          className="mt-[2px] h-4 w-4 shrink-0 accent-stone-900"
           defaultChecked={false}
           name="marketingConsent"
           type="checkbox"
@@ -197,26 +197,26 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             <>
               Acepto recibir correos electrónicos promocionales, ofertas especiales, y noticias de
               Casaora. Puedo retirar mi consentimiento en cualquier momento.{" "}
-              <span className="text-[#94a3b8]">(Opcional)</span>
+              <span className="text-stone-400">(Opcional)</span>
             </>
           ) : (
             <>
               I agree to receive promotional emails, special offers, and news from Casaora. I can
-              withdraw my consent at any time. <span className="text-[#94a3b8]">(Optional)</span>
+              withdraw my consent at any time. <span className="text-stone-400">(Optional)</span>
             </>
           )}
         </span>
       </label>
 
       {/* Required fields note */}
-      <p className="text-[#94a3b8] text-xs">
+      <p className="text-stone-400 text-xs">
         {isSpanish ? (
           <>
-            <span className="text-[#64748b]">*</span> Campos requeridos
+            <span className="text-stone-500">*</span> Campos requeridos
           </>
         ) : (
           <>
-            <span className="text-[#64748b]">*</span> Required fields
+            <span className="text-stone-500">*</span> Required fields
           </>
         )}
       </p>

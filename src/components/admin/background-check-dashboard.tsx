@@ -153,27 +153,27 @@ export function BackgroundCheckDashboard() {
     }
   };
 
-  // Prepare chart data
+  // Prepare chart data (using stone palette)
   const chartData = [
     {
       name: "Pending",
       count: data.counts.pending,
-      color: "#64748b",
+      color: "#78716C", // stone-500
     },
     {
       name: "Clear",
       count: data.counts.clear,
-      color: "#64748b",
+      color: "#78716C", // stone-500
     },
     {
       name: "Consider",
       count: data.counts.consider,
-      color: "#64748b",
+      color: "#78716C", // stone-500
     },
     {
       name: "Suspended",
       count: data.counts.suspended,
-      color: "#64748b",
+      color: "#78716C", // stone-500
     },
   ];
 
@@ -280,15 +280,15 @@ export function BackgroundCheckDashboard() {
           <div className="h-64">
             <ResponsiveContainer height="100%" width="100%">
               <BarChart data={chartData}>
-                <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" vertical={false} />
+                <CartesianGrid stroke="#E7E5E4" strokeDasharray="3 3" vertical={false} />
                 <XAxis
                   axisLine={false}
                   dataKey="name"
                   fontSize={12}
-                  stroke="#94a3b8"
+                  stroke="#A8A29E"
                   tickLine={false}
                 />
-                <YAxis axisLine={false} fontSize={12} stroke="#94a3b8" tickLine={false} />
+                <YAxis axisLine={false} fontSize={12} stroke="#A8A29E" tickLine={false} />
                 <Bar dataKey="count" radius={[8, 8, 0, 0]}>
                   {chartData.map((entry, index) => (
                     <Cell fill={entry.color} key={`cell-${index}`} />
