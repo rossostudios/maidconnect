@@ -46,8 +46,6 @@ export function HeroSection() {
   });
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, -110]);
 
   return (
     <section className="relative overflow-visible bg-neutral-50 py-24 md:py-32" ref={containerRef}>
