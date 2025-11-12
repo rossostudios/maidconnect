@@ -1,211 +1,167 @@
 "use client";
 
-import { useState } from "react";
+import { CheckmarkCircle01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/core";
 
 /**
- * PricingSection - Swiss Design System
+ * PricingSection - Homepage Pricing Module
  *
- * Clean pricing table following Swiss principles:
- * - Minimal card design (no heavy shadows)
- * - Satoshi for headings and prices
- * - Precise 8px grid spacing
- * - Orange accent for featured plan
- * - Clear visual hierarchy
+ * Clean, modern pricing display showing commission-based marketplace model
+ * Matches the Aurius pricing aesthetic with Casaora's transparent pricing
  */
 export function PricingSection() {
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
+  const t = useTranslations("home.pricing");
 
   const plans = [
     {
-      name: "Starter",
-      description: "Perfect for occasional household help",
-      monthlyPrice: 19,
-      annualPrice: 15,
+      name: "Marketplace",
+      description: "Search, compare, and book professionals directly",
+      commission: 15,
       features: [
-        "Up to 2 service bookings per month",
-        "Background-checked professionals",
-        "Email support",
-        "Secure payment processing",
+        "Browse verified professionals",
+        "Direct booking system",
+        "Background-checked staff",
+        "Secure payment via Stripe",
+        "Insurance coverage",
+        "24/7 email support",
       ],
       highlighted: false,
+      ctaText: "Browse Professionals",
+      ctaHref: "/professionals",
     },
     {
-      name: "Pro",
-      description: "Best for regular household staffing needs",
-      monthlyPrice: 39,
-      annualPrice: 32,
+      name: "Concierge",
+      description: "Expert matching with white-glove service",
+      commission: 25,
       features: [
-        "Unlimited service bookings",
-        "Priority matching",
-        "Dedicated account manager",
-        "24/7 phone support",
-        "Replacement guarantee",
-        "Advanced scheduling",
+        "Everything in Marketplace",
+        "Expert human matching",
+        "English-speaking coordinators",
+        "Priority booking",
+        "Dedicated support",
+        "Satisfaction guarantee",
       ],
       highlighted: true,
-    },
-    {
-      name: "Enterprise",
-      description: "For families with comprehensive staffing needs",
-      monthlyPrice: 99,
-      annualPrice: 82,
-      features: [
-        "Everything in Pro",
-        "Multi-property support",
-        "Custom contracts",
-        "White-glove onboarding",
-        "Annual household review",
-        "Concierge services",
-      ],
-      highlighted: false,
+      ctaText: "Request Concierge",
+      ctaHref: "/concierge",
     },
   ];
 
   return (
     <section className="w-full bg-neutral-50 py-24 md:py-32">
-      <Container className="mx-auto max-w-7xl px-4">
-        {/* Section Header */}
-        <div className="mb-16 text-center">
-          <h2
-            className="font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl"
-            style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-          >
-            Simple, Transparent Pricing
-          </h2>
-          <div className="mx-auto mt-4 h-1 w-16 bg-orange-500" />
-          <p className="mt-6 text-lg text-neutral-600">
-            Choose the plan that fits your household needs.
-          </p>
-        </div>
+      {/* Top horizontal line connecting to page borders */}
+      <div className="mx-auto mb-16 max-w-6xl border-neutral-200 border-t-2" />
 
-        {/* Billing Toggle - Swiss Minimal */}
-        <div className="mb-16 flex justify-center">
-          <div className="inline-flex rounded-sm border border-neutral-300 bg-white p-1">
-            <button
-              className={cn(
-                "rounded-sm px-6 py-2.5 font-medium text-sm transition-all",
-                billingCycle === "monthly"
-                  ? "bg-neutral-900 text-white"
-                  : "text-neutral-600 hover:text-neutral-900"
-              )}
-              onClick={() => setBillingCycle("monthly")}
-              type="button"
-            >
-              Monthly
-            </button>
-            <button
-              className={cn(
-                "rounded-sm px-6 py-2.5 font-medium text-sm transition-all",
-                billingCycle === "annual"
-                  ? "bg-neutral-900 text-white"
-                  : "text-neutral-600 hover:text-neutral-900"
-              )}
-              onClick={() => setBillingCycle("annual")}
-              type="button"
-            >
-              Annual
-              <span className="ml-2 text-orange-500 text-xs">(Save 20%)</span>
-            </button>
+      {/* Pricing Box Container */}
+      <Container className="mx-auto max-w-6xl px-4">
+        <div className="mx-auto max-w-5xl border-2 border-neutral-200 bg-white">
+          {/* Section Header */}
+          <div className="px-8 py-16 text-center">
+            <div className="mb-4 inline-block rounded-full bg-orange-100 px-4 py-1.5">
+              <span className="font-semibold text-orange-600 text-xs uppercase tracking-wider">
+                {t("badge")}
+              </span>
+            </div>
+            <h2 className="mb-4 font-[family-name:var(--font-family-satoshi)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
+              {t("title")}
+            </h2>
+            <p className="mx-auto max-w-2xl text-lg text-neutral-600">{t("subtitle")}</p>
           </div>
-        </div>
 
-        {/* Pricing Grid */}
-        <div className="grid gap-8 md:grid-cols-3">
-          {plans.map((plan) => {
-            const price = billingCycle === "monthly" ? plan.monthlyPrice : plan.annualPrice;
+          {/* Horizontal line */}
+          <div className="border-neutral-200 border-t-2" />
 
-            return (
-              <div
-                className={cn(
-                  "relative overflow-hidden rounded-sm bg-white p-8 transition-all duration-200",
-                  plan.highlighted
-                    ? "border-2 border-orange-500 shadow-lg"
-                    : "border border-neutral-200 hover:border-neutral-300"
-                )}
-                key={plan.name}
-              >
-                {/* Popular Badge - Swiss Minimal */}
-                {plan.highlighted && (
-                  <div className="absolute top-0 right-0 bg-orange-500 px-4 py-1">
-                    <span className="font-medium text-white text-xs uppercase tracking-wider">
-                      Popular
-                    </span>
-                  </div>
-                )}
-
-                {/* Plan Name */}
-                <div className="mb-2">
-                  <h3
-                    className="font-bold text-2xl text-neutral-900"
-                    style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-                  >
+          {/* Top Section: Names and Commission */}
+          <div className="grid divide-x-0 divide-neutral-200 md:grid-cols-2 md:divide-x-2">
+            {plans.map((plan) => (
+              <div className="relative bg-white" key={`top-${plan.name}`}>
+                {/* Plan Name & Description */}
+                <div className="p-8">
+                  <h3 className="mb-2 font-[family-name:var(--font-family-satoshi)] font-bold text-2xl text-neutral-900">
                     {plan.name}
                   </h3>
+                  <p className="text-neutral-600 text-sm">{plan.description}</p>
                 </div>
 
-                {/* Description */}
-                <p className="text-neutral-600 text-sm">{plan.description}</p>
-
-                {/* Price - Large and Bold */}
-                <div className="my-8">
-                  <div className="flex items-baseline">
-                    <span
-                      className="font-bold text-5xl text-neutral-900 tracking-tight"
-                      style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-                    >
-                      ${price}
-                    </span>
-                    <span className="ml-2 text-neutral-600">/mo</span>
+                {/* Commission Display */}
+                <div className="bg-white p-8 text-center">
+                  <div className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider">
+                    {t("platformFee")}
                   </div>
-                  {billingCycle === "annual" && (
-                    <p className="mt-2 text-neutral-500 text-xs">
-                      Billed annually (${price * 12}/year)
-                    </p>
-                  )}
+                  <div className="flex items-baseline justify-center">
+                    <span className="font-[family-name:var(--font-family-satoshi)] font-bold text-5xl text-neutral-900">
+                      {plan.commission}%
+                    </span>
+                  </div>
+                  <div className="mt-2 text-neutral-600 text-xs">{t("addedToServiceCost")}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Horizontal line spanning both cards */}
+          <div className="border-neutral-200 border-t-2" />
+
+          {/* Bottom Section: Buttons and Features */}
+          <div className="grid divide-x-0 divide-neutral-200 md:grid-cols-2 md:divide-x-2">
+            {plans.map((plan) => (
+              <div className="relative bg-white" key={`bottom-${plan.name}`}>
+                {/* CTA Button */}
+                <div className="p-8">
+                  <Button
+                    asChild
+                    className={cn(
+                      "w-full rounded-full font-semibold transition-all duration-200",
+                      plan.highlighted
+                        ? "bg-orange-500 text-white shadow-md hover:bg-orange-600 hover:shadow-lg"
+                        : "border-2 border-neutral-200 bg-white hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600"
+                    )}
+                    variant={plan.highlighted ? "default" : "outline"}
+                  >
+                    <Link href={plan.ctaHref}>{plan.ctaText}</Link>
+                  </Button>
                 </div>
 
-                {/* CTA Button */}
-                <Button
-                  asChild
-                  className="mb-8 w-full rounded-sm"
-                  variant={plan.highlighted ? "default" : "outline"}
-                >
-                  <Link href="/contact">Get Started</Link>
-                </Button>
-
-                {/* Features List - Clean */}
-                <ul className="space-y-4">
-                  {plan.features.map((feature) => (
-                    <li className="flex items-start gap-3" key={feature}>
-                      {/* Checkmark - Minimal */}
-                      <div className="mt-0.5 h-5 w-5 flex-shrink-0">
-                        <svg
-                          className="h-5 w-5 text-neutral-900"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth={2.5}
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </div>
-                      <span className="text-neutral-700 text-sm leading-tight">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                {/* Features List */}
+                <div className="p-8">
+                  <ul className="space-y-3">
+                    {plan.features.map((feature) => (
+                      <li className="flex items-start gap-3" key={feature}>
+                        <HugeiconsIcon
+                          className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-600"
+                          icon={CheckmarkCircle01Icon}
+                        />
+                        <span className="text-neutral-700 text-sm leading-tight">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            );
-          })}
-        </div>
+            ))}
+          </div>
 
-        {/* Footer Note */}
-        <p className="mt-12 text-center text-neutral-500 text-sm">
-          All plans include secure payment processing and satisfaction guarantee.
-        </p>
+          {/* Horizontal line */}
+          <div className="border-neutral-200 border-t-2" />
+
+          {/* Footer Note - Transparency */}
+          <div className="space-y-2 px-8 py-12 text-center">
+            <p className="text-neutral-600 text-sm">
+              <span className="font-semibold text-neutral-900">{t("footer.highlight")}</span>{" "}
+              {t("footer.text")}
+            </p>
+            <Link
+              className="inline-flex items-center font-semibold text-orange-600 text-sm hover:text-orange-700"
+              href="/pricing"
+            >
+              {t("footer.link")} →
+            </Link>
+          </div>
+        </div>
       </Container>
     </section>
   );

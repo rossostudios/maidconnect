@@ -54,6 +54,21 @@
       "description": "Two-way reviews ensure accountability and help you make informed decisions"
     }
   },
+  "home": {
+    "pricing": {
+      "badge": "Transparent Pricing",
+      "title": "Simple, transparent pricing",
+      "subtitle": "Choose how you want to hire. Marketplace or Concierge — both with clear, upfront pricing.",
+      "platformFee": "Platform Fee",
+      "addedToServiceCost": "Added to service cost",
+      "popularBadge": "Most Popular",
+      "footer": {
+        "highlight": "Professionals keep 100% of their rate.",
+        "text": "You only pay the platform fee for trust & safety services.",
+        "link": "View detailed pricing"
+      }
+    }
+  },
   "dashboard": {
     "pro": {
       "main": {
@@ -2315,20 +2330,360 @@
   },
   "pricing": {
     "meta": {
-      "title": "Pricing - Simple, Transparent Plans | Casaora",
-      "description": "Choose the perfect plan for your needs. Transparent pricing with no hidden fees. Start free or upgrade for premium features."
+      "title": "Transparent Pricing - No Hidden Fees | Casaora",
+      "description": "Understand exactly what you'll pay. 15% marketplace fee or 25% for our premium concierge service. Professionals keep 100% of their rate."
     },
-    "title": "Simple, transparent pricing",
-    "subtitle": "Choose the plan that works for you. All plans include our core features with no hidden fees.",
+    "hero": {
+      "title": "Transparent Pricing - No Hidden Fees",
+      "subtitle": "Choose the service level that works for you. Whether you browse yourself or let us match you, pricing is always clear and upfront.",
+      "tabs": {
+        "customers": "For Customers",
+        "professionals": "For Professionals"
+      }
+    },
+    "comparison": {
+      "popularBadge": "Perfect for Foreigners",
+      "platformFee": "Platform Service Fee",
+      "addedToServiceCost": "added to service cost",
+      "bestFor": "Best for:",
+      "marketplace": {
+        "title": "Marketplace",
+        "subtitle": "Browse and book yourself",
+        "features": [
+          "Search and filter professionals",
+          "View profiles and reviews",
+          "Book instantly or request approval",
+          "Direct messaging with professionals",
+          "Secure payment protection",
+          "Background-checked professionals"
+        ],
+        "cta": "Browse Professionals",
+        "bestFor": "locals, repeat customers, those who know what they want"
+      },
+      "concierge": {
+        "title": "Concierge",
+        "subtitle": "We match you with the perfect professional",
+        "features": [
+          "Expert human matching based on your needs",
+          "English-speaking coordinators",
+          "Priority booking and faster response",
+          "Satisfaction guarantee",
+          "Perfect for first-time visitors",
+          "All marketplace features included"
+        ],
+        "cta": "Get Concierge Service",
+        "bestFor": "foreigners, expats, first-timers, busy professionals"
+      }
+    },
+    "calculator": {
+      "title": "Estimate Your Cost",
+      "subtitle": "See exactly what you'll pay before booking. No surprises, no hidden fees.",
+      "serviceType": "Service Type",
+      "marketplace": "Marketplace",
+      "concierge": "Concierge",
+      "selectService": "Select Service",
+      "services": {
+        "cleaning": "Housekeeping / Cleaning",
+        "childcare": "Childcare / Nanny",
+        "cooking": "Cooking / Meal Prep",
+        "eldercare": "Elder Care",
+        "petcare": "Pet Care"
+      },
+      "hours": "Hours of Service",
+      "addInsurance": "Add Insurance Protection",
+      "insuranceDescription": "Professional liability coverage",
+      "serviceBase": "Service Cost",
+      "platformFee": "Platform Fee",
+      "insurance": "Insurance",
+      "total": "Total Cost",
+      "professionalReceives": "Professional Receives",
+      "professionalNote": "Professionals keep 100% of their service rate. Platform fee is paid by customer."
+    },
+    "feeExplainer": {
+      "title": "What's Included in the Platform Fee?",
+      "subtitle": "Your platform fee covers comprehensive safety, security, and support services that make Casaora trustworthy.",
+      "features": {
+        "backgroundChecks": {
+          "title": "Background Checks",
+          "description": "Criminal records, identity verification, and professional reference checks for every professional."
+        },
+        "insurance": {
+          "title": "Insurance Coverage",
+          "description": "Professional liability protection for your home and belongings during service."
+        },
+        "paymentProtection": {
+          "title": "Payment Protection",
+          "description": "Secure escrow via Stripe. Funds held until service completion with dispute resolution."
+        },
+        "support": {
+          "title": "24/7 Customer Support",
+          "description": "English and Spanish support team available to help resolve any issues quickly."
+        },
+        "verification": {
+          "title": "Profile Verification",
+          "description": "Government ID verification, proof of address, and skills assessment for quality assurance."
+        },
+        "technology": {
+          "title": "Technology Platform",
+          "description": "Secure booking system, real-time messaging, payment processing, and review management."
+        }
+      },
+      "trustBadge": {
+        "title": "Trusted by 2,000+ Expats & Locals in Colombia",
+        "description": "Your platform fee ensures every professional is vetted, verified, and backed by our satisfaction guarantee. We don't take shortcuts on safety."
+      }
+    },
+    "concierge": {
+      "title": "Why Choose Concierge Service?",
+      "subtitle": "Designed for foreigners and first-time users who want expert guidance and English-speaking support.",
+      "benefits": {
+        "humanMatching": {
+          "title": "Expert Human Matching",
+          "description": "Our team personally matches you with professionals based on your specific needs, language preferences, and schedule."
+        },
+        "englishSupport": {
+          "title": "English-Speaking Coordinators",
+          "description": "Communicate easily with our bilingual team. No language barriers, no misunderstandings."
+        },
+        "priorityBooking": {
+          "title": "Priority Booking",
+          "description": "Get faster response times and access to our top-rated professionals before marketplace users."
+        },
+        "qualityGuarantee": {
+          "title": "Satisfaction Guarantee",
+          "description": "Not happy with your match? We'll find you another professional at no extra charge."
+        },
+        "dedicatedCoordinator": {
+          "title": "Dedicated Coordinator",
+          "description": "One point of contact throughout your booking who knows your preferences and history."
+        },
+        "topProfessionals": {
+          "title": "Top 5% Professionals",
+          "description": "Concierge clients get matched with our highest-rated, most experienced professionals first."
+        }
+      },
+      "perfectFor": {
+        "title": "Perfect For:",
+        "audiences": [
+          "Foreigners visiting Colombia",
+          "Expats new to the country",
+          "First-time users of domestic services",
+          "Busy professionals who want concierge-level service",
+          "Anyone who values expert guidance and English support"
+        ]
+      },
+      "cta": "Request Concierge Matching",
+      "ctaSubtext": "Response within 2 hours · English & Spanish support",
+      "comparison": {
+        "title": "Marketplace vs. Concierge",
+        "platformFee": "Platform fee",
+        "marketplace": {
+          "title": "Marketplace",
+          "features": [
+            "Browse professionals yourself",
+            "Instant booking",
+            "Direct messaging",
+            "Standard support"
+          ]
+        },
+        "concierge": {
+          "title": "Concierge",
+          "features": [
+            "Expert matching service",
+            "English-speaking coordinator",
+            "Priority booking",
+            "Satisfaction guarantee",
+            "Top 5% professionals",
+            "Dedicated support"
+          ]
+        }
+      }
+    },
+    "customer": {
+      "howItWorks": {
+        "title": "How Casaora Pricing Works",
+        "description": "We believe in complete transparency. You see exactly what you pay, what the professional earns, and what our platform fee covers.",
+        "steps": {
+          "step1": {
+            "title": "Professional Sets Their Rate",
+            "description": "Each professional sets their own hourly rate based on their experience, skills, and services offered."
+          },
+          "step2": {
+            "title": "We Add Our Transparent Fee",
+            "description": "15% for marketplace self-service or 25% for our premium concierge matching service."
+          },
+          "step3": {
+            "title": "You See the Total Upfront",
+            "description": "No hidden charges. The total you see at checkout is exactly what you pay."
+          }
+        }
+      },
+      "chooseService": {
+        "title": "Choose Your Service Level"
+      },
+      "calculator": {
+        "title": "Calculate Your Estimated Cost",
+        "description": "Select your service, hours, and see the full breakdown instantly."
+      },
+      "cta": {
+        "title": "Ready to Find Your Perfect Professional?",
+        "subtitle": "Join hundreds of satisfied customers who trust Casaora for verified, background-checked household services.",
+        "primary": "Browse Professionals",
+        "secondary": "Get Concierge Service"
+      }
+    },
+    "professional": {
+      "howItWorks": {
+        "title": "How You Get Paid",
+        "description": "Set your own rates and keep 100% of what you charge. We add our platform fee on top, so customers pay it—not you.",
+        "steps": {
+          "setRate": {
+            "title": "You Set Your Rate",
+            "description": "Choose your hourly rate based on your experience, skills, and the services you provide."
+          },
+          "customerPays": {
+            "title": "Customer Pays Platform Fee",
+            "description": "We add 15% on top of your rate. This fee is paid by the customer, not deducted from your earnings."
+          },
+          "youReceive": {
+            "title": "You Receive 100%",
+            "description": "After service completion, you receive your full rate via weekly direct deposit to your bank account."
+          }
+        }
+      },
+      "keyPoint": {
+        "title": "You Keep Every Peso You Charge",
+        "description": "Unlike other platforms that take a cut from your earnings, Casaora adds our fee on top. If you charge 25,000 COP/hour, you receive 25,000 COP/hour."
+      },
+      "calculator": {
+        "title": "Calculate Your Potential Earnings",
+        "description": "See how much you could earn per week, month, and year based on your hourly rate and availability."
+      },
+      "benefits": {
+        "title": "Why Join Casaora?",
+        "items": {
+          "noHiddenFees": {
+            "title": "No Hidden Fees",
+            "description": "You keep 100% of your rate. No surprise deductions or processing fees."
+          },
+          "weeklyPayouts": {
+            "title": "Weekly Payouts",
+            "description": "Receive your earnings every week via direct deposit. Fast, reliable payments."
+          },
+          "instantBooking": {
+            "title": "Instant Booking",
+            "description": "Customers can book you directly. More bookings = more income."
+          },
+          "earnMore": {
+            "title": "Earn More Than Competitors",
+            "description": "Because we don't cut your rate, you earn 15-20% more than on other platforms."
+          }
+        }
+      },
+      "feeCovers": {
+        "title": "What Does the Platform Fee Cover?",
+        "description": "Our 15% fee (paid by customers) funds the services that bring you clients and keep you safe.",
+        "items": [
+          {
+            "title": "Customer Acquisition",
+            "description": "Marketing, advertising, and attracting customers looking for professionals like you."
+          },
+          {
+            "title": "Payment Processing",
+            "description": "Secure payment handling via Stripe, fraud protection, and direct deposit to your account."
+          },
+          {
+            "title": "Background Checks",
+            "description": "Your verification and background checks give customers confidence to book you."
+          },
+          {
+            "title": "Insurance Coverage",
+            "description": "Professional liability insurance protects you and the customer during service."
+          },
+          {
+            "title": "Customer Support",
+            "description": "24/7 support team handles disputes, scheduling issues, and customer questions."
+          },
+          {
+            "title": "Technology Platform",
+            "description": "Booking system, messaging, calendar, profile management, and review tools."
+          }
+        ]
+      },
+      "payouts": {
+        "title": "Payout Schedule",
+        "description": "Receive your earnings reliably and on time, every week.",
+        "features": [
+          "Weekly payouts every Friday",
+          "Direct deposit to your bank account",
+          "Track earnings in your dashboard"
+        ]
+      },
+      "cta": {
+        "title": "Start Earning on Your Own Terms",
+        "subtitle": "Set your own rates, choose your schedule, and keep 100% of what you charge. Join Colombia's most trusted marketplace.",
+        "button": "Become a Professional",
+        "subtext": "Free to join · No hidden fees · Weekly payouts"
+      }
+    },
+    "earnings": {
+      "title": "Calculate Your Earnings",
+      "subtitle": "See exactly how much you'll earn with Casaora. Set your rate and hours to get your potential income.",
+      "yourHourlyRate": "Your Hourly Rate (COP)",
+      "rateRange": "Recommended: 15,000 - 100,000 COP/hour based on experience",
+      "hoursPerWeek": "Hours Per Week",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "transparency": {
+        "title": "How Pricing Works",
+        "customerPays": "Customer pays per hour",
+        "youReceive": "You receive per hour",
+        "platformFee": "Platform fee (paid by customer)",
+        "note": "You keep 100% of your hourly rate. The platform fee is added on top and paid by the customer."
+      },
+      "feeCovers": {
+        "title": "What the Platform Fee Covers",
+        "items": [
+          "Customer marketing and acquisition",
+          "Secure payment processing via Stripe",
+          "Background checks and verification",
+          "Professional liability insurance",
+          "24/7 customer and professional support",
+          "Technology platform and tools"
+        ]
+      },
+      "cta": "Start Earning Today"
+    },
     "faq": {
-      "title": "Frequently asked questions",
-      "subtitle": "Have questions? We're here to help."
-    },
-    "cta": {
-      "title": "Ready to get started?",
-      "subtitle": "Join thousands of satisfied customers using Casaora.",
-      "primary": "Start Free Trial",
-      "secondary": "Contact Sales"
+      "title": "Pricing FAQ",
+      "subtitle": "Common questions about how Casaora pricing works.",
+      "questions": {
+        "howMuchDoesItCost": {
+          "question": "How much does it cost to use Casaora?",
+          "answer": "For customers: You pay the professional's rate plus a 15% platform fee (marketplace) or 25% (concierge service). For professionals: It's free to join. You keep 100% of your rate—customers pay the platform fee."
+        },
+        "whyPlatformFee": {
+          "question": "Why is there a platform fee?",
+          "answer": "The platform fee covers background checks, insurance, payment processing, 24/7 support, and the technology that keeps Casaora safe and reliable. It ensures you're working with verified professionals."
+        },
+        "conciergeVsMarketplace": {
+          "question": "What's the difference between marketplace and concierge?",
+          "answer": "Marketplace (15%): You browse and book professionals yourself. Concierge (25%): Our team matches you with the perfect professional, provides English-speaking coordinators, priority booking, and satisfaction guarantee. Perfect for foreigners and first-timers."
+        },
+        "professionalKeepsRate": {
+          "question": "Do professionals really keep 100% of their rate?",
+          "answer": "Yes! If a professional charges 25,000 COP/hour, they receive 25,000 COP/hour. The platform fee is added on top and paid by the customer. This is different from other platforms that deduct fees from professional earnings."
+        },
+        "paymentSecurity": {
+          "question": "How are payments secured?",
+          "answer": "All payments are processed through Stripe with escrow protection. Funds are authorized when you book, but only captured after service completion. If there's a dispute, we handle refunds fairly."
+        },
+        "cancellationPolicy": {
+          "question": "What's the cancellation policy?",
+          "answer": "Free cancellation up to 24 hours before service. Late cancellations (within 24 hours) incur a 50% fee to compensate professionals for lost work."
+        }
+      }
     }
   },
   "roadmap": {

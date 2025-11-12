@@ -19,6 +19,7 @@ export type CurrencyFormatOptions = {
   currency?: Currency;
   minimumFractionDigits?: number;
   maximumFractionDigits?: number;
+  compact?: boolean;
 };
 
 export type DateFormatOptions = {
@@ -67,6 +68,7 @@ export function formatCurrency(
     currency = "COP",
     minimumFractionDigits = 0,
     maximumFractionDigits = currency === "COP" ? 0 : 2,
+    compact = false,
   } = options;
 
   // Handle null/undefined/NaN
@@ -77,6 +79,7 @@ export function formatCurrency(
       currency,
       minimumFractionDigits,
       maximumFractionDigits,
+      notation: compact ? "compact" : "standard",
     }).format(0);
   }
 
@@ -85,6 +88,7 @@ export function formatCurrency(
     currency,
     minimumFractionDigits,
     maximumFractionDigits,
+    notation: compact ? "compact" : "standard",
   }).format(safeAmount);
 }
 

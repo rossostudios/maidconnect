@@ -2,107 +2,104 @@
 
 import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { Container } from "@/components/ui/container";
+import { cn } from "@/lib/utils/core";
 
-const SAMPLE_FAQS = [
-  {
-    id: "1",
-    question: "Can I change my plan later?",
-    answer:
-      "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately, and we'll prorate any charges.",
-    category: "billing",
-  },
-  {
-    id: "2",
-    question: "What payment methods do you accept?",
-    answer:
-      "We accept all major credit cards (Visa, Mastercard, American Express), debit cards, and PayPal. All payments are processed securely.",
-    category: "billing",
-  },
-  {
-    id: "3",
-    question: "Is there a free trial?",
-    answer:
-      "Yes, we offer a 14-day free trial on all paid plans. No credit card required to start. You can cancel anytime during the trial period.",
-    category: "general",
-  },
-  {
-    id: "4",
-    question: "How secure is my data?",
-    answer:
-      "We use bank-level 256-bit encryption and are SOC 2 Type II compliant. Your data is stored in secure data centers with regular backups. We never share your data with third parties.",
-    category: "security",
-  },
-  {
-    id: "5",
-    question: "What happens if I exceed my plan limits?",
-    answer:
-      "We'll notify you when you're approaching your limits. You can either upgrade to a higher plan or wait until the next billing cycle. We won't charge overage fees without your approval.",
-    category: "billing",
-  },
-  {
-    id: "6",
-    question: "Do you offer refunds?",
-    answer:
-      "We offer a 30-day money-back guarantee. If you're not satisfied with our service, contact us within 30 days for a full refund, no questions asked.",
-    category: "billing",
-  },
+type FaqKey =
+  | "howMuchDoesItCost"
+  | "whyPlatformFee"
+  | "conciergeVsMarketplace"
+  | "professionalKeepsRate"
+  | "paymentSecurity"
+  | "cancellationPolicy";
+
+const FAQ_KEYS: FaqKey[] = [
+  "howMuchDoesItCost",
+  "whyPlatformFee",
+  "conciergeVsMarketplace",
+  "professionalKeepsRate",
+  "paymentSecurity",
+  "cancellationPolicy",
 ];
 
 export function PricingFaqSection() {
-  const [openFaqId, setOpenFaqId] = useState<string | null>(null);
+  const t = useTranslations("pricing.faq");
+  const [openFaqId, setOpenFaqId] = useState<FaqKey | null>(null);
 
-  const toggleFaq = (id: string) => {
+  const toggleFaq = (id: FaqKey) => {
     setOpenFaqId(openFaqId === id ? null : id);
   };
 
   return (
-    <div className="space-y-4">
-      {SAMPLE_FAQS.map((faq) => (
-        <Card
-          className={cn(
-            "overflow-hidden border-2 transition-all",
-            openFaqId === faq.id
-              ? "border-neutral-900"
-              : "border-neutral-200 hover:border-neutral-300"
-          )}
-          key={faq.id}
-        >
-          <button
-            className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
-            onClick={() => toggleFaq(faq.id)}
-            type="button"
+    <section className="bg-white py-16 sm:py-20">
+      <Container className="max-w-4xl">
+        <div className="mb-12 text-center">
+          <h2 className="mb-baseline-1 font-[family-name:var(--font-family-satoshi)] font-bold text-[36px] text-neutral-900 leading-[48px]">
+            {t("title")}
+          </h2>
+          <p className="text-[16px] text-neutral-700 leading-[24px]">{t("subtitle")}</p>
+        </div>
+
+        <div className="space-y-4">
+          {FAQ_KEYS.map((faqKey) => {
+            const isOpen = openFaqId === faqKey;
+
+            return (
+              <Card
+                className={cn(
+                  "overflow-hidden border-2 transition-all duration-200",
+                  isOpen
+                    ? "border-orange-500 shadow-lg"
+                    : "border-neutral-200 hover:border-neutral-300"
+                )}
+                key={faqKey}
+              >
+                <button
+                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                  onClick={() => toggleFaq(faqKey)}
+                  type="button"
+                >
+                  <span className="font-[family-name:var(--font-family-satoshi)] font-bold text-[18px] text-neutral-900 leading-[24px]">
+                    {t(`questions.${faqKey}.question`)}
+                  </span>
+                  <HugeiconsIcon
+                    className={cn(
+                      "flex-shrink-0 text-neutral-600 transition-transform duration-200",
+                      isOpen ? "rotate-180 text-orange-600" : ""
+                    )}
+                    icon={ArrowDown01Icon}
+                    size={24}
+                  />
+                </button>
+
+                {isOpen && (
+                  <CardContent className="px-6 pb-5">
+                    <p className="text-[16px] text-neutral-700 leading-[24px]">
+                      {t(`questions.${faqKey}.answer`)}
+                    </p>
+                  </CardContent>
+                )}
+              </Card>
+            );
+          })}
+        </div>
+
+        {/* Contact CTA */}
+        <div className="mt-12 text-center">
+          <p className="mb-4 text-[16px] text-neutral-700 leading-[24px]">
+            Still have questions about pricing?
+          </p>
+          <a
+            className="inline-block rounded-full border-2 border-neutral-200 bg-white px-8 py-3 font-semibold text-neutral-900 transition-all duration-200 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600"
+            href="/contact"
           >
-            <span className="font-semibold text-lg text-neutral-900">{faq.question}</span>
-            <HugeiconsIcon
-              className={cn(
-                "flex-shrink-0 text-neutral-600 transition-transform",
-                openFaqId === faq.id ? "rotate-180" : ""
-              )}
-              icon={ArrowDown01Icon}
-              size={24}
-            />
-          </button>
-
-          {openFaqId === faq.id && (
-            <CardContent className="px-6 pb-5">
-              <p className="text-neutral-700 leading-relaxed">{faq.answer}</p>
-            </CardContent>
-          )}
-        </Card>
-      ))}
-
-      <div className="pt-8 text-center">
-        <p className="mb-4 text-neutral-600">Still have questions?</p>
-        <a
-          className="inline-block rounded-xl border-2 border-neutral-300 px-6 py-3 font-medium text-neutral-900 transition-all hover:border-neutral-900"
-          href="/contact"
-        >
-          Contact Support
-        </a>
-      </div>
-    </div>
+            Contact Support
+          </a>
+        </div>
+      </Container>
+    </section>
   );
 }

@@ -54,6 +54,21 @@
       "description": "Las reseñas bidireccionales garantizan responsabilidad y le ayudan a tomar decisiones informadas"
     }
   },
+  "home": {
+    "pricing": {
+      "badge": "Precios Transparentes",
+      "title": "Precios simples y transparentes",
+      "subtitle": "Elija cómo quiere contratar. Marketplace o Concierge: ambos con precios claros y anticipados.",
+      "platformFee": "Tarifa de Plataforma",
+      "addedToServiceCost": "Agregado al costo del servicio",
+      "popularBadge": "Más Popular",
+      "footer": {
+        "highlight": "Los profesionales mantienen el 100% de su tarifa.",
+        "text": "Usted solo paga la tarifa de plataforma por servicios de confianza y seguridad.",
+        "link": "Ver precios detallados"
+      }
+    }
+  },
   "dashboard": {
     "pro": {
       "main": {

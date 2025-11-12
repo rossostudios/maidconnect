@@ -9,6 +9,7 @@ type PriceBreakdownProps = {
   hours: number;
   hourlyRate: number;
   showPlatformFee?: boolean;
+  serviceType?: "marketplace" | "concierge";
   className?: string;
 };
 
@@ -17,10 +18,12 @@ export function PriceBreakdown({
   addonsTotal = 0,
   hours,
   hourlyRate,
-  showPlatformFee = false,
+  showPlatformFee = true, // Changed default to true for transparency
+  serviceType = "marketplace",
   className = "",
 }: PriceBreakdownProps) {
-  const PLATFORM_FEE_RATE = 0.15;
+  // 15% for marketplace, 25% for concierge
+  const PLATFORM_FEE_RATE = serviceType === "concierge" ? 0.25 : 0.15;
   const platformFee = Math.round(baseAmount * PLATFORM_FEE_RATE);
   const subtotal = baseAmount + addonsTotal;
   const totalWithFees = showPlatformFee ? subtotal + platformFee : subtotal;
@@ -57,17 +60,25 @@ export function PriceBreakdown({
 
               <div className="flex items-start justify-between text-sm">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-neutral-600">Platform Fee</span>
+                  <span className="text-neutral-600">
+                    Platform Fee ({Math.round(PLATFORM_FEE_RATE * 100)}%)
+                  </span>
                   <div className="group relative">
                     <HugeiconsIcon
-                      className="h-3.5 w-3.5 text-neutral-500 transition hover:text-neutral-900"
+                      className="h-3.5 w-3.5 cursor-help text-orange-600 transition hover:text-orange-700"
                       icon={HelpCircleIcon}
                     />
-                    <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-64 rounded-lg border border-neutral-200 bg-white p-3 opacity-0 shadow-lg transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
-                      <p className="text-neutral-600 text-xs leading-relaxed">
-                        This fee supports platform operations including payment processing, customer
-                        support, insurance, and technology infrastructure that keeps Casaora safe
-                        and reliable.
+                    <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-72 rounded-lg border-2 border-orange-200 bg-white p-4 opacity-0 shadow-xl transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
+                      <p className="mb-2 font-semibold text-neutral-900 text-sm">
+                        {serviceType === "concierge" ? "Concierge Service Fee" : "Platform Fee"}
+                      </p>
+                      <p className="mb-2 text-neutral-700 text-xs leading-relaxed">
+                        {serviceType === "concierge"
+                          ? "Your concierge fee includes expert matching, English-speaking coordinators, priority booking, and satisfaction guarantee."
+                          : "This fee covers background checks, payment protection via Stripe, insurance coverage, 24/7 support, and platform technology."}
+                      </p>
+                      <p className="font-semibold text-orange-600 text-xs">
+                        ✓ Professional receives 100% of their rate
                       </p>
                     </div>
                   </div>
@@ -84,14 +95,25 @@ export function PriceBreakdown({
         </div>
 
         {showPlatformFee && (
-          <Card className="mt-3 border-green-200 bg-green-50">
-            <CardContent className="p-3 text-center">
-              <p className="text-green-800 text-xs leading-relaxed">
-                <span className="font-semibold">100% Secure Payment</span> · Your payment is
-                protected by Stripe. Funds are only released after service completion.
-              </p>
-            </CardContent>
-          </Card>
+          <div className="mt-4 space-y-2">
+            <Card className="border-orange-200 bg-orange-50">
+              <CardContent className="p-3">
+                <p className="text-center text-orange-900 text-xs leading-relaxed">
+                  <span className="font-semibold">Professional Receives:</span>{" "}
+                  {formatCOP(baseAmount)} · <span className="font-semibold">You Pay:</span>{" "}
+                  {formatCOP(totalWithFees)}
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="border-green-200 bg-green-50">
+              <CardContent className="p-3 text-center">
+                <p className="text-green-800 text-xs leading-relaxed">
+                  <span className="font-semibold">🔒 100% Secure Payment</span> · Protected by
+                  Stripe escrow. Funds only released after service completion.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         )}
       </CardContent>
     </Card>
