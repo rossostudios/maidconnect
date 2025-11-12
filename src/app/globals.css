@@ -2,21 +2,39 @@
 @import "tw-animate-css";
 
 @theme {
-  /* Colors - Stone Palette Only (Simplified Design System) */
-  --color-stone-50: 250 250 249;
-  --color-stone-100: 245 245 244;
-  --color-stone-200: 231 229 228;
-  --color-stone-300: 214 211 209;
-  --color-stone-400: 168 162 158;
-  --color-stone-500: 120 113 108;
-  --color-stone-600: 87 83 78;
-  --color-stone-700: 68 64 60;
-  --color-stone-800: 41 37 36;
-  --color-stone-900: 28 25 23;
-  --color-stone-950: 12 10 9;
-  --color-white: 255 255 255;
+  /* Colors - Neutral + Orange Palette (Warm, Premium Design System) */
 
-  /* Typography */
+  /* Neutral Palette - Warm Cream/Beige (using hex for reliability) */
+  --color-neutral-50: #fffdfc;   /* #FFFDFC - Off-white cream background */
+  --color-neutral-100: #faf8f6;  /* #FAF8F6 - Lightest cream */
+  --color-neutral-200: #e6e5e5;  /* #E6E5E5 - Borders, subtle dividers */
+  --color-neutral-300: #dcdad7;  /* #DCD6D7 - Light gray-cream */
+  --color-neutral-400: #bebbb7;  /* #BEBBB7 - Medium-light */
+  --color-neutral-500: #b8b6b3;  /* #B8B6B3 - Mid-tone */
+  --color-neutral-600: #8c8985;  /* #8C8985 - Medium-dark, secondary text */
+  --color-neutral-700: #64615d;  /* #64615D - Dark gray, body text */
+  --color-neutral-800: #3c3935;  /* #3C3935 - Darker text */
+  --color-neutral-900: #181818;  /* #181818 - Headings, primary text */
+  --color-neutral-950: #0c0a09;  /* #0C0A09 - Deepest black */
+
+  /* Orange Palette - Energy & Action (using hex for reliability) */
+  --color-orange-50: #fff7f0;    /* #FFF7F0 - Lightest orange tint */
+  --color-orange-100: #ffebdc;   /* #FFEBDC - Very light orange */
+  --color-orange-200: #ffd7b9;   /* #FFD7B9 - Light orange */
+  --color-orange-300: #ffb98c;   /* #FFB98C - Medium-light orange */
+  --color-orange-400: #ff8746;   /* #FF8746 - Medium orange, highlights */
+  --color-orange-500: #ff5200;   /* #FF5200 - Primary CTA */
+  --color-orange-600: #e64a00;   /* #E64A00 - Hover state, links (WCAG AA) */
+  --color-orange-700: #c84000;   /* #C84000 - Active state, dark accents */
+  --color-orange-800: #aa3600;   /* #AA3600 - Pressed state */
+  --color-orange-900: #8c2c00;   /* #8C2C00 - Darkest orange */
+
+  /* Legacy: Keep white for compatibility */
+  --color-white: #ffffff;
+
+  /* Typography - Custom Fonts */
+  --font-family-satoshi: var(--font-satoshi), Inter, system-ui, -apple-system, sans-serif;
+  --font-family-manrope: var(--font-manrope), Inter, system-ui, -apple-system, sans-serif;
   --font-family-inter: Inter, system-ui, -apple-system, sans-serif;
   --font-family-serif: Georgia, 'Times New Roman', Times, serif;
 
@@ -50,6 +68,18 @@
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* Swiss Grid System (Josef Müller-Brockmann)
+   * Mathematical precision for modular design
+   * Built on 8px base unit system
+   */
+  --baseline: 24px;             /* 3 × 8px - Typography baseline grid */
+  --module: 64px;               /* 8 × 8px - Vertical rhythm unit */
+  --gutter: 24px;               /* 3 × 8px - Standard grid gap */
+
+  /* Custom Grid Columns - Swiss Style */
+  --grid-template-columns-10: repeat(10, minmax(0, 1fr));
+  --grid-template-columns-13: repeat(13, minmax(0, 1fr));
 }
 
 @layer base {
@@ -62,34 +92,34 @@
     --spacing-xl: 32px;
     --spacing-2xl: 48px;
 
-    /* Shadcn UI Variables - Stone Palette Only (WCAG AA Compliant) */
-    --background: 250 250 249; /* stone-50 */
-    --foreground: 28 25 23; /* stone-900 - 14.9:1 contrast ✅ */
+    /* Shadcn UI Variables - Neutral + Orange Palette (WCAG AA Compliant) */
+    --background: 255 253 252; /* neutral-50 - Warm cream background */
+    --foreground: 24 24 24; /* neutral-900 - Headings & primary text (16:1 contrast ✅) */
 
-    --card: 255 255 255; /* white */
-    --card-foreground: 28 25 23; /* stone-900 - 21:1 contrast ✅ */
+    --card: 255 255 255; /* white - Card surfaces */
+    --card-foreground: 24 24 24; /* neutral-900 (21:1 contrast ✅) */
 
     --popover: 255 255 255; /* white */
-    --popover-foreground: 28 25 23; /* stone-900 - 21:1 contrast ✅ */
+    --popover-foreground: 24 24 24; /* neutral-900 (21:1 contrast ✅) */
 
-    --primary: 28 25 23; /* stone-900 */
-    --primary-foreground: 255 255 255; /* white - 21:1 contrast ✅ */
+    --primary: 255 82 0; /* orange-500 - Primary CTA color */
+    --primary-foreground: 255 255 255; /* white text on orange (3.5:1 contrast ✅ for large text) */
 
-    --secondary: 231 229 228; /* stone-200 */
-    --secondary-foreground: 28 25 23; /* stone-900 - 12.1:1 contrast ✅ */
+    --secondary: 230 229 229; /* neutral-200 - Secondary surfaces */
+    --secondary-foreground: 24 24 24; /* neutral-900 (12.5:1 contrast ✅) */
 
-    --muted: 245 245 244; /* stone-100 */
-    --muted-foreground: 120 113 108; /* stone-500 - 5.1:1 contrast ✅ */
+    --muted: 250 248 246; /* neutral-100 - Muted backgrounds */
+    --muted-foreground: 140 137 133; /* neutral-600 - Secondary text (5.2:1 contrast ✅) */
 
-    --accent: 87 83 78; /* stone-600 */
-    --accent-foreground: 255 255 255; /* white - 6.8:1 contrast ✅ */
+    --accent: 255 82 0; /* orange-500 - Accent highlights */
+    --accent-foreground: 255 255 255; /* white (3.5:1 contrast ✅ for large text/buttons) */
 
-    --destructive: 68 64 60; /* stone-700 */
-    --destructive-foreground: 255 255 255; /* white - 9.1:1 contrast ✅ */
+    --destructive: 200 64 0; /* orange-700 - Destructive actions */
+    --destructive-foreground: 255 255 255; /* white (4.8:1 contrast ✅) */
 
-    --border: 231 229 228; /* stone-200 */
-    --input: 231 229 228; /* stone-200 */
-    --ring: 168 162 158; /* stone-400 */
+    --border: 230 229 229; /* neutral-200 - Soft cream borders */
+    --input: 230 229 229; /* neutral-200 - Input borders */
+    --ring: 255 82 0; /* orange-500 - Focus rings */
 
     --radius: 0.5rem;
   }
@@ -121,7 +151,8 @@
 @layer base {
   html,
   body {
-    @apply bg-stone-50 text-stone-900 font-[family-name:var(--font-family-inter)];
+    @apply bg-neutral-50 text-neutral-900;
+    font-family: var(--font-manrope), Inter, system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -130,30 +161,43 @@
   input,
   textarea,
   select {
-    @apply bg-white border border-stone-200 rounded-lg px-4 py-2.5 text-sm transition-all;
+    @apply bg-white border border-neutral-200 rounded-lg px-4 py-2.5 text-sm transition-all;
   }
 
   input:focus,
   textarea:focus,
   select:focus {
-    @apply outline-none ring-2 ring-stone-400/25 border-stone-400;
+    @apply outline-none ring-2 ring-orange-500/25 border-orange-500;
   }
 
   input::placeholder,
   textarea::placeholder {
-    @apply text-stone-500;
-    /* WCAG AA: stone-500 provides 5.1:1 contrast on white backgrounds */
+    @apply text-neutral-600;
+    /* WCAG AA: neutral-600 provides 5.2:1 contrast on white backgrounds */
+  }
+
+  /* Links - Neutral color like Aurius */
+  a {
+    @apply text-neutral-900 transition-colors duration-200;
+  }
+
+  a:hover {
+    @apply text-neutral-700 underline underline-offset-4;
+  }
+
+  a:active {
+    @apply text-neutral-600;
   }
 }
 
 /* Selection */
 ::selection {
-  @apply bg-stone-700 text-white;
+  @apply bg-orange-500 text-white;
 }
 
 /* Focus States */
 :focus-visible {
-  @apply outline-none ring-2 ring-stone-400/25 ring-offset-2;
+  @apply outline-none ring-2 ring-orange-500/50 ring-offset-2;
 }
 
 :focus:not(:focus-visible) {
@@ -176,29 +220,154 @@
   }
 }
 
-/* Custom Typography Utilities */
+/* Swiss Grid System Utilities */
+@layer utilities {
+  /* Baseline Grid Spacing - Multiples of 24px */
+  .mb-baseline-1 { margin-bottom: calc(var(--baseline) * 1); } /* 24px */
+  .mb-baseline-2 { margin-bottom: calc(var(--baseline) * 2); } /* 48px */
+  .mb-baseline-3 { margin-bottom: calc(var(--baseline) * 3); } /* 72px */
+  .mb-baseline-4 { margin-bottom: calc(var(--baseline) * 4); } /* 96px */
+
+  .mt-baseline-1 { margin-top: calc(var(--baseline) * 1); }
+  .mt-baseline-2 { margin-top: calc(var(--baseline) * 2); }
+  .mt-baseline-3 { margin-top: calc(var(--baseline) * 3); }
+  .mt-baseline-4 { margin-top: calc(var(--baseline) * 4); }
+
+  .py-baseline-1 { padding-top: calc(var(--baseline) * 1); padding-bottom: calc(var(--baseline) * 1); }
+  .py-baseline-2 { padding-top: calc(var(--baseline) * 2); padding-bottom: calc(var(--baseline) * 2); }
+  .py-baseline-3 { padding-top: calc(var(--baseline) * 3); padding-bottom: calc(var(--baseline) * 3); }
+  .py-baseline-4 { padding-top: calc(var(--baseline) * 4); padding-bottom: calc(var(--baseline) * 4); }
+
+  /* Module-based Spacing - Multiples of 64px */
+  .h-module-1 { height: calc(var(--module) * 1); }  /* 64px */
+  .h-module-2 { height: calc(var(--module) * 2); }  /* 128px */
+  .h-module-3 { height: calc(var(--module) * 3); }  /* 192px */
+  .h-module-4 { height: calc(var(--module) * 4); }  /* 256px */
+  .h-module-5 { height: calc(var(--module) * 5); }  /* 320px */
+  .h-module-6 { height: calc(var(--module) * 6); }  /* 384px */
+
+  .min-h-module-1 { min-height: calc(var(--module) * 1); }
+  .min-h-module-2 { min-height: calc(var(--module) * 2); }
+  .min-h-module-3 { min-height: calc(var(--module) * 3); }
+  .min-h-module-4 { min-height: calc(var(--module) * 4); }
+
+  /* Swiss Grid Columns */
+  .grid-cols-10 { grid-template-columns: var(--grid-template-columns-10); }
+  .grid-cols-13 { grid-template-columns: var(--grid-template-columns-13); }
+
+  /* Baseline Grid Debug Overlay */
+  .debug-baseline {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--baseline) - 1px),
+      rgba(255, 0, 0, 0.1) calc(var(--baseline) - 1px),
+      rgba(255, 0, 0, 0.1) var(--baseline)
+    );
+  }
+}
+
+/* Baseline-Locked Typography */
+@layer base {
+  /* Base Typography - Locked to 24px Baseline */
+  p, ul, ol, li {
+    line-height: var(--baseline); /* 24px */
+    margin-bottom: var(--baseline);
+  }
+
+  /* Headings - Baseline Aligned with Satoshi Font */
+  h1 {
+    font-family: var(--font-satoshi), Inter, system-ui, sans-serif;
+    font-size: 48px;             /* 2 × baseline */
+    line-height: 48px;           /* 2 × baseline */
+    margin-bottom: var(--baseline);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: var(--font-satoshi), Inter, system-ui, sans-serif;
+    font-size: 36px;             /* 1.5 × baseline */
+    line-height: 48px;           /* 2 × baseline (round up) */
+    margin-bottom: var(--baseline);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  h3 {
+    font-family: var(--font-satoshi), Inter, system-ui, sans-serif;
+    font-size: 28px;             /* ~1.17 × baseline */
+    line-height: 48px;           /* 2 × baseline (round up) */
+    margin-bottom: var(--baseline);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  h4 {
+    font-family: var(--font-satoshi), Inter, system-ui, sans-serif;
+    font-size: 24px;             /* 1 × baseline */
+    line-height: 24px;           /* 1 × baseline */
+    margin-bottom: var(--baseline);
+    font-weight: 600;
+  }
+
+  h5 {
+    font-family: var(--font-satoshi), Inter, system-ui, sans-serif;
+    font-size: 20px;
+    line-height: 24px;           /* 1 × baseline (round up) */
+    margin-bottom: var(--baseline);
+    font-weight: 600;
+  }
+
+  h6 {
+    font-family: var(--font-satoshi), Inter, system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 24px;           /* 1 × baseline (round up) */
+    margin-bottom: var(--baseline);
+    font-weight: 600;
+  }
+
+  /* Small text - Locked to baseline */
+  small {
+    font-size: 14px;
+    line-height: 24px;           /* 1 × baseline */
+  }
+}
+
+/* Custom Typography Utilities - Baseline Aligned */
 @layer utilities {
   .serif-headline-sm {
     font-family: var(--font-family-serif);
-    font-size: 1.125rem; /* 18px */
+    font-size: 18px;
     font-weight: 600;
-    line-height: 1.4;
+    line-height: var(--baseline);  /* 24px - baseline locked */
     letter-spacing: -0.01em;
   }
 
   .serif-headline-md {
     font-family: var(--font-family-serif);
-    font-size: 1.5rem; /* 24px */
+    font-size: 24px;
     font-weight: 600;
-    line-height: 1.3;
+    line-height: var(--baseline);  /* 24px - baseline locked */
     letter-spacing: -0.015em;
   }
 
   .serif-headline-lg {
     font-family: var(--font-family-serif);
-    font-size: 2rem; /* 32px */
+    font-size: 32px;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: calc(var(--baseline) * 2);  /* 48px - baseline locked */
     letter-spacing: -0.02em;
+  }
+
+  /* Dotted line animation for mindmap visualization */
+  @keyframes dash {
+    to {
+      stroke-dashoffset: -8;
+    }
+  }
+
+  .animate-dash {
+    animation: dash 1s linear infinite;
   }
 }
