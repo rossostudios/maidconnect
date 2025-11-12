@@ -35,13 +35,13 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
   }
 
   return (
-    <section className="bg-[#f8fafc] py-20 sm:py-24 lg:py-32">
+    <section className="bg-[neutral-50] py-20 sm:py-24 lg:py-32">
       <Container>
         {(title || description) && (
           <div className="mb-16 text-center">
-            {title && <h2 className="serif-display-lg text-[#0f172a]">{title}</h2>}
+            {title && <h2 className="serif-display-lg text-[neutral-900]">{title}</h2>}
             {description && (
-              <p className="lead mx-auto mt-6 max-w-2xl text-[#0f172a]/70">{description}</p>
+              <p className="lead mx-auto mt-6 max-w-2xl text-[neutral-900]/70">{description}</p>
             )}
           </div>
         )}
@@ -49,10 +49,10 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial, index) => (
             <div
-              className="rounded-3xl border border-[#e2e8f0] bg-[#f8fafc] p-8 shadow-sm"
+              className="rounded-3xl border border-[neutral-200] bg-[neutral-50] p-8 shadow-sm"
               key={index}
             >
-              <blockquote className="mb-6 text-[#0f172a] leading-relaxed">
+              <blockquote className="mb-6 text-[neutral-900] leading-relaxed">
                 "{testimonial.quote}"
               </blockquote>
 
@@ -60,7 +60,7 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
               <div className="mb-4 flex gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <span
-                    className={i < testimonial.rating ? "text-[#64748b]" : "text-[#94a3b8]"}
+                    className={i < testimonial.rating ? "text-[neutral-500]" : "text-[neutral-400]"}
                     key={i}
                   >
                     ★
@@ -69,13 +69,13 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
               </div>
 
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#64748b]/100/10 font-semibold text-[#64748b]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[neutral-500]/100/10 font-semibold text-[neutral-500]">
                   {testimonial.authorName.charAt(0)}
                 </div>
                 <div>
-                  <div className="font-semibold text-[#0f172a]">{testimonial.authorName}</div>
+                  <div className="font-semibold text-[neutral-900]">{testimonial.authorName}</div>
                   {testimonial.authorRole && (
-                    <div className="text-[#0f172a]/60 text-sm">{testimonial.authorRole}</div>
+                    <div className="text-[neutral-900]/60 text-sm">{testimonial.authorRole}</div>
                   )}
                 </div>
               </div>

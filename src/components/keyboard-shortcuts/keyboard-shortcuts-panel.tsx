@@ -67,7 +67,7 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
       {/* Backdrop */}
       {open && (
         <div
-          className="fixed inset-0 z-60 bg-[#0f172a]/50 backdrop-blur-sm transition-opacity"
+          className="fixed inset-0 z-60 bg-[neutral-900]/50 backdrop-blur-sm transition-opacity"
           onClick={onClose}
           onKeyDown={(e) => {
             if (e.key === "Escape") {
@@ -82,16 +82,16 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
       {/* Panel */}
       <div
         className={cn(
-          "fixed top-0 right-0 z-60 h-full w-full max-w-md transform border-[#e2e8f0] border-l bg-[#f8fafc] shadow-2xl transition-transform duration-300 ease-in-out",
-          open ? "translate-x-0" : "translate-x-full"
+          "fixed top-0 right-0 z-60 h-full w-full max-w-md transform border-[neutral-200] border-l bg-[neutral-50] shadow-2xl transition-transform duration-300 ease-in-out",
+          open ? "tranneutral-x-0" : "tranneutral-x-full"
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-[#e2e8f0] border-b px-6 py-4">
-          <h2 className="font-semibold text-[#0f172a] text-xl">Keyboard Shortcuts</h2>
+        <div className="flex items-center justify-between border-[neutral-200] border-b px-6 py-4">
+          <h2 className="font-semibold text-[neutral-900] text-xl">Keyboard Shortcuts</h2>
           <button
             aria-label="Close shortcuts panel"
-            className="rounded-lg p-2 text-[#94a3b8] transition-colors hover:bg-[#f8fafc] hover:text-[#0f172a]"
+            className="rounded-lg p-2 text-[neutral-400] transition-colors hover:bg-[neutral-50] hover:text-[neutral-900]"
             onClick={onClose}
             type="button"
           >
@@ -100,11 +100,11 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
         </div>
 
         {/* Search */}
-        <div className="border-[#e2e8f0] border-b px-6 py-4">
+        <div className="border-[neutral-200] border-b px-6 py-4">
           <div className="relative">
             <svg
               aria-hidden="true"
-              className="-translate-y-1/2 absolute top-1/2 left-3 h-5 w-5 text-[#94a3b8]"
+              className="-tranneutral-y-1/2 absolute top-1/2 left-3 h-5 w-5 text-[neutral-400]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -117,7 +117,7 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
               />
             </svg>
             <input
-              className="w-full rounded-lg border border-[#e2e8f0] bg-[#f8fafc] py-2 pr-4 pl-10 text-[#0f172a] text-sm placeholder:text-[#94a3b8] focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+              className="w-full rounded-lg border border-[neutral-200] bg-[neutral-50] py-2 pr-4 pl-10 text-[neutral-900] text-sm placeholder:text-[neutral-400] focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search shortcuts..."
               type="text"
@@ -129,7 +129,7 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
         {/* Shortcuts List */}
         <div className="h-[calc(100%-180px)] overflow-y-auto px-6 py-6">
           {filteredShortcuts.length === 0 ? (
-            <div className="py-12 text-center text-[#94a3b8] text-sm">No shortcuts found.</div>
+            <div className="py-12 text-center text-[neutral-400] text-sm">No shortcuts found.</div>
           ) : (
             <div className="space-y-8 pb-4">
               {categories.map((category) => {
@@ -141,7 +141,7 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
 
                 return (
                   <div key={category}>
-                    <h3 className="mb-4 font-semibold text-[#94a3b8] text-xs uppercase tracking-wider">
+                    <h3 className="mb-4 font-semibold text-[neutral-400] text-xs uppercase tracking-wider">
                       {categoryLabels[category]}
                     </h3>
                     <div className="space-y-3">
@@ -152,15 +152,15 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
 
                         return (
                           <div
-                            className="flex items-center justify-between gap-4 rounded-lg bg-[#f8fafc] px-4 py-3 shadow-sm ring-1 ring-[#e2e8f0]/50 transition-shadow hover:shadow-md"
+                            className="flex items-center justify-between gap-4 rounded-lg bg-[neutral-50] px-4 py-3 shadow-sm ring-1 ring-[neutral-200]/50 transition-shadow hover:shadow-md"
                             key={shortcut.id}
                           >
                             <div className="min-w-0 flex-1">
-                              <p className="font-medium text-[#0f172a] text-sm">
+                              <p className="font-medium text-[neutral-900] text-sm">
                                 {shortcut.description}
                               </p>
                               {shortcut.sequence && (
-                                <p className="mt-1 text-[#94a3b8] text-xs">
+                                <p className="mt-1 text-[neutral-400] text-xs">
                                   Press keys in sequence
                                 </p>
                               )}
@@ -178,10 +178,10 @@ export function KeyboardShortcutsPanel({ open, onClose, role }: KeyboardShortcut
         </div>
 
         {/* Footer */}
-        <div className="absolute right-0 bottom-0 left-0 border-[#e2e8f0] border-t bg-[#f8fafc] px-6 py-4">
-          <p className="text-[#94a3b8] text-xs">
+        <div className="absolute right-0 bottom-0 left-0 border-[neutral-200] border-t bg-[neutral-50] px-6 py-4">
+          <p className="text-[neutral-400] text-xs">
             Press{" "}
-            <kbd className="rounded border border-[#e2e8f0] bg-[#f8fafc] px-1.5 py-1 font-mono text-xs">
+            <kbd className="rounded border border-[neutral-200] bg-[neutral-50] px-1.5 py-1 font-mono text-xs">
               ?
             </kbd>{" "}
             to toggle this panel

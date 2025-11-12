@@ -8,7 +8,7 @@ const meta = {
   parameters: {
     layout: "fullwidth",
     backgrounds: {
-      default: "light-stone-200",
+      default: "light-neutral-200",
     },
   },
   tags: ["autodocs"],

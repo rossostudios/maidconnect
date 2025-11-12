@@ -33,12 +33,12 @@ export function CtaSection({ data }: CtaSectionProps) {
   } = data;
 
   const bgClass = {
-    red: "bg-[#64748b]/100",
-    gray: "bg-[#0f172a]",
-    white: "bg-[#f8fafc]",
+    red: "bg-[neutral-500]/100",
+    gray: "bg-[neutral-900]",
+    white: "bg-[neutral-50]",
   }[backgroundColor];
 
-  const textClass = backgroundColor === "white" ? "text-[#0f172a]" : "text-[#f8fafc]";
+  const textClass = backgroundColor === "white" ? "text-[neutral-900]" : "text-[neutral-50]";
 
   return (
     <section className={`${bgClass} py-20 sm:py-24 lg:py-32`}>
@@ -48,7 +48,7 @@ export function CtaSection({ data }: CtaSectionProps) {
 
           {description && (
             <p
-              className={`lead mt-6 ${backgroundColor === "white" ? "text-[#0f172a]/70" : "text-[#f8fafc]/90"}`}
+              className={`lead mt-6 ${backgroundColor === "white" ? "text-[neutral-900]/70" : "text-[neutral-50]/90"}`}
             >
               {description}
             </p>
@@ -59,8 +59,8 @@ export function CtaSection({ data }: CtaSectionProps) {
               <Link
                 className={`inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 font-semibold text-base transition ${
                   backgroundColor === "white"
-                    ? "bg-[#64748b]/100 text-[#f8fafc] hover:bg-[#64748b]"
-                    : "bg-[#f8fafc] text-[#0f172a] hover:bg-[#e2e8f0]"
+                    ? "bg-[neutral-500]/100 text-[neutral-50] hover:bg-[neutral-500]"
+                    : "bg-[neutral-50] text-[neutral-900] hover:bg-[neutral-200]"
                 }`}
                 href={primaryCtaLink}
               >
@@ -73,8 +73,8 @@ export function CtaSection({ data }: CtaSectionProps) {
               <Link
                 className={`inline-flex items-center justify-center gap-2 rounded-full border-2 px-8 py-4 font-semibold text-base transition ${
                   backgroundColor === "white"
-                    ? "border-[#64748b] text-[#64748b] hover:bg-[#64748b]/100 hover:text-[#f8fafc]"
-                    : "border-[#f8fafc] text-[#f8fafc] hover:bg-[#f8fafc]/10"
+                    ? "border-[neutral-500] text-[neutral-500] hover:bg-[neutral-500]/100 hover:text-[neutral-50]"
+                    : "border-[neutral-50] text-[neutral-50] hover:bg-[neutral-50]/10"
                 }`}
                 href={secondaryCtaLink}
               >

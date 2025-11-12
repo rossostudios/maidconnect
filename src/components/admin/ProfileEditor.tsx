@@ -135,7 +135,7 @@ export function AdminProfileEditor({ userId: _userId, currentProfile }: Props) {
   return (
     <div className="space-y-6">
       {error && (
-        <div className="rounded-lg border border-stone-300 bg-[#E85D48]/10 p-4">
+        <div className="rounded-lg border border-neutral-300 bg-[#E85D48]/10 p-4">
           <p className="text-red-800 text-sm">{error}</p>
         </div>
       )}

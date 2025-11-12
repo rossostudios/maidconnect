@@ -242,11 +242,11 @@ const ProfessionalsDirectoryComponent = memo(
       <section className="py-16 sm:py-20 lg:py-24">
         <Container className="space-y-16">
           <header className="space-y-6 text-center">
-            <h1 className="serif-display-lg text-[#0f172a]">{t("header.title")}</h1>
-            <p className="lead mx-auto max-w-3xl text-[#0f172a]/70">{t("header.subtitle")}</p>
+            <h1 className="serif-display-lg text-[neutral-900]">{t("header.title")}</h1>
+            <p className="lead mx-auto max-w-3xl text-[neutral-900]/70">{t("header.subtitle")}</p>
           </header>
 
-          <div className="space-y-6 rounded-[32px] border border-[#e2e8f0] bg-[#f8fafc] p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+          <div className="space-y-6 rounded-[32px] border border-[neutral-200] bg-[neutral-50] p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
             <div className="space-y-6">
               {/* Search Bar with Autocomplete */}
               <SearchBar
@@ -266,14 +266,14 @@ const ProfessionalsDirectoryComponent = memo(
               {/* Mobile Filter Button */}
               <div className="md:hidden">
                 <button
-                  className="flex w-full items-center justify-center gap-2 rounded-full border-2 border-[#64748b] bg-[#f8fafc] px-6 py-3 font-semibold text-[#64748b] text-base transition hover:bg-[#64748b] hover:text-[#f8fafc]"
+                  className="flex w-full items-center justify-center gap-2 rounded-full border-2 border-[neutral-500] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-500] text-base transition hover:bg-[neutral-500] hover:text-[neutral-50]"
                   onClick={() => setIsFilterSheetOpen(true)}
                   type="button"
                 >
                   <HugeiconsIcon className="h-5 w-5" icon={Settings02Icon} />
                   Filters
                   {activeFilterCount > 0 && (
-                    <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#64748b] px-2 font-semibold text-[#f8fafc] text-xs">
+                    <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[neutral-500] px-2 font-semibold text-[neutral-50] text-xs">
                       {activeFilterCount}
                     </span>
                   )}
@@ -281,12 +281,12 @@ const ProfessionalsDirectoryComponent = memo(
               </div>
 
               {/* Desktop Filter Controls - Hidden on mobile */}
-              <div className="hidden flex-wrap items-center gap-4 font-semibold text-[#0f172a] text-sm md:flex">
+              <div className="hidden flex-wrap items-center gap-4 font-semibold text-[neutral-900] text-sm md:flex">
                 <label className="flex items-center gap-2.5">
-                  <HugeiconsIcon className="h-5 w-5 text-[#0f172a]" icon={FilterIcon} />
+                  <HugeiconsIcon className="h-5 w-5 text-[neutral-900]" icon={FilterIcon} />
                   <span>{t("filters.service")}</span>
                   <select
-                    className="rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 text-sm transition focus:border-[#0f172a] focus:outline-none"
+                    className="rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm transition focus:border-[neutral-900] focus:outline-none"
                     onChange={(event) => setServiceFilter(event.target.value)}
                     value={serviceFilter}
                   >
@@ -299,10 +299,10 @@ const ProfessionalsDirectoryComponent = memo(
                 </label>
 
                 <label className="flex items-center gap-2.5">
-                  <HugeiconsIcon className="h-5 w-5 text-[#0f172a]" icon={Location01Icon} />
+                  <HugeiconsIcon className="h-5 w-5 text-[neutral-900]" icon={Location01Icon} />
                   <span>{t("filters.city")}</span>
                   <select
-                    className="rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 text-sm transition focus:border-[#0f172a] focus:outline-none"
+                    className="rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm transition focus:border-[neutral-900] focus:outline-none"
                     onChange={(event) => setCityFilter(event.target.value)}
                     value={cityFilter}
                   >
@@ -315,10 +315,10 @@ const ProfessionalsDirectoryComponent = memo(
                 </label>
 
                 <label className="flex items-center gap-2.5">
-                  <HugeiconsIcon className="h-5 w-5 text-[#0f172a]" icon={Settings02Icon} />
+                  <HugeiconsIcon className="h-5 w-5 text-[neutral-900]" icon={Settings02Icon} />
                   <span>{t("filters.rating")}</span>
                   <select
-                    className="rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 text-sm transition focus:border-[#0f172a] focus:outline-none"
+                    className="rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm transition focus:border-[neutral-900] focus:outline-none"
                     onChange={(event) => setRatingFilter(event.target.value)}
                     value={ratingFilter}
                   >
@@ -333,7 +333,7 @@ const ProfessionalsDirectoryComponent = memo(
                 <label className="flex items-center gap-2.5">
                   <input
                     checked={availableToday}
-                    className="h-5 w-5 rounded border-[#e2e8f0] text-[#0f172a] focus:ring-[#0f172a]"
+                    className="h-5 w-5 rounded border-[neutral-200] text-[neutral-900] focus:ring-[neutral-900]"
                     onChange={(event) => setAvailableToday(event.target.checked)}
                     type="checkbox"
                   />
@@ -341,7 +341,7 @@ const ProfessionalsDirectoryComponent = memo(
                 </label>
 
                 <button
-                  className="ml-auto rounded-full border-2 border-[#64748b] bg-[#f8fafc] px-5 py-2 font-semibold text-[#64748b] text-sm transition hover:bg-[#64748b] hover:text-[#f8fafc]"
+                  className="ml-auto rounded-full border-2 border-[neutral-500] bg-[neutral-50] px-5 py-2 font-semibold text-[neutral-500] text-sm transition hover:bg-[neutral-500] hover:text-[neutral-50]"
                   onClick={resetFilters}
                   type="button"
                 >
@@ -352,25 +352,25 @@ const ProfessionalsDirectoryComponent = memo(
           </div>
 
           {filteredProfessionals.length === 0 ? (
-            <div className="rounded-[32px] border border-[#f8fafc] bg-[#f8fafc] p-12 text-center">
-              <p className="text-[#94a3b8] text-lg">{t("results.noResults")}</p>
+            <div className="rounded-[32px] border border-[neutral-50] bg-[neutral-50] p-12 text-center">
+              <p className="text-[neutral-400] text-lg">{t("results.noResults")}</p>
             </div>
           ) : viewMode === "map" ? (
-            <div className="h-[600px] overflow-hidden rounded-[32px] border border-[#e2e8f0] shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+            <div className="h-[600px] overflow-hidden rounded-[32px] border border-[neutral-200] shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
               <MapView professionals={filteredProfessionals} />
             </div>
           ) : (
             <div className="space-y-12">
               {filteredProfessionals.map((professional) => (
                 <article
-                  className="hover:-transtone-y-0.5 overflow-hidden rounded-[32px] border border-[#e2e8f0] bg-[#f8fafc] p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:border-[#64748b] hover:shadow-[0_24px_60px_rgba(22,22,22,0.06)] sm:p-10"
+                  className="hover:-tranneutral-y-0.5 overflow-hidden rounded-[32px] border border-[neutral-200] bg-[neutral-50] p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:border-[neutral-500] hover:shadow-[0_24px_60px_rgba(22,22,22,0.06)] sm:p-10"
                   key={professional.id}
                 >
                   {/* Header Row: Profile + Stats + Actions */}
                   <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
                     {/* Left: Profile Info */}
                     <div className="flex items-start gap-5">
-                      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#e2e8f0] shadow-[0_2px_12px_rgba(22,22,22,0.02)]">
+                      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-full border-2 border-[neutral-200] shadow-[0_2px_12px_rgba(22,22,22,0.02)]">
                         <Image
                           alt={professional.name}
                           className="object-cover"
@@ -379,11 +379,13 @@ const ProfessionalsDirectoryComponent = memo(
                         />
                       </div>
                       <div className="flex-1 space-y-2">
-                        <h2 className="serif-headline-lg text-[#0f172a]">{professional.name}</h2>
-                        <p className="text-[#94a3b8] text-sm">
+                        <h2 className="serif-headline-lg text-[neutral-900]">
+                          {professional.name}
+                        </h2>
+                        <p className="text-[neutral-400] text-sm">
                           {professional.service ?? t("card.flexibleServices")}
                         </p>
-                        <div className="flex items-center gap-1.5 text-[#94a3b8] text-sm">
+                        <div className="flex items-center gap-1.5 text-[neutral-400] text-sm">
                           <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
                           <span>{professional.location}</span>
                         </div>
@@ -394,13 +396,16 @@ const ProfessionalsDirectoryComponent = memo(
                     <div className="flex items-center gap-3">
                       <button
                         aria-label={t("card.favorite")}
-                        className="rounded-full border-2 border-[#64748b]/30 bg-[#f8fafc] p-2.5 transition hover:border-[#64748b] hover:bg-[#64748b] hover:text-[#f8fafc]"
+                        className="rounded-full border-2 border-[neutral-500]/30 bg-[neutral-50] p-2.5 transition hover:border-[neutral-500] hover:bg-[neutral-500] hover:text-[neutral-50]"
                         type="button"
                       >
-                        <HugeiconsIcon className="h-5 w-5 text-[#0f172a]" icon={FavouriteIcon} />
+                        <HugeiconsIcon
+                          className="h-5 w-5 text-[neutral-900]"
+                          icon={FavouriteIcon}
+                        />
                       </button>
                       <Link
-                        className="flex-1 rounded-full border-2 border-[#64748b] bg-[#f8fafc] px-6 py-2.5 text-center font-semibold text-[#64748b] text-sm transition hover:bg-[#64748b] hover:text-[#f8fafc] sm:flex-none"
+                        className="flex-1 rounded-full border-2 border-[neutral-500] bg-[neutral-50] px-6 py-2.5 text-center font-semibold text-[neutral-500] text-sm transition hover:bg-[neutral-500] hover:text-[neutral-50] sm:flex-none"
                         href={`/professionals/${professional.id}`}
                       >
                         {t("card.viewProfile")}
@@ -431,15 +436,15 @@ const ProfessionalsDirectoryComponent = memo(
                     const getStyles = (type: string) => {
                       switch (type) {
                         case "viewing":
-                          return "bg-[#f8fafc] text-[#64748b] border-[#e2e8f0]";
+                          return "bg-[neutral-50] text-[neutral-500] border-[neutral-200]";
                         case "booked":
-                          return "bg-stone-100 text-stone-900 border-[#0f172a]/20";
+                          return "bg-neutral-100 text-neutral-900 border-[neutral-900]/20";
                         case "demand":
-                          return "bg-[#64748b]/10 text-[#64748b] border-[#64748b]/20";
+                          return "bg-[neutral-500]/10 text-[neutral-500] border-[neutral-500]/20";
                         case "rare":
-                          return "bg-[#64748b]/10 text-[#64748b] border-[#64748b]/20";
+                          return "bg-[neutral-500]/10 text-[neutral-500] border-[neutral-500]/20";
                         default:
-                          return "bg-[#f8fafc] text-[#94a3b8] border-[#e2e8f0]";
+                          return "bg-[neutral-50] text-[neutral-400] border-[neutral-200]";
                       }
                     };
 
@@ -459,14 +464,14 @@ const ProfessionalsDirectoryComponent = memo(
                   })()}
 
                   {/* Stats Row */}
-                  <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 border-[#e2e8f0] border-b pb-4 text-sm">
+                  <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 border-[neutral-200] border-b pb-4 text-sm">
                     {/* Total Earnings */}
                     {professional.totalEarnings !== undefined && professional.totalEarnings > 0 && (
                       <div className="flex items-center gap-1.5">
-                        <span className="font-semibold text-[#0f172a]">
+                        <span className="font-semibold text-[neutral-900]">
                           {formatCOP(professional.totalEarnings)}
                         </span>
-                        <span className="text-[#94a3b8]">{t("card.earned")}</span>
+                        <span className="text-[neutral-400]">{t("card.earned")}</span>
                       </div>
                     )}
 
@@ -474,10 +479,10 @@ const ProfessionalsDirectoryComponent = memo(
                     {professional.totalCompletedBookings !== undefined &&
                       professional.totalCompletedBookings > 0 && (
                         <div className="flex items-center gap-1.5">
-                          <span className="font-semibold text-[#0f172a]">
+                          <span className="font-semibold text-[neutral-900]">
                             {professional.totalCompletedBookings}
                           </span>
-                          <span className="text-[#94a3b8]">{t("card.hired")}</span>
+                          <span className="text-[neutral-400]">{t("card.hired")}</span>
                         </div>
                       )}
 
@@ -485,14 +490,14 @@ const ProfessionalsDirectoryComponent = memo(
                     {professional.rating !== undefined && professional.rating > 0 && (
                       <div className="flex items-center gap-1.5">
                         <HugeiconsIcon
-                          className="h-4 w-4 fill-[#0f172a] text-[#0f172a]"
+                          className="h-4 w-4 fill-[neutral-900] text-[neutral-900]"
                           icon={StarIcon}
                         />
-                        <span className="font-semibold text-[#0f172a]">
+                        <span className="font-semibold text-[neutral-900]">
                           {professional.rating.toFixed(1)}
                         </span>
                         {professional.reviewCount !== undefined && professional.reviewCount > 0 && (
-                          <span className="text-[#94a3b8]">({professional.reviewCount})</span>
+                          <span className="text-[neutral-400]">({professional.reviewCount})</span>
                         )}
                       </div>
                     )}
@@ -501,10 +506,10 @@ const ProfessionalsDirectoryComponent = memo(
                     {professional.favoritesCount !== undefined &&
                       professional.favoritesCount > 0 && (
                         <div className="flex items-center gap-1.5">
-                          <span className="font-semibold text-[#0f172a]">
+                          <span className="font-semibold text-[neutral-900]">
                             {professional.favoritesCount}
                           </span>
-                          <span className="text-[#94a3b8]">{t("card.favorites")}</span>
+                          <span className="text-[neutral-400]">{t("card.favorites")}</span>
                         </div>
                       )}
                   </div>
@@ -521,20 +526,20 @@ const ProfessionalsDirectoryComponent = memo(
                       )}
 
                     {!showEnhancedTrustBadges && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#f8fafc] px-3 py-1.5 font-semibold text-[#0f172a]">
-                        <HugeiconsIcon className="h-3.5 w-3.5 text-[#0f172a]" icon={StarIcon} />
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[neutral-50] px-3 py-1.5 font-semibold text-[neutral-900]">
+                        <HugeiconsIcon className="h-3.5 w-3.5 text-[neutral-900]" icon={StarIcon} />
                         {t("card.newBadge")}
                       </span>
                     )}
 
                     {professional.languages.length > 0 && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#f8fafc] px-3 py-1.5 font-semibold text-[#0f172a]">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[neutral-50] px-3 py-1.5 font-semibold text-[neutral-900]">
                         {professional.languages.join(" / ")}
                       </span>
                     )}
 
                     {professional.availableToday && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#0f172a] px-3 py-1.5 font-semibold text-[#f8fafc]">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[neutral-900] px-3 py-1.5 font-semibold text-[neutral-50]">
                         {t("filters.availableToday")}
                       </span>
                     )}
@@ -542,7 +547,7 @@ const ProfessionalsDirectoryComponent = memo(
 
                   {/* Bio */}
                   {professional.bio && (
-                    <p className="mt-4 text-[#94a3b8] text-sm leading-relaxed">
+                    <p className="mt-4 text-[neutral-400] text-sm leading-relaxed">
                       {professional.bio.length > 200
                         ? `${professional.bio.slice(0, 200)}…`
                         : professional.bio}

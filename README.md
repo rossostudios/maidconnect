@@ -7,6 +7,7 @@
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19-blue)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)](https://www.typescriptlang.org/)
+[![Bun](https://img.shields.io/badge/Bun-latest-f9f1e1)](https://bun.sh/)
 [![Tailwind CSS 4](https://img.shields.io/badge/Tailwind-4.1-38bdf8)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -48,9 +49,9 @@
 
 ### Prerequisites
 
-- **Node.js 18+** or **Bun** (recommended)
-- **PostgreSQL** (via Supabase)
-- **Stripe Account** (for payments)
+- **[Bun](https://bun.sh/)** - Fast JavaScript runtime and package manager (required)
+- **PostgreSQL** - Via [Supabase](https://supabase.com/)
+- **Stripe Account** - For payment processing
 
 ### Installation
 
@@ -106,7 +107,7 @@ casaora/
 │   └── functions/             # Edge functions
 ├── scripts/                   # Automation scripts
 ├── docs/                      # Documentation
-└── tests/                     # E2E and unit tests
+└── tests/                     # E2E tests (Playwright)
 ```
 
 ---
@@ -120,17 +121,17 @@ casaora/
 - **[TypeScript 5.7](https://www.typescriptlang.org/)** - Type safety
 - **[Bun](https://bun.sh/)** - Fast JavaScript runtime and package manager
 
-### Styling
+### Styling & UI
 
 - **[Tailwind CSS 4.1](https://tailwindcss.com/)** - Utility-first CSS framework
-- **[Radix UI](https://www.radix-ui.com/)** - Accessible component primitives
+- **[React Aria](https://react-spectrum.adobe.com/react-aria/)** - Accessible UI primitives (migrating from Radix UI)
+- **[Radix UI](https://www.radix-ui.com/)** - Component primitives (being phased out)
 - **[Framer Motion](https://www.framer.com/motion/)** - Animations
 - **[HugeIcons](https://hugeicons.com/)** - Icon library
 
 ### Database & Backend
 
-- **[Supabase](https://supabase.com/)** - PostgreSQL database, authentication, storage
-- **[Drizzle ORM](https://orm.drizzle.team/)** - Type-safe database queries
+- **[Supabase](https://supabase.com/)** - PostgreSQL database, authentication, storage, realtime
 - **[Stripe](https://stripe.com/)** - Payment processing
 
 ### State Management & Forms
@@ -162,7 +163,6 @@ casaora/
 
 - **[Biome](https://biomejs.dev/)** - Fast linter and formatter
 - **[Playwright](https://playwright.dev/)** - E2E testing
-- **[Vitest](https://vitest.dev/)** - Unit testing
 - **[Storybook](https://storybook.js.org/)** - Component development
 
 ---
@@ -310,7 +310,7 @@ The script automatically:
 - **Type Safety:** End-to-end TypeScript with strict mode
 - **Server Components:** Leverage React Server Components for performance
 - **Progressive Enhancement:** Works without JavaScript when possible
-- **Accessibility First:** WCAG 2.1 AA compliance with Radix UI
+- **Accessibility First:** WCAG 2.1 AA compliance with React Aria
 
 ---
 
@@ -325,18 +325,11 @@ bun test:headed         # Headed browser mode
 bun test:debug          # Debug mode
 ```
 
-### Unit Tests (Vitest)
-
-```bash
-bun run test:unit       # Run unit tests
-bun run test:coverage   # With coverage report
-```
-
 ### Test Coverage Goals
 
-- **Critical paths:** 60%+ coverage
-- **Business logic:** 80%+ coverage
-- **Utilities:** 90%+ coverage
+- **Critical paths:** 80%+ coverage
+- **Business logic:** 90%+ coverage
+- **Utilities:** 95%+ coverage
 
 ---
 
@@ -423,7 +416,7 @@ Do not create public GitHub issues for security vulnerabilities.
 - ✅ **XSS Prevention:** HTML sanitization with DOMPurify on all user input
 - ✅ **SSRF Prevention:** Server-side URL validation using trusted environment variables
 - ✅ **Open Redirect Protection:** URL allowlist validation for external redirects
-- ✅ **SQL Injection Prevention:** Parameterized queries via Drizzle ORM
+- ✅ **SQL Injection Prevention:** Parameterized queries and Row Level Security (RLS)
 - ✅ **Row Level Security (RLS):** Enabled on all Supabase tables
 - ✅ **Rate Limiting:** API endpoint protection with Upstash Redis
 - ✅ **Input Validation:** Zod schemas for all API/form inputs
@@ -453,7 +446,7 @@ snyk monitor
 
 **Input Sanitization:**
 ```typescript
-import { sanitizeHTML, sanitizeURL } from '@/lib/sanitize';
+import { sanitizeHTML, sanitizeURL } from '@/lib/utils/sanitize';
 
 // Sanitize HTML before rendering
 const safeContent = sanitizeHTML(userInput);
@@ -498,9 +491,10 @@ Built with these amazing open-source projects:
 - [Next.js](https://nextjs.org/) by Vercel
 - [Supabase](https://supabase.com/) - Open source Firebase alternative
 - [Tailwind CSS](https://tailwindcss.com/) by Tailwind Labs
-- [Radix UI](https://www.radix-ui.com/) by WorkOS
+- [React Aria](https://react-spectrum.adobe.com/react-aria/) by Adobe
 - [PostHog](https://posthog.com/) - Open source product analytics
 - [Anthropic Claude](https://www.anthropic.com/) for AI capabilities
+- [Bun](https://bun.sh/) - Fast all-in-one JavaScript runtime
 
 ---
 

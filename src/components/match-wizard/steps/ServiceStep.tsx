@@ -98,10 +98,10 @@ export function ServiceStep({ data, onUpdate, onNext, onBack }: ServiceStepProps
     <div className="space-y-6">
       {/* Title */}
       <div className="text-center">
-        <h2 className="font-semibold text-2xl text-[#0f172a]">
+        <h2 className="font-semibold text-2xl text-[neutral-900]">
           {t("title", { defaultValue: "What service do you need?" })}
         </h2>
-        <p className="mt-2 text-[#94a3b8]">
+        <p className="mt-2 text-[neutral-400]">
           {t("description", { defaultValue: "Select the type of help you're looking for" })}
         </p>
       </div>
@@ -116,8 +116,8 @@ export function ServiceStep({ data, onUpdate, onNext, onBack }: ServiceStepProps
             <button
               className={`flex flex-col items-center gap-3 rounded-2xl border-2 p-4 transition ${
                 isSelected
-                  ? "border-[#0f172a] bg-[#0f172a]/5"
-                  : "border-[#e2e8f0] bg-[#f8fafc] hover:border-[#0f172a]/30"
+                  ? "border-[neutral-900] bg-[neutral-900]/5"
+                  : "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-900]/30"
               }`}
               key={service.value}
               onClick={() => onUpdate({ serviceType: service.value, serviceTemplate: undefined })}
@@ -125,14 +125,16 @@ export function ServiceStep({ data, onUpdate, onNext, onBack }: ServiceStepProps
             >
               <div
                 className={`flex h-12 w-12 items-center justify-center rounded-full ${
-                  isSelected ? "bg-[#0f172a] text-[#f8fafc]" : "bg-[#f8fafc] text-[#0f172a]"
+                  isSelected
+                    ? "bg-[neutral-900] text-[neutral-50]"
+                    : "bg-[neutral-50] text-[neutral-900]"
                 }`}
               >
                 <HugeiconsIcon className="h-6 w-6" icon={Icon} />
               </div>
               <span
                 className={`text-center font-medium text-sm ${
-                  isSelected ? "text-[#0f172a]" : "text-[#94a3b8]"
+                  isSelected ? "text-[neutral-900]" : "text-[neutral-400]"
                 }`}
               >
                 {service.label}
@@ -145,9 +147,9 @@ export function ServiceStep({ data, onUpdate, onNext, onBack }: ServiceStepProps
       {/* Service Templates */}
       {selectedService && selectedService.templates.length > 0 && (
         <div className="space-y-3">
-          <div className="block font-medium text-[#0f172a] text-sm">
+          <div className="block font-medium text-[neutral-900] text-sm">
             {t("templateLabel", { defaultValue: "Select a template" })}{" "}
-            <span className="font-normal text-[#94a3b8]">
+            <span className="font-normal text-[neutral-400]">
               ({t("optional", { defaultValue: "optional" })})
             </span>
           </div>
@@ -159,8 +161,8 @@ export function ServiceStep({ data, onUpdate, onNext, onBack }: ServiceStepProps
                 <button
                   className={`w-full rounded-xl border-2 px-4 py-3 text-left transition ${
                     isSelected
-                      ? "border-[#0f172a] bg-[#0f172a]/5 font-semibold text-[#0f172a]"
-                      : "border-[#e2e8f0] bg-[#f8fafc] text-[#94a3b8] hover:border-[#0f172a]/30"
+                      ? "border-[neutral-900] bg-[neutral-900]/5 font-semibold text-[neutral-900]"
+                      : "border-[neutral-200] bg-[neutral-50] text-[neutral-400] hover:border-[neutral-900]/30"
                   }`}
                   key={template.value}
                   onClick={() => onUpdate({ serviceTemplate: template.value })}
@@ -177,14 +179,14 @@ export function ServiceStep({ data, onUpdate, onNext, onBack }: ServiceStepProps
       {/* Actions */}
       <div className="flex gap-3 pt-4">
         <button
-          className="flex-1 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-6 py-3 font-semibold text-[#94a3b8] transition hover:border-[#0f172a] hover:text-[#0f172a]"
+          className="flex-1 rounded-xl border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
           onClick={onBack}
           type="button"
         >
           {t("back", { defaultValue: "Back" })}
         </button>
         <button
-          className="flex-1 rounded-xl bg-[#0f172a] px-6 py-3 font-semibold text-[#f8fafc] shadow-[0_6px_18px_rgba(22,22,22,0.22)] transition hover:bg-[#0f172a] disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex-1 rounded-xl bg-[neutral-900] px-6 py-3 font-semibold text-[neutral-50] shadow-[0_6px_18px_rgba(22,22,22,0.22)] transition hover:bg-[neutral-900] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!data.serviceType}
           onClick={handleNext}
           type="button"

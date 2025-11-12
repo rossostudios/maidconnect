@@ -6,10 +6,14 @@ import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
 
 /**
- * ServicesTabs Component
+ * ServicesTabs - Swiss Design System
  *
- * Displays services in a tabbed interface.
- * Tabs are on the left, content panels on the right with images.
+ * Minimalist tabbed services display following Swiss principles:
+ * - Clean vertical tab navigation
+ * - Sharp corners (rounded-sm)
+ * - Minimal borders
+ * - Orange accent bars for features
+ * - Satoshi for headings
  */
 export function ServicesTabs() {
   const [activeTab, setActiveTab] = useState("housekeeping");
@@ -76,69 +80,85 @@ export function ServicesTabs() {
   const activeService = services.find((s) => s.id === activeTab) ?? services[0]!;
 
   return (
-    <section className="w-full bg-stone-50 py-16 md:py-24">
+    <section className="w-full bg-white py-24 md:py-32">
       <Container className="mx-auto max-w-7xl px-4">
-        <div className="text-center">
-          <h2 className="font-bold text-3xl text-stone-800 md:text-4xl">Our Services</h2>
-          <p className="mt-4 text-lg text-stone-600">Premium household staff for every need.</p>
+        {/* Section Header - Swiss Typography */}
+        <div className="mb-16">
+          <h2
+            className="font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl"
+            style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
+          >
+            Our Services
+          </h2>
+          <div className="mt-4 h-1 w-16 bg-orange-500" />
+          <p className="mt-6 max-w-2xl text-lg text-neutral-600 leading-relaxed">
+            Premium household staff for every need.
+          </p>
         </div>
 
-        <div className="mt-12 grid gap-10 md:grid-cols-[240px,1fr]">
-          {/* Tabs - Left Side */}
-          <div className="flex flex-col gap-2">
+        <div className="grid gap-12 md:grid-cols-[280px,1fr]">
+          {/* Tabs - Left Side - Vertical Stack */}
+          <div className="flex flex-col gap-1">
             {services.map((service) => (
               <button
                 className={cn(
-                  "rounded-lg px-4 py-3 text-left font-medium transition-all",
+                  "group relative px-6 py-4 text-left transition-all",
                   activeTab === service.id
-                    ? "bg-stone-700 text-stone-50"
-                    : "bg-transparent text-stone-700 hover:bg-stone-100"
+                    ? "bg-neutral-900 text-white"
+                    : "bg-transparent text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
                 )}
                 key={service.id}
                 onClick={() => setActiveTab(service.id)}
                 type="button"
               >
-                {service.label}
+                {/* Active Indicator - Orange Bar */}
+                {activeTab === service.id && (
+                  <div className="absolute top-0 left-0 h-full w-1 bg-orange-500" />
+                )}
+
+                <span
+                  className="font-semibold text-base tracking-tight"
+                  style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
+                >
+                  {service.label}
+                </span>
               </button>
             ))}
           </div>
 
           {/* Content Panel - Right Side */}
-          <div className="rounded-2xl border-2 border-stone-300 bg-stone-100 p-8">
-            <div className="grid gap-8 md:grid-cols-2">
+          <div className="border border-neutral-200 bg-white p-8 md:p-12">
+            <div className="grid gap-12 md:grid-cols-2">
               {/* Text Content */}
               <div>
-                <h3 className="font-bold text-2xl text-stone-800">{activeService.title}</h3>
-                <p className="mt-4 text-stone-600">{activeService.description}</p>
-                <ul className="mt-6 space-y-3">
+                <h3
+                  className="font-bold text-3xl text-neutral-900 tracking-tight"
+                  style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
+                >
+                  {activeService.title}
+                </h3>
+
+                <p className="mt-6 text-base text-neutral-600 leading-relaxed">
+                  {activeService.description}
+                </p>
+
+                {/* Features List - Orange Accent Bars */}
+                <ul className="mt-8 space-y-4">
                   {activeService.features.map((feature) => (
                     <li className="flex items-start gap-3" key={feature}>
-                      <span className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-stone-700">
-                        <svg
-                          className="h-3 w-3 text-stone-50"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M5 13l4 4L19 7"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                          />
-                        </svg>
-                      </span>
-                      <span className="text-stone-700">{feature}</span>
+                      {/* Orange Bar Instead of Circle */}
+                      <div className="mt-2 h-px w-6 flex-shrink-0 bg-orange-500" />
+                      <span className="text-neutral-700">{feature}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              {/* Image */}
-              <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
+              {/* Image - Grayscale */}
+              <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-neutral-200 shadow-sm">
                 <Image
                   alt={activeService.title}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover grayscale transition-all duration-500 hover:grayscale-0"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   src={activeService.image}

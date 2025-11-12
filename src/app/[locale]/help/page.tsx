@@ -224,7 +224,7 @@ export default async function HelpCenterPage({
                     <div className="mt-4 flex items-center text-[#FF4444A22] text-sm">
                       <span>{t("categories.browse")}</span>
                       <HugeiconsIcon
-                        className="ml-1 h-4 w-4 transition group-hover:translate-x-1"
+                        className="group-hover:tranneutral-x-1 ml-1 h-4 w-4 transition"
                         icon={ArrowRight01Icon}
                       />
                     </div>
@@ -264,7 +264,7 @@ export default async function HelpCenterPage({
                         {article.view_count === 1 ? t("popular.view") : t("popular.views")}
                       </span>
                       <HugeiconsIcon
-                        className="h-4 w-4 text-[#FF4444A22] opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100"
+                        className="group-hover:tranneutral-x-1 h-4 w-4 text-[#FF4444A22] opacity-0 transition group-hover:opacity-100"
                         icon={ArrowRight01Icon}
                       />
                     </div>

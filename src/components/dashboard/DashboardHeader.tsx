@@ -55,10 +55,10 @@ export function DashboardHeader({
     >
       {/* Left side: Greeting and stats */}
       <div className="space-y-1">
-        <h1 className="font-bold text-2xl text-stone-900 sm:text-3xl">{displayGreeting}</h1>
+        <h1 className="font-bold text-2xl text-neutral-900 sm:text-3xl">{displayGreeting}</h1>
         {stats && (
           <p className="text-sm text-stone">
-            Today you have <span className="font-medium text-stone-700">{stats}</span>
+            Today you have <span className="font-medium text-neutral-700">{stats}</span>
           </p>
         )}
       </div>

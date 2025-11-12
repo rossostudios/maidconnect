@@ -127,21 +127,21 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
     <div className="space-y-8">
       {/* Success/Error Messages */}
       {submissionState.status === "success" && (
-        <div className="flex items-center gap-3 rounded-xl bg-[#64748b]/10 p-4 text-[#64748b]">
+        <div className="flex items-center gap-3 rounded-xl bg-[neutral-500]/10 p-4 text-[neutral-500]">
           <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle01Icon} />
           <p className="font-semibold text-sm">{t("success")}</p>
         </div>
       )}
 
       {submissionState.error && (
-        <div className="rounded-xl bg-[#64748b]/10 p-4 text-[#64748b]">
+        <div className="rounded-xl bg-[neutral-500]/10 p-4 text-[neutral-500]">
           <p className="font-semibold text-sm">{submissionState.error}</p>
         </div>
       )}
 
       {/* Basic Information */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 font-semibold text-[#0f172a] text-lg">
+        <div className="flex items-center gap-2 font-semibold text-[neutral-900] text-lg">
           <HugeiconsIcon className="h-5 w-5" icon={UserIcon} />
           <h3>{t("sections.basicInfo.title")}</h3>
         </div>
@@ -149,13 +149,13 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
         <div className="grid gap-4 md:grid-cols-2">
           <div>
             <label
-              className="mb-2 block font-semibold text-[#0f172a] text-sm"
+              className="mb-2 block font-semibold text-[neutral-900] text-sm"
               htmlFor="profile-fullname"
             >
               {t("sections.basicInfo.fields.fullName.label")}
             </label>
             <input
-              className="w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-3 text-base shadow-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+              className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
               id="profile-fullname"
               onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
               placeholder={t("sections.basicInfo.fields.fullName.placeholder")}
@@ -165,27 +165,27 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
           </div>
 
           <div>
-            <div className="mb-2 block font-semibold text-[#0f172a] text-sm">
+            <div className="mb-2 block font-semibold text-[neutral-900] text-sm">
               {t("sections.basicInfo.fields.email.label")}
             </div>
-            <div className="flex items-center gap-2 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-3">
-              <HugeiconsIcon className="h-4 w-4 text-[#94a3b8]" icon={Mail01Icon} />
-              <span className="text-[#94a3b8] text-base">{profile.email}</span>
+            <div className="flex items-center gap-2 rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3">
+              <HugeiconsIcon className="h-4 w-4 text-[neutral-400]" icon={Mail01Icon} />
+              <span className="text-[neutral-400] text-base">{profile.email}</span>
             </div>
-            <p className="mt-1 text-[#94a3b8] text-xs">
+            <p className="mt-1 text-[neutral-400] text-xs">
               {t("sections.basicInfo.fields.email.helper")}
             </p>
           </div>
 
           <div>
             <label
-              className="mb-2 block font-semibold text-[#0f172a] text-sm"
+              className="mb-2 block font-semibold text-[neutral-900] text-sm"
               htmlFor="profile-phone"
             >
               {t("sections.basicInfo.fields.phoneNumber.label")}
             </label>
-            <div className="flex items-center gap-2 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-3 shadow-sm">
-              <HugeiconsIcon className="h-4 w-4 text-[#94a3b8]" icon={CallIcon} />
+            <div className="flex items-center gap-2 rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 shadow-sm">
+              <HugeiconsIcon className="h-4 w-4 text-[neutral-400]" icon={CallIcon} />
               <input
                 className="flex-1 text-base focus:outline-none"
                 id="profile-phone"
@@ -199,20 +199,20 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
 
           <div>
             <label
-              className="mb-2 block font-semibold text-[#0f172a] text-sm"
+              className="mb-2 block font-semibold text-[neutral-900] text-sm"
               htmlFor="profile-avatar"
             >
               {t("sections.basicInfo.fields.avatarUrl.label")}
             </label>
             <input
-              className="w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-3 text-base shadow-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+              className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
               id="profile-avatar"
               onChange={(e) => setProfile({ ...profile, avatar_url: e.target.value })}
               placeholder={t("sections.basicInfo.fields.avatarUrl.placeholder")}
               type="url"
               value={profile.avatar_url}
             />
-            <p className="mt-1 text-[#94a3b8] text-xs">
+            <p className="mt-1 text-[neutral-400] text-xs">
               {t("sections.basicInfo.fields.avatarUrl.helper")}
             </p>
           </div>
@@ -221,24 +221,27 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
 
       {/* Bio */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 font-semibold text-[#0f172a] text-lg">
+        <div className="flex items-center gap-2 font-semibold text-[neutral-900] text-lg">
           <HugeiconsIcon className="h-5 w-5" icon={Award01Icon} />
           <h3>{t("sections.professionalSummary.title")}</h3>
         </div>
 
         <div>
-          <label className="mb-2 block font-semibold text-[#0f172a] text-sm" htmlFor="profile-bio">
+          <label
+            className="mb-2 block font-semibold text-[neutral-900] text-sm"
+            htmlFor="profile-bio"
+          >
             {t("sections.professionalSummary.fields.bio.label")}
           </label>
           <textarea
-            className="w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-3 text-base shadow-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+            className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
             id="profile-bio"
             onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
             placeholder={t("sections.professionalSummary.fields.bio.placeholder")}
             rows={5}
             value={profile.bio}
           />
-          <p className="mt-1 text-[#94a3b8] text-xs">
+          <p className="mt-1 text-[neutral-400] text-xs">
             {profile.bio.length}
             {t("sections.professionalSummary.fields.bio.characterCounter")}
           </p>
@@ -247,7 +250,7 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
 
       {/* Languages */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 font-semibold text-[#0f172a] text-lg">
+        <div className="flex items-center gap-2 font-semibold text-[neutral-900] text-lg">
           <HugeiconsIcon className="h-5 w-5" icon={GlobeIcon} />
           <h3>{t("sections.languages.title")}</h3>
         </div>
@@ -257,8 +260,8 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             <button
               className={`rounded-full border-2 px-4 py-2 font-semibold text-sm transition ${
                 profile.languages.includes(language)
-                  ? "border-[#64748b] bg-[#64748b] text-[#f8fafc]"
-                  : "border-[#e2e8f0] bg-[#f8fafc] text-[#0f172a] hover:border-[#64748b] hover:text-[#64748b]"
+                  ? "border-[neutral-500] bg-[neutral-500] text-[neutral-50]"
+                  : "border-[neutral-200] bg-[neutral-50] text-[neutral-900] hover:border-[neutral-500] hover:text-[neutral-500]"
               }`}
               key={language}
               onClick={() => handleLanguageToggle(language)}
@@ -268,12 +271,12 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             </button>
           ))}
         </div>
-        <p className="text-[#94a3b8] text-xs">{t("sections.languages.helper")}</p>
+        <p className="text-[neutral-400] text-xs">{t("sections.languages.helper")}</p>
       </div>
 
       {/* Primary Services */}
       <div className="space-y-4">
-        <div className="flex items-center gap-2 font-semibold text-[#0f172a] text-lg">
+        <div className="flex items-center gap-2 font-semibold text-[neutral-900] text-lg">
           <HugeiconsIcon className="h-5 w-5" icon={Award01Icon} />
           <h3>{t("sections.services.title")}</h3>
         </div>
@@ -283,8 +286,8 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             <button
               className={`rounded-full border-2 px-4 py-2 font-semibold text-sm transition ${
                 profile.primary_services.includes(service)
-                  ? "border-[#64748b] bg-[#64748b] text-[#f8fafc]"
-                  : "border-[#e2e8f0] bg-[#f8fafc] text-[#0f172a] hover:border-[#64748b] hover:text-[#64748b]"
+                  ? "border-[neutral-500] bg-[neutral-500] text-[neutral-50]"
+                  : "border-[neutral-200] bg-[neutral-50] text-[neutral-900] hover:border-[neutral-500] hover:text-[neutral-500]"
               }`}
               key={service}
               onClick={() => handleServiceToggle(service)}
@@ -294,13 +297,13 @@ export function ProfileEditor({ profile: initialProfile }: Props) {
             </button>
           ))}
         </div>
-        <p className="text-[#94a3b8] text-xs">{t("sections.services.helper")}</p>
+        <p className="text-[neutral-400] text-xs">{t("sections.services.helper")}</p>
       </div>
 
       {/* Save Button */}
-      <div className="flex items-center justify-end gap-3 border-[#e2e8f0] border-t pt-6">
+      <div className="flex items-center justify-end gap-3 border-[neutral-200] border-t pt-6">
         <button
-          className="rounded-full bg-[#64748b] px-8 py-3 font-semibold text-[#f8fafc] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[neutral-500] px-8 py-3 font-semibold text-[neutral-50] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={isPending}
           onClick={handleSave}
           type="button"

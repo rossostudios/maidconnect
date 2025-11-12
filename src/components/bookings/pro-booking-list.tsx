@@ -53,15 +53,15 @@ function formatAmount(amount: number | null): string {
 // Helper: Get status badge classes
 function getStatusBadgeClass(status: string): string {
   if (status === "authorized") {
-    return "bg-[#64748b]/10 text-[#64748b]";
+    return "bg-[neutral-500]/10 text-[neutral-500]";
   }
   if (status === "confirmed") {
-    return "bg-[#64748b]/10 text-[#64748b]";
+    return "bg-[neutral-500]/10 text-[neutral-500]";
   }
   if (status === "declined") {
-    return "bg-[#64748b]/10 text-[#64748b]";
+    return "bg-[neutral-500]/10 text-[neutral-500]";
   }
-  return "bg-[#64748b]/10 text-[#64748b]";
+  return "bg-[neutral-500]/10 text-[neutral-500]";
 }
 
 // Helper: Determine action visibility
@@ -95,7 +95,7 @@ function AcceptDeclineActions({
   return (
     <div className={isMobile ? "grid grid-cols-2 gap-3" : "flex flex-wrap items-center gap-2"}>
       <button
-        className={`${baseClass} bg-[#64748b] text-[#f8fafc] shadow-sm transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-70`}
+        className={`${baseClass} bg-[neutral-500] text-[neutral-50] shadow-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70`}
         disabled={loadingId !== null}
         onClick={() => onAction(booking, "accept")}
         type="button"
@@ -103,7 +103,7 @@ function AcceptDeclineActions({
         {loadingId === `${booking.id}-accept` ? t("actions.accepting") : t("actions.accept")}
       </button>
       <button
-        className={`${baseClass} ${isMobile ? "border-2" : "border"} border-[#64748b]/50 bg-[#f8fafc] text-[#64748b] transition hover:bg-[#64748b]/10 disabled:cursor-not-allowed disabled:opacity-70`}
+        className={`${baseClass} ${isMobile ? "border-2" : "border"} border-[neutral-500]/50 bg-[neutral-50] text-[neutral-500] transition hover:bg-[neutral-500]/10 disabled:cursor-not-allowed disabled:opacity-70`}
         disabled={loadingId !== null}
         onClick={() => onAction(booking, "decline")}
         type="button"
@@ -141,7 +141,7 @@ function CaptureVoidActions({
     <div className={isMobile ? "flex flex-col gap-3" : "flex flex-wrap items-center gap-2"}>
       {showCapture && (
         <button
-          className={`${baseClass} bg-[#64748b] text-[#f8fafc] shadow-sm transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-70`}
+          className={`${baseClass} bg-[neutral-500] text-[neutral-50] shadow-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70`}
           disabled={loadingId !== null}
           onClick={() => onAction(booking, "capture")}
           type="button"
@@ -151,7 +151,7 @@ function CaptureVoidActions({
       )}
       {showVoid && (
         <button
-          className={`${baseClass} ${isMobile ? "border-2" : "border"} ${isMobile ? "border-[#e2e8f0]" : "border-[#e2e8f0]"} bg-[#f8fafc] text-[#94a3b8] transition hover:border-[#64748b] hover:text-[#64748b] disabled:cursor-not-allowed disabled:opacity-70`}
+          className={`${baseClass} ${isMobile ? "border-2" : "border"} ${isMobile ? "border-[neutral-200]" : "border-[neutral-200]"} bg-[neutral-50] text-[neutral-400] transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70`}
           disabled={loadingId !== null}
           onClick={() => onAction(booking, "void")}
           type="button"
@@ -261,11 +261,11 @@ function BookingTableRow({
   const { showAcceptDecline, showCapture, showVoid } = getActionVisibility(booking.status);
 
   return (
-    <tr className="text-[#0f172a]" key={booking.id}>
+    <tr className="text-[neutral-900]" key={booking.id}>
       <td className="px-4 py-3 font-medium">{booking.id.slice(0, 8)}</td>
-      <td className="px-4 py-3 text-[#94a3b8]">{booking.service_name || "—"}</td>
-      <td className="px-4 py-3 text-[#94a3b8]">{scheduled}</td>
-      <td className="px-4 py-3 text-[#94a3b8]">{amountDisplay}</td>
+      <td className="px-4 py-3 text-[neutral-400]">{booking.service_name || "—"}</td>
+      <td className="px-4 py-3 text-[neutral-400]">{scheduled}</td>
+      <td className="px-4 py-3 text-[neutral-400]">{amountDisplay}</td>
       <td className="px-4 py-3">
         <span
           className={`inline-flex items-center rounded-full px-3 py-1 font-semibold text-xs ${getStatusBadgeClass(booking.status)}`}
@@ -297,7 +297,7 @@ function BookingTableRow({
               />
             );
           }
-          return <span className="text-[#94a3b8] text-xs">{t("actions.noActions")}</span>;
+          return <span className="text-[neutral-400] text-xs">{t("actions.noActions")}</span>;
         })()}
       </td>
     </tr>
@@ -322,13 +322,15 @@ function BookingMobileCard({
 
   return (
     <div
-      className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-5 shadow-sm"
+      className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-5 shadow-sm"
       key={booking.id}
     >
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
-          <p className="text-[#94a3b8] text-xs uppercase tracking-wide">{t("table.booking")}</p>
-          <p className="mt-1 font-semibold text-[#0f172a] text-base">{booking.id.slice(0, 8)}</p>
+          <p className="text-[neutral-400] text-xs uppercase tracking-wide">{t("table.booking")}</p>
+          <p className="mt-1 font-semibold text-[neutral-900] text-base">
+            {booking.id.slice(0, 8)}
+          </p>
         </div>
         <span
           className={`inline-flex items-center rounded-full px-3 py-1.5 font-semibold text-xs ${getStatusBadgeClass(booking.status)}`}
@@ -337,23 +339,25 @@ function BookingMobileCard({
         </span>
       </div>
 
-      <div className="space-y-3 border-[#e2e8f0] border-t pt-4">
+      <div className="space-y-3 border-[neutral-200] border-t pt-4">
         <div className="flex justify-between">
-          <span className="text-[#94a3b8] text-sm">{t("table.service")}</span>
-          <span className="font-medium text-[#0f172a] text-sm">{booking.service_name || "—"}</span>
+          <span className="text-[neutral-400] text-sm">{t("table.service")}</span>
+          <span className="font-medium text-[neutral-900] text-sm">
+            {booking.service_name || "—"}
+          </span>
         </div>
         <div className="flex justify-between">
-          <span className="text-[#94a3b8] text-sm">{t("table.scheduled")}</span>
-          <span className="text-right font-medium text-[#0f172a] text-sm">{scheduled}</span>
+          <span className="text-[neutral-400] text-sm">{t("table.scheduled")}</span>
+          <span className="text-right font-medium text-[neutral-900] text-sm">{scheduled}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-[#94a3b8] text-sm">{t("table.amount")}</span>
-          <span className="font-semibold text-[#0f172a] text-base">{amountDisplay}</span>
+          <span className="text-[neutral-400] text-sm">{t("table.amount")}</span>
+          <span className="font-semibold text-[neutral-900] text-base">{amountDisplay}</span>
         </div>
       </div>
 
       {(showAcceptDecline || showCapture || showVoid) && (
-        <div className="mt-4 border-[#e2e8f0] border-t pt-4">
+        <div className="mt-4 border-[neutral-200] border-t pt-4">
           {showAcceptDecline && (
             <AcceptDeclineActions
               booking={booking}
@@ -411,7 +415,7 @@ export function ProBookingList({ bookings }: Props) {
   };
 
   if (optimisticBookings.length === 0) {
-    return <p className="text-[#94a3b8] text-sm">{t("emptyState")}</p>;
+    return <p className="text-[neutral-400] text-sm">{t("emptyState")}</p>;
   }
 
   // Separate active service bookings from others (using optimistic state)
@@ -426,7 +430,7 @@ export function ProBookingList({ bookings }: Props) {
     <div className="space-y-6">
       {message ? (
         <p
-          className={`text-sm ${message.includes("successfully") ? "text-[#64748b]" : "text-[#64748b]"}`}
+          className={`text-sm ${message.includes("successfully") ? "text-[neutral-500]" : "text-[neutral-500]"}`}
         >
           {message}
         </p>
@@ -435,7 +439,7 @@ export function ProBookingList({ bookings }: Props) {
       {/* Active Service Bookings - Use ServiceExecutionCard */}
       {activeServiceBookings.length > 0 && (
         <div>
-          <h3 className="mb-4 font-semibold text-[#94a3b8] text-sm uppercase tracking-wide">
+          <h3 className="mb-4 font-semibold text-[neutral-400] text-sm uppercase tracking-wide">
             {t("sections.activeServices")}
           </h3>
           <div className="space-y-4">
@@ -449,16 +453,16 @@ export function ProBookingList({ bookings }: Props) {
       {/* Other Bookings - Table view (Desktop) */}
       {otherBookings.length > 0 && (
         <div>
-          <h3 className="mb-4 font-semibold text-[#94a3b8] text-sm uppercase tracking-wide">
+          <h3 className="mb-4 font-semibold text-[neutral-400] text-sm uppercase tracking-wide">
             {activeServiceBookings.length > 0
               ? t("sections.otherBookings")
               : t("sections.allBookings")}
           </h3>
 
           {/* Desktop Table View - Hidden on mobile */}
-          <div className="hidden overflow-hidden rounded-2xl border border-[#e2e8f0] md:block">
-            <table className="min-w-full divide-y divide-[#e2e8f0] text-sm">
-              <thead className="bg-[#f8fafc] text-[#94a3b8] text-xs uppercase tracking-wide">
+          <div className="hidden overflow-hidden rounded-2xl border border-[neutral-200] md:block">
+            <table className="min-w-full divide-y divide-[neutral-200] text-sm">
+              <thead className="bg-[neutral-50] text-[neutral-400] text-xs uppercase tracking-wide">
                 <tr>
                   <th className="px-4 py-3 text-left">{t("table.booking")}</th>
                   <th className="px-4 py-3 text-left">{t("table.service")}</th>
@@ -468,7 +472,7 @@ export function ProBookingList({ bookings }: Props) {
                   <th className="px-4 py-3 text-left">{t("table.actions")}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#f8fafc] bg-[#f8fafc]">
+              <tbody className="divide-y divide-[neutral-50] bg-[neutral-50]">
                 {otherBookings.map((booking) => (
                   <BookingTableRow
                     booking={booking}

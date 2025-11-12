@@ -4,7 +4,7 @@ import { Badge } from "../ui/badge";
 import { DashboardHeader } from "./dashboard-header";
 
 /**
- * MaidConnect Dashboard Header Component
+ * Casaora Dashboard Header Component
  *
  * Design System: Personalized welcome header for dashboards
  * - Shows personalized greeting with user's name

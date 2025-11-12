@@ -121,7 +121,7 @@ export function TimeExtensionModal({
       customActions={
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-lg border-2 border-[#e2e8f0] px-4 py-3 font-semibold text-[#0f172a] transition hover:border-[#0f172a]"
+            className="flex-1 rounded-lg border-2 border-[neutral-200] px-4 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-900]"
             disabled={form.isSubmitting}
             onClick={onClose}
             type="button"
@@ -129,7 +129,7 @@ export function TimeExtensionModal({
             Cancel
           </button>
           <button
-            className="flex-1 rounded-lg bg-[#64748b] px-4 py-3 font-semibold text-[#f8fafc] transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-lg bg-[neutral-500] px-4 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={form.isSubmitting || !currentMinutes || currentMinutes <= 0}
             onClick={handleExtend}
             type="button"
@@ -147,7 +147,7 @@ export function TimeExtensionModal({
     >
       {/* Preset Options */}
       <div className="mb-6">
-        <div className="mb-3 block font-medium text-[#0f172a] text-sm">Quick Options</div>
+        <div className="mb-3 block font-medium text-[neutral-900] text-sm">Quick Options</div>
         <div className="grid grid-cols-2 gap-3">
           {PRESET_OPTIONS.map((option) => {
             const isSelected = selectedMinutes === option.minutes;
@@ -157,8 +157,8 @@ export function TimeExtensionModal({
               <button
                 className={`rounded-xl border-2 p-4 text-left transition ${
                   isSelected
-                    ? "border-[#64748b] bg-[#64748b]/5"
-                    : "border-[#e2e8f0] hover:border-[#64748b]/50"
+                    ? "border-[neutral-500] bg-[neutral-500]/5"
+                    : "border-[neutral-200] hover:border-[neutral-500]/50"
                 }`}
                 key={option.minutes}
                 onClick={() => handlePresetClick(option.minutes)}
@@ -166,13 +166,13 @@ export function TimeExtensionModal({
               >
                 <div className="mb-1 flex items-center gap-2">
                   <HugeiconsIcon
-                    className={isSelected ? "text-[#64748b]" : "text-[#94a3b8]"}
+                    className={isSelected ? "text-[neutral-500]" : "text-[neutral-400]"}
                     icon={Clock01Icon}
                     size={16}
                   />
-                  <span className="font-semibold text-[#0f172a] text-sm">{option.label}</span>
+                  <span className="font-semibold text-[neutral-900] text-sm">{option.label}</span>
                 </div>
-                <p className="text-[#94a3b8] text-xs">{formatCurrency(cost)}</p>
+                <p className="text-[neutral-400] text-xs">{formatCurrency(cost)}</p>
               </button>
             );
           })}
@@ -181,11 +181,11 @@ export function TimeExtensionModal({
 
       {/* Custom Duration */}
       <div className="mb-6">
-        <label className="mb-2 block font-medium text-[#0f172a] text-sm" htmlFor="custom">
+        <label className="mb-2 block font-medium text-[neutral-900] text-sm" htmlFor="custom">
           Custom Duration (minutes)
         </label>
         <input
-          className="w-full rounded-lg border-2 border-[#e2e8f0] px-4 py-3 text-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+          className="w-full rounded-lg border-2 border-[neutral-200] px-4 py-3 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
           id="custom"
           max="240"
           min="1"
@@ -198,17 +198,17 @@ export function TimeExtensionModal({
 
       {/* Cost Preview */}
       {estimatedCost > 0 && (
-        <div className="mb-6 rounded-xl bg-[#f8fafc] p-4">
+        <div className="mb-6 rounded-xl bg-[neutral-50] p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <HugeiconsIcon className="text-[#64748b]" icon={DollarCircleIcon} size={20} />
-              <span className="font-medium text-[#64748b] text-sm">Additional Cost</span>
+              <HugeiconsIcon className="text-[neutral-500]" icon={DollarCircleIcon} size={20} />
+              <span className="font-medium text-[neutral-500] text-sm">Additional Cost</span>
             </div>
-            <span className="font-bold text-[#64748b] text-lg">
+            <span className="font-bold text-[neutral-500] text-lg">
               {formatCurrency(estimatedCost)}
             </span>
           </div>
-          <p className="mt-2 text-[#64748b] text-xs">
+          <p className="mt-2 text-[neutral-500] text-xs">
             This will be added to your final payment at checkout.
           </p>
         </div>
@@ -222,7 +222,7 @@ export function TimeExtensionModal({
       )}
 
       {/* Info Note */}
-      <p className="text-center text-[#94a3b8] text-xs">
+      <p className="text-center text-[neutral-400] text-xs">
         The customer will be notified of the time extension and charged accordingly.
       </p>
     </FormModal>

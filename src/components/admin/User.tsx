@@ -62,7 +62,7 @@ const getRoleBadgeColor = (role: UserRole) => {
 const getSuspensionBadge = (suspension: UserSuspension | null) => {
   if (!suspension) {
     return (
-      <span className="inline-flex items-center rounded-lg border border-stone-200 bg-stone-100 px-2.5 py-1 font-medium text-stone-700 text-xs">
+      <span className="inline-flex items-center rounded-lg border border-neutral-200 bg-neutral-100 px-2.5 py-1 font-medium text-neutral-700 text-xs">
         Active
       </span>
     );
@@ -75,8 +75,8 @@ const getSuspensionBadge = (suspension: UserSuspension | null) => {
       <span
         className={`inline-flex items-center rounded-lg px-2.5 py-1 font-medium text-xs ${
           isBanned
-            ? "border border-stone-300 bg-[#E85D48]/10 text-stone-800"
-            : "border border-stone-300 bg-stone-100 text-stone-600"
+            ? "border border-neutral-300 bg-[#E85D48]/10 text-neutral-800"
+            : "border border-neutral-300 bg-neutral-100 text-neutral-600"
         }`}
       >
         {isBanned ? "Banned" : "Suspended"}

@@ -74,7 +74,7 @@ export function HelpSearchBar({
     const regex = new RegExp(`(${escapedQuery})`, "gi");
     return escapedText.replace(
       regex,
-      '<mark class="bg-[#64748b]/20 text-[#0f172a] font-medium">$1</mark>'
+      '<mark class="bg-[neutral-500]/20 text-[neutral-900] font-medium">$1</mark>'
     );
   }, []);
 
@@ -244,12 +244,12 @@ export function HelpSearchBar({
       {/* Search Input */}
       <div className="relative">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-          <HugeiconsIcon className="h-5 w-5 text-[#94a3b8]/70" icon={Search01Icon} />
+          <HugeiconsIcon className="h-5 w-5 text-[neutral-400]/70" icon={Search01Icon} />
         </div>
 
         <input
           autoFocus={autoFocus}
-          className="w-full rounded-lg border border-[#94a3b8]/40 bg-[#f8fafc] py-3 pr-10 pl-12 text-[#0f172a] placeholder-[#94a3b8] focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+          className="w-full rounded-lg border border-[neutral-400]/40 bg-[neutral-50] py-3 pr-10 pl-12 text-[neutral-900] placeholder-[neutral-400] focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
           onChange={(e) => {
             setQuery(e.target.value);
             setShowResults(true);
@@ -264,7 +264,7 @@ export function HelpSearchBar({
         {/* Clear/Loading button */}
         {query && (
           <button
-            className="absolute inset-y-0 right-0 flex items-center pr-4 text-[#94a3b8]/70 hover:text-[#94a3b8]"
+            className="absolute inset-y-0 right-0 flex items-center pr-4 text-[neutral-400]/70 hover:text-[neutral-400]"
             onClick={handleClear}
             type="button"
           >
@@ -279,16 +279,16 @@ export function HelpSearchBar({
 
       {/* Search Results Dropdown */}
       {showResults && query.length >= 2 && (
-        <div className="absolute z-50 mt-2 w-full overflow-hidden rounded-lg border border-[#e2e8f0] bg-[#f8fafc] shadow-lg">
+        <div className="absolute z-50 mt-2 w-full overflow-hidden rounded-lg border border-[neutral-200] bg-[neutral-50] shadow-lg">
           {(() => {
             if (isLoading && results.length === 0) {
               return (
                 <div className="flex items-center justify-center px-4 py-8">
                   <HugeiconsIcon
-                    className="mr-2 h-5 w-5 animate-spin text-[#64748b]"
+                    className="mr-2 h-5 w-5 animate-spin text-[neutral-500]"
                     icon={Loading01Icon}
                   />
-                  <span className="text-[#94a3b8] text-sm">{t("search.searching")}</span>
+                  <span className="text-[neutral-400] text-sm">{t("search.searching")}</span>
                 </div>
               );
             }
@@ -297,22 +297,22 @@ export function HelpSearchBar({
                 <div className="max-h-96 overflow-y-auto">
                   {results.map((result, index) => (
                     <button
-                      className={`w-full border-[#e2e8f0]/40 border-b px-4 py-3 text-left transition last:border-b-0 ${
+                      className={`w-full border-[neutral-200]/40 border-b px-4 py-3 text-left transition last:border-b-0 ${
                         selectedIndex === index
-                          ? "border-[#64748b] bg-[#64748b]/10"
-                          : "hover:bg-[#f8fafc]"
+                          ? "border-[neutral-500] bg-[neutral-500]/10"
+                          : "hover:bg-[neutral-50]"
                       }`}
                       key={result.id}
                       onClick={() => handleResultClick(result)}
                       type="button"
                     >
                       <div className="mb-1 flex items-center gap-2">
-                        <span className="rounded bg-[#e2e8f0]/30 px-2 py-0.5 text-[#94a3b8] text-xs">
+                        <span className="rounded bg-[neutral-200]/30 px-2 py-0.5 text-[neutral-400] text-xs">
                           {result.category_name}
                         </span>
                       </div>
                       <div
-                        className="font-medium text-[#0f172a]"
+                        className="font-medium text-[neutral-900]"
                         // snyk:ignore javascript/DOMXSS - Content is sanitized via escapeHTML() in highlightSearchTerm (line 64-69)
                         dangerouslySetInnerHTML={{
                           __html: highlightSearchTerm(result.title, query),
@@ -320,7 +320,7 @@ export function HelpSearchBar({
                       />
                       {result.excerpt && (
                         <p
-                          className="mt-1 line-clamp-2 text-[#94a3b8] text-sm"
+                          className="mt-1 line-clamp-2 text-[neutral-400] text-sm"
                           // snyk:ignore javascript/DOMXSS - Content is sanitized via escapeHTML() in highlightSearchTerm (line 64-69)
                           dangerouslySetInnerHTML={{
                             __html: highlightSearchTerm(result.excerpt, query),
@@ -330,9 +330,9 @@ export function HelpSearchBar({
                     </button>
                   ))}
 
-                  <div className="border-[#e2e8f0]/40 border-t bg-[#f8fafc] px-4 py-2 text-center">
+                  <div className="border-[neutral-200]/40 border-t bg-[neutral-50] px-4 py-2 text-center">
                     <button
-                      className="text-[#64748b] text-sm hover:underline"
+                      className="text-[neutral-500] text-sm hover:underline"
                       onClick={() => {
                         router.push(`/${locale}/help?q=${encodeURIComponent(query)}`);
                         setShowResults(false);
@@ -347,9 +347,9 @@ export function HelpSearchBar({
             }
             return (
               <div className="px-4 py-8 text-center">
-                <p className="text-[#94a3b8] text-sm">{t("search.noResults")}</p>
+                <p className="text-[neutral-400] text-sm">{t("search.noResults")}</p>
                 <button
-                  className="mt-2 text-[#64748b] text-sm hover:underline"
+                  className="mt-2 text-[neutral-500] text-sm hover:underline"
                   onClick={() => router.push(`/${locale}/help`)}
                   type="button"
                 >

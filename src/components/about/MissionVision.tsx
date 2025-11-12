@@ -45,56 +45,56 @@ export function MissionVision() {
   ];
 
   return (
-    <section className="bg-[#f8fafc] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <section className="bg-[neutral-50] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
       <div className="mx-auto max-w-7xl">
         {/* Section Header */}
         <div className="mx-auto mb-16 max-w-3xl text-center">
-          <h2 className="mb-4 font-bold text-3xl text-[#0f172a] sm:text-4xl">
+          <h2 className="mb-4 font-bold text-3xl text-[neutral-900] sm:text-4xl">
             {t("sectionTitle")}
           </h2>
-          <p className="text-[#94a3b8] text-lg">{t("sectionSubtitle")}</p>
+          <p className="text-[neutral-400] text-lg">{t("sectionSubtitle")}</p>
         </div>
 
         {/* Mission & Vision Cards */}
         <div className="mb-16 grid gap-8 lg:grid-cols-2">
           {/* Mission Card */}
-          <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-10 shadow-sm">
-            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[#64748b]/100/10">
-              <HugeiconsIcon className="h-7 w-7 text-[#64748b]" icon={Target01Icon} />
+          <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-10 shadow-sm">
+            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[neutral-500]/100/10">
+              <HugeiconsIcon className="h-7 w-7 text-[neutral-500]" icon={Target01Icon} />
             </div>
-            <h3 className="mb-3 font-[family-name:var(--font-cinzel)] text-2xl text-[#0f172a] tracking-wide">
+            <h3 className="mb-3 font-[family-name:var(--font-cinzel)] text-2xl text-[neutral-900] tracking-wide">
               {t("mission.title")}
             </h3>
-            <p className="text-[#94a3b8] leading-relaxed">{t("mission.description")}</p>
+            <p className="text-[neutral-400] leading-relaxed">{t("mission.description")}</p>
           </div>
 
           {/* Vision Card */}
-          <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-10 shadow-sm">
-            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[#64748b]/100/10">
-              <HugeiconsIcon className="h-7 w-7 text-[#64748b]" icon={CompassIcon} />
+          <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-10 shadow-sm">
+            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[neutral-500]/100/10">
+              <HugeiconsIcon className="h-7 w-7 text-[neutral-500]" icon={CompassIcon} />
             </div>
-            <h3 className="mb-3 font-[family-name:var(--font-cinzel)] text-2xl text-[#0f172a] tracking-wide">
+            <h3 className="mb-3 font-[family-name:var(--font-cinzel)] text-2xl text-[neutral-900] tracking-wide">
               {t("vision.title")}
             </h3>
-            <p className="text-[#94a3b8] leading-relaxed">{t("vision.description")}</p>
+            <p className="text-[neutral-400] leading-relaxed">{t("vision.description")}</p>
           </div>
         </div>
 
         {/* Core Values */}
-        <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-8 shadow-sm sm:p-12">
+        <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-8 shadow-sm sm:p-12">
           <div className="mb-8 text-center">
-            <h3 className="mb-3 font-semibold text-2xl text-[#0f172a]">{t("values.title")}</h3>
-            <p className="text-[#94a3b8]">{t("values.subtitle")}</p>
+            <h3 className="mb-3 font-semibold text-2xl text-[neutral-900]">{t("values.title")}</h3>
+            <p className="text-[neutral-400]">{t("values.subtitle")}</p>
           </div>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((value, index) => (
               <div className="text-center" key={index}>
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#64748b]/100/10">
-                  <HugeiconsIcon className="h-6 w-6 text-[#64748b]" icon={value.icon} />
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[neutral-500]/100/10">
+                  <HugeiconsIcon className="h-6 w-6 text-[neutral-500]" icon={value.icon} />
                 </div>
-                <h4 className="mb-2 font-semibold text-[#0f172a]">{t(value.titleKey)}</h4>
-                <p className="text-[#94a3b8] text-sm">{t(value.descKey)}</p>
+                <h4 className="mb-2 font-semibold text-[neutral-900]">{t(value.titleKey)}</h4>
+                <p className="text-[neutral-400] text-sm">{t(value.descKey)}</p>
               </div>
             ))}
           </div>

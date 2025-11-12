@@ -75,13 +75,13 @@ export function DataTableEnhanced<T extends Record<string, any>>({
   // Loading state
   if (isLoading) {
     return (
-      <div className="overflow-hidden rounded-2xl border border-[#e2e8f0] bg-[#f8fafc]">
+      <div className="overflow-hidden rounded-2xl border border-[neutral-200] bg-[neutral-50]">
         <div className="space-y-3 p-8">
           {[...new Array(5)].map((_, i) => (
             <div className="flex animate-pulse gap-4" key={i}>
-              <div className="h-4 flex-1 rounded bg-[#e2e8f0]" />
-              <div className="h-4 flex-1 rounded bg-[#e2e8f0]" />
-              <div className="h-4 flex-1 rounded bg-[#e2e8f0]" />
+              <div className="h-4 flex-1 rounded bg-[neutral-200]" />
+              <div className="h-4 flex-1 rounded bg-[neutral-200]" />
+              <div className="h-4 flex-1 rounded bg-[neutral-200]" />
             </div>
           ))}
         </div>
@@ -92,15 +92,18 @@ export function DataTableEnhanced<T extends Record<string, any>>({
   // Empty state
   if (!data || data.length === 0) {
     return (
-      <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-12 text-center">
-        <p className="text-[#94a3b8] text-base">{emptyMessage}</p>
+      <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-12 text-center">
+        <p className="text-[neutral-400] text-base">{emptyMessage}</p>
       </div>
     );
   }
 
   return (
     <div
-      className={cn("overflow-hidden rounded-2xl border border-[#e2e8f0] bg-[#f8fafc]", className)}
+      className={cn(
+        "overflow-hidden rounded-2xl border border-[neutral-200] bg-[neutral-50]",
+        className
+      )}
     >
       <div className="overflow-x-auto">
         <table className="w-full">
@@ -108,7 +111,7 @@ export function DataTableEnhanced<T extends Record<string, any>>({
 
           <thead
             className={cn(
-              "border-[#e2e8f0] border-b bg-[#f8fafc]",
+              "border-[neutral-200] border-b bg-[neutral-50]",
               stickyHeader && "sticky top-0 z-10"
             )}
           >
@@ -116,7 +119,7 @@ export function DataTableEnhanced<T extends Record<string, any>>({
               {columns.map((column) => (
                 <th
                   className={cn(
-                    "px-6 py-4 font-semibold text-[#0f172a] text-sm uppercase tracking-wide",
+                    "px-6 py-4 font-semibold text-[neutral-900] text-sm uppercase tracking-wide",
                     column.align === "center" && "text-center",
                     column.align === "right" && "text-right",
                     column.align !== "center" && column.align !== "right" && "text-left",
@@ -136,13 +139,13 @@ export function DataTableEnhanced<T extends Record<string, any>>({
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-[#e2e8f0]">
+          <tbody className="divide-y divide-[neutral-200]">
             {data.map((row, rowIndex) => (
               <tr
                 className={cn(
                   "transition-colors duration-150",
-                  striped && rowIndex % 2 === 1 && "bg-[#f8fafc]/30",
-                  hoverable && "hover:bg-[#f8fafc] hover:shadow-sm",
+                  striped && rowIndex % 2 === 1 && "bg-[neutral-50]/30",
+                  hoverable && "hover:bg-[neutral-50] hover:shadow-sm",
                   onRowClick && "cursor-pointer",
                   "group",
                   rowClassName?.(row)
@@ -155,7 +158,7 @@ export function DataTableEnhanced<T extends Record<string, any>>({
                   return (
                     <td
                       className={cn(
-                        "px-6 py-4 text-[#0f172a] text-sm",
+                        "px-6 py-4 text-[neutral-900] text-sm",
                         column.align === "center" && "text-center",
                         column.align === "right" && "text-right"
                       )}
@@ -198,9 +201,9 @@ export function TableActionButton({
       className={cn(
         "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-medium text-sm transition-all",
         variant === "default" &&
-          "border border-[#e2e8f0] text-[#0f172a] hover:border-[#64748b] hover:text-[#64748b]",
+          "border border-[neutral-200] text-[neutral-900] hover:border-[neutral-500] hover:text-[neutral-500]",
         variant === "danger" &&
-          "border border-[#64748b] text-[#64748b] hover:bg-[#64748b] hover:text-[#f8fafc]",
+          "border border-[neutral-500] text-[neutral-500] hover:bg-[neutral-500] hover:text-[neutral-50]",
         className
       )}
       onClick={(e) => {

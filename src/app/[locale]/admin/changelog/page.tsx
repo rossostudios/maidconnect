@@ -43,7 +43,7 @@ const categoryConfig = {
 };
 
 const visibilityBadge = {
-  draft: "bg-slate-100 text-slate-700",
+  draft: "bg-neutral-100 text-neutral-700",
   published: "bg-green-100 text-green-700",
   archived: "bg-amber-100 text-amber-700",
 };
@@ -87,13 +87,13 @@ export default async function AdminChangelogPage({
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="font-bold text-3xl text-slate-900">Changelog Management</h1>
-          <p className="mt-2 text-slate-600 text-sm">
+          <h1 className="font-bold text-3xl text-neutral-900">Changelog Management</h1>
+          <p className="mt-2 text-neutral-600 text-sm">
             Create, edit, and publish sprint updates for your users
           </p>
         </div>
         <Link
-          className="flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 font-semibold text-sm text-white transition hover:bg-slate-800"
+          className="flex items-center gap-2 rounded-lg bg-neutral-900 px-4 py-2 font-semibold text-sm text-white transition hover:bg-neutral-800"
           href="/admin/changelog/new"
         >
           <HugeiconsIcon className="h-4 w-4" icon={Add01Icon} />
@@ -102,12 +102,12 @@ export default async function AdminChangelogPage({
       </div>
 
       {/* Status Filter Tabs */}
-      <div className="flex gap-2 border-slate-200 border-b pb-4">
+      <div className="flex gap-2 border-neutral-200 border-b pb-4">
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status
-              ? "border border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900"
-              : "bg-slate-900 text-white"
+              ? "border border-neutral-200 text-neutral-600 hover:border-neutral-300 hover:text-neutral-900"
+              : "bg-neutral-900 text-white"
           }`}
           href="/admin/changelog"
         >
@@ -116,8 +116,8 @@ export default async function AdminChangelogPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "draft"
-              ? "bg-slate-900 text-white"
-              : "border border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900"
+              ? "bg-neutral-900 text-white"
+              : "border border-neutral-200 text-neutral-600 hover:border-neutral-300 hover:text-neutral-900"
           }`}
           href="/admin/changelog?status=draft"
         >
@@ -126,8 +126,8 @@ export default async function AdminChangelogPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "published"
-              ? "bg-slate-900 text-white"
-              : "border border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900"
+              ? "bg-neutral-900 text-white"
+              : "border border-neutral-200 text-neutral-600 hover:border-neutral-300 hover:text-neutral-900"
           }`}
           href="/admin/changelog?status=published"
         >
@@ -136,8 +136,8 @@ export default async function AdminChangelogPage({
         <Link
           className={`rounded-lg px-4 py-2 font-medium text-sm transition ${
             status === "archived"
-              ? "bg-slate-900 text-white"
-              : "border border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900"
+              ? "bg-neutral-900 text-white"
+              : "border border-neutral-200 text-neutral-600 hover:border-neutral-300 hover:text-neutral-900"
           }`}
           href="/admin/changelog?status=archived"
         >
@@ -147,12 +147,15 @@ export default async function AdminChangelogPage({
 
       {/* Changelogs List */}
       {changelogList.length === 0 ? (
-        <div className="rounded-lg border border-slate-200 bg-white p-12 text-center shadow-sm ring-1 ring-black/5">
-          <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-slate-400" icon={MagicWand01Icon} />
-          <h3 className="mb-2 font-bold text-slate-900 text-xl">No Changelogs Yet</h3>
-          <p className="mb-6 text-slate-600">Create your first changelog to get started</p>
+        <div className="rounded-lg border border-neutral-200 bg-white p-12 text-center shadow-sm ring-1 ring-black/5">
+          <HugeiconsIcon
+            className="mx-auto mb-4 h-12 w-12 text-neutral-400"
+            icon={MagicWand01Icon}
+          />
+          <h3 className="mb-2 font-bold text-neutral-900 text-xl">No Changelogs Yet</h3>
+          <p className="mb-6 text-neutral-600">Create your first changelog to get started</p>
           <Link
-            className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-6 py-3 font-semibold text-white transition hover:bg-slate-800"
+            className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-white transition hover:bg-neutral-800"
             href="/admin/changelog/new"
           >
             <HugeiconsIcon className="h-4 w-4" icon={Add01Icon} />
@@ -163,14 +166,14 @@ export default async function AdminChangelogPage({
         <div className="space-y-4">
           {changelogList.map((changelog: Changelog) => (
             <article
-              className="group rounded-lg border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-black/5 transition hover:border-slate-300 hover:shadow-md"
+              className="group rounded-lg border border-neutral-200 bg-white p-6 shadow-sm ring-1 ring-black/5 transition hover:border-neutral-300 hover:shadow-md"
               key={changelog.id}
             >
               <div className="flex items-start justify-between gap-4">
                 {/* Content */}
                 <div className="flex-1">
                   <div className="mb-3 flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-slate-100 px-3 py-1 font-semibold text-slate-900 text-xs">
+                    <span className="rounded-full bg-neutral-100 px-3 py-1 font-semibold text-neutral-900 text-xs">
                       Sprint {changelog.sprint_number}
                     </span>
                     <span
@@ -178,7 +181,7 @@ export default async function AdminChangelogPage({
                     >
                       {changelog.visibility}
                     </span>
-                    <span className="text-slate-600 text-xs">
+                    <span className="text-neutral-600 text-xs">
                       {new Date(changelog.published_at).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "short",
@@ -187,10 +190,12 @@ export default async function AdminChangelogPage({
                     </span>
                   </div>
 
-                  <h2 className="mb-2 font-bold text-slate-900 text-xl">{changelog.title}</h2>
+                  <h2 className="mb-2 font-bold text-neutral-900 text-xl">{changelog.title}</h2>
 
                   {changelog.summary && (
-                    <p className="mb-3 line-clamp-2 text-slate-600 text-sm">{changelog.summary}</p>
+                    <p className="mb-3 line-clamp-2 text-neutral-600 text-sm">
+                      {changelog.summary}
+                    </p>
                   )}
 
                   {/* Categories */}
@@ -221,7 +226,7 @@ export default async function AdminChangelogPage({
                 {/* Actions */}
                 <div className="flex flex-col gap-2">
                   <Link
-                    className="flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 font-medium text-slate-600 text-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"
+                    className="flex items-center gap-2 rounded-lg border border-neutral-200 px-3 py-2 font-medium text-neutral-600 text-sm transition hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
                     href={`/changelog/${changelog.slug}`}
                     target="_blank"
                     title="Preview"
@@ -230,7 +235,7 @@ export default async function AdminChangelogPage({
                     Preview
                   </Link>
                   <Link
-                    className="flex items-center gap-2 rounded-lg bg-slate-900 px-3 py-2 font-medium text-sm text-white transition hover:bg-slate-800"
+                    className="flex items-center gap-2 rounded-lg bg-neutral-900 px-3 py-2 font-medium text-sm text-white transition hover:bg-neutral-800"
                     href={`/admin/changelog/${changelog.id}/edit`}
                   >
                     <HugeiconsIcon className="h-4 w-4" icon={Edit01Icon} />

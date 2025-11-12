@@ -63,12 +63,12 @@ export function VerificationBadge({ level, size = "sm", className }: Verificatio
     <Badge
       className={cn(
         verificationBadgeVariants({ size }),
-        "bg-stone-100 text-stone-700 hover:bg-stone-200",
+        "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
         className
       )}
       variant="secondary"
     >
-      <HugeiconsIcon className={cn(iconSize, "text-stone-600")} icon={icon} />
+      <HugeiconsIcon className={cn(iconSize, "text-neutral-600")} icon={icon} />
       {label}
     </Badge>
   );
@@ -89,14 +89,15 @@ export function OnTimeRateBadge({ rate, size = "sm", className }: OnTimeRateBadg
     return null;
   }
 
-  const badgeClass = rate >= 90 ? "bg-stone-100 text-stone-700" : "bg-stone-50 text-stone-600";
+  const badgeClass =
+    rate >= 90 ? "bg-neutral-100 text-neutral-700" : "bg-neutral-50 text-neutral-600";
 
   return (
     <Badge
       className={cn(
         verificationBadgeVariants({ size }),
         badgeClass,
-        "hover:bg-stone-200",
+        "hover:bg-neutral-200",
         className
       )}
       variant="secondary"
@@ -123,7 +124,7 @@ export function RatingBadge({ rating, reviewCount, size = "sm", className }: Rat
       <Badge
         className={cn(
           verificationBadgeVariants({ size }),
-          "bg-stone-100 text-stone-700",
+          "bg-neutral-100 text-neutral-700",
           className
         )}
         variant="secondary"
@@ -137,7 +138,7 @@ export function RatingBadge({ rating, reviewCount, size = "sm", className }: Rat
     <Badge
       className={cn(
         verificationBadgeVariants({ size }),
-        "bg-stone-100 text-stone-700 hover:bg-stone-200",
+        "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
         className
       )}
       variant="secondary"

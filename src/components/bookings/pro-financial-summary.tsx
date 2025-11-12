@@ -133,15 +133,15 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
   };
 
   return (
-    <div className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc]/90 p-6 shadow-sm">
+    <div className="rounded-xl border border-[neutral-200] bg-[neutral-50]/90 p-6 shadow-sm">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <HugeiconsIcon className="h-5 w-5 text-[#64748b]" icon={DollarCircleIcon} />
-          <h3 className="font-semibold text-[#0f172a] text-lg">{t("title")}</h3>
+          <HugeiconsIcon className="h-5 w-5 text-[neutral-500]" icon={DollarCircleIcon} />
+          <h3 className="font-semibold text-[neutral-900] text-lg">{t("title")}</h3>
         </div>
         {needsConnect ? (
           <button
-            className="inline-flex items-center rounded-md bg-[#64748b] px-3 py-1.5 font-semibold text-[#f8fafc] text-xs shadow-sm transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex items-center rounded-md bg-[neutral-500] px-3 py-1.5 font-semibold text-[neutral-50] text-xs shadow-sm transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={isPending}
             onClick={startStripeOnboarding}
             type="button"
@@ -150,68 +150,70 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
           </button>
         ) : null}
       </div>
-      <p className="mt-1 text-[#94a3b8] text-sm">{t("description")}</p>
-      <p className="mt-2 font-medium text-[#94a3b8] text-xs">
+      <p className="mt-1 text-[neutral-400] text-sm">{t("description")}</p>
+      <p className="mt-2 font-medium text-[neutral-400] text-xs">
         {t("stripe.statusLabel")}{" "}
-        <span className={needsConnect ? "text-[#64748b]" : "text-[#64748b]"}>
+        <span className={needsConnect ? "text-[neutral-500]" : "text-[neutral-500]"}>
           {needsConnect ? t("stripe.actionRequired") : t("stripe.connected")}
         </span>
       </p>
-      {onboardingError ? <p className="mt-3 text-[#64748b] text-xs">{onboardingError}</p> : null}
+      {onboardingError ? (
+        <p className="mt-3 text-[neutral-500] text-xs">{onboardingError}</p>
+      ) : null}
 
       {noData ? (
-        <p className="mt-6 text-[#94a3b8] text-sm">{t("emptyState")}</p>
+        <p className="mt-6 text-[neutral-400] text-sm">{t("emptyState")}</p>
       ) : (
         <>
           <dl className="mt-6 grid gap-3 sm:grid-cols-2">
             <SummaryCard
-              accent="text-[#64748b]"
+              accent="text-[neutral-500]"
               amount={totals.captured}
               description={t("cards.availableAfterCompletion.description")}
               icon={DollarCircleIcon}
               title={t("cards.availableAfterCompletion.title")}
-              tone="bg-[#f8fafc]"
+              tone="bg-[neutral-50]"
             />
             <SummaryCard
-              accent="text-[#64748b]"
+              accent="text-[neutral-500]"
               amount={totals.authorized}
               description={t("cards.activeHolds.description")}
               icon={RefreshIcon}
               title={t("cards.activeHolds.title")}
-              tone="bg-[#f8fafc]"
+              tone="bg-[neutral-50]"
             />
           </dl>
 
-          <div className="mt-6 rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-4 text-[#94a3b8] text-xs">
-            <p className="font-semibold text-[#0f172a]">{t("thisMonth")}</p>
+          <div className="mt-6 rounded-lg border border-[neutral-200] bg-[neutral-50] p-4 text-[neutral-400] text-xs">
+            <p className="font-semibold text-[neutral-900]">{t("thisMonth")}</p>
             <div className="mt-2 grid gap-3 sm:grid-cols-2">
               <div>
-                <p className="text-[#94a3b8] text-xs uppercase tracking-wide">
+                <p className="text-[neutral-400] text-xs uppercase tracking-wide">
                   {t("metrics.capturedPayouts")}
                 </p>
-                <p className="font-semibold text-[#0f172a] text-sm">
+                <p className="font-semibold text-[neutral-900] text-sm">
                   {formatCOP(totals.thisMonthCaptured)}
                 </p>
               </div>
               <div>
-                <p className="text-[#94a3b8] text-xs uppercase tracking-wide">
+                <p className="text-[neutral-400] text-xs uppercase tracking-wide">
                   {t("metrics.upcomingHolds")}
                 </p>
-                <p className="font-semibold text-[#0f172a] text-sm">
+                <p className="font-semibold text-[neutral-900] text-sm">
                   {formatCOP(totals.thisMonthAuthorized)}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="mt-6 space-y-3 text-[#94a3b8] text-sm">
-            <div className="flex items-center justify-between rounded-lg border border-[#e2e8f0] bg-[#f8fafc]/80 px-3 py-2">
+          <div className="mt-6 space-y-3 text-[neutral-400] text-sm">
+            <div className="flex items-center justify-between rounded-lg border border-[neutral-200] bg-[neutral-50]/80 px-3 py-2">
               <span>{t("metrics.pendingRequests")}</span>
               <span>{formatCOP(totals.pending)}</span>
             </div>
-            <div className="flex items-center justify-between rounded-lg border border-[#e2e8f0] bg-[#f8fafc]/80 px-3 py-2">
+            <div className="flex items-center justify-between rounded-lg border border-[neutral-200] bg-[neutral-50]/80 px-3 py-2">
               <span className="flex items-center gap-2">
-                <HugeiconsIcon className="h-4 w-4 text-[#64748b]" icon={AlertCircleIcon} />
+                <HugeiconsIcon className="h-4 w-4 text-[neutral-500]" icon={AlertCircleIcon} />
                 {t("metrics.holdsReleased")}
               </span>
               <span>{formatCOP(totals.canceled)}</span>
@@ -234,13 +236,15 @@ type SummaryCardProps = {
 
 function SummaryCard({ icon, title, amount, description, tone, accent }: SummaryCardProps) {
   return (
-    <div className={`rounded-lg border border-[#e2e8f0] ${tone} p-4`}>
+    <div className={`rounded-lg border border-[neutral-200] ${tone} p-4`}>
       <div className="flex items-center gap-2">
         <HugeiconsIcon className={`h-4 w-4 ${accent}`} icon={icon} />
-        <dt className="font-semibold text-[#94a3b8] text-xs uppercase tracking-wide">{title}</dt>
+        <dt className="font-semibold text-[neutral-400] text-xs uppercase tracking-wide">
+          {title}
+        </dt>
       </div>
-      <dd className="mt-2 font-semibold text-[#0f172a] text-xl">{formatCOP(amount)}</dd>
-      <p className="mt-1 text-[#94a3b8] text-xs">{description}</p>
+      <dd className="mt-2 font-semibold text-[neutral-900] text-xl">{formatCOP(amount)}</dd>
+      <p className="mt-1 text-[neutral-400] text-xs">{description}</p>
     </div>
   );
 }

@@ -58,26 +58,26 @@ const getPriorityConfig = (priority: string) => {
   const configs = {
     urgent: {
       bg: "bg-[#E85D48]/10",
-      text: "text-stone-800",
-      border: "border-stone-300",
+      text: "text-neutral-800",
+      border: "border-neutral-300",
       label: "Urgent",
     },
     high: {
-      bg: "bg-stone-100",
-      text: "text-stone-800",
-      border: "border-stone-200",
+      bg: "bg-neutral-100",
+      text: "text-neutral-800",
+      border: "border-neutral-200",
       label: "High",
     },
     medium: {
-      bg: "bg-stone-100",
-      text: "text-stone-600",
-      border: "border-stone-300",
+      bg: "bg-neutral-100",
+      text: "text-neutral-600",
+      border: "border-neutral-300",
       label: "Medium",
     },
     low: {
-      bg: "bg-stone-100",
-      text: "text-stone-700",
-      border: "border-stone-200",
+      bg: "bg-neutral-100",
+      text: "text-neutral-700",
+      border: "border-neutral-200",
       label: "Low",
     },
   };
@@ -94,21 +94,21 @@ const getPriorityConfig = (priority: string) => {
 const getStatusConfig = (status: string) => {
   const configs = {
     open: {
-      bg: "bg-stone-50",
-      text: "text-stone-600",
-      border: "border-stone-200",
+      bg: "bg-neutral-50",
+      text: "text-neutral-600",
+      border: "border-neutral-200",
       label: "Open",
     },
     investigating: {
-      bg: "bg-stone-100",
-      text: "text-stone-600",
-      border: "border-stone-300",
+      bg: "bg-neutral-100",
+      text: "text-neutral-600",
+      border: "border-neutral-300",
       label: "Investigating",
     },
     resolved: {
-      bg: "bg-stone-100",
-      text: "text-stone-700",
-      border: "border-stone-200",
+      bg: "bg-neutral-100",
+      text: "text-neutral-700",
+      border: "border-neutral-200",
       label: "Resolved",
     },
     closed: {

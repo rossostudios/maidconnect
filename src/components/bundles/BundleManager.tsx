@@ -43,16 +43,16 @@ export function BundleManager({
   });
 
   return (
-    <div className="rounded-[24px] border-2 border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-sm">
+    <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <HugeiconsIcon className="h-6 w-6 text-[#64748b]" icon={PackageIcon} />
-          <h3 className="font-semibold text-[#0f172a] text-lg">{t("title")}</h3>
+          <HugeiconsIcon className="h-6 w-6 text-[neutral-500]" icon={PackageIcon} />
+          <h3 className="font-semibold text-[neutral-900] text-lg">{t("title")}</h3>
         </div>
 
         <button
-          className="flex items-center gap-2 rounded-xl bg-[#64748b] px-4 py-2 font-medium text-[#f8fafc] text-sm transition hover:bg-[#64748b]"
+          className="flex items-center gap-2 rounded-xl bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
           onClick={onCreateBundle}
           type="button"
         >
@@ -62,15 +62,15 @@ export function BundleManager({
       </div>
 
       {/* Description */}
-      <p className="mb-6 text-[#94a3b8] text-sm">{t("description")}</p>
+      <p className="mb-6 text-[neutral-400] text-sm">{t("description")}</p>
 
       {/* Filters */}
       <div className="mb-6 flex gap-2">
         <button
           className={`rounded-lg px-4 py-2 text-sm transition ${
             filter === "all"
-              ? "bg-[#64748b] font-semibold text-[#f8fafc]"
-              : "bg-[#f8fafc] text-[#94a3b8] hover:bg-[#f8fafc]"
+              ? "bg-[neutral-500] font-semibold text-[neutral-50]"
+              : "bg-[neutral-50] text-[neutral-400] hover:bg-[neutral-50]"
           }`}
           onClick={() => setFilter("all")}
           type="button"
@@ -80,8 +80,8 @@ export function BundleManager({
         <button
           className={`rounded-lg px-4 py-2 text-sm transition ${
             filter === "active"
-              ? "bg-[#64748b] font-semibold text-[#f8fafc]"
-              : "bg-[#f8fafc] text-[#94a3b8] hover:bg-[#f8fafc]"
+              ? "bg-[neutral-500] font-semibold text-[neutral-50]"
+              : "bg-[neutral-50] text-[neutral-400] hover:bg-[neutral-50]"
           }`}
           onClick={() => setFilter("active")}
           type="button"
@@ -91,8 +91,8 @@ export function BundleManager({
         <button
           className={`rounded-lg px-4 py-2 text-sm transition ${
             filter === "inactive"
-              ? "bg-[#64748b] font-semibold text-[#f8fafc]"
-              : "bg-[#f8fafc] text-[#94a3b8] hover:bg-[#f8fafc]"
+              ? "bg-[neutral-500] font-semibold text-[neutral-50]"
+              : "bg-[neutral-50] text-[neutral-400] hover:bg-[neutral-50]"
           }`}
           onClick={() => setFilter("inactive")}
           type="button"
@@ -115,12 +115,12 @@ export function BundleManager({
           ))}
         </div>
       ) : (
-        <div className="rounded-xl bg-[#f8fafc] py-12 text-center">
-          <HugeiconsIcon className="mx-auto mb-3 h-12 w-12 text-[#e2e8f0]" icon={PackageIcon} />
-          <p className="mb-2 font-semibold text-[#0f172a] text-lg">{t("noBundles")}</p>
-          <p className="mb-4 text-[#94a3b8] text-sm">{t("noBundlesDescription")}</p>
+        <div className="rounded-xl bg-[neutral-50] py-12 text-center">
+          <HugeiconsIcon className="mx-auto mb-3 h-12 w-12 text-[neutral-200]" icon={PackageIcon} />
+          <p className="mb-2 font-semibold text-[neutral-900] text-lg">{t("noBundles")}</p>
+          <p className="mb-4 text-[neutral-400] text-sm">{t("noBundlesDescription")}</p>
           <button
-            className="rounded-xl bg-[#64748b] px-6 py-3 font-medium text-[#f8fafc] text-sm transition hover:bg-[#64748b]"
+            className="rounded-xl bg-[neutral-500] px-6 py-3 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
             onClick={onCreateBundle}
             type="button"
           >
@@ -130,9 +130,9 @@ export function BundleManager({
       )}
 
       {/* Help Text */}
-      <div className="mt-6 rounded-xl bg-[#f8fafc] p-4 text-[#64748b] text-sm">
+      <div className="mt-6 rounded-xl bg-[neutral-50] p-4 text-[neutral-500] text-sm">
         <p className="font-semibold">{t("helpTitle")}</p>
-        <p className="mt-1 text-[#64748b]">{t("helpDescription")}</p>
+        <p className="mt-1 text-[neutral-500]">{t("helpDescription")}</p>
       </div>
     </div>
   );

@@ -47,7 +47,7 @@ export function HeroSearchBar({ className }: HeroSearchBarProps) {
   return (
     <form
       className={cn(
-        "relative mx-auto max-w-7xl overflow-visible rounded-[32px] bg-stone-50 shadow-[0_20px_70px_rgba(22,22,22,0.3)] backdrop-blur-sm",
+        "relative mx-auto max-w-7xl overflow-visible rounded-[32px] bg-neutral-50 shadow-[0_20px_70px_rgba(22,22,22,0.3)] backdrop-blur-sm",
         className
       )}
       onSubmit={handleSearch}
@@ -56,7 +56,7 @@ export function HeroSearchBar({ className }: HeroSearchBarProps) {
         {/* Location Input */}
         <div className="group relative flex items-center px-8 py-6">
           <div className="flex-1">
-            <label className="block font-semibold text-stone-400 text-xs uppercase tracking-[0.2em]">
+            <label className="block font-semibold text-neutral-400 text-xs uppercase tracking-[0.2em]">
               {t("where")}
             </label>
             <div className="mt-2">
@@ -75,26 +75,26 @@ export function HeroSearchBar({ className }: HeroSearchBarProps) {
               </Select>
             </div>
           </div>
-          <span className="-transtone-y-1/2 absolute top-1/2 right-0 hidden h-12 w-px bg-stone-200 md:block" />
+          <span className="-tranneutral-y-1/2 absolute top-1/2 right-0 hidden h-12 w-px bg-neutral-200 md:block" />
         </div>
 
         {/* Date Input */}
         <div className="group relative z-20 flex items-center px-8 py-6">
           <div className="flex-1">
-            <label className="block font-semibold text-stone-400 text-xs uppercase tracking-[0.2em]">
+            <label className="block font-semibold text-neutral-400 text-xs uppercase tracking-[0.2em]">
               {t("when")}
             </label>
             <div className="mt-2">
               <BrandedDatePicker onChange={setDate} placeholder={t("selectDate")} value={date} />
             </div>
           </div>
-          <span className="-transtone-y-1/2 absolute top-1/2 right-0 hidden h-12 w-px bg-stone-200 md:block" />
+          <span className="-tranneutral-y-1/2 absolute top-1/2 right-0 hidden h-12 w-px bg-neutral-200 md:block" />
         </div>
 
         {/* Service Type */}
         <div className="group relative flex items-center px-8 py-6">
           <div className="flex-1">
-            <label className="block font-semibold text-stone-400 text-xs uppercase tracking-[0.2em]">
+            <label className="block font-semibold text-neutral-400 text-xs uppercase tracking-[0.2em]">
               {t("service")}
             </label>
             <div className="mt-2">
@@ -113,12 +113,12 @@ export function HeroSearchBar({ className }: HeroSearchBarProps) {
               </Select>
             </div>
           </div>
-          <span className="-transtone-y-1/2 absolute top-1/2 right-0 hidden h-12 w-px bg-stone-200 md:block" />
+          <span className="-tranneutral-y-1/2 absolute top-1/2 right-0 hidden h-12 w-px bg-neutral-200 md:block" />
         </div>
 
         {/* Search Button */}
         <Button
-          className="rounded-r-[32px] bg-stone-500 px-12 py-6 font-semibold text-sm text-stone-50 uppercase tracking-[0.15em] hover:bg-stone-500 active:scale-[0.98] md:min-w-[180px]"
+          className="rounded-r-[32px] bg-neutral-500 px-12 py-6 font-semibold text-neutral-50 text-sm uppercase tracking-[0.15em] hover:bg-neutral-500 active:scale-[0.98] md:min-w-[180px]"
           type="submit"
         >
           {t("searchButton")}

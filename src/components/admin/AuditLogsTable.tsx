@@ -38,29 +38,29 @@ type Pagination = {
 const getActionBadgeConfig = (action: string) => {
   if (action.includes("approve")) {
     return {
-      bg: "bg-stone-100",
-      text: "text-stone-700",
-      border: "border-stone-200",
+      bg: "bg-neutral-100",
+      text: "text-neutral-700",
+      border: "border-neutral-200",
     };
   }
   if (action.includes("reject") || action.includes("ban")) {
     return {
       bg: "bg-[#E85D48]/10",
-      text: "text-stone-800",
-      border: "border-stone-300",
+      text: "text-neutral-800",
+      border: "border-neutral-300",
     };
   }
   if (action.includes("suspend")) {
     return {
-      bg: "bg-stone-100",
-      text: "text-stone-600",
-      border: "border-stone-300",
+      bg: "bg-neutral-100",
+      text: "text-neutral-600",
+      border: "border-neutral-300",
     };
   }
   return {
-    bg: "bg-stone-50",
-    text: "text-stone-600",
-    border: "border-stone-200",
+    bg: "bg-neutral-50",
+    text: "text-neutral-600",
+    border: "border-neutral-200",
   };
 };
 

@@ -7,10 +7,14 @@ import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 /**
- * PricingSection Component
+ * PricingSection - Swiss Design System
  *
- * Displays 3 pricing tiers with monthly/annual toggle.
- * Pro plan is highlighted with stone-900 border.
+ * Clean pricing table following Swiss principles:
+ * - Minimal card design (no heavy shadows)
+ * - Satoshi for headings and prices
+ * - Precise 8px grid spacing
+ * - Orange accent for featured plan
+ * - Clear visual hierarchy
  */
 export function PricingSection() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
@@ -62,26 +66,31 @@ export function PricingSection() {
   ];
 
   return (
-    <section className="w-full bg-stone-100 py-16 md:py-24">
+    <section className="w-full bg-neutral-50 py-24 md:py-32">
       <Container className="mx-auto max-w-7xl px-4">
-        <div className="text-center">
-          <h2 className="font-bold text-3xl text-stone-800 md:text-4xl">
+        {/* Section Header */}
+        <div className="mb-16 text-center">
+          <h2
+            className="font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl"
+            style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
+          >
             Simple, Transparent Pricing
           </h2>
-          <p className="mt-4 text-lg text-stone-600">
+          <div className="mx-auto mt-4 h-1 w-16 bg-orange-500" />
+          <p className="mt-6 text-lg text-neutral-600">
             Choose the plan that fits your household needs.
           </p>
         </div>
 
-        {/* Billing Cycle Toggle */}
-        <div className="mt-8 flex justify-center">
-          <div className="inline-flex rounded-full border-2 border-stone-300 bg-stone-50 p-1">
+        {/* Billing Toggle - Swiss Minimal */}
+        <div className="mb-16 flex justify-center">
+          <div className="inline-flex rounded-sm border border-neutral-300 bg-white p-1">
             <button
               className={cn(
-                "rounded-full px-6 py-2 font-medium text-sm transition-all",
+                "rounded-sm px-6 py-2.5 font-medium text-sm transition-all",
                 billingCycle === "monthly"
-                  ? "bg-stone-700 text-stone-50"
-                  : "text-stone-600 hover:text-stone-800"
+                  ? "bg-neutral-900 text-white"
+                  : "text-neutral-600 hover:text-neutral-900"
               )}
               onClick={() => setBillingCycle("monthly")}
               type="button"
@@ -90,89 +99,101 @@ export function PricingSection() {
             </button>
             <button
               className={cn(
-                "rounded-full px-6 py-2 font-medium text-sm transition-all",
+                "rounded-sm px-6 py-2.5 font-medium text-sm transition-all",
                 billingCycle === "annual"
-                  ? "bg-stone-700 text-stone-50"
-                  : "text-stone-600 hover:text-stone-800"
+                  ? "bg-neutral-900 text-white"
+                  : "text-neutral-600 hover:text-neutral-900"
               )}
               onClick={() => setBillingCycle("annual")}
               type="button"
             >
               Annual
-              <span className="ml-2 text-xs">(Save 20%)</span>
+              <span className="ml-2 text-orange-500 text-xs">(Save 20%)</span>
             </button>
           </div>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        {/* Pricing Grid */}
+        <div className="grid gap-8 md:grid-cols-3">
           {plans.map((plan) => {
             const price = billingCycle === "monthly" ? plan.monthlyPrice : plan.annualPrice;
 
             return (
               <div
                 className={cn(
-                  "rounded-2xl border-2 bg-stone-50 p-8 transition-all duration-200 hover:shadow-lg",
+                  "relative overflow-hidden rounded-sm bg-white p-8 transition-all duration-200",
                   plan.highlighted
-                    ? "border-stone-700 shadow-md"
-                    : "border-stone-300 hover:border-stone-400"
+                    ? "border-2 border-orange-500 shadow-lg"
+                    : "border border-neutral-200 hover:border-neutral-300"
                 )}
                 key={plan.name}
               >
+                {/* Popular Badge - Swiss Minimal */}
                 {plan.highlighted && (
-                  <div className="mb-4">
-                    <span className="inline-block rounded-full bg-stone-700 px-3 py-1 font-semibold text-stone-50 text-xs">
-                      Most Popular
+                  <div className="absolute top-0 right-0 bg-orange-500 px-4 py-1">
+                    <span className="font-medium text-white text-xs uppercase tracking-wider">
+                      Popular
                     </span>
                   </div>
                 )}
 
-                <h3 className="font-bold text-2xl text-stone-800">{plan.name}</h3>
-                <p className="mt-2 text-sm text-stone-600">{plan.description}</p>
+                {/* Plan Name */}
+                <div className="mb-2">
+                  <h3
+                    className="font-bold text-2xl text-neutral-900"
+                    style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
+                  >
+                    {plan.name}
+                  </h3>
+                </div>
 
-                <div className="mt-6">
+                {/* Description */}
+                <p className="text-neutral-600 text-sm">{plan.description}</p>
+
+                {/* Price - Large and Bold */}
+                <div className="my-8">
                   <div className="flex items-baseline">
-                    <span className="font-bold text-4xl text-stone-800">${price}</span>
-                    <span className="ml-2 text-stone-600">
-                      /{billingCycle === "monthly" ? "mo" : "mo"}
+                    <span
+                      className="font-bold text-5xl text-neutral-900 tracking-tight"
+                      style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
+                    >
+                      ${price}
                     </span>
+                    <span className="ml-2 text-neutral-600">/mo</span>
                   </div>
                   {billingCycle === "annual" && (
-                    <p className="mt-1 text-stone-500 text-xs">
+                    <p className="mt-2 text-neutral-500 text-xs">
                       Billed annually (${price * 12}/year)
                     </p>
                   )}
                 </div>
 
+                {/* CTA Button */}
                 <Button
                   asChild
-                  className={cn(
-                    "mt-6 w-full rounded-lg px-6 py-3 font-semibold transition-all",
-                    plan.highlighted
-                      ? "bg-stone-700 text-stone-50 hover:bg-stone-600"
-                      : "border-2 border-stone-300 bg-transparent text-stone-800 hover:bg-stone-100"
-                  )}
+                  className="mb-8 w-full rounded-sm"
+                  variant={plan.highlighted ? "default" : "outline"}
                 >
                   <Link href="/contact">Get Started</Link>
                 </Button>
 
-                <ul className="mt-8 space-y-3">
+                {/* Features List - Clean */}
+                <ul className="space-y-4">
                   {plan.features.map((feature) => (
                     <li className="flex items-start gap-3" key={feature}>
-                      <svg
-                        className="mt-0.5 h-5 w-5 flex-shrink-0 text-stone-700"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M5 13l4 4L19 7"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                        />
-                      </svg>
-                      <span className="text-sm text-stone-700">{feature}</span>
+                      {/* Checkmark - Minimal */}
+                      <div className="mt-0.5 h-5 w-5 flex-shrink-0">
+                        <svg
+                          className="h-5 w-5 text-neutral-900"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth={2.5}
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                      <span className="text-neutral-700 text-sm leading-tight">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -181,7 +202,8 @@ export function PricingSection() {
           })}
         </div>
 
-        <p className="mt-8 text-center text-sm text-stone-500">
+        {/* Footer Note */}
+        <p className="mt-12 text-center text-neutral-500 text-sm">
           All plans include secure payment processing and satisfaction guarantee.
         </p>
       </Container>

@@ -40,7 +40,7 @@ export function ServicesSection() {
   return (
     <FeatureSection
       align="center"
-      backgroundColor="stone-50"
+      backgroundColor="neutral-50"
       description={
         t("subtitle") ||
         "Professional home services that make life easier. From cleaning to childcare, find verified professionals ready to help."
@@ -48,7 +48,7 @@ export function ServicesSection() {
       heading={t("title")}
       id="services"
       tagline={t("badge")}
-      textColor="stone-900"
+      textColor="neutral-900"
     >
       <FeatureGrid>
         {serviceKeys.map((key) => {
@@ -70,7 +70,7 @@ export function ServicesSection() {
       {/* CTA Section */}
       <div className="mt-16 text-center">
         <Link
-          className="inline-flex items-center justify-center rounded-full border-2 border-stone-900 bg-transparent px-8 py-4 font-semibold text-stone-900 shadow-lg transition-all duration-300 hover:bg-stone-900 hover:text-white hover:shadow-xl active:scale-95"
+          className="inline-flex items-center justify-center rounded-full border-2 border-neutral-900 bg-transparent px-8 py-4 font-semibold text-neutral-900 shadow-lg transition-all duration-300 hover:bg-neutral-900 hover:text-white hover:shadow-xl active:scale-95"
           href="/professionals"
         >
           {t("viewAll") || "View All Services"}

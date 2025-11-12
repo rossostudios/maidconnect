@@ -45,7 +45,7 @@ export function UserProfileHeader({
   return (
     <div className="mb-6 flex items-start justify-between">
       <div className="flex items-center gap-4">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#e2e8f0]">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-200]">
           {user.avatar_url ? (
             <Image
               alt={user.full_name || "User"}
@@ -55,23 +55,23 @@ export function UserProfileHeader({
               width={64}
             />
           ) : (
-            <span className="type-ui-lg font-medium text-slate-600 dark:text-slate-400">
+            <span className="type-ui-lg font-medium text-neutral-600 dark:text-neutral-400">
               {(user.full_name || "?").charAt(0).toUpperCase()}
             </span>
           )}
         </div>
         <div>
-          <h2 className="type-ui-md font-semibold text-slate-900 dark:text-slate-100">
+          <h2 className="type-ui-md font-semibold text-neutral-900 dark:text-neutral-100">
             {user.full_name || "Unnamed User"}
           </h2>
-          <p className="type-body-sm text-slate-600 dark:text-slate-400">{user.email}</p>
-          <span className="type-ui-sm mt-2 inline-block rounded-lg bg-slate-900 px-3 py-1 font-medium text-white capitalize dark:bg-slate-100/10 dark:text-slate-100">
+          <p className="type-body-sm text-neutral-600 dark:text-neutral-400">{user.email}</p>
+          <span className="type-ui-sm mt-2 inline-block rounded-lg bg-neutral-900 px-3 py-1 font-medium text-white capitalize dark:bg-neutral-100/10 dark:text-neutral-100">
             {user.role}
           </span>
         </div>
       </div>
       <button
-        className="type-ui-sm rounded-lg bg-slate-900 px-4 py-2 font-medium text-white transition-colors hover:bg-slate-900 dark:bg-slate-100 dark:bg-slate-100 dark:text-slate-950"
+        className="type-ui-sm rounded-lg bg-neutral-900 px-4 py-2 font-medium text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
         onClick={onManageSuspension}
         type="button"
       >
@@ -86,17 +86,17 @@ export function SuspensionAlert({ suspension }: { suspension: Suspension }) {
 
   return (
     <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950">
-      <p className="type-ui-sm mb-2 font-medium text-slate-900 dark:text-slate-100">
+      <p className="type-ui-sm mb-2 font-medium text-neutral-900 dark:text-neutral-100">
         {isPermanent ? "Banned" : "Suspended"}
       </p>
-      <p className="type-body-sm mb-1 text-slate-900 dark:text-slate-100">
+      <p className="type-body-sm mb-1 text-neutral-900 dark:text-neutral-100">
         Reason: {suspension.reason}
       </p>
       <p className="type-body-sm text-red-700 dark:text-red-200">
         By: {suspension.suspended_by.full_name || "Admin"}
       </p>
       {suspension.expires_at && (
-        <p className="type-body-sm mt-1 text-slate-900 dark:text-slate-100">
+        <p className="type-body-sm mt-1 text-neutral-900 dark:text-neutral-100">
           {formatSuspensionDuration(suspension.expires_at)}
         </p>
       )}
@@ -108,20 +108,22 @@ export function UserDetailsGrid({ user }: { user: User }) {
   return (
     <div className="grid grid-cols-2 gap-4">
       <div>
-        <p className="type-ui-sm mb-1 font-medium text-slate-900 dark:text-slate-100">Phone</p>
-        <p className="type-body-sm text-slate-600 dark:text-slate-400">{user.phone || "—"}</p>
+        <p className="type-ui-sm mb-1 font-medium text-neutral-900 dark:text-neutral-100">Phone</p>
+        <p className="type-body-sm text-neutral-600 dark:text-neutral-400">{user.phone || "—"}</p>
       </div>
       <div>
-        <p className="type-ui-sm mb-1 font-medium text-slate-900 dark:text-slate-100">City</p>
-        <p className="type-body-sm text-slate-600 dark:text-slate-400">{user.city || "—"}</p>
+        <p className="type-ui-sm mb-1 font-medium text-neutral-900 dark:text-neutral-100">City</p>
+        <p className="type-body-sm text-neutral-600 dark:text-neutral-400">{user.city || "—"}</p>
       </div>
       <div>
-        <p className="type-ui-sm mb-1 font-medium text-slate-900 dark:text-slate-100">Address</p>
-        <p className="type-body-sm text-slate-600 dark:text-slate-400">{user.address || "—"}</p>
+        <p className="type-ui-sm mb-1 font-medium text-neutral-900 dark:text-neutral-100">
+          Address
+        </p>
+        <p className="type-body-sm text-neutral-600 dark:text-neutral-400">{user.address || "—"}</p>
       </div>
       <div>
-        <p className="type-ui-sm mb-1 font-medium text-slate-900 dark:text-slate-100">Joined</p>
-        <p className="type-body-sm text-slate-600 dark:text-slate-400">
+        <p className="type-ui-sm mb-1 font-medium text-neutral-900 dark:text-neutral-100">Joined</p>
+        <p className="type-body-sm text-neutral-600 dark:text-neutral-400">
           {new Date(user.created_at).toLocaleDateString()}
         </p>
       </div>
@@ -135,7 +137,9 @@ export function SuspensionHistoryList({
   suspensionHistory: SuspensionHistoryItem[];
 }) {
   if (suspensionHistory.length === 0) {
-    return <p className="type-body-sm text-slate-600 dark:text-slate-400">No suspension history</p>;
+    return (
+      <p className="type-body-sm text-neutral-600 dark:text-neutral-400">No suspension history</p>
+    );
   }
 
   return (
@@ -150,29 +154,29 @@ export function SuspensionHistoryList({
 function SuspensionHistoryCard({ suspension }: { suspension: SuspensionHistoryItem }) {
   const isPermanent = suspension.suspension_type === "permanent";
   const statusBgColor = isPermanent
-    ? "bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100"
-    : "bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100";
+    ? "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100"
+    : "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
 
   return (
-    <div className="rounded-lg border border-slate-200 p-4 dark:border-slate-800">
+    <div className="rounded-lg border border-neutral-200 p-4 dark:border-neutral-800">
       <div className="mb-2 flex items-center justify-between">
         <span className={`rounded px-2 py-1 font-medium text-xs ${statusBgColor}`}>
           {isPermanent ? "Banned" : "Suspended"}
         </span>
         {suspension.lifted_at && (
-          <span className="rounded bg-slate-900 px-2 py-1 font-medium text-white text-xs dark:bg-slate-100/10 dark:text-slate-100">
+          <span className="rounded bg-neutral-900 px-2 py-1 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
             Lifted
           </span>
         )}
       </div>
-      <p className="type-body-sm mb-1 text-slate-900 dark:text-slate-100">
+      <p className="type-body-sm mb-1 text-neutral-900 dark:text-neutral-100">
         Reason: {suspension.reason}
       </p>
-      <p className="type-body-sm text-slate-600 dark:text-slate-400">
+      <p className="type-body-sm text-neutral-600 dark:text-neutral-400">
         Date: {new Date(suspension.suspended_at).toLocaleDateString()}
       </p>
       {suspension.lifted_at && (
-        <p className="type-body-sm text-slate-600 dark:text-slate-400">
+        <p className="type-body-sm text-neutral-600 dark:text-neutral-400">
           Lifted: {new Date(suspension.lifted_at).toLocaleDateString()}
         </p>
       )}
@@ -189,30 +193,34 @@ export function UserStatsCard({
   };
 }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
-      <h3 className="type-ui-md mb-4 font-semibold text-slate-900 dark:text-slate-100">Stats</h3>
+    <div className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+      <h3 className="type-ui-md mb-4 font-semibold text-neutral-900 dark:text-neutral-100">
+        Stats
+      </h3>
       <div className="space-y-4">
         {stats.bookings && (
           <>
             <div>
-              <p className="type-ui-sm font-medium text-slate-900 dark:text-slate-100">
+              <p className="type-ui-sm font-medium text-neutral-900 dark:text-neutral-100">
                 Total Bookings
               </p>
-              <p className="type-ui-lg font-bold text-slate-900 dark:text-slate-100">
+              <p className="type-ui-lg font-bold text-neutral-900 dark:text-neutral-100">
                 {stats.bookings.total}
               </p>
             </div>
             <div>
-              <p className="type-ui-sm font-medium text-slate-900 dark:text-slate-100">Completed</p>
-              <p className="type-ui-lg font-bold text-slate-900 dark:text-slate-100">
+              <p className="type-ui-sm font-medium text-neutral-900 dark:text-neutral-100">
+                Completed
+              </p>
+              <p className="type-ui-lg font-bold text-neutral-900 dark:text-neutral-100">
                 {stats.bookings.completed}
               </p>
             </div>
           </>
         )}
         <div>
-          <p className="type-ui-sm font-medium text-slate-900 dark:text-slate-100">Disputes</p>
-          <p className="type-ui-lg font-bold text-slate-900 dark:text-slate-100">
+          <p className="type-ui-sm font-medium text-neutral-900 dark:text-neutral-100">Disputes</p>
+          <p className="type-ui-lg font-bold text-neutral-900 dark:text-neutral-100">
             {stats.disputes}
           </p>
         </div>

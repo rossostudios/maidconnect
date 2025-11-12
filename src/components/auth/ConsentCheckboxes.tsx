@@ -20,8 +20,8 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
       {/* Privacy Policy Consent - REQUIRED */}
       <label
         className={cn(
-          "flex cursor-pointer items-start gap-3 text-sm text-stone-900",
-          errors?.privacyConsent && "text-stone-800"
+          "flex cursor-pointer items-start gap-3 text-neutral-900 text-sm",
+          errors?.privacyConsent && "text-neutral-800"
         )}
       >
         <input
@@ -29,8 +29,8 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
           aria-invalid={Boolean(errors?.privacyConsent)}
           aria-required="true"
           className={cn(
-            "mt-[2px] h-4 w-4 shrink-0 rounded border-stone-300 accent-stone-900",
-            errors?.privacyConsent && "border-stone-800 accent-stone-800"
+            "mt-[2px] h-4 w-4 shrink-0 rounded border-neutral-300 accent-neutral-900",
+            errors?.privacyConsent && "border-neutral-800 accent-neutral-800"
           )}
           id="privacyConsent"
           name="privacyConsent"
@@ -42,14 +42,14 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             <>
               He leído y acepto la{" "}
               <Link
-                className="font-semibold text-stone-900 underline decoration-stone-400 underline-offset-4 transition-colors hover:decoration-stone-700"
+                className="font-semibold text-neutral-900 underline decoration-neutral-400 underline-offset-4 transition-colors hover:decoration-neutral-700"
                 href="/privacy"
                 target="_blank"
               >
                 Política de Privacidad
               </Link>
               .{" "}
-              <span aria-hidden="true" className="font-bold text-stone-800">
+              <span aria-hidden="true" className="font-bold text-neutral-800">
                 *
               </span>
               <span className="sr-only">(required)</span>
@@ -58,14 +58,14 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             <>
               I have read and accept the{" "}
               <Link
-                className="font-semibold text-stone-900 underline decoration-stone-400 underline-offset-4 transition-colors hover:decoration-stone-700"
+                className="font-semibold text-neutral-900 underline decoration-neutral-400 underline-offset-4 transition-colors hover:decoration-neutral-700"
                 href="/privacy"
                 target="_blank"
               >
                 Privacy Policy
               </Link>
               .{" "}
-              <span aria-hidden="true" className="font-bold text-stone-800">
+              <span aria-hidden="true" className="font-bold text-neutral-800">
                 *
               </span>
               <span className="sr-only">(required)</span>
@@ -74,7 +74,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
         </span>
       </label>
       {errors?.privacyConsent ? (
-        <p className="ml-7 text-stone-800 text-xs" id="privacyConsent-error" role="alert">
+        <p className="ml-7 text-neutral-800 text-xs" id="privacyConsent-error" role="alert">
           {errors.privacyConsent}
         </p>
       ) : null}
@@ -82,8 +82,8 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
       {/* Terms of Service Consent - REQUIRED */}
       <label
         className={cn(
-          "flex cursor-pointer items-start gap-3 text-sm text-stone-900",
-          errors?.termsConsent && "text-stone-800"
+          "flex cursor-pointer items-start gap-3 text-neutral-900 text-sm",
+          errors?.termsConsent && "text-neutral-800"
         )}
       >
         <input
@@ -91,8 +91,8 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
           aria-invalid={Boolean(errors?.termsConsent)}
           aria-required="true"
           className={cn(
-            "mt-[2px] h-4 w-4 shrink-0 rounded border-stone-300 accent-stone-900",
-            errors?.termsConsent && "border-stone-800 accent-stone-800"
+            "mt-[2px] h-4 w-4 shrink-0 rounded border-neutral-300 accent-neutral-900",
+            errors?.termsConsent && "border-neutral-800 accent-neutral-800"
           )}
           id="termsConsent"
           name="termsConsent"
@@ -104,14 +104,14 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             <>
               He leído y acepto los{" "}
               <Link
-                className="font-semibold text-stone-900 underline decoration-stone-400 underline-offset-4 transition-colors hover:decoration-stone-700"
+                className="font-semibold text-neutral-900 underline decoration-neutral-400 underline-offset-4 transition-colors hover:decoration-neutral-700"
                 href="/terms"
                 target="_blank"
               >
                 Términos y Condiciones
               </Link>
               .{" "}
-              <span aria-hidden="true" className="font-bold text-stone-800">
+              <span aria-hidden="true" className="font-bold text-neutral-800">
                 *
               </span>
               <span className="sr-only">(required)</span>
@@ -120,14 +120,14 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             <>
               I have read and accept the{" "}
               <Link
-                className="font-semibold text-stone-900 underline decoration-stone-400 underline-offset-4 transition-colors hover:decoration-stone-700"
+                className="font-semibold text-neutral-900 underline decoration-neutral-400 underline-offset-4 transition-colors hover:decoration-neutral-700"
                 href="/terms"
                 target="_blank"
               >
                 Terms and Conditions
               </Link>
               .{" "}
-              <span aria-hidden="true" className="font-bold text-stone-800">
+              <span aria-hidden="true" className="font-bold text-neutral-800">
                 *
               </span>
               <span className="sr-only">(required)</span>
@@ -136,7 +136,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
         </span>
       </label>
       {errors?.termsConsent ? (
-        <p className="ml-7 text-stone-800 text-xs" id="termsConsent-error" role="alert">
+        <p className="ml-7 text-neutral-800 text-xs" id="termsConsent-error" role="alert">
           {errors.termsConsent}
         </p>
       ) : null}
@@ -144,16 +144,16 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
       {/* Data Processing Consent - REQUIRED (Ley 1581 de 2012) */}
       <label
         className={cn(
-          "flex items-start gap-3 text-[#0f172a] text-sm",
-          errors?.dataProcessingConsent && "text-[#64748b]"
+          "flex items-start gap-3 text-[neutral-900] text-sm",
+          errors?.dataProcessingConsent && "text-[neutral-500]"
         )}
       >
         <input
           aria-invalid={Boolean(errors?.dataProcessingConsent)}
           aria-required="true"
           className={cn(
-            "mt-[2px] h-4 w-4 shrink-0 accent-[#0f172a]",
-            errors?.dataProcessingConsent && "accent-[#64748b]"
+            "mt-[2px] h-4 w-4 shrink-0 accent-[neutral-900]",
+            errors?.dataProcessingConsent && "accent-[neutral-500]"
           )}
           name="dataProcessingConsent"
           required
@@ -167,7 +167,7 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
               transferencia a terceros (como procesadores de pago, proveedores de servicios en la
               nube, y otros necesarios para la operación de la plataforma), de acuerdo con lo
               establecido en la Ley 1581 de 2012 y la Política de Privacidad.{" "}
-              <span className="text-[#64748b]">*</span>
+              <span className="text-[neutral-500]">*</span>
             </>
           ) : (
             <>
@@ -175,19 +175,19 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
               storage, use, circulation, processing, and transfer to third parties (such as payment
               processors, cloud service providers, and others necessary for platform operation), in
               accordance with Law 1581 of 2012 and the Privacy Policy.{" "}
-              <span className="text-[#64748b]">*</span>
+              <span className="text-[neutral-500]">*</span>
             </>
           )}
         </span>
       </label>
       {errors?.dataProcessingConsent ? (
-        <p className="ml-7 text-[#64748b] text-xs">{errors.dataProcessingConsent}</p>
+        <p className="ml-7 text-[neutral-500] text-xs">{errors.dataProcessingConsent}</p>
       ) : null}
 
       {/* Marketing Communications - OPTIONAL */}
-      <label className="flex items-start gap-3 text-[#0f172a] text-sm">
+      <label className="flex items-start gap-3 text-[neutral-900] text-sm">
         <input
-          className="mt-[2px] h-4 w-4 shrink-0 accent-[#0f172a]"
+          className="mt-[2px] h-4 w-4 shrink-0 accent-[neutral-900]"
           defaultChecked={false}
           name="marketingConsent"
           type="checkbox"
@@ -197,26 +197,27 @@ export function ConsentCheckboxes({ errors, locale = "en" }: ConsentCheckboxesPr
             <>
               Acepto recibir correos electrónicos promocionales, ofertas especiales, y noticias de
               Casaora. Puedo retirar mi consentimiento en cualquier momento.{" "}
-              <span className="text-[#94a3b8]">(Opcional)</span>
+              <span className="text-[neutral-400]">(Opcional)</span>
             </>
           ) : (
             <>
               I agree to receive promotional emails, special offers, and news from Casaora. I can
-              withdraw my consent at any time. <span className="text-[#94a3b8]">(Optional)</span>
+              withdraw my consent at any time.{" "}
+              <span className="text-[neutral-400]">(Optional)</span>
             </>
           )}
         </span>
       </label>
 
       {/* Required fields note */}
-      <p className="text-[#94a3b8] text-xs">
+      <p className="text-[neutral-400] text-xs">
         {isSpanish ? (
           <>
-            <span className="text-[#64748b]">*</span> Campos requeridos
+            <span className="text-[neutral-500]">*</span> Campos requeridos
           </>
         ) : (
           <>
-            <span className="text-[#64748b]">*</span> Required fields
+            <span className="text-[neutral-500]">*</span> Required fields
           </>
         )}
       </p>

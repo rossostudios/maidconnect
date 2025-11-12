@@ -408,7 +408,7 @@ export function UnifiedCommandPalette({
 
   return (
     <Command.Dialog
-      className="-transtone-x-1/2 fixed top-[20%] left-1/2 z-[100] w-full max-w-2xl overflow-hidden rounded-lg border border-stone-200/60 bg-[#f8fafc] shadow-[0_24px_60px_rgba(22,22,22,0.20)] dark:border-stone-700/60"
+      className="-tranneutral-x-1/2 fixed top-[20%] left-1/2 z-[100] w-full max-w-2xl overflow-hidden rounded-lg border border-neutral-200/60 bg-[neutral-50] shadow-[0_24px_60px_rgba(22,22,22,0.20)] dark:border-neutral-700/60"
       onOpenChange={handleOpenChange}
       open={open}
       shouldFilter
@@ -417,21 +417,21 @@ export function UnifiedCommandPalette({
       <span className="sr-only">Command Palette</span>
 
       {/* Search Input */}
-      <div className="flex items-center border-stone-200/60 border-b px-4 dark:border-stone-700/60">
+      <div className="flex items-center border-neutral-200/60 border-b px-4 dark:border-neutral-700/60">
         <HugeiconsIcon
           aria-hidden="true"
-          className="mr-3 h-5 w-5 flex-shrink-0 text-[#94a3b8]"
+          className="mr-3 h-5 w-5 flex-shrink-0 text-[neutral-400]"
           icon={Search01Icon}
         />
         <Command.Input
-          className="h-14 w-full bg-transparent font-medium text-[#0f172a] text-base placeholder:text-[#94a3b8] focus:outline-none"
+          className="h-14 w-full bg-transparent font-medium text-[neutral-900] text-base placeholder:text-[neutral-400] focus:outline-none"
           onValueChange={setSearch}
           placeholder="Search for commands, help articles, professionals..."
           value={search}
         />
         <button
           aria-label="Close command palette"
-          className="ml-2 flex-shrink-0 rounded-lg p-2 text-[#94a3b8] transition-colors hover:bg-[#f8fafc] hover:text-[#0f172a]"
+          className="ml-2 flex-shrink-0 rounded-lg p-2 text-[neutral-400] transition-colors hover:bg-[neutral-50] hover:text-[neutral-900]"
           onClick={() => handleOpenChange(false)}
           type="button"
         >
@@ -443,46 +443,49 @@ export function UnifiedCommandPalette({
       <Command.List className="max-h-[400px] overflow-y-auto p-2">
         {/* Empty State */}
         <Command.Empty className="flex flex-col items-center justify-center px-4 py-12 text-center">
-          <div className="mb-3 rounded-full bg-[#f8fafc] p-3">
-            <HugeiconsIcon className="h-6 w-6 text-[#94a3b8]" icon={Search01Icon} />
+          <div className="mb-3 rounded-full bg-[neutral-50] p-3">
+            <HugeiconsIcon className="h-6 w-6 text-[neutral-400]" icon={Search01Icon} />
           </div>
-          <p className="mb-1 font-semibold text-[#0f172a] text-sm">No results found</p>
-          <p className="text-[#94a3b8] text-xs">Try searching for something else</p>
+          <p className="mb-1 font-semibold text-[neutral-900] text-sm">No results found</p>
+          <p className="text-[neutral-400] text-xs">Try searching for something else</p>
         </Command.Empty>
 
         {/* Loading State */}
         {isSearching && (
           <div className="flex items-center justify-center px-4 py-8">
-            <HugeiconsIcon className="h-5 w-5 animate-spin text-[#64748b]" icon={Loading03Icon} />
-            <span className="ml-2 text-[#94a3b8] text-sm">Searching...</span>
+            <HugeiconsIcon
+              className="h-5 w-5 animate-spin text-[neutral-500]"
+              icon={Loading03Icon}
+            />
+            <span className="ml-2 text-[neutral-400] text-sm">Searching...</span>
           </div>
         )}
 
         {/* Recent Items - Show when search is empty */}
         {!(isSearching || search) && recentItems.length > 0 && (
           <Command.Group
-            className="[&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-[#94a3b8] [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider"
+            className="[&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-[neutral-400] [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider"
             heading="Recent"
           >
             {recentItems.map((item) => (
               <Command.Item
                 className={cn(
                   "group relative mb-1 flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all",
-                  "text-[#0f172a]",
-                  "hover:bg-[#f8fafc]",
-                  "aria-selected:bg-[#0f172a] aria-selected:text-[#f8fafc] aria-selected:shadow-sm"
+                  "text-[neutral-900]",
+                  "hover:bg-[neutral-50]",
+                  "aria-selected:bg-[neutral-900] aria-selected:text-[neutral-50] aria-selected:shadow-sm"
                 )}
                 key={item.id}
                 onSelect={() => navigate(item.url, item.title, item.description)}
                 value={`${item.title} ${item.description || ""}`}
               >
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[#f8fafc] text-[#64748b] transition-colors group-hover:bg-white group-aria-selected:bg-white/20 group-aria-selected:text-[#f8fafc]">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[neutral-50] text-[neutral-500] transition-colors group-hover:bg-white group-aria-selected:bg-white/20 group-aria-selected:text-[neutral-50]">
                   <HugeiconsIcon className="h-4 w-4" icon={DashboardSquare01Icon as never} />
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                   <span className="truncate font-semibold">{item.title}</span>
                   {item.description && (
-                    <span className="truncate text-[#94a3b8] text-xs group-aria-selected:text-[#f8fafc]/80">
+                    <span className="truncate text-[neutral-400] text-xs group-aria-selected:text-[neutral-50]/80">
                       {item.description}
                     </span>
                   )}
@@ -496,7 +499,7 @@ export function UnifiedCommandPalette({
         {!isSearching &&
           categories.map((category) => (
             <Command.Group
-              className="[&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-[#94a3b8] [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider"
+              className="[&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-[neutral-400] [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider"
               heading={category}
               key={category}
             >
@@ -506,9 +509,9 @@ export function UnifiedCommandPalette({
                   <Command.Item
                     className={cn(
                       "group relative mb-1 flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all",
-                      "text-[#0f172a]",
-                      "hover:bg-[#f8fafc]",
-                      "aria-selected:bg-[#0f172a] aria-selected:text-[#f8fafc] aria-selected:shadow-sm"
+                      "text-[neutral-900]",
+                      "hover:bg-[neutral-50]",
+                      "aria-selected:bg-[neutral-900] aria-selected:text-[neutral-50] aria-selected:shadow-sm"
                     )}
                     key={cmd.id}
                     onSelect={() => {
@@ -517,14 +520,14 @@ export function UnifiedCommandPalette({
                     value={`${cmd.label} ${cmd.description || ""} ${cmd.keywords?.join(" ") || ""}`}
                   >
                     {cmd.icon !== undefined && (
-                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[#f8fafc] text-[#64748b] transition-colors group-hover:bg-white group-aria-selected:bg-white/20 group-aria-selected:text-[#f8fafc]">
+                      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[neutral-50] text-[neutral-500] transition-colors group-hover:bg-white group-aria-selected:bg-white/20 group-aria-selected:text-[neutral-50]">
                         <HugeiconsIcon className="h-4 w-4" icon={cmd.icon as never} />
                       </div>
                     )}
                     <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                       <span className="truncate font-semibold">{cmd.label}</span>
                       {cmd.description && (
-                        <span className="truncate text-[#94a3b8] text-xs group-aria-selected:text-[#f8fafc]/80">
+                        <span className="truncate text-[neutral-400] text-xs group-aria-selected:text-[neutral-50]/80">
                           {cmd.description}
                         </span>
                       )}
@@ -537,7 +540,7 @@ export function UnifiedCommandPalette({
         {/* Search Results - Help Articles */}
         {!isSearching && searchResults.filter((r) => r.type === "help_article").length > 0 && (
           <Command.Group
-            className="[&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-[#94a3b8] [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider"
+            className="[&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-[neutral-400] [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider"
             heading="Help Articles"
           >
             {searchResults
@@ -546,20 +549,20 @@ export function UnifiedCommandPalette({
                 <Command.Item
                   className={cn(
                     "group relative mb-1 flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all",
-                    "text-[#0f172a]",
-                    "hover:bg-[#f8fafc]",
-                    "aria-selected:bg-[#0f172a] aria-selected:text-[#f8fafc] aria-selected:shadow-sm"
+                    "text-[neutral-900]",
+                    "hover:bg-[neutral-50]",
+                    "aria-selected:bg-[neutral-900] aria-selected:text-[neutral-50] aria-selected:shadow-sm"
                   )}
                   key={result.id}
                   onSelect={() => navigate(result.url, result.title, result.description)}
                   value={`${result.title} ${result.description}`}
                 >
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[#f8fafc] text-[#64748b] transition-colors group-hover:bg-white group-aria-selected:bg-white/20 group-aria-selected:text-[#f8fafc]">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[neutral-50] text-[neutral-500] transition-colors group-hover:bg-white group-aria-selected:bg-white/20 group-aria-selected:text-[neutral-50]">
                     <HugeiconsIcon className="h-4 w-4" icon={HelpCircleIcon as never} />
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                     <span className="truncate font-semibold">{result.title}</span>
-                    <span className="truncate text-[#94a3b8] text-xs group-aria-selected:text-[#f8fafc]/80">
+                    <span className="truncate text-[neutral-400] text-xs group-aria-selected:text-[neutral-50]/80">
                       {result.description}
                     </span>
                   </div>
@@ -571,7 +574,7 @@ export function UnifiedCommandPalette({
         {/* Search Results - Professionals */}
         {!isSearching && searchResults.filter((r) => r.type === "professional").length > 0 && (
           <Command.Group
-            className="[&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-[#94a3b8] [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider"
+            className="[&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-[neutral-400] [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider"
             heading="Professionals"
           >
             {searchResults
@@ -580,20 +583,20 @@ export function UnifiedCommandPalette({
                 <Command.Item
                   className={cn(
                     "group relative mb-1 flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all",
-                    "text-[#0f172a]",
-                    "hover:bg-[#f8fafc]",
-                    "aria-selected:bg-[#0f172a] aria-selected:text-[#f8fafc] aria-selected:shadow-sm"
+                    "text-[neutral-900]",
+                    "hover:bg-[neutral-50]",
+                    "aria-selected:bg-[neutral-900] aria-selected:text-[neutral-50] aria-selected:shadow-sm"
                   )}
                   key={result.id}
                   onSelect={() => navigate(result.url, result.title, result.description)}
                   value={`${result.title} ${result.description}`}
                 >
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[#f8fafc] text-[#64748b] transition-colors group-hover:bg-white group-aria-selected:bg-white/20 group-aria-selected:text-[#f8fafc]">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[neutral-50] text-[neutral-500] transition-colors group-hover:bg-white group-aria-selected:bg-white/20 group-aria-selected:text-[neutral-50]">
                     <HugeiconsIcon className="h-4 w-4" icon={UserIcon as never} />
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                     <span className="truncate font-semibold">{result.title}</span>
-                    <span className="truncate text-[#94a3b8] text-xs group-aria-selected:text-[#f8fafc]/80">
+                    <span className="truncate text-[neutral-400] text-xs group-aria-selected:text-[neutral-50]/80">
                       {result.description}
                     </span>
                   </div>
@@ -605,7 +608,7 @@ export function UnifiedCommandPalette({
         {/* Search Results - Changelog */}
         {!isSearching && searchResults.filter((r) => r.type === "changelog").length > 0 && (
           <Command.Group
-            className="[&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-[#94a3b8] [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider"
+            className="[&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-[neutral-400] [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider"
             heading="Changelog"
           >
             {searchResults
@@ -614,20 +617,20 @@ export function UnifiedCommandPalette({
                 <Command.Item
                   className={cn(
                     "group relative mb-1 flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all",
-                    "text-[#0f172a]",
-                    "hover:bg-[#f8fafc]",
-                    "aria-selected:bg-[#0f172a] aria-selected:text-[#f8fafc] aria-selected:shadow-sm"
+                    "text-[neutral-900]",
+                    "hover:bg-[neutral-50]",
+                    "aria-selected:bg-[neutral-900] aria-selected:text-[neutral-50] aria-selected:shadow-sm"
                   )}
                   key={result.id}
                   onSelect={() => navigate(result.url, result.title, result.description)}
                   value={`${result.title} ${result.description}`}
                 >
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[#f8fafc] text-[#64748b] transition-colors group-hover:bg-white group-aria-selected:bg-white/20 group-aria-selected:text-[#f8fafc]">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[neutral-50] text-[neutral-500] transition-colors group-hover:bg-white group-aria-selected:bg-white/20 group-aria-selected:text-[neutral-50]">
                     <HugeiconsIcon className="h-4 w-4" icon={Notification03Icon as never} />
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                     <span className="truncate font-semibold">{result.title}</span>
-                    <span className="truncate text-[#94a3b8] text-xs group-aria-selected:text-[#f8fafc]/80">
+                    <span className="truncate text-[neutral-400] text-xs group-aria-selected:text-[neutral-50]/80">
                       {result.description}
                     </span>
                   </div>
@@ -639,7 +642,7 @@ export function UnifiedCommandPalette({
         {/* Search Results - Roadmap */}
         {!isSearching && searchResults.filter((r) => r.type === "roadmap").length > 0 && (
           <Command.Group
-            className="[&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-[#94a3b8] [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider"
+            className="[&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-[neutral-400] [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider"
             heading="Roadmap"
           >
             {searchResults
@@ -648,20 +651,20 @@ export function UnifiedCommandPalette({
                 <Command.Item
                   className={cn(
                     "group relative mb-1 flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all",
-                    "text-[#0f172a]",
-                    "hover:bg-[#f8fafc]",
-                    "aria-selected:bg-[#0f172a] aria-selected:text-[#f8fafc] aria-selected:shadow-sm"
+                    "text-[neutral-900]",
+                    "hover:bg-[neutral-50]",
+                    "aria-selected:bg-[neutral-900] aria-selected:text-[neutral-50] aria-selected:shadow-sm"
                   )}
                   key={result.id}
                   onSelect={() => navigate(result.url, result.title, result.description)}
                   value={`${result.title} ${result.description}`}
                 >
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[#f8fafc] text-[#64748b] transition-colors group-hover:bg-white group-aria-selected:bg-white/20 group-aria-selected:text-[#f8fafc]">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[neutral-50] text-[neutral-500] transition-colors group-hover:bg-white group-aria-selected:bg-white/20 group-aria-selected:text-[neutral-50]">
                     <HugeiconsIcon className="h-4 w-4" icon={TaskDaily01Icon as never} />
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                     <span className="truncate font-semibold">{result.title}</span>
-                    <span className="truncate text-[#94a3b8] text-xs group-aria-selected:text-[#f8fafc]/80">
+                    <span className="truncate text-[neutral-400] text-xs group-aria-selected:text-[neutral-50]/80">
                       {result.description}
                     </span>
                   </div>
@@ -673,7 +676,7 @@ export function UnifiedCommandPalette({
         {/* Search Results - City Pages */}
         {!isSearching && searchResults.filter((r) => r.type === "city_page").length > 0 && (
           <Command.Group
-            className="[&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-[#94a3b8] [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider"
+            className="[&_[cmdk-group-heading]]:mb-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-[neutral-400] [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider"
             heading="Cities"
           >
             {searchResults
@@ -682,20 +685,20 @@ export function UnifiedCommandPalette({
                 <Command.Item
                   className={cn(
                     "group relative mb-1 flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all",
-                    "text-[#0f172a]",
-                    "hover:bg-[#f8fafc]",
-                    "aria-selected:bg-[#0f172a] aria-selected:text-[#f8fafc] aria-selected:shadow-sm"
+                    "text-[neutral-900]",
+                    "hover:bg-[neutral-50]",
+                    "aria-selected:bg-[neutral-900] aria-selected:text-[neutral-50] aria-selected:shadow-sm"
                   )}
                   key={result.id}
                   onSelect={() => navigate(result.url, result.title, result.description)}
                   value={`${result.title} ${result.description}`}
                 >
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[#f8fafc] text-[#64748b] transition-colors group-hover:bg-white group-aria-selected:bg-white/20 group-aria-selected:text-[#f8fafc]">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[neutral-50] text-[neutral-500] transition-colors group-hover:bg-white group-aria-selected:bg-white/20 group-aria-selected:text-[neutral-50]">
                     <HugeiconsIcon className="h-4 w-4" icon={LocationAdd01Icon as never} />
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                     <span className="truncate font-semibold">{result.title}</span>
-                    <span className="truncate text-[#94a3b8] text-xs group-aria-selected:text-[#f8fafc]/80">
+                    <span className="truncate text-[neutral-400] text-xs group-aria-selected:text-[neutral-50]/80">
                       {result.description}
                     </span>
                   </div>
@@ -706,27 +709,27 @@ export function UnifiedCommandPalette({
       </Command.List>
 
       {/* Footer */}
-      <div className="flex items-center gap-4 border-stone-200/60 border-t bg-[#f8fafc] px-4 py-3 text-[#94a3b8] text-xs dark:border-stone-700/60">
+      <div className="flex items-center gap-4 border-neutral-200/60 border-t bg-[neutral-50] px-4 py-3 text-[neutral-400] text-xs dark:border-neutral-700/60">
         <div className="flex items-center gap-1.5">
-          <kbd className="rounded border border-stone-200/60 bg-white px-2 py-1 font-mono text-[#64748b] text-[10px] shadow-sm dark:border-stone-700/60">
+          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-[neutral-500] shadow-sm dark:border-neutral-700/60">
             ↑↓
           </kbd>
           <span>Navigate</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <kbd className="rounded border border-stone-200/60 bg-white px-2 py-1 font-mono text-[#64748b] text-[10px] shadow-sm dark:border-stone-700/60">
+          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-[neutral-500] shadow-sm dark:border-neutral-700/60">
             ↵
           </kbd>
           <span>Select</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <kbd className="rounded border border-stone-200/60 bg-white px-2 py-1 font-mono text-[#64748b] text-[10px] shadow-sm dark:border-stone-700/60">
+          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-[neutral-500] shadow-sm dark:border-neutral-700/60">
             Esc
           </kbd>
           <span>Close</span>
         </div>
         <div className="ml-auto flex items-center gap-1.5">
-          <kbd className="rounded border border-stone-200/60 bg-white px-2 py-1 font-mono text-[#64748b] text-[10px] shadow-sm dark:border-stone-700/60">
+          <kbd className="rounded border border-neutral-200/60 bg-white px-2 py-1 font-mono text-[10px] text-[neutral-500] shadow-sm dark:border-neutral-700/60">
             ⌘K
           </kbd>
           <span>to open</span>

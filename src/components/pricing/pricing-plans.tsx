@@ -68,8 +68,8 @@ export function PricingPlans() {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
-          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-slate-200 border-t-slate-900" />
-          <p className="text-slate-600">Loading pricing plans...</p>
+          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-neutral-200 border-t-neutral-900" />
+          <p className="text-neutral-600">Loading pricing plans...</p>
         </div>
       </div>
     );
@@ -80,9 +80,9 @@ export function PricingPlans() {
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
           <p className="mb-4 text-red-600">Error loading pricing plans</p>
-          <p className="mb-4 text-slate-600 text-sm">{error}</p>
+          <p className="mb-4 text-neutral-600 text-sm">{error}</p>
           <button
-            className="rounded-xl border-2 border-slate-300 px-6 py-2 font-semibold text-slate-900 hover:border-slate-900"
+            className="rounded-xl border-2 border-neutral-300 px-6 py-2 font-semibold text-neutral-900 hover:border-neutral-900"
             onClick={() => window.location.reload()}
             type="button"
           >
@@ -97,13 +97,13 @@ export function PricingPlans() {
     <div className="space-y-12">
       {/* Billing toggle */}
       <div className="flex items-center justify-center">
-        <Card className="inline-flex items-center gap-4 border-2 border-slate-200 bg-white p-2">
+        <Card className="inline-flex items-center gap-4 border-2 border-neutral-200 bg-white p-2">
           <button
             className={cn(
               "rounded-xl px-6 py-2 font-medium transition-all",
               billingPeriod === "monthly"
-                ? "bg-slate-900 text-white"
-                : "text-slate-600 hover:text-slate-900"
+                ? "bg-neutral-900 text-white"
+                : "text-neutral-600 hover:text-neutral-900"
             )}
             onClick={() => setBillingPeriod("monthly")}
             type="button"
@@ -114,8 +114,8 @@ export function PricingPlans() {
             className={cn(
               "relative rounded-xl px-6 py-2 font-medium transition-all",
               billingPeriod === "annual"
-                ? "bg-slate-900 text-white"
-                : "text-slate-600 hover:text-slate-900"
+                ? "bg-neutral-900 text-white"
+                : "text-neutral-600 hover:text-neutral-900"
             )}
             onClick={() => setBillingPeriod("annual")}
             type="button"
@@ -138,37 +138,37 @@ export function PricingPlans() {
               className={cn(
                 "relative bg-white transition-all",
                 plan.highlight_as_popular
-                  ? "scale-105 border-4 border-slate-900 shadow-xl"
-                  : "border-2 border-slate-200 hover:border-slate-300"
+                  ? "scale-105 border-4 border-neutral-900 shadow-xl"
+                  : "border-2 border-neutral-200 hover:border-neutral-300"
               )}
               key={plan.id}
             >
               {plan.highlight_as_popular && (
-                <div className="-top-4 -translate-x-1/2 absolute left-1/2 rounded-full bg-slate-900 px-4 py-1 font-semibold text-sm text-white">
+                <div className="-top-4 -tranneutral-x-1/2 absolute left-1/2 rounded-full bg-neutral-900 px-4 py-1 font-semibold text-sm text-white">
                   Most Popular
                 </div>
               )}
 
               <CardContent className="p-8">
                 <div className="mb-6 text-center">
-                  <h3 className="mb-2 font-bold text-2xl text-slate-900">{plan.name}</h3>
-                  <p className="text-slate-600">{plan.description}</p>
+                  <h3 className="mb-2 font-bold text-2xl text-neutral-900">{plan.name}</h3>
+                  <p className="text-neutral-600">{plan.description}</p>
                   {plan.recommended_for && (
-                    <p className="mt-2 text-slate-600 text-sm italic">
+                    <p className="mt-2 text-neutral-600 text-sm italic">
                       Recommended for: {plan.recommended_for}
                     </p>
                   )}
                 </div>
 
                 <div className="mb-8 text-center">
-                  <div className="type-serif-lg mb-2 text-slate-900">
+                  <div className="type-serif-lg mb-2 text-neutral-900">
                     {getPrice(plan)}
                     {plan.price_monthly !== null && plan.price_monthly > 0 && (
-                      <span className="font-normal text-slate-600 text-xl">{getPeriod()}</span>
+                      <span className="font-normal text-neutral-600 text-xl">{getPeriod()}</span>
                     )}
                   </div>
                   {getMonthlyEquivalent(plan) && (
-                    <div className="text-slate-600 text-sm">
+                    <div className="text-neutral-600 text-sm">
                       billed annually ({getMonthlyEquivalent(plan)})
                     </div>
                   )}
@@ -178,8 +178,8 @@ export function PricingPlans() {
                   className={cn(
                     "mb-8 block w-full rounded-xl py-4 text-center font-semibold transition-all",
                     plan.highlight_as_popular
-                      ? "bg-slate-900 text-white hover:bg-slate-800"
-                      : "border-2 border-slate-300 text-slate-900 hover:border-slate-900"
+                      ? "bg-neutral-900 text-white hover:bg-neutral-800"
+                      : "border-2 border-neutral-300 text-neutral-900 hover:border-neutral-900"
                   )}
                   // snyk:ignore javascript/DOMXSS - URLs are sanitized via sanitizeURL() from @/lib/utils/sanitize
                   href={sanitizeURL(plan.cta_url || "/auth/sign-up")}
@@ -197,10 +197,10 @@ export function PricingPlans() {
                           icon={Tick02Icon}
                           size={20}
                         />
-                        <span className="text-slate-900">
+                        <span className="text-neutral-900">
                           {feature.name}
                           {feature.limit && (
-                            <span className="ml-1 text-slate-600 text-sm">({feature.limit})</span>
+                            <span className="ml-1 text-neutral-600 text-sm">({feature.limit})</span>
                           )}
                         </span>
                       </div>

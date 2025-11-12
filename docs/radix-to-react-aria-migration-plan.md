@@ -1,6 +1,6 @@
 # Radix UI to React Aria Migration Plan
 
-**Project:** Casaora (MaidConnect)  
+**Project:** Casaora  
 **Created:** 2025-11-11  
 **Status:** Planning Phase
 

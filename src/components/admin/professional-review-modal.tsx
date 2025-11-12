@@ -115,13 +115,13 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           </h3>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <div className="font-medium text-slate-600 text-xs dark:text-slate-400">Name</div>
+              <div className="font-medium text-neutral-600 text-xs dark:text-neutral-400">Name</div>
               <p className="text-red-700 text-sm dark:text-red-200">
                 {professional.full_name || "—"}
               </p>
             </div>
             <div>
-              <div className="font-medium text-slate-600 text-xs dark:text-slate-400">
+              <div className="font-medium text-neutral-600 text-xs dark:text-neutral-400">
                 Experience
               </div>
               <p className="text-red-700 text-sm dark:text-red-200">
@@ -129,7 +129,9 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
               </p>
             </div>
             <div>
-              <div className="font-medium text-slate-600 text-xs dark:text-slate-400">Location</div>
+              <div className="font-medium text-neutral-600 text-xs dark:text-neutral-400">
+                Location
+              </div>
               <p className="text-red-700 text-sm dark:text-red-200">
                 {professional.profile?.city
                   ? `${professional.profile.city}, ${professional.profile.country}`
@@ -137,13 +139,15 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
               </p>
             </div>
             <div>
-              <div className="font-medium text-slate-600 text-xs dark:text-slate-400">Phone</div>
+              <div className="font-medium text-neutral-600 text-xs dark:text-neutral-400">
+                Phone
+              </div>
               <p className="text-red-700 text-sm dark:text-red-200">
                 {professional.profile?.phone || "—"}
               </p>
             </div>
             <div>
-              <div className="font-medium text-slate-600 text-xs dark:text-slate-400">
+              <div className="font-medium text-neutral-600 text-xs dark:text-neutral-400">
                 Hourly Rate
               </div>
               <p className="text-red-700 text-sm dark:text-red-200">
@@ -151,7 +155,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
               </p>
             </div>
             <div>
-              <div className="font-medium text-slate-600 text-xs dark:text-slate-400">
+              <div className="font-medium text-neutral-600 text-xs dark:text-neutral-400">
                 Languages
               </div>
               <p className="text-red-700 text-sm dark:text-red-200">
@@ -162,22 +166,24 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
 
           {professional.bio && (
             <div className="mt-4">
-              <div className="font-medium text-slate-600 text-xs dark:text-slate-400">Bio</div>
+              <div className="font-medium text-neutral-600 text-xs dark:text-neutral-400">Bio</div>
               <p className="mt-1 text-red-700 text-sm dark:text-red-200">{professional.bio}</p>
             </div>
           )}
 
           <div className="mt-4">
-            <div className="font-medium text-slate-600 text-xs dark:text-slate-400">Services</div>
+            <div className="font-medium text-neutral-600 text-xs dark:text-neutral-400">
+              Services
+            </div>
             <div className="mt-1 flex flex-wrap gap-2">
               {professional.primary_services?.map((service, idx) => (
                 <span
-                  className="rounded-md bg-slate-900 px-2 py-1 font-medium text-white text-xs dark:bg-slate-100/10 dark:text-slate-100"
+                  className="rounded-md bg-neutral-900 px-2 py-1 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100"
                   key={idx}
                 >
                   {service}
                 </span>
-              )) || <p className="text-slate-600 text-sm dark:text-slate-400">None listed</p>}
+              )) || <p className="text-neutral-600 text-sm dark:text-neutral-400">None listed</p>}
             </div>
           </div>
         </section>
@@ -191,18 +197,20 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             <div className="space-y-2">
               {professional.references_data.map((ref: any, idx: number) => (
                 <div
-                  className="rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-950"
+                  className="rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-950"
                   key={idx}
                 >
                   <p className="font-medium text-red-700 text-sm dark:text-red-200">
                     {ref.name || "Unnamed"}
                   </p>
-                  <p className="text-slate-600 text-xs dark:text-slate-400">{ref.contact || "—"}</p>
+                  <p className="text-neutral-600 text-xs dark:text-neutral-400">
+                    {ref.contact || "—"}
+                  </p>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-slate-600 text-sm dark:text-slate-400">No references provided</p>
+            <p className="text-neutral-600 text-sm dark:text-neutral-400">No references provided</p>
           )}
         </section>
 
@@ -215,28 +223,28 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             <div className="space-y-2">
               {professional.documents.map((doc: any) => (
                 <div
-                  className="flex items-center justify-between rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-950"
+                  className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-950"
                   key={doc.profile_id + doc.document_type}
                 >
                   <div>
                     <p className="font-medium text-red-700 text-sm dark:text-red-200">
                       {doc.document_type}
                     </p>
-                    <p className="text-slate-600 text-xs dark:text-slate-400">
+                    <p className="text-neutral-600 text-xs dark:text-neutral-400">
                       Uploaded {new Date(doc.uploaded_at).toLocaleDateString()}
                     </p>
                   </div>
-                  <span className="text-slate-900 text-xs dark:text-slate-100">✓ Uploaded</span>
+                  <span className="text-neutral-900 text-xs dark:text-neutral-100">✓ Uploaded</span>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-slate-600 text-sm dark:text-slate-400">No documents uploaded</p>
+            <p className="text-neutral-600 text-sm dark:text-neutral-400">No documents uploaded</p>
           )}
         </section>
 
         {/* Review Form */}
-        <section className="rounded-xl border-2 border-slate-900 bg-slate-900 p-4 dark:border-slate-100/20 dark:bg-slate-100/5">
+        <section className="rounded-xl border-2 border-neutral-900 bg-neutral-900 p-4 dark:border-neutral-100/20 dark:bg-neutral-100/5">
           <h3 className="mb-4 font-semibold text-red-700 text-sm uppercase tracking-wide dark:text-red-200">
             Review Decision
           </h3>
@@ -246,8 +254,8 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             <button
               className={`flex-1 rounded-lg border-2 px-4 py-2 font-semibold text-sm transition ${
                 form.formData.action === "approve"
-                  ? "border-slate-900 bg-slate-100 text-slate-900 dark:border-slate-100 dark:bg-slate-800 dark:text-slate-100"
-                  : "border-slate-200 bg-white text-slate-600 hover:border-slate-900 dark:border-slate-100/40 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
+                  ? "border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
+                  : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-900 dark:border-neutral-100/40 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
               }`}
               onClick={() => form.updateField("action", "approve")}
               type="button"
@@ -257,8 +265,8 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             <button
               className={`flex-1 rounded-lg border-2 px-4 py-2 font-semibold text-sm transition ${
                 form.formData.action === "reject"
-                  ? "border-slate-900 bg-slate-100 text-slate-900 dark:border-slate-100 dark:bg-slate-800 dark:text-slate-100"
-                  : "border-slate-200 bg-white text-slate-600 hover:border-slate-900 dark:border-slate-100/30 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
+                  ? "border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
+                  : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-900 dark:border-neutral-100/30 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
               }`}
               onClick={() => form.updateField("action", "reject")}
               type="button"
@@ -268,8 +276,8 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             <button
               className={`flex-1 rounded-lg border-2 px-4 py-2 font-semibold text-sm transition ${
                 form.formData.action === "request_info"
-                  ? "border-slate-900 bg-slate-100 text-slate-900 dark:border-slate-100 dark:bg-slate-800 dark:text-slate-100"
-                  : "border-slate-200 bg-white text-slate-600 hover:border-slate-900 dark:border-slate-100/30 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
+                  ? "border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
+                  : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-900 dark:border-neutral-100/30 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400"
               }`}
               onClick={() => form.updateField("action", "request_info")}
               type="button"
@@ -317,13 +325,13 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           <div className="space-y-3">
             <div>
               <label
-                className="mb-1 block font-medium text-slate-900 text-xs dark:text-slate-100"
+                className="mb-1 block font-medium text-neutral-900 text-xs dark:text-neutral-100"
                 htmlFor="review-notes"
               >
                 Notes (visible to professional)
               </label>
               <textarea
-                className="w-full rounded-lg border border-slate-200 p-2 text-sm dark:border-slate-800"
+                className="w-full rounded-lg border border-neutral-200 p-2 text-sm dark:border-neutral-800"
                 id="review-notes"
                 onChange={(e) => form.updateField("notes", e.target.value)}
                 placeholder="Optional feedback for the professional..."
@@ -334,13 +342,13 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
 
             <div>
               <label
-                className="mb-1 block font-medium text-slate-900 text-xs dark:text-slate-100"
+                className="mb-1 block font-medium text-neutral-900 text-xs dark:text-neutral-100"
                 htmlFor="review-internal-notes"
               >
                 Internal Notes (admin only)
               </label>
               <textarea
-                className="w-full rounded-lg border border-slate-200 p-2 text-sm dark:border-slate-800"
+                className="w-full rounded-lg border border-neutral-200 p-2 text-sm dark:border-neutral-800"
                 id="review-internal-notes"
                 onChange={(e) => form.updateField("internalNotes", e.target.value)}
                 placeholder="Internal notes not visible to professional..."
@@ -352,13 +360,13 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
             {form.formData.action === "reject" && (
               <div>
                 <label
-                  className="mb-1 block font-medium text-slate-900 text-xs dark:text-slate-100"
+                  className="mb-1 block font-medium text-neutral-900 text-xs dark:text-neutral-100"
                   htmlFor="rejection-reason"
                 >
                   Rejection Reason (required)
                 </label>
                 <textarea
-                  className="w-full rounded-lg border border-slate-900 p-2 text-sm dark:border-slate-100/30"
+                  className="w-full rounded-lg border border-neutral-900 p-2 text-sm dark:border-neutral-100/30"
                   id="rejection-reason"
                   onChange={(e) => form.updateField("rejectionReason", e.target.value)}
                   placeholder="Explain why the application is being rejected..."
@@ -381,7 +389,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
       {/* Custom Footer Actions */}
       <div className="mt-6 flex justify-end gap-3">
         <button
-          className="rounded-lg border border-slate-200 px-6 py-2 font-semibold text-red-700 text-sm transition hover:bg-white disabled:opacity-50 dark:border-slate-800 dark:bg-slate-950 dark:text-red-200"
+          className="rounded-lg border border-neutral-200 px-6 py-2 font-semibold text-red-700 text-sm transition hover:bg-white disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:text-red-200"
           disabled={reviewMutation.isLoading}
           onClick={onClose}
           type="button"
@@ -389,7 +397,7 @@ export function ProfessionalReviewModal({ professional, onClose, onComplete }: P
           Cancel
         </button>
         <button
-          className="rounded-lg bg-slate-900 px-6 py-2 font-semibold text-sm text-white transition hover:bg-slate-900 disabled:opacity-50 dark:bg-slate-100 dark:bg-slate-100 dark:text-slate-950"
+          className="rounded-lg bg-neutral-900 px-6 py-2 font-semibold text-sm text-white transition hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
           disabled={reviewMutation.isLoading}
           onClick={handleSubmit}
           type="button"

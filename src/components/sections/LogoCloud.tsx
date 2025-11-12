@@ -1,44 +1,43 @@
-import Image from "next/image";
 import { Container } from "@/components/ui/container";
 
 /**
- * LogoCloud Component
+ * LogoCloud Component - Swiss Design System
  *
- * Displays trusted partner and media logos in a horizontal grid.
- * Shows 6 logos with grayscale effect and hover transitions.
+ * Minimal text-based trust indicators following Swiss principles:
+ * - No images, pure typography
+ * - Clean separation with dividers
+ * - Uppercase tracking for labels
+ * - Neutral color palette
  */
 export function LogoCloud() {
-  const logos = [
-    { name: "El Tiempo", src: "/logos/el-tiempo.svg", alt: "El Tiempo logo" },
-    { name: "Semana", src: "/logos/semana.svg", alt: "Semana logo" },
-    { name: "La República", src: "/logos/la-republica.svg", alt: "La República logo" },
-    { name: "City Hall", src: "/logos/city-hall.svg", alt: "City Hall logo" },
-    { name: "Allianz", src: "/logos/allianz.svg", alt: "Allianz logo" },
-    { name: "Verified", src: "/logos/verified.svg", alt: "Verified badge" },
+  const partners = [
+    { name: "El Tiempo", category: "Media" },
+    { name: "Semana", category: "Magazine" },
+    { name: "La República", category: "Business" },
+    { name: "Bogotá City", category: "Government" },
+    { name: "Allianz", category: "Insurance" },
+    { name: "Certified", category: "Quality" },
   ];
 
   return (
-    <section className="w-full bg-stone-100 py-10">
+    <section className="w-full border-neutral-200 border-y bg-white py-12">
       <Container className="mx-auto max-w-7xl px-4">
-        <div className="text-center">
-          <p className="font-medium text-sm text-stone-600 uppercase tracking-wider">
-            Trusted by Leading Organizations
+        <div className="mb-8 text-center">
+          <p className="font-mono text-neutral-400 text-xs uppercase tracking-widest">
+            As Featured In
           </p>
         </div>
 
-        <div className="mt-8 grid grid-cols-2 items-center gap-8 sm:grid-cols-3 md:grid-cols-6">
-          {logos.map((logo) => (
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-6">
+          {partners.map((partner) => (
             <div
-              className="flex items-center justify-center grayscale transition-all duration-300 hover:grayscale-0"
-              key={logo.name}
+              className="flex flex-col items-center justify-center text-center"
+              key={partner.name}
             >
-              <Image
-                alt={logo.alt}
-                className="h-12 w-auto object-contain"
-                height={48}
-                src={logo.src}
-                width={120}
-              />
+              <div className="font-semibold text-neutral-900 text-sm tracking-tight">
+                {partner.name}
+              </div>
+              <div className="mt-1 text-neutral-500 text-xs">{partner.category}</div>
             </div>
           ))}
         </div>

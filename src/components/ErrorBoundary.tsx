@@ -85,14 +85,14 @@ function ErrorDisplay({ error }: { error: Error }) {
   }, [error, logger]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[#f8fafc] px-4">
-      <div className="w-full max-w-md rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-8 shadow-lg">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-[neutral-50] px-4">
+      <div className="w-full max-w-md rounded-lg border border-[neutral-200] bg-[neutral-50] p-8 shadow-lg">
         {/* Error Icon */}
         <div className="mb-6 flex justify-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#64748b]/10">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-500]/10">
             <svg
               aria-label="Error"
-              className="h-8 w-8 text-[#64748b]"
+              className="h-8 w-8 text-[neutral-500]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -109,20 +109,20 @@ function ErrorDisplay({ error }: { error: Error }) {
         </div>
 
         {/* Error Message */}
-        <h1 className="mb-2 text-center font-semibold text-2xl text-[#0f172a]">
+        <h1 className="mb-2 text-center font-semibold text-2xl text-[neutral-900]">
           Something went wrong
         </h1>
-        <p className="mb-6 text-center text-[#94a3b8] text-sm">
+        <p className="mb-6 text-center text-[neutral-400] text-sm">
           We've been notified and are working to fix the issue.
         </p>
 
         {/* Error Details (development only) */}
         {process.env.NODE_ENV === "development" && (
-          <details className="mb-6 rounded-lg bg-[#64748b]/10 p-4">
-            <summary className="cursor-pointer font-medium text-[#64748b] text-sm">
+          <details className="mb-6 rounded-lg bg-[neutral-500]/10 p-4">
+            <summary className="cursor-pointer font-medium text-[neutral-500] text-sm">
               Error Details (Development Only)
             </summary>
-            <pre className="mt-2 overflow-x-auto text-[#64748b] text-xs">
+            <pre className="mt-2 overflow-x-auto text-[neutral-500] text-xs">
               {error.name}: {error.message}
               {"\n\n"}
               {error.stack}
@@ -133,14 +133,14 @@ function ErrorDisplay({ error }: { error: Error }) {
         {/* Actions */}
         <div className="flex flex-col gap-3">
           <button
-            className="w-full rounded-lg bg-[#64748b] px-4 py-3 font-medium text-[#f8fafc] text-sm transition hover:bg-[#64748b]"
+            className="w-full rounded-lg bg-[neutral-500] px-4 py-3 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
             onClick={() => window.location.reload()}
             type="button"
           >
             Reload Page
           </button>
           <button
-            className="w-full rounded-lg border border-[#e2e8f0] bg-[#f8fafc] px-4 py-3 font-medium text-[#0f172a] text-sm transition hover:bg-[#f8fafc]"
+            className="w-full rounded-lg border border-[neutral-200] bg-[neutral-50] px-4 py-3 font-medium text-[neutral-900] text-sm transition hover:bg-[neutral-50]"
             onClick={() => (window.location.href = "/")}
             type="button"
           >
@@ -149,9 +149,9 @@ function ErrorDisplay({ error }: { error: Error }) {
         </div>
 
         {/* Support Link */}
-        <p className="mt-6 text-center text-[#94a3b8] text-xs">
+        <p className="mt-6 text-center text-[neutral-400] text-xs">
           Need help?{" "}
-          <a className="text-[#64748b] underline hover:text-[#64748b]" href="/contact">
+          <a className="text-[neutral-500] underline hover:text-[neutral-500]" href="/contact">
             Contact Support
           </a>
         </p>

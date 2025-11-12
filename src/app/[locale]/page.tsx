@@ -2,7 +2,6 @@ import { setRequestLocale } from "next-intl/server";
 import { WelcomeTour } from "@/components/onboarding";
 import { BenefitsGrid } from "@/components/sections/BenefitsGrid";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { LogoCloud } from "@/components/sections/LogoCloud";
 import { MetricsSection } from "@/components/sections/MetricsSection";
 import { PricingSection } from "@/components/sections/PricingSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
@@ -19,11 +18,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   setRequestLocale(locale);
 
   return (
-    <div className="min-h-screen bg-white text-stone-900">
+    <div className="relative min-h-screen bg-neutral-50 text-neutral-900">
       <SiteHeader />
-      <main className="bg-white" data-tour="welcome">
+      <main className="bg-neutral-50" data-tour="welcome">
         <HeroSection />
-        <LogoCloud />
         <BenefitsGrid />
         <ServicesTabs />
         <MetricsSection />

@@ -1033,9 +1033,18 @@
   },
   "hero": {
     "badge": "Personal Doméstico de Confianza · Colombia",
-    "title": "Profesionales del hogar que se sienten como familia",
-    "subtitle": "Encuentre empleadas domésticas verificadas en 48 horas. Ahorre 10+ horas semanales en tareas del hogar.",
+    "overline": "Servicio Doméstico Premium",
+    "title": "Tu hogar merece un cuidado excepcional",
+    "subtitle": "Casaora conecta a los profesionales domésticos más calificados de Colombia con familias que exigen excelencia. Cada candidato está completamente verificado, con antecedentes revisados y adaptado a tus necesidades únicas.",
     "description": "Conéctese con profesionales completamente examinados en toda Colombia. Integrados, verificados y listos para apoyar su estilo de vida desde el primer día.",
+    "cta": {
+      "primary": "Buscar Profesionales",
+      "secondary": "Más Información"
+    },
+    "trust": {
+      "verified": "Verificados",
+      "rating": "Top 5% Solamente"
+    },
     "trustSignals": {
       "verified": "450+ profesionales verificados",
       "cities": "Disponible en 6 ciudades",

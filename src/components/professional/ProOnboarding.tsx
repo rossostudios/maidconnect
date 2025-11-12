@@ -29,36 +29,36 @@ const STATUS_CONFIG: Record<
   application_pending: {
     label: "Complete Application",
     description: "Finish your application to get reviewed",
-    color: "#64748b",
-    bgColor: "#f8fafc",
+    color: "neutral-500",
+    bgColor: "neutral-50",
     showBadge: true,
   },
   application_in_review: {
     label: "In Review",
     description: "Your application is being reviewed",
-    color: "#64748b",
-    bgColor: "#64748b",
+    color: "neutral-500",
+    bgColor: "neutral-500",
     showBadge: true,
   },
   approved: {
     label: "Complete Profile",
     description: "Build your profile to go live",
-    color: "#64748b",
-    bgColor: "#f8fafc",
+    color: "neutral-500",
+    bgColor: "neutral-50",
     showBadge: true,
   },
   active: {
     label: "Active",
     description: "Your profile is live",
-    color: "#64748b",
-    bgColor: "#f8fafc",
+    color: "neutral-500",
+    bgColor: "neutral-50",
     showBadge: false,
   },
   suspended: {
     label: "Account Suspended",
     description: "Contact support for help",
-    color: "#64748b",
-    bgColor: "#f8fafc",
+    color: "neutral-500",
+    bgColor: "neutral-50",
     showBadge: true,
   },
 };
@@ -72,7 +72,7 @@ export function ProOnboardingBadge({ status, completionPercentage = 0 }: Props) 
 
   return (
     <Link
-      className="group mx-3 mt-4 mb-4 block rounded-xl border border-[#e2e8f0] p-3 transition-all hover:shadow-md"
+      className="group mx-3 mt-4 mb-4 block rounded-xl border border-[neutral-200] p-3 transition-all hover:shadow-md"
       href="/dashboard/pro/onboarding"
       style={{ backgroundColor: config.bgColor }}
     >
@@ -88,11 +88,11 @@ export function ProOnboardingBadge({ status, completionPercentage = 0 }: Props) 
           <p className="font-semibold text-sm" style={{ color: config.color }}>
             {config.label}
           </p>
-          <p className="mt-0.5 text-[#94a3b8] text-xs leading-tight">{config.description}</p>
+          <p className="mt-0.5 text-[neutral-400] text-xs leading-tight">{config.description}</p>
 
           {completionPercentage > 0 && completionPercentage < 100 && (
             <div className="mt-2">
-              <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#f8fafc]/50">
+              <div className="h-1.5 w-full overflow-hidden rounded-full bg-[neutral-50]/50">
                 <div
                   className="h-full rounded-full transition-all duration-300"
                   style={{
@@ -101,7 +101,7 @@ export function ProOnboardingBadge({ status, completionPercentage = 0 }: Props) 
                   }}
                 />
               </div>
-              <p className="mt-1 text-right text-[#94a3b8] text-xs">{completionPercentage}%</p>
+              <p className="mt-1 text-right text-[neutral-400] text-xs">{completionPercentage}%</p>
             </div>
           )}
         </div>

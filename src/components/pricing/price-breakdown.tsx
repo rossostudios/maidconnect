@@ -26,45 +26,45 @@ export function PriceBreakdown({
   const totalWithFees = showPlatformFee ? subtotal + platformFee : subtotal;
 
   return (
-    <Card className={`border-slate-200 bg-white ${className}`}>
+    <Card className={`border-neutral-200 bg-white ${className}`}>
       <CardContent className="space-y-3 p-5">
-        <h3 className="font-semibold text-base text-slate-900">Price Breakdown</h3>
+        <h3 className="font-semibold text-base text-neutral-900">Price Breakdown</h3>
 
         <div className="space-y-2">
           <div className="flex items-start justify-between text-sm">
             <div className="flex flex-col">
-              <span className="text-slate-600">Service</span>
-              <span className="text-slate-500 text-xs">
+              <span className="text-neutral-600">Service</span>
+              <span className="text-neutral-500 text-xs">
                 {formatCOP(hourlyRate)}/hr × {hours} {hours === 1 ? "hour" : "hours"}
               </span>
             </div>
-            <span className="font-medium text-slate-900">{formatCOP(baseAmount)}</span>
+            <span className="font-medium text-neutral-900">{formatCOP(baseAmount)}</span>
           </div>
 
           {addonsTotal > 0 && (
             <div className="flex justify-between text-sm">
-              <span className="text-slate-600">Add-ons</span>
-              <span className="font-medium text-slate-900">{formatCOP(addonsTotal)}</span>
+              <span className="text-neutral-600">Add-ons</span>
+              <span className="font-medium text-neutral-900">{formatCOP(addonsTotal)}</span>
             </div>
           )}
 
           {showPlatformFee && (
             <>
               <div className="flex justify-between pt-2 text-sm">
-                <span className="text-slate-600">Subtotal</span>
-                <span className="font-medium text-slate-900">{formatCOP(subtotal)}</span>
+                <span className="text-neutral-600">Subtotal</span>
+                <span className="font-medium text-neutral-900">{formatCOP(subtotal)}</span>
               </div>
 
               <div className="flex items-start justify-between text-sm">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-slate-600">Platform Fee</span>
+                  <span className="text-neutral-600">Platform Fee</span>
                   <div className="group relative">
                     <HugeiconsIcon
-                      className="h-3.5 w-3.5 text-slate-500 transition hover:text-slate-900"
+                      className="h-3.5 w-3.5 text-neutral-500 transition hover:text-neutral-900"
                       icon={HelpCircleIcon}
                     />
-                    <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-64 rounded-lg border border-slate-200 bg-white p-3 opacity-0 shadow-lg transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
-                      <p className="text-slate-600 text-xs leading-relaxed">
+                    <div className="pointer-events-none absolute top-full left-0 z-10 mt-2 hidden w-64 rounded-lg border border-neutral-200 bg-white p-3 opacity-0 shadow-lg transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100">
+                      <p className="text-neutral-600 text-xs leading-relaxed">
                         This fee supports platform operations including payment processing, customer
                         support, insurance, and technology infrastructure that keeps Casaora safe
                         and reliable.
@@ -72,14 +72,14 @@ export function PriceBreakdown({
                     </div>
                   </div>
                 </div>
-                <span className="font-medium text-slate-900">{formatCOP(platformFee)}</span>
+                <span className="font-medium text-neutral-900">{formatCOP(platformFee)}</span>
               </div>
             </>
           )}
 
-          <div className="flex justify-between border-slate-200 border-t pt-3 font-semibold text-base">
-            <span className="text-slate-900">Total</span>
-            <span className="text-slate-900">{formatCOP(totalWithFees)}</span>
+          <div className="flex justify-between border-neutral-200 border-t pt-3 font-semibold text-base">
+            <span className="text-neutral-900">Total</span>
+            <span className="text-neutral-900">{formatCOP(totalWithFees)}</span>
           </div>
         </div>
 
@@ -112,14 +112,16 @@ export function CompactPrice({
 
   if (!showBreakdown) {
     return (
-      <div className={`font-semibold text-slate-900 ${className}`}>{formatCOP(hourlyRate)}/hr</div>
+      <div className={`font-semibold text-neutral-900 ${className}`}>
+        {formatCOP(hourlyRate)}/hr
+      </div>
     );
   }
 
   return (
     <div className={className}>
-      <div className="font-semibold text-slate-900">{formatCOP(hourlyRate)}/hr</div>
-      <div className="text-slate-600 text-xs">{formatCOP(totalWithFee)}/hr total with fees</div>
+      <div className="font-semibold text-neutral-900">{formatCOP(hourlyRate)}/hr</div>
+      <div className="text-neutral-600 text-xs">{formatCOP(totalWithFee)}/hr total with fees</div>
     </div>
   );
 }

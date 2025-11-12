@@ -27,8 +27,8 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
     () => ({
       theme: "flat" as const,
       variables: {
-        colorPrimary: "#0f172a",
-        colorText: "#1e293b",
+        colorPrimary: "neutral-900",
+        colorText: "neutral-800",
         colorBackground: "#ffffff",
         borderRadius: "12px",
       },
@@ -69,7 +69,7 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
 
   if (!stripePromise) {
     return (
-      <Card className="mt-4 border-stone-300 bg-stone-100">
+      <Card className="mt-4 border-neutral-300 bg-neutral-100">
         <CardContent className="px-4 py-3 text-red-800 text-sm">
           Stripe publishable key is not configured.
         </CardContent>
@@ -81,20 +81,20 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
     return (
       <div className="mt-4 flex flex-col gap-3">
         {status === "success" ? (
-          <p className="text-sm text-stone-700">
+          <p className="text-neutral-700 text-sm">
             Payment method on file. You can update it anytime.
           </p>
         ) : (
-          <p className="text-sm text-stone-600 leading-relaxed">
+          <p className="text-neutral-600 text-sm leading-relaxed">
             We'll authorize a small amount (COP $50,000) to keep your payment method on file. You're
             only charged after a service is completed.
           </p>
         )}
-        {message ? <p className="text-sm text-stone-800">{message}</p> : null}
+        {message ? <p className="text-neutral-800 text-sm">{message}</p> : null}
         <button
           className={cn(
             "inline-flex w-fit items-center justify-center rounded-full px-6 py-3 font-semibold text-base transition",
-            "bg-stone-900 text-white shadow-lg hover:bg-stone-800",
+            "bg-neutral-900 text-white shadow-lg hover:bg-neutral-800",
             "disabled:cursor-not-allowed disabled:opacity-70"
           )}
           disabled={status === "loading"}
@@ -122,7 +122,7 @@ export function PaymentAuthorizationCard({ hasPaymentMethod }: PaymentAuthorizat
         onSuccess={() => setStatus("success")}
         reset={() => setClientSecret(null)}
       />
-      {message ? <p className="mt-2 text-stone-800 text-xs">{message}</p> : null}
+      {message ? <p className="mt-2 text-neutral-800 text-xs">{message}</p> : null}
     </Elements>
   );
 }
@@ -173,14 +173,14 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
   }, [stripe, elements, onError, onSuccess, reset, router]);
 
   return (
-    <Card className="mt-4 border-stone-200 bg-white shadow-sm">
+    <Card className="mt-4 border-neutral-200 bg-white shadow-sm">
       <CardContent className="space-y-4 p-6">
         <PaymentElement options={{ layout: "tabs" }} />
         <div className="flex items-center gap-3">
           <button
             className={cn(
               "inline-flex items-center justify-center rounded-full px-6 py-3 font-semibold text-base transition",
-              "bg-stone-900 text-white shadow-lg hover:bg-stone-800",
+              "bg-neutral-900 text-white shadow-lg hover:bg-neutral-800",
               "disabled:cursor-not-allowed disabled:opacity-70"
             )}
             disabled={isSubmitting}
@@ -192,7 +192,7 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
           <button
             className={cn(
               "inline-flex items-center justify-center rounded-full border-2 px-6 py-3 font-semibold text-base transition",
-              "border-stone-300 text-stone-700 hover:border-stone-400 hover:text-stone-900",
+              "border-neutral-300 text-neutral-700 hover:border-neutral-400 hover:text-neutral-900",
               "disabled:cursor-not-allowed disabled:opacity-70"
             )}
             disabled={isSubmitting}
@@ -202,7 +202,7 @@ function PaymentForm({ onSuccess, onError, reset }: PaymentFormProps) {
             Cancel
           </button>
         </div>
-        <p className="text-sm text-stone-600 leading-relaxed">
+        <p className="text-neutral-600 text-sm leading-relaxed">
           You'll only be charged after the service is completed. Authorizations expire automatically
           if unused.
         </p>

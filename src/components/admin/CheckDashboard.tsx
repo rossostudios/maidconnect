@@ -104,23 +104,23 @@ export function CheckDashboard() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {[1, 2, 3, 4].map((i) => (
             <div
-              className="h-48 animate-pulse rounded-xl border border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950"
+              className="h-48 animate-pulse rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950"
               key={i}
             />
           ))}
         </div>
-        <div className="h-96 animate-pulse rounded-xl border border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950" />
+        <div className="h-96 animate-pulse rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <Card className="border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950">
+      <Card className="border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
         <CardContent className="p-8 text-center">
-          <p className="mb-4 text-sm text-stone-800 dark:text-stone-300">{error}</p>
+          <p className="mb-4 text-neutral-800 text-sm dark:text-neutral-300">{error}</p>
           <button
-            className="rounded-lg bg-stone-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2 dark:bg-stone-100 dark:text-stone-950 dark:hover:bg-stone-200"
+            className="rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 dark:bg-neutral-100 dark:text-neutral-950 dark:hover:bg-neutral-200"
             onClick={fetchChecks}
             type="button"
           >
@@ -157,22 +157,22 @@ export function CheckDashboard() {
     {
       name: "Pending",
       count: data.counts.pending,
-      color: "#64748b",
+      color: "neutral-500",
     },
     {
       name: "Clear",
       count: data.counts.clear,
-      color: "#64748b",
+      color: "neutral-500",
     },
     {
       name: "Consider",
       count: data.counts.consider,
-      color: "#64748b",
+      color: "neutral-500",
     },
     {
       name: "Suspended",
       count: data.counts.suspended,
-      color: "#64748b",
+      color: "neutral-500",
     },
   ];
 
@@ -198,15 +198,15 @@ export function CheckDashboard() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "pending":
-        return "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-100";
+        return "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
       case "clear":
-        return "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-100";
+        return "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
       case "consider":
-        return "bg-stone-900 dark:bg-stone-100/5 text-white dark:text-stone-100";
+        return "bg-neutral-900 dark:bg-neutral-100/5 text-white dark:text-neutral-100";
       case "suspended":
-        return "bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-100";
+        return "bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100";
       default:
-        return "bg-white dark:bg-stone-950 text-stone-600 dark:text-stone-400";
+        return "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400";
     }
   };
 
@@ -214,11 +214,11 @@ export function CheckDashboard() {
   const getProviderBadge = (provider: string) => {
     switch (provider.toLowerCase()) {
       case "checkr":
-        return "bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-100";
+        return "bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100";
       case "truora":
-        return "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-100";
+        return "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
       default:
-        return "bg-white dark:bg-stone-950 text-stone-600 dark:text-stone-400";
+        return "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400";
     }
   };
 
@@ -264,13 +264,13 @@ export function CheckDashboard() {
       </StatusCardGrid>
 
       {/* Check Distribution Chart */}
-      <Card className="border-stone-200 bg-white transition-shadow hover:shadow-lg dark:border-stone-800 dark:bg-stone-950">
+      <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950">
         <CardHeader className="flex flex-row items-center justify-between pb-6">
           <div>
-            <p className="mb-1 font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+            <p className="mb-1 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
               Check Distribution
             </p>
-            <p className="text-sm text-stone-600 dark:text-stone-400">
+            <p className="text-neutral-600 text-sm dark:text-neutral-400">
               Background checks by status
             </p>
           </div>
@@ -279,15 +279,15 @@ export function CheckDashboard() {
           <div className="h-64">
             <ResponsiveContainer height="100%" width="100%">
               <BarChart data={chartData}>
-                <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" vertical={false} />
+                <CartesianGrid stroke="neutral-200" strokeDasharray="3 3" vertical={false} />
                 <XAxis
                   axisLine={false}
                   dataKey="name"
                   fontSize={12}
-                  stroke="#94a3b8"
+                  stroke="neutral-400"
                   tickLine={false}
                 />
-                <YAxis axisLine={false} fontSize={12} stroke="#94a3b8" tickLine={false} />
+                <YAxis axisLine={false} fontSize={12} stroke="neutral-400" tickLine={false} />
                 <Bar dataKey="count" radius={[8, 8, 0, 0]}>
                   {chartData.map((entry, index) => (
                     <Cell fill={entry.color} key={`cell-${index}`} />
@@ -306,7 +306,7 @@ export function CheckDashboard() {
             <TabsTrigger value="pending">
               Pending
               {data.counts.pending > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-stone-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-stone-100/10 dark:text-stone-100">
+                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.pending}
                 </span>
               )}
@@ -314,7 +314,7 @@ export function CheckDashboard() {
             <TabsTrigger value="consider">
               Consider
               {data.counts.consider > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-stone-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-stone-100/10 dark:text-stone-100">
+                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.consider}
                 </span>
               )}
@@ -322,7 +322,7 @@ export function CheckDashboard() {
             <TabsTrigger value="clear">
               Clear
               {data.counts.clear > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-stone-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-stone-100/10 dark:text-stone-100">
+                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.clear}
                 </span>
               )}
@@ -330,7 +330,7 @@ export function CheckDashboard() {
             <TabsTrigger value="suspended">
               Suspended
               {data.counts.suspended > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-stone-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-stone-100/10 dark:text-stone-100">
+                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                   {data.counts.suspended}
                 </span>
               )}
@@ -340,7 +340,7 @@ export function CheckDashboard() {
           {/* Sort Filter */}
           <div className="flex items-center gap-3">
             <HugeiconsIcon
-              className="h-4 w-4 text-stone-600 dark:text-stone-400"
+              className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
               icon={FilterIcon}
             />
             <Select onValueChange={(value) => setSortBy(value as SortOption)} value={sortBy}>
@@ -360,9 +360,9 @@ export function CheckDashboard() {
         {["pending", "consider", "clear", "suspended"].map((tabValue) => (
           <TabsContent key={tabValue} value={tabValue}>
             {activeChecks.length === 0 ? (
-              <Card className="border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950">
+              <Card className="border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
                 <CardContent className="flex min-h-[400px] items-center justify-center">
-                  <p className="text-sm text-stone-600 dark:text-stone-400">
+                  <p className="text-neutral-600 text-sm dark:text-neutral-400">
                     No {tabValue} background checks found.
                   </p>
                 </CardContent>
@@ -371,7 +371,7 @@ export function CheckDashboard() {
               <div className="space-y-6">
                 {activeChecks.map((check) => (
                   <Card
-                    className="border-stone-200 bg-white transition-shadow hover:shadow-lg dark:border-stone-800 dark:bg-stone-950"
+                    className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950"
                     key={check.id}
                   >
                     <CardContent className="p-8">
@@ -380,17 +380,17 @@ export function CheckDashboard() {
                           {/* Header */}
                           <div className="mb-6 flex items-center gap-4">
                             <div className="flex items-center gap-3">
-                              <div className="rounded-xl bg-white p-3 dark:bg-stone-950">
+                              <div className="rounded-xl bg-white p-3 dark:bg-neutral-950">
                                 <HugeiconsIcon
-                                  className="h-6 w-6 text-stone-900 dark:text-stone-100"
+                                  className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
                                   icon={UserAccountIcon}
                                 />
                               </div>
                               <div>
-                                <h4 className="font-semibold text-lg text-stone-900 dark:text-stone-100">
+                                <h4 className="font-semibold text-lg text-neutral-900 dark:text-neutral-100">
                                   {check.professional.full_name || "Unnamed Professional"}
                                 </h4>
-                                <p className="text-sm text-stone-600 dark:text-stone-400">
+                                <p className="text-neutral-600 text-sm dark:text-neutral-400">
                                   {check.professional.city && check.professional.country
                                     ? `${check.professional.city}, ${check.professional.country}`
                                     : check.professional.email || "No contact info"}
@@ -416,16 +416,16 @@ export function CheckDashboard() {
                             <div>
                               <div className="mb-1 flex items-center gap-2">
                                 <HugeiconsIcon
-                                  className="h-4 w-4 text-stone-600 dark:text-stone-400"
+                                  className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
                                   icon={TimeScheduleIcon}
                                 />
-                                <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+                                <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                                   Waiting Time
                                 </span>
                               </div>
-                              <p className="font-bold text-2xl text-stone-900 dark:text-stone-100">
+                              <p className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
                                 {check.daysWaiting}
-                                <span className="ml-1 font-normal text-sm text-stone-600 dark:text-stone-400">
+                                <span className="ml-1 font-normal text-neutral-600 text-sm dark:text-neutral-400">
                                   days
                                 </span>
                               </p>
@@ -434,14 +434,14 @@ export function CheckDashboard() {
                             <div>
                               <div className="mb-1 flex items-center gap-2">
                                 <HugeiconsIcon
-                                  className="h-4 w-4 text-stone-600 dark:text-stone-400"
+                                  className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
                                   icon={SecurityCheckIcon}
                                 />
-                                <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+                                <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                                   Checks Performed
                                 </span>
                               </div>
-                              <p className="font-bold text-2xl text-stone-900 dark:text-stone-100">
+                              <p className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
                                 {check.checksPerformed?.length || 0}
                               </p>
                             </div>
@@ -449,14 +449,14 @@ export function CheckDashboard() {
                             <div>
                               <div className="mb-1 flex items-center gap-2">
                                 <HugeiconsIcon
-                                  className="h-4 w-4 text-stone-600 dark:text-stone-400"
+                                  className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
                                   icon={CheckmarkCircle02Icon}
                                 />
-                                <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+                                <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                                   Recommendation
                                 </span>
                               </div>
-                              <p className="font-bold text-sm text-stone-800 dark:text-stone-300">
+                              <p className="font-bold text-neutral-800 text-sm dark:text-neutral-300">
                                 {check.recommendation === "approved" && "✓ Approved"}
                                 {check.recommendation === "review_required" && "⚠ Review Required"}
                                 {check.recommendation === "rejected" && "✗ Rejected"}
@@ -466,14 +466,14 @@ export function CheckDashboard() {
                             <div>
                               <div className="mb-1 flex items-center gap-2">
                                 <HugeiconsIcon
-                                  className="h-4 w-4 text-stone-600 dark:text-stone-400"
+                                  className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
                                   icon={TimeScheduleIcon}
                                 />
-                                <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+                                <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                                   Completed
                                 </span>
                               </div>
-                              <p className="text-sm text-stone-800 dark:text-stone-300">
+                              <p className="text-neutral-800 text-sm dark:text-neutral-300">
                                 {check.completedAt
                                   ? new Date(check.completedAt).toLocaleDateString()
                                   : "Pending"}
@@ -486,7 +486,7 @@ export function CheckDashboard() {
                             <div className="flex flex-wrap gap-2">
                               {check.checksPerformed.map((checkType) => (
                                 <span
-                                  className="rounded-lg bg-white px-3 py-1.5 font-medium text-stone-900 text-xs dark:bg-stone-950 dark:text-stone-100"
+                                  className="rounded-lg bg-white px-3 py-1.5 font-medium text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100"
                                   key={checkType}
                                 >
                                   {checkType === "criminal" && "Criminal Background"}
@@ -499,11 +499,11 @@ export function CheckDashboard() {
 
                           {/* Criminal Records Warning */}
                           {check.results.criminal && check.results.criminal.records.length > 0 && (
-                            <div className="mt-6 rounded-lg border border-stone-900 bg-white p-4 dark:border-stone-100/30 dark:bg-stone-950">
-                              <p className="mb-2 font-semibold text-sm text-stone-800 dark:text-stone-300">
+                            <div className="mt-6 rounded-lg border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
+                              <p className="mb-2 font-semibold text-neutral-800 text-sm dark:text-neutral-300">
                                 ⚠ Criminal Records Found
                               </p>
-                              <p className="text-sm text-stone-800 dark:text-stone-300">
+                              <p className="text-neutral-800 text-sm dark:text-neutral-300">
                                 {check.results.criminal.records.length} record(s) found. Click "View
                                 Details" to review.
                               </p>
@@ -513,7 +513,7 @@ export function CheckDashboard() {
 
                         {/* View Details Button */}
                         <button
-                          className="ml-6 rounded-lg bg-stone-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-stone-900 dark:bg-stone-100 dark:bg-stone-100 dark:text-stone-950"
+                          className="ml-6 rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
                           onClick={() => setSelectedCheck(check)}
                           type="button"
                         >

@@ -1,22 +1,25 @@
 import { Container } from "@/components/ui/container";
-import { cn } from "@/lib/utils";
 
 /**
- * MetricsSection Component
+ * MetricsSection - Swiss Design System
  *
- * Displays 3 key metrics in a horizontal grid.
- * Shows client retention, placement speed, and average rating.
+ * Bold metrics display following Swiss principles:
+ * - Large, impactful numbers with Satoshi
+ * - Minimal decoration
+ * - High contrast (dark background)
+ * - Orange accent for emphasis
+ * - Precise spacing and alignment
  */
 export function MetricsSection() {
   const metrics = [
     {
       value: "95%",
-      label: "Client Retention Rate",
-      description: "Clients stay with us year after year",
+      label: "Client Retention",
+      description: "Clients who stay year after year",
     },
     {
       value: "5 days",
-      label: "Average Time to Shortlist",
+      label: "To Shortlist",
       description: "Fast, efficient candidate matching",
     },
     {
@@ -27,24 +30,30 @@ export function MetricsSection() {
   ];
 
   return (
-    <section className="w-full bg-stone-900 py-16 md:py-24">
+    <section className="w-full bg-neutral-900 py-24 md:py-32">
       <Container className="mx-auto max-w-7xl px-4">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {metrics.map((metric, index) => (
-            <div
-              className={cn(
-                "text-center",
-                index < metrics.length - 1 && "sm:border-stone-700 sm:border-r"
-              )}
-              key={metric.label}
-            >
-              <div className="font-bold font-serif text-4xl text-white md:text-5xl">
+        {/* Grid Layout - 3 Equal Columns */}
+        <div className="grid grid-cols-1 gap-16 md:grid-cols-3">
+          {metrics.map((metric) => (
+            <div className="text-center md:text-left" key={metric.label}>
+              {/* Metric Number - Huge and Bold */}
+              <div
+                className="font-bold text-6xl text-white tracking-tighter md:text-7xl lg:text-8xl"
+                style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
+              >
                 {metric.value}
               </div>
-              <div className="mt-2 font-semibold text-sm text-stone-300 uppercase tracking-wider">
+
+              {/* Metric Label - Swiss Typography */}
+              <div className="mt-4 font-medium text-neutral-400 text-sm uppercase tracking-widest">
                 {metric.label}
               </div>
-              <div className="mt-1 text-sm text-stone-400">{metric.description}</div>
+
+              {/* Description */}
+              <p className="mt-3 text-neutral-500 text-sm leading-relaxed">{metric.description}</p>
+
+              {/* Orange Accent Bar */}
+              <div className="mx-auto mt-6 h-1 w-12 bg-orange-500 md:mx-0" />
             </div>
           ))}
         </div>

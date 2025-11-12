@@ -30,23 +30,25 @@ function formatDate(value: string) {
 
 function ReviewCard({ review }: { review: ProfessionalReviewSummary }) {
   return (
-    <li className="space-y-2 rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-5">
+    <li className="space-y-2 rounded-2xl border border-[neutral-200] bg-[neutral-50] p-5">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 font-semibold text-[#0f172a] text-sm">
+        <div className="flex items-center gap-2 font-semibold text-[neutral-900] text-sm">
           <HugeiconsIcon
             aria-hidden="true"
-            className="h-4 w-4 fill-[#64748b] text-[#64748b]"
+            className="h-4 w-4 fill-[neutral-500] text-[neutral-500]"
             icon={StarIcon}
           />
           <span>{review.rating.toFixed(1)}</span>
         </div>
-        <p className="text-[#94a3b8] text-xs">{formatDate(review.createdAt)}</p>
+        <p className="text-[neutral-400] text-xs">{formatDate(review.createdAt)}</p>
       </div>
-      {review.title ? <p className="font-semibold text-[#0f172a] text-sm">{review.title}</p> : null}
-      {review.comment ? (
-        <p className="text-[#94a3b8] text-sm leading-relaxed">{review.comment}</p>
+      {review.title ? (
+        <p className="font-semibold text-[neutral-900] text-sm">{review.title}</p>
       ) : null}
-      <p className="font-semibold text-[#94a3b8] text-xs uppercase tracking-[0.24em]">
+      {review.comment ? (
+        <p className="text-[neutral-400] text-sm leading-relaxed">{review.comment}</p>
+      ) : null}
+      <p className="font-semibold text-[neutral-400] text-xs uppercase tracking-[0.24em]">
         {review.reviewerName ?? "Verified household"}
       </p>
     </li>
@@ -66,24 +68,24 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
   const canSubmit = viewer?.role === "customer";
 
   return (
-    <section className="rounded-[32px] border border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-[0_24px_60px_rgba(22,22,22,0.06)]">
+    <section className="rounded-[32px] border border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_24px_60px_rgba(22,22,22,0.06)]">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h3 className="font-semibold text-[#0f172a] text-lg">Reviews</h3>
-          <p className="text-[#94a3b8] text-sm">
+          <h3 className="font-semibold text-[neutral-900] text-lg">Reviews</h3>
+          <p className="text-[neutral-400] text-sm">
             Hear from households who have worked with this professional. Reviews are verified after
             each completed visit.
           </p>
         </div>
         {averageRating ? (
-          <div className="flex items-center gap-2 rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 font-semibold text-[#0f172a] text-sm">
+          <div className="flex items-center gap-2 rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2 font-semibold text-[neutral-900] text-sm">
             <HugeiconsIcon
               aria-hidden="true"
-              className="h-4 w-4 fill-[#64748b] text-[#64748b]"
+              className="h-4 w-4 fill-[neutral-500] text-[neutral-500]"
               icon={StarIcon}
             />
             {averageRating.toFixed(1)}{" "}
-            <span className="text-[#94a3b8] text-xs">({reviews.length})</span>
+            <span className="text-[neutral-400] text-xs">({reviews.length})</span>
           </div>
         ) : null}
       </div>
@@ -91,14 +93,14 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
       {canSubmit ? (
         <form
           action={formAction}
-          className="mt-5 space-y-3 rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-4"
+          className="mt-5 space-y-3 rounded-2xl border border-[neutral-200] bg-[neutral-50] p-4"
         >
           <input name="professionalId" type="hidden" value={professionalId} />
           <div className="grid gap-3 sm:grid-cols-[140px_1fr]">
-            <label className="flex items-center gap-2 font-medium text-[#0f172a] text-sm">
+            <label className="flex items-center gap-2 font-medium text-[neutral-900] text-sm">
               Rating
               <select
-                className="rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-3 py-1 font-medium text-[#0f172a] text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#64748b] focus-visible:outline-offset-2"
+                className="rounded-full border border-[neutral-200] bg-[neutral-50] px-3 py-1 font-medium text-[neutral-900] text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-[neutral-500] focus-visible:outline-offset-2"
                 defaultValue="5"
                 name="rating"
                 required
@@ -111,30 +113,30 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
               </select>
             </label>
             <input
-              className="w-full rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 text-[#0f172a] text-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/15"
+              className="w-full rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-[neutral-900] text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/15"
               name="title"
               placeholder="Headline"
               type="text"
             />
           </div>
           <textarea
-            className="w-full rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-3 text-[#0f172a] text-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/15"
+            className="w-full rounded-2xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/15"
             name="comment"
             placeholder="Share the experience, what went well, and anything future households should know."
             required
             rows={3}
           />
           {state.status === "error" && state.message ? (
-            <p className="text-[#64748b] text-sm">{state.message}</p>
+            <p className="text-[neutral-500] text-sm">{state.message}</p>
           ) : null}
           {state.status === "success" ? (
-            <p className="text-[#64748b] text-sm">
+            <p className="text-[neutral-500] text-sm">
               Thank you! Your review will appear once it&apos;s verified.
             </p>
           ) : null}
           <div className="flex justify-end">
             <button
-              className="inline-flex items-center justify-center rounded-full border border-[#0f172a] bg-[#0f172a] px-5 py-2 font-semibold text-[#f8fafc] text-sm shadow-sm transition hover:border-[#64748b] hover:bg-[#0f172a] disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex items-center justify-center rounded-full border border-[neutral-900] bg-[neutral-900] px-5 py-2 font-semibold text-[neutral-50] text-sm shadow-sm transition hover:border-[neutral-500] hover:bg-[neutral-900] disabled:cursor-not-allowed disabled:opacity-60"
               disabled={pending}
               type="submit"
             >
@@ -143,11 +145,11 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
           </div>
         </form>
       ) : (
-        <div className="mt-5 rounded-2xl border border-[#e2e8f0] border-dashed bg-[#f8fafc] p-4 text-[#94a3b8] text-sm">
+        <div className="mt-5 rounded-2xl border border-[neutral-200] border-dashed bg-[neutral-50] p-4 text-[neutral-400] text-sm">
           <p>
             Sign in as a customer to share your experience after a completed booking.{" "}
             <Link
-              className="font-semibold text-[#0f172a] underline-offset-4 hover:underline"
+              className="font-semibold text-[neutral-900] underline-offset-4 hover:underline"
               href="/auth/sign-in"
             >
               Login now
@@ -159,7 +161,7 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
 
       <ul className="mt-6 space-y-4">
         {reviews.length === 0 ? (
-          <li className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-5 text-[#94a3b8] text-sm">
+          <li className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-5 text-[neutral-400] text-sm">
             No reviews yet. Be the first household to share feedback after a completed visit.
           </li>
         ) : (

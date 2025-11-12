@@ -6,7 +6,7 @@ import { Badge } from "./badge";
 import { Card, CardContent, CardFooter, CardHeader, CardImage } from "./card";
 
 /**
- * MaidConnect Card Component
+ * Casaora Card Component
  *
  * Design System:
  * - Flexible container with optional animations

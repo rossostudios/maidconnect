@@ -23,9 +23,9 @@ export function KeyboardShortcutsButton({
         className={cn(
           "flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200 active:scale-95",
           variant === "light" &&
-            "border-[#64748b] bg-[#f8fafc] text-[#64748b] hover:bg-[#64748b] hover:text-[#f8fafc]",
+            "border-[neutral-500] bg-[neutral-50] text-[neutral-500] hover:bg-[neutral-500] hover:text-[neutral-50]",
           variant === "dark" &&
-            "border-[#64748b] bg-[#64748b]/10 text-[#64748b] hover:bg-[#64748b] hover:text-[#f8fafc]",
+            "border-[neutral-500] bg-[neutral-500]/10 text-[neutral-500] hover:bg-[neutral-500] hover:text-[neutral-50]",
           className
         )}
         onClick={openShortcutsPanel}
@@ -40,17 +40,17 @@ export function KeyboardShortcutsButton({
       {showTooltip && (
         <div
           className={cn(
-            "-transtone-x-1/2 pointer-events-none absolute bottom-full left-1/2 mb-2 whitespace-nowrap rounded-lg px-3 py-1.5 font-medium text-xs shadow-lg",
-            variant === "light" && "bg-[#0f172a] text-[#f8fafc]",
-            variant === "dark" && "bg-[#f8fafc] text-[#0f172a]"
+            "-tranneutral-x-1/2 pointer-events-none absolute bottom-full left-1/2 mb-2 whitespace-nowrap rounded-lg px-3 py-1.5 font-medium text-xs shadow-lg",
+            variant === "light" && "bg-[neutral-900] text-[neutral-50]",
+            variant === "dark" && "bg-[neutral-50] text-[neutral-900]"
           )}
         >
           Keyboard shortcuts
           {/* Arrow */}
           <div
             className={cn(
-              "-transtone-x-1/2 absolute top-full left-1/2 h-0 w-0 border-4 border-transparent",
-              variant === "light" && "border-t-[#0f172a]",
+              "-tranneutral-x-1/2 absolute top-full left-1/2 h-0 w-0 border-4 border-transparent",
+              variant === "light" && "border-t-[neutral-900]",
               variant === "dark" && "border-t-white"
             )}
           />

@@ -110,14 +110,14 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
       submitLabel={t("buttons.reschedule")}
       title={t("title")}
     >
-      <p className="text-[#94a3b8] text-base">{booking.service_name || "Service"}</p>
+      <p className="text-[neutral-400] text-base">{booking.service_name || "Service"}</p>
 
       {/* Current Schedule */}
-      <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6">
-        <p className="font-semibold text-[#94a3b8] text-xs uppercase tracking-[0.2em]">
+      <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6">
+        <p className="font-semibold text-[neutral-400] text-xs uppercase tracking-[0.2em]">
           {t("currentScheduleLabel")}
         </p>
-        <p className="mt-2 text-[#0f172a] text-base">
+        <p className="mt-2 text-[neutral-900] text-base">
           {booking.scheduled_start
             ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
                 dateStyle: "medium",
@@ -130,11 +130,14 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
       {/* New Schedule Form */}
       <div className="space-y-6">
         <div>
-          <label className="mb-2 block font-semibold text-[#0f172a] text-base" htmlFor="newDate">
+          <label
+            className="mb-2 block font-semibold text-[neutral-900] text-base"
+            htmlFor="newDate"
+          >
             {t("newDateLabel")}
           </label>
           <input
-            className="w-full rounded-xl border border-[#e2e8f0] px-4 py-4 text-base shadow-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+            className="w-full rounded-xl border border-[neutral-200] px-4 py-4 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
             id="newDate"
             min={new Date().toISOString().split("T")[0]}
             onChange={(e) => form.updateField("newDate", e.target.value)}
@@ -144,11 +147,14 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
         </div>
 
         <div>
-          <label className="mb-2 block font-semibold text-[#0f172a] text-base" htmlFor="newTime">
+          <label
+            className="mb-2 block font-semibold text-[neutral-900] text-base"
+            htmlFor="newTime"
+          >
             {t("newTimeLabel")}
           </label>
           <input
-            className="w-full rounded-xl border border-[#e2e8f0] px-4 py-4 text-base shadow-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+            className="w-full rounded-xl border border-[neutral-200] px-4 py-4 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
             id="newTime"
             onChange={(e) => form.updateField("newTime", e.target.value)}
             type="time"
@@ -158,16 +164,20 @@ export function RescheduleBookingModal({ isOpen, onClose, booking }: RescheduleB
       </div>
 
       {/* Important Notice */}
-      <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6">
-        <p className="font-semibold text-[#64748b] text-base">{t("notice.title")}</p>
-        <p className="mt-3 text-[#64748b] text-base leading-relaxed">{t("notice.description")}</p>
+      <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6">
+        <p className="font-semibold text-[neutral-500] text-base">{t("notice.title")}</p>
+        <p className="mt-3 text-[neutral-500] text-base leading-relaxed">
+          {t("notice.description")}
+        </p>
       </div>
 
       {/* Message */}
       {form.message && (
         <div
           className={`rounded-2xl p-4 text-base ${
-            form.success ? "bg-[#64748b]/10 text-[#64748b]" : "bg-[#64748b]/10 text-[#64748b]"
+            form.success
+              ? "bg-[neutral-500]/10 text-[neutral-500]"
+              : "bg-[neutral-500]/10 text-[neutral-500]"
           }`}
         >
           {form.message}

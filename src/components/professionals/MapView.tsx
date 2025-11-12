@@ -28,18 +28,18 @@ const MapViewComponent = memo(function MapViewInner({
 
   return (
     <div
-      className={`flex h-full min-h-[400px] items-center justify-center bg-stone-50 ${className}`}
+      className={`flex h-full min-h-[400px] items-center justify-center bg-neutral-50 ${className}`}
     >
       <div className="flex flex-col items-center gap-4 text-center">
-        <HugeiconsIcon className="h-16 w-16 text-stone-400" icon={Location01Icon} />
+        <HugeiconsIcon className="h-16 w-16 text-neutral-400" icon={Location01Icon} />
         <div>
-          <p className="font-semibold text-lg text-stone-900">Map View</p>
-          <p className="text-sm text-stone-600">
+          <p className="font-semibold text-lg text-neutral-900">Map View</p>
+          <p className="text-neutral-600 text-sm">
             {professionalCount > 0
               ? `${professionalCount} professional${professionalCount === 1 ? "" : "s"} with location data`
               : "No professionals with location data"}
           </p>
-          <p className="mt-2 text-stone-500 text-xs">Map functionality temporarily disabled</p>
+          <p className="mt-2 text-neutral-500 text-xs">Map functionality temporarily disabled</p>
         </div>
       </div>
     </div>

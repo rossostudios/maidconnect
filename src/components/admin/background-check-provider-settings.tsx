@@ -75,31 +75,31 @@ export function BackgroundCheckProviderSettings({
           <SelectContent>
             <SelectItem value="checkr">
               <div className="flex items-center gap-3">
-                <div className="rounded bg-white px-2 py-1 dark:bg-slate-950">
-                  <span className="font-semibold text-slate-900 text-xs dark:text-slate-100">
+                <div className="rounded bg-white px-2 py-1 dark:bg-neutral-950">
+                  <span className="font-semibold text-neutral-900 text-xs dark:text-neutral-100">
                     Checkr
                   </span>
                 </div>
-                <span className="text-slate-600 text-sm dark:text-slate-400">
+                <span className="text-neutral-600 text-sm dark:text-neutral-400">
                   Industry leader, US & Colombia coverage
                 </span>
               </div>
             </SelectItem>
             <SelectItem value="truora">
               <div className="flex items-center gap-3">
-                <div className="rounded bg-slate-900 px-2 py-1 dark:bg-slate-100/10">
-                  <span className="font-semibold text-slate-900 text-xs dark:text-slate-100">
+                <div className="rounded bg-neutral-900 px-2 py-1 dark:bg-neutral-100/10">
+                  <span className="font-semibold text-neutral-900 text-xs dark:text-neutral-100">
                     Truora
                   </span>
                 </div>
-                <span className="text-slate-600 text-sm dark:text-slate-400">
+                <span className="text-neutral-600 text-sm dark:text-neutral-400">
                   Latin America specialist, real-time checks
                 </span>
               </div>
             </SelectItem>
           </SelectContent>
         </Select>
-        <p className="mt-2 text-slate-600 text-xs dark:text-slate-400">
+        <p className="mt-2 text-neutral-600 text-xs dark:text-neutral-400">
           Choose which provider to use for background checks. Both support Colombia.
         </p>
       </div>
@@ -110,35 +110,35 @@ export function BackgroundCheckProviderSettings({
         <div
           className={`rounded-lg border p-4 transition-all ${
             settings.provider === "checkr"
-              ? "border-slate-900 bg-white dark:border-slate-100 dark:bg-slate-950"
-              : "border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950"
+              ? "border-neutral-900 bg-white dark:border-neutral-100 dark:bg-neutral-950"
+              : "border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950"
           }`}
         >
           <div className="mb-3 flex items-center justify-between">
-            <div className="rounded bg-white px-3 py-1 dark:bg-slate-950">
+            <div className="rounded bg-white px-3 py-1 dark:bg-neutral-950">
               <span className="font-bold text-red-700 text-sm dark:text-red-200">Checkr</span>
             </div>
             {settings.provider === "checkr" && (
-              <span className="font-semibold text-slate-900 text-xs dark:text-slate-100">
+              <span className="font-semibold text-neutral-900 text-xs dark:text-neutral-100">
                 ✓ Active
               </span>
             )}
           </div>
           <ul className="space-y-2 text-red-700 text-sm dark:text-red-200">
             <li className="flex items-start gap-2">
-              <span className="text-slate-900 dark:text-slate-100">✓</span>
+              <span className="text-neutral-900 dark:text-neutral-100">✓</span>
               <span>Global coverage (US, Colombia, 100+ countries)</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-slate-900 dark:text-slate-100">✓</span>
+              <span className="text-neutral-900 dark:text-neutral-100">✓</span>
               <span>Criminal & identity verification</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-slate-900 dark:text-slate-100">✓</span>
+              <span className="text-neutral-900 dark:text-neutral-100">✓</span>
               <span>2-5 day turnaround time</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-slate-900 dark:text-slate-100">✓</span>
+              <span className="text-neutral-900 dark:text-neutral-100">✓</span>
               <span>SOC 2 Type II certified</span>
             </li>
           </ul>
@@ -148,35 +148,35 @@ export function BackgroundCheckProviderSettings({
         <div
           className={`rounded-lg border p-4 transition-all ${
             settings.provider === "truora"
-              ? "border-slate-900 bg-slate-900 dark:border-slate-100 dark:bg-slate-100/10"
-              : "border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950"
+              ? "border-neutral-900 bg-neutral-900 dark:border-neutral-100 dark:bg-neutral-100/10"
+              : "border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950"
           }`}
         >
           <div className="mb-3 flex items-center justify-between">
-            <div className="rounded bg-slate-900 px-3 py-1 dark:bg-slate-100/10">
+            <div className="rounded bg-neutral-900 px-3 py-1 dark:bg-neutral-100/10">
               <span className="font-bold text-red-700 text-sm dark:text-red-200">Truora</span>
             </div>
             {settings.provider === "truora" && (
-              <span className="font-semibold text-slate-900 text-xs dark:text-slate-100">
+              <span className="font-semibold text-neutral-900 text-xs dark:text-neutral-100">
                 ✓ Active
               </span>
             )}
           </div>
           <ul className="space-y-2 text-red-700 text-sm dark:text-red-200">
             <li className="flex items-start gap-2">
-              <span className="text-slate-900 dark:text-slate-100">✓</span>
+              <span className="text-neutral-900 dark:text-neutral-100">✓</span>
               <span>Latin America specialist (Colombia, Mexico, Brazil)</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-slate-900 dark:text-slate-100">✓</span>
+              <span className="text-neutral-900 dark:text-neutral-100">✓</span>
               <span>Real-time criminal checks</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-slate-900 dark:text-slate-100">✓</span>
+              <span className="text-neutral-900 dark:text-neutral-100">✓</span>
               <span>24-48 hour turnaround time</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-slate-900 dark:text-slate-100">✓</span>
+              <span className="text-neutral-900 dark:text-neutral-100">✓</span>
               <span>Local data compliance (GDPR, CCPA)</span>
             </li>
           </ul>
@@ -184,12 +184,12 @@ export function BackgroundCheckProviderSettings({
       </div>
 
       {/* Enable Background Checks */}
-      <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
+      <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
         <div>
           <p className="font-semibold text-red-700 text-sm dark:text-red-200">
             Enable Background Checks
           </p>
-          <p className="text-slate-600 text-xs dark:text-slate-400">
+          <p className="text-neutral-600 text-xs dark:text-neutral-400">
             Require background checks for all professional applications
           </p>
         </div>
@@ -200,17 +200,17 @@ export function BackgroundCheckProviderSettings({
             onChange={(e) => setSettings({ ...settings, enabled: e.target.checked })}
             type="checkbox"
           />
-          <div className="peer h-6 w-11 rounded-full bg-[#e2e8f0]/60 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-slate-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-slate-900 peer-checked:after:translate-x-full peer-checked:after:border-[#f8fafc] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-slate-500/20 dark:border-slate-500/40 dark:bg-slate-100 dark:bg-slate-950 dark:focus:ring-slate-400/20" />
+          <div className="peer peer-checked:after:tranneutral-x-full h-6 w-11 rounded-full bg-[neutral-200]/60 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-neutral-900 peer-checked:after:border-[neutral-50] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-neutral-500/20 dark:border-neutral-500/40 dark:bg-neutral-100 dark:bg-neutral-950 dark:focus:ring-neutral-400/20" />
         </label>
       </div>
 
       {/* Auto-Initiate Background Checks */}
-      <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
+      <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
         <div>
           <p className="font-semibold text-red-700 text-sm dark:text-red-200">
             Auto-Initiate Checks
           </p>
-          <p className="text-slate-600 text-xs dark:text-slate-400">
+          <p className="text-neutral-600 text-xs dark:text-neutral-400">
             Automatically start background checks when applications are submitted
           </p>
         </div>
@@ -222,22 +222,22 @@ export function BackgroundCheckProviderSettings({
             onChange={(e) => setSettings({ ...settings, auto_initiate: e.target.checked })}
             type="checkbox"
           />
-          <div className="peer h-6 w-11 rounded-full bg-[#e2e8f0]/60 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-slate-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-slate-900 peer-checked:after:translate-x-full peer-checked:after:border-[#f8fafc] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-slate-500/20 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 dark:border-slate-500/40 dark:bg-slate-100 dark:bg-slate-950 dark:focus:ring-slate-400/20" />
+          <div className="peer peer-checked:after:tranneutral-x-full h-6 w-11 rounded-full bg-[neutral-200]/60 after:absolute after:top-[2px] after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-400/40 after:bg-white after:transition-all after:content-[''] peer-checked:bg-neutral-900 peer-checked:after:border-[neutral-50] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-neutral-500/20 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 dark:border-neutral-500/40 dark:bg-neutral-100 dark:bg-neutral-950 dark:focus:ring-neutral-400/20" />
         </label>
       </div>
 
       {/* Info Box */}
-      <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
+      <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
         <div className="flex items-start gap-3">
           <HugeiconsIcon
-            className="mt-0.5 h-5 w-5 flex-shrink-0 text-slate-900 dark:text-slate-100"
+            className="mt-0.5 h-5 w-5 flex-shrink-0 text-neutral-900 dark:text-neutral-100"
             icon={SecurityCheckIcon}
           />
           <div>
             <p className="mb-1 font-semibold text-red-700 text-sm dark:text-red-200">
               About Background Checks
             </p>
-            <p className="text-slate-900 text-xs leading-relaxed dark:text-slate-100">
+            <p className="text-neutral-900 text-xs leading-relaxed dark:text-neutral-100">
               Background checks help ensure the safety and trustworthiness of professionals on your
               platform. Both Checkr and Truora provide comprehensive criminal background checks and
               identity verification services that comply with Colombian regulations. Checks
@@ -250,14 +250,14 @@ export function BackgroundCheckProviderSettings({
 
       {/* Error Display */}
       {error && (
-        <div className="rounded-lg border border-slate-900 bg-white p-4 dark:border-slate-100/30 dark:bg-slate-950">
+        <div className="rounded-lg border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
           <p className="text-red-700 text-sm dark:text-red-200">{error}</p>
         </div>
       )}
 
       {/* Success Display */}
       {successMessage && (
-        <div className="rounded-lg border border-slate-900 bg-slate-900 p-4 dark:border-slate-100/40 dark:bg-slate-100/10">
+        <div className="rounded-lg border border-neutral-900 bg-neutral-900 p-4 dark:border-neutral-100/40 dark:bg-neutral-100/10">
           <p className="text-red-700 text-sm dark:text-red-200">{successMessage}</p>
         </div>
       )}
@@ -265,7 +265,7 @@ export function BackgroundCheckProviderSettings({
       {/* Save Button */}
       <div className="flex justify-end">
         <button
-          className="rounded-lg bg-slate-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-slate-900 disabled:opacity-50 dark:bg-slate-100 dark:bg-slate-100 dark:text-slate-950"
+          className="rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
           disabled={isSaving}
           onClick={handleSave}
           type="button"

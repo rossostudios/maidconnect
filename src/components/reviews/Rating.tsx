@@ -39,7 +39,7 @@ const StarRating = ({
 
   return (
     <div className="flex items-center gap-2">
-      {label && <span className="text-[#94a3b8] text-sm">{label}:</span>}
+      {label && <span className="text-[neutral-400] text-sm">{label}:</span>}
       <div className="flex gap-1">
         {[1, 2, 3, 4, 5].map((star) => (
           <button
@@ -137,7 +137,7 @@ export function RatingPromptModal({
     >
       {/* Overall Rating */}
       <div>
-        <div className="mb-2 block font-medium text-[#0f172a] text-sm">Overall Rating *</div>
+        <div className="mb-2 block font-medium text-[neutral-900] text-sm">Overall Rating *</div>
         <StarRating
           disabled={form.isSubmitting}
           onChange={(val) => form.updateField("rating", val)}
@@ -146,8 +146,8 @@ export function RatingPromptModal({
       </div>
 
       {/* Category Ratings */}
-      <div className="space-y-2 rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-4">
-        <p className="font-semibold text-[#94a3b8] text-xs uppercase tracking-wide">
+      <div className="space-y-2 rounded-lg border border-[neutral-200] bg-[neutral-50] p-4">
+        <p className="font-semibold text-[neutral-400] text-xs uppercase tracking-wide">
           Optional: Rate by category
         </p>
         <StarRating
@@ -172,11 +172,11 @@ export function RatingPromptModal({
 
       {/* Title */}
       <div>
-        <label className="mb-2 block font-medium text-[#0f172a] text-sm" htmlFor="title">
+        <label className="mb-2 block font-medium text-[neutral-900] text-sm" htmlFor="title">
           Title (optional)
         </label>
         <input
-          className="w-full rounded-lg border border-[#e2e8f0] px-3 py-2 text-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+          className="w-full rounded-lg border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
           disabled={form.isSubmitting}
           id="title"
           onChange={(e) => form.updateField("title", e.target.value)}
@@ -188,11 +188,11 @@ export function RatingPromptModal({
 
       {/* Comment */}
       <div>
-        <label className="mb-2 block font-medium text-[#0f172a] text-sm" htmlFor="comment">
+        <label className="mb-2 block font-medium text-[neutral-900] text-sm" htmlFor="comment">
           Comment (optional)
         </label>
         <textarea
-          className="w-full rounded-lg border border-[#e2e8f0] px-3 py-2 text-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+          className="w-full rounded-lg border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
           disabled={form.isSubmitting}
           id="comment"
           onChange={(e) => form.updateField("comment", e.target.value)}
@@ -206,7 +206,9 @@ export function RatingPromptModal({
       {form.message && (
         <div
           className={`rounded-lg p-3 text-sm ${
-            form.success ? "bg-[#64748b]/10 text-[#64748b]" : "bg-[#64748b]/10 text-[#64748b]"
+            form.success
+              ? "bg-[neutral-500]/10 text-[neutral-500]"
+              : "bg-[neutral-500]/10 text-[neutral-500]"
           }`}
         >
           {form.message}

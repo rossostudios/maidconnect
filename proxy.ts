@@ -84,8 +84,7 @@ function detectLocaleFromHeaders(request: NextRequest): string {
   // 1. Check geolocation first (most accurate for regional content)
   // Vercel provides x-vercel-ip-country header in production
   // Cloudflare provides cf-ipcountry header
-  const country =
-    request.headers.get("x-vercel-ip-country") || request.headers.get("cf-ipcountry");
+  const country = request.headers.get("x-vercel-ip-country") || request.headers.get("cf-ipcountry");
 
   if (country) {
     // If user is in a Spanish-speaking country, show Spanish
@@ -282,13 +281,14 @@ export default async function proxy(request: NextRequest) {
   }
 
   // If path doesn't have a locale prefix and is not API/static, redirect to add it
-  const isApiOrStatic = pathname.startsWith("/api") ||
-                        pathname.startsWith("/_next") ||
-                        pathname.startsWith("/_vercel") ||
-                        pathname.startsWith("/studio") ||
-                        pathname.match(/\.(ico|png|jpg|jpeg|svg|gif|webp|css|js)$/);
+  const isApiOrStatic =
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/_vercel") ||
+    pathname.startsWith("/studio") ||
+    pathname.match(/\.(ico|png|jpg|jpeg|svg|gif|webp|css|js)$/);
 
-  if (!getLocaleFromPathname(pathname) && !isApiOrStatic) {
+  if (!(getLocaleFromPathname(pathname) || isApiOrStatic)) {
     const localizedPath = addLocaleToPath(pathname, locale);
     const url = new URL(localizedPath, request.url);
     // Preserve query params

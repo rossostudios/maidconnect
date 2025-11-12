@@ -53,16 +53,16 @@ export type MetricCardProps = {
  */
 const colorVariants = {
   blue: {
-    accent: "border-stone-200 dark:border-blue-900",
-    trend: "text-stone-600 dark:text-blue-400",
+    accent: "border-neutral-200 dark:border-blue-900",
+    trend: "text-neutral-600 dark:text-blue-400",
   },
   green: {
-    accent: "border-stone-200 dark:border-green-900",
-    trend: "text-stone-700 dark:text-green-400",
+    accent: "border-neutral-200 dark:border-green-900",
+    trend: "text-neutral-700 dark:text-green-400",
   },
   default: {
-    accent: "border-stone-200 dark:border-stone-900",
-    trend: "text-stone-700 dark:text-stone-400",
+    accent: "border-neutral-200 dark:border-neutral-900",
+    trend: "text-neutral-700 dark:text-neutral-400",
   },
   pink: {
     accent: "border-pink-200 dark:border-pink-900",
@@ -70,7 +70,7 @@ const colorVariants = {
   },
   purple: {
     accent: "border-purple-200 dark:border-purple-900",
-    trend: "text-stone-600 dark:text-purple-400",
+    trend: "text-neutral-600 dark:text-purple-400",
   },
 };
 
@@ -158,7 +158,7 @@ export function MetricCard({
     return (
       <div
         className={cn(
-          "rounded-lg border border-stone-200 bg-white p-6 shadow-sm dark:border-stone-800 dark:bg-stone-950",
+          "rounded-lg border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-950",
           "animate-pulse",
           className
         )}
@@ -170,15 +170,17 @@ export function MetricCard({
               className={cn(
                 ICON_CONTAINER.containerSize,
                 ICON_CONTAINER.borderRadius,
-                "bg-stone-100 dark:bg-stone-900"
+                "bg-neutral-100 dark:bg-neutral-900"
               )}
             />
           </div>
           {/* Content skeleton */}
           <div className="flex flex-col gap-2">
-            <div className="h-4 w-24 rounded bg-stone-200 dark:bg-stone-800" />
-            <div className="h-8 w-32 rounded bg-stone-200 dark:bg-stone-800" />
-            {trendValue && <div className="h-6 w-28 rounded-full bg-stone-200 dark:bg-stone-800" />}
+            <div className="h-4 w-24 rounded bg-neutral-200 dark:bg-neutral-800" />
+            <div className="h-8 w-32 rounded bg-neutral-200 dark:bg-neutral-800" />
+            {trendValue && (
+              <div className="h-6 w-28 rounded-full bg-neutral-200 dark:bg-neutral-800" />
+            )}
           </div>
         </div>
       </div>
@@ -196,10 +198,10 @@ export function MetricCard({
       <div
         className={cn(
           // Base styles - 8px grid system with proper spacing
-          "rounded-lg border bg-white shadow-sm dark:bg-stone-950",
+          "rounded-lg border bg-white shadow-sm dark:bg-neutral-950",
           CARD_LAYOUT.padding,
           // Border color from variant
-          variant !== "default" ? colors.accent : "border-stone-200 dark:border-stone-800",
+          variant !== "default" ? colors.accent : "border-neutral-200 dark:border-neutral-800",
           // Interactive styles
           onClick && "cursor-pointer hover:shadow-md",
           // Smooth transitions
@@ -234,7 +236,7 @@ export function MetricCard({
           )}
 
           {/* Title */}
-          <h3 className="font-medium text-sm text-stone-600 uppercase tracking-wide dark:text-stone-400">
+          <h3 className="font-medium text-neutral-600 text-sm uppercase tracking-wide dark:text-neutral-400">
             {title}
           </h3>
 
@@ -246,7 +248,7 @@ export function MetricCard({
               initial="hidden"
               variants={valueVariants}
             >
-              <p className="font-bold text-3xl text-stone-900 dark:text-stone-100">{value}</p>
+              <p className="font-bold text-3xl text-neutral-900 dark:text-neutral-100">{value}</p>
               {trend && trendValue && (
                 <Badge
                   className="font-semibold"
@@ -260,7 +262,7 @@ export function MetricCard({
 
             {/* Description */}
             {description && (
-              <p className="text-sm text-stone-600 dark:text-stone-400">{description}</p>
+              <p className="text-neutral-600 text-sm dark:text-neutral-400">{description}</p>
             )}
           </div>
 

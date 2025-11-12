@@ -9,12 +9,12 @@ export async function ConciergeSection() {
   const t = await getTranslations("concierge");
 
   return (
-    <section className="bg-stone-900 py-20 sm:py-24 lg:py-32" id="concierge">
+    <section className="bg-neutral-900 py-20 sm:py-24 lg:py-32" id="concierge">
       <Container>
         <div className="mx-auto flex max-w-5xl flex-col gap-16 text-center">
           <div className="flex flex-col gap-7">
-            <h2 className="serif-display-lg text-stone-50">{t("title")}</h2>
-            <p className="lead mx-auto max-w-2xl text-stone-300">{t("subtitle")}</p>
+            <h2 className="serif-display-lg text-neutral-50">{t("title")}</h2>
+            <p className="lead mx-auto max-w-2xl text-neutral-300">{t("subtitle")}</p>
           </div>
 
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -33,13 +33,13 @@ export async function ConciergeSection() {
             </Button>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-stone-400">
+          <div className="flex flex-wrap items-center justify-center gap-8 text-neutral-400 text-sm">
             <span className="inline-flex items-center gap-2">
-              <HugeiconsIcon className="h-5 w-5 text-stone-400" icon={Location01Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-neutral-400" icon={Location01Icon} />
               {t("cities")}
             </span>
             <span className="inline-flex items-center gap-2">
-              <HugeiconsIcon className="h-5 w-5 text-stone-400" icon={TranslateIcon} />
+              <HugeiconsIcon className="h-5 w-5 text-neutral-400" icon={TranslateIcon} />
               {t("languages")}
             </span>
           </div>

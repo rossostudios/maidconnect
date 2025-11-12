@@ -128,7 +128,7 @@ export default async function ProfessionalOnboardingPage({
 
             return (
               <li
-                className={`hover:-translate-y-1 rounded-[28px] border p-8 shadow-sm transition hover:shadow-[0_10px_40px_rgba(22,22,22,0.08)] ${stepClassName}`}
+                className={`hover:-tranneutral-y-1 rounded-[28px] border p-8 shadow-sm transition hover:shadow-[0_10px_40px_rgba(22,22,22,0.08)] ${stepClassName}`}
                 key={stepId}
               >
                 <div className="flex items-center justify-between">

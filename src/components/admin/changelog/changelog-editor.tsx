@@ -40,26 +40,31 @@ const categoryOptions = [
     value: "features",
     label: "Features",
     icon: MagicWand01Icon,
-    color: "text-slate-900 dark:text-slate-100",
+    color: "text-neutral-900 dark:text-neutral-100",
   },
   {
     value: "improvements",
     label: "Improvements",
     icon: FlashIcon,
-    color: "text-slate-900 dark:text-slate-100",
+    color: "text-neutral-900 dark:text-neutral-100",
   },
-  { value: "fixes", label: "Fixes", icon: Bug01Icon, color: "text-slate-900 dark:text-slate-100" },
+  {
+    value: "fixes",
+    label: "Fixes",
+    icon: Bug01Icon,
+    color: "text-neutral-900 dark:text-neutral-100",
+  },
   {
     value: "security",
     label: "Security",
     icon: Shield01Icon,
-    color: "text-slate-900 dark:text-slate-100",
+    color: "text-neutral-900 dark:text-neutral-100",
   },
   {
     value: "design",
     label: "Design",
     icon: PaintBoardIcon,
-    color: "text-slate-900 dark:text-slate-100",
+    color: "text-neutral-900 dark:text-neutral-100",
   },
 ];
 
@@ -183,8 +188,8 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
       <form className="space-y-6">
         {/* Basic Info */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
-          <h3 className="mb-4 font-bold text-lg text-slate-900 dark:text-slate-100">
+        <div className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+          <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
             Basic Information
           </h3>
 
@@ -198,7 +203,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 Sprint Number *
               </label>
               <input
-                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
+                className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
                 id="sprint_number"
                 min="1"
                 onChange={(e) =>
@@ -222,7 +227,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 Title *
               </label>
               <input
-                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
+                className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
                 id="title"
                 onChange={(e) => handleTitleChange(e.target.value)}
                 placeholder="e.g., Enhanced Search and New Dashboard Features"
@@ -241,7 +246,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 Slug *
               </label>
               <input
-                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-mono text-slate-600 text-sm focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400 dark:focus:ring-slate-400/20"
+                className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 font-mono text-neutral-600 text-sm focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400 dark:focus:ring-neutral-400/20"
                 id="slug"
                 onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                 placeholder="auto-generated-from-title"
@@ -249,7 +254,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 type="text"
                 value={formData.slug}
               />
-              <p className="mt-1 text-slate-600 text-xs dark:text-slate-400">
+              <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-400">
                 URL-friendly version of the title (auto-generated)
               </p>
             </div>
@@ -263,7 +268,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 Summary
               </label>
               <textarea
-                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
+                className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
                 id="summary"
                 onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
                 placeholder="Brief overview of this update (shown in list view)"
@@ -281,7 +286,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 Published Date *
               </label>
               <input
-                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
+                className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
                 id="published_at"
                 onChange={(e) => setFormData({ ...formData, published_at: e.target.value })}
                 required
@@ -293,11 +298,11 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         </div>
 
         {/* Content */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
+        <div className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
           <div className="mb-4 flex items-center justify-between">
-            <h3 className="font-bold text-lg text-slate-900 dark:text-slate-100">Content *</h3>
+            <h3 className="font-bold text-lg text-neutral-900 dark:text-neutral-100">Content *</h3>
             <button
-              className="flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-1.5 text-slate-600 text-sm transition hover:border-slate-900 dark:border-slate-100 dark:border-slate-800 dark:text-slate-400"
+              className="flex items-center gap-2 rounded-lg border border-neutral-200 px-3 py-1.5 text-neutral-600 text-sm transition hover:border-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-400"
               onClick={() => setShowPreview(!showPreview)}
               type="button"
             >
@@ -308,13 +313,13 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
           {showPreview ? (
             <div
-              className="prose prose-lg max-w-none rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950"
+              className="prose prose-lg max-w-none rounded-xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950"
               // snyk:ignore javascript/DOMXSS - Admin content is sanitized via sanitizeRichContent() from @/lib/utils/sanitize
               dangerouslySetInnerHTML={{ __html: sanitizeRichContent(formData.content) }}
             />
           ) : (
             <textarea
-              className="w-full rounded-xl border border-slate-200 px-4 py-3 font-mono text-red-700 text-sm focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-red-200 dark:focus:ring-slate-400/20"
+              className="w-full rounded-xl border border-neutral-200 px-4 py-3 font-mono text-red-700 text-sm focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-red-200 dark:focus:ring-neutral-400/20"
               id="content"
               onChange={(e) => setFormData({ ...formData, content: e.target.value })}
               placeholder="Write your changelog content here (supports HTML)..."
@@ -324,14 +329,16 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             />
           )}
 
-          <p className="mt-2 text-slate-600 text-xs dark:text-slate-400">
+          <p className="mt-2 text-neutral-600 text-xs dark:text-neutral-400">
             Supports HTML formatting
           </p>
         </div>
 
         {/* Categories */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
-          <h3 className="mb-4 font-bold text-lg text-slate-900 dark:text-slate-100">Categories</h3>
+        <div className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+          <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
+            Categories
+          </h3>
           <div className="flex flex-wrap gap-3">
             {categoryOptions.map((option) => {
               const isSelected = formData.categories.includes(option.value);
@@ -340,8 +347,8 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 <button
                   className={`flex items-center gap-2 rounded-full border-2 px-4 py-2 font-medium text-sm transition ${
                     isSelected
-                      ? "border-slate-900 bg-slate-900 text-white dark:border-slate-100 dark:bg-slate-100 dark:text-slate-950"
-                      : "border-slate-200 text-slate-600 hover:border-slate-900 dark:border-slate-100 dark:border-slate-800 dark:text-slate-400"
+                      ? "border-neutral-900 bg-neutral-900 text-white dark:border-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
+                      : "border-neutral-200 text-neutral-600 hover:border-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-400"
                   }`}
                   key={option.value}
                   onClick={() => handleCategoryToggle(option.value)}
@@ -356,8 +363,10 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         </div>
 
         {/* Tags & Audience */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
-          <h3 className="mb-4 font-bold text-lg text-slate-900 dark:text-slate-100">Metadata</h3>
+        <div className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+          <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
+            Metadata
+          </h3>
 
           <div className="space-y-4">
             {/* Tags */}
@@ -369,7 +378,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 Tags
               </label>
               <input
-                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
+                className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
                 id="tags"
                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
                 placeholder="performance, ui, mobile (comma-separated)"
@@ -391,8 +400,8 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                     <button
                       className={`rounded-lg border-2 px-3 py-1.5 font-medium text-sm transition ${
                         isSelected
-                          ? "border-slate-900 bg-slate-100 text-slate-900 dark:border-slate-100 dark:bg-slate-800 dark:text-slate-100"
-                          : "border-slate-200 text-slate-600 hover:border-slate-900 dark:border-slate-100 dark:border-slate-800 dark:text-slate-400"
+                          ? "border-neutral-900 bg-neutral-100 text-neutral-900 dark:border-neutral-100 dark:bg-neutral-800 dark:text-neutral-100"
+                          : "border-neutral-200 text-neutral-600 hover:border-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-400"
                       }`}
                       key={option.value}
                       onClick={() => handleAudienceToggle(option.value)}
@@ -414,7 +423,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
                 Featured Image URL
               </label>
               <input
-                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500/20 dark:border-slate-100 dark:border-slate-800 dark:text-slate-100 dark:focus:ring-slate-400/20"
+                className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
                 id="featured_image_url"
                 onChange={(e) => setFormData({ ...formData, featured_image_url: e.target.value })}
                 placeholder="https://example.com/image.jpg"
@@ -426,9 +435,9 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
+        <div className="flex items-center justify-between gap-4 rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
           <button
-            className="rounded-full border border-slate-200 px-6 py-2.5 font-semibold text-slate-600 transition hover:border-slate-900 dark:border-slate-100 dark:border-slate-800 dark:text-slate-400"
+            className="rounded-full border border-neutral-200 px-6 py-2.5 font-semibold text-neutral-600 transition hover:border-neutral-900 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-400"
             disabled={saving}
             onClick={() => router.back()}
             type="button"
@@ -438,7 +447,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
 
           <div className="flex gap-3">
             <button
-              className="flex items-center gap-2 rounded-full border-2 border-slate-200 bg-white px-6 py-2.5 font-semibold text-slate-900 transition hover:border-slate-900 disabled:opacity-50 dark:border-slate-100 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
+              className="flex items-center gap-2 rounded-full border-2 border-neutral-200 bg-white px-6 py-2.5 font-semibold text-neutral-900 transition hover:border-neutral-900 disabled:opacity-50 dark:border-neutral-100 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-100"
               disabled={saving}
               onClick={(e) => handleSubmit(e, "draft")}
               type="button"
@@ -457,7 +466,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
             </button>
 
             <button
-              className="flex items-center gap-2 rounded-full bg-slate-900 px-6 py-2.5 font-semibold text-white transition hover:bg-slate-900 disabled:opacity-50 dark:bg-slate-100 dark:bg-slate-100 dark:text-slate-950"
+              className="flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-2.5 font-semibold text-white transition hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
               disabled={saving}
               onClick={(e) => handleSubmit(e, "published")}
               type="button"

@@ -26,7 +26,7 @@ export function TwoColumnFeature({
   children,
   className,
 }: TwoColumnFeatureProps) {
-  const bgColor = backgroundColor === "cream" ? "bg-[#f8fafc]" : "bg-[#f8fafc]";
+  const bgColor = backgroundColor === "cream" ? "bg-[neutral-50]" : "bg-[neutral-50]";
 
   const contentOrder = imagePosition === "left" ? "lg:order-2" : "lg:order-1";
   const imageOrder = imagePosition === "left" ? "lg:order-1" : "lg:order-2";
@@ -37,11 +37,11 @@ export function TwoColumnFeature({
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           {/* Content Column */}
           <div className={cn("space-y-6", contentOrder)}>
-            {tagline && <p className="tagline text-[#94a3b8]">{tagline}</p>}
+            {tagline && <p className="tagline text-[neutral-400]">{tagline}</p>}
 
-            <h2 className="serif-display-lg text-[#0f172a]">{heading}</h2>
+            <h2 className="serif-display-lg text-[neutral-900]">{heading}</h2>
 
-            <p className="lead text-[#0f172a]/70">{description}</p>
+            <p className="lead text-[neutral-900]/70">{description}</p>
 
             {children && <div className="pt-4">{children}</div>}
           </div>

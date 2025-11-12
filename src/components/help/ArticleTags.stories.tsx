@@ -58,7 +58,13 @@ export const ManyTags: Story = {
     tags: [
       ...mockTags,
       { id: "4", slug: "account", name_en: "Account", name_es: "Cuenta", color: "purple" },
-      { id: "5", slug: "security", name_en: "Security", name_es: "Seguridad", color: "stone-700" },
+      {
+        id: "5",
+        slug: "security",
+        name_en: "Security",
+        name_es: "Seguridad",
+        color: "neutral-700",
+      },
     ],
     locale: "en",
   },

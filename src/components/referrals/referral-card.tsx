@@ -63,29 +63,29 @@ export function ReferralCard({
   };
 
   return (
-    <div className="rounded-2xl border border-[#e2e8f0] bg-gradient-to-br from-[#f8fafc] to-[bg-[#f8fafc]] p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+    <div className="rounded-2xl border border-[neutral-200] bg-gradient-to-br from-[neutral-50] to-[bg-[neutral-50]] p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
       {/* Header */}
       <div className="mb-6 flex items-start justify-between">
         <div>
           <div className="mb-2 flex items-center gap-2">
-            <HugeiconsIcon className="h-6 w-6 text-[#64748b]" icon={GiftIcon} />
-            <h2 className="font-bold text-2xl text-[#0f172a]">Your Referral Code</h2>
+            <HugeiconsIcon className="h-6 w-6 text-[neutral-500]" icon={GiftIcon} />
+            <h2 className="font-bold text-2xl text-[neutral-900]">Your Referral Code</h2>
           </div>
-          <p className="text-[#94a3b8] text-sm">Share with friends and you both earn rewards</p>
+          <p className="text-[neutral-400] text-sm">Share with friends and you both earn rewards</p>
         </div>
-        <HugeiconsIcon className="h-8 w-8 text-[#64748b]" icon={MagicWand01Icon} />
+        <HugeiconsIcon className="h-8 w-8 text-[neutral-500]" icon={MagicWand01Icon} />
       </div>
 
       {/* Referral Code Display */}
-      <div className="mb-6 rounded-xl border-2 border-[#64748b] border-dashed bg-[#f8fafc] p-6">
-        <div className="mb-2 text-center text-[#94a3b8] text-xs uppercase tracking-wider">
+      <div className="mb-6 rounded-xl border-2 border-[neutral-500] border-dashed bg-[neutral-50] p-6">
+        <div className="mb-2 text-center text-[neutral-400] text-xs uppercase tracking-wider">
           Your Code
         </div>
-        <div className="mb-4 text-center font-bold text-4xl text-[#0f172a] tracking-wider">
+        <div className="mb-4 text-center font-bold text-4xl text-[neutral-900] tracking-wider">
           {code}
         </div>
         <button
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#64748b] px-4 py-3 font-semibold text-[#f8fafc] text-sm transition hover:bg-[#64748b] active:scale-95 disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[neutral-500] px-4 py-3 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] active:scale-95 disabled:opacity-50"
           onClick={handleCopy}
           type="button"
         >
@@ -104,32 +104,32 @@ export function ReferralCard({
       </div>
 
       {/* Rewards Explanation */}
-      <div className="mb-6 rounded-xl bg-[#64748b]/5 p-5">
-        <h3 className="mb-3 font-semibold text-[#0f172a] text-sm">How it works:</h3>
+      <div className="mb-6 rounded-xl bg-[neutral-500]/5 p-5">
+        <h3 className="mb-3 font-semibold text-[neutral-900] text-sm">How it works:</h3>
         <ul className="space-y-2">
           <li className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#64748b] text-[#f8fafc] text-xs">
+            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[neutral-500] text-[neutral-50] text-xs">
               1
             </div>
-            <p className="text-[#94a3b8] text-sm">
+            <p className="text-[neutral-400] text-sm">
               <span className="font-semibold">Share your code</span> with friends via WhatsApp,
               social media, or email
             </p>
           </li>
           <li className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#64748b] text-[#f8fafc] text-xs">
+            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[neutral-500] text-[neutral-50] text-xs">
               2
             </div>
-            <p className="text-[#94a3b8] text-sm">
+            <p className="text-[neutral-400] text-sm">
               <span className="font-semibold">They get {formatCOP(refereeReward / 100)}</span> off
               their first booking
             </p>
           </li>
           <li className="flex items-start gap-3">
-            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#64748b] text-[#f8fafc] text-xs">
+            <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[neutral-500] text-[neutral-50] text-xs">
               3
             </div>
-            <p className="text-[#94a3b8] text-sm">
+            <p className="text-[neutral-400] text-sm">
               <span className="font-semibold">You earn {formatCOP(referrerReward / 100)}</span> in
               credits when they complete their first booking
             </p>
@@ -139,19 +139,19 @@ export function ReferralCard({
 
       {/* Stats */}
       <div className="mb-6 grid gap-4 sm:grid-cols-2">
-        <div className="rounded-xl bg-[#f8fafc] p-4">
-          <div className="mb-1 flex items-center gap-2 text-[#94a3b8] text-xs">
+        <div className="rounded-xl bg-[neutral-50] p-4">
+          <div className="mb-1 flex items-center gap-2 text-[neutral-400] text-xs">
             <HugeiconsIcon className="h-4 w-4" icon={UserGroupIcon} />
             People Referred
           </div>
-          <div className="font-bold text-2xl text-[#0f172a]">{usesCount}</div>
+          <div className="font-bold text-2xl text-[neutral-900]">{usesCount}</div>
         </div>
-        <div className="rounded-xl bg-[#f8fafc] p-4">
-          <div className="mb-1 flex items-center gap-2 text-[#94a3b8] text-xs">
+        <div className="rounded-xl bg-[neutral-50] p-4">
+          <div className="mb-1 flex items-center gap-2 text-[neutral-400] text-xs">
             <HugeiconsIcon className="h-4 w-4" icon={GiftIcon} />
             Credits Earned
           </div>
-          <div className="font-bold text-2xl text-[#0f172a]">
+          <div className="font-bold text-2xl text-[neutral-900]">
             {formatCOP(totalCreditsEarned / 100)}
           </div>
         </div>
@@ -159,46 +159,46 @@ export function ReferralCard({
 
       {/* Share Buttons */}
       <div>
-        <div className="mb-3 text-center text-[#94a3b8] text-xs uppercase tracking-wider">
+        <div className="mb-3 text-center text-[neutral-400] text-xs uppercase tracking-wider">
           Share via
         </div>
         <div className="grid grid-cols-3 gap-3">
           <button
-            className="flex flex-col items-center justify-center gap-2 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-4 transition hover:border-[#64748b] hover:bg-[#64748b]/5 active:scale-95"
+            className="flex flex-col items-center justify-center gap-2 rounded-xl border border-[neutral-200] bg-[neutral-50] p-4 transition hover:border-[neutral-500] hover:bg-[neutral-500]/5 active:scale-95"
             onClick={() => handleShare("whatsapp")}
             type="button"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#64748b]">
-              <HugeiconsIcon className="h-5 w-5 text-[#f8fafc]" icon={Share01Icon} />
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[neutral-500]">
+              <HugeiconsIcon className="h-5 w-5 text-[neutral-50]" icon={Share01Icon} />
             </div>
-            <span className="font-medium text-[#0f172a] text-xs">WhatsApp</span>
+            <span className="font-medium text-[neutral-900] text-xs">WhatsApp</span>
           </button>
           <button
-            className="flex flex-col items-center justify-center gap-2 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-4 transition hover:border-[#64748b] hover:bg-[#64748b]/5 active:scale-95"
+            className="flex flex-col items-center justify-center gap-2 rounded-xl border border-[neutral-200] bg-[neutral-50] p-4 transition hover:border-[neutral-500] hover:bg-[neutral-500]/5 active:scale-95"
             onClick={() => handleShare("twitter")}
             type="button"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#64748b]">
-              <HugeiconsIcon className="h-5 w-5 text-[#f8fafc]" icon={Share01Icon} />
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[neutral-500]">
+              <HugeiconsIcon className="h-5 w-5 text-[neutral-50]" icon={Share01Icon} />
             </div>
-            <span className="font-medium text-[#0f172a] text-xs">Twitter</span>
+            <span className="font-medium text-[neutral-900] text-xs">Twitter</span>
           </button>
           <button
-            className="flex flex-col items-center justify-center gap-2 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-4 transition hover:border-[#64748b] hover:bg-[#64748b]/5 active:scale-95"
+            className="flex flex-col items-center justify-center gap-2 rounded-xl border border-[neutral-200] bg-[neutral-50] p-4 transition hover:border-[neutral-500] hover:bg-[neutral-500]/5 active:scale-95"
             onClick={() => handleShare("facebook")}
             type="button"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#64748b]">
-              <HugeiconsIcon className="h-5 w-5 text-[#f8fafc]" icon={Share01Icon} />
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[neutral-500]">
+              <HugeiconsIcon className="h-5 w-5 text-[neutral-50]" icon={Share01Icon} />
             </div>
-            <span className="font-medium text-[#0f172a] text-xs">Facebook</span>
+            <span className="font-medium text-[neutral-900] text-xs">Facebook</span>
           </button>
         </div>
       </div>
 
       {/* Fine Print */}
-      <div className="mt-6 rounded-lg bg-[#f8fafc] p-4">
-        <p className="text-center text-[#94a3b8] text-xs leading-relaxed">
+      <div className="mt-6 rounded-lg bg-[neutral-50] p-4">
+        <p className="text-center text-[neutral-400] text-xs leading-relaxed">
           Credits expire after 1 year. Your friend must complete their first booking for you to earn
           rewards. Unlimited referrals allowed.
         </p>

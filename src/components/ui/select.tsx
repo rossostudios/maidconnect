@@ -28,10 +28,10 @@ const SelectTrigger = ({
 }) => (
   <SelectPrimitive.Trigger
     className={cn(
-      "flex h-10 w-full items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-4 py-2 text-sm",
-      "focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2",
+      "flex h-10 w-full items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2 text-sm",
+      "focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2",
       "disabled:cursor-not-allowed disabled:opacity-50",
-      "transition-colors hover:bg-slate-50",
+      "transition-colors hover:bg-neutral-50",
       "[&>span]:line-clamp-1",
       className
     )}
@@ -92,11 +92,11 @@ const SelectContent = ({
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       className={cn(
-        "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-lg border border-slate-200 bg-slate-50 shadow-lg",
+        "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50 shadow-lg",
         "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:animate-out data-[state=open]:animate-in",
         "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         position === "popper" &&
-          "data-[side=left]:-translate-x-1 data-[side=top]:-translate-y-1 data-[side=right]:translate-x-1 data-[side=bottom]:translate-y-1",
+          "data-[side=left]:-tranneutral-x-1 data-[side=top]:-tranneutral-y-1 data-[side=right]:tranneutral-x-1 data-[side=bottom]:tranneutral-y-1",
         className
       )}
       position={position}
@@ -128,7 +128,7 @@ const SelectLabel = ({
 }) => (
   <SelectPrimitive.Label
     className={cn(
-      "px-3 py-2 font-semibold text-slate-400 text-xs uppercase tracking-wider",
+      "px-3 py-2 font-semibold text-neutral-400 text-xs uppercase tracking-wider",
       className
     )}
     ref={ref}
@@ -148,7 +148,7 @@ const SelectItem = ({
   <SelectPrimitive.Item
     className={cn(
       "relative flex w-full cursor-default select-none items-center rounded-md py-2 pr-8 pl-3 text-sm outline-none",
-      "focus:bg-slate-50 focus:text-slate-900",
+      "focus:bg-neutral-50 focus:text-neutral-900",
       "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
@@ -157,7 +157,7 @@ const SelectItem = ({
   >
     <span className="absolute right-2 flex h-4 w-4 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <HugeiconsIcon className="h-4 w-4 text-slate-500" icon={Tick02Icon} />
+        <HugeiconsIcon className="h-4 w-4 text-neutral-500" icon={Tick02Icon} />
       </SelectPrimitive.ItemIndicator>
     </span>
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
@@ -173,7 +173,7 @@ const SelectSeparator = ({
   ref?: React.RefObject<React.ElementRef<typeof SelectPrimitive.Separator> | null>;
 }) => (
   <SelectPrimitive.Separator
-    className={cn("-mx-1 my-1 h-px bg-slate-200", className)}
+    className={cn("-mx-1 my-1 h-px bg-neutral-200", className)}
     ref={ref}
     {...props}
   />

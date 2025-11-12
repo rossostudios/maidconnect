@@ -220,34 +220,34 @@ export function MessagingInterface({ userId, userRole }: Props) {
 
   if (error) {
     return (
-      <div className="rounded-2xl border border-[#64748b]/30 bg-[#64748b]/10 p-6 text-[#64748b] text-base">
+      <div className="rounded-2xl border border-[neutral-500]/30 bg-[neutral-500]/10 p-6 text-[neutral-500] text-base">
         {error}
       </div>
     );
   }
 
   return (
-    <div className="flex h-[calc(100vh-200px)] min-h-[600px] overflow-hidden rounded-xl border border-[#e2e8f0] bg-[#f8fafc] shadow-sm">
+    <div className="flex h-[calc(100vh-200px)] min-h-[600px] overflow-hidden rounded-xl border border-[neutral-200] bg-[neutral-50] shadow-sm">
       {/* Conversations List */}
-      <div className="w-96 flex-shrink-0 overflow-y-auto border-[#e2e8f0] border-r">
-        <div className="border-[#e2e8f0] border-b bg-[#f8fafc] px-6 py-5">
-          <h2 className="font-semibold text-[#0f172a] text-xl">Conversations</h2>
-          <p className="mt-1 text-[#94a3b8] text-sm">
+      <div className="w-96 flex-shrink-0 overflow-y-auto border-[neutral-200] border-r">
+        <div className="border-[neutral-200] border-b bg-[neutral-50] px-6 py-5">
+          <h2 className="font-semibold text-[neutral-900] text-xl">Conversations</h2>
+          <p className="mt-1 text-[neutral-400] text-sm">
             {conversations.length} {conversations.length === 1 ? "conversation" : "conversations"}
           </p>
         </div>
 
         {/* Search and filter */}
-        <div className="border-[#e2e8f0] border-b bg-[#f8fafc] px-6 py-4">
+        <div className="border-[neutral-200] border-b bg-[neutral-50] px-6 py-4">
           <div className="relative">
             <input
-              className="w-full rounded-lg border border-[#e2e8f0] px-4 py-2 pl-10 text-[#0f172a] text-sm placeholder-[#94a3b8] focus:border-[#64748b] focus:outline-none focus:ring-1 focus:ring-[#64748b]"
+              className="w-full rounded-lg border border-[neutral-200] px-4 py-2 pl-10 text-[neutral-900] text-sm placeholder-[neutral-400] focus:border-[neutral-500] focus:outline-none focus:ring-1 focus:ring-[neutral-500]"
               placeholder="Search conversations..."
               type="text"
             />
             <svg
               aria-hidden="true"
-              className="absolute top-2.5 left-3 h-5 w-5 text-[#94a3b8]"
+              className="absolute top-2.5 left-3 h-5 w-5 text-[neutral-400]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -266,10 +266,10 @@ export function MessagingInterface({ userId, userRole }: Props) {
           <div className="p-12 text-center">
             <div className="mx-auto max-w-xs">
               <div className="mb-4 flex justify-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#f8fafc]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[neutral-50]">
                   <svg
                     aria-hidden="true"
-                    className="h-6 w-6 text-[#94a3b8]"
+                    className="h-6 w-6 text-[neutral-400]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -283,22 +283,22 @@ export function MessagingInterface({ userId, userRole }: Props) {
                   </svg>
                 </div>
               </div>
-              <h3 className="font-semibold text-[#0f172a] text-base">No conversations</h3>
-              <p className="mt-1 text-[#94a3b8] text-sm">
+              <h3 className="font-semibold text-[neutral-900] text-base">No conversations</h3>
+              <p className="mt-1 text-[neutral-400] text-sm">
                 Messages will appear when you book a service
               </p>
             </div>
           </div>
         ) : (
-          <div className="divide-y divide-[#e2e8f0]">
+          <div className="divide-y divide-[neutral-200]">
             {conversations.map((conv) => {
               const otherUser = normalizeUser(conv, userRole);
               const unreadCount = getConversationUnreadCount(conv, userRole);
 
               return (
                 <button
-                  className={`w-full p-6 text-left transition hover:bg-[#64748b]/5 ${
-                    selectedConversation?.id === conv.id ? "bg-[#64748b]/5" : ""
+                  className={`w-full p-6 text-left transition hover:bg-[neutral-500]/5 ${
+                    selectedConversation?.id === conv.id ? "bg-[neutral-500]/5" : ""
                   }`}
                   key={conv.id}
                   onClick={() => {
@@ -322,7 +322,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                           width={48}
                         />
                       ) : (
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#64748b] font-semibold text-[#f8fafc] text-base">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[neutral-500] font-semibold text-[neutral-50] text-base">
                           {otherUser.full_name.charAt(0).toUpperCase()}
                         </div>
                       )}
@@ -330,20 +330,20 @@ export function MessagingInterface({ userId, userRole }: Props) {
 
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between gap-2">
-                        <h3 className="truncate font-semibold text-[#0f172a] text-base">
+                        <h3 className="truncate font-semibold text-[neutral-900] text-base">
                           {otherUser.full_name}
                         </h3>
                         {unreadCount > 0 && (
-                          <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#64748b] px-2 font-semibold text-[#f8fafc] text-xs">
+                          <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[neutral-500] px-2 font-semibold text-[neutral-50] text-xs">
                             {unreadCount}
                           </span>
                         )}
                       </div>
-                      <p className="truncate text-[#94a3b8] text-sm">
+                      <p className="truncate text-[neutral-400] text-sm">
                         Booking #{conv.booking.id.slice(0, 8)}
                       </p>
                       {conv.last_message_at && (
-                        <p className="mt-2 text-[#94a3b8] text-sm">
+                        <p className="mt-2 text-[neutral-400] text-sm">
                           {formatDistanceToNow(new Date(conv.last_message_at), {
                             addSuffix: true,
                           })}
@@ -363,7 +363,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
         {selectedConversation ? (
           <>
             {/* Thread Header */}
-            <div className="flex items-center justify-between border-[#e2e8f0] border-b bg-[#f8fafc] px-8 py-5">
+            <div className="flex items-center justify-between border-[neutral-200] border-b bg-[neutral-50] px-8 py-5">
               {(() => {
                 const otherUser = normalizeUser(selectedConversation, userRole);
                 return (
@@ -378,15 +378,15 @@ export function MessagingInterface({ userId, userRole }: Props) {
                         width={48}
                       />
                     ) : (
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#64748b] font-semibold text-[#f8fafc] text-base">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[neutral-500] font-semibold text-[neutral-50] text-base">
                         {otherUser.full_name.charAt(0).toUpperCase()}
                       </div>
                     )}
                     <div>
-                      <h3 className="font-semibold text-[#0f172a] text-lg">
+                      <h3 className="font-semibold text-[neutral-900] text-lg">
                         {otherUser.full_name}
                       </h3>
-                      <p className="text-[#94a3b8] text-sm">
+                      <p className="text-[neutral-400] text-sm">
                         Booking #{selectedConversation.booking.id.slice(0, 8)} •{" "}
                         {new Date(
                           selectedConversation.booking.scheduled_start
@@ -402,8 +402,8 @@ export function MessagingInterface({ userId, userRole }: Props) {
                     <button
                       className={`flex items-center gap-2 rounded-lg px-4 py-2 font-medium text-sm transition ${
                         translationEnabled
-                          ? "bg-[#64748b] text-[#f8fafc] hover:bg-[#64748b]"
-                          : "text-[#94a3b8] hover:bg-[#f8fafc]"
+                          ? "bg-[neutral-500] text-[neutral-50] hover:bg-[neutral-500]"
+                          : "text-[neutral-400] hover:bg-[neutral-50]"
                       }`}
                       onClick={() => setTranslationEnabled(!translationEnabled)}
                       type="button"
@@ -413,7 +413,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                     </button>
                     {translationEnabled && (
                       <select
-                        className="rounded-lg border border-[#e2e8f0] px-3 py-2 text-sm focus:border-[#64748b] focus:outline-none focus:ring-1 focus:ring-[#64748b]"
+                        className="rounded-lg border border-[neutral-200] px-3 py-2 text-sm focus:border-[neutral-500] focus:outline-none focus:ring-1 focus:ring-[neutral-500]"
                         onChange={(e) => setTargetLanguage(e.target.value as SupportedLanguage)}
                         value={targetLanguage}
                       >
@@ -424,7 +424,7 @@ export function MessagingInterface({ userId, userRole }: Props) {
                   </div>
                 )}
                 <button
-                  className="rounded-lg px-4 py-2 font-medium text-[#94a3b8] text-sm transition hover:bg-[#f8fafc]"
+                  className="rounded-lg px-4 py-2 font-medium text-[neutral-400] text-sm transition hover:bg-[neutral-50]"
                   type="button"
                 >
                   View Booking
@@ -448,10 +448,10 @@ export function MessagingInterface({ userId, userRole }: Props) {
           <div className="flex flex-1 items-center justify-center p-12">
             <div className="max-w-sm text-center">
               <div className="mb-4 flex justify-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#f8fafc]">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-50]">
                   <svg
                     aria-hidden="true"
-                    className="h-8 w-8 text-[#94a3b8]"
+                    className="h-8 w-8 text-[neutral-400]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -465,8 +465,8 @@ export function MessagingInterface({ userId, userRole }: Props) {
                   </svg>
                 </div>
               </div>
-              <h3 className="font-semibold text-[#0f172a] text-xl">Select a conversation</h3>
-              <p className="mt-2 text-[#94a3b8] text-base">
+              <h3 className="font-semibold text-[neutral-900] text-xl">Select a conversation</h3>
+              <p className="mt-2 text-[neutral-400] text-base">
                 Choose a conversation from the list to start messaging
               </p>
             </div>
@@ -506,7 +506,7 @@ function MessageThread({
   if (loading && messages.length === 0) {
     return (
       <div className="flex flex-1 items-center justify-center">
-        <p className="text-[#94a3b8] text-base">Loading messages...</p>
+        <p className="text-[neutral-400] text-base">Loading messages...</p>
       </div>
     );
   }
@@ -515,7 +515,7 @@ function MessageThread({
     <div className="flex-1 space-y-6 overflow-y-auto p-6">
       {messages.length === 0 ? (
         <div className="flex h-full items-center justify-center">
-          <p className="text-[#94a3b8] text-base">No messages yet. Start the conversation!</p>
+          <p className="text-[neutral-400] text-base">No messages yet. Start the conversation!</p>
         </div>
       ) : (
         messages.map((msg) => {
@@ -527,7 +527,9 @@ function MessageThread({
             <div className={`flex ${isCurrentUser ? "justify-end" : "justify-start"}`} key={msg.id}>
               <div
                 className={`max-w-[70%] rounded-xl px-4 py-3 ${
-                  isCurrentUser ? "bg-[#64748b] text-[#f8fafc]" : "bg-[#f8fafc] text-[#0f172a]"
+                  isCurrentUser
+                    ? "bg-[neutral-500] text-[neutral-50]"
+                    : "bg-[neutral-50] text-[neutral-900]"
                 }`}
               >
                 {hasTranslation ? (
@@ -535,12 +537,12 @@ function MessageThread({
                     <p className="text-base leading-relaxed">{translations[msg.id]}</p>
                     <details className="mt-2">
                       <summary
-                        className={`cursor-pointer text-xs ${isCurrentUser ? "text-[#f8fafc]/70" : "text-[#94a3b8]"}`}
+                        className={`cursor-pointer text-xs ${isCurrentUser ? "text-[neutral-50]/70" : "text-[neutral-400]"}`}
                       >
                         Show original
                       </summary>
                       <p
-                        className={`mt-1 text-sm ${isCurrentUser ? "text-[#f8fafc]/90" : "text-[#0f172a]"}`}
+                        className={`mt-1 text-sm ${isCurrentUser ? "text-[neutral-50]/90" : "text-[neutral-900]"}`}
                       >
                         {msg.message}
                       </p>
@@ -551,13 +553,13 @@ function MessageThread({
                 )}
                 {isTranslating && (
                   <p
-                    className={`mt-1 text-xs ${isCurrentUser ? "text-[#f8fafc]/70" : "text-[#94a3b8]"}`}
+                    className={`mt-1 text-xs ${isCurrentUser ? "text-[neutral-50]/70" : "text-[neutral-400]"}`}
                   >
                     Translating...
                   </p>
                 )}
                 <p
-                  className={`mt-2 text-sm ${isCurrentUser ? "text-[#f8fafc]/70" : "text-[#94a3b8]"}`}
+                  className={`mt-2 text-sm ${isCurrentUser ? "text-[neutral-50]/70" : "text-[neutral-400]"}`}
                 >
                   {formatDistanceToNow(new Date(msg.created_at), {
                     addSuffix: true,
@@ -647,14 +649,17 @@ function MessageInput({
   };
 
   return (
-    <form action={formAction} className="space-y-4 border-[#e2e8f0] border-t bg-[#f8fafc] p-6">
+    <form
+      action={formAction}
+      className="space-y-4 border-[neutral-200] border-t bg-[neutral-50] p-6"
+    >
       {/* Quick Replies for Professionals */}
       {userRole === "professional" && <QuickReplies onSelectReply={handleQuickReply} />}
 
       {/* Message Input */}
       <div className="flex gap-3">
         <input
-          className="flex-1 rounded-xl border border-[#e2e8f0] px-4 py-4 text-base shadow-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20 disabled:opacity-50"
+          className="flex-1 rounded-xl border border-[neutral-200] px-4 py-4 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20 disabled:opacity-50"
           disabled={isSending}
           name="message"
           onChange={handleMessageChange}
@@ -664,7 +669,7 @@ function MessageInput({
           value={message}
         />
         <button
-          className="rounded-full bg-[#64748b] px-6 py-4 font-semibold text-[#f8fafc] text-base transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-full bg-[neutral-500] px-6 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
           disabled={!message.trim() || isSending}
           type="submit"
         >

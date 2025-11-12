@@ -35,30 +35,38 @@ export function FeaturesSection({ data }: FeaturesSectionProps) {
   const layoutClass = layout === "list" ? "grid-cols-1" : `sm:grid-cols-2 ${gridClass}`;
 
   return (
-    <section className="bg-[#f8fafc] py-20 sm:py-24 lg:py-32">
+    <section className="bg-[neutral-50] py-20 sm:py-24 lg:py-32">
       <Container>
         {(title || description) && (
           <div className="mb-16 text-center">
-            {title && <h2 className="serif-display-lg text-[#0f172a]">{title}</h2>}
+            {title && <h2 className="serif-display-lg text-[neutral-900]">{title}</h2>}
             {description && (
-              <p className="lead mx-auto mt-6 max-w-2xl text-[#0f172a]/70">{description}</p>
+              <p className="lead mx-auto mt-6 max-w-2xl text-[neutral-900]/70">{description}</p>
             )}
           </div>
         )}
 
         <div className={`grid gap-8 ${layoutClass}`}>
           {features.map((feature, index) => (
-            <div className={layout === "list" ? "border-[#e2e8f0] border-b pb-8" : ""} key={index}>
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-[#64748b]/100/10">
-                <HugeiconsIcon className="h-7 w-7 text-[#64748b]" icon={CheckmarkCircle01Icon} />
+            <div
+              className={layout === "list" ? "border-[neutral-200] border-b pb-8" : ""}
+              key={index}
+            >
+              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-[neutral-500]/100/10">
+                <HugeiconsIcon
+                  className="h-7 w-7 text-[neutral-500]"
+                  icon={CheckmarkCircle01Icon}
+                />
               </div>
-              <h3 className="serif-headline-sm mb-4 text-[#0f172a]">{feature.title}</h3>
+              <h3 className="serif-headline-sm mb-4 text-[neutral-900]">{feature.title}</h3>
               {feature.description && (
-                <p className="text-[#0f172a]/70 text-base leading-relaxed">{feature.description}</p>
+                <p className="text-[neutral-900]/70 text-base leading-relaxed">
+                  {feature.description}
+                </p>
               )}
               {feature.link && (
                 <a
-                  className="mt-4 inline-flex items-center font-medium text-[#64748b] hover:text-[#64748b]"
+                  className="mt-4 inline-flex items-center font-medium text-[neutral-500] hover:text-[neutral-500]"
                   href={feature.link}
                 >
                   Learn more →

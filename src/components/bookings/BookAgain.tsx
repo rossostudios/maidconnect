@@ -90,11 +90,11 @@ const BookAgainCardComponent = memo(
     };
 
     return (
-      <div className="group rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:border-[#64748b] hover:shadow-[0_20px_60px_rgba(22,22,22,0.08)]">
+      <div className="group rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:border-[neutral-500] hover:shadow-[0_20px_60px_rgba(22,22,22,0.08)]">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex items-start gap-4">
-            <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#e2e8f0]">
+            <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full border-2 border-[neutral-200]">
               {booking.professionalPhoto ? (
                 <Image
                   alt={booking.professionalName}
@@ -105,7 +105,7 @@ const BookAgainCardComponent = memo(
                   width={56}
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center bg-[#64748b] font-semibold text-[#f8fafc] text-lg">
+                <div className="flex h-full w-full items-center justify-center bg-[neutral-500] font-semibold text-[neutral-50] text-lg">
                   {booking.professionalName
                     .split(" ")
                     .map((n) => n[0])
@@ -116,20 +116,22 @@ const BookAgainCardComponent = memo(
             </div>
 
             <div>
-              <h3 className="font-semibold text-[#0f172a] text-lg">{booking.professionalName}</h3>
-              <p className="text-[#94a3b8] text-sm">{booking.serviceName}</p>
+              <h3 className="font-semibold text-[neutral-900] text-lg">
+                {booking.professionalName}
+              </h3>
+              <p className="text-[neutral-400] text-sm">{booking.serviceName}</p>
             </div>
           </div>
 
           {/* Badge */}
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#64748b]/10 px-3 py-1.5 font-medium text-[#64748b] text-xs">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[neutral-500]/10 px-3 py-1.5 font-medium text-[neutral-500] text-xs">
             <HugeiconsIcon className="h-3.5 w-3.5" icon={Tick02Icon} />
             Completed
           </span>
         </div>
 
         {/* Booking Details */}
-        <div className="mt-4 flex flex-wrap items-center gap-4 text-[#94a3b8] text-sm">
+        <div className="mt-4 flex flex-wrap items-center gap-4 text-[neutral-400] text-sm">
           <div className="flex items-center gap-1.5">
             <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />
             <span>{formatDate(booking.scheduledDate)}</span>
@@ -139,20 +141,20 @@ const BookAgainCardComponent = memo(
             <span>{booking.durationHours}h session</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="font-semibold text-[#0f172a]">{formatCOP(booking.amount)}</span>
+            <span className="font-semibold text-[neutral-900]">{formatCOP(booking.amount)}</span>
           </div>
         </div>
 
         {/* Error Message */}
         {error && (
-          <div className="mt-4 rounded-lg bg-[#64748b]/10 px-4 py-3 text-[#64748b] text-sm">
+          <div className="mt-4 rounded-lg bg-[neutral-500]/10 px-4 py-3 text-[neutral-500] text-sm">
             {error}
           </div>
         )}
 
         {/* Quick Rebook Button */}
         <button
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#64748b] px-6 py-3 font-semibold text-[#f8fafc] transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-60"
           disabled={isRebooking}
           onClick={handleBookAgain}
           type="button"
@@ -170,7 +172,7 @@ const BookAgainCardComponent = memo(
           )}
         </button>
 
-        <p className="mt-2 text-center text-[#94a3b8] text-xs">
+        <p className="mt-2 text-center text-[neutral-400] text-xs">
           {oneTapEnabled
             ? "All details pre-filled. Just pick a new date!"
             : "Same service, new date. We'll prefill your preferences."}
@@ -202,8 +204,8 @@ export function BookAgainSection({ previousBookings, onBookAgain }: BookAgainSec
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-semibold text-2xl text-[#0f172a]">Book Again</h2>
-        <p className="text-[#94a3b8] text-sm">Your recent professionals</p>
+        <h2 className="font-semibold text-2xl text-[neutral-900]">Book Again</h2>
+        <p className="text-[neutral-400] text-sm">Your recent professionals</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

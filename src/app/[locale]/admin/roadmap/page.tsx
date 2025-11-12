@@ -27,12 +27,12 @@ export default async function AdminRoadmapPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-bold text-3xl text-slate-900">Roadmap Management</h1>
-          <p className="mt-2 text-slate-600">Manage your product roadmap items</p>
+          <h1 className="font-bold text-3xl text-neutral-900">Roadmap Management</h1>
+          <p className="mt-2 text-neutral-600">Manage your product roadmap items</p>
         </div>
 
         <Link
-          className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-6 py-3 font-medium text-white transition hover:bg-slate-800"
+          className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-3 font-medium text-white transition hover:bg-neutral-800"
           href="/admin/roadmap/new"
         >
           <HugeiconsIcon icon={Add01Icon} size={20} />
@@ -44,7 +44,7 @@ export default async function AdminRoadmapPage() {
       <Suspense
         fallback={
           <div className="flex items-center justify-center py-12">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-slate-900 border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-neutral-900 border-t-transparent" />
           </div>
         }
       >

@@ -35,10 +35,10 @@ export const CustomerView: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="min-h-screen bg-stone-50 pb-20">
+      <div className="min-h-screen bg-neutral-50 pb-20">
         <div className="p-4">
-          <h1 className="font-bold text-2xl text-stone-900">Customer Dashboard</h1>
-          <p className="mt-2 text-stone-600">Mobile navigation at bottom</p>
+          <h1 className="font-bold text-2xl text-neutral-900">Customer Dashboard</h1>
+          <p className="mt-2 text-neutral-600">Mobile navigation at bottom</p>
         </div>
         <Story />
       </div>
@@ -57,10 +57,10 @@ export const ProfessionalView: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="min-h-screen bg-stone-50 pb-20">
+      <div className="min-h-screen bg-neutral-50 pb-20">
         <div className="p-4">
-          <h1 className="font-bold text-2xl text-stone-900">Professional Dashboard</h1>
-          <p className="mt-2 text-stone-600">Notice "Jobs" instead of "Bookings"</p>
+          <h1 className="font-bold text-2xl text-neutral-900">Professional Dashboard</h1>
+          <p className="mt-2 text-neutral-600">Notice "Jobs" instead of "Bookings"</p>
         </div>
         <Story />
       </div>
@@ -79,10 +79,10 @@ export const WithBadges: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="min-h-screen bg-stone-50 pb-20">
+      <div className="min-h-screen bg-neutral-50 pb-20">
         <div className="p-4">
-          <h1 className="font-bold text-2xl text-stone-900">Dashboard</h1>
-          <p className="mt-2 text-stone-600">With unread badges on Messages and Alerts</p>
+          <h1 className="font-bold text-2xl text-neutral-900">Dashboard</h1>
+          <p className="mt-2 text-neutral-600">With unread badges on Messages and Alerts</p>
         </div>
         <Story />
       </div>
@@ -107,10 +107,10 @@ export const ActiveBookings: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="min-h-screen bg-stone-50 pb-20">
+      <div className="min-h-screen bg-neutral-50 pb-20">
         <div className="p-4">
-          <h1 className="font-bold text-2xl text-stone-900">My Bookings</h1>
-          <p className="mt-2 text-stone-600">Bookings tab is active</p>
+          <h1 className="font-bold text-2xl text-neutral-900">My Bookings</h1>
+          <p className="mt-2 text-neutral-600">Bookings tab is active</p>
         </div>
         <Story />
       </div>

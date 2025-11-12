@@ -54,11 +54,14 @@ export function CustomerBookingList({ bookings }: Props) {
 
   if (bookings.length === 0) {
     return (
-      <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-12 text-center">
-        <p className="text-[#94a3b8] text-base">{t("emptyState.noBookings")}</p>
-        <p className="mt-3 text-[#94a3b8] text-base">
+      <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-12 text-center">
+        <p className="text-[neutral-400] text-base">{t("emptyState.noBookings")}</p>
+        <p className="mt-3 text-[neutral-400] text-base">
           {t("emptyState.browseText")}{" "}
-          <Link className="font-semibold text-[#64748b] hover:text-[#64748b]" href="/professionals">
+          <Link
+            className="font-semibold text-[neutral-500] hover:text-[neutral-500]"
+            href="/professionals"
+          >
             {t("emptyState.professionalDirectory")}
           </Link>{" "}
           {t("emptyState.bookFirstService")}
@@ -91,7 +94,7 @@ export function CustomerBookingList({ bookings }: Props) {
       {/* Upcoming Bookings */}
       {upcomingBookings.length > 0 && (
         <div>
-          <h3 className="mb-6 font-semibold text-[#0f172a] text-xl">
+          <h3 className="mb-6 font-semibold text-[neutral-900] text-xl">
             {t("sections.upcomingServices")}
           </h3>
           <div className="space-y-4">
@@ -105,7 +108,7 @@ export function CustomerBookingList({ bookings }: Props) {
       {/* Past Bookings */}
       {pastBookings.length > 0 && (
         <div>
-          <h3 className="mb-6 font-semibold text-[#0f172a] text-xl">
+          <h3 className="mb-6 font-semibold text-[neutral-900] text-xl">
             {t("sections.pastServices")}
           </h3>
           <div className="space-y-4">
@@ -147,13 +150,13 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
 
   const statusColor =
     {
-      pending_payment: "bg-[#e2e8f0]/30 text-[#0f172a]",
-      authorized: "bg-[#64748b]/10 text-[#64748b]",
-      confirmed: "bg-[#64748b]/10 text-[#64748b]",
-      declined: "bg-[#64748b]/10 text-[#64748b]",
-      canceled: "bg-[#e2e8f0]/30 text-[#0f172a]",
-      completed: "bg-[#f8fafc] text-[#64748b]",
-    }[booking.status] || "bg-[#e2e8f0]/30 text-[#0f172a]";
+      pending_payment: "bg-[neutral-200]/30 text-[neutral-900]",
+      authorized: "bg-[neutral-500]/10 text-[neutral-500]",
+      confirmed: "bg-[neutral-500]/10 text-[neutral-500]",
+      declined: "bg-[neutral-500]/10 text-[neutral-500]",
+      canceled: "bg-[neutral-200]/30 text-[neutral-900]",
+      completed: "bg-[neutral-50] text-[neutral-500]",
+    }[booking.status] || "bg-[neutral-200]/30 text-[neutral-900]";
 
   // Type-safe translation key lookup
   const statusTranslationKey = `card.status.${booking.status}` as const;
@@ -172,11 +175,11 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
       : booking.status.replace(/_/g, " ")) || booking.status.replace(/_/g, " ");
 
   return (
-    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-sm transition hover:shadow-md">
+    <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-sm transition hover:shadow-md">
       <div className="flex items-start justify-between gap-6">
         <div className="flex-1">
           <div className="flex items-center gap-3">
-            <h4 className="font-semibold text-[#0f172a] text-lg">
+            <h4 className="font-semibold text-[neutral-900] text-lg">
               {booking.service_name || t("card.service")}
             </h4>
             <span
@@ -186,23 +189,23 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
             </span>
           </div>
 
-          <div className="mt-4 space-y-2 text-[#94a3b8] text-base">
+          <div className="mt-4 space-y-2 text-[neutral-400] text-base">
             <p>
-              <span className="font-semibold text-[#0f172a]">{t("card.professional")}</span>{" "}
+              <span className="font-semibold text-[neutral-900]">{t("card.professional")}</span>{" "}
               {booking.professional?.full_name || t("card.notAssigned")}
             </p>
             <p>
-              <span className="font-semibold text-[#0f172a]">{t("card.scheduled")}</span>{" "}
+              <span className="font-semibold text-[neutral-900]">{t("card.scheduled")}</span>{" "}
               {scheduled}
             </p>
             {booking.duration_minutes && (
               <p>
-                <span className="font-semibold text-[#0f172a]">{t("card.duration")}</span>{" "}
+                <span className="font-semibold text-[neutral-900]">{t("card.duration")}</span>{" "}
                 {t("card.minutes", { minutes: booking.duration_minutes })}
               </p>
             )}
             <p>
-              <span className="font-semibold text-[#0f172a]">{t("card.amount")}</span>{" "}
+              <span className="font-semibold text-[neutral-900]">{t("card.amount")}</span>{" "}
               {amountDisplay}
             </p>
           </div>
@@ -212,14 +215,14 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
           {(booking.status === "confirmed" || booking.status === "authorized") && isUpcoming && (
             <>
               <button
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#e2e8f0] px-5 py-2.5 font-semibold text-[#0f172a] text-sm transition hover:border-[#64748b] hover:text-[#64748b]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[neutral-200] px-5 py-2.5 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
                 onClick={() => setShowRescheduleModal(true)}
                 type="button"
               >
                 {t("card.actions.reschedule")}
               </button>
               <button
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#64748b]/20 px-5 py-2.5 font-semibold text-[#64748b] text-sm transition hover:bg-[#64748b]/10"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[neutral-500]/20 px-5 py-2.5 font-semibold text-[neutral-500] text-sm transition hover:bg-[neutral-500]/10"
                 onClick={() => setShowCancelModal(true)}
                 type="button"
               >
@@ -230,14 +233,14 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
           {booking.status === "completed" && !isUpcoming && (
             <>
               <button
-                className="inline-flex items-center justify-center rounded-full bg-[#64748b] px-5 py-2.5 font-semibold text-[#f8fafc] text-sm shadow-[0_4px_12px_rgba(244,74,34,0.22)] transition hover:bg-[#64748b]"
+                className="inline-flex items-center justify-center rounded-full bg-[neutral-500] px-5 py-2.5 font-semibold text-[neutral-50] text-sm shadow-[0_4px_12px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500]"
                 type="button"
               >
                 {t("card.actions.leaveReview")}
               </button>
               {canReportIssue && (
                 <button
-                  className="inline-flex items-center justify-center rounded-full border-2 border-[#64748b]/20 px-5 py-2.5 font-semibold text-[#64748b] text-sm transition hover:bg-[#64748b]/10"
+                  className="inline-flex items-center justify-center rounded-full border-2 border-[neutral-500]/20 px-5 py-2.5 font-semibold text-[neutral-500] text-sm transition hover:bg-[neutral-500]/10"
                   onClick={() => setShowDisputeModal(true)}
                   type="button"
                 >
@@ -245,7 +248,7 @@ function BookingCard({ booking, isUpcoming }: { booking: CustomerBooking; isUpco
                 </button>
               )}
               <button
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#e2e8f0] px-5 py-2.5 font-semibold text-[#0f172a] text-sm transition hover:border-[#64748b] hover:text-[#64748b]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-[neutral-200] px-5 py-2.5 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
                 onClick={() => setShowRebookModal(true)}
                 type="button"
               >

@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-This audit analyzed Radix UI usage across the MaidConnect codebase to plan migration to React Aria. The migration will reduce bundle size by ~4.7MB (unminified) or ~30-40KB (minified/gzipped), improve accessibility scores, and modernize the component architecture.
+This audit analyzed Radix UI usage across the Casaora codebase to plan migration to React Aria. The migration will reduce bundle size by ~4.7MB (unminified) or ~30-40KB (minified/gzipped), improve accessibility scores, and modernize the component architecture.
 
 **Key Findings:**
 - 10 Radix UI packages installed

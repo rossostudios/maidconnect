@@ -52,12 +52,12 @@ const ProductBottomSheetWrapper = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-stone-50">
-      <header className="border-stone-200 border-b bg-white p-4">
+    <div className="min-h-screen bg-neutral-50">
+      <header className="border-neutral-200 border-b bg-white p-4">
         <div className="flex items-center justify-between">
-          <div className="font-bold text-stone-900 text-xl">Casaora</div>
+          <div className="font-bold text-neutral-900 text-xl">Casaora</div>
           <button
-            className="rounded-lg border border-stone-300 bg-white px-4 py-2 font-medium text-sm text-stone-900 transition hover:bg-stone-50"
+            className="rounded-lg border border-neutral-300 bg-white px-4 py-2 font-medium text-neutral-900 text-sm transition hover:bg-neutral-50"
             onClick={() => setIsOpen(true)}
             type="button"
           >
@@ -66,8 +66,8 @@ const ProductBottomSheetWrapper = () => {
         </div>
       </header>
       <div className="p-4">
-        <h1 className="font-bold text-2xl text-stone-900">Product Features</h1>
-        <p className="mt-2 text-stone-600">Click the button to open the bottom sheet</p>
+        <h1 className="font-bold text-2xl text-neutral-900">Product Features</h1>
+        <p className="mt-2 text-neutral-600">Click the button to open the bottom sheet</p>
       </div>
       <ProductBottomSheet
         features={productFeatures}
@@ -93,10 +93,10 @@ export const FewerFeatures: Story = {
     const features = productFeatures.slice(0, 3);
 
     return (
-      <div className="min-h-screen bg-stone-50">
-        <header className="border-stone-200 border-b bg-white p-4">
+      <div className="min-h-screen bg-neutral-50">
+        <header className="border-neutral-200 border-b bg-white p-4">
           <button
-            className="rounded-lg bg-stone-900 px-4 py-2 font-semibold text-sm text-white transition hover:bg-stone-800"
+            className="rounded-lg bg-neutral-900 px-4 py-2 font-semibold text-sm text-white transition hover:bg-neutral-800"
             onClick={() => setIsOpen(true)}
             type="button"
           >

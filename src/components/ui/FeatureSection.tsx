@@ -48,8 +48,8 @@ export function FeatureSection({
   tagline,
   heading,
   description,
-  backgroundColor = "bg-[#f8fafc]",
-  textColor = "#0f172a",
+  backgroundColor = "bg-[neutral-50]",
+  textColor = "neutral-900",
   illustration,
   children,
   className = "",
@@ -70,7 +70,7 @@ export function FeatureSection({
         <div className={`relative z-10 flex flex-col ${alignmentClasses}`}>
           {/* Tagline */}
           {tagline && (
-            <div className="tagline mb-4" style={{ color: "#94a3b8" }}>
+            <div className="tagline mb-4" style={{ color: "neutral-400" }}>
               {tagline}
             </div>
           )}
@@ -127,23 +127,23 @@ export function FeatureCard({
     <div className="group flex flex-col items-center gap-3 text-center">
       {/* Icon */}
       {icon && (
-        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#64748b]/10 text-[#64748b]">
+        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[neutral-500]/10 text-[neutral-500]">
           {icon}
         </div>
       )}
 
       {/* Title */}
-      <h3 className="serif-headline-sm text-[#0f172a]">{title}</h3>
+      <h3 className="serif-headline-sm text-[neutral-900]">{title}</h3>
 
       {/* Description */}
-      <p className="text-[#0f172a]/70 text-sm leading-relaxed">{description}</p>
+      <p className="text-[neutral-900]/70 text-sm leading-relaxed">{description}</p>
 
       {/* Link */}
       {href && (
-        <div className="mt-2 flex items-center gap-2 font-semibold text-[#64748b] text-sm transition-colors group-hover:text-[#64748b]">
+        <div className="mt-2 flex items-center gap-2 font-semibold text-[neutral-500] text-sm transition-colors group-hover:text-[neutral-500]">
           {linkText}
           <svg
-            className="group-hover:transtone-x-1 h-4 w-4 transition-transform"
+            className="group-hover:tranneutral-x-1 h-4 w-4 transition-transform"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -158,7 +158,7 @@ export function FeatureCard({
   if (href) {
     return (
       <a
-        className="block rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-6 transition-all hover:border-[#64748b]/30 hover:shadow-md"
+        className="block rounded-xl border border-[neutral-200] bg-[neutral-50] p-6 transition-all hover:border-[neutral-500]/30 hover:shadow-md"
         href={href}
       >
         {CardContent}
@@ -166,7 +166,9 @@ export function FeatureCard({
     );
   }
 
-  return <div className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-6">{CardContent}</div>;
+  return (
+    <div className="rounded-xl border border-[neutral-200] bg-[neutral-50] p-6">{CardContent}</div>
+  );
 }
 
 /**

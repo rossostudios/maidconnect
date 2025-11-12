@@ -132,7 +132,7 @@ const TabsList = ({
   return (
     <div
       className={cn(
-        "inline-flex h-12 items-center justify-center rounded-lg bg-[#f8fafc] p-1 text-[#94a3b8]",
+        "inline-flex h-12 items-center justify-center rounded-lg bg-[neutral-50] p-1 text-[neutral-400]",
         className
       )}
       ref={tabListRef}
@@ -179,10 +179,10 @@ const TabsTrigger = ({
     <button
       className={cn(
         "inline-flex items-center justify-center whitespace-nowrap rounded-md px-6 py-2 font-medium text-sm transition-all",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#64748b] focus-visible:ring-offset-2",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[neutral-500] focus-visible:ring-offset-2",
         "disabled:pointer-events-none disabled:opacity-50",
-        isSelected && "bg-[#f8fafc] text-[#0f172a] shadow-sm",
-        !isSelected && "text-[#94a3b8] hover:text-[#0f172a]",
+        isSelected && "bg-[neutral-50] text-[neutral-900] shadow-sm",
+        !isSelected && "text-[neutral-400] hover:text-[neutral-900]",
         className
       )}
       ref={tabRef}
@@ -233,7 +233,7 @@ const TabsContent = ({
   return (
     <div
       className={cn(
-        "mt-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#64748b] focus-visible:ring-offset-2",
+        "mt-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[neutral-500] focus-visible:ring-offset-2",
         className
       )}
       ref={tabPanelRef}

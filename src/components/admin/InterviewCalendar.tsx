@@ -99,7 +99,7 @@ export function InterviewCalendar() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {[1, 2, 3, 4].map((i) => (
             <div
-              className="h-48 animate-pulse rounded-xl border border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950"
+              className="h-48 animate-pulse rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950"
               key={i}
             />
           ))}
@@ -110,11 +110,11 @@ export function InterviewCalendar() {
 
   if (error) {
     return (
-      <Card className="border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950">
+      <Card className="border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
         <CardContent className="p-8 text-center">
-          <p className="mb-4 text-sm text-stone-800 dark:text-stone-300">{error}</p>
+          <p className="mb-4 text-neutral-800 text-sm dark:text-neutral-300">{error}</p>
           <button
-            className="rounded-lg bg-stone-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-stone-900 dark:bg-stone-100 dark:bg-stone-100 dark:text-stone-950"
+            className="rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
             onClick={fetchInterviews}
             type="button"
           >
@@ -172,17 +172,17 @@ export function InterviewCalendar() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "scheduled":
-        return "bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-100";
+        return "bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100";
       case "completed":
-        return "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-100";
+        return "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
       case "no_show":
-        return "bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-100";
+        return "bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100";
       case "cancelled":
-        return "bg-white dark:bg-stone-950 text-stone-600 dark:text-stone-400";
+        return "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400";
       case "rescheduled":
-        return "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-100";
+        return "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
       default:
-        return "bg-white dark:bg-stone-950 text-stone-600 dark:text-stone-400";
+        return "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400";
     }
   };
 
@@ -219,86 +219,86 @@ export function InterviewCalendar() {
       {/* Summary Cards */}
       <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
         {/* Scheduled Card */}
-        <Card className="border-stone-200 bg-white transition-shadow hover:shadow-lg dark:border-stone-800 dark:bg-stone-950">
+        <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950">
           <CardContent className="p-8">
             <div className="mb-6 flex items-center gap-3">
-              <div className="rounded-xl bg-white p-3 dark:bg-stone-950">
+              <div className="rounded-xl bg-white p-3 dark:bg-neutral-950">
                 <HugeiconsIcon
-                  className="h-6 w-6 text-stone-900 dark:text-stone-100"
+                  className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
                   icon={Calendar03Icon}
                 />
               </div>
-              <p className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+              <p className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                 Scheduled
               </p>
             </div>
-            <p className="mb-2 font-bold text-4xl text-stone-900 dark:text-stone-100">
+            <p className="mb-2 font-bold text-4xl text-neutral-900 dark:text-neutral-100">
               {data.counts.scheduled}
             </p>
-            <p className="text-sm text-stone-600 dark:text-stone-400">Upcoming interviews</p>
+            <p className="text-neutral-600 text-sm dark:text-neutral-400">Upcoming interviews</p>
           </CardContent>
         </Card>
 
         {/* Completed Card */}
-        <Card className="border-stone-200 bg-white transition-shadow hover:shadow-lg dark:border-stone-800 dark:bg-stone-950">
+        <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950">
           <CardContent className="p-8">
             <div className="mb-6 flex items-center gap-3">
-              <div className="rounded-xl bg-stone-900 p-3 dark:bg-stone-100/10">
+              <div className="rounded-xl bg-neutral-900 p-3 dark:bg-neutral-100/10">
                 <HugeiconsIcon
-                  className="h-6 w-6 text-stone-900 dark:text-stone-100"
+                  className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
                   icon={CheckmarkCircle02Icon}
                 />
               </div>
-              <p className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+              <p className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                 Completed
               </p>
             </div>
-            <p className="mb-2 font-bold text-4xl text-stone-900 dark:text-stone-100">
+            <p className="mb-2 font-bold text-4xl text-neutral-900 dark:text-neutral-100">
               {data.counts.completed}
             </p>
-            <p className="text-sm text-stone-600 dark:text-stone-400">Interviews finished</p>
+            <p className="text-neutral-600 text-sm dark:text-neutral-400">Interviews finished</p>
           </CardContent>
         </Card>
 
         {/* No Show Card */}
-        <Card className="border-stone-200 bg-white transition-shadow hover:shadow-lg dark:border-stone-800 dark:bg-stone-950">
+        <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950">
           <CardContent className="p-8">
             <div className="mb-6 flex items-center gap-3">
-              <div className="rounded-xl bg-white p-3 dark:bg-stone-950">
+              <div className="rounded-xl bg-white p-3 dark:bg-neutral-950">
                 <HugeiconsIcon
-                  className="h-6 w-6 text-stone-900 dark:text-stone-100"
+                  className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
                   icon={Cancel01Icon}
                 />
               </div>
-              <p className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+              <p className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                 No Show
               </p>
             </div>
-            <p className="mb-2 font-bold text-4xl text-stone-900 dark:text-stone-100">
+            <p className="mb-2 font-bold text-4xl text-neutral-900 dark:text-neutral-100">
               {data.counts.no_show}
             </p>
-            <p className="text-sm text-stone-600 dark:text-stone-400">Missed interviews</p>
+            <p className="text-neutral-600 text-sm dark:text-neutral-400">Missed interviews</p>
           </CardContent>
         </Card>
 
         {/* Cancelled Card */}
-        <Card className="border-stone-200 bg-white transition-shadow hover:shadow-lg dark:border-stone-800 dark:bg-stone-950">
+        <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950">
           <CardContent className="p-8">
             <div className="mb-6 flex items-center gap-3">
-              <div className="rounded-xl bg-white p-3 dark:bg-stone-950">
+              <div className="rounded-xl bg-white p-3 dark:bg-neutral-950">
                 <HugeiconsIcon
-                  className="h-6 w-6 text-stone-600 dark:text-stone-400"
+                  className="h-6 w-6 text-neutral-600 dark:text-neutral-400"
                   icon={TimeScheduleIcon}
                 />
               </div>
-              <p className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+              <p className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                 Cancelled
               </p>
             </div>
-            <p className="mb-2 font-bold text-4xl text-stone-900 dark:text-stone-100">
+            <p className="mb-2 font-bold text-4xl text-neutral-900 dark:text-neutral-100">
               {data.counts.cancelled}
             </p>
-            <p className="text-sm text-stone-600 dark:text-stone-400">Cancelled by user</p>
+            <p className="text-neutral-600 text-sm dark:text-neutral-400">Cancelled by user</p>
           </CardContent>
         </Card>
       </div>
@@ -310,7 +310,7 @@ export function InterviewCalendar() {
             <TabsTrigger value="scheduled">
               Scheduled
               {data.counts.scheduled > 0 && (
-                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-white px-2 py-0.5 font-semibold text-stone-900 text-xs dark:bg-stone-950 dark:text-stone-100">
+                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-white px-2 py-0.5 font-semibold text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
                   {data.counts.scheduled}
                 </span>
               )}
@@ -324,7 +324,7 @@ export function InterviewCalendar() {
           {locations.length > 1 && (
             <div className="flex items-center gap-3">
               <HugeiconsIcon
-                className="h-4 w-4 text-stone-600 dark:text-stone-400"
+                className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
                 icon={Location01Icon}
               />
               <Select onValueChange={setFilterLocation} value={filterLocation}>
@@ -348,9 +348,9 @@ export function InterviewCalendar() {
         {["scheduled", "completed", "no_show", "cancelled"].map((tabValue) => (
           <TabsContent key={tabValue} value={tabValue}>
             {activeInterviews.length === 0 ? (
-              <Card className="border-stone-200 bg-white dark:border-stone-800 dark:bg-stone-950">
+              <Card className="border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
                 <CardContent className="flex min-h-[400px] items-center justify-center">
-                  <p className="text-sm text-stone-600 dark:text-stone-400">
+                  <p className="text-neutral-600 text-sm dark:text-neutral-400">
                     No {tabValue} interviews found.
                   </p>
                 </CardContent>
@@ -359,7 +359,7 @@ export function InterviewCalendar() {
               <div className="space-y-6">
                 {activeInterviews.map((interview) => (
                   <Card
-                    className="border-stone-200 bg-white transition-shadow hover:shadow-lg dark:border-stone-800 dark:bg-stone-950"
+                    className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950"
                     key={interview.id}
                   >
                     <CardContent className="p-8">
@@ -368,17 +368,17 @@ export function InterviewCalendar() {
                           {/* Header */}
                           <div className="mb-6 flex items-center gap-4">
                             <div className="flex items-center gap-3">
-                              <div className="rounded-xl bg-white p-3 dark:bg-stone-950">
+                              <div className="rounded-xl bg-white p-3 dark:bg-neutral-950">
                                 <HugeiconsIcon
-                                  className="h-6 w-6 text-stone-900 dark:text-stone-100"
+                                  className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
                                   icon={UserAccountIcon}
                                 />
                               </div>
                               <div>
-                                <h4 className="font-semibold text-lg text-stone-900 dark:text-stone-100">
+                                <h4 className="font-semibold text-lg text-neutral-900 dark:text-neutral-100">
                                   {interview.professional.full_name || "Unnamed Professional"}
                                 </h4>
-                                <p className="text-sm text-stone-600 dark:text-stone-400">
+                                <p className="text-neutral-600 text-sm dark:text-neutral-400">
                                   {interview.professional.email || interview.professional.phone}
                                 </p>
                               </div>
@@ -391,7 +391,7 @@ export function InterviewCalendar() {
                               </span>
                               {isUpcoming(interview.scheduled_at) &&
                                 interview.status === "scheduled" && (
-                                  <span className="rounded-full bg-stone-900 px-3 py-1 font-semibold text-sm text-stone-800 dark:bg-stone-100/10 dark:text-stone-300">
+                                  <span className="rounded-full bg-neutral-900 px-3 py-1 font-semibold text-neutral-800 text-sm dark:bg-neutral-100/10 dark:text-neutral-300">
                                     Upcoming
                                   </span>
                                 )}
@@ -403,14 +403,14 @@ export function InterviewCalendar() {
                             <div>
                               <div className="mb-2 flex items-center gap-2">
                                 <HugeiconsIcon
-                                  className="h-4 w-4 text-stone-600 dark:text-stone-400"
+                                  className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
                                   icon={Calendar03Icon}
                                 />
-                                <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+                                <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                                   Date
                                 </span>
                               </div>
-                              <p className="font-semibold text-stone-900 dark:text-stone-100">
+                              <p className="font-semibold text-neutral-900 dark:text-neutral-100">
                                 {formatDate(interview.scheduled_at)}
                               </p>
                             </div>
@@ -418,14 +418,14 @@ export function InterviewCalendar() {
                             <div>
                               <div className="mb-2 flex items-center gap-2">
                                 <HugeiconsIcon
-                                  className="h-4 w-4 text-stone-600 dark:text-stone-400"
+                                  className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
                                   icon={TimeScheduleIcon}
                                 />
-                                <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+                                <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                                   Time
                                 </span>
                               </div>
-                              <p className="font-semibold text-stone-900 dark:text-stone-100">
+                              <p className="font-semibold text-neutral-900 dark:text-neutral-100">
                                 {formatTime(interview.scheduled_at)}
                               </p>
                             </div>
@@ -433,14 +433,14 @@ export function InterviewCalendar() {
                             <div>
                               <div className="mb-2 flex items-center gap-2">
                                 <HugeiconsIcon
-                                  className="h-4 w-4 text-stone-600 dark:text-stone-400"
+                                  className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
                                   icon={Location01Icon}
                                 />
-                                <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+                                <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                                   Location
                                 </span>
                               </div>
-                              <p className="font-semibold text-stone-900 dark:text-stone-100">
+                              <p className="font-semibold text-neutral-900 dark:text-neutral-100">
                                 {interview.location}
                               </p>
                             </div>
@@ -448,15 +448,15 @@ export function InterviewCalendar() {
 
                           {/* Location Address */}
                           {interview.location_address && (
-                            <div className="mb-6 rounded-lg border border-stone-200 bg-white p-4 dark:border-stone-800 dark:bg-stone-950">
-                              <p className="mb-1 font-semibold text-sm text-stone-800 dark:text-stone-300">
+                            <div className="mb-6 rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+                              <p className="mb-1 font-semibold text-neutral-800 text-sm dark:text-neutral-300">
                                 {interview.location_address.street}
                               </p>
-                              <p className="text-sm text-stone-600 dark:text-stone-400">
+                              <p className="text-neutral-600 text-sm dark:text-neutral-400">
                                 {interview.location_address.city}
                               </p>
                               {interview.location_address.directions && (
-                                <p className="mt-2 text-stone-600 text-xs dark:text-stone-400">
+                                <p className="mt-2 text-neutral-600 text-xs dark:text-neutral-400">
                                   {interview.location_address.directions}
                                 </p>
                               )}
@@ -465,11 +465,11 @@ export function InterviewCalendar() {
 
                           {/* Interview Notes */}
                           {interview.interview_notes && (
-                            <div className="rounded-lg border border-stone-200 bg-white p-4 dark:border-stone-800 dark:bg-stone-950">
-                              <p className="mb-2 font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+                            <div className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-950">
+                              <p className="mb-2 font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                                 Interview Notes
                               </p>
-                              <p className="text-sm text-stone-800 dark:text-stone-300">
+                              <p className="text-neutral-800 text-sm dark:text-neutral-300">
                                 {interview.interview_notes}
                               </p>
                             </div>
@@ -479,7 +479,7 @@ export function InterviewCalendar() {
                         {/* Action Button */}
                         {interview.status === "scheduled" && (
                           <button
-                            className="ml-6 rounded-lg bg-stone-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-stone-900 dark:bg-stone-100 dark:bg-stone-100 dark:text-stone-950"
+                            className="ml-6 rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
                             onClick={() => setSelectedInterview(interview)}
                             type="button"
                           >
@@ -488,7 +488,7 @@ export function InterviewCalendar() {
                         )}
                         {interview.status !== "scheduled" && (
                           <button
-                            className="ml-6 rounded-lg bg-stone-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-stone-900 dark:bg-stone-100 dark:bg-stone-100 dark:text-stone-950"
+                            className="ml-6 rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
                             onClick={() => setSelectedInterview(interview)}
                             type="button"
                           >
@@ -507,16 +507,16 @@ export function InterviewCalendar() {
 
       {/* Interview Management Modal would go here */}
       {selectedInterview && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/50 p-4 dark:bg-stone-100/50">
-          <div className="relative max-h-[90vh] w-full max-w-2xl overflow-auto rounded-xl border border-stone-200 bg-white p-8 shadow-2xl dark:border-stone-800 dark:bg-stone-950">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/50 p-4 dark:bg-neutral-100/50">
+          <div className="relative max-h-[90vh] w-full max-w-2xl overflow-auto rounded-xl border border-neutral-200 bg-white p-8 shadow-2xl dark:border-neutral-800 dark:bg-neutral-950">
             <button
-              className="absolute top-6 right-6 rounded-lg p-2 text-stone-600 transition-colors hover:bg-white hover:text-stone-900 dark:bg-stone-950 dark:text-stone-100 dark:text-stone-400"
+              className="absolute top-6 right-6 rounded-lg p-2 text-neutral-600 transition-colors hover:bg-white hover:text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-400"
               onClick={() => setSelectedInterview(null)}
               type="button"
             >
               <HugeiconsIcon className="h-6 w-6" icon={Cancel01Icon} />
             </button>
-            <p className="text-center text-stone-600 dark:text-stone-400">
+            <p className="text-center text-neutral-600 dark:text-neutral-400">
               Interview management modal content will go here
             </p>
           </div>

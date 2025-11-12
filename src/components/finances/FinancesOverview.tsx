@@ -29,7 +29,7 @@ type Props = {
   payouts: Payout[];
 };
 
-const COLORS = ["#475569", "#0f172a", "#64748b", "#94a3b8", "#cbd5e1"];
+const COLORS = ["neutral-600", "neutral-900", "neutral-500", "neutral-400", "neutral-300"];
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
@@ -42,17 +42,17 @@ const LineChartComponent = dynamic(
         return (
           <ResponsiveContainer height={300} width="100%">
             <LineChart data={data}>
-              <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
-              <XAxis dataKey="month" stroke="#64748b" style={{ fontSize: 12 }} />
+              <CartesianGrid stroke="neutral-200" strokeDasharray="3 3" />
+              <XAxis dataKey="month" stroke="neutral-500" style={{ fontSize: 12 }} />
               <YAxis
-                stroke="#64748b"
+                stroke="neutral-500"
                 style={{ fontSize: 12 }}
                 tickFormatter={(value) => `${value}k`}
               />
               <Tooltip
                 contentStyle={{
                   backgroundColor: "white",
-                  border: "1px solid #e2e8f0",
+                  border: "1px solid neutral-200",
                   borderRadius: "8px",
                 }}
                 formatter={(value: number) => formatCurrency(value)}
@@ -60,8 +60,8 @@ const LineChartComponent = dynamic(
               <Line
                 activeDot={{ r: 6 }}
                 dataKey="earnings"
-                dot={{ fill: "#0f172a", r: 4 }}
-                stroke="#0f172a"
+                dot={{ fill: "neutral-900", r: 4 }}
+                stroke="neutral-900"
                 strokeWidth={3}
                 type="monotone"
               />
@@ -79,26 +79,26 @@ const LineChartComponent = dynamic(
 const BarChartComponent = dynamic(
   () =>
     import("recharts").then((mod) => ({
-      default: ({ data, dataKey = "bookings", fill = "#64748b", formatter }: any) => {
+      default: ({ data, dataKey = "bookings", fill = "neutral-500", formatter }: any) => {
         const { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } = mod;
         return (
           <ResponsiveContainer height={300} width="100%">
             <BarChart data={data}>
-              <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
+              <CartesianGrid stroke="neutral-200" strokeDasharray="3 3" />
               <XAxis
                 dataKey={dataKey === "bookings" ? "month" : "date"}
-                stroke="#94a3b8"
+                stroke="neutral-400"
                 style={{ fontSize: 12 }}
               />
               <YAxis
-                stroke="#94a3b8"
+                stroke="neutral-400"
                 style={{ fontSize: 12 }}
                 tickFormatter={formatter ? (value: number) => `${value}k` : undefined}
               />
               <Tooltip
                 contentStyle={{
                   backgroundColor: "white",
-                  border: "1px solid #e2e8f0",
+                  border: "1px solid neutral-200",
                   borderRadius: "8px",
                 }}
                 formatter={formatter}
@@ -128,7 +128,7 @@ const PieChartComponent = dynamic(
                 cy="50%"
                 data={data}
                 dataKey="value"
-                fill="#64748b"
+                fill="neutral-500"
                 label={(props: any) => `${props.name} (${(props.percent * 100).toFixed(0)}%)`}
                 labelLine={false}
                 outerRadius={100}
@@ -152,7 +152,7 @@ const PieChartComponent = dynamic(
 // Loading skeleton for charts
 function ChartSkeleton() {
   return (
-    <div className="h-[300px] w-full animate-pulse rounded-lg bg-gradient-to-br from-stone-100 to-stone-50" />
+    <div className="h-[300px] w-full animate-pulse rounded-lg bg-gradient-to-br from-neutral-100 to-neutral-50" />
   );
 }
 
@@ -267,9 +267,9 @@ export function FinancesOverview({ bookings, payouts }: Props) {
       {/* Charts */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Earnings Over Time */}
-        <Card className="border-stone-200 bg-white shadow-sm">
+        <Card className="border-neutral-200 bg-white shadow-sm">
           <CardHeader className="p-8 pb-6">
-            <h2 className="font-semibold text-stone-900 text-xl">{t("charts.earningsTrend")}</h2>
+            <h2 className="font-semibold text-neutral-900 text-xl">{t("charts.earningsTrend")}</h2>
           </CardHeader>
           <CardContent className="p-8 pt-0">
             <LineChartComponent data={earningsData} formatCurrency={formatCurrency} />
@@ -277,20 +277,22 @@ export function FinancesOverview({ bookings, payouts }: Props) {
         </Card>
 
         {/* Bookings Count Over Time */}
-        <Card className="border-stone-200 bg-white shadow-sm">
+        <Card className="border-neutral-200 bg-white shadow-sm">
           <CardHeader className="p-8 pb-6">
-            <h2 className="font-semibold text-stone-900 text-xl">{t("charts.bookingsByMonth")}</h2>
+            <h2 className="font-semibold text-neutral-900 text-xl">
+              {t("charts.bookingsByMonth")}
+            </h2>
           </CardHeader>
           <CardContent className="p-8 pt-0">
-            <BarChartComponent data={earningsData} dataKey="bookings" fill="#475569" />
+            <BarChartComponent data={earningsData} dataKey="bookings" fill="neutral-600" />
           </CardContent>
         </Card>
 
         {/* Revenue by Service */}
         {serviceData.length > 0 && (
-          <Card className="border-stone-200 bg-white shadow-sm">
+          <Card className="border-neutral-200 bg-white shadow-sm">
             <CardHeader className="p-8 pb-6">
-              <h2 className="font-semibold text-stone-900 text-xl">
+              <h2 className="font-semibold text-neutral-900 text-xl">
                 {t("charts.revenueByService")}
               </h2>
             </CardHeader>
@@ -302,15 +304,17 @@ export function FinancesOverview({ bookings, payouts }: Props) {
 
         {/* Payout History */}
         {payoutHistory.length > 0 && (
-          <Card className="border-stone-200 bg-white shadow-sm">
+          <Card className="border-neutral-200 bg-white shadow-sm">
             <CardHeader className="p-8 pb-6">
-              <h2 className="font-semibold text-stone-900 text-xl">{t("charts.recentPayouts")}</h2>
+              <h2 className="font-semibold text-neutral-900 text-xl">
+                {t("charts.recentPayouts")}
+              </h2>
             </CardHeader>
             <CardContent className="p-8 pt-0">
               <BarChartComponent
                 data={payoutHistory}
                 dataKey="amount"
-                fill="#0f172a"
+                fill="neutral-900"
                 formatter={formatCurrency}
               />
             </CardContent>
@@ -331,11 +335,11 @@ function MetricCard({
   description: string;
 }) {
   return (
-    <Card className="border-stone-200 bg-white shadow-sm">
+    <Card className="border-neutral-200 bg-white shadow-sm">
       <CardContent className="p-6">
-        <dt className="font-semibold text-stone-600 text-xs uppercase tracking-wider">{label}</dt>
-        <dd className="mt-3 font-semibold text-3xl text-stone-900">{value}</dd>
-        <p className="mt-1 text-sm text-stone-600">{description}</p>
+        <dt className="font-semibold text-neutral-600 text-xs uppercase tracking-wider">{label}</dt>
+        <dd className="mt-3 font-semibold text-3xl text-neutral-900">{value}</dd>
+        <p className="mt-1 text-neutral-600 text-sm">{description}</p>
       </CardContent>
     </Card>
   );

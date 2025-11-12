@@ -23,7 +23,7 @@ export function CheckmarkList({ children, className, variant = "default" }: Chec
     default: "space-y-4",
     compact: "space-y-2",
     large: "space-y-6",
-    savvycal: "divide-y divide-[#0f172a]/10",
+    savvycal: "divide-y divide-[neutral-900]/10",
   };
 
   return <ul className={cn(spacing[variant], className)}>{children}</ul>;
@@ -46,17 +46,21 @@ export function CheckmarkListItem({
             <div
               className={cn(
                 "mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full",
-                negative ? "bg-[#64748b]" : "bg-[#64748b]/100"
+                negative ? "bg-[neutral-500]" : "bg-[neutral-500]/100"
               )}
             >
-              <HugeiconsIcon className="h-5 w-5 text-[#f8fafc]" icon={Tick02Icon} strokeWidth={3} />
+              <HugeiconsIcon
+                className="h-5 w-5 text-[neutral-50]"
+                icon={Tick02Icon}
+                strokeWidth={3}
+              />
             </div>
-            <h3 className="serif-headline-md pt-0.5 text-[#0f172a]">{title}</h3>
+            <h3 className="serif-headline-md pt-0.5 text-[neutral-900]">{title}</h3>
           </div>
 
           {/* Right: Description */}
           <div className="flex-1 pl-12 md:pl-0">
-            <p className="text-[#0f172a]/70 leading-relaxed">{children}</p>
+            <p className="text-[neutral-900]/70 leading-relaxed">{children}</p>
           </div>
         </div>
       </li>
@@ -69,19 +73,19 @@ export function CheckmarkListItem({
       <div
         className={cn(
           "mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full",
-          negative ? "bg-[#64748b]/10" : "bg-[#64748b]/10"
+          negative ? "bg-[neutral-500]/10" : "bg-[neutral-500]/10"
         )}
       >
         <HugeiconsIcon
-          className={cn("h-3.5 w-3.5", negative ? "text-[#64748b]" : "text-[#64748b]")}
+          className={cn("h-3.5 w-3.5", negative ? "text-[neutral-500]" : "text-[neutral-500]")}
           icon={Tick02Icon}
           strokeWidth={3}
         />
       </div>
       <div className="flex-1">
-        <span className="text-[#0f172a] text-base leading-relaxed">{children}</span>
+        <span className="text-[neutral-900] text-base leading-relaxed">{children}</span>
         {description && (
-          <p className="mt-1 text-[#0f172a]/60 text-sm leading-relaxed">{description}</p>
+          <p className="mt-1 text-[neutral-900]/60 text-sm leading-relaxed">{description}</p>
         )}
       </div>
     </li>

@@ -79,11 +79,14 @@ export function CompactTrustBadge({
   return (
     <div className={cn("flex flex-wrap items-center gap-2", className)}>
       {badges.map((badge, index) => (
-        <span className="flex items-center text-sm text-stone-700" key={index}>
-          <Badge className="bg-stone-100 text-stone-700 hover:bg-stone-200" variant="secondary">
+        <span className="flex items-center text-neutral-700 text-sm" key={index}>
+          <Badge
+            className="bg-neutral-100 text-neutral-700 hover:bg-neutral-200"
+            variant="secondary"
+          >
             {badge}
           </Badge>
-          {index < badges.length - 1 && <span className="mx-2 text-stone-400">·</span>}
+          {index < badges.length - 1 && <span className="mx-2 text-neutral-400">·</span>}
         </span>
       ))}
     </div>

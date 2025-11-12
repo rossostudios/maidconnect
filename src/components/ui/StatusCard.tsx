@@ -76,10 +76,10 @@ export function StatusCard({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-lg border border-stone-200 bg-white shadow-sm dark:border-stone-800 dark:bg-stone-950",
+        "relative overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-950",
         "transition-all duration-200",
         isClickable &&
-          "cursor-pointer hover:border-stone-300 hover:shadow-md dark:hover:border-stone-700",
+          "cursor-pointer hover:border-neutral-300 hover:shadow-md dark:hover:border-neutral-700",
         CARD_LAYOUT.padding,
         className
       )}
@@ -111,20 +111,20 @@ export function StatusCard({
       {/* Content - 16px spacing from icon (2 × 8px) */}
       <div className={cn("mt-4 flex flex-col", CARD_LAYOUT.sectionGap)}>
         {/* Title */}
-        <h3 className="font-medium text-sm text-stone-600 uppercase tracking-wide dark:text-stone-400">
+        <h3 className="font-medium text-neutral-600 text-sm uppercase tracking-wide dark:text-neutral-400">
           {title}
         </h3>
 
         {/* Value and Trend */}
         <div className="flex items-baseline gap-3">
-          <span className="font-bold text-3xl text-stone-900 dark:text-stone-100">{value}</span>
+          <span className="font-bold text-3xl text-neutral-900 dark:text-neutral-100">{value}</span>
           {trend && (
             <span
               className={cn(
                 "font-medium text-sm",
-                trend.direction === "up" && "text-stone-700 dark:text-emerald-400",
-                trend.direction === "down" && "text-stone-800 dark:text-red-400",
-                trend.direction === "neutral" && "text-stone-600 dark:text-stone-400"
+                trend.direction === "up" && "text-neutral-700 dark:text-emerald-400",
+                trend.direction === "down" && "text-neutral-800 dark:text-red-400",
+                trend.direction === "neutral" && "text-neutral-600 dark:text-neutral-400"
               )}
             >
               {trend.direction === "up" && "↑"}
@@ -135,7 +135,9 @@ export function StatusCard({
         </div>
 
         {/* Description */}
-        {description && <p className="text-sm text-stone-600 dark:text-stone-400">{description}</p>}
+        {description && (
+          <p className="text-neutral-600 text-sm dark:text-neutral-400">{description}</p>
+        )}
 
         {/* Additional Content */}
         {children && <div className="mt-2">{children}</div>}

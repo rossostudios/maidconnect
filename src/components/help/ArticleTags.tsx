@@ -18,13 +18,13 @@ type ArticleTagsProps = {
 };
 
 const colorMap = {
-  blue: "bg-stone-100 text-stone-600 hover:bg-stone-200",
-  green: "bg-stone-100 text-stone-700 hover:bg-stone-200",
-  red: "bg-stone-100 text-stone-800 hover:bg-stone-300",
-  yellow: "bg-stone-100 text-stone-800 hover:bg-stone-200",
-  purple: "bg-stone-100 text-purple-700 hover:bg-purple-200",
-  gray: "bg-stone-100 text-stone-700 hover:bg-stone-200",
-  pink: "bg-stone-100 text-pink-700 hover:bg-pink-200",
+  blue: "bg-neutral-100 text-neutral-600 hover:bg-neutral-200",
+  green: "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
+  red: "bg-neutral-100 text-neutral-800 hover:bg-neutral-300",
+  yellow: "bg-neutral-100 text-neutral-800 hover:bg-neutral-200",
+  purple: "bg-neutral-100 text-purple-700 hover:bg-purple-200",
+  gray: "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
+  pink: "bg-neutral-100 text-pink-700 hover:bg-pink-200",
   indigo: "bg-indigo-100 text-indigo-700 hover:bg-indigo-200",
 };
 

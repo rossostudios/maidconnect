@@ -25,17 +25,17 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
     <div className="space-y-6">
       {/* Icon */}
       <div className="flex justify-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#0f172a]/5">
-          <HugeiconsIcon className="h-8 w-8 text-[#0f172a]" icon={HomeIcon} />
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-900]/5">
+          <HugeiconsIcon className="h-8 w-8 text-[neutral-900]" icon={HomeIcon} />
         </div>
       </div>
 
       {/* Title */}
       <div className="text-center">
-        <h2 className="font-semibold text-2xl text-[#0f172a]">
+        <h2 className="font-semibold text-2xl text-[neutral-900]">
           {t("title", { defaultValue: "Tell us about your home" })}
         </h2>
-        <p className="mt-2 text-[#94a3b8]">
+        <p className="mt-2 text-[neutral-400]">
           {t("description", {
             defaultValue: "This helps us estimate time and match you with the right professionals",
           })}
@@ -47,14 +47,14 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
         {/* Bedrooms */}
         <div>
           <label
-            className="mb-2 flex items-center gap-2 font-medium text-[#0f172a] text-sm"
+            className="mb-2 flex items-center gap-2 font-medium text-[neutral-900] text-sm"
             htmlFor="bedrooms"
           >
             <HugeiconsIcon className="h-4 w-4" icon={Building01Icon} />
             {t("bedroomsLabel", { defaultValue: "Bedrooms" })}
           </label>
           <select
-            className="w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-3 text-[#0f172a] transition focus:border-[#0f172a] focus:outline-none focus:ring-2 focus:ring-[#0f172a]/20"
+            className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
             id="bedrooms"
             onChange={(e) => onUpdate({ bedrooms: Number(e.target.value) })}
             value={data.bedrooms || ""}
@@ -73,14 +73,14 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
         {/* Bathrooms */}
         <div>
           <label
-            className="mb-2 flex items-center gap-2 font-medium text-[#0f172a] text-sm"
+            className="mb-2 flex items-center gap-2 font-medium text-[neutral-900] text-sm"
             htmlFor="bathrooms"
           >
             <HugeiconsIcon className="h-4 w-4" icon={Bathtub01Icon} />
             {t("bathroomsLabel", { defaultValue: "Bathrooms" })}
           </label>
           <select
-            className="w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-3 text-[#0f172a] transition focus:border-[#0f172a] focus:outline-none focus:ring-2 focus:ring-[#0f172a]/20"
+            className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
             id="bathrooms"
             onChange={(e) => onUpdate({ bathrooms: Number(e.target.value) })}
             value={data.bathrooms || ""}
@@ -97,11 +97,14 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
 
         {/* Square Meters */}
         <div>
-          <label className="mb-2 block font-medium text-[#0f172a] text-sm" htmlFor="square-meters">
+          <label
+            className="mb-2 block font-medium text-[neutral-900] text-sm"
+            htmlFor="square-meters"
+          >
             {t("squareMetersLabel", { defaultValue: "Approximate size (m²)" })}
           </label>
           <input
-            className="w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-3 text-[#0f172a] transition focus:border-[#0f172a] focus:outline-none focus:ring-2 focus:ring-[#0f172a]/20"
+            className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
             id="square-meters"
             min="20"
             onChange={(e) => onUpdate({ squareMeters: Number(e.target.value) })}
@@ -112,17 +115,17 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
         </div>
 
         {/* Pets */}
-        <div className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-4">
+        <div className="rounded-xl border border-[neutral-200] bg-[neutral-50] p-4">
           <label className="flex items-center gap-3">
             <input
               checked={data.hasPets}
-              className="h-5 w-5 rounded border-[#e2e8f0] text-[#0f172a] focus:ring-[#0f172a]"
+              className="h-5 w-5 rounded border-[neutral-200] text-[neutral-900] focus:ring-[neutral-900]"
               onChange={(e) => onUpdate({ hasPets: e.target.checked })}
               type="checkbox"
             />
             <div className="flex flex-1 items-center gap-2">
-              <HugeiconsIcon className="h-5 w-5 text-[#0f172a]" icon={Home01Icon} />
-              <span className="font-medium text-[#0f172a]">
+              <HugeiconsIcon className="h-5 w-5 text-[neutral-900]" icon={Home01Icon} />
+              <span className="font-medium text-[neutral-900]">
                 {t("hasPetsLabel", { defaultValue: "I have pets" })}
               </span>
             </div>
@@ -132,11 +135,14 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
         {/* Pet Details */}
         {data.hasPets && (
           <div>
-            <label className="mb-2 block font-medium text-[#0f172a] text-sm" htmlFor="pet-details">
+            <label
+              className="mb-2 block font-medium text-[neutral-900] text-sm"
+              htmlFor="pet-details"
+            >
               {t("petDetailsLabel", { defaultValue: "Pet details (optional)" })}
             </label>
             <input
-              className="w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-4 py-3 text-[#0f172a] transition focus:border-[#0f172a] focus:outline-none focus:ring-2 focus:ring-[#0f172a]/20"
+              className="w-full rounded-xl border border-[neutral-200] bg-[neutral-50] px-4 py-3 text-[neutral-900] transition focus:border-[neutral-900] focus:outline-none focus:ring-2 focus:ring-[neutral-900]/20"
               id="pet-details"
               onChange={(e) => onUpdate({ petDetails: e.target.value })}
               placeholder={t("petDetailsPlaceholder", {
@@ -149,21 +155,21 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
         )}
 
         {/* Supplies Needed */}
-        <div className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-4">
+        <div className="rounded-xl border border-[neutral-200] bg-[neutral-50] p-4">
           <label className="flex items-center gap-3">
             <input
               checked={data.suppliesNeeded}
-              className="h-5 w-5 rounded border-[#e2e8f0] text-[#0f172a] focus:ring-[#0f172a]"
+              className="h-5 w-5 rounded border-[neutral-200] text-[neutral-900] focus:ring-[neutral-900]"
               onChange={(e) => onUpdate({ suppliesNeeded: e.target.checked })}
               type="checkbox"
             />
             <div className="flex-1">
-              <span className="font-medium text-[#0f172a]">
+              <span className="font-medium text-[neutral-900]">
                 {t("suppliesNeededLabel", {
                   defaultValue: "I need the professional to bring supplies",
                 })}
               </span>
-              <p className="mt-1 text-[#94a3b8] text-xs">
+              <p className="mt-1 text-[neutral-400] text-xs">
                 {t("suppliesNeededHelper", {
                   defaultValue: "Cleaning products, equipment, etc. (may increase cost)",
                 })}
@@ -176,21 +182,21 @@ export function HomeDetailsStep({ data, onUpdate, onNext, onBack, onSkip }: Home
       {/* Actions */}
       <div className="flex gap-3 pt-4">
         <button
-          className="flex-1 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-6 py-3 font-semibold text-[#94a3b8] transition hover:border-[#0f172a] hover:text-[#0f172a]"
+          className="flex-1 rounded-xl border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
           onClick={onBack}
           type="button"
         >
           {t("back", { defaultValue: "Back" })}
         </button>
         <button
-          className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-6 py-3 font-semibold text-[#94a3b8] transition hover:border-[#0f172a] hover:text-[#0f172a]"
+          className="rounded-xl border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
           onClick={onSkip}
           type="button"
         >
           {t("skip", { defaultValue: "Skip" })}
         </button>
         <button
-          className="flex-1 rounded-xl bg-[#0f172a] px-6 py-3 font-semibold text-[#f8fafc] shadow-[0_6px_18px_rgba(22,22,22,0.22)] transition hover:bg-[#0f172a]"
+          className="flex-1 rounded-xl bg-[neutral-900] px-6 py-3 font-semibold text-[neutral-50] shadow-[0_6px_18px_rgba(22,22,22,0.22)] transition hover:bg-[neutral-900]"
           onClick={onNext}
           type="button"
         >

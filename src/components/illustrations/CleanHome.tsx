@@ -11,7 +11,7 @@ export function CleanHome() {
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* House structure */}
-      <g stroke="#64748b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
+      <g stroke="neutral-500" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
         {/* Roof */}
         <path d="M60 140 L160 60 L260 140" />
 
@@ -20,7 +20,7 @@ export function CleanHome() {
 
         {/* Door */}
         <rect height="80" rx="4" width="50" x="135" y="180" />
-        <circle cx="170" cy="220" fill="#64748b" r="3" />
+        <circle cx="170" cy="220" fill="neutral-500" r="3" />
 
         {/* Windows */}
         <rect height="50" rx="4" width="50" x="100" y="160" />
@@ -31,12 +31,12 @@ export function CleanHome() {
       </g>
 
       {/* Chimney with sparkles (clean air) */}
-      <g stroke="#64748b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
+      <g stroke="neutral-500" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
         <path d="M200 100 L200 70 L230 70 L230 120" />
       </g>
 
       {/* Sparkles around house */}
-      <g fill="#64748b" opacity="0.4">
+      <g fill="neutral-500" opacity="0.4">
         {/* Top left sparkle */}
         <path d="M40 120 L42 130 L50 128 L42 132 L44 142 L40 134 L36 142 L38 132 L30 128 L38 130 Z" />
 
@@ -51,7 +51,7 @@ export function CleanHome() {
       </g>
 
       {/* Garden with flowers */}
-      <g stroke="#64748b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
+      <g stroke="neutral-500" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
         {/* Flower 1 */}
         <circle cx="50" cy="270" r="6" />
         <path d="M50 264 L50 280" />
@@ -74,12 +74,18 @@ export function CleanHome() {
       </g>
 
       {/* Ground line */}
-      <g opacity="0.3" stroke="#64748b" strokeDasharray="8 8" strokeLinecap="round" strokeWidth="2">
+      <g
+        opacity="0.3"
+        stroke="neutral-500"
+        strokeDasharray="8 8"
+        strokeLinecap="round"
+        strokeWidth="2"
+      >
         <path d="M10 290 L310 290" />
       </g>
 
       {/* Heart above house (love for clean home) */}
-      <g fill="#64748b" opacity="0.3">
+      <g fill="neutral-500" opacity="0.3">
         <path d="M160 40 C160 35 155 30 150 30 C145 30 142 33 140 36 C138 33 135 30 130 30 C125 30 120 35 120 40 C120 48 140 60 140 60 C140 60 160 48 160 40 Z" />
       </g>
     </svg>

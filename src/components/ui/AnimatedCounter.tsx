@@ -97,7 +97,7 @@ export function AnimatedCounter({
   });
 
   return (
-    <span className={cn("text-stone-900", className)} ref={ref}>
+    <span className={cn("text-neutral-900", className)} ref={ref}>
       {prefix}
       {formattedCount}
       {suffix}

@@ -8,152 +8,212 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { funnelEvents } from "@/lib/integrations/posthog";
 
-// Animation variants for content fade-in
-const contentVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
+// Swiss Design Animation - Minimal and Purposeful
+const fadeIn: Variants = {
+  hidden: { opacity: 0, y: 8 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.8,
-    },
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
-const staggerContainer: Variants = {
+const stagger: Variants = {
   hidden: {},
   visible: {
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
-    },
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
   },
 };
 
+/**
+ * HeroSection - Swiss Design System
+ *
+ * Clean, minimalist hero section following Swiss typography principles:
+ * - Satoshi for display typography (geometric, precise)
+ * - Ample whitespace (64px modules)
+ * - Grid-based layout (8px base unit)
+ * - Restrained color palette (neutral + orange accent)
+ * - Asymmetric balance with portrait grid
+ */
 export function HeroSection() {
   const t = useTranslations("hero");
   const containerRef = useRef<HTMLElement>(null);
 
-  // Scroll-based animations for portrait images
+  // Subtle parallax for visual depth
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   });
 
-  // Different scroll speeds for parallax effect
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -150]);
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, -110]);
 
   return (
-    <section
-      className="relative overflow-hidden bg-stone-50 py-20 sm:py-24 md:py-32"
-      ref={containerRef}
-    >
-      <Container className="max-w-7xl">
-        {/* Centered Hero Content */}
+    <section className="relative overflow-visible bg-neutral-50 py-24 md:py-32" ref={containerRef}>
+      {/* Vertical Lines - Full height from navbar to bottom, aligned with container */}
+      <div className="-translate-x-1/2 pointer-events-none fixed top-0 bottom-0 left-1/2 z-10 w-full max-w-[1320px]">
+        <div className="absolute inset-y-0 left-0 w-px bg-neutral-200" />
+        <div className="absolute inset-y-0 right-0 w-px bg-neutral-200" />
+      </div>
+
+      <Container className="relative max-w-7xl">
+        {/* Hero Content - Swiss Grid Layout */}
         <motion.div
           animate="visible"
-          className="mx-auto max-w-4xl text-center"
+          className="mb-20 grid grid-cols-1 gap-16 md:grid-cols-12 md:gap-8"
           initial="hidden"
-          variants={staggerContainer}
+          variants={stagger}
         >
-          {/* Heading */}
-          <motion.h1
-            className="font-extrabold text-5xl text-stone-800 leading-tight sm:text-6xl md:text-7xl lg:text-8xl"
-            variants={contentVariants}
-          >
-            {t("title") || "Medium length hero heading goes here"}
-          </motion.h1>
+          {/* Text Content - 7 columns */}
+          <div className="md:col-span-7">
+            {/* Overline - Uppercase, tracked */}
+            <motion.div
+              className="mb-4 font-medium text-neutral-600 text-xs uppercase tracking-wider"
+              variants={fadeIn}
+            >
+              {t("overline") || "Premium Domestic Staffing"}
+            </motion.div>
 
-          {/* Subtitle */}
-          <motion.p
-            className="mx-auto mt-6 max-w-2xl text-lg text-stone-600 leading-relaxed sm:text-xl"
-            variants={contentVariants}
-          >
-            {t("subtitle") ||
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."}
-          </motion.p>
+            {/* Display Heading - Satoshi Medium */}
+            <motion.h1
+              className="font-medium text-5xl text-neutral-900 tracking-tight sm:text-6xl md:text-7xl"
+              style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
+              variants={fadeIn}
+            >
+              {t("title") || "Your home deserves exceptional care"}
+            </motion.h1>
 
-          {/* CTA Buttons */}
+            {/* Body Copy - Manrope Regular */}
+            <motion.p
+              className="mt-6 max-w-xl text-lg text-neutral-600 leading-relaxed"
+              variants={fadeIn}
+            >
+              {t("subtitle") ||
+                "Casaora connects Colombia's most qualified household professionals with families who demand excellence. Every candidate is thoroughly vetted, background-checked, and matched to your unique needs."}
+            </motion.p>
+
+            {/* CTA Buttons - Swiss Alignment */}
+            <motion.div
+              className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
+              variants={fadeIn}
+            >
+              <Button
+                className="justify-center"
+                onClick={() => funnelEvents.clickedCTA(t("cta.primary") || "Find Professionals")}
+                size="lg"
+              >
+                {t("cta.primary") || "Find Professionals"}
+              </Button>
+              <Button
+                className="justify-center"
+                onClick={() => funnelEvents.clickedCTA(t("cta.secondary") || "Learn More")}
+                size="lg"
+                variant="outline"
+              >
+                {t("cta.secondary") || "Learn More"}
+              </Button>
+            </motion.div>
+          </div>
+
+          {/* Empty space for visual balance - 5 columns */}
+          <div className="hidden md:col-span-5 md:block" />
+        </motion.div>
+
+        {/* Hero Image */}
+        <motion.div
+          animate={{ opacity: 1, scale: 1 }}
+          className="relative"
+          initial={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
           <motion.div
-            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
-            variants={contentVariants}
+            className="relative aspect-[16/9] overflow-hidden rounded-sm bg-neutral-200"
+            style={{ y: y1 }}
           >
-            <Button
-              className="min-w-[140px] bg-stone-700 text-stone-50 hover:bg-stone-600"
-              onClick={() => funnelEvents.clickedCTA(t("cta.primary") || "Primary CTA")}
-              size="lg"
-            >
-              {t("cta.primary") || "Button"}
-            </Button>
-            <Button
-              className="min-w-[140px] border-2 border-stone-700 text-stone-700 hover:bg-stone-100"
-              onClick={() => funnelEvents.clickedCTA(t("cta.secondary") || "Secondary CTA")}
-              size="lg"
-              variant="outline"
-            >
-              {t("cta.secondary") || "Button"}
-            </Button>
+            <Image
+              alt="Premium household professionals - Casaora"
+              className="object-cover"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 1200px"
+              src="/hero.png"
+            />
           </motion.div>
         </motion.div>
 
-        {/* Scrolling Portrait Images */}
-        <div className="relative mt-20 sm:mt-24 md:mt-32">
-          <div className="grid grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-            {/* Image 1 - Slowest scroll */}
-            <motion.div
-              animate={{ opacity: 1, y: 0 }}
-              className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-stone-300 shadow-xl"
-              initial={{ opacity: 0, y: 60 }}
-              style={{ y: y1 }}
-              transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Image
-                alt="Professional service provider"
-                className="object-cover"
-                fill
-                sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 300px"
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=800&fit=crop&crop=faces,top"
-              />
-            </motion.div>
+        {/* Trusted By Section - Infinite Scroll */}
+        <div className="mt-20 overflow-hidden">
+          <p className="mb-8 text-center font-mono text-neutral-400 text-xs uppercase tracking-widest">
+            Trusted by 500+ companies worldwide
+          </p>
 
-            {/* Image 2 - Medium scroll */}
-            <motion.div
-              animate={{ opacity: 1, y: 0 }}
-              className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-stone-300 shadow-xl"
-              initial={{ opacity: 0, y: 80 }}
-              style={{ y: y2 }}
-              transition={{ duration: 1, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Image
-                alt="Professional service provider"
-                className="object-cover"
-                fill
-                sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 300px"
-                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&h=800&fit=crop&crop=faces,top"
-              />
-            </motion.div>
+          {/* Infinite Scroll Container */}
+          <div className="relative">
+            {/* Gradient Overlays */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-neutral-50 to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-neutral-50 to-transparent" />
 
-            {/* Image 3 - Fastest scroll */}
+            {/* Scrolling Logos */}
             <motion.div
-              animate={{ opacity: 1, y: 0 }}
-              className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-stone-300 shadow-xl"
-              initial={{ opacity: 0, y: 100 }}
-              style={{ y: y3 }}
-              transition={{ duration: 1, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              animate={{
+                x: [0, -1920], // Scroll distance (adjust based on content width)
+              }}
+              className="flex gap-16"
+              transition={{
+                duration: 30,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "linear",
+              }}
             >
-              <Image
-                alt="Professional service provider"
-                className="object-cover"
-                fill
-                sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 300px"
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop&crop=faces,top"
-              />
+              {/* First set of logos */}
+              {[
+                "Biosynthesis",
+                "Quotient",
+                "Hourglass",
+                "Command+R",
+                "GlobalBank",
+                "Quotient",
+                "Hourglass",
+                "Command+R",
+              ].map((company, index) => (
+                <div
+                  className="flex min-w-[180px] items-center justify-center"
+                  key={`${company}-${index}`}
+                >
+                  <span className="whitespace-nowrap font-semibold text-neutral-900 text-sm tracking-tight">
+                    {company}
+                  </span>
+                </div>
+              ))}
+
+              {/* Duplicate set for seamless loop */}
+              {[
+                "Biosynthesis",
+                "Quotient",
+                "Hourglass",
+                "Command+R",
+                "GlobalBank",
+                "Quotient",
+                "Hourglass",
+                "Command+R",
+              ].map((company, index) => (
+                <div
+                  className="flex min-w-[180px] items-center justify-center"
+                  key={`${company}-duplicate-${index}`}
+                >
+                  <span className="whitespace-nowrap font-semibold text-neutral-900 text-sm tracking-tight">
+                    {company}
+                  </span>
+                </div>
+              ))}
             </motion.div>
           </div>
         </div>
       </Container>
+
+      {/* Horizontal Divider - Connects vertical lines at container width */}
+      <div className="mx-auto mt-20 h-px w-full max-w-[1320px] bg-neutral-200" />
     </section>
   );
 }

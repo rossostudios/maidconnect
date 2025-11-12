@@ -39,7 +39,7 @@ export function StickyLanguageSwitcher() {
       <div className="relative">
         <button
           aria-label="Select language"
-          className="flex items-center gap-2 rounded-full border-2 border-stone-200 bg-white px-4 py-2 font-medium text-sm text-stone-900 shadow-md transition hover:border-stone-300 hover:shadow-lg"
+          className="flex items-center gap-2 rounded-full border-2 border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 text-sm shadow-md transition hover:border-neutral-300 hover:shadow-lg"
           onClick={() => setIsOpen(!isOpen)}
           type="button"
         >
@@ -67,19 +67,19 @@ export function StickyLanguageSwitcher() {
             />
 
             {/* Options */}
-            <div className="absolute top-full right-0 z-50 mt-2 w-48 overflow-hidden rounded-2xl border-2 border-stone-200 bg-white shadow-xl">
+            <div className="absolute top-full right-0 z-50 mt-2 w-48 overflow-hidden rounded-2xl border-2 border-neutral-200 bg-white shadow-xl">
               {languages.map((lang) => (
                 <button
-                  className={`flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-stone-50 ${
-                    lang.code === locale ? "bg-stone-50 font-semibold" : ""
+                  className={`flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-neutral-50 ${
+                    lang.code === locale ? "bg-neutral-50 font-semibold" : ""
                   }`}
                   key={lang.code}
                   onClick={() => switchLanguage(lang.code)}
                   type="button"
                 >
                   <span className="text-2xl">{lang.flag}</span>
-                  <span className="text-sm text-stone-900">{lang.name}</span>
-                  {lang.code === locale && <Check className="ml-auto h-5 w-5 text-stone-700" />}
+                  <span className="text-neutral-900 text-sm">{lang.name}</span>
+                  {lang.code === locale && <Check className="ml-auto h-5 w-5 text-neutral-700" />}
                 </button>
               ))}
             </div>

@@ -9,15 +9,15 @@
 export function getStatusBadge(status: string): string {
   switch (status) {
     case "pending":
-      return "bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100";
+      return "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
     case "clear":
-      return "bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100";
+      return "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
     case "consider":
-      return "bg-slate-900 dark:bg-slate-100/5 text-white dark:text-slate-100";
+      return "bg-neutral-900 dark:bg-neutral-100/5 text-white dark:text-neutral-100";
     case "suspended":
-      return "bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100";
+      return "bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100";
     default:
-      return "bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400";
+      return "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400";
   }
 }
 
@@ -27,11 +27,11 @@ export function getStatusBadge(status: string): string {
 export function getProviderBadge(provider: string): string {
   switch (provider.toLowerCase()) {
     case "checkr":
-      return "bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100";
+      return "bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100";
     case "truora":
-      return "bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100";
+      return "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100";
     default:
-      return "bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400";
+      return "bg-white dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400";
   }
 }
 

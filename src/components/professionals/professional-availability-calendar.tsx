@@ -134,7 +134,9 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
-        <p className="text-[#94a3b8] text-sm">Browse upcoming availability and see booked dates</p>
+        <p className="text-[neutral-400] text-sm">
+          Browse upcoming availability and see booked dates
+        </p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(0,_1fr)]">
@@ -168,10 +170,10 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
         </div>
 
         {/* Details Sidebar */}
-        <div className="rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-4 text-[#94a3b8] text-sm">
-          <h4 className="font-semibold text-[#0f172a] text-sm">Day details</h4>
+        <div className="rounded-lg border border-[neutral-200] bg-[neutral-50] p-4 text-[neutral-400] text-sm">
+          <h4 className="font-semibold text-[neutral-900] text-sm">Day details</h4>
           {selectedDate && (
-            <p className="mt-1 text-[#94a3b8] text-xs">
+            <p className="mt-1 text-[neutral-400] text-xs">
               {selectedDate.toLocaleDateString("es-CO", {
                 weekday: "long",
                 year: "numeric",
@@ -184,10 +186,10 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
           {/* Available Windows */}
           {selectedAvailability.length > 0 ? (
             <div className="mt-3 space-y-2">
-              <p className="font-semibold text-[#94a3b8] text-xs uppercase tracking-[0.18em]">
+              <p className="font-semibold text-[neutral-400] text-xs uppercase tracking-[0.18em]">
                 Available windows
               </p>
-              <ul className="space-y-1 text-[#0f172a] text-sm">
+              <ul className="space-y-1 text-[neutral-900] text-sm">
                 {selectedAvailability.map((slot, index) => (
                   <li
                     className="flex items-center gap-2"
@@ -195,21 +197,21 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
                   >
                     <HugeiconsIcon
                       aria-hidden="true"
-                      className="h-3.5 w-3.5 text-[#64748b]"
+                      className="h-3.5 w-3.5 text-[neutral-500]"
                       icon={Clock01Icon}
                     />
                     <span>
                       {slot.start ?? "--"} – {slot.end ?? "--"}
                     </span>
                     {slot.notes ? (
-                      <span className="text-[#94a3b8] text-xs">· {slot.notes}</span>
+                      <span className="text-[neutral-400] text-xs">· {slot.notes}</span>
                     ) : null}
                   </li>
                 ))}
               </ul>
             </div>
           ) : (
-            <p className="mt-3 text-[#94a3b8] text-sm">
+            <p className="mt-3 text-[neutral-400] text-sm">
               No published availability. Request a booking and we&apos;ll coordinate directly with
               the professional.
             </p>
@@ -217,11 +219,11 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
 
           {/* Bookings */}
           <div className="mt-4">
-            <p className="font-semibold text-[#94a3b8] text-xs uppercase tracking-[0.18em]">
+            <p className="font-semibold text-[neutral-400] text-xs uppercase tracking-[0.18em]">
               Bookings
             </p>
             {selectedBookings.length === 0 ? (
-              <p className="mt-2 text-[#94a3b8] text-sm">No bookings scheduled for this day.</p>
+              <p className="mt-2 text-[neutral-400] text-sm">No bookings scheduled for this day.</p>
             ) : (
               <ul className="mt-2 space-y-3">
                 {selectedBookings
@@ -241,20 +243,20 @@ export function ProfessionalAvailabilityCalendar({ availability, bookings }: Pro
                         : (booking.status ?? "Booking");
                     return (
                       <li
-                        className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] px-3 py-2 text-[#94a3b8] text-sm"
+                        className="rounded-2xl border border-[neutral-200] bg-[neutral-50] px-3 py-2 text-[neutral-400] text-sm"
                         key={booking.id}
                       >
-                        <p className="font-semibold text-[#0f172a]">
+                        <p className="font-semibold text-[neutral-900]">
                           {startDate ? formatTime(startDate) : "Scheduled"} ·{" "}
                           {booking.serviceName ?? "Service"}
                         </p>
-                        <p className="text-[#94a3b8] text-xs">{label}</p>
+                        <p className="text-[neutral-400] text-xs">{label}</p>
                         {formatCOP(
                           booking.amountEstimated ??
                             booking.amountAuthorized ??
                             booking.amountCaptured
                         ) ? (
-                          <p className="text-[#94a3b8] text-xs">
+                          <p className="text-[neutral-400] text-xs">
                             Hold{" "}
                             {formatCOP(
                               booking.amountEstimated ??
@@ -293,12 +295,12 @@ function CustomDayContent({
     <div className="flex h-full min-h-[50px] flex-col items-center justify-center">
       <span className="font-semibold text-sm">{date.getDate()}</span>
       {hasAvailability && (
-        <span className="mt-1 rounded-full bg-[#64748b]/12 px-2 py-0.5 font-semibold text-[#64748b] text-xs">
+        <span className="mt-1 rounded-full bg-[neutral-500]/12 px-2 py-0.5 font-semibold text-[neutral-500] text-xs">
           Open
         </span>
       )}
       {bookingsCount > 0 && (
-        <span className="mt-1 font-medium text-[#94a3b8] text-[11px]">
+        <span className="mt-1 font-medium text-[11px] text-[neutral-400]">
           {bookingsCount} {bookingsCount === 1 ? "booking" : "bookings"}
         </span>
       )}

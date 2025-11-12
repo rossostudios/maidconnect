@@ -1,20 +1,17 @@
-import type { StorybookConfig } from '@storybook/nextjs';
+import type { StorybookConfig } from "@storybook/nextjs";
 
 const config: StorybookConfig = {
-  stories: [
-    '../src/**/*.mdx',
-    '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-  ],
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
 
   addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    '@storybook/addon-links',
-    '@storybook/addon-themes',
+    "@storybook/addon-essentials",
+    "@storybook/addon-interactions",
+    "@storybook/addon-links",
+    "@storybook/addon-themes",
   ],
 
   framework: {
-    name: '@storybook/nextjs',
+    name: "@storybook/nextjs",
     options: {
       // Configure Next.js options
       builder: {
@@ -23,7 +20,7 @@ const config: StorybookConfig = {
     },
   },
 
-  staticDirs: ['../public'],
+  staticDirs: ["../public"],
 
   // Enable React Server Components support (experimental)
   features: {
@@ -32,7 +29,7 @@ const config: StorybookConfig = {
 
   // TypeScript configuration
   typescript: {
-    reactDocgen: 'react-docgen-typescript',
+    reactDocgen: "react-docgen-typescript",
     reactDocgenTypescriptOptions: {
       // Should match your tsconfig
       compilerOptions: {
@@ -45,7 +42,7 @@ const config: StorybookConfig = {
       // Use a custom filter to avoid issues with large codebases
       propFilter: (prop) => {
         if (prop.parent) {
-          return !prop.parent.fileName.includes('node_modules');
+          return !prop.parent.fileName.includes("node_modules");
         }
         return true;
       },
@@ -59,7 +56,7 @@ const config: StorybookConfig = {
   },
 
   docs: {
-    autodocs: 'tag',
+    autodocs: "tag",
   },
 };
 

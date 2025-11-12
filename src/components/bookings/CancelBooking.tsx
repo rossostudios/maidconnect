@@ -102,7 +102,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       customActions={
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-full border-2 border-[#e2e8f0] bg-[#f8fafc] px-6 py-3 font-semibold text-[#0f172a] text-base transition hover:border-[#64748b] hover:text-[#64748b] disabled:cursor-not-allowed disabled:opacity-70"
+            className="flex-1 rounded-full border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] text-base transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={form.isSubmitting}
             onClick={onClose}
             type="button"
@@ -111,7 +111,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
           </button>
           {policy?.canCancel && (
             <button
-              className="flex-1 rounded-full bg-[#64748b] px-6 py-3 font-semibold text-[#f8fafc] text-base transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-70"
+              className="flex-1 rounded-full bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
               disabled={form.isSubmitting}
               onClick={handleCancel}
               type="button"
@@ -127,7 +127,7 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       size="lg"
       title={t("title")}
     >
-      <p className="text-[#94a3b8] text-base">
+      <p className="text-[neutral-400] text-base">
         {booking.service_name || "Service"} •{" "}
         {booking.scheduled_start
           ? new Date(booking.scheduled_start).toLocaleString("es-CO", {
@@ -142,19 +142,19 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
         <div
           className={`mt-6 rounded-2xl border p-6 ${
             policy.canCancel
-              ? "border-[#64748b]/30 bg-[#64748b]/5"
-              : "border-[#64748b]/30 bg-[#64748b]/10"
+              ? "border-[neutral-500]/30 bg-[neutral-500]/5"
+              : "border-[neutral-500]/30 bg-[neutral-500]/10"
           }`}
         >
           <p
             className={`font-semibold text-base ${
-              policy.canCancel ? "text-[#64748b]" : "text-[#64748b]"
+              policy.canCancel ? "text-[neutral-500]" : "text-[neutral-500]"
             }`}
           >
             {policy.reason}
           </p>
           {policy.canCancel && (
-            <div className="mt-3 space-y-1 text-[#64748b] text-base">
+            <div className="mt-3 space-y-1 text-[neutral-500] text-base">
               <p>
                 <strong>Refund:</strong> {policy.refundPercentage}% (
                 {formatAmount(refundAmount, booking.currency)})
@@ -169,10 +169,10 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
 
       {/* Policy Details */}
       <details className="mt-6">
-        <summary className="cursor-pointer font-semibold text-[#0f172a] text-base">
+        <summary className="cursor-pointer font-semibold text-[neutral-900] text-base">
           {t("policy.viewPolicy")}
         </summary>
-        <pre className="mt-3 whitespace-pre-wrap text-[#94a3b8] text-sm leading-relaxed">
+        <pre className="mt-3 whitespace-pre-wrap text-[neutral-400] text-sm leading-relaxed">
           {getCancellationPolicyDescription()}
         </pre>
       </details>
@@ -180,11 +180,11 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       {/* Reason Input */}
       {policy?.canCancel && (
         <div className="mt-6">
-          <label className="mb-2 block font-semibold text-[#0f172a] text-base" htmlFor="reason">
+          <label className="mb-2 block font-semibold text-[neutral-900] text-base" htmlFor="reason">
             {t("form.reasonLabel")}
           </label>
           <textarea
-            className="w-full rounded-xl border border-[#e2e8f0] px-4 py-4 text-base shadow-sm focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+            className="w-full rounded-xl border border-[neutral-200] px-4 py-4 text-base shadow-sm focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
             id="reason"
             onChange={(e) => form.updateField("reason", e.target.value)}
             placeholder={t("form.reasonPlaceholder")}
@@ -198,7 +198,9 @@ export function CancelBookingModal({ isOpen, onClose, booking }: CancelBookingMo
       {form.message && (
         <div
           className={`mt-6 rounded-2xl p-4 text-base ${
-            form.success ? "bg-[#64748b]/10 text-[#64748b]" : "bg-[#64748b]/10 text-[#64748b]"
+            form.success
+              ? "bg-[neutral-500]/10 text-[neutral-500]"
+              : "bg-[neutral-500]/10 text-[neutral-500]"
           }`}
         >
           {form.message}

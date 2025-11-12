@@ -57,15 +57,15 @@ export function ViewToggle({
 
   return (
     <div
-      className={`inline-flex rounded-lg border border-[#94a3b8]/40 bg-[#f8fafc] p-1 ${className}`}
+      className={`inline-flex rounded-lg border border-[neutral-400]/40 bg-[neutral-50] p-1 ${className}`}
     >
       <button
         aria-label={t("viewToggle.list")}
         aria-pressed={view === "list"}
         className={`flex items-center gap-2 rounded-md px-3 py-2 font-medium text-sm transition-colors ${
           view === "list"
-            ? "bg-[#64748b] text-[#f8fafc] shadow-sm"
-            : "text-[#94a3b8] hover:bg-[#e2e8f0]/30 hover:text-[#0f172a]"
+            ? "bg-[neutral-500] text-[neutral-50] shadow-sm"
+            : "text-[neutral-400] hover:bg-[neutral-200]/30 hover:text-[neutral-900]"
         }`}
         onClick={() => handleViewChange("list")}
         type="button"
@@ -79,8 +79,8 @@ export function ViewToggle({
         aria-pressed={view === "map"}
         className={`flex items-center gap-2 rounded-md px-3 py-2 font-medium text-sm transition-colors ${
           view === "map"
-            ? "bg-[#64748b] text-[#f8fafc] shadow-sm"
-            : "text-[#94a3b8] hover:bg-[#e2e8f0]/30 hover:text-[#0f172a]"
+            ? "bg-[neutral-500] text-[neutral-50] shadow-sm"
+            : "text-[neutral-400] hover:bg-[neutral-200]/30 hover:text-[neutral-900]"
         }`}
         onClick={() => handleViewChange("map")}
         type="button"

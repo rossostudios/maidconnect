@@ -57,30 +57,30 @@ export function CheckoutSummary({
   return (
     <div className="space-y-6">
       {/* Service Summary */}
-      <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6">
-        <h3 className="mb-4 font-semibold text-[#0f172a] text-lg">Booking Summary</h3>
+      <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6">
+        <h3 className="mb-4 font-semibold text-[neutral-900] text-lg">Booking Summary</h3>
 
         <div className="space-y-3">
           {/* Service Name */}
           <div className="flex justify-between">
-            <span className="text-[#94a3b8] text-sm">Service</span>
-            <span className="font-medium text-[#0f172a] text-sm">{serviceName}</span>
+            <span className="text-[neutral-400] text-sm">Service</span>
+            <span className="font-medium text-[neutral-900] text-sm">{serviceName}</span>
           </div>
 
           {/* Duration (if provided) */}
           {durationHours && hourlyRate && (
             <div className="flex justify-between">
-              <span className="text-[#94a3b8] text-sm">Duration</span>
-              <span className="text-[#0f172a] text-sm">
+              <span className="text-[neutral-400] text-sm">Duration</span>
+              <span className="text-[neutral-900] text-sm">
                 {formatCurrency(hourlyRate, { currency })} × {durationHours}h
               </span>
             </div>
           )}
 
-          <div className="border-[#e2e8f0] border-t pt-3">
+          <div className="border-[neutral-200] border-t pt-3">
             <div className="flex justify-between">
-              <span className="text-[#94a3b8] text-sm">Subtotal</span>
-              <span className="font-semibold text-[#0f172a] text-sm">
+              <span className="text-[neutral-400] text-sm">Subtotal</span>
+              <span className="font-semibold text-[neutral-900] text-sm">
                 {formatCurrency(subtotal, { currency })}
               </span>
             </div>
@@ -88,12 +88,12 @@ export function CheckoutSummary({
 
           {/* Recurring Discount (if applicable) */}
           {recurringDiscount && recurringDiscount > 0 && (
-            <div className="flex items-center justify-between rounded-lg bg-[#64748b]/10 px-3 py-2">
+            <div className="flex items-center justify-between rounded-lg bg-[neutral-500]/10 px-3 py-2">
               <div className="flex items-center gap-2">
-                <HugeiconsIcon className="h-4 w-4 text-[#64748b]" icon={Tick02Icon} />
-                <span className="font-medium text-[#64748b] text-sm">Recurring discount</span>
+                <HugeiconsIcon className="h-4 w-4 text-[neutral-500]" icon={Tick02Icon} />
+                <span className="font-medium text-[neutral-500] text-sm">Recurring discount</span>
               </div>
-              <span className="font-semibold text-[#64748b] text-sm">
+              <span className="font-semibold text-[neutral-500] text-sm">
                 -{formatCurrency(recurringDiscount, { currency })}
               </span>
             </div>
@@ -101,8 +101,8 @@ export function CheckoutSummary({
 
           {/* Tax */}
           <div className="flex justify-between">
-            <span className="text-[#94a3b8] text-sm">Tax ({(taxRate * 100).toFixed(0)}%)</span>
-            <span className="text-[#0f172a] text-sm">
+            <span className="text-[neutral-400] text-sm">Tax ({(taxRate * 100).toFixed(0)}%)</span>
+            <span className="text-[neutral-900] text-sm">
               {formatCurrency(taxAmount, { currency })}
             </span>
           </div>
@@ -110,36 +110,36 @@ export function CheckoutSummary({
           {/* Tip Line (if enabled) */}
           {tippingEnabled && tipAmount > 0 && (
             <div className="flex justify-between">
-              <span className="text-[#94a3b8] text-sm">Tip</span>
-              <span className="font-medium text-[#64748b] text-sm">
+              <span className="text-[neutral-400] text-sm">Tip</span>
+              <span className="font-medium text-[neutral-500] text-sm">
                 {formatCurrency(tipAmount, { currency })}
               </span>
             </div>
           )}
 
           {/* Total */}
-          <div className="flex justify-between border-[#e2e8f0] border-t pt-3">
+          <div className="flex justify-between border-[neutral-200] border-t pt-3">
             <div className="flex items-center gap-2">
-              <span className="font-bold text-[#0f172a]">Total</span>
+              <span className="font-bold text-[neutral-900]">Total</span>
               <button
                 aria-label="Payment information"
-                className="text-[#94a3b8] transition-colors hover:text-[#0f172a]"
+                className="text-[neutral-400] transition-colors hover:text-[neutral-900]"
                 onClick={() => setShowDepositInfo(!showDepositInfo)}
                 type="button"
               >
                 <HugeiconsIcon className="h-5 w-5" icon={InformationCircleIcon} />
               </button>
             </div>
-            <span className="font-bold text-2xl text-[#64748b]">
+            <span className="font-bold text-2xl text-[neutral-500]">
               {formatCurrency(totalAmount, { currency })}
             </span>
           </div>
 
           {/* Deposit Information Tooltip */}
           {showDepositInfo && (
-            <div className="rounded-lg bg-[#f8fafc] p-4 text-sm">
-              <p className="mb-2 font-medium text-[#64748b]">How payment works</p>
-              <p className="text-[#64748b] leading-relaxed">
+            <div className="rounded-lg bg-[neutral-50] p-4 text-sm">
+              <p className="mb-2 font-medium text-[neutral-500]">How payment works</p>
+              <p className="text-[neutral-500] leading-relaxed">
                 We place a temporary hold (not a charge) on your payment method to secure your
                 booking. The amount is only captured after the service is completed. If you cancel
                 within the free cancellation window, the hold is released immediately.
@@ -160,29 +160,29 @@ export function CheckoutSummary({
       )}
 
       {/* Cancellation Policy */}
-      <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6">
-        <h3 className="mb-3 font-semibold text-[#0f172a] text-base">Cancellation Policy</h3>
-        <div className="space-y-2 text-[#94a3b8] text-sm">
+      <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6">
+        <h3 className="mb-3 font-semibold text-[neutral-900] text-base">Cancellation Policy</h3>
+        <div className="space-y-2 text-[neutral-400] text-sm">
           <p className="leading-relaxed">
-            Free reschedule up to <span className="font-semibold text-[#0f172a]">24 hours</span>{" "}
+            Free reschedule up to <span className="font-semibold text-[neutral-900]">24 hours</span>{" "}
             before your service. Cancelling inside 24 hours may incur fees to respect your
             professional's time:
           </p>
           <ul className="ml-4 list-disc space-y-1.5">
             <li>
-              <span className="font-medium text-[#0f172a]">24+ hours:</span> 100% refund
+              <span className="font-medium text-[neutral-900]">24+ hours:</span> 100% refund
             </li>
             <li>
-              <span className="font-medium text-[#0f172a]">12-24 hours:</span> 50% refund
+              <span className="font-medium text-[neutral-900]">12-24 hours:</span> 50% refund
             </li>
             <li>
-              <span className="font-medium text-[#0f172a]">4-12 hours:</span> 25% refund
+              <span className="font-medium text-[neutral-900]">4-12 hours:</span> 25% refund
             </li>
             <li>
-              <span className="font-medium text-[#0f172a]">Less than 4 hours:</span> No refund
+              <span className="font-medium text-[neutral-900]">Less than 4 hours:</span> No refund
             </li>
           </ul>
-          <p className="pt-2 text-[#94a3b8] text-xs italic">
+          <p className="pt-2 text-[neutral-400] text-xs italic">
             Once the service starts, cancellation is not possible.
           </p>
         </div>

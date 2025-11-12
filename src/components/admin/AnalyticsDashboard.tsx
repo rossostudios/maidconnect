@@ -400,10 +400,10 @@ export function AnalyticsDashboard() {
                       <span
                         className={`inline-flex rounded-full px-3 py-1 font-semibold text-xs ${
                           city.fillRate >= 70
-                            ? "bg-stone-100 text-stone-700"
+                            ? "bg-neutral-100 text-neutral-700"
                             : city.fillRate >= 50
-                              ? "bg-stone-100 text-stone-600"
-                              : "bg-stone-100 text-stone-800"
+                              ? "bg-neutral-100 text-neutral-600"
+                              : "bg-neutral-100 text-neutral-800"
                         }`}
                       >
                         {city.fillRate.toFixed(1)}%
@@ -464,10 +464,10 @@ export function AnalyticsDashboard() {
                       <span
                         className={`inline-flex rounded-full px-3 py-1 font-semibold text-xs ${
                           category.fillRate >= 70
-                            ? "bg-stone-100 text-stone-700"
+                            ? "bg-neutral-100 text-neutral-700"
                             : category.fillRate >= 50
-                              ? "bg-stone-100 text-stone-600"
-                              : "bg-stone-100 text-stone-800"
+                              ? "bg-neutral-100 text-neutral-600"
+                              : "bg-neutral-100 text-neutral-800"
                         }`}
                       >
                         {category.fillRate.toFixed(1)}%
@@ -500,9 +500,9 @@ type MetricCardProps = {
 
 function MetricCard({ title, value, description, trend }: MetricCardProps) {
   const trendColors = {
-    good: "border-stone-200 bg-stone-100",
-    neutral: "border-stone-300 bg-stone-100",
-    poor: "border-stone-300 bg-[#E85D48]/10",
+    good: "border-neutral-200 bg-neutral-100",
+    neutral: "border-neutral-300 bg-neutral-100",
+    poor: "border-neutral-300 bg-[#E85D48]/10",
   };
 
   const trendIndicators = {

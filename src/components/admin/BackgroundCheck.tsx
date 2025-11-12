@@ -27,24 +27,24 @@ type BackgroundCheckCardProps = {
 
 export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCardProps) {
   return (
-    <Card className="border-stone-200 bg-white transition-shadow hover:shadow-lg dark:border-stone-800 dark:bg-stone-950">
+    <Card className="border-neutral-200 bg-white transition-shadow hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-950">
       <CardContent className="p-8">
         <div className="flex items-start justify-between">
           <div className="flex-1">
             {/* Header */}
             <div className="mb-6 flex items-center gap-4">
               <div className="flex items-center gap-3">
-                <div className="rounded-xl bg-white p-3 dark:bg-stone-950">
+                <div className="rounded-xl bg-white p-3 dark:bg-neutral-950">
                   <HugeiconsIcon
-                    className="h-6 w-6 text-stone-900 dark:text-stone-100"
+                    className="h-6 w-6 text-neutral-900 dark:text-neutral-100"
                     icon={UserAccountIcon}
                   />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg text-stone-900 dark:text-stone-100">
+                  <h4 className="font-semibold text-lg text-neutral-900 dark:text-neutral-100">
                     {check.professional.full_name || "Unnamed Professional"}
                   </h4>
-                  <p className="text-sm text-stone-600 dark:text-stone-400">
+                  <p className="text-neutral-600 text-sm dark:text-neutral-400">
                     {check.professional.city && check.professional.country
                       ? `${check.professional.city}, ${check.professional.country}`
                       : check.professional.email || "No contact info"}
@@ -70,16 +70,16 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
               <div>
                 <div className="mb-1 flex items-center gap-2">
                   <HugeiconsIcon
-                    className="h-4 w-4 text-stone-600 dark:text-stone-400"
+                    className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
                     icon={TimeScheduleIcon}
                   />
-                  <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+                  <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                     Waiting Time
                   </span>
                 </div>
-                <p className="font-bold text-2xl text-stone-900 dark:text-stone-100">
+                <p className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
                   {check.daysWaiting}
-                  <span className="ml-1 font-normal text-sm text-stone-600 dark:text-stone-400">
+                  <span className="ml-1 font-normal text-neutral-600 text-sm dark:text-neutral-400">
                     days
                   </span>
                 </p>
@@ -88,14 +88,14 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
               <div>
                 <div className="mb-1 flex items-center gap-2">
                   <HugeiconsIcon
-                    className="h-4 w-4 text-stone-600 dark:text-stone-400"
+                    className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
                     icon={SecurityCheckIcon}
                   />
-                  <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+                  <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                     Checks Performed
                   </span>
                 </div>
-                <p className="font-bold text-2xl text-stone-900 dark:text-stone-100">
+                <p className="font-bold text-2xl text-neutral-900 dark:text-neutral-100">
                   {check.checksPerformed?.length || 0}
                 </p>
               </div>
@@ -103,14 +103,14 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
               <div>
                 <div className="mb-1 flex items-center gap-2">
                   <HugeiconsIcon
-                    className="h-4 w-4 text-stone-600 dark:text-stone-400"
+                    className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
                     icon={CheckmarkCircle02Icon}
                   />
-                  <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+                  <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                     Recommendation
                   </span>
                 </div>
-                <p className="font-bold text-sm text-stone-800 dark:text-stone-300">
+                <p className="font-bold text-neutral-800 text-sm dark:text-neutral-300">
                   {getRecommendationText(check.recommendation)}
                 </p>
               </div>
@@ -118,14 +118,14 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
               <div>
                 <div className="mb-1 flex items-center gap-2">
                   <HugeiconsIcon
-                    className="h-4 w-4 text-stone-600 dark:text-stone-400"
+                    className="h-4 w-4 text-neutral-600 dark:text-neutral-400"
                     icon={TimeScheduleIcon}
                   />
-                  <span className="font-semibold text-stone-600 text-xs uppercase tracking-wider dark:text-stone-400">
+                  <span className="font-semibold text-neutral-600 text-xs uppercase tracking-wider dark:text-neutral-400">
                     Completed
                   </span>
                 </div>
-                <p className="text-sm text-stone-800 dark:text-stone-300">
+                <p className="text-neutral-800 text-sm dark:text-neutral-300">
                   {check.completedAt ? new Date(check.completedAt).toLocaleDateString() : "Pending"}
                 </p>
               </div>
@@ -136,7 +136,7 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
               <div className="flex flex-wrap gap-2">
                 {check.checksPerformed.map((checkType: string) => (
                   <span
-                    className="rounded-lg bg-white px-3 py-1.5 font-medium text-stone-900 text-xs dark:bg-stone-950 dark:text-stone-100"
+                    className="rounded-lg bg-white px-3 py-1.5 font-medium text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100"
                     key={checkType}
                   >
                     {getCheckTypeLabel(checkType)}
@@ -147,11 +147,11 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
 
             {/* Criminal Records Warning */}
             {check.results.criminal && check.results.criminal.records.length > 0 && (
-              <div className="mt-6 rounded-lg border border-stone-900 bg-white p-4 dark:border-stone-100/30 dark:bg-stone-950">
-                <p className="mb-2 font-semibold text-sm text-stone-800 dark:text-stone-300">
+              <div className="mt-6 rounded-lg border border-neutral-900 bg-white p-4 dark:border-neutral-100/30 dark:bg-neutral-950">
+                <p className="mb-2 font-semibold text-neutral-800 text-sm dark:text-neutral-300">
                   ⚠ Criminal Records Found
                 </p>
-                <p className="text-sm text-stone-800 dark:text-stone-300">
+                <p className="text-neutral-800 text-sm dark:text-neutral-300">
                   {check.results.criminal.records.length} record(s) found. Click "View Details" to
                   review.
                 </p>
@@ -161,7 +161,7 @@ export function BackgroundCheckCard({ check, onViewDetails }: BackgroundCheckCar
 
           {/* View Details Button */}
           <button
-            className="ml-6 rounded-lg bg-stone-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-stone-900 dark:bg-stone-100 dark:bg-stone-100 dark:text-stone-950"
+            className="ml-6 rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-sm text-white transition-colors hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
             onClick={onViewDetails}
             type="button"
           >

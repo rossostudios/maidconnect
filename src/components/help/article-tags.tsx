@@ -23,7 +23,7 @@ const colorMap = {
   red: "bg-red-100 text-red-700 hover:bg-red-200",
   orange: "bg-orange-100 text-orange-700 hover:bg-orange-200",
   purple: "bg-purple-100 text-purple-700 hover:bg-purple-200",
-  gray: "bg-slate-100 text-slate-700 hover:bg-slate-200",
+  gray: "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
   pink: "bg-pink-100 text-pink-700 hover:bg-pink-200",
   indigo: "bg-indigo-100 text-indigo-700 hover:bg-indigo-200",
 };

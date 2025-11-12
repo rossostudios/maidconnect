@@ -14,11 +14,11 @@ type WavyDividerProps = {
  * Inspired by SavvyCal's design aesthetic
  *
  * Usage:
- * <WavyDivider topColor="bg-[#f8fafc]" bottomColor="#0f172a" />
+ * <WavyDivider topColor="bg-[neutral-50]" bottomColor="neutral-900" />
  */
 export function WavyDivider({
-  topColor = "bg-[#f8fafc]",
-  bottomColor = "#f8fafc",
+  topColor = "bg-[neutral-50]",
+  bottomColor = "neutral-50",
   flip = false,
   className = "",
 }: WavyDividerProps) {
@@ -50,8 +50,8 @@ export function WavyDivider({
  * WavyDividerTall - A taller version for more dramatic section transitions
  */
 export function WavyDividerTall({
-  topColor = "bg-[#f8fafc]",
-  bottomColor = "#f8fafc",
+  topColor = "bg-[neutral-50]",
+  bottomColor = "neutral-50",
   flip = false,
   className = "",
 }: WavyDividerProps) {

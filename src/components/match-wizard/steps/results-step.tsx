@@ -131,9 +131,12 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
 
   const getVerificationBadge = (level: string) => {
     const badges = {
-      "background-check": { label: "Background Check", color: "bg-[#64748b]/10 text-[#64748b]" },
-      enhanced: { label: "Enhanced Verified", color: "bg-[#f8fafc] text-[#64748b]" },
-      basic: { label: "Verified", color: "bg-[#e2e8f0]/30 text-[#0f172a]" },
+      "background-check": {
+        label: "Background Check",
+        color: "bg-[neutral-500]/10 text-[neutral-500]",
+      },
+      enhanced: { label: "Enhanced Verified", color: "bg-[neutral-50] text-[neutral-500]" },
+      basic: { label: "Verified", color: "bg-[neutral-200]/30 text-[neutral-900]" },
     };
     return badges[level as keyof typeof badges] || badges.basic;
   };
@@ -143,14 +146,14 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
       <div className="space-y-6 py-12 text-center">
         <div className="flex justify-center">
           <div className="flex h-20 w-20 items-center justify-center">
-            <div className="h-16 w-16 animate-spin rounded-full border-4 border-[#e2e8f0] border-t-gray-900" />
+            <div className="h-16 w-16 animate-spin rounded-full border-4 border-[neutral-200] border-t-gray-900" />
           </div>
         </div>
         <div>
-          <h2 className="font-semibold text-2xl text-[#0f172a]">
+          <h2 className="font-semibold text-2xl text-[neutral-900]">
             {t("searching", { defaultValue: "Finding your perfect matches..." })}
           </h2>
-          <p className="mt-2 text-[#94a3b8]">
+          <p className="mt-2 text-[neutral-400]">
             {t("searchingDescription", {
               defaultValue:
                 "We're analyzing hundreds of professionals to find the best fit for you",
@@ -166,17 +169,17 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
       {/* Header */}
       <div className="text-center">
         <div className="mb-4 flex justify-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#64748b]/10">
-            <HugeiconsIcon className="h-8 w-8 text-[#64748b]" icon={MagicWand01Icon} />
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-500]/10">
+            <HugeiconsIcon className="h-8 w-8 text-[neutral-500]" icon={MagicWand01Icon} />
           </div>
         </div>
-        <h2 className="font-semibold text-2xl text-[#0f172a]">
+        <h2 className="font-semibold text-2xl text-[neutral-900]">
           {t("title", {
             defaultValue: "We found {count} perfect matches!",
             count: matches.length,
           })}
         </h2>
-        <p className="mt-2 text-[#94a3b8]">
+        <p className="mt-2 text-[neutral-400]">
           {t("description", {
             defaultValue: "Based on your preferences, here are our top recommendations",
           })}
@@ -190,12 +193,12 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
 
           return (
             <div
-              className="overflow-hidden rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] shadow-sm transition hover:shadow-md"
+              className="overflow-hidden rounded-2xl border border-[neutral-200] bg-[neutral-50] shadow-sm transition hover:shadow-md"
               key={match.id}
             >
               {/* Match Score Badge */}
               {index === 0 && (
-                <div className="bg-gradient-to-r from-[#64748b] to-[var(--red-hover)] px-4 py-2 text-center font-semibold text-[#f8fafc] text-sm">
+                <div className="bg-gradient-to-r from-[neutral-500] to-[var(--red-hover)] px-4 py-2 text-center font-semibold text-[neutral-50] text-sm">
                   ⭐ {t("topMatch", { defaultValue: "Top Match" })} - {match.matchScore}%{" "}
                   {t("compatibility", { defaultValue: "Compatibility" })}
                 </div>
@@ -212,7 +215,7 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
                       src={match.photo}
                     />
                     {match.availableToday && (
-                      <div className="-right-1 -top-1 absolute h-6 w-6 rounded-full border-2 border-[#f8fafc] bg-[#64748b]/100" />
+                      <div className="-right-1 -top-1 absolute h-6 w-6 rounded-full border-2 border-[neutral-50] bg-[neutral-500]/100" />
                     )}
                   </div>
 
@@ -220,14 +223,16 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
                   <div className="flex-1">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <h3 className="font-semibold text-[#0f172a] text-lg">{match.name}</h3>
-                        <p className="text-[#94a3b8] text-sm">{match.service}</p>
+                        <h3 className="font-semibold text-[neutral-900] text-lg">{match.name}</h3>
+                        <p className="text-[neutral-400] text-sm">{match.service}</p>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold text-[#0f172a] text-lg">
+                        <p className="font-semibold text-[neutral-900] text-lg">
                           {formatCurrency(match.hourlyRate)}/hr
                         </p>
-                        <p className="text-[#94a3b8] text-xs">{match.experienceYears} years exp.</p>
+                        <p className="text-[neutral-400] text-xs">
+                          {match.experienceYears} years exp.
+                        </p>
                       </div>
                     </div>
 
@@ -242,26 +247,26 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
                       </span>
 
                       {/* Rating */}
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#64748b]/5 px-2 py-1 font-medium text-[#64748b] text-xs">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[neutral-500]/5 px-2 py-1 font-medium text-[neutral-500] text-xs">
                         <HugeiconsIcon className="h-3 w-3 fill-current" icon={StarIcon} />
                         {match.rating} ({match.reviewCount})
                       </span>
 
                       {/* On-Time Rate */}
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#f8fafc] px-2 py-1 font-medium text-[#64748b] text-xs">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[neutral-50] px-2 py-1 font-medium text-[neutral-500] text-xs">
                         <HugeiconsIcon className="h-3 w-3" icon={Clock01Icon} />
                         {match.onTimeRate}% on-time
                       </span>
 
                       {/* Response Time */}
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#64748b]/10 px-2 py-1 font-medium text-[#64748b] text-xs">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[neutral-500]/10 px-2 py-1 font-medium text-[neutral-500] text-xs">
                         <HugeiconsIcon className="h-3 w-3" icon={BubbleChatIcon} />
                         {match.responseTime}
                       </span>
                     </div>
 
                     {/* Location & Languages */}
-                    <div className="mt-3 flex flex-wrap gap-3 text-[#94a3b8] text-sm">
+                    <div className="mt-3 flex flex-wrap gap-3 text-[neutral-400] text-sm">
                       <span className="inline-flex items-center gap-1">
                         <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
                         {match.distance}
@@ -271,7 +276,7 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
                       {match.availableToday && (
                         <>
                           <span>•</span>
-                          <span className="font-medium text-[#64748b]">Available Today</span>
+                          <span className="font-medium text-[neutral-500]">Available Today</span>
                         </>
                       )}
                     </div>
@@ -279,7 +284,7 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
                     {/* Action */}
                     <div className="mt-4">
                       <Link
-                        className="inline-flex w-full items-center justify-center rounded-xl bg-[#0f172a] px-4 py-2.5 font-semibold text-[#f8fafc] text-sm transition hover:bg-[#0f172a]"
+                        className="inline-flex w-full items-center justify-center rounded-xl bg-[neutral-900] px-4 py-2.5 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-900]"
                         href={`/professionals/${match.id}`}
                       >
                         {t("viewProfile", { defaultValue: "View Profile & Book" })}
@@ -296,21 +301,21 @@ export function ResultsStep({ data: _data, onBack, onRestart }: ResultsStepProps
       {/* Actions */}
       <div className="space-y-3 pt-4">
         <Link
-          className="block w-full rounded-xl bg-[#f8fafc] px-6 py-3 text-center font-semibold text-[#0f172a] transition hover:bg-[#f8fafc]"
+          className="block w-full rounded-xl bg-[neutral-50] px-6 py-3 text-center font-semibold text-[neutral-900] transition hover:bg-[neutral-50]"
           href="/professionals"
         >
           {t("browseAll", { defaultValue: "Browse All Professionals" })}
         </Link>
         <div className="flex gap-3">
           <button
-            className="flex-1 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-6 py-3 font-semibold text-[#94a3b8] transition hover:border-[#0f172a] hover:text-[#0f172a]"
+            className="flex-1 rounded-xl border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
             onClick={onBack}
             type="button"
           >
             {t("refineSearch", { defaultValue: "Refine Search" })}
           </button>
           <button
-            className="flex-1 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] px-6 py-3 font-semibold text-[#94a3b8] transition hover:border-[#0f172a] hover:text-[#0f172a]"
+            className="flex-1 rounded-xl border border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-400] transition hover:border-[neutral-900] hover:text-[neutral-900]"
             onClick={onRestart}
             type="button"
           >

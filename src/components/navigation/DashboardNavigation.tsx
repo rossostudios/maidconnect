@@ -62,14 +62,14 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
   return (
     <>
       {/* Desktop Navigation - Hidden on mobile */}
-      <nav className="hidden items-center gap-6 font-medium text-sm text-stone-900 md:flex">
+      <nav className="hidden items-center gap-6 font-medium text-neutral-900 text-sm md:flex">
         {navLinks.map((item) => {
           const active = isActive(item.href);
           return (
             <Link
-              className={`relative pb-1 transition hover:text-stone-700 ${
+              className={`relative pb-1 transition hover:text-neutral-700 ${
                 active
-                  ? "font-semibold text-stone-900 after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:bg-stone-900 after:content-['']"
+                  ? "font-semibold text-neutral-900 after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:bg-neutral-900 after:content-['']"
                   : ""
               }`}
               href={item.href}
@@ -83,14 +83,14 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
         {/* Messages Icon */}
         <Link
           aria-label={`Messages${unreadCount > 0 ? ` (${unreadCount} unread)` : ""}`}
-          className={`relative rounded-lg p-1.5 transition hover:bg-stone-100 hover:text-stone-900 ${
-            pathname === messagesHref ? "bg-stone-100 text-stone-900" : "text-stone-700"
+          className={`relative rounded-lg p-1.5 transition hover:bg-neutral-100 hover:text-neutral-900 ${
+            pathname === messagesHref ? "bg-neutral-100 text-neutral-900" : "text-neutral-700"
           }`}
           href={messagesHref}
         >
           <MessageCircle className="h-5 w-5" />
           {unreadCount > 0 && (
-            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-stone-900 px-1 font-bold text-[10px] text-white">
+            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-neutral-900 px-1 font-bold text-[10px] text-white">
               {unreadCount > 9 ? "9+" : unreadCount}
             </span>
           )}
@@ -99,13 +99,13 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
         {/* Notifications Icon */}
         <button
           aria-label={`Notifications${notificationUnreadCount > 0 ? ` (${notificationUnreadCount} unread)` : ""}`}
-          className="relative rounded-lg p-1.5 text-stone-700 transition hover:bg-stone-100 hover:text-stone-900"
+          className="relative rounded-lg p-1.5 text-neutral-700 transition hover:bg-neutral-100 hover:text-neutral-900"
           onClick={() => setIsNotificationsOpen(true)}
           type="button"
         >
           <Bell className="h-5 w-5" />
           {notificationUnreadCount > 0 && (
-            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-stone-900 px-1 font-bold text-[10px] text-white">
+            <span className="absolute top-0 right-0 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-neutral-900 px-1 font-bold text-[10px] text-white">
               {notificationUnreadCount > 9 ? "9+" : notificationUnreadCount}
             </span>
           )}
@@ -114,7 +114,7 @@ export function DashboardNavigation({ navLinks, userRole }: Props) {
         {/* Sign Out Button */}
         <Link
           aria-label="Sign out"
-          className="flex items-center gap-2 rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-stone-600 transition hover:border-stone-300 hover:bg-stone-50 hover:text-stone-900"
+          className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-neutral-600 transition hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
           href="/auth/sign-out"
         >
           <HugeiconsIcon className="h-4 w-4" icon={Logout01Icon} />

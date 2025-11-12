@@ -75,8 +75,8 @@ export function PayoutDashboard() {
 
   if (loading) {
     return (
-      <Card className="border-stone-200 bg-stone-50">
-        <CardContent className="p-8 text-center text-sm text-stone-600">
+      <Card className="border-neutral-200 bg-neutral-50">
+        <CardContent className="p-8 text-center text-neutral-600 text-sm">
           Loading payout information...
         </CardContent>
       </Card>
@@ -85,11 +85,11 @@ export function PayoutDashboard() {
 
   if (error) {
     return (
-      <Card className="border-stone-300 bg-stone-100">
+      <Card className="border-neutral-300 bg-neutral-100">
         <CardContent className="p-8 text-center">
-          <p className="text-sm text-stone-800">{error}</p>
+          <p className="text-neutral-800 text-sm">{error}</p>
           <button
-            className="mt-4 rounded-lg bg-stone-900 px-4 py-2 font-semibold text-sm text-white hover:bg-stone-800"
+            className="mt-4 rounded-lg bg-neutral-900 px-4 py-2 font-semibold text-sm text-white hover:bg-neutral-800"
             onClick={fetchPayoutData}
             type="button"
           >
@@ -109,12 +109,12 @@ export function PayoutDashboard() {
   return (
     <div className="space-y-6">
       {/* Current Period Earnings */}
-      <Card className="border-stone-200 bg-gradient-to-br from-stone-50 to-white shadow-sm">
+      <Card className="border-neutral-200 bg-gradient-to-br from-neutral-50 to-white shadow-sm">
         <CardContent className="p-6">
           <div className="mb-4 flex items-start justify-between">
             <div>
-              <h3 className="font-semibold text-lg text-stone-900">Next Payout</h3>
-              <p className="mt-1 text-sm text-stone-600">
+              <h3 className="font-semibold text-lg text-neutral-900">Next Payout</h3>
+              <p className="mt-1 text-neutral-600 text-sm">
                 {new Date(currentPeriod.nextPayoutDate).toLocaleDateString("en-US", {
                   weekday: "long",
                   year: "numeric",
@@ -124,7 +124,7 @@ export function PayoutDashboard() {
               </p>
             </div>
             <button
-              className="font-medium text-stone-700 text-xs hover:text-stone-900"
+              className="font-medium text-neutral-700 text-xs hover:text-neutral-900"
               onClick={() => setShowScheduleInfo(!showScheduleInfo)}
               type="button"
             >
@@ -133,9 +133,9 @@ export function PayoutDashboard() {
           </div>
 
           {showScheduleInfo && (
-            <Card className="mb-4 border-stone-200 bg-white">
+            <Card className="mb-4 border-neutral-200 bg-white">
               <CardContent className="p-3">
-                <p className="whitespace-pre-line text-stone-600 text-xs">
+                <p className="whitespace-pre-line text-neutral-600 text-xs">
                   {getPayoutScheduleDescription()}
                 </p>
               </CardContent>
@@ -143,33 +143,33 @@ export function PayoutDashboard() {
           )}
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <Card className="border-stone-200 bg-white/80">
+            <Card className="border-neutral-200 bg-white/80">
               <CardContent className="p-4">
-                <p className="font-medium text-stone-600 text-xs uppercase tracking-wide">
+                <p className="font-medium text-neutral-600 text-xs uppercase tracking-wide">
                   Gross Earnings
                 </p>
-                <p className="mt-1 font-bold text-2xl text-stone-900">
+                <p className="mt-1 font-bold text-2xl text-neutral-900">
                   {formatPayoutAmount(currentPeriod.grossAmount, currentPeriod.currency)}
                 </p>
-                <p className="mt-1 text-stone-600 text-xs">
+                <p className="mt-1 text-neutral-600 text-xs">
                   {currentPeriod.bookingCount} booking{currentPeriod.bookingCount !== 1 ? "s" : ""}
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-stone-200 bg-white/80">
+            <Card className="border-neutral-200 bg-white/80">
               <CardContent className="p-4">
-                <p className="font-medium text-stone-600 text-xs uppercase tracking-wide">
+                <p className="font-medium text-neutral-600 text-xs uppercase tracking-wide">
                   Platform Fee (18%)
                 </p>
-                <p className="mt-1 font-bold text-2xl text-stone-800">
+                <p className="mt-1 font-bold text-2xl text-neutral-800">
                   -{formatPayoutAmount(currentPeriod.commissionAmount, currentPeriod.currency)}
                 </p>
-                <p className="mt-1 text-stone-600 text-xs">Commission deducted</p>
+                <p className="mt-1 text-neutral-600 text-xs">Commission deducted</p>
               </CardContent>
             </Card>
 
-            <Card className="border-stone-900 bg-gradient-to-br from-stone-900 to-stone-800">
+            <Card className="border-neutral-900 bg-gradient-to-br from-neutral-900 to-neutral-800">
               <CardContent className="p-4">
                 <p className="font-medium text-white/80 text-xs uppercase tracking-wide">
                   You Receive
@@ -183,7 +183,7 @@ export function PayoutDashboard() {
           </div>
 
           {currentPeriod.bookingCount === 0 && (
-            <Card className="mt-4 border-amber-200 bg-stone-100">
+            <Card className="mt-4 border-amber-200 bg-neutral-100">
               <CardContent className="p-3 text-amber-800 text-xs">
                 No completed bookings in the current payout period yet. Complete services to earn!
               </CardContent>
@@ -194,10 +194,10 @@ export function PayoutDashboard() {
 
       {/* All Pending Earnings (future periods) */}
       {allPending.bookingCount > currentPeriod.bookingCount && (
-        <Card className="border-stone-200 bg-stone-50 shadow-sm">
+        <Card className="border-neutral-200 bg-neutral-50 shadow-sm">
           <CardContent className="p-6">
-            <h4 className="mb-3 font-semibold text-stone-900">Future Payouts</h4>
-            <p className="text-sm text-stone-600">
+            <h4 className="mb-3 font-semibold text-neutral-900">Future Payouts</h4>
+            <p className="text-neutral-600 text-sm">
               You have{" "}
               <span className="font-semibold">
                 {formatPayoutAmount(
@@ -214,19 +214,19 @@ export function PayoutDashboard() {
 
       {/* Recent Payout History */}
       {recentPayouts.length > 0 && (
-        <Card className="border-stone-200 bg-white shadow-sm">
+        <Card className="border-neutral-200 bg-white shadow-sm">
           <CardHeader className="p-6 pb-4">
-            <h4 className="font-semibold text-stone-900">Recent Payouts</h4>
+            <h4 className="font-semibold text-neutral-900">Recent Payouts</h4>
           </CardHeader>
           <CardContent className="space-y-3 p-6 pt-0">
             {recentPayouts.map((payout) => (
               <div
-                className="flex items-center justify-between rounded-lg border border-stone-200 p-4"
+                className="flex items-center justify-between rounded-lg border border-neutral-200 p-4"
                 key={payout.id}
               >
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <p className="font-semibold text-sm text-stone-900">
+                    <p className="font-semibold text-neutral-900 text-sm">
                       {formatPayoutAmount(payout.net_amount, payout.currency)}
                     </p>
                     <Badge
@@ -242,17 +242,17 @@ export function PayoutDashboard() {
                       {payout.status}
                     </Badge>
                   </div>
-                  <p className="mt-1 text-stone-600 text-xs">
+                  <p className="mt-1 text-neutral-600 text-xs">
                     {payout.booking_ids.length} booking(s) •{" "}
                     {new Date(payout.payout_date).toLocaleDateString()}
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-stone-600 text-xs">Gross</p>
-                  <p className="font-medium text-sm text-stone-900">
+                  <p className="text-neutral-600 text-xs">Gross</p>
+                  <p className="font-medium text-neutral-900 text-sm">
                     {formatPayoutAmount(payout.gross_amount, payout.currency)}
                   </p>
-                  <p className="text-stone-800 text-xs">
+                  <p className="text-neutral-800 text-xs">
                     -{formatPayoutAmount(payout.commission_amount, payout.currency)} fee
                   </p>
                 </div>

@@ -113,14 +113,14 @@ export function MatchWizard() {
   const progress = ((currentStepIndex + 1) / steps.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[bg-[#f8fafc]] to-[bg-[#f8fafc]] py-8 sm:py-12">
+    <div className="min-h-screen bg-gradient-to-br from-[bg-[neutral-50]] to-[bg-[neutral-50]] py-8 sm:py-12">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="font-semibold text-3xl text-[#0f172a] sm:text-4xl">
+          <h1 className="font-semibold text-3xl text-[neutral-900] sm:text-4xl">
             {t("title", { defaultValue: "Find Your Perfect Match" })}
           </h1>
-          <p className="mt-2 text-[#94a3b8] text-lg">
+          <p className="mt-2 text-[neutral-400] text-lg">
             {t("subtitle", {
               defaultValue:
                 "Answer a few questions and we'll recommend the best professionals for you",
@@ -130,13 +130,13 @@ export function MatchWizard() {
 
         {/* Progress Bar */}
         <div className="mb-8">
-          <div className="h-2 overflow-hidden rounded-full bg-[#e2e8f0]">
+          <div className="h-2 overflow-hidden rounded-full bg-[neutral-200]">
             <div
-              className="h-full rounded-full bg-[#0f172a] transition-all duration-300"
+              className="h-full rounded-full bg-[neutral-900] transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <div className="mt-2 flex justify-between text-[#94a3b8] text-sm">
+          <div className="mt-2 flex justify-between text-[neutral-400] text-sm">
             <span>
               {t("step", { defaultValue: "Step" })} {currentStepIndex + 1}{" "}
               {t("of", { defaultValue: "of" })} {steps.length}
@@ -148,7 +148,7 @@ export function MatchWizard() {
         </div>
 
         {/* Step Content */}
-        <div className="rounded-3xl border border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)] sm:p-8">
+        <div className="rounded-3xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)] sm:p-8">
           {currentStep === "location" && (
             <LocationStep
               data={wizardData}
@@ -209,7 +209,7 @@ export function MatchWizard() {
         {/* Exit Link */}
         <div className="mt-6 text-center">
           <button
-            className="text-[#94a3b8] text-sm hover:text-[#0f172a]"
+            className="text-[neutral-400] text-sm hover:text-[neutral-900]"
             onClick={exitWizard}
             type="button"
           >

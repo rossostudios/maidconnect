@@ -46,7 +46,7 @@ export function HeroSection({ data }: HeroSectionProps) {
 
   return (
     <section
-      className="relative bg-[#0f172a] py-24 sm:py-32 lg:py-40"
+      className="relative bg-[neutral-900] py-24 sm:py-32 lg:py-40"
       style={
         bgImageUrl
           ? {
@@ -59,16 +59,16 @@ export function HeroSection({ data }: HeroSectionProps) {
     >
       <div className="container mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
-          {subtitle && <p className="tagline text-[#f8fafc]/80">{subtitle}</p>}
+          {subtitle && <p className="tagline text-[neutral-50]/80">{subtitle}</p>}
 
-          {title && <h1 className="serif-display-xl mt-6 text-[#f8fafc]">{title}</h1>}
+          {title && <h1 className="serif-display-xl mt-6 text-[neutral-50]">{title}</h1>}
 
-          {description && <p className="lead mt-8 text-[#f8fafc]/90">{description}</p>}
+          {description && <p className="lead mt-8 text-[neutral-50]/90">{description}</p>}
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             {ctaText && ctaLink && (
               <Link
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f8fafc] px-8 py-4 font-semibold text-[#0f172a] text-base transition hover:bg-[#e2e8f0]"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[neutral-50] px-8 py-4 font-semibold text-[neutral-900] text-base transition hover:bg-[neutral-200]"
                 href={ctaLink}
               >
                 {ctaText}
@@ -78,7 +78,7 @@ export function HeroSection({ data }: HeroSectionProps) {
 
             {secondaryCtaText && secondaryCtaLink && (
               <Link
-                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#f8fafc] px-8 py-4 font-semibold text-[#f8fafc] text-base transition hover:bg-[#f8fafc]/10"
+                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[neutral-50] px-8 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-50]/10"
                 href={secondaryCtaLink}
               >
                 {secondaryCtaText}

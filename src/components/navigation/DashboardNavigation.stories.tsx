@@ -42,7 +42,7 @@ export const CustomerDesktop: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="w-full border-stone-200 border-b bg-white p-4">
+      <div className="w-full border-neutral-200 border-b bg-white p-4">
         <Story />
       </div>
     ),
@@ -56,7 +56,7 @@ export const ProfessionalDesktop: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="w-full border-stone-200 border-b bg-white p-4">
+      <div className="w-full border-neutral-200 border-b bg-white p-4">
         <Story />
       </div>
     ),
@@ -70,7 +70,7 @@ export const WithUnreadMessages: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="w-full border-stone-200 border-b bg-white p-4">
+      <div className="w-full border-neutral-200 border-b bg-white p-4">
         <Story />
       </div>
     ),
@@ -90,7 +90,7 @@ export const WithAllBadges: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="w-full border-stone-200 border-b bg-white p-4">
+      <div className="w-full border-neutral-200 border-b bg-white p-4">
         <Story />
       </div>
     ),

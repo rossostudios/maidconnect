@@ -10,12 +10,12 @@ type ProductStepsSectionProps = {
 
 export function ProductStepsSection({ headline, description, steps }: ProductStepsSectionProps) {
   return (
-    <section className="border-[#e2e8f0] border-b bg-[#f8fafc] px-6 py-16 sm:py-20 lg:py-24">
+    <section className="border-[neutral-200] border-b bg-[neutral-50] px-6 py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-5xl">
-        <h2 className="type-serif-lg text-center text-[#0f172a]">{headline}</h2>
+        <h2 className="type-serif-lg text-center text-[neutral-900]">{headline}</h2>
 
         {description && (
-          <p className="mx-auto mt-6 max-w-3xl text-center text-[#94a3b8] text-lg leading-relaxed">
+          <p className="mx-auto mt-6 max-w-3xl text-center text-[neutral-400] text-lg leading-relaxed">
             {description}
           </p>
         )}
@@ -23,13 +23,15 @@ export function ProductStepsSection({ headline, description, steps }: ProductSte
         <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step) => (
             <div className="text-center" key={step.number}>
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#64748b] font-semibold text-2xl text-[#f8fafc]">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[neutral-500] font-semibold text-2xl text-[neutral-50]">
                 {step.number}
               </div>
 
-              <h3 className="mt-6 font-semibold text-[#0f172a] text-xl">{step.title}</h3>
+              <h3 className="mt-6 font-semibold text-[neutral-900] text-xl">{step.title}</h3>
 
-              <p className="mt-3 text-[#94a3b8] text-base leading-relaxed">{step.description}</p>
+              <p className="mt-3 text-[neutral-400] text-base leading-relaxed">
+                {step.description}
+              </p>
             </div>
           ))}
         </div>

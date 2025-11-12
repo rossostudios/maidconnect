@@ -19,7 +19,7 @@ import { defaultSignUpState, type SignUpActionState } from "./types";
 
 function getRoleOptionClassName(error: string | undefined): string {
   return cn(
-    "flex cursor-pointer flex-col gap-3 rounded-lg border border-slate-300 bg-white p-5 text-sm shadow-sm transition-colors focus-within:border-slate-900 hover:border-slate-400",
+    "flex cursor-pointer flex-col gap-3 rounded-lg border border-neutral-300 bg-white p-5 text-sm shadow-sm transition-colors focus-within:border-neutral-900 hover:border-neutral-400",
     error && "border-red-300 focus-within:border-red-500 hover:border-red-400"
   );
 }
@@ -27,13 +27,13 @@ function getRoleOptionClassName(error: string | undefined): string {
 function RoleSelection({ t, error }: { t: (key: string) => string; error: string | undefined }) {
   return (
     <section className="space-y-5">
-      <div className="block font-semibold text-slate-900 text-sm">{t("accountTypeLabel")}</div>
-      <p className="text-slate-600 text-xs">{t("accountTypeHelper")}</p>
+      <div className="block font-semibold text-neutral-900 text-sm">{t("accountTypeLabel")}</div>
+      <p className="text-neutral-600 text-xs">{t("accountTypeHelper")}</p>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <label className={getRoleOptionClassName(error)}>
-          <span className="flex items-center gap-2 text-slate-900">
+          <span className="flex items-center gap-2 text-neutral-900">
             <input
-              className="h-4 w-4 accent-slate-900"
+              className="h-4 w-4 accent-neutral-900"
               defaultChecked
               name="role"
               type="radio"
@@ -41,19 +41,19 @@ function RoleSelection({ t, error }: { t: (key: string) => string; error: string
             />{" "}
             {t("customerLabel")}
           </span>
-          <span className="text-slate-600 text-sm">{t("customerDescription")}</span>
+          <span className="text-neutral-600 text-sm">{t("customerDescription")}</span>
         </label>
         <label className={getRoleOptionClassName(error)}>
-          <span className="flex items-center gap-2 text-slate-900">
+          <span className="flex items-center gap-2 text-neutral-900">
             <input
-              className="h-4 w-4 accent-slate-900"
+              className="h-4 w-4 accent-neutral-900"
               name="role"
               type="radio"
               value="professional"
             />{" "}
             {t("professionalLabel")}
           </span>
-          <span className="text-slate-600 text-sm">{t("professionalDescription")}</span>
+          <span className="text-neutral-600 text-sm">{t("professionalDescription")}</span>
         </label>
       </div>
       {error ? (
@@ -279,7 +279,7 @@ function Field({ label, children, helper, error }: FieldProps) {
   return (
     <div className="space-y-3">
       <Label htmlFor={childId}>{label}</Label>
-      {helper ? <p className="text-slate-600 text-xs">{helper}</p> : null}
+      {helper ? <p className="text-neutral-600 text-xs">{helper}</p> : null}
       {children}
       {error ? (
         <p className="text-red-700 text-xs" id={errorId} role="alert">

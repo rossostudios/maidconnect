@@ -22,22 +22,22 @@ export function LanguageSwitcher() {
   };
 
   return (
-    <div className="flex items-center gap-2 font-medium text-sm text-stone-900">
+    <div className="flex items-center gap-2 font-medium text-neutral-900 text-sm">
       <button
         aria-label="Switch to English"
-        className={`transition-colors hover:text-stone-700 ${
-          locale === "en" ? "font-bold text-stone-900" : "text-stone-600"
+        className={`transition-colors hover:text-neutral-700 ${
+          locale === "en" ? "font-bold text-neutral-900" : "text-neutral-600"
         }`}
         onClick={() => switchLanguage("en")}
         type="button"
       >
         EN
       </button>
-      <span className="text-stone-400">/</span>
+      <span className="text-neutral-400">/</span>
       <button
         aria-label="Switch to Spanish"
-        className={`transition-colors hover:text-stone-700 ${
-          locale === "es" ? "font-bold text-stone-900" : "text-stone-600"
+        className={`transition-colors hover:text-neutral-700 ${
+          locale === "es" ? "font-bold text-neutral-900" : "text-neutral-600"
         }`}
         onClick={() => switchLanguage("es")}
         type="button"

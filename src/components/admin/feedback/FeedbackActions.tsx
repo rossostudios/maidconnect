@@ -71,14 +71,14 @@ export function FeedbackActions({
   return (
     <div className="space-y-6">
       {error && (
-        <div className="rounded-2xl border border-stone-300 bg-stone-100 p-4 text-sm text-stone-800 dark:border-red-800 dark:bg-red-950 dark:text-stone-300">
+        <div className="rounded-2xl border border-neutral-300 bg-neutral-100 p-4 text-neutral-800 text-sm dark:border-red-800 dark:bg-red-950 dark:text-neutral-300">
           {error}
         </div>
       )}
 
       {/* Status & Priority */}
-      <div className="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-950">
-        <h3 className="mb-4 font-bold text-lg text-stone-900 dark:text-stone-100">
+      <div className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+        <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
           Update Status & Priority
         </h3>
 
@@ -86,13 +86,13 @@ export function FeedbackActions({
           {/* Status */}
           <div>
             <label
-              className="mb-2 block font-medium text-sm text-stone-800 dark:text-stone-300"
+              className="mb-2 block font-medium text-neutral-800 text-sm dark:text-neutral-300"
               htmlFor="status"
             >
               Status
             </label>
             <select
-              className="w-full rounded-xl border border-stone-200 px-4 py-3 text-stone-900 focus:border-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500/20 dark:border-stone-100 dark:border-stone-800 dark:text-stone-100 dark:focus:ring-stone-400/20"
+              className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
               id="status"
               onChange={(e) => setStatus(e.target.value)}
               value={status}
@@ -108,13 +108,13 @@ export function FeedbackActions({
           {/* Priority */}
           <div>
             <label
-              className="mb-2 block font-medium text-sm text-stone-800 dark:text-stone-300"
+              className="mb-2 block font-medium text-neutral-800 text-sm dark:text-neutral-300"
               htmlFor="priority"
             >
               Priority
             </label>
             <select
-              className="w-full rounded-xl border border-stone-200 px-4 py-3 text-stone-900 focus:border-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500/20 dark:border-stone-100 dark:border-stone-800 dark:text-stone-100 dark:focus:ring-stone-400/20"
+              className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
               id="priority"
               onChange={(e) => setPriority(e.target.value)}
               value={priority}
@@ -130,13 +130,13 @@ export function FeedbackActions({
       </div>
 
       {/* Admin Notes */}
-      <div className="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-950">
-        <h3 className="mb-4 font-bold text-lg text-stone-900 dark:text-stone-100">
+      <div className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-950">
+        <h3 className="mb-4 font-bold text-lg text-neutral-900 dark:text-neutral-100">
           Add Admin Notes
         </h3>
 
         <textarea
-          className="w-full rounded-xl border border-stone-200 px-4 py-3 text-stone-900 focus:border-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500/20 dark:border-stone-100 dark:border-stone-800 dark:text-stone-100 dark:focus:ring-stone-400/20"
+          className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-neutral-900 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-800 dark:text-neutral-100 dark:focus:ring-neutral-400/20"
           id="admin_notes"
           onChange={(e) => setAdminNotes(e.target.value)}
           placeholder="Add internal notes about this feedback (optional)..."
@@ -148,7 +148,7 @@ export function FeedbackActions({
       {/* Save Button */}
       <div className="flex justify-end">
         <button
-          className="flex items-center gap-2 rounded-full bg-stone-900 px-6 py-3 font-semibold text-white transition hover:bg-stone-900 disabled:opacity-50 dark:bg-stone-100 dark:bg-stone-100 dark:text-stone-950"
+          className="flex items-center gap-2 rounded-full bg-neutral-900 px-6 py-3 font-semibold text-white transition hover:bg-neutral-900 disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
           disabled={saving}
           onClick={handleSave}
           type="button"

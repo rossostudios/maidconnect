@@ -59,7 +59,7 @@ export function FavoritesList() {
 
   if (error) {
     return (
-      <div className="rounded-2xl border border-[#64748b]/30 bg-[#64748b]/10 p-6 text-[#64748b] text-base">
+      <div className="rounded-2xl border border-[neutral-500]/30 bg-[neutral-500]/10 p-6 text-[neutral-500] text-base">
         {error || t("errors.loadFailed")}
       </div>
     );
@@ -67,14 +67,16 @@ export function FavoritesList() {
 
   if (favorites.length === 0) {
     return (
-      <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-12 text-center">
+      <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-12 text-center">
         <div className="flex justify-center">
-          <HugeiconsIcon className="h-12 w-12 text-[#e2e8f0]" icon={FavouriteIcon} />
+          <HugeiconsIcon className="h-12 w-12 text-[neutral-200]" icon={FavouriteIcon} />
         </div>
-        <p className="mt-4 font-semibold text-[#0f172a] text-lg">{t("empty.title")}</p>
-        <p className="mt-2 text-[#94a3b8] text-base leading-relaxed">{t("empty.description")}</p>
+        <p className="mt-4 font-semibold text-[neutral-900] text-lg">{t("empty.title")}</p>
+        <p className="mt-2 text-[neutral-400] text-base leading-relaxed">
+          {t("empty.description")}
+        </p>
         <Link
-          className="mt-6 inline-flex rounded-full bg-[#64748b] px-8 py-4 font-semibold text-[#f8fafc] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[#64748b]"
+          className="mt-6 inline-flex rounded-full bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[neutral-500]"
           href="/professionals"
         >
           {t("empty.browseProfessionals")}
@@ -86,7 +88,7 @@ export function FavoritesList() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="font-semibold text-[#0f172a] text-xl">
+        <h2 className="font-semibold text-[neutral-900] text-xl">
           {t("title", { count: favorites.length })}
         </h2>
       </div>
@@ -119,7 +121,7 @@ function ProfessionalCard({
   }).format(professional.hourly_rate_cop);
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] shadow-sm transition hover:shadow-md">
+    <div className="group relative overflow-hidden rounded-2xl border border-[neutral-200] bg-[neutral-50] shadow-sm transition hover:shadow-md">
       <Link href={`/professionals/${professional.profile_id}`}>
         <div className="p-6">
           {/* Header */}
@@ -135,14 +137,14 @@ function ProfessionalCard({
                 width={64}
               />
             ) : (
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#64748b] font-semibold text-[#f8fafc] text-xl">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-500] font-semibold text-[neutral-50] text-xl">
                 {professional.profile.full_name.charAt(0).toUpperCase()}
               </div>
             )}
 
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
-                <h3 className="truncate font-semibold text-[#0f172a] text-lg">
+                <h3 className="truncate font-semibold text-[neutral-900] text-lg">
                   {professional.business_name || professional.profile.full_name}
                 </h3>
                 {professional.verified && (
@@ -152,7 +154,7 @@ function ProfessionalCard({
                 )}
               </div>
               {professional.rating !== null && (
-                <div className="mt-1 flex items-center gap-1 text-[#94a3b8] text-sm">
+                <div className="mt-1 flex items-center gap-1 text-[neutral-400] text-sm">
                   <span>⭐</span>
                   <span className="font-semibold">{professional.rating.toFixed(1)}</span>
                   <span>({professional.total_reviews})</span>
@@ -163,7 +165,7 @@ function ProfessionalCard({
 
           {/* Bio */}
           {professional.bio && (
-            <p className="mt-4 line-clamp-2 text-[#94a3b8] text-base leading-relaxed">
+            <p className="mt-4 line-clamp-2 text-[neutral-400] text-base leading-relaxed">
               {professional.bio}
             </p>
           )}
@@ -171,13 +173,13 @@ function ProfessionalCard({
           {/* Footer */}
           <div className="mt-6 flex items-center justify-between">
             <div>
-              <p className="font-medium text-[#94a3b8] text-sm">{t("card.startingAt")}</p>
-              <p className="mt-1 font-semibold text-[#64748b] text-lg">
+              <p className="font-medium text-[neutral-400] text-sm">{t("card.startingAt")}</p>
+              <p className="mt-1 font-semibold text-[neutral-500] text-lg">
                 {priceFormatted}
                 {t("card.perHour")}
               </p>
             </div>
-            <span className="font-semibold text-[#94a3b8] text-base group-hover:text-[#64748b]">
+            <span className="font-semibold text-[neutral-400] text-base group-hover:text-[neutral-500]">
               {t("card.viewProfile")}
             </span>
           </div>

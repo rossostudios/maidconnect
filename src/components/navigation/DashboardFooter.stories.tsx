@@ -18,8 +18,8 @@ export const Default: Story = {
   decorators: [
     (Story) => (
       <div className="flex min-h-screen flex-col">
-        <div className="flex-1 bg-stone-50 p-8">
-          <p className="text-stone-600">Page content goes here...</p>
+        <div className="flex-1 bg-neutral-50 p-8">
+          <p className="text-neutral-600">Page content goes here...</p>
         </div>
         <Story />
       </div>
@@ -31,8 +31,8 @@ export const WithUnreadChangelog: Story = {
   decorators: [
     (Story) => (
       <div className="flex min-h-screen flex-col">
-        <div className="flex-1 bg-stone-50 p-8">
-          <p className="text-stone-600">Page content with unread changelog badge...</p>
+        <div className="flex-1 bg-neutral-50 p-8">
+          <p className="text-neutral-600">Page content with unread changelog badge...</p>
         </div>
         <Story />
       </div>
@@ -49,8 +49,8 @@ export const Mobile: Story = {
   decorators: [
     (Story) => (
       <div className="flex min-h-screen flex-col">
-        <div className="flex-1 bg-stone-50 p-4">
-          <p className="text-sm text-stone-600">Mobile view...</p>
+        <div className="flex-1 bg-neutral-50 p-4">
+          <p className="text-neutral-600 text-sm">Mobile view...</p>
         </div>
         <Story />
       </div>

@@ -9,16 +9,16 @@ export async function CareersHero() {
   const t = await getTranslations("pages.careers.hero");
 
   return (
-    <section className="bg-[#f8fafc] py-20 sm:py-24 lg:py-32">
+    <section className="bg-[neutral-50] py-20 sm:py-24 lg:py-32">
       <Container className="max-w-7xl">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left Column - Text Content */}
           <div>
-            <p className="font-semibold text-[#94a3b8] text-sm uppercase tracking-[0.2em]">
+            <p className="font-semibold text-[neutral-400] text-sm uppercase tracking-[0.2em]">
               {t("badge")}
             </p>
-            <h1 className="type-serif-display mt-6 text-[#0f172a]">{t("title")}</h1>
-            <p className="mt-6 text-[#94a3b8] text-xl leading-relaxed sm:text-2xl">
+            <h1 className="type-serif-display mt-6 text-[neutral-900]">{t("title")}</h1>
+            <p className="mt-6 text-[neutral-400] text-xl leading-relaxed sm:text-2xl">
               {t("description")}
             </p>
             <div className="mt-12">
@@ -37,13 +37,13 @@ export async function CareersHero() {
 
           {/* Right Column - Team Image */}
           <div className="relative">
-            <div className="aspect-[4/3] overflow-hidden rounded-[28px] bg-gradient-to-br from-[#64748b]/10 to-[#64748b]/5 shadow-[0_20px_60px_rgba(22,22,22,0.08)]">
+            <div className="aspect-[4/3] overflow-hidden rounded-[28px] bg-gradient-to-br from-[neutral-500]/10 to-[neutral-500]/5 shadow-[0_20px_60px_rgba(22,22,22,0.08)]">
               {/* Placeholder for team image */}
               <div className="flex h-full w-full items-center justify-center">
-                <div className="text-center text-[#94a3b8]">
+                <div className="text-center text-[neutral-400]">
                   <svg
                     aria-hidden="true"
-                    className="mx-auto h-24 w-24 text-[#64748b]/20"
+                    className="mx-auto h-24 w-24 text-[neutral-500]/20"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

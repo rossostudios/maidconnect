@@ -61,7 +61,7 @@ test.describe("Professional Onboarding", () => {
       const emailInput = page.locator('input[type="email"]');
       const isInvalid =
         (await emailInput.evaluate((el: HTMLInputElement) => !el.validity.valid)) ||
-        (await page.locator('text=/email.*required/i').count()) > 0;
+        (await page.locator("text=/email.*required/i").count()) > 0;
 
       expect(isInvalid).toBeTruthy();
     });
@@ -76,7 +76,7 @@ test.describe("Professional Onboarding", () => {
 
       // Should show password strength error
       const hasPasswordError =
-        (await page.locator('text=/password.*strong/i, text=/password.*least/i').count()) > 0;
+        (await page.locator("text=/password.*strong/i, text=/password.*least/i").count()) > 0;
 
       if (hasPasswordError) {
         expect(hasPasswordError).toBeTruthy();
@@ -100,7 +100,9 @@ test.describe("Professional Onboarding", () => {
       expect(isAuthPage).toBe(true);
     });
 
-    test("should require profile completion before accessing dashboard", async ({ page: _page }) => {
+    test("should require profile completion before accessing dashboard", async ({
+      page: _page,
+    }) => {
       // Skip - requires authenticated professional account
       // Incomplete profiles should be prompted to complete setup
     });
@@ -167,7 +169,7 @@ test.describe("Professional Onboarding", () => {
 
       // Should mention verification somewhere (in FAQ, info section, etc.)
       const hasVerificationInfo =
-        (await page.locator('text=/verif/i, text=/background check/i').count()) > 0;
+        (await page.locator("text=/verif/i, text=/background check/i").count()) > 0;
 
       // This may vary by page design
       expect(typeof hasVerificationInfo).toBe("boolean");

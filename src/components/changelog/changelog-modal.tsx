@@ -36,11 +36,27 @@ type ChangelogModalProps = {
 };
 
 const categoryConfig = {
-  features: { icon: MagicWand01Icon, label: "Features", color: "text-[#64748b] bg-[#64748b]/10" },
-  improvements: { icon: FlashIcon, label: "Improvements", color: "text-[#64748b] bg-[#f8fafc]" },
-  fixes: { icon: Bug01Icon, label: "Fixes", color: "text-[#64748b] bg-[#64748b]/10" },
-  security: { icon: Shield01Icon, label: "Security", color: "text-[#64748b] bg-[#64748b]/10" },
-  design: { icon: PaintBoardIcon, label: "Design", color: "text-[#64748b] bg-[#64748b]/10" },
+  features: {
+    icon: MagicWand01Icon,
+    label: "Features",
+    color: "text-[neutral-500] bg-[neutral-500]/10",
+  },
+  improvements: {
+    icon: FlashIcon,
+    label: "Improvements",
+    color: "text-[neutral-500] bg-[neutral-50]",
+  },
+  fixes: { icon: Bug01Icon, label: "Fixes", color: "text-[neutral-500] bg-[neutral-500]/10" },
+  security: {
+    icon: Shield01Icon,
+    label: "Security",
+    color: "text-[neutral-500] bg-[neutral-500]/10",
+  },
+  design: {
+    icon: PaintBoardIcon,
+    label: "Design",
+    color: "text-[neutral-500] bg-[neutral-500]/10",
+  },
 };
 
 export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalProps) {
@@ -90,14 +106,14 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
       {/* Header */}
       <div className="mb-6">
         <div className="mb-2 flex items-center gap-2">
-          <span className="rounded-full bg-[#64748b]/20 px-3 py-1 font-semibold text-[#64748b] text-sm">
+          <span className="rounded-full bg-[neutral-500]/20 px-3 py-1 font-semibold text-[neutral-500] text-sm">
             Sprint {changelog.sprint_number}
           </span>
-          <span className="text-[#94a3b8] text-sm">{formattedDate}</span>
+          <span className="text-[neutral-400] text-sm">{formattedDate}</span>
         </div>
-        <h2 className="font-bold text-3xl text-[#0f172a]">{changelog.title}</h2>
+        <h2 className="font-bold text-3xl text-[neutral-900]">{changelog.title}</h2>
         {changelog.summary && (
-          <p className="mt-3 text-[#94a3b8] text-lg leading-relaxed">{changelog.summary}</p>
+          <p className="mt-3 text-[neutral-400] text-lg leading-relaxed">{changelog.summary}</p>
         )}
       </div>
 
@@ -147,16 +163,16 @@ export function ChangelogModal({ isOpen, onClose, changelog }: ChangelogModalPro
       />
 
       {/* Actions */}
-      <div className="mt-8 flex flex-col gap-3 border-[#e2e8f0] border-t pt-6 sm:flex-row">
+      <div className="mt-8 flex flex-col gap-3 border-[neutral-200] border-t pt-6 sm:flex-row">
         <button
-          className="flex-1 rounded-full border-2 border-[#e2e8f0] bg-[#f8fafc] px-6 py-3 font-semibold text-[#0f172a] text-base transition hover:border-[#64748b] hover:text-[#64748b]"
+          className="flex-1 rounded-full border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] text-base transition hover:border-[neutral-500] hover:text-[neutral-500]"
           onClick={() => router.push("/changelog")}
           type="button"
         >
           {t("viewAllUpdates")}
         </button>
         <button
-          className="flex-1 rounded-full bg-[#64748b] px-6 py-3 font-semibold text-[#f8fafc] text-base transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-70"
+          className="flex-1 rounded-full bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
           disabled={markAsReadMutation.isLoading}
           onClick={handleMarkAsRead}
           type="button"

@@ -20,7 +20,7 @@ import { MetricCard } from "./MetricCard";
  * - Proper spacing and layout
  * - Less rounded corners (rounded-lg)
  *
- * Color Variants: blue, green, stone-700, pink, purple, default
+ * Color Variants: blue, green, neutral-700, pink, purple, default
  */
 const meta = {
   title: "Dashboard/MetricCard",
@@ -76,7 +76,7 @@ export const OrangeVariant: Story = {
     value: "12",
     description: "Awaiting acceptance",
     icon: ShoppingBasket01Icon,
-    variant: "stone-700",
+    variant: "neutral-700",
   },
 };
 
@@ -203,7 +203,7 @@ export const AllColors: Story = {
         icon={DollarSquareIcon}
         title="Orange"
         value="$1,234"
-        variant="stone-700"
+        variant="neutral-700"
       />
       <MetricCard
         icon={DollarSquareIcon}
@@ -258,7 +258,7 @@ export const DashboardLayout: Story = {
         trend="down"
         trendValue="-15% (134)"
         value="3,612"
-        variant="stone-700"
+        variant="neutral-700"
       />
       <MetricCard
         icon={UserMultiple02Icon}
@@ -297,7 +297,7 @@ export const MixedStates: Story = {
         icon={ShoppingBasket01Icon}
         title="Bookings"
         value="42"
-        variant="stone-700"
+        variant="neutral-700"
       />
       <MetricCard
         icon={UserMultiple02Icon}

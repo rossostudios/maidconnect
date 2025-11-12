@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Badge } from "./badge";
 
 /**
- * MaidConnect Badge Component
+ * Casaora Badge Component
  *
  * Design System:
  * - Status indicators for bookings, professionals, etc.

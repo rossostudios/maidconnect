@@ -25,7 +25,7 @@ export const Suggestion = ({
 }: SuggestionProps) => (
   <button
     className={cn(
-      "whitespace-nowrap rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-4 py-1.5 font-medium text-[#94a3b8] text-xs transition hover:border-[#64748b] hover:text-[#64748b]",
+      "whitespace-nowrap rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-1.5 font-medium text-[neutral-400] text-xs transition hover:border-[neutral-500] hover:text-[neutral-500]",
       className
     )}
     onClick={() => onClickSuggestion?.(suggestion)}

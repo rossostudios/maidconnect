@@ -27,13 +27,13 @@ export function DashboardLayout({
   fullWidth = false,
 }: Props) {
   return (
-    <div className="flex min-h-screen flex-col bg-[#f8fafc]">
+    <div className="flex min-h-screen flex-col bg-[neutral-50]">
       {/* Header with logo and navigation */}
-      <header className="border-[#e2e8f0] border-b bg-[#f8fafc]">
+      <header className="border-[neutral-200] border-b bg-[neutral-50]">
         <Container>
           <div className="flex items-center justify-between py-4">
             <Link
-              className="type-serif-sm text-[#0f172a] uppercase tracking-[0.08em] lg:text-[26px]"
+              className="type-serif-sm text-[neutral-900] uppercase tracking-[0.08em] lg:text-[26px]"
               href="/"
             >
               CASAORA
@@ -46,7 +46,9 @@ export function DashboardLayout({
                 return (
                   <Link
                     className={`font-medium text-sm transition ${
-                      isActive ? "text-[#0f172a]" : "text-[#94a3b8] hover:text-[#0f172a]"
+                      isActive
+                        ? "text-[neutral-900]"
+                        : "text-[neutral-400] hover:text-[neutral-900]"
                     }`}
                     href={link.href}
                     key={link.href}
@@ -56,7 +58,7 @@ export function DashboardLayout({
                 );
               })}
               <Link
-                className="font-medium text-[#94a3b8] text-sm transition hover:text-[#0f172a]"
+                className="font-medium text-[neutral-400] text-sm transition hover:text-[neutral-900]"
                 href={dashboardHref}
               >
                 ← Dashboard
@@ -74,8 +76,8 @@ export function DashboardLayout({
           <Container className="py-12">
             {title && (
               <div className="mb-8">
-                <h1 className="font-semibold text-4xl text-[#0f172a]">{title}</h1>
-                {description && <p className="mt-2 text-[#94a3b8] text-base">{description}</p>}
+                <h1 className="font-semibold text-4xl text-[neutral-900]">{title}</h1>
+                {description && <p className="mt-2 text-[neutral-400] text-base">{description}</p>}
               </div>
             )}
             {children}

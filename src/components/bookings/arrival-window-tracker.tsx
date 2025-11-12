@@ -183,38 +183,38 @@ export function ArrivalWindowTracker({
     <Card className={cn("border-2 shadow-sm", className)}>
       <CardContent className="p-6">
         <div className="flex items-start gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100">
-            <Icon className="h-6 w-6 text-slate-700" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-100">
+            <Icon className="h-6 w-6 text-neutral-700" />
           </div>
 
           <div className="flex-1 space-y-3">
             <div>
-              <h3 className="font-semibold text-lg text-slate-900">{config.title}</h3>
-              <p className="mt-1 text-base text-slate-600">{config.description}</p>
+              <h3 className="font-semibold text-lg text-neutral-900">{config.title}</h3>
+              <p className="mt-1 text-base text-neutral-600">{config.description}</p>
             </div>
 
             {timeDisplay && (
-              <div className="flex items-center gap-2 text-base text-slate-700">
+              <div className="flex items-center gap-2 text-base text-neutral-700">
                 <Clock className="h-4 w-4" />
                 <span className="font-medium">{timeDisplay}</span>
               </div>
             )}
 
-            {lastUpdateDisplay && <p className="text-slate-500 text-sm">{lastUpdateDisplay}</p>}
+            {lastUpdateDisplay && <p className="text-neutral-500 text-sm">{lastUpdateDisplay}</p>}
           </div>
 
           {/* Animated pulse indicator */}
           {arrivalWindow.status === "arriving_soon" && (
             <div className="relative">
-              <div className="absolute h-3 w-3 animate-ping rounded-full bg-slate-400 opacity-75" />
-              <div className="relative h-3 w-3 rounded-full bg-slate-500" />
+              <div className="absolute h-3 w-3 animate-ping rounded-full bg-neutral-400 opacity-75" />
+              <div className="relative h-3 w-3 rounded-full bg-neutral-500" />
             </div>
           )}
         </div>
 
         {/* Privacy notice */}
-        <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3">
-          <p className="text-slate-600 text-xs">{t("privacyNotice")}</p>
+        <div className="mt-4 rounded-lg border border-neutral-200 bg-neutral-50 p-3">
+          <p className="text-neutral-600 text-xs">{t("privacyNotice")}</p>
         </div>
       </CardContent>
     </Card>

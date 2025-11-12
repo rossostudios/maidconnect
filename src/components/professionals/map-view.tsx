@@ -44,7 +44,7 @@ const DEFAULT_ZOOM = 6;
 // Custom marker icon with price overlay
 function createCustomIcon(price: number | null, verified: boolean) {
   const priceText = price ? `$${Math.round(price / 100)}k` : "N/A";
-  const bgColor = verified ? "#64748b" : "#64748b";
+  const bgColor = verified ? "neutral-500" : "neutral-500";
 
   return new Icon({
     iconUrl: `data:image/svg+xml,${encodeURIComponent(`
@@ -117,8 +117,8 @@ const MapViewComponent = memo(
 
     if (!isMounted) {
       return (
-        <div className={`flex h-full items-center justify-center bg-[#e2e8f0]/30 ${className}`}>
-          <div className="flex flex-col items-center gap-2 text-[#94a3b8]">
+        <div className={`flex h-full items-center justify-center bg-[neutral-200]/30 ${className}`}>
+          <div className="flex flex-col items-center gap-2 text-[neutral-400]">
             <HugeiconsIcon className="h-8 w-8 animate-pulse" icon={Location01Icon} />
             <p className="text-sm">Loading map...</p>
           </div>
@@ -174,14 +174,14 @@ const MapViewComponent = memo(
                           src={professional.photoUrl || "/placeholder-avatar.jpg"}
                         />
                         {professional.availableToday && (
-                          <div className="absolute top-1 right-1 h-3 w-3 rounded-full border-2 border-[#f8fafc] bg-[#64748b]/100" />
+                          <div className="absolute top-1 right-1 h-3 w-3 rounded-full border-2 border-[neutral-50] bg-[neutral-500]/100" />
                         )}
                       </div>
 
                       {/* Professional info */}
                       <div className="flex-1">
                         <div className="mb-1 flex items-start justify-between gap-2">
-                          <h3 className="font-semibold text-[#0f172a] text-sm leading-tight">
+                          <h3 className="font-semibold text-[neutral-900] text-sm leading-tight">
                             {professional.name}
                           </h3>
                           {professional.verificationLevel && (
@@ -189,7 +189,7 @@ const MapViewComponent = memo(
                           )}
                         </div>
 
-                        <p className="mb-1 line-clamp-1 text-[#94a3b8] text-xs">
+                        <p className="mb-1 line-clamp-1 text-[neutral-400] text-xs">
                           {professional.service}
                         </p>
 
@@ -197,31 +197,31 @@ const MapViewComponent = memo(
                         {professional.rating && professional.reviewCount ? (
                           <div className="mb-1 flex items-center gap-1 text-xs">
                             <HugeiconsIcon
-                              className="h-3 w-3 fill-[#64748b] text-[#64748b]"
+                              className="h-3 w-3 fill-[neutral-500] text-[neutral-500]"
                               icon={StarIcon}
                             />
-                            <span className="font-semibold text-[#0f172a]">
+                            <span className="font-semibold text-[neutral-900]">
                               {professional.rating.toFixed(1)}
                             </span>
-                            <span className="text-[#94a3b8]">({professional.reviewCount})</span>
+                            <span className="text-[neutral-400]">({professional.reviewCount})</span>
                           </div>
                         ) : null}
 
                         {/* Price */}
                         {professional.hourlyRateCop ? (
-                          <p className="font-semibold text-[#64748b] text-sm">
+                          <p className="font-semibold text-[neutral-500] text-sm">
                             {formatCOP(professional.hourlyRateCop)}/hr
                           </p>
                         ) : null}
 
                         {/* Location */}
-                        <p className="mt-1 text-[#94a3b8] text-xs">
+                        <p className="mt-1 text-[neutral-400] text-xs">
                           {professional.city}, {professional.country}
                         </p>
                       </div>
                     </div>
 
-                    <div className="mt-2 border-[#e2e8f0] border-t pt-2 text-center text-[#64748b] text-xs">
+                    <div className="mt-2 border-[neutral-200] border-t pt-2 text-center text-[neutral-500] text-xs">
                       View Profile →
                     </div>
                   </Link>
@@ -233,14 +233,14 @@ const MapViewComponent = memo(
 
         {/* No results message */}
         {professionalsWithCoords.length === 0 && (
-          <div className="absolute inset-0 flex items-center justify-center bg-[#f8fafc]/80">
+          <div className="absolute inset-0 flex items-center justify-center bg-[neutral-50]/80">
             <div className="text-center">
               <HugeiconsIcon
-                className="mx-auto mb-2 h-12 w-12 text-[#94a3b8]/70"
+                className="mx-auto mb-2 h-12 w-12 text-[neutral-400]/70"
                 icon={Location01Icon}
               />
-              <p className="font-medium text-[#0f172a]">No professionals found on map</p>
-              <p className="text-[#94a3b8] text-sm">
+              <p className="font-medium text-[neutral-900]">No professionals found on map</p>
+              <p className="text-[neutral-400] text-sm">
                 Try adjusting your filters or search criteria
               </p>
             </div>

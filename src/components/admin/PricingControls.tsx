@@ -154,7 +154,9 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
                   <td className="px-6 py-4">
                     <span
                       className={`inline-flex rounded-full px-3 py-1 font-semibold text-xs ${
-                        rule.is_active ? "bg-stone-100 text-stone-700" : "bg-gray-100 text-gray-600"
+                        rule.is_active
+                          ? "bg-neutral-100 text-neutral-700"
+                          : "bg-gray-100 text-gray-600"
                       }`}
                     >
                       {rule.is_active ? "Active" : "Inactive"}

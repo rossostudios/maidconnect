@@ -1,12 +1,14 @@
 import { cn } from "@/lib/utils";
 
 export function Skeleton({ className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("animate-pulse rounded-md bg-[#e2e8f0]/50", className)} {...props} />;
+  return (
+    <div className={cn("animate-pulse rounded-md bg-[neutral-200]/50", className)} {...props} />
+  );
 }
 
 export function DashboardSectionSkeleton() {
   return (
-    <section className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc]/90 p-6 shadow-sm">
+    <section className="rounded-xl border border-[neutral-200] bg-[neutral-50]/90 p-6 shadow-sm">
       <div className="space-y-4">
         {/* Header */}
         <div className="space-y-2">
@@ -27,7 +29,7 @@ export function DashboardSectionSkeleton() {
 
 export function CardSkeleton() {
   return (
-    <div className="rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-4">
+    <div className="rounded-lg border border-[neutral-200] bg-[neutral-50] p-4">
       <div className="flex items-start gap-3">
         <Skeleton className="h-12 w-12 rounded-full" />
         <div className="flex-1 space-y-2">
@@ -52,9 +54,9 @@ export function ListSkeleton({ count = 3 }: { count?: number }) {
 
 export function ConversationSkeleton() {
   return (
-    <div className="flex h-[600px] overflow-hidden rounded-lg border border-[#e2e8f0] bg-[#f8fafc]">
+    <div className="flex h-[600px] overflow-hidden rounded-lg border border-[neutral-200] bg-[neutral-50]">
       {/* Conversations List */}
-      <div className="w-80 border-[#e2e8f0] border-r p-4">
+      <div className="w-80 border-[neutral-200] border-r p-4">
         <Skeleton className="mb-4 h-6 w-32" />
         <div className="space-y-3">
           {Array.from({ length: 5 }).map((_, i) => (
@@ -71,7 +73,7 @@ export function ConversationSkeleton() {
 
       {/* Message Thread */}
       <div className="flex flex-1 flex-col">
-        <div className="border-[#e2e8f0] border-b p-4">
+        <div className="border-[neutral-200] border-b p-4">
           <div className="flex items-center gap-3">
             <Skeleton className="h-10 w-10 rounded-full" />
             <div className="space-y-2">
@@ -99,7 +101,7 @@ export function ConversationSkeleton() {
  */
 export function TableSkeleton({ rows = 5, columns = 4 }: { rows?: number; columns?: number }) {
   return (
-    <div className="rounded-[28px] bg-[#f8fafc] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+    <div className="rounded-[28px] bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
       {/* Header */}
       <div className="mb-4 grid gap-4" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
         {Array.from({ length: columns }).map((_, i) => (
@@ -110,7 +112,7 @@ export function TableSkeleton({ rows = 5, columns = 4 }: { rows?: number; column
       <div className="space-y-3">
         {Array.from({ length: rows }).map((_, rowIndex) => (
           <div
-            className="grid gap-4 rounded-xl border-2 border-[#e2e8f0] p-4"
+            className="grid gap-4 rounded-xl border-2 border-[neutral-200] p-4"
             key={`row-${rowIndex}`}
             style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
           >
@@ -131,7 +133,7 @@ export function TableSkeleton({ rows = 5, columns = 4 }: { rows?: number; column
  */
 export function ProfileCardSkeleton() {
   return (
-    <div className="rounded-[28px] bg-[#f8fafc] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+    <div className="rounded-[28px] bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
       <div className="flex items-center gap-4">
         {/* Avatar */}
         <Skeleton className="h-20 w-20 flex-shrink-0 rounded-full" />
@@ -158,7 +160,7 @@ export function ProfileCardSkeleton() {
  */
 export function StatCardSkeleton() {
   return (
-    <div className="rounded-[28px] bg-[#f8fafc] p-6 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+    <div className="rounded-[28px] bg-[neutral-50] p-6 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
       <div className="flex items-center justify-between">
         <div className="flex-1 space-y-3">
           <Skeleton className="h-5 w-28" />
@@ -177,7 +179,7 @@ export function StatCardSkeleton() {
  */
 export function FormSkeleton({ fields = 4 }: { fields?: number }) {
   return (
-    <div className="rounded-[28px] bg-[#f8fafc] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+    <div className="rounded-[28px] bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
       <div className="space-y-6">
         {Array.from({ length: fields }).map((_, i) => (
           <div className="space-y-2" key={i}>
@@ -201,7 +203,7 @@ export function FormSkeleton({ fields = 4 }: { fields?: number }) {
  */
 export function CalendarSkeleton() {
   return (
-    <div className="rounded-[28px] bg-[#f8fafc] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+    <div className="rounded-[28px] bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
       {/* Month header */}
       <div className="mb-6 flex items-center justify-between">
         <Skeleton className="h-9 w-40" />
@@ -233,7 +235,7 @@ export function CalendarSkeleton() {
  */
 export function ChartSkeleton() {
   return (
-    <div className="rounded-[28px] bg-[#f8fafc] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
+    <div className="rounded-[28px] bg-[neutral-50] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)]">
       <div className="mb-6 flex items-center justify-between">
         <div className="space-y-2">
           <Skeleton className="h-6 w-32" />

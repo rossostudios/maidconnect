@@ -54,25 +54,25 @@ export function ServiceRadiusEditor({ travelBuffer, onUpdate }: ServiceRadiusEdi
   };
 
   return (
-    <div className="rounded-[24px] border-2 border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-sm">
+    <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <HugeiconsIcon className="h-6 w-6 text-[#64748b]" icon={MapsIcon} />
-          <h3 className="font-semibold text-[#0f172a] text-lg">{t("title")}</h3>
+          <HugeiconsIcon className="h-6 w-6 text-[neutral-500]" icon={MapsIcon} />
+          <h3 className="font-semibold text-[neutral-900] text-lg">{t("title")}</h3>
         </div>
 
         {editing ? (
           <div className="flex gap-2">
             <button
-              className="rounded-xl border-2 border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 font-medium text-[#0f172a] text-sm transition hover:bg-[#f8fafc]"
+              className="rounded-xl border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-medium text-[neutral-900] text-sm transition hover:bg-[neutral-50]"
               onClick={handleCancel}
               type="button"
             >
               {t("cancel")}
             </button>
             <button
-              className="rounded-xl bg-[#64748b] px-4 py-2 font-medium text-[#f8fafc] text-sm transition hover:bg-[#64748b] disabled:opacity-50"
+              className="rounded-xl bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500] disabled:opacity-50"
               disabled={saving}
               onClick={handleSave}
               type="button"
@@ -82,7 +82,7 @@ export function ServiceRadiusEditor({ travelBuffer, onUpdate }: ServiceRadiusEdi
           </div>
         ) : (
           <button
-            className="rounded-xl bg-[#64748b] px-4 py-2 font-medium text-[#f8fafc] text-sm transition hover:bg-[#64748b]"
+            className="rounded-xl bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
             onClick={() => setEditing(true)}
             type="button"
           >
@@ -93,7 +93,9 @@ export function ServiceRadiusEditor({ travelBuffer, onUpdate }: ServiceRadiusEdi
 
       {/* Service Radius Slider */}
       <div className="mb-6">
-        <label className="mb-2 block font-medium text-[#0f172a] text-sm">{t("radiusLabel")}</label>
+        <label className="mb-2 block font-medium text-[neutral-900] text-sm">
+          {t("radiusLabel")}
+        </label>
         <div className="flex items-center gap-4">
           <input
             className="flex-1"
@@ -110,11 +112,11 @@ export function ServiceRadiusEditor({ travelBuffer, onUpdate }: ServiceRadiusEdi
             type="range"
             value={localBuffer.serviceRadiusKm}
           />
-          <span className="w-16 text-right font-semibold text-[#0f172a] text-lg">
+          <span className="w-16 text-right font-semibold text-[neutral-900] text-lg">
             {localBuffer.serviceRadiusKm} km
           </span>
         </div>
-        <p className="mt-2 text-[#94a3b8] text-xs">
+        <p className="mt-2 text-[neutral-400] text-xs">
           {t("radiusDescription", { radius: localBuffer.serviceRadiusKm || 10 })}
         </p>
       </div>
@@ -122,11 +124,11 @@ export function ServiceRadiusEditor({ travelBuffer, onUpdate }: ServiceRadiusEdi
       {/* Travel Buffers */}
       <div className="mb-6 grid gap-4 md:grid-cols-2">
         <div>
-          <label className="mb-2 block font-medium text-[#0f172a] text-sm">
+          <label className="mb-2 block font-medium text-[neutral-900] text-sm">
             {t("bufferBeforeLabel")}
           </label>
           <select
-            className="w-full rounded-lg border-2 border-[#e2e8f0] px-3 py-2 text-sm disabled:bg-[#f8fafc]"
+            className="w-full rounded-lg border-2 border-[neutral-200] px-3 py-2 text-sm disabled:bg-[neutral-50]"
             disabled={!editing}
             onChange={(e) =>
               setLocalBuffer({
@@ -144,11 +146,11 @@ export function ServiceRadiusEditor({ travelBuffer, onUpdate }: ServiceRadiusEdi
         </div>
 
         <div>
-          <label className="mb-2 block font-medium text-[#0f172a] text-sm">
+          <label className="mb-2 block font-medium text-[neutral-900] text-sm">
             {t("bufferAfterLabel")}
           </label>
           <select
-            className="w-full rounded-lg border-2 border-[#e2e8f0] px-3 py-2 text-sm disabled:bg-[#f8fafc]"
+            className="w-full rounded-lg border-2 border-[neutral-200] px-3 py-2 text-sm disabled:bg-[neutral-50]"
             disabled={!editing}
             onChange={(e) =>
               setLocalBuffer({
@@ -168,19 +170,19 @@ export function ServiceRadiusEditor({ travelBuffer, onUpdate }: ServiceRadiusEdi
 
       {/* Service Location (Placeholder - would integrate with map in real implementation) */}
       <div className="mb-6">
-        <label className="mb-2 flex items-center gap-2 font-medium text-[#0f172a] text-sm">
+        <label className="mb-2 flex items-center gap-2 font-medium text-[neutral-900] text-sm">
           <HugeiconsIcon className="h-4 w-4" icon={Location01Icon} />
           {t("locationLabel")}
         </label>
-        <div className="rounded-lg border-2 border-[#e2e8f0] bg-[#f8fafc] p-4">
-          <p className="text-[#94a3b8] text-sm">
+        <div className="rounded-lg border-2 border-[neutral-200] bg-[neutral-50] p-4">
+          <p className="text-[neutral-400] text-sm">
             {travelBuffer?.serviceLocation
               ? `${t("currentLocation")}: ${travelBuffer.serviceLocation.lat.toFixed(4)}, ${travelBuffer.serviceLocation.lng.toFixed(4)}`
               : t("noLocationSet")}
           </p>
           {editing && (
             <button
-              className="mt-3 rounded-lg bg-[#64748b] px-4 py-2 font-medium text-[#f8fafc] text-sm transition hover:bg-[#64748b]"
+              className="mt-3 rounded-lg bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
               type="button"
             >
               {t("updateLocation")}
@@ -190,9 +192,9 @@ export function ServiceRadiusEditor({ travelBuffer, onUpdate }: ServiceRadiusEdi
       </div>
 
       {/* Help Text */}
-      <div className="rounded-xl bg-[#f8fafc] p-4 text-[#64748b] text-sm">
+      <div className="rounded-xl bg-[neutral-50] p-4 text-[neutral-500] text-sm">
         <p className="font-semibold">{t("helpTitle")}</p>
-        <p className="mt-1 text-[#64748b]">{t("helpDescription")}</p>
+        <p className="mt-1 text-[neutral-500]">{t("helpDescription")}</p>
       </div>
     </div>
   );

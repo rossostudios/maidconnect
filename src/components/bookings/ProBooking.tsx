@@ -127,7 +127,7 @@ export function ProBookingCalendar({ bookings }: Props) {
   };
 
   return (
-    <div className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc]/90 p-6 shadow-sm">
+    <div className="rounded-xl border border-[neutral-200] bg-[neutral-50]/90 p-6 shadow-sm">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(0,_1fr)]">
         {/* Calendar Grid */}
         <div>
@@ -157,10 +157,10 @@ export function ProBookingCalendar({ bookings }: Props) {
         </div>
 
         {/* Booking Details Sidebar */}
-        <div className="rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-4">
-          <h4 className="font-semibold text-[#0f172a] text-sm">{t("details")}</h4>
+        <div className="rounded-lg border border-[neutral-200] bg-[neutral-50] p-4">
+          <h4 className="font-semibold text-[neutral-900] text-sm">{t("details")}</h4>
           {selectedDate && (
-            <p className="mt-1 text-[#94a3b8] text-xs">
+            <p className="mt-1 text-[neutral-400] text-xs">
               {selectedDate.toLocaleDateString("en-US", {
                 weekday: "long",
                 year: "numeric",
@@ -170,7 +170,7 @@ export function ProBookingCalendar({ bookings }: Props) {
             </p>
           )}
           {selectedBookings.length === 0 ? (
-            <p className="mt-4 text-[#94a3b8] text-sm">{t("noBookings")}</p>
+            <p className="mt-4 text-[neutral-400] text-sm">{t("noBookings")}</p>
           ) : (
             <ul className="mt-4 space-y-3">
               {selectedBookings
@@ -187,19 +187,22 @@ export function ProBookingCalendar({ bookings }: Props) {
                   const amount = booking.amount_captured ?? booking.amount_authorized ?? null;
                   return (
                     <li
-                      className="rounded-md border border-[#e2e8f0] bg-[#f8fafc] p-3"
+                      className="rounded-md border border-[neutral-200] bg-[neutral-50] p-3"
                       key={booking.id}
                     >
-                      <div className="flex items-center justify-between text-[#0f172a] text-sm">
+                      <div className="flex items-center justify-between text-[neutral-900] text-sm">
                         <span className="font-semibold">{timeLabel}</span>
                         {amount ? (
-                          <span className="font-semibold text-[#94a3b8] text-xs">
+                          <span className="font-semibold text-[neutral-400] text-xs">
                             {formatCOP(amount)}
                           </span>
                         ) : null}
                       </div>
-                      <div className="mt-1 flex items-center gap-2 text-[#94a3b8] text-xs">
-                        <HugeiconsIcon className="h-3.5 w-3.5 text-[#64748b]" icon={Clock01Icon} />
+                      <div className="mt-1 flex items-center gap-2 text-[neutral-400] text-xs">
+                        <HugeiconsIcon
+                          className="h-3.5 w-3.5 text-[neutral-500]"
+                          icon={Clock01Icon}
+                        />
                         <span>{statusLabel}</span>
                       </div>
                     </li>
@@ -231,7 +234,7 @@ function CustomDayContent({
     <div className="flex h-full min-h-[50px] flex-col items-center justify-center">
       <span className="font-semibold text-sm">{date.getDate()}</span>
       {bookingsCount > 0 && (
-        <span className="mt-1 rounded-full bg-[#64748b]/15 px-2 py-0.5 font-semibold text-[#64748b] text-xs">
+        <span className="mt-1 rounded-full bg-[neutral-500]/15 px-2 py-0.5 font-semibold text-[neutral-500] text-xs">
           {bookingsCount} {bookingsCount === 1 ? t("booking") : t("bookings")}
         </span>
       )}

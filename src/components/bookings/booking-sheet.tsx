@@ -201,7 +201,7 @@ export function BookingSheet({
     <>
       {/* Overlay */}
       <div
-        className="fade-in fixed inset-0 z-40 animate-in bg-[#0f172a]/40 backdrop-blur-sm duration-300"
+        className="fade-in fixed inset-0 z-40 animate-in bg-[neutral-900]/40 backdrop-blur-sm duration-300"
         onClick={onClose}
         onKeyDown={(e) => {
           if (e.key === "Escape") {
@@ -213,16 +213,16 @@ export function BookingSheet({
       />
 
       {/* Sheet - Full width on mobile, max-w-2xl on desktop */}
-      <div className="slide-in-from-right fixed inset-y-0 right-0 z-50 w-full animate-in overflow-y-auto bg-[#f8fafc] shadow-2xl duration-500 ease-out md:max-w-2xl">
-        <div className="sticky top-0 z-10 flex items-center justify-between border-[#e2e8f0] border-b bg-[#f8fafc] px-6 py-5 md:px-8 md:py-6">
+      <div className="slide-in-from-right fixed inset-y-0 right-0 z-50 w-full animate-in overflow-y-auto bg-[neutral-50] shadow-2xl duration-500 ease-out md:max-w-2xl">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-[neutral-200] border-b bg-[neutral-50] px-6 py-5 md:px-8 md:py-6">
           <div>
-            <h2 className="font-semibold text-[#0f172a] text-xl md:text-2xl">
+            <h2 className="font-semibold text-[neutral-900] text-xl md:text-2xl">
               {currentStep === "time" && "Choose time"}
               {currentStep === "details" && "Booking details"}
               {currentStep === "payment" && "Payment"}
             </h2>
             {selectedDate && (
-              <p className="mt-1 text-[#94a3b8] text-sm md:text-base">
+              <p className="mt-1 text-[neutral-400] text-sm md:text-base">
                 {selectedDate.toLocaleDateString("en-US", {
                   weekday: "long",
                   month: "long",
@@ -234,7 +234,7 @@ export function BookingSheet({
           </div>
           <button
             aria-label="Close booking sheet"
-            className="flex h-11 w-11 items-center justify-center rounded-full text-[#94a3b8] transition hover:bg-[#e2e8f0]"
+            className="flex h-11 w-11 items-center justify-center rounded-full text-[neutral-400] transition hover:bg-[neutral-200]"
             onClick={onClose}
             type="button"
           >
@@ -244,7 +244,7 @@ export function BookingSheet({
 
         <div className="p-6 md:p-8">
           {error && (
-            <div className="mb-6 rounded-xl border border-[#64748b]/30 bg-[#64748b]/10 px-5 py-4 text-[#64748b] text-base">
+            <div className="mb-6 rounded-xl border border-[neutral-500]/30 bg-[neutral-500]/10 px-5 py-4 text-[neutral-500] text-base">
               {error}
             </div>
           )}
@@ -253,14 +253,14 @@ export function BookingSheet({
           {currentStep === "time" && (
             <div className="fade-in-50 animate-in space-y-6 duration-500">
               <div>
-                <h3 className="mb-4 font-semibold text-[#0f172a] text-xl">Available times</h3>
-                <p className="mb-6 text-[#94a3b8] text-base">
+                <h3 className="mb-4 font-semibold text-[neutral-900] text-xl">Available times</h3>
+                <p className="mb-6 text-[neutral-400] text-base">
                   Select a time slot to continue with your booking
                 </p>
                 <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
                   {availableSlots.map((time, index) => (
                     <button
-                      className="group fade-in-0 slide-in-from-bottom-4 animate-in rounded-xl border-2 border-[#e2e8f0] bg-[#f8fafc] px-5 py-4 font-semibold text-[#0f172a] text-base shadow-sm transition-all duration-300 hover:scale-105 hover:border-[#64748b] hover:bg-[#64748b]/5 hover:shadow-lg active:scale-95 md:px-5 md:py-4"
+                      className="group fade-in-0 slide-in-from-bottom-4 animate-in rounded-xl border-2 border-[neutral-200] bg-[neutral-50] px-5 py-4 font-semibold text-[neutral-900] text-base shadow-sm transition-all duration-300 hover:scale-105 hover:border-[neutral-500] hover:bg-[neutral-500]/5 hover:shadow-lg active:scale-95 md:px-5 md:py-4"
                       key={time}
                       onClick={() => handleTimeSelect(time)}
                       style={{ animationDelay: `${index * 30}ms` }}
@@ -278,8 +278,8 @@ export function BookingSheet({
           {currentStep === "details" && (
             <div className="fade-in-50 animate-in space-y-8 duration-500">
               {/* Selected Time Display */}
-              <div className="rounded-2xl bg-[#64748b]/5 p-6">
-                <div className="flex items-center gap-3 text-[#64748b] text-base">
+              <div className="rounded-2xl bg-[neutral-500]/5 p-6">
+                <div className="flex items-center gap-3 text-[neutral-500] text-base">
                   <HugeiconsIcon className="h-5 w-5" icon={Clock01Icon} />
                   <span className="font-semibold">{selectedTime && formatTime(selectedTime)}</span>
                   <button
@@ -295,13 +295,13 @@ export function BookingSheet({
               {/* Service Selection */}
               <div>
                 <label
-                  className="mb-3 block font-semibold text-[#0f172a] text-base md:text-lg"
+                  className="mb-3 block font-semibold text-[neutral-900] text-base md:text-lg"
                   htmlFor="service-select"
                 >
                   Service *
                 </label>
                 <select
-                  className="w-full rounded-xl border-2 border-[#e2e8f0] px-4 py-4 text-base focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20 md:px-5"
+                  className="w-full rounded-xl border-2 border-[neutral-200] px-4 py-4 text-base focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20 md:px-5"
                   id="service-select"
                   onChange={(e) => {
                     const service = serviceWithName.find((s) => s.name === e.target.value);
@@ -326,13 +326,13 @@ export function BookingSheet({
 
               {/* Duration - Touch-friendly controls */}
               <div>
-                <div className="mb-3 block font-semibold text-[#0f172a] text-base md:text-lg">
+                <div className="mb-3 block font-semibold text-[neutral-900] text-base md:text-lg">
                   Duration *
                 </div>
                 <div className="flex items-center gap-3 md:gap-4">
                   <button
                     aria-label="Decrease duration"
-                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#e2e8f0] transition hover:border-[#64748b] hover:bg-[#64748b]/5 md:p-3"
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[neutral-200] transition hover:border-[neutral-500] hover:bg-[neutral-500]/5 md:p-3"
                     onClick={() =>
                       setBookingData({
                         ...bookingData,
@@ -343,12 +343,12 @@ export function BookingSheet({
                   >
                     <HugeiconsIcon className="h-5 w-5" icon={MinusSignIcon} />
                   </button>
-                  <div className="flex-1 rounded-xl border-2 border-[#e2e8f0] bg-[#f8fafc] px-4 py-4 text-center font-semibold text-[#0f172a] text-lg md:px-5 md:text-xl">
+                  <div className="flex-1 rounded-xl border-2 border-[neutral-200] bg-[neutral-50] px-4 py-4 text-center font-semibold text-[neutral-900] text-lg md:px-5 md:text-xl">
                     {bookingData.durationHours} {bookingData.durationHours === 1 ? "hour" : "hours"}
                   </div>
                   <button
                     aria-label="Increase duration"
-                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#e2e8f0] transition hover:border-[#64748b] hover:bg-[#64748b]/5 md:p-3"
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[neutral-200] transition hover:border-[neutral-500] hover:bg-[neutral-500]/5 md:p-3"
                     onClick={() =>
                       setBookingData({
                         ...bookingData,
@@ -365,7 +365,7 @@ export function BookingSheet({
               {/* Address */}
               <div>
                 <label
-                  className="mb-3 block font-semibold text-[#0f172a] text-lg"
+                  className="mb-3 block font-semibold text-[neutral-900] text-lg"
                   htmlFor="service-address"
                 >
                   Service address *
@@ -380,7 +380,7 @@ export function BookingSheet({
                   />
                 ) : (
                   <textarea
-                    className="w-full rounded-xl border-2 border-[#e2e8f0] px-5 py-4 text-base focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+                    className="w-full rounded-xl border-2 border-[neutral-200] px-5 py-4 text-base focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
                     id="service-address"
                     onChange={(e) =>
                       setBookingData({
@@ -398,7 +398,7 @@ export function BookingSheet({
               {/* Add-ons */}
               {addons.length > 0 && (
                 <div>
-                  <div className="mb-3 block font-semibold text-[#0f172a] text-lg">
+                  <div className="mb-3 block font-semibold text-[neutral-900] text-lg">
                     Add extras (optional)
                   </div>
                   <div className="space-y-3">
@@ -408,8 +408,8 @@ export function BookingSheet({
                         <button
                           className={`w-full rounded-xl border-2 p-5 text-left transition ${
                             isSelected
-                              ? "border-[#64748b] bg-[#64748b]/5"
-                              : "border-[#e2e8f0] bg-[#f8fafc] hover:border-[#64748b]/50"
+                              ? "border-[neutral-500] bg-[neutral-500]/5"
+                              : "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-500]/50"
                           }`}
                           key={addon.id}
                           onClick={() => toggleAddon(addon)}
@@ -417,14 +417,16 @@ export function BookingSheet({
                         >
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
-                              <h4 className="font-semibold text-[#0f172a] text-base">
+                              <h4 className="font-semibold text-[neutral-900] text-base">
                                 {addon.name}
                               </h4>
                               {addon.description && (
-                                <p className="mt-1 text-[#94a3b8] text-sm">{addon.description}</p>
+                                <p className="mt-1 text-[neutral-400] text-sm">
+                                  {addon.description}
+                                </p>
                               )}
                             </div>
-                            <div className="ml-4 font-semibold text-[#64748b] text-base">
+                            <div className="ml-4 font-semibold text-[neutral-500] text-base">
                               {formatCOP(addon.price_cop)}
                             </div>
                           </div>
@@ -438,13 +440,13 @@ export function BookingSheet({
               {/* Special Instructions */}
               <div>
                 <label
-                  className="mb-3 block font-semibold text-[#0f172a] text-lg"
+                  className="mb-3 block font-semibold text-[neutral-900] text-lg"
                   htmlFor="special-instructions"
                 >
                   Special instructions
                 </label>
                 <textarea
-                  className="w-full rounded-xl border-2 border-[#e2e8f0] px-5 py-4 text-base focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+                  className="w-full rounded-xl border-2 border-[neutral-200] px-5 py-4 text-base focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
                   id="special-instructions"
                   onChange={(e) =>
                     setBookingData({
@@ -459,23 +461,27 @@ export function BookingSheet({
               </div>
 
               {/* Price Summary */}
-              <div className="rounded-2xl border-2 border-[#e2e8f0] bg-[#f8fafc] p-6">
-                <h3 className="mb-4 font-semibold text-[#0f172a] text-lg">Price summary</h3>
+              <div className="rounded-2xl border-2 border-[neutral-200] bg-[neutral-50] p-6">
+                <h3 className="mb-4 font-semibold text-[neutral-900] text-lg">Price summary</h3>
                 <div className="space-y-3 text-base">
                   <div className="flex justify-between">
-                    <span className="text-[#94a3b8]">Service</span>
-                    <span className="font-semibold text-[#0f172a]">{formatCOP(baseAmount)}</span>
+                    <span className="text-[neutral-400]">Service</span>
+                    <span className="font-semibold text-[neutral-900]">
+                      {formatCOP(baseAmount)}
+                    </span>
                   </div>
                   {addonsTotal > 0 && (
                     <div className="flex justify-between">
-                      <span className="text-[#94a3b8]">Add-ons</span>
-                      <span className="font-semibold text-[#0f172a]">{formatCOP(addonsTotal)}</span>
+                      <span className="text-[neutral-400]">Add-ons</span>
+                      <span className="font-semibold text-[neutral-900]">
+                        {formatCOP(addonsTotal)}
+                      </span>
                     </div>
                   )}
-                  <div className="border-[#e2e8f0] border-t pt-3">
+                  <div className="border-[neutral-200] border-t pt-3">
                     <div className="flex justify-between text-xl">
-                      <span className="font-semibold text-[#0f172a]">Total</span>
-                      <span className="font-bold text-[#64748b]">{formatCOP(totalAmount)}</span>
+                      <span className="font-semibold text-[neutral-900]">Total</span>
+                      <span className="font-bold text-[neutral-500]">{formatCOP(totalAmount)}</span>
                     </div>
                   </div>
                 </div>
@@ -484,14 +490,14 @@ export function BookingSheet({
               {/* Actions - Touch-friendly */}
               <div className="flex flex-col gap-3 md:flex-row md:gap-4">
                 <button
-                  className="order-2 rounded-xl border-2 border-[#e2e8f0] px-8 py-4 font-semibold text-[#94a3b8] text-base transition hover:border-[#64748b] hover:text-[#64748b] md:order-1"
+                  className="order-2 rounded-xl border-2 border-[neutral-200] px-8 py-4 font-semibold text-[neutral-400] text-base transition hover:border-[neutral-500] hover:text-[neutral-500] md:order-1"
                   onClick={() => setCurrentStep("time")}
                   type="button"
                 >
                   Back
                 </button>
                 <button
-                  className="order-1 flex-1 rounded-xl bg-[#64748b] px-8 py-4 font-semibold text-[#f8fafc] text-base transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
+                  className="order-1 flex-1 rounded-xl bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
                   disabled={
                     loading ||
                     !bookingData.serviceName ||
@@ -514,8 +520,8 @@ export function BookingSheet({
                 appearance: {
                   theme: "flat" as const,
                   variables: {
-                    colorPrimary: "#64748b",
-                    colorText: "#0f172a",
+                    colorPrimary: "neutral-500",
+                    colorText: "neutral-900",
                     borderRadius: "12px",
                   },
                 },
@@ -588,14 +594,14 @@ function PaymentStep({
 
   return (
     <div className="space-y-6">
-      <p className="text-[#94a3b8] text-base">
+      <p className="text-[neutral-400] text-base">
         We'll authorize a hold on your card. You'll only be charged after the service is completed.
       </p>
       <PaymentElement />
-      {error && <p className="text-[#64748b] text-base">{error}</p>}
+      {error && <p className="text-[neutral-500] text-base">{error}</p>}
       <div className="flex flex-col gap-3 md:flex-row md:gap-4">
         <button
-          className="order-2 rounded-xl border-2 border-[#e2e8f0] px-8 py-4 font-semibold text-[#94a3b8] text-base transition hover:border-[#64748b] hover:text-[#64748b] disabled:cursor-not-allowed disabled:opacity-50 md:order-1"
+          className="order-2 rounded-xl border-2 border-[neutral-200] px-8 py-4 font-semibold text-[neutral-400] text-base transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50 md:order-1"
           disabled={submitting}
           onClick={onBack}
           type="button"
@@ -603,7 +609,7 @@ function PaymentStep({
           Back
         </button>
         <button
-          className="order-1 flex-1 rounded-xl bg-[#64748b] px-8 py-4 font-semibold text-[#f8fafc] text-base transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
+          className="order-1 flex-1 rounded-xl bg-[neutral-500] px-8 py-4 font-semibold text-[neutral-50] text-base transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50 md:order-2"
           disabled={submitting}
           onClick={handleConfirm}
           type="button"

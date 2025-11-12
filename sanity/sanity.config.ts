@@ -1,23 +1,23 @@
-import { defineConfig } from 'sanity';
-import { structureTool } from 'sanity/structure';
-import { visionTool } from '@sanity/vision';
-import { presentationTool } from 'sanity/presentation';
-import { documentInternationalization } from '@sanity/document-internationalization';
-import { schemaTypes } from './schemas';
-import { locate } from './presentation/locate';
+import { documentInternationalization } from "@sanity/document-internationalization";
+import { visionTool } from "@sanity/vision";
+import { defineConfig } from "sanity";
+import { presentationTool } from "sanity/presentation";
+import { structureTool } from "sanity/structure";
+import { locate } from "./presentation/locate";
+import { schemaTypes } from "./schemas";
 
 // Supported languages
 const supportedLanguages = [
-  { id: 'en', title: 'English', isDefault: true },
-  { id: 'es', title: 'Spanish' },
+  { id: "en", title: "English", isDefault: true },
+  { id: "es", title: "Spanish" },
 ];
 
 export default defineConfig({
-  name: 'default',
-  title: 'MaidConnect CMS',
+  name: "default",
+  title: "Casaora CMS",
 
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
 
   plugins: [
     structureTool(),
@@ -28,7 +28,7 @@ export default defineConfig({
       },
       previewUrl: {
         draftMode: {
-          enable: '/api/draft',
+          enable: "/api/draft",
         },
       },
     }),
@@ -36,9 +36,17 @@ export default defineConfig({
       // Supported languages
       supportedLanguages,
       // Schema types to enable internationalization for
-      schemaTypes: ['helpArticle', 'helpCategory', 'helpTag', 'changelog', 'roadmapItem', 'page', 'cityPage'],
+      schemaTypes: [
+        "helpArticle",
+        "helpCategory",
+        "helpTag",
+        "changelog",
+        "roadmapItem",
+        "page",
+        "cityPage",
+      ],
       // Field name for language reference
-      languageField: 'language',
+      languageField: "language",
     }),
   ],
 

@@ -31,14 +31,14 @@ export function AmaraQuickReplies({ replies, onSelect, disabled = false }: Amara
     <div className="flex flex-wrap gap-2">
       {replies.map((reply) => (
         <button
-          className="amara-quick-reply group hover:-transtone-y-0.5 active:transtone-y-0 inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-[#e2e8f0] bg-[#f8fafc] px-4 py-2.5 font-medium text-[#94a3b8] text-sm shadow-sm transition-all hover:border-[#64748b] hover:bg-[#64748b] hover:text-[#f8fafc] hover:shadow-md active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 sm:px-4 sm:py-2"
+          className="amara-quick-reply group hover:-tranneutral-y-0.5 active:tranneutral-y-0 inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2.5 font-medium text-[neutral-400] text-sm shadow-sm transition-all hover:border-[neutral-500] hover:bg-[neutral-500] hover:text-[neutral-50] hover:shadow-md active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 sm:px-4 sm:py-2"
           disabled={disabled}
           key={reply.id}
           onClick={() => onSelect(reply)}
           type="button"
         >
           {reply.icon && (
-            <span className="text-[#94a3b8] transition-colors group-hover:text-[#f8fafc]">
+            <span className="text-[neutral-400] transition-colors group-hover:text-[neutral-50]">
               {reply.icon}
             </span>
           )}

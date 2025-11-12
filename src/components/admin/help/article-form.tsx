@@ -17,12 +17,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
 const propertyCardClass =
-  "rounded-3xl border border-slate-200 dark:border-slate-800/80 bg-white dark:bg-slate-950/60 p-5 shadow-[0_1px_2px_rgba(22,22,22,0.05)] backdrop-blur";
+  "rounded-3xl border border-neutral-200 dark:border-neutral-800/80 bg-white dark:bg-neutral-950/60 p-5 shadow-[0_1px_2px_rgba(22,22,22,0.05)] backdrop-blur";
 const propertyHeadingClass =
-  "text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400";
+  "text-[11px] font-semibold uppercase tracking-[0.2em] text-neutral-600 dark:text-neutral-400";
 const propertyRowClass = "grid grid-cols-[110px_1fr] items-center gap-4 rounded-2xl px-2 py-1.5";
 const propertyValueClass =
-  "w-full rounded-2xl border border-slate-200 dark:border-slate-800/70 bg-white dark:bg-slate-950 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 outline-none transition focus:border-slate-900 dark:border-slate-100/40 focus:ring-0";
+  "w-full rounded-2xl border border-neutral-200 dark:border-neutral-800/70 bg-white dark:bg-neutral-950 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 outline-none transition focus:border-neutral-900 dark:border-neutral-100/40 focus:ring-0";
 
 type Category = {
   id: string;
@@ -87,7 +87,7 @@ function TranslationHealthBadge({
   if (isEmpty && !otherIsEmpty) {
     // This field is empty but other language has content
     return (
-      <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-slate-900 px-2 py-0.5 font-medium text-white text-xs dark:bg-slate-100/10 dark:text-slate-100">
+      <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-neutral-900 px-2 py-0.5 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
         <HugeiconsIcon className="h-3 w-3" icon={Alert02Icon} />
         {locale === "es" ? "Falta traducción" : "Missing translation"}
       </span>
@@ -97,7 +97,7 @@ function TranslationHealthBadge({
   if (!(isEmpty || otherIsEmpty)) {
     // Both have content - show healthy status
     return (
-      <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-slate-900 px-2 py-0.5 font-medium text-white text-xs dark:bg-slate-100/10 dark:text-slate-100">
+      <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-neutral-900 px-2 py-0.5 font-medium text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
         <HugeiconsIcon className="h-3 w-3" icon={CheckmarkCircle01Icon} />
         {locale === "es" ? "Completo" : "Complete"}
       </span>
@@ -284,20 +284,20 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950">
+    <div className="min-h-screen bg-white dark:bg-neutral-950">
       {/* Clean Admin Header */}
-      <div className="border-slate-200 border-b bg-white px-6 py-4 dark:border-slate-800 dark:bg-slate-950">
+      <div className="border-neutral-200 border-b bg-white px-6 py-4 dark:border-neutral-800 dark:bg-neutral-950">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
-              className="text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-100 dark:text-slate-400"
+              className="text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-100 dark:text-neutral-400"
               onClick={() => router.back()}
               type="button"
             >
               <HugeiconsIcon className="h-5 w-5" icon={ArrowLeft02Icon} />
             </button>
             <div>
-              <h1 className="font-semibold text-slate-900 text-xl dark:text-slate-100">
+              <h1 className="font-semibold text-neutral-900 text-xl dark:text-neutral-100">
                 {initialData
                   ? locale === "es"
                     ? "Editar Artículo"
@@ -306,7 +306,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                     ? "Nuevo Artículo"
                     : "New Article"}
               </h1>
-              <p className="text-slate-600 text-sm dark:text-slate-400">
+              <p className="text-neutral-600 text-sm dark:text-neutral-400">
                 {locale === "es"
                   ? "Actualiza el contenido del artículo"
                   : "Update the article content"}
@@ -316,7 +316,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
 
           <div className="flex items-center gap-3">
             <button
-              className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-600 text-sm transition-colors hover:bg-white dark:border-slate-800 dark:bg-slate-950 dark:bg-slate-950 dark:text-slate-400"
+              className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-neutral-600 text-sm transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-400"
               onClick={() => setIsPreview(!isPreview)}
               type="button"
             >
@@ -331,7 +331,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
             </button>
 
             <button
-              className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-slate-600 text-sm transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-800 dark:bg-slate-950 dark:bg-slate-950 dark:text-slate-400"
+              className="rounded-lg border border-neutral-200 bg-white px-4 py-2 text-neutral-600 text-sm transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950 dark:text-neutral-400"
               disabled={saving}
               onClick={() => {
                 handleSave(false);
@@ -342,7 +342,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
             </button>
 
             <button
-              className="rounded-lg bg-slate-900 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-slate-100 dark:bg-slate-100 dark:text-slate-950"
+              className="rounded-lg bg-neutral-900 px-4 py-2 font-medium text-sm text-white transition-colors hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
               disabled={saving}
               onClick={() => {
                 handleSave(true);
@@ -357,19 +357,19 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
 
       {/* Preview Mode - Dual-language with synchronized scrolling */}
       {isPreview ? (
-        <div className="rounded-lg border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
-          <div className="border-slate-200 border-b bg-white px-6 py-3 dark:border-slate-800 dark:bg-slate-950">
+        <div className="rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
+          <div className="border-neutral-200 border-b bg-white px-6 py-3 dark:border-neutral-800 dark:bg-neutral-950">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <HugeiconsIcon
-                  className="h-5 w-5 text-slate-600 dark:text-slate-400"
+                  className="h-5 w-5 text-neutral-600 dark:text-neutral-400"
                   icon={ViewIcon}
                 />
                 <div>
                   <p className="font-medium text-red-700 text-sm dark:text-red-200">
                     {locale === "es" ? "Vista Previa" : "Preview Mode"}
                   </p>
-                  <p className="text-slate-600 text-xs dark:text-slate-400">
+                  <p className="text-neutral-600 text-xs dark:text-neutral-400">
                     {locale === "es"
                       ? "Comparar idiomas lado a lado"
                       : "Compare languages side-by-side"}
@@ -378,13 +378,13 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
               </div>
 
               {/* Language selector tabs */}
-              <div className="flex gap-1 rounded-lg border border-slate-200 bg-white p-1 dark:border-slate-800 dark:bg-slate-950">
+              <div className="flex gap-1 rounded-lg border border-neutral-200 bg-white p-1 dark:border-neutral-800 dark:bg-neutral-950">
                 <button
                   className={cn(
                     "rounded px-3 py-1.5 font-medium text-xs",
                     previewMode === "en"
-                      ? "bg-slate-900 text-white shadow-sm dark:bg-slate-100 dark:text-slate-950"
-                      : "text-slate-600 dark:text-slate-400"
+                      ? "bg-neutral-900 text-white shadow-sm dark:bg-neutral-100 dark:text-neutral-950"
+                      : "text-neutral-600 dark:text-neutral-400"
                   )}
                   onClick={() => setPreviewMode("en")}
                   type="button"
@@ -395,8 +395,8 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                   className={cn(
                     "rounded px-3 py-1.5 font-medium text-xs",
                     previewMode === "es"
-                      ? "bg-slate-900 text-white shadow-sm dark:bg-slate-100 dark:text-slate-950"
-                      : "text-slate-600 dark:text-slate-400"
+                      ? "bg-neutral-900 text-white shadow-sm dark:bg-neutral-100 dark:text-neutral-950"
+                      : "text-neutral-600 dark:text-neutral-400"
                   )}
                   onClick={() => setPreviewMode("es")}
                   type="button"
@@ -407,8 +407,8 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                   className={cn(
                     "rounded px-3 py-1.5 font-medium text-xs",
                     previewMode === "both"
-                      ? "bg-slate-900 text-white shadow-sm dark:bg-slate-100 dark:text-slate-950"
-                      : "text-slate-600 dark:text-slate-400"
+                      ? "bg-neutral-900 text-white shadow-sm dark:bg-neutral-100 dark:text-neutral-950"
+                      : "text-neutral-600 dark:text-neutral-400"
                   )}
                   onClick={() => setPreviewMode("both")}
                   type="button"
@@ -422,25 +422,25 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
           {/* Preview content */}
           {previewMode === "both" ? (
             /* Side-by-side view with synchronized scrolling */
-            <div className="grid grid-cols-2 divide-x divide-[#f8fafc]">
+            <div className="grid grid-cols-2 divide-x divide-[neutral-50]">
               {/* English preview */}
               <div
                 className="max-h-[800px] overflow-y-auto p-8"
                 data-preview-pane="en"
                 onScroll={(e) => handleScroll(e, "en")}
               >
-                <div className="mb-4 flex items-center gap-2 border-slate-200 border-b pb-2 dark:border-slate-800">
-                  <span className="rounded-full bg-[#e2e8f0]/30 px-2 py-0.5 font-medium text-slate-600 text-xs dark:text-slate-400">
+                <div className="mb-4 flex items-center gap-2 border-neutral-200 border-b pb-2 dark:border-neutral-800">
+                  <span className="rounded-full bg-[neutral-200]/30 px-2 py-0.5 font-medium text-neutral-600 text-xs dark:text-neutral-400">
                     English
                   </span>
                   {!titleEn && (
-                    <span className="flex items-center gap-1 text-slate-900 text-xs dark:text-slate-100">
+                    <span className="flex items-center gap-1 text-neutral-900 text-xs dark:text-neutral-100">
                       <HugeiconsIcon className="h-3 w-3" icon={Alert02Icon} />
                       Missing title
                     </span>
                   )}
                   {!contentEn && (
-                    <span className="flex items-center gap-1 text-slate-900 text-xs dark:text-slate-100">
+                    <span className="flex items-center gap-1 text-neutral-900 text-xs dark:text-neutral-100">
                       <HugeiconsIcon className="h-3 w-3" icon={Alert02Icon} />
                       Missing content
                     </span>
@@ -461,18 +461,18 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                 data-preview-pane="es"
                 onScroll={(e) => handleScroll(e, "es")}
               >
-                <div className="mb-4 flex items-center gap-2 border-slate-200 border-b pb-2 dark:border-slate-800">
-                  <span className="rounded-full bg-[#e2e8f0]/30 px-2 py-0.5 font-medium text-slate-600 text-xs dark:text-slate-400">
+                <div className="mb-4 flex items-center gap-2 border-neutral-200 border-b pb-2 dark:border-neutral-800">
+                  <span className="rounded-full bg-[neutral-200]/30 px-2 py-0.5 font-medium text-neutral-600 text-xs dark:text-neutral-400">
                     Español
                   </span>
                   {!titleEs && (
-                    <span className="flex items-center gap-1 text-slate-900 text-xs dark:text-slate-100">
+                    <span className="flex items-center gap-1 text-neutral-900 text-xs dark:text-neutral-100">
                       <HugeiconsIcon className="h-3 w-3" icon={Alert02Icon} />
                       Falta título
                     </span>
                   )}
                   {!contentEs && (
-                    <span className="flex items-center gap-1 text-slate-900 text-xs dark:text-slate-100">
+                    <span className="flex items-center gap-1 text-neutral-900 text-xs dark:text-neutral-100">
                       <HugeiconsIcon className="h-3 w-3" icon={Alert02Icon} />
                       Falta contenido
                     </span>
@@ -490,8 +490,8 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
           ) : (
             /* Single language view */
             <div className="p-8">
-              <div className="mb-4 flex items-center gap-2 border-slate-200 border-b pb-2 dark:border-slate-800">
-                <span className="rounded-full bg-[#e2e8f0]/30 px-2 py-0.5 font-medium text-slate-600 text-xs dark:text-slate-400">
+              <div className="mb-4 flex items-center gap-2 border-neutral-200 border-b pb-2 dark:border-neutral-800">
+                <span className="rounded-full bg-[neutral-200]/30 px-2 py-0.5 font-medium text-neutral-600 text-xs dark:text-neutral-400">
                   {previewMode === "en" ? "English" : "Español"}
                 </span>
               </div>
@@ -522,7 +522,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
               <Tabs defaultValue="en">
                 <div className="mb-6">
                   <div className="flex items-center gap-4">
-                    <TabsList className="bg-[#e2e8f0]/30">
+                    <TabsList className="bg-[neutral-200]/30">
                       <TabsTrigger value="en">
                         English
                         <TranslationHealthBadge
@@ -548,7 +548,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                   <div className="space-y-8">
                     <div>
                       <input
-                        className="w-full border-none px-0 py-2 font-bold text-4xl text-slate-900 placeholder-[#e2e8f0] outline-none dark:text-slate-100"
+                        className="w-full border-none px-0 py-2 font-bold text-4xl text-neutral-900 placeholder-[neutral-200] outline-none dark:text-neutral-100"
                         id="title-en"
                         onChange={(e) => setTitleEn(e.target.value)}
                         placeholder="Untitled"
@@ -559,7 +559,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
 
                     <div>
                       <textarea
-                        className="w-full resize-none border-none px-0 py-2 text-slate-600 placeholder-[#e2e8f0] outline-none dark:text-slate-400"
+                        className="w-full resize-none border-none px-0 py-2 text-neutral-600 placeholder-[neutral-200] outline-none dark:text-neutral-400"
                         id="excerpt-en"
                         onChange={(e) => setExcerptEn(e.target.value)}
                         placeholder="Add a brief description... (optional)"
@@ -579,7 +579,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                   <div className="space-y-8">
                     <div>
                       <input
-                        className="w-full border-none px-0 py-2 font-bold text-4xl text-slate-900 placeholder-[#e2e8f0] outline-none dark:text-slate-100"
+                        className="w-full border-none px-0 py-2 font-bold text-4xl text-neutral-900 placeholder-[neutral-200] outline-none dark:text-neutral-100"
                         id="title-es"
                         onChange={(e) => setTitleEs(e.target.value)}
                         placeholder="Sin título"
@@ -590,7 +590,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
 
                     <div>
                       <textarea
-                        className="w-full resize-none border-none px-0 py-2 text-slate-600 placeholder-[#e2e8f0] outline-none dark:text-slate-400"
+                        className="w-full resize-none border-none px-0 py-2 text-neutral-600 placeholder-[neutral-200] outline-none dark:text-neutral-400"
                         id="excerpt-es"
                         onChange={(e) => setExcerptEs(e.target.value)}
                         placeholder="Agrega una breve descripción... (opcional)"
@@ -616,7 +616,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                 </p>
                 <div className="mt-4 space-y-3 text-sm">
                   <div className={propertyRowClass}>
-                    <span className="font-medium text-[12px] text-slate-600 dark:text-slate-400">
+                    <span className="font-medium text-[12px] text-neutral-600 dark:text-neutral-400">
                       {locale === "es" ? "Categoría" : "Category"}
                     </span>
                     <select
@@ -634,7 +634,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                   </div>
 
                   <div className={propertyRowClass}>
-                    <span className="font-medium text-[12px] text-slate-600 dark:text-slate-400">
+                    <span className="font-medium text-[12px] text-neutral-600 dark:text-neutral-400">
                       Slug
                     </span>
                     <div className="flex items-center gap-2">
@@ -647,7 +647,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                         value={slug}
                       />
                       <button
-                        className="rounded-2xl border border-slate-200 px-3 py-1.5 font-medium text-[11px] text-slate-600 transition hover:text-slate-900 dark:border-slate-800/70 dark:text-slate-100 dark:text-slate-400"
+                        className="rounded-2xl border border-neutral-200 px-3 py-1.5 font-medium text-[11px] text-neutral-600 transition hover:text-neutral-900 dark:border-neutral-800/70 dark:text-neutral-100 dark:text-neutral-400"
                         onClick={generateSlug}
                         type="button"
                       >
@@ -657,7 +657,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                   </div>
 
                   <div className={propertyRowClass}>
-                    <span className="font-medium text-[12px] text-slate-600 dark:text-slate-400">
+                    <span className="font-medium text-[12px] text-neutral-600 dark:text-neutral-400">
                       {locale === "es" ? "Orden" : "Order"}
                     </span>
                     <input
@@ -677,7 +677,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                 <div className="flex items-center justify-between">
                   <p className={propertyHeadingClass}>{locale === "es" ? "Etiquetas" : "Tags"}</p>
                   {selectedTags.length > 0 && (
-                    <span className="rounded-full bg-white px-2 py-0.5 font-medium text-slate-900 text-xs dark:bg-slate-950 dark:text-slate-100">
+                    <span className="rounded-full bg-white px-2 py-0.5 font-medium text-neutral-900 text-xs dark:bg-neutral-950 dark:text-neutral-100">
                       {selectedTags.length}
                     </span>
                   )}
@@ -692,12 +692,12 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                       }
                       return (
                         <span
-                          className="inline-flex items-center gap-1 rounded-full bg-[#e2e8f0]/30 px-2 py-1 text-slate-600 text-xs dark:text-slate-400"
+                          className="inline-flex items-center gap-1 rounded-full bg-[neutral-200]/30 px-2 py-1 text-neutral-600 text-xs dark:text-neutral-400"
                           key={tagId}
                         >
                           <span>{locale === "es" ? tag.name_es : tag.name_en}</span>
                           <button
-                            className="text-slate-600 dark:text-slate-400/70"
+                            className="text-neutral-600 dark:text-neutral-400/70"
                             onClick={() => {
                               setSelectedTags(selectedTags.filter((id) => id !== tagId));
                             }}
@@ -714,18 +714,18 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
 
                 <div className="mt-3 max-h-48 space-y-1 overflow-y-auto">
                   {tags.length === 0 ? (
-                    <p className="text-slate-600 text-xs dark:text-slate-400/70">
+                    <p className="text-neutral-600 text-xs dark:text-neutral-400/70">
                       {locale === "es" ? "No hay etiquetas" : "No tags"}
                     </p>
                   ) : (
                     tags.map((tag) => (
                       <label
-                        className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1 text-slate-600 text-xs hover:bg-white dark:bg-slate-950 dark:text-slate-400"
+                        className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1 text-neutral-600 text-xs hover:bg-white dark:bg-neutral-950 dark:text-neutral-400"
                         key={tag.id}
                       >
                         <input
                           checked={selectedTags.includes(tag.id)}
-                          className="h-3.5 w-3.5 rounded border-slate-400/40 text-slate-900 focus:ring-0 dark:border-slate-500/40 dark:text-slate-100"
+                          className="h-3.5 w-3.5 rounded border-neutral-400/40 text-neutral-900 focus:ring-0 dark:border-neutral-500/40 dark:text-neutral-100"
                           onChange={(e) => {
                             if (e.target.checked) {
                               setSelectedTags([...selectedTags, tag.id]);
@@ -747,12 +747,12 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
               {/* Publish Status */}
               <div className={propertyCardClass}>
                 <p className={propertyHeadingClass}>{locale === "es" ? "Estado" : "Status"}</p>
-                <div className={cn(propertyRowClass, "mt-4 bg-white dark:bg-slate-950/60")}>
-                  <span className="font-medium text-[12px] text-slate-600 dark:text-slate-400">
+                <div className={cn(propertyRowClass, "mt-4 bg-white dark:bg-neutral-950/60")}>
+                  <span className="font-medium text-[12px] text-neutral-600 dark:text-neutral-400">
                     {locale === "es" ? "Estado" : "Status"}
                   </span>
                   <div className="flex items-center justify-between gap-3">
-                    <span className="rounded-full bg-white px-3 py-1 font-medium text-slate-600 text-sm dark:bg-slate-950 dark:text-slate-400">
+                    <span className="rounded-full bg-white px-3 py-1 font-medium text-neutral-600 text-sm dark:bg-neutral-950 dark:text-neutral-400">
                       {isPublished
                         ? locale === "es"
                           ? "Publicado"
@@ -764,7 +764,7 @@ export function ArticleForm({ locale, categories, tags, initialData }: ArticleFo
                     <label className="inline-flex cursor-pointer items-center gap-2">
                       <input
                         checked={isPublished}
-                        className="h-5 w-10 cursor-pointer rounded-full border-slate-400/40 text-slate-900 focus:ring-slate-500 dark:border-slate-500/40 dark:text-slate-100 dark:focus:ring-slate-400"
+                        className="h-5 w-10 cursor-pointer rounded-full border-neutral-400/40 text-neutral-900 focus:ring-neutral-500 dark:border-neutral-500/40 dark:text-neutral-100 dark:focus:ring-neutral-400"
                         onChange={(e) => setIsPublished(e.target.checked)}
                         type="checkbox"
                       />

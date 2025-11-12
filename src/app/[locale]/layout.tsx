@@ -20,9 +20,12 @@ import { SupabaseProvider } from "@/components/providers/supabase-provider";
 import { DraftModeIndicator } from "@/components/sanity/draft-mode-indicator";
 import { WebVitalsReporter } from "@/components/web-vitals";
 import { type Locale, locales } from "@/i18n";
+import { manrope, satoshi } from "../fonts";
 
-// Inter - versatile, highly readable for everything
-// Perfect for modern web interfaces with excellent legibility
+// Custom Fonts for Casaora
+// - Satoshi: Display text, headings (Swiss typography tradition)
+// - Manrope: Body text, UI elements
+// - Inter: Fallback for system compatibility
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -91,7 +94,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${satoshi.variable} ${manrope.variable} ${inter.variable} antialiased`}>
         <WebVitalsReporter />
         <ErrorBoundary>
           <NextIntlClientProvider locale={locale} messages={messages}>

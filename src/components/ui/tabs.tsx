@@ -21,7 +21,7 @@ const TabsList = ({
 }) => (
   <TabsPrimitive.List
     className={cn(
-      "inline-flex h-12 items-center justify-center rounded-lg bg-[#f8fafc] p-1 text-[#94a3b8]",
+      "inline-flex h-12 items-center justify-center rounded-lg bg-[neutral-50] p-1 text-[neutral-400]",
       className
     )}
     ref={ref}
@@ -40,10 +40,10 @@ const TabsTrigger = ({
   <TabsPrimitive.Trigger
     className={cn(
       "inline-flex items-center justify-center whitespace-nowrap rounded-md px-6 py-2 font-medium text-sm transition-all",
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#64748b] focus-visible:ring-offset-2",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[neutral-500] focus-visible:ring-offset-2",
       "disabled:pointer-events-none disabled:opacity-50",
-      "data-[state=active]:bg-[#f8fafc] data-[state=active]:text-[#0f172a] data-[state=active]:shadow-sm",
-      "data-[state=inactive]:text-[#94a3b8] data-[state=inactive]:hover:text-[#0f172a]",
+      "data-[state=active]:bg-[neutral-50] data-[state=active]:text-[neutral-900] data-[state=active]:shadow-sm",
+      "data-[state=inactive]:text-[neutral-400] data-[state=inactive]:hover:text-[neutral-900]",
       className
     )}
     ref={ref}
@@ -61,7 +61,7 @@ const TabsContent = ({
 }) => (
   <TabsPrimitive.Content
     className={cn(
-      "mt-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#64748b] focus-visible:ring-offset-2",
+      "mt-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[neutral-500] focus-visible:ring-offset-2",
       className
     )}
     ref={ref}

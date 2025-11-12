@@ -12,7 +12,7 @@ import type { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils";
 
 const cardVariants = cva(
-  "overflow-hidden rounded-lg transition-all duration-200 focus-visible:outline-2 focus-visible:outline-slate-900 focus-visible:outline-offset-2",
+  "overflow-hidden rounded-lg transition-all duration-200 focus-visible:outline-2 focus-visible:outline-neutral-900 focus-visible:outline-offset-2",
   {
     variants: {
       variant: {

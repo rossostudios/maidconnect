@@ -20,40 +20,40 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
 
   const getHealthColor = (score: number) => {
     if (score >= 80) {
-      return "text-[#64748b]";
+      return "text-[neutral-500]";
     }
     if (score >= 50) {
-      return "text-[#64748b]";
+      return "text-[neutral-500]";
     }
-    return "text-[#64748b]";
+    return "text-[neutral-500]";
   };
 
   const getHealthBgColor = (score: number) => {
     if (score >= 80) {
-      return "bg-[#64748b]/10";
+      return "bg-[neutral-500]/10";
     }
     if (score >= 50) {
-      return "bg-[#64748b]/5";
+      return "bg-[neutral-500]/5";
     }
-    return "bg-[#64748b]/10";
+    return "bg-[neutral-500]/10";
   };
 
   const getHealthBorderColor = (score: number) => {
     if (score >= 80) {
-      return "border-[#64748b]/40";
+      return "border-[neutral-500]/40";
     }
     if (score >= 50) {
-      return "border-[#64748b]/30";
+      return "border-[neutral-500]/30";
     }
-    return "border-[#64748b]/30";
+    return "border-[neutral-500]/30";
   };
 
   return (
-    <div className="rounded-[24px] border-2 border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-sm">
+    <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
       {/* Header */}
       <div className="mb-6 flex items-center gap-3">
-        <HugeiconsIcon className="h-6 w-6 text-[#64748b]" icon={Calendar03Icon} />
-        <h3 className="font-semibold text-[#0f172a] text-lg">{t("title")}</h3>
+        <HugeiconsIcon className="h-6 w-6 text-[neutral-500]" icon={Calendar03Icon} />
+        <h3 className="font-semibold text-[neutral-900] text-lg">{t("title")}</h3>
       </div>
 
       {/* Health Score */}
@@ -62,14 +62,14 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
       >
         <div className="flex items-center justify-between">
           <div>
-            <p className="mb-1 text-[#94a3b8] text-sm">{t("overallHealth")}</p>
+            <p className="mb-1 text-[neutral-400] text-sm">{t("overallHealth")}</p>
             <p className={`font-bold text-4xl ${getHealthColor(health.healthScore)}`}>
               {health.healthScore}%
             </p>
           </div>
           <div className="text-right">
-            <p className="mb-1 text-[#94a3b8] text-sm">{t("availableDays")}</p>
-            <p className="font-bold text-2xl text-[#0f172a]">{health.availableDaysCount}/7</p>
+            <p className="mb-1 text-[neutral-400] text-sm">{t("availableDays")}</p>
+            <p className="font-bold text-2xl text-[neutral-900]">{health.availableDaysCount}/7</p>
           </div>
         </div>
       </div>
@@ -83,15 +83,15 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
 
       {/* Recommendations */}
       {health.recommendations.length > 0 && (
-        <div className="rounded-xl bg-[#f8fafc] p-4">
-          <p className="mb-3 flex items-center gap-2 font-semibold text-[#64748b] text-sm">
+        <div className="rounded-xl bg-[neutral-50] p-4">
+          <p className="mb-3 flex items-center gap-2 font-semibold text-[neutral-500] text-sm">
             <HugeiconsIcon className="h-5 w-5" icon={AlertCircleIcon} />
             {t("recommendations")}
           </p>
           <ul className="space-y-2">
             {health.recommendations.map((rec, index) => (
-              <li className="flex items-start gap-2 text-[#64748b] text-sm" key={index}>
-                <span className="mt-1 text-[#64748b]">•</span>
+              <li className="flex items-start gap-2 text-[neutral-500] text-sm" key={index}>
+                <span className="mt-1 text-[neutral-500]">•</span>
                 <span>{rec}</span>
               </li>
             ))}
@@ -101,12 +101,12 @@ export function CalendarHealthDashboard({ health }: CalendarHealthDashboardProps
 
       {/* Success State */}
       {health.healthScore === 100 && (
-        <div className="rounded-xl bg-[#64748b]/10 p-4">
-          <p className="flex items-center gap-2 font-semibold text-[#64748b] text-sm">
+        <div className="rounded-xl bg-[neutral-500]/10 p-4">
+          <p className="flex items-center gap-2 font-semibold text-[neutral-500] text-sm">
             <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle02Icon} />
             {t("perfectHealth")}
           </p>
-          <p className="mt-2 text-[#64748b] text-sm">{t("perfectHealthDescription")}</p>
+          <p className="mt-2 text-[neutral-500] text-sm">{t("perfectHealthDescription")}</p>
         </div>
       )}
     </div>
@@ -122,8 +122,8 @@ function HealthItem({ completed, label }: { completed: boolean; label: string })
       <div
         className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${
           completed
-            ? "bg-[#64748b]/100 text-[#f8fafc]"
-            : "border-2 border-[#e2e8f0] bg-[#f8fafc] text-[#94a3b8]"
+            ? "bg-[neutral-500]/100 text-[neutral-50]"
+            : "border-2 border-[neutral-200] bg-[neutral-50] text-[neutral-400]"
         }`}
       >
         {completed ? (
@@ -132,7 +132,9 @@ function HealthItem({ completed, label }: { completed: boolean; label: string })
           <HugeiconsIcon className="h-5 w-5" icon={AlertCircleIcon} />
         )}
       </div>
-      <span className={`text-sm ${completed ? "font-medium text-[#0f172a]" : "text-[#94a3b8]"}`}>
+      <span
+        className={`text-sm ${completed ? "font-medium text-[neutral-900]" : "text-[neutral-400]"}`}
+      >
         {label}
       </span>
     </div>

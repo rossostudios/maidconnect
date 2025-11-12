@@ -1,5 +1,5 @@
 /**
- * Database Types for MaidConnect
+ * Database Types for Casaora
  *
  * Core table types for type-safe database queries.
  * Generated from Supabase schema on 2025-11-07

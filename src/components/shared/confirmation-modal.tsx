@@ -34,12 +34,12 @@ export function ConfirmationModal({
   return (
     <BaseModal onClose={onClose} size="sm" {...props}>
       <div className="space-y-6">
-        <p className="text-slate-900">{message}</p>
+        <p className="text-neutral-900">{message}</p>
         <div className="flex justify-end gap-3">
           <button
             className={cn(
-              "rounded-lg border border-slate-200 bg-white px-4 py-2 font-medium text-slate-900 text-sm",
-              "transition-colors hover:bg-slate-50",
+              "rounded-lg border border-neutral-200 bg-white px-4 py-2 font-medium text-neutral-900 text-sm",
+              "transition-colors hover:bg-neutral-50",
               "disabled:cursor-not-allowed disabled:opacity-50"
             )}
             disabled={isLoading}
@@ -55,7 +55,7 @@ export function ConfirmationModal({
               "disabled:cursor-not-allowed disabled:opacity-50",
               variant === "danger"
                 ? "bg-red-600 hover:bg-red-700 focus:ring-red-500"
-                : "bg-slate-900 hover:bg-slate-800 focus:ring-slate-500"
+                : "bg-neutral-900 hover:bg-neutral-800 focus:ring-neutral-500"
             )}
             disabled={isLoading}
             onClick={onConfirm}

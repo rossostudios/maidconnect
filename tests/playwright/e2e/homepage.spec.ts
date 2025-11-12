@@ -7,7 +7,7 @@ import { expectTextPresent, navigateTo } from "../utils/test-helpers";
  * Tests for the main landing page and navigation.
  */
 
-const TITLE_REGEX = /Maidconnect/;
+const TITLE_REGEX = /Casaora/;
 const LOGIN_URL_REGEX = /\/login/;
 const SIGNUP_URL_REGEX = /\/signup/;
 

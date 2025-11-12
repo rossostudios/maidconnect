@@ -112,35 +112,35 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
   return (
     <div className="space-y-6">
       {error && (
-        <div className="rounded-lg border border-stone-300 bg-stone-100 p-4 dark:border-red-800 dark:bg-red-950">
-          <p className="text-sm text-stone-800 dark:text-stone-300">{error}</p>
+        <div className="rounded-lg border border-neutral-300 bg-neutral-100 p-4 dark:border-red-800 dark:bg-red-950">
+          <p className="text-neutral-800 text-sm dark:text-neutral-300">{error}</p>
         </div>
       )}
 
       {successMessage && (
-        <div className="rounded-lg border border-stone-900 bg-stone-900 p-4 dark:border-stone-100/40 dark:bg-stone-100/10">
-          <p className="text-sm text-stone-800 dark:text-stone-300">{successMessage}</p>
+        <div className="rounded-lg border border-neutral-900 bg-neutral-900 p-4 dark:border-neutral-100/40 dark:bg-neutral-100/10">
+          <p className="text-neutral-800 text-sm dark:text-neutral-300">{successMessage}</p>
         </div>
       )}
 
       <div className="space-y-4">
         {features.map((feature) => (
           <div
-            className="flex items-center justify-between rounded-lg border border-stone-200 bg-white p-4 transition-colors hover:bg-white dark:border-stone-800 dark:bg-stone-950 dark:bg-stone-950"
+            className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:bg-white dark:border-neutral-800 dark:bg-neutral-950 dark:bg-neutral-950"
             key={feature.key}
           >
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <h4 className="font-semibold text-sm text-stone-800 dark:text-stone-300">
+                <h4 className="font-semibold text-neutral-800 text-sm dark:text-neutral-300">
                   {feature.name}
                 </h4>
                 {feature.beta && (
-                  <span className="rounded-full bg-stone-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-stone-100/10 dark:text-stone-100">
+                  <span className="rounded-full bg-neutral-900 px-2 py-0.5 font-semibold text-white text-xs dark:bg-neutral-100/10 dark:text-neutral-100">
                     BETA
                   </span>
                 )}
               </div>
-              <p className="mt-1 text-stone-600 text-xs dark:text-stone-400">
+              <p className="mt-1 text-neutral-600 text-xs dark:text-neutral-400">
                 {feature.description}
               </p>
             </div>
@@ -148,15 +148,15 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
             <button
               aria-label={`Toggle ${feature.name}`}
               className={`relative h-6 w-11 flex-shrink-0 rounded-full transition-colors ${
-                flags[feature.key] ? "bg-stone-900 dark:bg-stone-100" : "bg-[#e2e8f0]"
+                flags[feature.key] ? "bg-neutral-900 dark:bg-neutral-100" : "bg-[neutral-200]"
               } ${isSaving ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
               disabled={isSaving}
               onClick={() => handleToggle(feature.key, flags[feature.key])}
               type="button"
             >
               <span
-                className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-transform dark:bg-stone-950 ${
-                  flags[feature.key] ? "transtone-x-5" : "transtone-x-0"
+                className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-transform dark:bg-neutral-950 ${
+                  flags[feature.key] ? "tranneutral-x-5" : "tranneutral-x-0"
                 }`}
               />
             </button>
@@ -164,8 +164,8 @@ export function FeatureFlagsSettings({ initialFlags }: Props) {
         ))}
       </div>
 
-      <div className="rounded-lg border border-stone-900 bg-white p-4 dark:border-stone-100 dark:bg-stone-950">
-        <p className="text-sm text-stone-800 dark:text-stone-300">
+      <div className="rounded-lg border border-neutral-900 bg-white p-4 dark:border-neutral-100 dark:bg-neutral-950">
+        <p className="text-neutral-800 text-sm dark:text-neutral-300">
           <strong>Note:</strong> Changes to feature flags take effect immediately across the entire
           platform. Use with caution in production.
         </p>

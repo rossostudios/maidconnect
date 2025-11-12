@@ -86,12 +86,12 @@ export function RecurringPlansManager({
   return (
     <div className="space-y-6">
       {/* Filter Tabs */}
-      <div className="flex gap-2 border-[#e2e8f0] border-b">
+      <div className="flex gap-2 border-[neutral-200] border-b">
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "all"
-              ? "border-[#64748b] text-[#64748b]"
-              : "border-transparent text-[#94a3b8] hover:text-[#0f172a]"
+              ? "border-[neutral-500] text-[neutral-500]"
+              : "border-transparent text-[neutral-400] hover:text-[neutral-900]"
           }`}
           onClick={() => setFilter("all")}
         >
@@ -100,8 +100,8 @@ export function RecurringPlansManager({
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "active"
-              ? "border-[#64748b] text-[#64748b]"
-              : "border-transparent text-[#94a3b8] hover:text-[#0f172a]"
+              ? "border-[neutral-500] text-[neutral-500]"
+              : "border-transparent text-[neutral-400] hover:text-[neutral-900]"
           }`}
           onClick={() => setFilter("active")}
         >
@@ -110,8 +110,8 @@ export function RecurringPlansManager({
         <button
           className={`border-b-2 px-6 py-3 font-medium text-sm transition ${
             filter === "paused"
-              ? "border-[#64748b] text-[#64748b]"
-              : "border-transparent text-[#94a3b8] hover:text-[#0f172a]"
+              ? "border-[neutral-500] text-[neutral-500]"
+              : "border-transparent text-[neutral-400] hover:text-[neutral-900]"
           }`}
           onClick={() => setFilter("paused")}
         >
@@ -121,18 +121,18 @@ export function RecurringPlansManager({
 
       {/* Plans Grid */}
       {filteredPlans.length === 0 ? (
-        <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-12 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#e2e8f0]">
-            <HugeiconsIcon className="h-8 w-8 text-[#94a3b8]" icon={Calendar03Icon} />
+        <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-12 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-200]">
+            <HugeiconsIcon className="h-8 w-8 text-[neutral-400]" icon={Calendar03Icon} />
           </div>
-          <h3 className="font-semibold text-[#0f172a] text-xl">
+          <h3 className="font-semibold text-[neutral-900] text-xl">
             {filter === "active"
               ? "No active recurring plans"
               : filter === "paused"
                 ? "No paused plans"
                 : "No recurring plans yet"}
           </h3>
-          <p className="mt-2 text-[#94a3b8]">
+          <p className="mt-2 text-[neutral-400]">
             {filter === "all"
               ? "Create a recurring plan to save up to 15% on regular bookings."
               : "Your plans will appear here."}
@@ -244,7 +244,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
   const savingsPerBooking = plan.base_amount - plan.final_amount;
 
   return (
-    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-sm transition hover:shadow-md">
+    <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-sm transition hover:shadow-md">
       <div className="flex items-start gap-6">
         {/* Professional Avatar */}
         <div className="flex-shrink-0">
@@ -255,7 +255,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
               src={plan.professional.avatar_url}
             />
           ) : (
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#64748b] font-bold text-[#f8fafc] text-xl">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[neutral-500] font-bold text-[neutral-50] text-xl">
               {plan.professional?.full_name?.charAt(0).toUpperCase() || "?"}
             </div>
           )}
@@ -265,8 +265,8 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
         <div className="min-w-0 flex-1">
           <div className="mb-4 flex items-start justify-between gap-4">
             <div>
-              <h3 className="mb-1 font-bold text-[#0f172a] text-xl">{plan.service_name}</h3>
-              <div className="flex items-center gap-2 text-[#94a3b8] text-sm">
+              <h3 className="mb-1 font-bold text-[neutral-900] text-xl">{plan.service_name}</h3>
+              <div className="flex items-center gap-2 text-[neutral-400] text-sm">
                 <span>with {plan.professional?.full_name || "Unknown Professional"}</span>
               </div>
             </div>
@@ -275,10 +275,10 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
             <span
               className={`inline-flex rounded-full px-3 py-1 font-semibold text-xs ${
                 plan.status === "active"
-                  ? "bg-[#64748b]/10 text-[#64748b]"
+                  ? "bg-[neutral-500]/10 text-[neutral-500]"
                   : plan.status === "paused"
-                    ? "bg-[#64748b]/10 text-[#64748b]"
-                    : "bg-[#e2e8f0]/30 text-[#94a3b8]"
+                    ? "bg-[neutral-500]/10 text-[neutral-500]"
+                    : "bg-[neutral-200]/30 text-[neutral-400]"
               }`}
             >
               {plan.status === "active"
@@ -292,11 +292,11 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
           {/* Plan Info Grid */}
           <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
             <div className="flex items-center gap-2 text-sm">
-              <HugeiconsIcon className="h-5 w-5 text-[#64748b]" icon={Calendar02Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-[neutral-500]" icon={Calendar02Icon} />
               <div>
-                <p className="font-medium text-[#0f172a]">{FREQUENCY_LABELS[plan.frequency]}</p>
+                <p className="font-medium text-[neutral-900]">{FREQUENCY_LABELS[plan.frequency]}</p>
                 {plan.day_of_week !== null && (
-                  <p className="text-[#94a3b8] text-xs">
+                  <p className="text-[neutral-400] text-xs">
                     {DAY_NAMES[plan.day_of_week]} at {plan.preferred_time}
                   </p>
                 )}
@@ -304,26 +304,26 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
             </div>
 
             <div className="flex items-center gap-2 text-sm">
-              <HugeiconsIcon className="h-5 w-5 text-[#64748b]" icon={Clock01Icon} />
+              <HugeiconsIcon className="h-5 w-5 text-[neutral-500]" icon={Clock01Icon} />
               <div>
-                <p className="font-medium text-[#0f172a]">{plan.duration_minutes} minutes</p>
-                <p className="text-[#94a3b8] text-xs">Duration</p>
+                <p className="font-medium text-[neutral-900]">{plan.duration_minutes} minutes</p>
+                <p className="text-[neutral-400] text-xs">Duration</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 text-sm">
-              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#64748b]/10 font-bold text-[#64748b] text-xs">
+              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[neutral-500]/10 font-bold text-[neutral-500] text-xs">
                 $
               </div>
               <div>
-                <p className="font-medium text-[#0f172a]">
+                <p className="font-medium text-[neutral-900]">
                   {formatCurrency(plan.final_amount, {
                     currency: (plan.currency === "COP" || plan.currency === "USD"
                       ? plan.currency
                       : "COP") as Currency,
                   })}
                 </p>
-                <p className="text-[#64748b] text-xs">
+                <p className="text-[neutral-500] text-xs">
                   Save {plan.discount_percentage}% (
                   {formatCurrency(savingsPerBooking, {
                     currency: (plan.currency === "COP" || plan.currency === "USD"
@@ -339,18 +339,18 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
           {/* Address */}
           <div className="mb-4 flex items-start gap-2 text-sm">
             <HugeiconsIcon
-              className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#94a3b8]"
+              className="mt-0.5 h-5 w-5 flex-shrink-0 text-[neutral-400]"
               icon={LocationIcon}
             />
-            <p className="text-[#94a3b8]">{plan.address}</p>
+            <p className="text-[neutral-400]">{plan.address}</p>
           </div>
 
           {/* Stats */}
-          <div className="mb-4 rounded-lg bg-[#f8fafc] p-4">
+          <div className="mb-4 rounded-lg bg-[neutral-50] p-4">
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <p className="text-[#94a3b8] text-xs">Next booking</p>
-                <p className="font-medium text-[#0f172a]">
+                <p className="text-[neutral-400] text-xs">Next booking</p>
+                <p className="font-medium text-[neutral-900]">
                   {new Date(plan.next_booking_date).toLocaleDateString("en-US", {
                     weekday: "short",
                     month: "short",
@@ -359,14 +359,14 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
                 </p>
               </div>
               <div>
-                <p className="text-[#94a3b8] text-xs">Completed bookings</p>
-                <p className="font-medium text-[#0f172a]">{plan.total_bookings_completed}</p>
+                <p className="text-[neutral-400] text-xs">Completed bookings</p>
+                <p className="font-medium text-[neutral-900]">{plan.total_bookings_completed}</p>
               </div>
             </div>
           </div>
 
           {/* Metadata */}
-          <div className="flex items-center justify-between text-[#94a3b8] text-xs">
+          <div className="flex items-center justify-between text-[neutral-400] text-xs">
             <span>
               Created {formatDistanceToNow(new Date(plan.created_at), { addSuffix: true })}
             </span>
@@ -376,11 +376,11 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
       </div>
 
       {/* Actions */}
-      <div className="mt-6 flex gap-3 border-[#e2e8f0] border-t pt-6">
+      <div className="mt-6 flex gap-3 border-[neutral-200] border-t pt-6">
         {plan.status === "active" && (
           <>
             <button
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-[#e2e8f0] bg-[#f8fafc] px-6 py-3 font-semibold text-[#0f172a] transition hover:border-[#64748b] hover:text-[#64748b] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-500] hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isProcessing}
               onClick={() => setShowPauseModal(true)}
             >
@@ -388,7 +388,7 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
               Pause Plan
             </button>
             <button
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-[#e2e8f0] bg-[#f8fafc] px-6 py-3 font-semibold text-[#0f172a] transition hover:border-[#64748b]/100 hover:text-[#64748b] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-500]/100 hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isProcessing}
               onClick={handleCancel}
             >
@@ -401,14 +401,14 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
         {plan.status === "paused" && (
           <>
             <button
-              className="flex-1 rounded-lg bg-[#64748b] px-6 py-3 font-semibold text-[#f8fafc] transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex-1 rounded-lg bg-[neutral-500] px-6 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isProcessing}
               onClick={handleResume}
             >
               {isProcessing ? "Processing..." : "Resume Plan"}
             </button>
             <button
-              className="flex-1 rounded-lg border-2 border-[#e2e8f0] bg-[#f8fafc] px-6 py-3 font-semibold text-[#0f172a] transition hover:border-[#64748b]/100 hover:text-[#64748b] disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex-1 rounded-lg border-2 border-[neutral-200] bg-[neutral-50] px-6 py-3 font-semibold text-[neutral-900] transition hover:border-[neutral-500]/100 hover:text-[neutral-500] disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isProcessing}
               onClick={handleCancel}
             >
@@ -420,21 +420,21 @@ function PlanCard({ plan, onUpdate }: PlanCardProps) {
 
       {/* Pause Modal (simplified - would typically be a proper modal component) */}
       {showPauseModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0f172a]/50">
-          <div className="mx-4 w-full max-w-md rounded-2xl bg-[#f8fafc] p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[neutral-900]/50">
+          <div className="mx-4 w-full max-w-md rounded-2xl bg-[neutral-50] p-6">
             <h3 className="mb-4 font-bold text-xl">Pause Recurring Plan</h3>
-            <p className="mb-6 text-[#94a3b8]">
+            <p className="mb-6 text-[neutral-400]">
               Your plan will be paused for 30 days. You won't be charged during this time.
             </p>
             <div className="flex gap-3">
               <button
-                className="flex-1 rounded-lg border-2 border-[#e2e8f0] px-4 py-2 font-semibold"
+                className="flex-1 rounded-lg border-2 border-[neutral-200] px-4 py-2 font-semibold"
                 onClick={() => setShowPauseModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="flex-1 rounded-lg bg-[#64748b] px-4 py-2 font-semibold text-[#f8fafc] disabled:opacity-50"
+                className="flex-1 rounded-lg bg-[neutral-500] px-4 py-2 font-semibold text-[neutral-50] disabled:opacity-50"
                 disabled={isProcessing}
                 onClick={handlePause}
               >

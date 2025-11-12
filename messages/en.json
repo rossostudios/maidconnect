@@ -1033,9 +1033,18 @@
   },
   "hero": {
     "badge": "Casaora · The Art of Home",
-    "title": "The Art of Home.",
-    "subtitle": "Browse Colombia's most exceptional household professionals—already vetted, so you can choose with confidence.",
+    "overline": "Premium Domestic Staffing",
+    "title": "Your home deserves exceptional care",
+    "subtitle": "Casaora connects Colombia's most qualified household professionals with families who demand excellence. Every candidate is thoroughly vetted, background-checked, and matched to your unique needs.",
     "description": "Every professional on Casaora has passed rigorous screening and personal interviews. We only accept the top 5%—so you can focus on finding your perfect match.",
+    "cta": {
+      "primary": "Find Professionals",
+      "secondary": "Learn More"
+    },
+    "trust": {
+      "verified": "Background Checked",
+      "rating": "Top 5% Only"
+    },
     "trustSignals": {
       "verified": "Only the top 5% accepted",
       "cities": "Serving Colombia's finest homes",

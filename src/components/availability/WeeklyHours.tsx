@@ -101,24 +101,24 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
     <div className="space-y-6">
       {/* Presets */}
       <div>
-        <h4 className="mb-3 font-semibold text-[#0f172a] text-sm">Quick Presets</h4>
+        <h4 className="mb-3 font-semibold text-[neutral-900] text-sm">Quick Presets</h4>
         <div className="flex flex-wrap gap-2">
           <button
-            className="rounded-full border-2 border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 font-semibold text-[#0f172a] text-sm transition hover:border-[#64748b] hover:text-[#64748b]"
+            className="rounded-full border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
             onClick={() => handlePreset("weekdays")}
             type="button"
           >
             Weekdays (Mon-Fri)
           </button>
           <button
-            className="rounded-full border-2 border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 font-semibold text-[#0f172a] text-sm transition hover:border-[#64748b] hover:text-[#64748b]"
+            className="rounded-full border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
             onClick={() => handlePreset("weekends")}
             type="button"
           >
             Weekends Only
           </button>
           <button
-            className="rounded-full border-2 border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 font-semibold text-[#0f172a] text-sm transition hover:border-[#64748b] hover:text-[#64748b]"
+            className="rounded-full border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-semibold text-[neutral-900] text-sm transition hover:border-[neutral-500] hover:text-[neutral-500]"
             onClick={() => handlePreset("everyday")}
             type="button"
           >
@@ -132,7 +132,9 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
         {schedule.map((day, index) => (
           <div
             className={`rounded-xl border-2 p-4 transition ${
-              day.enabled ? "border-[#64748b]/20 bg-[#f8fafc]" : "border-[#e2e8f0] bg-[#f8fafc]"
+              day.enabled
+                ? "border-[neutral-500]/20 bg-[neutral-50]"
+                : "border-[neutral-200] bg-[neutral-50]"
             }`}
             key={day.day}
           >
@@ -141,13 +143,13 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
               <label className="flex w-32 items-center gap-3">
                 <input
                   checked={day.enabled}
-                  className="h-5 w-5 rounded border-[#e2e8f0] text-[#64748b] focus:ring-2 focus:ring-[#64748b]/20"
+                  className="h-5 w-5 rounded border-[neutral-200] text-[neutral-500] focus:ring-2 focus:ring-[neutral-500]/20"
                   onChange={() => handleToggleDay(index)}
                   type="checkbox"
                 />
                 <span
                   className={`font-semibold text-sm ${
-                    day.enabled ? "text-[#0f172a]" : "text-[#94a3b8]"
+                    day.enabled ? "text-[neutral-900]" : "text-[neutral-400]"
                   }`}
                 >
                   {day.day}
@@ -158,16 +160,16 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
               {day.enabled && (
                 <>
                   <div className="flex items-center gap-2">
-                    <HugeiconsIcon className="h-4 w-4 text-[#94a3b8]" icon={Clock01Icon} />
+                    <HugeiconsIcon className="h-4 w-4 text-[neutral-400]" icon={Clock01Icon} />
                     <input
-                      className="rounded-lg border border-[#e2e8f0] px-3 py-2 text-sm accent-[#64748b] [color-scheme:light] focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+                      className="rounded-lg border border-[neutral-200] px-3 py-2 text-sm accent-[neutral-500] [color-scheme:light] focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
                       onChange={(e) => handleTimeChange(index, "start", e.target.value)}
                       type="time"
                       value={day.start}
                     />
-                    <span className="text-[#94a3b8] text-sm">to</span>
+                    <span className="text-[neutral-400] text-sm">to</span>
                     <input
-                      className="rounded-lg border border-[#e2e8f0] px-3 py-2 text-sm accent-[#64748b] [color-scheme:light] focus:border-[#64748b] focus:outline-none focus:ring-2 focus:ring-[#64748b]/20"
+                      className="rounded-lg border border-[neutral-200] px-3 py-2 text-sm accent-[neutral-500] [color-scheme:light] focus:border-[neutral-500] focus:outline-none focus:ring-2 focus:ring-[neutral-500]/20"
                       onChange={(e) => handleTimeChange(index, "end", e.target.value)}
                       type="time"
                       value={day.end}
@@ -176,7 +178,7 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
 
                   {/* Copy Button */}
                   <button
-                    className="ml-auto flex items-center gap-1 rounded-lg px-3 py-2 font-semibold text-[#94a3b8] text-xs transition hover:bg-[#e2e8f0] hover:text-[#0f172a]"
+                    className="ml-auto flex items-center gap-1 rounded-lg px-3 py-2 font-semibold text-[neutral-400] text-xs transition hover:bg-[neutral-200] hover:text-[neutral-900]"
                     onClick={() => handleCopyToAll(index)}
                     title="Copy these hours to all days"
                     type="button"
@@ -192,9 +194,9 @@ export function WeeklyHoursEditor({ initialSchedule, onChange }: Props) {
       </div>
 
       {/* Summary */}
-      <div className="rounded-xl bg-[#f8fafc] p-4">
-        <p className="text-[#94a3b8] text-sm">
-          <strong className="text-[#0f172a]">
+      <div className="rounded-xl bg-[neutral-50] p-4">
+        <p className="text-[neutral-400] text-sm">
+          <strong className="text-[neutral-900]">
             {schedule.filter((d) => d.enabled).length} days
           </strong>{" "}
           available for bookings

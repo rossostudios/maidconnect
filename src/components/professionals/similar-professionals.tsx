@@ -107,10 +107,10 @@ export function SimilarProfessionals({
   if (loading) {
     return (
       <div className="animate-pulse space-y-4">
-        <div className="h-6 w-48 rounded bg-[#e2e8f0]" />
+        <div className="h-6 w-48 rounded bg-[neutral-200]" />
         <div className="flex gap-4">
           {[1, 2, 3].map((i) => (
-            <div className="h-32 w-64 rounded-2xl bg-[#e2e8f0]" key={i} />
+            <div className="h-32 w-64 rounded-2xl bg-[neutral-200]" key={i} />
           ))}
         </div>
       </div>
@@ -123,49 +123,49 @@ export function SimilarProfessionals({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 text-[#0f172a]">
-        <HugeiconsIcon className="h-5 w-5 text-[#64748b]" icon={MagicWand01Icon} />
+      <div className="flex items-center gap-2 text-[neutral-900]">
+        <HugeiconsIcon className="h-5 w-5 text-[neutral-500]" icon={MagicWand01Icon} />
         <h2 className="font-semibold text-lg">Similar to {currentProfessionalName}</h2>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {similar.map((pro) => (
           <Link
-            className="group rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:border-[#64748b] hover:shadow-[0_20px_50px_rgba(22,22,22,0.08)]"
+            className="group rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)] transition hover:border-[neutral-500] hover:shadow-[0_20px_50px_rgba(22,22,22,0.08)]"
             href={`/professionals/${pro.id}`}
             key={pro.id}
           >
             <div className="space-y-4">
               {/* Match Score Badge */}
               <div className="flex items-center justify-between">
-                <span className="rounded-full bg-[#64748b]/10 px-3 py-1 font-semibold text-[#64748b] text-xs">
+                <span className="rounded-full bg-[neutral-500]/10 px-3 py-1 font-semibold text-[neutral-500] text-xs">
                   {pro.matchScore}% Match
                 </span>
                 <div className="flex items-center gap-1">
                   <HugeiconsIcon
-                    className="h-4 w-4 fill-[#64748b] text-[#64748b]"
+                    className="h-4 w-4 fill-[neutral-500] text-[neutral-500]"
                     icon={StarIcon}
                   />
-                  <span className="font-semibold text-[#0f172a] text-sm">
+                  <span className="font-semibold text-[neutral-900] text-sm">
                     {pro.rating.toFixed(1)}
                   </span>
-                  <span className="text-[#94a3b8] text-xs">({pro.reviewCount})</span>
+                  <span className="text-[neutral-400] text-xs">({pro.reviewCount})</span>
                 </div>
               </div>
 
               {/* Service Info */}
               <div>
-                <p className="font-semibold text-[#0f172a]">{pro.services[0]}</p>
-                <p className="mt-1 font-semibold text-[#64748b] text-lg">
+                <p className="font-semibold text-[neutral-900]">{pro.services[0]}</p>
+                <p className="mt-1 font-semibold text-[neutral-500] text-lg">
                   {formatCOP(pro.hourlyRate)}
-                  <span className="font-normal text-[#94a3b8] text-sm">/hr</span>
+                  <span className="font-normal text-[neutral-400] text-sm">/hr</span>
                 </p>
               </div>
 
               {/* Match Reasons */}
               <div className="space-y-1">
                 {pro.matchReasons.slice(0, 3).map((reason, i) => (
-                  <p className="text-[#94a3b8] text-xs" key={i}>
+                  <p className="text-[neutral-400] text-xs" key={i}>
                     • {reason}
                   </p>
                 ))}
@@ -173,7 +173,7 @@ export function SimilarProfessionals({
 
               {/* CTA */}
               <button
-                className="w-full rounded-full bg-[#e2e8f0] py-2 font-semibold text-[#0f172a] text-sm transition group-hover:bg-[#64748b] group-hover:text-[#f8fafc]"
+                className="w-full rounded-full bg-[neutral-200] py-2 font-semibold text-[neutral-900] text-sm transition group-hover:bg-[neutral-500] group-hover:text-[neutral-50]"
                 type="button"
               >
                 View Profile

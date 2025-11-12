@@ -6,8 +6,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sanity Studio | MaidConnect",
-  description: "Content management for MaidConnect",
+  title: "Sanity Studio | Casaora",
+  description: "Content management for Casaora",
   robots: {
     index: false, // Don't index the Studio in search engines
   },

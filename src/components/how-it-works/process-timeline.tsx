@@ -41,7 +41,7 @@ export function ProcessTimeline({ steps, translationNamespace }: ProcessTimeline
   return (
     <div className="relative">
       {/* Vertical line */}
-      <div className="absolute top-0 bottom-0 left-6 w-0.5 bg-gradient-to-b from-[#64748b] via-[#64748b]/50 to-transparent md:left-8" />
+      <div className="absolute top-0 bottom-0 left-6 w-0.5 bg-gradient-to-b from-[neutral-500] via-[neutral-500]/50 to-transparent md:left-8" />
 
       {/* Steps */}
       <div className="space-y-8">
@@ -53,19 +53,21 @@ export function ProcessTimeline({ steps, translationNamespace }: ProcessTimeline
               {/* Step indicator */}
               <div className="relative z-10 flex flex-shrink-0 flex-col items-center">
                 {/* Number badge */}
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#64748b] font-bold text-[#f8fafc] shadow-sm md:h-16 md:w-16 md:text-lg">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[neutral-500] font-bold text-[neutral-50] shadow-sm md:h-16 md:w-16 md:text-lg">
                   {index + 1}
                 </div>
               </div>
 
               {/* Content card */}
               <div className="flex-1 pb-8">
-                <div className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-xs transition hover:shadow-sm">
-                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#64748b]/10">
-                    <HugeiconsIcon className="h-7 w-7 text-[#64748b]" icon={icon} />
+                <div className="rounded-xl border border-[neutral-200] bg-[neutral-50] p-6 shadow-xs transition hover:shadow-sm">
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[neutral-500]/10">
+                    <HugeiconsIcon className="h-7 w-7 text-[neutral-500]" icon={icon} />
                   </div>
-                  <h3 className="mb-2 font-semibold text-[#0f172a] text-xl">{t(step.titleKey)}</h3>
-                  <p className="text-[#94a3b8] leading-relaxed">{t(step.descriptionKey)}</p>
+                  <h3 className="mb-2 font-semibold text-[neutral-900] text-xl">
+                    {t(step.titleKey)}
+                  </h3>
+                  <p className="text-[neutral-400] leading-relaxed">{t(step.descriptionKey)}</p>
                 </div>
               </div>
             </div>

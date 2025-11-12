@@ -86,24 +86,24 @@ export function CustomerSidebar({
 
   return (
     <aside
-      className={`flex h-screen flex-col border-[#e2e8f0] border-r bg-[#f8fafc] transition-all duration-300 ${
+      className={`flex h-screen flex-col border-[neutral-200] border-r bg-[neutral-50] transition-all duration-300 ${
         isCollapsed ? "w-16" : "w-64"
       }`}
     >
       {/* Header */}
       <div
-        className={`flex h-20 items-center border-[#e2e8f0] border-b px-6 ${
+        className={`flex h-20 items-center border-[neutral-200] border-b px-6 ${
           isCollapsed ? "justify-center" : "justify-between"
         }`}
       >
         {!isCollapsed && (
           <Link className="flex items-center" href="/">
-            <span className="font-bold text-[#0f172a] text-lg tracking-tight">CASAORA</span>
+            <span className="font-bold text-[neutral-900] text-lg tracking-tight">CASAORA</span>
           </Link>
         )}
         <button
           aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-          className="rounded-lg p-2 text-[#94a3b8] transition-colors hover:bg-[#f8fafc] hover:text-[#0f172a]"
+          className="rounded-lg p-2 text-[neutral-400] transition-colors hover:bg-[neutral-50] hover:text-[neutral-900]"
           onClick={onClose || handleToggle}
           type="button"
         >
@@ -117,7 +117,7 @@ export function CustomerSidebar({
           <div className={idx > 0 ? "mt-8" : ""} key={section.title}>
             {!isCollapsed && (
               <div className="mb-3 px-6">
-                <h3 className="font-semibold text-[#94a3b8] text-xs uppercase tracking-wider">
+                <h3 className="font-semibold text-[neutral-400] text-xs uppercase tracking-wider">
                   {section.title}
                 </h3>
               </div>
@@ -132,8 +132,8 @@ export function CustomerSidebar({
                   <Link
                     className={`flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium text-sm transition-all ${
                       active
-                        ? "bg-[#f8fafc] text-[#64748b]"
-                        : "text-[#94a3b8] hover:bg-[#f8fafc] hover:text-[#0f172a]"
+                        ? "bg-[neutral-50] text-[neutral-500]"
+                        : "text-[neutral-400] hover:bg-[neutral-50] hover:text-[neutral-900]"
                     } ${isCollapsed ? "justify-center" : ""}`}
                     href={item.href}
                     key={item.href}
@@ -145,14 +145,14 @@ export function CustomerSidebar({
                       <>
                         <span className="flex-1">{item.label}</span>
                         {showBadge && (
-                          <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#64748b] px-1.5 font-semibold text-[#f8fafc] text-xs">
+                          <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[neutral-500] px-1.5 font-semibold text-[neutral-50] text-xs">
                             {unreadMessagesCount > 99 ? "99+" : unreadMessagesCount}
                           </span>
                         )}
                       </>
                     )}
                     {isCollapsed && showBadge && (
-                      <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[#64748b]" />
+                      <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[neutral-500]" />
                     )}
                   </Link>
                 );
@@ -163,7 +163,7 @@ export function CustomerSidebar({
       </nav>
 
       {/* Footer - Sign Out */}
-      <div className="border-[#e2e8f0] border-t p-3">
+      <div className="border-[neutral-200] border-t p-3">
         <SignOutButton isCollapsed={isCollapsed} showLabel={!isCollapsed} />
       </div>
     </aside>

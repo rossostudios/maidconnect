@@ -232,28 +232,28 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
   const isOvertime = elapsedTime > totalPlannedMinutes;
 
   return (
-    <div className="rounded-2xl border border-[#e2e8f0] bg-[#f8fafc] p-6">
+    <div className="rounded-2xl border border-[neutral-200] bg-[neutral-50] p-6">
       {/* Header */}
       <div className="mb-4 flex items-start justify-between">
         <div>
-          <h3 className="font-semibold text-[#0f172a] text-lg">
+          <h3 className="font-semibold text-[neutral-900] text-lg">
             {optimisticBooking.service_name || "Service"}
           </h3>
-          <p className="text-[#94a3b8] text-sm">{scheduledDate}</p>
+          <p className="text-[neutral-400] text-sm">{scheduledDate}</p>
         </div>
         <span
           className={`inline-flex items-center rounded-full px-3 py-1 font-semibold text-xs ${(() => {
             const status = optimisticBooking.status;
             if (status === "confirmed") {
-              return "bg-[#64748b]/10 text-[#64748b]";
+              return "bg-[neutral-500]/10 text-[neutral-500]";
             }
             if (status === "in_progress") {
-              return "bg-[#f8fafc] text-[#64748b]";
+              return "bg-[neutral-50] text-[neutral-500]";
             }
             if (status === "completed") {
-              return "bg-[#64748b]/10 text-[#64748b]";
+              return "bg-[neutral-500]/10 text-[neutral-500]";
             }
-            return "bg-[#e2e8f0]/30 text-[#0f172a]";
+            return "bg-[neutral-200]/30 text-[neutral-900]";
           })()}`}
         >
           {optimisticBooking.status.replace(/_/g, " ")}
@@ -263,7 +263,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       {/* Address */}
       {optimisticBooking.address && (
         <div className="mb-4">
-          <p className="text-[#94a3b8] text-sm">
+          <p className="text-[neutral-400] text-sm">
             📍{" "}
             {typeof optimisticBooking.address === "object" &&
             "formatted" in optimisticBooking.address
@@ -275,22 +275,22 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
       {/* Timer for in_progress bookings */}
       {optimisticBooking.status === "in_progress" && (
-        <div className="mb-4 rounded-lg bg-[#f8fafc] p-4">
+        <div className="mb-4 rounded-lg bg-[neutral-50] p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-[#64748b] text-sm">Service in progress</p>
-              <p className="text-[#64748b] text-xs">
+              <p className="font-medium text-[neutral-500] text-sm">Service in progress</p>
+              <p className="text-[neutral-500] text-xs">
                 Planned: {formatDuration(totalPlannedMinutes)}
               </p>
             </div>
             <div className="text-right">
               <p
-                className={`font-bold text-2xl ${isOvertime ? "text-[#64748b]" : "text-[#64748b]"}`}
+                className={`font-bold text-2xl ${isOvertime ? "text-[neutral-500]" : "text-[neutral-500]"}`}
               >
                 {formatDuration(elapsedTime)}
               </p>
               {isOvertime && (
-                <p className="font-semibold text-[#64748b] text-xs">
+                <p className="font-semibold text-[neutral-500] text-xs">
                   +{formatDuration(elapsedTime - totalPlannedMinutes)} overtime
                 </p>
               )}
@@ -304,8 +304,8 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
         <div
           className={`mb-4 rounded-lg p-3 text-sm ${
             message.type === "success"
-              ? "bg-[#64748b]/10 text-[#64748b]"
-              : "bg-[#64748b]/10 text-[#64748b]"
+              ? "bg-[neutral-500]/10 text-[neutral-500]"
+              : "bg-[neutral-500]/10 text-[neutral-500]"
           }`}
         >
           {message.text}
@@ -313,7 +313,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
       )}
 
       {gpsError && (
-        <div className="mb-4 rounded-lg bg-[#64748b]/5 p-3 text-[#64748b] text-sm">
+        <div className="mb-4 rounded-lg bg-[neutral-500]/5 p-3 text-[neutral-500] text-sm">
           <p className="font-medium">Location Access Required</p>
           <p>{gpsError}</p>
         </div>
@@ -324,7 +324,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
         {/* Check-in button for confirmed bookings */}
         {optimisticBooking.status === "confirmed" && (
           <button
-            className="w-full rounded-lg bg-[#64748b] px-4 py-3 font-semibold text-[#f8fafc] transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-70"
+            className="w-full rounded-lg bg-[neutral-500] px-4 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
             disabled={loading}
             onClick={handleCheckIn}
             type="button"
@@ -338,7 +338,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
           <>
             {/* Extend Time Button */}
             <button
-              className="w-full rounded-lg border-2 border-[#64748b] bg-[#f8fafc] px-4 py-3 font-semibold text-[#64748b] transition hover:bg-[#64748b] hover:text-[#f8fafc]"
+              className="w-full rounded-lg border-2 border-[neutral-500] bg-[neutral-50] px-4 py-3 font-semibold text-[neutral-500] transition hover:bg-[neutral-500] hover:text-[neutral-50]"
               onClick={() => setShowTimeExtensionModal(true)}
               type="button"
             >
@@ -347,7 +347,7 @@ export function ServiceExecutionCard({ booking, onRatingComplete }: Props) {
 
             {/* Check-out button */}
             <button
-              className="w-full rounded-lg bg-[#64748b] px-4 py-3 font-semibold text-[#f8fafc] transition hover:bg-[#64748b] disabled:cursor-not-allowed disabled:opacity-70"
+              className="w-full rounded-lg bg-[neutral-500] px-4 py-3 font-semibold text-[neutral-50] transition hover:bg-[neutral-500] disabled:cursor-not-allowed disabled:opacity-70"
               disabled={loading}
               onClick={() => handleCheckOut()}
               type="button"

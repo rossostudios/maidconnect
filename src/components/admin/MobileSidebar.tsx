@@ -26,7 +26,7 @@ export function AdminMobileSidebar() {
       {/* Mobile Menu Button */}
       <button
         aria-label="Open menu"
-        className="rounded-lg p-2 text-stone-900 transition-colors hover:bg-white hover:text-stone-900 lg:hidden dark:bg-stone-950 dark:text-stone-100 dark:text-stone-100"
+        className="rounded-lg p-2 text-neutral-900 transition-colors hover:bg-white hover:text-neutral-900 lg:hidden dark:bg-neutral-950 dark:text-neutral-100 dark:text-neutral-100"
         onClick={() => setIsOpen(true)}
         type="button"
       >
@@ -37,7 +37,7 @@ export function AdminMobileSidebar() {
       {isOpen && (
         <Backdrop
           aria-label="Close menu"
-          className="z-40 bg-stone-900/50 lg:hidden dark:bg-stone-100/50"
+          className="z-40 bg-neutral-900/50 lg:hidden dark:bg-neutral-100/50"
           onClose={() => setIsOpen(false)}
         />
       )}
@@ -45,7 +45,7 @@ export function AdminMobileSidebar() {
       {/* Drawer */}
       <div
         className={`fixed top-0 left-0 z-50 h-full transform transition-transform duration-300 lg:hidden ${
-          isOpen ? "transtone-x-0" : "-transtone-x-full"
+          isOpen ? "tranneutral-x-0" : "-tranneutral-x-full"
         }`}
       >
         <AdminSidebar onClose={() => setIsOpen(false)} />

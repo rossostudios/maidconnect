@@ -42,7 +42,7 @@ export function ComparisonTable({ children, className }: ComparisonTableProps) {
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-[24px] border border-[#e2e8f0] bg-[#f8fafc]",
+        "overflow-hidden rounded-[24px] border border-[neutral-200] bg-[neutral-50]",
         className
       )}
     >
@@ -55,7 +55,7 @@ export function ComparisonTable({ children, className }: ComparisonTableProps) {
 
 export function ComparisonTableHeader({ children, className }: ComparisonTableHeaderProps) {
   return (
-    <thead className={cn("border-[#e2e8f0] border-b bg-[#f8fafc]", className)}>
+    <thead className={cn("border-[neutral-200] border-b bg-[neutral-50]", className)}>
       <tr>{children}</tr>
     </thead>
   );
@@ -69,8 +69,8 @@ export function ComparisonTableHeaderCell({
   return (
     <th
       className={cn(
-        "px-6 py-4 text-center font-semibold text-[#0f172a] text-sm uppercase tracking-[0.1em]",
-        featured && "bg-[#64748b]/100/5",
+        "px-6 py-4 text-center font-semibold text-[neutral-900] text-sm uppercase tracking-[0.1em]",
+        featured && "bg-[neutral-500]/100/5",
         className
       )}
     >
@@ -86,9 +86,9 @@ export function ComparisonTableBody({ children, className }: ComparisonTableBody
 export function ComparisonTableRow({ children, className, category }: ComparisonTableRowProps) {
   if (category) {
     return (
-      <tr className={cn("border-[#e2e8f0] border-t bg-[#f8fafc]/50", className)}>
+      <tr className={cn("border-[neutral-200] border-t bg-[neutral-50]/50", className)}>
         <td
-          className="px-6 py-3 font-semibold text-[#0f172a] text-sm uppercase tracking-[0.1em]"
+          className="px-6 py-3 font-semibold text-[neutral-900] text-sm uppercase tracking-[0.1em]"
           colSpan={100}
         >
           {category}
@@ -98,7 +98,7 @@ export function ComparisonTableRow({ children, className, category }: Comparison
   }
 
   return (
-    <tr className={cn("border-[#e2e8f0] border-t transition hover:bg-[#f8fafc]", className)}>
+    <tr className={cn("border-[neutral-200] border-t transition hover:bg-[neutral-50]", className)}>
       {children}
     </tr>
   );
@@ -115,8 +115,12 @@ export function ComparisonTableCell({
     if (type === "check") {
       return (
         <div className="flex items-center justify-center">
-          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#64748b]/10">
-            <HugeiconsIcon className="h-4 w-4 text-[#64748b]" icon={Tick02Icon} strokeWidth={3} />
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[neutral-500]/10">
+            <HugeiconsIcon
+              className="h-4 w-4 text-[neutral-500]"
+              icon={Tick02Icon}
+              strokeWidth={3}
+            />
           </div>
         </div>
       );
@@ -125,9 +129,9 @@ export function ComparisonTableCell({
     if (type === "x") {
       return (
         <div className="flex items-center justify-center">
-          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#e2e8f0]/30">
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[neutral-200]/30">
             <HugeiconsIcon
-              className="h-4 w-4 text-[#94a3b8]/70"
+              className="h-4 w-4 text-[neutral-400]/70"
               icon={Cancel01Icon}
               strokeWidth={3}
             />
@@ -137,7 +141,7 @@ export function ComparisonTableCell({
     }
 
     if (type === "text" && value !== undefined) {
-      return <span className="text-[#0f172a] text-base">{String(value)}</span>;
+      return <span className="text-[neutral-900] text-base">{String(value)}</span>;
     }
 
     return children;
@@ -146,8 +150,8 @@ export function ComparisonTableCell({
   return (
     <td
       className={cn(
-        "px-6 py-4 text-center text-[#0f172a] text-base",
-        featured && "bg-[#64748b]/100/5",
+        "px-6 py-4 text-center text-[neutral-900] text-base",
+        featured && "bg-[neutral-500]/100/5",
         className
       )}
     >
@@ -165,7 +169,7 @@ ComparisonTableCell.Feature = function ComparisonTableCellFeature({
   className?: string;
 }) {
   return (
-    <td className={cn("px-6 py-4 text-left font-medium text-[#0f172a] text-base", className)}>
+    <td className={cn("px-6 py-4 text-left font-medium text-[neutral-900] text-base", className)}>
       {children}
     </td>
   );

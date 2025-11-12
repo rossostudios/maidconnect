@@ -79,8 +79,8 @@ export function ColombianPaymentSelector({
   return (
     <div className="space-y-4">
       <div className="mb-4">
-        <h3 className="mb-2 font-semibold text-lg text-slate-900">{t("title")}</h3>
-        <p className="text-slate-600 text-sm">{t("subtitle")}</p>
+        <h3 className="mb-2 font-semibold text-lg text-neutral-900">{t("title")}</h3>
+        <p className="text-neutral-600 text-sm">{t("subtitle")}</p>
       </div>
 
       {/* Payment Method Options */}
@@ -92,8 +92,8 @@ export function ColombianPaymentSelector({
               className={cn(
                 "relative w-full rounded-xl border-2 p-5 text-left transition-all",
                 selected === method.id
-                  ? "border-slate-900 bg-slate-50 shadow-md ring-2 ring-slate-200"
-                  : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
+                  ? "border-neutral-900 bg-neutral-50 shadow-md ring-2 ring-neutral-200"
+                  : "border-neutral-200 bg-white hover:border-neutral-300 hover:shadow-sm"
               )}
               key={method.id}
               onClick={() => handleSelect(method.id)}
@@ -111,14 +111,14 @@ export function ColombianPaymentSelector({
               {/* Content */}
               <div className="flex items-start gap-4">
                 {/* Icon */}
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-slate-100 text-2xl">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-neutral-100 text-2xl">
                   {method.icon}
                 </div>
 
                 {/* Details */}
                 <div className="flex-1">
-                  <div className="mb-1 font-semibold text-base text-slate-900">{method.name}</div>
-                  <div className="text-slate-600 text-sm">{method.description}</div>
+                  <div className="mb-1 font-semibold text-base text-neutral-900">{method.name}</div>
+                  <div className="text-neutral-600 text-sm">{method.description}</div>
                 </div>
 
                 {/* Radio indicator */}
@@ -126,8 +126,8 @@ export function ColombianPaymentSelector({
                   className={cn(
                     "mt-1 h-6 w-6 flex-shrink-0 rounded-full border-2 transition-all",
                     selected === method.id
-                      ? "border-slate-900 bg-slate-900"
-                      : "border-slate-300 bg-white"
+                      ? "border-neutral-900 bg-neutral-900"
+                      : "border-neutral-300 bg-white"
                   )}
                 >
                   {selected === method.id && (
@@ -151,25 +151,25 @@ export function ColombianPaymentSelector({
 
       {/* Help Text */}
       {selected === "pse" && (
-        <Card className="border-slate-200 bg-slate-50">
+        <Card className="border-neutral-200 bg-neutral-50">
           <CardContent className="p-4">
-            <p className="font-semibold text-slate-900 text-sm">💡 {t("pseHelp.title")}</p>
-            <p className="mt-1 text-slate-600 text-sm">{t("pseHelp.description")}</p>
+            <p className="font-semibold text-neutral-900 text-sm">💡 {t("pseHelp.title")}</p>
+            <p className="mt-1 text-neutral-600 text-sm">{t("pseHelp.description")}</p>
           </CardContent>
         </Card>
       )}
 
       {selected === "nequi" && (
-        <Card className="border-slate-200 bg-slate-50">
+        <Card className="border-neutral-200 bg-neutral-50">
           <CardContent className="p-4">
-            <p className="font-semibold text-slate-900 text-sm">💡 {t("nequiHelp.title")}</p>
-            <p className="mt-1 text-slate-600 text-sm">{t("nequiHelp.description")}</p>
+            <p className="font-semibold text-neutral-900 text-sm">💡 {t("nequiHelp.title")}</p>
+            <p className="mt-1 text-neutral-600 text-sm">{t("nequiHelp.description")}</p>
           </CardContent>
         </Card>
       )}
 
       {/* Security Badge */}
-      <div className="flex items-center justify-center gap-2 border-slate-200 border-t pt-4 text-slate-600 text-sm">
+      <div className="flex items-center justify-center gap-2 border-neutral-200 border-t pt-4 text-neutral-600 text-sm">
         <HugeiconsIcon className="h-5 w-5" icon={CreditCardIcon} />
         <span>{t("securityNote")}</span>
       </div>

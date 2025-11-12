@@ -15,11 +15,11 @@ export function PricingComparison() {
   const t = useTranslations("pricing.comparison");
 
   return (
-    <section className="bg-slate-50 py-20 sm:py-24 lg:py-32">
+    <section className="bg-neutral-50 py-20 sm:py-24 lg:py-32">
       <Container className="max-w-5xl">
         <div className="mb-12 text-center">
-          <h2 className="serif-display-lg mb-4 text-slate-900">{t("title")}</h2>
-          <p className="lead text-slate-700">{t("subtitle")}</p>
+          <h2 className="serif-display-lg mb-4 text-neutral-900">{t("title")}</h2>
+          <p className="lead text-neutral-700">{t("subtitle")}</p>
         </div>
 
         <ComparisonTable>
@@ -79,9 +79,9 @@ export function PricingComparison() {
         </ComparisonTable>
 
         <div className="mt-12 text-center">
-          <p className="text-base text-slate-700">
+          <p className="text-base text-neutral-700">
             Not sure which plan is right for you?{" "}
-            <a className="font-semibold text-slate-900 hover:text-slate-700" href="/contact">
+            <a className="font-semibold text-neutral-900 hover:text-neutral-700" href="/contact">
               Contact us
             </a>{" "}
             and we'll help you choose.

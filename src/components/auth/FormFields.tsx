@@ -32,10 +32,10 @@ export function FieldWrapper({ label, children, helper, error, htmlFor }: FieldW
   return (
     <div className="space-y-3">
       <Label htmlFor={htmlFor}>{label}</Label>
-      {helper ? <p className="text-stone-600 text-xs">{helper}</p> : null}
+      {helper ? <p className="text-neutral-600 text-xs">{helper}</p> : null}
       {children}
       {error ? (
-        <p className="text-stone-800 text-xs" id={errorId} role="alert">
+        <p className="text-neutral-800 text-xs" id={errorId} role="alert">
           {error}
         </p>
       ) : null}
@@ -75,7 +75,7 @@ export function TextInput({
         aria-describedby={hasError ? `${name}-error` : undefined}
         aria-invalid={hasError}
         autoComplete={autoComplete}
-        className={hasError ? "border-stone-800" : ""}
+        className={hasError ? "border-neutral-800" : ""}
         id={name}
         minLength={minLength}
         name={name}
@@ -122,7 +122,7 @@ export function SelectField({
         <SelectTrigger
           aria-describedby={hasError ? `${name}-error` : undefined}
           aria-invalid={hasError}
-          className={hasError ? "border-stone-800" : ""}
+          className={hasError ? "border-neutral-800" : ""}
           id={name}
         >
           <SelectValue placeholder={placeholder} />

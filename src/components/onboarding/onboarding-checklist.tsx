@@ -41,26 +41,26 @@ export function OnboardingChecklist({
   const totalRequired = requiredItems.length;
 
   return (
-    <div className="rounded-[24px] border-2 border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-sm">
+    <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
       {/* Header */}
       <div className="mb-6">
         <div className="mb-2 flex items-center justify-between">
-          <h3 className="font-semibold text-[#0f172a] text-lg">{t("title")}</h3>
-          <span className="font-bold text-2xl text-[#64748b]">{completionPercentage}%</span>
+          <h3 className="font-semibold text-[neutral-900] text-lg">{t("title")}</h3>
+          <span className="font-bold text-2xl text-[neutral-500]">{completionPercentage}%</span>
         </div>
 
         {/* Progress Bar */}
-        <div className="relative h-3 overflow-hidden rounded-full bg-[#f8fafc]">
+        <div className="relative h-3 overflow-hidden rounded-full bg-[neutral-50]">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-[#64748b] to-[#64748b] transition-all duration-500"
+            className="h-full rounded-full bg-gradient-to-r from-[neutral-500] to-[neutral-500] transition-all duration-500"
             style={{ width: `${completionPercentage}%` }}
           />
         </div>
 
         {/* Status Message */}
-        <p className="mt-3 text-[#94a3b8] text-sm">
+        <p className="mt-3 text-[neutral-400] text-sm">
           {canAcceptBookings ? (
-            <span className="flex items-center gap-2 font-semibold text-[#64748b]">
+            <span className="flex items-center gap-2 font-semibold text-[neutral-500]">
               <HugeiconsIcon className="h-5 w-5" icon={CheckmarkCircle02Icon} />
               {t("ready")}
             </span>
@@ -78,7 +78,7 @@ export function OnboardingChecklist({
 
       {/* Required Items */}
       <div className="mb-6">
-        <h4 className="mb-3 font-semibold text-[#0f172a] text-sm uppercase tracking-wide">
+        <h4 className="mb-3 font-semibold text-[neutral-900] text-sm uppercase tracking-wide">
           {t("requiredItems")}
         </h4>
         <div className="space-y-2">
@@ -92,7 +92,7 @@ export function OnboardingChecklist({
       {optionalItems.length > 0 && (
         <div>
           <button
-            className="mb-3 flex w-full items-center justify-between font-semibold text-[#0f172a] text-sm uppercase tracking-wide transition hover:text-[#64748b]"
+            className="mb-3 flex w-full items-center justify-between font-semibold text-[neutral-900] text-sm uppercase tracking-wide transition hover:text-[neutral-500]"
             onClick={() => setExpandedOptional(!expandedOptional)}
             type="button"
           >
@@ -124,9 +124,9 @@ export function OnboardingChecklist({
 
       {/* Help Text */}
       {!canAcceptBookings && (
-        <div className="mt-6 rounded-xl bg-[#f8fafc] p-4 text-[#64748b] text-sm">
+        <div className="mt-6 rounded-xl bg-[neutral-50] p-4 text-[neutral-500] text-sm">
           <p className="font-semibold">{t("helpTitle")}</p>
-          <p className="mt-1 text-[#64748b]">{t("helpDescription")}</p>
+          <p className="mt-1 text-[neutral-500]">{t("helpDescription")}</p>
         </div>
       )}
     </div>
@@ -143,8 +143,8 @@ function ChecklistItem({ item, onClick }: { item: OnboardingItem; onClick: () =>
     <button
       className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 text-left transition-all ${
         item.completed
-          ? "border-[#64748b]/40 bg-[#64748b]/10 hover:bg-[#64748b]/10"
-          : "border-[#e2e8f0] bg-[#f8fafc] hover:border-[#64748b]/50 hover:shadow-sm"
+          ? "border-[neutral-500]/40 bg-[neutral-500]/10 hover:bg-[neutral-500]/10"
+          : "border-[neutral-200] bg-[neutral-50] hover:border-[neutral-500]/50 hover:shadow-sm"
       }`}
       onClick={onClick}
       type="button"
@@ -153,8 +153,8 @@ function ChecklistItem({ item, onClick }: { item: OnboardingItem; onClick: () =>
       <div
         className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full ${
           item.completed
-            ? "bg-[#64748b]/100 text-[#f8fafc]"
-            : "border-2 border-[#e2e8f0] bg-[#f8fafc] text-[#94a3b8]"
+            ? "bg-[neutral-500]/100 text-[neutral-50]"
+            : "border-2 border-[neutral-200] bg-[neutral-50] text-[neutral-400]"
         }`}
       >
         {item.completed ? (
@@ -167,12 +167,12 @@ function ChecklistItem({ item, onClick }: { item: OnboardingItem; onClick: () =>
       {/* Label */}
       <div className="flex-1">
         <p
-          className={`font-medium text-sm ${item.completed ? "text-[#64748b]" : "text-[#0f172a]"}`}
+          className={`font-medium text-sm ${item.completed ? "text-[neutral-500]" : "text-[neutral-900]"}`}
         >
           {t(item.id)}
         </p>
         {item.completedAt && (
-          <p className="mt-1 text-[#64748b] text-xs">
+          <p className="mt-1 text-[neutral-500] text-xs">
             {t("completedOn", {
               date: new Date(item.completedAt).toLocaleDateString(),
             })}
@@ -183,7 +183,7 @@ function ChecklistItem({ item, onClick }: { item: OnboardingItem; onClick: () =>
       {/* Arrow */}
       {!item.completed && (
         <svg
-          className="h-5 w-5 flex-shrink-0 text-[#94a3b8]"
+          className="h-5 w-5 flex-shrink-0 text-[neutral-400]"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

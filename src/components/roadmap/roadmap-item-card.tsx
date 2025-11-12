@@ -58,10 +58,10 @@ export function RoadmapItemCard({ item }: RoadmapItemCardProps) {
     <div className="group relative">
       <Link href={`/roadmap/${item.slug}`}>
         {/* Auto Layout: Vertical stack, padding 16px, gap 16px, rounded corners */}
-        <div className="relative flex flex-col gap-4 rounded-[20px] border-2 border-[#e2e8f0] bg-[#f8fafc] p-4 transition-all duration-200 hover:border-[#64748b]">
+        <div className="relative flex flex-col gap-4 rounded-[20px] border-2 border-[neutral-200] bg-[neutral-50] p-4 transition-all duration-200 hover:border-[neutral-500]">
           {/* Header - Auto Layout: Vertical stack, gap 8px */}
           <div className="flex flex-col gap-2">
-            <h3 className="line-clamp-2 font-semibold text-[#0f172a] text-base transition-colors group-hover:text-[#64748b]">
+            <h3 className="line-clamp-2 font-semibold text-[neutral-900] text-base transition-colors group-hover:text-[neutral-500]">
               {item.title}
             </h3>
 
@@ -82,14 +82,14 @@ export function RoadmapItemCard({ item }: RoadmapItemCardProps) {
               </span>
 
               {/* Category badge - Auto Layout: Horizontal stack, gap 4px, padding 4px 8px */}
-              <span className="inline-flex items-center gap-1 rounded-lg border border-[#e2e8f0] bg-[#f8fafc] px-2 py-1 font-medium text-[#94a3b8] text-xs">
+              <span className="inline-flex items-center gap-1 rounded-lg border border-[neutral-200] bg-[neutral-50] px-2 py-1 font-medium text-[neutral-400] text-xs">
                 <HugeiconsIcon icon={CategoryIcon} size={14} />
                 <span>{categoryConfig.label}</span>
               </span>
 
               {/* Target quarter - Auto Layout: Hug content */}
               {item.target_quarter && (
-                <span className="text-[#94a3b8] text-xs">
+                <span className="text-[neutral-400] text-xs">
                   {formatTargetQuarter(item.target_quarter)}
                 </span>
               )}
@@ -98,7 +98,7 @@ export function RoadmapItemCard({ item }: RoadmapItemCardProps) {
 
           {/* Description preview - Auto Layout: Fill width, hug height */}
           <div
-            className="line-clamp-3 text-[#94a3b8] text-sm"
+            className="line-clamp-3 text-[neutral-400] text-sm"
             dangerouslySetInnerHTML={{ __html: sanitizeRichContent(item.description) }}
           />
 
@@ -108,7 +108,7 @@ export function RoadmapItemCard({ item }: RoadmapItemCardProps) {
             <div className="flex items-center gap-3">
               {/* Comment count - Auto Layout: Horizontal stack, gap 6px */}
               {item.comment_count > 0 && (
-                <div className="flex items-center gap-1.5 text-[#94a3b8] text-sm">
+                <div className="flex items-center gap-1.5 text-[neutral-400] text-sm">
                   <HugeiconsIcon icon={Message01Icon} size={16} />
                   <span>{item.comment_count}</span>
                 </div>
@@ -119,14 +119,14 @@ export function RoadmapItemCard({ item }: RoadmapItemCardProps) {
                 <div className="hidden items-center gap-1.5 sm:flex">
                   {item.tags.slice(0, 2).map((tag) => (
                     <span
-                      className="rounded-md bg-[#f8fafc] px-2 py-0.5 text-[#94a3b8] text-xs"
+                      className="rounded-md bg-[neutral-50] px-2 py-0.5 text-[neutral-400] text-xs"
                       key={tag}
                     >
                       #{tag}
                     </span>
                   ))}
                   {item.tags.length > 2 && (
-                    <span className="text-[#94a3b8] text-xs">+{item.tags.length - 2}</span>
+                    <span className="text-[neutral-400] text-xs">+{item.tags.length - 2}</span>
                   )}
                 </div>
               )}

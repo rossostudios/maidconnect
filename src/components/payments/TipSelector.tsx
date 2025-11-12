@@ -80,16 +80,18 @@ export function TipSelector({
   };
 
   return (
-    <Card className="border-stone-200 bg-white">
+    <Card className="border-neutral-200 bg-white">
       <CardContent className="space-y-4 p-6">
         {/* Header */}
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-100">
-            <HugeiconsIcon className="h-5 w-5 text-stone-700" icon={FavouriteIcon} />
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100">
+            <HugeiconsIcon className="h-5 w-5 text-neutral-700" icon={FavouriteIcon} />
           </div>
           <div>
-            <h3 className="font-semibold text-base text-stone-900">Add a Tip</h3>
-            <p className="text-sm text-stone-600">Show appreciation for great service (optional)</p>
+            <h3 className="font-semibold text-base text-neutral-900">Add a Tip</h3>
+            <p className="text-neutral-600 text-sm">
+              Show appreciation for great service (optional)
+            </p>
           </div>
         </div>
 
@@ -104,8 +106,8 @@ export function TipSelector({
                 className={cn(
                   "flex flex-col items-center justify-center gap-1 rounded-xl border-2 p-4 transition",
                   isSelected
-                    ? "border-stone-900 bg-stone-50"
-                    : "border-stone-200 bg-white hover:border-stone-300"
+                    ? "border-neutral-900 bg-neutral-50"
+                    : "border-neutral-200 bg-white hover:border-neutral-300"
                 )}
                 key={percentage}
                 onClick={() => handlePresetClick(percentage)}
@@ -114,12 +116,12 @@ export function TipSelector({
                 <span
                   className={cn(
                     "font-bold text-base",
-                    isSelected ? "text-stone-900" : "text-stone-700"
+                    isSelected ? "text-neutral-900" : "text-neutral-700"
                   )}
                 >
                   {percentage}%
                 </span>
-                <span className="text-stone-600 text-xs">
+                <span className="text-neutral-600 text-xs">
                   {formatCurrency(tipAmount, { currency })}
                 </span>
               </button>
@@ -133,8 +135,8 @@ export function TipSelector({
             className={cn(
               "w-full rounded-xl border-2 px-4 py-3 text-left text-sm transition",
               selectedType === "custom"
-                ? "border-stone-900 bg-stone-50 font-semibold text-stone-900"
-                : "border-stone-200 bg-white text-stone-600 hover:border-stone-300"
+                ? "border-neutral-900 bg-neutral-50 font-semibold text-neutral-900"
+                : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300"
             )}
             onClick={handleCustomClick}
             type="button"
@@ -144,9 +146,9 @@ export function TipSelector({
 
           {selectedType === "custom" && (
             <div className="relative">
-              <span className="absolute top-3 left-3 text-base text-stone-600">$</span>
+              <span className="absolute top-3 left-3 text-base text-neutral-600">$</span>
               <input
-                className="w-full rounded-xl border border-stone-300 py-3 pr-4 pl-8 text-stone-900 transition focus:border-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-200"
+                className="w-full rounded-xl border border-neutral-300 py-3 pr-4 pl-8 text-neutral-900 transition focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-200"
                 inputMode="decimal"
                 onChange={(e) => handleCustomAmountChange(e.target.value)}
                 placeholder="0"
@@ -162,8 +164,8 @@ export function TipSelector({
           className={cn(
             "w-full rounded-xl border-2 px-4 py-3 text-center text-sm transition",
             selectedType === "none"
-              ? "border-stone-300 bg-stone-50 font-medium text-stone-900"
-              : "border-stone-200 bg-white text-stone-600 hover:border-stone-300"
+              ? "border-neutral-300 bg-neutral-50 font-medium text-neutral-900"
+              : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300"
           )}
           onClick={handleNoTip}
           type="button"
@@ -172,7 +174,7 @@ export function TipSelector({
         </button>
 
         {/* Info Text */}
-        <p className="text-center text-stone-500 text-xs">
+        <p className="text-center text-neutral-500 text-xs">
           100% of your tip goes directly to your professional
         </p>
       </CardContent>

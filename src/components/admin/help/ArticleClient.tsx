@@ -119,10 +119,10 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
         header: locale === "es" ? "Título" : "Title",
         cell: ({ row }) => (
           <div>
-            <div className="font-medium text-stone-900 dark:text-stone-100">
+            <div className="font-medium text-neutral-900 dark:text-neutral-100">
               {row.original.title}
             </div>
-            <div className="font-mono text-stone-600 text-xs dark:text-stone-400">
+            <div className="font-mono text-neutral-600 text-xs dark:text-neutral-400">
               /{row.original.slug}
             </div>
           </div>
@@ -132,7 +132,7 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
         accessorKey: "category.name",
         header: locale === "es" ? "Categoría" : "Category",
         cell: ({ row }) => (
-          <span className="inline-flex items-center rounded-full bg-[#e2e8f0]/30 px-2.5 py-0.5 font-medium text-stone-600 text-xs dark:text-stone-400">
+          <span className="inline-flex items-center rounded-full bg-[neutral-200]/30 px-2.5 py-0.5 font-medium text-neutral-600 text-xs dark:text-neutral-400">
             {row.original.category.name}
           </span>
         ),
@@ -144,8 +144,8 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
           <button
             className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-medium text-xs transition ${
               row.original.is_published
-                ? "bg-stone-100 text-stone-900 hover:bg-stone-900 dark:bg-stone-100/10 dark:bg-stone-800 dark:text-stone-100"
-                : "bg-[#e2e8f0]/30 text-stone-600 hover:bg-[#e2e8f0] dark:text-stone-400"
+                ? "bg-neutral-100 text-neutral-900 hover:bg-neutral-900 dark:bg-neutral-100/10 dark:bg-neutral-800 dark:text-neutral-100"
+                : "bg-[neutral-200]/30 text-neutral-600 hover:bg-[neutral-200] dark:text-neutral-400"
             }`}
             disabled={togglingId === row.original.id}
             onClick={() => handleTogglePublished(row.original)}
@@ -172,7 +172,7 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
         accessorKey: "view_count",
         header: locale === "es" ? "Vistas" : "Views",
         cell: ({ row }) => (
-          <div className="text-center text-sm text-stone-600 dark:text-stone-400">
+          <div className="text-center text-neutral-600 text-sm dark:text-neutral-400">
             {row.original.view_count}
           </div>
         ),
@@ -193,14 +193,14 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
                 <span
                   className={`font-medium text-sm ${
                     percentage >= 70
-                      ? "text-stone-900 dark:text-stone-100"
-                      : "text-stone-600 dark:text-stone-400"
+                      ? "text-neutral-900 dark:text-neutral-100"
+                      : "text-neutral-600 dark:text-neutral-400"
                   }`}
                 >
                   {percentage}%
                 </span>
               ) : (
-                <span className="text-sm text-stone-600 dark:text-stone-400/70">-</span>
+                <span className="text-neutral-600 text-sm dark:text-neutral-400/70">-</span>
               )}
             </div>
           );
@@ -211,7 +211,7 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
         accessorKey: "updated_at",
         header: locale === "es" ? "Actualizado" : "Updated",
         cell: ({ row }) => (
-          <div className="text-sm text-stone-600 dark:text-stone-400">
+          <div className="text-neutral-600 text-sm dark:text-neutral-400">
             {formatDate(row.original.updated_at)}
           </div>
         ),
@@ -223,7 +223,7 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
         cell: ({ row }) => (
           <div className="flex items-center justify-end gap-2">
             <Link
-              className="rounded p-2 text-stone-600 transition hover:bg-[#e2e8f0]/30 dark:text-stone-400"
+              className="rounded p-2 text-neutral-600 transition hover:bg-[neutral-200]/30 dark:text-neutral-400"
               href={`/${locale}/help/${row.original.category.slug}/${row.original.slug}`}
               target="_blank"
               title={locale === "es" ? "Ver artículo" : "View article"}
@@ -231,14 +231,14 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
               <HugeiconsIcon className="h-4 w-4" icon={ViewIcon} />
             </Link>
             <Link
-              className="rounded p-2 text-stone-900 transition hover:bg-white dark:bg-stone-950 dark:text-stone-100"
+              className="rounded p-2 text-neutral-900 transition hover:bg-white dark:bg-neutral-950 dark:text-neutral-100"
               href={`/${locale}/admin/help/articles/${row.original.id}/edit`}
               title={locale === "es" ? "Editar" : "Edit"}
             >
               <HugeiconsIcon className="h-4 w-4" icon={Edit02Icon} />
             </Link>
             <button
-              className="rounded p-2 text-stone-900 transition hover:bg-white disabled:opacity-50 dark:bg-stone-950 dark:text-stone-100"
+              className="rounded p-2 text-neutral-900 transition hover:bg-white disabled:opacity-50 dark:bg-neutral-950 dark:text-neutral-100"
               disabled={deletingId === row.original.id}
               onClick={() => handleDelete(row.original)}
               title={locale === "es" ? "Eliminar" : "Delete"}
@@ -269,12 +269,12 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
 
   if (articles.length === 0) {
     return (
-      <div className="rounded-lg border border-stone-200 bg-white p-12 text-center dark:border-stone-800 dark:bg-stone-950">
-        <p className="text-stone-600 dark:text-stone-400">
+      <div className="rounded-lg border border-neutral-200 bg-white p-12 text-center dark:border-neutral-800 dark:bg-neutral-950">
+        <p className="text-neutral-600 dark:text-neutral-400">
           {locale === "es" ? "No hay artículos todavía" : "No articles yet"}
         </p>
         <Link
-          className="mt-4 inline-flex items-center gap-2 rounded-lg bg-stone-900 px-6 py-3 font-semibold text-white transition hover:bg-stone-900 dark:bg-stone-100 dark:bg-stone-100 dark:text-stone-950"
+          className="mt-4 inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-6 py-3 font-semibold text-white transition hover:bg-neutral-900 dark:bg-neutral-100 dark:bg-neutral-100 dark:text-neutral-950"
           href={`/${locale}/admin/help/articles/new`}
         >
           {locale === "es" ? "Crear Primer Artículo" : "Create First Article"}
@@ -288,7 +288,7 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
       {/* Search Filter */}
       <div className="flex items-center gap-4">
         <input
-          className="flex-1 rounded-lg border border-stone-400/40 px-4 py-2 text-sm focus:border-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500/20 dark:border-stone-100 dark:border-stone-500/40 dark:focus:ring-stone-400/20"
+          className="flex-1 rounded-lg border border-neutral-400/40 px-4 py-2 text-sm focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500/20 dark:border-neutral-100 dark:border-neutral-500/40 dark:focus:ring-neutral-400/20"
           onChange={(e) => setGlobalFilter(e.target.value)}
           placeholder={
             locale === "es"
@@ -298,34 +298,34 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
           type="text"
           value={globalFilter}
         />
-        <div className="text-sm text-stone-600 dark:text-stone-400">
+        <div className="text-neutral-600 text-sm dark:text-neutral-400">
           {locale === "es" ? "Total:" : "Total:"} {table.getFilteredRowModel().rows.length}
         </div>
       </div>
 
       {/* Table */}
-      <div className="overflow-hidden rounded-lg border border-stone-200 bg-white shadow-sm dark:border-stone-800 dark:bg-stone-950">
+      <div className="overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-950">
         <table className="w-full">
-          <thead className="border-stone-200 border-b bg-white dark:border-stone-800 dark:bg-stone-950">
+          <thead className="border-neutral-200 border-b bg-white dark:border-neutral-800 dark:bg-neutral-950">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
-                    className="px-6 py-3 text-left font-semibold text-sm text-stone-600 dark:text-stone-400"
+                    className="px-6 py-3 text-left font-semibold text-neutral-600 text-sm dark:text-neutral-400"
                     key={header.id}
                   >
                     {header.isPlaceholder ? null : (
                       <div
                         className={
                           header.column.getCanSort()
-                            ? "flex cursor-pointer select-none items-center gap-2 hover:text-stone-900 dark:text-stone-100"
+                            ? "flex cursor-pointer select-none items-center gap-2 hover:text-neutral-900 dark:text-neutral-100"
                             : ""
                         }
                         onClick={header.column.getToggleSortingHandler()}
                       >
                         {flexRender(header.column.columnDef.header, header.getContext())}
                         {header.column.getCanSort() && (
-                          <span className="text-stone-600 dark:text-stone-400/70">
+                          <span className="text-neutral-600 dark:text-neutral-400/70">
                             {{
                               asc: "↑",
                               desc: "↓",
@@ -339,9 +339,9 @@ export function ArticleListClient({ articles, locale }: ArticleListClientProps) 
               </tr>
             ))}
           </thead>
-          <tbody className="divide-y divide-[#f8fafc]">
+          <tbody className="divide-y divide-[neutral-50]">
             {table.getRowModel().rows.map((row) => (
-              <tr className="transition hover:bg-white dark:bg-stone-950" key={row.id}>
+              <tr className="transition hover:bg-white dark:bg-neutral-950" key={row.id}>
                 {row.getVisibleCells().map((cell) => (
                   <td className="px-6 py-4" key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

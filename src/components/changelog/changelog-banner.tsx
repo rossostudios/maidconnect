@@ -39,7 +39,7 @@ export function ChangelogBanner() {
   return (
     <>
       {/* Banner */}
-      <div className="sticky top-0 z-40 border-[#e2e8f0] border-b bg-gradient-to-r from-[#64748b]/10 to-[#64748b]/10 px-4 py-3 shadow-sm">
+      <div className="sticky top-0 z-40 border-[neutral-200] border-b bg-gradient-to-r from-[neutral-500]/10 to-[neutral-500]/10 px-4 py-3 shadow-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
           {/* Content */}
           <button
@@ -47,15 +47,15 @@ export function ChangelogBanner() {
             onClick={handleClick}
             type="button"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#64748b]/10">
-              <HugeiconsIcon className="h-4 w-4 text-[#64748b]" icon={MagicWand01Icon} />
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[neutral-500]/10">
+              <HugeiconsIcon className="h-4 w-4 text-[neutral-500]" icon={MagicWand01Icon} />
             </div>
             <div className="flex-1">
-              <p className="font-semibold text-[#0f172a] text-sm sm:text-base">
+              <p className="font-semibold text-[neutral-900] text-sm sm:text-base">
                 <span className="hidden sm:inline">New update: </span>
                 {changelog.title}
               </p>
-              <p className="text-[#94a3b8] text-xs sm:text-sm">
+              <p className="text-[neutral-400] text-xs sm:text-sm">
                 Sprint {changelog.sprint_number} •{" "}
                 {new Date(changelog.published_at).toLocaleDateString("en-US", {
                   month: "short",
@@ -63,7 +63,7 @@ export function ChangelogBanner() {
                 })}
               </p>
             </div>
-            <span className="hidden rounded-full border border-[#64748b] px-3 py-1 font-medium text-[#64748b] text-sm transition group-hover:bg-[#64748b] group-hover:text-[#f8fafc] sm:inline-block">
+            <span className="hidden rounded-full border border-[neutral-500] px-3 py-1 font-medium text-[neutral-500] text-sm transition group-hover:bg-[neutral-500] group-hover:text-[neutral-50] sm:inline-block">
               View Details
             </span>
           </button>
@@ -71,7 +71,7 @@ export function ChangelogBanner() {
           {/* Dismiss Button */}
           <button
             aria-label="Dismiss"
-            className="rounded-full p-1.5 text-[#94a3b8] transition hover:bg-[#f8fafc]/50 hover:text-[#0f172a]"
+            className="rounded-full p-1.5 text-[neutral-400] transition hover:bg-[neutral-50]/50 hover:text-[neutral-900]"
             onClick={handleDismiss}
             type="button"
           >

@@ -11,7 +11,7 @@ export function BookingCalendar() {
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* Calendar frame */}
-      <g stroke="#64748b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
+      <g stroke="neutral-500" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
         {/* Main calendar body */}
         <rect height="220" rx="12" width="240" x="40" y="60" />
 
@@ -28,7 +28,7 @@ export function BookingCalendar() {
       </g>
 
       {/* Calendar grid */}
-      <g stroke="#64748b" strokeLinecap="round" strokeWidth="2">
+      <g stroke="neutral-500" strokeLinecap="round" strokeWidth="2">
         {/* Vertical lines */}
         <path d="M80 110 L80 270" opacity="0.2" />
         <path d="M120 110 L120 270" opacity="0.2" />
@@ -45,7 +45,7 @@ export function BookingCalendar() {
       {/* Booked dates - checkmarks */}
       <g
         fill="none"
-        stroke="#64748b"
+        stroke="neutral-500"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2.5"
@@ -57,18 +57,18 @@ export function BookingCalendar() {
 
       {/* Highlighted date (today/selected) */}
       <g>
-        <rect fill="#64748b" height="30" opacity="0.15" rx="4" width="35" x="162.5" y="195" />
-        <circle cx="180" cy="210" fill="#64748b" r="3" />
+        <rect fill="neutral-500" height="30" opacity="0.15" rx="4" width="35" x="162.5" y="195" />
+        <circle cx="180" cy="210" fill="neutral-500" r="3" />
       </g>
 
       {/* Clock icon (scheduling time) */}
-      <g stroke="#64748b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
+      <g stroke="neutral-500" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
         <circle cx="240" cy="240" r="25" />
         <path d="M240 220 L240 240 L255 240" />
       </g>
 
       {/* Floating elements around calendar */}
-      <g stroke="#64748b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
+      <g stroke="neutral-500" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
         {/* Notification bell */}
         <path d="M280 120 C280 125 285 130 290 130 C295 130 300 125 300 120 L300 110 C300 105 295 100 290 100 C285 100 280 105 280 110 Z" />
         <path d="M285 130 C285 135 295 135 295 130" />
@@ -79,14 +79,14 @@ export function BookingCalendar() {
       </g>
 
       {/* Sparkle effects (success/confirmation) */}
-      <g fill="#64748b" opacity="0.3">
+      <g fill="neutral-500" opacity="0.3">
         <path d="M25 200 L26 206 L31 205 L26 208 L27 214 L25 209 L23 214 L24 208 L19 205 L24 206 Z" />
         <path d="M295 180 L296 184 L300 183 L296 186 L297 190 L295 187 L293 190 L294 186 L290 183 L294 184 Z" />
         <path d="M270 90 L271 94 L275 93 L271 96 L272 100 L270 97 L268 100 L269 96 L265 93 L269 94 Z" />
       </g>
 
       {/* Arrow (booking flow) */}
-      <g stroke="#64748b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
+      <g stroke="neutral-500" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
         <path d="M290 200 L310 220" />
         <path d="M305 215 L310 220 L305 225" />
       </g>

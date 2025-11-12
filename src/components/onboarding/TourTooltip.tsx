@@ -118,7 +118,7 @@ export function TourTooltip({
     const originalPosition = (targetElement as HTMLElement).style.position;
 
     // Highlight target
-    (targetElement as HTMLElement).style.outline = "2px solid #64748b";
+    (targetElement as HTMLElement).style.outline = "2px solid neutral-500";
     (targetElement as HTMLElement).style.outlineOffset = "4px";
     (targetElement as HTMLElement).style.zIndex = "9998";
 
@@ -145,7 +145,7 @@ export function TourTooltip({
     <>
       {/* Overlay */}
       <div
-        className="fixed inset-0 z-[9997] bg-[#0f172a]/40 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 z-[9997] bg-[neutral-900]/40 backdrop-blur-sm transition-opacity"
         onClick={onClose}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
@@ -159,7 +159,7 @@ export function TourTooltip({
 
       {/* Tooltip */}
       <div
-        className={`fixed z-[9999] w-full max-w-md rounded-lg border border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-2xl transition-opacity ${
+        className={`fixed z-[9999] w-full max-w-md rounded-lg border border-[neutral-200] bg-[neutral-50] p-6 shadow-2xl transition-opacity ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
         ref={tooltipRef}
@@ -170,7 +170,7 @@ export function TourTooltip({
       >
         {/* Close button */}
         <button
-          className="absolute top-4 right-4 rounded-full p-1 text-[#94a3b8]/70 transition hover:bg-[#e2e8f0]/30 hover:text-[#94a3b8]"
+          className="absolute top-4 right-4 rounded-full p-1 text-[neutral-400]/70 transition hover:bg-[neutral-200]/30 hover:text-[neutral-400]"
           onClick={onClose}
           type="button"
         >
@@ -178,29 +178,29 @@ export function TourTooltip({
         </button>
 
         {/* Progress bar */}
-        <div className="mb-4 h-1 overflow-hidden rounded-full bg-[#e2e8f0]/30">
+        <div className="mb-4 h-1 overflow-hidden rounded-full bg-[neutral-200]/30">
           <div
-            className="h-full bg-[#64748b] transition-all duration-300"
+            className="h-full bg-[neutral-500] transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
         </div>
 
         {/* Content */}
         <div className="mb-6">
-          <h3 className="mb-2 font-semibold text-[#0f172a] text-lg">{step.title}</h3>
-          <p className="text-[#94a3b8] text-sm leading-relaxed">{step.content}</p>
+          <h3 className="mb-2 font-semibold text-[neutral-900] text-lg">{step.title}</h3>
+          <p className="text-[neutral-400] text-sm leading-relaxed">{step.content}</p>
         </div>
 
         {/* Footer */}
         <div className="flex items-center justify-between">
-          <div className="text-[#94a3b8] text-sm">
+          <div className="text-[neutral-400] text-sm">
             {currentStepIndex + 1} of {totalSteps}
           </div>
 
           <div className="flex items-center gap-2">
             {!isFirstStep && (
               <button
-                className="flex items-center gap-1 rounded-lg border border-[#94a3b8]/40 bg-[#f8fafc] px-4 py-2 font-medium text-[#94a3b8] text-sm transition hover:bg-[#f8fafc]"
+                className="flex items-center gap-1 rounded-lg border border-[neutral-400]/40 bg-[neutral-50] px-4 py-2 font-medium text-[neutral-400] text-sm transition hover:bg-[neutral-50]"
                 onClick={onPrevious}
                 type="button"
               >
@@ -211,7 +211,7 @@ export function TourTooltip({
 
             {isFirstStep && (
               <button
-                className="rounded-lg border border-[#94a3b8]/40 bg-[#f8fafc] px-4 py-2 font-medium text-[#94a3b8] text-sm transition hover:bg-[#f8fafc]"
+                className="rounded-lg border border-[neutral-400]/40 bg-[neutral-50] px-4 py-2 font-medium text-[neutral-400] text-sm transition hover:bg-[neutral-50]"
                 onClick={onSkip}
                 type="button"
               >
@@ -220,7 +220,7 @@ export function TourTooltip({
             )}
 
             <button
-              className="flex items-center gap-1 rounded-lg bg-[#64748b] px-4 py-2 font-medium text-[#f8fafc] text-sm transition hover:bg-[#64748b]"
+              className="flex items-center gap-1 rounded-lg bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
               onClick={onNext}
               type="button"
             >

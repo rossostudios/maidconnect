@@ -76,8 +76,8 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-[#64748b] border-t-2 border-b-2" />
-          <p className="text-[#94a3b8]">{t("loading")}</p>
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-[neutral-500] border-t-2 border-b-2" />
+          <p className="text-[neutral-400]">{t("loading")}</p>
         </div>
       </div>
     );
@@ -85,11 +85,11 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
 
   if (error) {
     return (
-      <div className="rounded-[24px] border-2 border-[#64748b]/30 bg-[#64748b]/10 p-6">
-        <p className="font-semibold text-[#64748b]">{t("error")}</p>
-        <p className="mt-2 text-[#64748b] text-sm">{error}</p>
+      <div className="rounded-[24px] border-2 border-[neutral-500]/30 bg-[neutral-500]/10 p-6">
+        <p className="font-semibold text-[neutral-500]">{t("error")}</p>
+        <p className="mt-2 text-[neutral-500] text-sm">{error}</p>
         <button
-          className="mt-4 rounded-xl bg-[#64748b] px-4 py-2 font-medium text-[#f8fafc] text-sm transition hover:bg-[#64748b]"
+          className="mt-4 rounded-xl bg-[neutral-500] px-4 py-2 font-medium text-[neutral-50] text-sm transition hover:bg-[neutral-500]"
           onClick={() => loadData()}
           type="button"
         >
@@ -101,8 +101,8 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
 
   if (!metrics) {
     return (
-      <div className="rounded-[24px] border-2 border-[#e2e8f0] bg-[#f8fafc] p-6">
-        <p className="text-center text-[#94a3b8]">{t("noData")}</p>
+      <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6">
+        <p className="text-center text-[neutral-400]">{t("noData")}</p>
       </div>
     );
   }
@@ -112,11 +112,11 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <HugeiconsIcon className="h-6 w-6 text-[#64748b]" icon={ChartIcon} />
-          <h2 className="font-bold text-2xl text-[#0f172a]">{t("title")}</h2>
+          <HugeiconsIcon className="h-6 w-6 text-[neutral-500]" icon={ChartIcon} />
+          <h2 className="font-bold text-2xl text-[neutral-900]">{t("title")}</h2>
         </div>
         <button
-          className="flex items-center gap-2 rounded-xl border-2 border-[#e2e8f0] bg-[#f8fafc] px-4 py-2 font-medium text-[#0f172a] text-sm transition hover:bg-[#f8fafc] disabled:opacity-50"
+          className="flex items-center gap-2 rounded-xl border-2 border-[neutral-200] bg-[neutral-50] px-4 py-2 font-medium text-[neutral-900] text-sm transition hover:bg-[neutral-50] disabled:opacity-50"
           disabled={refreshing}
           onClick={handleRefresh}
           type="button"
@@ -147,26 +147,30 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
         </div>
 
         {/* Recent Activity Summary */}
-        <div className="rounded-[24px] border-2 border-[#e2e8f0] bg-[#f8fafc] p-6 shadow-sm">
-          <h3 className="mb-4 font-semibold text-[#0f172a] text-lg">{t("recentActivity")}</h3>
+        <div className="rounded-[24px] border-2 border-[neutral-200] bg-[neutral-50] p-6 shadow-sm">
+          <h3 className="mb-4 font-semibold text-[neutral-900] text-lg">{t("recentActivity")}</h3>
           <div className="space-y-4">
-            <div className="flex items-center justify-between rounded-xl bg-[#f8fafc] p-4">
-              <span className="text-[#94a3b8] text-sm">{t("bookingsLast7Days")}</span>
-              <span className="font-bold text-[#0f172a] text-xl">{metrics.bookingsLast7Days}</span>
+            <div className="flex items-center justify-between rounded-xl bg-[neutral-50] p-4">
+              <span className="text-[neutral-400] text-sm">{t("bookingsLast7Days")}</span>
+              <span className="font-bold text-[neutral-900] text-xl">
+                {metrics.bookingsLast7Days}
+              </span>
             </div>
-            <div className="flex items-center justify-between rounded-xl bg-[#f8fafc] p-4">
-              <span className="text-[#94a3b8] text-sm">{t("bookingsLast30Days")}</span>
-              <span className="font-bold text-[#0f172a] text-xl">{metrics.bookingsLast30Days}</span>
+            <div className="flex items-center justify-between rounded-xl bg-[neutral-50] p-4">
+              <span className="text-[neutral-400] text-sm">{t("bookingsLast30Days")}</span>
+              <span className="font-bold text-[neutral-900] text-xl">
+                {metrics.bookingsLast30Days}
+              </span>
             </div>
-            <div className="flex items-center justify-between rounded-xl bg-[#f8fafc] p-4">
-              <span className="text-[#94a3b8] text-sm">{t("revenueLast7Days")}</span>
-              <span className="font-bold text-[#64748b] text-xl">
+            <div className="flex items-center justify-between rounded-xl bg-[neutral-50] p-4">
+              <span className="text-[neutral-400] text-sm">{t("revenueLast7Days")}</span>
+              <span className="font-bold text-[neutral-500] text-xl">
                 ${(metrics.revenueLast7DaysCop / 1000).toFixed(0)}k
               </span>
             </div>
-            <div className="flex items-center justify-between rounded-xl bg-[#f8fafc] p-4">
-              <span className="text-[#94a3b8] text-sm">{t("revenueLast30Days")}</span>
-              <span className="font-bold text-[#64748b] text-xl">
+            <div className="flex items-center justify-between rounded-xl bg-[neutral-50] p-4">
+              <span className="text-[neutral-400] text-sm">{t("revenueLast30Days")}</span>
+              <span className="font-bold text-[neutral-500] text-xl">
                 ${(metrics.revenueLast30DaysCop / 1000).toFixed(0)}k
               </span>
             </div>
@@ -175,9 +179,9 @@ export function AnalyticsDashboard({ profileId }: AnalyticsDashboardProps) {
       </div>
 
       {/* Footer Note */}
-      <div className="rounded-xl bg-[#f8fafc] p-4 text-[#64748b] text-sm">
+      <div className="rounded-xl bg-[neutral-50] p-4 text-[neutral-500] text-sm">
         <p className="font-semibold">{t("noteTitle")}</p>
-        <p className="mt-1 text-[#64748b]">{t("noteDescription")}</p>
+        <p className="mt-1 text-[neutral-500]">{t("noteDescription")}</p>
       </div>
     </div>
   );

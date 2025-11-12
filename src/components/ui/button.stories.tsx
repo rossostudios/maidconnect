@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./button";
 
 /**
- * MaidConnect Button Component
+ * Casaora Button Component
  *
  * Design System:
  * - Brand Colors: Orange (#F44A22), Silver (#FEF8E8), Grey (#E4E2E3), Midnight (#161616), Stone (#A8AAAC)
@@ -18,7 +18,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "A versatile button component following the MaidConnect design system. Supports multiple variants (primary, secondary, ghost, card, luxury), sizes (sm, md, lg), icons, and keyboard shortcuts.",
+          "A versatile button component following the Casaora design system. Supports multiple variants (primary, secondary, ghost, card, luxury), sizes (sm, md, lg), icons, and keyboard shortcuts.",
       },
     },
   },

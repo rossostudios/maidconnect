@@ -38,14 +38,14 @@ export const GuestUser: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="min-h-screen bg-slate-50">
-        <header className="flex items-center justify-between border-slate-200 border-b bg-white p-4">
-          <div className="font-bold text-slate-900 text-xl">Casaora</div>
+      <div className="min-h-screen bg-neutral-50">
+        <header className="flex items-center justify-between border-neutral-200 border-b bg-white p-4">
+          <div className="font-bold text-neutral-900 text-xl">Casaora</div>
           <Story />
         </header>
         <div className="p-4">
-          <h1 className="font-bold text-2xl text-slate-900">Welcome</h1>
-          <p className="mt-2 text-slate-600">Click the menu button to open the mobile menu</p>
+          <h1 className="font-bold text-2xl text-neutral-900">Welcome</h1>
+          <p className="mt-2 text-neutral-600">Click the menu button to open the mobile menu</p>
         </div>
       </div>
     ),
@@ -61,14 +61,14 @@ export const AuthenticatedUser: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="min-h-screen bg-slate-50">
-        <header className="flex items-center justify-between border-slate-200 border-b bg-white p-4">
-          <div className="font-bold text-slate-900 text-xl">Casaora</div>
+      <div className="min-h-screen bg-neutral-50">
+        <header className="flex items-center justify-between border-neutral-200 border-b bg-white p-4">
+          <div className="font-bold text-neutral-900 text-xl">Casaora</div>
           <Story />
         </header>
         <div className="p-4">
-          <h1 className="font-bold text-2xl text-slate-900">Welcome Back!</h1>
-          <p className="mt-2 text-slate-600">Menu shows dashboard link and logout button</p>
+          <h1 className="font-bold text-2xl text-neutral-900">Welcome Back!</h1>
+          <p className="mt-2 text-neutral-600">Menu shows dashboard link and logout button</p>
         </div>
       </div>
     ),
@@ -86,9 +86,9 @@ export const FewerLinks: Story = {
   },
   decorators: [
     (Story) => (
-      <div className="min-h-screen bg-slate-50">
-        <header className="flex items-center justify-between border-slate-200 border-b bg-white p-4">
-          <div className="font-bold text-slate-900 text-xl">Casaora</div>
+      <div className="min-h-screen bg-neutral-50">
+        <header className="flex items-center justify-between border-neutral-200 border-b bg-white p-4">
+          <div className="font-bold text-neutral-900 text-xl">Casaora</div>
           <Story />
         </header>
       </div>
