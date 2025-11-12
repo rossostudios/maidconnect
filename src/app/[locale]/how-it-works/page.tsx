@@ -6,8 +6,8 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { getTranslations } from "next-intl/server";
-import { SiteFooter } from "@/components/sections/site-footer";
-import { SiteHeader } from "@/components/sections/site-header";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { SiteHeader } from "@/components/sections/SiteHeader";
 import {
   Accordion,
   AccordionContent,

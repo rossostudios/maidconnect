@@ -384,7 +384,7 @@ export function UnifiedCommandPalette({
   });
 
   // Group commands by category
-  const categories = Array.(new Set(commands.map((cmd) => cmd.category)));
+  const categories = Array.from(new Set(commands.map((cmd) => cmd.category)));
 
   // Handle Cmd+K / Ctrl+K to open
   useEffect(() => {

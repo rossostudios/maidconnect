@@ -25,10 +25,10 @@ export function portableTextToPlainText(blocks: PortableTextBlock[] | undefined)
 
   return blocks
     .map((block) => {
-      if (block._type !== "block" || !block.children) {
+      if (block._type !== "block" || !block.children || !Array.isArray(block.children)) {
         return "";
       }
-      return block.children.map((child) => child.text).join("");
+      return block.children.map((child: any) => child.text).join("");
     })
     .join("\n")
     .trim();

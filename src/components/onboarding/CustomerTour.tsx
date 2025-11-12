@@ -36,14 +36,20 @@ const steps: TourStep[] = [
 ];
 
 export function CustomerTour() {
-  const { startTour } = useOnboardingTour("customer");
+  const { start } = useOnboardingTour({
+    tourId: "customer",
+    steps,
+    onComplete: () => {
+      localStorage.setItem("customer-tour-completed", "true");
+    },
+  });
 
   useEffect(() => {
     const hasSeenTour = localStorage.getItem("customer-tour-completed");
     if (!hasSeenTour) {
-      setTimeout(() => startTour(steps), 1000);
+      setTimeout(() => start(), 1000);
     }
-  }, [startTour]);
+  }, [start]);
 
   return null;
 }

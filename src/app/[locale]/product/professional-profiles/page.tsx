@@ -11,8 +11,8 @@ import { getTranslations } from "next-intl/server";
 import { ProductFeatureCard } from "@/components/product/product-feature-card";
 import { ProductHeroSection } from "@/components/product/product-hero-section";
 import { ProductStepsSection } from "@/components/product/product-steps-section";
-import { SiteFooter } from "@/components/sections/site-footer";
-import { SiteHeader } from "@/components/sections/site-header";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { SiteHeader } from "@/components/sections/SiteHeader";
 import { Link } from "@/i18n/routing";
 
 type Props = {

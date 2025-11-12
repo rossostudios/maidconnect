@@ -10,8 +10,8 @@ import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 import { DraftModeIndicator } from "@/components/sanity/draft-mode-indicator";
 import { SectionRenderer } from "@/components/sanity/section-renderer";
-import { SiteFooter } from "@/components/sections/site-footer";
-import { SiteHeader } from "@/components/sections/site-header";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { SiteHeader } from "@/components/sections/SiteHeader";
 import { sanityFetch } from "@/lib/sanity/live";
 import { pageBySlugQuery } from "@/lib/sanity/queries/pages";
 

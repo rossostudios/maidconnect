@@ -1041,6 +1041,11 @@
       "cities": "Serving Colombia's finest homes",
       "rating": "Every profile verified"
     },
+    "trustLabels": {
+      "verified": "Talent",
+      "cities": "Coverage",
+      "rating": "Reputation"
+    },
     "matchWizard": "Find Your Perfect Match",
     "browseAll": "Browse Exceptional Professionals",
     "findProfessional": "Explore Our Network",
@@ -1048,6 +1053,43 @@
     "howItWorks": "Our vetting process",
     "becomeProfessional": "Join our network",
     "learnMore": "Learn more"
+  },
+  "marketing": {
+    "highlights": {
+      "tagline": "TAILORED EXPERIENCE",
+      "title": "A minimal approach to meticulous care",
+      "subtitle": "Concierge-level planning with thoughtful follow-up notes, so every visit feels effortless.",
+      "items": {
+        "curated": {
+          "title": "Curated for calm",
+          "description": "Only the top 5% of professionals make the cut after interviews, references, and background checks."
+        },
+        "rhythm": {
+          "title": "Rhythm you can trust",
+          "description": "Smart scheduling, automated reminders, and visit notes keep your household aligned with every professional."
+        },
+        "support": {
+          "title": "Concierge-level support",
+          "description": "Dedicated hosts answer in minutes, coordinate last-minute shifts, and anticipate your needs."
+        }
+      }
+    },
+    "stats": {
+      "items": {
+        "homes": {
+          "value": "2,400+",
+          "label": "Households cared for"
+        },
+        "cities": {
+          "value": "12",
+          "label": "Cities served"
+        },
+        "rating": {
+          "value": "4.9★",
+          "label": "Average satisfaction"
+        }
+      }
+    }
   },
   "search": {
     "where": "WHERE",
@@ -1203,6 +1245,7 @@
     "terms": "Terms",
     "privacy": "Privacy",
     "cookies": "Cookies",
+    "certifications": "SOC 2 Type II, GDPR, ISO27001/ISO27017",
     "allRightsReserved": "All rights reserved",
     "remoteCompany": "We Work Remotely"
   },

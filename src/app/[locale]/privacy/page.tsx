@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { SiteFooter } from "@/components/sections/site-footer";
-import { SiteHeader } from "@/components/sections/site-header";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { SiteHeader } from "@/components/sections/SiteHeader";
 
 type Props = {
   params: Promise<{ locale: string }>;

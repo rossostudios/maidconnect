@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Tool } from "./tool";
 
 const meta = {
-  title: "Ai-elements/Tool",
+  title: "Ai-element./tool",
   component: Tool,
   parameters: {
     layout: "padded",

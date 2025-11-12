@@ -204,7 +204,7 @@ export function createContextFromRequest(request: Request): RequestContext {
 
   // Extract client IP from headers (respecting proxies)
   const clientIp =
-    request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     request.headers.get("x-real-ip") ||
     "unknown";
 

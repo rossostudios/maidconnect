@@ -4,7 +4,10 @@ import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { type SavedAddress, SavedAddressesManager } from "@/components/addresses/saved-addresses-manager";
+import {
+  type SavedAddress,
+  SavedAddressesManager,
+} from "@/components/addresses/saved-addresses-manager";
 // import { AvailabilityCalendar } from "@/components/shared/availability-calendar";
 import { PriceBreakdown } from "@/components/pricing/price-breakdown";
 import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";

@@ -3,8 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { CareersHero } from "@/components/careers/careers-hero";
 import { CareersPositions } from "@/components/careers/careers-positions";
 import { CareersValues } from "@/components/careers/careers-values";
-import { SiteFooter } from "@/components/sections/site-footer";
-import { SiteHeader } from "@/components/sections/site-header";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { SiteHeader } from "@/components/sections/SiteHeader";
 
 // Revalidate daily (86400 seconds) - careers don't change frequently
 

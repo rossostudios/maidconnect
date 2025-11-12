@@ -10,6 +10,7 @@
 import { useLogger } from "@logtail/next";
 import type { ErrorInfo, ReactNode } from "react";
 import { Component, useEffect } from "react";
+import { trackError } from "@/lib/integrations/posthog";
 
 type ErrorBoundaryProps = {
   children: ReactNode;
@@ -71,14 +72,22 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 function ErrorDisplay({ error }: { error: Error }) {
   const logger = useLogger();
 
-  // Log error to Better Stack on mount
+  // Log error to Better Stack and PostHog on mount
   useEffect(() => {
+    // Log to Better Stack
     logger?.error("React Error Boundary triggered", {
       error: {
         name: error.name,
         message: error.message,
         stack: error.stack,
       },
+      location: window.location.href,
+      userAgent: navigator.userAgent,
+    });
+
+    // Track error in PostHog for analytics
+    trackError(error, {
+      boundary: "root",
       location: window.location.href,
       userAgent: navigator.userAgent,
     });

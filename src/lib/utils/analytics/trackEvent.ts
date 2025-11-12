@@ -6,7 +6,7 @@
  *   await trackEvent('CheckoutStarted', { pro_id: '123', amount: 50000 });
  */
 
-import { createSupabaseBrowserClient } from "@/lib/integrations/supabase/browserClient";
+import { createSupabaseBrowserClient } from "@/lib/supabase/browserClient";
 
 // Event type definitions for type safety
 export type PlatformEventType =
@@ -81,30 +81,30 @@ export type EventProperties = {
   };
   JobStatusChanged: {
     booking_id: string;
-: string
-to: string
-trigger?: string
-}
-{
-  payout_id: string;
-  amount: number;
-  method: string;
-}
-{
-  booking_id: string;
-  who_initiated: "customer" | "professional" | "system";
-  reason?: string;
-  refund_amount?: number;
-}
-{
-  booking_id: string;
-  reason: string;
-}
-{
-  dispute_id: string;
-  resolution: string;
-}
-}
+    from: string;
+    to: string;
+    trigger?: string;
+  };
+  PayoutInitiated: {
+    payout_id: string;
+    amount: number;
+    method: string;
+  };
+  Cancellation: {
+    booking_id: string;
+    who_initiated: "customer" | "professional" | "system";
+    reason?: string;
+    refund_amount?: number;
+  };
+  DisputeOpened: {
+    dispute_id: string;
+    reason: string;
+  };
+  DisputeResolved: {
+    dispute_id: string;
+    resolution: string;
+  };
+};
 
 /**
  * Track a platform event

@@ -35,7 +35,7 @@ const GUEST_SESSION_KEY = "maidconnect_guest_session";
 function generateGuestToken(): string {
   const array = new Uint8Array(32);
   crypto.getRandomValues(array);
-  return Array.(array, (byte) => byte.toString(16).padStart(2, "0")).join("");
+  return Array.from(array, (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
 /**

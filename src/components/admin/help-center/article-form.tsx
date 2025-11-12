@@ -349,6 +349,7 @@ export function ArticleForm({ categories, article }: ArticleFormProps) {
                 {previewMode ? (
                   <div
                     className="prose prose-lg max-w-none prose-code:rounded rounded-lg border border-slate-200 bg-white prose-code:bg-[#e2e8f0]/30 p-6 prose-code:px-1.5 prose-code:py-0.5 prose-headings:font-semibold prose-a:text-slate-900 prose-code:text-slate-900 prose-headings:text-slate-900 prose-strong:text-slate-900 prose-a:no-underline prose-code:before:content-none prose-code:after:content-none hover:prose-a:underline dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100"
+                    // snyk:ignore javascript/DOMXSS - Content is sanitized via sanitizeRichContent() from marked library output (line 70-73)
                     dangerouslySetInnerHTML={{ __html: previewHtml }}
                   />
                 ) : (
@@ -425,6 +426,7 @@ Your content here..."
                 {previewMode ? (
                   <div
                     className="prose prose-lg max-w-none prose-code:rounded rounded-lg border border-slate-200 bg-white prose-code:bg-[#e2e8f0]/30 p-6 prose-code:px-1.5 prose-code:py-0.5 prose-headings:font-semibold prose-a:text-slate-900 prose-code:text-slate-900 prose-headings:text-slate-900 prose-strong:text-slate-900 prose-a:no-underline prose-code:before:content-none prose-code:after:content-none hover:prose-a:underline dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100 dark:text-slate-100"
+                    // snyk:ignore javascript/DOMXSS - Content is sanitized via sanitizeRichContent() from marked library output (line 70-73)
                     dangerouslySetInnerHTML={{ __html: previewHtml }}
                   />
                 ) : (

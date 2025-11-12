@@ -28,8 +28,8 @@ import {
   YAxis,
 } from "recharts";
 import { MetricCard } from "@/components/dashboard/metric-card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import {
   calculateActiveProfessionals,
   calculateAvgTimeToFirstBooking,

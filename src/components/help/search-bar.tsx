@@ -47,15 +47,32 @@ export function HelpSearchBar({
     setSelectedIndex(-1);
   }, []);
 
-  // Utility: Highlight search terms in text
+  // Utility: Escape HTML to prevent XSS
+  const escapeHTML = (str: string): string => {
+    const htmlEscapeMap: Record<string, string> = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#x27;",
+      "/": "&#x2F;",
+    };
+    return str.replace(/[&<>"'/]/g, (char) => htmlEscapeMap[char] || char);
+  };
+
+  // Utility: Highlight search terms in text (XSS-safe)
   const highlightSearchTerm = useCallback((text: string, searchQuery: string): string => {
     if (!searchQuery.trim()) {
-      return text;
+      return escapeHTML(text);
     }
+    // First escape HTML entities to prevent XSS
+    const escapedText = escapeHTML(text);
+    const escapedQueryForHTML = escapeHTML(searchQuery);
+
     // Escape special regex characters
-    const escapedQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const escapedQuery = escapedQueryForHTML.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const regex = new RegExp(`(${escapedQuery})`, "gi");
-    return text.replace(
+    return escapedText.replace(
       regex,
       '<mark class="bg-[#64748b]/20 text-[#0f172a] font-medium">$1</mark>'
     );
@@ -296,6 +313,7 @@ export function HelpSearchBar({
                       </div>
                       <div
                         className="font-medium text-[#0f172a]"
+                        // snyk:ignore javascript/DOMXSS - Content is sanitized via escapeHTML() in highlightSearchTerm (line 64-69)
                         dangerouslySetInnerHTML={{
                           __html: highlightSearchTerm(result.title, query),
                         }}
@@ -303,6 +321,7 @@ export function HelpSearchBar({
                       {result.excerpt && (
                         <p
                           className="mt-1 line-clamp-2 text-[#94a3b8] text-sm"
+                          // snyk:ignore javascript/DOMXSS - Content is sanitized via escapeHTML() in highlightSearchTerm (line 64-69)
                           dangerouslySetInnerHTML={{
                             __html: highlightSearchTerm(result.excerpt, query),
                           }}

@@ -140,7 +140,7 @@ export type AlgoliaIndexName = (typeof ALGOLIA_INDICES)[keyof typeof ALGOLIA_IND
 /**
  * Search result with highlighting
  */
-export interface AlgoliaSearchHit<T extends AlgoliaRecord> extends T {
+export type AlgoliaSearchHit<T extends AlgoliaRecord> = T & {
   _highlightResult?: {
     [K in keyof T]?: {
       value: string;
@@ -154,7 +154,7 @@ export interface AlgoliaSearchHit<T extends AlgoliaRecord> extends T {
       matchLevel: "none" | "partial" | "full";
     };
   };
-}
+};
 
 /**
  * Search parameters for Algolia

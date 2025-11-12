@@ -21,7 +21,7 @@ import { useFeatureFlag } from "@/hooks/useFeature";
 import { Link } from "@/i18n/routing";
 import { formatCOP } from "@/lib/format";
 import type { FilterState } from "./ProfessionalsFilter";
-import { SearchBar, type SearchSuggestion } from "./SearchBar";
+import { SearchBar, type SearchSuggestion } from "./search-bar";
 import { VerificationBadge, type VerificationLevel } from "./VerificationBadge";
 import { type ViewMode, ViewToggle } from "./ViewToggle";
 
@@ -154,7 +154,7 @@ const ProfessionalsDirectoryComponent = memo(
           unique.add(professional.service);
         }
       }
-      return ["all", ...Array.(unique)];
+      return ["all", ...Array.from(unique)];
     }, [professionals]);
 
     const cityOptions = useMemo(() => {
@@ -164,7 +164,7 @@ const ProfessionalsDirectoryComponent = memo(
           unique.add(professional.city);
         }
       }
-      return ["all", ...Array.(unique)];
+      return ["all", ...Array.from(unique)];
     }, [professionals]);
 
     useEffect(() => {

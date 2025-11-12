@@ -1,21 +1,18 @@
 /**
  * Card Component
  *
- * Flexible, animated card component with hover effects and neutral colors.
- * Supports motion animations and maintains accessibility.
+ * Flexible card component with hover effects and neutral colors.
+ * Maintains accessibility.
  */
 
 "use client";
 
 import { cva, type VariantProps } from "class-variance-authority";
-import { motion } from "motion/react";
-import type { ComponentPropsWithoutRef, Ref } from "react";
-import * as React from "react";
-import { cardHover } from "@/lib/motion";
+import type { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils";
 
 const cardVariants = cva(
-  "overflow-hidden rounded-lg transition-colors focus-visible:outline-2 focus-visible:outline-slate-900 focus-visible:outline-offset-2",
+  "overflow-hidden rounded-lg transition-all duration-200 focus-visible:outline-2 focus-visible:outline-slate-900 focus-visible:outline-offset-2",
   {
     variants: {
       variant: {
@@ -54,11 +51,6 @@ type BaseCardProps = {
    * Link href (renders as anchor)
    */
   href?: string;
-  /**
-   * Disable motion animations
-   * @default false
-   */
-  disableMotion?: boolean;
 };
 
 interface CardProps
@@ -66,7 +58,7 @@ interface CardProps
     Omit<ComponentPropsWithoutRef<"div">, keyof BaseCardProps> {}
 
 /**
- * Card - Flexible container with optional animations
+ * Card - Flexible container
  *
  * @example
  * ```tsx
@@ -85,70 +77,39 @@ export const Card = ({
   hoverable = false,
   asButton = false,
   href,
-  disableMotion = false,
   className,
   children,
-  ref,
   ...props
-}: CardProps & { ref?: React.RefObject<HTMLDivElement | null> }) => {
+}: CardProps) => {
   const classes = cn(
     cardVariants({ variant }),
-    (hoverable || href || asButton) && "cursor-pointer",
+    (hoverable || href || asButton) && "cursor-pointer hover:shadow-lg",
     className
   );
-
-  const motionVariants =
-    hoverable && !disableMotion
-      ? {
-          initial: "rest" as const,
-          whileHover: "hover" as const,
-          variants: cardHover,
-          style: { willChange: "transform" }, // Performance optimization
-        }
-      : {};
 
   // Render as link
   if (href) {
     return (
-      <motion.a
-        className={classes}
-        href={href}
-        ref={ref as Ref<HTMLAnchorElement>}
-        {...motionVariants}
-      >
+      <a className={classes} href={href}>
         {children}
-      </motion.a>
+      </a>
     );
   }
 
   // Render as button
   if (asButton) {
     return (
-      <motion.button
-        className={classes}
-        ref={ref as Ref<HTMLButtonElement>}
-        type="button"
-        {...motionVariants}
-      >
+      <button className={classes} type="button">
         {children}
-      </motion.button>
+      </button>
     );
   }
 
-  // Render as div (non-animated)
-  if (disableMotion) {
-    return (
-      <div className={classes} ref={ref} {...props}>
-        {children}
-      </div>
-    );
-  }
-
-  // Render as animated div (motion props only, no spreading to avoid conflicts)
+  // Render as div
   return (
-    <motion.div className={classes} ref={ref} {...motionVariants}>
+    <div className={classes} {...props}>
       {children}
-    </motion.div>
+    </div>
   );
 };
 
@@ -157,12 +118,8 @@ Card.displayName = "Card";
 /**
  * CardHeader - Card header section
  */
-export const CardHeader = ({
-  className,
-  ref,
-  ...props
-}: ComponentPropsWithoutRef<"div"> & { ref?: React.RefObject<HTMLDivElement | null> }) => (
-  <div className={cn("p-6 pb-4", className)} ref={ref} {...props} />
+export const CardHeader = ({ className, ...props }: ComponentPropsWithoutRef<"div">) => (
+  <div className={cn("p-6 pb-4", className)} {...props} />
 );
 
 CardHeader.displayName = "CardHeader";
@@ -170,12 +127,8 @@ CardHeader.displayName = "CardHeader";
 /**
  * CardContent - Card main content section
  */
-export const CardContent = ({
-  className,
-  ref,
-  ...props
-}: ComponentPropsWithoutRef<"div"> & { ref?: React.RefObject<HTMLDivElement | null> }) => (
-  <div className={cn("p-6 pt-0", className)} ref={ref} {...props} />
+export const CardContent = ({ className, ...props }: ComponentPropsWithoutRef<"div">) => (
+  <div className={cn("p-6 pt-0", className)} {...props} />
 );
 
 CardContent.displayName = "CardContent";
@@ -183,14 +136,9 @@ CardContent.displayName = "CardContent";
 /**
  * CardFooter - Card footer section
  */
-export const CardFooter = ({
-  className,
-  ref,
-  ...props
-}: ComponentPropsWithoutRef<"div"> & { ref?: React.RefObject<HTMLDivElement | null> }) => (
+export const CardFooter = ({ className, ...props }: ComponentPropsWithoutRef<"div">) => (
   <div
     className={cn("border-black/5 border-t p-6 pt-4 dark:border-white/10", className)}
-    ref={ref}
     {...props}
   />
 );
@@ -203,17 +151,9 @@ CardFooter.displayName = "CardFooter";
 export const CardImage = ({
   aspectRatio = "16/9",
   className,
-  ref,
   ...props
-}: ComponentPropsWithoutRef<"div"> & { aspectRatio?: string } & {
-  ref?: React.RefObject<HTMLDivElement | null>;
-}) => (
-  <div
-    className={cn("relative overflow-hidden", className)}
-    ref={ref}
-    style={{ aspectRatio }}
-    {...props}
-  />
+}: ComponentPropsWithoutRef<"div"> & { aspectRatio?: string }) => (
+  <div className={cn("relative overflow-hidden", className)} style={{ aspectRatio }} {...props} />
 );
 
 CardImage.displayName = "CardImage";

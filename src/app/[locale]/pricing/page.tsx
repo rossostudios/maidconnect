@@ -10,8 +10,8 @@ import { Suspense } from "react";
 import { PricingComparison } from "@/components/pricing/pricing-comparison";
 import { PricingFaqSection } from "@/components/pricing/pricing-faq-section";
 import { PricingPlans } from "@/components/pricing/pricing-plans";
-import { SiteFooter } from "@/components/sections/site-footer";
-import { SiteHeader } from "@/components/sections/site-header";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { SiteHeader } from "@/components/sections/SiteHeader";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("pricing");

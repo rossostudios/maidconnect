@@ -36,10 +36,11 @@
 
 - 👥 **User Management** - Comprehensive admin dashboard for oversight
 - 🔒 **Professional Vetting** - Queue system for reviewing and approving professionals
-- 📊 **Platform Analytics** - Real-time statistics and performance metrics
+- 📊 **Platform Analytics** - Real-time statistics and performance metrics with PostHog
 - 🎫 **Dispute Resolution** - Built-in system for handling customer issues
 - 📝 **Content Management** - Integrated CMS for help center and announcements
 - 🚨 **Audit Logging** - Complete activity tracking and compliance
+- 🧪 **A/B Testing** - Feature flags for gradual rollouts and experiments
 
 ---
 
@@ -138,6 +139,16 @@ casaora/
 - **[Zod](https://zod.dev/)** - Schema validation
 - **[TanStack Query](https://tanstack.com/query)** - Data fetching and caching
 
+### Security
+
+- **[DOMPurify](https://github.com/cure53/DOMPurify)** - HTML sanitization for XSS prevention
+- **[Snyk](https://snyk.io/)** - Continuous security scanning and vulnerability detection
+
+### Analytics & Monitoring
+
+- **[PostHog](https://posthog.com/)** - Product analytics, feature flags, and session recording
+- **[Better Stack](https://betterstack.com/)** - Application logging and error tracking
+
 ### Internationalization
 
 - **[next-intl](https://next-intl-docs.vercel.app/)** - i18n with English & Spanish support
@@ -170,6 +181,10 @@ bun start              # Start production server
 bun run check          # Run Biome linter
 bun run check:fix      # Auto-fix linting issues
 bun run format         # Format code
+
+# Security
+bun run security:scan  # Scan dependencies (Snyk SCA)
+bun run security:code  # Scan code (Snyk SAST)
 
 # Testing
 bun test               # Run Playwright E2E tests
@@ -207,8 +222,13 @@ NEXT_PUBLIC_SANITY_PROJECT_ID=
 NEXT_PUBLIC_SANITY_DATASET=
 SANITY_API_TOKEN=
 
+# Optional: Analytics
+NEXT_PUBLIC_POSTHOG_KEY=
+NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+
 # Optional: Monitoring
 LOGTAIL_SOURCE_TOKEN=
+NEXT_PUBLIC_LOGTAIL_TOKEN=
 
 # Optional: Rate Limiting
 UPSTASH_REDIS_REST_URL=
@@ -351,6 +371,7 @@ We've optimized deployment frequency:
 - **[CLAUDE.md](CLAUDE.md)** - AI development guide
 - **[docs/release-strategy.md](docs/release-strategy.md)** - Release process
 - **[scripts/README.md](scripts/README.md)** - Automation scripts
+- **[src/lib/integrations/posthog/IMPLEMENTATION_GUIDE.md](src/lib/integrations/posthog/IMPLEMENTATION_GUIDE.md)** - PostHog analytics guide
 - **[docs/radix-to-react-aria-audit.md](docs/radix-to-react-aria-audit.md)** - UI migration plan
 - **[docs/design-system-8px-grid.md](docs/design-system-8px-grid.md)** - Design system
 
@@ -399,12 +420,68 @@ Do not create public GitHub issues for security vulnerabilities.
 
 ### Security Measures
 
-- ✅ Row Level Security (RLS) on all Supabase tables
-- ✅ Rate limiting on API endpoints
-- ✅ Input sanitization and validation
-- ✅ CSRF protection
-- ✅ Secure payment processing (PCI compliant via Stripe)
-- ✅ Background checks for professionals
+- ✅ **XSS Prevention:** HTML sanitization with DOMPurify on all user input
+- ✅ **SSRF Prevention:** Server-side URL validation using trusted environment variables
+- ✅ **Open Redirect Protection:** URL allowlist validation for external redirects
+- ✅ **SQL Injection Prevention:** Parameterized queries via Drizzle ORM
+- ✅ **Row Level Security (RLS):** Enabled on all Supabase tables
+- ✅ **Rate Limiting:** API endpoint protection with Upstash Redis
+- ✅ **Input Validation:** Zod schemas for all API/form inputs
+- ✅ **CSRF Protection:** Built-in Next.js CSRF protection
+- ✅ **Secure Payments:** PCI compliant via Stripe
+- ✅ **Background Checks:** Professional verification system
+- ✅ **Continuous Scanning:** Snyk for dependency & code security
+- ✅ **Error Monitoring:** Automatic error tracking with PostHog and Better Stack
+- ✅ **Privacy-First Analytics:** GDPR-compliant analytics with masked sensitive data
+
+### Security Scanning
+
+We use **Snyk** for automated security monitoring:
+
+```bash
+# Scan dependencies for vulnerabilities (SCA)
+bun run security:scan
+
+# Scan code for security issues (SAST)
+bun run security:code
+
+# View security dashboard
+snyk monitor
+```
+
+### Secure Development Practices
+
+**Input Sanitization:**
+```typescript
+import { sanitizeHTML, sanitizeURL } from '@/lib/sanitize';
+
+// Sanitize HTML before rendering
+const safeContent = sanitizeHTML(userInput);
+<div dangerouslySetInnerHTML={{ __html: safeContent }} />
+
+// Validate URLs before navigation
+const safeUrl = sanitizeURL(externalUrl);
+<a href={safeUrl}>Safe Link</a>
+```
+
+**SSRF Prevention:**
+```typescript
+// ✅ Use trusted environment variables
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : 'http://localhost:3000';
+const response = await fetch(`${baseUrl}/api/endpoint`);
+```
+
+**Open Redirect Prevention:**
+```typescript
+// Validate redirect URLs against allowlist
+const allowedHosts = ['connect.stripe.com', 'dashboard.stripe.com'];
+const url = new URL(redirectUrl);
+if (!allowedHosts.includes(url.hostname)) {
+  throw new Error('Invalid redirect URL');
+}
+```
 
 ---
 
@@ -422,6 +499,7 @@ Built with these amazing open-source projects:
 - [Supabase](https://supabase.com/) - Open source Firebase alternative
 - [Tailwind CSS](https://tailwindcss.com/) by Tailwind Labs
 - [Radix UI](https://www.radix-ui.com/) by WorkOS
+- [PostHog](https://posthog.com/) - Open source product analytics
 - [Anthropic Claude](https://www.anthropic.com/) for AI capabilities
 
 ---
@@ -439,12 +517,13 @@ Built with these amazing open-source projects:
 
 See our [public roadmap](https://github.com/rossostudios/casaora/roadmap) for upcoming features and improvements.
 
-**Current Focus (Q4 2025):**
-- 🔄 React Aria migration for better accessibility
-- 📱 Mobile app (React Native)
-- 🌎 Expansion to other Colombian cities
-- 🤖 Enhanced AI matching algorithms
-- 📊 Advanced analytics dashboard
+**Current Focus (Q1 2025):**
+- ✅ **Product Analytics** - PostHog integration complete (feature flags, session recording, funnels)
+- 🔄 **React Aria Migration** - Better accessibility with React Aria Components
+- 📱 **Mobile App** - React Native for iOS and Android
+- 🌎 **City Expansion** - Medellín, Cartagena, and Cali
+- 🤖 **AI Matching V2** - Enhanced algorithms with PostHog data insights
+- 📊 **Analytics Dashboards** - Real-time metrics for admins and professionals
 
 ---
 

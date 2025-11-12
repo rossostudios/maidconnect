@@ -14,7 +14,6 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { StatusCard, StatusCardGrid } from "@/components/ui/status-card";
 import {
   Select,
   SelectContent,
@@ -22,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { StatusCard, StatusCardGrid } from "@/components/ui/status-card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { BackgroundCheckResult } from "@/lib/background-checks/types";
 

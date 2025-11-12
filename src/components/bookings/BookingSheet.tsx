@@ -6,7 +6,10 @@ import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { type SavedAddress, SavedAddressesManager } from "@/components/addresses/saved-addresses-manager";
+import {
+  type SavedAddress,
+  SavedAddressesManager,
+} from "@/components/addresses/saved-addresses-manager";
 import type { ServiceAddon } from "@/components/service-addons/service-addons-manager";
 import { formatCOP } from "@/lib/format";
 import type { ProfessionalService } from "@/lib/professionals/transformers";

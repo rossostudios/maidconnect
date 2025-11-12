@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Loader } from "./loader";
 
 const meta = {
-  title: "Ai-elements/Loader",
+  title: "Ai-element./loader",
   component: Loader,
   parameters: {
     layout: "padded",

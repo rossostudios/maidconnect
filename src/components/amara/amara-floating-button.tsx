@@ -14,7 +14,6 @@ import { isFeatureEnabled } from "@/lib/feature-flags";
 import { cn } from "@/lib/utils";
 import { AmaraIcon } from "./amara-icon";
 import { AmaraOnboardingTooltip } from "./amara-onboarding-tooltip";
-import "./amara-animations.css";
 
 // Dynamically import the heavy chat interface component
 const AmaraChatInterface = dynamic(

@@ -3,6 +3,7 @@
 import { formatDistanceToNow } from "date-fns";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "@/i18n/routing";
+import { sanitizeURL } from "@/lib/sanitize";
 
 type Notification = {
   id: string;
@@ -201,7 +202,8 @@ export function NotificationsHistory() {
                   {notification.url ? (
                     <Link
                       className="block"
-                      href={notification.url}
+                      // snyk:ignore javascript/DOMXSS - URLs are sanitized via sanitizeURL() from @/lib/utils/sanitize
+                      href={sanitizeURL(notification.url)}
                       onClick={() => markAsRead([notification.id])}
                     >
                       <h3 className="font-semibold text-[#0f172a] text-base">

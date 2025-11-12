@@ -129,7 +129,7 @@ export function validateSearchParams<T extends z.ZodTypeAny>(
   searchParams: URLSearchParams,
   schema: T
 ): z.infer<T> {
-  const params = Object.Entries(searchParams.entries());
+  const params = Object.fromEntries(searchParams.entries());
   const parsed = schema.safeParse(params);
 
   if (!parsed.success) {

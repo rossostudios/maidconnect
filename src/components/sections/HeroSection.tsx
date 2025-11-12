@@ -1,26 +1,26 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, type Variants } from "motion/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { funnelEvents } from "@/lib/integrations/posthog";
 
 // Animation variants for content fade-in
-const contentVariants = {
+const contentVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
       duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
     },
   },
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -47,7 +47,7 @@ export function HeroSection() {
 
   return (
     <section
-      className="relative overflow-hidden bg-white py-20 sm:py-24 md:py-32"
+      className="relative overflow-hidden bg-stone-50 py-20 sm:py-24 md:py-32"
       ref={containerRef}
     >
       <Container className="max-w-7xl">
@@ -60,7 +60,7 @@ export function HeroSection() {
         >
           {/* Heading */}
           <motion.h1
-            className="font-extrabold text-5xl text-stone-900 leading-tight sm:text-6xl md:text-7xl lg:text-8xl"
+            className="font-extrabold text-5xl text-stone-800 leading-tight sm:text-6xl md:text-7xl lg:text-8xl"
             variants={contentVariants}
           >
             {t("title") || "Medium length hero heading goes here"}
@@ -80,11 +80,16 @@ export function HeroSection() {
             className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
             variants={contentVariants}
           >
-            <Button className="min-w-[140px] bg-stone-900 text-white hover:bg-stone-800" size="lg">
+            <Button
+              className="min-w-[140px] bg-stone-700 text-stone-50 hover:bg-stone-600"
+              onClick={() => funnelEvents.clickedCTA(t("cta.primary") || "Primary CTA")}
+              size="lg"
+            >
               {t("cta.primary") || "Button"}
             </Button>
             <Button
-              className="min-w-[140px] border-2 border-stone-900 text-stone-900 hover:bg-stone-50"
+              className="min-w-[140px] border-2 border-stone-700 text-stone-700 hover:bg-stone-100"
+              onClick={() => funnelEvents.clickedCTA(t("cta.secondary") || "Secondary CTA")}
               size="lg"
               variant="outline"
             >
@@ -99,7 +104,7 @@ export function HeroSection() {
             {/* Image 1 - Slowest scroll */}
             <motion.div
               animate={{ opacity: 1, y: 0 }}
-              className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-stone-200 shadow-xl"
+              className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-stone-300 shadow-xl"
               initial={{ opacity: 0, y: 60 }}
               style={{ y: y1 }}
               transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -116,7 +121,7 @@ export function HeroSection() {
             {/* Image 2 - Medium scroll */}
             <motion.div
               animate={{ opacity: 1, y: 0 }}
-              className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-stone-200 shadow-xl"
+              className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-stone-300 shadow-xl"
               initial={{ opacity: 0, y: 80 }}
               style={{ y: y2 }}
               transition={{ duration: 1, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -133,7 +138,7 @@ export function HeroSection() {
             {/* Image 3 - Fastest scroll */}
             <motion.div
               animate={{ opacity: 1, y: 0 }}
-              className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-stone-200 shadow-xl"
+              className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-stone-300 shadow-xl"
               initial={{ opacity: 0, y: 100 }}
               style={{ y: y3 }}
               transition={{ duration: 1, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}

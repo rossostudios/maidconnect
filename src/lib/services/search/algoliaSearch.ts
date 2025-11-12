@@ -34,7 +34,7 @@ async function searchHelpArticles(query: string, locale: string): Promise<Search
     hitsPerPage: 10,
   });
 
-  return response.hits.map((hit) => {
+  return response.hits.map((hit: any) => {
     const categorySlug = hit.category?.slug || "uncategorized";
     return {
       id: hit.objectID,
@@ -61,7 +61,7 @@ async function searchChangelogs(query: string, locale: string): Promise<SearchRe
     hitsPerPage: 10,
   });
 
-  return response.hits.map((hit) => ({
+  return response.hits.map((hit: any) => ({
     id: hit.objectID,
     type: "changelog" as const,
     title: hit.title,
@@ -85,7 +85,7 @@ async function searchRoadmapItems(query: string, locale: string): Promise<Search
     hitsPerPage: 10,
   });
 
-  return response.hits.map((hit) => ({
+  return response.hits.map((hit: any) => ({
     id: hit.objectID,
     type: "roadmap" as const,
     title: hit.title,
@@ -108,7 +108,7 @@ async function searchCityPages(query: string, locale: string): Promise<SearchRes
     hitsPerPage: 5,
   });
 
-  return response.hits.map((hit) => ({
+  return response.hits.map((hit: any) => ({
     id: hit.objectID,
     type: "city_page" as const,
     title: hit.name,
@@ -217,25 +217,23 @@ export async function getSearchSuggestions(
   ]);
 
   const suggestions = [
-    ...helpArticles.hits.map((hit) => ({
+    ...helpArticles.hits.map((hit: any) => ({
       id: hit.objectID,
       title: hit.title,
       type: "help_article" as const,
     })),
-    ...changelog.hits.map((hit) => ({
+    ...changelog.hits.map((hit: any) => ({
       id: hit.objectID,
       title: hit.title,
       type: "changelog" as const,
     })),
-    ...roadmap.hits.map((hit) => ({
+    ...roadmap.hits.map((hit: any) => ({
       id: hit.objectID,
       title: hit.title,
       type: "roadmap" as const,
     })),
-    // @ts-expect-error - cityPages uses 'name' instead of 'title'
-    ...cityPages.hits.map((hit) => ({
+    ...cityPages.hits.map((hit: any) => ({
       id: hit.objectID,
-      // @ts-expect-error - cityPages uses 'name' instead of 'title'
       title: hit.name,
       type: "city_page" as const,
     })),

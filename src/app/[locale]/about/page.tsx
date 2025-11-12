@@ -6,8 +6,8 @@ import { getTranslations } from "next-intl/server";
 import { CompanyStory, StatsSection, StoryContent } from "@/components/about/company-story";
 import { MissionVision } from "@/components/about/mission-vision";
 import { TeamSection } from "@/components/about/team-section";
-import { SiteFooter } from "@/components/sections/site-footer";
-import { SiteHeader } from "@/components/sections/site-header";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { SiteHeader } from "@/components/sections/SiteHeader";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 

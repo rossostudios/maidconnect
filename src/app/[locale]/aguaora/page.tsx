@@ -2,8 +2,8 @@ import { MagicWand01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import type { Metadata } from "next";
 import { unstable_noStore } from "next/cache";
-import { SiteFooter } from "@/components/sections/site-footer";
-import { SiteHeader } from "@/components/sections/site-header";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { SiteHeader } from "@/components/sections/SiteHeader";
 
 export async function generateMetadata({
   params,

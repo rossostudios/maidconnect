@@ -16,7 +16,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
 import { type ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
-import { CARD_LAYOUT, ICON_CONTAINER } from "@/lib/designSystem";
+import { CARD_LAYOUT, ICON_CONTAINER } from "@/lib/design-system";
 import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
 
@@ -36,7 +36,7 @@ export type MetricCardProps = {
   /** Icon to display */
   icon?: HugeIcon;
   /** Color theme */
-  variant?: "blue" | "green" | "stone-700" | "pink" | "purple" | "default";
+  variant?: "blue" | "green" | "pink" | "purple" | "default";
   /** Optional chart or sparkline */
   chart?: ReactNode;
   /** Loading state */
@@ -60,7 +60,7 @@ const colorVariants = {
     accent: "border-stone-200 dark:border-green-900",
     trend: "text-stone-700 dark:text-green-400",
   },
-  stone-700: {
+  default: {
     accent: "border-stone-200 dark:border-stone-900",
     trend: "text-stone-700 dark:text-stone-400",
   },
@@ -71,10 +71,6 @@ const colorVariants = {
   purple: {
     accent: "border-purple-200 dark:border-purple-900",
     trend: "text-stone-600 dark:text-purple-400",
-  },
-  default: {
-    accent: "border-stone-200 dark:border-stone-800",
-    trend: "text-stone-600 dark:text-stone-400",
   },
 };
 

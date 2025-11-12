@@ -8,7 +8,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { FeedbackLink } from "@/components/feedback/feedback-link";
-import { SiteFooterActions } from "@/components/sections/site-footer-actions";
+import { SiteFooterActions } from "@/components/sections/SiteFooterActions";
 import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
 import { Separator } from "@/components/ui/separator";

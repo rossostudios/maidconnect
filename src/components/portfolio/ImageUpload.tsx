@@ -34,7 +34,7 @@ export function ImageUploadDropzone({ onImagesUploaded, maxImages = 20, maxSizeM
         return;
       }
 
-      const fileArray = Array.(files);
+      const fileArray = Array.from(files);
       const remainingSlots = maxImages - images.length;
 
       if (fileArray.length > remainingSlots) {

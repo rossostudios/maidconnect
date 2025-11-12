@@ -7,7 +7,7 @@ import {
   ICON_CONTAINER,
   STATUS_VARIANTS,
   type StatusVariant,
-} from "@/lib/designSystem";
+} from "@/lib/design-system";
 import { cn } from "@/lib/utils";
 import type { HugeIcon } from "@/types/icons";
 
