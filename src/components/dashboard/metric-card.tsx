@@ -3,7 +3,7 @@
  *
  * Following 2025/2026 best practices:
  * - 8px grid spacing system
- * - Consistent icon backgrounds (lightest slate)
+ * - Consistent icon backgrounds (lightest stone)
  * - Proper visual hierarchy
  * - Smooth animations with motion.dev
  * - 8px rounded corners (rounded-lg)

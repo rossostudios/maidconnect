@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Suggestion } from "./suggestion";
 
 const meta = {
-  title: "Ai-elements/Suggestion",
+  title: "Ai-element./suggestion",
   component: Suggestion,
   parameters: {
     layout: "padded",

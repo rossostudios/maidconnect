@@ -1,0 +1,315 @@
+{
+  "version": "1.0",
+  "brand": {
+    "name": "Casaora",
+    "logo": { "srcLight": "/assets/casaora.svg", "srcDark": "/assets/casaora-dark.svg", "class": "h-6 w-auto" },
+    "tagline": "The Art of Home"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#FF6A00",
+      "primary-foreground": "#FFFFFF",
+      "bg": "#FFFFFF",
+      "bg-muted": "#FAFAF9",
+      "surface": "#FFFFFF",
+      "surface-alt": "#FFF7F2",
+      "border": "#E7E5E4",
+      "text": "#0B0B0C",
+      "text-muted": "#6B7280",
+      "accent": "#F97316"
+    },
+    "container": "mx-auto max-w-7xl px-6 md:px-8",
+    "sectionY": "py-20 md:py-28",
+    "radii": { "2xl": "1.5rem" },
+    "shadows": { "card": "0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06)" },
+    "cssVars": {
+      "--color-primary": "{theme.colors.primary}",
+      "--color-primary-foreground": "{theme.colors.primary-foreground}",
+      "--color-bg": "{theme.colors.bg}",
+      "--color-surface": "{theme.colors.surface}",
+      "--color-surface-alt": "{theme.colors.surface-alt}",
+      "--color-border": "{theme.colors.border}",
+      "--color-text": "{theme.colors.text}",
+      "--color-text-muted": "{theme.colors['text-muted']}",
+      "--shadow-card": "{theme.shadows.card}"
+    }
+  },
+  "atoms": {
+    "Button": {
+      "base": "inline-flex items-center justify-center rounded-2xl font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+      "sizes": { "sm": "px-3 py-2 text-sm", "md": "px-4 py-2.5 text-sm", "lg": "px-5 py-3 text-base" },
+      "variants": {
+        "primary": "bg-[--color-primary] text-[--color-primary-foreground] hover:opacity-90",
+        "secondary": "border border-[--color-border] bg-[--color-surface] text-[--color-text] hover:bg-black/5",
+        "ghost": "text-[--color-text] hover:bg-black/5"
+      }
+    },
+    "Card": { "base": "rounded-2xl border border-[--color-border] bg-[--color-surface] shadow-[--shadow-card]" },
+    "Eyebrow": { "base": "inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-[--color-text-muted]" }
+  },
+  "layout": {
+    "Navbar": {
+      "wrapper": "sticky top-0 z-50 bg-[--color-bg]/90 backdrop-blur border-b border-[--color-border]",
+      "inner": "flex h-16 items-center justify-between",
+      "navLinks": "hidden md:flex items-center gap-8 text-sm text-[--color-text]",
+      "cta": "ml-4"
+    },
+    "Footer": {
+      "wrapper": "border-t border-[--color-border] bg-[--color-bg] py-12",
+      "inner": "grid gap-8 md:grid-cols-4",
+      "bottom": "mt-8 flex flex-wrap items-center justify-between gap-4 text-sm text-[--color-text-muted]"
+    },
+    "Section": { "wrapper": "relative", "container": "{theme.container}", "spacingY": "{theme.sectionY}" }
+  },
+  "components": {
+    "HeroSub": {
+      "wrapper": "grid md:grid-cols-2 gap-12 items-center",
+      "headline": "text-5xl md:text-6xl font-serif leading-[1.05] text-[--color-text]",
+      "copy": "text-lg text-[--color-text-muted] mt-4 max-w-prose",
+      "imageCard": "aspect-[16/10] rounded-2xl border border-[--color-border] bg-[--color-surface-alt] overflow-hidden",
+      "ctaRow": "mt-6 flex flex-wrap items-center gap-3"
+    },
+    "LogoCloud": {
+      "section": "py-10",
+      "grid": "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 items-center gap-x-10 gap-y-8 opacity-80",
+      "item": "h-6 grayscale hover:grayscale-0 transition"
+    },
+    "BenefitsGrid": {
+      "title": "text-center",
+      "grid": "mt-12 grid gap-6 md:grid-cols-2",
+      "item": {
+        "icon": "h-10 w-10 rounded-lg bg-[--color-primary]/10 flex items-center justify-center",
+        "title": "mt-4 text-xl font-semibold",
+        "desc": "mt-2 text-[--color-text-muted]"
+      }
+    },
+    "ServicesTabs": {
+      "layout": "grid md:grid-cols-[240px,1fr] gap-10",
+      "tabs": "flex md:flex-col gap-4 border-l-2 md:border-l-0 md:border-t-2 border-[--color-border] md:pt-4",
+      "tab": "text-sm data-[active=true]:text-[--color-text] text-[--color-text-muted] hover:text-[--color-text]",
+      "panel": "space-y-16",
+      "service": {
+        "title": "text-xl font-semibold",
+        "desc": "mt-3 text-[--color-text-muted] max-w-prose",
+        "visual": "mt-6 rounded-2xl border border-[--color-border] bg-[--color-surface-alt] p-4"
+      }
+    },
+    "Metrics": {
+      "wrap": "bg-[--color-bg] border-y border-[--color-border]",
+      "grid": "mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6",
+      "stat": { "value": "text-4xl font-serif", "label": "mt-1 text-sm text-[--color-text-muted]" }
+    },
+    "HowItWorks": {
+      "title": "text-3xl md:text-4xl font-serif",
+      "grid": "mt-10 grid md:grid-cols-3 gap-6",
+      "step": {
+        "card": "rounded-2xl border border-[--color-border] bg-[--color-surface] p-6 shadow-[--shadow-card]",
+        "badge": "text-xs font-semibold text-[--color-text-muted]",
+        "title": "mt-2 text-lg font-semibold",
+        "desc": "mt-2 text-[--color-text-muted]"
+      }
+    },
+    "Pricing": {
+      "toggle": "mx-auto mt-6 inline-flex rounded-full border border-[--color-border] p-1",
+      "grid": "mt-10 grid gap-6 md:grid-cols-3",
+      "plan": {
+        "card": "rounded-2xl border border-[--color-border] bg-[--color-surface] p-6 shadow-[--shadow-card]",
+        "name": "text-lg font-semibold",
+        "price": "mt-4 text-3xl font-serif",
+        "cta": "mt-4 w-full",
+        "features": "mt-6 space-y-3 text-sm text-[--color-text] [&>li]:flex [&>li]:items-start [&>li]:gap-2",
+        "dot": "mt-1 h-1.5 w-1.5 rounded-full bg-[--color-primary]"
+      }
+    },
+    "Testimonials": {
+      "list": "mt-10 grid gap-6 md:grid-cols-2",
+      "item": "rounded-2xl border border-[--color-border] bg-[--color-surface] p-6"
+    }
+  },
+  "pages": {
+    "Home": {
+      "Navbar": {
+        "left": {
+          "logo": true,
+          "links": [
+            { "label": "Services", "href": "#services" },
+            { "label": "Professionals", "href": "/professionals" },
+            { "label": "How It Works", "href": "#how-it-works" },
+            { "label": "Pricing", "href": "#pricing" }
+          ]
+        },
+        "right": {
+          "cta": { "label": "Contact", "variant": "primary", "size": "sm" }
+        }
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "type": "HeroSub",
+          "props": {
+            "headline": "Exceptional home help, verified and ready.",
+            "copy": "Browse Colombia’s most trusted household professionals—rigorously vetted so you can choose with confidence.",
+            "image": "/images/hero-casaora.jpg",
+            "ctas": [
+              { "label": "Browse Professionals", "variant": "primary", "size": "lg" },
+              { "label": "Schedule a Consultation", "variant": "secondary", "size": "lg" }
+            ]
+          }
+        },
+        {
+          "id": "trust",
+          "type": "LogoCloud",
+          "props": {
+            "logos": [
+              { "alt": "El Tiempo", "src": "/logos/eltiempo.svg" },
+              { "alt": "Semana", "src": "/logos/semana.svg" },
+              { "alt": "La República", "src": "/logos/larepublica.svg" },
+              { "alt": "City Hall", "src": "/logos/cityhall.svg" },
+              { "alt": "Allianz", "src": "/logos/allianz.svg" },
+              { "alt": "Verified", "src": "/logos/verified.svg" }
+            ]
+          }
+        },
+        {
+          "id": "benefits",
+          "type": "BenefitsGrid",
+          "props": {
+            "title": "Smarter home care, zero friction",
+            "subtitle": "From discovery to ongoing support, everything works seamlessly.",
+            "items": [
+              { "icon": "shield", "title": "Rigorously Vetted", "desc": "Only the top 5% pass background checks and in-person interviews." },
+              { "icon": "sparkles", "title": "Curated Matches", "desc": "Shortlists tailored to your needs, language, and schedule." },
+              { "icon": "clock", "title": "Fast Placement", "desc": "From brief to shortlist in days, not weeks." },
+              { "icon": "life-buoy", "title": "Ongoing Support", "desc": "Trial days, onboarding guidance, and continued check-ins." }
+            ]
+          }
+        },
+        {
+          "id": "services",
+          "type": "ServicesTabs",
+          "props": {
+            "tabs": [
+              { "id": "housekeeping", "label": "Housekeeping", "active": true },
+              { "id": "childcare", "label": "Childcare" },
+              { "id": "eldercare", "label": "Elder Care" },
+              { "id": "relocation", "label": "Relocation" }
+            ],
+            "panels": [
+              {
+                "tabId": "housekeeping",
+                "title": "Housekeeping & Estate Care",
+                "desc": "Trusted stewards for daily upkeep, deep cleaning, pantry management, and guest readiness.",
+                "visual": "/images/service-housekeeping.png"
+              },
+              {
+                "tabId": "childcare",
+                "title": "Childcare & Family Support",
+                "desc": "Nannies and family assistants with verified references, CPR, and language skills.",
+                "visual": "/images/service-childcare.png"
+              },
+              {
+                "tabId": "eldercare",
+                "title": "Elder & Wellness Care",
+                "desc": "Companions and caregivers focused on dignity, nutrition, and medication routines.",
+                "visual": "/images/service-eldercare.png"
+              },
+              {
+                "tabId": "relocation",
+                "title": "Property & Relocation",
+                "desc": "Move-in setup, vendor coordination, utility management, and seasonal care.",
+                "visual": "/images/service-relocation.png"
+              }
+            ]
+          }
+        },
+        {
+          "id": "metrics",
+          "type": "Metrics",
+          "props": {
+            "headline": "Measurable results, every time",
+            "subhead": "Quality placements with real outcomes.",
+            "stats": [
+              { "value": "95%", "label": "client 3-month retention" },
+              { "value": "5 days", "label": "average time to shortlist" },
+              { "value": "4.9★", "label": "average professional rating" }
+            ]
+          }
+        },
+        {
+          "id": "how-it-works",
+          "type": "HowItWorks",
+          "props": {
+            "title": "Placement in three simple steps",
+            "steps": [
+              { "badge": "1 • Brief", "title": "Tell us what you need", "desc": "Home size, routines, languages, schedule, and priorities." },
+              { "badge": "2 • Curate", "title": "Receive a vetted shortlist", "desc": "We present 3–5 profiles that fit—watch video intros and review references." },
+              { "badge": "3 • Place", "title": "Trial and onboarding", "desc": "Trial day(s), feedback loop, paperwork, and support after start." }
+            ]
+          }
+        },
+        {
+          "id": "pricing",
+          "type": "Pricing",
+          "props": {
+            "billingToggle": ["Annually", "Monthly"],
+            "plans": [
+              {
+                "name": "Starter",
+                "priceMonthly": 19,
+                "features": [
+                  "Access to verified profiles",
+                  "Shortlist within 7 days",
+                  "Email support",
+                  "Basic contract templates"
+                ],
+                "cta": { "label": "Get Started", "variant": "secondary" }
+              },
+              {
+                "name": "Pro",
+                "highlight": true,
+                "priceMonthly": 39,
+                "features": [
+                  "Priority curation (3–5 days)",
+                  "Interview scheduling",
+                  "Trial-day coordination",
+                  "WhatsApp support"
+                ],
+                "cta": { "label": "Choose Pro", "variant": "primary" }
+              },
+              {
+                "name": "Enterprise",
+                "priceMonthly": 99,
+                "features": [
+                  "Unlimited placements",
+                  "Relocation & property setup",
+                  "Custom agreements",
+                  "Dedicated success manager"
+                ],
+                "cta": { "label": "Talk to Sales", "variant": "secondary" }
+              }
+            ]
+          }
+        },
+        {
+          "id": "testimonials",
+          "type": "Testimonials",
+          "props": {
+            "items": [
+              { "quote": "We found the perfect housekeeper within days—truly exceptional.", "author": "Private Client", "meta": "Rosales, Bogotá" },
+              { "quote": "Professional, vetted, and supported at every step.", "author": "Family of 4", "meta": "El Poblado, Medellín" }
+            ]
+          }
+        }
+      ],
+      "Footer": {
+        "columns": [
+          { "title": "Platform", "links": ["Professionals", "How It Works", "Pricing", "Help Center"] },
+          { "title": "Company", "links": ["About", "Careers", "Contact"] },
+          { "title": "Legal", "links": ["Privacy", "Terms", "Cookies"] },
+          { "title": "Get in touch", "custom": { "email": "hello@casaora.com", "phone": "+57 000 000 0000" } }
+        ],
+        "bottom": { "left": "© 2025 Casaora. All rights reserved.", "right": ["LinkedIn", "Instagram"] }
+      }
+    }
+  }
+}

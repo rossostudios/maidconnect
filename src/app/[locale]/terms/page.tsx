@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { SiteFooter } from "@/components/sections/site-footer";
-import { SiteHeader } from "@/components/sections/site-header";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { SiteHeader } from "@/components/sections/SiteHeader";
 
 export const metadata: Metadata = {
   title: "Terms of Service | Casaora",

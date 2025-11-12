@@ -44,7 +44,6 @@ import { Link } from "@/i18n/routing";
 import { AmaraIcon } from "./amara-icon";
 import { AmaraMessageActions } from "./amara-message-actions";
 import { getContextualQuickReplies, type QuickReply } from "./amara-quick-replies";
-import "./amara-animations.css";
 
 type AmaraChatInterfaceProps = {
   isOpen: boolean;

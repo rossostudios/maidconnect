@@ -3,8 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { ContactCards } from "@/components/contact/contact-cards";
 import { ContactFAQ } from "@/components/contact/contact-faq";
 import { ContactHero } from "@/components/contact/contact-hero";
-import { SiteFooter } from "@/components/sections/site-footer";
-import { SiteHeader } from "@/components/sections/site-header";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { SiteHeader } from "@/components/sections/SiteHeader";
 
 // Revalidate daily (86400 seconds) - contact page is mostly static
 

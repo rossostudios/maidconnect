@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Breadcrumbs } from "./breadcrumbs";
 
 const meta = {
-  title: "Navigation/Breadcrumbs",
+  title: "Navigatio./breadcrumbs",
   component: Breadcrumbs,
   parameters: {
     layout: "padded",

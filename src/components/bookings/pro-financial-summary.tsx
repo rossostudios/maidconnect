@@ -114,6 +114,15 @@ export function ProFinancialSummary({ bookings, connectAccountId, connectStatus 
           throw new Error(payload.error ?? "Unable to start onboarding");
         }
         const payload = (await response.json()) as { url: string };
+
+        // Validate that the URL is from Stripe's domain to prevent open redirect
+        const url = new URL(payload.url);
+        const allowedHosts = ["connect.stripe.com", "dashboard.stripe.com"];
+        if (!allowedHosts.includes(url.hostname)) {
+          throw new Error("Invalid redirect URL from server");
+        }
+
+        // snyk:ignore javascript/OR - URL is validated against allowlist of Stripe domains above (line 118-123)
         window.location.href = payload.url;
       } catch (error) {
         setOnboardingError(

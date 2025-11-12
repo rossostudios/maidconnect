@@ -309,6 +309,7 @@ export function ChangelogEditor({ initialData, changelogId, mode }: ChangelogEdi
           {showPreview ? (
             <div
               className="prose prose-lg max-w-none rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950"
+              // snyk:ignore javascript/DOMXSS - Admin content is sanitized via sanitizeRichContent() from @/lib/utils/sanitize
               dangerouslySetInnerHTML={{ __html: sanitizeRichContent(formData.content) }}
             />
           ) : (

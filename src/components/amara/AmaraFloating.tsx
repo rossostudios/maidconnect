@@ -1,0 +1,96 @@
+"use client";
+
+/**
+ * Amara Floating Button
+ *
+ * A floating action button that opens the Amara chat interface.
+ * Positioned in the bottom-right corner with onboarding tooltip for first-time users.
+ */
+
+import dynamic from "next/dynamic";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { isFeatureEnabled } from "@/lib/featureFlags";
+import { cn } from "@/lib/utils";
+import { AmaraIcon } from "./AmaraIcon";
+import { AmaraOnboardingTooltip } from "./AmaraOnboarding";
+
+// Dynamically import the heavy chat interface component
+const AmaraChatInterface = dynamic(
+  () => import("./AmaraChat").then((mod) => mod.AmaraChatInterface),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/50">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-stone-200 border-t-transparent" />
+      </div>
+    ),
+  }
+);
+
+type AmaraFloatingButtonProps = {
+  className?: string;
+  locale?: string;
+};
+
+export function AmaraFloatingButton({ className, locale }: AmaraFloatingButtonProps) {
+  const t = useTranslations("amara");
+  const [isOpen, setIsOpen] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Check feature flag
+  const isAmaraEnabled = isFeatureEnabled("show_amara_assistant");
+
+  useEffect(() => {
+    // Check if onboarding has been dismissed
+    const dismissed = localStorage.getItem("amara_onboarding_dismissed");
+    if (!dismissed) {
+      setShowOnboarding(true);
+    }
+  }, []);
+
+  const handleOnboardingDismiss = () => {
+    setShowOnboarding(false);
+  };
+
+  // Don't render if feature flag is disabled
+  if (!isAmaraEnabled) {
+    return null;
+  }
+
+  return (
+    <>
+      {/* Onboarding Tooltip */}
+      {!isOpen && showOnboarding && <AmaraOnboardingTooltip onDismiss={handleOnboardingDismiss} />}
+
+      {/* Floating Button with Pulse Ring */}
+      {!isOpen && (
+        <div className="fixed right-4 bottom-4 z-50 sm:right-6 sm:bottom-6">
+          {/* Pulse Ring Animation (only when onboarding is visible) */}
+          {showOnboarding && (
+            <div className="amara-pulse-ring absolute inset-0 rounded-full bg-stone-900" />
+          )}
+
+          {/* Button */}
+          <button
+            aria-label={t("openChat")}
+            className={cn(
+              "relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-stone-900 text-stone-50 shadow-lg transition-all hover:bg-stone-800 hover:shadow-xl active:scale-95 sm:h-16 sm:w-16",
+              className
+            )}
+            onClick={() => {
+              setIsOpen(true);
+              setShowOnboarding(false);
+            }}
+            type="button"
+          >
+            <AmaraIcon className="text-stone-50" size={32} />
+          </button>
+        </div>
+      )}
+
+      {/* Chat Interface */}
+      <AmaraChatInterface isOpen={isOpen} locale={locale} onClose={() => setIsOpen(false)} />
+    </>
+  );
+}

@@ -9,8 +9,8 @@ import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { RoadmapBoard } from "@/components/roadmap/roadmap-board";
-import { SiteFooter } from "@/components/sections/site-footer";
-import { SiteHeader } from "@/components/sections/site-header";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { SiteHeader } from "@/components/sections/SiteHeader";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("roadmap");

@@ -10,8 +10,8 @@ import type {
   ProfessionalBookingSummary,
   ProfessionalReviewSummary,
 } from "@/components/professionals/types";
-import { SiteFooter } from "@/components/sections/site-footer";
-import { SiteHeader } from "@/components/sections/site-header";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { SiteHeader } from "@/components/sections/SiteHeader";
 import { getSession } from "@/lib/auth";
 import {
   computeAvailableToday,

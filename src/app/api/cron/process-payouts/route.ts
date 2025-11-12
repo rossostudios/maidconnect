@@ -35,7 +35,11 @@ export async function GET(request: Request) {
     }
 
     // Call the internal payout processing endpoint
-    const processUrl = new URL("/api/admin/payouts/process", request.url).toString();
+    // Use VERCEL_URL or fallback to localhost for local development
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000";
+    const processUrl = `${baseUrl}/api/admin/payouts/process`;
 
     const response = await fetch(processUrl, {
       method: "POST",

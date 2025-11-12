@@ -14,6 +14,7 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import { CookieConsent } from "@/components/legal/cookie-consent";
 import { FeedbackProvider } from "@/components/providers/feedback-provider";
 import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
+import { PostHogProvider } from "@/components/providers/posthog-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
 import { DraftModeIndicator } from "@/components/sanity/draft-mode-indicator";
@@ -94,22 +95,24 @@ export default async function RootLayout({
         <WebVitalsReporter />
         <ErrorBoundary>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            <FeedbackProvider>
-              <UnifiedCommandPaletteWrapper>
-                <ChangelogBanner />
-                <Suspense fallback={<div>Loading...</div>}>
-                  <SupabaseProvider>
-                    <QueryProvider>
-                      <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
-                    </QueryProvider>
-                  </SupabaseProvider>
-                </Suspense>
-                <Suspense fallback={null}>
-                  <AmaraFloatingButton locale={locale} />
-                </Suspense>
-                <CookieConsent />
-              </UnifiedCommandPaletteWrapper>
-            </FeedbackProvider>
+            <PostHogProvider>
+              <FeedbackProvider>
+                <UnifiedCommandPaletteWrapper>
+                  <ChangelogBanner />
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <SupabaseProvider>
+                      <QueryProvider>
+                        <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
+                      </QueryProvider>
+                    </SupabaseProvider>
+                  </Suspense>
+                  <Suspense fallback={null}>
+                    <AmaraFloatingButton locale={locale} />
+                  </Suspense>
+                  <CookieConsent />
+                </UnifiedCommandPaletteWrapper>
+              </FeedbackProvider>
+            </PostHogProvider>
           </NextIntlClientProvider>
         </ErrorBoundary>
         {isDraftMode && <DraftModeIndicator />}

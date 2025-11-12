@@ -470,29 +470,29 @@ export function ExecutiveDashboard() {
                     <AreaChart data={metrics.revenueData}>
                       <defs>
                         <linearGradient id="colorRevenue" x1="0" x2="0" y1="0" y2="1">
-                          <stop offset="5%" stopColor="slate-600" stopOpacity={0.1} />
-                          <stop offset="95%" stopColor="slate-600" stopOpacity={0} />
+                          <stop offset="5%" stopColor="#57534E" stopOpacity={0.1} />
+                          <stop offset="95%" stopColor="#57534E" stopOpacity={0} />
                         </linearGradient>
                       </defs>
-                      <CartesianGrid stroke="slate-200" strokeDasharray="3 3" vertical={false} />
+                      <CartesianGrid stroke="#E7E5E4" strokeDasharray="3 3" vertical={false} />
                       <XAxis
                         axisLine={false}
                         dataKey="date"
                         fontSize={12}
-                        stroke="slate-500"
+                        stroke="#78716C"
                         tickLine={false}
                       />
                       <YAxis
                         axisLine={false}
                         fontSize={12}
-                        stroke="slate-500"
+                        stroke="#78716C"
                         tickFormatter={(value) => `$${value}`}
                         tickLine={false}
                       />
                       <Area
                         dataKey="revenue"
                         fill="url(#colorRevenue)"
-                        stroke="slate-600"
+                        stroke="#57534E"
                         strokeWidth={2}
                         type="monotone"
                       />
@@ -580,25 +580,25 @@ export function ExecutiveDashboard() {
                 <div className="h-48">
                   <ResponsiveContainer height="100%" width="100%">
                     <LineChart data={metrics.utilizationData}>
-                      <CartesianGrid stroke="slate-200" strokeDasharray="3 3" vertical={false} />
+                      <CartesianGrid stroke="#E7E5E4" strokeDasharray="3 3" vertical={false} />
                       <XAxis
                         axisLine={false}
                         dataKey="date"
                         fontSize={12}
-                        stroke="slate-500"
+                        stroke="#78716C"
                         tickLine={false}
                       />
                       <YAxis
                         axisLine={false}
                         fontSize={12}
-                        stroke="slate-500"
+                        stroke="#78716C"
                         tickFormatter={(value) => `${value}%`}
                         tickLine={false}
                       />
                       <Line
                         dataKey="rate"
                         dot={false}
-                        stroke="slate-900"
+                        stroke="#1C1917"
                         strokeWidth={2}
                         type="monotone"
                       />
@@ -631,11 +631,11 @@ export function ExecutiveDashboard() {
                 <div className="h-48">
                   <ResponsiveContainer height="100%" width="100%">
                     <BarChart data={metrics.bookingFunnelData} layout="vertical">
-                      <CartesianGrid horizontal={false} stroke="slate-200" strokeDasharray="3 3" />
+                      <CartesianGrid horizontal={false} stroke="#E7E5E4" strokeDasharray="3 3" />
                       <XAxis
                         axisLine={false}
                         fontSize={12}
-                        stroke="slate-500"
+                        stroke="#78716C"
                         tickLine={false}
                         type="number"
                       />
@@ -643,11 +643,11 @@ export function ExecutiveDashboard() {
                         axisLine={false}
                         dataKey="stage"
                         fontSize={12}
-                        stroke="slate-500"
+                        stroke="#78716C"
                         tickLine={false}
                         type="category"
                       />
-                      <Bar dataKey="count" fill="slate-600" radius={[0, 8, 8, 0]} />
+                      <Bar dataKey="count" fill="#57534E" radius={[0, 8, 8, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>

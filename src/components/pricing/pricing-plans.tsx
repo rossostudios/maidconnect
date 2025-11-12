@@ -5,6 +5,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { sanitizeURL } from "@/lib/sanitize";
 import { cn } from "@/lib/utils";
 import type { PricingPlan } from "@/types/pricing";
 
@@ -180,7 +181,8 @@ export function PricingPlans() {
                       ? "bg-slate-900 text-white hover:bg-slate-800"
                       : "border-2 border-slate-300 text-slate-900 hover:border-slate-900"
                   )}
-                  href={plan.cta_url || "/auth/sign-up"}
+                  // snyk:ignore javascript/DOMXSS - URLs are sanitized via sanitizeURL() from @/lib/utils/sanitize
+                  href={sanitizeURL(plan.cta_url || "/auth/sign-up")}
                 >
                   {plan.cta_text}
                 </a>

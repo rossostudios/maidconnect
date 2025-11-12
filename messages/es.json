@@ -1041,6 +1041,11 @@
       "cities": "Disponible en 6 ciudades",
       "rating": "4.9★ calificación promedio"
     },
+    "trustLabels": {
+      "verified": "Talento",
+      "cities": "Cobertura",
+      "rating": "Reputación"
+    },
     "matchWizard": "Encuentre Mi Pareja Perfecta",
     "browseAll": "Ver Todos los Profesionales",
     "findProfessional": "Encuentre Mi Empleada Perfecta",
@@ -1048,6 +1053,43 @@
     "howItWorks": "Cómo funciona",
     "becomeProfessional": "Ser profesional",
     "learnMore": "Más información"
+  },
+  "marketing": {
+    "highlights": {
+      "tagline": "EXPERIENCIA A MEDIDA",
+      "title": "Un enfoque minimalista para el cuidado doméstico",
+      "subtitle": "Concierge boutique que planifica cada visita y confirma cada detalle para que todo se sienta sin esfuerzo.",
+      "items": {
+        "curated": {
+          "title": "Seleccionado para la calma",
+          "description": "Solo el 5% superior de profesionales pasa entrevistas, referencias y verificaciones de antecedentes."
+        },
+        "rhythm": {
+          "title": "Ritmo confiable",
+          "description": "Agendamiento inteligente, recordatorios automáticos y notas que preservan la memoria del hogar."
+        },
+        "support": {
+          "title": "Soporte tipo concierge",
+          "description": "Anfitriones dedicados responden en minutos, coordinan cambios urgentes y anticipan tus necesidades."
+        }
+      }
+    },
+    "stats": {
+      "items": {
+        "homes": {
+          "value": "2.400+",
+          "label": "Hogares atendidos"
+        },
+        "cities": {
+          "value": "12",
+          "label": "Ciudades atendidas"
+        },
+        "rating": {
+          "value": "4.9★",
+          "label": "Satisfacción promedio"
+        }
+      }
+    }
   },
   "search": {
     "where": "DÓNDE",
@@ -1203,6 +1245,7 @@
     "terms": "Términos",
     "privacy": "Privacidad",
     "cookies": "Cookies",
+    "certifications": "SOC 2 Tipo II, GDPR, ISO27001/ISO27017",
     "allRightsReserved": "Todos los derechos reservados",
     "remoteCompany": "Trabajamos de Forma Remota"
   },

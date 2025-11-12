@@ -5,6 +5,7 @@ import { useRouter } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 const FILENAME_REGEX = /filename="(.+)"/;
+const SAFE_FILENAME_REGEX = /^[a-zA-Z0-9_\-. ]+$/;
 
 type DeletionCheck = {
   canDelete: boolean;
@@ -12,15 +13,30 @@ type DeletionCheck = {
   message?: string;
 };
 
+function sanitizeFilename(filename: string): string {
+  // Remove any path traversal attempts
+  const baseName = filename.split("/").pop()?.split("\\").pop() || filename;
+
+  // Only allow safe characters (alphanumeric, underscore, dash, dot, space)
+  if (SAFE_FILENAME_REGEX.test(baseName)) {
+    return baseName;
+  }
+
+  // If filename contains unsafe characters, use default
+  return `casaora_data_export_${Date.now()}.json`;
+}
+
 function extractFilenameFromResponse(response: Response): string {
   const contentDisposition = response.headers.get("Content-Disposition");
   const filenameMatch = contentDisposition?.match(FILENAME_REGEX);
-  return filenameMatch?.[1] || `casaora_data_export_${Date.now()}.json`;
+  const rawFilename = filenameMatch?.[1] || `casaora_data_export_${Date.now()}.json`;
+  return sanitizeFilename(rawFilename);
 }
 
 function downloadBlob(blob: Blob, filename: string): void {
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement("a");
+  // snyk:ignore javascript/DOMXSS - Filename is sanitized via sanitizeFilename() and blob is from same-origin API
   a.href = url;
   a.download = filename;
   document.body.appendChild(a);

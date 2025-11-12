@@ -27,6 +27,8 @@ pnpm-lock.yaml
 
 # production
 /build
+/storybook-static
+performance-info.json
 
 # misc
 .DS_Store

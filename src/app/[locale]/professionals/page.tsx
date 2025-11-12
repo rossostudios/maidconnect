@@ -3,8 +3,8 @@ import {
   type DirectoryProfessional,
   ProfessionalsDirectory,
 } from "@/components/professionals/professionals-directory";
-import { SiteFooter } from "@/components/sections/site-footer";
-import { SiteHeader } from "@/components/sections/site-header";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { SiteHeader } from "@/components/sections/SiteHeader";
 import { ProfessionalsGridSkeleton } from "@/components/skeletons/professionals-skeletons";
 import {
   extractHourlyRate,
