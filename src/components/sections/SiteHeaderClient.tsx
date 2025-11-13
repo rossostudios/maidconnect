@@ -14,34 +14,20 @@ type Props = {
 
 export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut }: Props) {
   const t = useTranslations("navigation");
-  const tp = useTranslations("product");
 
-  // Navigation links for hamburger menu (all screen sizes)
-  const menuLinks = [
-    { href: "/professionals", label: t("professionals") },
-    { href: "/pricing", label: t("pricing") },
-    { href: "/contact", label: "Contact" },
-    // Product features
-    { href: "/product/booking-platform", label: tp("bookingPlatform.title") },
-    { href: "/product/professional-profiles", label: tp("professionalProfiles.title") },
-    { href: "/product/secure-messaging", label: tp("secureMessaging.title") },
-    { href: "/product/payment-processing", label: tp("paymentProcessing.title") },
-    { href: "/product/reviews-ratings", label: tp("reviewsRatings.title") },
-    { href: "/product/admin-dashboard", label: tp("adminDashboard.title") },
-  ];
-
-  const mainLinks = [
+  // Navigation links (used for both desktop and mobile)
+  const navLinks = [
     { href: "/professionals", label: t("professionals") },
     { href: "/how-it-works", label: "How It Works" },
     { href: "/pricing", label: t("pricing") },
-    { href: "/contact", label: "Contact" },
+    { href: "/pros", label: "For Professionals" },
   ];
 
   return (
     <>
       {/* Desktop Navigation */}
       <nav className="hidden items-center gap-8 lg:flex">
-        {mainLinks.map((link) => (
+        {navLinks.map((link) => (
           <Link
             className="font-medium text-sm transition-colors hover:text-neutral-700"
             href={link.href}
@@ -89,7 +75,7 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut }: 
         <MobileMenu
           dashboardHref={dashboardHref}
           isAuthenticated={isAuthenticated}
-          links={menuLinks}
+          links={navLinks}
           onSignOut={onSignOut}
         />
       </div>

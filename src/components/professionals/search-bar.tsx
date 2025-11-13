@@ -184,7 +184,7 @@ export function SearchBar({
           aria-controls="search-suggestions"
           aria-expanded={isOpen}
           autoComplete="off"
-          className="w-full rounded-full border border-[neutral-200] bg-[neutral-50] py-4 pr-14 pl-14 text-[neutral-900] text-base shadow-[neutral-900]/5 shadow-inner outline-none transition focus:border-[neutral-900]"
+          className="w-full rounded-full border border-[neutral-200] bg-[neutral-50] py-4 pr-14 pl-14 text-[neutral-900] text-base shadow-[neutral-900]/5 shadow-inner outline-none transition focus:border-orange-500 focus:ring-2 focus:ring-orange-500/25"
           onChange={(e) => handleInputChange(e.target.value)}
           onFocus={() => {
             if (suggestions.length > 0) {

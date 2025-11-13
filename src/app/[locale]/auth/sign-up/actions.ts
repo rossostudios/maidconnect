@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import type { AppRole } from "@/lib/auth";
 import { AUTH_ROUTES, getDashboardRouteForRole } from "@/lib/auth";
+import { trackSignupServer } from "@/lib/integrations/posthog/server";
 import { checkRateLimit, RateLimiters } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import type { SignUpActionState } from "./types";
@@ -209,6 +210,14 @@ export async function signUpAction(
   }
 
   if (data.session?.user) {
+    // Track successful signup
+    await trackSignupServer({
+      userId: data.session.user.id,
+      method: "email",
+      role: signUpData.role!,
+      locale: signUpData.locale,
+    });
+
     return redirect(getDashboardRouteForRole(signUpData.role!));
   }
 

@@ -17,6 +17,7 @@ import {
   validateAcceptEligibility,
 } from "@/lib/bookings/booking-workflow-service";
 import { InvalidBookingStatusError, ValidationError } from "@/lib/errors";
+import { trackBookingConfirmedServer } from "@/lib/integrations/posthog/server";
 
 const acceptBookingSchema = z.object({
   bookingId: z.string().uuid("Invalid booking ID format"),
@@ -57,6 +58,14 @@ export const POST = withProfessional(async ({ user, supabase }, request: Request
   if (customerEmail) {
     await sendAcceptanceNotifications(booking, professionalName, customerName, customerEmail);
   }
+
+  // Track booking confirmation
+  await trackBookingConfirmedServer(booking.customer_id, {
+    bookingId: booking.id,
+    professionalId: booking.professional_id,
+    totalAmount: booking.amount_authorized ?? 0,
+    currency: booking.currency ?? "COP",
+  });
 
   return ok(
     {

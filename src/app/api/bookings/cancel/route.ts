@@ -20,6 +20,7 @@ import {
 } from "@/lib/bookings/cancellation-service";
 import { calculateRefundAmount } from "@/lib/cancellation-policy";
 import { BusinessRuleError, ValidationError } from "@/lib/errors";
+import { trackBookingCancelledServer } from "@/lib/integrations/posthog/server";
 
 const cancelBookingSchema = z.object({
   bookingId: z.string().uuid("Invalid booking ID format"),
@@ -87,6 +88,14 @@ export const POST = withCustomer(async ({ user, supabase }, request: Request) =>
   // Send cancellation notifications using service
   const customerName = user.user_metadata?.full_name || "Customer";
   await sendCancellationNotifications(supabase, booking, customerName, reason);
+
+  // Track booking cancellation
+  await trackBookingCancelledServer(user.id, {
+    bookingId: booking.id,
+    cancelledBy: "customer",
+    reason,
+    refundAmount,
+  });
 
   return ok(
     {

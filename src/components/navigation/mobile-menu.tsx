@@ -2,7 +2,7 @@
 
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@/i18n/routing";
 import { LanguageSwitcher } from "./language-switcher";
 
@@ -26,10 +26,36 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
+  // Handle Escape key to close menu
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && isOpen) {
+        closeMenu();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [isOpen]);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <>
       {/* Hamburger Button */}
       <button
+        aria-controls="mobile-menu"
+        aria-expanded={isOpen}
         aria-label={isOpen ? "Close menu" : "Open menu"}
         className="flex h-11 w-11 items-center justify-center rounded-lg text-neutral-900 transition hover:bg-neutral-100 active:scale-95"
         onClick={toggleMenu}
@@ -41,17 +67,27 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
       {/* Backdrop */}
       {isOpen && (
         <div
-          aria-hidden="true"
           className="fixed inset-0 z-[60] bg-neutral-900/40 backdrop-blur-sm"
           onClick={closeMenu}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              closeMenu();
+            }
+          }}
+          role="button"
+          tabIndex={0}
         />
       )}
 
       {/* Slide-in Menu */}
       <div
+        aria-label="Mobile navigation menu"
+        aria-modal="true"
         className={`fixed top-0 right-0 z-[70] h-full w-[320px] transform border-neutral-900 border-l-4 bg-white text-neutral-900 shadow-2xl transition-transform duration-300 ease-in-out ${
           isOpen ? "tranneutral-x-0" : "tranneutral-x-full"
         }`}
+        id="mobile-menu"
+        role="dialog"
       >
         {/* Header */}
         <div className="flex items-center justify-between border-neutral-200 border-b-2 bg-white p-5">

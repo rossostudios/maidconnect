@@ -19,6 +19,7 @@ import {
   sendNewBookingNotification,
 } from "@/lib/bookings/booking-creation-service";
 import { ValidationError } from "@/lib/errors";
+import { trackBookingSubmittedServer } from "@/lib/integrations/posthog/server";
 import { createBookingSchema } from "@/lib/validations/booking";
 
 const handler = withAuth(async ({ user, supabase }, request: Request) => {
@@ -111,6 +112,16 @@ const handler = withAuth(async ({ user, supabase }, request: Request) => {
     user.id,
     scheduledStart ?? null
   );
+
+  // Track booking submission
+  await trackBookingSubmittedServer(user.id, {
+    bookingId: insertedBooking.id,
+    professionalId,
+    serviceType: serviceName ?? "unknown",
+    totalAmount: amount,
+    currency,
+    duration: durationMinutes ?? 0,
+  });
 
   return ok({
     bookingId: insertedBooking.id,

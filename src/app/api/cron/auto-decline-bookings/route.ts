@@ -4,6 +4,49 @@ import { formatDate, formatTime } from "@/lib/format";
 import { stripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
+// Better Stack structured logging
+const logger = {
+  info: (message: string, metadata?: Record<string, any>) => {
+    console.log(
+      JSON.stringify({
+        level: "info",
+        service: "casaora",
+        cron: "auto-decline",
+        message,
+        ...metadata,
+        timestamp: new Date().toISOString(),
+      })
+    );
+  },
+  error: (message: string, metadata?: Record<string, any>) => {
+    console.error(
+      JSON.stringify({
+        level: "error",
+        service: "casaora",
+        cron: "auto-decline",
+        message,
+        ...metadata,
+        timestamp: new Date().toISOString(),
+      })
+    );
+  },
+  warn: (message: string, metadata?: Record<string, any>) => {
+    console.warn(
+      JSON.stringify({
+        level: "warn",
+        service: "casaora",
+        cron: "auto-decline",
+        message,
+        ...metadata,
+        timestamp: new Date().toISOString(),
+      })
+    );
+  },
+};
+
+// Batch size for processing (prevent timeouts)
+const BATCH_SIZE = 100;
+
 // Helper: Verify cron authorization
 function verifyCronAuth(request: Request): boolean {
   const authHeader = request.headers.get("authorization");
@@ -30,18 +73,29 @@ async function cancelStripePayment(paymentIntentId: string): Promise<void> {
   }
 }
 
-// Helper: Update booking to declined status
+// Helper: Update booking to declined status with idempotency tracking
 async function declineBooking(supabase: any, bookingId: string): Promise<boolean> {
+  const now = new Date().toISOString();
   const { error: updateError } = await supabase
     .from("bookings")
     .update({
       status: "declined",
       stripe_payment_status: "canceled",
-      updated_at: new Date().toISOString(),
+      declined_reason: "professional_no_response",
+      auto_declined_at: now,
+      processed_by_cron: true,
+      updated_at: now,
     })
-    .eq("id", bookingId);
+    .eq("id", bookingId)
+    .eq("status", "authorized"); // Double-check status to prevent race conditions
 
-  return !updateError;
+  if (updateError) {
+    logger.error("Failed to update booking status", { bookingId, error: updateError.message });
+    return false;
+  }
+
+  logger.info("Booking auto-declined successfully", { bookingId });
+  return true;
 }
 
 // Helper: Send decline notification email
@@ -120,18 +174,29 @@ async function processExpiredBooking(
  * Auto-decline bookings that have been in "authorized" status for more than 24 hours
  * This endpoint should be called by Vercel Cron
  *
+ * Features:
+ * - Idempotency: Uses declined_reason, auto_declined_at, processed_by_cron columns
+ * - Batch processing: Processes up to 100 bookings per run to prevent timeouts
+ * - Structured logging: Logs to Better Stack with service/cron tags
+ * - Race condition protection: Double-checks status before updating
+ *
  * GET /api/cron/auto-decline-bookings
  */
 export async function GET(request: Request) {
+  const startTime = Date.now();
+  logger.info("Auto-decline cron started");
+
   try {
     // Verify cron authorization
     if (!verifyCronAuth(request)) {
+      logger.warn("Unauthorized cron request");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const supabase = await createSupabaseServerClient();
 
     // Find all bookings that are "authorized" and older than 24 hours
+    // Only process bookings NOT already processed by cron (idempotency)
     const twentyFourHoursAgo = new Date();
     twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() - 24);
 
@@ -150,19 +215,25 @@ export async function GET(request: Request) {
         updated_at
       `)
       .eq("status", "authorized")
-      .lt("updated_at", twentyFourHoursAgo.toISOString());
+      .is("processed_by_cron", null) // Only process bookings not yet processed
+      .lt("updated_at", twentyFourHoursAgo.toISOString())
+      .limit(BATCH_SIZE); // Process in batches to prevent timeouts
 
     if (fetchError) {
+      logger.error("Failed to fetch expired bookings", { error: fetchError.message });
       return NextResponse.json({ error: "Failed to fetch bookings" }, { status: 500 });
     }
 
     if (!expiredBookings || expiredBookings.length === 0) {
+      logger.info("No expired bookings to decline");
       return NextResponse.json({
         success: true,
         message: "No expired bookings to decline",
         declined: 0,
       });
     }
+
+    logger.info("Found expired bookings", { count: expiredBookings.length });
 
     const results = {
       declined: 0,
@@ -182,14 +253,28 @@ export async function GET(request: Request) {
       }
     }
 
+    const duration = Date.now() - startTime;
+    logger.info("Auto-decline cron completed", {
+      duration: `${duration}ms`,
+      declined: results.declined,
+      failed: results.failed,
+    });
+
     return NextResponse.json({
       success: true,
       message: `Auto-declined ${results.declined} expired booking(s)`,
       declined: results.declined,
       failed: results.failed,
       errors: results.errors.length > 0 ? results.errors : undefined,
+      duration: `${duration}ms`,
     });
   } catch (error) {
+    const duration = Date.now() - startTime;
+    logger.error("Auto-decline cron failed", {
+      error: error instanceof Error ? error.message : "Unknown error",
+      duration: `${duration}ms`,
+    });
+
     return NextResponse.json(
       {
         error: "Internal server error",

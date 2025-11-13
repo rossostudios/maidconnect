@@ -22,6 +22,7 @@ export function PricingCalculator() {
   const [hours, setHours] = useState(4);
   const [addInsurance, setAddInsurance] = useState(true);
   const [serviceType, setServiceType] = useState<"marketplace" | "concierge">("marketplace");
+  const [currency, setCurrency] = useState<"COP" | "USD">("COP");
 
   // Calculations
   const baseRate = SERVICE_BASE_RATES[serviceCategory];
@@ -31,24 +32,75 @@ export function PricingCalculator() {
   const insuranceFee = addInsurance ? 5000 : 0;
   const totalCost = serviceTotal + platformFee + insuranceFee;
 
+  // Currency conversion (rough rate: 1 USD ≈ 4000 COP)
+  const COP_TO_USD_RATE = 4000;
+  const formatPrice = (amount: number) => {
+    if (currency === "USD") {
+      return formatCurrency(amount / COP_TO_USD_RATE, { currency: "USD" });
+    }
+    return formatCurrency(amount, { currency: "COP" });
+  };
+
   return (
     <Card className="mx-auto max-w-2xl border-2 border-neutral-200 bg-white shadow-lg">
       <CardContent className="p-8">
         <h3 className="mb-baseline-1 text-center font-[family-name:var(--font-family-satoshi)] font-bold text-[24px] text-neutral-900 leading-[24px]">
           {t("title")}
         </h3>
-        <p className="mb-baseline-1 text-center text-[14px] text-neutral-700 leading-[24px]">
+        <p className="mb-2 text-center text-[14px] text-neutral-700 leading-[24px]">
           {t("subtitle")}
         </p>
+
+        {/* Currency Toggle */}
+        <div className="mb-baseline-1 flex justify-center">
+          <div
+            aria-label="Currency selection"
+            className="inline-flex rounded-lg border border-neutral-200 bg-neutral-50 p-1"
+            role="group"
+          >
+            <button
+              aria-pressed={currency === "COP"}
+              className={`rounded px-4 py-1.5 font-medium text-xs transition-all ${
+                currency === "COP"
+                  ? "bg-white text-neutral-900 shadow-sm"
+                  : "text-neutral-600 hover:text-neutral-900"
+              }`}
+              onClick={() => setCurrency("COP")}
+              type="button"
+            >
+              COP (₱)
+            </button>
+            <button
+              aria-pressed={currency === "USD"}
+              className={`rounded px-4 py-1.5 font-medium text-xs transition-all ${
+                currency === "USD"
+                  ? "bg-white text-neutral-900 shadow-sm"
+                  : "text-neutral-600 hover:text-neutral-900"
+              }`}
+              onClick={() => setCurrency("USD")}
+              type="button"
+            >
+              USD ($)
+            </button>
+          </div>
+        </div>
 
         <div className="space-y-6">
           {/* Service Type */}
           <div>
-            <label className="mb-2 block font-semibold text-[14px] text-neutral-900 leading-[24px]">
+            <label
+              className="mb-2 block font-semibold text-[14px] text-neutral-900 leading-[24px]"
+              id="service-type-label"
+            >
               {t("serviceType")}
             </label>
-            <div className="grid grid-cols-2 gap-3">
+            <div
+              aria-labelledby="service-type-label"
+              className="grid grid-cols-2 gap-3"
+              role="group"
+            >
               <button
+                aria-pressed={serviceType === "marketplace"}
                 className={`rounded-lg border-2 px-4 py-3 font-medium text-sm transition-all ${
                   serviceType === "marketplace"
                     ? "border-orange-500 bg-orange-50 text-orange-600"
@@ -60,6 +112,7 @@ export function PricingCalculator() {
                 {t("marketplace")} (15%)
               </button>
               <button
+                aria-pressed={serviceType === "concierge"}
                 className={`rounded-lg border-2 px-4 py-3 font-medium text-sm transition-all ${
                   serviceType === "concierge"
                     ? "border-orange-500 bg-orange-50 text-orange-600"
@@ -104,6 +157,10 @@ export function PricingCalculator() {
               {t("hours")} ({hours}h)
             </label>
             <input
+              aria-valuemax={8}
+              aria-valuemin={2}
+              aria-valuenow={hours}
+              aria-valuetext={`${hours} hours`}
               className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 accent-orange-500"
               id="hours"
               max="8"
@@ -122,14 +179,23 @@ export function PricingCalculator() {
           {/* Insurance */}
           <div className="flex items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 p-4">
             <div>
-              <div className="font-semibold text-neutral-900 text-sm">{t("addInsurance")}</div>
-              <div className="text-neutral-600 text-xs">{t("insuranceDescription")}</div>
+              <div className="font-semibold text-neutral-900 text-sm" id="insurance-label">
+                {t("addInsurance")}
+              </div>
+              <div className="text-neutral-600 text-xs" id="insurance-description">
+                {t("insuranceDescription")}
+              </div>
             </div>
             <label className="relative inline-flex cursor-pointer items-center">
               <input
+                aria-checked={addInsurance}
+                aria-describedby="insurance-description"
+                aria-labelledby="insurance-label"
                 checked={addInsurance}
                 className="peer sr-only"
+                id="insurance-toggle"
                 onChange={(e) => setAddInsurance(e.target.checked)}
+                role="switch"
                 type="checkbox"
               />
               <div className="peer rtl:peer-checked:after:-translate-x-full h-6 w-11 rounded-full bg-neutral-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-neutral-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-orange-500 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-orange-500/25" />
@@ -137,26 +203,57 @@ export function PricingCalculator() {
           </div>
 
           {/* Price Breakdown */}
-          <div className="space-y-3 border-neutral-200 border-t-2 pt-6">
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            className="space-y-3 border-neutral-200 border-t-2 pt-6"
+          >
             <div className="flex justify-between text-[16px] leading-[24px]">
-              <span className="text-neutral-700">{t("serviceBase")}</span>
-              <span className="font-semibold text-neutral-900">
-                {formatCurrency(serviceTotal, { currency: "COP" })}
+              <span className="text-neutral-700">
+                <span id="service-base-label">{t("serviceBase")}</span>
+                <span className="ml-1 text-neutral-600 text-xs" id="service-base-desc">
+                  ({hours}h × {formatPrice(baseRate)}/h)
+                </span>
+              </span>
+              <span
+                aria-describedby="service-base-desc"
+                aria-labelledby="service-base-label"
+                className="font-semibold text-neutral-900"
+              >
+                {formatPrice(serviceTotal)}
               </span>
             </div>
             <div className="flex justify-between text-[16px] leading-[24px]">
               <span className="text-neutral-700">
-                {t("platformFee")} ({serviceType === "marketplace" ? "15%" : "25%"})
+                <span id="platform-fee-label">
+                  {t("platformFee")} ({serviceType === "marketplace" ? "15%" : "25%"})
+                </span>
+                <span className="ml-1 text-neutral-600 text-xs" id="platform-fee-desc">
+                  (Casaora service)
+                </span>
               </span>
-              <span className="font-semibold text-neutral-900">
-                {formatCurrency(platformFee, { currency: "COP" })}
+              <span
+                aria-describedby="platform-fee-desc"
+                aria-labelledby="platform-fee-label"
+                className="font-semibold text-neutral-900"
+              >
+                {formatPrice(platformFee)}
               </span>
             </div>
             {addInsurance && (
               <div className="flex justify-between text-[16px] leading-[24px]">
-                <span className="text-neutral-700">{t("insurance")}</span>
-                <span className="font-semibold text-neutral-900">
-                  {formatCurrency(insuranceFee, { currency: "COP" })}
+                <span className="text-neutral-700">
+                  <span id="insurance-fee-label">{t("insurance")}</span>
+                  <span className="ml-1 text-neutral-600 text-xs" id="insurance-fee-desc">
+                    (Protection coverage)
+                  </span>
+                </span>
+                <span
+                  aria-describedby="insurance-fee-desc"
+                  aria-labelledby="insurance-fee-label"
+                  className="font-semibold text-neutral-900"
+                >
+                  {formatPrice(insuranceFee)}
                 </span>
               </div>
             )}
@@ -165,12 +262,8 @@ export function PricingCalculator() {
                 {t("total")}
               </span>
               <span className="font-[family-name:var(--font-family-satoshi)] font-bold text-[28px] text-orange-600 leading-[24px]">
-                {formatCurrency(totalCost, { currency: "COP" })}
+                {formatPrice(totalCost)}
               </span>
-            </div>
-            <div className="text-center text-neutral-600 text-xs">
-              ≈ {formatCurrency(totalCost / 4000, { currency: "USD" })}{" "}
-              {/* Rough COP to USD conversion */}
             </div>
           </div>
 
@@ -181,7 +274,7 @@ export function PricingCalculator() {
                 {t("professionalReceives")}
               </span>
               <span className="font-[family-name:var(--font-family-satoshi)] font-bold text-[20px] text-orange-600 leading-[24px]">
-                {formatCurrency(serviceTotal, { currency: "COP" })}
+                {formatPrice(serviceTotal)}
               </span>
             </div>
             <p className="mt-1 text-orange-700 text-xs">{t("professionalNote")}</p>

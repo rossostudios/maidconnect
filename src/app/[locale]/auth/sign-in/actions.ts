@@ -1,8 +1,11 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import type { AppRole } from "@/lib/auth";
 import { AUTH_ROUTES, getDashboardRouteForRole } from "@/lib/auth";
+import { trackLoginServer } from "@/lib/integrations/posthog/server";
+import { checkRateLimit, RateLimiters } from "@/lib/rate-limit";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 
 export type SignInActionState = {
@@ -36,6 +39,21 @@ export async function signInAction(
     return { error: "Email and password are required." };
   }
 
+  // Rate limiting: 5 sign-in attempts per 15 minutes per IP
+  const headersList = await headers();
+  const forwardedFor = headersList.get("x-forwarded-for");
+  const ip = forwardedFor
+    ? forwardedFor.split(",")[0]?.trim() || "unknown"
+    : headersList.get("x-real-ip") || "unknown";
+
+  const rateLimit = checkRateLimit(`signin:${ip}`, RateLimiters.auth);
+
+  if (!rateLimit.allowed) {
+    return {
+      error: `Too many sign-in attempts. Please try again in ${Math.ceil(rateLimit.retryAfter / 60)} minutes.`,
+    };
+  }
+
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
@@ -52,6 +70,12 @@ export async function signInAction(
   if (profileError || !profile?.role) {
     return { error: "Could not determine account role. Contact support." };
   }
+
+  // Track successful login
+  await trackLoginServer({
+    userId: data.user.id,
+    method: "email",
+  });
 
   const destination = redirectHint ?? getDashboardRouteForRole(profile.role as AppRole);
   redirect(destination);

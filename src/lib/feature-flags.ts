@@ -37,6 +37,10 @@ export type FeatureFlag =
   | "enable_tipping" // Allow customers to tip professionals
   | "subscription_discount_badges" // Highlight savings with plans
 
+  // A/B Tests - Landing Page Optimization
+  | "hero_copy_variant" // Test expat-focused vs generic hero copy
+  | "concierge_emphasis_test" // Test concierge banner placement
+
   // Beta Features
   | "caregiver_profiles" // Specialized caregiver/childcare profiles
   | "maintenance_reminders" // Auto-remind for deep clean every 90 days
@@ -77,6 +81,10 @@ const defaultFlags: Record<FeatureFlag, boolean> = {
   show_platform_fee: false,
   enable_tipping: true,
   subscription_discount_badges: false,
+
+  // A/B Tests - Landing Page Optimization
+  hero_copy_variant: true, // Enable A/B test: expat-focused vs generic (50/50 split)
+  concierge_emphasis_test: false, // Test different concierge banner variations
 
   // Beta Features
   caregiver_profiles: false,
@@ -199,4 +207,48 @@ export function isInRollout(percentage: number, userId: string): boolean {
  */
 export function getRebookNudgeVariant(userId: string): "24h" | "72h" {
   return isInRollout(50, userId) ? "24h" : "72h";
+}
+
+/**
+ * Get hero copy variant for A/B test
+ * 50/50 split: expat-focused vs generic positioning
+ *
+ * Tests hypothesis: Explicit expat focus increases conversion for target audience
+ *
+ * @param sessionId - Session ID for deterministic bucketing (use before user signup)
+ * @returns 'expat_focused' (current) or 'generic' (broader appeal)
+ */
+export function getHeroCopyVariant(sessionId: string): "expat_focused" | "generic" {
+  if (!isFeatureEnabled("hero_copy_variant")) {
+    return "expat_focused"; // Default to current version
+  }
+  return isInRollout(50, sessionId) ? "expat_focused" : "generic";
+}
+
+/**
+ * Get concierge emphasis variant for A/B test
+ * Tests different ways to promote high-value Concierge service
+ *
+ * Variants:
+ * - 'banner_top': Banner above hero (current)
+ * - 'hero_cta': Third CTA button in hero section
+ * - 'callout_below': Dedicated section below hero
+ *
+ * @param sessionId - Session ID for deterministic bucketing
+ * @returns Variant name
+ */
+export function getConciergeVariant(
+  sessionId: string
+): "banner_top" | "hero_cta" | "callout_below" {
+  if (!isFeatureEnabled("concierge_emphasis_test")) {
+    return "banner_top"; // Default to current version
+  }
+
+  // 33/33/33 three-way split
+  const hash = Math.abs(sessionId.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0));
+  const bucket = hash % 3;
+
+  if (bucket === 0) return "banner_top";
+  if (bucket === 1) return "hero_cta";
+  return "callout_below";
 }

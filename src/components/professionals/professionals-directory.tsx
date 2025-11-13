@@ -20,6 +20,8 @@ import { Container } from "@/components/ui/container";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { Link } from "@/i18n/routing";
 import { formatCOP } from "@/lib/format";
+import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
+import { ProfessionalsEmptyState } from "./empty-state";
 import type { FilterState } from "./professionals-filter-sheet";
 import { SearchBar, type SearchSuggestion } from "./search-bar";
 import { VerificationBadge, type VerificationLevel } from "./verification-badge";
@@ -191,6 +193,36 @@ const ProfessionalsDirectoryComponent = memo(
       }
     }, [searchParams, serviceOptions]);
 
+    // Track initial page view with professionals list
+    useEffect(() => {
+      conversionTracking.professionalsListViewed({
+        totalCount: professionals.length,
+        filters: {
+          serviceType: serviceFilter !== "all" ? serviceFilter : undefined,
+          city: cityFilter !== "all" ? cityFilter : undefined,
+          rating: ratingFilter !== "all" ? Number.parseFloat(ratingFilter) : undefined,
+          availableToday: availableToday || undefined,
+        },
+      });
+      // Only run on initial mount
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    // Track search queries
+    useEffect(() => {
+      if (searchTerm.trim().length > 0) {
+        conversionTracking.professionalsSearched({
+          query: searchTerm,
+          filters: {
+            serviceType: serviceFilter !== "all" ? serviceFilter : undefined,
+            city: cityFilter !== "all" ? cityFilter : undefined,
+            rating: ratingFilter !== "all" ? Number.parseFloat(ratingFilter) : undefined,
+            availableToday: availableToday || undefined,
+          },
+        });
+      }
+    }, [searchTerm, serviceFilter, cityFilter, ratingFilter, availableToday]);
+
     const filteredProfessionals = useMemo(() => {
       const term = searchTerm.toLowerCase().trim();
 
@@ -225,6 +257,32 @@ const ProfessionalsDirectoryComponent = memo(
     };
 
     const handleApplyFilters = (filters: FilterState) => {
+      // Track each filter that changed
+      if (filters.serviceFilter !== serviceFilter && filters.serviceFilter !== "all") {
+        conversionTracking.filterApplied({
+          filterType: "service",
+          filterValue: filters.serviceFilter,
+        });
+      }
+      if (filters.cityFilter !== cityFilter && filters.cityFilter !== "all") {
+        conversionTracking.filterApplied({
+          filterType: "city",
+          filterValue: filters.cityFilter,
+        });
+      }
+      if (filters.ratingFilter !== ratingFilter && filters.ratingFilter !== "all") {
+        conversionTracking.filterApplied({
+          filterType: "rating",
+          filterValue: filters.ratingFilter,
+        });
+      }
+      if (filters.availableToday !== availableToday && filters.availableToday) {
+        conversionTracking.filterApplied({
+          filterType: "availability",
+          filterValue: "available_today",
+        });
+      }
+
       setServiceFilter(filters.serviceFilter);
       setCityFilter(filters.cityFilter);
       setRatingFilter(filters.ratingFilter);
@@ -287,7 +345,16 @@ const ProfessionalsDirectoryComponent = memo(
                   <span>{t("filters.service")}</span>
                   <select
                     className="rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm transition focus:border-[neutral-900] focus:outline-none"
-                    onChange={(event) => setServiceFilter(event.target.value)}
+                    onChange={(event) => {
+                      const newValue = event.target.value;
+                      if (newValue !== "all") {
+                        conversionTracking.filterApplied({
+                          filterType: "service",
+                          filterValue: newValue,
+                        });
+                      }
+                      setServiceFilter(newValue);
+                    }}
                     value={serviceFilter}
                   >
                     {serviceOptions.map((service) => (
@@ -303,7 +370,16 @@ const ProfessionalsDirectoryComponent = memo(
                   <span>{t("filters.city")}</span>
                   <select
                     className="rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm transition focus:border-[neutral-900] focus:outline-none"
-                    onChange={(event) => setCityFilter(event.target.value)}
+                    onChange={(event) => {
+                      const newValue = event.target.value;
+                      if (newValue !== "all") {
+                        conversionTracking.filterApplied({
+                          filterType: "city",
+                          filterValue: newValue,
+                        });
+                      }
+                      setCityFilter(newValue);
+                    }}
                     value={cityFilter}
                   >
                     {cityOptions.map((city) => (
@@ -319,7 +395,16 @@ const ProfessionalsDirectoryComponent = memo(
                   <span>{t("filters.rating")}</span>
                   <select
                     className="rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2 text-sm transition focus:border-[neutral-900] focus:outline-none"
-                    onChange={(event) => setRatingFilter(event.target.value)}
+                    onChange={(event) => {
+                      const newValue = event.target.value;
+                      if (newValue !== "all") {
+                        conversionTracking.filterApplied({
+                          filterType: "rating",
+                          filterValue: newValue,
+                        });
+                      }
+                      setRatingFilter(newValue);
+                    }}
                     value={ratingFilter}
                   >
                     {ratingOptions.map((option) => (
@@ -334,7 +419,16 @@ const ProfessionalsDirectoryComponent = memo(
                   <input
                     checked={availableToday}
                     className="h-5 w-5 rounded border-[neutral-200] text-[neutral-900] focus:ring-[neutral-900]"
-                    onChange={(event) => setAvailableToday(event.target.checked)}
+                    onChange={(event) => {
+                      const isChecked = event.target.checked;
+                      if (isChecked) {
+                        conversionTracking.filterApplied({
+                          filterType: "availability",
+                          filterValue: "available_today",
+                        });
+                      }
+                      setAvailableToday(isChecked);
+                    }}
                     type="checkbox"
                   />
                   <span>{t("filters.availableToday")}</span>
@@ -352,9 +446,12 @@ const ProfessionalsDirectoryComponent = memo(
           </div>
 
           {filteredProfessionals.length === 0 ? (
-            <div className="rounded-[32px] border border-[neutral-50] bg-[neutral-50] p-12 text-center">
-              <p className="text-[neutral-400] text-lg">{t("results.noResults")}</p>
-            </div>
+            <ProfessionalsEmptyState
+              hasFilters={
+                activeFilterCount > 0 || searchTerm.length > 0 || professionals.length > 0
+              }
+              onClearFilters={resetFilters}
+            />
           ) : viewMode === "map" ? (
             <div className="h-[600px] overflow-hidden rounded-[32px] border border-[neutral-200] shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
               <MapView professionals={filteredProfessionals} />
@@ -407,6 +504,12 @@ const ProfessionalsDirectoryComponent = memo(
                       <Link
                         className="flex-1 rounded-full border-2 border-[neutral-500] bg-[neutral-50] px-6 py-2.5 text-center font-semibold text-[neutral-500] text-sm transition hover:bg-[neutral-500] hover:text-[neutral-50] sm:flex-none"
                         href={`/professionals/${professional.id}`}
+                        onClick={() => {
+                          conversionTracking.profileViewed({
+                            professionalId: professional.id,
+                            serviceType: professional.service ?? "unknown",
+                          });
+                        }}
                       >
                         {t("card.viewProfile")}
                       </Link>

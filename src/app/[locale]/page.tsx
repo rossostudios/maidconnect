@@ -4,7 +4,7 @@ import { BenefitsGrid } from "@/components/sections/BenefitsGrid";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { MetricsSection } from "@/components/sections/MetricsSection";
 import { PricingSection } from "@/components/sections/PricingSection";
-import { ProcessSection } from "@/components/sections/ProcessSection";
+import { ProfessionalsCallout } from "@/components/sections/ProfessionalsCallout";
 import { ServicesTabs } from "@/components/sections/ServicesTabs";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
@@ -25,8 +25,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <BenefitsGrid />
         <ServicesTabs />
         <MetricsSection />
-        <ProcessSection />
         <TestimonialsSection />
+        <ProfessionalsCallout />
         <PricingSection />
       </main>
       <SiteFooter />

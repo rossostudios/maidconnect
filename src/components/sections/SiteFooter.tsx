@@ -44,28 +44,23 @@ export async function SiteFooter() {
         { href: "/professionals", label: t("findProfessional") },
         { href: "/how-it-works", label: t("howItWorks") },
         { href: "/pricing", label: t("pricing") },
-        { href: "/roadmap", label: t("roadmap") },
         { href: "/help", label: t("helpCenter") },
-        { href: "/contact", label: t("contact") },
-        { href: "#services", label: t("services") },
       ],
     },
     {
       title: t("company"),
       links: [
         { href: "/about", label: t("about") },
-        { href: "/auth/sign-in", label: t("loginSignup") },
-        { href: "/auth/sign-up?role=professional", label: t("applyProfessional") },
+        { href: "/pros", label: "For Professionals" },
         { href: "/careers", label: t("careers"), badge: "Hiring" },
-        { href: "/aguaora", label: "AGUAORA", badge: "Coming Soon" },
-        { href: "/support/account-suspended", label: t("support") },
+        { href: "/changelog", label: "What's New" },
       ],
     },
     {
-      title: t("mobile"),
+      title: "Legal",
       links: [
-        { href: "/mobile", label: t("iosApp"), badge: "Coming Soon" },
-        { href: "/mobile", label: t("androidApp"), badge: "Coming Soon" },
+        { href: "/terms", label: t("terms") },
+        { href: "/privacy", label: t("privacy") },
       ],
     },
   ];
@@ -169,23 +164,8 @@ export async function SiteFooter() {
             <p>{t("remoteCompany")}</p>
           </div>
 
-          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
-            <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-              <Link className="transition hover:text-white" href="/terms">
-                {t("terms")}
-              </Link>
-              <Link className="transition hover:text-white" href="/privacy">
-                {t("privacy")}
-              </Link>
-              <Link className="transition hover:text-white" href="/support/account-suspended">
-                {t("cookies")}
-              </Link>
-              <Link className="transition hover:text-white" href="/changelog">
-                What's New
-              </Link>
-              <FeedbackLink>Feedback</FeedbackLink>
-            </div>
-
+          <div className="flex items-center gap-4 sm:gap-6">
+            <FeedbackLink>Feedback</FeedbackLink>
             <SiteFooterActions />
           </div>
         </div>
