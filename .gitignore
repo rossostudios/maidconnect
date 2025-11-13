@@ -65,3 +65,6 @@ next-env.d.ts
 *.original.tsx
 *-old.ts
 *-old.tsx
+
+# Sanity Studio build output
+sanity/dist/

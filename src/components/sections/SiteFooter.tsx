@@ -7,6 +7,7 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 import { FeedbackLink } from "@/components/feedback/feedback-link";
 import { SiteFooterActions } from "@/components/sections/SiteFooterActions";
 import { Badge } from "@/components/ui/badge";
@@ -51,6 +52,7 @@ export async function SiteFooter() {
       title: t("company"),
       links: [
         { href: "/about", label: t("about") },
+        { href: "/blog", label: "Blog" },
         { href: "/pros", label: "For Professionals" },
         { href: "/careers", label: t("careers"), badge: "Hiring" },
         { href: "/changelog", label: "What's New" },
@@ -61,6 +63,8 @@ export async function SiteFooter() {
       links: [
         { href: "/terms", label: t("terms") },
         { href: "/privacy", label: t("privacy") },
+        { href: "/legal/compliance", label: "Compliance" },
+        { href: "/legal/security", label: "Security" },
       ],
     },
   ];
@@ -75,7 +79,14 @@ export async function SiteFooter() {
           {/* Brand Section */}
           <div className="flex max-w-md flex-col gap-8">
             {/* Logo - Swiss Typography */}
-            <div>
+            <div className="flex items-center gap-3">
+              <Image
+                alt="Casaora logo"
+                className="h-10 w-auto"
+                height={40}
+                src="/isologo.svg"
+                width={40}
+              />
               <span
                 className="font-bold text-3xl text-white tracking-tight"
                 style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
@@ -153,6 +164,44 @@ export async function SiteFooter() {
 
         {/* Separator - Clean Line */}
         <Separator className="my-12 bg-neutral-800" />
+
+        {/* Compliance Badges */}
+        <div className="mb-12 flex flex-col items-center gap-6">
+          <h3 className="font-mono text-neutral-500 text-xs uppercase tracking-widest">
+            Security & Compliance
+          </h3>
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            <div className="flex flex-col items-center gap-2 text-center">
+              <div className="flex h-12 w-12 items-center justify-center border border-neutral-700 bg-neutral-800">
+                <span className="font-mono text-neutral-300 text-xs font-bold">PCI</span>
+              </div>
+              <span className="text-neutral-400 text-xs">PCI DSS</span>
+            </div>
+            <div className="flex flex-col items-center gap-2 text-center">
+              <div className="flex h-12 w-12 items-center justify-center border border-neutral-700 bg-neutral-800">
+                <span className="font-mono text-neutral-300 text-xs font-bold">SOC 2</span>
+              </div>
+              <span className="text-neutral-400 text-xs">Type II</span>
+            </div>
+            <div className="flex flex-col items-center gap-2 text-center">
+              <div className="flex h-12 w-12 items-center justify-center border border-neutral-700 bg-neutral-800">
+                <span className="font-mono text-neutral-300 text-xs font-bold">GDPR</span>
+              </div>
+              <span className="text-neutral-400 text-xs">Compliant</span>
+            </div>
+            <div className="flex flex-col items-center gap-2 text-center">
+              <div className="flex h-12 w-12 items-center justify-center border border-neutral-700 bg-neutral-800">
+                <span className="font-mono text-neutral-300 text-xs font-bold">ISO</span>
+              </div>
+              <span className="text-neutral-400 text-xs">27001</span>
+            </div>
+          </div>
+          <p className="text-center text-neutral-500 text-xs">
+            Payments secured by Stripe. Infrastructure certified by Supabase & Vercel.
+          </p>
+        </div>
+
+        <Separator className="mb-12 bg-neutral-800" />
 
         {/* Bottom Section */}
         <div className="flex flex-col gap-6 text-neutral-400 text-sm sm:flex-row sm:items-center sm:justify-between">

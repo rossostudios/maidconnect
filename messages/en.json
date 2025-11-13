@@ -2305,6 +2305,19 @@
       "backToChangelog": "Back to all updates"
     }
   },
+  "blog": {
+    "meta": {
+      "title": "Blog | Casaora",
+      "description": "Insights, stories, and updates from the Casaora team. Learn about hiring household staff, industry trends, and building trusted domestic staffing relationships."
+    },
+    "hero": {
+      "title": "The Casaora Blog",
+      "subtitle": "Insights on hiring trusted household staff in Colombia and beyond"
+    },
+    "detail": {
+      "backToBlog": "Back to blog"
+    }
+  },
   "feedback": {
     "title": "Send Feedback",
     "description": "Help us improve Casaora by sharing your thoughts, suggestions, or reporting issues.",

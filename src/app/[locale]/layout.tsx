@@ -50,6 +50,13 @@ export const metadata: Metadata = {
     "private chef Cartagena",
     "estate staff Medellín",
   ],
+  icons: {
+    icon: [
+      { url: "/isologo.svg", type: "image/svg+xml" },
+      { url: "/isologo.svg", sizes: "any", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/isologo.svg", type: "image/svg+xml" }],
+  },
   openGraph: {
     title: "Casaora · The Art of Home",
     description:

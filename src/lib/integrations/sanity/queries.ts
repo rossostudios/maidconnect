@@ -324,3 +324,87 @@ export const SITEMAP_CITY_PAGES_QUERY = defineQuery(`*[_type == "cityPage" && is
   language,
   publishedAt
 }`);
+
+// ============================================================================
+// BLOG QUERIES
+// ============================================================================
+
+export const BLOG_POSTS_QUERY =
+  defineQuery(`*[_type == "blogPost" && language == $language && isPublished == true] | order(publishedAt desc) [0...$limit] {
+  _id,
+  title,
+  slug,
+  excerpt,
+  author,
+  publishedAt,
+  readingTime,
+  featuredImage {
+    asset,
+    alt
+  },
+  "categoryName": category->name,
+  "categorySlug": category->slug,
+  tags,
+  language
+}`);
+
+export const BLOG_POST_BY_SLUG_QUERY =
+  defineQuery(`*[_type == "blogPost" && slug.current == $slug && language == $language && isPublished == true][0] {
+  _id,
+  title,
+  slug,
+  excerpt,
+  content,
+  author,
+  publishedAt,
+  readingTime,
+  featuredImage {
+    asset,
+    alt
+  },
+  "category": category->{name, slug},
+  tags,
+  language,
+  seoMetadata
+}`);
+
+export const FEATURED_BLOG_POSTS_QUERY =
+  defineQuery(`*[_type == "blogPost" && language == $language && isPublished == true && isFeatured == true] | order(publishedAt desc) [0...$limit] {
+  _id,
+  title,
+  slug,
+  excerpt,
+  author,
+  publishedAt,
+  readingTime,
+  featuredImage {
+    asset,
+    alt
+  },
+  "categoryName": category->name,
+  tags,
+  language
+}`);
+
+export const BLOG_POSTS_BY_CATEGORY_QUERY =
+  defineQuery(`*[_type == "blogPost" && category._ref == $categoryId && language == $language && isPublished == true] | order(publishedAt desc) [0...$limit] {
+  _id,
+  title,
+  slug,
+  excerpt,
+  author,
+  publishedAt,
+  readingTime,
+  featuredImage {
+    asset,
+    alt
+  },
+  tags,
+  language
+}`);
+
+export const SITEMAP_BLOG_POSTS_QUERY = defineQuery(`*[_type == "blogPost" && isPublished == true] {
+  "slug": slug.current,
+  language,
+  publishedAt
+}`);

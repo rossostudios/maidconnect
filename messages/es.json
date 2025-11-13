@@ -2305,6 +2305,19 @@
       "backToChangelog": "Volver a todas las actualizaciones"
     }
   },
+  "blog": {
+    "meta": {
+      "title": "Blog | Casaora",
+      "description": "Perspectivas, historias y actualizaciones del equipo de Casaora. Aprende sobre la contratación de personal doméstico, tendencias de la industria y cómo construir relaciones confiables."
+    },
+    "hero": {
+      "title": "El Blog de Casaora",
+      "subtitle": "Perspectivas sobre la contratación de personal doméstico de confianza en Colombia y más allá"
+    },
+    "detail": {
+      "backToBlog": "Volver al blog"
+    }
+  },
   "feedback": {
     "title": "Enviar comentarios",
     "description": "Ayúdenos a mejorar Casaora compartiendo sus ideas, sugerencias o reportando problemas.",

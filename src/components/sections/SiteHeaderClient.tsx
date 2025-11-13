@@ -20,6 +20,7 @@ export function SiteHeaderClient({ isAuthenticated, dashboardHref, onSignOut }: 
     { href: "/professionals", label: t("professionals") },
     { href: "/how-it-works", label: "How It Works" },
     { href: "/pricing", label: t("pricing") },
+    { href: "/blog", label: "Blog" },
     { href: "/pros", label: "For Professionals" },
   ];
 

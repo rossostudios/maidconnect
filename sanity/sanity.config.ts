@@ -16,8 +16,8 @@ export default defineConfig({
   name: "default",
   title: "Casaora CMS",
 
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
+  projectId: "7j0vrfmg",
+  dataset: "production",
 
   plugins: [
     structureTool(),
@@ -44,6 +44,8 @@ export default defineConfig({
         "roadmapItem",
         "page",
         "cityPage",
+        "blogCategory",
+        "blogPost",
       ],
       // Field name for language reference
       languageField: "language",

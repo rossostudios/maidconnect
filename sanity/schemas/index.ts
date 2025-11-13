@@ -1,5 +1,7 @@
 // Document types
 
+import blogCategory from "./documents/blog-category";
+import blogPost from "./documents/blog-post";
 import changelog from "./documents/changelog";
 import cityPage from "./documents/city-page";
 import helpArticle from "./documents/help-article";
@@ -27,6 +29,8 @@ export const schemaTypes = [
   roadmapItem,
   page,
   cityPage,
+  blogCategory,
+  blogPost,
 
   // Objects
   blockContent,
