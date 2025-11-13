@@ -11,7 +11,7 @@
  */
 
 // Rate Limiting
-export { withRateLimit } from "../rateLimit";
+export { withRateLimit } from "../../rate-limit";
 // Authentication & Authorization
 export {
   type AuthContext,
