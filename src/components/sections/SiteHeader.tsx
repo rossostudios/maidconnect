@@ -19,15 +19,13 @@ export async function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-neutral-200 border-b bg-white py-4">
       <Container className="flex items-center justify-between gap-8 text-neutral-900">
-        <Link className="group flex flex-col transition-opacity hover:opacity-100" href="/">
+        <Link className="transition-opacity hover:opacity-80" href="/">
           <span
             className="font-bold text-xl tracking-tight lg:text-2xl"
             style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
           >
             CASAORA
           </span>
-          {/* Orange Accent Bar on Hover */}
-          <div className="h-0.5 w-0 bg-orange-500 transition-all duration-300 group-hover:w-full" />
         </Link>
 
         <SiteHeaderClient dashboardHref={dashboardHref} isAuthenticated={!!user} />

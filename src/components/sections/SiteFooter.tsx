@@ -82,7 +82,6 @@ export async function SiteFooter() {
               >
                 CASAORA
               </span>
-              <div className="mt-2 h-1 w-16 bg-orange-500" />
             </div>
 
             <p className="text-base text-neutral-300 leading-relaxed">{t("description")}</p>
@@ -90,7 +89,7 @@ export async function SiteFooter() {
             {/* Contact & Social */}
             <div className="flex flex-col gap-4">
               <a
-                className="flex items-center gap-3 text-base text-neutral-200 transition hover:text-orange-500"
+                className="flex items-center gap-3 text-base text-neutral-200 transition hover:text-orange-600"
                 href="mailto:hello@casaora.com"
               >
                 <HugeiconsIcon className="h-5 w-5" icon={Mail01Icon} strokeWidth={1.5} />

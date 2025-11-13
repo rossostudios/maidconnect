@@ -51,16 +51,15 @@ export function HeroSection() {
   return (
     <section className="relative overflow-visible bg-neutral-50" ref={containerRef}>
       {/* Concierge Banner - Above Hero */}
-      <div className="border-neutral-200 border-b bg-white py-3">
-        <Container className="max-w-7xl">
-          <div className="flex flex-col items-center justify-center gap-2 text-center sm:flex-row sm:gap-4">
-            <p className="text-neutral-700 text-sm sm:text-base">
+      <div className="flex items-center justify-center bg-white py-4">
+        <div className="w-full max-w-[1320px] border-neutral-200 border-b">
+          <Container className="max-w-6xl px-4 md:px-8">
+            <p className="text-center text-neutral-700 text-sm sm:text-base">
               <strong className="font-semibold text-neutral-900">New to Colombia?</strong> Try our
-              Concierge service — English-speaking coordinator, curated matches in 5 days.
-            </p>
-            <Link href="/concierge">
-              <Button
-                className="whitespace-nowrap"
+              Concierge service — English-speaking coordinator, curated matches in 5 days.{" "}
+              <Link
+                className="inline-flex items-center font-semibold text-orange-600 transition-colors hover:text-orange-700"
+                href="/concierge"
                 onClick={() =>
                   conversionTracking.heroCTAClicked({
                     ctaType: "concierge",
@@ -68,14 +67,12 @@ export function HeroSection() {
                     ctaText: "Learn More",
                   })
                 }
-                size="sm"
-                variant="outline"
               >
-                Learn More
-              </Button>
-            </Link>
-          </div>
-        </Container>
+                Learn More →
+              </Link>
+            </p>
+          </Container>
+        </div>
       </div>
 
       {/* Hero Section */}
@@ -86,7 +83,7 @@ export function HeroSection() {
           <div className="absolute inset-y-0 right-0 w-px bg-neutral-200" />
         </div>
 
-        <Container className="relative max-w-7xl">
+        <Container className="relative max-w-6xl px-4 md:px-8">
           {/* Hero Content - Swiss Grid Layout */}
           <motion.div
             animate="visible"

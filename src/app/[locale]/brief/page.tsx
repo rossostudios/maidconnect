@@ -37,6 +37,7 @@ export default function BriefPage() {
             <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-neutral-600 text-sm">
               <div className="flex items-center gap-2">
                 <svg
+                  aria-hidden="true"
                   className="h-5 w-5 text-green-600"
                   fill="none"
                   stroke="currentColor"
@@ -53,6 +54,7 @@ export default function BriefPage() {
               </div>
               <div className="flex items-center gap-2">
                 <svg
+                  aria-hidden="true"
                   className="h-5 w-5 text-green-600"
                   fill="none"
                   stroke="currentColor"
@@ -69,6 +71,7 @@ export default function BriefPage() {
               </div>
               <div className="flex items-center gap-2">
                 <svg
+                  aria-hidden="true"
                   className="h-5 w-5 text-green-600"
                   fill="none"
                   stroke="currentColor"

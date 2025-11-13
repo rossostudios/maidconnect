@@ -1,10 +1,9 @@
 import { setRequestLocale } from "next-intl/server";
+import { FaqSection } from "@/components/marketing/faq-section";
 import { WelcomeTour } from "@/components/onboarding";
 import { BenefitsGrid } from "@/components/sections/BenefitsGrid";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { MetricsSection } from "@/components/sections/MetricsSection";
 import { PricingSection } from "@/components/sections/PricingSection";
-import { ProfessionalsCallout } from "@/components/sections/ProfessionalsCallout";
 import { ServicesTabs } from "@/components/sections/ServicesTabs";
 import { SiteFooter } from "@/components/sections/SiteFooter";
 import { SiteHeader } from "@/components/sections/SiteHeader";
@@ -24,10 +23,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <HeroSection />
         <BenefitsGrid />
         <ServicesTabs />
-        <MetricsSection />
         <TestimonialsSection />
-        <ProfessionalsCallout />
         <PricingSection />
+        <FaqSection />
       </main>
       <SiteFooter />
       <WelcomeTour autoStart />

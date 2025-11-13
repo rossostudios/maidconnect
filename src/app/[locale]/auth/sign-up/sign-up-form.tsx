@@ -119,42 +119,28 @@ export function SignUpForm() {
       <RoleSelection error={fieldError("role")} t={t} />
 
       <section className="grid gap-6 sm:grid-cols-2">
-        <Field error={fieldError("fullName")} label={t("fullNameLabel")}>
-          <Input
-            aria-describedby={fieldError("fullName") ? "fullName-error" : undefined}
-            aria-invalid={Boolean(fieldError("fullName"))}
-            className={fieldError("fullName") ? "border-red-500" : ""}
-            id="fullName"
-            name="fullName"
-            placeholder={t("fullNamePlaceholder")}
-            required
-            type="text"
-          />
-        </Field>
-        <Field error={fieldError("phone")} label={t("phoneLabel")}>
-          <Input
-            aria-describedby={fieldError("phone") ? "phone-error" : undefined}
-            aria-invalid={Boolean(fieldError("phone"))}
-            className={fieldError("phone") ? "border-red-500" : ""}
-            id="phone"
-            name="phone"
-            placeholder={t("phonePlaceholder")}
-            required
-            type="tel"
-          />
-        </Field>
-        <Field error={fieldError("city")} label={t("cityLabel")}>
-          <Input
-            aria-describedby={fieldError("city") ? "city-error" : undefined}
-            aria-invalid={Boolean(fieldError("city"))}
-            className={fieldError("city") ? "border-red-500" : ""}
-            id="city"
-            name="city"
-            placeholder={t("cityPlaceholder")}
-            required
-            type="text"
-          />
-        </Field>
+        <InputField
+          error={fieldError("fullName")}
+          id="fullName"
+          label={t("fullNameLabel")}
+          name="fullName"
+          placeholder={t("fullNamePlaceholder")}
+        />
+        <InputField
+          error={fieldError("phone")}
+          id="phone"
+          label={t("phoneLabel")}
+          name="phone"
+          placeholder={t("phonePlaceholder")}
+          type="tel"
+        />
+        <InputField
+          error={fieldError("city")}
+          id="city"
+          label={t("cityLabel")}
+          name="city"
+          placeholder={t("cityPlaceholder")}
+        />
         <Field error={fieldError("locale")} label={t("preferredLanguageLabel")}>
           <Select name="locale" onValueChange={setSelectedLocale} value={selectedLocale}>
             <SelectTrigger
@@ -175,19 +161,15 @@ export function SignUpForm() {
       </section>
 
       <section className="grid gap-6 sm:grid-cols-2">
-        <Field error={fieldError("email")} label={t("emailLabel")}>
-          <Input
-            aria-describedby={fieldError("email") ? "email-error" : undefined}
-            aria-invalid={Boolean(fieldError("email"))}
-            autoComplete="email"
-            className={fieldError("email") ? "border-red-500" : ""}
-            id="email"
-            name="email"
-            placeholder={t("emailPlaceholder")}
-            required
-            type="email"
-          />
-        </Field>
+        <InputField
+          autoComplete="email"
+          error={fieldError("email")}
+          id="email"
+          label={t("emailLabel")}
+          name="email"
+          placeholder={t("emailPlaceholder")}
+          type="email"
+        />
         <Field error={fieldError("propertyType")} label={t("propertyTypeLabel")}>
           <Select
             name="propertyType"
@@ -215,34 +197,26 @@ export function SignUpForm() {
       </section>
 
       <section className="grid gap-6 sm:grid-cols-2">
-        <Field error={fieldError("password")} label={t("passwordLabel")}>
-          <Input
-            aria-describedby={fieldError("password") ? "password-error" : undefined}
-            aria-invalid={Boolean(fieldError("password"))}
-            autoComplete="new-password"
-            className={fieldError("password") ? "border-red-500" : ""}
-            id="password"
-            minLength={8}
-            name="password"
-            placeholder={t("passwordPlaceholder")}
-            required
-            type="password"
-          />
-        </Field>
-        <Field error={fieldError("confirmPassword")} label={t("confirmPasswordLabel")}>
-          <Input
-            aria-describedby={fieldError("confirmPassword") ? "confirmPassword-error" : undefined}
-            aria-invalid={Boolean(fieldError("confirmPassword"))}
-            autoComplete="new-password"
-            className={fieldError("confirmPassword") ? "border-red-500" : ""}
-            id="confirmPassword"
-            minLength={8}
-            name="confirmPassword"
-            placeholder={t("confirmPasswordPlaceholder")}
-            required
-            type="password"
-          />
-        </Field>
+        <InputField
+          autoComplete="new-password"
+          error={fieldError("password")}
+          id="password"
+          label={t("passwordLabel")}
+          minLength={8}
+          name="password"
+          placeholder={t("passwordPlaceholder")}
+          type="password"
+        />
+        <InputField
+          autoComplete="new-password"
+          error={fieldError("confirmPassword")}
+          id="confirmPassword"
+          label={t("confirmPasswordLabel")}
+          minLength={8}
+          name="confirmPassword"
+          placeholder={t("confirmPasswordPlaceholder")}
+          type="password"
+        />
       </section>
 
       <section>
@@ -287,5 +261,44 @@ function Field({ label, children, helper, error }: FieldProps) {
         </p>
       ) : null}
     </div>
+  );
+}
+
+type InputFieldProps = {
+  id: string;
+  name: string;
+  label: string;
+  placeholder: string;
+  type?: "text" | "email" | "tel" | "password";
+  error?: string;
+  autoComplete?: string;
+  minLength?: number;
+};
+
+function InputField({
+  id,
+  name,
+  label,
+  placeholder,
+  type = "text",
+  error,
+  autoComplete,
+  minLength,
+}: InputFieldProps) {
+  return (
+    <Field error={error} label={label}>
+      <Input
+        aria-describedby={error ? `${id}-error` : undefined}
+        aria-invalid={Boolean(error)}
+        autoComplete={autoComplete}
+        className={error ? "border-red-500" : ""}
+        id={id}
+        minLength={minLength}
+        name={name}
+        placeholder={placeholder}
+        required
+        type={type}
+      />
+    </Field>
   );
 }

@@ -84,7 +84,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
         aria-label="Mobile navigation menu"
         aria-modal="true"
         className={`fixed top-0 right-0 z-[70] h-full w-[320px] transform border-neutral-900 border-l-4 bg-white text-neutral-900 shadow-2xl transition-transform duration-300 ease-in-out ${
-          isOpen ? "tranneutral-x-0" : "tranneutral-x-full"
+          isOpen ? "translate-x-0" : "translate-x-full"
         }`}
         id="mobile-menu"
         role="dialog"
