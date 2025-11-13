@@ -49,8 +49,10 @@ export async function signInAction(
   const rateLimit = checkRateLimit(`signin:${ip}`, RateLimiters.auth);
 
   if (!rateLimit.allowed) {
+    const retrySeconds = Math.ceil((rateLimit.resetTime - Date.now()) / 1000);
+    const retryMinutes = Math.ceil(retrySeconds / 60);
     return {
-      error: `Too many sign-in attempts. Please try again in ${Math.ceil(rateLimit.retryAfter / 60)} minutes.`,
+      error: `Too many sign-in attempts. Please try again in ${retryMinutes} minutes.`,
     };
   }
 
