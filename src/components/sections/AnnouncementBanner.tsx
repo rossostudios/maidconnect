@@ -62,7 +62,7 @@ export function AnnouncementBanner() {
             }}
           />
 
-          <div className="relative mx-auto max-w-7xl px-4 py-3.5 sm:px-6 lg:px-8">
+          <div className="relative mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between gap-4">
               {/* Content */}
               <motion.div
@@ -72,7 +72,7 @@ export function AnnouncementBanner() {
                 transition={{ delay: 0.3, duration: 0.5 }}
               >
                 {/* Badge */}
-                <span className="hidden flex-shrink-0 bg-orange-500/10 px-2.5 py-1 font-medium text-orange-600 text-xs uppercase tracking-wider sm:inline-flex sm:items-center">
+                <span className="hidden flex-shrink-0 bg-orange-500/10 px-2.5 py-0.5 font-medium text-orange-600 text-xs uppercase tracking-wider sm:inline-flex sm:items-center">
                   New
                 </span>
 
