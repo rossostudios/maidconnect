@@ -14,10 +14,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { CheckmarkList, CheckmarkListItem } from "@/components/ui/checkmark-list";
 import { Container } from "@/components/ui/container";
-import { TwoColumnFeature } from "@/components/ui/two-column-feature";
 import { Link } from "@/i18n/routing";
+import { HeroSectionClient } from "./hero-section-client";
+import { CustomerFlowSectionClient } from "./customer-flow-section-client";
+import { ProfessionalFlowSectionClient } from "./professional-flow-section-client";
+import { SafetyTrustSectionClient } from "./safety-trust-section-client";
 
 export default async function HowItWorksPage() {
   return (
@@ -25,9 +27,9 @@ export default async function HowItWorksPage() {
       <SiteHeader />
       <main className="flex-1">
         <HeroSection />
-        <CustomerFlowSection />
-        <ProfessionalFlowSection />
-        <SafetyTrustSection />
+        <CustomerFlowSectionClient />
+        <ProfessionalFlowSectionClient />
+        <SafetyTrustSectionClient />
         <FAQSection />
         <CTASection />
       </main>
@@ -39,156 +41,7 @@ export default async function HowItWorksPage() {
 async function HeroSection() {
   const t = await getTranslations("howItWorks.hero");
 
-  return (
-    <section className="bg-neutral-50 py-20 sm:py-24 lg:py-32">
-      <Container className="max-w-5xl">
-        <div className="text-center">
-          <p className="tagline text-neutral-500">HOW IT WORKS</p>
-          <h1 className="serif-display-lg mt-6 text-neutral-900">{t("title")}</h1>
-          <p className="lead mx-auto mt-6 max-w-3xl text-neutral-900/70">{t("subtitle")}</p>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-async function CustomerFlowSection() {
-  const t = await getTranslations("howItWorks.customer");
-
-  return (
-    <TwoColumnFeature
-      backgroundColor="cream"
-      description={t("subtitle")}
-      heading={t("title")}
-      image="/how-it-works-customer.jpg"
-      imageAlt="Customer booking process"
-      imagePosition="right"
-      tagline="FOR CUSTOMERS"
-    >
-      <CheckmarkList variant="default">
-        <CheckmarkListItem description={t("steps.search.description")}>
-          {t("steps.search.title")}
-        </CheckmarkListItem>
-        <CheckmarkListItem description={t("steps.book.description")}>
-          {t("steps.book.title")}
-        </CheckmarkListItem>
-        <CheckmarkListItem description={t("steps.service.description")}>
-          {t("steps.service.title")}
-        </CheckmarkListItem>
-        <CheckmarkListItem description={t("steps.review.description")}>
-          {t("steps.review.title")}
-        </CheckmarkListItem>
-      </CheckmarkList>
-
-      <div className="mt-8">
-        <Link
-          className="inline-flex items-center gap-2 rounded-full bg-orange-500/100 px-8 py-4 font-semibold text-base text-white transition hover:bg-orange-500"
-          href="/professionals"
-        >
-          {t("cta")}
-          <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
-        </Link>
-      </div>
-    </TwoColumnFeature>
-  );
-}
-
-async function ProfessionalFlowSection() {
-  const t = await getTranslations("howItWorks.professional");
-
-  return (
-    <TwoColumnFeature
-      backgroundColor="white"
-      description={t("subtitle")}
-      heading={t("title")}
-      image="/how-it-works-professional.jpg"
-      imageAlt="Professional sign-up process"
-      imagePosition="left"
-      tagline="FOR PROFESSIONALS"
-    >
-      <CheckmarkList variant="default">
-        <CheckmarkListItem description={t("steps.apply.description")}>
-          {t("steps.apply.title")}
-        </CheckmarkListItem>
-        <CheckmarkListItem description={t("steps.verify.description")}>
-          {t("steps.verify.title")}
-        </CheckmarkListItem>
-        <CheckmarkListItem description={t("steps.match.description")}>
-          {t("steps.match.title")}
-        </CheckmarkListItem>
-        <CheckmarkListItem description={t("steps.serve.description")}>
-          {t("steps.serve.title")}
-        </CheckmarkListItem>
-        <CheckmarkListItem description={t("steps.earn.description")}>
-          {t("steps.earn.title")}
-        </CheckmarkListItem>
-      </CheckmarkList>
-
-      <div className="mt-8">
-        <Link
-          className="inline-flex items-center gap-2 rounded-full bg-orange-500/100 px-8 py-4 font-semibold text-base text-white transition hover:bg-orange-500"
-          href="/auth/sign-up?role=professional"
-        >
-          {t("cta")}
-          <HugeiconsIcon className="h-5 w-5" icon={ArrowRight01Icon} />
-        </Link>
-      </div>
-    </TwoColumnFeature>
-  );
-}
-
-async function SafetyTrustSection() {
-  const t = await getTranslations("howItWorks.safety");
-
-  const safetyFeatures = [
-    {
-      icon: Shield01Icon,
-      titleKey: "verification.title",
-      descriptionKey: "verification.description",
-    },
-    {
-      icon: LockIcon,
-      titleKey: "payments.title",
-      descriptionKey: "payments.description",
-    },
-    {
-      icon: Message01Icon,
-      titleKey: "support.title",
-      descriptionKey: "support.description",
-    },
-  ];
-
-  return (
-    <section className="bg-neutral-50 py-20 sm:py-24 lg:py-32">
-      <Container>
-        <div className="mb-16 text-center">
-          <p className="tagline text-neutral-500">SAFETY & TRUST</p>
-          <h2 className="serif-display-lg mt-6 text-neutral-900">{t("title")}</h2>
-          <p className="lead mx-auto mt-6 max-w-2xl text-neutral-900/70">{t("subtitle")}</p>
-        </div>
-
-        <div className="grid gap-8 md:grid-cols-3">
-          {safetyFeatures.map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <div
-                className="rounded-[32px] border border-neutral-200 bg-neutral-50 p-10 text-center shadow-[0_4px_20px_rgba(22,22,22,0.02)] transition hover:shadow-[0_8px_30px_rgba(22,22,22,0.04)]"
-                key={index}
-              >
-                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-orange-500/100/10">
-                  <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={Icon} />
-                </div>
-                <h3 className="serif-headline-sm mb-4 text-neutral-900">{t(feature.titleKey)}</h3>
-                <p className="text-base text-neutral-900/70 leading-relaxed">
-                  {t(feature.descriptionKey)}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      </Container>
-    </section>
-  );
+  return <HeroSectionClient subtitle={t("subtitle")} title={t("title")} />;
 }
 
 async function FAQSection() {
@@ -200,8 +53,10 @@ async function FAQSection() {
     <section className="bg-neutral-50 py-20 sm:py-24 lg:py-32">
       <Container className="max-w-4xl">
         <div className="mb-12 text-center">
-          <h2 className="serif-display-lg text-neutral-900">{t("title")}</h2>
-          <p className="lead mt-4 text-neutral-900/70">{t("subtitle")}</p>
+          <h2 className="font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
+            {t("title")}
+          </h2>
+          <p className="mt-4 text-lg text-neutral-600">{t("subtitle")}</p>
         </div>
 
         <Accordion allowMultiple={false} variant="default">
@@ -214,9 +69,9 @@ async function FAQSection() {
         </Accordion>
 
         <div className="mt-12 text-center">
-          <p className="mb-4 text-neutral-900/70">{t("stillHaveQuestions")}</p>
+          <p className="mb-4 text-neutral-600">{t("stillHaveQuestions")}</p>
           <Link
-            className="inline-flex items-center gap-2 font-semibold text-orange-500 transition hover:text-orange-500"
+            className="inline-flex items-center gap-2 font-semibold text-orange-600 transition hover:text-orange-700"
             href="/contact"
           >
             {t("contactUs")}
@@ -235,8 +90,10 @@ async function CTASection() {
     <section className="bg-neutral-900 py-20 sm:py-24 lg:py-32">
       <Container className="max-w-4xl">
         <div className="text-center">
-          <h2 className="serif-display-lg text-white">{t("title")}</h2>
-          <p className="lead mt-6 text-white/90">{t("subtitle")}</p>
+          <h2 className="font-bold text-4xl text-white tracking-tight md:text-5xl">
+            {t("title")}
+          </h2>
+          <p className="mt-6 text-lg text-white/90">{t("subtitle")}</p>
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               className="inline-flex items-center justify-center gap-2 rounded-full bg-neutral-50 px-8 py-4 font-semibold text-base text-neutral-900 transition hover:bg-neutral-200"

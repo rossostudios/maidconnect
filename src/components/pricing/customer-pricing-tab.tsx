@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { Container } from "@/components/ui/container";
 import { ConciergeJustification } from "./concierge-justification";
@@ -10,89 +11,169 @@ import { PricingComparisonCards } from "./pricing-comparison-cards";
 export function CustomerPricingTab() {
   const t = useTranslations("pricing.customer");
 
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
+
   return (
     <div className="space-y-20">
       {/* How Pricing Works */}
       <Container>
-        <div className="mx-auto mb-12 max-w-3xl text-center">
+        <motion.div
+          className="mx-auto mb-12 max-w-3xl text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+        >
           <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[32px] text-neutral-900 leading-[48px]">
             {t("howItWorks.title")}
           </h2>
           <p className="text-[16px] text-neutral-700 leading-[24px]">
             {t("howItWorks.description")}
           </p>
-        </div>
+        </motion.div>
 
         {/* Steps */}
-        <div className="mb-16 grid gap-8 md:grid-cols-3">
+        <motion.div
+          className="mb-16 grid gap-8 md:grid-cols-3"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
           {[1, 2, 3].map((step) => (
-            <div className="text-center" key={step}>
-              <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-orange-500 font-bold text-2xl text-white shadow-md">
+            <motion.div className="text-center" key={step} variants={fadeInUp}>
+              <motion.div
+                className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-orange-500 font-bold text-2xl text-white shadow-md"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              >
                 {step}
-              </div>
+              </motion.div>
               <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-[20px] text-neutral-900 leading-[24px]">
                 {t(`howItWorks.steps.step${step}.title`)}
               </h3>
               <p className="text-[14px] text-neutral-700 leading-[20px]">
                 {t(`howItWorks.steps.step${step}.description`)}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Comparison Cards */}
-        <div className="mb-16">
+        <motion.div
+          className="mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+        >
           <h2 className="mb-baseline-2 text-center font-[family-name:var(--font-geist-sans)] font-bold text-[28px] text-neutral-900 leading-[24px]">
             {t("chooseService.title")}
           </h2>
           <PricingComparisonCards highlightConcierge />
-        </div>
+        </motion.div>
       </Container>
 
       {/* Calculator Section */}
       <section className="bg-neutral-50 py-16">
         <Container>
-          <div className="mb-12 text-center">
+          <motion.div
+            className="mb-12 text-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+          >
             <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[32px] text-neutral-900 leading-[48px]">
               {t("calculator.title")}
             </h2>
             <p className="mx-auto max-w-2xl text-[16px] text-neutral-700 leading-[24px]">
               {t("calculator.description")}
             </p>
-          </div>
-          <PricingCalculator />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            <PricingCalculator />
+          </motion.div>
         </Container>
       </section>
 
       {/* Fee Explainer */}
-      <FeeExplainer />
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={fadeInUp}
+      >
+        <FeeExplainer />
+      </motion.div>
 
       {/* Concierge Justification */}
-      <ConciergeJustification />
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={fadeInUp}
+      >
+        <ConciergeJustification />
+      </motion.div>
 
       {/* Final CTA */}
       <section className="bg-neutral-900 py-16">
         <Container>
-          <div className="mx-auto max-w-2xl text-center">
+          <motion.div
+            className="mx-auto max-w-2xl text-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+          >
             <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[32px] text-white leading-[48px]">
               {t("cta.title")}
             </h2>
             <p className="mb-8 text-[16px] text-neutral-300 leading-[24px]">{t("cta.subtitle")}</p>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
-              <a
+              <motion.a
                 className="inline-block rounded-full bg-orange-500 px-8 py-4 font-semibold text-white shadow-md transition-all duration-200 hover:bg-orange-600 hover:shadow-lg"
                 href="/professionals"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
                 {t("cta.primary")}
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 className="inline-block rounded-full border-2 border-white px-8 py-4 font-semibold text-white transition-all duration-200 hover:bg-white hover:text-neutral-900"
                 href="/concierge"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
                 {t("cta.secondary")}
-              </a>
+              </motion.a>
             </div>
-          </div>
+          </motion.div>
         </Container>
       </section>
     </div>

@@ -11,6 +11,7 @@ import { AmaraFloatingButton } from "@/components/amara/amara-floating-button";
 import { ChangelogBanner } from "@/components/changelog/changelog-banner";
 import { UnifiedCommandPaletteWrapper } from "@/components/command-palette/unified-command-palette-wrapper";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { AnnouncementBanner } from "@/components/sections/AnnouncementBanner";
 import { CookieConsent } from "@/components/legal/cookie-consent";
 import { FeedbackProvider } from "@/components/providers/feedback-provider";
 import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider";
@@ -120,6 +121,7 @@ export default async function RootLayout({
             <PostHogProvider nonce={nonce}>
               <FeedbackProvider>
                 <UnifiedCommandPaletteWrapper>
+                  <AnnouncementBanner />
                   <ChangelogBanner />
                   <Suspense fallback={<div>Loading...</div>}>
                     <SupabaseProvider>

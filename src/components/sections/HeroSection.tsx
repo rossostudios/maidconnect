@@ -47,54 +47,30 @@ export function HeroSection() {
   });
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const trustedCompanies = ["Biosynthesis", "Quotient", "Hourglass", "Command+R", "GlobalBank"];
+  // Highlight Medellín focus and Colombian expansion rather than abstract company logos
+  const trustedAreas = [
+    "El Poblado · Medellín",
+    "Laureles · Medellín",
+    "Envigado · Medellín",
+    "Sabaneta · Medellín",
+    "Bogotá · Coming Soon",
+    "Cali · Coming Soon",
+  ];
 
   return (
     <section className="relative overflow-visible bg-neutral-50" ref={containerRef}>
-      {/* Concierge Banner - Above Hero */}
-      <div className="flex items-center justify-center bg-white py-4">
-        <div className="w-full max-w-[1320px] border-neutral-200 border-b">
-          <Container className="max-w-6xl px-4 md:px-8">
-            <p className="text-center text-neutral-700 text-sm sm:text-base">
-              <strong className="font-semibold text-neutral-900">New to Colombia?</strong> Try our
-              Concierge service — English-speaking coordinator, curated matches in 5 days.{" "}
-              <Link
-                className="inline-flex items-center font-semibold text-orange-600 transition-colors hover:text-orange-700"
-                href="/concierge"
-                onClick={() =>
-                  conversionTracking.heroCTAClicked({
-                    ctaType: "concierge",
-                    location: "banner",
-                    ctaText: "Learn More",
-                    variant: "control",
-                  })
-                }
-              >
-                Learn More →
-              </Link>
-            </p>
-          </Container>
-        </div>
-      </div>
-
       {/* Hero Section */}
       <div className="py-32 md:py-40">
-        {/* Vertical Lines - Full height from navbar to bottom, aligned with container */}
-        <div className="-translate-x-1/2 pointer-events-none fixed top-0 bottom-0 left-1/2 z-10 w-full max-w-[1320px]">
-          <div className="absolute inset-y-0 left-0 w-px bg-neutral-200" />
-          <div className="absolute inset-y-0 right-0 w-px bg-neutral-200" />
-        </div>
-
         <Container className="relative max-w-6xl px-4 md:px-8">
           {/* Hero Content - Swiss Grid Layout */}
           <motion.div
             animate="visible"
-            className="mb-24 grid grid-cols-1 gap-16 md:grid-cols-12 md:gap-8"
+            className="mb-24 grid grid-cols-1 gap-16 md:grid-cols-12 md:gap-8 md:items-start"
             initial="hidden"
             variants={stagger}
           >
             {/* Text Content - 7 columns */}
-            <div className="md:col-span-7">
+            <div className="flex flex-col md:col-span-7">
               {/* Overline - Uppercase, tracked */}
               <motion.div
                 className="mb-4 font-medium text-neutral-600 text-xs uppercase tracking-wider"
@@ -199,7 +175,7 @@ export function HeroSection() {
           <div className="mt-24">
             <div className="rounded-3xl border border-neutral-200 bg-white/80 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10">
               <p className="mb-8 text-center text-neutral-600 text-xs uppercase tracking-[0.4em]">
-                Trusted by households across Bogotá, Medellín, and Cartagena
+                Built for expat and local households in Medellín — expanding across Colombia
               </p>
 
               <div className="relative overflow-hidden">
@@ -217,13 +193,13 @@ export function HeroSection() {
                     ease: "linear",
                   }}
                 >
-                  {[...trustedCompanies, ...trustedCompanies].map((company, index) => (
+                  {[...trustedAreas, ...trustedAreas].map((area, index) => (
                     <div
                       className="flex min-w-[160px] items-center justify-center"
-                      key={`${company}-${index}`}
+                      key={`${area}-${index}`}
                     >
                       <span className="whitespace-nowrap font-semibold text-neutral-900 text-sm tracking-tight">
-                        {company}
+                        {area}
                       </span>
                     </div>
                   ))}
@@ -232,9 +208,6 @@ export function HeroSection() {
             </div>
           </div>
         </Container>
-
-        {/* Horizontal Divider - Connects vertical lines at container width */}
-        <div className="mx-auto mt-20 h-px w-full max-w-[1320px] bg-neutral-200" />
       </div>
     </section>
   );

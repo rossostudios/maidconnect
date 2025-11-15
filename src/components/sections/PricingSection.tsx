@@ -53,13 +53,13 @@ export function PricingSection() {
   ];
 
   return (
-    <section className="w-full bg-neutral-50 py-24 md:py-32">
-      {/* Top horizontal line connecting to page borders */}
-      <div className="mx-auto mb-16 max-w-6xl border-neutral-200 border-t-2" />
+    <section className="w-full bg-neutral-50 py-16 md:py-20">
+      {/* Top horizontal divider */}
+      <div className="mx-auto mb-16 h-px max-w-6xl bg-neutral-200" />
 
       {/* Pricing Box Container */}
       <Container className="mx-auto max-w-6xl px-4">
-        <div className="mx-auto max-w-5xl border-2 border-neutral-200 bg-white">
+        <div className="mx-auto max-w-5xl border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
           {/* Section Header */}
           <div className="px-8 py-16 text-center">
             <div className="mb-4 inline-block rounded-full bg-orange-100 px-4 py-1.5">
@@ -74,10 +74,10 @@ export function PricingSection() {
           </div>
 
           {/* Horizontal line */}
-          <div className="border-neutral-200 border-t-2" />
+          <div className="border-neutral-200 border-t" />
 
           {/* Top Section: Names and Commission */}
-          <div className="grid divide-x-0 divide-neutral-200 md:grid-cols-2 md:divide-x-2">
+          <div className="grid divide-x-0 divide-neutral-200 md:grid-cols-2 md:divide-x">
             {plans.map((plan) => (
               <div className="relative bg-white" key={`top-${plan.name}`}>
                 {/* Plan Name & Description */}
@@ -105,10 +105,10 @@ export function PricingSection() {
           </div>
 
           {/* Horizontal line spanning both cards */}
-          <div className="border-neutral-200 border-t-2" />
+          <div className="border-neutral-200 border-t" />
 
           {/* Bottom Section: Buttons and Features */}
-          <div className="grid divide-x-0 divide-neutral-200 md:grid-cols-2 md:divide-x-2">
+          <div className="grid divide-x-0 divide-neutral-200 md:grid-cols-2 md:divide-x">
             {plans.map((plan) => (
               <div className="relative bg-white" key={`bottom-${plan.name}`}>
                 {/* CTA Button */}
@@ -146,7 +146,7 @@ export function PricingSection() {
           </div>
 
           {/* Horizontal line */}
-          <div className="border-neutral-200 border-t-2" />
+          <div className="border-neutral-200 border-t" />
 
           {/* Footer Note - Transparency */}
           <div className="space-y-2 px-8 py-12 text-center">

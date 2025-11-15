@@ -67,9 +67,12 @@ export function FaqSection() {
   };
 
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-neutral-50 py-16 md:py-20">
+      {/* Top horizontal divider */}
+      <div className="mx-auto mb-16 h-px max-w-6xl bg-neutral-200" />
+
       <Container className="max-w-6xl">
-        <div className="grid border-2 border-neutral-200 bg-white md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <div className="grid border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)] md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           {/* Left Column */}
           <div className="flex flex-col gap-6 p-8 md:p-10 lg:p-12">
             <div className="inline-flex">
@@ -87,11 +90,11 @@ export function FaqSection() {
           </div>
 
           {/* Right Column - Accordion */}
-          <div className="flex flex-col border-neutral-200 border-t-2 md:border-t-0 md:border-l-2">
+          <div className="flex flex-col border-neutral-200 border-t md:border-t-0 md:border-l">
             {FAQ_ITEMS.map((item, index) => {
               const isOpen = openIndex === index;
               return (
-                <div className={"border-neutral-200 border-b-2 last:border-b-0"} key={index}>
+                <div className={"border-neutral-200 border-b last:border-b-0"} key={index}>
                   <button
                     aria-expanded={isOpen}
                     className="flex w-full items-start justify-between gap-4 p-6 text-left transition-colors hover:text-orange-600 md:p-8"

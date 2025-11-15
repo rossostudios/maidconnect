@@ -292,3 +292,78 @@ export function isFeatureEnabledOrDefault(flagKey: FeatureFlagKey): boolean {
   const value = getFeatureFlagOrDefault(flagKey);
   return Boolean(value);
 }
+
+/**
+ * Structured Outputs Feature Checks
+ * Convenience helpers for AI-powered features
+ */
+
+/**
+ * Check if AI booking intent detection is enabled
+ *
+ * @returns true if enabled
+ *
+ * @example
+ * if (isBookingIntentDetectionEnabled()) {
+ *   const intent = await parseBookingIntent(message);
+ * }
+ */
+export function isBookingIntentDetectionEnabled(): boolean {
+  return isFeatureEnabled(FEATURE_FLAGS.BOOKING_INTENT_DETECTION, false);
+}
+
+/**
+ * Check if AI document extraction is enabled
+ *
+ * @returns true if enabled
+ *
+ * @example
+ * if (isDocumentExtractionEnabled()) {
+ *   const data = await extractDocumentData(file);
+ * }
+ */
+export function isDocumentExtractionEnabled(): boolean {
+  return isFeatureEnabled(FEATURE_FLAGS.DOCUMENT_EXTRACTION, false);
+}
+
+/**
+ * Check if AI review moderation is enabled
+ *
+ * @returns true if enabled
+ *
+ * @example
+ * if (isReviewModerationEnabled()) {
+ *   const analysis = await analyzeReview(reviewText);
+ * }
+ */
+export function isReviewModerationEnabled(): boolean {
+  return isFeatureEnabled(FEATURE_FLAGS.REVIEW_MODERATION_AI, false);
+}
+
+/**
+ * Check if AI smart matching is enabled
+ *
+ * @returns true if enabled
+ *
+ * @example
+ * if (isSmartMatchingEnabled()) {
+ *   const criteria = await parseMatchingCriteria(query);
+ * }
+ */
+export function isSmartMatchingEnabled(): boolean {
+  return isFeatureEnabled(FEATURE_FLAGS.SMART_MATCHING, false);
+}
+
+/**
+ * Check if AI analytics is enabled
+ *
+ * @returns true if enabled
+ *
+ * @example
+ * if (isAIAnalyticsEnabled()) {
+ *   const insights = await generateBusinessInsights();
+ * }
+ */
+export function isAIAnalyticsEnabled(): boolean {
+  return isFeatureEnabled(FEATURE_FLAGS.AI_ANALYTICS, false);
+}

@@ -22,7 +22,10 @@ export function TestimonialsSection() {
     [role, location].filter(Boolean).join(" · ");
 
   return (
-    <section className="bg-neutral-50 py-24 md:py-32" id="testimonials">
+    <section className="bg-neutral-50 py-16 md:py-20" id="testimonials">
+      {/* Top horizontal divider */}
+      <div className="mx-auto mb-16 h-px max-w-6xl bg-neutral-200" />
+
       <Container className="max-w-6xl px-4 md:px-8">
         <div className="mx-auto max-w-4xl border border-neutral-200 px-6 py-12 text-center sm:px-12">
           <div className="mb-4 flex items-center justify-center gap-2 font-semibold text-[0.7rem] text-orange-600 uppercase tracking-[0.35em]">
@@ -39,8 +42,6 @@ export function TestimonialsSection() {
             precision.
           </p>
         </div>
-
-        <div className="mx-auto mt-12 h-px max-w-5xl bg-neutral-200" />
 
         {/* Featured testimonial */}
         {featured && (
@@ -112,8 +113,6 @@ export function TestimonialsSection() {
           </div>
         )}
       </Container>
-
-      <div className="mx-auto mt-20 h-px max-w-6xl bg-neutral-200" />
     </section>
   );
 }

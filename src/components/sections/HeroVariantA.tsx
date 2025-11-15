@@ -44,7 +44,14 @@ export function HeroVariantA() {
   });
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const trustedCompanies = ["Biosynthesis", "Quotient", "Hourglass", "Command+R", "GlobalBank"];
+  const trustedAreas = [
+    "El Poblado · Medellín",
+    "Laureles · Medellín",
+    "Envigado · Medellín",
+    "Sabaneta · Medellín",
+    "Bogotá · Coming Soon",
+    "Cali · Coming Soon",
+  ];
 
   return (
     <section className="relative overflow-visible bg-neutral-50" ref={containerRef}>
@@ -198,7 +205,7 @@ export function HeroVariantA() {
           <div className="mt-24">
             <div className="rounded-3xl border border-neutral-200 bg-white/80 px-6 py-10 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:px-10">
               <p className="mb-8 text-center text-neutral-600 text-xs uppercase tracking-[0.4em]">
-                Trusted by households across Bogotá, Medellín, and Cartagena
+                Built for expat and local households in Medellín — expanding across Colombia
               </p>
 
               <div className="relative overflow-hidden">
@@ -216,13 +223,13 @@ export function HeroVariantA() {
                     ease: "linear",
                   }}
                 >
-                  {[...trustedCompanies, ...trustedCompanies].map((company, index) => (
+                  {[...trustedAreas, ...trustedAreas].map((area, index) => (
                     <div
                       className="flex min-w-[160px] items-center justify-center"
-                      key={`${company}-${index}`}
+                      key={`${area}-${index}`}
                     >
                       <span className="whitespace-nowrap font-semibold text-neutral-900 text-sm tracking-tight">
-                        {company}
+                        {area}
                       </span>
                     </div>
                   ))}

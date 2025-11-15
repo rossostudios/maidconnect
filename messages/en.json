@@ -1047,23 +1047,23 @@
     }
   },
   "hero": {
-    "badge": "Casaora · The Art of Home",
-    "overline": "Premium Domestic Staffing",
-    "title": "Your home deserves exceptional care",
-    "subtitle": "Casaora connects Colombia's most qualified household professionals with families who demand excellence. Every candidate is thoroughly vetted, background-checked, and matched to your unique needs.",
-    "description": "Every professional on Casaora has passed rigorous screening and personal interviews. We only accept the top 5%—so you can focus on finding your perfect match.",
+    "badge": "Domestic staffing for expats in Colombia",
+    "overline": "Premium household staff in Medellín",
+    "title": "Hire vetted household staff in Colombia — entirely in English.",
+    "subtitle": "Casaora helps expat and local families in Medellín (and soon other major Colombian cities) hire trusted housekeepers, nannies, and estate staff. We vet every professional and guide you through the process in English or Spanish.",
+    "description": "Start with a short brief, receive a curated shortlist of professionals, and let us handle contracts, payments, and support so your home is cared for with confidence.",
     "cta": {
-      "primary": "Find Professionals",
-      "secondary": "Learn More"
+      "primary": "Start your brief",
+      "secondary": "How Casaora works"
     },
     "trust": {
-      "verified": "Background Checked",
-      "rating": "Top 5% Only"
+      "verified": "Vetted professionals",
+      "rating": "Two-way reviews"
     },
     "trustSignals": {
-      "verified": "Only the top 5% accepted",
-      "cities": "Serving Colombia's finest homes",
-      "rating": "Every profile verified"
+      "verified": "Every professional reviewed by Casaora",
+      "cities": "Starting in Medellín, expanding across Colombia",
+      "rating": "Built for long-term relationships"
     },
     "trustLabels": {
       "verified": "Talent",
@@ -1144,16 +1144,16 @@
     "stats": {
       "items": {
         "homes": {
-          "value": "2,400+",
-          "label": "Households cared for"
+          "value": "Expat & local families",
+          "label": "Households we focus on"
         },
         "cities": {
-          "value": "12",
-          "label": "Cities served"
+          "value": "Medellín first",
+          "label": "Expanding across Colombia"
         },
         "rating": {
-          "value": "4.9★",
-          "label": "Average satisfaction"
+          "value": "Care & trust",
+          "label": "At the center of every match"
         }
       }
     }
@@ -1320,14 +1320,14 @@
     "bookingPlatform": {
       "meta": {
         "title": "Booking Platform - Instant Service Scheduling | Casaora",
-        "description": "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless. 500+ bookings monthly."
+        "description": "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless as we grow."
       },
       "hero": {
         "headline": "Book trusted professionals in minutes",
         "description": "Schedule services with instant booking or request approval. Real-time availability and smart filtering make finding the right match effortless.",
         "primaryCTA": "Browse Professionals",
         "secondaryCTA": "Learn More",
-        "badge": "500+ bookings this month"
+        "badge": "Concierge and self-serve booking"
       },
       "features": {
         "title": "Powerful booking features",
@@ -1394,14 +1394,14 @@
     "professionalProfiles": {
       "meta": {
         "title": "Verified Professional Profiles - Background Checked | Casaora",
-        "description": "Meet verified professionals with background checks, credentials, customer reviews, and portfolio galleries. 100% verified professionals you can trust in Colombia."
+        "description": "Meet vetted professionals with background checks, credentials, customer reviews, and portfolio galleries — so you can book with confidence in Colombia."
       },
       "hero": {
         "headline": "Meet verified professionals you can trust",
         "description": "Every profile includes background checks, verified credentials, customer reviews, and portfolio galleries showcasing their work.",
         "primaryCTA": "View Professionals",
         "secondaryCTA": "Learn More",
-        "badge": "100% verified professionals"
+        "badge": "Vetted by Casaora"
       },
       "features": {
         "title": "Trust built into every profile",
@@ -2204,7 +2204,7 @@
   "professionalsDirectory": {
     "header": {
       "title": "Casaora professionals",
-      "subtitle": "Every specialist here has passed Casaora's four-step vetting—ID approval, work eligibility, references, and an in-person interview."
+      "subtitle": "Browse a curated, growing network of vetted professionals — starting in Medellín. If you don’t see the perfect match, start a brief and we’ll hand-match you."
     },
     "filters": {
       "search": "Search by name, service, or neighbourhood",
@@ -2387,11 +2387,11 @@
   "pricing": {
     "meta": {
       "title": "Transparent Pricing - No Hidden Fees | Casaora",
-      "description": "Understand exactly what you'll pay. 15% marketplace fee or 25% for our premium concierge service. Professionals keep 100% of their rate."
+      "description": "Understand exactly what you'll pay. Professionals set their own rates, and Casaora adds a clear platform fee on top so you see the full cost upfront."
     },
     "hero": {
       "title": "Transparent Pricing - No Hidden Fees",
-      "subtitle": "Choose the service level that works for you. Whether you browse yourself or let us match you, pricing is always clear and upfront.",
+      "subtitle": "Professionals keep 100% of their rate. You see the service cost, Casaora platform fee, and any optional insurance before you confirm.",
       "tabs": {
         "customers": "For Customers",
         "professionals": "For Professionals"
@@ -2485,8 +2485,8 @@
         }
       },
       "trustBadge": {
-        "title": "Trusted by 2,000+ Expats & Locals in Colombia",
-        "description": "Your platform fee ensures every professional is vetted, verified, and backed by our satisfaction guarantee. We don't take shortcuts on safety."
+        "title": "Built for expats and local families in Colombia",
+        "description": "Your platform fee ensures every professional is vetted, verified, and backed by our support. We don't take shortcuts on safety."
       }
     },
     "concierge": {
@@ -2514,8 +2514,8 @@
           "description": "One point of contact throughout your booking who knows your preferences and history."
         },
         "topProfessionals": {
-          "title": "Top 5% Professionals",
-          "description": "Concierge clients get matched with our highest-rated, most experienced professionals first."
+          "title": "Our Most Trusted Professionals",
+          "description": "Concierge clients get matched with highly-rated, carefully vetted professionals first."
         }
       },
       "perfectFor": {
@@ -2549,7 +2549,7 @@
             "English-speaking coordinator",
             "Priority booking",
             "Satisfaction guarantee",
-            "Top 5% professionals",
+            "Highly-vetted professionals",
             "Dedicated support"
           ]
         }
@@ -2566,7 +2566,7 @@
           },
           "step2": {
             "title": "We Add Our Transparent Fee",
-            "description": "15% for marketplace self-service or 25% for our premium concierge matching service."
+            "description": "Casaora adds a clear platform fee on top of the professional’s rate. This fee funds vetting, support, and the technology that keeps everyone safe."
           },
           "step3": {
             "title": "You See the Total Upfront",
@@ -2599,7 +2599,7 @@
           },
           "customerPays": {
             "title": "Customer Pays Platform Fee",
-            "description": "We add 15% on top of your rate. This fee is paid by the customer, not deducted from your earnings."
+            "description": "We add a clearly-labeled platform fee on top of your rate. This fee is paid by the customer, not deducted from your earnings."
           },
           "youReceive": {
             "title": "You Receive 100%",
@@ -2632,13 +2632,13 @@
           },
           "earnMore": {
             "title": "Earn More Than Competitors",
-            "description": "Because we don't cut your rate, you earn 15-20% more than on other platforms."
+            "description": "Because we don't cut your rate, you keep everything you charge—no surprise deductions or hidden commissions."
           }
         }
       },
       "feeCovers": {
         "title": "What Does the Platform Fee Cover?",
-        "description": "Our 15% fee (paid by customers) funds the services that bring you clients and keep you safe.",
+        "description": "Our platform fee (paid by customers) funds the services that bring you clients and keep you safe.",
         "items": [
           {
             "title": "Customer Acquisition",
@@ -2717,7 +2717,7 @@
       "questions": {
         "howMuchDoesItCost": {
           "question": "How much does it cost to use Casaora?",
-          "answer": "For customers: You pay the professional's rate plus a 15% platform fee (marketplace) or 25% (concierge service). For professionals: It's free to join. You keep 100% of your rate—customers pay the platform fee."
+          "answer": "For customers: You pay the professional's rate plus a clearly-labeled Casaora platform fee. For professionals: It's free to join. You keep 100% of your rate—customers pay the platform fee."
         },
         "whyPlatformFee": {
           "question": "Why is there a platform fee?",
@@ -2725,7 +2725,7 @@
         },
         "conciergeVsMarketplace": {
           "question": "What's the difference between marketplace and concierge?",
-          "answer": "Marketplace (15%): You browse and book professionals yourself. Concierge (25%): Our team matches you with the perfect professional, provides English-speaking coordinators, priority booking, and satisfaction guarantee. Perfect for foreigners and first-timers."
+          "answer": "Marketplace: You browse and book professionals yourself. Concierge: Our team matches you with the right professional, provides English-speaking coordinators, priority booking, and a satisfaction guarantee. It’s designed especially for foreigners, expats, and first-time users."
         },
         "professionalKeepsRate": {
           "question": "Do professionals really keep 100% of their rate?",
@@ -2925,34 +2925,34 @@
   "howItWorks": {
     "meta": {
       "title": "How It Works - Simple Steps to Quality Service | Casaora",
-      "description": "Discover how Casaora makes it easy to find trusted domestic service professionals. Browse verified profiles, book services, and get support every step of the way."
+      "description": "Discover how Casaora helps expat and local families in Medellín hire trusted domestic service professionals through a concierge-first matching process, with clear steps and support at every stage."
     },
     "hero": {
       "title": "How Casaora Works",
-      "subtitle": "Whether you're looking for help or offering your services, we've made the process simple, safe, and transparent."
+      "subtitle": "We start in Medellín with a concierge-first approach: you share what your home needs, we curate professionals, and together we build long-term, trusted relationships."
     },
     "customer": {
       "title": "For Customers",
-      "subtitle": "Find trusted professionals in 4 easy steps",
+      "subtitle": "From a short brief to a trusted professional in a few simple steps",
       "steps": {
         "search": {
-          "title": "Search & Browse",
-          "description": "Browse verified professionals by service type, location, and availability. Filter by language, ratings, and experience to find your perfect match."
+          "title": "Start with a brief",
+          "description": "Tell us about your home, the help you need in Medellín, your schedule, language preference, and budget. It takes about 3 minutes."
         },
         "book": {
-          "title": "Book Your Service",
-          "description": "Choose your preferred date and time, review transparent pricing, and book instantly. Our concierge team is available if you need help."
+          "title": "We vet & curate matches",
+          "description": "We review your brief, select professionals who fit your needs, and share a small shortlist. Each professional has been vetted by Casaora."
         },
         "service": {
-          "title": "Enjoy Quality Service",
-          "description": "The professional arrives on time and delivers exceptional service. Our support team is standing by if you need any assistance."
+          "title": "You meet & choose",
+          "description": "You review profiles, chat with candidates, and decide who feels right for your home. We help with any questions along the way."
         },
         "review": {
-          "title": "Review & Rebook",
-          "description": "Share your experience to help others. Loved your professional? Save them as a favorite and rebook with one click."
+          "title": "We support the relationship",
+          "description": "Once you’ve chosen your professional, we help with agreements, payments, and any adjustments. When things go well, rebooking is simple."
         }
       },
-      "cta": "Browse Professionals"
+      "cta": "Start your brief"
     },
     "professional": {
       "title": "For Professionals",

@@ -55,7 +55,6 @@ export function SiteFooter() {
         { href: "/about", label: t("about") },
         { href: "/blog", label: "Blog" },
         { href: "/pros", label: "For Professionals" },
-        { href: "/careers", label: t("careers"), badge: "Hiring" },
         { href: "/changelog", label: "What's New" },
       ],
     },

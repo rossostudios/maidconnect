@@ -139,7 +139,7 @@ export function AccordionTrigger({ children, className }: AccordionTriggerProps)
       onClick={() => toggleItem(currentItem)}
       type="button"
     >
-      <span className="pr-8 font-semibold font-serif text-lg text-neutral-900">{children}</span>
+      <span className="pr-8 font-semibold text-lg text-neutral-900">{children}</span>
       <HugeiconsIcon
         className={cn(
           "h-6 w-6 flex-shrink-0 text-neutral-600 transition-transform duration-300",

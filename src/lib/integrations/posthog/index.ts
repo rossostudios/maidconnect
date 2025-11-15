@@ -38,6 +38,12 @@ export {
   isOneTapRebookEnabled,
   overrideFeatureFlags,
   reloadFeatureFlags,
+  // Structured Outputs Feature Checks
+  isBookingIntentDetectionEnabled,
+  isDocumentExtractionEnabled,
+  isReviewModerationEnabled,
+  isSmartMatchingEnabled,
+  isAIAnalyticsEnabled,
 } from "./feature-flags";
 export { matchWizardTracking } from "./match-wizard-tracking";
 export { pmfTracking } from "./pmf-tracking-client";

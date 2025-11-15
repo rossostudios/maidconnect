@@ -158,7 +158,7 @@ export function BenefitsSection() {
     .filter((row) => row.items.length > 0);
 
   return (
-    <section className="bg-neutral-50 py-24 md:py-32" id="benefits">
+    <section className="bg-neutral-50 py-16 md:py-20" id="benefits">
       {/* Top horizontal divider */}
       <div className="mx-auto mb-16 h-px max-w-7xl bg-neutral-200" />
 
@@ -233,9 +233,6 @@ export function BenefitsSection() {
           )}
         </div>
       </Container>
-
-      {/* Bottom horizontal divider */}
-      <div className="mx-auto mt-20 h-px max-w-7xl bg-neutral-200" />
     </section>
   );
 }

@@ -11,10 +11,13 @@
 
 import { useChat } from "@ai-sdk/react";
 import {
+  ArrowRight01Icon,
   Cancel01Icon,
+  CheckmarkCircle02Icon,
   HelpCircleIcon,
   Home01Icon,
   Loading01Icon,
+  Location01Icon,
   Message01Icon,
   NewsIcon,
   SentIcon,
@@ -24,6 +27,7 @@ import type { FileUIPart, ToolUIPart } from "ai";
 import { DefaultChatTransport } from "ai";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+import type { BookingIntent } from "@/lib/integrations/amara/schemas";
 import {
   Conversation,
   ConversationContent,
@@ -53,12 +57,14 @@ type AmaraChatInterfaceProps = {
   locale?: string;
 };
 
-export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps) {
+export function AmaraChatInterface({ isOpen, onClose, locale }: AmaraChatInterfaceProps) {
   const t = useTranslations("amara");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [quickReplies, setQuickReplies] = useState<QuickReply[]>([]);
   const [input, setInput] = useState("");
+  const [detectedIntent, setDetectedIntent] = useState<BookingIntent | null>(null);
+  const [detectingIntent, setDetectingIntent] = useState(false);
 
   const { messages, sendMessage, status, error, setMessages } = useChat({
     transport: new DefaultChatTransport({
@@ -126,6 +132,37 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         }
       }
     }, 100);
+  };
+
+  // Detect booking intent in user message
+  const detectBookingIntent = async (userMessage: string) => {
+    setDetectingIntent(true);
+    try {
+      const response = await fetch("/api/amara/booking-intent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userMessage,
+          locale: locale || "en",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to detect intent");
+      }
+
+      const data = await response.json();
+
+      // Only set intent if confidence is high enough (>70%)
+      if (data.confidence && data.confidence >= 70) {
+        setDetectedIntent(data);
+      }
+    } catch (error) {
+      console.error("Intent detection failed:", error);
+      // Silently fail - don't disrupt chat experience
+    } finally {
+      setDetectingIntent(false);
+    }
   };
 
   if (!isOpen) {
@@ -246,6 +283,136 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         </Conversation>
       </div>
 
+      {/* Booking Intent Detection Card */}
+      {(detectingIntent || detectedIntent) && (
+        <div className="border-neutral-200 border-t bg-neutral-50 px-4 py-3 sm:px-6 sm:py-4">
+          {detectingIntent ? (
+            <div className="flex items-center gap-3 border border-orange-200 bg-white px-4 py-3">
+              <HugeiconsIcon
+                className="h-5 w-5 animate-spin text-orange-600"
+                icon={Loading01Icon}
+                strokeWidth={1.5}
+              />
+              <span className="font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
+                Analyzing your request...
+              </span>
+            </div>
+          ) : (
+            detectedIntent && (
+              <div className="space-y-3 border border-orange-200 bg-white px-4 py-4 sm:px-6">
+                {/* Header */}
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-2">
+                    <HugeiconsIcon
+                      className="h-5 w-5 text-orange-600"
+                      icon={CheckmarkCircle02Icon}
+                      strokeWidth={1.5}
+                    />
+                    <h4 className="font-[family-name:var(--font-geist-sans)] font-semibold text-base text-neutral-900">
+                      Booking Request Detected
+                    </h4>
+                  </div>
+                  <button
+                    className="text-neutral-400 transition-colors hover:text-neutral-600"
+                    onClick={() => setDetectedIntent(null)}
+                    type="button"
+                  >
+                    <HugeiconsIcon className="h-4 w-4" icon={Cancel01Icon} strokeWidth={1.5} />
+                  </button>
+                </div>
+
+                {/* Intent Details */}
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2">
+                    <span className="font-[family-name:var(--font-geist-sans)] text-neutral-600 text-sm">
+                      Service:
+                    </span>
+                    <span className="font-[family-name:var(--font-geist-sans)] font-medium text-neutral-900 text-sm">
+                      {detectedIntent.serviceType.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())}
+                    </span>
+                  </div>
+
+                  {detectedIntent.location?.city && (
+                    <div className="flex items-start gap-2">
+                      <HugeiconsIcon
+                        className="mt-0.5 h-4 w-4 text-neutral-600"
+                        icon={Location01Icon}
+                        strokeWidth={1.5}
+                      />
+                      <span className="font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
+                        {detectedIntent.location.city}
+                        {detectedIntent.location.neighborhood &&
+                          `, ${detectedIntent.location.neighborhood}`}
+                      </span>
+                    </div>
+                  )}
+
+                  {detectedIntent.requirements && (
+                    <div className="flex items-start gap-2">
+                      <span className="font-[family-name:var(--font-geist-sans)] text-neutral-600 text-sm">
+                        Requirements:
+                      </span>
+                      <span className="font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
+                        {detectedIntent.requirements}
+                      </span>
+                    </div>
+                  )}
+
+                  {detectedIntent.urgency && detectedIntent.urgency !== "not_specified" && (
+                    <div className="mt-2">
+                      <span
+                        className={`inline-flex items-center gap-1.5 px-3 py-1 font-[family-name:var(--font-geist-sans)] text-xs ${
+                          detectedIntent.urgency === "urgent"
+                            ? "border border-red-200 bg-red-50 text-red-700"
+                            : detectedIntent.urgency === "flexible"
+                              ? "border border-blue-200 bg-blue-50 text-blue-700"
+                              : "border border-orange-200 bg-orange-50 text-orange-700"
+                        }`}
+                      >
+                        {detectedIntent.urgency === "urgent" && "🔴"}
+                        {detectedIntent.urgency === "asap" && "⚡"}
+                        {detectedIntent.urgency === "flexible" && "📅"}
+                        {detectedIntent.urgency.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Action Button */}
+                <Link
+                  className="group flex w-full items-center justify-center gap-2 border border-orange-500 bg-orange-500 px-6 py-3 font-[family-name:var(--font-geist-sans)] font-semibold text-white transition-all hover:border-orange-600 hover:bg-orange-600 active:scale-95"
+                  href={`/professionals?service=${detectedIntent.serviceType}${
+                    detectedIntent.location?.city ? `&location=${detectedIntent.location.city}` : ""
+                  }`}
+                >
+                  <span>Find Professionals</span>
+                  <HugeiconsIcon
+                    className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                    icon={ArrowRight01Icon}
+                    strokeWidth={1.5}
+                  />
+                </Link>
+
+                {/* Confidence Indicator */}
+                {detectedIntent.confidence && (
+                  <div className="flex items-center justify-center gap-2 pt-2">
+                    <div className="h-1 w-full overflow-hidden bg-neutral-200">
+                      <div
+                        className="h-full bg-orange-500 transition-all duration-300"
+                        style={{ width: `${detectedIntent.confidence}%` }}
+                      />
+                    </div>
+                    <span className="font-[family-name:var(--font-geist-sans)] text-neutral-500 text-xs">
+                      {detectedIntent.confidence}% match
+                    </span>
+                  </div>
+                )}
+              </div>
+            )
+          )}
+        </div>
+      )}
+
       {/* Action Buttons - Precision Grid */}
       {messages.length === 1 && (
         <div className="border-neutral-200 border-t bg-neutral-50 px-4 py-3 sm:px-6 sm:py-4">
@@ -317,6 +484,9 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
 
           const message = input;
           setInput(""); // Clear input immediately
+
+          // Detect booking intent (runs in parallel with chat response)
+          detectBookingIntent(message);
 
           await sendMessage({
             role: "user",

@@ -44,15 +44,9 @@ export function BenefitsGrid() {
   ];
 
   return (
-    <section className="relative w-full bg-neutral-50 py-24 md:py-32">
-      {/* Top Horizontal Divider - Connects vertical lines */}
-      <div className="-translate-x-1/2 absolute top-0 left-1/2 h-px w-full max-w-[1320px] bg-neutral-200" />
-
-      {/* Vertical Lines - Full height, aligned with container */}
-      <div className="-translate-x-1/2 pointer-events-none absolute inset-y-0 left-1/2 w-full max-w-[1320px]">
-        <div className="absolute inset-y-0 left-0 w-px bg-neutral-200" />
-        <div className="absolute inset-y-0 right-0 w-px bg-neutral-200" />
-      </div>
+    <section className="relative w-full bg-neutral-50 py-16 md:py-20">
+      {/* Top Horizontal Divider */}
+      <div className="mx-auto mb-16 h-px max-w-7xl bg-neutral-200" />
 
       <Container className="relative mx-auto max-w-7xl px-4">
         <div className="overflow-hidden rounded-[40px] border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
@@ -245,9 +239,6 @@ export function BenefitsGrid() {
           </div>
         </div>
       </Container>
-
-      {/* Bottom Horizontal Divider - Connects vertical lines */}
-      <div className="-translate-x-1/2 absolute bottom-0 left-1/2 h-px w-full max-w-[1320px] bg-neutral-200" />
     </section>
   );
 }

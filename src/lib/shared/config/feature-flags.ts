@@ -18,6 +18,13 @@ export const FEATURE_FLAGS = {
   // Epic G-3: Match Wizard Rollout
   MATCH_WIZARD_ENABLED: "match_wizard_enabled",
 
+  // Structured Outputs - AI-Powered Features
+  BOOKING_INTENT_DETECTION: "booking_intent_detection",
+  DOCUMENT_EXTRACTION: "document_extraction",
+  REVIEW_MODERATION_AI: "review_moderation_ai",
+  SMART_MATCHING: "smart_matching",
+  AI_ANALYTICS: "ai_analytics",
+
   // Future Feature Flags
   ONE_TAP_REBOOK: "one_tap_rebook",
   ENHANCED_SEARCH: "enhanced_search",
@@ -103,6 +110,41 @@ export const FEATURE_FLAG_METADATA: Record<string, FeatureFlagMetadata> = {
     key: FEATURE_FLAGS.NEW_CHECKOUT_FLOW,
     name: "New Checkout Flow",
     description: "Redesigned checkout experience with improved conversion",
+    defaultValue: false,
+    type: "boolean",
+  },
+  [FEATURE_FLAGS.BOOKING_INTENT_DETECTION]: {
+    key: FEATURE_FLAGS.BOOKING_INTENT_DETECTION,
+    name: "AI Booking Intent Detection",
+    description: "Detects booking intent in Amara chat and suggests relevant actions",
+    defaultValue: false,
+    type: "boolean",
+  },
+  [FEATURE_FLAGS.DOCUMENT_EXTRACTION]: {
+    key: FEATURE_FLAGS.DOCUMENT_EXTRACTION,
+    name: "AI Document Extraction",
+    description: "Extracts data from professional vetting documents (IDs, licenses, certificates)",
+    defaultValue: false,
+    type: "boolean",
+  },
+  [FEATURE_FLAGS.REVIEW_MODERATION_AI]: {
+    key: FEATURE_FLAGS.REVIEW_MODERATION_AI,
+    name: "AI Review Moderation",
+    description: "Analyzes reviews for sentiment, safety flags, and moderation recommendations",
+    defaultValue: false,
+    type: "boolean",
+  },
+  [FEATURE_FLAGS.SMART_MATCHING]: {
+    key: FEATURE_FLAGS.SMART_MATCHING,
+    name: "AI Smart Matching",
+    description: "Natural language professional search with AI-powered matching criteria",
+    defaultValue: false,
+    type: "boolean",
+  },
+  [FEATURE_FLAGS.AI_ANALYTICS]: {
+    key: FEATURE_FLAGS.AI_ANALYTICS,
+    name: "AI Analytics Dashboard",
+    description: "AI-generated business intelligence reports and insights for admins",
     defaultValue: false,
     type: "boolean",
   },

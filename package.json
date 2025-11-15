@@ -36,6 +36,7 @@
   "dependencies": {
     "@ai-sdk/anthropic": "beta",
     "@ai-sdk/react": "beta",
+    "@anthropic-ai/sdk": "0.69.0",
     "@hookform/resolvers": "5.2.2",
     "@hugeicons/core-free-icons": "1.2.1",
     "@hugeicons/react": "1.1.1",
@@ -104,7 +105,8 @@
     "use-stick-to-bottom": "1.1.1",
     "web-push": "3.6.7",
     "web-vitals": "5.1.0",
-    "zod": "4.1.12"
+    "zod": "4.1.12",
+    "zod-to-json-schema": "3.24.6"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.5",
