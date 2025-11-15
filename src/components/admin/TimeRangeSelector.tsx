@@ -1,5 +1,5 @@
 /**
- * TimeRangeSelector - Time range filter buttons with Precision design
+ * TimeRangeSelector - Time range filter buttons with Lia design
  *
  * Features:
  * - Sharp rectangular buttons (no rounding)

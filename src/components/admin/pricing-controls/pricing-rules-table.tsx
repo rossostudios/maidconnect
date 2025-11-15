@@ -4,7 +4,7 @@
  * Table wrapper displaying all pricing rules with sortable columns.
  * Handles empty state when no rules exist.
  *
- * Precision Design: Neutral borders, clean typography, orange accents
+ * Lia Design: Neutral borders, clean typography, orange accents
  */
 
 import type { PricingRule } from "@/types/pricing";

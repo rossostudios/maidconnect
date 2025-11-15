@@ -47,7 +47,7 @@ async function verifyPayoutAuth(
   try {
     const admin = await requireAdmin();
     return { adminId: admin.id, isCronJob: false };
-  } catch (error) {
+  } catch (_error) {
     throw new Error("Unauthorized - admin access or cron secret required");
   }
 }
@@ -136,8 +136,12 @@ async function handlePayoutProcessing(request: Request) {
     // Determine error status
     const getErrorStatus = () => {
       if (error instanceof Error) {
-        if (error.message.includes("Unauthorized")) return 401;
-        if (error.message.includes("admin access")) return 403;
+        if (error.message.includes("Unauthorized")) {
+          return 401;
+        }
+        if (error.message.includes("admin access")) {
+          return 403;
+        }
       }
       return 500;
     };

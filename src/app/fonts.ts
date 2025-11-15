@@ -1,35 +1,46 @@
 /**
- * Custom Font Configuration for Casaora Admin
+ * Font Configuration for Casaora - Lia Design System
  *
- * Uses Vercel's Geist font family for exceptional readability and precision.
- * Geist is designed specifically for interfaces and data display.
+ * Uses Vercel's Geist font family exclusively across all surfaces for:
+ * - Exceptional readability and precision
+ * - Consistent brand experience (admin + marketing)
+ * - Bloomberg Terminal-inspired professional aesthetic
  *
  * Font Usage:
- * - Geist Sans: UI text, labels, headings - clean and readable
- * - Geist Mono: Numbers, data, metrics, code - precise and authoritative
- * - Satoshi/Manrope: Preserved for marketing site
+ * - Geist Sans: All UI text, labels, headings, body copy
+ * - Geist Mono: Numbers, data, metrics, code, timestamps
+ *
+ * Lia Design Philosophy:
+ * - One unified typography system
+ * - Sharp, clean, professional across all touchpoints
+ * - Data-focused aesthetic that builds trust
  */
 
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
-import localFont from "next/font/local";
 
 /**
- * Geist Sans - Primary Admin UI Font
+ * Geist Sans - Primary Font (All Surfaces)
  *
  * Modern sans-serif designed by Vercel for maximum readability.
- * Perfect for labels, headings, and interface text.
+ * Used for all text content across marketing, dashboard, and admin.
  *
  * Features:
- * - Optimized for screen readability
+ * - Optimized for screen readability at all sizes
  * - Excellent spacing and kerning
- * - Wide range of weights
+ * - Wide range of weights (100-900)
  * - Variable font for performance
+ * - Professional, trustworthy aesthetic
+ *
+ * Usage:
+ * - Marketing: Headings, body text, CTAs, navigation
+ * - Dashboard: All UI text, labels, descriptions
+ * - Admin: Headings, form labels, table headers
  */
 export const geistSans = GeistSans;
 
 /**
- * Geist Mono - Data Display Font
+ * Geist Mono - Data Display Font (All Surfaces)
  *
  * Monospace font designed for code, data, and numbers.
  * Creates a precise, authoritative feel for metrics and analytics.
@@ -39,96 +50,32 @@ export const geistSans = GeistSans;
  * - Clear distinction between similar characters (0/O, 1/I/l)
  * - Professional, technical aesthetic
  * - Perfect for dashboards and data tables
+ *
+ * Usage:
+ * - Marketing: Pricing tables, statistics, metrics
+ * - Dashboard: All numbers, timestamps, data values
+ * - Admin: Tables, metrics, analytics, IDs
  */
 export const geistMono = GeistMono;
 
 /**
- * Satoshi Font Family (Marketing Site)
+ * Font Usage Guidelines - Lia Design System:
  *
- * Preserved for marketing pages to maintain brand consistency.
- * Use Geist for admin interfaces.
- */
-export const satoshi = localFont({
-  src: [
-    {
-      path: "../../public/fonts/satoshi/Satoshi-Variable.woff2",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/satoshi/Satoshi-VariableItalic.woff2",
-      style: "italic",
-    },
-  ],
-  variable: "--font-satoshi",
-  display: "swap",
-  preload: true,
-  fallback: ["Inter", "system-ui", "-apple-system", "sans-serif"],
-  adjustFontFallback: "Arial",
-});
-
-/**
- * Manrope Font Family (Marketing Site)
+ * ALL SURFACES (Marketing, Dashboard, Admin, Error Pages):
+ * - Use Geist Sans for all text, labels, headings, body copy
+ * - Use Geist Mono for numbers, metrics, data values, timestamps, IDs
  *
- * Preserved for marketing pages to maintain brand consistency.
- * Use Geist for admin interfaces.
- */
-export const manrope = localFont({
-  src: [
-    {
-      path: "../../public/fonts/manrope/Manrope-ExtraLight.woff2",
-      weight: "200",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/manrope/Manrope-Light.woff2",
-      weight: "300",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/manrope/Manrope-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/manrope/Manrope-Medium.woff2",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/manrope/Manrope-SemiBold.woff2",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/manrope/Manrope-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/manrope/Manrope-ExtraBold.woff2",
-      weight: "800",
-      style: "normal",
-    },
-  ],
-  variable: "--font-manrope",
-  display: "swap",
-  preload: true,
-  fallback: ["Inter", "system-ui", "-apple-system", "sans-serif"],
-  adjustFontFallback: "Arial",
-});
-
-/**
- * Font Usage Guidelines:
+ * Typography Scale (Baseline-Aligned):
+ * - H1: 48px / 48px line-height (Geist Sans Bold)
+ * - H2: 36px / 48px line-height (Geist Sans Semibold)
+ * - H3: 24px / 24px line-height (Geist Sans Semibold)
+ * - Body: 16px / 24px line-height (Geist Sans Regular)
+ * - Small: 14px / 24px line-height (Geist Sans Regular)
+ * - Data: 14px / 24px line-height (Geist Mono Regular)
  *
- * ADMIN DASHBOARD:
- * - Use Geist Sans for all text, labels, headings
- * - Use Geist Mono for numbers, metrics, data values, timestamps
- *
- * MARKETING SITE:
- * - Use Satoshi for headings and display text
- * - Use Manrope for body text and UI elements
- *
- * This separation ensures:
- * - Admin feels professional, precise, data-focused
- * - Marketing feels warm, approachable, brand-focused
+ * This unified approach ensures:
+ * - Consistent professional aesthetic across all touchpoints
+ * - Trust and credibility through data-focused typography
+ * - Superior readability and accessibility
+ * - Simplified maintenance and faster development
  */

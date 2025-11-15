@@ -75,8 +75,8 @@ export default async function ProLeadsPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="font-bold text-3xl text-[#116611616]">Lead Queue</h1>
-        <p className="mt-2 text-[#AA88AAAAC]">Pending booking requests waiting for your response</p>
+        <h1 className="font-bold text-3xl text-neutral-900">Lead Queue</h1>
+        <p className="mt-2 text-neutral-500">Pending booking requests waiting for your response</p>
       </div>
 
       <LeadQueue initialBookings={pendingBookings} professionalId={user.id} />

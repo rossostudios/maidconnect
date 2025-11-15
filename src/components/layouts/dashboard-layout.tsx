@@ -27,28 +27,26 @@ export function DashboardLayout({
   fullWidth = false,
 }: Props) {
   return (
-    <div className="flex min-h-screen flex-col bg-[neutral-50]">
-      {/* Header with logo and navigation */}
-      <header className="border-[neutral-200] border-b bg-[neutral-50]">
+    <div className="flex min-h-screen flex-col bg-neutral-50 font-[family-name:var(--font-geist-sans)]">
+      {/* Header with logo and navigation - Precision: Sharp edges, neutral palette */}
+      <header className="border-neutral-200 border-b bg-neutral-50">
         <Container>
           <div className="flex items-center justify-between py-4">
             <Link
-              className="type-serif-sm text-[neutral-900] uppercase tracking-[0.08em] lg:text-[26px]"
+              className="font-[family-name:var(--font-geist-sans)] font-bold text-[24px] text-neutral-900 uppercase leading-[24px] tracking-[0.08em]"
               href="/"
             >
               CASAORA
             </Link>
 
-            {/* Navigation tabs */}
+            {/* Navigation tabs - Precision: Geist Sans, neutral-700 for inactive */}
             <nav className="flex items-center gap-6">
               {navLinks.map((link) => {
                 const isActive = currentPath === link.href;
                 return (
                   <Link
-                    className={`font-medium text-sm transition ${
-                      isActive
-                        ? "text-[neutral-900]"
-                        : "text-[neutral-400] hover:text-[neutral-900]"
+                    className={`font-medium text-sm transition-colors ${
+                      isActive ? "text-neutral-900" : "text-neutral-700 hover:text-neutral-900"
                     }`}
                     href={link.href}
                     key={link.href}
@@ -58,7 +56,7 @@ export function DashboardLayout({
                 );
               })}
               <Link
-                className="font-medium text-[neutral-400] text-sm transition hover:text-[neutral-900]"
+                className="font-medium text-neutral-700 text-sm transition-colors hover:text-neutral-900"
                 href={dashboardHref}
               >
                 ← Dashboard
@@ -68,7 +66,7 @@ export function DashboardLayout({
         </Container>
       </header>
 
-      {/* Main content */}
+      {/* Main content - Precision: Neutral backgrounds */}
       <main className="flex-1">
         {fullWidth ? (
           children
@@ -76,8 +74,10 @@ export function DashboardLayout({
           <Container className="py-12">
             {title && (
               <div className="mb-8">
-                <h1 className="font-semibold text-4xl text-[neutral-900]">{title}</h1>
-                {description && <p className="mt-2 text-[neutral-400] text-base">{description}</p>}
+                <h1 className="font-bold text-[48px] text-neutral-900 leading-[48px]">{title}</h1>
+                {description && (
+                  <p className="mt-2 text-base text-neutral-700 leading-[24px]">{description}</p>
+                )}
               </div>
             )}
             {children}

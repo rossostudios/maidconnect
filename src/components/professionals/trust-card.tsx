@@ -50,7 +50,7 @@ export function TrustCard({ verificationLevel, onTimeRate, rating, reviewCount }
 
       {/* Explainer Link */}
       <a
-        className="mt-4 flex items-center gap-2 text-[neutral-500] text-sm transition hover:underline"
+        className="mt-4 flex items-center gap-2 text-[neutral-500] text-sm transition"
         href="/trust-safety"
       >
         <HugeiconsIcon className="h-4 w-4" icon={InformationCircleIcon} />

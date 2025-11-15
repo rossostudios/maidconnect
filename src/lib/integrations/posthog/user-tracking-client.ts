@@ -8,7 +8,7 @@
 
 import { identifyUser as identifyUserClient, resetUser, trackEvent } from "./utils";
 
-export interface UserProperties {
+export type UserProperties = {
   email?: string;
   name?: string;
   role?: "customer" | "professional" | "admin";
@@ -18,7 +18,7 @@ export interface UserProperties {
   totalBookings?: number;
   totalSpent?: number;
   verificationStatus?: string;
-}
+};
 
 /**
  * Client-side user identification

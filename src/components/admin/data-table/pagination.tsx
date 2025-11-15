@@ -13,7 +13,7 @@ type Props<TData> = {
 };
 
 /**
- * PrecisionDataTablePagination - Pagination controls with Precision design
+ * PrecisionDataTablePagination - Pagination controls with Lia design
  *
  * Features:
  * - First/Previous/Next/Last navigation

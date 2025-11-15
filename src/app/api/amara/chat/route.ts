@@ -5,7 +5,7 @@
  * Uses Vercel AI SDK with Claude Haiku 4.5 for fast, cost-effective responses.
  */
 
-import { streamText } from "ai";
+import { convertToModelMessages, streamText } from "ai";
 import { NextResponse } from "next/server";
 import { AMARA_MODEL_CONFIG, amaraModel, validateAmaraConfig } from "@/lib/amara/ai-client";
 import { getAmaraSystemPrompt } from "@/lib/amara/prompts";
@@ -111,18 +111,14 @@ async function handlePOST(request: Request) {
       locale: userContext.locale,
     });
 
-    const coreMessages = toCoreMessages(messages);
+    // Convert UI messages to model messages using AI SDK v6
+    const coreMessages = convertToModelMessages(messages);
 
     // Stream AI response using Vercel AI SDK
     const result = streamText({
       model: amaraModel,
-      messages: [
-        {
-          role: "system",
-          content: systemPrompt,
-        },
-        ...coreMessages,
-      ],
+      system: systemPrompt,
+      messages: coreMessages,
       tools: amaraTools,
       // Note: maxTokens and temperature are configured in the model itself via AMARA_MODEL_CONFIG
       onFinish: async (event) => {
@@ -143,8 +139,8 @@ async function handlePOST(request: Request) {
       },
     });
 
-    // Return streaming response
-    return result.toTextStreamResponse();
+    // Return streaming response using AI SDK v6 format
+    return result.toUIMessageStreamResponse();
   } catch (error) {
     logger.error("Amara chat error", {
       error,
@@ -347,13 +343,6 @@ async function handleAssistantCompletion({
     tokensUsed: event.usage?.totalTokens || 0,
     toolCallCount: event.toolCalls?.length || 0,
   });
-}
-
-function toCoreMessages(messages: ChatMessage[]) {
-  return messages.map((message) => ({
-    role: message.role,
-    content: getMessageText(message),
-  }));
 }
 
 function getMessageParts(message: ChatMessage): NormalizedMessagePart[] {

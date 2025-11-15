@@ -5,7 +5,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { motion } from "motion/react";
 import type { HugeIcon } from "@/types/icons";
 
-interface PremiumStatCardProps {
+type PremiumStatCardProps = {
   icon: HugeIcon;
   label: string;
   value: number | string;
@@ -16,7 +16,7 @@ interface PremiumStatCardProps {
   };
   color?: "orange" | "green" | "pink" | "blue" | "purple";
   delay?: number;
-}
+};
 
 const colorVariants = {
   orange: {
@@ -128,7 +128,7 @@ export function PremiumStatCard({
             initial={{ opacity: 0 }}
             transition={{ delay: delay + 0.2 }}
           >
-            <h3 className="font-[family-name:var(--font-family-satoshi)] font-bold text-3xl text-neutral-900 tracking-tight">
+            <h3 className="font-[family-name:var(--font-geist-sans)] font-bold text-3xl text-neutral-900 tracking-tight">
               {value}
             </h3>
           </motion.div>

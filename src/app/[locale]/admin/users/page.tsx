@@ -10,7 +10,7 @@ export default async function AdminUsersPage() {
 
   return (
     <div className="space-y-8">
-      {/* Page Header - Precision Design */}
+      {/* Page Header - Lia Design */}
       <div>
         <h1
           className={cn(

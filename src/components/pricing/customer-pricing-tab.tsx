@@ -15,7 +15,7 @@ export function CustomerPricingTab() {
       {/* How Pricing Works */}
       <Container>
         <div className="mx-auto mb-12 max-w-3xl text-center">
-          <h2 className="mb-baseline-1 font-[family-name:var(--font-family-satoshi)] font-bold text-[32px] text-neutral-900 leading-[48px]">
+          <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[32px] text-neutral-900 leading-[48px]">
             {t("howItWorks.title")}
           </h2>
           <p className="text-[16px] text-neutral-700 leading-[24px]">
@@ -30,7 +30,7 @@ export function CustomerPricingTab() {
               <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-orange-500 font-bold text-2xl text-white shadow-md">
                 {step}
               </div>
-              <h3 className="mb-2 font-[family-name:var(--font-family-satoshi)] font-bold text-[20px] text-neutral-900 leading-[24px]">
+              <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-[20px] text-neutral-900 leading-[24px]">
                 {t(`howItWorks.steps.step${step}.title`)}
               </h3>
               <p className="text-[14px] text-neutral-700 leading-[20px]">
@@ -42,7 +42,7 @@ export function CustomerPricingTab() {
 
         {/* Comparison Cards */}
         <div className="mb-16">
-          <h2 className="mb-baseline-2 text-center font-[family-name:var(--font-family-satoshi)] font-bold text-[28px] text-neutral-900 leading-[24px]">
+          <h2 className="mb-baseline-2 text-center font-[family-name:var(--font-geist-sans)] font-bold text-[28px] text-neutral-900 leading-[24px]">
             {t("chooseService.title")}
           </h2>
           <PricingComparisonCards highlightConcierge />
@@ -53,7 +53,7 @@ export function CustomerPricingTab() {
       <section className="bg-neutral-50 py-16">
         <Container>
           <div className="mb-12 text-center">
-            <h2 className="mb-baseline-1 font-[family-name:var(--font-family-satoshi)] font-bold text-[32px] text-neutral-900 leading-[48px]">
+            <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[32px] text-neutral-900 leading-[48px]">
               {t("calculator.title")}
             </h2>
             <p className="mx-auto max-w-2xl text-[16px] text-neutral-700 leading-[24px]">
@@ -74,7 +74,7 @@ export function CustomerPricingTab() {
       <section className="bg-neutral-900 py-16">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="mb-baseline-1 font-[family-name:var(--font-family-satoshi)] font-bold text-[32px] text-white leading-[48px]">
+            <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[32px] text-white leading-[48px]">
               {t("cta.title")}
             </h2>
             <p className="mb-8 text-[16px] text-neutral-300 leading-[24px]">{t("cta.subtitle")}</p>

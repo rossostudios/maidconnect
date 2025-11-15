@@ -4,7 +4,7 @@
  * Modal dialog for creating and editing pricing rules.
  * Integrates all form field components and manages form state via custom hook.
  *
- * Precision Design: Neutral background overlay, white modal, orange CTAs
+ * Lia Design: Neutral background overlay, white modal, orange CTAs
  */
 
 import { usePricingRuleForm } from "@/hooks/usePricingRuleForm";

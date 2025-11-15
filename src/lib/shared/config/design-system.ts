@@ -1,7 +1,7 @@
 /**
- * Casaora Design System
+ * Casaora Design System - Lia
  *
- * Swiss Grid System configuration following Josef Müller-Brockmann's principles.
+ * Modular grid system configuration with structured layout principles.
  * Built on an 8px base unit with 24px baseline grid for typography.
  *
  * Core Principles:
@@ -86,9 +86,9 @@ export const SEMANTIC_COLORS = {
 } as const;
 
 /**
- * Swiss Grid System Constants
+ * Lia Grid System Constants
  */
-export const SWISS_GRID = {
+export const LIA_GRID = {
   /** Base unit: 8px - Foundation of entire system */
   baseUnit: 8,
 
@@ -105,7 +105,7 @@ export const SWISS_GRID = {
 /**
  * Grid Column Configurations
  *
- * Three favorite grid setups inspired by Framer workflows:
+ * Lia Grid supports multiple column layouts for different use cases:
  * 1. 12-column: Versatile, standard grid
  * 2. 10-column: Asymmetric balance, unique layouts
  * 3. 13-column: Dynamic tension, experimental

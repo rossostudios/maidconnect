@@ -225,11 +225,24 @@ export function MatchWizard() {
         <div className="mb-8">
           <div className="h-2 overflow-hidden rounded-full bg-[neutral-200]">
             <div
+              aria-label={t("progressLabel", {
+                defaultValue: "Match wizard progress",
+                step: currentStepIndex + 1,
+                total: steps.length,
+              })}
+              aria-valuemax={100}
+              aria-valuemin={0}
+              aria-valuenow={Math.round(progress)}
               className="h-full rounded-full bg-[neutral-900] transition-all duration-300"
+              role="progressbar"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <div className="mt-2 flex justify-between text-[neutral-400] text-sm">
+          <div
+            aria-atomic="true"
+            aria-live="polite"
+            className="mt-2 flex justify-between text-[neutral-400] text-sm"
+          >
             <span>
               {t("step", { defaultValue: "Step" })} {currentStepIndex + 1}{" "}
               {t("of", { defaultValue: "of" })} {steps.length}

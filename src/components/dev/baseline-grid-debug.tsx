@@ -20,7 +20,9 @@ export function BaselineGridDebug() {
 
   useEffect(() => {
     // Only run in development
-    if (process.env.NODE_ENV !== "development") return;
+    if (process.env.NODE_ENV !== "development") {
+      return;
+    }
 
     const handleKeyDown = (e: KeyboardEvent) => {
       // Toggle with Ctrl+Shift+G or Cmd+Shift+G
@@ -35,8 +37,12 @@ export function BaselineGridDebug() {
   }, []);
 
   // Don't render in production
-  if (process.env.NODE_ENV !== "development") return null;
-  if (!isVisible) return null;
+  if (process.env.NODE_ENV !== "development") {
+    return null;
+  }
+  if (!isVisible) {
+    return null;
+  }
 
   return (
     <>

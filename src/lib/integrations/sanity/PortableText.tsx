@@ -12,22 +12,22 @@ export const portableTextComponents: PortableTextComponents = {
   block: {
     // Headings
     h1: ({ children }) => (
-      <h1 className="mb-6 scroll-m-20 font-[family-name:var(--font-family-satoshi)] font-bold text-4xl text-neutral-900 tracking-tight lg:text-5xl">
+      <h1 className="mb-6 scroll-m-20 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight lg:text-5xl">
         {children}
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 className="mt-10 mb-4 scroll-m-20 border-neutral-200 border-b pb-3 font-[family-name:var(--font-family-satoshi)] font-semibold text-3xl text-neutral-900 tracking-tight first:mt-0">
+      <h2 className="mt-10 mb-4 scroll-m-20 border-neutral-200 border-b pb-3 font-[family-name:var(--font-geist-sans)] font-semibold text-3xl text-neutral-900 tracking-tight first:mt-0">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="mt-8 mb-4 scroll-m-20 font-[family-name:var(--font-family-satoshi)] font-semibold text-2xl text-neutral-900 tracking-tight">
+      <h3 className="mt-8 mb-4 scroll-m-20 font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-neutral-900 tracking-tight">
         {children}
       </h3>
     ),
     h4: ({ children }) => (
-      <h4 className="mt-6 mb-3 scroll-m-20 font-[family-name:var(--font-family-satoshi)] font-semibold text-neutral-900 text-xl tracking-tight">
+      <h4 className="mt-6 mb-3 scroll-m-20 font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-900 text-xl tracking-tight">
         {children}
       </h4>
     ),

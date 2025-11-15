@@ -299,7 +299,7 @@ export default async function CityLandingPage({ params }: { params: Params }) {
 
       {/* SEO Content Section - Rich content from Sanity */}
       {cityData.seoContent && cityData.seoContent.length > 0 && (
-        <section className="bg-[#FFEEFF8E8] py-16">
+        <section className="bg-neutral-50 py-16">
           <div className="mx-auto max-w-4xl px-6 lg:px-8">
             <div className="prose prose-lg mx-auto">
               <PortableText components={portableTextComponents} value={cityData.seoContent} />

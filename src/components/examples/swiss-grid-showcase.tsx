@@ -1,28 +1,27 @@
 /**
- * Swiss Grid System Showcase
+ * Lia Grid System Showcase
  *
- * Demonstrates all Swiss Grid configurations and features.
+ * Demonstrates all Lia Grid configurations and features.
  * Use this component as a reference for implementing the grid system
- * in your layouts following Josef Müller-Brockmann's principles.
+ * in your layouts following structured layout principles.
  *
  * To view: Add this component to any page in development mode
  */
 
 import { GridField, GridFieldThird, GridFieldTwoThirds } from "@/components/ui/grid-field";
-import { SwissGrid10, SwissGrid12, SwissGrid13 } from "@/components/ui/swiss-grid";
+import { LiaGrid10, LiaGrid12, LiaGrid13 } from "@/components/ui/lia-grid";
 
-export function SwissGridShowcase() {
+export function LiaGridShowcase() {
   return (
     <div className="space-y-24 py-24">
       {/* Header */}
       <div className="container mx-auto px-6">
         <h1 className="mb-baseline-1 font-bold text-[48px] leading-[48px]">
-          Swiss Grid System Showcase
+          Lia Grid System Showcase
         </h1>
         <p className="max-w-2xl text-[18px] text-neutral-600 leading-[24px]">
-          Inspired by Josef Müller-Brockmann's "Grid Systems in Graphic Design". All typography is
-          locked to the 24px baseline grid, and layouts follow the 64px module system for perfect
-          mathematical precision.
+          All typography is locked to the 24px baseline grid, and layouts follow the 64px module
+          system for perfect mathematical precision and visual harmony.
         </p>
       </div>
 
@@ -35,7 +34,7 @@ export function SwissGridShowcase() {
           </p>
         </div>
 
-        <SwissGrid12>
+        <LiaGrid12>
           <GridFieldTwoThirds className="rounded-lg border border-neutral-200 bg-neutral-100 p-6">
             <h3 className="mb-baseline-1 font-semibold text-[24px] leading-[24px]">
               Main Content (8 columns)
@@ -76,7 +75,7 @@ export function SwissGridShowcase() {
             </h4>
             <p className="text-[14px] text-neutral-600 leading-[24px]">Third 4-column field.</p>
           </GridFieldThird>
-        </SwissGrid12>
+        </LiaGrid12>
       </section>
 
       {/* 10-Column Grid: Asymmetric balance */}
@@ -88,7 +87,7 @@ export function SwissGridShowcase() {
           </p>
         </div>
 
-        <SwissGrid10>
+        <LiaGrid10>
           <GridField
             className="rounded-lg border border-neutral-200 bg-neutral-100 p-6"
             colSpan={6}
@@ -124,7 +123,7 @@ export function SwissGridShowcase() {
             </h4>
             <p className="text-[14px] text-neutral-600 leading-[24px]">Perfect symmetry.</p>
           </GridField>
-        </SwissGrid10>
+        </LiaGrid10>
       </section>
 
       {/* 13-Column Grid: Dynamic tension */}
@@ -136,7 +135,7 @@ export function SwissGridShowcase() {
           </p>
         </div>
 
-        <SwissGrid13>
+        <LiaGrid13>
           <GridField
             className="rounded-lg border border-neutral-200 bg-neutral-100 p-6"
             colSpan={8}
@@ -155,7 +154,7 @@ export function SwissGridShowcase() {
             </h4>
             <p className="text-[14px] text-neutral-600 leading-[24px]">Asymmetric complement.</p>
           </GridField>
-        </SwissGrid13>
+        </LiaGrid13>
       </section>
 
       {/* Module Heights Example */}
@@ -169,7 +168,7 @@ export function SwissGridShowcase() {
           </p>
         </div>
 
-        <SwissGrid12>
+        <LiaGrid12>
           <GridField
             className="h-module-2 rounded-lg border border-neutral-200 bg-neutral-100 p-6"
             colSpan={3}
@@ -201,7 +200,7 @@ export function SwissGridShowcase() {
             <h4 className="mb-baseline-1 font-semibold text-[18px] leading-[24px]">2 Modules</h4>
             <p className="text-[14px] text-neutral-600 leading-[24px]">128px tall</p>
           </GridField>
-        </SwissGrid12>
+        </LiaGrid12>
       </section>
 
       {/* Baseline Typography Example */}
@@ -222,9 +221,8 @@ export function SwissGridShowcase() {
           </p>
 
           <p className="text-[16px] leading-[24px]">
-            This typographic system is inspired by Josef Müller-Brockmann's Swiss design principles,
-            ensuring mathematical precision and visual harmony. The baseline grid is the foundation
-            of excellent typography.
+            This typographic system ensures mathematical precision and visual harmony throughout
+            Casaora. The baseline grid is the foundation of excellent typography.
           </p>
 
           <h4 className="mb-baseline-1 font-semibold text-[20px] leading-[24px]">
@@ -245,7 +243,7 @@ export function SwissGridShowcase() {
       <section className="container mx-auto px-6">
         <div className="rounded-lg bg-neutral-900 p-8 text-white">
           <h2 className="mb-baseline-1 font-semibold text-[28px] leading-[48px]">
-            How to Use the Swiss Grid System
+            How to Use the Lia Grid System
           </h2>
 
           <div className="space-y-baseline-1">
@@ -254,7 +252,7 @@ export function SwissGridShowcase() {
                 1. Import Components
               </h3>
               <code className="block rounded bg-neutral-800 p-4 text-sm">
-                import &#123; SwissGrid, GridField &#125; from '@/components/ui/swiss-grid';
+                import &#123; LiaGrid, GridField &#125; from '@/components/ui/lia-grid';
               </code>
             </div>
 
@@ -263,10 +261,10 @@ export function SwissGridShowcase() {
                 2. Create Grid Layout
               </h3>
               <code className="block whitespace-pre rounded bg-neutral-800 p-4 text-sm">
-                {`<SwissGrid columns={12} gap={24} margin={24}>
+                {`<LiaGrid columns={12} gap={24} margin={24}>
   <GridField colSpan={8}>Content</GridField>
   <GridField colSpan={4}>Sidebar</GridField>
-</SwissGrid>`}
+</LiaGrid>`}
               </code>
             </div>
 

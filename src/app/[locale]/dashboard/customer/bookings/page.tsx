@@ -50,11 +50,11 @@ export default async function CustomerBookingsPage(props: { params: Promise<{ lo
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="font-semibold text-3xl text-[#116611616]">{t("title")}</h1>
-        <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">{t("description")}</p>
+        <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
+        <p className="mt-2 text-base text-neutral-500 leading-relaxed">{t("description")}</p>
       </div>
 
-      <div className="rounded-[28px] border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+      <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
         <CustomerBookingList bookings={bookings} />
       </div>
     </section>

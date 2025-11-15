@@ -17,7 +17,7 @@ export type AuditLog = {
 };
 
 const getActionBadge = (action: string) => {
-  // Precision design badge with semantic colors
+  // Lia design badge with semantic colors
   let baseStyle = "bg-blue-50 text-blue-700 border border-blue-200"; // default
 
   if (action.includes("approve")) {
@@ -133,7 +133,7 @@ type Props = {
 };
 
 /**
- * AuditLogsTable - System audit log table with Precision design
+ * AuditLogsTable - System audit log table with Lia design
  *
  * Features:
  * - Client-side filtering and sorting for instant UX
@@ -148,9 +148,9 @@ export function AuditLogsTable({ logs, isLoading }: Props) {
     <PrecisionDataTable
       columns={columns}
       data={logs}
+      emptyStateDescription="Try adjusting your search or filter to find what you're looking for."
       emptyStateIcon={LegalDocumentIcon}
       emptyStateTitle="No audit logs found"
-      emptyStateDescription="Try adjusting your search or filter to find what you're looking for."
       enableExport
       enableUrlSync
       exportFilename="casaora-audit-logs"

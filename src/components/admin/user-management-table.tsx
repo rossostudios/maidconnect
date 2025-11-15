@@ -166,9 +166,15 @@ const columns: ColumnDef<User>[] = [
     enableSorting: false,
     filterFn: (row, id, value) => {
       const suspension = row.getValue(id) as UserSuspension | null;
-      if (value === "active") return !suspension;
-      if (value === "suspended") return suspension?.type === "temporary";
-      if (value === "banned") return suspension?.type === "permanent";
+      if (value === "active") {
+        return !suspension;
+      }
+      if (value === "suspended") {
+        return suspension?.type === "temporary";
+      }
+      if (value === "banned") {
+        return suspension?.type === "permanent";
+      }
       return true;
     },
   },
@@ -216,7 +222,7 @@ type Props = {
 };
 
 /**
- * UserManagementTable - Advanced user management with Precision design
+ * UserManagementTable - Advanced user management with Lia design
  *
  * Features:
  * - URL state synchronization for shareable links
@@ -232,9 +238,9 @@ export function UserManagementTable({ users, isLoading }: Props) {
     <PrecisionDataTable
       columns={columns}
       data={users}
+      emptyStateDescription="Try adjusting your search or filter to find what you're looking for."
       emptyStateIcon={UserCircleIcon}
       emptyStateTitle="No users found"
-      emptyStateDescription="Try adjusting your search or filter to find what you're looking for."
       enableExport
       enableUrlSync
       exportFilename="casaora-users"

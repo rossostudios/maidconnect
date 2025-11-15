@@ -9,7 +9,7 @@ Complete redesign of the Casaora admin dashboard to follow **Aurius-inspired des
 ### Key Principles
 
 1. **Zero Roundness** - All UI elements use sharp, rectangular corners (except avatars and notification dots)
-2. **Swiss Grid System** - Mathematical precision with 24px baseline grid and 64px modules
+2. **Lia Grid System** - Mathematical precision with 24px baseline grid and 64px modules
 3. **Clear Hierarchy** - Strong visual hierarchy through typography, spacing, and color
 4. **Aurius Inspiration** - Clean, professional, enterprise-grade design language
 
@@ -69,7 +69,7 @@ text-orange-600      // #E64A00 - Links (WCAG AA compliant)
 bg-orange-50         // #FFF7F0 - Light orange backgrounds
 ```
 
-**Spacing (Swiss Grid):**
+**Spacing (Lia Grid):**
 ```tsx
 // Baseline units (multiples of 24px)
 mb-baseline-1  // 24px
@@ -277,7 +277,7 @@ bun dev            # Local testing
 ## References
 
 - **Aurius Dashboard** - Inspiration for sharp, clean design
-- **Swiss Grid System** - Josef Müller-Brockmann's principles
+- **Lia Grid System** - Josef Müller-Brockmann's principles
 - **Tailwind CSS 4** - Utility-first framework
 - **WCAG AA** - Accessibility standards
 

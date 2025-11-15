@@ -1,13 +1,13 @@
 import { Container } from "@/components/ui/container";
 
 /**
- * ProcessSection - Swiss Design System
+ * ProcessSection - Lia Design System
  *
- * Clean 3-step process display following Swiss principles:
- * - Swiss numbering (01, 02, 03)
+ * Clean 3-step process display following Lia design principles:
+ * - Precision numbering (01, 02, 03)
  * - Minimal borders
  * - Orange accent bars
- * - Satoshi for headings
+ * - Geist Sans for headings
  * - No rounded corners or heavy shadows
  */
 export async function ProcessSection() {
@@ -38,12 +38,9 @@ export async function ProcessSection() {
   return (
     <section className="bg-neutral-50 py-24 md:py-32" id="how-it-works">
       <Container className="mx-auto max-w-7xl px-4">
-        {/* Section Header - Swiss Typography */}
+        {/* Section Header - Precision Typography */}
         <div className="mb-16">
-          <h2
-            className="font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl"
-            style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-          >
+          <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
             How It Works
           </h2>
           <div className="mt-4 h-1 w-16 bg-orange-500" />
@@ -56,12 +53,9 @@ export async function ProcessSection() {
         <div className="grid gap-12 md:grid-cols-3">
           {steps.map((step) => (
             <div className="group" key={step.number}>
-              {/* Swiss Number - Large and Bold */}
+              {/* Precision Number - Large and Bold */}
               <div className="mb-6">
-                <div
-                  className="font-bold text-6xl text-neutral-900 tracking-tighter"
-                  style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-                >
+                <div className="font-[family-name:var(--font-geist-sans)] font-bold text-6xl text-neutral-900 tracking-tighter">
                   {step.number}
                 </div>
                 {/* Label - Uppercase */}
@@ -74,10 +68,7 @@ export async function ProcessSection() {
               <div className="mb-6 h-1 w-12 bg-orange-500" />
 
               {/* Content */}
-              <h3
-                className="font-semibold text-neutral-900 text-xl tracking-tight"
-                style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-              >
+              <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-900 text-xl tracking-tight">
                 {step.title}
               </h3>
 

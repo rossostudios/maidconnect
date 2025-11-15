@@ -5,70 +5,70 @@ export default function Loading() {
       <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
         {/* Avatar & Name */}
         <div className="flex items-start gap-4">
-          <div className="h-24 w-24 animate-pulse rounded-full bg-[#EE44EE2E3]" />
+          <div className="h-24 w-24 animate-pulse rounded-full bg-neutral-200" />
           <div className="flex-1 space-y-3">
-            <div className="h-8 w-48 animate-pulse rounded bg-[#EE44EE2E3]" />
-            <div className="h-4 w-32 animate-pulse rounded bg-[#EE44EE2E3]/30" />
-            <div className="h-4 w-40 animate-pulse rounded bg-[#EE44EE2E3]/30" />
+            <div className="h-8 w-48 animate-pulse rounded bg-neutral-200" />
+            <div className="h-4 w-32 animate-pulse rounded bg-neutral-200/30" />
+            <div className="h-4 w-40 animate-pulse rounded bg-neutral-200/30" />
           </div>
         </div>
 
         {/* Actions */}
         <div className="flex gap-3">
-          <div className="h-10 w-32 animate-pulse rounded-full bg-[#EE44EE2E3]" />
-          <div className="h-10 w-24 animate-pulse rounded-full bg-[#EE44EE2E3]" />
+          <div className="h-10 w-32 animate-pulse rounded-full bg-neutral-200" />
+          <div className="h-10 w-24 animate-pulse rounded-full bg-neutral-200" />
         </div>
       </div>
 
       {/* Stats Section */}
       <div className="mb-8 grid gap-4 sm:grid-cols-3">
         {[1, 2, 3].map((i) => (
-          <div className="rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-4" key={i}>
-            <div className="h-4 w-20 animate-pulse rounded bg-[#EE44EE2E3]/30" />
-            <div className="mt-2 h-6 w-16 animate-pulse rounded bg-[#EE44EE2E3]" />
+          <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4" key={i}>
+            <div className="h-4 w-20 animate-pulse rounded bg-neutral-200/30" />
+            <div className="mt-2 h-6 w-16 animate-pulse rounded bg-neutral-200" />
           </div>
         ))}
       </div>
 
       {/* Bio Section */}
-      <div className="mb-8 rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
-        <div className="mb-4 h-6 w-32 animate-pulse rounded bg-[#EE44EE2E3]" />
+      <div className="mb-8 rounded-lg border border-neutral-200 bg-neutral-50 p-6">
+        <div className="mb-4 h-6 w-32 animate-pulse rounded bg-neutral-200" />
         <div className="space-y-2">
-          <div className="h-4 w-full animate-pulse rounded bg-[#EE44EE2E3]/30" />
-          <div className="h-4 w-full animate-pulse rounded bg-[#EE44EE2E3]/30" />
-          <div className="h-4 w-3/4 animate-pulse rounded bg-[#EE44EE2E3]/30" />
+          <div className="h-4 w-full animate-pulse rounded bg-neutral-200/30" />
+          <div className="h-4 w-full animate-pulse rounded bg-neutral-200/30" />
+          <div className="h-4 w-3/4 animate-pulse rounded bg-neutral-200/30" />
         </div>
       </div>
 
       {/* Services Section */}
-      <div className="mb-8 rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
-        <div className="mb-4 h-6 w-32 animate-pulse rounded bg-[#EE44EE2E3]" />
+      <div className="mb-8 rounded-lg border border-neutral-200 bg-neutral-50 p-6">
+        <div className="mb-4 h-6 w-32 animate-pulse rounded bg-neutral-200" />
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
             <div
-              className="flex items-center justify-between rounded-md border border-[#EE44EE2E3]/40 p-3"
+              className="flex items-center justify-between rounded-md border border-neutral-200/40 p-3"
               key={i}
             >
-              <div className="h-4 w-32 animate-pulse rounded bg-[#EE44EE2E3]/30" />
-              <div className="h-4 w-24 animate-pulse rounded bg-[#EE44EE2E3]/30" />
+              <div className="h-4 w-32 animate-pulse rounded bg-neutral-200/30" />
+              <div className="h-4 w-24 animate-pulse rounded bg-neutral-200/30" />
             </div>
           ))}
         </div>
       </div>
 
       {/* Reviews Section */}
-      <div className="rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
-        <div className="mb-4 h-6 w-32 animate-pulse rounded bg-[#EE44EE2E3]" />
+      <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6">
+        <div className="mb-4 h-6 w-32 animate-pulse rounded bg-neutral-200" />
         <div className="space-y-4">
           {[1, 2, 3].map((i) => (
-            <div className="border-[#EE44EE2E3]/40 border-b pb-4 last:border-0" key={i}>
+            <div className="border-neutral-200/40 border-b pb-4 last:border-0" key={i}>
               <div className="mb-2 flex items-center gap-2">
-                <div className="h-4 w-24 animate-pulse rounded bg-[#EE44EE2E3]/30" />
-                <div className="h-4 w-16 animate-pulse rounded bg-[#EE44EE2E3]/30" />
+                <div className="h-4 w-24 animate-pulse rounded bg-neutral-200/30" />
+                <div className="h-4 w-16 animate-pulse rounded bg-neutral-200/30" />
               </div>
               <div className="space-y-1">
-                <div className="h-4 w-full animate-pulse rounded bg-[#FFEEFF8E8]" />
-                <div className="h-4 w-5/6 animate-pulse rounded bg-[#FFEEFF8E8]" />
+                <div className="h-4 w-full animate-pulse rounded bg-neutral-50" />
+                <div className="h-4 w-5/6 animate-pulse rounded bg-neutral-50" />
               </div>
             </div>
           ))}

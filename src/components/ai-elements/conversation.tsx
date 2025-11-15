@@ -1,5 +1,11 @@
 "use client";
 
+/**
+ * Conversation Components - Lia Design System
+ *
+ * Chat conversation container with scroll management, empty states, and Geist Sans typography.
+ */
+
 import { ArrowDownIcon } from "lucide-react";
 import type { ButtonHTMLAttributes, ComponentProps } from "react";
 import { useCallback } from "react";
@@ -40,17 +46,17 @@ export const ConversationEmptyState = ({
 }: ConversationEmptyStateProps) => (
   <div
     className={cn(
-      "flex size-full flex-col items-center justify-center gap-3 p-8 text-center text-sm",
+      "flex size-full flex-col items-center justify-center gap-3 p-8 text-center font-[family-name:var(--font-geist-sans)] text-sm",
       className
     )}
     {...props}
   >
     {children ?? (
       <>
-        {icon && <div className="text-muted-foreground">{icon}</div>}
+        {icon && <div className="text-neutral-600">{icon}</div>}
         <div className="space-y-1">
-          <h3 className="font-semibold">{title}</h3>
-          {description && <p className="text-muted-foreground">{description}</p>}
+          <h3 className="font-semibold text-neutral-900">{title}</h3>
+          {description && <p className="text-neutral-600">{description}</p>}
         </div>
       </>
     )}
@@ -76,7 +82,7 @@ export const ConversationScrollButton = ({
   return (
     <button
       className={cn(
-        "-tranneutral-x-1/2 absolute bottom-4 left-1/2 flex items-center gap-2 rounded-full border border-[neutral-200] bg-[neutral-50] px-3 py-2 font-medium text-[neutral-400] text-sm shadow hover:bg-[neutral-50] focus:outline-none focus-visible:ring-2 focus-visible:ring-[neutral-500]/60",
+        "-translate-x-1/2 absolute bottom-4 left-1/2 flex items-center gap-2 border border-neutral-200 bg-white px-3 py-2 font-[family-name:var(--font-geist-sans)] font-medium text-neutral-700 text-sm shadow-sm transition-all hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500/25 active:scale-95",
         className
       )}
       onClick={handleScrollToBottom}

@@ -82,8 +82,8 @@ export default async function RecurringPlansPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="font-bold text-3xl text-[#116611616]">Recurring Plans</h1>
-        <p className="mt-2 text-[#AA88AAAAC]">
+        <h1 className="font-bold text-3xl text-neutral-900">Recurring Plans</h1>
+        <p className="mt-2 text-neutral-500">
           Manage your recurring service subscriptions and save up to 15%
         </p>
       </div>

@@ -19,7 +19,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   return (
     <div className="relative min-h-screen bg-neutral-50 text-neutral-900">
       <SiteHeader />
-      <main className="bg-neutral-50" data-tour="welcome">
+      <main className="bg-neutral-50" data-tour="welcome" id="main-content" tabIndex={-1}>
         <HeroSectionWithABTest />
         <BenefitsSection />
         <BenefitsGrid />

@@ -26,7 +26,7 @@ export function PricingHero({
       <Container>
         {/* Hero Content */}
         <div className="mx-auto mb-12 max-w-3xl text-center">
-          <h1 className="mb-baseline-1 font-[family-name:var(--font-family-satoshi)] font-bold text-[48px] text-neutral-900 leading-[48px]">
+          <h1 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[48px] text-neutral-900 leading-[48px]">
             {t("title")}
           </h1>
           <p className="mb-baseline-2 text-[18px] text-neutral-700 leading-[24px]">

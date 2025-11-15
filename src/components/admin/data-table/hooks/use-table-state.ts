@@ -32,20 +32,24 @@ export function useTableState(options: UseTableStateOptions = {}) {
 
   // Initialize pagination from URL or defaults
   const [pagination, setPagination] = useState<PaginationState>(() => {
-    if (!enableUrlSync) return { pageIndex: 0, pageSize };
+    if (!enableUrlSync) {
+      return { pageIndex: 0, pageSize };
+    }
 
     const page = searchParams.get("page");
     const size = searchParams.get("pageSize");
 
     return {
-      pageIndex: page ? Number.parseInt(page) - 1 : 0,
-      pageSize: size ? Number.parseInt(size) : pageSize,
+      pageIndex: page ? Number.parseInt(page, 10) - 1 : 0,
+      pageSize: size ? Number.parseInt(size, 10) : pageSize,
     };
   });
 
   // Initialize sorting from URL or defaults
   const [sorting, setSorting] = useState<SortingState>(() => {
-    if (!enableUrlSync) return [];
+    if (!enableUrlSync) {
+      return [];
+    }
 
     const sortBy = searchParams.get("sortBy");
     const sortOrder = searchParams.get("sortOrder");
@@ -59,7 +63,9 @@ export function useTableState(options: UseTableStateOptions = {}) {
 
   // Initialize filters from URL or defaults
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(() => {
-    if (!enableUrlSync) return [];
+    if (!enableUrlSync) {
+      return [];
+    }
 
     const filters: ColumnFiltersState = [];
     const filterParams = searchParams.get("filters");
@@ -78,13 +84,17 @@ export function useTableState(options: UseTableStateOptions = {}) {
 
   // Initialize global filter from URL
   const [globalFilter, setGlobalFilter] = useState<string>(() => {
-    if (!enableUrlSync) return "";
+    if (!enableUrlSync) {
+      return "";
+    }
     return searchParams.get("search") || "";
   });
 
   // Initialize column visibility from local storage
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(() => {
-    if (typeof window === "undefined") return {};
+    if (typeof window === "undefined") {
+      return {};
+    }
 
     try {
       const stored = localStorage.getItem(`${storageKey}-visibility`);
@@ -96,7 +106,9 @@ export function useTableState(options: UseTableStateOptions = {}) {
 
   // Sync table state to URL
   useEffect(() => {
-    if (!enableUrlSync) return;
+    if (!enableUrlSync) {
+      return;
+    }
 
     const params = new URLSearchParams(searchParams);
 
@@ -155,7 +167,9 @@ export function useTableState(options: UseTableStateOptions = {}) {
 
   // Persist column visibility to local storage
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined") {
+      return;
+    }
 
     try {
       localStorage.setItem(`${storageKey}-visibility`, JSON.stringify(columnVisibility));
@@ -167,7 +181,7 @@ export function useTableState(options: UseTableStateOptions = {}) {
   // Reset pagination when filters change
   useEffect(() => {
     setPagination((prev) => ({ ...prev, pageIndex: 0 }));
-  }, [columnFilters, globalFilter]);
+  }, []);
 
   const resetFilters = useCallback(() => {
     setColumnFilters([]);

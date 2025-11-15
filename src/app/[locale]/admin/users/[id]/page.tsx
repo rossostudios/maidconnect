@@ -79,7 +79,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
   if (isLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <p className="type-body-sm text-[#AA88AAAAC]">Loading user data...</p>
+        <p className="type-body-sm text-neutral-500">Loading user data...</p>
       </div>
     );
   }
@@ -87,7 +87,7 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
   if (!userData) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <p className="type-body-sm text-[#AA88AAAAC]">User not found</p>
+        <p className="type-body-sm text-neutral-500">User not found</p>
       </div>
     );
   }
@@ -98,18 +98,18 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
         <button
-          className="type-ui-sm mb-4 text-[#FF4444A22] hover:underline"
+          className="type-ui-sm mb-4 text-orange-500"
           onClick={() => router.back()}
           type="button"
         >
           ← Back to Users
         </button>
-        <h1 className="type-ui-lg font-semibold text-[#116611616]">User Details</h1>
+        <h1 className="type-ui-lg font-semibold text-neutral-900">User Details</h1>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
-          <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
+          <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
             <UserProfileHeader
               activeSuspension={activeSuspension}
               onManageSuspension={() => setShowModerationModal(true)}
@@ -121,8 +121,8 @@ export default function UserDetailPage({ params }: { params: Promise<{ id: strin
             <UserDetailsGrid user={user} />
           </div>
 
-          <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
-            <h3 className="type-ui-md mb-4 font-semibold text-[#116611616]">Suspension History</h3>
+          <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+            <h3 className="type-ui-md mb-4 font-semibold text-neutral-900">Suspension History</h3>
             <SuspensionHistoryList suspensionHistory={suspensionHistory} />
           </div>
         </div>

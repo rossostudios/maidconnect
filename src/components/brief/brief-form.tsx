@@ -63,9 +63,9 @@ const LANGUAGES = [
   { value: "both", label: "Bilingual (English & Spanish)" },
 ];
 
-interface BriefFormProps {
+type BriefFormProps = {
   onSuccess: (briefId: string) => void;
-}
+};
 
 export function BriefForm({ onSuccess }: BriefFormProps) {
   const [currentStep, setCurrentStep] = useState(1);
@@ -117,7 +117,9 @@ export function BriefForm({ onSuccess }: BriefFormProps) {
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) throw new Error("Failed to submit brief");
+      if (!response.ok) {
+        throw new Error("Failed to submit brief");
+      }
 
       const { briefId } = await response.json();
 

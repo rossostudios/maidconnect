@@ -169,7 +169,7 @@ async function getArticleData(
     _id: tag._id,
     slug: tag.slug.current,
     name: tag.name,
-    color: tag.color || "#FF4444A22",
+    color: tag.color || "#FF5200",
   }));
 
   // Prepare article data
@@ -271,7 +271,7 @@ export default async function HelpArticlePage({
   return (
     <>
       <SiteHeader />
-      <div className="min-h-screen bg-[#FFEEFF8E8] py-12">
+      <div className="min-h-screen bg-neutral-50 py-12">
         <Container>
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_250px]">
             <div className="mx-auto w-full max-w-4xl">

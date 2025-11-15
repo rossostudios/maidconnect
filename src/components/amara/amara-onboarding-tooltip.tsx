@@ -1,11 +1,13 @@
 "use client";
 
 /**
- * Amara Onboarding Tooltip
+ * Amara Onboarding Tooltip - Lia Design System
  *
  * Shows a dismissible tooltip for first-time users to introduce Amara.
  * Appears above the floating button with a pointer arrow.
  * Stores dismissal state in localStorage.
+ *
+ * Uses Geist Sans typography and orange accent colors.
  */
 
 import { Cancel01Icon } from "@hugeicons/core-free-icons";
@@ -56,22 +58,22 @@ export function AmaraOnboardingTooltip({ onDismiss }: AmaraOnboardingTooltipProp
   return (
     <div
       className={`fixed right-4 bottom-[88px] z-40 w-[280px] transition-all duration-300 sm:right-6 sm:bottom-[104px] sm:w-[320px] ${
-        isVisible ? "tranneutral-y-0 opacity-100" : "tranneutral-y-2 opacity-0"
+        isVisible ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
       }`}
     >
       {/* Tooltip Card */}
-      <div className="rounded-2xl border border-[neutral-500]/20 bg-[neutral-50] p-4 shadow-xl">
+      <div className="border border-neutral-200 bg-white p-4 font-[family-name:var(--font-geist-sans)] shadow-xl">
         {/* Header */}
         <div className="mb-3 flex items-start gap-3">
-          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[neutral-500]/10">
-            <AmaraIcon className="text-[neutral-500]" size={24} />
+          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-orange-50">
+            <AmaraIcon className="text-orange-600" size={24} />
           </div>
           <div className="flex-1">
-            <h3 className="font-semibold text-[neutral-900] text-sm">{t("title")}</h3>
+            <h3 className="font-semibold text-neutral-900 text-sm">{t("title")}</h3>
           </div>
           <button
             aria-label="Dismiss"
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-[neutral-400]/70 transition hover:bg-[neutral-200]/30 hover:text-[neutral-400]"
+            className="flex h-8 w-8 items-center justify-center text-neutral-600 transition-all hover:bg-orange-50 hover:text-orange-600"
             onClick={handleDismiss}
             type="button"
           >
@@ -80,11 +82,11 @@ export function AmaraOnboardingTooltip({ onDismiss }: AmaraOnboardingTooltipProp
         </div>
 
         {/* Description */}
-        <p className="mb-4 text-[neutral-400] text-sm leading-relaxed">{t("description")}</p>
+        <p className="mb-4 text-neutral-700 text-sm leading-relaxed">{t("description")}</p>
 
         {/* Action Button */}
         <button
-          className="w-full rounded-lg bg-[neutral-500] px-4 py-2.5 font-semibold text-[neutral-50] text-sm transition hover:bg-[neutral-500] active:scale-95"
+          className="w-full bg-orange-500 px-4 py-2.5 font-semibold text-sm text-white transition-all hover:bg-orange-600 active:scale-95"
           onClick={handleDismiss}
           type="button"
         >
@@ -93,7 +95,7 @@ export function AmaraOnboardingTooltip({ onDismiss }: AmaraOnboardingTooltipProp
       </div>
 
       {/* Pointer Arrow */}
-      <div className="-bottom-2 absolute right-8 h-4 w-4 rotate-45 border-[neutral-500]/20 border-r border-b bg-[neutral-50]" />
+      <div className="-bottom-2 absolute right-8 h-4 w-4 rotate-45 border-neutral-200 border-r border-b bg-white" />
     </div>
   );
 }

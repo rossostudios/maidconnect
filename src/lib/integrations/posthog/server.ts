@@ -40,7 +40,9 @@ export async function trackServerEvent(
   properties?: Record<string, any>
 ) {
   const client = getPostHogClient();
-  if (!client) return;
+  if (!client) {
+    return;
+  }
 
   client.capture({
     distinctId,
@@ -56,7 +58,9 @@ export async function trackServerEvent(
  */
 export async function identifyUser(distinctId: string, properties?: Record<string, any>) {
   const client = getPostHogClient();
-  if (!client) return;
+  if (!client) {
+    return;
+  }
 
   client.identify({
     distinctId,
@@ -273,7 +277,9 @@ export async function isFeatureFlagEnabledServer(
   defaultValue = false
 ): Promise<boolean> {
   const client = getPostHogClient();
-  if (!client) return defaultValue;
+  if (!client) {
+    return defaultValue;
+  }
 
   try {
     const value = await client.isFeatureEnabled(flagKey, distinctId);
@@ -297,7 +303,9 @@ export async function getAllFeatureFlagsServer(
   distinctId: string
 ): Promise<Record<string, FeatureFlagValue>> {
   const client = getPostHogClient();
-  if (!client) return {};
+  if (!client) {
+    return {};
+  }
 
   try {
     const flags = await client.getAllFlags(distinctId);
@@ -324,7 +332,9 @@ export async function getFeatureFlagPayloadServer(
   distinctId: string
 ): Promise<string | number | boolean | Record<string, any> | undefined> {
   const client = getPostHogClient();
-  if (!client) return;
+  if (!client) {
+    return;
+  }
 
   try {
     const payload = await client.getFeatureFlagPayload(flagKey, distinctId);

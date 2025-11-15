@@ -1,5 +1,7 @@
 "use client";
 
+import { Alert01Icon, Home01Icon, RefreshIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect } from "react";
 
 export default function GlobalError({
@@ -16,124 +18,43 @@ export default function GlobalError({
 
   return (
     <html lang="en">
-      <body>
-        <div
-          style={{
-            display: "flex",
-            minHeight: "100vh",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "bg-[#FFEEFF8E8]",
-            padding: "1rem",
-          }}
-        >
-          <div
-            style={{
-              maxWidth: "32rem",
-              width: "100%",
-            }}
-          >
-            <div
-              style={{
-                backgroundColor: "white",
-                borderRadius: "28px",
-                padding: "2rem",
-                textAlign: "center",
-                boxShadow: "0 20px 60px -15px rgba(22,22,22,0.15)",
-              }}
-            >
-              {/* Icon */}
-              <div
-                style={{
-                  marginBottom: "1.5rem",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <div
-                  style={{
-                    backgroundColor: "#FFEEFF8E8",
-                    borderRadius: "9999px",
-                    padding: "1.5rem",
-                  }}
-                >
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    style={{ width: "3rem", height: "3rem", color: "#FF4444A22" }}
-                    viewBox="0 0 24 24"
-                  >
-                    <title>Error Alert</title>
-                    <path
-                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                    />
-                  </svg>
+      <body className="font-[family-name:var(--font-geist-sans)]">
+        <div className="flex min-h-screen items-center justify-center bg-neutral-50 p-4">
+          <div className="w-full max-w-lg">
+            <div className="bg-white p-8 text-center shadow-lg">
+              {/* Icon - Precision: Sharp edges, orange-50 background */}
+              <div className="mb-6 flex justify-center">
+                <div className="bg-orange-50 p-6">
+                  <HugeiconsIcon className="h-12 w-12 text-orange-500" icon={Alert01Icon} />
                 </div>
               </div>
 
-              {/* Title */}
-              <h1
-                style={{
-                  fontSize: "1.875rem",
-                  fontWeight: "bold",
-                  color: "#116611616",
-                  marginBottom: "0.75rem",
-                }}
-              >
+              {/* Title - Precision: Geist Sans, neutral-900, baseline-aligned */}
+              <h1 className="mb-3 font-bold text-[32px] text-neutral-900 leading-[48px]">
                 Application Error
               </h1>
 
-              {/* Description */}
-              <p
-                style={{
-                  fontSize: "1.125rem",
-                  color: "#AA88AAAAC",
-                  marginBottom: "2rem",
-                }}
-              >
+              {/* Description - Precision: Geist Sans, neutral-700, baseline-aligned */}
+              <p className="mb-8 text-lg text-neutral-700 leading-[24px]">
                 A critical error has occurred. Our team has been notified and is working to resolve
                 the issue.
               </p>
 
-              {/* Actions */}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.75rem",
-                }}
-              >
+              {/* Actions - Precision: Sharp edges, orange-500 primary, neutral outline */}
+              <div className="flex flex-col gap-3">
                 <button
+                  className="inline-flex items-center justify-center gap-2 bg-orange-500 px-6 py-3 font-semibold text-base text-white transition-colors hover:bg-orange-600 active:bg-orange-700"
                   onClick={reset}
-                  style={{
-                    backgroundColor: "#FF4444A22",
-                    color: "white",
-                    fontWeight: "600",
-                    padding: "0.75rem 1.5rem",
-                    borderRadius: "9999px",
-                    border: "none",
-                    cursor: "pointer",
-                  }}
                   type="button"
                 >
+                  <HugeiconsIcon className="h-4 w-4" icon={RefreshIcon} />
                   Try Again
                 </button>
                 <a
+                  className="inline-flex items-center justify-center gap-2 border-2 border-neutral-200 bg-white px-6 py-3 font-semibold text-base text-neutral-900 no-underline transition-colors hover:border-neutral-900 hover:bg-neutral-50"
                   href="/"
-                  style={{
-                    backgroundColor: "white",
-                    color: "#116611616",
-                    fontWeight: "600",
-                    padding: "0.75rem 1.5rem",
-                    borderRadius: "9999px",
-                    border: "2px solid #EE44EE2E3",
-                    textDecoration: "none",
-                    display: "inline-block",
-                  }}
                 >
+                  <HugeiconsIcon className="h-4 w-4" icon={Home01Icon} />
                   Go to Homepage
                 </a>
               </div>

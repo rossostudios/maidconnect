@@ -4,7 +4,7 @@
  * Deposit and cancellation policy configuration for pricing rules.
  * Includes deposit percentage, late cancellation threshold, and fee.
  *
- * Precision Design: Sharp corners, neutral borders, orange focus states
+ * Lia Design: Sharp corners, neutral borders, orange focus states
  */
 
 import type { FieldUpdateFn, PricingRuleFormData } from "@/types/pricing";

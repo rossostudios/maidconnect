@@ -91,12 +91,12 @@ export function currentStepIndex(status: string | null): number {
  */
 export function getStepClassName(isCompleted: boolean, isCurrent: boolean): string {
   if (isCompleted) {
-    return "border-[#FF4444A22]/40 bg-[#FF4444A22]/10";
+    return "border-[#FF5200]/40 bg-[#FF5200]/10";
   }
 
   if (isCurrent) {
-    return "border-[#EE44EE2E3] bg-[#FFEEFF8E8] shadow-[0_10px_40px_rgba(22,22,22,0.04)]";
+    return "border-[#E5E5E5] bg-[#FFFFFF] shadow-[0_10px_40px_rgba(22,22,22,0.04)]";
   }
 
-  return "border-[#EE44EE2E3] bg-[#FFEEFF8E8]";
+  return "border-[#E5E5E5] bg-[#FFFFFF]";
 }

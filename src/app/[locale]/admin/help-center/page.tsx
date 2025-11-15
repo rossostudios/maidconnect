@@ -139,14 +139,14 @@ export default async function HelpCenterAdminPage({
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="mb-2 font-bold text-3xl text-[#116611616]">Help Center Management</h1>
-          <p className="text-[#AA88AAAAC]">
+          <h1 className="mb-2 font-bold text-3xl text-neutral-900">Help Center Management</h1>
+          <p className="text-neutral-500">
             Create and manage help articles for customers and professionals
           </p>
         </div>
 
         <Link
-          className="inline-flex items-center gap-2 bg-[#FF4444A22] px-6 py-3 font-semibold text-[#FFEEFF8E8] transition hover:bg-[#FF4444A22]"
+          className="inline-flex items-center gap-2 bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-500"
           href="/admin/help-center/new"
         >
           <HugeiconsIcon className="h-5 w-5" icon={Add01Icon} />
@@ -156,24 +156,24 @@ export default async function HelpCenterAdminPage({
 
       {/* Stats Cards */}
       <div className="mb-8 grid gap-6 md:grid-cols-4">
-        <div className="border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
-          <div className="mb-2 text-[#AA88AAAAC] text-sm">Total Articles</div>
-          <div className="font-bold text-3xl text-[#116611616]">{stats.total}</div>
+        <div className="border border-neutral-200 bg-neutral-50 p-6">
+          <div className="mb-2 text-neutral-500 text-sm">Total Articles</div>
+          <div className="font-bold text-3xl text-neutral-900">{stats.total}</div>
         </div>
 
-        <div className="border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
-          <div className="mb-2 text-[#AA88AAAAC] text-sm">Published</div>
-          <div className="font-bold text-3xl text-[#FF4444A22]">{stats.published}</div>
+        <div className="border border-neutral-200 bg-neutral-50 p-6">
+          <div className="mb-2 text-neutral-500 text-sm">Published</div>
+          <div className="font-bold text-3xl text-orange-500">{stats.published}</div>
         </div>
 
-        <div className="border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
-          <div className="mb-2 text-[#AA88AAAAC] text-sm">Drafts</div>
-          <div className="font-bold text-3xl text-[#FF4444A22]">{stats.draft}</div>
+        <div className="border border-neutral-200 bg-neutral-50 p-6">
+          <div className="mb-2 text-neutral-500 text-sm">Drafts</div>
+          <div className="font-bold text-3xl text-orange-500">{stats.draft}</div>
         </div>
 
-        <div className="border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
-          <div className="mb-2 text-[#AA88AAAAC] text-sm">Total Views</div>
-          <div className="font-bold text-3xl text-[#116611616]">{stats.views.toLocaleString()}</div>
+        <div className="border border-neutral-200 bg-neutral-50 p-6">
+          <div className="mb-2 text-neutral-500 text-sm">Total Views</div>
+          <div className="font-bold text-3xl text-neutral-900">{stats.views.toLocaleString()}</div>
         </div>
       </div>
 
@@ -181,13 +181,13 @@ export default async function HelpCenterAdminPage({
       <div className="mb-6 flex flex-wrap items-center gap-4">
         {/* Category Filter */}
         <div className="flex items-center gap-2">
-          <span className="text-[#AA88AAAAC] text-sm">Category:</span>
+          <span className="text-neutral-500 text-sm">Category:</span>
           <div className="flex flex-wrap gap-2">
             <Link
               className={`px-4 py-2 text-sm transition ${
                 params.category
-                  ? "border border-[#EE44EE2E3] bg-[#FFEEFF8E8] text-[#AA88AAAAC] hover:border-[#FF4444A22]"
-                  : "bg-[#FF4444A22] text-[#FFEEFF8E8]"
+                  ? "border border-neutral-200 bg-neutral-50 text-neutral-500 hover:border-orange-500"
+                  : "bg-orange-500 text-white"
               }`}
               href="/admin/help-center"
             >
@@ -201,8 +201,8 @@ export default async function HelpCenterAdminPage({
                 <Link
                   className={`inline-flex items-center gap-2 px-4 py-2 text-sm transition ${
                     params.category === category.slug
-                      ? "bg-[#FF4444A22] text-[#FFEEFF8E8]"
-                      : "border border-[#EE44EE2E3] bg-[#FFEEFF8E8] text-[#AA88AAAAC] hover:border-[#FF4444A22]"
+                      ? "bg-orange-500 text-white"
+                      : "border border-neutral-200 bg-neutral-50 text-neutral-500 hover:border-orange-500"
                   }`}
                   href={`/admin/help-center?category=${category.slug}`}
                   key={category.id}
@@ -217,12 +217,12 @@ export default async function HelpCenterAdminPage({
       </div>
 
       <div className="mb-6 flex items-center gap-2">
-        <span className="text-[#AA88AAAAC] text-sm">Status:</span>
+        <span className="text-neutral-500 text-sm">Status:</span>
         <Link
           className={`px-4 py-2 text-sm transition ${
             params.status
-              ? "border border-[#EE44EE2E3] bg-[#FFEEFF8E8] text-[#AA88AAAAC] hover:border-[#FF4444A22]"
-              : "bg-[#FF4444A22] text-[#FFEEFF8E8]"
+              ? "border border-neutral-200 bg-neutral-50 text-neutral-500 hover:border-orange-500"
+              : "bg-orange-500 text-white"
           }`}
           href={`/admin/help-center${params.category ? `?category=${params.category}` : ""}`}
         >
@@ -232,8 +232,8 @@ export default async function HelpCenterAdminPage({
         <Link
           className={`px-4 py-2 text-sm transition ${
             params.status === "published"
-              ? "bg-[#FF4444A22] text-[#FFEEFF8E8]"
-              : "border border-[#EE44EE2E3] bg-[#FFEEFF8E8] text-[#AA88AAAAC] hover:border-[#FF4444A22]"
+              ? "bg-orange-500 text-white"
+              : "border border-neutral-200 bg-neutral-50 text-neutral-500 hover:border-orange-500"
           }`}
           href={`/admin/help-center?status=published${params.category ? `&category=${params.category}` : ""}`}
         >
@@ -243,8 +243,8 @@ export default async function HelpCenterAdminPage({
         <Link
           className={`px-4 py-2 text-sm transition ${
             params.status === "draft"
-              ? "bg-[#FF4444A22] text-[#FFEEFF8E8]"
-              : "border border-[#EE44EE2E3] bg-[#FFEEFF8E8] text-[#AA88AAAAC] hover:border-[#FF4444A22]"
+              ? "bg-orange-500 text-white"
+              : "border border-neutral-200 bg-neutral-50 text-neutral-500 hover:border-orange-500"
           }`}
           href={`/admin/help-center?status=draft${params.category ? `&category=${params.category}` : ""}`}
         >
@@ -253,40 +253,40 @@ export default async function HelpCenterAdminPage({
       </div>
 
       {/* Articles Table */}
-      <div className="border border-[#EE44EE2E3] bg-[#FFEEFF8E8]">
+      <div className="border border-neutral-200 bg-neutral-50">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8]">
+            <thead className="border-neutral-200 border-b bg-neutral-50">
               <tr>
-                <th className="px-6 py-4 text-left font-semibold text-[#116611616] text-sm">
+                <th className="px-6 py-4 text-left font-semibold text-neutral-900 text-sm">
                   Article
                 </th>
-                <th className="px-6 py-4 text-left font-semibold text-[#116611616] text-sm">
+                <th className="px-6 py-4 text-left font-semibold text-neutral-900 text-sm">
                   Category
                 </th>
-                <th className="px-6 py-4 text-left font-semibold text-[#116611616] text-sm">
+                <th className="px-6 py-4 text-left font-semibold text-neutral-900 text-sm">
                   Status
                 </th>
-                <th className="px-6 py-4 text-left font-semibold text-[#116611616] text-sm">
+                <th className="px-6 py-4 text-left font-semibold text-neutral-900 text-sm">
                   Engagement
                 </th>
-                <th className="px-6 py-4 text-left font-semibold text-[#116611616] text-sm">
+                <th className="px-6 py-4 text-left font-semibold text-neutral-900 text-sm">
                   Updated
                 </th>
-                <th className="px-6 py-4 text-right font-semibold text-[#116611616] text-sm">
+                <th className="px-6 py-4 text-right font-semibold text-neutral-900 text-sm">
                   Actions
                 </th>
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-[#EE44EE2E3]">
+            <tbody className="divide-y divide-neutral-200">
               {filteredArticles.length === 0 ? (
                 <tr>
-                  <td className="px-6 py-12 text-center text-[#AA88AAAAC]" colSpan={6}>
+                  <td className="px-6 py-12 text-center text-neutral-500" colSpan={6}>
                     <div className="flex flex-col items-center gap-4">
-                      <HugeiconsIcon className="h-12 w-12 text-[#EE44EE2E3]" icon={Search01Icon} />
+                      <HugeiconsIcon className="h-12 w-12 text-neutral-200" icon={Search01Icon} />
                       <div>
-                        <p className="font-semibold text-[#116611616]">No articles found</p>
+                        <p className="font-semibold text-neutral-900">No articles found</p>
                         <p className="text-sm">
                           {params.category || params.status
                             ? "Try adjusting your filters"
@@ -296,7 +296,7 @@ export default async function HelpCenterAdminPage({
 
                       {!(params.category || params.status) && (
                         <Link
-                          className="inline-flex items-center gap-2 bg-[#FF4444A22] px-6 py-3 font-semibold text-[#FFEEFF8E8] transition hover:bg-[#FF4444A22]"
+                          className="inline-flex items-center gap-2 bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-500"
                           href="/admin/help-center/new"
                         >
                           <HugeiconsIcon className="h-5 w-5" icon={Add01Icon} />
@@ -319,17 +319,17 @@ export default async function HelpCenterAdminPage({
                       : null;
 
                   return (
-                    <tr className="transition hover:bg-[#FFEEFF8E8]" key={article.id}>
+                    <tr className="transition hover:bg-neutral-50" key={article.id}>
                       {/* Article */}
                       <td className="px-6 py-4">
                         <div>
-                          <div className="mb-1 font-semibold text-[#116611616]">
+                          <div className="mb-1 font-semibold text-neutral-900">
                             {article.title_en}
                           </div>
-                          <div className="text-[#AA88AAAAC] text-sm">{article.title_es}</div>
+                          <div className="text-neutral-500 text-sm">{article.title_es}</div>
 
                           {article.excerpt_en && (
-                            <div className="mt-2 line-clamp-1 text-[#AA88AAAAC] text-xs">
+                            <div className="mt-2 line-clamp-1 text-neutral-500 text-xs">
                               {article.excerpt_en}
                             </div>
                           )}
@@ -338,7 +338,7 @@ export default async function HelpCenterAdminPage({
 
                       {/* Category */}
                       <td className="px-6 py-4">
-                        <div className="inline-flex items-center gap-2 bg-[#EE44EE2E3]/30 px-3 py-1 text-[#AA88AAAAC] text-sm">
+                        <div className="inline-flex items-center gap-2 bg-neutral-200/30 px-3 py-1 text-neutral-500 text-sm">
                           <HugeiconsIcon className="h-4 w-4" icon={Icon} />
                           {article.category.name_en}
                         </div>
@@ -347,13 +347,13 @@ export default async function HelpCenterAdminPage({
                       {/* Status */}
                       <td className="px-6 py-4">
                         {article.is_published ? (
-                          <span className="-full inline-flex items-center gap-1 bg-[#FF4444A22]/10 px-3 py-1 font-semibold text-[#FF4444A22] text-xs">
-                            <div className="-full h-1.5 w-1.5 bg-[#FF4444A22]/100" />
+                          <span className="-full inline-flex items-center gap-1 bg-orange-500/10 px-3 py-1 font-semibold text-orange-500 text-xs">
+                            <div className="-full h-1.5 w-1.5 bg-orange-500/100" />
                             Published
                           </span>
                         ) : (
-                          <span className="-full inline-flex items-center gap-1 bg-[#FF4444A22]/10 px-3 py-1 font-semibold text-[#FF4444A22] text-xs">
-                            <div className="-full h-1.5 w-1.5 bg-[#FF4444A22]/100" />
+                          <span className="-full inline-flex items-center gap-1 bg-orange-500/10 px-3 py-1 font-semibold text-orange-500 text-xs">
+                            <div className="-full h-1.5 w-1.5 bg-orange-500/100" />
                             Draft
                           </span>
                         )}
@@ -362,20 +362,20 @@ export default async function HelpCenterAdminPage({
                       {/* Engagement */}
                       <td className="px-6 py-4">
                         <div className="space-y-1 text-sm">
-                          <div className="flex items-center gap-2 text-[#AA88AAAAC]">
+                          <div className="flex items-center gap-2 text-neutral-500">
                             <HugeiconsIcon className="h-4 w-4" icon={EyeIcon} />
                             {article.view_count} views
                           </div>
 
                           {helpfulRate !== null && (
-                            <div className="text-[#AA88AAAAC] text-xs">{helpfulRate}% helpful</div>
+                            <div className="text-neutral-500 text-xs">{helpfulRate}% helpful</div>
                           )}
                         </div>
                       </td>
 
                       {/* Updated */}
                       <td className="px-6 py-4">
-                        <div className="text-[#AA88AAAAC] text-sm">
+                        <div className="text-neutral-500 text-sm">
                           {new Date(article.updated_at).toLocaleDateString("en-US", {
                             month: "short",
                             day: "numeric",

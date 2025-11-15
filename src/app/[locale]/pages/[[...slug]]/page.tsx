@@ -99,7 +99,7 @@ export default async function DynamicPage({ params }: PageProps) {
     <>
       {isDraftMode && <DraftModeIndicator />}
       <SiteHeader />
-      <main className="flex min-h-screen flex-col bg-[#FFEEFF8E8]">
+      <main className="flex min-h-screen flex-col bg-neutral-50">
         <SectionRenderer sections={page.sections} />
       </main>
       <SiteFooter />

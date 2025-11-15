@@ -1,10 +1,10 @@
 /**
- * CategoryMetricsTable - Service category analytics table with Precision design
+ * CategoryMetricsTable - Service category analytics table with Lia design
  *
  * Features:
  * - PrecisionDataTable integration (sorting, filtering, export)
  * - Category, Fill Rate, Bookings, Avg Price columns
- * - Border-only badges for fill rate status (Precision design)
+ * - Border-only badges for fill rate status (Lia design)
  * - Geist Mono for numeric data (Bloomberg aesthetic)
  * - Currency formatting for Colombian Pesos (COP)
  * - CSV/JSON export for reporting
@@ -125,9 +125,9 @@ export function CategoryMetricsTable({ data, isLoading = false }: Props) {
       <PrecisionDataTable
         columns={columns}
         data={data}
+        emptyStateDescription="Category metrics will appear here once bookings are created."
         emptyStateIcon={CleaningBucketIcon}
         emptyStateTitle="No category data available"
-        emptyStateDescription="Category metrics will appear here once bookings are created."
         enableExport
         exportFilename="casaora-category-metrics"
         isLoading={isLoading}

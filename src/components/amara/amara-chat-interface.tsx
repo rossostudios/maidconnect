@@ -4,7 +4,9 @@
  * Amara Chat Interface
  *
  * Main chat window component for the Amara AI assistant.
- * Uses Vercel AI SDK's useChat hook for streaming responses.
+ * Uses Vercel AI SDK v6 Beta with DefaultChatTransport for streaming responses.
+ *
+ * Future enhancement: Add stream resume support with conversation persistence.
  */
 
 import { useChat } from "@ai-sdk/react";
@@ -131,25 +133,29 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
   }
 
   return (
-    <Card className="amara-chat-window fixed inset-0 z-50 flex flex-col border-neutral-200 bg-white transition-all duration-300 sm:inset-auto sm:right-4 sm:bottom-4 sm:h-[600px] sm:w-full sm:max-w-[420px] sm:rounded-lg sm:border sm:shadow-lg md:right-6 md:bottom-6 md:h-[680px] md:max-w-[480px]">
-      {/* Header */}
-      <div className="flex items-center justify-between border-neutral-200 border-b bg-white px-4 py-3 sm:rounded-t-lg sm:px-6 sm:py-4">
+    <Card className="amara-chat-window fixed inset-0 z-50 flex flex-col border-neutral-200 bg-white shadow-2xl transition-all duration-300 sm:inset-auto sm:right-4 sm:bottom-4 sm:h-[600px] sm:w-full sm:max-w-[420px] sm:border md:right-6 md:bottom-6 md:h-[680px] md:max-w-[480px]">
+      {/* Header - Lia Design */}
+      <div className="flex items-center justify-between border-neutral-200 border-b bg-white px-4 py-3 sm:px-6 sm:py-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center">
-            <AmaraIcon className="text-neutral-900" size={40} />
+          <div className="flex h-10 w-10 items-center justify-center border border-orange-500 bg-orange-50">
+            <AmaraIcon className="text-orange-600" size={40} />
           </div>
           <div>
-            <h3 className="font-semibold text-base text-neutral-900">{t("title")}</h3>
-            <p className="text-neutral-500 text-sm">{t("subtitle")}</p>
+            <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-base text-neutral-900 tracking-tight">
+              {t("title")}
+            </h3>
+            <p className="font-[family-name:var(--font-geist-sans)] text-neutral-600 text-sm">
+              {t("subtitle")}
+            </p>
           </div>
         </div>
         <button
           aria-label={t("closeChat")}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-md text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2"
+          className="inline-flex h-10 w-10 items-center justify-center border border-neutral-200 bg-white text-neutral-600 transition-all hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500/25"
           onClick={onClose}
           type="button"
         >
-          <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} />
+          <HugeiconsIcon className="h-5 w-5" icon={Cancel01Icon} strokeWidth={1.5} />
         </button>
       </div>
 
@@ -207,15 +213,17 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
             })}
 
             {isLoading && (
-              <div className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white px-4 py-3 shadow-sm">
-                <AmaraIcon className="text-neutral-900" size={28} />
+              <div className="flex items-center gap-3 border border-orange-200 bg-orange-50 px-4 py-3 shadow-sm">
+                <AmaraIcon className="text-orange-600" size={28} />
                 <Loader />
-                <span className="text-neutral-500 text-sm">{t("typing")}</span>
+                <span className="font-[family-name:var(--font-geist-sans)] text-neutral-700 text-sm">
+                  {t("typing")}
+                </span>
               </div>
             )}
 
             {error && (
-              <div className="rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-red-600 text-sm">
+              <div className="border border-red-300 bg-red-50 px-4 py-3 font-[family-name:var(--font-geist-sans)] text-red-700 text-sm">
                 {t("errorMessage")}
               </div>
             )}
@@ -238,45 +246,69 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         </Conversation>
       </div>
 
-      {/* Action Buttons */}
+      {/* Action Buttons - Precision Grid */}
       {messages.length === 1 && (
-        <div className="border-neutral-200 border-t bg-white px-4 py-3 sm:px-6 sm:py-4">
+        <div className="border-neutral-200 border-t bg-neutral-50 px-4 py-3 sm:px-6 sm:py-4">
           <div className="grid grid-cols-4 gap-2">
             <Link
-              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-2 py-3 text-center transition hover:border-neutral-300 hover:bg-neutral-100 active:bg-neutral-200 sm:px-3"
+              className="group flex min-h-[68px] flex-col items-center justify-center gap-2 border border-neutral-200 bg-white px-2 py-3 text-center transition-all hover:border-orange-500 hover:bg-orange-50 active:scale-95 sm:px-3"
               href="/"
             >
-              <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Home01Icon} />
-              <span className="font-medium text-neutral-600 text-xs">Home</span>
+              <HugeiconsIcon
+                className="h-5 w-5 text-neutral-600 transition-colors group-hover:text-orange-600"
+                icon={Home01Icon}
+                strokeWidth={1.5}
+              />
+              <span className="font-[family-name:var(--font-geist-sans)] font-medium text-neutral-700 text-xs transition-colors group-hover:text-orange-600">
+                Home
+              </span>
             </Link>
             <button
-              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-2 py-3 text-center transition hover:border-neutral-300 hover:bg-neutral-100 active:bg-neutral-200 sm:px-3"
+              className="group flex min-h-[68px] flex-col items-center justify-center gap-2 border border-neutral-200 bg-white px-2 py-3 text-center transition-all hover:border-orange-500 hover:bg-orange-50 active:scale-95 sm:px-3"
               type="button"
             >
-              <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={Message01Icon} />
-              <span className="font-medium text-neutral-600 text-xs">Messages</span>
+              <HugeiconsIcon
+                className="h-5 w-5 text-neutral-600 transition-colors group-hover:text-orange-600"
+                icon={Message01Icon}
+                strokeWidth={1.5}
+              />
+              <span className="font-[family-name:var(--font-geist-sans)] font-medium text-neutral-700 text-xs transition-colors group-hover:text-orange-600">
+                Messages
+              </span>
             </button>
             <Link
-              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-2 py-3 text-center transition hover:border-neutral-300 hover:bg-neutral-100 active:bg-neutral-200 sm:px-3"
+              className="group flex min-h-[68px] flex-col items-center justify-center gap-2 border border-neutral-200 bg-white px-2 py-3 text-center transition-all hover:border-orange-500 hover:bg-orange-50 active:scale-95 sm:px-3"
               href="/help"
             >
-              <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={HelpCircleIcon} />
-              <span className="font-medium text-neutral-600 text-xs">Help</span>
+              <HugeiconsIcon
+                className="h-5 w-5 text-neutral-600 transition-colors group-hover:text-orange-600"
+                icon={HelpCircleIcon}
+                strokeWidth={1.5}
+              />
+              <span className="font-[family-name:var(--font-geist-sans)] font-medium text-neutral-700 text-xs transition-colors group-hover:text-orange-600">
+                Help
+              </span>
             </Link>
             <Link
-              className="flex min-h-[68px] flex-col items-center justify-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-2 py-3 text-center transition hover:border-neutral-300 hover:bg-neutral-100 active:bg-neutral-200 sm:px-3"
+              className="group flex min-h-[68px] flex-col items-center justify-center gap-2 border border-neutral-200 bg-white px-2 py-3 text-center transition-all hover:border-orange-500 hover:bg-orange-50 active:scale-95 sm:px-3"
               href="/changelog"
             >
-              <HugeiconsIcon className="h-5 w-5 text-neutral-600" icon={NewsIcon} />
-              <span className="font-medium text-neutral-600 text-xs">News</span>
+              <HugeiconsIcon
+                className="h-5 w-5 text-neutral-600 transition-colors group-hover:text-orange-600"
+                icon={NewsIcon}
+                strokeWidth={1.5}
+              />
+              <span className="font-[family-name:var(--font-geist-sans)] font-medium text-neutral-700 text-xs transition-colors group-hover:text-orange-600">
+                News
+              </span>
             </Link>
           </div>
         </div>
       )}
 
-      {/* Input */}
+      {/* Input - Lia Design */}
       <form
-        className="border-neutral-200 border-t bg-white px-4 py-3 sm:rounded-b-lg sm:px-6"
+        className="border-neutral-200 border-t bg-white px-4 py-3 sm:px-6"
         onSubmit={async (e) => {
           e.preventDefault();
           if (!input.trim() || isLoading) {
@@ -295,7 +327,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         <div className="mb-3 flex items-end gap-2 sm:gap-3">
           <div className="relative flex-1">
             <input
-              className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-[15px] text-neutral-900 transition placeholder:text-neutral-400 focus:border-neutral-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+              className="w-full border border-neutral-200 bg-white px-4 py-3 font-[family-name:var(--font-geist-sans)] text-[15px] text-neutral-900 transition-all placeholder:text-neutral-400 focus:border-orange-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500/25"
               disabled={isLoading}
               maxLength={500}
               name="message"
@@ -307,22 +339,26 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
           </div>
           <button
             aria-label={t("send")}
-            className="inline-flex h-11 min-h-[44px] w-11 min-w-[44px] flex-shrink-0 items-center justify-center rounded-lg bg-neutral-900 text-neutral-50 shadow-sm transition hover:bg-neutral-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-neutral-900"
+            className="inline-flex h-11 min-h-[44px] w-11 min-w-[44px] flex-shrink-0 items-center justify-center border border-orange-500 bg-orange-500 text-white shadow-sm transition-all hover:border-orange-600 hover:bg-orange-600 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-orange-500"
             disabled={isLoading || !input.trim()}
             type="submit"
           >
             {isLoading ? (
-              <HugeiconsIcon className="h-5 w-5 animate-spin" icon={Loading01Icon} />
+              <HugeiconsIcon
+                className="h-5 w-5 animate-spin"
+                icon={Loading01Icon}
+                strokeWidth={1.5}
+              />
             ) : (
-              <HugeiconsIcon className="h-5 w-5" icon={SentIcon} />
+              <HugeiconsIcon className="h-5 w-5" icon={SentIcon} strokeWidth={1.5} />
             )}
           </button>
         </div>
 
         {/* Privacy Policy Text */}
-        <p className="text-center text-neutral-500 text-xs">
+        <p className="text-center font-[family-name:var(--font-geist-sans)] text-neutral-600 text-xs">
           By chatting with Amara, you agree to our{" "}
-          <Link className="text-neutral-900 hover:underline" href="/privacy">
+          <Link className="text-orange-600 transition-colors hover:text-orange-700" href="/privacy">
             Privacy Policy
           </Link>
         </p>

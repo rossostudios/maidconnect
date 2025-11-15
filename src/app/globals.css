@@ -32,9 +32,9 @@
   /* Legacy: Keep white for compatibility */
   --color-white: #ffffff;
 
-  /* Typography - Custom Fonts */
-  --font-family-satoshi: var(--font-satoshi), Inter, system-ui, -apple-system, sans-serif;
-  --font-family-manrope: var(--font-manrope), Inter, system-ui, -apple-system, sans-serif;
+  /* Typography - Precision Design System (Geist Fonts Only) */
+  --font-family-geist-sans: var(--font-geist-sans), Inter, system-ui, -apple-system, sans-serif;
+  --font-family-geist-mono: var(--font-geist-mono), 'Courier New', monospace;
   --font-family-inter: Inter, system-ui, -apple-system, sans-serif;
   --font-family-serif: Georgia, 'Times New Roman', Times, serif;
 
@@ -152,7 +152,7 @@
   html,
   body {
     @apply bg-neutral-50 text-neutral-900;
-    font-family: var(--font-manrope), Inter, system-ui, -apple-system, sans-serif;
+    font-family: var(--font-geist-sans), Inter, system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -268,6 +268,38 @@
       rgba(255, 0, 0, 0.1) var(--baseline)
     );
   }
+
+  /* Skip Link Accessibility - WCAG 2.2 AA Compliant */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: 9999;
+  }
+
+  .skip-link:focus {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    width: auto;
+    height: auto;
+    padding: 0.75rem 1.5rem;
+    background-color: white;
+    color: #FF5200; /* orange-500 */
+    border: 2px solid #FF5200;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .skip-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
 
 /* Baseline-Locked Typography */
@@ -278,9 +310,9 @@
     margin-bottom: var(--baseline);
   }
 
-  /* Headings - Baseline Aligned with Satoshi Font */
+  /* Headings - Precision Design System with Geist Sans */
   h1 {
-    font-family: var(--font-satoshi), Inter, system-ui, sans-serif;
+    font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
     font-size: 48px;             /* 2 × baseline */
     line-height: 48px;           /* 2 × baseline */
     margin-bottom: var(--baseline);
@@ -289,7 +321,7 @@
   }
 
   h2 {
-    font-family: var(--font-satoshi), Inter, system-ui, sans-serif;
+    font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
     font-size: 36px;             /* 1.5 × baseline */
     line-height: 48px;           /* 2 × baseline (round up) */
     margin-bottom: var(--baseline);
@@ -298,7 +330,7 @@
   }
 
   h3 {
-    font-family: var(--font-satoshi), Inter, system-ui, sans-serif;
+    font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
     font-size: 28px;             /* ~1.17 × baseline */
     line-height: 48px;           /* 2 × baseline (round up) */
     margin-bottom: var(--baseline);
@@ -307,7 +339,7 @@
   }
 
   h4 {
-    font-family: var(--font-satoshi), Inter, system-ui, sans-serif;
+    font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
     font-size: 24px;             /* 1 × baseline */
     line-height: 24px;           /* 1 × baseline */
     margin-bottom: var(--baseline);
@@ -315,7 +347,7 @@
   }
 
   h5 {
-    font-family: var(--font-satoshi), Inter, system-ui, sans-serif;
+    font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
     font-size: 20px;
     line-height: 24px;           /* 1 × baseline (round up) */
     margin-bottom: var(--baseline);
@@ -323,7 +355,7 @@
   }
 
   h6 {
-    font-family: var(--font-satoshi), Inter, system-ui, sans-serif;
+    font-family: var(--font-geist-sans), Inter, system-ui, sans-serif;
     font-size: 18px;
     line-height: 24px;           /* 1 × baseline (round up) */
     margin-bottom: var(--baseline);

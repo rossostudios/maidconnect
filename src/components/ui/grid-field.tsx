@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef, forwardRef } from "react";
+import { type ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils/core";
 
 /**
@@ -54,63 +54,71 @@ type GridFieldProps = ComponentPropsWithoutRef<"div"> & {
   justify?: "start" | "center" | "end" | "stretch";
 };
 
-export const GridField = forwardRef<HTMLDivElement, GridFieldProps>(
-  (
-    {
-      className,
-      children,
-      colSpan = 1,
-      colStart,
-      rowSpan = 1,
-      rowStart,
-      responsive,
-      align = "start",
-      justify = "start",
-      ...props
-    },
-    ref
-  ) => {
-    // Build responsive classes
-    const responsiveClasses = [];
-    if (responsive?.sm?.colSpan) responsiveClasses.push(`sm:col-span-${responsive.sm.colSpan}`);
-    if (responsive?.md?.colSpan) responsiveClasses.push(`md:col-span-${responsive.md.colSpan}`);
-    if (responsive?.lg?.colSpan) responsiveClasses.push(`lg:col-span-${responsive.lg.colSpan}`);
-
-    if (responsive?.sm?.rowSpan) responsiveClasses.push(`sm:row-span-${responsive.sm.rowSpan}`);
-    if (responsive?.md?.rowSpan) responsiveClasses.push(`md:row-span-${responsive.md.rowSpan}`);
-    if (responsive?.lg?.rowSpan) responsiveClasses.push(`lg:row-span-${responsive.lg.rowSpan}`);
-
-    return (
-      <div
-        className={cn(
-          // Column span
-          `col-span-${colSpan}`,
-          // Row span
-          rowSpan > 0 && `row-span-${rowSpan}`,
-          // Alignment
-          align === "center" && "self-center",
-          align === "end" && "self-end",
-          align === "stretch" && "self-stretch",
-          // Justification (for flex children)
-          justify === "center" && "justify-self-center",
-          justify === "end" && "justify-self-end",
-          justify === "stretch" && "justify-self-stretch",
-          // Responsive
-          ...responsiveClasses,
-          className
-        )}
-        ref={ref}
-        style={{
-          ...(colStart && { gridColumnStart: colStart }),
-          ...(rowStart && { gridRowStart: rowStart }),
-        }}
-        {...props}
-      >
-        {children}
-      </div>
-    );
+export const GridField = ({
+  className,
+  children,
+  colSpan = 1,
+  colStart,
+  rowSpan = 1,
+  rowStart,
+  responsive,
+  align = "start",
+  justify = "start",
+  ref,
+  ...props
+}: GridFieldProps & { ref?: RefObject<HTMLDivElement | null> }) => {
+  // Build responsive classes
+  const responsiveClasses = [];
+  if (responsive?.sm?.colSpan) {
+    responsiveClasses.push(`sm:col-span-${responsive.sm.colSpan}`);
   }
-);
+  if (responsive?.md?.colSpan) {
+    responsiveClasses.push(`md:col-span-${responsive.md.colSpan}`);
+  }
+  if (responsive?.lg?.colSpan) {
+    responsiveClasses.push(`lg:col-span-${responsive.lg.colSpan}`);
+  }
+
+  if (responsive?.sm?.rowSpan) {
+    responsiveClasses.push(`sm:row-span-${responsive.sm.rowSpan}`);
+  }
+  if (responsive?.md?.rowSpan) {
+    responsiveClasses.push(`md:row-span-${responsive.md.rowSpan}`);
+  }
+  if (responsive?.lg?.rowSpan) {
+    responsiveClasses.push(`lg:row-span-${responsive.lg.rowSpan}`);
+  }
+
+  return (
+    <div
+      className={cn(
+        // Column span
+        `col-span-${colSpan}`,
+        // Row span
+        rowSpan > 0 && `row-span-${rowSpan}`,
+        // Alignment
+        align === "center" && "self-center",
+        align === "end" && "self-end",
+        align === "stretch" && "self-stretch",
+        // Justification (for flex children)
+        justify === "center" && "justify-self-center",
+        justify === "end" && "justify-self-end",
+        justify === "stretch" && "justify-self-stretch",
+        // Responsive
+        ...responsiveClasses,
+        className
+      )}
+      ref={ref}
+      style={{
+        ...(colStart && { gridColumnStart: colStart }),
+        ...(rowStart && { gridRowStart: rowStart }),
+      }}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
 
 GridField.displayName = "GridField";
 
@@ -119,31 +127,46 @@ GridField.displayName = "GridField";
  */
 
 /** Full-width field (spans all columns) */
-export const GridFieldFull = forwardRef<HTMLDivElement, Omit<GridFieldProps, "colSpan">>(
-  (props, ref) => <GridField colSpan={12} ref={ref} {...props} />
+export const GridFieldFull = ({
+  ref,
+  ...props
+}: Omit<GridFieldProps, "colSpan"> & { ref?: RefObject<HTMLDivElement | null> }) => (
+  <GridField colSpan={12} ref={ref} {...props} />
 );
 GridFieldFull.displayName = "GridFieldFull";
 
 /** Half-width field (6 columns in 12-col grid) */
-export const GridFieldHalf = forwardRef<HTMLDivElement, Omit<GridFieldProps, "colSpan">>(
-  (props, ref) => <GridField colSpan={6} ref={ref} {...props} />
+export const GridFieldHalf = ({
+  ref,
+  ...props
+}: Omit<GridFieldProps, "colSpan"> & { ref?: RefObject<HTMLDivElement | null> }) => (
+  <GridField colSpan={6} ref={ref} {...props} />
 );
 GridFieldHalf.displayName = "GridFieldHalf";
 
 /** Third-width field (4 columns in 12-col grid) */
-export const GridFieldThird = forwardRef<HTMLDivElement, Omit<GridFieldProps, "colSpan">>(
-  (props, ref) => <GridField colSpan={4} ref={ref} {...props} />
+export const GridFieldThird = ({
+  ref,
+  ...props
+}: Omit<GridFieldProps, "colSpan"> & { ref?: RefObject<HTMLDivElement | null> }) => (
+  <GridField colSpan={4} ref={ref} {...props} />
 );
 GridFieldThird.displayName = "GridFieldThird";
 
 /** Two-thirds width field (8 columns in 12-col grid) */
-export const GridFieldTwoThirds = forwardRef<HTMLDivElement, Omit<GridFieldProps, "colSpan">>(
-  (props, ref) => <GridField colSpan={8} ref={ref} {...props} />
+export const GridFieldTwoThirds = ({
+  ref,
+  ...props
+}: Omit<GridFieldProps, "colSpan"> & { ref?: RefObject<HTMLDivElement | null> }) => (
+  <GridField colSpan={8} ref={ref} {...props} />
 );
 GridFieldTwoThirds.displayName = "GridFieldTwoThirds";
 
 /** Quarter-width field (3 columns in 12-col grid) */
-export const GridFieldQuarter = forwardRef<HTMLDivElement, Omit<GridFieldProps, "colSpan">>(
-  (props, ref) => <GridField colSpan={3} ref={ref} {...props} />
+export const GridFieldQuarter = ({
+  ref,
+  ...props
+}: Omit<GridFieldProps, "colSpan"> & { ref?: RefObject<HTMLDivElement | null> }) => (
+  <GridField colSpan={3} ref={ref} {...props} />
 );
 GridFieldQuarter.displayName = "GridFieldQuarter";

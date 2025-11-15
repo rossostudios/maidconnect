@@ -1,5 +1,5 @@
 /**
- * StatsContainer - KPI cards grid with asymmetric layout and Precision design
+ * StatsContainer - KPI cards grid with asymmetric layout and Lia design
  *
  * Layout (Desktop):
  * ┌───────────────────┬───────────────────┐

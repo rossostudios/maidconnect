@@ -57,10 +57,10 @@ function getToastStyles(type: ToastType): string {
   `;
 
   const typeStyles = {
-    success: "background-color: #FF4444A22; color: white;",
-    error: "background-color: #FF4444A22; color: white;",
-    info: "background-color: #FF4444A22; color: white;",
-    warning: "background-color: #FF4444A22; color: white;",
+    success: "background-color: #FF5200; color: white;",
+    error: "background-color: #FF5200; color: white;",
+    info: "background-color: #FF5200; color: white;",
+    warning: "background-color: #FF5200; color: white;",
   };
 
   return baseStyles + typeStyles[type];
@@ -173,7 +173,7 @@ export function confirm(message: string, title = "Confirm"): Promise<boolean> {
     titleElement.style.cssText = `
       font-size: 18px;
       font-weight: 600;
-      color: #116611616;
+      color: #171717;
       margin-bottom: 12px;
     `;
 
@@ -181,7 +181,7 @@ export function confirm(message: string, title = "Confirm"): Promise<boolean> {
     messageElement.textContent = message;
     messageElement.style.cssText = `
       font-size: 14px;
-      color: #116611616;
+      color: #171717;
       margin-bottom: 20px;
       line-height: 1.5;
     `;
@@ -198,21 +198,21 @@ export function confirm(message: string, title = "Confirm"): Promise<boolean> {
     cancelButton.style.cssText = `
       padding: 8px 16px;
       border-radius: 8px;
-      border: 2px solid #EE44EE2E3;
+      border: 2px solid #E5E5E5;
       background-color: white;
-      color: #116611616;
+      color: #171717;
       font-weight: 600;
       font-size: 14px;
       cursor: pointer;
       transition: all 0.2s;
     `;
     cancelButton.onmouseover = () => {
-      cancelButton.style.borderColor = "#AA88AAAAC";
-      cancelButton.style.color = "#AA88AAAAC";
+      cancelButton.style.borderColor = "#737373";
+      cancelButton.style.color = "#737373";
     };
     cancelButton.onmouseout = () => {
-      cancelButton.style.borderColor = "#EE44EE2E3";
-      cancelButton.style.color = "#116611616";
+      cancelButton.style.borderColor = "#E5E5E5";
+      cancelButton.style.color = "#171717";
     };
 
     const confirmButton = document.createElement("button");
@@ -221,7 +221,7 @@ export function confirm(message: string, title = "Confirm"): Promise<boolean> {
       padding: 8px 16px;
       border-radius: 8px;
       border: none;
-      background-color: #AA88AAAAC;
+      background-color: #737373;
       color: white;
       font-weight: 600;
       font-size: 14px;
@@ -229,10 +229,10 @@ export function confirm(message: string, title = "Confirm"): Promise<boolean> {
       transition: all 0.2s;
     `;
     confirmButton.onmouseover = () => {
-      confirmButton.style.backgroundColor = "#AA88AAAAC";
+      confirmButton.style.backgroundColor = "#737373";
     };
     confirmButton.onmouseout = () => {
-      confirmButton.style.backgroundColor = "#AA88AAAAC";
+      confirmButton.style.backgroundColor = "#737373";
     };
 
     const cleanup = () => {

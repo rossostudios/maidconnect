@@ -9,8 +9,10 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Link from "next/link";
+import { geistSans } from "@/app/fonts";
 import { requireUser } from "@/lib/auth";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { cn } from "@/lib/utils";
 
 export const metadata = {
   title: "Feedback Management | Admin",
@@ -32,32 +34,39 @@ type FeedbackSubmission = {
   created_at: string;
 };
 
+// Lia Design: Neutral palette with icons for differentiation (no multi-color badges)
 const typeConfig = {
-  bug: { icon: Bug01Icon, label: "Bug", color: "text-red-700 bg-red-100" },
+  bug: { icon: Bug01Icon, label: "Bug", color: "text-neutral-900 bg-neutral-100" },
   feature_request: {
     icon: Idea01Icon,
     label: "Feature Request",
-    color: "text-purple-700 bg-purple-100",
+    color: "text-neutral-900 bg-neutral-100",
   },
-  improvement: { icon: AnalyticsUpIcon, label: "Improvement", color: "text-blue-700 bg-blue-100" },
-  complaint: { icon: Sad01Icon, label: "Complaint", color: "text-orange-700 bg-orange-100" },
-  praise: { icon: ThumbsUpIcon, label: "Praise", color: "text-green-700 bg-green-100" },
-  other: { icon: AlertCircleIcon, label: "Other", color: "text-neutral-700 bg-neutral-100" },
+  improvement: {
+    icon: AnalyticsUpIcon,
+    label: "Improvement",
+    color: "text-neutral-900 bg-neutral-100",
+  },
+  complaint: { icon: Sad01Icon, label: "Complaint", color: "text-neutral-900 bg-neutral-100" },
+  praise: { icon: ThumbsUpIcon, label: "Praise", color: "text-neutral-900 bg-neutral-100" },
+  other: { icon: AlertCircleIcon, label: "Other", color: "text-neutral-900 bg-neutral-100" },
 };
 
+// Lia Design: Neutral palette with orange for active states
 const statusBadge = {
-  new: "bg-blue-100 text-blue-700",
-  in_review: "bg-amber-100 text-amber-700",
-  resolved: "bg-green-100 text-green-700",
+  new: "bg-orange-500 text-white",
+  in_review: "bg-neutral-200 text-neutral-900",
+  resolved: "bg-neutral-100 text-neutral-700",
   closed: "bg-neutral-100 text-neutral-700",
-  spam: "bg-red-100 text-red-700",
+  spam: "bg-neutral-100 text-neutral-700",
 };
 
+// Lia Design: Neutral palette with orange for high priority
 const priorityBadge = {
   low: "bg-neutral-100 text-neutral-700",
-  medium: "bg-blue-100 text-blue-700",
-  high: "bg-orange-100 text-orange-700",
-  critical: "bg-red-100 text-red-700",
+  medium: "bg-neutral-200 text-neutral-900",
+  high: "bg-orange-500 text-white",
+  critical: "bg-orange-500 text-white",
 };
 
 export default async function AdminFeedbackPage({
@@ -105,10 +114,24 @@ export default async function AdminFeedbackPage({
 
   return (
     <section className="space-y-8">
-      {/* Header */}
+      {/* Header - Lia Design */}
       <div>
-        <h1 className="font-bold text-3xl text-neutral-900">Feedback Management</h1>
-        <p className="mt-2 text-neutral-600 text-sm">Review and manage user feedback submissions</p>
+        <h1
+          className={cn(
+            "font-semibold text-3xl text-neutral-900 uppercase tracking-tight",
+            geistSans.className
+          )}
+        >
+          Feedback Management
+        </h1>
+        <p
+          className={cn(
+            "mt-1.5 font-normal text-neutral-700 text-sm tracking-wide",
+            geistSans.className
+          )}
+        >
+          Review and manage user feedback submissions
+        </p>
       </div>
 
       {/* Status Filter Tabs */}
@@ -184,23 +207,26 @@ export default async function AdminFeedbackPage({
                   {/* Content */}
                   <div className="flex-1">
                     <div className="mb-3 flex flex-wrap items-center gap-2">
+                      {/* Precision: Sharp edges, neutral palette with icons for differentiation */}
                       <span
-                        className={`-full flex items-center gap-1 px-3 py-1 font-medium text-xs ${typeConf.color}`}
+                        className={`flex items-center gap-1 px-3 py-1 font-medium text-xs ${typeConf.color}`}
                       >
                         <HugeiconsIcon className="h-3 w-3" icon={TypeIcon} />
                         {typeConf.label}
                       </span>
+                      {/* Precision: Sharp edges, orange for active states */}
                       <span
-                        className={`rounded-full px-3 py-1 font-medium text-xs capitalize ${statusBadge[item.status]}`}
+                        className={`px-3 py-1 font-medium text-xs capitalize ${statusBadge[item.status]}`}
                       >
                         {item.status.replace("_", " ")}
                       </span>
+                      {/* Precision: Sharp edges, orange for high priority */}
                       <span
-                        className={`rounded-full px-3 py-1 font-medium text-xs capitalize ${priorityBadge[item.priority]}`}
+                        className={`px-3 py-1 font-medium text-xs capitalize ${priorityBadge[item.priority]}`}
                       >
                         {item.priority}
                       </span>
-                      <span className="text-neutral-600 text-xs">
+                      <span className="font-[family-name:var(--font-geist-mono)] text-neutral-700 text-xs">
                         {new Date(item.created_at).toLocaleDateString("en-US", {
                           year: "numeric",
                           month: "short",

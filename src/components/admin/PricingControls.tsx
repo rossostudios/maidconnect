@@ -1,7 +1,7 @@
 /**
  * Pricing Controls Manager Component
  *
- * Admin interface for managing pricing rules with Precision design.
+ * Admin interface for managing pricing rules with Lia design.
  * Supports creating, editing, and deactivating rules.
  *
  * Architecture:
@@ -63,7 +63,7 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
 
   return (
     <div className="space-y-6">
-      {/* Header - Precision Design */}
+      {/* Header - Lia Design */}
       <div className="flex items-center justify-between">
         <div>
           <p className="text-neutral-600 text-sm">
@@ -86,7 +86,7 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
         rules={rules}
       />
 
-      {/* Info Cards - Precision Design */}
+      {/* Info Cards - Lia Design */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="border border-neutral-200 bg-white p-6">
           <h3 className="mb-2 font-semibold text-neutral-900">Rule Priority</h3>

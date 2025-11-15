@@ -18,14 +18,15 @@ import { PostHogProvider } from "@/components/providers/posthog-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { SupabaseProvider } from "@/components/providers/supabase-provider";
 import { DraftModeIndicator } from "@/components/sanity/draft-mode-indicator";
+import { SkipLink, SkipLinks } from "@/components/ui/skip-link";
 import { WebVitalsReporter } from "@/components/web-vitals";
 import { type Locale, locales } from "@/i18n";
-import { manrope, satoshi } from "../fonts";
+import { geistMono, geistSans } from "../fonts";
 
-// Custom Fonts for Casaora
-// - Satoshi: Display text, headings (Swiss typography tradition)
-// - Manrope: Body text, UI elements
-// - Inter: Fallback for system compatibility
+// Font configuration - Lia Design System
+// - Geist Sans: Primary UI and marketing font
+// - Geist Mono: Numbers, data, metrics
+// - Inter: Fallback/system compatibility
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -106,12 +107,16 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${satoshi.variable} ${manrope.variable} ${inter.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
         data-nonce={nonce}
       >
-        <WebVitalsReporter />
         <ErrorBoundary>
           <NextIntlClientProvider locale={locale} messages={messages}>
+            <SkipLinks>
+              <SkipLink href="main-content">Skip to main content</SkipLink>
+              <SkipLink href="footer">Skip to footer</SkipLink>
+            </SkipLinks>
+            <WebVitalsReporter />
             <PostHogProvider nonce={nonce}>
               <FeedbackProvider>
                 <UnifiedCommandPaletteWrapper>
@@ -130,10 +135,15 @@ export default async function RootLayout({
                 </UnifiedCommandPaletteWrapper>
               </FeedbackProvider>
             </PostHogProvider>
+            {isDraftMode && <DraftModeIndicator />}
+            <Toaster
+              closeButton
+              position="top-right"
+              richColors
+              toastOptions={{ duration: 4000 }}
+            />
           </NextIntlClientProvider>
         </ErrorBoundary>
-        {isDraftMode && <DraftModeIndicator />}
-        <Toaster closeButton position="top-right" richColors toastOptions={{ duration: 4000 }} />
       </body>
     </html>
   );

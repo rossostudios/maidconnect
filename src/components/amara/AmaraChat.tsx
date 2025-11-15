@@ -320,7 +320,7 @@ export function AmaraChatInterface({ isOpen, onClose }: AmaraChatInterfaceProps)
         {/* Privacy Policy Text */}
         <p className="text-center text-neutral-500 text-xs">
           By chatting with Amara, you agree to our{" "}
-          <Link className="text-neutral-900 hover:underline" href="/privacy">
+          <Link className="text-neutral-900" href="/privacy">
             Privacy Policy
           </Link>
         </p>

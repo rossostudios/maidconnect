@@ -24,8 +24,8 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
     return (
       <section className="space-y-6">
         <div>
-          <h1 className="font-semibold text-3xl text-[#116611616]">{t("title")}</h1>
-          <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">
+          <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
+          <p className="mt-2 text-base text-neutral-500 leading-relaxed">
             This feature is coming soon!
           </p>
         </div>
@@ -80,20 +80,20 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
     <section className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="font-semibold text-3xl text-[#116611616]">Refer & Earn</h1>
-        <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">
+        <h1 className="font-semibold text-3xl text-neutral-900">Refer & Earn</h1>
+        <p className="mt-2 text-base text-neutral-500 leading-relaxed">
           Share Casaora with friends and earn rewards when they book their first service
         </p>
       </div>
 
       {/* Stats Cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="rounded-2xl border border-[#EE44EE2E3] bg-gradient-to-br from-[#FF4444A22]/10 to-[#FFEEFF8E8] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#FF4444A22]">
-            <HugeiconsIcon className="h-6 w-6 text-[#FFEEFF8E8]" icon={GiftIcon} />
+        <div className="rounded-2xl border border-neutral-200 bg-gradient-to-br from-orange-500/10 to-white p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-500">
+            <HugeiconsIcon className="h-6 w-6 text-white" icon={GiftIcon} />
           </div>
-          <div className="mb-1 text-[#AA88AAAAC] text-sm">Total Earnings</div>
-          <div className="font-bold text-3xl text-[#116611616]">
+          <div className="mb-1 text-neutral-500 text-sm">Total Earnings</div>
+          <div className="font-bold text-3xl text-neutral-900">
             {new Intl.NumberFormat("es-CO", {
               style: "currency",
               currency: "COP",
@@ -102,20 +102,20 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
           </div>
         </div>
 
-        <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#EE44EE2E3]">
-            <HugeiconsIcon className="h-6 w-6 text-[#116611616]" icon={UserGroupIcon} />
+        <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-neutral-200">
+            <HugeiconsIcon className="h-6 w-6 text-neutral-900" icon={UserGroupIcon} />
           </div>
-          <div className="mb-1 text-[#AA88AAAAC] text-sm">Successful Referrals</div>
-          <div className="font-bold text-3xl text-[#116611616]">{rewardedReferrals}</div>
+          <div className="mb-1 text-neutral-500 text-sm">Successful Referrals</div>
+          <div className="font-bold text-3xl text-neutral-900">{rewardedReferrals}</div>
         </div>
 
-        <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#EE44EE2E3]">
-            <HugeiconsIcon className="h-6 w-6 text-[#116611616]" icon={AnalyticsUpIcon} />
+        <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-neutral-200">
+            <HugeiconsIcon className="h-6 w-6 text-neutral-900" icon={AnalyticsUpIcon} />
           </div>
-          <div className="mb-1 text-[#AA88AAAAC] text-sm">Pending</div>
-          <div className="font-bold text-3xl text-[#116611616]">{pendingReferrals}</div>
+          <div className="mb-1 text-neutral-500 text-sm">Pending</div>
+          <div className="font-bold text-3xl text-neutral-900">{pendingReferrals}</div>
         </div>
       </div>
 
@@ -130,15 +130,15 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
             usesCount={usesCount}
           />
         ) : (
-          <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-8 text-center shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
-            <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-[#FF4444A22]" icon={GiftIcon} />
-            <h3 className="mb-2 font-semibold text-[#116611616] text-xl">Get Your Referral Code</h3>
-            <p className="mb-6 text-[#AA88AAAAC]">
+          <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-8 text-center shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+            <HugeiconsIcon className="mx-auto mb-4 h-12 w-12 text-orange-500" icon={GiftIcon} />
+            <h3 className="mb-2 font-semibold text-neutral-900 text-xl">Get Your Referral Code</h3>
+            <p className="mb-6 text-neutral-500">
               Generate your unique referral code to start earning rewards
             </p>
             <form action="/api/referrals/generate-code" method="POST">
               <button
-                className="rounded-lg bg-[#FF4444A22] px-6 py-3 font-semibold text-[#FFEEFF8E8] transition hover:bg-[#FF4444A22] active:scale-95"
+                className="rounded-lg bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-500 active:scale-95"
                 type="submit"
               >
                 Generate My Code
@@ -150,43 +150,43 @@ export default async function ReferralsPage({ params }: { params: Promise<{ loca
 
       {/* Recent Referrals */}
       {referralsList.length > 0 && (
-        <div className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
-          <h2 className="mb-6 font-semibold text-[#116611616] text-xl">Recent Referrals</h2>
+        <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+          <h2 className="mb-6 font-semibold text-neutral-900 text-xl">Recent Referrals</h2>
           <div className="space-y-4">
             {referralsList.slice(0, 5).map((referral) => (
               <div
-                className="flex items-center justify-between rounded-lg border border-[#EE44EE2E3] p-4"
+                className="flex items-center justify-between rounded-lg border border-neutral-200 p-4"
                 key={referral.id}
               >
                 <div className="flex items-center gap-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EE44EE2E3]">
-                    <HugeiconsIcon className="h-5 w-5 text-[#116611616]" icon={UserGroupIcon} />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200">
+                    <HugeiconsIcon className="h-5 w-5 text-neutral-900" icon={UserGroupIcon} />
                   </div>
                   <div>
-                    <div className="font-medium text-[#116611616] text-sm">New Referral</div>
-                    <div className="text-[#AA88AAAAC] text-xs">
+                    <div className="font-medium text-neutral-900 text-sm">New Referral</div>
+                    <div className="text-neutral-500 text-xs">
                       {new Date(referral.created_at).toLocaleDateString()}
                     </div>
                   </div>
                 </div>
                 <div>
                   {referral.status === "rewarded" && (
-                    <span className="rounded-full bg-[#FF4444A22]/10 px-3 py-1 text-[#FF4444A22] text-xs">
+                    <span className="rounded-full bg-orange-500/10 px-3 py-1 text-orange-500 text-xs">
                       Rewarded
                     </span>
                   )}
                   {referral.status === "qualified" && (
-                    <span className="rounded-full bg-[#FFEEFF8E8] px-3 py-1 text-[#FF4444A22] text-xs">
+                    <span className="rounded-full bg-neutral-50 px-3 py-1 text-orange-500 text-xs">
                       Qualified
                     </span>
                   )}
                   {referral.status === "pending" && (
-                    <span className="rounded-full bg-[#FF4444A22]/10 px-3 py-1 text-[#FF4444A22] text-xs">
+                    <span className="rounded-full bg-orange-500/10 px-3 py-1 text-orange-500 text-xs">
                       Pending
                     </span>
                   )}
                   {referral.status === "expired" && (
-                    <span className="rounded-full bg-[#EE44EE2E3]/30 px-3 py-1 text-[#AA88AAAAC] text-xs">
+                    <span className="rounded-full bg-neutral-200/30 px-3 py-1 text-neutral-500 text-xs">
                       Expired
                     </span>
                   )}

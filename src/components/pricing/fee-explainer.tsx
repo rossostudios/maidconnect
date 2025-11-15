@@ -27,7 +27,7 @@ export function FeeExplainer() {
     <section className="bg-white py-16 sm:py-20">
       <Container className="max-w-5xl">
         <div className="mb-12 text-center">
-          <h2 className="mb-baseline-1 font-[family-name:var(--font-family-satoshi)] font-bold text-[36px] text-neutral-900 leading-[48px]">
+          <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[36px] text-neutral-900 leading-[48px]">
             {t("title")}
           </h2>
           <p className="mx-auto max-w-2xl text-[18px] text-neutral-700 leading-[24px]">
@@ -49,7 +49,7 @@ export function FeeExplainer() {
                     icon={Icon}
                   />
                 </div>
-                <h3 className="mb-2 font-[family-name:var(--font-family-satoshi)] font-bold text-[18px] text-neutral-900 leading-[24px]">
+                <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-[18px] text-neutral-900 leading-[24px]">
                   {t(`features.${feature.key}.title`)}
                 </h3>
                 <p className="text-[14px] text-neutral-700 leading-[20px]">
@@ -65,7 +65,7 @@ export function FeeExplainer() {
           <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-orange-500">
             <HugeiconsIcon className="h-8 w-8 text-white" icon={Shield01Icon} />
           </div>
-          <h3 className="mb-2 font-[family-name:var(--font-family-satoshi)] font-bold text-[20px] text-neutral-900 leading-[24px]">
+          <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-[20px] text-neutral-900 leading-[24px]">
             {t("trustBadge.title")}
           </h3>
           <p className="mx-auto max-w-2xl text-[16px] text-neutral-700 leading-[24px]">

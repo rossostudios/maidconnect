@@ -104,10 +104,14 @@ export const pmfTracking = {
       location?: string;
     }
   ) => {
-    if (typeof window === "undefined") return; // Client-side only
+    if (typeof window === "undefined") {
+      return; // Client-side only
+    }
 
     const posthog = require("./client").posthog;
-    if (!posthog) return;
+    if (!posthog) {
+      return;
+    }
 
     posthog.identify(userId, {
       email: properties.email,

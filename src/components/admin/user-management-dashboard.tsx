@@ -5,7 +5,7 @@ import type { User } from "./user-management-table";
 import { UserManagementTable } from "./user-management-table";
 
 /**
- * UserManagementDashboard - Main user management interface with Precision design
+ * UserManagementDashboard - Main user management interface with Lia design
  *
  * Features:
  * - Fetches all users once for instant client-side filtering

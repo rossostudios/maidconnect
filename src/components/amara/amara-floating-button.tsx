@@ -1,10 +1,12 @@
 "use client";
 
 /**
- * Amara Floating Button
+ * Amara Floating Button - Lia Design System
  *
  * A floating action button that opens the Amara chat interface.
  * Positioned in the bottom-right corner with onboarding tooltip for first-time users.
+ *
+ * Uses orange accent colors and smooth animations.
  */
 
 import dynamic from "next/dynamic";

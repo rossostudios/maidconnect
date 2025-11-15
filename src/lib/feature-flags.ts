@@ -248,7 +248,11 @@ export function getConciergeVariant(
   const hash = Math.abs(sessionId.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0));
   const bucket = hash % 3;
 
-  if (bucket === 0) return "banner_top";
-  if (bucket === 1) return "hero_cta";
+  if (bucket === 0) {
+    return "banner_top";
+  }
+  if (bucket === 1) {
+    return "hero_cta";
+  }
   return "callout_below";
 }

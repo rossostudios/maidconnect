@@ -1,5 +1,5 @@
 /**
- * AnalyticsDashboardSkeleton - Professional loading state with Precision design
+ * AnalyticsDashboardSkeleton - Professional loading state with Lia design
  *
  * Features:
  * - Sharp rectangular blocks (no rounded corners)

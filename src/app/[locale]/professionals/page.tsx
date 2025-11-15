@@ -124,7 +124,7 @@ async function ProfessionalsGrid() {
 
 export default function ProfessionalsPage() {
   return (
-    <div className="bg-[#FFEEFF8E8] text-[#116611616]">
+    <div className="bg-neutral-50 text-neutral-900">
       {/* Static shell - loads instantly */}
       <SiteHeader />
       <main>

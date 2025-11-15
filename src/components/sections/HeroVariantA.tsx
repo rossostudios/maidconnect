@@ -103,7 +103,7 @@ export function HeroVariantA() {
               {/* Display Heading - Variant A Messaging */}
               <motion.h1
                 className="font-medium text-5xl text-neutral-900 tracking-tight sm:text-6xl md:text-7xl"
-                style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
+                className="font-[family-name:var(--font-geist-sans)]"
                 variants={fadeIn}
               >
                 Trusted household staff, matched to your needs—in English.
@@ -158,7 +158,7 @@ export function HeroVariantA() {
                   </Button>
                 </Link>
                 <Link
-                  className="text-center font-semibold text-neutral-600 text-sm underline-offset-4 transition hover:text-neutral-900 hover:underline sm:text-base"
+                  className="text-center font-semibold text-neutral-600 text-sm transition hover:text-neutral-900 sm:text-base"
                   href="/concierge"
                 >
                   Speak with a concierge →

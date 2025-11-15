@@ -84,7 +84,7 @@ export function CustomerSearchSection({ professionals }: CustomerSearchSectionPr
                   <div className="mt-auto flex items-center justify-between text-neutral-600 text-sm">
                     <span>{formatCOP(professional.hourlyRateCop) ?? "Rate on request"}</span>
                     <Link
-                      className="font-semibold text-neutral-900 text-sm underline-offset-4 transition hover:underline"
+                      className="font-semibold text-neutral-900 text-sm transition"
                       href={`/professionals/${professional.id}`}
                     >
                       View profile

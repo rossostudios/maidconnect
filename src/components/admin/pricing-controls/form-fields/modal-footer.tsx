@@ -4,7 +4,7 @@
  * Form action buttons for pricing rule modal (Cancel/Save).
  * Handles loading states and dynamic button labels.
  *
- * Precision Design: Sharp corners, neutral borders, orange primary button
+ * Lia Design: Sharp corners, neutral borders, orange primary button
  */
 
 import { getModalFooterLabel } from "@/lib/utils/pricing/payload";

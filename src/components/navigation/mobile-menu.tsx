@@ -36,7 +36,7 @@ export function MobileMenu({ links, isAuthenticated, onSignOut, dashboardHref }:
 
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
-  }, [isOpen]);
+  }, [isOpen, closeMenu]);
 
   // Prevent body scroll when menu is open
   useEffect(() => {

@@ -27,11 +27,11 @@ export const portableTextComponents: PortableTextComponents = {
     ),
     // Paragraph
     normal: ({ children }) => (
-      <p className="text-[#AA88AAAAC] leading-7 [&:not(:first-child)]:mt-4">{children}</p>
+      <p className="text-[#737373] leading-7 [&:not(:first-child)]:mt-4">{children}</p>
     ),
     // Blockquote
     blockquote: ({ children }) => (
-      <blockquote className="mt-6 border-[#FF4444A22] border-l-4 pl-6 text-[#AA88AAAAC] italic">
+      <blockquote className="mt-6 border-[#FF5200] border-l-4 pl-6 text-[#737373] italic">
         {children}
       </blockquote>
     ),
@@ -40,11 +40,11 @@ export const portableTextComponents: PortableTextComponents = {
   list: {
     // Bulleted list
     bullet: ({ children }) => (
-      <ul className="my-6 ml-6 list-disc text-[#AA88AAAAC] [&>li]:mt-2">{children}</ul>
+      <ul className="my-6 ml-6 list-disc text-[#737373] [&>li]:mt-2">{children}</ul>
     ),
     // Numbered list
     number: ({ children }) => (
-      <ol className="my-6 ml-6 list-decimal text-[#AA88AAAAC] [&>li]:mt-2">{children}</ol>
+      <ol className="my-6 ml-6 list-decimal text-[#737373] [&>li]:mt-2">{children}</ol>
     ),
   },
 
@@ -57,14 +57,12 @@ export const portableTextComponents: PortableTextComponents = {
 
   marks: {
     // Strong/bold
-    strong: ({ children }) => (
-      <strong className="font-semibold text-[#116611616]">{children}</strong>
-    ),
+    strong: ({ children }) => <strong className="font-semibold text-[#171717]">{children}</strong>,
     // Emphasis/italic
     em: ({ children }) => <em className="italic">{children}</em>,
     // Code
     code: ({ children }) => (
-      <code className="relative rounded bg-[#EE44EE2E3]/30 px-[0.3rem] py-[0.2rem] font-mono font-semibold text-[#116611616] text-sm">
+      <code className="relative rounded bg-[#E5E5E5]/30 px-[0.3rem] py-[0.2rem] font-mono font-semibold text-[#171717] text-sm">
         {children}
       </code>
     ),
@@ -80,7 +78,7 @@ export const portableTextComponents: PortableTextComponents = {
       if (href.startsWith("http")) {
         return (
           <a
-            className="font-medium text-[#FF4444A22] underline underline-offset-4 hover:text-[#FF4444A22]"
+            className="font-medium text-[#FF5200] underline underline-offset-4 hover:text-[#FF5200]"
             href={href}
             rel={blank ? "noopener noreferrer" : undefined}
             target={blank ? "_blank" : undefined}
@@ -92,7 +90,7 @@ export const portableTextComponents: PortableTextComponents = {
 
       return (
         <Link
-          className="font-medium text-[#FF4444A22] underline underline-offset-4 hover:text-[#FF4444A22]"
+          className="font-medium text-[#FF5200] underline underline-offset-4 hover:text-[#FF5200]"
           href={href}
         >
           {children}
@@ -117,7 +115,7 @@ export const portableTextComponents: PortableTextComponents = {
 
       return (
         <Link
-          className="font-medium text-[#FF4444A22] underline underline-offset-4 hover:text-[#FF4444A22]"
+          className="font-medium text-[#FF5200] underline underline-offset-4 hover:text-[#FF5200]"
           href={href}
         >
           {children}
@@ -139,7 +137,7 @@ export const portableTextComponents: PortableTextComponents = {
 
       return (
         <figure className="my-8">
-          <div className="relative aspect-video overflow-hidden rounded-lg border border-[#EE44EE2E3]">
+          <div className="relative aspect-video overflow-hidden rounded-lg border border-[#E5E5E5]">
             <Image
               alt={alt}
               blurDataURL={blurDataUrl}
@@ -151,7 +149,7 @@ export const portableTextComponents: PortableTextComponents = {
             />
           </div>
           {value?.caption && (
-            <figcaption className="mt-2 text-center text-[#AA88AAAAC] text-sm">
+            <figcaption className="mt-2 text-center text-[#737373] text-sm">
               {value.caption}
             </figcaption>
           )}
@@ -166,17 +164,17 @@ export const portableTextComponents: PortableTextComponents = {
       return (
         <div className="my-6">
           {filename && (
-            <div className="rounded-t-lg bg-[#116611616] px-4 py-2 font-mono text-[#AA88AAAAC]/50 text-sm">
+            <div className="rounded-t-lg bg-[#171717] px-4 py-2 font-mono text-[#737373]/50 text-sm">
               {filename}
             </div>
           )}
           <pre
             className={`overflow-x-auto p-4 ${
               filename ? "rounded-b-lg" : "rounded-lg"
-            } bg-[#116611616]`}
+            } bg-[#171717]`}
           >
             <code
-              className={`font-mono text-[#FFEEFF8E8] text-sm language-${language || "plaintext"}`}
+              className={`font-mono text-[#FFFFFF] text-sm language-${language || "plaintext"}`}
             >
               {code}
             </code>

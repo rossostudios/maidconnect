@@ -51,10 +51,7 @@ export function CookieConsent() {
                 <h3 className="mb-1 font-semibold text-[neutral-900] text-lg">{t("title")}</h3>
                 <p className="text-[neutral-400] text-sm">
                   {t("message")}{" "}
-                  <Link
-                    className="font-semibold text-[neutral-500] hover:underline"
-                    href="/privacy"
-                  >
+                  <Link className="font-semibold text-[neutral-500]" href="/privacy">
                     {t("learnMore")}
                   </Link>
                 </p>

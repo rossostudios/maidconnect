@@ -38,44 +38,44 @@ export default async function AguaoraPage({ params }: { params: Promise<{ locale
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="flex flex-1 items-center justify-center bg-gradient-to-br from-[bg-[#FFEEFF8E8]] to-[bg-[#FFEEFF8E8]] px-4 py-24">
+      <main className="flex flex-1 items-center justify-center bg-gradient-to-br from-[bg-neutral-50] to-[bg-neutral-50] px-4 py-24">
         <div className="mx-auto max-w-2xl text-center">
           {/* Logo/Brand */}
-          <div className="mb-8 inline-flex items-center justify-center rounded-full bg-[#FF4444A22]/10 p-6">
-            <HugeiconsIcon className="h-12 w-12 text-[#FF4444A22]" icon={MagicWand01Icon} />
+          <div className="mb-8 inline-flex items-center justify-center rounded-full bg-orange-500/10 p-6">
+            <HugeiconsIcon className="h-12 w-12 text-orange-500" icon={MagicWand01Icon} />
           </div>
 
           {/* Brand Name */}
-          <h1 className="type-serif-display mb-6 text-[#116611616] tracking-[0.15em]">AGUAORA</h1>
+          <h1 className="type-serif-display mb-6 text-neutral-900 tracking-[0.15em]">AGUAORA</h1>
 
           {/* Tagline */}
-          <p className="mb-8 text-[#AA88AAAAC] text-xl leading-relaxed sm:text-2xl">
+          <p className="mb-8 text-neutral-500 text-xl leading-relaxed sm:text-2xl">
             {isSpanish ? "Agua potable a tu puerta" : "Fresh water at your doorstep"}
           </p>
 
           {/* Description */}
-          <p className="mb-12 text-[#AA88AAAAC] text-lg leading-relaxed">
+          <p className="mb-12 text-lg text-neutral-500 leading-relaxed">
             {isSpanish
               ? "Pronto podrás solicitar servicios de entrega de agua potable directamente a tu hogar u oficina. Agua limpia, fresca y confiable cuando la necesites."
               : "Soon you'll be able to request water delivery services directly to your home or office. Clean, fresh, and reliable water when you need it."}
           </p>
 
           {/* Coming Soon Badge */}
-          <div className="inline-flex items-center gap-3 rounded-full border-2 border-[#FF4444A22] bg-[#FFEEFF8E8] px-8 py-4 shadow-sm">
+          <div className="inline-flex items-center gap-3 rounded-full border-2 border-orange-500 bg-neutral-50 px-8 py-4 shadow-sm">
             <div className="flex h-2 w-2 items-center justify-center">
-              <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-[#FF4444A22] opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#FF4444A22]" />
+              <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-orange-500 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-orange-500" />
             </div>
-            <span className="font-semibold text-[#116611616] text-lg uppercase tracking-wider">
+            <span className="font-semibold text-lg text-neutral-900 uppercase tracking-wider">
               {isSpanish ? "Próximamente" : "Coming Soon"}
             </span>
           </div>
 
           {/* Sister Company Link */}
-          <p className="mt-12 text-[#AA88AAAAC] text-sm">
+          <p className="mt-12 text-neutral-500 text-sm">
             {isSpanish ? "Una empresa hermana de" : "A sister company of"}{" "}
             <a
-              className="font-semibold text-[#FF4444A22] underline underline-offset-2 transition hover:text-[#FF4444A22]"
+              className="font-semibold text-orange-500 underline underline-offset-2 transition hover:text-orange-500"
               href="/"
             >
               Casaora

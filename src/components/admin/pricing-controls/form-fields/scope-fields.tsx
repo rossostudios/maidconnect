@@ -4,7 +4,7 @@
  * Service category and city selection fields for pricing rules.
  * Allows targeting specific services and locations or "All" (blank).
  *
- * Precision Design: Sharp corners, neutral borders, orange focus states
+ * Lia Design: Sharp corners, neutral borders, orange focus states
  */
 
 import type { FieldUpdateFn, PricingRuleFormData } from "@/types/pricing";

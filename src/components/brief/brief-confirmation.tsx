@@ -5,10 +5,10 @@ import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 
-interface BriefConfirmationProps {
+type BriefConfirmationProps = {
   briefId: string;
   email: string;
-}
+};
 
 export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
   return (
@@ -123,7 +123,7 @@ export function BriefConfirmation({ briefId, email }: BriefConfirmationProps) {
         <div className="pt-6">
           <p className="text-neutral-500 text-sm">
             Have questions?{" "}
-            <Link className="text-orange-600 underline-offset-4 hover:underline" href="/contact">
+            <Link className="text-orange-600" href="/contact">
               Contact our support team
             </Link>
           </p>

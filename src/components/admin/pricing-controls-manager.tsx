@@ -163,13 +163,13 @@ export function PricingControlsManager({ initialRules }: PricingControlsManagerP
                   <td className="px-6 py-4">
                     <div className="flex gap-2">
                       <button
-                        className="font-medium text-[#E85D48] text-sm hover:underline"
+                        className="font-medium text-[#E85D48] text-sm"
                         onClick={() => setEditingRule(rule)}
                       >
                         Edit
                       </button>
                       <button
-                        className="font-medium text-[#7d7566] text-sm hover:underline"
+                        className="font-medium text-[#7d7566] text-sm"
                         onClick={() => handleToggleActive(rule.id, rule.is_active)}
                       >
                         {rule.is_active ? "Deactivate" : "Activate"}

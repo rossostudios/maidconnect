@@ -74,7 +74,7 @@ export function PricingComparisonCards({ highlightConcierge = false }: Props) {
                     icon={Icon}
                   />
                 </div>
-                <h3 className="mb-2 font-[family-name:var(--font-family-satoshi)] font-bold text-[28px] text-neutral-900 leading-[24px]">
+                <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-[28px] text-neutral-900 leading-[24px]">
                   {t(`${service.type}.title`)}
                 </h3>
                 <p className="text-[16px] text-neutral-700 leading-[24px]">
@@ -87,7 +87,7 @@ export function PricingComparisonCards({ highlightConcierge = false }: Props) {
                 <div className="mb-1 font-semibold text-[14px] text-neutral-600 uppercase leading-[24px] tracking-wider">
                   {t("platformFee")}
                 </div>
-                <div className="font-[family-name:var(--font-family-satoshi)] font-bold text-[48px] text-neutral-900 leading-[48px]">
+                <div className="font-[family-name:var(--font-geist-sans)] font-bold text-[48px] text-neutral-900 leading-[48px]">
                   {service.commission}%
                 </div>
                 <div className="mt-1 text-[14px] text-neutral-600 leading-[24px]">

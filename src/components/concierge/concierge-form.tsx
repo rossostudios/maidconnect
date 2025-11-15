@@ -364,7 +364,7 @@ export function ConciergeForm() {
           <div className="text-center text-neutral-600 text-sm">
             <p>
               Or prefer to fill out a detailed brief?{" "}
-              <Link className="text-orange-600 underline-offset-4 hover:underline" href="/brief">
+              <Link className="text-orange-600" href="/brief">
                 Start the full intake form
               </Link>
             </p>

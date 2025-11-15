@@ -169,7 +169,7 @@ export default async function FeedbackDetailPage({ params }: { params: Promise<{
             <dt className="mb-1 font-semibold text-neutral-600 text-sm">Page URL</dt>
             <dd className="break-all font-mono text-neutral-900 text-sm">
               <a
-                className="text-orange-600 hover:underline"
+                className="text-orange-600"
                 href={feedback.page_url}
                 rel="noopener noreferrer"
                 target="_blank"

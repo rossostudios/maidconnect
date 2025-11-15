@@ -14,7 +14,7 @@ type Props = {
  * Features:
  * - Configurable column/row count
  * - Pulse animation
- * - Precision design aesthetic
+ * - Lia design aesthetic
  */
 export function PrecisionDataTableSkeleton({ columns, rows = 10, showHeader = true }: Props) {
   return (

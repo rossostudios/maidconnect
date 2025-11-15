@@ -5,12 +5,12 @@ import { getDashboardRouteForRole, getSession } from "@/lib/auth";
 import { SiteHeaderClient } from "./SiteHeaderClient";
 
 /**
- * SiteHeader - Swiss Design System
+ * SiteHeader - Lia Design System
  *
- * Minimal header following Swiss principles:
+ * Professional header following Precision principles:
  * - Clean borders (no shadows)
  * - White background
- * - Satoshi typography for logo
+ * - Geist Sans typography for logo (sharp, professional)
  * - Orange accent on hover
  */
 export async function SiteHeader() {
@@ -29,10 +29,7 @@ export async function SiteHeader() {
             src="/isologo.svg"
             width={40}
           />
-          <span
-            className="font-bold text-xl tracking-tight lg:text-2xl"
-            style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-          >
+          <span className="font-[family-name:var(--font-geist-sans)] font-bold text-xl uppercase tracking-tight lg:text-2xl">
             CASAORA
           </span>
         </Link>

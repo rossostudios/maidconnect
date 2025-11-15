@@ -20,7 +20,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { cn } from "@/lib/utils";
 
 /**
- * Admin Dashboard - Precision Design
+ * Admin Dashboard - Lia Design
  *
  * Inspired by Bloomberg Terminal + Swiss Design:
  * - Ultra-high contrast for maximum readability (WCAG AAA)

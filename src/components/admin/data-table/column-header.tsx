@@ -13,7 +13,7 @@ type Props<TData, TValue> = {
 };
 
 /**
- * PrecisionDataTableColumnHeader - Sortable column header with Precision design
+ * PrecisionDataTableColumnHeader - Sortable column header with Lia design
  *
  * Features:
  * - Click to sort (asc → desc → none)

@@ -9,7 +9,7 @@ import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/routing";
 import { conversionTracking } from "@/lib/integrations/posthog/conversion-tracking";
 
-// Swiss Design Animation - Minimal and Purposeful
+// Lia Design Animation - Minimal and Purposeful
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 8 },
   visible: {
@@ -27,10 +27,10 @@ const stagger: Variants = {
 };
 
 /**
- * HeroSection - Swiss Design System
+ * HeroSection - Lia Design System
  *
- * Clean, minimalist hero section following Swiss typography principles:
- * - Satoshi for display typography (geometric, precise)
+ * Clean, minimalist hero section following Lia design principles:
+ * - Geist Sans for display typography (geometric, precise)
  * - Ample whitespace (64px modules)
  * - Grid-based layout (8px base unit)
  * - Restrained color palette (neutral + orange accent)
@@ -103,16 +103,15 @@ export function HeroSection() {
                 {t("overline") || "Domestic Staffing for Expats in Colombia"}
               </motion.div>
 
-              {/* Display Heading - Satoshi Medium */}
+              {/* Display Heading - Geist Sans Medium */}
               <motion.h1
-                className="font-medium text-5xl text-neutral-900 tracking-tight sm:text-6xl md:text-7xl"
-                style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
+                className="font-[family-name:var(--font-geist-sans)] font-medium text-5xl text-neutral-900 tracking-tight sm:text-6xl md:text-7xl"
                 variants={fadeIn}
               >
                 {t("title") || "Find trusted household staff in Colombia—entirely in English."}
               </motion.h1>
 
-              {/* Body Copy - Manrope Regular */}
+              {/* Body Copy - Geist Sans */}
               <motion.p
                 className="mt-6 max-w-xl text-lg text-neutral-600 leading-relaxed"
                 variants={fadeIn}
@@ -160,7 +159,7 @@ export function HeroSection() {
                   </Button>
                 </Link>
                 <Link
-                  className="text-center font-semibold text-neutral-600 text-sm underline-offset-4 transition hover:text-neutral-900 hover:underline sm:text-base"
+                  className="text-center font-semibold text-neutral-600 text-sm transition hover:text-neutral-900 sm:text-base"
                   href="/concierge"
                 >
                   Speak with a concierge →
@@ -189,7 +188,7 @@ export function HeroSection() {
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 1200px"
-                src="/casaora-hero.jpg"
+                src="/hero.jpg"
               />
               {/* Gradient overlay - fades image to page background */}
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-neutral-50" />

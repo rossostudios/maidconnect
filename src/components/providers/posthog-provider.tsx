@@ -21,7 +21,7 @@ function PostHogPageView() {
   useEffect(() => {
     if (pathname) {
       let url = window.origin + pathname;
-      if (searchParams && searchParams.toString()) {
+      if (searchParams?.toString()) {
         url = `${url}?${searchParams.toString()}`;
       }
 

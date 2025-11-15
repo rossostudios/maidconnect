@@ -200,7 +200,7 @@ type Props = {
 };
 
 /**
- * DisputesTable - Dispute management table with Precision design
+ * DisputesTable - Dispute management table with Lia design
  *
  * Features:
  * - Client-side filtering and sorting for instant UX
@@ -214,9 +214,9 @@ export function DisputesTable({ disputes, isLoading }: Props) {
     <PrecisionDataTable
       columns={columns}
       data={disputes}
+      emptyStateDescription="Try adjusting your search or filter to find what you're looking for."
       emptyStateIcon={Alert02Icon}
       emptyStateTitle="No disputes found"
-      emptyStateDescription="Try adjusting your search or filter to find what you're looking for."
       enableExport
       enableUrlSync
       exportFilename="casaora-disputes"

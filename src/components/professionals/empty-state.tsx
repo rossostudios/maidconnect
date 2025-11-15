@@ -4,10 +4,10 @@ import { Search, Sparkles, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 
-interface EmptyStateProps {
+type EmptyStateProps = {
   hasFilters?: boolean;
   onClearFilters?: () => void;
-}
+};
 
 export function ProfessionalsEmptyState({ hasFilters = false, onClearFilters }: EmptyStateProps) {
   if (hasFilters) {

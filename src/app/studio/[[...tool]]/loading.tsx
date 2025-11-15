@@ -15,7 +15,7 @@ export default function StudioLoading() {
     >
       <div style={{ textAlign: "center" }}>
         <h2>Loading Sanity Studio...</h2>
-        <p style={{ color: "#AA88AAAAC" }}>Please wait</p>
+        <p style={{ color: "#737373" }}>Please wait</p>
       </div>
     </div>
   );

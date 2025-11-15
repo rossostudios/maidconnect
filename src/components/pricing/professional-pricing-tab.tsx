@@ -34,7 +34,7 @@ export function ProfessionalPricingTab() {
       {/* How It Works */}
       <Container>
         <div className="mx-auto mb-12 max-w-3xl text-center">
-          <h2 className="mb-baseline-1 font-[family-name:var(--font-family-satoshi)] font-bold text-[32px] text-neutral-900 leading-[48px]">
+          <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[32px] text-neutral-900 leading-[48px]">
             {t("howItWorks.title")}
           </h2>
           <p className="text-[16px] text-neutral-700 leading-[24px]">
@@ -51,7 +51,7 @@ export function ProfessionalPricingTab() {
                 <div className="mb-4 inline-flex h-20 w-20 items-center justify-center rounded-full border-4 border-orange-500 bg-orange-100">
                   <HugeiconsIcon className="h-10 w-10 text-orange-600" icon={Icon} />
                 </div>
-                <h3 className="mb-2 font-[family-name:var(--font-family-satoshi)] font-bold text-[20px] text-neutral-900 leading-[24px]">
+                <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-[20px] text-neutral-900 leading-[24px]">
                   {t(`howItWorks.steps.${step.key}.title`)}
                 </h3>
                 <p className="text-[14px] text-neutral-700 leading-[20px]">
@@ -66,7 +66,7 @@ export function ProfessionalPricingTab() {
         <Card className="mb-16 border-4 border-orange-500 bg-orange-50 shadow-xl">
           <CardContent className="p-8 text-center">
             <HugeiconsIcon className="mx-auto mb-4 h-16 w-16 text-orange-600" icon={StarIcon} />
-            <h3 className="mb-4 font-[family-name:var(--font-family-satoshi)] font-bold text-[24px] text-neutral-900 leading-[24px]">
+            <h3 className="mb-4 font-[family-name:var(--font-geist-sans)] font-bold text-[24px] text-neutral-900 leading-[24px]">
               {t("keyPoint.title")}
             </h3>
             <p className="mx-auto max-w-2xl text-[18px] text-neutral-700 leading-[24px]">
@@ -80,7 +80,7 @@ export function ProfessionalPricingTab() {
       <section className="bg-neutral-50 py-16">
         <Container>
           <div className="mb-12 text-center">
-            <h2 className="mb-baseline-1 font-[family-name:var(--font-family-satoshi)] font-bold text-[32px] text-neutral-900 leading-[48px]">
+            <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[32px] text-neutral-900 leading-[48px]">
               {t("calculator.title")}
             </h2>
             <p className="mx-auto max-w-2xl text-[16px] text-neutral-700 leading-[24px]">
@@ -94,7 +94,7 @@ export function ProfessionalPricingTab() {
       {/* Benefits */}
       <Container>
         <div className="mb-12 text-center">
-          <h2 className="mb-baseline-1 font-[family-name:var(--font-family-satoshi)] font-bold text-[32px] text-neutral-900 leading-[48px]">
+          <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[32px] text-neutral-900 leading-[48px]">
             {t("benefits.title")}
           </h2>
         </div>
@@ -111,7 +111,7 @@ export function ProfessionalPricingTab() {
                   <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-orange-100">
                     <HugeiconsIcon className="h-8 w-8 text-orange-600" icon={Icon} />
                   </div>
-                  <h3 className="mb-2 font-[family-name:var(--font-family-satoshi)] font-bold text-[18px] text-neutral-900 leading-[24px]">
+                  <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-[18px] text-neutral-900 leading-[24px]">
                     {t(`benefits.items.${benefit.key}.title`)}
                   </h3>
                   <p className="text-[14px] text-neutral-700 leading-[20px]">
@@ -128,7 +128,7 @@ export function ProfessionalPricingTab() {
       <section className="bg-orange-50 py-16">
         <Container>
           <div className="mx-auto mb-12 max-w-3xl text-center">
-            <h2 className="mb-baseline-1 font-[family-name:var(--font-family-satoshi)] font-bold text-[32px] text-neutral-900 leading-[48px]">
+            <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[32px] text-neutral-900 leading-[48px]">
               {t("feeCovers.title")}
             </h2>
             <p className="text-[16px] text-neutral-700 leading-[24px]">
@@ -144,7 +144,7 @@ export function ProfessionalPricingTab() {
                     <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-orange-500">
                       <span className="font-bold text-white">✓</span>
                     </div>
-                    <h3 className="mb-2 font-[family-name:var(--font-family-satoshi)] font-bold text-[16px] text-neutral-900 leading-[24px]">
+                    <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-[16px] text-neutral-900 leading-[24px]">
                       {item.title}
                     </h3>
                     <p className="text-[14px] text-neutral-700 leading-[20px]">
@@ -167,7 +167,7 @@ export function ProfessionalPricingTab() {
                 className="mx-auto mb-4 h-16 w-16 text-orange-500"
                 icon={Clock01Icon}
               />
-              <h2 className="mb-4 font-[family-name:var(--font-family-satoshi)] font-bold text-[28px] text-white leading-[24px]">
+              <h2 className="mb-4 font-[family-name:var(--font-geist-sans)] font-bold text-[28px] text-white leading-[24px]">
                 {t("payouts.title")}
               </h2>
               <p className="mx-auto max-w-2xl text-[16px] text-neutral-300 leading-[24px]">
@@ -193,7 +193,7 @@ export function ProfessionalPricingTab() {
       <section className="bg-orange-500 py-16">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="mb-baseline-1 font-[family-name:var(--font-family-satoshi)] font-bold text-[36px] text-white leading-[48px]">
+            <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[36px] text-white leading-[48px]">
               {t("cta.title")}
             </h2>
             <p className="mb-8 text-[18px] text-white/90 leading-[24px]">{t("cta.subtitle")}</p>

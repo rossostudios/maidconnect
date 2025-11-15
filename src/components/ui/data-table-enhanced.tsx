@@ -170,7 +170,7 @@ export function DataTableEnhanced<T extends Record<string, any>>({
                 })}
                 {rowActions && (
                   <td className="px-6 py-4 text-right">
-                    <div className="opacity-0 transition-opacity group-hover:opacity-100">
+                    <div className="opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100">
                       {rowActions(row)}
                     </div>
                   </td>

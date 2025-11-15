@@ -4,7 +4,7 @@
  * Individual table row displaying a single pricing rule.
  * Shows scope, commission, price range, effective dates, status, and actions.
  *
- * Precision Design: Neutral colors, orange accents, sharp corners
+ * Lia Design: Neutral colors, orange accents, sharp corners
  */
 
 import { formatCurrency } from "@/lib/utils/format";
@@ -82,14 +82,14 @@ export function PricingRuleRow({ rule, onEdit, onToggleActive }: PricingRuleRowP
       <td className="px-6 py-4">
         <div className="flex gap-2">
           <button
-            className="font-medium text-orange-600 text-sm hover:underline"
+            className="font-medium text-orange-600 text-sm"
             onClick={() => onEdit(rule)}
             type="button"
           >
             Edit
           </button>
           <button
-            className="font-medium text-neutral-600 text-sm hover:underline"
+            className="font-medium text-neutral-600 text-sm"
             onClick={() => onToggleActive(rule.id, rule.is_active)}
             type="button"
           >

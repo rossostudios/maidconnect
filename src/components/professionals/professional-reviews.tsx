@@ -148,10 +148,7 @@ export function ProfessionalReviewsSection({ professionalId, reviews, viewer }: 
         <div className="mt-5 rounded-2xl border border-[neutral-200] border-dashed bg-[neutral-50] p-4 text-[neutral-400] text-sm">
           <p>
             Sign in as a customer to share your experience after a completed booking.{" "}
-            <Link
-              className="font-semibold text-[neutral-900] underline-offset-4 hover:underline"
-              href="/auth/sign-in"
-            >
+            <Link className="font-semibold text-[neutral-900]" href="/auth/sign-in">
               Login now
             </Link>
             .

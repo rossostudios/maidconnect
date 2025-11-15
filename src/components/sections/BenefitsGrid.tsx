@@ -3,10 +3,10 @@ import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
 
 /**
- * BenefitsGrid (How It Works) - Swiss Design System
+ * BenefitsGrid (How It Works) - Lia Design System
  *
- * Asymmetric process flow grid following Aurius design principles:
- * - Clean typography with Satoshi headings
+ * Asymmetric process flow grid following Lia design principles:
+ * - Clean typography with Geist Sans headings
  * - Bordered containers with no gaps
  * - Step labels and numbered badges
  * - Container 3 features mindmap-style process visualization
@@ -62,10 +62,7 @@ export function BenefitsGrid() {
               <span aria-hidden="true" className="h-2 w-2 rounded-full bg-orange-500" />
               In Action
             </p>
-            <h2
-              className="font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl"
-              style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-            >
+            <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
               How It Works
             </h2>
             <p className="mt-6 max-w-2xl text-lg text-neutral-600 leading-relaxed">
@@ -232,10 +229,7 @@ export function BenefitsGrid() {
 
                     {step.title && (
                       <div className="space-y-3">
-                        <h3
-                          className="font-semibold text-2xl text-neutral-900 tracking-tight"
-                          style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-                        >
+                        <h3 className="font-[family-name:var(--font-geist-sans)] font-semibold text-2xl text-neutral-900 tracking-tight">
                           {step.title}
                         </h3>
 

@@ -49,14 +49,14 @@ export type HeroVariant = (typeof HERO_VARIANTS)[keyof typeof HERO_VARIANTS];
 /**
  * Feature flag metadata for documentation and testing
  */
-export interface FeatureFlagMetadata {
+export type FeatureFlagMetadata = {
   key: FeatureFlagKey;
   name: string;
   description: string;
   defaultValue: boolean | string;
   type: "boolean" | "string" | "multivariate";
   variants?: readonly string[];
-}
+};
 
 /**
  * All feature flags with metadata

@@ -28,7 +28,9 @@ export function useTableExport<TData>({ filename = "data", table }: UseTableExpo
     const headers = visibleColumns
       .map((col) => {
         const header = col.columnDef.header;
-        if (typeof header === "string") return header;
+        if (typeof header === "string") {
+          return header;
+        }
         return col.id;
       })
       .join(",");
@@ -40,8 +42,12 @@ export function useTableExport<TData>({ filename = "data", table }: UseTableExpo
           const value = row.getValue(col.id);
 
           // Handle various data types
-          if (value === null || value === undefined) return "";
-          if (typeof value === "object") return JSON.stringify(value);
+          if (value === null || value === undefined) {
+            return "";
+          }
+          if (typeof value === "object") {
+            return JSON.stringify(value);
+          }
           if (typeof value === "string") {
             // Escape commas and quotes
             const escaped = value.replace(/"/g, '""');

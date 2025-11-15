@@ -4,7 +4,7 @@
  * Optional notes textarea for pricing rule documentation.
  * Free-form text for internal context and rule explanations.
  *
- * Precision Design: Sharp corners, neutral borders, orange focus states
+ * Lia Design: Sharp corners, neutral borders, orange focus states
  */
 
 import type { FieldUpdateFn, PricingRuleFormData } from "@/types/pricing";

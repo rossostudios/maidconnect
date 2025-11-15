@@ -48,7 +48,13 @@ export default async function AdminLayout({ children }: Props) {
           userName={profile?.full_name ?? undefined}
         />
 
-        <main className="flex-1 overflow-y-auto bg-neutral-50 px-6 py-6 lg:px-8">{children}</main>
+        <main
+          className="flex-1 overflow-y-auto bg-neutral-50 px-6 py-6 lg:px-8"
+          id="main-content"
+          tabIndex={-1}
+        >
+          {children}
+        </main>
       </div>
     </div>
   );

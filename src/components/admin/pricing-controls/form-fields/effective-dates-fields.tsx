@@ -4,7 +4,7 @@
  * Date range configuration for pricing rule validity.
  * Effective from is required, effective until is optional.
  *
- * Precision Design: Sharp corners, neutral borders, orange focus states
+ * Lia Design: Sharp corners, neutral borders, orange focus states
  */
 
 import type { FieldUpdateFn, PricingRuleFormData } from "@/types/pricing";

@@ -131,12 +131,12 @@ export default async function AdminSettingsPage() {
   return (
     <section className="space-y-8">
       <div>
-        <h1 className="font-bold text-3xl text-[#116611616]">Settings</h1>
-        <p className="mt-2 text-[#AA88AAAAC]">Manage your account and platform settings</p>
+        <h1 className="font-bold text-3xl text-neutral-900">Settings</h1>
+        <p className="mt-2 text-neutral-500">Manage your account and platform settings</p>
       </div>
 
       {/* Tabbed Settings */}
-      <div className="border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-8">
+      <div className="border border-neutral-200 bg-neutral-50 p-8">
         <AdminSettingsTabs
           defaultTab="profile"
           tabs={[
@@ -147,8 +147,8 @@ export default async function AdminSettingsPage() {
               content: (
                 <div className="space-y-6">
                   <div>
-                    <h2 className="font-semibold text-[#116611616] text-xl">Profile Information</h2>
-                    <p className="mt-1 text-[#AA88AAAAC] text-sm">
+                    <h2 className="font-semibold text-neutral-900 text-xl">Profile Information</h2>
+                    <p className="mt-1 text-neutral-500 text-sm">
                       Update your personal information and avatar
                     </p>
                   </div>
@@ -173,8 +173,8 @@ export default async function AdminSettingsPage() {
               content: (
                 <div className="space-y-6">
                   <div>
-                    <h2 className="font-semibold text-[#116611616] text-xl">Security Settings</h2>
-                    <p className="mt-1 text-[#AA88AAAAC] text-sm">
+                    <h2 className="font-semibold text-neutral-900 text-xl">Security Settings</h2>
+                    <p className="mt-1 text-neutral-500 text-sm">
                       Manage your password and account security
                     </p>
                   </div>
@@ -189,10 +189,10 @@ export default async function AdminSettingsPage() {
               content: (
                 <div className="space-y-6">
                   <div>
-                    <h2 className="font-semibold text-[#116611616] text-xl">
+                    <h2 className="font-semibold text-neutral-900 text-xl">
                       Platform Business Settings
                     </h2>
-                    <p className="mt-1 text-[#AA88AAAAC] text-sm">
+                    <p className="mt-1 text-neutral-500 text-sm">
                       Configure commission rates, fees, booking rules, and payout settings
                     </p>
                   </div>
@@ -207,8 +207,8 @@ export default async function AdminSettingsPage() {
               content: (
                 <div className="space-y-6">
                   <div>
-                    <h2 className="font-semibold text-[#116611616] text-xl">Feature Flags</h2>
-                    <p className="mt-1 text-[#AA88AAAAC] text-sm">
+                    <h2 className="font-semibold text-neutral-900 text-xl">Feature Flags</h2>
+                    <p className="mt-1 text-neutral-500 text-sm">
                       Enable or disable platform features instantly without deployment
                     </p>
                   </div>
@@ -223,10 +223,10 @@ export default async function AdminSettingsPage() {
               content: (
                 <div className="space-y-6">
                   <div>
-                    <h2 className="font-semibold text-[#116611616] text-xl">
+                    <h2 className="font-semibold text-neutral-900 text-xl">
                       Background Check Provider
                     </h2>
-                    <p className="mt-1 text-[#AA88AAAAC] text-sm">
+                    <p className="mt-1 text-neutral-500 text-sm">
                       Configure which provider to use for professional background checks
                     </p>
                   </div>

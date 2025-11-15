@@ -105,7 +105,7 @@ export function QuickFilters({ onFilterChange }: QuickFiltersProps) {
         <h3 className="font-semibold text-[neutral-900] text-sm">Quick Filters</h3>
         {activeCount > 0 && (
           <button
-            className="text-[neutral-500] text-xs transition hover:underline"
+            className="text-[neutral-500] text-xs transition"
             onClick={clearAllFilters}
             type="button"
           >

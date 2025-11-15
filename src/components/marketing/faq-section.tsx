@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { Container } from "@/components/ui/container";
 
-interface FaqItem {
+type FaqItem = {
   question: string;
   answer: string;
-}
+};
 
 const FAQ_ITEMS: FaqItem[] = [
   {
@@ -77,7 +77,7 @@ export function FaqSection() {
                 FAQ
               </span>
             </div>
-            <h2 className="font-[family-name:var(--font-family-satoshi)] font-bold text-4xl text-neutral-900 leading-tight md:text-5xl">
+            <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 leading-tight md:text-5xl">
               Frequently asked questions
             </h2>
             <p className="text-base text-neutral-700 leading-relaxed">
@@ -98,7 +98,7 @@ export function FaqSection() {
                     onClick={() => toggleItem(index)}
                     type="button"
                   >
-                    <span className="font-[family-name:var(--font-family-satoshi)] font-semibold text-lg text-neutral-900">
+                    <span className="font-[family-name:var(--font-geist-sans)] font-semibold text-lg text-neutral-900">
                       {item.question}
                     </span>
                     <ChevronDownIcon

@@ -37,7 +37,7 @@ export function PricingFaqSection() {
     <section className="bg-white py-16 sm:py-20">
       <Container className="max-w-4xl">
         <div className="mb-12 text-center">
-          <h2 className="mb-baseline-1 font-[family-name:var(--font-family-satoshi)] font-bold text-[36px] text-neutral-900 leading-[48px]">
+          <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[36px] text-neutral-900 leading-[48px]">
             {t("title")}
           </h2>
           <p className="text-[16px] text-neutral-700 leading-[24px]">{t("subtitle")}</p>
@@ -62,7 +62,7 @@ export function PricingFaqSection() {
                   onClick={() => toggleFaq(faqKey)}
                   type="button"
                 >
-                  <span className="font-[family-name:var(--font-family-satoshi)] font-bold text-[18px] text-neutral-900 leading-[24px]">
+                  <span className="font-[family-name:var(--font-geist-sans)] font-bold text-[18px] text-neutral-900 leading-[24px]">
                     {t(`questions.${faqKey}.question`)}
                   </span>
                   <HugeiconsIcon

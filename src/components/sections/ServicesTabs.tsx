@@ -6,9 +6,9 @@ import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
 
 /**
- * ServicesTabs - Swiss Design System
+ * ServicesTabs - Lia Design System
  *
- * Minimalist tabbed services display following Swiss principles:
+ * Minimalist tabbed services display following Lia design principles:
  * - Clean vertical tab navigation
  * - Sharp corners (rounded-sm)
  * - Minimal borders
@@ -82,12 +82,9 @@ export function ServicesTabs() {
   return (
     <section className="w-full bg-white py-24 md:py-32">
       <Container className="mx-auto max-w-7xl px-4">
-        {/* Section Header - Swiss Typography */}
+        {/* Section Header - Precision Typography */}
         <div className="mb-16">
-          <h2
-            className="font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl"
-            style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-          >
+          <h2 className="font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
             Our Services
           </h2>
           <div className="mt-4 h-1 w-16 bg-orange-500" />
@@ -116,10 +113,7 @@ export function ServicesTabs() {
                   <div className="absolute top-0 left-0 h-full w-1 bg-orange-500" />
                 )}
 
-                <span
-                  className="font-semibold text-base tracking-tight"
-                  style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-                >
+                <span className="font-[family-name:var(--font-geist-sans)] font-semibold text-base tracking-tight">
                   {service.label}
                 </span>
               </button>
@@ -131,10 +125,7 @@ export function ServicesTabs() {
             <div className="grid gap-12 md:grid-cols-2">
               {/* Text Content */}
               <div>
-                <h3
-                  className="font-bold text-3xl text-neutral-900 tracking-tight"
-                  style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-                >
+                <h3 className="font-[family-name:var(--font-geist-sans)] font-bold text-3xl text-neutral-900 tracking-tight">
                   {activeService.title}
                 </h3>
 

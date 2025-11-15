@@ -48,7 +48,7 @@ export default async function ProLayout({ children }: Props) {
     .eq("read", false);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[#FFEEFF8E8]">
+    <div className="flex h-screen overflow-hidden bg-neutral-50">
       {/* Desktop Sidebar */}
       <div className="hidden lg:block">
         <ProSidebar
@@ -71,7 +71,13 @@ export default async function ProLayout({ children }: Props) {
         />
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto bg-[#FFEEFF8E8] px-8 py-8">{children}</main>
+        <main
+          className="flex-1 overflow-y-auto bg-neutral-50 px-8 py-8"
+          id="main-content"
+          tabIndex={-1}
+        >
+          {children}
+        </main>
       </div>
     </div>
   );

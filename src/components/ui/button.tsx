@@ -22,8 +22,8 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-neutral-300 active:scale-[0.98]",
         // Ghost with orange accent on hover
         ghost: "hover:bg-orange-50 hover:text-orange-600 active:scale-[0.98]",
-        // Link with neutral color like Aurius
-        link: "text-neutral-900 underline-offset-4 hover:text-neutral-700 hover:underline",
+        // Link with orange accent (Lia guideline: orange-600 for better WCAG contrast)
+        link: "text-orange-600 hover:text-orange-700",
       },
       size: {
         default: "h-10 px-8 py-2",

@@ -9,7 +9,9 @@ import { posthog } from "./client";
  * Identify user with PostHog
  */
 export function identifyUser(userId: string, properties?: Record<string, any>) {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined") {
+    return;
+  }
 
   posthog.identify(userId, properties);
 }
@@ -18,7 +20,9 @@ export function identifyUser(userId: string, properties?: Record<string, any>) {
  * Track custom event
  */
 export function trackEvent(event: string, properties?: Record<string, any>) {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined") {
+    return;
+  }
 
   posthog.capture(event, properties);
 }
@@ -75,7 +79,9 @@ export const funnelEvents = {
  * Reset user identity (e.g., on logout)
  */
 export function resetUser() {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined") {
+    return;
+  }
 
   posthog.reset();
 }
@@ -84,7 +90,9 @@ export function resetUser() {
  * Check if feature flag is enabled
  */
 export function isFeatureEnabled(flagKey: string, defaultValue = false): boolean {
-  if (typeof window === "undefined") return defaultValue;
+  if (typeof window === "undefined") {
+    return defaultValue;
+  }
 
   return posthog.isFeatureEnabled(flagKey) ?? defaultValue;
 }
@@ -93,7 +101,9 @@ export function isFeatureEnabled(flagKey: string, defaultValue = false): boolean
  * Get feature flag variant
  */
 export function getFeatureFlag(flagKey: string): string | boolean | undefined {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined") {
+    return;
+  }
 
   return posthog.getFeatureFlag(flagKey);
 }
@@ -102,7 +112,9 @@ export function getFeatureFlag(flagKey: string): string | boolean | undefined {
  * Set user properties
  */
 export function setUserProperties(properties: Record<string, any>) {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined") {
+    return;
+  }
 
   posthog.setPersonProperties(properties);
 }
@@ -111,7 +123,9 @@ export function setUserProperties(properties: Record<string, any>) {
  * Track error
  */
 export function trackError(error: Error, context?: Record<string, any>) {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined") {
+    return;
+  }
 
   posthog.capture("Error Occurred", {
     error: error.message,

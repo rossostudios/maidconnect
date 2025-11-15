@@ -194,7 +194,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-orange-500/10 to-orange-600/10">
               <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={BookOpen01Icon} />
             </div>
-            <h1 className="mb-4 font-[family-name:var(--font-family-satoshi)] font-bold text-4xl text-neutral-900 leading-tight sm:text-5xl">
+            <h1 className="mb-4 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 leading-tight sm:text-5xl">
               {t("hero.title")}
             </h1>
             <p className="mx-auto max-w-2xl text-lg text-neutral-700 sm:text-xl">

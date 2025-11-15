@@ -144,7 +144,7 @@ export default async function BlogPostPage({
             )}
 
             {/* Title */}
-            <h1 className="mb-6 font-[family-name:var(--font-family-satoshi)] font-bold text-4xl text-neutral-900 leading-tight md:text-5xl lg:text-6xl">
+            <h1 className="mb-6 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 leading-tight md:text-5xl lg:text-6xl">
               {post.title}
             </h1>
 
@@ -237,7 +237,7 @@ export default async function BlogPostPage({
             {/* Back to Blog */}
             <div className="mt-12 text-center">
               <Link
-                className="inline-flex items-center gap-2 font-medium text-orange-600 transition hover:gap-3 hover:text-orange-700 hover:underline"
+                className="inline-flex items-center gap-2 font-medium text-orange-600 transition hover:gap-3 hover:text-orange-700"
                 href={`/${locale}/blog`}
               >
                 <HugeiconsIcon className="h-5 w-5" icon={ArrowLeft01Icon} />

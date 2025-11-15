@@ -222,8 +222,8 @@ export default function DataRightsPage() {
 function PageHeader() {
   return (
     <div>
-      <h1 className="mb-2 font-bold text-3xl text-[#116611616]">Your Data Rights</h1>
-      <p className="text-[#AA88AAAAC]">
+      <h1 className="mb-2 font-bold text-3xl text-neutral-900">Your Data Rights</h1>
+      <p className="text-neutral-500">
         Under Colombian Law (Ley 1581 de 2012), you have the right to access, export, and delete
         your personal data.
       </p>
@@ -234,7 +234,7 @@ function PageHeader() {
 function StatusMessages({ error, success }: { error: string | null; success: string | null }) {
   if (error) {
     return (
-      <div className="rounded-xl border border-[#FF4444A22]/30 bg-[#FF4444A22]/10 p-4 text-[#FF4444A22]">
+      <div className="rounded-xl border border-orange-500/30 bg-orange-500/10 p-4 text-orange-500">
         <p className="font-semibold">Error</p>
         <p className="text-sm">{error}</p>
       </div>
@@ -243,7 +243,7 @@ function StatusMessages({ error, success }: { error: string | null; success: str
 
   if (success) {
     return (
-      <div className="rounded-xl border border-[#FF4444A22]/40 bg-[#FF4444A22]/10 p-4 text-[#FF4444A22]">
+      <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 text-orange-500">
         <p className="font-semibold">Success</p>
         <p className="text-sm">{success}</p>
       </div>
@@ -261,12 +261,12 @@ function ExportDataSection({
   onExport: () => void;
 }) {
   return (
-    <section className="rounded-[28px] border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-8 shadow-sm">
+    <section className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-8 shadow-sm">
       <div className="mb-4 flex items-start gap-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#FF4444A22]/10">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-orange-500/10">
           <svg
             aria-label="Export data icon"
-            className="h-6 w-6 text-[#FF4444A22]"
+            className="h-6 w-6 text-orange-500"
             fill="none"
             role="img"
             stroke="currentColor"
@@ -281,12 +281,12 @@ function ExportDataSection({
           </svg>
         </div>
         <div className="flex-1">
-          <h2 className="mb-2 font-semibold text-[#116611616] text-xl">Export Your Data</h2>
-          <p className="mb-4 text-[#AA88AAAAC] text-sm">
+          <h2 className="mb-2 font-semibold text-neutral-900 text-xl">Export Your Data</h2>
+          <p className="mb-4 text-neutral-500 text-sm">
             Download a complete copy of your personal data stored on Casaora. This includes your
             profile, bookings, messages, reviews, and consent records.
           </p>
-          <ul className="mb-6 ml-4 list-disc space-y-1 text-[#AA88AAAAC] text-sm">
+          <ul className="mb-6 ml-4 list-disc space-y-1 text-neutral-500 text-sm">
             <li>Profile information (name, contact details, preferences)</li>
             <li>Booking history (as customer or professional)</li>
             <li>Messages and conversations</li>
@@ -296,7 +296,7 @@ function ExportDataSection({
           </ul>
           <button
             className={cn(
-              "rounded-full border border-[var(--foreground)] bg-[var(--foreground)] px-6 py-2.5 font-semibold text-[#FFEEFF8E8] text-sm transition hover:bg-[#116611616]",
+              "rounded-full border border-[var(--foreground)] bg-[var(--foreground)] px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-neutral-900",
               isExporting && "cursor-not-allowed opacity-60"
             )}
             disabled={isExporting}
@@ -333,12 +333,12 @@ function DeleteAccountSection({
   onCancel: () => void;
 }) {
   return (
-    <section className="rounded-[28px] border border-[#FF4444A22]/30 bg-[#FF4444A22]/10 p-8 shadow-sm">
+    <section className="rounded-[28px] border border-orange-500/30 bg-orange-500/10 p-8 shadow-sm">
       <div className="mb-4 flex items-start gap-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#FF4444A22]/10">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-orange-500/10">
           <svg
             aria-label="Delete account icon"
-            className="h-6 w-6 text-[#FF4444A22]"
+            className="h-6 w-6 text-orange-500"
             fill="none"
             role="img"
             stroke="currentColor"
@@ -353,12 +353,12 @@ function DeleteAccountSection({
           </svg>
         </div>
         <div className="flex-1">
-          <h2 className="mb-2 font-semibold text-[#FF4444A22] text-xl">Delete Your Account</h2>
-          <p className="mb-4 text-[#FF4444A22] text-sm">
+          <h2 className="mb-2 font-semibold text-orange-500 text-xl">Delete Your Account</h2>
+          <p className="mb-4 text-orange-500 text-sm">
             <strong>Warning:</strong> This action will permanently delete your account and all
             associated data. This cannot be undone.
           </p>
-          <ul className="mb-6 ml-4 list-disc space-y-1 text-[#FF4444A22] text-sm">
+          <ul className="mb-6 ml-4 list-disc space-y-1 text-orange-500 text-sm">
             <li>Your profile and all personal information will be deleted</li>
             <li>Your booking history will be anonymized</li>
             <li>Your messages will be removed from your conversations</li>
@@ -371,7 +371,7 @@ function DeleteAccountSection({
           {!showDeleteConfirm && (
             <button
               className={cn(
-                "rounded-full border border-[#FF4444A22] bg-[#FF4444A22] px-6 py-2.5 font-semibold text-[#FFEEFF8E8] text-sm transition hover:bg-[#FF4444A22]",
+                "rounded-full border border-orange-500 bg-orange-500 px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-orange-600",
                 isCheckingDeletion && "cursor-not-allowed opacity-60"
               )}
               disabled={isCheckingDeletion}
@@ -418,15 +418,15 @@ function DeletionConfirmation({
 }) {
   if (canDelete) {
     return (
-      <div className="mt-6 space-y-4 rounded-xl border border-[#FF4444A22]/50 bg-[#FFEEFF8E8] p-6">
-        <p className="font-semibold text-[#FF4444A22] text-sm">
+      <div className="mt-6 space-y-4 rounded-xl border border-orange-500/50 bg-neutral-50 p-6">
+        <p className="font-semibold text-orange-500 text-sm">
           Are you absolutely sure you want to delete your account?
         </p>
-        <p className="text-[#FF4444A22] text-sm">
+        <p className="text-orange-500 text-sm">
           Type <strong>DELETE MY ACCOUNT</strong> below to confirm:
         </p>
         <input
-          className="w-full rounded-full border border-[#FF4444A22]/50 bg-[#FFEEFF8E8] px-4 py-2 text-sm focus:border-[#FF4444A22]/100 focus:outline-none focus:ring-2 focus:ring-[#FF4444A22]/30"
+          className="w-full rounded-full border border-orange-500/50 bg-neutral-50 px-4 py-2 text-sm focus:border-orange-500/100 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
           onChange={(e) => onConfirmTextChange(e.target.value)}
           placeholder="DELETE MY ACCOUNT"
           type="text"
@@ -435,7 +435,7 @@ function DeletionConfirmation({
         <div className="flex gap-3">
           <button
             className={cn(
-              "rounded-full border border-[#FF4444A22] bg-[#FF4444A22] px-6 py-2.5 font-semibold text-[#FFEEFF8E8] text-sm transition hover:bg-[#FF4444A22]",
+              "rounded-full border border-orange-500 bg-orange-500 px-6 py-2.5 font-semibold text-sm text-white transition hover:bg-orange-600",
               isDeletingAccount && "cursor-not-allowed opacity-60"
             )}
             disabled={isDeletingAccount || confirmText !== "DELETE MY ACCOUNT"}
@@ -445,7 +445,7 @@ function DeletionConfirmation({
             {isDeletingAccount ? "Deleting..." : "Confirm Deletion"}
           </button>
           <button
-            className="rounded-full border border-[#EE44EE2E3] bg-[#FFEEFF8E8] px-6 py-2.5 font-semibold text-[#116611616] text-sm transition hover:bg-[#FFEEFF8E8]"
+            className="rounded-full border border-neutral-200 bg-neutral-50 px-6 py-2.5 font-semibold text-neutral-900 text-sm transition hover:bg-neutral-50"
             onClick={onCancel}
             type="button"
           >
@@ -457,13 +457,13 @@ function DeletionConfirmation({
   }
 
   return (
-    <div className="mt-6 space-y-4 rounded-xl border border-[#FF4444A22]/50 bg-[#FFEEFF8E8] p-6">
-      <p className="font-semibold text-[#FF4444A22]">Cannot Delete Account</p>
-      <p className="text-[#FF4444A22] text-sm">{deletionCheck.message}</p>
+    <div className="mt-6 space-y-4 rounded-xl border border-orange-500/50 bg-neutral-50 p-6">
+      <p className="font-semibold text-orange-500">Cannot Delete Account</p>
+      <p className="text-orange-500 text-sm">{deletionCheck.message}</p>
       {deletionCheck.blockers &&
         (deletionCheck.blockers.activeBookings > 0 ||
           deletionCheck.blockers.pendingPayouts > 0) && (
-          <ul className="ml-4 list-disc space-y-1 text-[#FF4444A22] text-sm">
+          <ul className="ml-4 list-disc space-y-1 text-orange-500 text-sm">
             {deletionCheck.blockers.activeBookings > 0 && (
               <li>Active bookings: {deletionCheck.blockers.activeBookings}</li>
             )}
@@ -473,7 +473,7 @@ function DeletionConfirmation({
           </ul>
         )}
       <button
-        className="rounded-full border border-[#EE44EE2E3] bg-[#FFEEFF8E8] px-6 py-2.5 font-semibold text-[#116611616] text-sm transition hover:bg-[#FFEEFF8E8]"
+        className="rounded-full border border-neutral-200 bg-neutral-50 px-6 py-2.5 font-semibold text-neutral-900 text-sm transition hover:bg-neutral-50"
         onClick={onCancel}
         type="button"
       >
@@ -485,15 +485,15 @@ function DeletionConfirmation({
 
 function LegalNoticeSection() {
   return (
-    <section className="rounded-xl bg-[#FFEEFF8E8] p-6">
-      <h3 className="mb-2 font-semibold text-[#116611616] text-sm">
+    <section className="rounded-xl bg-neutral-50 p-6">
+      <h3 className="mb-2 font-semibold text-neutral-900 text-sm">
         Your Rights Under Colombian Law
       </h3>
-      <p className="mb-3 text-[#AA88AAAAC] text-sm">
+      <p className="mb-3 text-neutral-500 text-sm">
         According to Ley 1581 de 2012 (Colombian Data Protection Law), you have the following
         rights:
       </p>
-      <ul className="ml-4 list-disc space-y-1 text-[#AA88AAAAC] text-sm">
+      <ul className="ml-4 list-disc space-y-1 text-neutral-500 text-sm">
         <li>
           <strong>Right to Access:</strong> Request a copy of your personal data
         </li>
@@ -510,9 +510,9 @@ function LegalNoticeSection() {
           <strong>Right to Portability:</strong> Receive your data in a machine-readable format
         </li>
       </ul>
-      <p className="mt-4 text-[#AA88AAAAC] text-sm">
+      <p className="mt-4 text-neutral-500 text-sm">
         For questions about your data rights, contact us at{" "}
-        <a className="font-semibold text-[#FF4444A22] underline" href="mailto:privacy@casaora.com">
+        <a className="font-semibold text-orange-500 underline" href="mailto:privacy@casaora.com">
           privacy@casaora.com
         </a>
       </p>

@@ -39,7 +39,7 @@ type Props = {
   footnote?: string;
 };
 
-const errorClass = "border-[#FF4444A22]/50 focus:border-[#FF4444A22] focus:ring-[#FF4444A22]/30";
+const errorClass = "border-orange-500/50 focus:border-orange-500 focus:ring-orange-500/30";
 
 function parseServiceDefaults(
   services?: Array<{
@@ -158,13 +158,13 @@ export function ProfileBuildForm({
           {languages.map((language) => (
             <label
               className={cn(
-                "flex cursor-pointer items-center gap-3 rounded-full border-2 border-[#EE44EE2E3] bg-[#FFEEFF8E8] px-5 py-3 font-medium text-[#116611616] text-base transition hover:border-[#FF4444A22] hover:bg-[#FFEEFF8E8]",
-                hasError("languages") && "border-[#FF4444A22]/50"
+                "flex cursor-pointer items-center gap-3 rounded-full border-2 border-neutral-200 bg-neutral-50 px-5 py-3 font-medium text-base text-neutral-900 transition hover:border-orange-500 hover:bg-neutral-50",
+                hasError("languages") && "border-orange-500/50"
               )}
               key={language}
             >
               <input
-                className="h-5 w-5 rounded border-[#EE44EE2E3] text-[#FF4444A22] focus:ring-[#FF4444A22]"
+                className="h-5 w-5 rounded border-neutral-200 text-orange-500 focus:ring-orange-500"
                 defaultChecked={initialLanguages.includes(language)}
                 name="languages"
                 type="checkbox"
@@ -184,12 +184,12 @@ export function ProfileBuildForm({
         <div className="space-y-4">
           {services.map((service) => (
             <div
-              className="rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 shadow-sm transition hover:shadow-md"
+              className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm transition hover:shadow-md"
               key={service.name}
             >
               <input name="service_name" type="hidden" value={service.name} />
               <div className="space-y-4">
-                <h4 className="font-semibold text-[#116611616] text-lg">{service.name}</h4>
+                <h4 className="font-semibold text-lg text-neutral-900">{service.name}</h4>
                 {(() => {
                   const defaults = serviceDefaults.get(service.name);
                   const rateValue =
@@ -202,7 +202,7 @@ export function ProfileBuildForm({
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
                         <label
-                          className="mb-2 block font-medium text-[#AA88AAAAC] text-sm"
+                          className="mb-2 block font-medium text-neutral-500 text-sm"
                           htmlFor={`service_rate_${service.name}`}
                         >
                           {t("services.hourlyRate")}
@@ -219,7 +219,7 @@ export function ProfileBuildForm({
                       </div>
                       <div className="sm:col-span-2">
                         <label
-                          className="mb-2 block font-medium text-[#AA88AAAAC] text-sm"
+                          className="mb-2 block font-medium text-neutral-500 text-sm"
                           htmlFor={`service_description_${service.name}`}
                         >
                           {t("services.serviceDescription")}
@@ -246,16 +246,16 @@ export function ProfileBuildForm({
         <div className="space-y-3">
           {availabilityDays.map((day) => (
             <div
-              className="rounded-xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-5 shadow-sm"
+              className="rounded-xl border border-neutral-200 bg-neutral-50 p-5 shadow-sm"
               key={day.slug}
             >
               <div className="grid gap-4 sm:grid-cols-[120px_1fr_1fr_1fr]">
                 <div className="flex items-center">
-                  <span className="font-semibold text-[#116611616] text-base">{day.label}</span>
+                  <span className="font-semibold text-base text-neutral-900">{day.label}</span>
                 </div>
                 <div>
                   <label
-                    className="mb-2 block font-medium text-[#AA88AAAAC] text-xs uppercase tracking-wide"
+                    className="mb-2 block font-medium text-neutral-500 text-xs uppercase tracking-wide"
                     htmlFor={`availability_${day.slug}_start`}
                   >
                     {t("availability.start")}
@@ -270,7 +270,7 @@ export function ProfileBuildForm({
                 </div>
                 <div>
                   <label
-                    className="mb-2 block font-medium text-[#AA88AAAAC] text-xs uppercase tracking-wide"
+                    className="mb-2 block font-medium text-neutral-500 text-xs uppercase tracking-wide"
                     htmlFor={`availability_${day.slug}_end`}
                   >
                     {t("availability.end")}
@@ -285,7 +285,7 @@ export function ProfileBuildForm({
                 </div>
                 <div>
                   <label
-                    className="mb-2 block font-medium text-[#AA88AAAAC] text-xs uppercase tracking-wide"
+                    className="mb-2 block font-medium text-neutral-500 text-xs uppercase tracking-wide"
                     htmlFor={`availability_${day.slug}_notes`}
                   >
                     {t("availability.notes")}
@@ -305,11 +305,11 @@ export function ProfileBuildForm({
         </div>
       </FormField>
 
-      <div className="flex flex-col gap-4 border-[#EE44EE2E3] border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[#AA88AAAAC] text-sm">{defaultFootnote}</p>
+      <div className="flex flex-col gap-4 border-neutral-200 border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-neutral-500 text-sm">{defaultFootnote}</p>
         <button
           className={cn(
-            "inline-flex items-center justify-center rounded-full bg-[#FF4444A22] px-8 py-4 font-semibold text-[#FFEEFF8E8] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[#FF4444A22]",
+            "inline-flex items-center justify-center rounded-full bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-orange-500",
             pending && "cursor-not-allowed opacity-70"
           )}
           disabled={pending}
@@ -326,14 +326,14 @@ function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "error" && state.error) {
     return (
       <div
-        className="rounded-2xl border border-[#FF4444A22]/30 bg-[#FF4444A22]/10 p-6 shadow-sm"
+        className="rounded-2xl border border-orange-500/30 bg-orange-500/10 p-6 shadow-sm"
         role="alert"
       >
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF4444A22]/10">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
             <svg
               aria-label="Error icon"
-              className="h-5 w-5 text-[#FF4444A22]"
+              className="h-5 w-5 text-orange-500"
               fill="none"
               role="img"
               stroke="currentColor"
@@ -347,7 +347,7 @@ function Feedback({ state }: { state: OnboardingActionState }) {
               />
             </svg>
           </div>
-          <p className="flex-1 text-[#FF4444A22] text-base leading-relaxed">{state.error}</p>
+          <p className="flex-1 text-base text-orange-500 leading-relaxed">{state.error}</p>
         </div>
       </div>
     );
@@ -355,14 +355,14 @@ function Feedback({ state }: { state: OnboardingActionState }) {
   if (state.status === "success" && state.message) {
     return (
       <div
-        className="rounded-2xl border border-[#FF4444A22]/40 bg-[#FF4444A22]/10 p-6 shadow-sm"
+        className="rounded-2xl border border-orange-500/40 bg-orange-500/10 p-6 shadow-sm"
         role="status"
       >
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF4444A22]/10">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500/10">
             <svg
               aria-label="Success icon"
-              className="h-5 w-5 text-[#FF4444A22]"
+              className="h-5 w-5 text-orange-500"
               fill="none"
               role="img"
               stroke="currentColor"
@@ -376,7 +376,7 @@ function Feedback({ state }: { state: OnboardingActionState }) {
               />
             </svg>
           </div>
-          <p className="flex-1 text-[#FF4444A22] text-base leading-relaxed">{state.message}</p>
+          <p className="flex-1 text-base text-orange-500 leading-relaxed">{state.message}</p>
         </div>
       </div>
     );
@@ -399,19 +399,19 @@ function FormField({ label, children, helper, error, characterCount }: FormField
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <label className="block font-semibold text-[#116611616] text-base" htmlFor={childId}>
+        <label className="block font-semibold text-base text-neutral-900" htmlFor={childId}>
           {label}
         </label>
         {characterCount !== undefined ? (
-          <span className="text-[#AA88AAAAC] text-sm">
+          <span className="text-neutral-500 text-sm">
             {t("characterCount", { count: characterCount })}
           </span>
         ) : null}
       </div>
-      {helper ? <p className="text-[#AA88AAAAC] text-sm">{helper}</p> : null}
+      {helper ? <p className="text-neutral-500 text-sm">{helper}</p> : null}
       {children}
       {error ? (
-        <p className="flex items-center gap-2 text-[#FF4444A22] text-sm">
+        <p className="flex items-center gap-2 text-orange-500 text-sm">
           <svg
             aria-label="Error icon"
             className="h-4 w-4"

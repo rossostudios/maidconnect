@@ -4,7 +4,7 @@
  * Commission rate and background check fee inputs for pricing rules.
  * Commission rate is required (10-30%), BG check fee is optional.
  *
- * Precision Design: Sharp corners, neutral borders, orange focus states
+ * Lia Design: Sharp corners, neutral borders, orange focus states
  */
 
 import type { FieldUpdateFn, PricingRuleFormData } from "@/types/pricing";

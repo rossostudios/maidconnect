@@ -13,7 +13,7 @@ const PaymentHistoryTable = dynamic(
     })),
   {
     loading: () => (
-      <div className="h-[400px] w-full animate-pulse rounded-lg bg-gradient-to-br from-[#EE44EE2E3]/30 to-[#EE44EE2E3]/10" />
+      <div className="h-[400px] w-full animate-pulse rounded-lg bg-gradient-to-br from-neutral-200/30 to-neutral-200/10" />
     ),
   }
 );
@@ -99,8 +99,8 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="font-semibold text-3xl text-[#116611616]">{t("title")}</h1>
-        <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">{t("description")}</p>
+        <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
+        <p className="mt-2 text-base text-neutral-500 leading-relaxed">{t("description")}</p>
       </div>
 
       {/* Summary Cards */}
@@ -124,21 +124,21 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
 
       {/* Payment Methods */}
       {paymentMethods.length > 0 && (
-        <div className="rounded-[28px] bg-[#FFEEFF8E8] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
-          <h2 className="mb-4 font-semibold text-[#116611616] text-xl">
+        <div className="rounded-[28px] bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+          <h2 className="mb-4 font-semibold text-neutral-900 text-xl">
             {t("paymentMethods.title")}
           </h2>
           <div className="space-y-3">
             {paymentMethods.map((method) => (
               <div
-                className="flex items-center justify-between rounded-lg border border-[#EE44EE2E3] p-4"
+                className="flex items-center justify-between rounded-lg border border-neutral-200 p-4"
                 key={method.id}
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EE44EE2E3]">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200">
                     <svg
                       aria-label="Credit card icon"
-                      className="h-5 w-5 text-[#116611616]"
+                      className="h-5 w-5 text-neutral-900"
                       fill="none"
                       role="img"
                       stroke="currentColor"
@@ -153,10 +153,10 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
                     </svg>
                   </div>
                   <div>
-                    <p className="font-medium text-[#116611616]">
+                    <p className="font-medium text-neutral-900">
                       {method.card.brand.toUpperCase()} •••• {method.card.last4}
                     </p>
-                    <p className="text-[#AA88AAAAC] text-sm">
+                    <p className="text-neutral-500 text-sm">
                       {t("paymentMethods.expires")} {method.card.exp_month}/{method.card.exp_year}
                     </p>
                   </div>
@@ -168,10 +168,8 @@ export default async function CustomerPaymentsPage(props: { params: Promise<{ lo
       )}
 
       {/* Payment History */}
-      <div className="rounded-[28px] bg-[#FFEEFF8E8] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
-        <h2 className="mb-6 font-semibold text-[#116611616] text-xl">
-          {t("paymentHistory.title")}
-        </h2>
+      <div className="rounded-[28px] bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+        <h2 className="mb-6 font-semibold text-neutral-900 text-xl">{t("paymentHistory.title")}</h2>
         <PaymentHistoryTable bookings={bookings} />
       </div>
     </section>
@@ -188,12 +186,10 @@ function MetricCard({
   description: string;
 }) {
   return (
-    <div className="rounded-[28px] bg-[#FFEEFF8E8] p-6 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
-      <dt className="font-semibold text-[#AA88AAAAC] text-xs uppercase tracking-[0.2em]">
-        {label}
-      </dt>
-      <dd className="mt-3 font-semibold text-3xl text-[#116611616]">{value}</dd>
-      <p className="mt-1 text-[#AA88AAAAC] text-sm">{description}</p>
+    <div className="rounded-[28px] bg-neutral-50 p-6 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+      <dt className="font-semibold text-neutral-500 text-xs uppercase tracking-[0.2em]">{label}</dt>
+      <dd className="mt-3 font-semibold text-3xl text-neutral-900">{value}</dd>
+      <p className="mt-1 text-neutral-500 text-sm">{description}</p>
     </div>
   );
 }

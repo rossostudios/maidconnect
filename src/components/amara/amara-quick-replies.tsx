@@ -4,10 +4,12 @@ import { Calendar01Icon, Location01Icon, Search01Icon, StarIcon } from "@hugeico
 import { HugeiconsIcon } from "@hugeicons/react";
 
 /**
- * Amara Quick Replies Component
+ * Amara Quick Replies Component - Lia Design System
  *
  * Displays contextual quick reply buttons to guide user interactions.
  * Provides common actions like searching for professionals, checking availability, etc.
+ *
+ * Uses Geist Sans typography and orange accent colors.
  */
 
 export type QuickReply = {
@@ -31,14 +33,14 @@ export function AmaraQuickReplies({ replies, onSelect, disabled = false }: Amara
     <div className="flex flex-wrap gap-2">
       {replies.map((reply) => (
         <button
-          className="amara-quick-reply group hover:-tranneutral-y-0.5 active:tranneutral-y-0 inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-2.5 font-medium text-[neutral-400] text-sm shadow-sm transition-all hover:border-[neutral-500] hover:bg-[neutral-500] hover:text-[neutral-50] hover:shadow-md active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 sm:px-4 sm:py-2"
+          className="amara-quick-reply group inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-4 py-2.5 font-[family-name:var(--font-geist-sans)] font-medium text-neutral-700 text-sm shadow-sm transition-all hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600 hover:shadow-md active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 sm:px-4 sm:py-2"
           disabled={disabled}
           key={reply.id}
           onClick={() => onSelect(reply)}
           type="button"
         >
           {reply.icon && (
-            <span className="text-[neutral-400] transition-colors group-hover:text-[neutral-50]">
+            <span className="text-neutral-600 transition-colors group-hover:text-orange-600">
               {reply.icon}
             </span>
           )}

@@ -589,9 +589,7 @@ export function createRateLimitResponse(result: RateLimitResult): NextResponse {
  *   // Your handler code
  * }, 'api')
  */
-export function withRateLimit<
-  T extends (request: Request, ...args: any[]) => Promise<Response>,
->(
+export function withRateLimit<T extends (request: Request, ...args: any[]) => Promise<Response>>(
   handler: T,
   type:
     | "auth"

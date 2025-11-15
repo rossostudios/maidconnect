@@ -32,7 +32,7 @@ export async function generateMetadata({
 
 export default function AboutPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-[#FFEEFF8E8]">
+    <div className="flex min-h-screen flex-col bg-neutral-50">
       <SiteHeader />
 
       <main className="flex-1">
@@ -90,22 +90,22 @@ function TrustIndicators() {
   ];
 
   return (
-    <section className="bg-[#FFEEFF8E8] py-20 sm:py-24 lg:py-32">
+    <section className="bg-neutral-50 py-20 sm:py-24 lg:py-32">
       <Container>
         <div className="mb-16 text-center">
-          <p className="tagline text-[#AA88AAAAC]">WHY CHOOSE US</p>
-          <h2 className="serif-display-lg mt-6 text-[#116611616]">{t("title")}</h2>
-          <p className="lead mx-auto mt-6 max-w-2xl text-[#116611616]/70">{t("subtitle")}</p>
+          <p className="tagline text-neutral-500">WHY CHOOSE US</p>
+          <h2 className="serif-display-lg mt-6 text-neutral-900">{t("title")}</h2>
+          <p className="lead mx-auto mt-6 max-w-2xl text-neutral-900/70">{t("subtitle")}</p>
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {indicators.map((indicator, index) => (
             <div className="text-center" key={index}>
-              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#FF4444A22]/100/10">
-                <HugeiconsIcon className="h-8 w-8 text-[#FF4444A22]" icon={CheckmarkCircle01Icon} />
+              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-orange-500/100/10">
+                <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={CheckmarkCircle01Icon} />
               </div>
-              <h3 className="serif-headline-sm mb-4 text-[#116611616]">{t(indicator.titleKey)}</h3>
-              <p className="text-[#116611616]/70 text-base leading-relaxed">
+              <h3 className="serif-headline-sm mb-4 text-neutral-900">{t(indicator.titleKey)}</h3>
+              <p className="text-base text-neutral-900/70 leading-relaxed">
                 {t(indicator.descKey)}
               </p>
             </div>
@@ -124,15 +124,15 @@ function CTASection() {
   const t = useTranslations("about.cta");
 
   return (
-    <section className="bg-[#116611616] py-20 sm:py-24 lg:py-32">
+    <section className="bg-neutral-900 py-20 sm:py-24 lg:py-32">
       <Container className="max-w-4xl">
         <div className="text-center">
-          <h2 className="serif-display-lg text-[#FFEEFF8E8]">{t("title")}</h2>
-          <p className="lead mt-6 text-[#FFEEFF8E8]/90">{t("subtitle")}</p>
+          <h2 className="serif-display-lg text-white">{t("title")}</h2>
+          <p className="lead mt-6 text-white/90">{t("subtitle")}</p>
 
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FFEEFF8E8] px-8 py-4 font-semibold text-[#116611616] text-base transition hover:bg-[#EE44EE2E3]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-neutral-50 px-8 py-4 font-semibold text-base text-neutral-900 transition hover:bg-neutral-200"
               href="/professionals"
             >
               {t("browseProfessionals")}
@@ -140,7 +140,7 @@ function CTASection() {
             </Link>
 
             <Link
-              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#FFEEFF8E8] px-8 py-4 font-semibold text-[#FFEEFF8E8] text-base transition hover:bg-[#FFEEFF8E8]/10"
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-neutral-200 px-8 py-4 font-semibold text-base text-white transition hover:bg-neutral-50/10"
               href="/auth/sign-up"
             >
               {t("signUp")}

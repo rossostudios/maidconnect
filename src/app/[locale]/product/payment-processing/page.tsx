@@ -81,7 +81,7 @@ export default async function PaymentProcessingPage({ params }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFEEFF8E8] text-[#116611616]">
+    <div className="min-h-screen bg-neutral-50 text-neutral-900">
       {/* Security: dangerouslySetInnerHTML is safe here - jsonLd is server-generated structured data for SEO */}
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -94,19 +94,19 @@ export default async function PaymentProcessingPage({ params }: Props) {
           badge={t("hero.badge")}
           description={t("hero.description")}
           headline={t("hero.headline")}
-          primaryCTA={{ label: t("hero.primaryCTA"), href: "#FFEEFF8E8tures" }}
+          primaryCTA={{ label: t("hero.primaryCTA"), href: "#features" }}
           secondaryCTA={{ label: t("hero.secondaryCTA"), href: "/professionals" }}
         />
 
         {/* Features Section */}
         <section
-          className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8] px-6 py-16 sm:py-20 lg:py-24"
+          className="border-neutral-200 border-b bg-neutral-50 px-6 py-16 sm:py-20 lg:py-24"
           id="features"
         >
           <div className="mx-auto max-w-6xl">
-            <h2 className="type-serif-lg text-center text-[#116611616]">{t("features.title")}</h2>
+            <h2 className="type-serif-lg text-center text-neutral-900">{t("features.title")}</h2>
 
-            <p className="mx-auto mt-6 max-w-3xl text-center text-[#AA88AAAAC] text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-3xl text-center text-lg text-neutral-500 leading-relaxed">
               {t("features.subtitle")}
             </p>
 
@@ -161,64 +161,64 @@ export default async function PaymentProcessingPage({ params }: Props) {
         />
 
         {/* Payment Timeline Section */}
-        <section className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8] px-6 py-16 sm:py-20 lg:py-24">
+        <section className="border-neutral-200 border-b bg-neutral-50 px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="type-serif-lg text-center text-[#116611616]">
+            <h2 className="type-serif-lg text-center text-neutral-900">
               {t("paymentTimeline.title")}
             </h2>
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#FF4444A22]">
-                  <span className="font-semibold text-[#FFEEFF8E8] text-sm">1</span>
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-500">
+                  <span className="font-semibold text-sm text-white">1</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#116611616] text-xl">
+                  <h3 className="font-semibold text-neutral-900 text-xl">
                     {t("paymentTimeline.booking.title")}
                   </h3>
-                  <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-neutral-500 leading-relaxed">
                     {t("paymentTimeline.booking.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#FF4444A22]">
-                  <span className="font-semibold text-[#FFEEFF8E8] text-sm">2</span>
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-500">
+                  <span className="font-semibold text-sm text-white">2</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#116611616] text-xl">
+                  <h3 className="font-semibold text-neutral-900 text-xl">
                     {t("paymentTimeline.serviceDay.title")}
                   </h3>
-                  <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-neutral-500 leading-relaxed">
                     {t("paymentTimeline.serviceDay.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#FF4444A22]">
-                  <span className="font-semibold text-[#FFEEFF8E8] text-sm">3</span>
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-500">
+                  <span className="font-semibold text-sm text-white">3</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#116611616] text-xl">
+                  <h3 className="font-semibold text-neutral-900 text-xl">
                     {t("paymentTimeline.serviceComplete.title")}
                   </h3>
-                  <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-neutral-500 leading-relaxed">
                     {t("paymentTimeline.serviceComplete.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#FF4444A22]">
-                  <span className="font-semibold text-[#FFEEFF8E8] text-sm">4</span>
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-500">
+                  <span className="font-semibold text-sm text-white">4</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#116611616] text-xl">
+                  <h3 className="font-semibold text-neutral-900 text-xl">
                     {t("paymentTimeline.postService.title")}
                   </h3>
-                  <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-neutral-500 leading-relaxed">
                     {t("paymentTimeline.postService.description")}
                   </p>
                 </div>
@@ -228,74 +228,62 @@ export default async function PaymentProcessingPage({ params }: Props) {
         </section>
 
         {/* Protection Features Section */}
-        <section className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8] px-6 py-16 sm:py-20 lg:py-24">
+        <section className="border-neutral-200 border-b bg-neutral-50 px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="type-serif-lg text-center text-[#116611616]">{t("protection.title")}</h2>
+            <h2 className="type-serif-lg text-center text-neutral-900">{t("protection.title")}</h2>
 
             <div className="mt-16 space-y-8">
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#FF4444A22]">
-                  <HugeiconsIcon
-                    className="h-5 w-5 text-[#FFEEFF8E8]"
-                    icon={CheckmarkCircle02Icon}
-                  />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-500">
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#116611616] text-xl">
+                  <h3 className="font-semibold text-neutral-900 text-xl">
                     {t("protection.chargedAfter.title")}
                   </h3>
-                  <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-neutral-500 leading-relaxed">
                     {t("protection.chargedAfter.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#FF4444A22]">
-                  <HugeiconsIcon
-                    className="h-5 w-5 text-[#FFEEFF8E8]"
-                    icon={CheckmarkCircle02Icon}
-                  />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-500">
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#116611616] text-xl">
+                  <h3 className="font-semibold text-neutral-900 text-xl">
                     {t("protection.cancellation.title")}
                   </h3>
-                  <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-neutral-500 leading-relaxed">
                     {t("protection.cancellation.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#FF4444A22]">
-                  <HugeiconsIcon
-                    className="h-5 w-5 text-[#FFEEFF8E8]"
-                    icon={CheckmarkCircle02Icon}
-                  />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-500">
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#116611616] text-xl">
+                  <h3 className="font-semibold text-neutral-900 text-xl">
                     {t("protection.dispute.title")}
                   </h3>
-                  <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-neutral-500 leading-relaxed">
                     {t("protection.dispute.description")}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#FF4444A22]">
-                  <HugeiconsIcon
-                    className="h-5 w-5 text-[#FFEEFF8E8]"
-                    icon={CheckmarkCircle02Icon}
-                  />
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-500">
+                  <HugeiconsIcon className="h-5 w-5 text-white" icon={CheckmarkCircle02Icon} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#116611616] text-xl">
+                  <h3 className="font-semibold text-neutral-900 text-xl">
                     {t("protection.encrypted.title")}
                   </h3>
-                  <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">
+                  <p className="mt-2 text-base text-neutral-500 leading-relaxed">
                     {t("protection.encrypted.description")}
                   </p>
                 </div>
@@ -305,45 +293,45 @@ export default async function PaymentProcessingPage({ params }: Props) {
         </section>
 
         {/* Accepted Payments Section */}
-        <section className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8] px-6 py-16 sm:py-20 lg:py-24">
+        <section className="border-neutral-200 border-b bg-neutral-50 px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-5xl">
-            <h2 className="type-serif-lg text-center text-[#116611616]">
+            <h2 className="type-serif-lg text-center text-neutral-900">
               {t("acceptedMethods.title")}
             </h2>
 
             <div className="mt-16 grid gap-8 md:grid-cols-3">
-              <div className="rounded-[28px] border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-8 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#FF4444A22]/10">
-                  <HugeiconsIcon className="h-8 w-8 text-[#FF4444A22]" icon={CreditCardIcon} />
+              <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-8 text-center">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-orange-500/10">
+                  <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={CreditCardIcon} />
                 </div>
-                <h3 className="mt-6 font-semibold text-[#116611616] text-xl">
+                <h3 className="mt-6 font-semibold text-neutral-900 text-xl">
                   {t("acceptedMethods.creditCards.title")}
                 </h3>
-                <p className="mt-3 text-[#AA88AAAAC] text-base">
+                <p className="mt-3 text-base text-neutral-500">
                   {t("acceptedMethods.creditCards.description")}
                 </p>
               </div>
 
-              <div className="rounded-[28px] border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-8 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#FF4444A22]/10">
-                  <HugeiconsIcon className="h-8 w-8 text-[#FF4444A22]" icon={CreditCardIcon} />
+              <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-8 text-center">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-orange-500/10">
+                  <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={CreditCardIcon} />
                 </div>
-                <h3 className="mt-6 font-semibold text-[#116611616] text-xl">
+                <h3 className="mt-6 font-semibold text-neutral-900 text-xl">
                   {t("acceptedMethods.debitCards.title")}
                 </h3>
-                <p className="mt-3 text-[#AA88AAAAC] text-base">
+                <p className="mt-3 text-base text-neutral-500">
                   {t("acceptedMethods.debitCards.description")}
                 </p>
               </div>
 
-              <div className="rounded-[28px] border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-8 text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#FF4444A22]/10">
-                  <HugeiconsIcon className="h-8 w-8 text-[#FF4444A22]" icon={Invoice01Icon} />
+              <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-8 text-center">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-orange-500/10">
+                  <HugeiconsIcon className="h-8 w-8 text-orange-500" icon={Invoice01Icon} />
                 </div>
-                <h3 className="mt-6 font-semibold text-[#116611616] text-xl">
+                <h3 className="mt-6 font-semibold text-neutral-900 text-xl">
                   {t("acceptedMethods.digitalReceipts.title")}
                 </h3>
-                <p className="mt-3 text-[#AA88AAAAC] text-base">
+                <p className="mt-3 text-base text-neutral-500">
                   {t("acceptedMethods.digitalReceipts.description")}
                 </p>
               </div>
@@ -352,24 +340,24 @@ export default async function PaymentProcessingPage({ params }: Props) {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-[#FFEEFF8E8] px-6 py-16 sm:py-20 lg:py-24">
+        <section className="bg-neutral-50 px-6 py-16 sm:py-20 lg:py-24">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="type-serif-lg text-[#116611616]">{t("cta.title")}</h2>
+            <h2 className="type-serif-lg text-neutral-900">{t("cta.title")}</h2>
 
-            <p className="mx-auto mt-6 max-w-2xl text-[#AA88AAAAC] text-lg leading-relaxed">
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-neutral-500 leading-relaxed">
               {t("cta.description")}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
-                className="inline-flex items-center justify-center rounded-full bg-[#FF4444A22] px-8 py-4 font-semibold text-[#FFEEFF8E8] text-base shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[var(--red-hover)]"
+                className="inline-flex items-center justify-center rounded-full bg-orange-500 px-8 py-4 font-semibold text-base text-white shadow-[0_6px_18px_rgba(244,74,34,0.22)] transition hover:bg-[var(--red-hover)]"
                 href="/professionals"
               >
                 {t("cta.bookService")}
               </Link>
 
               <Link
-                className="inline-flex items-center justify-center rounded-full border-2 border-[#EE44EE2E3] bg-[#FFEEFF8E8] px-8 py-4 font-semibold text-[#116611616] text-base transition hover:border-[var(--red)] hover:text-[#FF4444A22]"
+                className="inline-flex items-center justify-center rounded-full border-2 border-neutral-200 bg-neutral-50 px-8 py-4 font-semibold text-base text-neutral-900 transition hover:border-[var(--red)] hover:text-orange-500"
                 href="/auth/sign-up"
               >
                 {t("cta.signUpFree")}

@@ -1,9 +1,9 @@
 import { Container } from "@/components/ui/container";
 
 /**
- * LogoCloud Component - Swiss Design System
+ * LogoCloud Component - Lia Design System
  *
- * Minimal text-based trust indicators following Swiss principles:
+ * Minimal text-based trust indicators following Lia design principles:
  * - No images, pure typography
  * - Clean separation with dividers
  * - Uppercase tracking for labels

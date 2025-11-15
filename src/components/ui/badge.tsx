@@ -1,8 +1,19 @@
 /**
- * Badge Component
+ * Badge Component - Lia Design System
  *
- * Versatile status and label component with neutral colors
- * Supports icons, dots, and multiple variants
+ * Status and label component using Precision neutral + orange palette.
+ * Maintains status distinction through neutral shades and orange highlights.
+ * Supports icons, dots, and multiple semantic variants.
+ *
+ * Precision Variants:
+ * - default: White background (neutral-900 text)
+ * - secondary: Light neutral (neutral-700 text)
+ * - primary: Orange highlight (orange-600 text) - use for featured/important
+ * - muted: Subtle neutral (neutral-600 text)
+ * - pending: Orange accent (indicates action needed)
+ * - confirmed/in_progress: Neutral shades
+ * - completed: White background (clean completion state)
+ * - cancelled: Darker neutral (clear terminated state)
  */
 
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -16,19 +27,23 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
+        // Precision palette: Neutral backgrounds with clear hierarchy
         default: "border border-neutral-200 bg-white text-neutral-900",
         secondary: "border border-neutral-200 bg-neutral-100 text-neutral-700",
-        success: "border border-green-200 bg-green-50 text-green-700",
-        warning: "border border-yellow-200 bg-yellow-50 text-yellow-700",
-        danger: "border border-red-200 bg-red-50 text-red-700",
-        info: "border border-blue-200 bg-blue-50 text-blue-700",
+        primary: "border border-orange-200 bg-orange-50 text-orange-600",
+        muted: "border border-neutral-100 bg-neutral-50 text-neutral-600",
         outline: "border border-neutral-300 bg-transparent text-neutral-700",
-        // Status variants with neutral colors
-        pending: "border border-yellow-200 bg-yellow-50 text-yellow-700",
-        confirmed: "border border-blue-200 bg-blue-50 text-blue-700",
+        // Status variants using Precision neutral + orange palette
+        pending: "border border-orange-200 bg-orange-50 text-orange-600",
+        confirmed: "border border-neutral-200 bg-neutral-100 text-neutral-700",
         in_progress: "border border-neutral-200 bg-neutral-100 text-neutral-700",
-        completed: "border border-green-200 bg-green-50 text-green-700",
-        cancelled: "border border-red-200 bg-red-50 text-red-700",
+        completed: "border border-neutral-200 bg-white text-neutral-900",
+        cancelled: "border border-neutral-300 bg-neutral-200 text-neutral-900",
+        // Deprecated semantic colors (kept for backwards compatibility, migrate to neutral/orange)
+        success: "border border-neutral-200 bg-white text-neutral-900",
+        warning: "border border-orange-200 bg-orange-50 text-orange-600",
+        danger: "border border-neutral-300 bg-neutral-200 text-neutral-900",
+        info: "border border-neutral-200 bg-neutral-100 text-neutral-700",
       },
       size: {
         sm: "px-2 py-0.5 text-xs",

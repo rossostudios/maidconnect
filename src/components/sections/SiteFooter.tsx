@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Facebook02Icon,
   InstagramIcon,
@@ -5,9 +7,9 @@ import {
   NewTwitterIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { headers } from "next/headers";
+import { motion } from "motion/react";
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 import { FeedbackLink } from "@/components/feedback/feedback-link";
 import { SiteFooterActions } from "@/components/sections/SiteFooterActions";
 import { Badge } from "@/components/ui/badge";
@@ -17,14 +19,14 @@ import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 /**
- * SiteFooter - Swiss Design System
+ * SiteFooter - Editorial Grid Design
  *
- * Minimalist footer following Swiss principles:
- * - Clean typography with Satoshi
- * - Sharp corners (no rounded elements)
- * - Minimal social buttons
- * - Orange accent color
- * - Grid-based layout
+ * Lia Design System:
+ * - Clean editorial grid layout
+ * - Sharp rectangular geometry
+ * - Geist Sans (UI) + Geist Mono (data)
+ * - Orange accent on neutral palette
+ * - Micro-interactions and hover states
  */
 
 const socialLinks = [
@@ -33,9 +35,8 @@ const socialLinks = [
   { label: "Instagram", href: "https://instagram.com/casaora", icon: InstagramIcon },
 ];
 
-export async function SiteFooter() {
-  await headers();
-  const t = await getTranslations("footer");
+export function SiteFooter() {
+  const t = useTranslations("footer");
   const year = new Date().getFullYear();
 
   const footerColumns = [
@@ -71,15 +72,24 @@ export async function SiteFooter() {
 
   return (
     <footer
-      className="relative border-neutral-800 border-t bg-neutral-900 py-24 text-white"
-      id="get-started"
+      className="relative border-neutral-200 border-t bg-neutral-900 text-white"
+      data-section="get-started"
+      id="footer"
+      tabIndex={-1}
     >
-      <Container className="relative max-w-7xl px-4">
-        <div className="grid gap-16 lg:grid-cols-[1fr_auto]">
-          {/* Brand Section */}
-          <div className="flex max-w-md flex-col gap-8">
-            {/* Logo - Swiss Typography */}
-            <div className="flex items-center gap-3">
+      <Container className="relative max-w-7xl px-4 py-24">
+        {/* Main Grid - Editorial Layout */}
+        <div className="grid gap-16 lg:grid-cols-[300px_1fr]">
+          {/* Left Column: Brand */}
+          <div className="flex flex-col gap-8">
+            {/* Logo */}
+            <motion.div
+              className="flex items-center gap-3"
+              initial={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              whileInView={{ opacity: 1, y: 0 }}
+            >
               <Image
                 alt="Casaora logo"
                 className="h-10 w-auto"
@@ -87,136 +97,180 @@ export async function SiteFooter() {
                 src="/isologo.svg"
                 width={40}
               />
-              <span
-                className="font-bold text-3xl text-white tracking-tight"
-                style={{ fontFamily: "var(--font-satoshi), sans-serif" }}
-              >
+              <span className="font-[family-name:var(--font-geist-sans)] font-bold text-3xl text-white uppercase tracking-tight">
                 CASAORA
               </span>
-            </div>
+            </motion.div>
 
-            <p className="text-base text-neutral-300 leading-relaxed">{t("description")}</p>
-
-            {/* Contact & Social */}
-            <div className="flex flex-col gap-4">
+            {/* Contact */}
+            <motion.div
+              className="flex flex-col gap-6"
+              initial={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              whileInView={{ opacity: 1, y: 0 }}
+            >
+              {/* Email */}
               <a
-                className="flex items-center gap-3 text-base text-neutral-200 transition hover:text-orange-600"
+                className="group flex items-center gap-3 font-[family-name:var(--font-geist-sans)] text-base text-neutral-200 transition-colors hover:text-orange-500"
                 href="mailto:hello@casaora.com"
               >
-                <HugeiconsIcon className="h-5 w-5" icon={Mail01Icon} strokeWidth={1.5} />
+                <div className="flex h-10 w-10 items-center justify-center border border-neutral-700 bg-neutral-800 transition-colors group-hover:border-orange-500 group-hover:bg-orange-500">
+                  <HugeiconsIcon
+                    className="h-5 w-5 transition-colors group-hover:text-white"
+                    icon={Mail01Icon}
+                    strokeWidth={1.5}
+                  />
+                </div>
                 <span>hello@casaora.com</span>
               </a>
 
-              {/* Social Links - Minimal Square Buttons */}
-              <div className="flex items-center gap-2">
-                {socialLinks.map(({ label, href, icon }) => (
-                  <a
-                    aria-label={label}
-                    className={cn(
-                      "flex h-10 w-10 items-center justify-center border border-neutral-700 bg-neutral-800 text-neutral-200 transition-all",
-                      "hover:border-orange-500 hover:bg-orange-500 hover:text-white"
-                    )}
-                    href={href}
-                    key={label}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    <HugeiconsIcon className="h-5 w-5" icon={icon} strokeWidth={1.5} />
-                  </a>
-                ))}
+              {/* Social Links */}
+              <div className="flex flex-col gap-3">
+                <h4 className="font-[family-name:var(--font-geist-sans)] text-neutral-500 text-xs uppercase tracking-widest">
+                  Follow Us
+                </h4>
+                <div className="flex items-center gap-2">
+                  {socialLinks.map(({ label, href, icon }) => (
+                    <motion.a
+                      aria-label={label}
+                      className={cn(
+                        "flex h-10 w-10 items-center justify-center border border-neutral-700 bg-neutral-800 text-neutral-200 transition-all",
+                        "hover:border-orange-500 hover:bg-orange-500 hover:text-white"
+                      )}
+                      href={href}
+                      key={label}
+                      rel="noreferrer"
+                      target="_blank"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <HugeiconsIcon className="h-5 w-5" icon={icon} strokeWidth={1.5} />
+                    </motion.a>
+                  ))}
+                </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
-          {/* Footer Columns */}
-          <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:gap-14">
-            {footerColumns.map((column) => (
-              <div className="flex flex-col gap-6" key={column.title}>
-                <h3 className="font-mono text-neutral-500 text-xs uppercase tracking-widest">
-                  {column.title}
-                </h3>
+          {/* Right Side: Navigation Grid */}
+          <div className="flex flex-col gap-12">
+            {/* Navigation Grid */}
+            <motion.div
+              className="grid gap-12 sm:grid-cols-2 md:grid-cols-3"
+              initial={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              viewport={{ once: true }}
+              whileInView={{ opacity: 1, y: 0 }}
+            >
+              {footerColumns.map((column, _idx) => (
+                <div className="flex flex-col gap-6" key={column.title}>
+                  <h3 className="font-[family-name:var(--font-geist-sans)] text-neutral-500 text-xs uppercase tracking-widest">
+                    {column.title}
+                  </h3>
 
-                <ul className="flex flex-col gap-3">
-                  {column.links.map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        className="inline-flex items-center gap-2 text-base text-neutral-400 transition hover:text-white"
-                        data-tour={link.href === "/help" ? "help" : undefined}
-                        href={link.href}
-                      >
-                        {link.label}
-                        {link.badge && (
-                          <Badge
-                            className="bg-orange-500 px-2 py-0.5 font-medium text-white text-xs uppercase tracking-wide"
-                            variant="secondary"
-                          >
-                            {link.badge}
-                          </Badge>
-                        )}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+                  <ul className="flex flex-col gap-3">
+                    {column.links.map((link) => (
+                      <li key={link.label}>
+                        <Link
+                          className="group inline-flex items-center gap-2 font-[family-name:var(--font-geist-sans)] text-base text-neutral-400 transition-colors hover:text-orange-500"
+                          data-tour={link.href === "/help" ? "help" : undefined}
+                          href={link.href}
+                        >
+                          <span className="relative">
+                            {link.label}
+                            <span className="absolute bottom-0 left-0 h-px w-0 bg-orange-500 transition-all duration-300 group-hover:w-full" />
+                          </span>
+                          {link.badge && (
+                            <Badge
+                              className="bg-orange-500 px-2 py-0.5 font-[family-name:var(--font-geist-sans)] font-medium text-white text-xs uppercase tracking-wide"
+                              variant="secondary"
+                            >
+                              {link.badge}
+                            </Badge>
+                          )}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </motion.div>
           </div>
         </div>
 
-        {/* Separator - Clean Line */}
-        <Separator className="my-12 bg-neutral-800" />
+        {/* Separator */}
+        <Separator className="my-16 bg-neutral-800" />
 
-        {/* Compliance Badges */}
-        <div className="mb-12 flex flex-col items-center gap-6">
-          <h3 className="font-mono text-neutral-500 text-xs uppercase tracking-widest">
+        {/* Trust Signals - Compliance Badges */}
+        <motion.div
+          className="mb-16 flex flex-col gap-8"
+          initial={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+          whileInView={{ opacity: 1, y: 0 }}
+        >
+          <h3 className="text-center font-[family-name:var(--font-geist-sans)] text-neutral-500 text-xs uppercase tracking-widest">
             Security & Compliance
           </h3>
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
-            <div className="flex flex-col items-center gap-2 text-center">
-              <div className="flex h-12 w-12 items-center justify-center border border-neutral-700 bg-neutral-800">
-                <span className="font-bold font-mono text-neutral-300 text-xs">PCI</span>
-              </div>
-              <span className="text-neutral-400 text-xs">PCI DSS</span>
-            </div>
-            <div className="flex flex-col items-center gap-2 text-center">
-              <div className="flex h-12 w-12 items-center justify-center border border-neutral-700 bg-neutral-800">
-                <span className="font-bold font-mono text-neutral-300 text-xs">SOC 2</span>
-              </div>
-              <span className="text-neutral-400 text-xs">Type II</span>
-            </div>
-            <div className="flex flex-col items-center gap-2 text-center">
-              <div className="flex h-12 w-12 items-center justify-center border border-neutral-700 bg-neutral-800">
-                <span className="font-bold font-mono text-neutral-300 text-xs">GDPR</span>
-              </div>
-              <span className="text-neutral-400 text-xs">Compliant</span>
-            </div>
-            <div className="flex flex-col items-center gap-2 text-center">
-              <div className="flex h-12 w-12 items-center justify-center border border-neutral-700 bg-neutral-800">
-                <span className="font-bold font-mono text-neutral-300 text-xs">ISO</span>
-              </div>
-              <span className="text-neutral-400 text-xs">27001</span>
-            </div>
+
+          {/* Compliance Grid */}
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {[
+              { label: "PCI DSS", sublabel: "Level 1" },
+              { label: "SOC 2", sublabel: "Type II" },
+              { label: "GDPR", sublabel: "Compliant" },
+              { label: "ISO", sublabel: "27001" },
+            ].map((badge, idx) => (
+              <motion.div
+                className="group flex flex-col items-center gap-3 border border-neutral-800 bg-neutral-950/30 p-6 transition-colors hover:border-orange-500/50"
+                initial={{ opacity: 0, y: 20 }}
+                key={badge.label}
+                transition={{ duration: 0.4, delay: 0.35 + idx * 0.05 }}
+                viewport={{ once: true }}
+                whileInView={{ opacity: 1, y: 0 }}
+              >
+                <div className="flex h-12 w-12 items-center justify-center border border-neutral-700 bg-neutral-800 transition-colors group-hover:border-orange-500 group-hover:bg-orange-500/10">
+                  <span className="font-[family-name:var(--font-geist-mono)] font-bold text-neutral-300 text-xs transition-colors group-hover:text-orange-500">
+                    {badge.label}
+                  </span>
+                </div>
+                <span className="text-center font-[family-name:var(--font-geist-sans)] text-neutral-500 text-xs">
+                  {badge.sublabel}
+                </span>
+              </motion.div>
+            ))}
           </div>
-          <p className="text-center text-neutral-500 text-xs">
+
+          <p className="text-center font-[family-name:var(--font-geist-sans)] text-neutral-500 text-xs">
             Payments secured by Stripe. Infrastructure certified by Supabase & Vercel.
           </p>
-        </div>
+        </motion.div>
 
-        <Separator className="mb-12 bg-neutral-800" />
+        <Separator className="my-12 bg-neutral-800" />
 
         {/* Bottom Section */}
-        <div className="flex flex-col gap-6 text-neutral-400 text-sm sm:flex-row sm:items-center sm:justify-between">
+        <motion.div
+          className="flex flex-col gap-6 font-[family-name:var(--font-geist-sans)] text-neutral-400 text-sm sm:flex-row sm:items-center sm:justify-between"
+          initial={{ opacity: 0 }}
+          transition={{ duration: 0.6, delay: 0.45 }}
+          viewport={{ once: true }}
+          whileInView={{ opacity: 1 }}
+        >
           <div className="flex flex-col gap-2">
             <p>
               © {year} Casaora. {t("allRightsReserved")}
             </p>
-            <p>{t("remoteCompany")}</p>
+            <p className="font-[family-name:var(--font-geist-mono)] text-neutral-500 text-xs">
+              {t("remoteCompany")}
+            </p>
           </div>
 
           <div className="flex items-center gap-4 sm:gap-6">
             <FeedbackLink>Feedback</FeedbackLink>
             <SiteFooterActions />
           </div>
-        </div>
+        </motion.div>
       </Container>
     </footer>
   );

@@ -13,9 +13,9 @@ import { FEATURE_FLAGS, HERO_VARIANTS } from "@/lib/shared/config/feature-flags"
 /**
  * Mock feature flag state for testing
  */
-export interface MockFeatureFlags {
+export type MockFeatureFlags = {
   [key: string]: FeatureFlagValue;
-}
+};
 
 /**
  * Default test feature flags

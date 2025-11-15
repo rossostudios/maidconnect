@@ -1,7 +1,7 @@
 /**
  * PrecisionDataTable - Universal data table components
  *
- * A comprehensive data table system built on TanStack Table v8 with Precision design.
+ * A comprehensive data table system built on TanStack Table v8 with Lia design.
  *
  * @example
  * ```tsx

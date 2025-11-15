@@ -44,13 +44,13 @@ export default async function NewHelpArticlePage({
     .order("name_en");
 
   return (
-    <div className="min-h-screen bg-[#FFEEFF8E8] py-8">
+    <div className="min-h-screen bg-neutral-50 py-8">
       <div className="container mx-auto max-w-6xl">
         <div className="mb-8">
-          <h1 className="font-bold text-3xl text-[#116611616]">
+          <h1 className="font-bold text-3xl text-neutral-900">
             {locale === "es" ? "Crear Nuevo Artículo" : "Create New Article"}
           </h1>
-          <p className="mt-2 text-[#AA88AAAAC]">
+          <p className="mt-2 text-neutral-500">
             {locale === "es"
               ? "Escribe un nuevo artículo para el centro de ayuda"
               : "Write a new article for the help center"}

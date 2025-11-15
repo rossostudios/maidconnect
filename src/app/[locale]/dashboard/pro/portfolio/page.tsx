@@ -32,13 +32,13 @@ export default async function ProPortfolioPage({
   return (
     <section className="space-y-6">
       {/* Header */}
-      <div className="rounded-[28px] bg-[#FFEEFF8E8] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
-        <h1 className="font-semibold text-3xl text-[#116611616]">{t("title")}</h1>
-        <p className="mt-2 text-[#AA88AAAAC] text-base leading-relaxed">{t("description")}</p>
+      <div className="rounded-[28px] bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+        <h1 className="font-semibold text-3xl text-neutral-900">{t("title")}</h1>
+        <p className="mt-2 text-base text-neutral-500 leading-relaxed">{t("description")}</p>
       </div>
 
       {/* Portfolio Manager */}
-      <div className="rounded-[28px] bg-[#FFEEFF8E8] p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
+      <div className="rounded-[28px] bg-neutral-50 p-8 shadow-[0_20px_60px_-15px_rgba(22,22,22,0.15)] backdrop-blur-sm">
         <PortfolioManager featuredWork={featuredWork} images={images} />
       </div>
     </section>

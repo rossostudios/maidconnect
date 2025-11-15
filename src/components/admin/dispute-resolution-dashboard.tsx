@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { type Dispute, DisputesTable } from "./disputes-table";
 
 /**
- * DisputeResolutionDashboard - Main dispute management interface with Precision design
+ * DisputeResolutionDashboard - Main dispute management interface with Lia design
  *
  * Features:
  * - Fetches all disputes once for instant client-side filtering

@@ -14,7 +14,7 @@ import { DocumentUploadForm } from "./document-upload-form";
 import { ProfileBuildForm } from "./profile-build-form";
 
 const inputClass =
-  "w-full rounded-xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] px-4 py-4 text-base shadow-sm transition focus:border-[#FF4444A22] focus:outline-none focus:ring-2 focus:ring-[#FF4444A22]/20";
+  "w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-4 text-base shadow-sm transition focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20";
 
 const APPLICATION_SERVICE_OPTIONS = [
   "House cleaning",
@@ -101,18 +101,18 @@ export default async function ProfessionalOnboardingPage({
     <section className="flex-1 space-y-10">
       <header className="flex items-start justify-between">
         <div>
-          <p className="font-semibold text-[#AA88AAAAC] text-xs uppercase tracking-[0.2em]">
+          <p className="font-semibold text-neutral-500 text-xs uppercase tracking-[0.2em]">
             {t(isActive ? "labels.profileSettings" : "labels.onboarding")}
           </p>
-          <h1 className="type-serif-lg mt-4 text-[#116611616]">
+          <h1 className="type-serif-lg mt-4 text-neutral-900">
             {t(isActive ? "headings.editProfile" : "headings.launchProfile")}
           </h1>
-          <p className="mt-4 max-w-2xl text-[#AA88AAAAC] text-lg leading-relaxed">
+          <p className="mt-4 max-w-2xl text-lg text-neutral-500 leading-relaxed">
             {t(isActive ? "descriptions.active" : "descriptions.notActive")}
           </p>
         </div>
         <Link
-          className="inline-flex items-center rounded-full border-2 border-[#EE44EE2E3] px-5 py-2.5 font-semibold text-[#116611616] text-sm transition hover:border-[#FF4444A22] hover:text-[#FF4444A22]"
+          className="inline-flex items-center rounded-full border-2 border-neutral-200 px-5 py-2.5 font-semibold text-neutral-900 text-sm transition hover:border-orange-500 hover:text-orange-500"
           href="/dashboard/pro"
         >
           {t("backToDashboard")}
@@ -132,35 +132,35 @@ export default async function ProfessionalOnboardingPage({
                 key={stepId}
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF4444A22] font-semibold text-[#FFEEFF8E8] text-lg">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500 font-semibold text-lg text-white">
                     {index + 1}
                   </div>
                   {(() => {
                     if (isCompleted) {
                       return (
-                        <span className="rounded-full bg-[#FF4444A22]/10 px-3 py-1 font-semibold text-[#FF4444A22] text-xs">
+                        <span className="rounded-full bg-orange-500/10 px-3 py-1 font-semibold text-orange-500 text-xs">
                           {t("status.completed")}
                         </span>
                       );
                     }
                     if (isCurrent) {
                       return (
-                        <span className="rounded-full bg-[#FF4444A22]/10 px-3 py-1 font-semibold text-[#FF4444A22] text-xs">
+                        <span className="rounded-full bg-orange-500/10 px-3 py-1 font-semibold text-orange-500 text-xs">
                           {t("status.inProgress")}
                         </span>
                       );
                     }
                     return (
-                      <span className="rounded-full bg-[#EE44EE2E3]/30 px-3 py-1 font-semibold text-[#AA88AAAAC] text-xs">
+                      <span className="rounded-full bg-neutral-200/30 px-3 py-1 font-semibold text-neutral-500 text-xs">
                         {t("status.pending")}
                       </span>
                     );
                   })()}
                 </div>
-                <h2 className="mt-6 font-semibold text-[#116611616] text-xl">
+                <h2 className="mt-6 font-semibold text-neutral-900 text-xl">
                   {t(`steps.${stepId}.title`)}
                 </h2>
-                <p className="mt-3 text-[#AA88AAAAC] text-base leading-relaxed">
+                <p className="mt-3 text-base text-neutral-500 leading-relaxed">
                   {t(`steps.${stepId}.description`)}
                 </p>
               </li>
@@ -171,12 +171,12 @@ export default async function ProfessionalOnboardingPage({
 
       {isActive ? (
         <div className="space-y-8">
-          <div className="rounded-[28px] border border-[#FF4444A22]/40 bg-[#FF4444A22]/10 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+          <div className="rounded-[28px] border border-orange-500/40 bg-orange-500/10 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
             <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FF4444A22]/10">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/10">
                 <svg
                   aria-label="Success icon"
-                  className="h-6 w-6 text-[#FF4444A22]"
+                  className="h-6 w-6 text-orange-500"
                   fill="none"
                   role="img"
                   stroke="currentColor"
@@ -191,10 +191,10 @@ export default async function ProfessionalOnboardingPage({
                 </svg>
               </div>
               <div>
-                <h2 className="font-semibold text-2xl text-[#FF4444A22]">
+                <h2 className="font-semibold text-2xl text-orange-500">
                   {t("success.profileLive")}
                 </h2>
-                <p className="mt-2 text-[#FF4444A22] text-base leading-relaxed">
+                <p className="mt-2 text-base text-orange-500 leading-relaxed">
                   {t("success.updateDescription")}
                 </p>
               </div>
@@ -239,37 +239,37 @@ export default async function ProfessionalOnboardingPage({
             >
               <div className="grid gap-8 lg:grid-cols-2">
                 <div>
-                  <h3 className="font-semibold text-[#116611616] text-xl">
+                  <h3 className="font-semibold text-neutral-900 text-xl">
                     {t("sections.uploadDocuments.required")}
                   </h3>
-                  <ul className="mt-4 space-y-3 text-[#AA88AAAAC] text-base">
+                  <ul className="mt-4 space-y-3 text-base text-neutral-500">
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#FF4444A22]" />
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-orange-500" />
                       <span>{t("sections.uploadDocuments.requiredDocs.governmentId")}</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#FF4444A22]" />
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-orange-500" />
                       <span>{t("sections.uploadDocuments.requiredDocs.proofOfAddress")}</span>
                     </li>
                   </ul>
 
-                  <h3 className="mt-8 font-semibold text-[#116611616] text-xl">
+                  <h3 className="mt-8 font-semibold text-neutral-900 text-xl">
                     {t("sections.uploadDocuments.optional")}
                   </h3>
-                  <ul className="mt-4 space-y-3 text-[#AA88AAAAC] text-base">
+                  <ul className="mt-4 space-y-3 text-base text-neutral-500">
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#AA88AAAAC]" />
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-neutral-500" />
                       <span>{t("sections.uploadDocuments.optionalDocs.certifications")}</span>
                     </li>
                     <li className="flex items-start gap-3">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#AA88AAAAC]" />
+                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-neutral-500" />
                       <span>{t("sections.uploadDocuments.optionalDocs.workPermits")}</span>
                     </li>
                   </ul>
 
-                  <div className="mt-8 rounded-2xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
-                    <p className="text-[#AA88AAAAC] text-sm leading-relaxed">
-                      <strong className="text-[#116611616]">
+                  <div className="mt-8 rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+                    <p className="text-neutral-500 text-sm leading-relaxed">
+                      <strong className="text-neutral-900">
                         {t("sections.uploadDocuments.acceptedFormats")}
                       </strong>{" "}
                       {t("sections.uploadDocuments.formatInfo")}
@@ -300,12 +300,12 @@ export default async function ProfessionalOnboardingPage({
           ) : null}
 
           {onboardingComplete && !isActive ? (
-            <div className="rounded-[28px] border border-[#FF4444A22]/40 bg-[#FF4444A22]/10 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+            <div className="rounded-[28px] border border-orange-500/40 bg-orange-500/10 p-8 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FF4444A22]/10">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/10">
                   <svg
                     aria-label="Success icon"
-                    className="h-6 w-6 text-[#FF4444A22]"
+                    className="h-6 w-6 text-orange-500"
                     fill="none"
                     role="img"
                     stroke="currentColor"
@@ -320,10 +320,8 @@ export default async function ProfessionalOnboardingPage({
                   </svg>
                 </div>
                 <div>
-                  <h2 className="font-semibold text-2xl text-[#FF4444A22]">
-                    {t("complete.title")}
-                  </h2>
-                  <p className="mt-2 text-[#FF4444A22] text-base leading-relaxed">
+                  <h2 className="font-semibold text-2xl text-orange-500">{t("complete.title")}</h2>
+                  <p className="mt-2 text-base text-orange-500 leading-relaxed">
                     {t("complete.description")}
                   </p>
                 </div>
@@ -346,10 +344,10 @@ function SectionWrapper({
   children: ReactNode;
 }) {
   return (
-    <section className="rounded-[28px] border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-10 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
+    <section className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-10 shadow-[0_10px_40px_rgba(22,22,22,0.04)]">
       <header className="mb-8">
-        <h2 className="font-semibold text-3xl text-[#116611616]">{title}</h2>
-        <p className="mt-3 text-[#AA88AAAAC] text-base leading-relaxed">{subtitle}</p>
+        <h2 className="font-semibold text-3xl text-neutral-900">{title}</h2>
+        <p className="mt-3 text-base text-neutral-500 leading-relaxed">{subtitle}</p>
       </header>
       {children}
     </section>

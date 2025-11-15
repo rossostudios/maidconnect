@@ -1,5 +1,11 @@
 "use client";
 
+/**
+ * Message Components - Lia Design System
+ *
+ * Chat message bubbles with Geist Sans typography, sharp borders, and orange accents.
+ */
+
 import type { FileUIPart, UIMessage } from "ai";
 import { type ButtonHTMLAttributes, memo, type ReactNode, useMemo } from "react";
 import { Streamdown } from "streamdown";
@@ -42,8 +48,10 @@ export const MessageContent = ({
 }: MessageBaseProps & { children: ReactNode }) => (
   <div
     className={cn(
-      "max-w-full rounded-2xl px-4 py-3 text-sm shadow-sm ring-1 ring-[neutral-900]/5",
-      from === "user" ? "bg-[neutral-500] text-[neutral-50]" : "bg-[neutral-50] text-[neutral-900]",
+      "max-w-full border px-4 py-3 font-[family-name:var(--font-geist-sans)] text-sm shadow-sm",
+      from === "user"
+        ? "border-orange-500 bg-orange-500 text-white"
+        : "border-neutral-200 bg-white text-neutral-900",
       className
     )}
   >
@@ -55,7 +63,7 @@ export const MessageMarkdown = memo(function MessageMarkdown({ text }: { text: s
   const compiled = useMemo(() => <Streamdown>{text}</Streamdown>, [text]);
 
   return (
-    <div className="prose-sm prose text-current [&_code]:rounded [&_code]:bg-[neutral-900]/10 [&_code]:px-1 [&_code]:py-0.5">
+    <div className="prose-sm prose font-[family-name:var(--font-geist-sans)] text-current [&_code]:bg-neutral-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-[family-name:var(--font-geist-mono)]">
       {compiled}
     </div>
   );
@@ -67,16 +75,16 @@ export const MessageAttachments = ({ files }: { files: FileUIPart[] }) => {
   }
 
   return (
-    <div className="mt-3 space-y-2 text-[neutral-400] text-xs">
+    <div className="mt-3 space-y-2 font-[family-name:var(--font-geist-sans)] text-neutral-600 text-xs">
       {files.map((file, index) => (
         <div
-          className="flex items-center justify-between rounded-lg border border-[neutral-200] bg-[neutral-50] px-3 py-2"
+          className="flex items-center justify-between border border-neutral-200 bg-neutral-50 px-3 py-2"
           key={file.url ?? index}
         >
           <div className="truncate font-medium">{file.filename}</div>
           {file.url ? (
             <a
-              className="text-[neutral-500] underline"
+              className="text-orange-600 transition-colors hover:text-orange-700"
               href={file.url}
               rel="noreferrer"
               target="_blank"
@@ -96,7 +104,16 @@ export const MessageActions = ({
 }: {
   className?: string;
   children: ReactNode;
-}) => <div className={cn("mt-2 flex items-center gap-1 text-xs", className)}>{children}</div>;
+}) => (
+  <div
+    className={cn(
+      "mt-2 flex items-center gap-1 font-[family-name:var(--font-geist-sans)] text-xs",
+      className
+    )}
+  >
+    {children}
+  </div>
+);
 
 export const MessageAction = ({
   className,
@@ -105,7 +122,7 @@ export const MessageAction = ({
 }: ButtonHTMLAttributes<HTMLButtonElement>) => (
   <button
     className={cn(
-      "rounded-full border border-[neutral-200] bg-[neutral-50] px-2 py-1 text-[neutral-400] transition hover:text-[neutral-500]",
+      "border border-neutral-200 bg-white px-2 py-1 font-[family-name:var(--font-geist-sans)] text-neutral-600 transition-all hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600 active:scale-95",
       className
     )}
     type="button"

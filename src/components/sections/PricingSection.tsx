@@ -67,7 +67,7 @@ export function PricingSection() {
                 {t("badge")}
               </span>
             </div>
-            <h2 className="mb-4 font-[family-name:var(--font-family-satoshi)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
+            <h2 className="mb-4 font-[family-name:var(--font-geist-sans)] font-bold text-4xl text-neutral-900 tracking-tight md:text-5xl">
               {t("title")}
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-neutral-600">{t("subtitle")}</p>
@@ -82,7 +82,7 @@ export function PricingSection() {
               <div className="relative bg-white" key={`top-${plan.name}`}>
                 {/* Plan Name & Description */}
                 <div className="p-8">
-                  <h3 className="mb-2 font-[family-name:var(--font-family-satoshi)] font-bold text-2xl text-neutral-900">
+                  <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-2xl text-neutral-900">
                     {plan.name}
                   </h3>
                   <p className="text-neutral-600 text-sm">{plan.description}</p>
@@ -94,7 +94,7 @@ export function PricingSection() {
                     {t("platformFee")}
                   </div>
                   <div className="flex items-baseline justify-center">
-                    <span className="font-[family-name:var(--font-family-satoshi)] font-bold text-5xl text-neutral-900">
+                    <span className="font-[family-name:var(--font-geist-sans)] font-bold text-5xl text-neutral-900">
                       {plan.commission}%
                     </span>
                   </div>

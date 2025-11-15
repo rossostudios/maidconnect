@@ -44,7 +44,7 @@ export function PricingCalculator() {
   return (
     <Card className="mx-auto max-w-2xl border-2 border-neutral-200 bg-white shadow-lg">
       <CardContent className="p-8">
-        <h3 className="mb-baseline-1 text-center font-[family-name:var(--font-family-satoshi)] font-bold text-[24px] text-neutral-900 leading-[24px]">
+        <h3 className="mb-baseline-1 text-center font-[family-name:var(--font-geist-sans)] font-bold text-[24px] text-neutral-900 leading-[24px]">
           {t("title")}
         </h3>
         <p className="mb-2 text-center text-[14px] text-neutral-700 leading-[24px]">
@@ -258,10 +258,10 @@ export function PricingCalculator() {
               </div>
             )}
             <div className="flex justify-between border-neutral-200 border-t-2 pt-4">
-              <span className="font-[family-name:var(--font-family-satoshi)] font-bold text-[20px] text-neutral-900 leading-[24px]">
+              <span className="font-[family-name:var(--font-geist-sans)] font-bold text-[20px] text-neutral-900 leading-[24px]">
                 {t("total")}
               </span>
-              <span className="font-[family-name:var(--font-family-satoshi)] font-bold text-[28px] text-orange-600 leading-[24px]">
+              <span className="font-[family-name:var(--font-geist-sans)] font-bold text-[28px] text-orange-600 leading-[24px]">
                 {formatPrice(totalCost)}
               </span>
             </div>
@@ -273,7 +273,7 @@ export function PricingCalculator() {
               <span className="font-semibold text-[14px] text-orange-900 leading-[24px]">
                 {t("professionalReceives")}
               </span>
-              <span className="font-[family-name:var(--font-family-satoshi)] font-bold text-[20px] text-orange-600 leading-[24px]">
+              <span className="font-[family-name:var(--font-geist-sans)] font-bold text-[20px] text-orange-600 leading-[24px]">
                 {formatPrice(serviceTotal)}
               </span>
             </div>

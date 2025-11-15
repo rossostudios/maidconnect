@@ -41,7 +41,7 @@ type Props<TData, TValue> = {
 };
 
 /**
- * PrecisionDataTable - Universal data table component with Precision design
+ * PrecisionDataTable - Universal data table component with Lia design
  *
  * Features:
  * - Built on TanStack Table v8

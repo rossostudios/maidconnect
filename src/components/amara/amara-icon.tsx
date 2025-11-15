@@ -1,5 +1,7 @@
 /**
- * Amara Icon - Siri New Icon from Hugeicons
+ * Amara Icon - Lia Design System
+ *
+ * Siri New Icon from Hugeicons
  * Represents the AI assistant with a modern voice assistant design
  */
 

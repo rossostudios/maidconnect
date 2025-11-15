@@ -1,5 +1,11 @@
 "use client";
 
+/**
+ * Tool Components - Lia Design System
+ *
+ * AI tool call displays with Geist Sans/Mono typography, sharp borders, and state indicators.
+ */
+
 import type { ToolUIPart } from "ai";
 import { ChevronDownIcon, WrenchIcon } from "lucide-react";
 import { useState } from "react";
@@ -15,6 +21,9 @@ const STATE_LABEL: Record<ToolUIPart["state"], string> = {
   "input-available": "Running",
   "output-available": "Completed",
   "output-error": "Error",
+  "approval-requested": "Approval Needed",
+  "approval-responded": "Approved",
+  "output-denied": "Denied",
 };
 
 export const ToolCall = ({ part, title }: ToolProps) => {
@@ -22,37 +31,37 @@ export const ToolCall = ({ part, title }: ToolProps) => {
   const header = title ?? part.type.replace("tool-", "");
 
   return (
-    <div className="rounded-xl border border-[neutral-200] bg-[neutral-50] shadow-sm">
+    <div className="border border-neutral-200 bg-white shadow-sm">
       <button
-        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left font-medium text-sm"
+        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left font-[family-name:var(--font-geist-sans)] font-medium text-sm transition-colors hover:bg-neutral-50"
         onClick={() => setOpen((prev) => !prev)}
         type="button"
       >
         <div className="flex items-center gap-2">
-          <WrenchIcon className="size-4 text-[neutral-400]/70" />
-          <span>{header}</span>
+          <WrenchIcon className="size-4 text-neutral-600" />
+          <span className="text-neutral-900">{header}</span>
           <span
             className={cn(
               "rounded-full px-2 py-0.5 text-xs",
-              part.state === "output-error"
-                ? "bg-[neutral-500]/10 text-[neutral-500]"
-                : part.state === "output-available"
-                  ? "bg-[neutral-500]/10 text-[neutral-500]"
-                  : "bg-[neutral-500]/10 text-[neutral-500]"
+              part.state === "output-error" || part.state === "output-denied"
+                ? "bg-red-50 text-red-600"
+                : part.state === "output-available" || part.state === "approval-responded"
+                  ? "bg-green-50 text-green-600"
+                  : "bg-orange-50 text-orange-600"
             )}
           >
             {STATE_LABEL[part.state]}
           </span>
         </div>
         <ChevronDownIcon
-          className={cn("size-4 text-[neutral-400]/70 transition-transform", open && "rotate-180")}
+          className={cn("size-4 text-neutral-600 transition-transform", open && "rotate-180")}
         />
       </button>
       {open && (
-        <div className="space-y-4 border-[neutral-200]/40 border-t px-4 py-4 text-xs">
+        <div className="space-y-4 border-neutral-200 border-t px-4 py-4 font-[family-name:var(--font-geist-sans)] text-xs">
           {part.input !== undefined && part.input !== null && (
             <ToolSection title="Parameters">
-              <pre className="max-h-48 overflow-auto rounded-lg bg-[neutral-900]/95 p-3 font-mono text-[neutral-50]">
+              <pre className="max-h-48 overflow-auto border border-neutral-200 bg-neutral-900 p-3 font-[family-name:var(--font-geist-mono)] text-neutral-50">
                 {JSON.stringify(part.input, null, 2)}
               </pre>
             </ToolSection>
@@ -70,7 +79,9 @@ export const ToolCall = ({ part, title }: ToolProps) => {
 
 const ToolSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="space-y-1.5">
-    <p className="font-semibold text-[neutral-400] uppercase tracking-wide">{title}</p>
+    <p className="font-[family-name:var(--font-geist-sans)] font-semibold text-neutral-600 uppercase tracking-wide">
+      {title}
+    </p>
     {children}
   </div>
 );
@@ -78,7 +89,7 @@ const ToolSection = ({ title, children }: { title: string; children: React.React
 const renderOutput = (part: ToolUIPart): React.ReactNode => {
   if (part.errorText) {
     return (
-      <div className="rounded-lg border border-[neutral-500]/30 bg-[neutral-50]/70 p-3 text-[neutral-500]">
+      <div className="border border-red-300 bg-red-50 p-3 font-[family-name:var(--font-geist-sans)] text-red-700">
         {part.errorText}
       </div>
     );
@@ -86,14 +97,14 @@ const renderOutput = (part: ToolUIPart): React.ReactNode => {
 
   if (typeof part.output === "string") {
     return (
-      <pre className="max-h-64 overflow-auto rounded-lg bg-[neutral-900]/95 p-3 font-mono text-[neutral-50]">
+      <pre className="max-h-64 overflow-auto border border-neutral-200 bg-neutral-900 p-3 font-[family-name:var(--font-geist-mono)] text-neutral-50">
         {part.output}
       </pre>
     );
   }
 
   return (
-    <pre className="max-h-64 overflow-auto rounded-lg bg-[neutral-900]/95 p-3 font-mono text-[neutral-50]">
+    <pre className="max-h-64 overflow-auto border border-neutral-200 bg-neutral-900 p-3 font-[family-name:var(--font-geist-mono)] text-neutral-50">
       {JSON.stringify(part.output, null, 2)}
     </pre>
   );

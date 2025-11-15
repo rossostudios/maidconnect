@@ -61,22 +61,25 @@ export function HelpSearchBar({
   };
 
   // Utility: Highlight search terms in text (XSS-safe)
-  const highlightSearchTerm = useCallback((text: string, searchQuery: string): string => {
-    if (!searchQuery.trim()) {
-      return escapeHTML(text);
-    }
-    // First escape HTML entities to prevent XSS
-    const escapedText = escapeHTML(text);
-    const escapedQueryForHTML = escapeHTML(searchQuery);
+  const highlightSearchTerm = useCallback(
+    (text: string, searchQuery: string): string => {
+      if (!searchQuery.trim()) {
+        return escapeHTML(text);
+      }
+      // First escape HTML entities to prevent XSS
+      const escapedText = escapeHTML(text);
+      const escapedQueryForHTML = escapeHTML(searchQuery);
 
-    // Escape special regex characters
-    const escapedQuery = escapedQueryForHTML.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const regex = new RegExp(`(${escapedQuery})`, "gi");
-    return escapedText.replace(
-      regex,
-      '<mark class="bg-[neutral-500]/20 text-[neutral-900] font-medium">$1</mark>'
-    );
-  }, []);
+      // Escape special regex characters
+      const escapedQuery = escapedQueryForHTML.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const regex = new RegExp(`(${escapedQuery})`, "gi");
+      return escapedText.replace(
+        regex,
+        '<mark class="bg-[neutral-500]/20 text-[neutral-900] font-medium">$1</mark>'
+      );
+    },
+    [escapeHTML]
+  );
 
   // Track search analytics
   const trackSearch = useCallback(
@@ -332,7 +335,7 @@ export function HelpSearchBar({
 
                   <div className="border-[neutral-200]/40 border-t bg-[neutral-50] px-4 py-2 text-center">
                     <button
-                      className="text-[neutral-500] text-sm hover:underline"
+                      className="text-[neutral-500] text-sm"
                       onClick={() => {
                         router.push(`/${locale}/help?q=${encodeURIComponent(query)}`);
                         setShowResults(false);
@@ -349,7 +352,7 @@ export function HelpSearchBar({
               <div className="px-4 py-8 text-center">
                 <p className="text-[neutral-400] text-sm">{t("search.noResults")}</p>
                 <button
-                  className="mt-2 text-[neutral-500] text-sm hover:underline"
+                  className="mt-2 text-[neutral-500] text-sm"
                   onClick={() => router.push(`/${locale}/help`)}
                   type="button"
                 >

@@ -4,7 +4,7 @@
  * Optional minimum and maximum price constraints for pricing rules.
  * All fields optional - blank values mean no limits.
  *
- * Precision Design: Sharp corners, neutral borders, orange focus states
+ * Lia Design: Sharp corners, neutral borders, orange focus states
  */
 
 import type { FieldUpdateFn, PricingRuleFormData } from "@/types/pricing";

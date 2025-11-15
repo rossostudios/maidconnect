@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { type AuditLog, AuditLogsTable } from "./audit-logs-table";
 
 /**
- * AuditLogsDashboard - Main audit log interface with Precision design
+ * AuditLogsDashboard - Main audit log interface with Lia design
  *
  * Features:
  * - Fetches all audit logs once for instant client-side filtering

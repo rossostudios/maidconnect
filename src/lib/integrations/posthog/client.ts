@@ -13,7 +13,9 @@ import posthog from "posthog-js";
  * @param nonce - Optional CSP nonce for inline scripts (from middleware)
  */
 export function initPostHog(nonce?: string) {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined") {
+    return;
+  }
 
   const apiKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
   const host = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com";

@@ -19,19 +19,19 @@ const baseStyles = `
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
-    color: #116611616;
+    color: #171717;
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
   }
   .container {
-    background-color: #FFEEFF8E8;
+    background-color: #FFFFFF;
     border-radius: 8px;
     padding: 30px;
     box-shadow: 0 2px 4px rgba(22,22,22,0.1);
   }
   .header {
-    background-color: #FF4444A22;
+    background-color: #FF5200;
     color: white;
     padding: 20px;
     border-radius: 8px 8px 0 0;
@@ -41,7 +41,7 @@ const baseStyles = `
     padding: 20px;
   }
   .booking-details {
-    background-color: #FFEEFF8E8;
+    background-color: #FFFFFF;
     padding: 15px;
     border-radius: 6px;
     margin: 20px 0;
@@ -51,11 +51,11 @@ const baseStyles = `
   }
   .label {
     font-weight: 600;
-    color: #AA88AAAAC;
+    color: #737373;
   }
   .button {
     display: inline-block;
-    background-color: #FF4444A22;
+    background-color: #FF5200;
     color: white;
     padding: 12px 24px;
     text-decoration: none;
@@ -63,15 +63,15 @@ const baseStyles = `
     margin: 10px 5px;
   }
   .button-secondary {
-    background-color: #AA88AAAAC;
+    background-color: #737373;
   }
   .footer {
     text-align: center;
-    color: #AA88AAAAC;
+    color: #737373;
     font-size: 14px;
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid #EE44EE2E3;
+    border-top: 1px solid #E5E5E5;
   }
 `;
 
@@ -184,7 +184,7 @@ export function bookingDeclinedEmailForCustomer(data: BookingEmailData, reason?:
     </head>
     <body>
       <div class="container">
-        <div class="header" style="background-color: #AA88AAAAC;">
+        <div class="header" style="background-color: #737373;">
           <h1>Booking Declined</h1>
         </div>
         <div class="content">
@@ -229,7 +229,7 @@ export function bookingReminderEmail(data: BookingEmailData, isForProfessional: 
     </head>
     <body>
       <div class="container">
-        <div class="header" style="background-color: #FF4444A22;">
+        <div class="header" style="background-color: #FF5200;">
           <h1>Reminder: Upcoming Service</h1>
         </div>
         <div class="content">
@@ -316,7 +316,7 @@ export function serviceCompletedEmail(data: BookingEmailData, isForProfessional:
     </head>
     <body>
       <div class="container">
-        <div class="header" style="background-color: #FF4444A22;">
+        <div class="header" style="background-color: #FF5200;">
           <h1>Service Completed</h1>
         </div>
         <div class="content">
@@ -366,7 +366,7 @@ export function accountSuspendedEmail(
     </head>
     <body>
       <div class="container">
-        <div class="header" style="background-color: #FF4444A22;">
+        <div class="header" style="background-color: #FF5200;">
           <h1>Account Suspended</h1>
         </div>
         <div class="content">
@@ -408,7 +408,7 @@ export function accountUnsuspendedEmail(userName: string, liftReason: string): s
     </head>
     <body>
       <div class="container">
-        <div class="header" style="background-color: #FF4444A22;">
+        <div class="header" style="background-color: #FF5200;">
           <h1>Account Restored</h1>
         </div>
         <div class="content">
@@ -455,7 +455,7 @@ export function bookingRescheduleEmail(
     </head>
     <body>
       <div class="container">
-        <div class="header" style="background-color: #FF4444A22;">
+        <div class="header" style="background-color: #FF5200;">
           <h1>Booking Rescheduled</h1>
         </div>
         <div class="content">
@@ -498,7 +498,7 @@ export function professionalApplicationApprovedEmail(
     </head>
     <body>
       <div class="container">
-        <div class="header" style="background-color: #FF4444A22;">
+        <div class="header" style="background-color: #FF5200;">
           <h1>🎉 Application Approved!</h1>
         </div>
         <div class="content">
@@ -546,7 +546,7 @@ export function professionalApplicationRejectedEmail(
     </head>
     <body>
       <div class="container">
-        <div class="header" style="background-color: #AA88AAAAC;">
+        <div class="header" style="background-color: #737373;">
           <h1>Application Update</h1>
         </div>
         <div class="content">
@@ -590,7 +590,7 @@ export function professionalInfoRequestedEmail(professionalName: string, notes?:
     </head>
     <body>
       <div class="container">
-        <div class="header" style="background-color: #FF4444A22;">
+        <div class="header" style="background-color: #FF5200;">
           <h1>Additional Information Needed</h1>
         </div>
         <div class="content">
@@ -634,7 +634,7 @@ export function rebookNudgeEmail(
     </head>
     <body>
       <div class="container">
-        <div class="header" style="background-color: #FF4444A22;">
+        <div class="header" style="background-color: #FF5200;">
           <h1>Ready for Your Next Service?</h1>
         </div>
         <div class="content">
@@ -655,13 +655,13 @@ export function rebookNudgeEmail(
 
           <p>Your trusted professional is ready to help you again with the same great service!</p>
 
-          <p style="color: #AA88AAAAC; font-size: 14px; margin-top: 20px;">
+          <p style="color: #737373; font-size: 14px; margin-top: 20px;">
             💡 <strong>Pro tip:</strong> Regular bookings help maintain a cleaner, healthier home with less effort each time.
           </p>
         </div>
         <div class="footer">
           <p>Casaora - Connecting you with trusted service</p>
-          <p>Not interested? <a href="${dashboardUrl}/settings/notifications" style="color: #AA88AAAAC;">Update your notification preferences</a></p>
+          <p>Not interested? <a href="${dashboardUrl}/settings/notifications" style="color: #737373;">Update your notification preferences</a></p>
         </div>
       </div>
     </body>
@@ -675,13 +675,13 @@ export function backgroundCheckCompletedEmail(
   recommendation: "approved" | "review_required" | "rejected"
 ): string {
   // Determine header color and status message based on result
-  let headerColor = "#FF4444A22"; // green
+  let headerColor = "#FF5200"; // green
   let statusTitle = "Background Check Complete";
   let statusMessage = "";
   let nextSteps = "";
 
   if (status === "clear" && recommendation === "approved") {
-    headerColor = "#FF4444A22"; // green
+    headerColor = "#FF5200"; // green
     statusTitle = "✓ Background Check Complete";
     statusMessage =
       "<p><strong>Great news!</strong> Your background check has been completed and you passed all verification requirements.</p>";
@@ -694,7 +694,7 @@ export function backgroundCheckCompletedEmail(
       </ul>
     `;
   } else if (status === "consider" || recommendation === "review_required") {
-    headerColor = "#FF4444A22"; // orange
+    headerColor = "#FF5200"; // orange
     statusTitle = "Background Check - Manual Review Required";
     statusMessage =
       "<p>Your background check has been completed. Our team needs to manually review some aspects of your results before making a final decision.</p>";
@@ -709,7 +709,7 @@ export function backgroundCheckCompletedEmail(
     `;
   } else {
     // suspended or rejected
-    headerColor = "#FF4444A22"; // red
+    headerColor = "#FF5200"; // red
     statusTitle = "Background Check - Unable to Approve";
     statusMessage =
       "<p>Unfortunately, we're unable to approve your professional application based on the results of your background check.</p>";

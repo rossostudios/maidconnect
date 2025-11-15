@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef, forwardRef } from "react";
+import { type ComponentPropsWithoutRef } from "react";
 import { GRID_COLUMNS } from "@/lib/shared/config/design-system";
 import { cn } from "@/lib/utils/core";
 
@@ -50,75 +50,74 @@ type SwissGridProps = ComponentPropsWithoutRef<"div"> & {
   };
 };
 
-export const SwissGrid = forwardRef<HTMLDivElement, SwissGridProps>(
-  (
-    {
-      className,
-      children,
-      columns = 12,
-      gap,
-      margin,
-      modules,
-      maxWidth = 1320,
-      responsive,
-      ...props
-    },
-    ref
-  ) => {
-    // Get config for the column layout
-    const config = GRID_COLUMNS[columns];
-    const actualGap = gap ?? config.gap;
-    const actualMargin = margin ?? config.margin;
+export const SwissGrid = ({
+  className,
+  children,
+  columns = 12,
+  gap,
+  margin,
+  modules,
+  maxWidth = 1320,
+  responsive,
+  ref,
+  ...props
+}: SwissGridProps & { ref?: RefObject<HTMLDivElement | null> }) => {
+  // Get config for the column layout
+  const config = GRID_COLUMNS[columns];
+  const actualGap = gap ?? config.gap;
+  const actualMargin = margin ?? config.margin;
 
-    // Build responsive column classes
-    const responsiveClasses = [];
-    if (responsive?.sm)
-      responsiveClasses.push(
-        `sm:grid-cols-${responsive.sm === 10 || responsive.sm === 13 ? responsive.sm : 6}`
-      );
-    if (responsive?.md)
-      responsiveClasses.push(
-        `md:grid-cols-${responsive.md === 10 || responsive.md === 13 ? responsive.md : 12}`
-      );
-    if (responsive?.lg)
-      responsiveClasses.push(
-        `lg:grid-cols-${responsive.lg === 10 || responsive.lg === 13 ? responsive.lg : 12}`
-      );
-
-    return (
-      <div
-        className={cn(
-          "mx-auto grid w-full",
-          // Base columns
-          columns === 10 && "grid-cols-10",
-          columns === 13 && "grid-cols-13",
-          columns === 12 && "grid-cols-12",
-          columns === 6 && "grid-cols-6",
-          // Gap
-          actualGap === 16 && "gap-4",
-          actualGap === 24 && "gap-6",
-          // Responsive
-          ...responsiveClasses,
-          className
-        )}
-        ref={ref}
-        style={{
-          maxWidth: `${maxWidth}px`,
-          paddingLeft: `${actualMargin}px`,
-          paddingRight: `${actualMargin}px`,
-          // Optional explicit row grid (for true Swiss Grid with rows)
-          ...(modules && {
-            gridTemplateRows: `repeat(${modules}, 64px)`,
-            gridAutoRows: "64px",
-          }),
-        }}
-        {...props}
-      >
-        {children}
-      </div>
+  // Build responsive column classes
+  const responsiveClasses = [];
+  if (responsive?.sm) {
+    responsiveClasses.push(
+      `sm:grid-cols-${responsive.sm === 10 || responsive.sm === 13 ? responsive.sm : 6}`
     );
   }
-);
+  if (responsive?.md) {
+    responsiveClasses.push(
+      `md:grid-cols-${responsive.md === 10 || responsive.md === 13 ? responsive.md : 12}`
+    );
+  }
+  if (responsive?.lg) {
+    responsiveClasses.push(
+      `lg:grid-cols-${responsive.lg === 10 || responsive.lg === 13 ? responsive.lg : 12}`
+    );
+  }
+
+  return (
+    <div
+      className={cn(
+        "mx-auto grid w-full",
+        // Base columns
+        columns === 10 && "grid-cols-10",
+        columns === 13 && "grid-cols-13",
+        columns === 12 && "grid-cols-12",
+        columns === 6 && "grid-cols-6",
+        // Gap
+        actualGap === 16 && "gap-4",
+        actualGap === 24 && "gap-6",
+        // Responsive
+        ...responsiveClasses,
+        className
+      )}
+      ref={ref}
+      style={{
+        maxWidth: `${maxWidth}px`,
+        paddingLeft: `${actualMargin}px`,
+        paddingRight: `${actualMargin}px`,
+        // Optional explicit row grid (for true Swiss Grid with rows)
+        ...(modules && {
+          gridTemplateRows: `repeat(${modules}, 64px)`,
+          gridAutoRows: "64px",
+        }),
+      }}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
 
 SwissGrid.displayName = "SwissGrid";
 
@@ -129,20 +128,29 @@ SwissGrid.displayName = "SwissGrid";
  */
 
 /** 12-column grid: Standard, versatile layout */
-export const SwissGrid12 = forwardRef<HTMLDivElement, Omit<SwissGridProps, "columns">>(
-  (props, ref) => <SwissGrid columns={12} gap={24} margin={24} ref={ref} {...props} />
+export const SwissGrid12 = ({
+  ref,
+  ...props
+}: Omit<SwissGridProps, "columns"> & { ref?: RefObject<HTMLDivElement | null> }) => (
+  <SwissGrid columns={12} gap={24} margin={24} ref={ref} {...props} />
 );
 SwissGrid12.displayName = "SwissGrid12";
 
 /** 10-column grid: Asymmetric balance, wider margins */
-export const SwissGrid10 = forwardRef<HTMLDivElement, Omit<SwissGridProps, "columns">>(
-  (props, ref) => <SwissGrid columns={10} gap={24} margin={42} ref={ref} {...props} />
+export const SwissGrid10 = ({
+  ref,
+  ...props
+}: Omit<SwissGridProps, "columns"> & { ref?: RefObject<HTMLDivElement | null> }) => (
+  <SwissGrid columns={10} gap={24} margin={42} ref={ref} {...props} />
 );
 SwissGrid10.displayName = "SwissGrid10";
 
 /** 13-column grid: Dynamic tension, experimental feel */
-export const SwissGrid13 = forwardRef<HTMLDivElement, Omit<SwissGridProps, "columns">>(
-  (props, ref) => <SwissGrid columns={13} gap={16} margin={32} ref={ref} {...props} />
+export const SwissGrid13 = ({
+  ref,
+  ...props
+}: Omit<SwissGridProps, "columns"> & { ref?: RefObject<HTMLDivElement | null> }) => (
+  <SwissGrid columns={13} gap={16} margin={32} ref={ref} {...props} />
 );
 SwissGrid13.displayName = "SwissGrid13";
 
@@ -154,10 +162,10 @@ SwissGrid13.displayName = "SwissGrid13";
  * - Tablet (640px - 1024px): 10 columns
  * - Desktop (> 1024px): 12 columns
  */
-export const SwissGridResponsive = forwardRef<
-  HTMLDivElement,
-  Omit<SwissGridProps, "columns" | "responsive">
->((props, ref) => (
+export const SwissGridResponsive = ({
+  ref,
+  ...props
+}: Omit<SwissGridProps, "columns" | "responsive"> & { ref?: RefObject<HTMLDivElement | null> }) => (
   <SwissGrid
     columns={6}
     gap={24}
@@ -169,5 +177,5 @@ export const SwissGridResponsive = forwardRef<
     }}
     {...props}
   />
-));
+);
 SwissGridResponsive.displayName = "SwissGridResponsive";

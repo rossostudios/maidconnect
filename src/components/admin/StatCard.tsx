@@ -1,5 +1,5 @@
 /**
- * StatCard - Individual KPI metric card with Precision design
+ * StatCard - Individual KPI metric card with Lia design
  *
  * Design:
  * ┌─────────────────────────────────────────┐
@@ -13,7 +13,7 @@
  * └─────────────────────────────────────────┘
  *
  * Features:
- * - Sharp corners (no rounding) - Precision design
+ * - Sharp corners (no rounding) - Lia design
  * - Geist Mono for value display (Bloomberg aesthetic)
  * - Geist Sans for labels/descriptions
  * - Border-only status badges (no background fills)

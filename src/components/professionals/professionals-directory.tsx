@@ -206,7 +206,7 @@ const ProfessionalsDirectoryComponent = memo(
       });
       // Only run on initial mount
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [availableToday, cityFilter, professionals.length, ratingFilter, serviceFilter]);
 
     // Track search queries
     useEffect(() => {

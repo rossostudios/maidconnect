@@ -1,5 +1,11 @@
 "use client";
 
+/**
+ * Suggestion Components - Lia Design System
+ *
+ * Quick reply suggestions with Geist Sans typography, sharp borders, and orange accents.
+ */
+
 import type { ButtonHTMLAttributes, HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
@@ -25,7 +31,7 @@ export const Suggestion = ({
 }: SuggestionProps) => (
   <button
     className={cn(
-      "whitespace-nowrap rounded-full border border-[neutral-200] bg-[neutral-50] px-4 py-1.5 font-medium text-[neutral-400] text-xs transition hover:border-[neutral-500] hover:text-[neutral-500]",
+      "whitespace-nowrap rounded-full border border-neutral-200 bg-white px-4 py-1.5 font-[family-name:var(--font-geist-sans)] font-medium text-neutral-700 text-xs transition-all hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600 active:scale-95",
       className
     )}
     onClick={() => onClickSuggestion?.(suggestion)}

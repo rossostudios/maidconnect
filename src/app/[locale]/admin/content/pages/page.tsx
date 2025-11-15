@@ -17,16 +17,16 @@ export default async function AdminPagesContentPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="rounded-[20px] border-2 border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
-        <h1 className="mb-2 font-bold text-2xl text-[#116611616]">Marketing Pages</h1>
-        <p className="text-[#AA88AAAAC]">
+      <div className="rounded-[20px] border-2 border-neutral-200 bg-neutral-50 p-6">
+        <h1 className="mb-2 font-bold text-2xl text-neutral-900">Marketing Pages</h1>
+        <p className="text-neutral-500">
           Build and manage custom landing pages, about pages, pricing pages, and more using the page
           builder.
         </p>
       </div>
 
       {/* Embedded Studio with deep link */}
-      <div className="-[20px] overflow-hidden border-2 border-[#EE44EE2E3] bg-[#FFEEFF8E8]">
+      <div className="-[20px] overflow-hidden border-2 border-neutral-200 bg-neutral-50">
         <iframe
           className="h-[calc(100vh-280px)] min-h-[600px] w-full"
           sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals"

@@ -548,14 +548,11 @@ function QuestionsSection({ isSpanish }: SectionProps) {
           : "If you have questions about our certifications, compliance, or security practices, please don't hesitate to contact us."}
       </p>
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-        <a
-          className="font-semibold text-orange-600 hover:underline"
-          href="mailto:security@casaora.com"
-        >
+        <a className="font-semibold text-orange-600" href="mailto:security@casaora.com">
           security@casaora.com
         </a>
         <span className="hidden text-neutral-400 sm:block">•</span>
-        <a className="font-semibold text-orange-600 hover:underline" href="/legal/security">
+        <a className="font-semibold text-orange-600" href="/legal/security">
           {isSpanish ? "Ver Prácticas de Seguridad" : "View Security Practices"}
         </a>
       </div>

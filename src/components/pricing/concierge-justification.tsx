@@ -33,7 +33,7 @@ export function ConciergeJustification() {
           <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-full bg-orange-500">
             <HugeiconsIcon className="h-10 w-10 text-white" icon={ArrowUp01Icon} />
           </div>
-          <h2 className="mb-baseline-1 font-[family-name:var(--font-family-satoshi)] font-bold text-[36px] text-neutral-900 leading-[48px]">
+          <h2 className="mb-baseline-1 font-[family-name:var(--font-geist-sans)] font-bold text-[36px] text-neutral-900 leading-[48px]">
             {t("title")}
           </h2>
           <p className="mx-auto max-w-2xl text-[18px] text-neutral-700 leading-[24px]">
@@ -54,7 +54,7 @@ export function ConciergeJustification() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-orange-100">
                     <HugeiconsIcon className="h-6 w-6 text-orange-600" icon={Icon} />
                   </div>
-                  <h3 className="mb-2 font-[family-name:var(--font-family-satoshi)] font-bold text-[18px] text-neutral-900 leading-[24px]">
+                  <h3 className="mb-2 font-[family-name:var(--font-geist-sans)] font-bold text-[18px] text-neutral-900 leading-[24px]">
                     {t(`benefits.${benefit.key}.title`)}
                   </h3>
                   <p className="text-[14px] text-neutral-700 leading-[20px]">
@@ -69,7 +69,7 @@ export function ConciergeJustification() {
         {/* Perfect For Section */}
         <Card className="border-4 border-orange-500 bg-white shadow-xl">
           <CardContent className="p-8 md:p-12">
-            <h3 className="mb-6 text-center font-[family-name:var(--font-family-satoshi)] font-bold text-[28px] text-neutral-900 leading-[24px]">
+            <h3 className="mb-6 text-center font-[family-name:var(--font-geist-sans)] font-bold text-[28px] text-neutral-900 leading-[24px]">
               {t("perfectFor.title")}
             </h3>
             <div className="grid gap-4 md:grid-cols-2">
@@ -100,7 +100,7 @@ export function ConciergeJustification() {
 
         {/* Pricing Comparison */}
         <div className="mt-12 rounded-xl border-2 border-neutral-200 bg-white p-8">
-          <h3 className="mb-6 text-center font-[family-name:var(--font-family-satoshi)] font-bold text-[20px] text-neutral-900 leading-[24px]">
+          <h3 className="mb-6 text-center font-[family-name:var(--font-geist-sans)] font-bold text-[20px] text-neutral-900 leading-[24px]">
             {t("comparison.title")}
           </h3>
           <div className="mx-auto grid max-w-3xl gap-6 md:grid-cols-2">
@@ -110,7 +110,7 @@ export function ConciergeJustification() {
                 <div className="mb-2 font-semibold text-[14px] text-neutral-600 uppercase tracking-wider">
                   {t("comparison.marketplace.title")}
                 </div>
-                <div className="font-[family-name:var(--font-family-satoshi)] font-bold text-[36px] text-neutral-900 leading-[48px]">
+                <div className="font-[family-name:var(--font-geist-sans)] font-bold text-[36px] text-neutral-900 leading-[48px]">
                   15%
                 </div>
                 <div className="text-neutral-600 text-sm">{t("comparison.platformFee")}</div>
@@ -131,7 +131,7 @@ export function ConciergeJustification() {
                 <div className="mb-2 font-bold text-[14px] text-orange-700 uppercase tracking-wider">
                   {t("comparison.concierge.title")}
                 </div>
-                <div className="font-[family-name:var(--font-family-satoshi)] font-bold text-[36px] text-orange-600 leading-[48px]">
+                <div className="font-[family-name:var(--font-geist-sans)] font-bold text-[36px] text-orange-600 leading-[48px]">
                   25%
                 </div>
                 <div className="font-semibold text-orange-700 text-sm">

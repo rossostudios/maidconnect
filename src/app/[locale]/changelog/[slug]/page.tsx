@@ -47,32 +47,32 @@ const categoryConfig = {
   features: {
     icon: MagicWand01Icon,
     label: { en: "Features", es: "Características" },
-    color: "text-[#FF4444A22] bg-[#FF4444A22]/10 border-[#FF4444A22]/35",
+    color: "text-orange-500 bg-orange-500/10 border-orange-500/35",
   },
   improvements: {
     icon: FlashIcon,
     label: { en: "Improvements", es: "Mejoras" },
-    color: "text-[#FF4444A22] bg-[#FFEEFF8E8] border-[#EE44EE2E3]",
+    color: "text-orange-500 bg-neutral-50 border-neutral-200",
   },
   bug_fixes: {
     icon: Bug01Icon,
     label: { en: "Bug Fixes", es: "Correcciones" },
-    color: "text-[#FF4444A22] bg-[#FF4444A22]/10 border-[#FF4444A22]/40",
+    color: "text-orange-500 bg-orange-500/10 border-orange-500/40",
   },
   performance: {
     icon: FlashIcon,
     label: { en: "Performance", es: "Rendimiento" },
-    color: "text-[#FF4444A22] bg-[#FF4444A22]/10 border-[#FF4444A22]/35",
+    color: "text-orange-500 bg-orange-500/10 border-orange-500/35",
   },
   security: {
     icon: Shield01Icon,
     label: { en: "Security", es: "Seguridad" },
-    color: "text-[#FF4444A22] bg-[#FF4444A22]/10 border-[#FF4444A22]/30",
+    color: "text-orange-500 bg-orange-500/10 border-orange-500/30",
   },
   design: {
     icon: PaintBoardIcon,
     label: { en: "Design", es: "Diseño" },
-    color: "text-[#FF4444A22] bg-[#FF4444A22]/10 border-[#FF4444A22]/35",
+    color: "text-orange-500 bg-orange-500/10 border-orange-500/35",
   },
 };
 
@@ -159,13 +159,13 @@ export default async function ChangelogDetailPage({
   return (
     <>
       <SiteHeader />
-      <div className="min-h-screen bg-[#FFEEFF8E8]">
+      <div className="min-h-screen bg-neutral-50">
         {/* Header */}
-        <header className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8] py-8">
+        <header className="border-neutral-200 border-b bg-neutral-50 py-8">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             {/* Back Link */}
             <Link
-              className="mb-6 inline-flex items-center gap-2 text-[#FF4444A22] text-sm transition hover:gap-3"
+              className="mb-6 inline-flex items-center gap-2 text-orange-500 text-sm transition hover:gap-3"
               href={`/${locale}/changelog`}
             >
               <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />
@@ -174,21 +174,21 @@ export default async function ChangelogDetailPage({
 
             {/* Sprint Badge and Date */}
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-[#FF4444A22]/20 px-3 py-1 font-semibold text-[#FF4444A22] text-sm">
+              <span className="rounded-full bg-orange-500/20 px-3 py-1 font-semibold text-orange-500 text-sm">
                 Sprint {changelog.sprintNumber}
               </span>
-              <span className="flex items-center gap-1.5 text-[#AA88AAAAC] text-sm">
+              <span className="flex items-center gap-1.5 text-neutral-500 text-sm">
                 <HugeiconsIcon className="h-4 w-4" icon={Calendar01Icon} />
                 {formattedDate}
               </span>
             </div>
 
             {/* Title */}
-            <h1 className="type-serif-lg mb-4 text-[#116611616]">{changelog.title}</h1>
+            <h1 className="type-serif-lg mb-4 text-neutral-900">{changelog.title}</h1>
 
             {/* Summary */}
             {changelog.summary && (
-              <p className="text-[#AA88AAAAC] text-lg leading-relaxed">{changelog.summary}</p>
+              <p className="text-lg text-neutral-500 leading-relaxed">{changelog.summary}</p>
             )}
 
             {/* Categories */}
@@ -220,7 +220,7 @@ export default async function ChangelogDetailPage({
         {/* Main Content */}
         <main className="py-12">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <div className="rounded-[28px] border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 shadow-sm sm:p-8">
+            <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-6 shadow-sm sm:p-8">
               {/* Featured Image */}
               {changelog.featuredImage?.asset && (
                 <div className="mb-8 overflow-hidden rounded-2xl">
@@ -241,15 +241,13 @@ export default async function ChangelogDetailPage({
                 <div className="mb-8 grid gap-4 sm:grid-cols-3">
                   {changelog.impactMetrics.map((metric, index) => (
                     <div
-                      className="rounded-xl border border-[#EE44EE2E3] bg-gradient-to-br from-[#FFEEFF8E8] to-[#FFEEFF8E8] p-4 text-center"
+                      className="rounded-xl border border-neutral-200 bg-gradient-to-br from-white to-white p-4 text-center"
                       key={index}
                     >
-                      <div className="mb-1 font-bold text-2xl text-[#FF4444A22]">
-                        {metric.value}
-                      </div>
-                      <div className="font-medium text-[#116611616] text-sm">{metric.metric}</div>
+                      <div className="mb-1 font-bold text-2xl text-orange-500">{metric.value}</div>
+                      <div className="font-medium text-neutral-900 text-sm">{metric.metric}</div>
                       {metric.description && (
-                        <div className="mt-1 text-[#AA88AAAAC] text-xs">{metric.description}</div>
+                        <div className="mt-1 text-neutral-500 text-xs">{metric.description}</div>
                       )}
                     </div>
                   ))}
@@ -263,11 +261,11 @@ export default async function ChangelogDetailPage({
 
               {/* Tags */}
               {changelog.tags.length > 0 && (
-                <div className="mt-8 border-[#EE44EE2E3] border-t pt-6">
+                <div className="mt-8 border-neutral-200 border-t pt-6">
                   <div className="flex flex-wrap gap-2">
                     {changelog.tags.map((tag) => (
                       <span
-                        className="rounded-full bg-[#EE44EE2E3]/30 px-3 py-1 text-[#AA88AAAAC] text-sm"
+                        className="rounded-full bg-neutral-200/30 px-3 py-1 text-neutral-500 text-sm"
                         key={tag}
                       >
                         #{tag}
@@ -281,7 +279,7 @@ export default async function ChangelogDetailPage({
             {/* Back to Changelog */}
             <div className="mt-8 text-center">
               <Link
-                className="inline-flex items-center gap-2 text-[#FF4444A22] hover:underline"
+                className="inline-flex items-center gap-2 text-orange-500"
                 href={`/${locale}/changelog`}
               >
                 <HugeiconsIcon className="h-4 w-4" icon={ArrowLeft01Icon} />

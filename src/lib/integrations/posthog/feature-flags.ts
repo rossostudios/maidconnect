@@ -32,7 +32,9 @@ import { posthog } from "./client";
  * }
  */
 export function isFeatureEnabled(flagKey: FeatureFlagKey, defaultValue = false): boolean {
-  if (typeof window === "undefined") return defaultValue;
+  if (typeof window === "undefined") {
+    return defaultValue;
+  }
 
   const value = posthog.isFeatureEnabled(flagKey);
   return value ?? defaultValue;
@@ -51,7 +53,9 @@ export function isFeatureEnabled(flagKey: FeatureFlagKey, defaultValue = false):
  * }
  */
 export function getFeatureFlag(flagKey: FeatureFlagKey): FeatureFlagValue {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined") {
+    return;
+  }
 
   return posthog.getFeatureFlag(flagKey);
 }
@@ -70,7 +74,9 @@ export function getFeatureFlagWithDefault<T extends FeatureFlagValue>(
   flagKey: FeatureFlagKey,
   defaultValue: T
 ): T {
-  if (typeof window === "undefined") return defaultValue;
+  if (typeof window === "undefined") {
+    return defaultValue;
+  }
 
   const value = posthog.getFeatureFlag(flagKey);
   return (value ?? defaultValue) as T;
@@ -86,7 +92,9 @@ export function getFeatureFlagWithDefault<T extends FeatureFlagValue>(
  * console.log(flags); // { match_wizard_enabled: true, hero_variant: 'control' }
  */
 export function getAllFeatureFlags(): Record<string, FeatureFlagValue> {
-  if (typeof window === "undefined") return {};
+  if (typeof window === "undefined") {
+    return {};
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const activeFlags = (posthog as any).getAllFlags?.() || {};
@@ -102,7 +110,9 @@ export function getAllFeatureFlags(): Record<string, FeatureFlagValue> {
  * await reloadFeatureFlags();
  */
 export async function reloadFeatureFlags(): Promise<void> {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined") {
+    return;
+  }
 
   // PostHog's reloadFeatureFlags now returns a Promise in newer versions
   await posthog.reloadFeatureFlags();
@@ -182,7 +192,9 @@ export function isOneTapRebookEnabled(): boolean {
  * });
  */
 export function overrideFeatureFlags(overrides: Record<FeatureFlagKey, FeatureFlagValue>): void {
-  if (typeof window === "undefined") return;
+  if (typeof window === "undefined") {
+    return;
+  }
   if (process.env.NODE_ENV !== "development") {
     console.warn("Feature flag overrides only work in development mode");
     return;
@@ -199,8 +211,12 @@ export function overrideFeatureFlags(overrides: Record<FeatureFlagKey, FeatureFl
  * clearFeatureFlagOverrides();
  */
 export function clearFeatureFlagOverrides(): void {
-  if (typeof window === "undefined") return;
-  if (process.env.NODE_ENV !== "development") return;
+  if (typeof window === "undefined") {
+    return;
+  }
+  if (process.env.NODE_ENV !== "development") {
+    return;
+  }
 
   posthog.featureFlags.override(false);
 }

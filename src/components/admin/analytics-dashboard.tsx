@@ -1,5 +1,5 @@
 /**
- * Platform Analytics Dashboard - Refactored with Precision Design
+ * Platform Analytics Dashboard - Refactored with Lia Design
  *
  * Architecture:
  * - Data Layer: useAnalytics custom hook (separation of concerns)

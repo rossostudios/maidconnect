@@ -1,10 +1,11 @@
 "use client";
 
 /**
- * Amara Floating Button
+ * Amara Floating Button - Lia Design
  *
  * A floating action button that opens the Amara chat interface.
  * Positioned in the bottom-right corner with onboarding tooltip for first-time users.
+ * Uses orange accent color from Lia Design System.
  */
 
 import dynamic from "next/dynamic";
@@ -21,8 +22,8 @@ const AmaraChatInterface = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/50">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-neutral-200 border-t-transparent" />
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/50 backdrop-blur-sm">
+        <div className="h-12 w-12 animate-spin border-4 border-orange-200 border-t-orange-500" />
       </div>
     ),
   }

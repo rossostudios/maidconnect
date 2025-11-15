@@ -170,13 +170,13 @@ export default async function HelpCenterPage({
   return (
     <>
       <SiteHeader />
-      <div className="min-h-screen bg-gradient-to-b from-[#FFEEFF8E8] to-[#FFEEFF8E8]">
+      <div className="min-h-screen bg-gradient-to-b from-white to-white">
         {/* Hero Section */}
-        <section className="border-[#EE44EE2E3] border-b bg-[#FFEEFF8E8] py-16">
+        <section className="border-neutral-200 border-b bg-neutral-50 py-16">
           <Container>
             <div className="mx-auto max-w-3xl text-center">
-              <h1 className="type-serif-lg mb-4 text-[#116611616]">{t("hero.title")}</h1>
-              <p className="mb-8 text-[#AA88AAAAC] text-lg md:text-xl">{t("hero.subtitle")}</p>
+              <h1 className="type-serif-lg mb-4 text-neutral-900">{t("hero.title")}</h1>
+              <p className="mb-8 text-lg text-neutral-500 md:text-xl">{t("hero.subtitle")}</p>
 
               {/* Search Bar */}
               <HelpSearchBar autoFocus className="mx-auto max-w-2xl" />
@@ -187,7 +187,7 @@ export default async function HelpCenterPage({
         <Container className="py-16">
           {/* Categories Grid */}
           <section className="mb-16">
-            <h2 className="mb-8 text-center font-bold text-2xl text-[#116611616] md:text-3xl">
+            <h2 className="mb-8 text-center font-bold text-2xl text-neutral-900 md:text-3xl">
               {t("categories.title")}
             </h2>
 
@@ -197,15 +197,15 @@ export default async function HelpCenterPage({
 
                 return (
                   <Link
-                    className="group rounded-xl border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 shadow-sm transition hover:border-[#FF4444A22] hover:shadow-md"
+                    className="group rounded-xl border border-neutral-200 bg-neutral-50 p-6 shadow-sm transition hover:border-orange-500 hover:shadow-md"
                     href={`/${locale}/help/${category.slug.current}`}
                     key={category._id}
                   >
                     <div className="mb-4 flex items-center justify-between">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#FF4444A22]/10 text-[#FF4444A22] transition group-hover:bg-[#FF4444A22] group-hover:text-[#FFEEFF8E8]">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-500/10 text-orange-500 transition group-hover:bg-orange-500 group-hover:text-white">
                         <HugeiconsIcon className="h-6 w-6" icon={Icon} />
                       </div>
-                      <span className="rounded-full bg-[#EE44EE2E3]/30 px-3 py-1 text-[#AA88AAAAC] text-sm group-hover:bg-[#FF4444A22]/10 group-hover:text-[#FF4444A22]">
+                      <span className="rounded-full bg-neutral-200/30 px-3 py-1 text-neutral-500 text-sm group-hover:bg-orange-500/10 group-hover:text-orange-500">
                         {category.article_count}{" "}
                         {category.article_count === 1
                           ? t("categories.article")
@@ -213,15 +213,15 @@ export default async function HelpCenterPage({
                       </span>
                     </div>
 
-                    <h3 className="mb-2 font-semibold text-[#116611616] text-lg group-hover:text-[#FF4444A22]">
+                    <h3 className="mb-2 font-semibold text-lg text-neutral-900 group-hover:text-orange-500">
                       {category.name}
                     </h3>
 
                     {category.description && (
-                      <p className="text-[#AA88AAAAC] text-sm">{category.description}</p>
+                      <p className="text-neutral-500 text-sm">{category.description}</p>
                     )}
 
-                    <div className="mt-4 flex items-center text-[#FF4444A22] text-sm">
+                    <div className="mt-4 flex items-center text-orange-500 text-sm">
                       <span>{t("categories.browse")}</span>
                       <HugeiconsIcon
                         className="group-hover:tranneutral-x-1 ml-1 h-4 w-4 transition"
@@ -237,34 +237,34 @@ export default async function HelpCenterPage({
           {/* Popular Articles */}
           {popularArticles.length > 0 && (
             <section>
-              <h2 className="mb-8 text-center font-bold text-2xl text-[#116611616] md:text-3xl">
+              <h2 className="mb-8 text-center font-bold text-2xl text-neutral-900 md:text-3xl">
                 {t("popular.title")}
               </h2>
 
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {popularArticles.map((article) => (
                   <Link
-                    className="group rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-5 transition hover:border-[#FF4444A22] hover:shadow-md"
+                    className="group rounded-lg border border-neutral-200 bg-neutral-50 p-5 transition hover:border-orange-500 hover:shadow-md"
                     href={`/${locale}/help/${article.category_slug}/${article.slug}`}
                     key={article._id}
                   >
-                    <h3 className="mb-2 font-semibold text-[#116611616] group-hover:text-[#FF4444A22]">
+                    <h3 className="mb-2 font-semibold text-neutral-900 group-hover:text-orange-500">
                       {article.title}
                     </h3>
 
                     {article.excerpt && (
-                      <p className="mb-3 line-clamp-2 text-[#AA88AAAAC] text-sm">
+                      <p className="mb-3 line-clamp-2 text-neutral-500 text-sm">
                         {article.excerpt}
                       </p>
                     )}
 
-                    <div className="flex items-center justify-between text-[#AA88AAAAC] text-xs">
+                    <div className="flex items-center justify-between text-neutral-500 text-xs">
                       <span>
                         {article.view_count}{" "}
                         {article.view_count === 1 ? t("popular.view") : t("popular.views")}
                       </span>
                       <HugeiconsIcon
-                        className="group-hover:tranneutral-x-1 h-4 w-4 text-[#FF4444A22] opacity-0 transition group-hover:opacity-100"
+                        className="group-hover:tranneutral-x-1 h-4 w-4 text-orange-500 opacity-0 transition group-hover:opacity-100"
                         icon={ArrowRight01Icon}
                       />
                     </div>
@@ -275,11 +275,11 @@ export default async function HelpCenterPage({
           )}
 
           {/* Contact CTA */}
-          <section className="mt-16 rounded-xl border border-[#EE44EE2E3] bg-gradient-to-br from-[#FFEEFF8E8] to-[#FFEEFF8E8] p-8 text-center md:p-12">
-            <h2 className="mb-4 font-bold text-2xl text-[#116611616]">{t("contact.title")}</h2>
-            <p className="mb-6 text-[#AA88AAAAC] text-lg">{t("contact.description")}</p>
+          <section className="mt-16 rounded-xl border border-neutral-200 bg-gradient-to-br from-white to-white p-8 text-center md:p-12">
+            <h2 className="mb-4 font-bold text-2xl text-neutral-900">{t("contact.title")}</h2>
+            <p className="mb-6 text-lg text-neutral-500">{t("contact.description")}</p>
             <Link
-              className="inline-flex items-center gap-2 rounded-lg bg-[#FF4444A22] px-8 py-3 font-semibold text-[#FFEEFF8E8] transition hover:bg-[#FF4444A22]"
+              className="inline-flex items-center gap-2 rounded-lg bg-orange-500 px-8 py-3 font-semibold text-white transition hover:bg-orange-500"
               href={`/${locale}/contact`}
             >
               {t("contact.button")}

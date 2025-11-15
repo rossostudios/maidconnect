@@ -1,10 +1,10 @@
 /**
- * CityMetricsTable - City-level analytics table with Precision design
+ * CityMetricsTable - City-level analytics table with Lia design
  *
  * Features:
  * - PrecisionDataTable integration (sorting, filtering, export)
  * - City, Fill Rate, Avg TTFB, Bookings, Professionals columns
- * - Border-only badges for fill rate status (Precision design)
+ * - Border-only badges for fill rate status (Lia design)
  * - Geist Mono for numeric data (Bloomberg aesthetic)
  * - Currency formatting for Colombian Pesos (COP)
  * - CSV/JSON export for reporting
@@ -136,9 +136,9 @@ export function CityMetricsTable({ data, isLoading = false }: Props) {
       <PrecisionDataTable
         columns={columns}
         data={data}
+        emptyStateDescription="City metrics will appear here once bookings are created."
         emptyStateIcon={Location04Icon}
         emptyStateTitle="No city data available"
-        emptyStateDescription="City metrics will appear here once bookings are created."
         enableExport
         exportFilename="casaora-city-metrics"
         isLoading={isLoading}

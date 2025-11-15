@@ -365,7 +365,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="relative flex h-screen overflow-hidden bg-neutral-50">
-      {/* Swiss Grid - Vertical lines */}
+      {/* Lia Grid - Vertical lines */}
       <div className="pointer-events-none fixed inset-y-0 left-0 right-0 z-0">
         <div className="mx-auto h-full max-w-[1600px]">
           <div className="absolute inset-y-0 left-0 w-px bg-neutral-200/30" />

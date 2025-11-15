@@ -76,15 +76,15 @@ export default async function HelpArticlesListPage({
     }) ?? [];
 
   return (
-    <div className="min-h-screen bg-[#FFEEFF8E8] py-8">
+    <div className="min-h-screen bg-neutral-50 py-8">
       <div className="container mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="font-bold text-3xl text-[#116611616]">
+            <h1 className="font-bold text-3xl text-neutral-900">
               {locale === "es" ? "Artículos del Centro de Ayuda" : "Help Center Articles"}
             </h1>
-            <p className="mt-2 text-[#AA88AAAAC]">
+            <p className="mt-2 text-neutral-500">
               {locale === "es"
                 ? `${articles.length} artículos en total`
                 : `${articles.length} articles total`}
@@ -92,7 +92,7 @@ export default async function HelpArticlesListPage({
           </div>
 
           <Link
-            className="flex items-center gap-2 bg-[#FF4444A22] px-6 py-3 font-semibold text-[#FFEEFF8E8] transition hover:bg-[#FF4444A22]"
+            className="flex items-center gap-2 bg-orange-500 px-6 py-3 font-semibold text-white transition hover:bg-orange-500"
             href={`/${locale}/admin/help/articles/new`}
           >
             <HugeiconsIcon className="h-5 w-5" icon={Add01Icon} />

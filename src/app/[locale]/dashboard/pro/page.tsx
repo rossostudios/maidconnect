@@ -173,24 +173,24 @@ export default async function ProfessionalDashboardPage() {
               {avatarUrl ? (
                 <Image
                   alt={userName}
-                  className="h-12 w-12 rounded-full border-2 border-[#EE44EE2E3] object-cover"
+                  className="h-12 w-12 rounded-full border-2 border-neutral-200 object-cover"
                   height={48}
                   src={avatarUrl}
                   width={48}
                 />
               ) : (
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#EE44EE2E3] bg-[#FF4444A22]/10">
-                  <HugeiconsIcon className="h-6 w-6 text-[#FF4444A22]" icon={UserCircleIcon} />
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-neutral-200 bg-orange-500/10">
+                  <HugeiconsIcon className="h-6 w-6 text-orange-500" icon={UserCircleIcon} />
                 </div>
               )}
             </div>
 
             {/* Greeting Text */}
             <div>
-              <h1 className="mb-1 font-bold text-3xl text-[#116611616]">
+              <h1 className="mb-1 font-bold text-3xl text-neutral-900">
                 {greeting}, {userName}
               </h1>
-              <p className="text-[#AA88AAAAC]">Here's your business overview for today</p>
+              <p className="text-neutral-500">Here's your business overview for today</p>
             </div>
           </div>
         </div>
@@ -228,8 +228,8 @@ export default async function ProfessionalDashboardPage() {
       {completedBookings.length > 0 ? (
         <section className="mb-8">
           <div className="mb-6">
-            <h2 className="mb-2 font-bold text-2xl text-[#116611616]">Pending Customer Ratings</h2>
-            <p className="text-[#AA88AAAAC] text-sm">Request feedback from recent customers</p>
+            <h2 className="mb-2 font-bold text-2xl text-neutral-900">Pending Customer Ratings</h2>
+            <p className="text-neutral-500 text-sm">Request feedback from recent customers</p>
           </div>
           <Suspense fallback={<PendingRatingsSkeleton />}>
             <PendingRatingsList completedBookings={completedBookings} />
@@ -240,10 +240,10 @@ export default async function ProfessionalDashboardPage() {
       {/* Booking Calendar */}
       <section className="mb-8">
         <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-[#116611616]">Booking Calendar</h2>
-          <p className="text-[#AA88AAAAC] text-sm">Manage your schedule and upcoming bookings</p>
+          <h2 className="mb-2 font-bold text-2xl text-neutral-900">Booking Calendar</h2>
+          <p className="text-neutral-500 text-sm">Manage your schedule and upcoming bookings</p>
         </div>
-        <div className="rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6">
+        <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6">
           <Suspense fallback={<BookingCalendarSkeleton />}>
             <ProBookingCalendar
               bookings={bookings.map((booking) => ({
@@ -263,91 +263,91 @@ export default async function ProfessionalDashboardPage() {
       {/* Quick Actions */}
       <section className="mb-8">
         <div className="mb-6">
-          <h2 className="mb-2 font-bold text-2xl text-[#116611616]">Quick Actions</h2>
-          <p className="text-[#AA88AAAAC] text-sm">Manage your professional profile and settings</p>
+          <h2 className="mb-2 font-bold text-2xl text-neutral-900">Quick Actions</h2>
+          <p className="text-neutral-500 text-sm">Manage your professional profile and settings</p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {/* View All Bookings */}
           <Link
-            className="group rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:border-[#EE44EE2E3] hover:shadow-md"
+            className="group rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
             href="/dashboard/pro/bookings"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#AA88AAAAC]" icon={Calendar03Icon} />
-              <h3 className="font-semibold text-[#116611616] text-base">View All Bookings</h3>
+              <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={Calendar03Icon} />
+              <h3 className="font-semibold text-base text-neutral-900">View All Bookings</h3>
             </div>
-            <p className="text-[#AA88AAAAC] text-sm">
+            <p className="text-neutral-500 text-sm">
               See your complete booking history and manage upcoming appointments
             </p>
           </Link>
 
           {/* Manage Availability */}
           <Link
-            className="group rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:border-[#EE44EE2E3] hover:shadow-md"
+            className="group rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
             href="/dashboard/pro/availability"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#AA88AAAAC]" icon={Clock01Icon} />
-              <h3 className="font-semibold text-[#116611616] text-base">Manage Availability</h3>
+              <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={Clock01Icon} />
+              <h3 className="font-semibold text-base text-neutral-900">Manage Availability</h3>
             </div>
-            <p className="text-[#AA88AAAAC] text-sm">
+            <p className="text-neutral-500 text-sm">
               Update your schedule and set when you're available for bookings
             </p>
           </Link>
 
           {/* Portfolio */}
           <Link
-            className="group rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:border-[#EE44EE2E3] hover:shadow-md"
+            className="group rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
             href="/dashboard/pro/portfolio"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#AA88AAAAC]" icon={Image02Icon} />
-              <h3 className="font-semibold text-[#116611616] text-base">Portfolio</h3>
+              <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={Image02Icon} />
+              <h3 className="font-semibold text-base text-neutral-900">Portfolio</h3>
             </div>
-            <p className="text-[#AA88AAAAC] text-sm">
+            <p className="text-neutral-500 text-sm">
               Showcase your best work with photos and descriptions
             </p>
           </Link>
 
           {/* Finances */}
           <Link
-            className="group rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:border-[#EE44EE2E3] hover:shadow-md"
+            className="group rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
             href="/dashboard/pro/finances"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#AA88AAAAC]" icon={DollarCircleIcon} />
-              <h3 className="font-semibold text-[#116611616] text-base">Finances</h3>
+              <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={DollarCircleIcon} />
+              <h3 className="font-semibold text-base text-neutral-900">Finances</h3>
             </div>
-            <p className="text-[#AA88AAAAC] text-sm">
+            <p className="text-neutral-500 text-sm">
               Track your earnings and manage payout settings
             </p>
           </Link>
 
           {/* Documents */}
           <Link
-            className="group rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:border-[#EE44EE2E3] hover:shadow-md"
+            className="group rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
             href="/dashboard/pro/documents"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#AA88AAAAC]" icon={FileAttachmentIcon} />
-              <h3 className="font-semibold text-[#116611616] text-base">Documents</h3>
+              <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={FileAttachmentIcon} />
+              <h3 className="font-semibold text-base text-neutral-900">Documents</h3>
             </div>
-            <p className="text-[#AA88AAAAC] text-sm">
+            <p className="text-neutral-500 text-sm">
               Upload and manage your verification documents
             </p>
           </Link>
 
           {/* Settings */}
           <Link
-            className="group rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:border-[#EE44EE2E3] hover:shadow-md"
+            className="group rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:border-neutral-200 hover:shadow-md"
             href="/dashboard/pro/onboarding"
           >
             <div className="mb-2 flex items-center gap-3">
-              <HugeiconsIcon className="h-5 w-5 text-[#AA88AAAAC]" icon={Settings02Icon} />
-              <h3 className="font-semibold text-[#116611616] text-base">Profile Settings</h3>
+              <HugeiconsIcon className="h-5 w-5 text-neutral-500" icon={Settings02Icon} />
+              <h3 className="font-semibold text-base text-neutral-900">Profile Settings</h3>
             </div>
-            <p className="text-[#AA88AAAAC] text-sm">
+            <p className="text-neutral-500 text-sm">
               Update your profile, services, and account settings
             </p>
           </Link>
@@ -369,15 +369,15 @@ function MetricCard({
   color?: "default" | "primary" | "success" | "warning" | "info";
 }) {
   const colorClasses = {
-    default: "bg-[#FFEEFF8E8] text-[#AA88AAAAC]",
-    primary: "bg-[#FF4444A22]/10 text-[#FF4444A22]",
-    success: "bg-[#FF4444A22]/10 text-[#FF4444A22]",
-    warning: "bg-[#FF4444A22]/10 text-[#FF4444A22]",
-    info: "bg-[#FF4444A22]/10 text-[#FF4444A22]",
+    default: "bg-neutral-50 text-neutral-500",
+    primary: "bg-orange-500/10 text-orange-500",
+    success: "bg-orange-500/10 text-orange-500",
+    warning: "bg-orange-500/10 text-orange-500",
+    info: "bg-orange-500/10 text-orange-500",
   };
 
   return (
-    <div className="rounded-lg border border-[#EE44EE2E3] bg-[#FFEEFF8E8] p-6 transition hover:shadow-md">
+    <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 transition hover:shadow-md">
       <div className="mb-3 flex items-center justify-between">
         <div
           className={`flex h-10 w-10 items-center justify-center rounded-lg ${colorClasses[color]}`}
@@ -385,8 +385,8 @@ function MetricCard({
           <HugeiconsIcon className="h-5 w-5" icon={icon} />
         </div>
       </div>
-      <dt className="text-[#AA88AAAAC] text-sm">{label}</dt>
-      <dd className="mt-1 font-bold text-2xl text-[#116611616]">{value}</dd>
+      <dt className="text-neutral-500 text-sm">{label}</dt>
+      <dd className="mt-1 font-bold text-2xl text-neutral-900">{value}</dd>
     </div>
   );
 }
