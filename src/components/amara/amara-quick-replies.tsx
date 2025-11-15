@@ -1,7 +1,7 @@
+"use client";
+
 import { Calendar01Icon, Location01Icon, Search01Icon, StarIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-
-("use client");
 
 /**
  * Amara Quick Replies Component

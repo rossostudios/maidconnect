@@ -8,6 +8,9 @@ const withBundleAnalyzer = bundleAnalyzer({
 });
 
 const nextConfig: NextConfig = {
+  // Output standalone for Vercel deployment with proper NFT file generation
+  // This ensures middleware and API routes have dependency traces for serverless functions
+  output: "standalone",
   images: {
     remotePatterns: [
       {

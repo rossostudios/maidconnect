@@ -1,9 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { use, useCallback, useEffect, useState } from "react";
 
-export default function DisputeDetailPage({ params }: { params: { id: string } }) {
+export default function DisputeDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const [dispute, setDispute] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [resolutionNotes, setResolutionNotes] = useState("");
@@ -12,7 +13,7 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
 
   const loadDispute = useCallback(async () => {
     try {
-      const response = await fetch(`/api/admin/disputes/${params.id}`);
+      const response = await fetch(`/api/admin/disputes/${id}`);
       const data = await response.json();
       setDispute(data.dispute);
     } catch (error) {
@@ -20,7 +21,7 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
     } finally {
       setIsLoading(false);
     }
-  }, [params.id]);
+  }, [id]);
 
   useEffect(() => {
     loadDispute();
@@ -28,7 +29,7 @@ export default function DisputeDetailPage({ params }: { params: { id: string } }
 
   const handleResolve = async () => {
     try {
-      await fetch(`/api/admin/disputes/${params.id}/resolve`, {
+      await fetch(`/api/admin/disputes/${id}/resolve`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

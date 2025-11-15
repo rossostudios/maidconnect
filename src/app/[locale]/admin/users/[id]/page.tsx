@@ -5,7 +5,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { use, useCallback, useEffect, useState } from "react";
 import {
   SuspensionAlert,
   SuspensionHistoryList,
@@ -49,7 +49,8 @@ type UserDetail = {
   };
 };
 
-export default function UserDetailPage({ params }: { params: { id: string } }) {
+export default function UserDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const [userData, setUserData] = useState<UserDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showModerationModal, setShowModerationModal] = useState(false);
@@ -58,7 +59,7 @@ export default function UserDetailPage({ params }: { params: { id: string } }) {
   const loadUserData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/admin/users/${params.id}`);
+      const response = await fetch(`/api/admin/users/${id}`);
       if (!response.ok) {
         throw new Error("Failed to fetch user");
       }
@@ -69,7 +70,7 @@ export default function UserDetailPage({ params }: { params: { id: string } }) {
     } finally {
       setIsLoading(false);
     }
-  }, [params.id]);
+  }, [id]);
 
   useEffect(() => {
     loadUserData();

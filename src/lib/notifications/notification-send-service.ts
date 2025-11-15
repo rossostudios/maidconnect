@@ -177,3 +177,33 @@ export async function saveNotificationHistory(
 export function countSuccessfulSends(results: SendResult[]): number {
   return results.filter((r) => r.success).length;
 }
+
+/**
+ * Helper function to send push notifications (can be called from other services)
+ */
+export async function sendPushNotification(
+  userId: string,
+  notification: {
+    title: string;
+    body: string;
+    url?: string;
+    tag?: string;
+    requireInteraction?: boolean;
+  }
+) {
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const response = await fetch(`${appUrl}/api/notifications/send`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      userId,
+      ...notification,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to send push notification");
+  }
+
+  return await response.json();
+}
